@@ -6594,23 +6594,14 @@ func nox_xxx_attribContinualReplen_4E02C0(a1 int32, a2 *uint32) {
 		}
 	}
 }
-func sub_4E0370(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 *float32) *float32 {
-	var result *float32
-	result = a6
-	*a6 = *(*float32)(unsafe.Pointer(uintptr(a1 + 80))) * *a6
-	return result
+func sub_4E0370(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
+	*(*float32)(a6) = m.Defend76.Valf * *(*float32)(a6)
 }
-func sub_4E0380(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 *float32) *float32 {
-	var result *float32
-	result = a6
-	*a6 = float32((1.0 - float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 80)))) + 1.0) * float64(*a6))
-	return result
+func sub_4E0380(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
+	*(*float32)(a6) = float32((1.0 - float64(m.Defend76.Valf) + 1.0) * float64(*(*float32)(a6)))
 }
-func nox_xxx_inversionEffect_4E03D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 *int32) int32 {
-	var result int32
-	result = bool2int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 96))) >= 1)
-	*a6 = result
-	return result
+func nox_xxx_inversionEffect_4E03D0(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
+	*(*int32)(a6) = bool2int32(uint32(m.DefendCollide88.Val) >= 1)
 }
 func nox_xxx_unusedCheckGripEffect_4E03F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	var (
@@ -6653,13 +6644,13 @@ func nox_xxx_unusedCheckGripEffect_4E03F0(a1 int32, a2 int32, a3 int32, a4 int32
 	}
 	return 1
 }
-func nox_xxx_gripEffect_4E0480(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 *float32, a6 *int32) {
-	*a6 = bool2int32(*(*uint32)(unsafe.Add(a1, 96)) < 1)
+func nox_xxx_gripEffect_4E0480(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
+	*(*int32)(a6) = bool2int32(uint32(m.DefendCollide88.Val) < 1)
 }
-func nox_xxx_effectDamageMultiplier_4E04C0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_effectDamageMultiplier_4E04C0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	*(*float32)(a5) = *(*float32)(unsafe.Add(a1, 44)) * *(*float32)(a5)
 }
-func nox_xxx_stunEffect_4E04D0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_stunEffect_4E04D0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	a3 := int32(uintptr(a3p.CObj()))
 	a4 := int32(uintptr(a4p.CObj()))
 	var (
@@ -6684,12 +6675,12 @@ func nox_xxx_stunEffect_4E04D0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, 
 		}
 	}
 }
-func nox_xxx_recoilEffect_4E0640(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_recoilEffect_4E0640(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	if a2p != nil && a4p != nil {
 		nox_xxx_objectApplyForce_52DF80(&a2p.PosVec.X, a4p, *(*float32)(unsafe.Add(a1, 56)))
 	}
 }
-func nox_xxx_confuseEffect_4E0670(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_confuseEffect_4E0670(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	a3 := int32(uintptr(a3p.CObj()))
 	a4 := int32(uintptr(a4p.CObj()))
 	var (
@@ -6714,14 +6705,14 @@ func nox_xxx_confuseEffect_4E0670(a1 unsafe.Pointer, a2p, a3p, a4p *server.Objec
 		}
 	}
 }
-func nox_xxx_lightngEffect_4E06F0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_lightngEffect_4E06F0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	if a4p != nil {
 		a4p.Damage.Get()(a4p, a3p, a2p, int(*(*float32)(unsafe.Add(a1, 56))), object.DamageElectric)
 		nox_xxx_netSendPointFx_522FF0(-127, (*float2)(unsafe.Pointer(&a4p.PosVec)))
 		nox_xxx_aud_501960(225, a4p, 0, 0)
 	}
 }
-func nox_xxx_drainMEffect_4E0740(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_drainMEffect_4E0740(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	a3 := int32(uintptr(a3p.CObj()))
 	a4 := int32(uintptr(a4p.CObj()))
 	var (
@@ -6745,7 +6736,7 @@ func nox_xxx_drainMEffect_4E0740(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object
 		}
 	}
 }
-func nox_xxx_vampirismEffect_4E07C0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_vampirismEffect_4E07C0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	a3 := int32(uintptr(a3p.CObj()))
 	a4 := int32(uintptr(a4p.CObj()))
 	var (
@@ -6773,7 +6764,7 @@ func nox_xxx_vampirismEffect_4E07C0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Obj
 		}
 	}
 }
-func nox_xxx_poisonEffect_4E0850(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_poisonEffect_4E0850(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	a3 := int32(uintptr(a3p.CObj()))
 	a4 := int32(uintptr(a4p.CObj()))
 	var (
@@ -6789,7 +6780,7 @@ func nox_xxx_poisonEffect_4E0850(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object
 		}
 	}
 }
-func nox_xxx_sympathyEffect_4E08E0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_sympathyEffect_4E08E0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	a3 := int32(uintptr(a3p.CObj()))
 	a4 := int32(uintptr(a4p.CObj()))
 	var (
@@ -6835,7 +6826,7 @@ func nox_xxx_itemCheckReadinessEffect_4E0960(a1 int32) int32 {
 	}
 	return int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + v2*4))) + 48))))
 }
-func nox_xxx_effectProjectileSpeed_4E09B0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_effectProjectileSpeed_4E09B0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	*(*float32)(unsafe.Add(a5, 544)) = *(*float32)(unsafe.Add(a1, 44)) * *(*float32)(unsafe.Add(a5, 544))
 }
 func nox_xxx_parseDamageTypeByName_4E0A00(a1 *byte) int32 {

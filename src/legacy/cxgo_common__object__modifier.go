@@ -7,19 +7,19 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nullsub_22(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nullsub_22(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
-func nullsub_36(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nullsub_36(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
-func nullsub_38(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nullsub_38(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
-func nullsub_39(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nullsub_39(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
-func nullsub_40() {
+func nullsub_40(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
-func nullsub_41() {
+func nullsub_41(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
-func nullsub_42() {
+func nullsub_42(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
 func nullsub_43() {
 }

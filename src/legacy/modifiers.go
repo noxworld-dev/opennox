@@ -39,13 +39,13 @@ func init() {
 	server.RegisterModifDamageEffectFloat("ProjectileSpeedEffect", nox_xxx_effectProjectileSpeed_4E09B0)
 	server.RegisterModifDamageEffectInt("ReplenishmentEffect", nullsub_36)
 
-	server.RegisterModifDefendEffectFloat("ArmorMultiplierEffect", ccall.FuncAddr(sub_4E0370))
-	server.RegisterModifDefendEffectFloat("DurabilityMultiplierEffect", ccall.FuncAddr(sub_4E0380))
-	server.RegisterModifDefendEffectFloat("ResilienceEffect", ccall.FuncAddr(nullsub_40))
-	server.RegisterModifDefendEffectInt("InversionEffect", ccall.FuncAddr(nox_xxx_inversionEffect_4E03D0))
-	server.RegisterModifDefendEffectInt("GripEffect", ccall.FuncAddr(nox_xxx_gripEffect_4E0480))
-	server.RegisterModifDefendEffectFloat("BreakingEffect", ccall.FuncAddr(nullsub_41))
-	server.RegisterModifDefendEffectFloat("PunctureProneEffect", ccall.FuncAddr(nullsub_42))
+	server.RegisterModifDefendEffectFloat("ArmorMultiplierEffect", sub_4E0370)
+	server.RegisterModifDefendEffectFloat("DurabilityMultiplierEffect", sub_4E0380)
+	server.RegisterModifDefendEffectFloat("ResilienceEffect", nullsub_40)
+	server.RegisterModifDefendEffectInt("InversionEffect", nox_xxx_inversionEffect_4E03D0)
+	server.RegisterModifDefendEffectInt("GripEffect", nox_xxx_gripEffect_4E0480)
+	server.RegisterModifDefendEffectFloat("BreakingEffect", nullsub_41)
+	server.RegisterModifDefendEffectFloat("PunctureProneEffect", nullsub_42)
 
 	server.RegisterModifUpdateEffectInt("RegenerationUpdate", ccall.FuncAddr(nox_xxx_effectRegeneration_4E01D0))
 	server.RegisterModifUpdateEffectInt("ParasiteUpdate", ccall.FuncAddr(nullsub_43))
@@ -95,16 +95,16 @@ func nox_xxx_equipClothFindDefByTT_413270(a1 int32) unsafe.Pointer {
 func sub_4A5E90_A() { Sub_4A5E90_A() }
 
 // nox_xxx_fireEffect_4E0550
-func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	Nox_xxx_fireEffect_4E0550(a1, asObjectS(a2p), asObjectS(a3p), asObjectS(a4p), a5, a6)
 }
 
 // nox_xxx_fireRingEffect_4E05B0
-func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	Nox_xxx_fireRingEffect_4E05B0(a1, asObjectS(a2p), asObjectS(a3p), asObjectS(a4p), a5, a6)
 }
 
 // nox_xxx_blueFREffect_4E05F0
-func nox_xxx_blueFREffect_4E05F0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
+func nox_xxx_blueFREffect_4E05F0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	Nox_xxx_blueFREffect_4E05F0(a1, asObjectS(a2p), asObjectS(a3p), asObjectS(a4p), a5, a6)
 }

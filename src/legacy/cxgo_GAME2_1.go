@@ -6,7 +6,9 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -1745,24 +1747,22 @@ func sub_465CD0(a1 *uint32, a2 int32, a3 int32, a4 int32) {
 }
 func sub_465D50_draw(a1 int32) int32 {
 	var (
-		v2     int32
-		result int32
-		v4     int32
+		v2 int32
+		v4 int32
 	)
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 396))))), (*uint32)(unsafe.Pointer(&v4)), (*uint32)(unsafe.Pointer(&a1)))
 	v2 = sub_4615C0()
 	if v2 != 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) = uint32(v4 + 51)
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 16))) = uint32(a1 + 81)
-		ccall.AsFunc[func(*uint8, int32)](unsafe.Pointer(uintptr(v2+300)))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v2)
-		result = 1
+		ccall.AsFunc[client.ObjectDrawFunc](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v2 + 300))))((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1049732)), AsDrawableP(unsafe.Pointer(uintptr(v2))))
+		return 1
 	} else {
 		if dword_5d4594_1062496 == 0 && dword_5d4594_1062492 == 0 {
 			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1050000)))), v4+21, a1+50)
 		}
-		result = 1
+		return 1
 	}
-	return result
 }
 func sub_465DE0(a1 int32) int32 {
 	dword_5d4594_1049844 = uint32(a1)

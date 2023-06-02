@@ -289,7 +289,7 @@ LABEL_120:
 		nox_xxx_playerDecrementHPMana_4E20F0(v5, int32(uintptr(unsafe.Pointer(&a1))), v51)
 		v33 = a4
 		v42 = float32(a5)
-		nox_xxx_playerDamageItems_4E2180(v5, a2, a3, a4-a1, float32(a5))
+		nox_xxx_playerDamageItems_4E2180(AsObjectP(unsafe.Pointer(uintptr(v5))), a2, a3, a4-a1, float32(a5))
 		v43 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 8))))
 		if v43&4 != 0 {
 			if *(*uint32)(unsafe.Pointer(uintptr(v12 + 304))) == 0 {
@@ -303,7 +303,7 @@ LABEL_120:
 	case 1, 0xC:
 		v33 = a4
 		a1 = a4
-		nox_xxx_playerDamageItems_4E2180(v5, a2, a3, a4, float32(a5))
+		nox_xxx_playerDamageItems_4E2180(AsObjectP(unsafe.Pointer(uintptr(v5))), a2, a3, a4, float32(a5))
 		v34 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 8))))
 		if v34&4 != 0 {
 			if *(*uint32)(unsafe.Pointer(uintptr(v12 + 304))) == 0 {
@@ -320,7 +320,7 @@ LABEL_120:
 		v50 = float32((1.0 - float64(v53)*0.5) * float64(a4))
 		nox_xxx_playerDecrementHPMana_4E20F0(v5, int32(uintptr(unsafe.Pointer(&a1))), v50)
 		v33 = a4
-		nox_xxx_playerDamageItems_4E2180(v5, a2, a3, a4-a1, COERCE_FLOAT(2))
+		nox_xxx_playerDamageItems_4E2180(AsObjectP(unsafe.Pointer(uintptr(v5))), a2, a3, a4-a1, COERCE_FLOAT(2))
 		v41 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 8))))
 		if v41&4 != 0 {
 			if *(*uint32)(unsafe.Pointer(uintptr(v12 + 304))) == 0 {
@@ -351,7 +351,7 @@ LABEL_120:
 		v49 = float32(v35 * float64(a4))
 		nox_xxx_playerDecrementHPMana_4E20F0(v5, int32(uintptr(unsafe.Pointer(&a1))), v49)
 		v33 = a4
-		nox_xxx_playerDamageItems_4E2180(v5, a2, a3, a4, float32(a5))
+		nox_xxx_playerDamageItems_4E2180(AsObjectP(unsafe.Pointer(uintptr(v5))), a2, a3, a4, float32(a5))
 		v34 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 8))))
 		if v34&4 != 0 {
 			if *(*uint32)(unsafe.Pointer(uintptr(v12 + 304))) == 0 {
@@ -421,11 +421,11 @@ func nox_xxx_playerDecrementHPMana_4E20F0(a1 int32, a2 int32, a3 float32) {
 		}
 	}
 }
-func nox_xxx_playerDamageItems_4E2180(a1 int32, a2 int32, a3 int32, a4 int32, a5 float32) {
+func nox_xxx_playerDamageItems_4E2180(a1p *server.Object, a2 int32, a3 int32, a4 int32, a5 float32) {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		v5  int32
 		v6  int32
-		v7  *uint32
 		v8  int32
 		v9  int32
 		v10 int32
@@ -441,20 +441,14 @@ func nox_xxx_playerDamageItems_4E2180(a1 int32, a2 int32, a3 int32, a4 int32, a5
 		}
 		v10 = *(*int32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 2072)))
 	}
-	v7 = *(**uint32)(unsafe.Pointer(uintptr(v5 + 504)))
-	if v7 != nil {
-		v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&a5))), 4*0)))
-		for {
-			if *(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*2))&0x2000000 != 0 {
-				v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)))
-				if v9&0x100 != 0 {
-					v11 = float32(nox_xxx_itemApplyDefendEffect_415C00(int32(uintptr(unsafe.Pointer(v7)))) / float64(*(*float32)(unsafe.Pointer(&v10))) * float64(a4))
-					nox_xxx_equipDamage_4E16D0(int32(uintptr(unsafe.Pointer(v7))), v5, a2, a3, v11, v8)
-				}
-			}
-			v7 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*124)))))
-			if v7 == nil {
-				break
+	v8 = int32(*(*uint32)(unsafe.Pointer(&a5)))
+	for it := a1p.InvFirstItem; it != nil; it = it.InvNextItem {
+		v7 := (*uint32)(it.CObj())
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*2))&0x2000000 != 0 {
+			v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)))
+			if v9&0x100 != 0 {
+				v11 = float32(nox_xxx_itemApplyDefendEffect_415C00(it) / float64(*(*float32)(unsafe.Pointer(&v10))) * float64(a4))
+				nox_xxx_equipDamage_4E16D0(int32(uintptr(unsafe.Pointer(v7))), v5, a2, a3, v11, v8)
 			}
 		}
 	}

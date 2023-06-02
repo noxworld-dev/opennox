@@ -7748,7 +7748,7 @@ func nox_xxx_recalculateArmorVal_53E300(a1 *uint32) int32 {
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*2))&0x2000000 != 0 {
 			v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*4)))
 			if v2&0x100 != 0 {
-				v4 = float32(nox_xxx_itemApplyDefendEffect_415C00(int32(uintptr(unsafe.Pointer(i)))) + float64(v4))
+				v4 = float32(nox_xxx_itemApplyDefendEffect_415C00(AsObjectP(unsafe.Pointer(i))) + float64(v4))
 			}
 		}
 	}
