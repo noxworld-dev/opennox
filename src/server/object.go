@@ -313,8 +313,8 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer.Ptr() == ccall.FuncAddr(s.XFerInvLight) || obj.Weight != 0xff) {
 		obj.Field189, _ = alloc.Malloc(2572)
 	}
-	if t.Create != nil {
-		ccall.AsFunc[func(*Object)](t.Create)(obj)
+	if fnc := t.Create.Get(); fnc != nil {
+		fnc(obj)
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		obj.ScriptIDVal = int(s.NextObjectScriptID())

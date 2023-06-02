@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	createFuncs    = make(map[string]unsafe.Pointer)
+	createFuncs    = make(map[string]ccall.Func[ObjectCreateFunc])
 	initFuncs      = make(map[string]objectDefFunc[ccall.Func[ObjectInitFunc]])
 	initParseFuncs = map[string]ObjectParseFunc{
 		"SkullInit":     objectDirectionInitParse,
@@ -65,6 +65,7 @@ var (
 )
 
 type ObjectInitFunc func(obj *Object)
+type ObjectCreateFunc func(obj *Object)
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
 
 type ObjectParseFunc func(objt *ObjectType, args []string) error
@@ -106,11 +107,11 @@ func init() {
 	RegisterObjectUse("BowUse", nil, 1)
 }
 
-func RegisterObjectCreate(name string, fnc func(*Object)) {
+func RegisterObjectCreate(name string, fnc ObjectCreateFunc) {
 	if _, ok := createFuncs[name]; ok {
 		panic("already registered")
 	}
-	createFuncs[name] = ccall.FuncAddr(fnc)
+	createFuncs[name] = ccall.FuncPtr[ObjectCreateFunc](fnc)
 }
 
 func RegisterObjectInit(name string, fnc func(*Object), sz uintptr) {
@@ -863,7 +864,7 @@ type ObjectType struct {
 	UseData         unsafe.Pointer
 	UseDataSize     uintptr
 	Xfer            ccall.Func[ObjectXferFunc]
-	Create          unsafe.Pointer
+	Create          ccall.Func[ObjectCreateFunc]
 	next            *ObjectType
 }
 
