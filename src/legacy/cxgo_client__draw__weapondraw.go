@@ -1,16 +1,20 @@
 package legacy
 
-import "unsafe"
+import (
+	"unsafe"
 
-func nox_thing_weapon_draw(a1 *int32, dr *nox_drawable) int32 {
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+)
+
+func nox_thing_weapon_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	sub_4B95D0(dr)
-	return nox_thing_static_draw((*uint32)(unsafe.Pointer(a1)), dr)
+	return nox_thing_static_draw(vp, dr)
 }
-func nox_thing_weapon_animate_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_weapon_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	sub_4B95D0(dr)
-	return nox_thing_animate_draw((*uint32)(unsafe.Pointer(a1)), dr)
+	return nox_thing_animate_draw(vp, dr)
 }
-func nox_thing_spherical_shield_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_spherical_shield_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	var (
 		v2     int32
 		v3     int32
@@ -29,10 +33,10 @@ func nox_thing_spherical_shield_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	if v4 != nil {
 		nox_xxx_updateSpritePosition_49AA90(dr, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*4))+3))
-		result = nox_thing_animate_draw((*uint32)(unsafe.Pointer(a1)), dr)
+		result = int32(nox_thing_animate_draw(vp, dr))
 	} else {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		result = 0
 	}
-	return result
+	return int(result)
 }

@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_arrow_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	var (
 		v2 int32
 		v3 int32
@@ -30,9 +31,9 @@ func nox_thing_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)) = uint32(v5)
 		nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(v4)), int32(gameFPS()/3))
 	}
-	return nox_thing_slave_draw(a1, dr)
+	return nox_thing_slave_draw(vp, dr)
 }
-func nox_thing_weak_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_weak_arrow_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	var (
 		v2 int32
 		v3 int32
@@ -56,9 +57,10 @@ func nox_thing_weak_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)) = uint32(v5)
 		nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(v4)), int32(gameFPS()/3))
 	}
-	return nox_thing_slave_draw(a1, dr)
+	return nox_thing_slave_draw(vp, dr)
 }
-func nox_thing_arrow_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_arrow_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v2 int32
 		v3 int32
@@ -88,7 +90,8 @@ func nox_thing_arrow_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_weak_arrow_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_weak_arrow_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v2 int32
 		v3 int32

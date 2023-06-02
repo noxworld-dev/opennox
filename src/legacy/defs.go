@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/stdio"
 	"github.com/noxworld-dev/opennox-lib/console"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -96,7 +97,7 @@ type obj_5D4594_2650668_t struct {
 }
 type nox_parse_thing_draw_funcs_t struct {
 	name      string
-	draw      unsafe.Pointer
+	draw      client.ObjectDrawFunc
 	kind      uint32
 	parse_fnc func(*nox_thing, *nox_memfile, *byte) bool
 }

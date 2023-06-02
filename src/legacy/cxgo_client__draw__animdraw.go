@@ -3,13 +3,14 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v2 int32
 		v3 int32
@@ -80,13 +81,13 @@ func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_animate_state_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
-		v2     int32
-		v3     int32
-		v4     int32
-		v5     int32
-		result int32
+		v2 int32
+		v3 int32
+		v4 int32
+		v5 int32
 	)
 	v2 = int32(dr.Flags70())
 	v3 = int32(uintptr(dr.Field_76))
@@ -103,11 +104,10 @@ func nox_thing_animate_state_draw(a1 *uint32, dr *nox_drawable) int32 {
 		dr.Field_79 = gameFrame()
 	}
 	if int32(*(*uint16)(unsafe.Pointer(uintptr(v5 + 40)))) != 0 {
-		result = sub_4BC6B0((*int32)(unsafe.Pointer(a1)), dr, v5)
+		return sub_4BC6B0((*int32)(unsafe.Pointer(a1)), dr, v5)
 	} else {
-		result = 1
+		return 1
 	}
-	return result
 }
 func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
 	var (
@@ -171,7 +171,7 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 		}
 	}
 	obj.Field_5c = unsafe.Pointer(v5)
-	obj.DrawFunc = ccall.FuncAddr(nox_thing_animate_draw)
+	obj.DrawFunc.Set(nox_thing_animate_draw)
 	return true
 }
 func sub_44BE90(a1 int32, f *nox_memfile) int32 {
@@ -254,7 +254,7 @@ func nox_things_animate_state_draw_parse(obj *nox_thing, f *nox_memfile, attr_va
 		}
 	}
 	obj.Field_54 = 2
-	obj.DrawFunc = ccall.FuncAddr(nox_thing_animate_state_draw)
+	obj.DrawFunc.Set(nox_thing_animate_state_draw)
 	obj.Field_5c = unsafe.Pointer(draw_cb_data)
 	return true
 }

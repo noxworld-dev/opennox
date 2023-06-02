@@ -3,11 +3,12 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_door_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v2  *uint8
 		v3  int32
@@ -91,7 +92,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 }
 func nox_things_door_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
-	obj.DrawFunc = ccall.FuncAddr(nox_thing_door_draw)
+	obj.DrawFunc.Set(nox_thing_door_draw)
 	var v3 unsafe.Pointer = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
 	obj.Field_5c = v3
 	return v3 != nil

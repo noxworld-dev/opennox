@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -220,7 +221,8 @@ func sub_4BA8B0(a1 *int32, a2 *int32, a3 *int32) int8 {
 	}
 	return int8(v6)
 }
-func nox_thing_plasma_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v3   int32
 		v4   uint16

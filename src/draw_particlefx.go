@@ -12,7 +12,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc/handles"
 )
 
@@ -250,7 +249,7 @@ func partfxDraw(p *particleFx) {
 	if dr := p.drawable12; dr != nil && p.drawableVp != nil {
 		prev := dr.Pos()
 		dr.SetPos(pos1)
-		legacy.CallDrawFunc(dr, p.drawableVp)
+		dr.CallDraw(p.drawableVp)
 		dr.SetPos(prev)
 	}
 	if p.pointSize != 0 {

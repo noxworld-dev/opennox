@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -84,7 +85,8 @@ func sub_4BC490(a1 int32) int8 {
 	}
 	return int8(v1)
 }
-func nox_thing_monster_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_monster_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
 		v3  int32
@@ -163,7 +165,7 @@ LABEL_21:
 LABEL_22:
 	sub_4BC490(v2)
 	v12 = a1
-	v23 = sub_4BC6B0(a1, (*nox_drawable)(unsafe.Pointer(uintptr(v2))), v8)
+	v23 = int32(sub_4BC6B0(a1, (*nox_drawable)(unsafe.Pointer(uintptr(v2))), v8))
 	nox_xxx_draw_434600(0)
 LABEL_24:
 	if nox_client_drawable_testBuff_4356C0(dr, 16) {
@@ -193,7 +195,7 @@ LABEL_24:
 	}
 	if !nox_xxx_CheckGameplayFlags_417DA0(4) && (*memmap.PtrUint32(0x852978, 8) == 0 || nox_xxx_servObjectHasTeam_419130(int32(*memmap.PtrUint32(0x852978, 8)+24)) == 0) {
 		nox_client_drawEnableAlpha_434560(0)
-		return v23
+		return int(v23)
 	}
 	if !noxflags.HasGame(1) {
 		v15 = int32(*memmap.PtrUint32(0x852978, 8) + 24)
@@ -201,18 +203,18 @@ LABEL_24:
 		v13 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
 		if v13 == nil {
 			nox_client_drawEnableAlpha_434560(0)
-			return v23
+			return int(v23)
 		}
 		v14 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v13))), 4*514))))
 		if v14 == 0 {
 			nox_client_drawEnableAlpha_434560(0)
-			return v23
+			return int(v23)
 		}
 		v15 = v14 + 48
 	}
 	if v15 == 0 {
 		nox_client_drawEnableAlpha_434560(0)
-		return v23
+		return int(v23)
 	}
 	v16 = 0
 	v17 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Pointer(uintptr(v15 + 4)))))))
@@ -227,7 +229,7 @@ LABEL_24:
 		nox_client_drawPoint_4B0BC0(v19, v20, 3)
 	}
 	nox_client_drawEnableAlpha_434560(0)
-	return v23
+	return int(v23)
 }
 func nox_things_monster_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
 	var (
@@ -259,7 +261,7 @@ func nox_things_monster_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 		}
 		return false
 	}
-	obj.DrawFunc = ccall.FuncAddr(nox_thing_monster_draw)
+	obj.DrawFunc.Set(nox_thing_monster_draw)
 	obj.Field_5c = unsafe.Pointer(v2)
 	return true
 }

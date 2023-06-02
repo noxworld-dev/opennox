@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -280,7 +281,8 @@ func nox_xxx_lightningProc2_4BAE60(a1 *int2, a2 *int2, a3 int32, a4 *int16, a5 i
 	}
 	return result
 }
-func nox_thing_lightning_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_lightning_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
 		v3  int32
@@ -353,7 +355,8 @@ func nox_thing_lightning_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_chain_lightning_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_chain_lightning_bolt_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2  uint16
 		v3  int32
@@ -428,7 +431,8 @@ func nox_thing_chain_lightning_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_energy_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_energy_bolt_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
 		v3  bool
@@ -505,7 +509,8 @@ func nox_thing_energy_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_green_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_green_bolt_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
 		v3  int32

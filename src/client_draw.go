@@ -16,6 +16,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -332,7 +333,7 @@ func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 			continue
 		}
 		dr.Field_121 = 1
-		legacy.CallDrawFunc(dr, vp)
+		dr.CallDraw(vp)
 		if dr.Flags70()&0x40 != 0 {
 			legacy.Nox_xxx_drawShinySpot_4C4F40(vp, dr)
 		}
@@ -353,7 +354,7 @@ func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_4 {
 		if legacy.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 			dr.Field_121 = 1
-			legacy.CallDrawFunc(dr, vp)
+			dr.CallDraw(vp)
 			if noxflags.HasEngine(noxflags.EngineShowExtents) {
 				nox_thing_debug_draw(vp, dr)
 			}
@@ -445,7 +446,7 @@ LOOP:
 			}
 		}
 		c.drawCreatureBackEffects(vp, dr)
-		if legacy.CallDrawFunc(dr, vp) == 0 {
+		if dr.CallDraw(vp) == 0 {
 			continue
 		}
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
@@ -586,7 +587,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 	if !(c.drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.LightIntensityRad > 0 && dr.Flags30()&0x4 != 0) {
 		return
 	}
-	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFuncPtr == legacy.Get_nox_thing_glow_orb_draw()) {
+	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFunc.Ptr() == ccall.FuncAddr(legacy.Nox_thing_glow_orb_draw)) {
 		return
 	}
 	intens := int(dr.LightIntensityU16)

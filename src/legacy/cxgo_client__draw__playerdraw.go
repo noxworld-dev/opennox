@@ -6,13 +6,15 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v3  *byte
 		v4  *uint32
@@ -245,7 +247,8 @@ func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_player_waypoint_draw(a1 int32, dr *nox_drawable) int32 {
+func nox_thing_player_waypoint_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := int32(uintptr(vp.C()))
 	var (
 		v2 int32
 		v3 int32
@@ -352,7 +355,7 @@ LABEL_3:
 			return false
 		}
 	}
-	obj.DrawFunc = ccall.FuncAddr(nox_thing_player_draw)
+	obj.DrawFunc.Set(nox_thing_player_draw)
 	obj.Field_5c = unsafe.Pointer(v21)
 	return true
 }

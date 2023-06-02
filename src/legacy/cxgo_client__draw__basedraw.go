@@ -1,6 +1,8 @@
 package legacy
 
-func nox_thing_base_draw(a1 *int32, dr *nox_drawable) int32 {
-	nox_thing_weapon_draw(a1, dr)
+import "github.com/noxworld-dev/opennox/v1/client/noxrender"
+
+func nox_thing_base_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	nox_thing_weapon_draw(vp, dr)
 	return 1
 }

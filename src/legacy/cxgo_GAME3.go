@@ -5669,7 +5669,7 @@ func sub_4B6880(a1 *uint32, a2 int32, a3 int32, a4 int32) int32 {
 	}
 	return result
 }
-func sub_4B6970(a1 *uint32, dr *nox_drawable, a3 int32, a4 int32) int32 {
+func sub_4B6970(a1 *uint32, dr *nox_drawable, a3 int32, a4 int32) int {
 	var (
 		v4 int32
 		v5 int32
@@ -5681,7 +5681,7 @@ func sub_4B6970(a1 *uint32, dr *nox_drawable, a3 int32, a4 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(a2 + 436))) = uint32(v5)
 	nox_xxx_updateSpritePosition_49AA90((*nox_drawable)(unsafe.Pointer(uintptr(a2))), int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 432)))>>12), v5>>12)
 	sub_4B69F0(a2)
-	return sub_4B6880(a1, a2, a3, a4)
+	return int(sub_4B6880(a1, a2, a3, a4))
 }
 func sub_4B69F0(a1 int32) int16 {
 	var (
@@ -5708,7 +5708,7 @@ func sub_4B69F0(a1 int32) int16 {
 	}
 	return result
 }
-func sub_4B6B80(a1 *int32, dr *nox_drawable, a3 int32) int32 {
+func sub_4B6B80(a1 *int32, dr *nox_drawable, a3 int32) int {
 	var (
 		v3    int32
 		v4    int32

@@ -25,7 +25,7 @@ func init() {
 func (c *Client) Nox_things_free_44C580() {
 	c.Things.Each(func(it *client.ObjectType) {
 		if it.Field_5c != nil {
-			legacy.Nox_xxx_draw_44C650_free(it.Field_5c, it.DrawFunc)
+			legacy.Nox_xxx_draw_44C650_free(it.Field_5c, it.DrawFunc.Get())
 		}
 	})
 	c.Things.Nox_things_free_44C580_B()

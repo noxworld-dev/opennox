@@ -10,6 +10,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func init() {
@@ -67,7 +68,7 @@ func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) b
 	if item.parse_fnc != nil {
 		item.parse_fnc(obj, f, attr_value)
 	}
-	obj.DrawFunc = item.draw
+	obj.DrawFunc = ccall.FuncPtr(item.draw)
 	return true
 }
 func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
@@ -358,7 +359,7 @@ func sub_44C7B0(a1 int32) unsafe.Pointer {
 	}
 	return result
 }
-func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
+func Nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw client.ObjectDrawFunc) {
 	var kind int32 = 0
 	if nox_parse_thing_draw_funcs[0].name != "" {
 		var item *nox_parse_thing_draw_funcs_t
@@ -367,7 +368,7 @@ func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
 			if cur.name == "" {
 				break
 			}
-			if cur.draw == draw {
+			if ccall.FuncAddr(cur.draw) == ccall.FuncAddr(draw) {
 				item = cur
 				break
 			}

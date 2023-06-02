@@ -4,10 +4,12 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_magic_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_magic_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
 		v3  int32
@@ -42,7 +44,8 @@ func nox_thing_magic_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_magic_missle_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_magic_missle_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
 		v3  int32
@@ -77,7 +80,8 @@ func nox_thing_magic_missle_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_magic_missle_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_magic_missle_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v2  int32
 		v3  int32
@@ -121,7 +125,8 @@ func nox_thing_magic_missle_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_magic_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_magic_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v2  int32
 		v3  int32
@@ -167,6 +172,6 @@ func nox_thing_magic_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_thing_drain_mana_draw() int32 {
+func nox_thing_drain_mana_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	return 1
 }

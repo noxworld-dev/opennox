@@ -354,7 +354,7 @@ func nox_xxx_spriteDrawMonsterHP_4BC080(a1 *uint32, a2 int32, a3 uint16, a4 uint
 		}
 	}
 }
-func sub_4BC6B0(a1 *int32, dr *nox_drawable, a3 int32) int32 {
+func sub_4BC6B0(a1 *int32, dr *nox_drawable, a3 int32) int {
 	var (
 		a2 int32 = int32(uintptr(unsafe.Pointer(dr)))
 		v3 int32

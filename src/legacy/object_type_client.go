@@ -6,7 +6,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func init() {
@@ -14,7 +13,7 @@ func init() {
 	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(nox_parse_thing_light_dir))
 	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(nox_parse_thing_light_penumbra))
 	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(nox_parse_thing_pretty_image))
-	client.ThingDrawDefault = ccall.FuncAddr(nox_thing_debug_draw)
+	client.ThingDrawDefault = nox_thing_debug_draw
 }
 
 type nox_thing = client.ObjectType
@@ -89,7 +88,4 @@ func wrapClientThingFuncC(fnc func(typ *client.ObjectType, f *binfile.MemFile, d
 		}
 		return nil
 	}
-}
-func Nox_xxx_draw_44C650_free(a1 unsafe.Pointer, a2 unsafe.Pointer) {
-	nox_xxx_draw_44C650_free(a1, a2)
 }

@@ -3,11 +3,13 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_summon_effect_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2     *uint32
 		v3     int32
@@ -46,7 +48,7 @@ func nox_thing_summon_effect_draw(a1 *int32, dr *nox_drawable) int32 {
 		if v7 >= v8-1 {
 			nox_xxx_makePointFxCli_499610(v6, 50, 1000, 30, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))))
 		}
-		nox_thing_animate_draw((*uint32)(unsafe.Pointer(a1)), dr)
+		nox_thing_animate_draw(vp, dr)
 		v10 = 0
 		v11 = (*uint8)(memmap.PtrOff(0x587000, 192092))
 		for {
@@ -64,7 +66,7 @@ func nox_thing_summon_effect_draw(a1 *int32, dr *nox_drawable) int32 {
 			v14 = int32(uint32(v17) + *(*uint32)(unsafe.Pointer(v11))*2)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4)) = uint32(v14)
 			if v13 >= 0 && v13 < 5888 && v14 >= 0 && v14 < 5888 {
-				nox_thing_animate_draw((*uint32)(unsafe.Pointer(a1)), dr)
+				nox_thing_animate_draw(vp, dr)
 			}
 			v11 = (*uint8)(unsafe.Add(unsafe.Pointer(v11), 80))
 			v10++
@@ -88,5 +90,5 @@ func nox_thing_summon_effect_draw(a1 *int32, dr *nox_drawable) int32 {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		result = 0
 	}
-	return result
+	return int(result)
 }

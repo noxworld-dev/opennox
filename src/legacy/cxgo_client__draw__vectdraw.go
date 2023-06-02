@@ -3,8 +3,8 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {
@@ -42,7 +42,8 @@ func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {
 	}
 	return result
 }
-func nox_thing_vector_animate_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_vector_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	return sub_4BC6B0(a1, dr, int32(*(*uint32)(unsafe.Pointer(&dr.Field_76))))
 }
 func nox_things_vector_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
@@ -56,7 +57,7 @@ func nox_things_vector_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_v
 	*v2 = 48
 	result = nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int32(uintptr(unsafe.Pointer(v2))), f)
 	if result != 0 {
-		obj.DrawFunc = ccall.FuncAddr(nox_thing_vector_animate_draw)
+		obj.DrawFunc.Set(nox_thing_vector_animate_draw)
 		obj.Field_5c = unsafe.Pointer(v3)
 		result = 1
 	}

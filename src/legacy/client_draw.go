@@ -7,7 +7,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -73,10 +72,6 @@ func Sub_45AB40() {
 
 func Sub_498AE0() {
 	sub_498AE0()
-}
-
-func Get_nox_thing_glow_orb_draw() unsafe.Pointer {
-	return ccall.FuncAddr(nox_thing_glow_orb_draw)
 }
 
 func Sub_49BD70(vp *noxrender.Viewport) {

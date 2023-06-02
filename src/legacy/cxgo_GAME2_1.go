@@ -5776,40 +5776,35 @@ LABEL_9:
 }
 func nox_xxx_sprite_4756E0_drawable(dr *nox_drawable) int32 {
 	var (
-		a1     *uint32 = (*uint32)(dr.C())
-		result int32
-		v2     func(*int32, int32) int32
-		v3     int32
-		v4     int32
+		a1 *uint32 = (*uint32)(dr.C())
+		v3 int32
+		v4 int32
 	)
-	result = 0
-	v2 = ccall.AsFunc[func(*int32, int32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)))))
-	if v2 != nil {
+	if ptr := dr.DrawFunc.Ptr(); ptr != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*30)))
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)))
-		if (v3&0x1000) == 0 && v3&1 != 0 && (ccall.FuncAddr(v2) == ccall.FuncAddr(nox_thing_static_draw) || ccall.FuncAddr(v2) == ccall.FuncAddr(nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) && (v3&0x800) == 0 {
-			result = 1
+		if (v3&0x1000) == 0 && v3&1 != 0 && (ptr == ccall.FuncAddr(nox_thing_static_draw) || ptr == ccall.FuncAddr(Nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) && (v3&0x800) == 0 {
+			return 1
 		}
 	}
-	return result
+	return 0
 }
 func nox_xxx_sprite_475740_drawable(dr *nox_drawable) int32 {
 	var (
 		a1     *uint32 = (*uint32)(dr.C())
 		result int32
-		v2     func(*int32, int32) int32
 		v3     int32
 		v4     int32
 	)
 	result = 0
-	v2 = ccall.AsFunc[func(*int32, int32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)))))
-	if v2 != nil {
+
+	if ptr := dr.DrawFunc.Ptr(); ptr != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*30)))
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)))
 		if (v3 & 0x1000) == 0 {
 			if v3&1 != 0 {
 				result = 1
-				if (ccall.FuncAddr(v2) == ccall.FuncAddr(nox_thing_static_draw) || ccall.FuncAddr(v2) == ccall.FuncAddr(nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x800) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) {
+				if (ptr == ccall.FuncAddr(nox_thing_static_draw) || ptr == ccall.FuncAddr(Nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x800) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) {
 					result = 0
 				}
 			}

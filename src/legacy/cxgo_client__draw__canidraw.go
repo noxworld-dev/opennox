@@ -3,12 +3,13 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_cond_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_cond_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*uint32)(vp.C())
 	var (
 		v2  int32
 		v3  int32
@@ -79,7 +80,7 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 	v23 = int32(v25)
 	if int32(v25) <= 0 {
 		obj.Field_5c = unsafe.Pointer(v3)
-		obj.DrawFunc = ccall.FuncAddr(nox_thing_cond_animate_draw)
+		obj.DrawFunc.Set(nox_thing_cond_animate_draw)
 		obj.Field_60 = 0
 		return true
 	}
@@ -132,7 +133,7 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 		if int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v7), v22))))) >= v23 {
 			v3 = v24
 			obj.Field_5c = unsafe.Pointer(v3)
-			obj.DrawFunc = ccall.FuncAddr(nox_thing_cond_animate_draw)
+			obj.DrawFunc.Set(nox_thing_cond_animate_draw)
 			obj.Field_60 = 0
 			return true
 		}

@@ -685,7 +685,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 	c.pos1097204.Y = c.r.FontHeight(nil) + 4
 	if c.dragndropItem != nil { // Dragging item
 		c.dragndropItem.SetPos(mpos)
-		legacy.CallDrawFunc(c.dragndropItem, vp)
+		c.dragndropItem.CallDraw(vp)
 	}
 	if c.dragndrapSpell != 0 { // Player is dragging spell or ability
 		pl := c.srv.GetPlayerByID(legacy.ClientPlayerNetCode())

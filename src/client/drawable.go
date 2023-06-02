@@ -470,7 +470,7 @@ type Drawable struct {
 	Field_74_2         byte                                                 // 74, 297
 	Field_74_3         byte                                                 // 74, 298
 	Field_74_4         byte                                                 // 74, 299
-	DrawFuncPtr        unsafe.Pointer                                       // 75, 300, (*DrawFuncPtr)(uint32_t*, nox_drawable*) same as CObjectType->draw_func
+	DrawFunc           ccall.Func[ObjectDrawFunc]                           // 75, 300
 	Field_76           unsafe.Pointer                                       // 76, 304
 	Field_77           uint32                                               // 77, 308
 	Field_78           uint32                                               // 78, 312
@@ -698,6 +698,10 @@ func LightRadius(intens float32) int {
 		(intens * intens / (memmap.Float32(0x587000, 154976) * memmap.Float32(0x587000, 154972))))))
 }
 
+func (s *Drawable) CallDraw(vp *noxrender.Viewport) int {
+	return s.DrawFunc.Get()(vp, s)
+}
+
 func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	*s = Drawable{}
 	s.Field_27 = uint32(i)
@@ -709,7 +713,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	s.Flags30Val = uint32(typ.ObjFlags)
 	s.Flags70Val = typ.Field_54
 	s.Field_74_3 = typ.Weight
-	s.DrawFuncPtr = typ.DrawFunc
+	s.DrawFunc = typ.DrawFunc
 	s.Field_76 = typ.Field_5c
 	s.Field_77 = typ.Field_60
 	s.ClientUpdateFunc = typ.ClientUpdate

@@ -1,5 +1,7 @@
 package legacy
 
-func nox_thing_released_soul_draw(a1 *int32, dr *nox_drawable) int32 {
-	return nox_thing_vector_animate_draw(a1, dr)
+import "github.com/noxworld-dev/opennox/v1/client/noxrender"
+
+func nox_thing_released_soul_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	return nox_thing_vector_animate_draw(vp, dr)
 }

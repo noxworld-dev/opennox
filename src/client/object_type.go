@@ -23,9 +23,10 @@ import (
 
 var (
 	thingsLog        = log.New("things")
-	ThingDrawDefault unsafe.Pointer
+	ThingDrawDefault ObjectDrawFunc
 )
 
+type ObjectDrawFunc func(*noxrender.Viewport, *Drawable) int
 type ObjectUpdateFunc func(*noxrender.Viewport, *Drawable) int
 
 var (
@@ -112,7 +113,7 @@ func (c *clientObjTypes) ReadType(thg *binfile.MemFile, buf []byte) error {
 	typ.Field_f = 0
 	typ.Field_10 = 0xFFFF
 	typ.AudioLoop = 0
-	typ.DrawFunc = ThingDrawDefault
+	typ.DrawFunc = ccall.FuncPtr(ThingDrawDefault)
 	typ.ZSizeMin = 0
 	typ.ZSizeMax = 30.0
 	if err := c.parseThing(thg, buf, typ); err != nil {
@@ -177,7 +178,7 @@ type ObjectType struct {
 	ShapeW         float32                      // 19, 0x4c, 76
 	ShapeH         float32                      // 20, 0x50, 80
 	Field_54       uint32                       // 21, 0x54
-	DrawFunc       unsafe.Pointer               // 22, 0x58, 88, same as nox_drawable->draw_func
+	DrawFunc       ccall.Func[ObjectDrawFunc]   // 22, 0x58, 88
 	Field_5c       unsafe.Pointer               // 23, 0x5c, 92
 	Field_60       uint32                       // 24, 0x60, 96
 	ClientUpdate   ccall.Func[ObjectUpdateFunc] // 25, 0x64, 100

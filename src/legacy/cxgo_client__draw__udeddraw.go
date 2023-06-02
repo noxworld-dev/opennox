@@ -4,10 +4,12 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_undead_killer_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_undead_killer_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		result int32
 		v3     int16
@@ -60,5 +62,5 @@ func nox_thing_undead_killer_draw(a1 *int32, dr *nox_drawable) int32 {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		result = 0
 	}
-	return result
+	return int(result)
 }

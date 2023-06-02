@@ -4,17 +4,17 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_glyph_draw(a1 *int32, dr *nox_drawable) int32 {
+func nox_thing_glyph_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	var (
 		v3 int8
 		v4 int32
 		v5 int32
 		v6 int32
-		v7 int32
 		a2 *uint32 = (*uint32)(dr.C())
 	)
 	if !noxflags.HasGame(2) || *memmap.PtrUint32(0x852978, 8) == 0 {
@@ -42,7 +42,7 @@ func nox_thing_glyph_draw(a1 *int32, dr *nox_drawable) int32 {
 LABEL_10:
 	nox_client_drawEnableAlpha_434560(1)
 	nox_client_drawSetAlpha_434580(uint8(uintptr(unsafe.Pointer(a2))))
-	v7 = nox_thing_animate_draw((*uint32)(unsafe.Pointer(a1)), dr)
+	v7 := nox_thing_animate_draw(vp, dr)
 	nox_client_drawEnableAlpha_434560(0)
 	nox_xxx_draw_434600(0)
 	return v7

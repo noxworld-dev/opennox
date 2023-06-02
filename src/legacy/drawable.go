@@ -5,7 +5,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
@@ -148,10 +147,6 @@ func sub_49BCD0(dr *nox_drawable) {
 // nox_xxx_spriteDeleteAll_45A5E0
 func nox_xxx_spriteDeleteAll_45A5E0(a1 int32) {
 	GetClient().Nox_xxx_spriteDeleteAll_45A5E0(int(a1))
-}
-
-func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {
-	return int(ccall.AsFunc[func(*nox_draw_viewport_t, *nox_drawable) int32](s.DrawFuncPtr)((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(s.C())))
 }
 
 func Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {

@@ -1,8 +1,13 @@
 package legacy
 
-import "unsafe"
+import (
+	"unsafe"
 
-func nox_thing_boulder_draw(a1 *int32, dr *nox_drawable) int32 {
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+)
+
+func nox_thing_boulder_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+	a1 := (*int32)(vp.C())
 	var (
 		v2 int32
 		v3 int32

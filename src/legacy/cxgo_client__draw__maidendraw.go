@@ -3,12 +3,12 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
+func nox_thing_maiden_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	if !noxflags.HasGame(0x200000) {
 		var v9 *byte = (*byte)(unsafe.Pointer(nox_npc_by_id(int32(dr.Field_32))))
 		if v9 == nil {
@@ -26,11 +26,11 @@ func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
 				break
 			}
 		}
-		return nox_thing_monster_draw((*int32)(unsafe.Pointer(a1)), dr)
+		return nox_thing_monster_draw(vp, dr)
 	}
 	var v2 *server.Object = nox_server_getFirstObject_4DA790()
 	if v2 == nil {
-		return nox_thing_monster_draw((*int32)(unsafe.Pointer(a1)), dr)
+		return nox_thing_monster_draw(vp, dr)
 	}
 	var v3 int32
 	for {
@@ -40,7 +40,7 @@ func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
 		}
 		v2 = nox_server_getNextObject_4DA7A0(v2)
 		if v2 == nil {
-			return nox_thing_monster_draw((*int32)(unsafe.Pointer(a1)), dr)
+			return nox_thing_monster_draw(vp, dr)
 		}
 	}
 	var v5 int32 = int32(uintptr(v2.UpdateData))
@@ -59,10 +59,10 @@ func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
 			break
 		}
 	}
-	return nox_thing_monster_draw((*int32)(unsafe.Pointer(a1)), dr)
+	return nox_thing_monster_draw(vp, dr)
 }
 func nox_things_maiden_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
 	var result int32 = bool2int32(nox_things_monster_draw_parse(obj, f, attr_value))
-	obj.DrawFunc = ccall.FuncAddr(nox_thing_maiden_draw)
+	obj.DrawFunc.Set(nox_thing_maiden_draw)
 	return result != 0
 }

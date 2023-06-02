@@ -6,11 +6,10 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
 var (
-	Nox_thing_debug_draw func(vp *noxrender.Viewport, dr *client.Drawable) int
+	Nox_thing_debug_draw client.ObjectDrawFunc
 )
 
 // nox_thing_debug_draw
