@@ -120,6 +120,11 @@ type nox_scrollListBox_item struct {
 	field_129 uint32
 	field_130 uint32
 }
+
+func (it *nox_scrollListBox_item) Text() string {
+	return GoWString(&it.text[0])
+}
+
 type nox_scrollListBox_data struct {
 	count       uint16
 	line_height uint16
@@ -135,10 +140,18 @@ type nox_scrollListBox_data struct {
 	field_10    uint32
 	field_11_0  uint16
 	field_11_1  uint16
-	field_12    *uint32
+	field_12    *uint32 // used as uint32 when field_4 == 0
 	field_13_0  uint16
 	field_13_1  uint16
 }
+
+func (d *nox_scrollListBox_data) Items() []nox_scrollListBox_item {
+	if d == nil || d.items == nil || d.count == 0 {
+		return nil
+	}
+	return unsafe.Slice(d.items, d.count)
+}
+
 type nox_staticText_data struct {
 	text   *wchar2_t
 	center uint32

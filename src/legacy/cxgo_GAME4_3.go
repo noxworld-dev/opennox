@@ -9561,7 +9561,7 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 			if (uint32(*(*int32)(unsafe.Add(unsafe.Pointer(*v3), 4*4))) & 0x80000000) == 0x80000000 {
 				if *v4 != 0 {
 					v5 = sub_543620(*v4, a1)
-					v6 = (*byte)(libc.Realloc(unsafe.Pointer(uintptr(*v4)), libc.StrLen(v5)+1))
+					v6 = (*byte)(alloc.Realloc(unsafe.Pointer(uintptr(*v4)), uintptr(libc.StrLen(v5))+1))
 					*v4 = int32(uintptr(unsafe.Pointer(v6)))
 					libc.StrCpy(v6, v5)
 				}

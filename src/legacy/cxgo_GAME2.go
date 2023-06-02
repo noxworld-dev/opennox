@@ -1280,12 +1280,12 @@ func sub_4526D0(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 152))) + 28))) = 4
 	return 0
 }
-func sub_4526F0(a1 int32) int32 {
+func sub_4526F0(a1 unsafe.Pointer) int32 {
 	var (
 		v1 *uint32
 		v2 int32
 	)
-	v1 = *(**uint32)(unsafe.Pointer(uintptr(a1 + 152)))
+	v1 = *(**uint32)(unsafe.Add(a1, 152))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6)) &= 0xFFFFFFFD
 	v2 = 4
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7)) != 4 {
@@ -1856,7 +1856,7 @@ func sub_4533D0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		sub_453750()
 		sub_459D50(1)
 	case 1520, 1521, 1522, 1523, 1524, 1525, 1526, 1527, 1528, 1529, 1530, 1531, 1532, 1533:
-		v5 = sub_4A4800(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045464 + 32)))))
+		v5 = sub_4A4800(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(dword_5d4594_1045464 + 32))))
 		v11 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045464))))), 16406, uintptr(v5+v3-1520), 0))))
 		if dword_5d4594_1045460 != 0 {
 			v6 = sub_415DA0(v11)
@@ -2036,7 +2036,7 @@ func sub_453750() int8 {
 		v3 bool
 		v4 int32
 	)
-	v0 = sub_4A4800(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045464 + 32)))))
+	v0 = sub_4A4800(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(dword_5d4594_1045464 + 32))))
 	for i = 1520; i <= 1533; i++ {
 		for j = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045468)))), i))); (1<<v0)&0x33 != 0; v0++ {
 		}
@@ -2197,15 +2197,14 @@ func sub_454120() int8 {
 		v4 int32
 		v5 bool
 		v6 int32
-		v8 int32
 	)
-	v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32))))
+	v8 := *(*unsafe.Pointer)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32)))
 	v0 = 1120
 	v1 = sub_4A4800(v8) * 524
 	for {
 		v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045484)))), v0)))
 		v3 = 0
-		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v8 + 24))))
+		v4 = int32(*(*uint32)(unsafe.Add(v8, 24)))
 		if v4+v1 != -4 && int32(*(*uint16)(unsafe.Pointer(uintptr(v4 + v1 + 4)))) != 0 {
 			v3 = nox_xxx_spellByTitle_424960((*wchar2_t)(unsafe.Pointer(uintptr(v4 + v1 + 4))))
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 0)

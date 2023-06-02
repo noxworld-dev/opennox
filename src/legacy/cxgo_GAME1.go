@@ -812,12 +812,14 @@ func nox_xxx_wallGetNextBreakableCli_410880(a1 *int32) int32 {
 	return result
 }
 func nox_xxx_tileAlloc_410F60_init() int32 {
-	ptr_5D4594_2650668 = (**obj_5D4594_2650668_t)(unsafe.Pointer(&make([]unsafe.Pointer, int(ptr_5D4594_2650668_cap))[0]))
+	arr, _ := alloc.Make([]unsafe.Pointer{}, int(ptr_5D4594_2650668_cap))
+	ptr_5D4594_2650668 = (**obj_5D4594_2650668_t)(unsafe.Pointer(&arr[0]))
 	if ptr_5D4594_2650668 == nil {
 		return 0
 	}
 	for i := int32(0); i < ptr_5D4594_2650668_cap; i++ {
-		*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i))) = &make([]obj_5D4594_2650668_t, int(ptr_5D4594_2650668_cap))[0]
+		arr2, _ := alloc.Make([]obj_5D4594_2650668_t{}, int(ptr_5D4594_2650668_cap))
+		*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i))) = &arr2[0]
 		if *(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i))) == nil {
 			return 0
 		}

@@ -14,7 +14,7 @@ func sub_42EBB0(a1 uint32, fnc unsafe.Pointer, field_4 int32, name *byte) {
 	var v8 *wchar2_t
 	_ = v8
 	if a1 == 1 {
-		var arr *obj_5D4594_754088_t = (*obj_5D4594_754088_t)(libc.Realloc(unsafe.Pointer(ptr_5D4594_754088), int((ptr_5D4594_754088_cnt+1)*int32(unsafe.Sizeof(obj_5D4594_754088_t{})))))
+		var arr *obj_5D4594_754088_t = (*obj_5D4594_754088_t)(alloc.Realloc(unsafe.Pointer(ptr_5D4594_754088), uintptr((ptr_5D4594_754088_cnt+1)*int32(unsafe.Sizeof(obj_5D4594_754088_t{})))))
 		ptr_5D4594_754088 = arr
 		if arr == nil {
 			panic("abort")
@@ -24,7 +24,7 @@ func sub_42EBB0(a1 uint32, fnc unsafe.Pointer, field_4 int32, name *byte) {
 		libc.StrCpy(&(*(*obj_5D4594_754088_t)(unsafe.Add(unsafe.Pointer(arr), unsafe.Sizeof(obj_5D4594_754088_t{})*uintptr(ptr_5D4594_754088_cnt)))).name[0], name)
 		ptr_5D4594_754088_cnt++
 	} else if a1 == 2 {
-		var arr *obj_5D4594_754088_t = (*obj_5D4594_754088_t)(libc.Realloc(unsafe.Pointer(ptr_5D4594_754092), int((ptr_5D4594_754092_cnt+1)*int32(unsafe.Sizeof(obj_5D4594_754088_t{})))))
+		var arr *obj_5D4594_754088_t = (*obj_5D4594_754088_t)(alloc.Realloc(unsafe.Pointer(ptr_5D4594_754092), uintptr((ptr_5D4594_754092_cnt+1)*int32(unsafe.Sizeof(obj_5D4594_754088_t{})))))
 		ptr_5D4594_754092 = arr
 		if arr == nil {
 			panic("abort")

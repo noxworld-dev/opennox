@@ -136,13 +136,12 @@ func sub_4C3CD0(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 		a1 = int32(uintptr(win.C()))
 		v5 int32
 		v6 *wchar2_t
-		v7 int32
 		v8 int32
 		v9 int32
 	)
 	if a2 > 0x4007 {
 		if a2 == 16393 {
-			v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
+			v7 := win.WidgetData
 			nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 0x4009, a3, a4)
 			v8 = sub_4A4800(v7)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321240))))), 16412, uintptr(v8), 0)

@@ -87,18 +87,20 @@ func writeLogsToDir(dir string) error {
 }
 
 func RunArgs(args []string) (gerr error) {
-	defer func() {
-		switch r := recover().(type) {
-		case ErrExit:
-			if r != 0 {
-				gerr = r
+	if os.Getenv("NOX_NO_RECOVER") != "true" {
+		defer func() {
+			switch r := recover().(type) {
+			case ErrExit:
+				if r != 0 {
+					gerr = r
+				}
+			default:
+				panic(r)
+			case nil:
+				// ok
 			}
-		default:
-			panic(r)
-		case nil:
-			// ok
-		}
-	}()
+		}()
+	}
 	flags := flag.NewFlagSet("", flag.ContinueOnError)
 	// TODO: add missing flag descriptions
 	rconDefHost := ""

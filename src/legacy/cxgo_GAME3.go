@@ -262,12 +262,12 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 		v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
 		if v8 == -1 {
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = 0
-			nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 0, 1)
+			nox_xxx_wndListBox_4A2D10(win, 0, 1)
 		} else if v8 > 0 {
 			v11 = v8 - 1
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = uint32(v11)
 			if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) + uint32(v11*524)))) < uint32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))) {
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), -1, 1)
+				nox_xxx_wndListBox_4A2D10(win, -1, 1)
 			}
 		}
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
@@ -276,13 +276,13 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
 		if v7 == -1 {
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = 0
-			nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 0, 1)
+			nox_xxx_wndListBox_4A2D10(win, 0, 1)
 		} else if v7 < int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 44))))-1 {
 			v9 = v7 + 1
 			v10 = int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52)))) + int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = uint32(v9)
 			if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) + uint32(v9*524)))) > uint32(v10) {
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 1, 1)
+				nox_xxx_wndListBox_4A2D10(win, 1, 1)
 			}
 		}
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
@@ -308,12 +308,12 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 			v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
 			if v8 == -1 {
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = 0
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 0, 1)
+				nox_xxx_wndListBox_4A2D10(win, 0, 1)
 			} else if v8 > 0 {
 				v11 = v8 - 1
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = uint32(v11)
 				if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) + uint32(v11*524)))) < uint32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))) {
-					nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), -1, 1)
+					nox_xxx_wndListBox_4A2D10(win, -1, 1)
 				}
 			}
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
@@ -331,13 +331,13 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 			v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
 			if v7 == -1 {
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = 0
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 0, 1)
+				nox_xxx_wndListBox_4A2D10(win, 0, 1)
 			} else if v7 < int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 44))))-1 {
 				v9 = v7 + 1
 				v10 = int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52)))) + int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = uint32(v9)
 				if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) + uint32(v9*524)))) > uint32(v10) {
-					nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 1, 1)
+					nox_xxx_wndListBox_4A2D10(win, 1, 1)
 				}
 			}
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
@@ -349,7 +349,8 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 		return 0
 	}
 }
-func nox_xxx_wndListBox_4A2D10(a1 int32, a2 int32, a3 int32) int32 {
+func nox_xxx_wndListBox_4A2D10(win *gui.Window, a2 int32, a3 int32) int32 {
+	a1 := int32(uintptr(win.C()))
 	var (
 		v3     int32
 		v4     int32
@@ -358,7 +359,7 @@ func nox_xxx_wndListBox_4A2D10(a1 int32, a2 int32, a3 int32) int32 {
 		v7     int32
 	)
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
-	v4 = a2 + sub_4A4800(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32)))))
+	v4 = a2 + sub_4A4800(win.WidgetData)
 	if v4 >= 0 {
 		v5 = int32(*(*int16)(unsafe.Pointer(uintptr(v3 + 44))))
 		if v4 >= v5 {
@@ -394,7 +395,6 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(win *gui.Window, a2, p3, a4 uintptr
 		a1     = int32(uintptr(win.C()))
 		a3     = uint32(p3)
 		v4     int32
-		v5     int32
 		result int32
 	)
 	_ = result
@@ -414,7 +414,9 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(win *gui.Window, a2, p3, a4 uintptr
 	var v20 int32
 	var v21 int32
 	v4 = a1
-	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
+
+	sdata := (*nox_scrollListBox_data)(win.WidgetData)
+	v5 := int32(uintptr(unsafe.Pointer(sdata)))
 	switch a2 {
 	case 5, 17, 18:
 		return 1
@@ -458,7 +460,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(win *gui.Window, a2, p3, a4 uintptr
 			v15 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
 			for {
 				if v14 == v10 {
-					sub_4A3090((*int16)(unsafe.Pointer(uintptr(v5))), v13)
+					sub_4A3090(sdata, int(v13))
 					nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, uintptr(v4), uintptr(v10))
 					return 1
 				}
@@ -519,13 +521,13 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(win *gui.Window, a2, p3, a4 uintptr
 		if *(*uint32)(unsafe.Pointer(uintptr(v5 + 28))) == 0 || int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))) <= 0 {
 			return 1
 		}
-		nox_xxx_wndListBox_4A2D10(a1, -1, 1)
+		nox_xxx_wndListBox_4A2D10(win, -1, 1)
 		return 1
 	case 20:
 		if *(*uint32)(unsafe.Pointer(uintptr(v5 + 32))) == 0 || int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))) > *(*int32)(unsafe.Pointer(uintptr(v5 + 40))) {
 			return 1
 		}
-		nox_xxx_wndListBox_4A2D10(a1, 1, 1)
+		nox_xxx_wndListBox_4A2D10(win, 1, 1)
 		return 1
 	case 21:
 		if a3 != 15 {
@@ -540,63 +542,59 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(win *gui.Window, a2, p3, a4 uintptr
 		return 0
 	}
 }
-func sub_4A3090(a1 *int16, a2 int32) *int16 {
-	var result *int16
-	result = a1
-	alloc.Memcpy(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12)))+uint32(a2*4))), unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12)))+uint32(a2*4)+4)), uintptr((int32(*a1)-a2)*4))
-	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12))) + uint32(int32(*a1)*4) - 4))) = math.MaxUint32
-	return result
+func sub_4A3090(d *nox_scrollListBox_data, i int) {
+	alloc.Memcpy(unsafe.Add(unsafe.Pointer(d.field_12), i*4), unsafe.Add(unsafe.Pointer(d.field_12), uint32(i+1)*4), uintptr(int(d.count)-i)*4)
+	*(*uint32)(unsafe.Add(unsafe.Pointer(d.field_12), (d.count-1)*4)) = math.MaxUint32
 }
 func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintptr {
 	var (
-		v9    *uint32
-		v10   *uint32
-		v11   *uint32
-		v12   int32
-		v13   int16
-		v14   *uint32
-		v15   int32
-		v16   *wchar2_t
-		v17   *wchar2_t
-		v18   int16
-		v19   int16
-		v20   int32
-		v21   int32
-		v22   int32
-		v23   int32
-		v24   int32
-		v25   int32
-		v26   *uint32
-		v27   int32
-		v28   int32
-		v29   int16
-		v30   int16
-		v31   int32
-		v32   int16
-		v33   **wchar2_t
-		v34   int32
-		v35   *wchar2_t
-		v36   int32
-		v37   int32
-		v38   int32
-		v39   int16
-		v40   int32
-		v41   *uint32
-		v42   int32
-		v43   int32
-		v44   int32
-		v45   int16
-		v46   int32
-		v4    *uint32                 = (*uint32)(unsafe.Pointer(win))
-		sdata *nox_scrollListBox_data = (*nox_scrollListBox_data)(win.WidgetData)
-		ind   int32                   = 0
-		wstr  *wchar2_t               = nil
+		v9   *uint32
+		v10  *uint32
+		v11  *uint32
+		v12  int32
+		v13  int16
+		v14  *uint32
+		v15  int32
+		v16  *wchar2_t
+		v17  *wchar2_t
+		v18  int16
+		v19  int16
+		v20  int32
+		v21  int32
+		v22  int32
+		v23  int32
+		v24  int32
+		v25  int32
+		v26  *uint32
+		v27  int32
+		v28  int32
+		v29  int16
+		v30  int16
+		v31  int32
+		v32  int16
+		v33  **wchar2_t
+		v34  int32
+		v35  *wchar2_t
+		v36  int32
+		v38  int32
+		v39  int16
+		v40  int32
+		v41  *uint32
+		v42  int32
+		v43  int32
+		v44  int32
+		v45  int16
+		v46  int32
+		v4   *uint32   = (*uint32)(unsafe.Pointer(win))
+		ind  int32     = 0
+		wstr *wchar2_t = nil
 	)
+	sdata := (*nox_scrollListBox_data)(win.WidgetData)
 	if ev > 16402 {
 		switch ev {
 		case 0x4013:
-			ind = int32(a3)
-			if ind < 0 || ind >= int32(sdata.count) {
+			ind := int(a3)
+			if ind < 0 || ind >= int(sdata.count) {
 				if sdata.field_4 != 0 {
 					libc.MemSet(unsafe.Pointer(sdata.field_12), math.MaxUint8, int(int32(sdata.count)*4))
 					return 0
@@ -604,8 +602,9 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 				sdata.field_12 = (*uint32)(unsafe.Pointer(uintptr(math.MaxUint32)))
 				return 0
 			}
-			v37 = int32(uintptr(unsafe.Pointer((*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind))))))
-			if int32(*(*uint16)(unsafe.Pointer(uintptr(v37 + 4)))) == 0 {
+			items := sdata.Items()
+			it := &items[ind]
+			if it.text[0] == 0 {
 				return 0
 			}
 			if sdata.field_4 != 0 {
@@ -615,33 +614,35 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 			}
 			v38 = int32(sdata.field_13_1)
 			sdata.field_12 = (*uint32)(unsafe.Pointer(uintptr(ind)))
-			if *(*uint32)(unsafe.Pointer(uintptr(v37))) < uint32(v38) {
+			if it.field_0 < uint32(v38) {
 				nox_window_call_field_94_fnc(win, 16412, uintptr(ind), 0)
 				return 0
 			}
 			v39 = int16(sdata.field_13_0)
-			if *(*uint32)(unsafe.Pointer(uintptr(v37))) > uint32(v38+int32(v39)) {
+			if it.field_0 > uint32(v38+int32(v39)) {
 				if ind <= 0 {
 					sdata.field_13_1 = 0
 				} else {
+					v37 := int32(uintptr(unsafe.Pointer(it)))
 					sdata.field_13_1 = uint16(int16(int32(*(*uint16)(unsafe.Pointer(uintptr(v37)))) - int32(v39)))
 				}
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), 0, 1)
-				return 0
+				nox_xxx_wndListBox_4A2D10(win, 0, 1)
 			}
 			return 0
 		case 0x4014:
 			return uintptr(unsafe.Pointer(sdata.field_12))
 		case 0x4015:
-			ind = int32(a3)
-			if ind < 0 || ind >= int32(sdata.count) {
+			ind := int(a3)
+			if ind < 0 || ind >= int(sdata.count) {
 				if sdata.field_4 == 0 {
 					return 0
 				}
 				libc.MemSet(unsafe.Pointer(sdata.field_12), math.MaxUint8, int(int32(sdata.count)*4))
 				return 0
 			}
-			if (*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[0] == 0 || sdata.field_4 == 0 {
+			items := sdata.Items()
+			it := &items[ind]
+			if it.text[0] == 0 || sdata.field_4 == 0 {
 				return 0
 			}
 			v33 = (**wchar2_t)(unsafe.Pointer(sdata.field_12))
@@ -663,22 +664,22 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 					return 0
 				}
 			}
-			sub_4A3090((*int16)(unsafe.Pointer(sdata)), v34)
+			sub_4A3090(sdata, int(v34))
 			return 0
 		case 0x4016:
 			ind = int32(a3)
 			if ind < 0 || ind >= int32(sdata.count) {
 				return 0
 			}
-			return uintptr(unsafe.Pointer(&(*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[0]))
+			return uintptr(unsafe.Pointer(&((*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[0]))
 		case 0x4017:
 			ind = int32(a4)
 			wstr = (*wchar2_t)(unsafe.Pointer(a3))
 			if ind < 0 || ind >= int32(sdata.count) {
 				return 0
 			}
-			nox_wcsncpy(&(*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[0], wstr, math.MaxUint8)
-			(*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[nox_wcslen(wstr)] = 0
+			nox_wcsncpy(&((*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[0], wstr, math.MaxUint8)
+			((*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[nox_wcslen(wstr)] = 0
 			return 0
 		case 0x4018:
 			sdata.field_7 = unsafe.Pointer(uintptr(a3))
@@ -705,11 +706,11 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 					for {
 						v43 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v41), 4*uintptr(v42))))
 						if ind < v43 {
-							sub_4A3090((*int16)(unsafe.Pointer(sdata)), func() int32 {
+							sub_4A3090(sdata, func() int {
 								p := &v42
 								x := *p
 								*p--
-								return x
+								return int(x)
 							}())
 						} else {
 							*(*uint32)(unsafe.Add(unsafe.Pointer(v41), 4*uintptr(v42))) = uint32(v43 - ind)
@@ -728,14 +729,14 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 				}
 			}
 			if int32(sdata.field_13_1) > 0 {
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), -ind, 1)
+				nox_xxx_wndListBox_4A2D10(win, -ind, 1)
 			}
-			nox_xxx_wndListBox_4A3A70(int32(uintptr(unsafe.Pointer(win))))
+			nox_xxx_wndListBox_4A3A70(win)
 			return 1
 		case 0x401C:
 			ind = int32(a3)
 			if ind-1 >= 0 && ind-1 < int32(sdata.count) {
-				sdata.field_13_1 = uint16((*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind-1)))).field_0 + 1)
+				sdata.field_13_1 = uint16(((*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind-1)))).field_0 + 1)
 			} else {
 				sdata.field_13_1 = 0
 			}
@@ -744,7 +745,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 			if int32(sdata.field_13_1)+int32(v45) >= v46 {
 				sdata.field_13_1 = uint16(int16(v46 - int32(v45)))
 			}
-			nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), 0, 1)
+			nox_xxx_wndListBox_4A2D10(win, 0, 1)
 			return 0
 		default:
 			return 0
@@ -777,7 +778,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 			if int32(sdata.field_13_1) < 0 {
 				sdata.field_13_1 = 0
 			}
-			nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), 0, 0)
+			nox_xxx_wndListBox_4A2D10(win, 0, 0)
 			return 0
 		case 16397:
 			v18 = int16(sdata.field_11_1)
@@ -830,8 +831,8 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 				nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), int32(a4), (*uint32)(unsafe.Pointer(win)))
 			}
 			if sdata.field_1 != 0 {
-				for (*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(int32(sdata.field_11_1)-1)))).field_0 >= uint32(int32(sdata.field_13_1)+int32(sdata.field_13_0)) {
-					nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 1, 1)
+				for ((*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(int32(sdata.field_11_1)-1)))).field_0 >= uint32(int32(sdata.field_13_1)+int32(sdata.field_13_0)) {
+					nox_xxx_wndListBox_4A2D10(win, 1, 1)
 				}
 			}
 			v26 = sdata.field_12
@@ -871,7 +872,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 			}())
 			*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(v13))) = nox_scrollListBox_item{}
 			sdata.field_11_1 = uint16(v13)
-			(*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(v13)))).text[0] = 0
+			(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(v13))).text[0] = 0
 			if sdata.field_4 != 0 {
 				v14 = sdata.field_12
 				v15 = 0
@@ -880,11 +881,11 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 						v16 = (*wchar2_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*uintptr(v15))))))
 						if ind >= int32(uintptr(unsafe.Pointer(v16))) {
 							if unsafe.Pointer(uintptr(ind)) == unsafe.Pointer(v16) {
-								sub_4A3090((*int16)(unsafe.Pointer(sdata)), func() int32 {
+								sub_4A3090(sdata, func() int {
 									p := &v15
 									x := *p
 									*p--
-									return x
+									return int(x)
 								}())
 							}
 						} else {
@@ -896,24 +897,27 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 							break
 						}
 					}
-					nox_xxx_wndListBox_4A3A70(int32(uintptr(unsafe.Pointer(win))))
+					nox_xxx_wndListBox_4A3A70(win)
 					return 0
 				}
 			} else {
 				v17 = (*wchar2_t)(unsafe.Pointer(sdata.field_12))
 				if ind < int32(uintptr(unsafe.Pointer(v17))) {
 					sdata.field_12 = (*uint32)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v17))), -1))
-					nox_xxx_wndListBox_4A3A70(int32(uintptr(unsafe.Pointer(win))))
+					nox_xxx_wndListBox_4A3A70(win)
 					return 0
 				}
 				if unsafe.Pointer(uintptr(ind)) == unsafe.Pointer(v17) {
 					sdata.field_12 = (*uint32)(unsafe.Pointer(uintptr(math.MaxUint32)))
 				}
 			}
-			nox_xxx_wndListBox_4A3A70(int32(uintptr(unsafe.Pointer(win))))
+			nox_xxx_wndListBox_4A3A70(win)
 			return 0
 		case 0x400F:
-			libc.MemSet(unsafe.Pointer(sdata.items), 0, int(int32(sdata.count)*int32(unsafe.Sizeof(nox_scrollListBox_item{}))))
+			items := sdata.Items()
+			for i := range items {
+				items[i] = nox_scrollListBox_item{}
+			}
 			if a3 != 1 {
 				sdata.field_13_1 = 0
 			}
@@ -925,7 +929,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 			sdata.field_11_1 = 0
 			sdata.field_11_0 = 0
 			sdata.field_10 = 0
-			nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), 0, 1)
+			nox_xxx_wndListBox_4A2D10(win, 0, 1)
 			return 0
 		default:
 			return 0
@@ -934,11 +938,11 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 	if ev == 16391 {
 		if unsafe.Pointer(uintptr(a3)) == sdata.field_7 {
 			if int32(sdata.field_13_1) > 0 {
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), -1, 1)
+				nox_xxx_wndListBox_4A2D10(win, -1, 1)
 				return 0
 			}
 		} else if unsafe.Pointer(uintptr(a3)) == sdata.field_8 && uint32(int32(sdata.field_13_0)+int32(sdata.field_13_1)) <= sdata.field_10 {
-			nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), 1, 1)
+			nox_xxx_wndListBox_4A2D10(win, 1, 1)
 			return 0
 		}
 		return 0
@@ -975,11 +979,11 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 	if ev == 0x4000 {
 		if unsafe.Pointer(uintptr(a3)) == sdata.field_7 {
 			if int32(sdata.field_13_1) > 0 {
-				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), -1, 1)
+				nox_xxx_wndListBox_4A2D10(win, -1, 1)
 				return 0
 			}
 		} else if unsafe.Pointer(uintptr(a3)) == sdata.field_8 && uint32(int32(sdata.field_13_0)+int32(sdata.field_13_1)) <= sdata.field_10 {
-			nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(win))), 1, 1)
+			nox_xxx_wndListBox_4A2D10(win, 1, 1)
 			return 0
 		}
 		return 0
@@ -1007,7 +1011,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 	}
 	return 0
 }
-func nox_xxx_wndListBox_4A3A70(a1 int32) int32 {
+func nox_xxx_wndListBox_4A3A70(win *gui.Window) int32 {
 	var (
 		v1 int32
 		v2 int32
@@ -1017,7 +1021,7 @@ func nox_xxx_wndListBox_4A3A70(a1 int32) int32 {
 	)
 	v1 = 0
 	v2 = 0
-	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
+	v3 = int32(uintptr(win.WidgetData))
 	if int32(*(*uint16)(unsafe.Pointer(uintptr(v3 + 44)))) > 0 {
 		v4 = 0
 		for {
@@ -1032,7 +1036,7 @@ func nox_xxx_wndListBox_4A3A70(a1 int32) int32 {
 		}
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(v3 + 40))) = uint32(v2)
-	return nox_xxx_wndListBox_4A2D10(a1, 0, 1)
+	return nox_xxx_wndListBox_4A2D10(win, 0, 1)
 }
 func nox_xxx_wndListBoxAddLine_4A3AC0(a1 *wchar2_t, a2 int32, a3 *uint32) int32 {
 	var (
@@ -1073,7 +1077,7 @@ func nox_xxx_wndListBoxAddLine_4A3AC0(a1 *wchar2_t, a2 int32, a3 *uint32) int32 
 	}
 	*(*uint16)(unsafe.Pointer(uintptr(v4 + 46)))++
 	*(*uint16)(unsafe.Pointer(uintptr(v4 + 44)))++
-	return nox_xxx_wndListBox_4A3A70(int32(uintptr(unsafe.Pointer(v3))))
+	return nox_xxx_wndListBox_4A3A70(AsWindowP(unsafe.Pointer(v3)))
 }
 func nox_xxx_wndListboxInit_4A3C00(a1 *gui.Window, a2 int32) {
 	if a1 != nil {
@@ -1125,7 +1129,7 @@ func nox_xxx_wndListboxDrawNoImage_4A3C50(win *gui.Window, draw *gui.WindowData)
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))
 	v20 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 28))))
 	v23 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 20))))
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+	nox_client_wndGetPosition_46AA60(win, (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
 	v3 = nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 200))))))
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)))
 	v22 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))
@@ -1142,18 +1146,16 @@ func nox_xxx_wndListboxDrawNoImage_4A3C50(win *gui.Window, draw *gui.WindowData)
 		v4 += int32(-1 - v3)
 		yTop += v3 + 1
 	}
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))&8 != 0 {
-		if int32(*(*uint8)(unsafe.Pointer(uintptr(a2))))&2 != 0 {
-			v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 36))))
-			v5 = v23
-			goto LABEL_13
-		}
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))&8 == 0 {
+		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 44))))
+		v6 = v20
+	} else if int32(*(*uint8)(unsafe.Pointer(uintptr(a2))))&2 != 0 {
+		v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 36))))
 		v5 = v23
 	} else {
-		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 44))))
+		v5 = v23
+		v6 = v20
 	}
-	v6 = v20
-LABEL_13:
 	if uint32(v5) != 0x80000000 {
 		nox_client_drawSetColor_434460(v5)
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, v22, v4)
@@ -1380,7 +1382,7 @@ func nox_xxx_wndListboxDrawWithImage_4A3FC0(win *gui.Window, draw *gui.WindowDat
 	nox_draw_enableTextSmoothing_43F670(0)
 	return 1
 }
-func sub_4A4800(a1 int32) int32 {
+func sub_4A4800(a1 unsafe.Pointer) int32 {
 	var (
 		result int32
 		v2     *uint32
@@ -1388,10 +1390,10 @@ func sub_4A4800(a1 int32) int32 {
 		v4     int32
 	)
 	result = 0
-	v2 = *(**uint32)(unsafe.Pointer(uintptr(a1 + 24)))
-	v3 = int32(*(*int16)(unsafe.Pointer(uintptr(a1 + 54))))
+	v2 = *(**uint32)(unsafe.Add(a1, 24))
+	v3 = int32(*(*int16)(unsafe.Add(a1, 54)))
 	if *v2 <= uint32(v3) {
-		for result < int32(*(*int16)(unsafe.Pointer(uintptr(a1 + 44)))) {
+		for result < int32(*(*int16)(unsafe.Add(a1, 44))) {
 			v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*131)))
 			v2 = (*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*131))
 			result++

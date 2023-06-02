@@ -3733,7 +3733,6 @@ func sub_439050(win *gui.Window, p2, p3, p4 uintptr) uintptr {
 		a2 = uint32(p2)
 		a3 = (*int32)(unsafe.Pointer(p3))
 		a4 = uint32(p4)
-		v4 int32
 		v5 int32
 		v7 int32
 	)
@@ -3778,7 +3777,7 @@ func sub_439050(win *gui.Window, p2, p3, p4 uintptr) uintptr {
 				nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), 0x4000, uintptr(unsafe.Pointer(a3)), 0)
 			}
 		case 0x4009:
-			v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
+			v4 := win.WidgetData
 			nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 0x4009, uintptr(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(a3)))), uintptr(a4))
 			v5 = sub_4A4800(v4)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), 16412, uintptr(v5), 0)

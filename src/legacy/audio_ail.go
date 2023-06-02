@@ -157,8 +157,8 @@ func sub_43F130() int32 {
 }
 
 // sub_43ED00
-func sub_43ED00(a1p *uint32) int {
-	return Sub_43ED00(unsafe.Pointer(a1p))
+func sub_43ED00(a1p unsafe.Pointer) int {
+	return Sub_43ED00(a1p)
 }
 
 // sub_43D650

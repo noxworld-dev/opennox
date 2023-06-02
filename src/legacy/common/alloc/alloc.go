@@ -6,6 +6,8 @@ package alloc
 */
 import "C"
 import (
+	"fmt"
+	"runtime"
 	"sync"
 	"unsafe"
 )
@@ -13,6 +15,12 @@ import (
 var (
 	allocMu sync.Mutex
 	allocs  = make(map[unsafe.Pointer]uintptr)
+	freed   = make(map[unsafe.Pointer]string)
+)
+
+const (
+	trackFree          = false
+	removeFreedOnAlloc = false
 )
 
 func Malloc(size uintptr) (unsafe.Pointer, func()) {
@@ -25,9 +33,12 @@ func Malloc(size uintptr) (unsafe.Pointer, func()) {
 	}
 	allocMu.Lock()
 	allocs[ptr] = size
+	if trackFree && removeFreedOnAlloc {
+		delete(freed, ptr)
+	}
 	allocMu.Unlock()
 	return ptr, func() {
-		FreePtr(ptr)
+		freePtr(ptr, 1)
 	}
 }
 
@@ -72,6 +83,9 @@ func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 	allocMu.Lock()
 	if ptr != old {
 		delete(allocs, old)
+		if trackFree {
+			freed[ptr] = caller(1)
+		}
 	}
 	allocs[ptr] = size
 	allocMu.Unlock()
@@ -81,7 +95,7 @@ func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 func Calloc(num int, size uintptr) (unsafe.Pointer, func()) {
 	ptr := Calloc1(num, size)
 	return ptr, func() {
-		FreePtr(ptr)
+		freePtr(ptr, 1)
 	}
 }
 
@@ -92,23 +106,54 @@ func Calloc1(num int, size uintptr) unsafe.Pointer {
 	ptr := C.calloc(C.size_t(num), C.size_t(size))
 	allocMu.Lock()
 	allocs[ptr] = uintptr(num) * size
+	if trackFree && removeFreedOnAlloc {
+		delete(freed, ptr)
+	}
 	allocMu.Unlock()
 	return ptr
 }
 
 func FreePtr(ptr unsafe.Pointer) {
+	freePtr(ptr, 1)
+}
+
+func freePtr(ptr unsafe.Pointer, skip int) {
+	var from string
 	allocMu.Lock()
 	_, ok := allocs[ptr]
 	delete(allocs, ptr)
+	if trackFree {
+		if ok {
+			freed[ptr] = caller(skip + 1)
+		} else {
+			from = freed[ptr]
+		}
+	}
 	allocMu.Unlock()
 	if !ok {
-		panic("incorrect free")
+		if from != "" {
+			panic("incorrect free: already freed from " + from)
+		} else {
+			panic("incorrect free")
+		}
 	}
 	C.free(ptr)
 }
 
+func caller(skip int) string {
+	pc, file, line, ok := runtime.Caller(skip + 1)
+	if !ok {
+		return "<unknown>"
+	}
+	fnc := "<unknown>"
+	if f := runtime.FuncForPC(pc); f != nil {
+		fnc = f.Name()
+	}
+	return fmt.Sprintf("%s, %s:%d", fnc, file, line)
+}
+
 func Free[T comparable](ptr *T) {
-	FreePtr(unsafe.Pointer(ptr))
+	freePtr(unsafe.Pointer(ptr), 1)
 }
 
 func FreeSlice[T comparable](b []T) {

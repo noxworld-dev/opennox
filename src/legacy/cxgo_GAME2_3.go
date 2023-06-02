@@ -4874,7 +4874,8 @@ func sub_499F60(a1 int32, a2 int32, a3 int32, a4 int16, a5 int8, a6 int8, a7 int
 	}
 }
 func nox_alloc_npcs() {
-	npc_array = &make([]nox_npc, int(nox_max_npcs))[0]
+	arr, _ := alloc.Make([]nox_npc{}, int(nox_max_npcs))
+	npc_array = &arr[0]
 }
 func nox_new_npc(id int32) *nox_npc {
 	var (
@@ -5833,13 +5834,13 @@ func sub_4A0020() *byte {
 }
 func nox_wol_servers_addResult_4A0030(srv *nox_gui_server_ent_t) int32 {
 	var (
-		v3  *int32
-		v6  *wchar2_t
-		v7  *wchar2_t
-		v8  *wchar2_t
-		v9  *wchar2_t
-		rec *nox_gui_server_ent_t = new(nox_gui_server_ent_t)
+		v3 *int32
+		v6 *wchar2_t
+		v7 *wchar2_t
+		v8 *wchar2_t
+		v9 *wchar2_t
 	)
+	rec, _ := alloc.New(nox_gui_server_ent_t{})
 	alloc.Memcpy(unsafe.Pointer(rec), unsafe.Pointer(srv), unsafe.Sizeof(nox_gui_server_ent_t{}))
 	var v2 int32 = 0
 	switch nox_wol_servers_sorting_166704 {
