@@ -3178,7 +3178,9 @@ func sub_4E8310() *byte {
 func sub_4E8320(a1 uint8) *uint8 {
 	return (*uint8)(memmap.PtrOff(0x5D4594, uintptr(int32(a1)*6)+1567740))
 }
-func nox_xxx_fnFindCloseDoors_4E8340(a1 *float32, a2 int32) {
+func nox_xxx_fnFindCloseDoors_4E8340(it *server.Object, data unsafe.Pointer) {
+	a1 := (*float32)(it.CObj())
+	a2 := int32(uintptr(data))
 	var v2 int32
 	if int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(a1))), 8))))&0x80 != 0 {
 		v2 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*187))))
@@ -3568,7 +3570,7 @@ func nox_xxx_collideDoor_4E8AC0(obj *server.Object, obj2 *server.Object, pos *ty
 			sub_4E8390(v2)
 			sub_4D71E0(int32(gameFrame()))
 		}
-		nox_xxx_getUnitsInRect_517C10(&a1, ccall.FuncAddr(nox_xxx_fnFindCloseDoors_4E8340), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&a3a[0]))))))
+		nox_xxx_getUnitsInRect_517C10(&a1, nox_xxx_fnFindCloseDoors_4E8340, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&a3a[0]))))))
 		nox_xxx_aud_501960(234, (*server.Object)(unsafe.Pointer(uintptr(v2))), 0, 0)
 		v16 = int32(*(*uint32)(unsafe.Pointer(uintptr(v8 + 492))))
 		if v16 != 0 && a3 != v16 && int32(*(*uint8)(unsafe.Pointer(uintptr(v16 + 8))))&4 != 0 && noxflags.HasGame(4096) && sub_4D72C0() == 1 {
@@ -5137,7 +5139,7 @@ func sub_4EB250(a1 int32) int32 {
 	a1a.field_4 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 60)))) - 400.0)
 	a1a.field_8 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 56)))) + 400.0)
 	a1a.field_C = float32(float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 60)))) + 400.0)
-	nox_xxx_getUnitsInRect_517C10(&a1a, ccall.FuncAddr(sub_4EB340), unsafe.Pointer(uintptr(a1+56)))
+	nox_xxx_getUnitsInRect_517C10(&a1a, sub_4EB340, unsafe.Pointer(uintptr(a1+56)))
 	result = int32(dword_5d4594_1567928)
 	if dword_5d4594_1567928 != 0 {
 		*(*uint8)(unsafe.Pointer(uintptr(v2 + 24))) = 2
@@ -5151,7 +5153,9 @@ func sub_4EB250(a1 int32) int32 {
 	}
 	return result
 }
-func sub_4EB340(a1 *float32, a2 int32) {
+func sub_4EB340(it *server.Object, data unsafe.Pointer) {
+	a1 := (*float32)(it.CObj())
+	a2 := int32(uintptr(data))
 	var (
 		v2 float64
 		v3 float64

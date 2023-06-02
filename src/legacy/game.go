@@ -167,38 +167,40 @@ func sub_518740(a1 *float2, a2 uint8) *nox_waypoint_t {
 	return (*nox_waypoint_t)(GetServer().Sub_518460(*(*types.Pointf)(unsafe.Pointer(a1)), a2, true).C())
 }
 
+type ObjectIter = func(it *server.Object, data unsafe.Pointer)
+
 // nox_xxx_getMissilesInCircle_518170
-func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc unsafe.Pointer, a4 *server.Object) {
+func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc ObjectIter, a4 *server.Object) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachMissilesInCircle(p, r, func(it *server.Object) bool {
-		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, unsafe.Pointer(a4))
+		fnc(it, unsafe.Pointer(a4))
 		return true
 	})
 }
 
 // nox_xxx_getUnitsInRectAdv_517ED0
-func nox_xxx_getUnitsInRectAdv_517ED0(rect *float4, fnc unsafe.Pointer, data unsafe.Pointer) {
+func nox_xxx_getUnitsInRectAdv_517ED0(rect *float4, fnc ObjectIter, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	GetServer().S().Map.EachObjAndMissileInRect(r, func(it *server.Object) bool {
-		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
+		fnc(it, data)
 		return true
 	})
 }
 
 // nox_xxx_getUnitsInRect_517C10
-func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc unsafe.Pointer, data unsafe.Pointer) {
+func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc ObjectIter, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	GetServer().S().Map.EachObjInRect(r, func(it *server.Object) bool {
-		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
+		fnc(it, data)
 		return true
 	})
 }
 
 // nox_xxx_unitsGetInCircle_517F90
-func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float32, fnc unsafe.Pointer, data unsafe.Pointer) {
+func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float32, fnc ObjectIter, data unsafe.Pointer) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
-		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
+		fnc(it, data)
 		return true
 	})
 }

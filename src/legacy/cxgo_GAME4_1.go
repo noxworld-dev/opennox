@@ -1748,10 +1748,12 @@ func sub_50CA60(a4 int32, a2 int32, a3 int32) int32 {
 	dword_5d4594_1599708 = 0
 	a1.field_0 = float32(float64(a2)*23.0 + 11.5)
 	a1.field_4 = float32(float64(a3)*23.0 + 11.5)
-	nox_xxx_unitsGetInCircle_517F90(&a1, 100.0, ccall.FuncAddr(sub_50CAC0), unsafe.Pointer(uintptr(a4)))
+	nox_xxx_unitsGetInCircle_517F90(&a1, 100.0, sub_50CAC0, unsafe.Pointer(uintptr(a4)))
 	return bool2int32(dword_5d4594_1599708 == 0)
 }
-func sub_50CAC0(a1 int32, a2 int32) {
+func sub_50CAC0(it *server.Object, data unsafe.Pointer) {
+	a1 := int32(uintptr(it.CObj()))
+	a2 := int32(uintptr(data))
 	if dword_5d4594_1599708 != 1 {
 		if nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(unsafe.Pointer(uintptr(a2))), (*server.Object)(unsafe.Pointer(uintptr(a1)))) != 0 {
 			dword_5d4594_1599708 = 1
@@ -2466,7 +2468,7 @@ func sub_50DE80(a1 int32, a2 *float32) int32 {
 			a2a.field_C = float32(float64(*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + 12)))) + float64(*(*float32)(unsafe.Pointer(uintptr(v3 + 60)))) + 100.0)
 			if sub_428220((*float2)(unsafe.Pointer(a2)), &a2a) != 0 {
 				*memmap.PtrUint32(0x5D4594, 2386208) = 0
-				nox_xxx_getUnitsInRect_517C10(&a2a, ccall.FuncAddr(sub_50DFB0), unsafe.Pointer(uintptr(v3)))
+				nox_xxx_getUnitsInRect_517C10(&a2a, sub_50DFB0, unsafe.Pointer(uintptr(v3)))
 				if *memmap.PtrUint32(0x5D4594, 2386208) >= uint32(v2) {
 					break
 				}
@@ -2479,7 +2481,9 @@ func sub_50DE80(a1 int32, a2 *float32) int32 {
 	}
 	return 0
 }
-func sub_50DFB0(a1 *float32, a2 int32) {
+func sub_50DFB0(it *server.Object, data unsafe.Pointer) {
+	a1 := (*float32)(it.CObj())
+	a2 := int32(uintptr(data))
 	var (
 		v2 float32
 		v3 float32
@@ -4048,7 +4052,7 @@ func nox_xxx_updateSentryGlobe_510E60(obj *server.Object) {
 		}
 		v8[0] = a1
 		v8[1] = int32(uintptr(unsafe.Pointer(&a1a)))
-		nox_xxx_getUnitsInRect_517C10(&v10, ccall.FuncAddr(nox_xxx_sentry_511020), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&v8[0]))))))
+		nox_xxx_getUnitsInRect_517C10(&v10, nox_xxx_sentry_511020, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&v8[0]))))))
 	} else {
 		*(*uint32)(unsafe.Pointer(uintptr(v2))) = *(*uint32)(unsafe.Pointer(uintptr(v2 + 4)))
 	}
@@ -4075,7 +4079,9 @@ func nox_xxx_sentryUpdateList_510FD0(a1 *uint32) *uint32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) &= math.MaxInt32
 	return result
 }
-func nox_xxx_sentry_511020(a1 int32, a2 int32) {
+func nox_xxx_sentry_511020(it *server.Object, data unsafe.Pointer) {
+	a1 := int32(uintptr(it.CObj()))
+	a2 := int32(uintptr(data))
 	var (
 		v2 int32
 		v3 float64
@@ -5356,11 +5362,13 @@ func sub_518040(arg0 int32, a2 float32, arg8 int32, a4 int32) int32 {
 		a1.field_4 = float32(v6)
 		a1.field_8 = a2 + *(*float32)(unsafe.Pointer(uintptr(arg0)))
 		a1.field_C = a2 + *(*float32)(unsafe.Pointer(uintptr(arg0 + 4)))
-		nox_xxx_getUnitsInRect_517C10(&a1, ccall.FuncAddr(sub_5180B0), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&a3[0]))))))
+		nox_xxx_getUnitsInRect_517C10(&a1, sub_5180B0, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&a3[0]))))))
 	}
 	return result
 }
-func sub_5180B0(a1 int32, a2 int32) {
+func sub_5180B0(it *server.Object, data unsafe.Pointer) {
+	a1 := int32(uintptr(it.CObj()))
+	a2 := int32(uintptr(data))
 	var (
 		v2 *float2
 		v3 float64
@@ -6057,8 +6065,8 @@ func sub_51B810(a1p *server.Object) {
 	*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*17)) = v7 + *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*17))
 	nox_xxx_objectUnkUpdateCoords_4E7290((*server.Object)(unsafe.Pointer(uintptr(v6))))
 }
-func sub_51B860(a1 int32) int8 {
-	return nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(unsafe.Pointer(uintptr(a1))))
+func sub_51B860(it *server.Object, _ unsafe.Pointer) {
+	nox_xxx_unitHasCollideOrUpdateFn_537610(it)
 }
 func nox_xxx_updateFallLogic_51B870(a1p *server.Object) {
 	var (

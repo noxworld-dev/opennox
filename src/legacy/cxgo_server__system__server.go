@@ -1214,7 +1214,7 @@ func nox_xxx_updateUnits_51B100_D() {
 				v66.field_4 = float32(v65 - 42.5)
 				v66.field_8 = float32(v56 + 42.5)
 				v66.field_C = float32(v65 + 42.5)
-				nox_xxx_getUnitsInRect_517C10(&v66, ccall.FuncAddr(sub_51B860), nil)
+				nox_xxx_getUnitsInRect_517C10(&v66, sub_51B860, nil)
 			}
 		}
 	}
