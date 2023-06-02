@@ -4433,15 +4433,16 @@ func nox_xxx_createRewardMarker_54CAC0(a1p *server.Object) {
 	*result = math.MaxUint8
 	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*53)) = 0
 }
-func nox_xxx_dieImpEgg_54CAE0(a1 int32) int32 {
+func nox_xxx_dieImpEgg_54CAE0(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var result int32
-	nox_xxx_aud_501960(764, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
+	nox_xxx_aud_501960(764, obj, 0, 0)
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
 	*((*uint8)(unsafe.Pointer(&result))) = uint8(int8(result | 0x40))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) = uint32(result)
-	return result
 }
-func nox_xxx_diePolyp_54CB10(a1 int32) {
+func nox_xxx_diePolyp_54CB10(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 *uint32
@@ -4461,12 +4462,12 @@ func nox_xxx_diePolyp_54CB10(a1 int32) {
 		v4 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ToxicCloudLifetime")) * float64(int32(gameFPS())))
 		*v3 = uint32(int32(v4))
 	}
-	nox_xxx_aud_501960(284, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
-	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
+	nox_xxx_aud_501960(284, obj, 0, 0)
+	nox_xxx_delayedDeleteObject_4E5CC0(obj)
 }
-func nox_xxx_diePotion_54CBB0(a1 int32) {
-	nox_xxx_aud_501960(753, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
-	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
+func nox_xxx_diePotion_54CBB0(obj *server.Object) {
+	nox_xxx_aud_501960(753, obj, 0, 0)
+	nox_xxx_delayedDeleteObject_4E5CC0(obj)
 }
 func sub_54CBD0(a1 int32) {
 	var (
@@ -4864,7 +4865,8 @@ func sub_54D080(a1 int32) {
 		}
 	}
 }
-func nox_xxx_diePlayer_54D2B0(a1 int32) int32 {
+func nox_xxx_diePlayer_54D2B0(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1     int32
 		v2     int32
@@ -5062,7 +5064,6 @@ LABEL_38:
 			*(*uint8)(unsafe.Pointer(uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(result + 2064)))) + v3 + 452))) = *(*uint8)(unsafe.Pointer(uintptr(v3 + 320)))
 		}
 	}
-	return result
 }
 func nox_xxx_playerHandleElimDeath_54D7A0(a1 int32, a2 int32) {
 	var (
@@ -5445,7 +5446,8 @@ func nox_xxx_netNotifyPlayerDied_54DF00(a1 int32) {
 	*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(&v4))), 1)))) = uint16(v2)
 	nox_xxx_netSendPacket1_4E5390(math.MaxUint8, int32(uintptr(unsafe.Pointer(&v4))), 3, 0, 0)
 }
-func nox_xxx_dieBarrel_54DFA0(a1 int32) {
+func nox_xxx_dieBarrel_54DFA0(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 *uint32
@@ -5459,11 +5461,12 @@ func nox_xxx_dieBarrel_54DFA0(a1 int32) {
 	if v2 != nil {
 		nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), nil, *(*float32)(unsafe.Pointer(uintptr(a1 + 56))), *(*float32)(unsafe.Pointer(uintptr(a1 + 60))))
 	}
-	nox_xxx_aud_501960(286, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
+	nox_xxx_aud_501960(286, obj, 0, 0)
 	nox_xxx_spawnSomeBarrel_4E7470(a1, a1+56)
-	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
+	nox_xxx_delayedDeleteObject_4E5CC0(obj)
 }
-func nox_xxx_dieCreateObject_54E010(a1 int32) {
+func nox_xxx_dieCreateObject_54E010(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 *uint32
@@ -5476,11 +5479,12 @@ func nox_xxx_dieCreateObject_54E010(a1 int32) {
 	}
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 128))))
 	if v3 != 0 {
-		nox_xxx_aud_501960(v3, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
+		nox_xxx_aud_501960(v3, obj, 0, 0)
 	}
-	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
+	nox_xxx_delayedDeleteObject_4E5CC0(obj)
 }
-func nox_xxx_dieSpawnObject_54E070(a1 int32) int16 {
+func nox_xxx_dieSpawnObject_54E070(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 *uint32
@@ -5494,14 +5498,14 @@ func nox_xxx_dieSpawnObject_54E070(a1 int32) int16 {
 	}
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 128))))
 	if v3 != 0 {
-		nox_xxx_aud_501960(v3, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
+		nox_xxx_aud_501960(v3, obj, 0, 0)
 	}
 	v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
 	*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v4))), 1)) |= 0x80
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) = uint32(v4)
-	return int16(v4)
 }
-func nox_xxx_dieMarker_54E460(a1 int32) {
+func nox_xxx_dieMarker_54E460(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 int32
@@ -5526,7 +5530,8 @@ LABEL_7:
 	nox_xxx_netSendPointFx_522FF0(-118, (*float2)(unsafe.Pointer(uintptr(a1+56))))
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 }
-func nox_xxx_dieBoulder_54E4B0(a1 int32) {
+func nox_xxx_dieBoulder_54E4B0(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1  int32
 		v2  *float2
@@ -5578,10 +5583,12 @@ func nox_xxx_dieBoulder_54E4B0(a1 int32) {
 		}
 	}
 }
-func nox_xxx_dieGameBall_54E620(a1 int32) int32 {
-	return sub_417F50(a1)
+func nox_xxx_dieGameBall_54E620(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
+	sub_417F50(a1)
 }
-func nox_xxx_dieMonsterGen_54E630(a1 int32) {
+func nox_xxx_dieMonsterGen_54E630(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 int32

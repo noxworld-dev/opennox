@@ -6,7 +6,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_dieArmor_54E170_obj_die(a1 int32) {
+func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1  int32
 		v2  int32
@@ -74,7 +75,8 @@ func nox_xxx_dieArmor_54E170_obj_die(a1 int32) {
 	nox_xxx_audCreate_501A30(v8, v10, 0, 0)
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(v1))))
 }
-func nox_xxx_dieWeapon_54E370_obj_die(a1 int32) {
+func nox_xxx_dieWeapon_54E370_obj_die(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 *float2

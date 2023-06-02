@@ -37,7 +37,7 @@ var (
 	useParseFuncs     = make(map[string]ObjectParseFunc)
 	damageFuncs       = make(map[string]unsafe.Pointer)
 	damageSoundFuncs  = make(map[string]unsafe.Pointer)
-	deathFuncs        = make(map[string]objectDefFunc[unsafe.Pointer])
+	deathFuncs        = make(map[string]objectDefFunc[ccall.Func[ObjectDeathFunc]])
 	deathParseFuncs   = make(map[string]ObjectParseFunc)
 	dropFuncs         = make(map[string]unsafe.Pointer)
 	dropParseFuncs    = map[string]ObjectParseFunc{
@@ -66,6 +66,7 @@ var (
 
 type ObjectInitFunc func(obj *Object)
 type ObjectCreateFunc func(obj *Object)
+type ObjectDeathFunc func(obj *Object)
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
 
 type ObjectParseFunc func(objt *ObjectType, args []string) error
@@ -111,15 +112,15 @@ func RegisterObjectCreate(name string, fnc ObjectCreateFunc) {
 	if _, ok := createFuncs[name]; ok {
 		panic("already registered")
 	}
-	createFuncs[name] = ccall.FuncPtr[ObjectCreateFunc](fnc)
+	createFuncs[name] = ccall.FuncPtr(fnc)
 }
 
-func RegisterObjectInit(name string, fnc func(*Object), sz uintptr) {
+func RegisterObjectInit(name string, fnc ObjectInitFunc, sz uintptr) {
 	if _, ok := initFuncs[name]; ok {
 		panic("already registered")
 	}
 	initFuncs[name] = objectDefFunc[ccall.Func[ObjectInitFunc]]{
-		Func:     ccall.FuncPtr[ObjectInitFunc](fnc),
+		Func:     ccall.FuncPtr(fnc),
 		DataSize: sz,
 	}
 }
@@ -180,11 +181,14 @@ func RegisterObjectDamageSound(name string, fnc unsafe.Pointer) {
 	damageSoundFuncs[name] = fnc
 }
 
-func RegisterObjectDeath(name string, fnc unsafe.Pointer, sz uintptr) {
+func RegisterObjectDeath(name string, fnc ObjectDeathFunc, sz uintptr) {
 	if _, ok := deathFuncs[name]; ok {
 		panic("already registered")
 	}
-	deathFuncs[name] = objectDefFunc[unsafe.Pointer]{Func: fnc, DataSize: sz}
+	deathFuncs[name] = objectDefFunc[ccall.Func[ObjectDeathFunc]]{
+		Func:     ccall.FuncPtr(fnc),
+		DataSize: sz,
+	}
 }
 
 func RegisterObjectDeathParse(name string, fnc ObjectParseFunc) {
@@ -850,7 +854,7 @@ type ObjectType struct {
 	CollideDataSize uintptr
 	Damage          unsafe.Pointer
 	DamageSound     unsafe.Pointer
-	Death           unsafe.Pointer
+	Death           ccall.Func[ObjectDeathFunc]
 	DeathData       unsafe.Pointer
 	Drop            unsafe.Pointer
 	Init            ccall.Func[ObjectInitFunc]
