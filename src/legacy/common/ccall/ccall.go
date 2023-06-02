@@ -71,7 +71,7 @@ func (f Func[T]) Get() T {
 	return AsFunc[T](f.h)
 }
 
-func (f Func[T]) GetPtr() unsafe.Pointer {
+func (f Func[T]) Ptr() unsafe.Pointer {
 	return f.h
 }
 

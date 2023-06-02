@@ -129,7 +129,7 @@ func nox_xxx_XFerSpellReward_4F5F30(a1p *server.Object, data unsafe.Pointer) int
 	}
 	return int(result)
 }
-func nox_xxx_XFerAbilityReward_4F6240(a1p *server.Object, data unsafe.Pointer) int {
+func Nox_xxx_XFerAbilityReward_4F6240(a1p *server.Object, data unsafe.Pointer) int {
 	a1 := (*int32)(a1p.CObj())
 	var (
 		v1     *uint8
@@ -168,7 +168,7 @@ func nox_xxx_XFerAbilityReward_4F6240(a1p *server.Object, data unsafe.Pointer) i
 	}
 	return int(result)
 }
-func nox_xxx_XFerFieldGuide_4F6390(a1p *server.Object, data unsafe.Pointer) int {
+func Nox_xxx_XFerFieldGuide_4F6390(a1p *server.Object, data unsafe.Pointer) int {
 	a1 := (*int32)(a1p.CObj())
 	var (
 		v1     *int32

@@ -72,7 +72,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s.ai.Init(s)
 	s.noxScript.Init(s)
 	s.mapSend.init(s)
-	s.Objs.XFerInvLight = legacy.Get_nox_xxx_XFerInvLight_4F5AA0()
+	s.Objs.XFerInvLight = legacy.Nox_xxx_XFerInvLight_4F5AA0
 	return s
 }
 

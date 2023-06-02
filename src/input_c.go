@@ -513,7 +513,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 			}
 			if v24.PointIn(mpos) {
 				v28 := legacy.Sub_46B630(v24, mpos.X, mpos.Y)
-				if v0 == nil && (v28.TooltipFuncPtr.GetPtr() != nil || v28.DrawData().Tooltip() != "") {
+				if v0 == nil && (v28.TooltipFuncPtr.Ptr() != nil || v28.DrawData().Tooltip() != "") {
 					v0 = v28
 				}
 				if v24.Flags.Has(8) {
@@ -532,7 +532,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 			}
 			if v29.PointIn(mpos) {
 				v32 := legacy.Sub_46B630(v29, mpos.X, mpos.Y)
-				if v0 == nil && (v32.TooltipFuncPtr.GetPtr() != nil || v32.DrawData().Tooltip() != "") {
+				if v0 == nil && (v32.TooltipFuncPtr.Ptr() != nil || v32.DrawData().Tooltip() != "") {
 					v0 = v32
 				}
 				if v29.Flags.Has(8) {
@@ -554,7 +554,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 			}
 			if v1.PointIn(mpos) {
 				v36 := legacy.Sub_46B630(v1, mpos.X, mpos.Y)
-				if v0 == nil && (v36.TooltipFuncPtr.GetPtr() != nil || v36.DrawData().Tooltip() != "") {
+				if v0 == nil && (v36.TooltipFuncPtr.Ptr() != nil || v36.DrawData().Tooltip() != "") {
 					v0 = v36
 				}
 				if v1.Flags.Has(8) {
@@ -610,7 +610,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 		}
 		if c.Inp.GetDistSlow() {
 			if v0 != nil {
-				if v0.TooltipFuncPtr.GetPtr() != nil {
+				if v0.TooltipFuncPtr.Ptr() != nil {
 					sx := uint16(mpos.X)
 					sy := uint16(mpos.Y)
 					spos := uintptr(uint32(sx) | (uint32(sy) << 16))

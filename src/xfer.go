@@ -9,6 +9,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -75,10 +76,10 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 		name, _ := cf.ReadString8()
 		if name != "" {
 			var v4 int
-			switch typ.Xfer {
-			case legacy.Get_nox_xxx_XFerFieldGuide_4F6390():
+			switch typ.Xfer.Ptr() {
+			case ccall.FuncAddr(legacy.Nox_xxx_XFerFieldGuide_4F6390):
 				v4 = s.Types.IndByID(name)
-			case legacy.Get_nox_xxx_XFerAbilityReward_4F6240():
+			case ccall.FuncAddr(legacy.Nox_xxx_XFerAbilityReward_4F6240):
 				v4 = int(s.abilities.nox_xxx_abilityNameToN_424D80(name))
 			default:
 				v4 = int(spell.ParseID(name))
@@ -111,10 +112,10 @@ func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	cf.WriteString8(typ.ID())
 	pind := int(*(*int32)(unsafe.Add(a1, 8)))
 	var pname string
-	switch typ.Xfer {
-	case legacy.Get_nox_xxx_XFerFieldGuide_4F6390():
+	switch typ.Xfer.Ptr() {
+	case ccall.FuncAddr(legacy.Nox_xxx_XFerFieldGuide_4F6390):
 		pname = noxServer.Types.ByInd(pind).ID()
-	case legacy.Get_nox_xxx_XFerAbilityReward_4F6240():
+	case ccall.FuncAddr(legacy.Nox_xxx_XFerAbilityReward_4F6240):
 		pname = server.Ability(pind).String()
 	default:
 		pname = spell.ID(pind).String()

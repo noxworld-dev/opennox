@@ -9427,7 +9427,6 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 		v8     int32
 		v9     *byte
 		v10    *byte
-		v11    func(*int32) int32
 		v12    *byte
 		v13    *byte
 		v14    *byte
@@ -9489,8 +9488,8 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 					v8 = a3
 				}
 				v10 = nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))))
-				v11 = ccall.AsFunc[func(*int32) int32](unsafe.Pointer(uintptr(nox_objectTypeGetXfer(v10))))
-				if ccall.FuncAddr(v11) == ccall.FuncAddr(nox_xxx_unitTriggerXfer_4F4E50) {
+				v11 := nox_objectTypeGetXfer(v10)
+				if v11 == ccall.FuncAddr(nox_xxx_unitTriggerXfer_4F4E50) {
 					v12 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 1)
 					if libc.StrLen(v12) != 0 {
 						v13 = sub_5435C0(int32(uintptr(unsafe.Pointer(v12))), a1, a2, v8)
@@ -9506,7 +9505,7 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 						v44 = sub_5435C0(int32(uintptr(unsafe.Pointer(v16))), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 0, v44)
 					}
-				} else if ccall.FuncAddr(v11) == ccall.FuncAddr(nox_xxx_XFerMonster_528DB0) {
+				} else if v11 == ccall.FuncAddr(nox_xxx_XFerMonster_528DB0) {
 					v17 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 3)
 					if libc.StrLen(v17) != 0 {
 						v18 = sub_5435C0(int32(uintptr(unsafe.Pointer(v17))), a1, a2, v8)
@@ -9552,13 +9551,13 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 						v45 = sub_5435C0(int32(uintptr(unsafe.Pointer(v33))), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 11, v45)
 					}
-				} else if ccall.FuncAddr(v11) == ccall.FuncAddr(nox_xxx_XFerHole_4F51D0) {
+				} else if v11 == ccall.FuncAddr(nox_xxx_XFerHole_4F51D0) {
 					v34 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 12)
 					if libc.StrLen(v34) != 0 {
 						v46 = sub_5435C0(int32(uintptr(unsafe.Pointer(v34))), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 12, v46)
 					}
-				} else if ccall.FuncAddr(v11) == ccall.FuncAddr(nox_xxx_XFerMonsterGen_4F7130) {
+				} else if v11 == ccall.FuncAddr(nox_xxx_XFerMonsterGen_4F7130) {
 					v35 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 15)
 					if v35 != nil && libc.StrLen(v35) != 0 {
 						v36 = sub_5435C0(int32(uintptr(unsafe.Pointer(v35))), a1, a2, v8)

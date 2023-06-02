@@ -12132,7 +12132,7 @@ LABEL_20:
 	}
 	return int(result)
 }
-func nox_xxx_XFerInvLight_4F5AA0(a1p *server.Object, data unsafe.Pointer) int {
+func Nox_xxx_XFerInvLight_4F5AA0(a1p *server.Object, data unsafe.Pointer) int {
 	a1 := (*int32)(a1p.CObj())
 	var (
 		result int32

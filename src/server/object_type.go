@@ -61,8 +61,10 @@ var (
 			return nil
 		},
 	}
-	xferFuncs = make(map[string]unsafe.Pointer)
+	xferFuncs = make(map[string]ccall.Func[ObjectXferFunc])
 )
+
+type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
 
 type ObjectParseFunc func(objt *ObjectType, args []string) error
 
@@ -74,7 +76,7 @@ type objectDefFunc struct {
 var (
 	DefaultDamage      unsafe.Pointer
 	DefaultDamageSound unsafe.Pointer
-	DefaultXfer        unsafe.Pointer
+	DefaultXfer        ObjectXferFunc
 )
 
 func init() {
@@ -201,11 +203,11 @@ func RegisterObjectPickup(name string, fnc unsafe.Pointer) {
 	pickupFuncs[name] = fnc
 }
 
-func RegisterObjectXfer(name string, fnc func(obj *Object, data unsafe.Pointer) int) {
+func RegisterObjectXfer(name string, fnc ObjectXferFunc) {
 	if _, ok := xferFuncs[name]; ok {
 		panic("already registered")
 	}
-	xferFuncs[name] = ccall.FuncAddr(fnc)
+	xferFuncs[name] = ccall.FuncPtr(fnc)
 }
 
 type serverObjTypes struct {
@@ -349,7 +351,7 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 		ZSize1:   0, ZSize2: 30,
 		Damage:      DefaultDamage,
 		DamageSound: DefaultDamageSound,
-		Xfer:        DefaultXfer,
+		Xfer:        ccall.FuncPtr[ObjectXferFunc](DefaultXfer),
 		Weight:      255,
 		CarryCap:    thg.CarryCap,
 	}
@@ -856,7 +858,7 @@ type ObjectType struct {
 	Use             unsafe.Pointer
 	UseData         unsafe.Pointer
 	UseDataSize     uintptr
-	Xfer            unsafe.Pointer
+	Xfer            ccall.Func[ObjectXferFunc]
 	Create          unsafe.Pointer
 	next            *ObjectType
 }
@@ -1144,8 +1146,8 @@ func (t *ObjectType) parseXfer(d *things.ProcFunc) error {
 	if d == nil {
 		return nil
 	}
-	xfer := xferFuncs[d.Name]
-	if xfer == nil {
+	xfer, ok := xferFuncs[d.Name]
+	if !ok {
 		return fmt.Errorf("unsupported xfer: %q", d.Name)
 	}
 	t.Xfer = xfer

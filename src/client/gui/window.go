@@ -367,7 +367,7 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func93 != nil {
 		return ext.Func93(win, e)
 	}
-	if ptr := win.field93.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
+	if ptr := win.field93.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
 		return nil
 	}
 	ev := e.EventCode()
@@ -390,7 +390,7 @@ func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func94 != nil {
 		return ext.Func94(win, e)
 	}
-	if ptr := win.field94.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
+	if ptr := win.field94.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
 		return nil
 	}
 	ev := e.EventCode()
@@ -410,7 +410,7 @@ func (win *Window) Draw() {
 		ext.Draw(win, win.DrawData())
 		return
 	}
-	if ptr := win.drawFunc.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
+	if ptr := win.drawFunc.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
 		return
 	}
 	win.drawFunc.Get()(win, win.DrawData())
@@ -420,7 +420,7 @@ func (win *Window) TooltipFunc(a1 uintptr) {
 	if win.isNilOrDead() {
 		return
 	}
-	if ptr := win.TooltipFuncPtr.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
+	if ptr := win.TooltipFuncPtr.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
 		return
 	}
 	win.TooltipFuncPtr.Get()(win, win.DrawData(), a1)

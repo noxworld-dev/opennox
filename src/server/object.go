@@ -112,7 +112,7 @@ type serverObjects struct {
 	lastScriptID    ObjectScriptID
 	PendingActions  []func()
 
-	XFerInvLight unsafe.Pointer
+	XFerInvLight ObjectXferFunc
 }
 
 func (s *serverObjects) init(h uintptr) {
@@ -310,7 +310,7 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	obj.ScriptVars = nil
 	obj.DeathData = t.DeathData
 	obj.Field192 = -1
-	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer == s.XFerInvLight || obj.Weight != 0xff) {
+	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer.Ptr() == ccall.FuncAddr(s.XFerInvLight) || obj.Weight != 0xff) {
 		obj.Field189, _ = alloc.Malloc(2572)
 	}
 	if t.Create != nil {
@@ -558,7 +558,7 @@ type Object struct {
 	InitData      unsafe.Pointer             // 173, 692
 	Collide       unsafe.Pointer             // 174, 696; func(*Object, *Object, int)
 	CollideData   unsafe.Pointer             // 175, 700
-	Xfer          unsafe.Pointer             // 176, 704; func(*Object, int) int
+	Xfer          ccall.Func[ObjectXferFunc] // 176, 704
 	Pickup        unsafe.Pointer             // 177, 708
 	Drop          unsafe.Pointer             // 178, 712
 	Damage        unsafe.Pointer             // 179, 716; func(*Object, *Object, int, int, int) int
@@ -1143,7 +1143,7 @@ func (obj *Object) CallDrop(it Obj, pos types.Pointf) int {
 }
 
 func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
-	if ccall.AsFunc[func(*Object, unsafe.Pointer) int](obj.Xfer)(obj, a2) == 0 {
+	if obj.Xfer.Get()(obj, a2) == 0 {
 		return fmt.Errorf("xfer for %s failed", obj.String())
 	}
 	return nil

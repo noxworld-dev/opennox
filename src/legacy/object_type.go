@@ -17,7 +17,7 @@ var (
 func init() {
 	server.DefaultDamage = ccall.FuncAddr(nox_xxx_damageDefaultProc_4E0B30)
 	server.DefaultDamageSound = ccall.FuncAddr(nox_xxx_soundDefaultDamageSound_532E20)
-	server.DefaultXfer = ccall.FuncAddr(nox_xxx_XFerDefault_4F49A0)
+	server.DefaultXfer = nox_xxx_XFerDefault_4F49A0
 
 	server.RegisterObjectCreate("MonsterCreate", nox_xxx_monsterCreateFn_54C480)
 	server.RegisterObjectCreate("ArmorCreate", sub_54C950)
@@ -102,13 +102,12 @@ func nox_xxx_getUnitNameByThingType_4E3A80(ind int32) *byte {
 	return internCStr(GetServer().S().Types.ByInd(int(ind)).ID())
 }
 
-// nox_objectTypeGetXfer
 func nox_objectTypeGetXfer(cstr *byte) unsafe.Pointer {
 	t := GetServer().S().Types.ByID(GoString(cstr))
 	if t == nil {
 		return nil
 	}
-	return t.Xfer
+	return t.Xfer.Ptr()
 }
 
 // nox_objectTypeGetWorth
@@ -150,11 +149,4 @@ func sub_415EC0(a1 *byte) int32 {
 		return -1
 	}
 	return int32(t.Ind())
-}
-
-func Get_nox_xxx_XFerInvLight_4F5AA0() unsafe.Pointer {
-	return ccall.FuncAddr(nox_xxx_XFerInvLight_4F5AA0)
-}
-func Nox_call_objectType_new_go(a1 unsafe.Pointer, a2 *server.Object) {
-	ccall.AsFunc[func(*server.Object)](a1)(asObjectC(a2))
 }

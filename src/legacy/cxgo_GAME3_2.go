@@ -623,7 +623,6 @@ func nox_xxx_interesting_xfer_4D0010(a1 *uint32, a2 int32) int32 {
 		i   int32
 		v3  *uint32
 		v4  *byte
-		v5  func(int32) int32
 		v6  int32
 		v7  int32
 		v8  int32
@@ -658,8 +657,8 @@ func nox_xxx_interesting_xfer_4D0010(a1 *uint32, a2 int32) int32 {
 	}
 	for {
 		v4 = nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))))
-		v5 = ccall.AsFunc[func(int32) int32](unsafe.Pointer(uintptr(nox_objectTypeGetXfer(v4))))
-		if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_XFerElevator_4F53D0) {
+		v5 := nox_objectTypeGetXfer(v4)
+		if v5 == ccall.FuncAddr(nox_xxx_XFerElevator_4F53D0) {
 			v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*187)))
 			v7 = int32(uintptr(unsafe.Pointer(sub_4CFFE0(int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 8))))))))
 			if v7 == 0 {
@@ -670,7 +669,7 @@ func nox_xxx_interesting_xfer_4D0010(a1 *uint32, a2 int32) int32 {
 				*(*uint32)(unsafe.Pointer(uintptr(v6 + 4))) = uint32(v7)
 				*(*uint32)(unsafe.Pointer(uintptr(v6 + 8))) = uint32(v8)
 			}
-		} else if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_XFerElevatorShaft_4F54A0) {
+		} else if v5 == ccall.FuncAddr(nox_xxx_XFerElevatorShaft_4F54A0) {
 			v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*187)))
 			v9 = int32(uintptr(unsafe.Pointer(sub_4CFFE0(int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 8))))))))
 			if v9 != 0 {
@@ -681,7 +680,7 @@ func nox_xxx_interesting_xfer_4D0010(a1 *uint32, a2 int32) int32 {
 				*(*uint32)(unsafe.Pointer(uintptr(v6 + 8))) = 0
 				*(*uint32)(unsafe.Pointer(uintptr(v6 + 4))) = 0
 			}
-		} else if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_XFerTransporter_4F5300) {
+		} else if v5 == ccall.FuncAddr(nox_xxx_XFerTransporter_4F5300) {
 			v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*187)))
 			v12 = int32(uintptr(unsafe.Pointer(sub_4CFFE0(int32(*(*uint32)(unsafe.Pointer(uintptr(v11 + 16))))))))
 			if v12 != 0 {
@@ -692,18 +691,18 @@ func nox_xxx_interesting_xfer_4D0010(a1 *uint32, a2 int32) int32 {
 				*(*uint32)(unsafe.Pointer(uintptr(v11 + 16))) = 0
 				*(*uint32)(unsafe.Pointer(uintptr(v11 + 12))) = 0
 			}
-		} else if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_XFerHole_4F51D0) {
+		} else if v5 == ccall.FuncAddr(nox_xxx_XFerHole_4F51D0) {
 			v14 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*175)))
 			v15 = nox_xxx_mapGetWallSize_426A70()
 			v16 = int32(*(*uint32)(unsafe.Pointer(uintptr(v14 + 12))))
 			*(*uint32)(unsafe.Pointer(uintptr(v14 + 8))) += *a1 - *(*uint32)(unsafe.Pointer(v15))*23
 			*(*uint32)(unsafe.Pointer(uintptr(v14 + 12))) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v15))), 4*1)))*23 + uint32(v16)
-		} else if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_XFerExit_4F4B90) {
+		} else if v5 == ccall.FuncAddr(nox_xxx_XFerExit_4F4B90) {
 			v17 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*175)))
 			v18 = nox_xxx_mapGetWallSize_426A70()
 			*(*float32)(unsafe.Pointer(uintptr(v17 + 80))) = float32(float64(int32(*a1-*(*uint32)(unsafe.Pointer(v18))*23)) + float64(*(*float32)(unsafe.Pointer(uintptr(v17 + 80)))))
 			*(*float32)(unsafe.Pointer(uintptr(v17 + 84))) = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))-*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v18))), 4*1)))*23)) + float64(*(*float32)(unsafe.Pointer(uintptr(v17 + 84)))))
-		} else if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_XFerMover_4F5730) {
+		} else if v5 == ccall.FuncAddr(nox_xxx_XFerMover_4F5730) {
 			v19 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*187)))
 			v20 = (*uint32)(unsafe.Pointer(sub_579C60(*(*uint32)(unsafe.Pointer(uintptr(v19 + 8))))))
 			if v20 != nil {
@@ -717,7 +716,7 @@ func nox_xxx_interesting_xfer_4D0010(a1 *uint32, a2 int32) int32 {
 			} else {
 				*(*uint32)(unsafe.Pointer(uintptr(v19 + 32))) = 0
 			}
-		} else if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_XFerGlyph_4F5890) {
+		} else if v5 == ccall.FuncAddr(nox_xxx_XFerGlyph_4F5890) {
 			v22 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*173)))
 			v23 = nox_xxx_mapGetWallSize_426A70()
 			*(*float32)(unsafe.Pointer(uintptr(v22 + 28))) = float32(float64(int32(*a1-*(*uint32)(unsafe.Pointer(v23))*23)) + float64(*(*float32)(unsafe.Pointer(uintptr(v22 + 28)))))

@@ -18,7 +18,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
-	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -878,10 +877,6 @@ func (obj *Object) CallUpdate() {
 }
 
 func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
-	switch obj.Xfer {
-	case unsafe.Pointer(legacy.Get_nox_xxx_XFerDefault_4F49A0()):
-		return nox_xxx_XFerDefault4F49A0(cryptfile.Global(), obj.SObj(), a2)
-	}
 	return obj.SObj().CallXfer(a2)
 }
 

@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -19,8 +18,8 @@ func init() {
 	server.RegisterObjectXfer("DefaultXfer", nox_xxx_XFerDefault_4F49A0)
 	server.RegisterObjectXfer("SpellPagePedestalXfer", nox_xxx_XFerSpellPagePedistal_4F4A20)
 	server.RegisterObjectXfer("SpellRewardXfer", nox_xxx_XFerSpellReward_4F5F30)
-	server.RegisterObjectXfer("AbilityRewardXfer", nox_xxx_XFerAbilityReward_4F6240)
-	server.RegisterObjectXfer("FieldGuideXfer", nox_xxx_XFerFieldGuide_4F6390)
+	server.RegisterObjectXfer("AbilityRewardXfer", Nox_xxx_XFerAbilityReward_4F6240)
+	server.RegisterObjectXfer("FieldGuideXfer", Nox_xxx_XFerFieldGuide_4F6390)
 	server.RegisterObjectXfer("ReadableXfer", nox_xxx_XFerReadable_4F4AB0)
 	server.RegisterObjectXfer("ExitXfer", nox_xxx_XFerExit_4F4B90)
 	server.RegisterObjectXfer("DoorXfer", nox_xxx_XFerDoor_4F4CB0)
@@ -32,7 +31,7 @@ func init() {
 	server.RegisterObjectXfer("ElevatorShaftXfer", nox_xxx_XFerElevatorShaft_4F54A0)
 	server.RegisterObjectXfer("MoverXfer", nox_xxx_XFerMover_4F5730)
 	server.RegisterObjectXfer("GlyphXfer", nox_xxx_XFerGlyph_4F5890)
-	server.RegisterObjectXfer("InvisibleLightXfer", nox_xxx_XFerInvLight_4F5AA0)
+	server.RegisterObjectXfer("InvisibleLightXfer", Nox_xxx_XFerInvLight_4F5AA0)
 	server.RegisterObjectXfer("SentryXfer", nox_xxx_XFerSentry_4F5E50)
 	server.RegisterObjectXfer("WeaponXfer", nox_xxx_XFerWeapon_4F64A0)
 	server.RegisterObjectXfer("ArmorXfer", nox_xxx_XFerArmor_4F6860)
@@ -70,13 +69,6 @@ func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	Nox_xxx_XFer_WriteShopItem_52A5F0(a1)
 }
 
-func Get_nox_xxx_XFerFieldGuide_4F6390() unsafe.Pointer {
-	return ccall.FuncAddr(nox_xxx_XFerFieldGuide_4F6390)
-}
-
-func Get_nox_xxx_XFerAbilityReward_4F6240() unsafe.Pointer {
-	return ccall.FuncAddr(nox_xxx_XFerAbilityReward_4F6240)
-}
 func Nox_xxx_mapReadWriteObjData_4F4530(a1 *server.Object, a2 int) int {
 	return int(nox_xxx_mapReadWriteObjData_4F4530(asObjectC(a1), int32(a2)))
 }
