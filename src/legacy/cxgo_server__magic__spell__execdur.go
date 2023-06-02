@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -45,7 +46,7 @@ func sub_530A30_spell_execdur(a1 int32) int32 {
 		v12.field_4 = v8
 		v12.field_C = v7
 		if v9 == 0 || int32(uint8(int8(nox_xxx_traceRay_5374B0(&v12)))) != 0 {
-			if nox_common_gameFlags_check_40A5C0(2048) {
+			if noxflags.HasGame(2048) {
 				v11 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("TeleportDelay"), int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 8)))-1)))
 				*(*uint32)(unsafe.Pointer(uintptr(v1 + 68))) = gameFrame() + uint32(int32(v11))
 				result = 0

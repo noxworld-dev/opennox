@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -38,7 +39,7 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 int32) {
 	if a1 == 0 {
 		return
 	}
-	if !nox_common_gameFlags_check_40A5C0(2048) {
+	if !noxflags.HasGame(2048) {
 		return
 	}
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 520))))

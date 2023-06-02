@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -202,7 +203,7 @@ func nox_cmd_set_spell(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		v10 [100]byte
 	)
 	if tokCnt == 4 {
-		if nox_common_gameFlags_check_40A5C0(128) {
+		if noxflags.HasGame(128) {
 			v8 = int32(uintptr(unsafe.Pointer(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)))))
 			v3 = nox_strman_loadString_40F1D0(internCStr("NotInChat"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3293)
 			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v8)
@@ -218,7 +219,7 @@ func nox_cmd_set_spell(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		}()) {
 			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*3)), (*wchar2_t)(unsafe.Pointer(internCStr("on")))) == 0 {
 				v5 = sub_4165B0()
-				if (nox_common_gameFlags_check_40A5C0(64) || *(*byte)(unsafe.Add(unsafe.Pointer(v5), 52))&0x40 != 0) && v4 == 132 {
+				if (noxflags.HasGame(64) || *(*byte)(unsafe.Add(unsafe.Pointer(v5), 52))&0x40 != 0) && v4 == 132 {
 					return 1
 				}
 				if nox_xxx_spellIsEnabled_424B70(v4) {
@@ -271,7 +272,7 @@ func nox_cmd_ban(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			sub_440A20(v8)
 			return 1
 		}
-		if nox_common_gameFlags_check_40A5C0(4096) {
+		if noxflags.HasGame(4096) {
 			sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*514)))))))
 		} else {
 			nox_xxx_playerDisconnByPlrID_4DEB00(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 2064)))))
@@ -317,7 +318,7 @@ func nox_cmd_kick(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		sub_440A20(v7)
 		return 1
 	}
-	if nox_common_gameFlags_check_40A5C0(4096) {
+	if noxflags.HasGame(4096) {
 		sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*514)))))))
 	} else {
 		nox_xxx_playerCallDisconnect_4DEAB0(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v5), 2064)))), 4)
@@ -391,7 +392,7 @@ func nox_cmd_list_users(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	return 1
 }
 func sub_57A0F0(a1 *wchar2_t) int32 {
-	if !nox_common_gameFlags_check_40A5C0(2) {
+	if !noxflags.HasGame(2) {
 		return 0
 	}
 	if a1 == nil {
@@ -451,7 +452,7 @@ func nox_cmd_unmute(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	return 1
 }
 func sub_57A080(a1 *wchar2_t) int32 {
-	if !nox_common_gameFlags_check_40A5C0(2) {
+	if !noxflags.HasGame(2) {
 		return 0
 	}
 	if a1 == nil {
@@ -558,13 +559,13 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 	v3 = int32(uintptr(unsafe.Pointer(pl)))
 	nox_console_playerWhoSent_823692 = pl
 	if int32(a2) != 4 && int32(a2) != 5 && int32(a2) != 0 {
-		if nox_common_gameFlags_check_40A5C0(49152) {
+		if noxflags.HasGame(49152) {
 			return 1
 		}
 	}
 	switch a2 {
 	case 0:
-		if nox_common_gameFlags_check_40A5C0(8) || nox_common_gameFlags_check_40A5C0(4096) || int32(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(pl))) + 3680))))&1 != 0 {
+		if noxflags.HasGame(8) || noxflags.HasGame(4096) || int32(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(pl))) + 3680))))&1 != 0 {
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}
@@ -579,7 +580,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 			if v5 == 0 {
 				nox_xxx_netNeedTimestampStatus_4174F0(pl, 256)
 			}
-			if nox_common_gameFlags_check_40A5C0(1024) && sub_40A770() == 1 {
+			if noxflags.HasGame(1024) && sub_40A770() == 1 {
 				sub_5095E0()
 			}
 		}
@@ -593,7 +594,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		nox_console_playerWhoSent_823692 = nil
 		return 1
 	case 1:
-		if sub_4D12A0(int32(pl.PlayerInd)) == 0 && uint32(pl.PlayerInd) != nox_player_netCode_85319C && !nox_common_gameFlags_check_40A5C0(2048) {
+		if sub_4D12A0(int32(pl.PlayerInd)) == 0 && uint32(pl.PlayerInd) != nox_player_netCode_85319C && !noxflags.HasGame(2048) {
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}
@@ -614,7 +615,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		}
 		return 1
 	case 2:
-		if sub_4D12A0(int32(pl.PlayerInd)) == 0 && uint32(pl.PlayerInd) != nox_player_netCode_85319C && !nox_common_gameFlags_check_40A5C0(2048) {
+		if sub_4D12A0(int32(pl.PlayerInd)) == 0 && uint32(pl.PlayerInd) != nox_player_netCode_85319C && !noxflags.HasGame(2048) {
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}
@@ -630,7 +631,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		return 1
 	case 4:
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 3680))))&1) == 0 && !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_REPLAY_READ)) {
-			if nox_common_gameFlags_check_40A5C0(1) {
+			if noxflags.HasGame(1) {
 				v16 = nox_strman_loadString_40F1D0(internCStr("notinobserver"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4392)
 				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v16)
 				nox_console_playerWhoSent_823692 = nil
@@ -753,7 +754,7 @@ func nox_cmd_show_mem(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	return 1
 }
 func nox_cmd_show_rank(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
-	if nox_common_gameFlags_check_40A5C0(0x2000) {
+	if noxflags.HasGame(0x2000) {
 		sub_4703F0()
 	}
 	return 1
@@ -801,7 +802,7 @@ func nox_cmd_list_maps(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 }
 func nox_cmd_cheat_ability(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	var i *byte
-	if !nox_common_gameFlags_check_40A5C0(0x2000) {
+	if !noxflags.HasGame(0x2000) {
 		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
 			if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514))) != 0 {
 				nox_xxx_playerCancelAbils_4FC180((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514)))))))
@@ -815,7 +816,7 @@ func nox_cmd_cheat_level(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		i  *byte
 		v5 uint8
 	)
-	if !nox_common_gameFlags_check_40A5C0(0x2000) {
+	if !noxflags.HasGame(0x2000) {
 		if tokCnt < 3 {
 			return 0
 		}
@@ -921,7 +922,7 @@ func nox_cmd_set_lessons(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	return 1
 }
 func nox_cmd_menu_options(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
-	if !nox_common_gameFlags_check_40A5C0(8) && nox_common_gameFlags_check_40A5C0(0x2000) {
+	if !noxflags.HasGame(8) && noxflags.HasGame(0x2000) {
 		nox_xxx_guiServerOptsLoad_457500()
 	}
 	return 1
@@ -931,7 +932,7 @@ func nox_cmd_menu_vidopt(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	return 1
 }
 func nox_cmd_reenter(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
-	if !nox_common_gameFlags_check_40A5C0(0x2000) {
+	if !noxflags.HasGame(0x2000) {
 		sub_40AA60(1)
 	}
 	return 1

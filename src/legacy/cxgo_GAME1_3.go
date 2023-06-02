@@ -8,6 +8,7 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -989,7 +990,7 @@ func nox_xxx_motd_4467F0() {
 	if result == 0 {
 		result = uint32(nox_xxx_isQuest_4D6F50())
 		if result == 0 || (func() uint32 {
-			result = uint32(bool2int32(nox_common_gameFlags_check_40A5C0(128)))
+			result = uint32(bool2int32(noxflags.HasGame(128)))
 			return result
 		}()) == 0 {
 			if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {

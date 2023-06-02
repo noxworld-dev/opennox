@@ -24,11 +24,6 @@ func nox_common_gameFlags_getVal_40A5B0() uint32 {
 	return uint32(noxflags.GetGame())
 }
 
-// nox_common_gameFlags_check_40A5C0
-func nox_common_gameFlags_check_40A5C0(f uint32) bool {
-	return bool(noxflags.HasGame(noxflags.GameFlag(f)))
-}
-
 // nox_xxx_GetGameplayFlags_417D90
 func nox_xxx_GetGameplayFlags_417D90() int {
 	return int(noxflags.GetGamePlay())

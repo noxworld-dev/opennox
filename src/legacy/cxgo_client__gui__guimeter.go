@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -194,7 +195,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	}
 	sub_472280()
 	nox_xxx_guiHealthManaColorInit_470B00()
-	if nox_common_gameFlags_check_40A5C0(4096) {
+	if noxflags.HasGame(4096) {
 		dword_5d4594_1096252 = 1
 	} else {
 		dword_5d4594_1096252 = 0

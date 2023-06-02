@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -61,7 +62,7 @@ func nox_xxx_guiSpelllistLoad_453850(a1 int32) int32 {
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045508))))), 16409, uintptr(unsafe.Pointer(v10)), 0)
 	sub_454040((*uint32)(memmap.PtrOff(0x5D4594, 1045488)))
 	sub_454120()
-	if !nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152) {
+	if !noxflags.HasGame(1) || noxflags.HasGame(49152) {
 		sub_46AD20(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045484)), 1115, 1133, 0)
 	}
 	return int32(dword_5d4594_1045484)
@@ -118,7 +119,7 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 					v8 = nox_xxx_spellByTitle_424960((*wchar2_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*6))) + uint32(v7) + 4))))
 					if v8 != 0 {
 						if v21 == 1115 {
-							if !nox_common_gameFlags_check_40A5C0(64) && (*(*byte)(unsafe.Add(unsafe.Pointer(v20), 52))&0x40) == 0 || v8 != 132 {
+							if !noxflags.HasGame(64) && (*(*byte)(unsafe.Add(unsafe.Pointer(v20), 52))&0x40) == 0 || v8 != 132 {
 								sub_453FA0(int32(uintptr(memmap.PtrOff(0x5D4594, 1045488))), v8, 1)
 							}
 						} else {
@@ -162,7 +163,7 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			return sub_454000(int32(uintptr(unsafe.Pointer(&v19[6]))), v13)
 		}()) != 0 {
 			v15 = sub_4165B0()
-			if (nox_common_gameFlags_check_40A5C0(64) || *(*byte)(unsafe.Add(unsafe.Pointer(v15), 52))&0x40 != 0) && v13 == 132 {
+			if (noxflags.HasGame(64) || *(*byte)(unsafe.Add(unsafe.Pointer(v15), 52))&0x40 != 0) && v13 == 132 {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*9)) ^= 4
 				v18 = nox_strman_loadString_40F1D0(internCStr("plyrspel.c:Illegal"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c"), 226)
 				v16 = nox_strman_loadString_40F1D0(internCStr("Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c"), 225)

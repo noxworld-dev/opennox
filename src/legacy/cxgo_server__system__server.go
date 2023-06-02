@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -32,10 +33,10 @@ func sub_426060() {
 	v7 = int32(sub_5545A0())
 	v0 = sub_554230()
 	sub_4282D0(v0, v7)
-	if !nox_common_gameFlags_check_40A5C0(0x2000) || nox_common_gameFlags_check_40A5C0(4096) {
-		result = unsafe.Pointer(uintptr(bool2int32(nox_common_gameFlags_check_40A5C0(4096))))
+	if !noxflags.HasGame(0x2000) || noxflags.HasGame(4096) {
+		result = unsafe.Pointer(uintptr(bool2int32(noxflags.HasGame(4096))))
 		if result != nil {
-			result = unsafe.Pointer(uintptr(bool2int32(nox_common_gameFlags_check_40A5C0(4096))))
+			result = unsafe.Pointer(uintptr(bool2int32(noxflags.HasGame(4096))))
 			if result != nil {
 				v5 = (*byte)(sub_416640())
 				v6 = nox_xxx_cliGamedataGet_416590(0)
@@ -174,7 +175,7 @@ func sub_4D2230() {
 		v1 int16
 		v2 int16
 	)
-	if nox_common_gameFlags_check_40A5C0(49152) {
+	if noxflags.HasGame(49152) {
 		v0 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		if int32(nox_xxx_servGamedataGet_40A020(v0)) == 0 {
 			v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
@@ -183,7 +184,7 @@ func sub_4D2230() {
 				sub_409FB0_settings(v2, 0xF)
 			}
 		}
-	} else if nox_common_gameFlags_check_40A5C0(1024) && int32(nox_xxx_servGamedataGet_40A020(1024)) == 0 {
+	} else if noxflags.HasGame(1024) && int32(nox_xxx_servGamedataGet_40A020(1024)) == 0 {
 		sub_409FB0_settings(1024, 0xF)
 	}
 }
@@ -207,12 +208,12 @@ func sub_4D22B0() {
 			}
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 280))) = 0
 			nox_xxx_playerResetControlBuffer_51AC30(int32(*(*uint8)(unsafe.Pointer(uintptr(i + 2064)))))
-			if nox_common_gameFlags_check_40A5C0(4096) {
+			if noxflags.HasGame(4096) {
 				v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 4676))))
 				*(*uint32)(unsafe.Pointer(uintptr(i + 4676))) = 0
 				*(*uint32)(unsafe.Pointer(uintptr(i + 4680))) = uint32(v4)
 			}
-			if nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(i + 2056))))), 13) == 0 || !nox_common_gameFlags_check_40A5C0(512) {
+			if nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(i + 2056))))), 13) == 0 || !noxflags.HasGame(512) {
 				*(*uint32)(unsafe.Pointer(uintptr(i + 4700))) = 0
 				v6 = int32((uint32(sub_4CFE00()) >> 1) & 1)
 				v5 = nox_xxx_gameIsSwitchToSolo_4DB240()
@@ -481,7 +482,7 @@ func sub_4EC720() {
 	if dword_5d4594_1568028 == 0 {
 		dword_5d4594_1568028 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Crown")))
 	}
-	if nox_common_gameFlags_check_40A5C0(4608) {
+	if noxflags.HasGame(4608) {
 		return
 	}
 	nox_xxx_respawnAllow_587000_205200 = 0
@@ -631,7 +632,7 @@ func sub_4EF660(a1p *server.Object) int32 {
 	for i = 4796; i < 4816; *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 276))) + uint32(i) - 4))) = 0 {
 		i += 4
 	}
-	if !nox_common_gameFlags_check_40A5C0(2048) {
+	if !noxflags.HasGame(2048) {
 		*(*uint8)(unsafe.Pointer(uintptr(v1 + 244))) = uint8(int8(sub_4EF6F0(a1)))
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(v1 + 264))) = 0

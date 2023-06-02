@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -111,7 +112,7 @@ func nox_thing_monster_draw(a1 *int32, dr *nox_drawable) int32 {
 	v2 = int32(uintptr(unsafe.Pointer(dr)))
 	v23 = 1
 	v3 = int32(*(*uint32)(unsafe.Pointer(&dr.Field_76)))
-	if !nox_common_gameFlags_check_40A5C0(0x200000) {
+	if !noxflags.HasGame(0x200000) {
 		v4 = int8(*(*uint8)(unsafe.Pointer(uintptr(v2 + 432))))
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 297)))) != int32(v4) {
 			v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 276))))
@@ -138,7 +139,7 @@ func nox_thing_monster_draw(a1 *int32, dr *nox_drawable) int32 {
 	if *(*uint32)(unsafe.Pointer(uintptr(v2 + 108))) != uint32(v6) {
 		goto LABEL_22
 	}
-	if nox_common_gameFlags_check_40A5C0(0x200000) {
+	if noxflags.HasGame(0x200000) {
 		v10 = 0
 		v11 = 0
 	} else {
@@ -194,7 +195,7 @@ LABEL_24:
 		nox_client_drawEnableAlpha_434560(0)
 		return v23
 	}
-	if !nox_common_gameFlags_check_40A5C0(1) {
+	if !noxflags.HasGame(1) {
 		v15 = int32(*memmap.PtrUint32(0x852978, 8) + 24)
 	} else {
 		v13 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
@@ -218,7 +219,7 @@ LABEL_24:
 	if v17 != nil && sub_495A80(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 128))))) != 0 {
 		v16 = 1
 	}
-	if (!nox_common_gameFlags_check_40A5C0(4096) || (int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 112))))&2) == 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 116))))&8) == 0) && v16 != 0 {
+	if (!noxflags.HasGame(4096) || (int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 112))))&2) == 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 116))))&8) == 0) && v16 != 0 {
 		v18 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17))))))))
 		nox_client_drawSetColor_434460(v18)
 		v19 = int32(uint32(*v12) + *(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*4))))

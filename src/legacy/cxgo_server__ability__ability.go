@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -65,7 +66,7 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 int32, a2 int32, a3 int32) int3
 		}
 		nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 276))) + 4636)))), a2, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 276))) + uint32(a2*4) + 3696)))))
 		nox_xxx_netAbilityReport_4D8060(a1, a2, a3)
-		if nox_common_gameFlags_check_40A5C0(4096) {
+		if noxflags.HasGame(4096) {
 			nox_xxx_netSendRewardNotify_4FAD50(a1, 2, a1, int8(a2))
 			if sub_419E60((*server.Object)(unsafe.Pointer(uintptr(a1)))) == 0 {
 				for i = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()))); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i))))))) {

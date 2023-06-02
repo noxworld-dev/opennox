@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -60,12 +61,12 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 		return 0
 	}
 	v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
-	if nox_common_gameFlags_check_40A5C0(6144) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) == 3 || *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) == 5 {
+	if noxflags.HasGame(6144) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) == 3 || *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) == 5 {
 		v8 = nox_strman_loadString_40F1D0(internCStr("MaxSpellLevel"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 351)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(uintptr(a1))), v8)
 		return 0
 	}
-	if nox_common_gameFlags_check_40A5C0(4096) && (a2 == 34 || a2 == 134 || a2 == 45 || a2 == 46 || a2 == 47 || a2 == 48 || a2 == 49 || a2 == 117 || a2 == 118 || a2 == 119 || a2 == 120 || a2 == 121 || a2 == 122 || a2 == 123 || a2 == 124 || a2 == 125 || a2 == 19) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) != 0 {
+	if noxflags.HasGame(4096) && (a2 == 34 || a2 == 134 || a2 == 45 || a2 == 46 || a2 == 47 || a2 == 48 || a2 == 49 || a2 == 117 || a2 == 118 || a2 == 119 || a2 == 120 || a2 == 121 || a2 == 122 || a2 == 123 || a2 == 124 || a2 == 125 || a2 == 19) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) != 0 {
 		v8 = nox_strman_loadString_40F1D0(internCStr("MaxSpellLevel"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 386)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(uintptr(a1))), v8)
 		return 0
@@ -75,7 +76,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 	if *v9 > 5 {
 		*v9 = 5
 	}
-	if nox_common_gameFlags_check_40A5C0(4096) {
+	if noxflags.HasGame(4096) {
 		v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))))
 		if *(*uint32)(unsafe.Pointer(uintptr(v10 + a2*4 + 3696))) > 3 {
 			*(*uint32)(unsafe.Pointer(uintptr(v10 + a2*4 + 3696))) = 3
@@ -107,7 +108,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 				if *v13 > 5 {
 					*v13 = 5
 				}
-				if nox_common_gameFlags_check_40A5C0(4096) {
+				if noxflags.HasGame(4096) {
 					v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))))
 					if *(*uint32)(unsafe.Pointer(uintptr(v14 + v6*4 + 3696))) > 3 {
 						*(*uint32)(unsafe.Pointer(uintptr(v14 + v6*4 + 3696))) = 3
@@ -123,10 +124,10 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 	if a3 != 0 {
 		v15 = 1
 		nox_xxx_aud_501960(226, (*server.Object)(unsafe.Pointer(uintptr(v5))), 0, 0)
-		if nox_common_gameFlags_check_40A5C0(2048) && (v6 == 34 || nox_xxx_spellHasFlags_424A50(v6, 86016)) {
+		if noxflags.HasGame(2048) && (v6 == 34 || nox_xxx_spellHasFlags_424A50(v6, 86016)) {
 			v15 = 0
 		}
-		if !nox_common_gameFlags_check_40A5C0(4096) || *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + 4792))) != 0 {
+		if !noxflags.HasGame(4096) || *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + 4792))) != 0 {
 			if v15 != 0 {
 				nox_xxx_netSendRewardNotify_4FAD50(v5, 0, v5, int8(v6))
 				if sub_419E60((*server.Object)(unsafe.Pointer(uintptr(v5)))) == 0 {
@@ -140,7 +141,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 			}
 		}
 	}
-	if nox_common_gameFlags_check_40A5C0(2048) && a3 == 1 && a4 == 1 {
+	if noxflags.HasGame(2048) && a3 == 1 && a4 == 1 {
 		v18 = *(**uint32)(unsafe.Pointer(uintptr(v7 + 280)))
 		if v18 != nil {
 			nox_xxx_shopExit_50F4C0(v18)

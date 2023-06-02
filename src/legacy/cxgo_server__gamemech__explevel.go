@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -34,7 +35,7 @@ func sub_4EF2E0_exp_level(a1 int32) {
 		*(*uint8)(unsafe.Pointer(uintptr(v1 + 3684)))++
 		sub_56F980(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 4644)))), 1)
 		nox_xxx_plrReadVals_4EEDC0((*server.Object)(unsafe.Pointer(uintptr(a1))), 1)
-		if nox_common_gameFlags_check_40A5C0(2048) {
+		if noxflags.HasGame(2048) {
 			sub_57AF30(a1, 0)
 		} else {
 			nox_xxx_aud_501960(902, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))

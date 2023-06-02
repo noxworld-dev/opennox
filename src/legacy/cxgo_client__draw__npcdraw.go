@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -44,7 +45,7 @@ func nox_thing_npc_draw(a1 *int32, dr *nox_drawable) int32 {
 		v36 int32
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	if nox_common_gameFlags_check_40A5C0(0x200000) {
+	if noxflags.HasGame(0x200000) {
 		v2 = int32(*(*uint32)(unsafe.Pointer((*nox_thing)(unsafe.Add(unsafe.Pointer(sub_44D330(internCStr("NewPlayer"))), unsafe.Sizeof(nox_thing{})*92)))) + 4)
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(v2 + 40)))) != 0 {
 			nox_xxx_drawObject_4C4770_draw(a1, (*nox_drawable)(unsafe.Pointer(uintptr(a2))), int32(**(**uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 48))) + uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 297))))*4) + 4)))))

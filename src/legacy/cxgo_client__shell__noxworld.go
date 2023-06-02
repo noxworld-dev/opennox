@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -48,7 +49,7 @@ func Nox_game_showGameSel_4379F0() int {
 	var v28 *wchar2_t
 	nox_xxx_setQuest_4D6F60(0)
 	sub_4D6F80(0)
-	if !nox_common_gameFlags_check_40A5C0(0x2000000) && sub_4D6F30() == 0 {
+	if !noxflags.HasGame(0x2000000) && sub_4D6F30() == 0 {
 		nox_game_createOrJoin_815048 = 0
 		dword_587000_87412 = math.MaxUint32
 	}
@@ -115,7 +116,7 @@ func Nox_game_showGameSel_4379F0() int {
 	dword_5d4594_815028 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10041))))
 	dword_5d4594_815032 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10042))))
 	v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10002)))
-	if nox_common_gameFlags_check_40A5C0(0x1000000) {
+	if noxflags.HasGame(0x1000000) {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 0)
 	}
 	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10003)))
@@ -670,7 +671,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 			dword_587000_87412 = 0
 			sub_43A810()
 			nox_client_refreshServerList_4378B0()
-			if nox_common_gameFlags_check_40A5C0(0x2000000) {
+			if noxflags.HasGame(0x2000000) {
 				v24 = sub_4A7EF0()
 				sub_439D90(*(*uint32)(unsafe.Pointer(v24))+216, *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v24))), 4*1)))+27)
 			} else {
@@ -681,7 +682,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 			dword_587000_87412 = 1
 			sub_43A810()
 			nox_client_refreshServerList_4378B0()
-			if !nox_common_gameFlags_check_40A5C0(0x2000000) {
+			if !noxflags.HasGame(0x2000000) {
 				sub_439D90(0x198, 0xEF)
 				return 0
 			} else {
@@ -693,7 +694,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 			dword_587000_87412 = 2
 			sub_43A810()
 			nox_client_refreshServerList_4378B0()
-			if !nox_common_gameFlags_check_40A5C0(0x2000000) {
+			if !noxflags.HasGame(0x2000000) {
 				sub_439D90(0x198, 0xEF)
 			} else {
 				v24 = sub_4A7EF0()
@@ -704,7 +705,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 			dword_587000_87412 = 3
 			sub_43A810()
 			nox_client_refreshServerList_4378B0()
-			if nox_common_gameFlags_check_40A5C0(0x2000000) {
+			if noxflags.HasGame(0x2000000) {
 				v26 = sub_4A7EF0()
 				sub_439D90(*(*uint32)(unsafe.Pointer(v26))+216, *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v26))), 4*1)))+27)
 			} else {
@@ -776,7 +777,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 		return 0
 	}
 	if v5 == 10002 {
-		if nox_common_gameFlags_check_40A5C0(0x1000000) {
+		if noxflags.HasGame(0x1000000) {
 			return 0
 		}
 		nox_game_createOrJoin_815048 = 1
@@ -787,7 +788,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 		if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814992)))))) == 0 {
 			sub_489870()
 		}
-		if nox_common_gameFlags_check_40A5C0(0x2000000) || sub_4D6F30() != 0 {
+		if noxflags.HasGame(0x2000000) || sub_4D6F30() != 0 {
 			return 0
 		}
 		if false {

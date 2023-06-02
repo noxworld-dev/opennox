@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -138,7 +139,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 			nox_xxx_guiServerOptionsTryHide_4574D0()
 			return 1
 		}
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(1) {
 			sub_459D50(1)
 			if dword_587000_129656 != 0 {
 				nox_common_list_clear_425760((*nox_list_item_t)(memmap.PtrOff(0x5D4594, 1045956)))
@@ -199,13 +200,13 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10160)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*9)) |= 4
 		v9 = sub_4165D0(0)
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(1) {
 			sub_4161E0()
 		}
 		nox_gui_gamemode_load_457410()
 		sub_457B60(int32(uintptr(unsafe.Pointer(v9))))
 		sub_457A10()
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(1) {
 			sub_4165F0(0, 1)
 			sub_4165D0(1)
 		} else {
@@ -262,11 +263,11 @@ func sub_457FE0() {
 		v6 *wchar2_t
 	)
 	v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10210)))
-	if nox_common_gameFlags_check_40A5C0(0x4000) {
+	if noxflags.HasGame(0x4000) {
 		v5 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Individual"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 380)
 		v1 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Ladder"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 379)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045700)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %s"))), v1, v5)
-	} else if nox_common_gameFlags_check_40A5C0(0x8000) {
+	} else if noxflags.HasGame(0x8000) {
 		v6 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Clan"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 385)
 		v2 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Ladder"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 384)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045700)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %s"))), v2, v6)
@@ -290,7 +291,7 @@ func sub_4580E0(a1 int32) {
 	)
 	v1 = nox_strman_loadString_40F1D0(internCStr("SettingsMsg"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 736)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045968)), v1, a1)
-	if nox_common_gameFlags_check_40A5C0(128) {
+	if noxflags.HasGame(128) {
 		v2 = nox_strman_loadString_40F1D0(internCStr("GameType"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 739)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1046096)), v2)
 	} else {
@@ -299,7 +300,7 @@ func sub_4580E0(a1 int32) {
 		v4 = nox_strman_loadString_40F1D0(internCStr("GameTypeIs"), nil, (*byte)(memmap.PtrOff(0x587000, 131072)), 743)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1046096)), v4, v10)
 	}
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		v5 = nox_strman_loadString_40F1D0(internCStr("GoMessage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 748)
 	} else {
 		v5 = nox_strman_loadString_40F1D0(internCStr("OptsMessage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 752)
@@ -489,7 +490,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 			return 1
 		case 10122:
 			v27 = bool2int32((int32(*(*uint8)(unsafe.Pointer(uintptr(a3 + 36)))) & 4) != 0)
-			if !nox_common_gameFlags_check_40A5C0(49152) {
+			if !noxflags.HasGame(49152) {
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046500))))), v27)
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046504))))), v27)
 			}
@@ -503,7 +504,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 			sub_459AA0(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v18))))))
 			sub_4165F0(1, 0)
 			v19 = int32(nox_xxx_getTeamCounter_417DD0())
-			if nox_common_gameFlags_check_40A5C0(128) && (func() int32 {
+			if noxflags.HasGame(128) && (func() int32 {
 				v20 = int16(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v18))), unsafe.Sizeof(uint16(0))*26))))
 				return int32(v20) & 0x60
 			}()) != 0 {
@@ -525,7 +526,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 					sub_44A360(1)
 					return 1
 				}
-			} else if nox_common_gameFlags_check_40A5C0(128) && nox_common_gameFlags_check_40A5C0(16) && nox_xxx_CheckGameplayFlags_417DA0(4) && v19 > 2 {
+			} else if noxflags.HasGame(128) && noxflags.HasGame(16) && nox_xxx_CheckGameplayFlags_417DA0(4) && v19 > 2 {
 				v39 = nox_strman_loadString_40F1D0(internCStr("TooManyTeams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1384)
 				v24 = nox_strman_loadString_40F1D0(internCStr("Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1383)
 				nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v24)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v39)))))), 33, nil, nil)
@@ -536,7 +537,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 			return 1
 		case 10146:
 			v25 = sub_4165B0()
-			if nox_common_gameFlags_check_40A5C0(128) {
+			if noxflags.HasGame(128) {
 				if int32(*(*byte)(unsafe.Add(unsafe.Pointer(v25), 53))) < 0 {
 					nox_server_teamsZzz_419030(1)
 				}
@@ -556,7 +557,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 			sub_46B120((*gui.Window)(unsafe.Pointer(uintptr(a3))), nil)
 			sub_46B120((*gui.Window)(unsafe.Pointer(uintptr(a3))), (*gui.Window)(unsafe.Pointer(uintptr(v11))))
 			v12 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10196)))
-			if nox_common_gameFlags_check_40A5C0(1) {
+			if noxflags.HasGame(1) {
 				nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))), 0)
 				sub_46ACE0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)), 10161, 10163, 0)
 				sub_46AD20(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)), 10161, 10163, 1)
@@ -592,7 +593,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 				dword_5d4594_1046540 = 0
 			}
 			sub_46ACE0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)), 10161, 10163, 1)
-			if nox_common_gameFlags_check_40A5C0(1) {
+			if noxflags.HasGame(1) {
 				sub_46ACE0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)), 10141, 10141, 0)
 			}
 			v17 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10196)))
@@ -707,7 +708,7 @@ func sub_459880(a1 int32) int32 {
 	)
 	v1 = int16(*(*uint16)(unsafe.Pointer(uintptr(a1 + 52))))
 	if int32(v1)&0x20 != 0 {
-		if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 57)))) == 0 && nox_common_gameFlags_check_40A5C0(1) {
+		if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 57)))) == 0 && noxflags.HasGame(1) {
 			nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046516))))), 1)
 			nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046520))))), 1)
 		}
@@ -715,13 +716,13 @@ func sub_459880(a1 int32) int32 {
 	} else {
 		*((*uint8)(unsafe.Pointer(&v1))) = *(*uint8)(unsafe.Pointer(uintptr(a1 + 57)))
 		if int32(v1)&0x400 != 0 {
-			if int32(*((*uint8)(unsafe.Pointer(&v1)))) == 0 && nox_common_gameFlags_check_40A5C0(1) {
+			if int32(*((*uint8)(unsafe.Pointer(&v1)))) == 0 && noxflags.HasGame(1) {
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046516))))), 1)
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046520))))), 1)
 			}
 			v2 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:DeathLimit"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1912)
 		} else {
-			if int32(*((*uint8)(unsafe.Pointer(&v1)))) == 0 && nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(49152) {
+			if int32(*((*uint8)(unsafe.Pointer(&v1)))) == 0 && noxflags.HasGame(1) && !noxflags.HasGame(49152) {
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046516))))), 1)
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046520))))), 1)
 			}
@@ -731,7 +732,7 @@ func sub_459880(a1 int32) int32 {
 	nox_wcscpy((*wchar2_t)(unsafe.Pointer(uintptr(dword_5d4594_1046516+108))), v2)
 	sub_4580E0(a1)
 	sub_459A40((*byte)(unsafe.Pointer(uintptr(a1 + 9))))
-	if nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(49152) {
+	if noxflags.HasGame(1) && !noxflags.HasGame(49152) {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046500))))), bool2int32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 57)))) == 0))
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046504))))), bool2int32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 57)))) == 0))
 	}
@@ -757,7 +758,7 @@ func sub_459CD0() int32 {
 	)
 	result = int32(dword_5d4594_1046492)
 	if dword_5d4594_1046492 != 0 {
-		if sub_40A740() != 0 || nox_common_gameFlags_check_40A5C0(0x8000) {
+		if sub_40A740() != 0 || noxflags.HasGame(0x8000) {
 			v1 = uint8(sub_417DE0())
 		} else {
 			v1 = nox_xxx_getTeamCounter_417DD0()

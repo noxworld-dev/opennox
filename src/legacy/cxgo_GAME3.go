@@ -9,6 +9,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -1887,7 +1888,7 @@ func sub_4A6C90() int {
 	} else {
 		nox_client_resetScreenParticles_431510()
 		nox_gui_draw()
-		if !nox_common_gameFlags_check_40A5C0(0x2000) {
+		if !noxflags.HasGame(0x2000) {
 			nox_client_guiXxxDestroy_4A24A0()
 			return 1
 		}
@@ -3820,7 +3821,7 @@ func sub_4ABDA0(a1 int32, a2 int16, a3 int16, a4 *uint32) int32 {
 		*(*uint32)(unsafe.Pointer(uintptr(v6 + 280))) = uint32(v18 | v8)
 		*(*uint32)(unsafe.Pointer(uintptr(v6 + 128))) = uint32(v15)
 		*(*uint8)(unsafe.Pointer(uintptr(v6 + 28))) = uint8(v10)
-		if !nox_common_gameFlags_check_40A5C0(1) && int32(*(*uint8)(unsafe.Pointer(uintptr(v6 + 28)))) != 0 && ((*(*uint32)(unsafe.Pointer(uintptr(v6 + 112)))&0x10000000) == 0 || !nox_common_gameFlags_check_40A5C0(128)) {
+		if !noxflags.HasGame(1) && int32(*(*uint8)(unsafe.Pointer(uintptr(v6 + 28)))) != 0 && ((*(*uint32)(unsafe.Pointer(uintptr(v6 + 112)))&0x10000000) == 0 || !noxflags.HasGame(128)) {
 			nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Pointer(uintptr(v6 + 28))), unsafe.Pointer(uintptr(v6+24)), 0, int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 128)))), 0)
 		}
 		result = v6
@@ -3934,7 +3935,7 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) int3
 			*v3 += 4
 		}
 	}
-	if !nox_common_gameFlags_check_40A5C0(1) {
+	if !noxflags.HasGame(1) {
 		v17 = int32(*memmap.PtrUint32(0x5D4594, 1309788))
 		if *memmap.PtrUint32(0x5D4594, 1309788) == 0 {
 			v17 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("FlagMarker"))

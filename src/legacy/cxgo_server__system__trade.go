@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -56,7 +57,7 @@ func nox_xxx_createPlayerShopSession_50E8F0(a1 int32, a2 int32) *uint32 {
 		result *uint32
 	)
 	v2 = 0
-	if nox_common_gameFlags_check_40A5C0(4096) && (func() *uint32 {
+	if noxflags.HasGame(4096) && (func() *uint32 {
 		v3 = int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2064))))
 		v4 = *(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v3*4)+2386364))
 		*memmap.PtrUint32(0x5D4594, uintptr(v3*4)+2386364) = 0
@@ -298,7 +299,7 @@ func sub_5104F0(a1 int32, a2 int16) int32 {
 	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 276))) + 2064)))), unsafe.Pointer(&v4[0]), 4, 0, 1)
 }
 func sub_510540(a1 int32) int32 {
-	if !nox_common_gameFlags_check_40A5C0(4096) {
+	if !noxflags.HasGame(4096) {
 		return 1
 	}
 	if *memmap.PtrUint32(0x5D4594, 2386520) == 0 {
@@ -408,7 +409,7 @@ LABEL_18:
 		} else {
 			nox_xxx_servSendShopItems_50F280(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*3))), int32(uintptr(unsafe.Pointer(v9))))
 		}
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*4)) != 0 && nox_common_gameFlags_check_40A5C0(2048) {
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*4)) != 0 && noxflags.HasGame(2048) {
 			v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2)))
 			if (int32(*(*uint8)(unsafe.Pointer(uintptr(v12 + 8)))) & 4) == 0 {
 				v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*3)))
@@ -552,7 +553,7 @@ func sub_5100C0_trade(a1 int32, a2 *uint32, a3 int32) {
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(v6 + 8))))&0x10 != 0 {
 				v9 = nox_xxx_inventoryCountObjects_4E7D30(v3, int32(*(*uint16)(unsafe.Pointer(uintptr(v6 + 4)))))
 				if v9 >= (func() int32 {
-					if nox_common_gameFlags_check_40A5C0(6144) {
+					if noxflags.HasGame(6144) {
 						return 9
 					}
 					return 3
@@ -570,7 +571,7 @@ func sub_5100C0_trade(a1 int32, a2 *uint32, a3 int32) {
 					return
 				}
 			}
-			if nox_common_gameFlags_check_40A5C0(4096) {
+			if noxflags.HasGame(4096) {
 				v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 8))))
 				if v11&0x1000 != 0 {
 					if *(*uint32)(unsafe.Pointer(uintptr(v6 + 12)))&0x200000 != 0 {
@@ -584,7 +585,7 @@ func sub_5100C0_trade(a1 int32, a2 *uint32, a3 int32) {
 					}
 				}
 			}
-			if nox_common_gameFlags_check_40A5C0(4096) && (sub_5105D0(v6) != 0 || uint32(*(*uint16)(unsafe.Pointer(uintptr(v6 + 4)))) == dword_5d4594_2386548) {
+			if noxflags.HasGame(4096) && (sub_5105D0(v6) != 0 || uint32(*(*uint16)(unsafe.Pointer(uintptr(v6 + 4)))) == dword_5d4594_2386548) {
 				v13 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*(*uint16)(unsafe.Pointer(uintptr(v6 + 4)))))))
 			} else {
 				v13 = (*uint32)(unsafe.Pointer(uintptr(v6)))
@@ -660,7 +661,7 @@ func sub_510640_trade(a1 int32, a2 int32, a3 int32, a4 *float32) *float32 {
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(v7 + 8))))&0x10 != 0 {
 				v9 = nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Pointer(uintptr(v7 + 4)))))
 				if v9 >= (func() int32 {
-					if nox_common_gameFlags_check_40A5C0(6144) {
+					if noxflags.HasGame(6144) {
 						return 9
 					}
 					return 3
@@ -676,7 +677,7 @@ func sub_510640_trade(a1 int32, a2 int32, a3 int32, a4 *float32) *float32 {
 					break
 				}
 			}
-			if nox_common_gameFlags_check_40A5C0(4096) {
+			if noxflags.HasGame(4096) {
 				v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(v7 + 8))))
 				if v10&0x1000 != 0 {
 					if *(*uint32)(unsafe.Pointer(uintptr(v7 + 12)))&0x200000 != 0 {
@@ -690,7 +691,7 @@ func sub_510640_trade(a1 int32, a2 int32, a3 int32, a4 *float32) *float32 {
 					}
 				}
 			}
-			if nox_common_gameFlags_check_40A5C0(4096) && (sub_5105D0(v7) != 0 || uint32(*(*uint16)(unsafe.Pointer(uintptr(v7 + 4)))) == dword_5d4594_2386552) {
+			if noxflags.HasGame(4096) && (sub_5105D0(v7) != 0 || uint32(*(*uint16)(unsafe.Pointer(uintptr(v7 + 4)))) == dword_5d4594_2386552) {
 				v12 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*(*uint16)(unsafe.Pointer(uintptr(v7 + 4)))))))
 			} else {
 				v12 = (*uint32)(unsafe.Pointer(uintptr(v7)))

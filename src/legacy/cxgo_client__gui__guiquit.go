@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -43,7 +44,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 	case 9001:
 		sub_445C40()
 		sub_413A00(1)
-		if !nox_common_gameFlags_check_40A5C0(2048) || nox_xxx_playerAnimCheck_4372B0() != 0 {
+		if !noxflags.HasGame(2048) || nox_xxx_playerAnimCheck_4372B0() != 0 {
 			sub_445B40()
 			v17 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 			*((*uint8)(unsafe.Pointer(&v17))) = uint8(int8(v17 & 0xFD))
@@ -62,7 +63,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 		v18 = int32(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 120))))
 		if (v18 & 0x8000) == 0 {
 			sub_445C40()
-			if nox_common_gameFlags_check_40A5C0(2048) {
+			if noxflags.HasGame(2048) {
 				nox_setSaveFileName_4DB130(internCStr("AUTOSAVE"))
 				sub_4DB170(1, nil, 0)
 			}
@@ -80,7 +81,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 		result = 0
 	case 9003:
 		sub_445C40()
-		if nox_common_gameFlags_check_40A5C0(2048) {
+		if noxflags.HasGame(2048) {
 			nox_savegame_sub_46D580()
 		} else {
 			nox_xxx_netSavePlayer_41CE00()
@@ -120,7 +121,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 		*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9)) = v9
 		result = 0
 	case 9007:
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(1) {
 			v8 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(nox_player_netCode_85319C))))
 			nox_xxx_serverHandleClientConsole_443E90((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 0, nil)
 			sub_445C40()
@@ -145,7 +146,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 		result = 0
 	case 9009:
 		sub_445C40()
-		if nox_common_gameFlags_check_40A5C0(4096) {
+		if noxflags.HasGame(4096) {
 			sub_48CB10(4)
 		} else {
 			sub_48CB10(0)
@@ -188,7 +189,7 @@ func sub_445C40() {
 		v21    *wchar2_t
 	)
 	if nox_xxx_wndGetFlags_46ADA0(int32(uintptr(unsafe.Pointer(nox_wnd_quitMenu_825760))))&0x10 != 0 {
-		if *memmap.PtrUint32(0x852978, 8) == 0 || !nox_common_gameFlags_check_40A5C0(2048) || (func() bool {
+		if *memmap.PtrUint32(0x852978, 8) == 0 || !noxflags.HasGame(2048) || (func() bool {
 			result = int32(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 276))))
 			return result != 2
 		}()) && result != 1 && result != 51 {
@@ -198,7 +199,7 @@ func sub_445C40() {
 					nox_xxx_wndShowModalMB_46A8C0(nox_wnd_quitMenu_825760)
 					nox_wnd_quitMenu_825760.Flags |= 8
 					nox_xxx_wndSetCaptureMain_46ADC0(nox_wnd_quitMenu_825760)
-					if nox_common_gameFlags_check_40A5C0(2048) {
+					if noxflags.HasGame(2048) {
 						v20 = nox_strman_loadString_40F1D0(internCStr("SoloSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 396)
 						v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
 						sub_46AEE0(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v20))))
@@ -232,7 +233,7 @@ func sub_445C40() {
 						v13 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009)))
 						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v13)))))), 0)
 						sub_46AEE0(int32(uintptr(unsafe.Pointer(v13))), int32(uintptr(memmap.PtrOff(0x5D4594, 825772))))
-						if nox_common_gameFlags_check_40A5C0(49152) || int32(nox_xxx_getTeamCounter_417DD0()) == 0 {
+						if noxflags.HasGame(49152) || int32(nox_xxx_getTeamCounter_417DD0()) == 0 {
 							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v13)))))), 0)
 						} else {
 							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v13)))))), 1)
@@ -240,7 +241,7 @@ func sub_445C40() {
 						v14 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004)))
 						nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(v14)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*5))+45))
 						sub_46AB20((*uint32)(unsafe.Pointer(nox_wnd_quitMenu_825760)), 220, 330)
-						if nox_common_gameFlags_check_40A5C0(4096) {
+						if noxflags.HasGame(4096) {
 							v15 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)))
 							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v15)))))), 0)
 							v16 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))

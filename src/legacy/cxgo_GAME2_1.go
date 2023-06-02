@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -224,7 +225,7 @@ func nox_xxx_netAbilityRewardCli_4611E0(a1 int32, a2 int32, a3 *byte) {
 		v3 = (*uint8)(memmap.PtrOff(0x5D4594, 1047764+24*1+16))
 		for {
 			if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), -int(4*4)))) == uint32(a1) && *(*uint32)(unsafe.Pointer(v3)) != uint32(a2) {
-				if nox_common_gameFlags_check_40A5C0(2) && *memmap.PtrUint32(0x8531A0, 2576) != 0 {
+				if noxflags.HasGame(2) && *memmap.PtrUint32(0x8531A0, 2576) != 0 {
 					*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + uint32(a1*4) + 3696))) = uint32(a2)
 				}
 				*(*uint32)(unsafe.Pointer(v3)) = uint32(a2)
@@ -1225,7 +1226,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 			break
 		}
 	}
-	if nox_common_gameFlags_check_40A5C0(4096) && dword_5d4594_1050008 != 0 {
+	if noxflags.HasGame(4096) && dword_5d4594_1050008 != 0 {
 		v4 += 5
 		v3 += 6
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1050008 + 96))) + 4))) + (gameFrame()%uint32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1050008 + 96))) + 8)))))*4)))))), v3-58, v4-53)
@@ -1237,7 +1238,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 		*memmap.PtrUint32(0x5D4594, 1049820) = uint32(v3 + 30)
 		*memmap.PtrUint32(0x5D4594, 1049824) = uint32(v4 + 20)
 	}
-	if nox_common_gameFlags_check_40A5C0(4096) && sub_4BFD30() != 0 {
+	if noxflags.HasGame(4096) && sub_4BFD30() != 0 {
 		v9 = v4 + 5
 		v10 = v3 + 66
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1050004)))), v10-64, v9-58)
@@ -2685,7 +2686,7 @@ func sub_467B00(a1 int32, a2 int32) int32 {
 			if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v3)) + 108))) == uint32(a1) {
 				v6 = 31
 				if int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v3)) + 112))))&0x10 != 0 {
-					if nox_common_gameFlags_check_40A5C0(6144) {
+					if noxflags.HasGame(6144) {
 						v6 = 9
 					} else {
 						v6 = 3
@@ -2838,7 +2839,7 @@ func nox_xxx_gameClearAll_467DF0(a1 int32) int32 {
 	nox_xxx_gameDeleteSpiningCrownSkull_4B8220()
 	nox_alloc_npcs_2()
 	sub_4573B0()
-	if !nox_common_gameFlags_check_40A5C0(1) {
+	if !noxflags.HasGame(1) {
 		sub_469B90(&v4[0])
 		sub_4349C0((*uint32)(unsafe.Pointer(&v4[0])))
 		sub_421B10()
@@ -2849,7 +2850,7 @@ func nox_xxx_gameClearAll_467DF0(a1 int32) int32 {
 	sub_49BBB0()
 	nox_client_resetScreenParticles_431510()
 	nox_xxx_spriteDeleteAll_45A5E0(a1)
-	result = bool2int32(nox_common_gameFlags_check_40A5C0(1))
+	result = bool2int32(noxflags.HasGame(1))
 	if result == 0 {
 		nox_xxx_wall_410160()
 		for i := int32(0); i < ptr_5D4594_2650668_cap*44; i += 44 {
@@ -2879,7 +2880,7 @@ func sub_469FA0() int32 {
 	return int32(*memmap.PtrUint32(0x5D4594, 1064848))
 }
 func nox_client_chatStart_46A430(a1 int32) {
-	if !nox_common_gameFlags_check_40A5C0(2048) {
+	if !noxflags.HasGame(2048) {
 		if dword_5d4594_1064868 == 0 {
 			**(**uint16)(unsafe.Pointer(&dword_5d4594_1064864)) = 0
 			*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1064864 + 1052))) = 0
@@ -3251,7 +3252,7 @@ func sub_46DCC0() *byte {
 		v43 = (*wchar2_t)(unsafe.Pointer(uintptr(v23)))
 		*memmap.PtrUint8(0x5D4594, 1090117) = 0
 		*memmap.PtrUint8(0x5D4594, 1090118) = 0
-		if nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		if noxflags.HasGame(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 			v43 = (*wchar2_t)(unsafe.Pointer(uintptr(func() uint32 {
 				p := &v23
 				*p--
@@ -3334,7 +3335,7 @@ func sub_46DCC0() *byte {
 				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*527))) &= math.MaxInt32
 			}
 		}
-	} else if nox_common_gameFlags_check_40A5C0(1024) {
+	} else if noxflags.HasGame(1024) {
 		v1 = math.MinInt32
 		v41 = uint32(nox_common_playerInfoCount_416F40())
 		v2 = uint32(nox_xxx_getTeamCounter_417DD0())
@@ -3342,7 +3343,7 @@ func sub_46DCC0() *byte {
 		v42 = (*wchar2_t)(unsafe.Pointer(uintptr(v2)))
 		*memmap.PtrUint8(0x5D4594, 1090117) = 0
 		*memmap.PtrUint8(0x5D4594, 1090118) = 0
-		if nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		if noxflags.HasGame(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 			v41--
 		}
 		if uint32(*memmap.PtrUint8(0x5D4594, 1090116)) < v2 {
@@ -3443,7 +3444,7 @@ func sub_46E080(a1 int32) int32 {
 		v1 int32
 		v3 *uint32
 	)
-	if nox_common_gameFlags_check_40A5C0(32) {
+	if noxflags.HasGame(32) {
 		v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2060))))
 		if v1 == int32(*memmap.PtrUint16(0x5D4594, 1090128)) {
 			return 2
@@ -3451,11 +3452,11 @@ func sub_46E080(a1 int32) int32 {
 		if v1 == int32(*memmap.PtrUint16(0x5D4594, 1090130)) {
 			return 3
 		}
-	} else if nox_common_gameFlags_check_40A5C0(64) {
+	} else if noxflags.HasGame(64) {
 		if *(*uint32)(unsafe.Pointer(uintptr(a1 + 2060))) == uint32(*memmap.PtrUint16(0x5D4594, 1090132)) {
 			return 4
 		}
-	} else if nox_common_gameFlags_check_40A5C0(16) {
+	} else if noxflags.HasGame(16) {
 		v3 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2060))))).Field_0
 		if v3 != nil {
 			if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), 30) {
@@ -3566,7 +3567,7 @@ func sub_46E4E0() *byte {
 	*memmap.PtrUint8(0x5D4594, 1090116) = 0
 	*memmap.PtrUint8(0x5D4594, 1090117) = 0
 	*memmap.PtrUint8(0x5D4594, 1090118) = 0
-	if nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+	if noxflags.HasGame(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 		v23--
 	}
 	if uint32(*memmap.PtrUint8(0x5D4594, 1090116)) < v1 {
@@ -3726,7 +3727,7 @@ func sub_46FEE0() int8 {
 		}
 	}
 	v4 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v0*80)+1084196))
-	if !nox_common_gameFlags_check_40A5C0(1024) {
+	if !noxflags.HasGame(1024) {
 		v7 = int32(*memmap.PtrUint8(0x5D4594, 1090117))
 		if int32(*memmap.PtrUint8(0x5D4594, 1090117)) != 0 {
 			v8 = (*uint8)(memmap.PtrOff(0x5D4594, 1084196))
@@ -3769,7 +3770,7 @@ func sub_46FF70(a1 int32) int8 {
 		v6 *uint8
 	)
 	v1 = 1
-	if !nox_common_gameFlags_check_40A5C0(1024) {
+	if !noxflags.HasGame(1024) {
 		v5 = int32(*memmap.PtrUint8(0x5D4594, 1090116))
 		if int32(*memmap.PtrUint8(0x5D4594, 1090116)) != 0 {
 			v6 = (*uint8)(memmap.PtrOff(0x5D4594, 1087252))
@@ -4427,7 +4428,7 @@ func nox_xxx_drawHealthManaBar_471C00(win *gui.Window, draw *gui.WindowData) int
 	v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
 	v7 = v1
 	v2 = (*uint8)(unsafe.Pointer(&nox_windows_arr_1093036[v1]))
-	if nox_xxx_clientIsObserver_4372E0() != 0 || nox_gameDisableMapDraw_5d4594_2650672 != 0 || nox_common_gameFlags_check_40A5C0(9437184) {
+	if nox_xxx_clientIsObserver_4372E0() != 0 || nox_gameDisableMapDraw_5d4594_2650672 != 0 || noxflags.HasGame(9437184) {
 		return 1
 	}
 	if v1 != 0 {
@@ -4878,7 +4879,7 @@ func nox_xxx_cliDrawMinimap_472600(a1 int32, a2 int32) int32 {
 					}
 				}
 			}
-			if nox_common_gameFlags_check_40A5C0(0x10000) || *(*uint32)(unsafe.Pointer(uintptr(v11 + 12))) != 0 {
+			if noxflags.HasGame(0x10000) || *(*uint32)(unsafe.Pointer(uintptr(v11 + 12))) != 0 {
 				v26 = int32(nox_xxx_minimap_587000_149232)
 				v25 = v26
 				v76.field_0 = (v14 - v8) * 100 / v26
@@ -5026,7 +5027,7 @@ func nox_xxx_cliDrawMinimap_472600(a1 int32, a2 int32) int32 {
 				nox_xxx_minimapDrawPoint_473570(xLeft.field_0, xLeft.field_4)
 				continue
 			}
-			if !nox_common_gameFlags_check_40A5C0(32) {
+			if !noxflags.HasGame(32) {
 				if k == *memmap.PtrInt32(0x852978, 8) {
 					sub_4735C0(xLeft.field_0, xLeft.field_4)
 				} else {

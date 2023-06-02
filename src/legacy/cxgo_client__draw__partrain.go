@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -17,7 +18,7 @@ func nox_thing_blue_rain_draw(a1 int32, dr *nox_drawable) int32 {
 		v9 int32
 		a2 int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	if nox_common_gameFlags_check_40A5C0(0x200000) {
+	if noxflags.HasGame(0x200000) {
 		return 1
 	}
 	if *memmap.PtrUint32(0x5D4594, 1313716) == 0 {

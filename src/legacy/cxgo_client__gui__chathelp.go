@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -31,7 +32,7 @@ func nox_xxx_cliShowHelpGui_49C560() *uint32 {
 		sub_46C690((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		nox_xxx_windowFocus_46B500((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), (nox_win_width-*(*int32)(unsafe.Pointer(uintptr(dword_5d4594_1305680 + 8))))/2, (nox_win_height-*(*int32)(unsafe.Pointer(uintptr(dword_5d4594_1305680 + 12))))/2)
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(1) {
 			v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), 4102)))
 			v6 = (*byte)(unsafe.Pointer(sub_42E8E0(45, 1)))
 			v3 = nox_strman_loadString_40F1D0(internCStr("Sanchlp.wnd:Help"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\chathelp.c"), 85)
@@ -51,13 +52,13 @@ func nox_xxx_cliShowHelpGui_49C560() *uint32 {
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304400)), v4, v7)
 		nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1304400)))
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 16385, uintptr(memmap.PtrOff(0x5D4594, 1304656)), 0)
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(1) {
 			if sub_459DA0() == 0 {
 				nox_xxx_guiServerOptsLoad_457500()
 			}
 			sub_459D80(1)
 		}
-		if nox_common_gameFlags_check_40A5C0(4096) || (func() *uint32 {
+		if noxflags.HasGame(4096) || (func() *uint32 {
 			result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_isQuest_4D6F50())))
 			return result
 		}()) != nil {

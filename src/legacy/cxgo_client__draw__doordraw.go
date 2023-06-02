@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
@@ -24,7 +25,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 		a3  int2
 	)
 	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + uint32(int32(dr.Field_74_4)*4))))))
-	if !nox_common_gameFlags_check_40A5C0(4096) || int32(dr.Field_108_1) != 1 {
+	if !noxflags.HasGame(4096) || int32(dr.Field_108_1) != 1 {
 		return 1
 	}
 	if dr.Field_109 == 0 {

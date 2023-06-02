@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -200,13 +201,13 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(unit))), internCStr("GeneralPrint:ConjureNoSpellWarning1"), 0)
 			v34 = 0
 		}
-		if !nox_common_gameFlags_check_40A5C0(2048) {
+		if !noxflags.HasGame(2048) {
 			v35 = int32(*(*uint32)(unsafe.Pointer(uintptr(unit + 16))))
 			if v35&0x4000 != 0 {
 				v34 = 0
 			}
 		}
-		if !nox_common_gameFlags_check_40A5C0(128) && v34 != 0 {
+		if !noxflags.HasGame(128) && v34 != 0 {
 			v36 = (*int32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))
 			v37 = 0
 			v38 = (*uint32)(unsafe.Add(unsafe.Pointer(data), 1))
@@ -218,7 +219,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 				v38 = (*uint32)(unsafe.Add(unsafe.Pointer(v38), 4*1))
 				v39--
 			}
-			if (v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || *(*uint32)(unsafe.Pointer(uintptr(v85 + 288))) == 0 || nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v85 + 288))))))) != 0 || nox_common_gameFlags_check_40A5C0(4096)) && nox_xxx_spellByBookInsert_4FE340(unit, (*int32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))), v37, 3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 21)))) == 0 && v37 == 1 {
+			if (v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || *(*uint32)(unsafe.Pointer(uintptr(v85 + 288))) == 0 || nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v85 + 288))))))) != 0 || noxflags.HasGame(4096)) && nox_xxx_spellByBookInsert_4FE340(unit, (*int32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))), v37, 3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 21)))) == 0 && v37 == 1 {
 				v40 = 5
 				for v40 != 0 {
 					if *v36 != 0 {
@@ -299,7 +300,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		switch *(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)) {
 		case 0:
 			var c1 int32 = 0
-			if nox_common_gameFlags_check_40A5C0(4096) {
+			if noxflags.HasGame(4096) {
 				c1 = 3
 			}
 			sub_506870(c1, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(data))), unsafe.Sizeof(wchar2_t(0))*1)))
@@ -309,7 +310,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			return 52
 		case 2:
 			var c2 int32 = 0
-			if nox_common_gameFlags_check_40A5C0(4096) {
+			if noxflags.HasGame(4096) {
 				c2 = 3
 			}
 			sub_506C90(c2, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(data))), unsafe.Sizeof(wchar2_t(0))*1)))

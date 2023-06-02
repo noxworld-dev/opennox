@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -19,7 +20,7 @@ func nox_xxx_bookShowMB_45AD70(a1 int32) {
 		return
 	}
 	if nox_xxx_playerAnimCheck_4372B0() != 0 && (func() uint32 {
-		result = uint32(bool2int32(nox_common_gameFlags_check_40A5C0(2048)))
+		result = uint32(bool2int32(noxflags.HasGame(2048)))
 		return result
 	}()) != 0 {
 		return
@@ -216,7 +217,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 			nox_wcscat(&v71[0], v22)
 			v20 = 19
 		}
-		if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1047516 + 2251)))) == 2 && (*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1047516 + 4232))) != 0 || nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096)) {
+		if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1047516 + 2251)))) == 2 && (*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1047516 + 4232))) != 0 || noxflags.HasGame(0x2000) && !noxflags.HasGame(4096)) {
 			nox_xxx_drawGetStringSize_43F840(nil, &v71[0], &v70, nil, 0)
 			nox_xxx_drawStringWrap_43FAF0(nil, &v71[0], (108-v70)/2+v66+24, v14, 128, 0)
 		}

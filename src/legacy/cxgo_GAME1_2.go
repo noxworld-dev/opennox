@@ -8,6 +8,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -509,7 +510,7 @@ func nox_server_mapRWObjectTOC_428B30() int32 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 1)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12[0])), uint32(uint8(int8(v8))))
 			v12[uint8(int8(v8))] = 0
-			if !nox_common_gameFlags_check_40A5C0(2) || nox_common_gameFlags_check_40A5C0(1) {
+			if !noxflags.HasGame(2) || noxflags.HasGame(1) {
 				v7 = uint16(int16(nox_xxx_getNameId_4E3AA0(&v12[0])))
 			} else {
 				v7 = uint16(int16(nox_xxx_getTTByNameSpriteMB_44CFC0(&v12[0])))
@@ -786,7 +787,7 @@ func nox_server_mapRWAmbientData_429200() int32 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v3[1])), 4)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v3[2])), 4)
 			sub_469B90(&v3[0])
-			if nox_common_gameFlags_check_40A5C0(2097154) {
+			if noxflags.HasGame(2097154) {
 				sub_4349C0((*uint32)(unsafe.Pointer(&v3[0])))
 			}
 		}
@@ -829,7 +830,7 @@ func nox_server_mapRWWindowWalls_4292C0(a1 *uint32) int32 {
 					v7.field_0 += int32(uint32(v9.field_0/23) - *(*uint32)(unsafe.Pointer(v3)))
 					v7.field_4 += int32(uint32(v9.field_4/23) - *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1))))
 				}
-				if nox_common_gameFlags_check_40A5C0(0x400000) {
+				if noxflags.HasGame(0x400000) {
 					v4 = nox_xxx_cliWallGet_5042F0(v7.field_0, v7.field_4)
 					if v4 != nil {
 						v2 = (*uint32)(unsafe.Pointer(uintptr(*v4)))
@@ -927,7 +928,7 @@ func nox_server_mapRWDestructableWalls_429530(a1 *uint32) int32 {
 					v7.field_0 += int32(uint32(v9.field_0/23) - *(*uint32)(unsafe.Pointer(v3)))
 					v7.field_4 += int32(uint32(v9.field_4/23) - *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1))))
 				}
-				if nox_common_gameFlags_check_40A5C0(0x400000) {
+				if noxflags.HasGame(0x400000) {
 					v4 = nox_xxx_cliWallGet_5042F0(v7.field_0, v7.field_4)
 					if v4 != nil {
 						v2 = (*uint32)(unsafe.Pointer(uintptr(*v4)))
@@ -939,7 +940,7 @@ func nox_server_mapRWDestructableWalls_429530(a1 *uint32) int32 {
 					*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 4))) |= 8
 					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*5))) = *memmap.PtrUint16(0x5D4594, 741344)
 					*memmap.PtrUint32(0x5D4594, 741344)++
-					if !nox_common_gameFlags_check_40A5C0(0x400000) {
+					if !noxflags.HasGame(0x400000) {
 						nox_xxx_wallBreackableListAdd_410840(int32(uintptr(unsafe.Pointer(v2))))
 					}
 				}
@@ -1049,7 +1050,7 @@ func nox_server_mapRWSecretWalls_4297C0(a1 *uint32) int32 {
 			*v3 += int32(uint32(v12.field_0/23) - *(*uint32)(unsafe.Pointer(v5)))
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*2))) += uint32(v12.field_4/23) - *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*1)))
 		}
-		if !nox_common_gameFlags_check_40A5C0(0x400000) {
+		if !noxflags.HasGame(0x400000) {
 			v10 = int32(uintptr(nox_server_getWallAtGrid_410580(*v3, int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*2)))))))
 			v7 = v10
 		} else {
@@ -1079,7 +1080,7 @@ func nox_server_mapRWSecretWalls_4297C0(a1 *uint32) int32 {
 					*(*byte)(unsafe.Add(unsafe.Pointer(v2), 22)) = 0
 				}
 			}
-			if !nox_common_gameFlags_check_40A5C0(0x400000) {
+			if !noxflags.HasGame(0x400000) {
 				nox_xxx_wallSecretBlock_410760((*uint32)(unsafe.Pointer(v2)))
 			}
 		}
@@ -1231,7 +1232,7 @@ func nox_server_mapRWWallMap_429B20(a1 *uint32) int32 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v24)), 1)
 			v16 = int8(int32(uint8(int8(v24))) >> 7)
 			*((*uint8)(unsafe.Pointer(&v24))) = uint8(int8(v24 & math.MaxInt8))
-			if nox_common_gameFlags_check_40A5C0(0x400000) {
+			if noxflags.HasGame(0x400000) {
 				v17 = (*uint8)(unsafe.Pointer(uintptr(*sub_504290(int8(v30), int8(uintptr(unsafe.Pointer(a1)))))))
 			} else {
 				v18 = int32(uint8(int8(v30)))
@@ -1320,7 +1321,7 @@ func nox_server_mapRWWallMap_429B20(a1 *uint32) int32 {
 									v23 = 100
 								}
 								nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v23)), 1)
-								if nox_common_gameFlags_check_40A5C0(0x200000) {
+								if noxflags.HasGame(0x200000) {
 									*((*uint8)(unsafe.Pointer(&v24))) = 0
 								} else {
 									*((*uint8)(unsafe.Pointer(&v24))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v11), 12))
@@ -1525,7 +1526,7 @@ func sub_42A150(a1 int16, a2 *uint32) int32 {
 					v18 = uint8(int8(v27))
 					*((*uint8)(unsafe.Pointer(&v27))) = uint8(int8(v27 & math.MaxInt8))
 					v19 = int8(int32(v18) >> 7)
-					if !nox_common_gameFlags_check_40A5C0(0x400000) {
+					if !noxflags.HasGame(0x400000) {
 						v22 = (*uint8)(nox_server_getWallAtGrid_410580(int32(uint32(v17)+*memmap.PtrUint32(0x5D4594, 741360)), int32(uint32(v4)+*memmap.PtrUint32(0x5D4594, 741368))))
 						v21 = v22
 						if v22 != nil {
@@ -3574,7 +3575,7 @@ func sub_4379C0() {
 func sub_438330() int {
 	v0 := nox_wnd_xxx_815040.Func13Ptr.Get()
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_815040)
-	if !nox_common_gameFlags_check_40A5C0(0x10000000) {
+	if !noxflags.HasGame(0x10000000) {
 		nox_client_guiXxx_43A9D0()
 	}
 	if v0 != nil {

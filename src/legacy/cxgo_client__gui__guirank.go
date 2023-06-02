@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -287,7 +288,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 	)
 	v2 = nil
 	v35 = nil
-	if !nox_common_gameFlags_check_40A5C0(8) && dword_587000_145668 != 6 {
+	if !noxflags.HasGame(8) && dword_587000_145668 != 6 {
 		dword_5d4594_1090120 = dword_587000_145668 - 1
 		if *(*int32)(unsafe.Pointer(&dword_587000_145668))-1 < 0 {
 			dword_5d4594_1090120 = 5
@@ -300,7 +301,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 	}
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
 	v4 = nox_xxx_cliGamedataGet_416590(0)
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		v5 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		v6 = int32(uint16(nox_xxx_servGamedataGet_40A020(v5)))
 	} else {
@@ -393,7 +394,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 					if int32(v32) == 16 {
 						sub_46F8F0(1, v36)
 					}
-					if nox_common_gameFlags_check_40A5C0(1024) && v34 > 0 && *memmap.PtrInt32(0x5D4594, uintptr(int32(v32)*80)+1084196) >= v34 {
+					if noxflags.HasGame(1024) && v34 > 0 && *memmap.PtrInt32(0x5D4594, uintptr(int32(v32)*80)+1084196) >= v34 {
 						v15 = 1
 					}
 					v17 = int32(v32) * 80
@@ -461,7 +462,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			default:
 				v22 = (*wchar2_t)(unsafe.Pointer(uintptr(a2)))
 			}
-			if !nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			if !noxflags.HasGame(1) || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				if dword_5d4594_1090120 == 1 {
 					v28 = nox_gui_getQuestStage_450B10()
 					v23 = nox_strman_loadString_40F1D0(internCStr("Noxworld.c:Stage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1499)
@@ -481,7 +482,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 				v25 = 0
 			}
 			v22 = nox_strman_loadString_40F1D0(internCStr("Teams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1519)
-			if !nox_common_gameFlags_check_40A5C0(1) || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			if !noxflags.HasGame(1) || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				v30 = int32(*memmap.PtrUint8(0x5D4594, 1090116))
 				v26 = nox_strman_loadString_40F1D0(internCStr("yourteamrank"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1525)
 				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %d / %d"))), v26, v25, v30)
@@ -601,11 +602,11 @@ func sub_46FC50() int8 {
 		v6 int32
 		v7 int32
 	)
-	if sub_40A220() != 0 && (!nox_common_gameFlags_check_40A5C0(1) || sub_40A300() != 0 || int32(func() uint8 {
+	if sub_40A220() != 0 && (!noxflags.HasGame(1) || sub_40A300() != 0 || int32(func() uint8 {
 		v0 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		return sub_40A180(v0)
 	}()) != 0) {
-		if !nox_common_gameFlags_check_40A5C0(1) || sub_40A300() != 0 || int32(func() uint8 {
+		if !noxflags.HasGame(1) || sub_40A300() != 0 || int32(func() uint8 {
 			v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 			*((*uint8)(unsafe.Pointer(&v2))) = sub_40A180(v1)
 			return uint8(int8(v2))
@@ -636,7 +637,7 @@ func sub_46FD80() int32 {
 		v3     *wchar2_t
 		v4     int32
 	)
-	if nox_common_gameFlags_check_40A5C0(4224) {
+	if noxflags.HasGame(4224) {
 		result = wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090112))))))
 		if result == 0 {
 			result = nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090112))))), 1)
@@ -645,7 +646,7 @@ func sub_46FD80() int32 {
 		if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090112)))))) != 0 {
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090112))))), 0)
 		}
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(1) {
 			v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 			v2 = int32(uint16(nox_xxx_servGamedataGet_40A020(v1)))
 		} else {

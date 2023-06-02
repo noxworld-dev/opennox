@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -75,7 +76,7 @@ func nox_xxx_guiObjlistLoad_4530C0(a1 int32, a2 int32) int32 {
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045464))))), 16409, uintptr(unsafe.Pointer(v12)), 0)
 	*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1045460)*4+1045472) = uint32(v2)
 	sub_453750()
-	if !nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152) {
+	if !noxflags.HasGame(1) || noxflags.HasGame(49152) {
 		sub_46AD20(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045468)), 1515, 1533, 0)
 	}
 	return int32(dword_5d4594_1045468)

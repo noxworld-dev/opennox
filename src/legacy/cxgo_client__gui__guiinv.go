@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -440,7 +441,7 @@ LABEL_14:
 	sub_46AEE0(int32(uintptr(unsafe.Pointer(v9))), int32(uintptr(memmap.PtrOff(0x5D4594, 1063124))))
 	v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062476)))), 9156)))
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16399, 0, 0)
-	if nox_common_gameFlags_check_40A5C0(2048) {
+	if noxflags.HasGame(2048) {
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 294)))) != 0 {
 			sub_4633B0(*(*int32)(unsafe.Pointer(&dword_5d4594_1063116)), &v71, &v68)
 			v63 = int32(v68)
@@ -525,7 +526,7 @@ LABEL_14:
 		v28 = nox_xxx_calcBoltDamage_4EF1E0(int32(*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v70))), 4*0))) + 2239)))), int32(uintptr(unsafe.Pointer(v26))))
 		v29 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v26), 4*1)))
 		v70 = float32(v28*float64(v69) + float64(v71) + float64(v72))
-		if uint32(v29) == *memmap.PtrUint32(0x5D4594, 1063648) && nox_common_gameFlags_check_40A5C0(2048) {
+		if uint32(v29) == *memmap.PtrUint32(0x5D4594, 1063648) && noxflags.HasGame(2048) {
 			v30 = nox_xxx_gamedataGetFloat_419D40((*byte)(memmap.PtrOff(0x587000, 137632)))
 		} else {
 			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v68))), 4*0)) = uint32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v26))), unsafe.Sizeof(uint16(0))*36))))
@@ -702,7 +703,7 @@ func nox_client_makePlayerStatsDlg_463880(a1 *int32) {
 	nox_swprintf(&v77[0], v12, v52)
 	nox_xxx_drawStringWrap_43FAF0(nil, &v77[0], v10, v11, 200, 0)
 	var v13 int32 = v11 + v1 + 1
-	if nox_common_gameFlags_check_40A5C0(2048) {
+	if noxflags.HasGame(2048) {
 		var (
 			v53 int32     = int32(int64(nox_xxx_gamedataGetFloatTable_419D70(internCStr("XPTable"), int32(*(*byte)(unsafe.Pointer(uintptr(v4 + 3684)))+1))))
 			v41 int32     = int32(*memmap.PtrUint32(0x5D4594, 1062544))
@@ -1486,7 +1487,7 @@ func nox_xxx_inventroryOnHovewerSub_4667E0(win *gui.Window, draw *gui.WindowData
 		nox_xxx_cursorSetTooltip_4776B0(v10)
 		return 1
 	}
-	if !nox_common_gameFlags_check_40A5C0(4096) {
+	if !noxflags.HasGame(4096) {
 		nox_xxx_cursorSetTooltip_4776B0(nil)
 		return 1
 	}
@@ -1544,7 +1545,7 @@ func nox_xxx_inventoryNameSignInit_4671E0() int32 {
 		v5     [100]byte
 	)
 	nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1062588)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1063676)))
-	if nox_common_gameFlags_check_40A5C0(4096) || nox_xxx_isQuest_4D6F50() != 0 || (func() int32 {
+	if noxflags.HasGame(4096) || nox_xxx_isQuest_4D6F50() != 0 || (func() int32 {
 		result = sub_4D6F70()
 		return result
 	}()) != 0 {

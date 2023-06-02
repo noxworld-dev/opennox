@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -17,7 +18,7 @@ func nox_thing_flag_draw(a1 *int32, dr *nox_drawable) int32 {
 	)
 	v2 = a2
 	nox_thing_weapon_animate_draw(a1, dr)
-	if nox_common_gameFlags_check_40A5C0(128) {
+	if noxflags.HasGame(128) {
 		if *(*uint32)(unsafe.Pointer(uintptr(v2 + 120)))&0x1000000 != 0 {
 			v3 = int32(uint32(*a1) + *(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
 			v4 = int32(uint32(uint64(*(*uint32)(unsafe.Pointer(uintptr(v2 + 16)))+uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))-uint32(*(*int16)(unsafe.Pointer(uintptr(v2 + 104))))) - uint64(int64(*(*float32)(unsafe.Pointer(uintptr(v2 + 100))))) - uint64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))))

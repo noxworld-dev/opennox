@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -40,7 +41,7 @@ func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
 			break
 		}
 		if dr.Flags28()&0x10000000 != 0 {
-			if nox_common_gameFlags_check_40A5C0(32) {
+			if noxflags.HasGame(32) {
 				v3 = int32((gameFrame() + dr.Field_32) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
 				v4 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8))))
 				if v3 >= v4 {

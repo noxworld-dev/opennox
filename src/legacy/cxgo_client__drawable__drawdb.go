@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
@@ -155,7 +156,7 @@ func nox_xxx_equipArmor_415AB0() {
 		if *memmap.PtrUint32(0x587000, 34848) != 0 {
 			v0 = (*uint8)(memmap.PtrOff(0x587000, 34864))
 			for {
-				if nox_common_gameFlags_check_40A5C0(2097153) {
+				if noxflags.HasGame(2097153) {
 					*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), -int(4*2)))) = uint32(nox_xxx_getNameId_4E3AA0(*((**byte)(unsafe.Add(unsafe.Pointer((**byte)(unsafe.Pointer(v0))), -int(unsafe.Sizeof((*byte)(nil))*4))))))
 					v1 = nox_xxx_getNameId_4E3AA0(*(**byte)(unsafe.Pointer(v0)))
 				} else {
@@ -183,7 +184,7 @@ func nox_xxx_equipWeapon_4157C0() {
 		if *memmap.PtrUint32(0x587000, 33064) != 0 {
 			v0 = (*uint8)(memmap.PtrOff(0x587000, 33064))
 			for {
-				if nox_common_gameFlags_check_40A5C0(2097153) {
+				if noxflags.HasGame(2097153) {
 					v1 = nox_xxx_getNameId_4E3AA0(*(**byte)(unsafe.Pointer(v0)))
 				} else {
 					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(**byte)(unsafe.Pointer(v0)))

@@ -3,12 +3,13 @@ package legacy
 import (
 	"unsafe"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
-	if !nox_common_gameFlags_check_40A5C0(0x200000) {
+	if !noxflags.HasGame(0x200000) {
 		var v9 *byte = (*byte)(unsafe.Pointer(nox_npc_by_id(int32(dr.Field_32))))
 		if v9 == nil {
 			return 1

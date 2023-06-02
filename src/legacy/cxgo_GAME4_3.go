@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -523,11 +524,11 @@ func nox_xxx_spellBlink2_530310(a1 *uint32) int32 {
 		result int32
 		v2     float32
 	)
-	if !nox_common_gameFlags_check_40A5C0(4096) || (func() bool {
+	if !noxflags.HasGame(4096) || (func() bool {
 		result = 1
 		return *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) != 1
 	}()) {
-		if nox_common_gameFlags_check_40A5C0(2048) {
+		if noxflags.HasGame(2048) {
 			v2 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("TeleportDelay"), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))-1)))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = gameFrame() + uint32(int32(v2))
 			result = 0
@@ -567,7 +568,7 @@ func nox_xxx_spellBlink1_530380(a1 *int32) int32 {
 		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))), 0, 0)
 		return 1
 	}
-	if nox_common_gameFlags_check_40A5C0(4096) && (func() int32 {
+	if noxflags.HasGame(4096) && (func() int32 {
 		v3 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
 		return int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 8)))) & 4
 	}()) != 0 {
@@ -648,7 +649,7 @@ func sub_5305D0(a1 *uint32) int32 {
 			return 1
 		}
 	}
-	if nox_common_gameFlags_check_40A5C0(2048) {
+	if noxflags.HasGame(2048) {
 		v4 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("TeleportDelay"), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))-1)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = gameFrame() + uint32(int32(v4))
 	} else {
@@ -748,7 +749,7 @@ func nox_xxx_castTele_530820(a1 int32) int32 {
 		result int32
 		v2     float32
 	)
-	if nox_common_gameFlags_check_40A5C0(2048) {
+	if noxflags.HasGame(2048) {
 		v2 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("TeleportDelay"), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))-1)))
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 68))) = gameFrame() + uint32(int32(v2))
 		result = 0
@@ -925,7 +926,7 @@ func sub_530CA0(a1 int32) int32 {
 			return 1
 		}
 	}
-	if nox_common_gameFlags_check_40A5C0(2048) {
+	if noxflags.HasGame(2048) {
 		v5 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("TeleportDelay"), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))-1)))
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 68))) = gameFrame() + uint32(int32(v5))
 		result = 0
@@ -3126,7 +3127,7 @@ func nox_xxx_damageToMap_534BC0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *serv
 		sub_532FE0(nox_xxx_wallField36(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1)))), int32(uintptr(unsafe.Pointer(a5))))
 		return 0
 	}
-	if !nox_common_gameFlags_check_40A5C0(4096) || a5 == nil || uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1))) != *memmap.PtrUint32(0x5D4594, 2488556) || (func() int32 {
+	if !noxflags.HasGame(4096) || a5 == nil || uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1))) != *memmap.PtrUint32(0x5D4594, 2488556) || (func() int32 {
 		v7 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580(a5))))
 		return v7
 	}()) == 0 || (func() bool {
@@ -3200,7 +3201,7 @@ func nox_xxx_wallPreDestroy_534DA0(a1 *int32) int32 {
 	v5 = nox_xxx_utilFindSound_40AF50(v4)
 	nox_xxx_audCreate_501A30(v5, &v17, 0, 0)
 	nox_xxx_netSendPointFx_522FF0(-118, &v17)
-	if !nox_common_gameFlags_check_40A5C0(4096) {
+	if !noxflags.HasGame(4096) {
 		v6 = int32(nox_xxx_wallGetBrickTypeMB_410E40(int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 1))))))
 		if v6 != 0 {
 			v7 = nox_common_randomInt_415FA0(0, v6-1)
@@ -3945,7 +3946,7 @@ func nox_xxx_sMakeScorch_537AF0(a1 *float32, a2 int32) {
 	v3 = result
 	if result != nil {
 		nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(result)))))), nil, *a1, *((*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1))))
-		if nox_common_gameFlags_check_40A5C0(4096) {
+		if noxflags.HasGame(4096) {
 			v4 = nox_common_randomInt_415FA0(5, 8)
 		} else {
 			v4 = nox_common_randomInt_415FA0(10, 20)
@@ -4117,7 +4118,7 @@ func sub_538510(a1 int32, a2 int32) {
 							if nox_xxx_mapTraceRay_535250(&v12, nil, nil, 5) != 0 {
 								nox_xxx_playerPreAttackEffects_538290(a1, int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 28)))), a2)
 								ccall.AsFunc[func(int32, uint32, uint32, uint32, uint32)](unsafe.Pointer(uintptr(a1+716)))(a1, *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))), *(*uint32)(unsafe.Pointer(uintptr(a2 + 28))), uint32(int32(int64(float64(*(*float32)(unsafe.Pointer(uintptr(a2))))+0.5))), uint32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 4)))))
-								if nox_common_gameFlags_check_40A5C0(2048) {
+								if noxflags.HasGame(2048) {
 									if int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) + 8))))&4 != 0 {
 										if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8)))) & 2) == 0 {
 											v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))))
@@ -4872,7 +4873,7 @@ func nox_xxx_shootBowCrossbow1_539BD0(a1 int32, a2 int32) int32 {
 			return 1
 		}
 	LABEL_14:
-		if nox_common_gameFlags_check_40A5C0(4096) && uintptr(unsafe.Pointer(v4)) == uintptr(4) {
+		if noxflags.HasGame(4096) && uintptr(unsafe.Pointer(v4)) == uintptr(4) {
 			nox_xxx_shootBowCrossbow2_539D80(a1, 0, a2, (*byte)(unsafe.Pointer(uintptr(4))))
 		}
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8)))) & 4) == 0 {
@@ -4882,7 +4883,7 @@ func nox_xxx_shootBowCrossbow1_539BD0(a1 int32, a2 int32) int32 {
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("pattack.c:ReloadQuiver"), 0)
 			*v3 = 0
 		} else {
-			if nox_common_gameFlags_check_40A5C0(4096) && uintptr(unsafe.Pointer(v4)) == uintptr(4) {
+			if noxflags.HasGame(4096) && uintptr(unsafe.Pointer(v4)) == uintptr(4) {
 				goto LABEL_25
 			}
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("pattack.c:NoQuiver"), 0)
@@ -4894,7 +4895,7 @@ func nox_xxx_shootBowCrossbow1_539BD0(a1 int32, a2 int32) int32 {
 			goto LABEL_29
 		}
 	LABEL_25:
-		if !nox_common_gameFlags_check_40A5C0(4096) {
+		if !noxflags.HasGame(4096) {
 			nox_xxx_aud_501960(887, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
 	LABEL_29:
@@ -4903,7 +4904,7 @@ func nox_xxx_shootBowCrossbow1_539BD0(a1 int32, a2 int32) int32 {
 	}
 	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("pattack.c:ReloadingQuiver"), 0)
 	if uintptr(unsafe.Pointer(v4)) == uintptr(4) {
-		if !nox_common_gameFlags_check_40A5C0(4096) {
+		if !noxflags.HasGame(4096) {
 			nox_xxx_aud_501960(887, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 			*v3--
 			return 0
@@ -5406,7 +5407,7 @@ func sub_53A720(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
 	v4 = (*uint32)(unsafe.Pointer(uintptr(a1)))
 	v5 = 0
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
-		if nox_common_gameFlags_check_40A5C0(4096) {
+		if noxflags.HasGame(4096) {
 			if item.ObjSubClass&0x200000 != 0 {
 				v12 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 				v6 = int32(v12)
@@ -5418,7 +5419,7 @@ func sub_53A720(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
 			}
 		}
 	}
-	if !nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && sub_409F40(2) != 0 {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && sub_409F40(2) != 0 {
 		if (item.ObjSubClass&0x82) == 0 && sub_4E7EC0(a1, item) != 0 {
 			v5 = 1
 		}
@@ -5447,7 +5448,7 @@ func sub_53A720(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
 			return 0
 		}
 	}
-	if !nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0(item, int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2251))))) == 0 {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0(item, int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2251))))) == 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("weapon.c:WeaponEquipClassFail"), 0)
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		return 0
@@ -5532,7 +5533,7 @@ func nox_xxx_dropWeapon_53AB10(a1 int32, a2 *uint32, a3 *int32) int32 {
 		return 0
 	}
 	sub_53AAB0(int32(uintptr(unsafe.Pointer(a2))))
-	if !nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) {
 		if sub_409F40(2) != 0 {
 			nox_xxx_unitSetDecayTime_511660((*server.Object)(unsafe.Pointer(a2)), int32(gameFPS()*25))
 		}
@@ -6707,7 +6708,7 @@ func nox_xxx_updateObelisk_53C580(a1 int32) int32 {
 		v23 = 0
 		if *v24 >= 1 {
 			v8 = nox_xxx_getRechargeRate_53C940(*(**uint32)(unsafe.Pointer(uintptr(v5 + 104))))
-			if !nox_common_gameFlags_check_40A5C0(0x2000) || nox_common_gameFlags_check_40A5C0(4096) {
+			if !noxflags.HasGame(0x2000) || noxflags.HasGame(4096) {
 				if v8 == 0 {
 					v3 = v21
 					goto LABEL_25
@@ -6722,7 +6723,7 @@ func nox_xxx_updateObelisk_53C580(a1 int32) int32 {
 					if *(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*3))&0x47F0000 != 0 {
 						v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*184)))
 						if *(*int32)(unsafe.Pointer(uintptr(v11 + 112))) < 100 {
-							if nox_common_gameFlags_check_40A5C0(4096) {
+							if noxflags.HasGame(4096) {
 								if (gameFrame() % (gameFPS() >> 1)) == 0 {
 									nox_xxx_aud_501960(230, (*server.Object)(unsafe.Pointer(uintptr(v1))), 0, 0)
 								}
@@ -6748,7 +6749,7 @@ func nox_xxx_updateObelisk_53C580(a1 int32) int32 {
 			goto LABEL_43
 		}
 		v12 = 1
-		if nox_common_gameFlags_check_40A5C0(4096) {
+		if noxflags.HasGame(4096) {
 			v13 = int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 276))) + 2251))))
 			if int32(v13) != 0 {
 				if int32(v13) == 1 {
@@ -6774,7 +6775,7 @@ func nox_xxx_updateObelisk_53C580(a1 int32) int32 {
 			*(*uint16)(unsafe.Pointer(uintptr(v5 + 4))) = v16
 			nox_xxx_protectPlayerHPMana_56F870(int32(*(*uint32)(unsafe.Pointer(uintptr(v17 + 4596)))), v16)
 		}
-		if nox_common_gameFlags_check_40A5C0(4096) {
+		if noxflags.HasGame(4096) {
 			if (gameFrame() % (gameFPS() >> 1)) == 0 {
 				nox_xxx_aud_501960(230, (*server.Object)(unsafe.Pointer(uintptr(v1))), 0, 0)
 			}
@@ -7955,12 +7956,12 @@ func nox_xxx_pickupArmor_53E7F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		dword_5d4594_2488720 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("WoodenShield")))
 		dword_5d4594_2488724 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("SteelShield")))
 	}
-	if !nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && sub_409F40(2) != 0 && sub_4E7EC0(a1, (*server.Object)(unsafe.Pointer(uintptr(a2)))) != 0 {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && sub_409F40(2) != 0 && sub_4E7EC0(a1, (*server.Object)(unsafe.Pointer(uintptr(a2)))) != 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("armor.c:CannotPickupDuplicateArmor"), 0)
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		return 0
 	}
-	if !nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(a2))), int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2251))))) == 0 {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(a2))), int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2251))))) == 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("armor.c:ArmorEquipClassFail"), 0)
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		return 0
@@ -8095,7 +8096,7 @@ func nox_xxx_dropArmor_53EB70(a1 int32, a2 *uint32, a3 *int32) int32 {
 		return 0
 	}
 	sub_53EAE0(int32(uintptr(unsafe.Pointer(a2))))
-	if !nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) {
 		if sub_409F40(2) != 0 {
 			nox_xxx_unitSetDecayTime_511660((*server.Object)(unsafe.Pointer(a2)), int32(gameFPS()*25))
 		}
@@ -8678,7 +8679,7 @@ func sub_53F930(a1 int32, a2 int32) int32 {
 	}
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	v3 = nox_xxx_guide_427010(*(**byte)(unsafe.Pointer(uintptr(a2 + 736))))
-	if nox_common_gameFlags_check_40A5C0(4096) && int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 276))) + 2251)))) != 2 {
+	if noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 276))) + 2251)))) != 2 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("pickup.c:ObjectEquipClassFail"), 0)
 		return 0
 	}
@@ -8718,7 +8719,7 @@ func nox_xxx_useSpellReward_53F9E0(a1 int32, a2 int32) int32 {
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		return 0
 	}
-	if nox_common_gameFlags_check_40A5C0(6144) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + uint32(int32(*v2)*4) + 3696))) == 0 {
+	if noxflags.HasGame(6144) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + uint32(int32(*v2)*4) + 3696))) == 0 {
 		v3 = 1
 	}
 	if nox_xxx_spellGrantToPlayer_4FB550((*server.Object)(unsafe.Pointer(uintptr(a1))), int32(*v2), 1, v3, 0) != 0 {
@@ -8746,7 +8747,7 @@ func nox_xxx_useAbilityReward_53FAE0(a1 int32, a2 int32) int32 {
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		result = 0
 	} else {
-		if nox_common_gameFlags_check_40A5C0(6144) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + uint32(int32(*v2)*4) + 3696))) == 0 {
+		if noxflags.HasGame(6144) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + uint32(int32(*v2)*4) + 3696))) == 0 {
 			v3 = 1
 		}
 		if nox_xxx_abilityRewardServ_4FB9C0_ability(a1, int32(*v2), v3) != 0 {
@@ -8785,7 +8786,7 @@ func nox_xxx_respawnPlayerImpl_53FBC0(a1 *float32, a2 int32) *uint32 {
 			break
 		}
 		if dword_5d4594_2650652 != 0 {
-			if nox_common_gameFlags_check_40A5C0(0x2000) {
+			if noxflags.HasGame(0x2000) {
 				v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4)))
 				*((*uint8)(unsafe.Pointer(&v7))) = uint8(int8(v7 | 0x40))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4)) = uint32(v7)
@@ -9291,7 +9292,7 @@ func nox_xxx_mobHealSomeone_5411A0(a3p *server.Object) int32 {
 	if (v2 & 0x1000) == 0 {
 		return 0
 	}
-	v6 = bool2int32(nox_common_gameFlags_check_40A5C0(4096))
+	v6 = bool2int32(noxflags.HasGame(4096))
 	dword_5d4594_2489160 = 0
 	if v6 != 0 {
 		v7 = 640
@@ -10269,7 +10270,7 @@ func nox_xxx_mobSearchEdible2_544A40(a1 int32, a2 int32) {
 		v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))
 		if (v2&4) == 0 && ((v2&0x80) == 0 || nox_xxx_isNotPoisoned_5347F0(a2) != 0) {
 			v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))
-			if (v3&8) == 0 || v3&0x10 != 0 && nox_common_gameFlags_check_40A5C0(0x2000) && int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 12))))&0x10 != 0 {
+			if (v3&8) == 0 || v3&0x10 != 0 && noxflags.HasGame(0x2000) && int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 12))))&0x10 != 0 {
 				if nox_xxx_unitCanInteractWith_5370E0((*server.Object)(unsafe.Pointer(uintptr(a2))), (*server.Object)(unsafe.Pointer(uintptr(a1))), 0) != 0 {
 					v4 = float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 56))) - *(*float32)(unsafe.Pointer(uintptr(a2 + 56))))
 					v5 = float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 60))) - *(*float32)(unsafe.Pointer(uintptr(a2 + 60))))

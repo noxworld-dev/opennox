@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
@@ -74,7 +75,7 @@ func nox_xxx_guiServerPlayersLoad_456270(a1 int32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*8)) = uint32(uintptr(unsafe.Pointer(v12)))
 	sub_456500()
 	v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045684)))), 10504)))
-	if nox_common_gameFlags_check_40A5C0(128) {
+	if noxflags.HasGame(128) {
 		v10 = nox_strman_loadString_40F1D0(internCStr("Title1"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 631)
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v9)))))), 16385, uintptr(unsafe.Pointer(v10)), math.MaxUint32)
 	}
@@ -119,20 +120,20 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			if nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16404, 0, 0) < 0 {
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045688))))), 0)
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045692))))), 0)
-			} else if nox_common_gameFlags_check_40A5C0(0x8000) || *(*byte)(unsafe.Add(unsafe.Pointer(v3), 53)) < 0 {
+			} else if noxflags.HasGame(0x8000) || *(*byte)(unsafe.Add(unsafe.Pointer(v3), 53)) < 0 {
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045688))))), 0)
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045692))))), 0)
 			} else {
-				if nox_common_gameFlags_check_40A5C0(1) {
+				if noxflags.HasGame(1) {
 					nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045692))))), 1)
 				}
-				if nox_common_gameFlags_check_40A5C0(128) || *memmap.PtrUint32(0x5D4594, 1045696) == 0 {
+				if noxflags.HasGame(128) || *memmap.PtrUint32(0x5D4594, 1045696) == 0 {
 					nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045688))))), 1)
 				} else {
 					nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045688))))), 0)
 				}
 			}
-			if nox_common_gameFlags_check_40A5C0(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			if noxflags.HasGame(1) && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045688))))), 0)
 			}
 		}
@@ -229,7 +230,7 @@ func sub_457010(a1 int32, a2 *wchar2_t) int32 {
 		v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045684)))), 10502)))
 		v5 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16404, 0, 0))
 		nox_wcscpy(&v9[0], a2)
-		if nox_common_gameFlags_check_40A5C0(96) || *(*byte)(unsafe.Add(unsafe.Pointer(v2), 52))&0x60 != 0 {
+		if noxflags.HasGame(96) || *(*byte)(unsafe.Add(unsafe.Pointer(v2), 52))&0x60 != 0 {
 			v6 = *(*uint8)(unsafe.Pointer(uintptr(a1 + 57)))
 			if int32(v6) < 3 {
 				if int32(v6) == 1 {
@@ -273,7 +274,7 @@ func sub_457230(a1 *wchar2_t) *byte {
 			nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 1045668)))))), (*nox_list_item_t)(unsafe.Pointer(v3)))
 			nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v3))), unsafe.Sizeof(wchar2_t(0))*6)), a1)
 			nox_wcscpy(&v8[0], a1)
-			if nox_common_gameFlags_check_40A5C0(96) || *(*byte)(unsafe.Add(unsafe.Pointer(v1), 52))&0x60 != 0 {
+			if noxflags.HasGame(96) || *(*byte)(unsafe.Add(unsafe.Pointer(v1), 52))&0x60 != 0 {
 				v5 = int8(*(*byte)(unsafe.Add(unsafe.Pointer(v4), 57)))
 				if int32(uint8(v5)) < 3 {
 					if int32(v5) == 1 {

@@ -8,6 +8,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -3918,7 +3919,7 @@ func nox_xxx_netClientPredictLinear_523530(a1 int32) int32 {
 }
 func nox_xxx_mapGenSetFlags_5235F0(a1 int8) {
 	var v3 int32
-	if !nox_common_gameFlags_check_40A5C0(0x200000) {
+	if !noxflags.HasGame(0x200000) {
 		dword_5d4594_2487564 = nox_platform_get_ticks()
 		if dword_5d4594_2487568 > uint32(*(*int32)(unsafe.Pointer(&dword_5d4594_2487564))) {
 			dword_5d4594_2487568 = 0
@@ -7392,7 +7393,7 @@ func nox_xxx_unitUpdateSightMB_5281F0(a1p *server.Object) {
 	if (v2&0x8000) != 0 && nox_xxx_unitIsZombie_534A40(int32(a1)) == 0 {
 		return
 	}
-	if nox_common_gameFlags_check_40A5C0(4096) {
+	if noxflags.HasGame(4096) {
 		v4 = 640.0
 	} else {
 		v4 = 250.0
@@ -7463,7 +7464,7 @@ func nox_xxx_unitUpdateSightMB_5281F0(a1p *server.Object) {
 	}
 	if *(*uint32)(unsafe.Pointer(uintptr(v3 + 1204))) == gameFrame() {
 		v15 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 1440))))
-		if v15&0x400 != 0 || nox_common_gameFlags_check_40A5C0(0x2000) || *(*uint32)(unsafe.Pointer(uintptr(v3 + 1196))) != 0 {
+		if v15&0x400 != 0 || noxflags.HasGame(0x2000) || *(*uint32)(unsafe.Pointer(uintptr(v3 + 1196))) != 0 {
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 1208))) = gameFrame() + uint32(nox_common_randomInt_415FA0(5, 10))
 		} else {
 			v16 = int32(gameFPS() * 5)
@@ -8289,7 +8290,7 @@ LABEL_164:
 		}
 		goto LABEL_171
 	}
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4))) = 0
 		**(**uint16)(unsafe.Pointer(uintptr(a1 + 556))) = 0
 	}
@@ -8311,7 +8312,7 @@ LABEL_171:
 		}
 	}
 	if nox_crypt_IsReadOnly() == 1 {
-		if nox_common_gameFlags_check_40A5C0(0x200000) || nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
+		if noxflags.HasGame(0x200000) || nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
 			nox_xxx_monsterOnSpawnSpellcaster_529BC0(a1)
 		}
 		if nox_crypt_IsReadOnly() == 1 {
@@ -8463,7 +8464,7 @@ func nox_xxx_XFer_ActionData_529CE0(a1 int32) int32 {
 		goto LABEL_67
 	}
 	v19 = 0
-	if nox_common_gameFlags_check_40A5C0(1) && !nox_common_gameFlags_check_40A5C0(0x400000) {
+	if noxflags.HasGame(1) && !noxflags.HasGame(0x400000) {
 		v19 = 1
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19)), 1)
@@ -9355,7 +9356,7 @@ LABEL_149:
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 1445)))) == 0 {
 		goto LABEL_170
 	}
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		v38 = int32(*(*uint32)(unsafe.Pointer(uintptr(v35 + 556))))
 		if v38 != 0 {
 			*(*uint16)(unsafe.Pointer(uintptr(v38 + 4))) = 0
@@ -9378,7 +9379,7 @@ LABEL_156:
 	}()) != 0 {
 		sub_52BA70(v35)
 		if nox_crypt_IsReadOnly() == 1 {
-			if nox_common_gameFlags_check_40A5C0(1) {
+			if noxflags.HasGame(1) {
 				for k = *(**uint32)(unsafe.Pointer(uintptr(v35 + 504))); k != nil; k = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(k), 4*124))))) {
 					v41 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(k), 4*4)))
 					if v41&0x100 != 0 {
@@ -10326,7 +10327,7 @@ func nox_xxx_castFist_52D3C0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a
 	v21.field_4 = v8
 	v21.field_8 = v9
 	v21.field_C = v10
-	v11 = bool2int32(nox_common_gameFlags_check_40A5C0(2048))
+	v11 = bool2int32(noxflags.HasGame(2048))
 	if nox_xxx_mapTraceRay_535250(&v21, nil, nil, int8(func() int32 {
 		if v11 == 0 {
 			return 73
@@ -10420,7 +10421,7 @@ func nox_xxx_spellCastCleansingFlame_52D5C0(a1 int32, a2p *server.Object, a3p *s
 			}
 		}
 	}
-	if !nox_common_gameFlags_check_40A5C0(2048) {
+	if !noxflags.HasGame(2048) {
 		a6 = 4
 	}
 	v19 = 48
@@ -10505,7 +10506,7 @@ func nox_xxx_castMeteorShower_52D8A0(a1 int32, a2 int32, a3 int32, a4 int32, a5 
 	v19.field_4 = v9
 	v19.field_8 = v8
 	v19.field_C = v10
-	v11 = bool2int32(nox_common_gameFlags_check_40A5C0(2048))
+	v11 = bool2int32(noxflags.HasGame(2048))
 	if nox_xxx_mapTraceRay_535250(&v19, nil, nil, int8(func() int32 {
 		if v11 == 0 {
 			return 73
@@ -10583,7 +10584,7 @@ LABEL_6:
 	v13 = *(*float32)(unsafe.Pointer(uintptr(a5 + 8)))
 	v24.field_8 = v11
 	v24.field_C = v13
-	v14 = bool2int32(nox_common_gameFlags_check_40A5C0(2048))
+	v14 = bool2int32(noxflags.HasGame(2048))
 	if nox_xxx_mapTraceRay_535250(&v24, nil, nil, int8(func() int32 {
 		if v14 == 0 {
 			return 73
@@ -11024,16 +11025,16 @@ func sub_52E450(a1 int32, a2 int32, a3 int32) int32 {
 		if *v5 <= a3 {
 			v6 = *v5
 			a3 = *v5
-			if !nox_common_gameFlags_check_40A5C0(4096) {
+			if !noxflags.HasGame(4096) {
 				*v5 = 0
 			}
-		} else if !nox_common_gameFlags_check_40A5C0(4096) {
+		} else if !noxflags.HasGame(4096) {
 			*v5 -= a3
 		}
 		if v6 == 0 {
 			return 0
 		}
-		if !nox_common_gameFlags_check_40A5C0(4096) {
+		if !noxflags.HasGame(4096) {
 			nox_xxx_unitNeedSync_4E44F0((*server.Object)(unsafe.Pointer(uintptr(a2))))
 		}
 		if v6 > 0 {
@@ -11073,7 +11074,7 @@ func sub_52E450(a1 int32, a2 int32, a3 int32) int32 {
 		return 0
 	}
 LABEL_24:
-	if !nox_common_gameFlags_check_40A5C0(4096) || (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4) == 0 {
+	if !noxflags.HasGame(4096) || (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4) == 0 {
 		nox_xxx_playerManaAdd_4EEB80((*server.Object)(unsafe.Pointer(uintptr(a1))), int16(v6))
 		return 1
 	}

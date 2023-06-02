@@ -8,6 +8,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -828,7 +829,7 @@ func sub_4BDC70(a1 *int32) int32 {
 		v2 *uint32
 		v3 *uint32
 	)
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1316708)))), 10167)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*9)) |= 4
 		dword_5d4594_1316704 = 0
@@ -4125,7 +4126,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *int32, dr *nox_drawable, a3 int32) {
 		}
 	}
 LABEL_A:
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 112)))&4) == 0 && nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), 23) && !nox_common_gameFlags_check_40A5C0(2048) {
+	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 112)))&4) == 0 && nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), 23) && !noxflags.HasGame(2048) {
 		nox_xxx_draw_434600(1)
 		if int32(uint8(gameFrame()))&1 != 0 {
 			nox_draw_setColorMultAndIntensity_433E40(int32(nox_color_white_2523948))

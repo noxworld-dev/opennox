@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -26,7 +27,7 @@ func sub_4A4A20(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 				return 1
 			}
 			if v4 == 610 {
-				if nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) {
+				if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) {
 					if nox_xxx_isQuest_4D6F50() != 0 || (func() int32 {
 						v5 = sub_4D6F70()
 						return v5

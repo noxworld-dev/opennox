@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -32,7 +33,7 @@ func nox_xxx_gui_4AD320(a1 int32) int32 {
 	sub_46B120((*gui.Window)(unsafe.Pointer(v3)), (*gui.Window)(unsafe.Pointer(uintptr(a1))))
 	nox_xxx_wndSetDrawFn_46B340(*(**gui.Window)(unsafe.Pointer(&dword_5d4594_1309812)), sub_4AD570)
 	v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10306)))
-	if nox_common_gameFlags_check_40A5C0(1056) {
+	if noxflags.HasGame(1056) {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 0)
 	}
 	nox_xxx_wndRetNULL_46A8A0()
@@ -121,7 +122,7 @@ func sub_4AD840() int32 {
 		if nox_server_doPlayersAutoRespawn_40A5F0() != 0 {
 			v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10301)))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*9)) |= 4
-			if nox_common_gameFlags_check_40A5C0(1024) {
+			if noxflags.HasGame(1024) {
 				nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 0)
 			}
 		}

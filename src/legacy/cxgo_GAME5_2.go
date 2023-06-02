@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -925,7 +926,7 @@ func nox_xxx_waypointNew_5798F0(a1 float32, a2 float32) *nox_waypoint_t {
 		*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(nox_xxx_waypointsHead_2523752))) + 488))) = uint32(uintptr(unsafe.Pointer(v2)))
 	}
 	nox_xxx_waypointsHead_2523752 = (*nox_waypoint_t)(unsafe.Pointer(v2))
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		nox_xxx_waypointMapRegister_5179B0((*nox_waypoint_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))
 	}
 	return (*nox_waypoint_t)(unsafe.Pointer(v2))
@@ -959,7 +960,7 @@ func nox_xxx_waypoint_5799C0() *byte {
 				*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(nox_xxx_waypointsHead_2523752))) + 488))) = uint32(v0)
 			}
 			nox_xxx_waypointsHead_2523752 = (*nox_waypoint_t)(unsafe.Pointer(uintptr(v0)))
-			if nox_common_gameFlags_check_40A5C0(1) {
+			if noxflags.HasGame(1) {
 				nox_xxx_waypointMapRegister_5179B0((*nox_waypoint_t)(unsafe.Pointer(uintptr(v0))))
 			}
 			v0 = v1
@@ -1172,7 +1173,7 @@ func nox_xxx_waypointDeleteAll_579DD0() {
 		v0 = (*uint32)(unsafe.Pointer(nox_xxx_waypointsHead_2523752))
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*121)))))
-			if nox_common_gameFlags_check_40A5C0(1) {
+			if noxflags.HasGame(1) {
 				sub_517A70((*nox_waypoint_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))))
 			}
 			alloc.Free(v0)
@@ -1201,7 +1202,7 @@ func sub_579E90(a1 int32) {
 		*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_5d4594_2523756)) + 488))) = uint32(a1)
 	}
 	dword_5d4594_2523756 = unsafe.Pointer(uintptr(a1))
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		nox_xxx_waypointMapRegister_5179B0((*nox_waypoint_t)(unsafe.Pointer(uintptr(a1))))
 	}
 }
@@ -1222,7 +1223,7 @@ func nox_xxx_waypoint_579F00(a1 *uint32, a2 int32) int32 {
 		v12 float4
 	)
 	v2 = 0
-	if nox_common_gameFlags_check_40A5C0(32) {
+	if noxflags.HasGame(32) {
 		if a2 != 0 {
 			v3 = int32(uintptr(unsafe.Pointer(nox_server_getFirstObject_4DA790())))
 			if v3 != 0 {
@@ -1258,7 +1259,7 @@ LABEL_9:
 		if (int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(v6)), 480)))) & 1) == 0 {
 			goto LABEL_24
 		}
-		if nox_common_gameFlags_check_40A5C0(32) {
+		if noxflags.HasGame(32) {
 			if v2 != 0 {
 				if a2 != 0 {
 					v7 = *(**float32)(unsafe.Pointer(uintptr(v2 + 748)))
@@ -1291,7 +1292,7 @@ LABEL_9:
 }
 func nox_xxx_playerCanTalkMB_57A160(a1 int32) int32 {
 	var result int32
-	if a1 != 0 && nox_common_gameFlags_check_40A5C0(2) {
+	if a1 != 0 && noxflags.HasGame(2) {
 		result = int32((*(*uint32)(unsafe.Pointer(uintptr(a1 + 3680))) >> 3) & 1)
 	} else {
 		result = 0
@@ -1519,7 +1520,7 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 			if int32(a1) != 4 {
 				return 0
 			}
-			if !nox_common_gameFlags_check_40A5C0(1) {
+			if !noxflags.HasGame(1) {
 				return 0
 			}
 			nox_sprintf(&v16[0], internCStr("%S"), *(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*2)))
@@ -1541,7 +1542,7 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 			if int32(a1) != 4 {
 				return 0
 			}
-			if !nox_common_gameFlags_check_40A5C0(1) {
+			if !noxflags.HasGame(1) {
 				return 0
 			}
 			nox_sprintf(&v16[0], internCStr("%S"), *(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*2)))

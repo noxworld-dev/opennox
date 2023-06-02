@@ -10,6 +10,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -782,7 +783,7 @@ func sub_48DCF0(a1 *uint32) {
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 652))) += uint32(int32(-64 - v12))
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 660))) = 1
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 664))) = 1
-			if nox_common_gameFlags_check_40A5C0(2048) {
+			if noxflags.HasGame(2048) {
 				v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 648))))
 				if uint32(v14) < *v3 || uint32(v14) > *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) || (func() bool {
 					v15 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 652))) - 64)
@@ -1305,7 +1306,7 @@ func sub_4947E0(a1 int32) *byte {
 		result *byte
 		i      int32
 	)
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		v2 = int32(uint16(nox_xxx_servGamedataGet_40A020(v1)))
 	} else {
@@ -1315,14 +1316,14 @@ func sub_4947E0(a1 int32) *byte {
 	for i = int32(uintptr(unsafe.Pointer(result))); result != nil; i = int32(uintptr(unsafe.Pointer(result))) {
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(i + 3680)))) & 1) == 0 {
 			if i == a1 {
-				if nox_common_gameFlags_check_40A5C0(1024) {
+				if noxflags.HasGame(1024) {
 					if *(*uint32)(unsafe.Pointer(uintptr(i + 2140))) >= uint32(v2) {
 						*(*uint32)(unsafe.Pointer(uintptr(i + 2140))) = uint32(v2 - 1)
 					}
 				} else {
 					*(*uint32)(unsafe.Pointer(uintptr(i + 2136))) = uint32(v2)
 				}
-			} else if nox_common_gameFlags_check_40A5C0(1024) {
+			} else if noxflags.HasGame(1024) {
 				if *(*uint32)(unsafe.Pointer(uintptr(i + 2140))) < uint32(v2) {
 					*(*uint32)(unsafe.Pointer(uintptr(i + 2140))) = uint32(v2)
 				}
@@ -1347,7 +1348,7 @@ func sub_4948B0(a1 int32) int32 {
 		v9     *byte
 		v10    *byte
 	)
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		v2 = int32(uint16(nox_xxx_servGamedataGet_40A020(v1)))
 	} else {
@@ -1355,14 +1356,14 @@ func sub_4948B0(a1 int32) int32 {
 	}
 	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
 		if i == (*byte)(unsafe.Pointer(uintptr(a1))) {
-			if !nox_common_gameFlags_check_40A5C0(1024) {
+			if !noxflags.HasGame(1024) {
 				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*13))) = uint32(v2)
 			}
-		} else if !nox_common_gameFlags_check_40A5C0(1024) && *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*13))) >= uint32(v2) {
+		} else if !noxflags.HasGame(1024) && *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*13))) >= uint32(v2) {
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*13))) = uint32(v2 - 1)
 		}
 	}
-	if nox_common_gameFlags_check_40A5C0(1) {
+	if noxflags.HasGame(1) {
 		result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
 		for j = result; result != 0; j = result {
 			if nox_xxx_teamCompare2_419180(unsafe.Pointer(uintptr(j+48)), *(*uint8)(unsafe.Pointer(uintptr(a1 + 57)))) == 0 {
@@ -1370,7 +1371,7 @@ func sub_4948B0(a1 int32) int32 {
 				v7 = v6
 				if v6 != nil {
 					if (*(*byte)(unsafe.Add(unsafe.Pointer(v6), 3680)) & 1) == 0 {
-						if nox_common_gameFlags_check_40A5C0(1024) {
+						if noxflags.HasGame(1024) {
 							if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*535))) < uint32(v2) {
 								*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*535))) = uint32(v2)
 							}
@@ -1390,7 +1391,7 @@ func sub_4948B0(a1 int32) int32 {
 				v10 = v9
 				if v9 != nil {
 					if (*(*byte)(unsafe.Add(unsafe.Pointer(v9), 3680)) & 1) == 0 {
-						if nox_common_gameFlags_check_40A5C0(1024) {
+						if noxflags.HasGame(1024) {
 							if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*535))) < uint32(v2) {
 								*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*535))) = uint32(v2)
 							}
@@ -4791,7 +4792,7 @@ func nox_xxx_bookRewardCli_499CF0(a1 *int32, a2 int32, a3 int32) {
 		v4     int32
 		a3a    int2
 	)
-	if !nox_common_gameFlags_check_40A5C0(2048) || (func() bool {
+	if !noxflags.HasGame(2048) || (func() bool {
 		result = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq()) - *memmap.PtrUint32(0x5D4594, 1217504)
 		return result >= 2
 	}()) {
@@ -5511,7 +5512,7 @@ func sub_49C7A0() int32 {
 		nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))))
 		dword_5d4594_1305680 = 0
 		nox_xxx_windowFocus_46B500(nil)
-		result = bool2int32(nox_common_gameFlags_check_40A5C0(1))
+		result = bool2int32(noxflags.HasGame(1))
 		if result != 0 {
 			result = sub_459D80(0)
 		}
@@ -5534,7 +5535,7 @@ func sub_49CA60(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		if v3 == 10353 {
 			nox_xxx_wnd_46C6E0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305684))))))
 			nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305684))))))
-			if nox_common_gameFlags_check_40A5C0(128) && nox_server_sanctuaryHelp_54276 != 0 {
+			if noxflags.HasGame(128) && nox_server_sanctuaryHelp_54276 != 0 {
 				nox_xxx_cliShowHelpGui_49C560()
 			} else {
 				sub_459D80(0)
