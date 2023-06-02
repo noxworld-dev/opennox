@@ -627,7 +627,7 @@ func sub_478110() int32 {
 	*memmap.PtrUint32(0x5D4594, 1098528) = uint32(nox_win_height)
 	*memmap.PtrUint32(0x5D4594, 1098508) = 0
 	*memmap.PtrUint32(0x5D4594, 1098512) = 0
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("Shop.wnd"), ccall.FuncAddr(sub_478480))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("Shop.wnd"), sub_478480)))
 	dword_5d4594_1098576 = uint32(uintptr(unsafe.Pointer(v0)))
 	if v0 == nil {
 		return 0
@@ -694,7 +694,7 @@ func sub_478110() int32 {
 	dword_5d4594_1098592 = *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1098580 + 32))) + 4)))
 	return result
 }
-func sub_478480(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_478480(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		result int32
 		v5     int32
@@ -772,7 +772,7 @@ func sub_478480(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 	default:
 		return 0
 	}
-	return result
+	return uintptr(result)
 }
 func sub_478650(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
@@ -1344,7 +1344,7 @@ func sub_4799A0() int32 {
 		v10    *uint32
 	)
 	*memmap.PtrUint32(0x5D4594, 1107052) = nox_color_rgb_4344A0(240, 128, 64)
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("Dialog.wnd"), ccall.FuncAddr(nox_xxx_guiDialog_479B00)))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("Dialog.wnd"), nox_xxx_guiDialog_479B00))))
 	dword_5d4594_1123524 = unsafe.Pointer(uintptr(result))
 	if result != 0 {
 		nox_xxx_wndSetWindowProc_46B300((*nox_window)(unsafe.Pointer(uintptr(result))), sub_479BE0)
@@ -1375,7 +1375,7 @@ func sub_4799A0() int32 {
 	}
 	return result
 }
-func nox_xxx_guiDialog_479B00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func nox_xxx_guiDialog_479B00(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v3     int32
 		result int32
@@ -1410,7 +1410,7 @@ func nox_xxx_guiDialog_479B00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 	default:
 		return 0
 	}
-	return result
+	return uintptr(result)
 }
 func sub_479BE0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	switch a2 {
@@ -5734,7 +5734,7 @@ func sub_489B80(a1 int32) *uint32 {
 		v12    int32
 		v13    [16]wchar2_t
 	)
-	result = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("filter.wnd"), ccall.FuncAddr(nox_xxx_windowMplayFilterProc_489E70))))
+	result = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("filter.wnd"), nox_xxx_windowMplayFilterProc_489E70)))
 	dword_5d4594_1193380 = uint32(uintptr(unsafe.Pointer(result)))
 	if result != nil {
 		dword_5d4594_1193384 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(result)), 10012))))

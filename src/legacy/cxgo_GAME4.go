@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_file_8 *FILE = nil
@@ -23,7 +24,8 @@ var dword_5d4594_1599548 unsafe.Pointer = nil
 var dword_5d4594_1599588 unsafe.Pointer = nil
 var dword_5d4594_1599592 unsafe.Pointer = nil
 
-func nox_xxx_XFerSpellReward_4F5F30(a1 *int32) int32 {
+func nox_xxx_XFerSpellReward_4F5F30(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		v1     *uint8
 		result int32
@@ -124,9 +126,10 @@ func nox_xxx_XFerSpellReward_4F5F30(a1 *int32) int32 {
 			result = 1
 		}
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerAbilityReward_4F6240(a1 *int32) int32 {
+func nox_xxx_XFerAbilityReward_4F6240(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		v1     *uint8
 		result int32
@@ -162,9 +165,10 @@ func nox_xxx_XFerAbilityReward_4F6240(a1 *int32) int32 {
 			result = 0
 		}
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerFieldGuide_4F6390(a1 *int32) int32 {
+func nox_xxx_XFerFieldGuide_4F6390(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		v1     *int32
 		v2     *byte
@@ -202,9 +206,10 @@ func nox_xxx_XFerFieldGuide_4F6390(a1 *int32) int32 {
 			result = 1
 		}
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerWeapon_4F64A0(a1 int32) int32 {
+func nox_xxx_XFerWeapon_4F64A0(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		result int32
 		v2     ***byte
@@ -236,7 +241,7 @@ func nox_xxx_XFerWeapon_4F64A0(a1 int32) int32 {
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(uintptr(a1))), int32(int16(v17)))
 	if result == 0 {
-		return result
+		return 0
 	}
 	if int32(int16(v17)) < 11 && nox_crypt_IsReadOnly() == 1 {
 		*(*uint32)(unsafe.Pointer(&v20[0])) = 0
@@ -357,7 +362,8 @@ LABEL_37:
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))) = uint32(v19)
 	return 1
 }
-func nox_xxx_XFerArmor_4F6860(a1 int32) int32 {
+func nox_xxx_XFerArmor_4F6860(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		result int32
 		v2     ***byte
@@ -465,9 +471,10 @@ func nox_xxx_XFerArmor_4F6860(a1 int32) int32 {
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))) = uint32(v14)
 		result = 1
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerAmmo_4F6B20(a1 *int32) int32 {
+func nox_xxx_XFerAmmo_4F6B20(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		v1     int32
 		result int32
@@ -559,9 +566,10 @@ func nox_xxx_XFerAmmo_4F6B20(a1 *int32) int32 {
 		*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = v17
 		result = 1
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerTeam_4F6D20(a1 *int32) int32 {
+func nox_xxx_XFerTeam_4F6D20(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		result int32
 		v2     ***byte
@@ -634,9 +642,10 @@ func nox_xxx_XFerTeam_4F6D20(a1 *int32) int32 {
 			result = 1
 		}
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerGold_4F6EC0(a1 int32) int32 {
+func nox_xxx_XFerGold_4F6EC0(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		v1     *int32
 		v2     *uint8
@@ -662,9 +671,10 @@ func nox_xxx_XFerGold_4F6EC0(a1 int32) int32 {
 			result = 1
 		}
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerObelisk_4F6F60(a1 *int32) int32 {
+func nox_xxx_XFerObelisk_4F6F60(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		v1     *int32
 		v2     *uint8
@@ -720,9 +730,10 @@ func nox_xxx_XFerObelisk_4F6F60(a1 *int32) int32 {
 			result = 1
 		}
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_XFerToxicCloud_4F70A0(a1 int32) int32 {
+func nox_xxx_XFerToxicCloud_4F70A0(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		v1 *int32
 		v2 *uint8
@@ -751,7 +762,8 @@ func nox_xxx_XFerToxicCloud_4F70A0(a1 int32) int32 {
 	*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) = v3
 	return 1
 }
-func nox_xxx_XFerMonsterGen_4F7130(a1 *int32) int32 {
+func nox_xxx_XFerMonsterGen_4F7130(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		v1  *uint8
 		v2  int32
@@ -960,7 +972,8 @@ func nox_xxx_XFerMonsterGen_4F7130(a1 *int32) int32 {
 	}
 	return 0
 }
-func nox_xxx_XFerRewardMarker_4F74D0(a1 *int32) int32 {
+func nox_xxx_XFerRewardMarker_4F74D0(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := (*int32)(a1p.CObj())
 	var (
 		v1  *uint8
 		v2  int32

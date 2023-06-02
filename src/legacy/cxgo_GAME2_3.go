@@ -102,7 +102,7 @@ func sub_48CAD0() int32 {
 }
 func sub_48D000() int32 {
 	var v0 *uint32
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiKick.wnd"), ccall.FuncAddr(nox_xxx_guiKick_48D0A0))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiKick.wnd"), nox_xxx_guiKick_48D0A0)))
 	dword_5d4594_1197312 = uint32(uintptr(unsafe.Pointer(v0)))
 	if v0 == nil {
 		return 0
@@ -117,7 +117,7 @@ func sub_48D000() int32 {
 	dword_5d4594_1197336 = 0
 	return 1
 }
-func nox_xxx_guiKick_48D0A0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func nox_xxx_guiKick_48D0A0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var v4 int32
 	if a2 != 16391 {
 		return 0
@@ -5138,7 +5138,7 @@ func sub_49AEA0() int32 {
 }
 func sub_49B3E0() int32 {
 	var result int32
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GGOver.wnd"), ccall.FuncAddr(sub_49B420)))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GGOver.wnd"), sub_49B420))))
 	dword_5d4594_1303452 = uint32(result)
 	if result != 0 {
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(result))), 1)
@@ -5147,7 +5147,7 @@ func sub_49B3E0() int32 {
 	}
 	return result
 }
-func sub_49B420(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_49B420(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var v3 int32
 	if a2 == 16391 {
 		v3 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
@@ -5488,7 +5488,7 @@ func sub_49C520(a1p *nox_drawable) int32 {
 	}
 	return 1
 }
-func nox_xxx_wnd_49C760(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func nox_xxx_wnd_49C760(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var v3 int32
 	if a2 == 16391 {
 		v3 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
@@ -5519,7 +5519,7 @@ func sub_49C7A0() int32 {
 func sub_49C810() int32 {
 	return bool2int32(dword_5d4594_1305680 != 0)
 }
-func sub_49CA60(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_49CA60(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v3 int32
 		v4 *uint32

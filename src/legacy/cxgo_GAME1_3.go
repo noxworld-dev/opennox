@@ -885,7 +885,7 @@ func nox_xxx_guiMotdLoad_4465C0() int32 {
 		v7 *byte
 		v8 *uint32
 	)
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("motd.wnd"), ccall.FuncAddr(sub_4466C0))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("motd.wnd"), sub_4466C0)))
 	dword_5d4594_826028 = uint32(uintptr(unsafe.Pointer(v0)))
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(v0)), 4203)))
 	dword_5d4594_826032 = uint32(uintptr(unsafe.Pointer(v1)))
@@ -906,7 +906,7 @@ func nox_xxx_guiMotdLoad_4465C0() int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*8)) = uint32(uintptr(unsafe.Pointer(v8)))
 	return int32(dword_5d4594_826028)
 }
-func sub_4466C0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_4466C0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	if a2 == 16391 {
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 		sub_446780()

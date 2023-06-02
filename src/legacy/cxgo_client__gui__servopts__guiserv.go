@@ -147,7 +147,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		if nox_xxx_guiFontHeightMB_43F320(nil) > 10 {
 			v1 = 2
 		}
-		dword_5d4594_1046492 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+129760)), ccall.FuncAddr(nox_xxx_guiServerOptionsProcPre_4585D0)))))
+		dword_5d4594_1046492 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+129760)), nox_xxx_guiServerOptionsProcPre_4585D0))))
 		nox_draw_setTabWidth_43FE20(100)
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), int32(uint32(nox_win_width)-*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1046492 + 8)))-10), 0)
 		nox_xxx_wndSetWindowProc_46B300(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1046492)), nox_xxx_guiServerOptionsProc_458590)

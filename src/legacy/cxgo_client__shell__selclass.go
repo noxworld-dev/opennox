@@ -7,7 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func sub_4A4A20(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_4A4A20(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v4 int32
 		v5 int32

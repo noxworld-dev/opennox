@@ -9,7 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_game_showSelColor_4A5D00() int32 {
+func nox_game_showSelColor_4A5D00() int {
 	var (
 		v0     *byte
 		result int32
@@ -24,7 +24,7 @@ func nox_game_showSelColor_4A5D00() int32 {
 	v0 = nox_xxx_getHostInfoPtr_431770()
 	dword_5d4594_1307784 = uint32(uintptr(unsafe.Pointer(v0)))
 	*(*byte)(unsafe.Add(unsafe.Pointer(v0), 67)) = 0
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SelColor.wnd"), ccall.FuncAddr(sub_4A7330)))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SelColor.wnd"), sub_4A7330))))
 	dword_5d4594_1308084 = uint32(result)
 	if result != 0 {
 		nox_xxx_wndSetWindowProc_46B300((*nox_window)(unsafe.Pointer(uintptr(result))), sub_4A18E0)
@@ -58,7 +58,7 @@ func nox_game_showSelColor_4A5D00() int32 {
 			result = 1
 		}
 	}
-	return result
+	return int(result)
 }
 func sub_4A68C0() *wchar2_t {
 	var (

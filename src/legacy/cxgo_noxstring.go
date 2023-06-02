@@ -133,7 +133,7 @@ func nox_vsnwprintf(buffer *wchar2_t, count uint32, format *wchar2_t, ap libc.Ar
 		case 's':
 			var (
 				null [7]wchar2_t = [7]wchar2_t{'(', 'n', 'u', 'l', 'l', ')', 0}
-				pwch *wchar2_t   = ap.Arg().(*wchar2_t)
+				pwch *wchar2_t   = (*wchar2_t)(asPtr(ap.Arg()))
 			)
 			if pwch == nil {
 				pwch = &null[0]

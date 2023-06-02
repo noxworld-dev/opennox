@@ -1810,7 +1810,7 @@ func sub_453350(win *gui.Window, draw *gui.WindowData) int {
 		return 1
 	}
 }
-func sub_4533D0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_4533D0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v3  int32
 		v5  int32
@@ -2257,7 +2257,7 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 int32) int32 {
 	if nox_xxx_guiFontHeightMB_43F320(nil) > 10 {
 		v2 = 2
 	}
-	dword_5d4594_1045516 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v2*4)+127824)), ccall.FuncAddr(nox_xxx_windowAccessProc_454BA0)))))
+	dword_5d4594_1045516 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v2*4)+127824)), nox_xxx_windowAccessProc_454BA0))))
 	nox_draw_setTabWidth_43FE20(100)
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))
 	dword_5d4594_1045520 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10102))))
@@ -2369,7 +2369,7 @@ func sub_454A90(win *gui.Window, draw *gui.WindowData) int {
 	}
 	return 1
 }
-func nox_xxx_windowAccessProc_454BA0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func nox_xxx_windowAccessProc_454BA0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v4     int32
 		result int32
@@ -2427,8 +2427,8 @@ func nox_xxx_windowAccessProc_454BA0(a1 int32, a2 int32, a3 *int32, a4 int32) in
 	var v51 *byte
 	switch a2 {
 	case 16387:
-		v43 = a4
-		v44 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), a4)))
+		v43 = int32(a4)
+		v44 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), int32(a4))))
 		v51 = sub_416630()
 		v49 = (*byte)(sub_416640())
 		if v44 == nil || int32(uint16(uintptr(unsafe.Pointer(a3)))) == 1 {
@@ -2744,7 +2744,7 @@ func nox_xxx_windowAccessProc_454BA0(a1 int32, a2 int32, a3 *int32, a4 int32) in
 	default:
 		return 0
 	}
-	return result
+	return uintptr(result)
 }
 func sub_455770() int32 {
 	var (

@@ -391,6 +391,10 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	return RawEventResp(r)
 }
 
+func (win *Window) Func94Ptr() unsafe.Pointer {
+	return win.field94
+}
+
 func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	if win.isNilOrDead() {
 		return nil

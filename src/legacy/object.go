@@ -226,7 +226,6 @@ func sub_47A1F0() {
 	Sub_47A1F0()
 }
 
-// nox_xxx_unitMonsterInit_4F0040
 func nox_xxx_unitMonsterInit_4F0040(obj *nox_object_t) {
 	Nox_xxx_unitMonsterInit_4F0040(asObjectS(obj))
 }

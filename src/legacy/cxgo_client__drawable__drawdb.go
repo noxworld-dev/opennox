@@ -11,10 +11,11 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
 	var (
-		read_len uint8 = nox_memfile_read_u8(f)
-		read_str [256]byte
+		attr_value       = (*byte)(data)
+		read_len   uint8 = nox_memfile_read_u8(f)
+		read_str   [256]byte
 	)
 	nox_memfile_read(unsafe.Pointer(&read_str[0]), 1, int32(read_len), f)
 	read_str[read_len] = 0
@@ -40,7 +41,8 @@ func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, attr_value *byte) bool
 	obj.DrawFunc = item.draw
 	return true
 }
-func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
+	attr_value := (*byte)(data)
 	var deg int32 = 0
 	if stdio.Sscanf(attr_value, "%d", &deg) != 1 {
 		return false
@@ -52,7 +54,8 @@ func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, attr_value *byte)
 	obj.Field_10 = 0
 	return true
 }
-func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
+	attr_value := (*byte)(data)
 	var deg int32 = 0
 	if stdio.Sscanf(attr_value, "%d", &deg) != 1 {
 		return false
@@ -63,12 +66,13 @@ func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, attr_value *
 	obj.LightPenumbra = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
 	return true
 }
-func nox_parse_thing_client_update(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_parse_thing_client_update(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
 	var (
-		v3 *byte
-		v4 *byte
-		v5 int32
-		v6 *uint8
+		attr_value = (*byte)(data)
+		v3         *byte
+		v4         *byte
+		v5         int32
+		v6         *uint8
 	)
 	v3 = libc.StrTok(attr_value, internCStr(" \t\n\r"))
 	v4 = *(**byte)(memmap.PtrOff(0x587000, 175072))
@@ -93,7 +97,7 @@ func nox_parse_thing_client_update(obj *nox_thing, f *nox_memfile, attr_value *b
 	obj.ClientUpdate = *memmap.PtrUint32(0x587000, uintptr(v5*8)+175076)
 	return true
 }
-func nox_parse_thing_pretty_image(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_parse_thing_pretty_image(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
 	var (
 		v10       [128]byte
 		known_idx uint32 = nox_memfile_read_u32(f)

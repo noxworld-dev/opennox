@@ -3664,11 +3664,11 @@ func sub_5375A0(a1 int32) {
 }
 func nox_xxx_unitHasCollideOrUpdateFn_537610(a1p *nox_object_t) int8 {
 	var (
-		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
+		a1 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int32
 		v2 int32
 		v3 int32
-		v4 func(int32, int32)
+		v4 unsafe.Pointer
 		v5 int32
 	)
 	v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 744))))
@@ -3685,9 +3685,9 @@ func nox_xxx_unitHasCollideOrUpdateFn_537610(a1p *nox_object_t) int8 {
 			v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))))
 			return v2 & 0xE080
 		}()) != 0 || (func() bool {
-			v4 = ccall.AsFunc[func(int32, int32)](unsafe.Pointer(uintptr(a1 + 696)))
-			return ccall.FuncAddr(v4) == ccall.FuncAddr(nox_xxx_collideFist_4EADF0)
-		}()) || ccall.FuncAddr(v4) == ccall.FuncAddr(nox_xxx_collideUndeadKiller_4EBD40) || (func() bool {
+			v4 = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 696))
+			return v4 == ccall.FuncAddr(nox_xxx_collideFist_4EADF0)
+		}()) || v4 == ccall.FuncAddr(nox_xxx_collideUndeadKiller_4EBD40) || (func() bool {
 			v5 = int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4))))
 			return int32(uint16(int16(v5))) == v3
 		}()) || v5 == v1 {

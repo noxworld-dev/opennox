@@ -2987,7 +2987,7 @@ func sub_46A730() *uint32 {
 	var result *uint32
 	*memmap.PtrUint32(0x5D4594, 1064876) = uint32(nox_win_width / 2)
 	*memmap.PtrUint32(0x5D4594, 1064880) = uint32(nox_win_height * 2 / 3)
-	result = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiChat.wnd"), ccall.FuncAddr(sub_46A820))))
+	result = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiChat.wnd"), sub_46A820)))
 	dword_5d4594_1064856 = uint32(uintptr(unsafe.Pointer(result)))
 	if result != nil {
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(result)), *memmap.PtrInt32(0x5D4594, 1064876), *memmap.PtrInt32(0x5D4594, 1064880))
@@ -3011,7 +3011,7 @@ func sub_46A7E0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	}
 	return 1
 }
-func sub_46A820(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_46A820(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	if a2 == 16415 {
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1064864 + 1052)))) != 0 {
 			nox_xxx_cmdSayDo_46A4B0(*(**wchar2_t)(unsafe.Pointer(&dword_5d4594_1064864)), *memmap.PtrInt32(0x5D4594, 1064872))

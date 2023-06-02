@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 type struct313272 struct {
@@ -4275,7 +4276,8 @@ func nox_xxx_monsterAutoSpells_54C0C0(a1p *nox_object_t) int16 {
 	*(*uint16)(unsafe.Pointer(uintptr(v1 + 1482))) = uint16(int16(v2 * 3))
 	return int16(v2)
 }
-func nox_xxx_createWeapon_54C710(a1 int32) int32 {
+func nox_xxx_createWeapon_54C710(a1p *server.Object) {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		v1  int32
 		v2  int32
@@ -4368,9 +4370,9 @@ func nox_xxx_createWeapon_54C710(a1 int32) int32 {
 			}
 		}
 	}
-	return result
 }
-func sub_54C950(a1 int32) *uint32 {
+func sub_54C950(a1p *server.Object) {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		v1     int32
 		result *uint32
@@ -4397,44 +4399,38 @@ func sub_54C950(a1 int32) *uint32 {
 			}
 		}
 	}
-	return result
 }
-func nox_xxx_createFnObelisk_54CA10(a1 int32) int32 {
+func nox_xxx_createFnObelisk_54CA10(a1p *server.Object) {
+	a1 := int32(uintptr(a1p.CObj()))
 	**(**uint32)(unsafe.Pointer(uintptr(a1 + 748))) = 50
 	nullsub_35(uint32(a1), 1117782016)
-	nox_xxx_unitNeedSync_4E44F0((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
-	return 0
+	nox_xxx_unitNeedSync_4E44F0(a1p)
 }
-func nox_xxx_createFnAnim_54CA50(a1 int32) *int32 {
-	return (*int32)(unsafe.Pointer(uintptr(nox_xxx_unitSetXStatus_4E4800((*nox_object_t)(unsafe.Pointer(uintptr(a1))), int32(uintptr(unsafe.Pointer((*int32)(unsafe.Pointer(uintptr(2))))))))))
+func nox_xxx_createFnAnim_54CA50(a1p *server.Object) {
+	nox_xxx_unitSetXStatus_4E4800(a1p, 2)
 }
-func nox_xxx_createTrigger_54CA60(a1 int32) *uint8 {
-	var result *uint8
-	result = *(**uint8)(unsafe.Pointer(uintptr(a1 + 748)))
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 54)) = 90
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 55)) = 90
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 56)) = 90
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 57)) = 10
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 58)) = 10
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 59)) = 10
-	return result
+func nox_xxx_createTrigger_54CA60(a1p *server.Object) {
+	p := a1p.UpdateData
+	*(*uint8)(unsafe.Add(p, 54)) = 90
+	*(*uint8)(unsafe.Add(p, 55)) = 90
+	*(*uint8)(unsafe.Add(p, 56)) = 90
+	*(*uint8)(unsafe.Add(p, 57)) = 10
+	*(*uint8)(unsafe.Add(p, 58)) = 10
+	*(*uint8)(unsafe.Add(p, 59)) = 10
 }
-func nox_xxx_createMonsterGen_54CA90(a1 int32) *uint32 {
-	var result *uint32
-	result = *(**uint32)(unsafe.Pointer(uintptr(a1 + 748)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*23)) = 2
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*13)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*15)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*19)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*17)) = math.MaxUint32
-	return result
+func nox_xxx_createMonsterGen_54CA90(a1p *server.Object) {
+	p := a1p.UpdateData
+	*(*uint32)(unsafe.Add(p, 4*23)) = 2
+	*(*uint32)(unsafe.Add(p, 4*13)) = math.MaxUint32
+	*(*uint32)(unsafe.Add(p, 4*15)) = math.MaxUint32
+	*(*uint32)(unsafe.Add(p, 4*19)) = math.MaxUint32
+	*(*uint32)(unsafe.Add(p, 4*17)) = math.MaxUint32
 }
-func nox_xxx_createRewardMarker_54CAC0(a1 int32) *uint32 {
-	var result *uint32
-	result = *(**uint32)(unsafe.Pointer(uintptr(a1 + 692)))
+func nox_xxx_createRewardMarker_54CAC0(a1p *server.Object) {
+	a1 := int32(uintptr(a1p.CObj()))
+	result := *(**uint32)(unsafe.Pointer(uintptr(a1 + 692)))
 	*result = math.MaxUint8
 	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*53)) = 0
-	return result
 }
 func nox_xxx_dieImpEgg_54CAE0(a1 int32) int32 {
 	var result int32

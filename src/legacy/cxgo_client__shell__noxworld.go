@@ -83,7 +83,7 @@ func Nox_game_showGameSel_4379F0() int {
 		}
 		return 1
 	}
-	nox_wol_wnd_world_814980 = nox_new_window_from_file(internCStr("noxworld.wnd"), ccall.FuncAddr(nox_xxx_windowMultiplayerSub_439E70))
+	nox_wol_wnd_world_814980 = nox_new_window_from_file(internCStr("noxworld.wnd"), nox_xxx_windowMultiplayerSub_439E70)
 	if nox_wol_wnd_world_814980 == nil {
 		return 0
 	}
@@ -643,7 +643,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *nox_window, a2, a3, a4 uintptr) ui
 		v6 = (*int32)(unsafe.Pointer(sub_4A0020()))
 		if sub_4A25C0((*uint32)(unsafe.Pointer(&v30)), v6) >= 2 {
 			v7 = (*int32)(unsafe.Pointer(sub_4A0020()))
-			*memmap.PtrUint32(0x5D4594, 815036) = uint32(sub_4A2610(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980)), (*uint32)(unsafe.Pointer(&v30)), v7))
+			*memmap.PtrUint32(0x5D4594, 815036) = uint32(sub_4A2610(nox_wol_wnd_world_814980, (*uint32)(unsafe.Pointer(&v30)), v7))
 		} else {
 			dword_5d4594_814624 = unsafe.Pointer(sub_4A0490(v5 - 10070))
 			nox_client_gui_serverInfoBlockCheckExp_439370((*int2)(unsafe.Pointer(&mpos)), int32(uintptr(dword_5d4594_814624)))

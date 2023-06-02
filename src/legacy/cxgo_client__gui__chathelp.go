@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_xxx_cliShowHelpGui_49C560() *uint32 {
@@ -23,7 +22,7 @@ func nox_xxx_cliShowHelpGui_49C560() *uint32 {
 	if nox_xxx_guiFontHeightMB_43F320(nil) > 10 {
 		v0 = 2
 	}
-	result = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0*4)+164512)), ccall.FuncAddr(nox_xxx_wnd_49C760))))
+	result = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0*4)+164512)), nox_xxx_wnd_49C760)))
 	dword_5d4594_1305680 = uint32(uintptr(unsafe.Pointer(result)))
 	if result != nil {
 		sub_46B120((*nox_window)(unsafe.Pointer(result)), nil)

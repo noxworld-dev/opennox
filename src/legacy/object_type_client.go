@@ -10,11 +10,11 @@ import (
 )
 
 func init() {
-	client.RegisterThingParse("DRAW", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_draw)))
-	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_light_dir)))
-	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_light_penumbra)))
-	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_client_update)))
-	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_pretty_image)))
+	client.RegisterThingParse("DRAW", wrapClientThingFuncC(nox_parse_thing_draw))
+	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(nox_parse_thing_light_dir))
+	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(nox_parse_thing_light_penumbra))
+	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(nox_parse_thing_client_update))
+	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(nox_parse_thing_pretty_image))
 	client.ThingDrawDefault = ccall.FuncAddr(nox_thing_debug_draw)
 }
 
@@ -82,10 +82,10 @@ func nox_drawable_link_thing(a1c *nox_drawable, i int32) int32 {
 	return int32(GetClient().Cli().DrawableLinkThing(asDrawable(a1c), int(i)))
 }
 
-func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
+func wrapClientThingFuncC(fnc func(typ *client.ObjectType, f *binfile.MemFile, data unsafe.Pointer) bool) client.ThingFieldFunc {
 	return func(typ *client.ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 		StrNCopyBytes(buf, str)
-		if !ccall.AsFunc[func(*nox_thing, *nox_memfile, unsafe.Pointer) bool](fnc)((*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
+		if !fnc(typ, f, unsafe.Pointer(&buf[0])) {
 			return fmt.Errorf("failed to parse %q", str)
 		}
 		return nil

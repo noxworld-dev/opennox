@@ -814,7 +814,7 @@ func sub_4BDC00(a1 int32) int32 {
 	return result
 }
 func nox_xxx_loadAdvancedWnd_4BDC10(a1 *int32) int32 {
-	dword_5d4594_1316708 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("advanced.wnd"), ccall.FuncAddr(nox_xxx_windowAdvancedServProc_4BDDB0)))))
+	dword_5d4594_1316708 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("advanced.wnd"), nox_xxx_windowAdvancedServProc_4BDDB0))))
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1316708)))), nil)
 	sub_46C690((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1316708))))))
 	nox_xxx_wndShowModalMB_46A8C0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1316708))))))
@@ -871,7 +871,7 @@ func sub_4BDD10() int32 {
 func sub_4BDDA0(win *nox_window, p2, p3, p4 uintptr) uintptr {
 	return 1
 }
-func nox_xxx_windowAdvancedServProc_4BDDB0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func nox_xxx_windowAdvancedServProc_4BDDB0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v3     int32
 		result int32
@@ -928,7 +928,7 @@ func nox_xxx_windowAdvancedServProc_4BDDB0(a1 int32, a2 int32, a3 *int32, a4 int
 	default:
 		return 1
 	}
-	return result
+	return uintptr(result)
 }
 func sub_4BDF30() int32 {
 	var result int32
@@ -984,9 +984,9 @@ func sub_4BDFD0() int32 {
 		v1 = 2
 	}
 	if false {
-		v3 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+180088)), ccall.FuncAddr(sub_4BE330))))
+		v3 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+180088)), sub_4BE330)))
 	} else {
-		v3 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+180048)), ccall.FuncAddr(sub_4BE330))))
+		v3 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+180048)), sub_4BE330)))
 	}
 	dword_5d4594_1316972 = uint32(uintptr(unsafe.Pointer(v3)))
 	sub_46B120((*nox_window)(unsafe.Pointer(v3)), nil)
@@ -1755,7 +1755,7 @@ func sub_4BFC70() int32 {
 }
 func sub_4BFC90() int32 {
 	var result int32
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SKey.wnd"), ccall.FuncAddr(sub_4BFCD0)))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SKey.wnd"), sub_4BFCD0))))
 	dword_5d4594_1319060 = uint32(result)
 	if result != 0 {
 		sub_4BFB70(0)
@@ -1764,7 +1764,7 @@ func sub_4BFC90() int32 {
 	}
 	return result
 }
-func sub_4BFCD0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_4BFCD0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var v3 int32
 	if a2 == 16391 {
 		v3 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
@@ -1840,7 +1840,7 @@ func sub_4BFE40() int32 {
 }
 func nox_gui_itemAmount_init_4BFEF0() int32 {
 	dword_5d4594_1319264 = 0
-	nox_gui_itemAmount_dialog_1319228 = unsafe.Pointer(nox_new_window_from_file(internCStr("MultMove.wnd"), ccall.FuncAddr(sub_4C01C0)))
+	nox_gui_itemAmount_dialog_1319228 = unsafe.Pointer(nox_new_window_from_file(internCStr("MultMove.wnd"), sub_4C01C0))
 	if nox_gui_itemAmount_dialog_1319228 == nil {
 		return 0
 	}
@@ -1908,7 +1908,7 @@ func sub_4C0030(win *gui.Window, draw *gui.WindowData) int {
 	}
 	return 1
 }
-func sub_4C01C0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_4C01C0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v3     int32
 		result int32
@@ -1976,7 +1976,7 @@ func sub_4C01C0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 	default:
 		return 0
 	}
-	return result
+	return uintptr(result)
 }
 func nox_gui_itemAmount_free_4C03E0() {
 	if nox_gui_itemAmount_item_1319256 != nil {
@@ -2194,7 +2194,7 @@ func sub_4C0910(a1 *int2) int8 {
 	}
 	return int8(v5)
 }
-func sub_4C0C90(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_4C0C90(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var v3 int32
 	if a2 == 16391 {
 		v3 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
@@ -4882,7 +4882,7 @@ func sub_4CB1A0(win *gui.Window, draw *gui.WindowData) int {
 	sub_49F860()
 	return 1
 }
-func sub_4CB880() int32 {
+func sub_4CB880() int {
 	var (
 		result int32
 		v1     **uint32
@@ -4896,7 +4896,7 @@ func sub_4CB880() int32 {
 		v9     *uint32
 	)
 	nox_game_addStateCode_43BDD0(900)
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("InputCfg.wnd"), ccall.FuncAddr(sub_4CBE70)))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("InputCfg.wnd"), sub_4CBE70))))
 	dword_5d4594_1522604 = uint32(result)
 	if result != 0 {
 		nox_xxx_wndSetWindowProc_46B300((*nox_window)(unsafe.Pointer(uintptr(result))), sub_4A18E0)
@@ -4957,9 +4957,9 @@ func sub_4CB880() int32 {
 			}
 		}
 	}
-	return result
+	return int(result)
 }
-func sub_4CBB70() int32 {
+func sub_4CBB70() int {
 	sub_4CBD30()
 	nox_common_writecfgfile(internCStr("nox.cfg"))
 	nox_wnd_xxx_1522608.SetState(NOX_GUI_ANIM_OUT)
@@ -4967,8 +4967,8 @@ func sub_4CBB70() int32 {
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100)
 	return 1
 }
-func sub_4CBBB0() int32 {
-	v0 := ccall.AsFunc[func() int32](nox_wnd_xxx_1522608.Func13Ptr)
+func sub_4CBBB0() int {
+	v0 := ccall.AsFunc[func() int](nox_wnd_xxx_1522608.Func13Ptr)
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1522608)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))))
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522612)))))

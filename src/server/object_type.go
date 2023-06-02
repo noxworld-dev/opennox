@@ -15,6 +15,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -102,18 +103,18 @@ func init() {
 	RegisterObjectUse("BowUse", nil, 1)
 }
 
-func RegisterObjectCreate(name string, fnc unsafe.Pointer) {
+func RegisterObjectCreate(name string, fnc func(*Object)) {
 	if _, ok := createFuncs[name]; ok {
 		panic("already registered")
 	}
-	createFuncs[name] = fnc
+	createFuncs[name] = ccall.FuncAddr(fnc)
 }
 
-func RegisterObjectInit(name string, fnc unsafe.Pointer, sz uintptr) {
+func RegisterObjectInit(name string, fnc func(*Object), sz uintptr) {
 	if _, ok := initFuncs[name]; ok {
 		panic("already registered")
 	}
-	initFuncs[name] = objectDefFunc{Func: fnc, DataSize: sz}
+	initFuncs[name] = objectDefFunc{Func: ccall.FuncAddr(fnc), DataSize: sz}
 }
 
 func RegisterObjectUpdate(name string, fnc unsafe.Pointer, sz uintptr) {
@@ -200,11 +201,11 @@ func RegisterObjectPickup(name string, fnc unsafe.Pointer) {
 	pickupFuncs[name] = fnc
 }
 
-func RegisterObjectXfer(name string, fnc unsafe.Pointer) {
+func RegisterObjectXfer(name string, fnc func(obj *Object, data unsafe.Pointer) int) {
 	if _, ok := xferFuncs[name]; ok {
 		panic("already registered")
 	}
-	xferFuncs[name] = fnc
+	xferFuncs[name] = ccall.FuncAddr(fnc)
 }
 
 type serverObjTypes struct {

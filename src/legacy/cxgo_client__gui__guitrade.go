@@ -31,7 +31,7 @@ func sub_4C09D0() int32 {
 		v20 int32
 		v21 *wchar2_t
 	)
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("Trade.wnd"), ccall.FuncAddr(sub_4C0C90))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("Trade.wnd"), sub_4C0C90)))
 	dword_5d4594_1320940 = uint32(uintptr(unsafe.Pointer(v0)))
 	if v0 == nil {
 		return 0

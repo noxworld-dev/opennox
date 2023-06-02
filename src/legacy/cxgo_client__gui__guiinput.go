@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var dword_5d4594_1321236 *nox_window = nil
@@ -72,7 +71,7 @@ func sub_4C3760() int32 {
 		v11    *wchar2_t
 	)
 	_ = v11
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("InputCfg.wnd"), ccall.FuncAddr(sub_4C3A90)))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("InputCfg.wnd"), sub_4C3A90))))
 	dword_5d4594_1321228 = uint32(result)
 	if result != 0 {
 		dword_5d4594_1321236 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(uintptr(result))), 910)

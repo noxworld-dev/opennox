@@ -288,7 +288,7 @@ func sub_4CEBA0(a1 int32, a2 *byte) int32 {
 		v8 *uint32
 		v9 *byte
 	)
-	dword_5d4594_1523024 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("rulelist.wnd"), ccall.FuncAddr(sub_4CF060)))))
+	dword_5d4594_1523024 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("rulelist.wnd"), sub_4CF060))))
 	dword_5d4594_1523028 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10170))))
 	dword_5d4594_1523032 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10171))))
 	dword_5d4594_1523036 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10172))))
@@ -402,7 +402,7 @@ func sub_4CEED0(win *gui.Window, draw *gui.WindowData) int {
 	}
 	return 1
 }
-func sub_4CF060(a1 int32, a2 uint32, a3 *int32, a4 int32) int32 {
+func sub_4CF060(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v4  *uint32
 		v6  *byte
@@ -437,7 +437,7 @@ func sub_4CF060(a1 int32, a2 uint32, a3 *int32, a4 int32) int32 {
 	}
 	if a2 != 16391 {
 		if a2 != 23 && a2 == 16387 {
-			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), a4)))
+			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), int32(a4))))
 			if v4 == nil {
 				return 0
 			}

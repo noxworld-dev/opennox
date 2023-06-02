@@ -2108,7 +2108,6 @@ func nox_xxx_itemApplyDefendEffect_415C00(a1 int32) float64 {
 		v1 *int32
 		v2 *float32
 		v4 int32
-		v5 func(int32, int32, uint32, int32, uint32, *float32)
 		v6 float32
 	)
 	v6 = 0.0
@@ -2123,7 +2122,7 @@ func nox_xxx_itemApplyDefendEffect_415C00(a1 int32) float64 {
 	v6 = *(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*16))
 	v4 = *v1
 	if *v1 != 0 {
-		v5 = ccall.AsFunc[func(int32, int32, uint32, int32, uint32, *float32)](unsafe.Pointer(uintptr(v4 + 76)))
+		v5 := ccall.AsFunc[func(int32, int32, uint32, int32, uint32, *float32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 76)))
 		if v5 != nil {
 			v5(v4, a1, 0, a1, 0, &v6)
 		}

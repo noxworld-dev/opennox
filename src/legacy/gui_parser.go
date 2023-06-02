@@ -1,8 +1,6 @@
 package legacy
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
@@ -11,6 +9,6 @@ var (
 )
 
 // nox_new_window_from_file
-func nox_new_window_from_file(cname *byte, fnc unsafe.Pointer) *nox_window {
-	return (*nox_window)(Nox_new_window_from_file(GoString(cname), gui.WrapFuncC(fnc)).C())
+func nox_new_window_from_file(cname *byte, fnc WindowFunc) *nox_window {
+	return (*nox_window)(Nox_new_window_from_file(GoString(cname), gui.WrapFunc(fnc)).C())
 }

@@ -28,7 +28,7 @@ func nox_gui_menu_proc_ext(id int32) int32 { return int32(Nox_gui_menu_proc_ext(
 func sub_4A19F0(name *byte) { Sub_4A19F0(strman.ID(GoString(name))) }
 
 // sub_4AAA10
-func sub_4AAA10() int32 { return int32(Sub_4AAA10()) }
+func sub_4AAA10() int { return Sub_4AAA10() }
 
 // sub_4C3A90
 func sub_4C3A90(win *nox_window, a2, a3, a4 uintptr) uintptr {

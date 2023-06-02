@@ -7816,7 +7816,8 @@ func nox_xxx_destroyEveryChatMB_528D60() int32 {
 	}
 	return result
 }
-func nox_xxx_XFerMonster_528DB0(a1 int32) int32 {
+func nox_xxx_XFerMonster_528DB0(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		v1     int32
 		result int32
@@ -7884,7 +7885,7 @@ func nox_xxx_XFerMonster_528DB0(a1 int32) int32 {
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(uintptr(a1))), int32(int16(v45)))
 	if result == 0 {
-		return result
+		return 0
 	}
 	if nox_crypt_IsReadOnly() == 0 {
 		nox_xxx_xferIndexedDirection_509E20(int32(*(*int16)(unsafe.Pointer(uintptr(a1 + 124)))), (*int2)(unsafe.Pointer(&v52[0])))
@@ -8169,7 +8170,7 @@ func nox_xxx_XFerMonster_528DB0(a1 int32) int32 {
 	if int32(int16(v45)) >= 41 {
 		result = nox_xxx_XFer_ActionData_529CE0(a1)
 		if result == 0 {
-			return result
+			return 0
 		}
 	}
 	if int32(int16(v45)) >= 42 {
@@ -8261,7 +8262,7 @@ LABEL_137:
 		result = nox_xxx_XFer_ReadMonsterBuffs_52AAB0((*uint32)(unsafe.Pointer(uintptr(a1))))
 		return result
 	}()) == 0 {
-		return result
+		return 0
 	}
 	if int32(int16(v45)) >= 63 && *(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))&0x80000 != 0 {
 		nox_xxx_readNPCVoiceSet_52AD10(a1)
@@ -8306,7 +8307,7 @@ LABEL_171:
 		}
 		result = nox_xxx_xfer_4F3E30(uint16(int16(v45)), (*nox_object_t)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136)))))
 		if result == 0 {
-			return result
+			return 0
 		}
 	}
 	if nox_crypt_IsReadOnly() == 1 {
@@ -8890,7 +8891,8 @@ func nox_xxx_readNPCVoiceSet_52AD10(a1 int32) uint32 {
 	}
 	return result
 }
-func nox_xxx_XFerNPC_52ADE0(a1 int32) int32 {
+func nox_xxx_XFerNPC_52ADE0(a1p *server.Object, data unsafe.Pointer) int {
+	a1 := int32(uintptr(a1p.CObj()))
 	var (
 		v1     int32
 		v2     *byte
@@ -9290,7 +9292,7 @@ func nox_xxx_XFerNPC_52ADE0(a1 int32) int32 {
 		v35 = a1
 		result = nox_xxx_XFer_ActionData_529CE0(a1)
 		if result == 0 {
-			return result
+			return 0
 		}
 	}
 	if int32(int16(v44)) >= 42 {
@@ -9329,7 +9331,7 @@ func nox_xxx_XFerNPC_52ADE0(a1 int32) int32 {
 		result = nox_xxx_XFer_ReadMonsterBuffs_52AAB0((*uint32)(unsafe.Pointer(uintptr(v35))))
 		return result
 	}()) == 0 {
-		return result
+		return int(result)
 	}
 	if int32(int16(v44)) < 62 {
 		if nox_crypt_IsReadOnly() == 1 {
@@ -9394,7 +9396,7 @@ LABEL_156:
 		*(*uint32)(unsafe.Pointer(uintptr(v35 + 136))) = uint32(v54)
 		return 1
 	}
-	return result
+	return int(result)
 }
 func sub_52BA70(a1 int32) int32 {
 	var (

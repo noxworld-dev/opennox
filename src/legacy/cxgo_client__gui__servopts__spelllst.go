@@ -5,7 +5,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_xxx_guiSpelllistLoad_453850(a1 int32) int32 {
@@ -13,7 +12,7 @@ func nox_xxx_guiSpelllistLoad_453850(a1 int32) int32 {
 		v9  *uint32
 		v10 *uint32
 	)
-	dword_5d4594_1045484 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("spelllst.wnd"), ccall.FuncAddr(sub_453C00)))))
+	dword_5d4594_1045484 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("spelllst.wnd"), sub_453C00))))
 	nox_xxx_wndSetDrawFn_46B340(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1045484)), sub_453B80)
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045484)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))
 	nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1045484)), a1)
@@ -66,27 +65,26 @@ func nox_xxx_guiSpelllistLoad_453850(a1 int32) int32 {
 	}
 	return int32(dword_5d4594_1045484)
 }
-func sub_453C00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func sub_453C00(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
-		v3     *int32
-		v4     int32
-		v5     *int16
-		v6     int32
-		v7     int32
-		v8     int32
-		i      int32
-		result int32
-		v11    int32
-		v12    *wchar2_t
-		v13    int32
-		v14    *wchar2_t
-		v15    *byte
-		v16    *wchar2_t
-		v17    *wchar2_t
-		v18    *wchar2_t
-		v19    [15]int32
-		v20    *byte
-		v21    int32
+		v3  *int32
+		v4  int32
+		v5  *int16
+		v6  int32
+		v7  int32
+		v8  int32
+		i   int32
+		v11 int32
+		v12 *wchar2_t
+		v13 int32
+		v14 *wchar2_t
+		v15 *byte
+		v16 *wchar2_t
+		v17 *wchar2_t
+		v18 *wchar2_t
+		v19 [15]int32
+		v20 *byte
+		v21 int32
 	)
 	if a2 == 0x4000 {
 		if unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045484)))), 1113)) || unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045484)))), 1114)) {
@@ -99,7 +97,7 @@ func sub_453C00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 	if a2 != 16391 {
 		return 0
 	}
-	v3 = a3
+	v3 = (*int32)(unsafe.Pointer(a3))
 	v4 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
 	v21 = v4
 	switch v4 {
@@ -192,5 +190,4 @@ func sub_453C00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 		return 0
 	}
-	return result
 }

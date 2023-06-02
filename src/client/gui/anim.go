@@ -209,7 +209,7 @@ func (a *Anim) doIn() {
 		a.SetState(AnimInDone)
 		SetAnimGlobalState(AnimInDone)
 		if a.FncDoneInPtr != nil {
-			ccall.AsFunc[func() int32](a.FncDoneInPtr)()
+			ccall.AsFunc[func() int](a.FncDoneInPtr)()
 		}
 		FocusMainBg()
 	}
