@@ -630,7 +630,7 @@ func nox_vsnprintf(buffer *byte, count uint32, format *byte, ap libc.ArgList) in
 				tmp  [32]byte
 				len_ int32
 			)
-			len_ = int32(libc.StrLen(nox_itoa(ap.Arg().(int32), &tmp[0], 10)))
+			len_ = int32(libc.StrLen(nox_itoa(int32(asInt(ap.Arg())), &tmp[0], 10)))
 			for j = 0; j < width-(func() int32 {
 				if precision > 0 {
 					return precision

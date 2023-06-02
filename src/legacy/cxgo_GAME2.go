@@ -5262,7 +5262,7 @@ func nox_xxx_bookFillAll_45D570(a1 int32, a2 int32) {
 					a3.field_4 = -500
 					a4.field_0 = 350
 					*memmap.PtrUint32(0x5D4594, 1046680) = 0
-					sub_4BEDE0((*int2)(memmap.PtrOff(0x5D4594, 1046844)), (*int2)(memmap.PtrOff(0x5D4594, 1046668)), &a3, &a4, 19, 0.0, int32(uintptr(ccall.FuncAddr(sub_45D7D0))), 0)
+					sub_4BEDE0((*int2)(memmap.PtrOff(0x5D4594, 1046844)), (*int2)(memmap.PtrOff(0x5D4594, 1046668)), &a3, &a4, 19, 0.0, sub_45D7D0, 0)
 					*memmap.PtrUint32(0x5D4594, 1046628) = 0
 					obj_5d4594_1046620.field_0 = *mem_getFloatPtr(0x5D4594, 1046692) - *mem_getFloatPtr(0x5D4594, 1046684)
 					obj_5d4594_1046620.field_4 = *mem_getFloatPtr(0x5D4594, 1046696) - *mem_getFloatPtr(0x5D4594, 1046688)
@@ -5295,7 +5295,9 @@ func nox_xxx_bookFillAll_45D570(a1 int32, a2 int32) {
 		}
 	}
 }
-func sub_45D7D0(a1 *int32, a2 *int32) int32 {
+func sub_45D7D0(a1p, a2p *int2, _ int32) {
+	a1 := (*int32)(unsafe.Pointer(a1p))
+	a2 := (*int32)(unsafe.Pointer(a2p))
 	var (
 		result int32
 		v3     float64
@@ -5310,7 +5312,6 @@ func sub_45D7D0(a1 *int32, a2 *int32) int32 {
 		*memmap.PtrUint32(0x5D4594, 1046680) = uint32(result)
 		*mem_getFloatPtr(0x5D4594, uint32(result*8)+1046688) = float32(v3)
 	}
-	return result
 }
 func sub_45D810() {
 	if dword_5d4594_1047520 != 0 {

@@ -3400,7 +3400,7 @@ func nox_xxx_collideProjectileGeneric_4E87B0(obj *server.Object, obj2 *server.Ob
 LABEL_9:
 	if a2 != 0 {
 		v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-		if int32(ccall.AsFunc[func(int32, int32, int32, int32, int32) uint8](unsafe.Pointer(uintptr(a2+716)))(a2, v6, a1, v5, 11)) == 0 {
+		if obj2.Damage.Get()(obj2, AsObjectP(unsafe.Pointer(uintptr(v6))), obj, int(v5), 11) == 0 {
 			return
 		}
 	} else {
@@ -4039,7 +4039,7 @@ func nox_xxx_collideBoom_4E9770(obj *server.Object, obj2 *server.Object, pos *ty
 			}
 			v9 = int32(*memmap.PtrUint32(0x5D4594, 1567968))
 			v8 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-			ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a2+716)))(a2, v8, a1, v9, 7)
+			obj2.Damage.Get()(obj2, AsObjectP(unsafe.Pointer(uintptr(v8))), obj, int(v9), 7)
 			nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Pointer(uintptr(a2+56))), 0)
 		} else if a3 != nil {
 			nox_xxx_collideReflect_57B810(a3, a1+80)
@@ -4178,7 +4178,7 @@ func nox_xxx_collideChest_4E9C40(obj *server.Object, obj2 *server.Object, pos *t
 	if a2 == 0 {
 		return
 	}
-	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8)))&uint8(int8(bool2int32(4 == 0)))) != 0 {
+	if *(*uint8)(unsafe.Pointer(uintptr(a2 + 8)))&4 == 0 {
 		return
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
@@ -7198,11 +7198,10 @@ func nox_xxx_mobInformOwnerHP_4EE4C0(obj *server.Object) {
 }
 func nox_xxx_unitDamageClear_4EE5E0(unitp *server.Object, damageAmount int32) {
 	var (
-		unit           int32 = int32(uintptr(unsafe.Pointer(unitp)))
-		healthData     int32
-		v3             int32
-		v4             int32
-		deleteOverride func(int32)
+		unit       int32 = int32(uintptr(unsafe.Pointer(unitp)))
+		healthData int32
+		v3         int32
+		v4         int32
 	)
 	if unit != 0 {
 		healthData = int32(*(*uint32)(unsafe.Pointer(uintptr(unit + 556))))
@@ -7231,11 +7230,10 @@ func nox_xxx_unitDamageClear_4EE5E0(unitp *server.Object, damageAmount int32) {
 						if int32(*(*uint8)(unsafe.Pointer(uintptr(unit + 8))))&2 != 0 {
 							nox_xxx_monsterCallDieFn_50A3D0((*uint32)(unsafe.Pointer(uintptr(unit))))
 						} else {
-							deleteOverride = ccall.AsFunc[func(int32)](unsafe.Pointer(uintptr(unit + 724)))
-							if deleteOverride != nil {
-								deleteOverride(unit)
+							if die := unitp.Death.Get(); die != nil {
+								die(unitp)
 							} else {
-								nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(unit))))
+								nox_xxx_delayedDeleteObject_4E5CC0(unitp)
 							}
 						}
 					}
@@ -10607,14 +10605,13 @@ func nox_xxx_itemApplyDisengageEffect_4F3030(object *server.Object, a2 int32) in
 		v2     int32
 		v3     *int32
 		result int32
-		v5     func(int32, int32, int32) int32
 	)
 	v2 = 2
 	v3 = (*int32)(unsafe.Pointer(uintptr(int32(uintptr(object.InitData)) + 8)))
 	for {
 		result = *v3
 		if *v3 != 0 {
-			v5 = ccall.AsFunc[func(int32, int32, int32) int32](unsafe.Pointer(uintptr(result + 116)))
+			v5 := ccall.AsFunc[func(int32, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(result + 116))))
 			if v5 != nil {
 				result = v5(result, a2, int32(uintptr(unsafe.Pointer(object))))
 			}

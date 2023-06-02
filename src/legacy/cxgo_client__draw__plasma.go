@@ -193,7 +193,10 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	}
 	return result
 }
-func sub_4BA8B0(a1 *int32, a2 *int32, a3 *int32) int8 {
+func sub_4BA8B0(a1p, a2p *int2, a3p int32) {
+	a1 := (*int32)(unsafe.Pointer(a1p))
+	a2 := (*int32)(unsafe.Pointer(a2p))
+	a3 := (*int32)(unsafe.Pointer(uintptr(a3p)))
 	var (
 		v3 int32
 		v4 *byte
@@ -219,7 +222,6 @@ func sub_4BA8B0(a1 *int32, a2 *int32, a3 *int32) int8 {
 			*((*uint8)(unsafe.Pointer(&v6))) = uint8(int8(nox_xxx_drawEnergyBolt_499710(int32(uint32(*a2)+*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*4)))-*(*uint32)(unsafe.Pointer(v4))), int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))+*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*5)))-*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*1)))), 8, *memmap.PtrInt32(0x5D4594, 1316416))))
 		}
 	}
-	return int8(v6)
 }
 func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	a1 := (*int32)(vp.C())

@@ -288,7 +288,7 @@ func sub_4BA670(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) {
 		}
 		v21 = *mem_getFloatPtr(0x5D4594, uint32(v17*4)+1313856)
 		dword_5d4594_1316412 = 0
-		sub_4BEDE0(&a1a, &a2a, &a3a, &a4a, v18, v21, int32(uintptr(ccall.FuncAddr(sub_4BA8B0))), int32(uintptr(unsafe.Pointer(&a5))))
+		sub_4BEDE0(&a1a, &a2a, &a3a, &a4a, v18, v21, sub_4BA8B0, int32(uintptr(unsafe.Pointer(&a5))))
 		v17 = func() int32 {
 			p := &a5
 			*p++
@@ -1400,7 +1400,7 @@ func sub_4BEAD0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 int32) {
 		}
 	}
 }
-func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7 int32, a8 int32) {
+func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7 func(*int2, *int2, int32), a8 int32) {
 	var (
 		v8  int32
 		v9  float64
@@ -1497,7 +1497,7 @@ func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7
 			v35[0].field_4 = int32(v20)
 			v39 = float32(v16)
 			v21 = v22 - v39
-			(ccall.AsFunc[func(*int2, *int2, int32)](unsafe.Pointer(uintptr(a7))))(&v35[2], &v35[0], a8)
+			a7(&v35[2], &v35[0], a8)
 			v15--
 			v35[2].field_0 = v35[0].field_0
 			v35[2].field_4 = v35[0].field_4

@@ -698,8 +698,6 @@ func sub_545DA0(a1 int32) int32 {
 func nox_xxx_mobActionGuard_546010(obj *server.Object) {
 	a1 := int32(uintptr(obj.CObj()))
 	var (
-		v1     int32
-		v2     int32
 		result *int32
 		v4     int32
 		v5     int32
@@ -722,8 +720,9 @@ func nox_xxx_mobActionGuard_546010(obj *server.Object) {
 		v22    float64
 		a2     float2
 	)
-	v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
-	v2 = v1 + int32((*(*byte)(unsafe.Pointer(uintptr(v1 + 544)))+23)*24)
+	ud := obj.UpdateDataMonster()
+	v1 := int32(uintptr(unsafe.Pointer(ud)))
+	v2 := int32(uintptr(unsafe.Pointer(ud.AIStackHead())))
 	if sub_534440(a1) != 0 || (func() *int32 {
 		result = (*int32)(unsafe.Pointer(uintptr(sub_545E60((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
 		return result
@@ -889,34 +888,31 @@ func sub_546420(obj *server.Object) {
 func nox_xxx_mobActionEscort_546430(obj *server.Object) {
 	a1 := (*int32)(obj.CObj())
 	var (
-		v1  int32
-		v2  *uint32
 		v3  int32
 		v4  *int32
 		v5  int32
-		v6  int32
-		v7  float64
-		v8  float64
 		v9  *int32
 		v10 int32
 	)
-	v1 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*187))
-	v2 = (*uint32)(unsafe.Pointer(uintptr(v1 + int32((*(*byte)(unsafe.Pointer(uintptr(v1 + 544)))+23)*24))))
-	if *(*uint32)(unsafe.Pointer(uintptr(v1 + int32((*(*byte)(unsafe.Pointer(uintptr(v1 + 544)))+23)*24) + 12))) == 0 {
+	ud := obj.UpdateDataMonster()
+	v1 := int32(uintptr(unsafe.Pointer(ud)))
+	v2p := ud.AIStackHead()
+	v2 := (*uint32)(unsafe.Pointer(v2p))
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(v2p), 12)) == 0 {
 		v3 = nox_xxx_monsterGetObjEscortName_546600(int32(uintptr(unsafe.Pointer(a1))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = uint32(v3)
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v2p), 4*3)) = uint32(v3)
 		if v3 == 0 {
-			*((*uint8)(unsafe.Pointer(&v4))) = uint8(int8(nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))))
+			nox_xxx_monsterPopAction_50A160(obj)
 			return
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) = *(*uint32)(unsafe.Pointer(uintptr(v3 + 56)))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = *(*uint32)(unsafe.Pointer(uintptr(v3 + 60)))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v2p), 4*1)) = *(*uint32)(unsafe.Pointer(uintptr(v3 + 56)))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v2p), 4*2)) = *(*uint32)(unsafe.Pointer(uintptr(v3 + 60)))
 	}
 	if nox_xxx_monsterCanAttackAtWill_534390((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))) != 0 {
-		if *(*uint32)(unsafe.Pointer(uintptr(v1 + 1196))) != 0 {
+		if ud.CurrentEnemy != nil {
 			v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 15))
 			if v4 != nil {
-				v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 1196))))
+				v5 = int32(uintptr(ud.CurrentEnemy.CObj()))
 				*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 56))))
 				*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 60))))
 				*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*3)) = int32(gameFrame())
@@ -928,7 +924,7 @@ func nox_xxx_mobActionEscort_546430(obj *server.Object) {
 			return
 		}
 	} else if sub_5343C0(int32(uintptr(unsafe.Pointer(a1)))) != 0 {
-		v4 = (*int32)(unsafe.Pointer(uintptr(sub_545E60((*server.Object)(unsafe.Pointer(a1))))))
+		v4 = (*int32)(unsafe.Pointer(uintptr(sub_545E60(obj))))
 		if v4 != nil {
 			return
 		}
@@ -937,17 +933,17 @@ func nox_xxx_mobActionEscort_546430(obj *server.Object) {
 			return
 		}
 	}
-	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
-	v7 = float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(a1))), unsafe.Sizeof(float32(0))*14))) - *(*float32)(unsafe.Pointer(uintptr(v6 + 56))))
-	v8 = float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(a1))), unsafe.Sizeof(float32(0))*15))) - *(*float32)(unsafe.Pointer(uintptr(v6 + 60))))
+	v6 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
+	v7 := float64(*((*float32)(unsafe.Add(obj.CObj(), unsafe.Sizeof(float32(0))*14))) - *(*float32)(unsafe.Pointer(uintptr(v6 + 56))))
+	v8 := float64(*((*float32)(unsafe.Add(obj.CObj(), unsafe.Sizeof(float32(0))*15))) - *(*float32)(unsafe.Pointer(uintptr(v6 + 60))))
 	if (float64(*(*float32)(unsafe.Pointer(uintptr(v1 + 1316))))+30.0)*(float64(*(*float32)(unsafe.Pointer(uintptr(v1 + 1316))))+30.0) >= v8*v8+v7*v7 {
 		if nox_xxx_monsterCanAttackAtWill_534390((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))) == 0 || (func() *int32 {
-			v4 = (*int32)(unsafe.Pointer(uintptr(sub_5466F0((*server.Object)(unsafe.Pointer(a1))))))
+			v4 = (*int32)(unsafe.Pointer(uintptr(sub_5466F0(obj))))
 			return v4
 		}()) == nil {
-			v4 = (*int32)(unsafe.Pointer(uintptr(nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 29))))
+			v4 = (*int32)(unsafe.Pointer(uintptr(nox_xxx_testUnitBuffs_4FF350(obj, 29))))
 			if v4 == nil {
-				*((*uint8)(unsafe.Pointer(&v4))) = uint8(int8(nox_xxx_mobHealSomeone_5411A0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))))
+				*((*uint8)(unsafe.Pointer(&v4))) = uint8(int8(nox_xxx_mobHealSomeone_5411A0(obj)))
 			}
 		}
 	} else {
@@ -957,12 +953,12 @@ func nox_xxx_mobActionEscort_546430(obj *server.Object) {
 		if nox_xxx_monsterCanAttackAtWill_534390((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))) != 0 {
 			nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 56)
 		}
-		v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 49))
+		v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(obj, 49))
 		if v9 != nil {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 1316))))
 			*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*3)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
 		}
-		v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 7))
+		v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(obj, 7))
 		if v4 != nil {
 			v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
 			*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v10 + 56))))

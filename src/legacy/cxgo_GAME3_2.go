@@ -6915,7 +6915,6 @@ func nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3 *server.Object, dmg int, ty
 		v26 int32
 		v27 int32
 		v28 int32
-		v29 func(int32, int32)
 		v30 uint8
 		v31 float64
 		v32 uint16
@@ -7130,12 +7129,12 @@ LABEL_87:
 			v28 = int32(*(*uint32)(unsafe.Pointer(uintptr(v27 + 32))))
 			return v28
 		}()) == 0 || nox_xxx_getSevenDwords3_501940(v28) <= 0 {
-			v29 = ccall.AsFunc[func(int32, int32)](unsafe.Pointer(uintptr(a1 + 720)))
+			v29 := obj.DamageSound.Get()
 			if v29 != nil {
 				if v19 != 0 {
-					v29(a1, v19)
+					v29(obj, AsObjectP(unsafe.Pointer(uintptr(v19))))
 				} else {
-					v29(a1, v10)
+					v29(obj, AsObjectP(unsafe.Pointer(uintptr(v10))))
 				}
 			} else if v19 != 0 {
 				nox_xxx_soundDefaultDamageSound_532E20((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(v19))))
@@ -7306,7 +7305,7 @@ func nox_xxx_itemApplyPreDamageEffect_4E13B0(a1 int32, a2 int32, a3 int32, a4 in
 	for {
 		v6 = *v5
 		if *v5 != 0 {
-			v7 = ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(v6 + 64)))
+			v7 = ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v6 + 64))))
 			if v7 != nil {
 				v7(v6, v4, a2, a1, a4)
 			}
@@ -7459,7 +7458,6 @@ func nox_xxx_equipDamage_4E16D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 float
 	var (
 		v6  *float32
 		v7  int32
-		v8  func(int32, int32, int32, int32, int32, *float32)
 		v9  int32
 		v10 uint16
 		v11 uint16
@@ -7468,7 +7466,7 @@ func nox_xxx_equipDamage_4E16D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 float
 		v6 = *(**float32)(unsafe.Pointer(uintptr(a1 + 748)))
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 692))) + 4))))
 		if v7 != 0 {
-			v8 = ccall.AsFunc[func(int32, int32, int32, int32, int32, *float32)](unsafe.Pointer(uintptr(v7 + 76)))
+			v8 := ccall.AsFunc[func(int32, int32, int32, int32, int32, *float32)](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v7 + 76))))
 			if v8 != nil {
 				v8(v7, a1, a2, a4, a3, &a5)
 			}
@@ -7478,7 +7476,7 @@ func nox_xxx_equipDamage_4E16D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 float
 		*v6 = float32(float64(a5) - float64(v9))
 		if v9 > 0 {
 			v10 = **(**uint16)(unsafe.Pointer(uintptr(a1 + 556)))
-			ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a1+716)))(a1, a3, a4, v9, a6)
+			ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 716))))(a1, a3, a4, v9, a6)
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&4 != 0 {
 				v11 = **(**uint16)(unsafe.Pointer(uintptr(a1 + 556)))
 				if int32(v10) != int32(v11) {
