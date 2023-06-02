@@ -7,4 +7,4 @@ var (
 )
 
 // sub_5002D0
-func sub_5002D0(a1 *nox_object_t) { Sub_5002D0(asObjectS(a1)) }
+func sub_5002D0(a1 *server.Object) { Sub_5002D0(asObjectS(a1)) }

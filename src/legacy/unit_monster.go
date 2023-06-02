@@ -12,12 +12,12 @@ var (
 )
 
 // nox_xxx_monsterCast_540A30
-func nox_xxx_monsterCast_540A30(cu *nox_object_t, spellInd int32, a3p *nox_object_t) {
+func nox_xxx_monsterCast_540A30(cu *server.Object, spellInd int32, a3p *server.Object) {
 	Nox_xxx_monsterCast_540A30(asObjectS(cu), int(spellInd), asObjectS(a3p))
 }
 
 // nox_xxx_monsterCreateFn_54C480
-func nox_xxx_monsterCreateFn_54C480(u *nox_object_t) {
+func nox_xxx_monsterCreateFn_54C480(u *server.Object) {
 	Nox_xxx_monsterCreateFn_54C480(asObjectS(u))
 }
 

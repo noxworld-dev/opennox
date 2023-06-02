@@ -91,41 +91,41 @@ func init() {
 }
 
 // nox_xxx_updatePlayer_4F8100
-func nox_xxx_updatePlayer_4F8100(up *nox_object_t) { Nox_xxx_updatePlayer_4F8100(asObjectS(up)) }
+func nox_xxx_updatePlayer_4F8100(up *server.Object) { Nox_xxx_updatePlayer_4F8100(asObjectS(up)) }
 
 // nox_xxx_objectApplyForce_52DF80
-func nox_xxx_objectApplyForce_52DF80(vec *float32, obj *nox_object_t, force float32) {
+func nox_xxx_objectApplyForce_52DF80(vec *float32, obj *server.Object, force float32) {
 	GetServer().ApplyForce(asObjectS(obj), AsPointf(unsafe.Pointer(vec)), float64(force))
 }
 
 // nox_xxx_updatePixie_53CD20
-func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) { Nox_xxx_updatePixie_53CD20(asObjectS(cobj)) }
+func nox_xxx_updatePixie_53CD20(cobj *server.Object) { Nox_xxx_updatePixie_53CD20(asObjectS(cobj)) }
 
 // nox_xxx_teleportAllPixies_4FD090
-func nox_xxx_teleportAllPixies_4FD090(cobj *nox_object_t) {
+func nox_xxx_teleportAllPixies_4FD090(cobj *server.Object) {
 	Nox_xxx_teleportAllPixies_4FD090(asObjectS(cobj))
 }
 
 // nox_xxx_enemyAggro_5335D0
-func nox_xxx_enemyAggro_5335D0(cobj *nox_object_t, r float32) *nox_object_t {
+func nox_xxx_enemyAggro_5335D0(cobj *server.Object, r float32) *server.Object {
 	return asObjectC(Nox_xxx_enemyAggro_5335D0(asObjectS(cobj), r))
 }
 
 // sub_5336D0
-func sub_5336D0(cobj *nox_object_t) float64 { return float64(Sub_5336D0(asObjectS(cobj))) }
+func sub_5336D0(cobj *server.Object) float64 { return float64(Sub_5336D0(asObjectS(cobj))) }
 
 // nox_xxx_updatePlayerObserver_4E62F0
-func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
+func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 	Nox_xxx_updatePlayerObserver_4E62F0(asObjectS(a1p))
 }
 
 // nox_xxx_updateProjectile_53AC10
-func nox_xxx_updateProjectile_53AC10(a1 *nox_object_t) {
+func nox_xxx_updateProjectile_53AC10(a1 *server.Object) {
 	Nox_xxx_updateProjectile_53AC10(asObjectS(a1))
 }
 
 // nox_xxx___mkgmtime_538280
-func nox_xxx___mkgmtime_538280(a1 *nox_object_t) {
+func nox_xxx___mkgmtime_538280(a1 *server.Object) {
 	Nox_xxx___mkgmtime_538280(asObjectS(a1))
 }
 

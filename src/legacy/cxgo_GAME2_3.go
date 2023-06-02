@@ -13,6 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_max_npcs int32 = 1024
@@ -1379,7 +1380,7 @@ func sub_4948B0(a1 int32) int32 {
 					}
 				}
 			}
-			result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*nox_object_t)(unsafe.Pointer(uintptr(j)))))))
+			result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(j)))))))
 		}
 	} else {
 		result = int32(uintptr(unsafe.Pointer(nox_xxx_cliGetSpritePlayer_45A000())))

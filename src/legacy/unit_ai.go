@@ -96,7 +96,7 @@ func (a cgoAIAction) Cancel(u *server.Object) {
 func nox_ai_debug_print(str *byte) { Nox_ai_debug_print(GoString(str)) }
 
 // sub_545E60
-func sub_545E60(a1c *nox_object_t) int32 { return int32(Sub_545E60(asObjectS(a1c))) }
+func sub_545E60(a1c *server.Object) int32 { return int32(Sub_545E60(asObjectS(a1c))) }
 
 // sub_50D1C0
 func sub_50D1C0() { Sub_50D1C0() }
@@ -105,22 +105,22 @@ func sub_50D1C0() { Sub_50D1C0() }
 func nox_xxx_gameSetAudioFadeoutMb_501AC0(v int32) { Nox_xxx_gameSetAudioFadeoutMb_501AC0(int(v)) }
 
 // nox_xxx_monsterPopAction_50A160
-func nox_xxx_monsterPopAction_50A160(a1 *nox_object_t) int {
+func nox_xxx_monsterPopAction_50A160(a1 *server.Object) int {
 	return Nox_xxx_monsterPopAction_50A160(asObjectS(a1))
 }
 
 // nox_xxx_monsterPushAction_50A260_impl
-func nox_xxx_monsterPushAction_50A260_impl(u *nox_object_t, act int32) unsafe.Pointer {
+func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int32) unsafe.Pointer {
 	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), int(act), "", 0)
 }
 
 // nox_xxx_unitUpdateMonster_50A5C0
-func nox_xxx_unitUpdateMonster_50A5C0(a1 *nox_object_t) {
+func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	Nox_xxx_unitUpdateMonster_50A5C0(asObjectS(a1))
 }
 
 // nox_xxx_monsterClearActionStack_50A3A0
-func nox_xxx_monsterClearActionStack_50A3A0(a1 *nox_object_t) {
+func nox_xxx_monsterClearActionStack_50A3A0(a1 *server.Object) {
 	Nox_xxx_monsterClearActionStack_50A3A0(asObjectS(a1))
 }
 func Nox_xxx_mobSearchEdible_544A00(a1 *server.Object, a2 float32) int {

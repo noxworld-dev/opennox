@@ -6,9 +6,10 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func sub_4E39F0_obj_db(a1p *nox_object_t) *wchar2_t {
+func sub_4E39F0_obj_db(a1p *server.Object) *wchar2_t {
 	var (
 		a1 **byte = (**byte)(unsafe.Pointer(a1p))
 		v1 *byte
@@ -21,7 +22,7 @@ func sub_4E39F0_obj_db(a1p *nox_object_t) *wchar2_t {
 	)
 	v1 = *a1
 	if *a1 == nil {
-		v1 = nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
+		v1 = nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
 	}
 	v2 = libc.StrRChr(v1, 58)
 	if v2 != nil {

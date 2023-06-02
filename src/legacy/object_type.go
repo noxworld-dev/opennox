@@ -46,7 +46,7 @@ func init() {
 func nox_xxx_unitDefGetCount_4E3AC0() int { return GetServer().S().Types.Count() }
 
 // nox_xxx_newObjectWithTypeInd_4E3450
-func nox_xxx_newObjectWithTypeInd_4E3450(ind int32) *nox_object_t {
+func nox_xxx_newObjectWithTypeInd_4E3450(ind int32) *server.Object {
 	s := GetServer().S()
 	return asObjectC(s.Objs.NewObject(s.Types.ByInd(int(ind))))
 }
@@ -61,7 +61,7 @@ func nox_xxx_objectTypeByIndHealthData(ind int32) unsafe.Pointer {
 }
 
 // sub_4E4C50
-func sub_4E4C50(cobj *nox_object_t) int32 {
+func sub_4E4C50(cobj *server.Object) int32 {
 	item := asObjectS(cobj)
 	if item == nil {
 		return 0
@@ -74,10 +74,10 @@ func sub_4E4C50(cobj *nox_object_t) int32 {
 }
 
 // sub_4F40A0
-func sub_4F40A0(a1 *nox_object_t) int8 { return int8(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
+func sub_4F40A0(a1 *server.Object) int8 { return int8(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
 
 // sub_4E4C90
-func sub_4E4C90(a1 *nox_object_t, a2 uint32) int32 {
+func sub_4E4C90(a1 *server.Object, a2 uint32) int32 {
 	return bool2int32(Sub_4E4C90(asObjectS(a1), uint(a2)))
 }
 
@@ -87,7 +87,7 @@ func nox_xxx_getUnitDefDd10_4E3BA0(ind int32) int32 {
 }
 
 // nox_xxx_getUnitName_4E39D0
-func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *byte {
+func nox_xxx_getUnitName_4E39D0(cobj *server.Object) *byte {
 	return internCStr(GetServer().S().Types.ByInd(int(asObjectS(cobj).TypeInd)).ID())
 }
 
@@ -121,7 +121,7 @@ func nox_objectTypeGetWorth(cstr *byte) int32 {
 }
 
 // nox_xxx_newObjectByTypeID_4E3810
-func nox_xxx_newObjectByTypeID_4E3810(cstr *byte) *nox_object_t {
+func nox_xxx_newObjectByTypeID_4E3810(cstr *byte) *server.Object {
 	obj := GetServer().NewObjectByTypeID(GoString(cstr))
 	if obj == nil {
 		return nil
@@ -156,5 +156,5 @@ func Get_nox_xxx_XFerInvLight_4F5AA0() unsafe.Pointer {
 	return ccall.FuncAddr(nox_xxx_XFerInvLight_4F5AA0)
 }
 func Nox_call_objectType_new_go(a1 unsafe.Pointer, a2 *server.Object) {
-	ccall.AsFunc[func(*nox_object_t)](a1)(asObjectC(a2))
+	ccall.AsFunc[func(*server.Object)](a1)(asObjectC(a2))
 }

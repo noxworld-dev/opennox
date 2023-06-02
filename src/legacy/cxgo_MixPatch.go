@@ -1,8 +1,12 @@
 package legacy
 
-import "unsafe"
+import (
+	"unsafe"
 
-func sub_980523(unit *nox_object_t) {
+	"github.com/noxworld-dev/opennox/v1/server"
+)
+
+func sub_980523(unit *server.Object) {
 	if unit == nil {
 		return
 	}
@@ -14,7 +18,7 @@ func sub_980523(unit *nox_object_t) {
 		}
 	}
 }
-func sub_9805EB(unit *nox_object_t) *nox_object_t {
+func sub_9805EB(unit *server.Object) *server.Object {
 	if unit == nil {
 		return nil
 	}

@@ -63,21 +63,19 @@ type Nox_object_Mover_data_t struct {
 	Field_8 uint32         // 8, 32
 }
 
-type nox_object_t = server.Object
-
-func asObjectC(p *server.Object) *nox_object_t {
-	return (*nox_object_t)(p.CObj())
+func asObjectC(p *server.Object) *server.Object {
+	return p
 }
 
 func AsObjectP(p unsafe.Pointer) *server.Object {
 	return (*server.Object)(p)
 }
 
-func asObjectS(p *nox_object_t) *server.Object {
-	return (*server.Object)(unsafe.Pointer(p))
+func asObjectS(p *server.Object) *server.Object {
+	return p
 }
 
-func ToObjS(p *nox_object_t) server.Obj {
+func ToObjS(p *server.Object) server.Obj {
 	if p == nil {
 		return nil
 	}
@@ -85,47 +83,47 @@ func ToObjS(p *nox_object_t) server.Obj {
 }
 
 // nox_server_getFirstObject_4DA790
-func nox_server_getFirstObject_4DA790() *nox_object_t {
+func nox_server_getFirstObject_4DA790() *server.Object {
 	return asObjectC(GetServer().FirstServerObject())
 }
 
 // nox_server_getFirstObjectUninited_4DA870
-func nox_server_getFirstObjectUninited_4DA870() *nox_object_t {
+func nox_server_getFirstObjectUninited_4DA870() *server.Object {
 	return asObjectC(GetServer().S().Objs.Pending)
 }
 
 // nox_server_getNextObject_4DA7A0
-func nox_server_getNextObject_4DA7A0(cobj *nox_object_t) *nox_object_t {
+func nox_server_getNextObject_4DA7A0(cobj *server.Object) *server.Object {
 	return asObjectC(asObjectS(cobj).Next())
 }
 
 // nox_server_getNextObjectUninited_4DA880
-func nox_server_getNextObjectUninited_4DA880(cobj *nox_object_t) *nox_object_t {
+func nox_server_getNextObjectUninited_4DA880(cobj *server.Object) *server.Object {
 	return asObjectC(asObjectS(cobj).Next())
 }
 
 // nox_xxx_getNextUpdatable2Object_4DA850
-func nox_xxx_getNextUpdatable2Object_4DA850(cobj *nox_object_t) *nox_object_t {
+func nox_xxx_getNextUpdatable2Object_4DA850(cobj *server.Object) *server.Object {
 	return asObjectC(asObjectS(cobj).Next())
 }
 
 // nox_xxx_unitAddToUpdatable_4DA8D0
-func nox_xxx_unitAddToUpdatable_4DA8D0(cobj *nox_object_t) {
+func nox_xxx_unitAddToUpdatable_4DA8D0(cobj *server.Object) {
 	GetServer().S().Objs.AddToUpdatable(asObjectS(cobj))
 }
 
 // nox_xxx_unitRemoveFromUpdatable_4DA920
-func nox_xxx_unitRemoveFromUpdatable_4DA920(cobj *nox_object_t) {
+func nox_xxx_unitRemoveFromUpdatable_4DA920(cobj *server.Object) {
 	GetServer().S().Objs.RemoveFromUpdatable(asObjectS(cobj))
 }
 
 // nox_xxx_servFinalizeDelObject_4DADE0
-func nox_xxx_servFinalizeDelObject_4DADE0(cobj *nox_object_t) {
+func nox_xxx_servFinalizeDelObject_4DADE0(cobj *server.Object) {
 	GetServer().ObjectDeleteLast(asObjectS(cobj))
 }
 
 // nox_xxx_getFirstUpdatable2Object_4DA840
-func nox_xxx_getFirstUpdatable2Object_4DA840() *nox_object_t {
+func nox_xxx_getFirstUpdatable2Object_4DA840() *server.Object {
 	return asObjectC(GetServer().S().Objs.UpdatableList2)
 }
 
@@ -145,12 +143,12 @@ func nox_xxx_finalizeDeletingUnits_4E5EC0() {
 }
 
 // nox_xxx_getFirstUpdatableObject_4DA8A0
-func nox_xxx_getFirstUpdatableObject_4DA8A0() *nox_object_t {
+func nox_xxx_getFirstUpdatableObject_4DA8A0() *server.Object {
 	return asObjectC(GetServer().S().Objs.UpdatableList)
 }
 
 // nox_xxx_getNextUpdatableObject_4DA8B0
-func nox_xxx_getNextUpdatableObject_4DA8B0(obj *nox_object_t) *nox_object_t {
+func nox_xxx_getNextUpdatableObject_4DA8B0(obj *server.Object) *server.Object {
 	if obj == nil {
 		return nil
 	}
@@ -158,12 +156,12 @@ func nox_xxx_getNextUpdatableObject_4DA8B0(obj *nox_object_t) *nox_object_t {
 }
 
 // sub_548600
-func sub_548600(a1 *nox_object_t, a2, a3 float32) {
+func sub_548600(a1 *server.Object, a2, a3 float32) {
 	asObjectS(a1).Sub548600(types.Pointf{X: float32(a2), Y: float32(a3)})
 }
 
 // nox_xxx_delayedDeleteObject_4E5CC0
-func nox_xxx_delayedDeleteObject_4E5CC0(obj *nox_object_t) {
+func nox_xxx_delayedDeleteObject_4E5CC0(obj *server.Object) {
 	GetServer().DelayedDelete(asObjectS(obj))
 }
 
@@ -183,7 +181,7 @@ func AsPoint(p unsafe.Pointer) image.Point {
 }
 
 // nox_xxx_createAt_4DAA50
-func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x float32, y float32) {
+func nox_xxx_createAt_4DAA50(cobj *server.Object, cowner *server.Object, x float32, y float32) {
 	var owner server.Obj
 	if cowner != nil {
 		owner = asObjectS(cowner)
@@ -192,32 +190,32 @@ func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x float32
 }
 
 // nox_xxx_objectFreeMem_4E38A0
-func nox_xxx_objectFreeMem_4E38A0(a1p *nox_object_t) int {
+func nox_xxx_objectFreeMem_4E38A0(a1p *server.Object) int {
 	return GetServer().S().Objs.FreeObject(asObjectS(a1p))
 }
 
 // nox_xxx_findParentChainPlayer_4EC580
-func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
+func nox_xxx_findParentChainPlayer_4EC580(obj *server.Object) *server.Object {
 	return asObjectC(asObjectS(obj).FindOwnerChainPlayer())
 }
 
 // nox_xxx_unitHasThatParent_4EC4F0
-func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *nox_object_t) int32 {
+func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *server.Object) int32 {
 	return bool2int32(asObjectS(obj).HasOwner(asObjectS(owner)))
 }
 
 // nox_xxx_unitIsEnemyTo_5330C0
-func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) int32 {
+func nox_xxx_unitIsEnemyTo_5330C0(a, b *server.Object) int32 {
 	return bool2int32(GetServer().IsEnemyTo(asObjectS(a), asObjectS(b)))
 }
 
 // nox_get_and_zero_server_objects_4DA3C0
-func nox_get_and_zero_server_objects_4DA3C0() *nox_object_t {
+func nox_get_and_zero_server_objects_4DA3C0() *server.Object {
 	return asObjectC(GetServer().S().Objs.GetAndZeroObjects())
 }
 
 // nox_set_server_objects_4DA3E0
-func nox_set_server_objects_4DA3E0(list *nox_object_t) {
+func nox_set_server_objects_4DA3E0(list *server.Object) {
 	GetServer().S().Objs.SetObjects(asObjectS(list))
 }
 
@@ -226,58 +224,58 @@ func sub_47A1F0() {
 	Sub_47A1F0()
 }
 
-func nox_xxx_unitMonsterInit_4F0040(obj *nox_object_t) {
+func nox_xxx_unitMonsterInit_4F0040(obj *server.Object) {
 	Nox_xxx_unitMonsterInit_4F0040(asObjectS(obj))
 }
 
 // nox_xxx_setNPCColor_4E4A90
-func nox_xxx_setNPCColor_4E4A90(obj *nox_object_t, a2 byte, p unsafe.Pointer) {
+func nox_xxx_setNPCColor_4E4A90(obj *server.Object, a2 byte, p unsafe.Pointer) {
 	Nox_xxx_setNPCColor_4E4A90(asObjectS(obj), a2, (*server.Color3)(p))
 }
 
 // nox_xxx_checkSummonedCreaturesLimit_500D70
-func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *nox_object_t, ind int32) bool {
+func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *server.Object, ind int32) bool {
 	return bool(Nox_xxx_checkSummonedCreaturesLimit_500D70(asObjectS(obj), int(ind)))
 }
 
 // nox_xxx_unitDoSummonAt_5016C0
-func nox_xxx_unitDoSummonAt_5016C0(typID int32, cpos *float32, owner *nox_object_t, dir byte) *nox_object_t {
+func nox_xxx_unitDoSummonAt_5016C0(typID int32, cpos *float32, owner *server.Object, dir byte) *server.Object {
 	pos := unsafe.Slice(cpos, 2)
 	return asObjectC(Nox_xxx_unitDoSummonAt_5016C0(int(typID), types.Ptf(pos[0], pos[1]), asObjectS(owner), server.Dir16(dir)))
 }
 
 // sub_57AEE0
-func sub_57AEE0(sp int32, u *nox_object_t) int32 {
+func sub_57AEE0(sp int32, u *server.Object) int32 {
 	return bool2int32(Sub_57AEE0(spell.ID(sp), asObjectS(u)))
 }
 
 // sub_4E71F0
-func sub_4E71F0(a1 *nox_object_t) {
+func sub_4E71F0(a1 *server.Object) {
 	Sub_4E71F0(asObjectS(a1))
 }
 
 // nox_bomberDead_54A150
-func nox_bomberDead_54A150(a1 *nox_object_t) int {
+func nox_bomberDead_54A150(a1 *server.Object) int {
 	return Nox_bomberDead_54A150(asObjectS(a1))
 }
 
 // nox_xxx_dieGlyph_54DF30
-func nox_xxx_dieGlyph_54DF30(a1 *nox_object_t) {
+func nox_xxx_dieGlyph_54DF30(a1 *server.Object) {
 	Nox_xxx_dieGlyph_54DF30(asObjectS(a1))
 }
 
 // nox_xxx_collideGlyph_4E9A00
-func nox_xxx_collideGlyph_4E9A00(a1, a2 *nox_object_t) {
+func nox_xxx_collideGlyph_4E9A00(a1, a2 *server.Object) {
 	Nox_xxx_collideGlyph_4E9A00(asObjectS(a1), asObjectS(a2))
 }
 
 // sub_57B4D0
-func sub_57B4D0(obj *nox_object_t) {
+func sub_57B4D0(obj *server.Object) {
 	GetServer().S().Doors.SetKeyHolder(asObjectS(obj))
 }
 
 // nox_xxx_doorGetSomeKey_4E8910
-func nox_xxx_doorGetSomeKey_4E8910(u, door *nox_object_t) *nox_object_t {
+func nox_xxx_doorGetSomeKey_4E8910(u, door *server.Object) *server.Object {
 	return asObjectC(GetServer().S().DoorCheckKey(asObjectS(u), asObjectS(door)))
 }
 
@@ -416,7 +414,7 @@ func Nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
 }
 func Nox_server_scriptFleeFrom_515F70(obj, targ *server.Object, df int) {
 	p, free := alloc.New(struct {
-		Targ *nox_object_t
+		Targ *server.Object
 		Dt   int32
 	}{})
 	defer free()

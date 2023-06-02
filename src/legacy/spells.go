@@ -89,7 +89,7 @@ func nox_xxx_spellAwardAll2_4EFC80(p *nox_playerInfo) { Nox_xxx_spellAwardAll2_4
 func nox_xxx_spellAwardAll3_4EFE10(p *nox_playerInfo) { Nox_xxx_spellAwardAll3_4EFE10(asPlayerS(p)) }
 
 // nox_xxx_spellFlySearchTarget_540610
-func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *nox_object_t, sflags int32, dist float32, a5 int32, self *nox_object_t) *nox_object_t {
+func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *server.Object, sflags int32, dist float32, a5 int32, self *server.Object) *server.Object {
 	var pos *types.Pointf
 	if cpos != nil {
 		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}
@@ -185,7 +185,7 @@ func nox_xxx_spellPrice_424C40(ind int32) int32 { return int32(Nox_xxx_spellPric
 func nox_xxx_spellEnableAll_424BD0() { Nox_xxx_spellEnableAll_424BD0() }
 
 // nox_xxx_spellAccept_4FD400
-func nox_xxx_spellAccept_4FD400(ispellID int32, a2, a3p, a4p *nox_object_t, a5p unsafe.Pointer, lvli int32) int {
+func nox_xxx_spellAccept_4FD400(ispellID int32, a2, a3p, a4p *server.Object, a5p unsafe.Pointer, lvli int32) int {
 	if GetServer().Nox_xxx_spellAccept4FD400(spell.ID(ispellID), asObjectS(a2), asObjectS(a3p), asObjectS(a4p), (*server.SpellAcceptArg)(a5p), int(lvli)) {
 		return 1
 	}
@@ -193,7 +193,7 @@ func nox_xxx_spellAccept_4FD400(ispellID int32, a2, a3p, a4p *nox_object_t, a5p 
 }
 
 // nox_xxx_castSpellByUser_4FDD20
-func nox_xxx_castSpellByUser_4FDD20(a1 int32, a2 *nox_object_t, a3 unsafe.Pointer) int32 {
+func nox_xxx_castSpellByUser_4FDD20(a1 int32, a2 *server.Object, a3 unsafe.Pointer) int32 {
 	return int32(Nox_xxx_castSpellByUser_4FDD20(int(a1), asObjectS(a2), a3))
 }
 func Nox_xxx_spellCastByBook_4FCB80() {

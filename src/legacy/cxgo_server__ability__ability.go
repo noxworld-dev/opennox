@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_xxx_netAbilityReport_4D8060(a1 int32, a2 int32, a3 int32) int32 {
@@ -46,7 +47,7 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 int32, a2 int32, a3 int32) int3
 	}
 	if a2 <= 0 || a2 >= 6 {
 		v10 = nox_strman_loadString_40F1D0(internCStr("AwardAbilityError"), nil, internCStr("C:\\NoxPost\\src\\Server\\Ability\\Ability.c"), 108)
-		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v10)
+		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(uintptr(a1))), v10)
 		return 0
 	}
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
@@ -54,7 +55,7 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 int32, a2 int32, a3 int32) int3
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + a2*4 + 3696))))
 	v6 = (*uint32)(unsafe.Pointer(uintptr(v4 + a2*4 + 3696)))
 	if v5 != 0 {
-		nox_xxx_netPriMsgToPlayer_4DA2C0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), internCStr("use.c:HadAbility"), 0)
+		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("use.c:HadAbility"), 0)
 		result = 0
 	} else {
 		*v6 = 5
@@ -66,8 +67,8 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 int32, a2 int32, a3 int32) int3
 		nox_xxx_netAbilityReport_4D8060(a1, a2, a3)
 		if nox_common_gameFlags_check_40A5C0(4096) {
 			nox_xxx_netSendRewardNotify_4FAD50(a1, 2, a1, int8(a2))
-			if sub_419E60((*nox_object_t)(unsafe.Pointer(uintptr(a1)))) == 0 {
-				for i = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()))); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*nox_object_t)(unsafe.Pointer(uintptr(i))))))) {
+			if sub_419E60((*server.Object)(unsafe.Pointer(uintptr(a1)))) == 0 {
+				for i = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()))); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i))))))) {
 					if i != a1 {
 						nox_xxx_netSendRewardNotify_4FAD50(i, 2, a1, int8(a2))
 					}

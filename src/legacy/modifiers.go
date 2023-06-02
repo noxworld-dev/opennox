@@ -101,16 +101,16 @@ func nox_xxx_equipClothFindDefByTT_413270(a1 int32) unsafe.Pointer {
 func sub_4A5E90_A() { Sub_4A5E90_A() }
 
 // nox_xxx_fireEffect_4E0550
-func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
+func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object) {
 	Nox_xxx_fireEffect_4E0550(a1, asObjectS(a2p), asObjectS(a3p), asObjectS(a4p))
 }
 
 // nox_xxx_fireRingEffect_4E05B0
-func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
+func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object) {
 	Nox_xxx_fireRingEffect_4E05B0(a1, asObjectS(a2p), asObjectS(a3p), asObjectS(a4p))
 }
 
 // nox_xxx_blueFREffect_4E05F0
-func nox_xxx_blueFREffect_4E05F0(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
+func nox_xxx_blueFREffect_4E05F0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object) {
 	Nox_xxx_blueFREffect_4E05F0(a1, asObjectS(a2p), asObjectS(a3p), asObjectS(a4p))
 }

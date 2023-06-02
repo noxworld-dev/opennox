@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_win_unk1 *gui.Window = nil
@@ -2610,7 +2611,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 				v38 = v37
 				if v37 != nil && *(*byte)(unsafe.Add(unsafe.Pointer(v37), 2064)) != 31 {
 					if nox_common_gameFlags_check_40A5C0(4096) {
-						sub_4DCFB0((*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v38))), 4*514)))))))
+						sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v38))), 4*514)))))))
 					} else {
 						nox_xxx_playerCallDisconnect_4DEAB0(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v38), 2064)))), 4)
 					}
@@ -2636,7 +2637,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 				v32 = v31
 				if v31 != nil && *(*byte)(unsafe.Add(unsafe.Pointer(v31), 2064)) != 31 {
 					if nox_common_gameFlags_check_40A5C0(4096) {
-						sub_4DCFB0((*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v32))), 4*514)))))))
+						sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v32))), 4*514)))))))
 					} else {
 						nox_xxx_playerDisconnByPlrID_4DEB00(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v32), 2064)))))
 					}
@@ -3211,8 +3212,8 @@ func sub_456BB0(a1 int32) int8 {
 					v1 = &nox_common_playerInfoGetByID_417040(int32(nox_player_netCode_85319C)).Field0
 					v4 = v1
 					if v1 != nil {
-						nox_xxx_mapFindPlayerStart_4F7AB0(&v6, (*nox_object_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*514))))))
-						nox_xxx_unitMove_4E7010((*nox_object_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*514))))), &v6)
+						nox_xxx_mapFindPlayerStart_4F7AB0(&v6, (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*514))))))
+						nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*514))))), &v6)
 						*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 1045696)) + 1))
 						*memmap.PtrUint32(0x5D4594, 1045696)++
 						return int8(uintptr(unsafe.Pointer(v1)))

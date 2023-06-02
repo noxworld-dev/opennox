@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_xxx_itemGetName_4E77E0_obj_util(a1 int32) *wchar2_t {
@@ -30,7 +31,7 @@ func nox_xxx_itemGetName_4E77E0_obj_util(a1 int32) *wchar2_t {
 		}
 		v4 = v3
 		if v3 == nil {
-			v12 = int32(uintptr(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(a1)))))))
+			v12 = int32(uintptr(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
 			v5 = nox_strman_loadString_40F1D0(internCStr("NoInfo"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\objutil.c"), 983)
 			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), v5, v12)
 			return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660))

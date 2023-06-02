@@ -29,7 +29,7 @@ func init() {
 }
 
 // nox_objectPickupAudEvent_4F3D50
-func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 int) int {
+func nox_objectPickupAudEvent_4F3D50(cobj1 *server.Object, cobj2 *server.Object, a3 int) int {
 	return Nox_objectPickupAudEvent_4F3D50(asObjectS(cobj1), asObjectS(cobj2), a3)
 }
 func Nox_xxx_pickupDefault_4F31E0(a1 *server.Object, a2 *server.Object, a3 int) int {

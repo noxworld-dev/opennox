@@ -73,7 +73,7 @@ var (
 )
 
 // nox_getHostPlayerUnit
-func nox_getHostPlayerUnit() *nox_object_t {
+func nox_getHostPlayerUnit() *server.Object {
 	return asObjectC(GetServer().S().Players.HostUnit)
 }
 

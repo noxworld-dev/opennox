@@ -50,6 +50,6 @@ func nox_xxx_UnsetGameplayFlags_417D70(v int32) {
 }
 
 // nox_xxx_moveUpdateSpecial_517970
-func nox_xxx_moveUpdateSpecial_517970(cunit *nox_object_t) {
+func nox_xxx_moveUpdateSpecial_517970(cunit *server.Object) {
 	Nox_xxx_moveUpdateSpecial_517970(asObjectS(cunit))
 }

@@ -2,9 +2,11 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_netSendChat_528AC0(a1p *nox_object_t, a2 *wchar2_t, a3 wchar2_t) int32 {
+func nox_xxx_netSendChat_528AC0(a1p *server.Object, a2 *wchar2_t, a3 wchar2_t) int32 {
 	var (
 		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v3     int8
@@ -25,7 +27,7 @@ func nox_xxx_netSendChat_528AC0(a1p *nox_object_t, a2 *wchar2_t, a3 wchar2_t) in
 		v3 = int8(v11[3] | 4)
 	}
 	v11[3] = byte(v3)
-	v4 = int16(uint16(nox_xxx_netGetUnitCodeServ_578AC0((*nox_object_t)(unsafe.Pointer(uintptr(a1))))))
+	v4 = int16(uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(uintptr(a1))))))
 	v5 = float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 56))))
 	*(*uint16)(unsafe.Pointer(&v11[1])) = uint16(v4)
 	v6 = int64(v5)
@@ -44,7 +46,7 @@ func nox_xxx_netSendChat_528AC0(a1p *nox_object_t, a2 *wchar2_t, a3 wchar2_t) in
 	result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
 	for i = result; result != 0; i = result {
 		nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(i + 748))) + 276))) + 2064)))), 1, (*uint8)(unsafe.Pointer(&v11[0])), v8*int32(uint8(v11[8]))+11)
-		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*nox_object_t)(unsafe.Pointer(uintptr(i)))))))
+		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i)))))))
 	}
 	return result
 }

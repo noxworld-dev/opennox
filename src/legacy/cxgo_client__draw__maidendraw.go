@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
@@ -26,7 +27,7 @@ func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
 		}
 		return nox_thing_monster_draw((*int32)(unsafe.Pointer(a1)), dr)
 	}
-	var v2 *nox_object_t = nox_server_getFirstObject_4DA790()
+	var v2 *server.Object = nox_server_getFirstObject_4DA790()
 	if v2 == nil {
 		return nox_thing_monster_draw((*int32)(unsafe.Pointer(a1)), dr)
 	}

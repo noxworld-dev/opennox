@@ -27,33 +27,33 @@ var (
 func sub_4FC670(a1 int) { Sub_4FC670(a1) }
 
 // nox_xxx_playerExecuteAbil_4FBB70
-func nox_xxx_playerExecuteAbil_4FBB70(cu *nox_object_t, a2 int) {
+func nox_xxx_playerExecuteAbil_4FBB70(cu *server.Object, a2 int) {
 	Nox_xxx_playerExecuteAbil_4FBB70(asObjectS(cu), a2)
 }
 
 // sub_4FC0B0
-func sub_4FC0B0(a1 *nox_object_t, a2 int) { Sub_4FC0B0(asObjectS(a1), a2) }
+func sub_4FC0B0(a1 *server.Object, a2 int) { Sub_4FC0B0(asObjectS(a1), a2) }
 
 // nox_xxx_playerCancelAbils_4FC180
-func nox_xxx_playerCancelAbils_4FC180(cu *nox_object_t) {
+func nox_xxx_playerCancelAbils_4FC180(cu *server.Object) {
 	Nox_xxx_playerCancelAbils_4FC180(asObjectS(cu))
 }
 
 // sub_4FC300
-func sub_4FC300(cu *nox_object_t, a2 int32) { Sub_4FC300(asObjectS(cu), int(a2)) }
+func sub_4FC300(cu *server.Object, a2 int32) { Sub_4FC300(asObjectS(cu), int(a2)) }
 
 // sub_4FC070
-func sub_4FC070(a1 *nox_object_t, a2, dt int32) {
+func sub_4FC070(a1 *server.Object, a2, dt int32) {
 	GetServer().S().Abils.Sub4FC070(asObjectS(a1), server.Ability(a2), int(dt))
 }
 
 // sub_4FC030
-func sub_4FC030(a1 *nox_object_t, a2 int32) int32 {
+func sub_4FC030(a1 *server.Object, a2 int32) int32 {
 	return int32(GetServer().S().Abils.Sub4FC030(asObjectS(a1), server.Ability(a2)))
 }
 
 // sub_4FC440
-func sub_4FC440(a1 *nox_object_t, a2 int32) {
+func sub_4FC440(a1 *server.Object, a2 int32) {
 	GetServer().S().Abils.Sub4FC440(asObjectS(a1), server.Ability(a2))
 }
 
@@ -78,12 +78,12 @@ func nox_xxx_abilityGetName_0_425260(ca int32) *wchar2_t {
 }
 
 // nox_common_playerIsAbilityActive_4FC250
-func nox_common_playerIsAbilityActive_4FC250(a1 *nox_object_t, a2 int32) int {
+func nox_common_playerIsAbilityActive_4FC250(a1 *server.Object, a2 int32) int {
 	return bool2int(GetServer().S().Abils.IsActive(asObjectS(a1), server.Ability(a2)))
 }
 
 // nox_xxx_probablyWarcryCheck_4FC3E0
-func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *nox_object_t, a2 int32) int {
+func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *server.Object, a2 int32) int {
 	return bool2int(GetServer().S().Abils.IsActiveVal(asObjectS(a1), server.Ability(a2)))
 }
 
@@ -110,6 +110,6 @@ func nox_xxx_bookNextKnownAbil_425350(a1 int32) int32 {
 func sub_425450(a1 int32) int32 { return int32(Sub_425450(int(a1))) }
 
 // nox_xxx_netAbilRepotState_4D8100
-func nox_xxx_netAbilRepotState_4D8100(a1 *nox_object_t, a2, a3 int8) {
+func nox_xxx_netAbilRepotState_4D8100(a1 *server.Object, a2, a3 int8) {
 	Nox_xxx_netAbilRepotState_4D8100(asObjectS(a1), server.Ability(a2), byte(a3))
 }

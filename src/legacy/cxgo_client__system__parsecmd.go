@@ -8,6 +8,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_console_playerWhoSent_823692 *nox_playerInfo = nil
@@ -271,7 +272,7 @@ func nox_cmd_ban(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			return 1
 		}
 		if nox_common_gameFlags_check_40A5C0(4096) {
-			sub_4DCFB0((*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*514)))))))
+			sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*514)))))))
 		} else {
 			nox_xxx_playerDisconnByPlrID_4DEB00(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 2064)))))
 		}
@@ -317,7 +318,7 @@ func nox_cmd_kick(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		return 1
 	}
 	if nox_common_gameFlags_check_40A5C0(4096) {
-		sub_4DCFB0((*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*514)))))))
+		sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*514)))))))
 	} else {
 		nox_xxx_playerCallDisconnect_4DEAB0(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v5), 2064)))), 4)
 		v6 = nox_strman_loadString_40F1D0(internCStr("kicked"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3739)
@@ -639,7 +640,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 			return 1
 		}
 		if *a3 == 0 {
-			nox_xxx_playerCameraUnlock_4E6040((*nox_object_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 2056)))))))
+			nox_xxx_playerCameraUnlock_4E6040((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 2056)))))))
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}
@@ -650,7 +651,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		}
 		for {
 			if _nox_wcsicmp(a3, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v17))), unsafe.Sizeof(wchar2_t(0))*2352))) == 0 {
-				nox_xxx_playerCameraFollow_4E6060(nox_console_playerWhoSent_823692.PlayerUnit, (*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*514)))))))
+				nox_xxx_playerCameraFollow_4E6060(nox_console_playerWhoSent_823692.PlayerUnit, (*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*514)))))))
 			}
 			v17 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17)))))))))
 			if v17 == nil {
@@ -669,7 +670,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		for {
 			v15 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v14))), 4*514))))
 			if v15 != 0 {
-				nox_xxx_aud_501960(902, (*nox_object_t)(unsafe.Pointer(uintptr(v15))), 0, 0)
+				nox_xxx_aud_501960(902, (*server.Object)(unsafe.Pointer(uintptr(v15))), 0, 0)
 			}
 			v14 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v14)))))))))
 			if v14 == nil {
@@ -803,7 +804,7 @@ func nox_cmd_cheat_ability(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 
 	if !nox_common_gameFlags_check_40A5C0(0x2000) {
 		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
 			if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514))) != 0 {
-				nox_xxx_playerCancelAbils_4FC180((*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514)))))))
+				nox_xxx_playerCancelAbils_4FC180((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514)))))))
 			}
 		}
 	}

@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_xxx_unitGiveXP_4EF270(a1 int32, a2 float32) float64 {
@@ -44,7 +46,7 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 int32) {
 		return
 	}
 	v3 = 1
-	v4 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 520))))))))))
+	v4 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 520))))))))))
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(v4 + 8)))) & 4) == 0 {
 		return
 	}
@@ -55,7 +57,7 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 int32) {
 				break
 			}
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8))))&2 != 0 {
-				v3 = nox_xxx_creatureIsMonitored_500CC0((*nox_object_t)(unsafe.Pointer(uintptr(v4))), (*nox_object_t)(unsafe.Pointer(uintptr(v2))))
+				v3 = nox_xxx_creatureIsMonitored_500CC0((*server.Object)(unsafe.Pointer(uintptr(v4))), (*server.Object)(unsafe.Pointer(uintptr(v2))))
 				v5 = 1
 			}
 			v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 508))))
@@ -68,7 +70,7 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 int32) {
 	v6 = nox_xxx_unitGiveXP_4EF270(v4, *(*float32)(unsafe.Pointer(uintptr(v1 + 28))))
 	if v6 > 0.0 {
 		v7 = nox_strman_loadString_40F1D0(internCStr("gainpoints"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\health.c"), 172)
-		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(v4))), v7, uint32(int32(int64(v6))))
+		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(uintptr(v4))), v7, uint32(int32(int64(v6))))
 	}
 	return
 }

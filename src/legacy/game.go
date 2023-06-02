@@ -118,7 +118,7 @@ func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *float2, a3 *int2, a4 int8) int32
 }
 
 // nox_xxx_mapTraceObstacles_50B580
-func nox_xxx_mapTraceObstacles_50B580(from *nox_object_t, a2 *float4) int {
+func nox_xxx_mapTraceObstacles_50B580(from *server.Object, a2 *float4) int {
 	if GetServer().S().MapTraceObstacles(asObjectS(from), types.Pointf{
 		X: float32(a2.field_0),
 		Y: float32(a2.field_4),
@@ -153,7 +153,7 @@ func sub_517B70(pos *float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 		return
 	}
 	GetServer().S().Map.Sub517B70(*(*types.Pointf)(unsafe.Pointer(pos)), func(it *server.Object) {
-		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
+		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
 	})
 }
 
@@ -168,10 +168,10 @@ func sub_518740(a1 *float2, a2 uint8) *nox_waypoint_t {
 }
 
 // nox_xxx_getMissilesInCircle_518170
-func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc unsafe.Pointer, a4 *nox_object_t) {
+func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc unsafe.Pointer, a4 *server.Object) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachMissilesInCircle(p, r, func(it *server.Object) bool {
-		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, unsafe.Pointer(a4))
+		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, unsafe.Pointer(a4))
 		return true
 	})
 }
@@ -180,7 +180,7 @@ func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc unsafe.Point
 func nox_xxx_getUnitsInRectAdv_517ED0(rect *float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	GetServer().S().Map.EachObjAndMissileInRect(r, func(it *server.Object) bool {
-		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
+		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
 		return true
 	})
 }
@@ -189,7 +189,7 @@ func nox_xxx_getUnitsInRectAdv_517ED0(rect *float4, fnc unsafe.Pointer, data uns
 func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	GetServer().S().Map.EachObjInRect(r, func(it *server.Object) bool {
-		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
+		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
 		return true
 	})
 }
@@ -198,7 +198,7 @@ func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc unsafe.Pointer, data unsafe
 func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float32, fnc unsafe.Pointer, data unsafe.Pointer) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
-		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
+		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
 		return true
 	})
 }
@@ -209,7 +209,7 @@ func nox_xxx_gameSetWallsDamage_4E25A0(v int32) {
 }
 
 // nox_xxx_mapDamageUnitsAround_4E25B0
-func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float32, a2, a3 float32, a4, a5 int32, a6, a7 *nox_object_t) {
+func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float32, a2, a3 float32, a4, a5 int32, a6, a7 *server.Object) {
 	cpos := unsafe.Slice(a1, 2)
 	pos := types.Pointf{X: float32(cpos[0]), Y: float32(cpos[1])}
 	GetServer().Nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
@@ -256,17 +256,17 @@ func nox_xxx_playerSendMOTD_4DD140(a1 int32) {
 }
 
 // nox_xxx_unitCanInteractWith_5370E0
-func nox_xxx_unitCanInteractWith_5370E0(a1, a2 *nox_object_t, a3 int32) int {
+func nox_xxx_unitCanInteractWith_5370E0(a1, a2 *server.Object, a3 int32) int {
 	return bool2int(GetServer().S().CanInteract(asObjectS(a1), asObjectS(a2), int(a3)))
 }
 
 // nox_xxx_unitCanSee_536FB0
-func nox_xxx_unitCanSee_536FB0(a1, a2 *nox_object_t, a3 int32) int {
+func nox_xxx_unitCanSee_536FB0(a1, a2 *server.Object, a3 int32) int {
 	return bool2int(GetServer().S().CanSee(asObjectS(a1), asObjectS(a2), int(a3)))
 }
 
 // nox_xxx_mapCheck_537110
-func nox_xxx_mapCheck_537110(a1, a2 *nox_object_t) int {
+func nox_xxx_mapCheck_537110(a1, a2 *server.Object) int {
 	return bool2int(GetServer().S().MapTraceVision(asObjectS(a1), asObjectS(a2)))
 }
 

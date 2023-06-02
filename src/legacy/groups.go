@@ -40,7 +40,7 @@ func sub_5046A0(d *uint32, ind uint32) int {
 }
 
 // sub_4CFFE0
-func sub_4CFFE0(sid int32) *nox_object_t {
+func sub_4CFFE0(sid int32) *server.Object {
 	return asObjectC(GetServer().PendingObjByScriptID4CFFE0(int(sid)))
 }
 

@@ -47,7 +47,7 @@ func init() {
 }
 
 // nox_xxx_xfer_saveObj_51DF90
-func nox_xxx_xfer_saveObj_51DF90(a1 *nox_object_t) int {
+func nox_xxx_xfer_saveObj_51DF90(a1 *server.Object) int {
 	return Nox_xxx_xfer_saveObj51DF90(cryptfile.Global(), asObjectS(a1))
 }
 

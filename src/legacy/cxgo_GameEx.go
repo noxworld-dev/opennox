@@ -6,6 +6,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var gameex_flags uint32 = 0x1E
@@ -76,7 +77,7 @@ func playerInfoStructParser_1(a1p unsafe.Pointer, a3 *int32) int8 {
 	*(*uint8)(unsafe.Pointer(uintptr(a1))) = *(*uint8)(unsafe.Pointer(uintptr(a2 + 2251)))
 	return 1
 }
-func mix_MouseKeyboardWeaponRoll(playerObjP *nox_object_t, a2 int8) int8 {
+func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 	var (
 		playerObj int32 = int32(uintptr(unsafe.Pointer(playerObjP)))
 		v2        int32
@@ -103,12 +104,12 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *nox_object_t, a2 int8) int8 {
 				if next == 0 {
 					break
 				}
-				weapFlags = nox_xxx_weaponInventoryEquipFlags_415820((*nox_object_t)(unsafe.Pointer(uintptr(next))))
+				weapFlags = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(unsafe.Pointer(uintptr(next))))
 				if weapFlags != 0 && weapFlags != 2 {
-					if nox_xxx_playerClassCanUseItem_57B3D0((*nox_object_t)(unsafe.Pointer(uintptr(next))), int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(playerObj + 748))) + 276))) + 2251))))) != 0 {
-						v11 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*nox_object_t)(unsafe.Pointer(uintptr(playerObj))), (*nox_object_t)(unsafe.Pointer(uintptr(next)))))
+					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(next))), int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(playerObj + 748))) + 276))) + 2251))))) != 0 {
+						v11 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(next)))))
 						if v11 != 0 {
-							if nox_xxx_playerTryDequip_4F2FB0((*uint32)(unsafe.Pointer(uintptr(playerObj))), (*nox_object_t)(unsafe.Pointer(uintptr(cur)))) != 0 && nox_xxx_playerTryEquip_4F2F70((*nox_object_t)(unsafe.Pointer(uintptr(playerObj))), (*nox_object_t)(unsafe.Pointer(uintptr(next)))) != 0 {
+							if nox_xxx_playerTryDequip_4F2FB0((*uint32)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(cur)))) != 0 && nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(next)))) != 0 {
 								v16 = 1
 							}
 							return v16
@@ -118,12 +119,12 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *nox_object_t, a2 int8) int8 {
 			}
 		} else {
 			for i = int32(*(*uint32)(unsafe.Pointer(uintptr(playerObj + 504)))); i != 0; i = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 496)))) {
-				v6 = nox_xxx_weaponInventoryEquipFlags_415820((*nox_object_t)(unsafe.Pointer(uintptr(i))))
+				v6 = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(unsafe.Pointer(uintptr(i))))
 				if v6 != 0 && v6 != 2 {
-					if nox_xxx_playerClassCanUseItem_57B3D0((*nox_object_t)(unsafe.Pointer(uintptr(i))), int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(playerObj + 0x2EC))) + 0x114))) + 0x8CB))))) != 0 {
-						v8 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*nox_object_t)(unsafe.Pointer(uintptr(playerObj))), (*nox_object_t)(unsafe.Pointer(uintptr(i)))))
+					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(i))), int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(playerObj + 0x2EC))) + 0x114))) + 0x8CB))))) != 0 {
+						v8 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(i)))))
 						if v8 != 0 {
-							if nox_xxx_playerTryEquip_4F2F70((*nox_object_t)(unsafe.Pointer(uintptr(playerObj))), (*nox_object_t)(unsafe.Pointer(uintptr(i)))) != 0 {
+							if nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(i)))) != 0 {
 								v16 = 1
 							}
 							return v16
@@ -168,7 +169,7 @@ func OnLibraryNotice_420(arg1 uint32, arg2 uint32, arg3 uint32, arg4 uint32) {
 		v16 *uint32 = (*uint32)(unsafe.Pointer(uintptr(getPlayerClassFromObjPtr(int32(arg1)))))
 	)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(v19 + 0xA)))) != 17 {
-		nox_xxx_inventoryServPlace_4F36F0((*nox_object_t)(unsafe.Pointer(uintptr(v23))), (*nox_object_t)(unsafe.Pointer(uintptr(v19))), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
 		return
 	}
 	var v17 int8 = int8(*(*uint8)(unsafe.Pointer(uintptr(v19 + 4))))
@@ -176,16 +177,16 @@ func OnLibraryNotice_420(arg1 uint32, arg2 uint32, arg3 uint32, arg4 uint32) {
 		if (int32(v17) == 0x6B || int32(v17) == 0x6D) && int32(uint8(uintptr(unsafe.Pointer(v16)))) != 0 {
 			goto ifIsWarrior
 		}
-		nox_xxx_inventoryServPlace_4F36F0((*nox_object_t)(unsafe.Pointer(uintptr(v23))), (*nox_object_t)(unsafe.Pointer(uintptr(v19))), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
 		return
 	}
 	if int32(uint8(uintptr(unsafe.Pointer(v16)))) == 1 {
-		nox_xxx_inventoryServPlace_4F36F0((*nox_object_t)(unsafe.Pointer(uintptr(v23))), (*nox_object_t)(unsafe.Pointer(uintptr(v19))), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
 		return
 	}
 ifIsWarrior:
-	nox_xxx_netPriMsgToPlayer_4DA2C0((*nox_object_t)(unsafe.Pointer(uintptr(v23))), (*byte)(memmap.PtrOff(0x587000, 215732)), 0)
-	nox_xxx_aud_501960(925, (*nox_object_t)(unsafe.Pointer(uintptr(v23))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(v23 + 36)))))
+	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*byte)(memmap.PtrOff(0x587000, 215732)), 0)
+	nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(v23))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(v23 + 36)))))
 }
 func getFlagValueFromFlagIndex(a1 int32) int32 {
 	var (

@@ -13,7 +13,7 @@ var (
 )
 
 // nox_xxx_unitIsUnitTT_4E7C80
-func nox_xxx_unitIsUnitTT_4E7C80(a1 *nox_object_t, a2 int32) int32 {
+func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int32) int32 {
 	return int32(Nox_xxx_unitIsUnitTT_4E7C80(asObjectS(a1), int(a2)))
 }
 func Nox_xxx_unitMove_4E7010(a1 *server.Object, a2 *types.Pointf) {

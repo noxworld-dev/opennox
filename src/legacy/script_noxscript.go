@@ -34,12 +34,12 @@ func nox_script_activatorResolveObjs_51B0C0() {
 }
 
 // nox_xxx_netGetUnitCodeServ_578AC0
-func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) uint32 {
+func nox_xxx_netGetUnitCodeServ_578AC0(cobj *server.Object) uint32 {
 	return uint32(GetServer().GetUnitNetCode(asObjectS(cobj)))
 }
 
 // nox_server_scriptValToObjectPtr_511B60
-func nox_server_scriptValToObjectPtr_511B60(val int32) *nox_object_t {
+func nox_server_scriptValToObjectPtr_511B60(val int32) *server.Object {
 	return asObjectC(GetServer().NoxScriptC().ScriptToObject(int(val)))
 }
 
@@ -100,7 +100,7 @@ func nox_script_callbackName(h int32) *byte {
 }
 
 // nox_script_objCallbackName_508CB0
-func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int32) *byte {
+func nox_script_objCallbackName_508CB0(obj *server.Object, event int32) *byte {
 	s, ok := Nox_script_objCallbackName_508CB0(asObjectS(obj), int(event))
 	if !ok {
 		return nil

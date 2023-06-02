@@ -7,6 +7,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func sub_4D42C0() int32 {
@@ -97,7 +98,7 @@ func sub_527D50(a1 int32, a2 *byte) int32 {
 	if a2 == nil {
 		return 0
 	}
-	v3 = nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
+	v3 = nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 	if nox_objectTypeGetXfer(v3) != ccall.FuncAddr(nox_xxx_XFerExit_4F4B90) {
 		return 0
 	}

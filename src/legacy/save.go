@@ -59,13 +59,13 @@ func sub_4460A0(a1 int) { Sub_4460A0(a1) }
 func nox_xxx_serverIsClosing_446180() int { return Nox_xxx_serverIsClosing_446180() }
 
 // sub_4DCC10
-func sub_4DCC10(a1p *nox_object_t) int { return Sub_4DCC10(asObjectS(a1p)) }
+func sub_4DCC10(a1p *server.Object) int { return Sub_4DCC10(asObjectS(a1p)) }
 
 // sub_4DCFB0
-func sub_4DCFB0(a1p *nox_object_t) { Sub_4DCFB0(asObjectS(a1p)) }
+func sub_4DCFB0(a1p *server.Object) { Sub_4DCFB0(asObjectS(a1p)) }
 
 // sub_4DD0B0
-func sub_4DD0B0(a1p *nox_object_t) { Sub_4DD0B0(asObjectS(a1p)) }
+func sub_4DD0B0(a1p *server.Object) { Sub_4DD0B0(asObjectS(a1p)) }
 func Nox_xxx_destroyEveryChatMB_528D60() {
 	nox_xxx_destroyEveryChatMB_528D60()
 }

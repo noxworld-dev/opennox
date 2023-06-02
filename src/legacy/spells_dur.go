@@ -35,7 +35,7 @@ func sub_4FE900(a1 unsafe.Pointer) { Sub_4FE900(a1) }
 func nox_xxx_spellCastByPlayer_4FEEF0() { Nox_xxx_spellCastByPlayer_4FEEF0() }
 
 // nox_xxx_spellCancelDurSpell_4FEB10
-func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *nox_object_t) {
+func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *server.Object) {
 	Nox_xxx_spellCancelDurSpell_4FEB10(a1, asObjectS(a2))
 }
 
@@ -43,7 +43,7 @@ func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *nox_object_t) {
 func sub_4FE980(a1 unsafe.Pointer) { Sub_4FE980(a1) }
 
 // sub_4FF310
-func sub_4FF310(a1 *nox_object_t) { Sub_4FF310(asObjectS(a1)) }
+func sub_4FF310(a1 *server.Object) { Sub_4FF310(asObjectS(a1)) }
 func Nox_xxx_plrCastSmth_4FEDA0(a1 unsafe.Pointer) {
 	nox_xxx_plrCastSmth_4FEDA0(a1)
 }

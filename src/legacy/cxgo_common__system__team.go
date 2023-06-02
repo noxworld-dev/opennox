@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 type nox_team_info_t struct {
@@ -81,7 +83,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 				if v7 != 0 && int32(*(*uint8)(unsafe.Pointer(uintptr(v7 + 8))))&4 != 0 {
 					if a5 == 1 && !nox_xxx_CheckGameplayFlags_417DA0(2) && nox_common_gameFlags_check_40A5C0(128) {
 						sub_4ED970(50.0, (*float2)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*18)))+56))), (*float2)(unsafe.Pointer(&v21[0])))
-						nox_xxx_unitMove_4E7010((*nox_object_t)(unsafe.Pointer(uintptr(v7))), (*float2)(unsafe.Pointer(&v21[0])))
+						nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(v7))), (*float2)(unsafe.Pointer(&v21[0])))
 					}
 					v9 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a4)))
 					if v9 != nil {
@@ -131,7 +133,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 		return
 	}
 	for *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v18))), 4*9))) != uint32(a4) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v18)))))))))
+		result = (*byte)(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v18)))))))))
 		v18 = result
 		if result == nil {
 			return
@@ -140,10 +142,10 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 	v19 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v18))), 4*187))))
 	sub_4D97E0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v19 + 276))) + 2064)))))
 	sub_4E8110(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v19 + 276))) + 2064)))))
-	result = nox_xxx_monsterMarkUpdate_4E8020((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v18)))))))
+	result = nox_xxx_monsterMarkUpdate_4E8020((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v18)))))))
 	for i = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v18))), 4*129)))); i != 0; i = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 512)))) {
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(i + 8))))&6 != 0 {
-			result = nox_xxx_monsterMarkUpdate_4E8020((*nox_object_t)(unsafe.Pointer(uintptr(i))))
+			result = nox_xxx_monsterMarkUpdate_4E8020((*server.Object)(unsafe.Pointer(uintptr(i))))
 		}
 	}
 }

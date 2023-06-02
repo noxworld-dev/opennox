@@ -75,7 +75,7 @@ func sub_5545A0() int16 { return int16(Sub_5545A0()) }
 func sub_554230() *byte { return internCStr(Sub_554230()) }
 
 // nox_xxx_netStatsMultiplier_4D9C20
-func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
+func nox_xxx_netStatsMultiplier_4D9C20(a1p *server.Object) int {
 	return Nox_xxx_netStatsMultiplier_4D9C20(asObjectS(a1p))
 }
 

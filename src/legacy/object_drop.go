@@ -28,7 +28,7 @@ func init() {
 }
 
 // nox_objectDropAudEvent_4EE2F0
-func nox_objectDropAudEvent_4EE2F0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 *float2) int {
+func nox_objectDropAudEvent_4EE2F0(cobj1 *server.Object, cobj2 *server.Object, a3 *float2) int {
 	return Nox_objectDropAudEvent_4EE2F0(asObjectS(cobj1), asObjectS(cobj2), (*types.Pointf)(unsafe.Pointer(a3)))
 }
 

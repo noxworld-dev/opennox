@@ -12,5 +12,5 @@ var (
 
 // nox_xxx_lightningSpellDuration_52FFD0
 func nox_xxx_lightningSpellDuration_52FFD0(a1 int32, from, to int32) {
-	Nox_xxx_lightningSpellDuration_52FFD0(unsafe.Pointer(uintptr(a1)), asObjectS((*nox_object_t)(unsafe.Pointer(uintptr(from)))), asObjectS((*nox_object_t)(unsafe.Pointer(uintptr(to)))))
+	Nox_xxx_lightningSpellDuration_52FFD0(unsafe.Pointer(uintptr(a1)), asObjectS((*server.Object)(unsafe.Pointer(uintptr(from)))), asObjectS((*server.Object)(unsafe.Pointer(uintptr(to)))))
 }

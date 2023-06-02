@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_xxx_netReportGuideAward_4D8000(a1 int32, a2 int8, a3 int8, a4 int32) int32 {
@@ -48,7 +49,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 int32, a2 int32, a3 int32)
 	}
 	if a2 <= 0 || a2 >= 41 {
 		v16 = nox_strman_loadString_40F1D0(internCStr("AwardGuideError"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c"), 39)
-		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v16)
+		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(uintptr(a1))), v16)
 		return 0
 	}
 	v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
@@ -61,7 +62,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 int32, a2 int32, a3 int32)
 	*v7 = 1
 	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + 4640)))), a2, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + uint32(a2*4) + 4244)))))
 	if a3 != 0 {
-		nox_xxx_aud_501960(227, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
+		nox_xxx_aud_501960(227, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		nox_xxx_netSendRewardNotify_4FAD50(a1, 1, a1, int8(a2))
 	}
 	v8 = (*uint8)(memmap.PtrOff(0x587000, 216292))
