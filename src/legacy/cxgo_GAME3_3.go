@@ -6373,7 +6373,7 @@ func sub_4ED050(a1 int32, a2 int32) {
 		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v2))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(i + 4)))
 		if uint32(uint16(int16(v2))) == *memmap.PtrUint32(0x5D4594, 1568248) {
 			v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 748))))
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v2))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(nox_xxx_dropCrown_4ED5E0(a1, i, (*int32)(unsafe.Pointer(uintptr(a1+56))))))
+			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v2))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(nox_xxx_dropCrown_4ED5E0(AsObjectP(unsafe.Pointer(uintptr(a1))), AsObjectP(unsafe.Pointer(uintptr(i))), (*types.Pointf)(unsafe.Pointer(uintptr(a1+56))))))
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 4))) = uint32(a2)
 		}
 	}
@@ -6441,7 +6441,8 @@ func sub_4ED0C0(a1p *server.Object, object *server.Object) {
 		}
 	}
 }
-func nox_xxx_dropDefault_4ED290(a1p *server.Object, a2p *server.Object, a3 *float2) int32 {
+func Nox_xxx_dropDefault_4ED290(a1p, a2p *server.Object, pos *types.Pointf) int {
+	a3 := (*float2)(unsafe.Pointer(pos))
 	var (
 		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		a2     int32 = int32(uintptr(unsafe.Pointer(a2p)))
@@ -6536,14 +6537,17 @@ func nox_xxx_dropDefault_4ED290(a1p *server.Object, a2p *server.Object, a3 *floa
 		}
 		result = 1
 	}
-	return result
+	return int(result)
 }
-func nox_GlyphDrop_4ED500(a1 int32, a2 int32, a3 *float2) int32 {
+func nox_GlyphDrop_4ED500(obj, obj2 *server.Object, pos *types.Pointf) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
+	a3 := (*float2)(unsafe.Pointer(pos))
 	var (
 		v3 int16
 		v5 float2
 	)
-	if nox_xxx_dropTrap_4ED580(a1, a2, a3) == 0 {
+	if nox_xxx_dropTrap_4ED580(obj, obj2, pos) == 0 {
 		return 0
 	}
 	*(*float2)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 692))) + 28))) = *a3
@@ -6552,21 +6556,25 @@ func nox_GlyphDrop_4ED500(a1 int32, a2 int32, a3 *float2) int32 {
 	v3 = int16(nox_xxx_math_509ED0(&v5))
 	*(*uint16)(unsafe.Pointer(uintptr(a2 + 126))) = uint16(v3)
 	*(*uint16)(unsafe.Pointer(uintptr(a2 + 124))) = uint16(v3)
-	nox_xxx_aud_501960(825, (*server.Object)(unsafe.Pointer(uintptr(a2))), 0, 0)
+	nox_xxx_aud_501960(825, obj2, 0, 0)
 	return 1
 }
-func nox_xxx_dropTrap_4ED580(a1 int32, a2 int32, a3 *float2) int32 {
+func nox_xxx_dropTrap_4ED580(obj, obj2 *server.Object, pos *types.Pointf) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a3 := (*float2)(unsafe.Pointer(pos))
 	if nox_xxx_mapTileAllowTeleport_411A90(a3) != 0 {
-		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
+		nox_xxx_aud_501960(925, obj, 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		return 0
 	}
-	if nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3) == 0 {
+	if Nox_xxx_dropDefault_4ED290(obj, obj2, pos) == 0 {
 		return 0
 	}
-	nox_xxx_unitSetOwner_4EC290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))))
+	nox_xxx_unitSetOwner_4EC290(obj, obj2)
 	return 1
 }
-func nox_xxx_dropCrown_4ED5E0(a1 int32, a2 int32, a3 *int32) int32 {
+func nox_xxx_dropCrown_4ED5E0(obj, obj2 *server.Object, pos *types.Pointf) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v3  int32
 		v4  int32
@@ -6610,7 +6618,7 @@ func nox_xxx_dropCrown_4ED5E0(a1 int32, a2 int32, a3 *int32) int32 {
 		*(*uint32)(unsafe.Pointer(uintptr(v10 + 4))) = uint32(v5)
 	}
 LABEL_15:
-	if nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(v8))), (*server.Object)(unsafe.Pointer(uintptr(v3))), (*float2)(unsafe.Pointer(a3))) == 0 {
+	if Nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(v8))), (*server.Object)(unsafe.Pointer(uintptr(v3))), pos) == 0 {
 		return 0
 	}
 	nox_xxx_unitClearOwner_4EC300((*server.Object)(unsafe.Pointer(uintptr(v3))))
@@ -6625,9 +6633,10 @@ LABEL_15:
 	nox_xxx_netMarkMinimapForAll_4174B0(v3, 1)
 	return 1
 }
-func nox_xxx_dropTreasure_4ED710(a1 int32, a2 int32, a3 *int32) int32 {
+func nox_xxx_dropTreasure_4ED710(obj, obj2 *server.Object, pos *types.Pointf) int {
+	a1 := int32(uintptr(obj.CObj()))
 	var v3 int32
-	if nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), (*float2)(unsafe.Pointer(a3))) == 0 {
+	if Nox_xxx_dropDefault_4ED290(obj, obj2, pos) == 0 {
 		return 0
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
@@ -6641,27 +6650,20 @@ func nox_xxx_dropTreasure_4ED710(a1 int32, a2 int32, a3 *int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_drop_4ED790(a1p *server.Object, a2p *server.Object, a3 *float2) int32 {
-	var (
-		a1     int32   = int32(uintptr(unsafe.Pointer(a1p)))
-		a2     *uint32 = (*uint32)(unsafe.Pointer(a2p))
-		result int32
-		v4     func(int32, *uint32, *float2) int32
-	)
-	if a2 == nil {
+func nox_xxx_drop_4ED790(a1p *server.Object, a2p *server.Object, pos *float2) int32 {
+	if a2p == nil {
 		return 0
 	}
+	a2 := (*uint32)(unsafe.Pointer(a2p))
 	if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) && *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*2))&0x3001010 != 0 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) |= 0x40
-		nox_xxx_unit_511810((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))))
+		nox_xxx_unit_511810(a2p)
 	}
-	v4 = ccall.AsFunc[func(int32, *uint32, *float2) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*178)))))
-	if v4 != nil {
-		result = v4(a1, a2, a3)
+	if drop := a2p.Drop.Get(); drop != nil {
+		return int32(drop(a1p, a2p, (*types.Pointf)(unsafe.Pointer(pos))))
 	} else {
-		result = nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))), a3)
+		return int32(Nox_xxx_dropDefault_4ED290(a1p, a2p, (*types.Pointf)(unsafe.Pointer(pos))))
 	}
-	return result
 }
 func nox_xxx_drop_4ED810(a1 int32, a2 int32, a3 *float32) int32 {
 	var (
@@ -6933,17 +6935,20 @@ func nox_xxx_unitDropCheckSome_4EDCD0(a1 int32, a2 int32) int32 {
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16))))
 	return bool2int32(v2&0x20 != 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&6) == 0 || (uint32(v2)&0x10000000) == 0)
 }
-func sub_4EDDE0(a1 int32, a2 *uint32, a3 *int32) int32 {
-	if nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))), (*float2)(unsafe.Pointer(a3))) == 0 {
+func sub_4EDDE0(obj, obj2 *server.Object, pos *types.Pointf) int {
+	if Nox_xxx_dropDefault_4ED290(obj, obj2, pos) == 0 {
 		return 0
 	}
-	nox_xxx_aud_501960(833, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))), 0, 0)
+	nox_xxx_aud_501960(833, obj2, 0, 0)
 	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) {
-		nox_xxx_unitSetDecayTime_511660((*server.Object)(unsafe.Pointer(a2)), int32(gameFPS()*25))
+		nox_xxx_unitSetDecayTime_511660(obj2, int32(gameFPS()*25))
 	}
 	return 1
 }
-func nox_xxx_dropFood_4EDE50(a1 int32, a2 int32, a3 *int32) int32 {
+func nox_xxx_dropFood_4EDE50(obj, obj2 *server.Object, pos *types.Pointf) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
+	a3 := (*int32)(unsafe.Pointer(pos))
 	var (
 		v3 int32
 		v4 *uint8
@@ -6951,7 +6956,7 @@ func nox_xxx_dropFood_4EDE50(a1 int32, a2 int32, a3 *int32) int32 {
 	if a1 == 0 || a2 == 0 || a3 == nil {
 		return 0
 	}
-	v3 = nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), (*float2)(unsafe.Pointer(a3)))
+	v3 = int32(Nox_xxx_dropDefault_4ED290(obj, obj2, pos))
 	if v3 != 0 {
 		if !noxflags.HasGame(2048) {
 			nox_xxx_unitSetDecayTime_511660((*server.Object)(unsafe.Pointer(uintptr(a2))), int32(gameFPS()*25))
@@ -6961,13 +6966,13 @@ func nox_xxx_dropFood_4EDE50(a1 int32, a2 int32, a3 *int32) int32 {
 			for (*(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))&*(*uint32)(unsafe.Pointer(v4))) == 0 && (int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*2))))&int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 24))))) == 0 {
 				v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 8))
 				if int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*3)))) == 0 {
-					return v3
+					return int(v3)
 				}
 			}
 			nox_xxx_aud_501960(int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*3)))), (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
 	}
-	return v3
+	return int(v3)
 }
 func nox_xxx_chest_4EDF00(a1 int32, a2 int32) {
 	var (
@@ -7156,8 +7161,8 @@ func sub_4EE2A0(a1 int32) float64 {
 	}
 	return float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 184)))) * 0.5
 }
-func nox_xxx_dropAnkhTradable_4EE370(a1 int32, a2 int32, a3 *int32) int32 {
-	return nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), (*float2)(unsafe.Pointer(a3)))
+func nox_xxx_dropAnkhTradable_4EE370(obj, obj2 *server.Object, pos *types.Pointf) int {
+	return Nox_xxx_dropDefault_4ED290(obj, obj2, pos)
 }
 func nox_xxx_unitAdjustHP_4EE460(unitp *server.Object, dv int32) {
 	var unit int32 = int32(uintptr(unsafe.Pointer(unitp)))

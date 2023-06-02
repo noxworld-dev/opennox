@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -5530,8 +5531,9 @@ func sub_53AAB0(a1 int32) {
 		}
 	}
 }
-func nox_xxx_dropWeapon_53AB10(a1 int32, a2 *uint32, a3 *int32) int32 {
-	if nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))), (*float2)(unsafe.Pointer(a3))) != 1 {
+func nox_xxx_dropWeapon_53AB10(obj, obj2 *server.Object, pos *types.Pointf) int {
+	a2 := (*uint32)(obj2.CObj())
+	if Nox_xxx_dropDefault_4ED290(obj, obj2, pos) != 1 {
 		return 0
 	}
 	sub_53AAB0(int32(uintptr(unsafe.Pointer(a2))))
@@ -8118,8 +8120,9 @@ func sub_53EAE0(a1 int32) {
 		}
 	}
 }
-func nox_xxx_dropArmor_53EB70(a1 int32, a2 *uint32, a3 *int32) int32 {
-	if nox_xxx_dropDefault_4ED290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))), (*float2)(unsafe.Pointer(a3))) != 1 {
+func nox_xxx_dropArmor_53EB70(obj, obj2 *server.Object, pos *types.Pointf) int {
+	a2 := (*uint32)(obj2.CObj())
+	if Nox_xxx_dropDefault_4ED290(obj, obj2, pos) != 1 {
 		return 0
 	}
 	sub_53EAE0(int32(uintptr(unsafe.Pointer(a2))))

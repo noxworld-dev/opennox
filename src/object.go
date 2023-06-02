@@ -874,18 +874,7 @@ func (obj *Object) CallCollide(obj2 *server.Object, pos *types.Pointf) {
 }
 
 func (obj *Object) CallDrop(it server.Obj, pos types.Pointf) int {
-	if obj.Drop == nil {
-		return 0
-	}
-	switch obj.Drop {
-	case unsafe.Pointer(legacy.Get_nox_objectDropAudEvent_4EE2F0()):
-		cpos, free := alloc.New(types.Pointf{})
-		defer free()
-		*cpos = pos
-		return int(nox_objectDropAudEvent_4EE2F0(obj.SObj(), toObjectS(it), cpos))
-	default:
-		return obj.SObj().CallDrop(it, pos)
-	}
+	return obj.SObj().CallDrop(it, pos)
 }
 
 func (obj *Object) forceDrop(item *Object) int { // nox_xxx_invForceDropItem_4ED930

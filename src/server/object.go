@@ -560,7 +560,7 @@ type Object struct {
 	CollideData   unsafe.Pointer                    // 175, 700
 	Xfer          ccall.Func[ObjectXferFunc]        // 176, 704
 	Pickup        unsafe.Pointer                    // 177, 708
-	Drop          unsafe.Pointer                    // 178, 712
+	Drop          ccall.Func[ObjectDropFunc]        // 178, 712
 	Damage        ccall.Func[ObjectDamageFunc]      // 179, 716
 	DamageSound   ccall.Func[ObjectDamageSoundFunc] // 180, 720
 	Death         ccall.Func[ObjectDeathFunc]       // 181, 724
@@ -1130,15 +1130,14 @@ func (obj *Object) CallDamage(who Obj, a3 Obj, dmg int, typ object.DamageType) i
 }
 
 func (obj *Object) CallDrop(it Obj, pos types.Pointf) int {
-	if obj.Drop == nil {
-		return 0
-	}
-	cpos, free := alloc.New(types.Pointf{})
-	defer free()
-	*cpos = pos
-	ptr := unsafe.Pointer(cpos)
+	if fnc := obj.Drop.Get(); fnc != nil {
+		cpos, free := alloc.New(types.Pointf{})
+		defer free()
+		*cpos = pos
 
-	return ccall.AsFunc[func(*Object, *Object, unsafe.Pointer) int](obj.Drop)(obj, toObject(it), ptr)
+		return fnc(obj, toObject(it), cpos)
+	}
+	return 0
 }
 
 func (obj *Object) CallXfer(a2 unsafe.Pointer) error {

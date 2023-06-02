@@ -40,7 +40,7 @@ var (
 	damageSoundFuncs  = make(map[string]ccall.Func[ObjectDamageSoundFunc])
 	deathFuncs        = make(map[string]objectDefFunc[ccall.Func[ObjectDeathFunc]])
 	deathParseFuncs   = make(map[string]ObjectParseFunc)
-	dropFuncs         = make(map[string]unsafe.Pointer)
+	dropFuncs         = make(map[string]ccall.Func[ObjectDropFunc])
 	dropParseFuncs    = map[string]ObjectParseFunc{
 		"AudEventDrop": func(t *ObjectType, args []string) error {
 			if len(args) != 0 {
@@ -73,6 +73,7 @@ type ObjectDamageFunc func(obj, who, obj3 *Object, dmg int, typ object.DamageTyp
 type ObjectDamageSoundFunc func(obj, obj2 *Object) int
 type ObjectUseFunc func(obj, obj2 *Object) int
 type ObjectCollideFunc func(obj, obj2 *Object, pos *types.Pointf)
+type ObjectDropFunc func(obj, obj2 *Object, pos *types.Pointf) int
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
 
 type ObjectParseFunc func(objt *ObjectType, args []string) error
@@ -213,11 +214,11 @@ func RegisterObjectDeathParse(name string, fnc ObjectParseFunc) {
 	deathParseFuncs[name] = fnc
 }
 
-func RegisterObjectDrop(name string, fnc unsafe.Pointer) {
+func RegisterObjectDrop(name string, fnc ObjectDropFunc) {
 	if _, ok := dropFuncs[name]; ok {
 		panic("already registered")
 	}
-	dropFuncs[name] = fnc
+	dropFuncs[name] = ccall.FuncPtr(fnc)
 }
 
 func RegisterObjectPickup(name string, fnc unsafe.Pointer) {
@@ -871,7 +872,7 @@ type ObjectType struct {
 	DamageSound     ccall.Func[ObjectDamageSoundFunc]
 	Death           ccall.Func[ObjectDeathFunc]
 	DeathData       unsafe.Pointer
-	Drop            unsafe.Pointer
+	Drop            ccall.Func[ObjectDropFunc]
 	Init            ccall.Func[ObjectInitFunc]
 	InitData        unsafe.Pointer
 	InitDataSize    uintptr
