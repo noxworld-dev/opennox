@@ -5,6 +5,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -100,9 +101,9 @@ func sub_478B10(a1 *int2) *wchar2_t {
 		v5     int32
 		v6     int32
 	)
-	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3806)))
-	nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
-	nox_window_get_size((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), &v4, &v3)
+	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3806)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_window_get_size((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), &v4, &v3)
 	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dword_5d4594_1098456))), a1.field_0, a1.field_4)
 	result = *(**wchar2_t)(unsafe.Pointer(&dword_5d4594_1098596))
 	if dword_5d4594_1098596 != 0 || (func() bool {
@@ -125,9 +126,9 @@ func sub_478BC0(a1 *int32) *wchar2_t {
 		v5     int32
 		v6     int32
 	)
-	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3806)))
-	nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
-	nox_window_get_size((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), &v4, &v3)
+	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3806)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_window_get_size((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), &v4, &v3)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dword_5d4594_1098456))), *a1, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
 	result = *(**wchar2_t)(unsafe.Pointer(&dword_5d4594_1098600))
@@ -144,13 +145,13 @@ func sub_478BC0(a1 *int32) *wchar2_t {
 }
 func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) {
 	var v3 *uint32
-	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3810)))
+	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3810)))
 	sub_445C20()
 	dword_5d4594_1098624 = 1
 	dword_5d4594_1098628 = 1
-	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), 0)
-	nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), 1)
-	nox_xxx_wndShowModalMB_46A8C0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))))
+	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), 0)
+	nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), 1)
+	nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))))
 	*memmap.PtrUint32(0x5D4594, 1098612) = uint32(nox_client_getRenderGUI())
 	nox_client_setRenderGUI(0)
 	sub_467BB0()
@@ -171,7 +172,7 @@ func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) {
 		nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1098608)))), 100)
 	}
 	dword_5d4594_1107036 = 0
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098580))))), 16394, uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098592))), 0)
+	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098580))))), 16394, uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098592))), 0)
 }
 func sub_479520(a1 int32) {
 	var (
@@ -181,7 +182,7 @@ func sub_479520(a1 int32) {
 	v1 = nox_strman_loadString_40F1D0(internCStr("NotEnoughGold"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1346)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1097352)), v1, a1)
 	v2 = nox_strman_loadString_40F1D0(internCStr("ShopInformationTitle"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1350)
-	nox_xxx_dialogMsgBoxCreate_449A10((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 1097352)))))), 33, nil, nil)
+	nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 1097352)))))), 33, nil, nil)
 	nox_xxx_clientPlaySoundSpecial_452D80(925, 100)
 }
 func sub_479680() {

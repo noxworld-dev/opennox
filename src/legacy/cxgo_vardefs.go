@@ -3,18 +3,20 @@ package legacy
 import (
 	"math"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
 var dword_5d4594_1046492 uint32
 var nox_xxx_aClosewoodengat_587000_133480 unsafe.Pointer
-var nox_wol_wnd_world_814980 *nox_window
+var nox_wol_wnd_world_814980 *gui.Window
 var dword_5d4594_1045516 uint32
 var dword_5d4594_1045684 uint32
 var dword_5d4594_1307784 uint32
 var dword_5d4594_2650652 uint32
 var dword_5d4594_1217448 uint32
 var dword_5d4594_1320940 uint32
-var dword_5d4594_815004 *nox_window
+var dword_5d4594_815004 *gui.Window
 var nox_wol_wnd_gameList_815012 uint32
 var dword_5d4594_1062480 uint32
 var dword_5d4594_832484 uint32

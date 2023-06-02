@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func sub_4A4A20(win *nox_window, a2, a3, a4 uintptr) uintptr {
+func sub_4A4A20(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v4 int32
 		v5 int32
@@ -19,7 +20,7 @@ func sub_4A4A20(win *nox_window, a2, a3, a4 uintptr) uintptr {
 		if a2 != 16391 {
 			return 0
 		}
-		v4 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
+		v4 = nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3)))
 		if v4 >= 601 {
 			if v4 <= 603 {
 				return 1
@@ -41,14 +42,14 @@ func sub_4A4A20(win *nox_window, a2, a3, a4 uintptr) uintptr {
 		nox_xxx_clientPlaySoundSpecial_452D80(921, 100)
 		return 1
 	}
-	v6 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
+	v6 = nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3)))
 	v7 = v6
 	if v6 >= 601 && v6 <= 603 {
-		nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1307728)))), 1)
-		v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 605)))
+		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1307728)))), 1)
+		v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 605)))
 		*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307724 + 66))) = uint8(int8(v7 - 89))
 		v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(uint8(int8(v7-89)))*4)+170208)), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelClass.c"), 279)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 16385, uintptr(unsafe.Pointer(v9)), 0)
+		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 16385, uintptr(unsafe.Pointer(v9)), 0)
 		*memmap.PtrUint32(0x5D4594, 1307740) = uint32(v7)
 	}
 	nox_xxx_clientPlaySoundSpecial_452D80(920, 100)

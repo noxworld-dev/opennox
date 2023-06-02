@@ -6,10 +6,11 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 nox_window_flags, a3, a4, a5, a6 int, a7 int32, opts *nox_scrollListBox_data) *nox_window {
+func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a4, a5, a6 int, a7 int32, opts *nox_scrollListBox_data) *gui.Window {
 	var (
 		a1  int32  = int32(uintptr(unsafe.Pointer(a1p)))
 		a8  *int16 = (*int16)(unsafe.Pointer(opts))
@@ -40,15 +41,15 @@ func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 nox_window_flags, a3, a
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a7 + 8)))) & 0x20) == 0 {
 		return nil
 	}
-	v8 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), a2, a3, a4, a5, a6, nox_xxx_wndListboxProcPre_4A30D0)))
-	nox_xxx_wndListboxInit_4A3C00((*nox_window)(unsafe.Pointer(v8)), int32(uintptr(unsafe.Pointer(opts))))
+	v8 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, a3, a4, a5, a6, nox_xxx_wndListboxProcPre_4A30D0)))
+	nox_xxx_wndListboxInit_4A3C00((*gui.Window)(unsafe.Pointer(v8)), int32(uintptr(unsafe.Pointer(opts))))
 	if v8 == nil {
 		return nil
 	}
 	if *(*uint32)(unsafe.Pointer(uintptr(a7 + 16))) == 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(a7 + 16))) = uint32(uintptr(unsafe.Pointer(v8)))
 	}
-	nox_gui_windowCopyDrawData_46AF80((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), unsafe.Pointer(uintptr(a7)))
+	nox_gui_windowCopyDrawData_46AF80((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), unsafe.Pointer(uintptr(a7)))
 	v9 = unsafe.Pointer(&make([]nox_scrollListBox_item, int(opts.count))[0])
 	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*6))) = uint32(uintptr(v9))
 	if v9 == nil {
@@ -112,7 +113,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 nox_window_flags, a3, a
 		v17 := v26 | 9
 		*(*uint32)(unsafe.Pointer(&v25[16])) = uint32(uintptr(unsafe.Pointer(v8)))
 		*(*uint32)(unsafe.Pointer(&v25[8])) = 1
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*7))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), v26|9, a5-10, int(v22), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*7))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), v26|9, a5-10, int(v22), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
 		*(*[332]byte)(unsafe.Pointer(&v25[0])) = [332]byte{}
 		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 4))))) >= 0 {
 			*(*uint32)(unsafe.Pointer(&v25[20])) = nox_color_black_2650656
@@ -132,7 +133,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 nox_window_flags, a3, a
 		}
 		*(*uint32)(unsafe.Pointer(&v25[8])) = 1
 		*(*uint32)(unsafe.Pointer(&v25[16])) = uint32(uintptr(unsafe.Pointer(v8)))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*8))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), v17, a5-10, int(v22+v10-v23), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*8))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), v17, a5-10, int(v22+v10-v23), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
 		*(*[332]byte)(unsafe.Pointer(&v25[0])) = [332]byte{}
 		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 4))))) >= 0 {
 			*(*uint32)(unsafe.Pointer(&v25[20])) = nox_color_black_2650656
@@ -160,5 +161,5 @@ func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 nox_window_flags, a3, a
 	v20 = (*int16)(unsafe.Pointer(new(nox_scrollListBox_data)))
 	alloc.Memcpy(unsafe.Pointer(v20), unsafe.Pointer(opts), unsafe.Sizeof(nox_scrollListBox_data{}))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*8)) = uint32(uintptr(unsafe.Pointer(v20)))
-	return (*nox_window)(unsafe.Pointer(v8))
+	return (*gui.Window)(unsafe.Pointer(v8))
 }

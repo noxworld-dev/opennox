@@ -1,9 +1,13 @@
 package legacy
 
-import "unsafe"
+import (
+	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
+)
 
 // nox_client_advVideoOpts_New_4CB590
-func nox_client_advVideoOpts_New_4CB590(par *nox_window) int {
+func nox_client_advVideoOpts_New_4CB590(par *gui.Window) int {
 	GetClient().NewGUIAdvOptsOn(asWindow(par))
 	return 1
 }

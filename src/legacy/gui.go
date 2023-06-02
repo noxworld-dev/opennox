@@ -47,23 +47,23 @@ func nox_client_setRenderGUI(v int32) { Nox_client_setRenderGUI(int(v)) }
 func nox_client_getRenderGUI() int32 { return int32(Nox_client_getRenderGUI()) }
 
 // nox_xxx_wndGetFocus_46B4F0
-func nox_xxx_wndGetFocus_46B4F0() *nox_window {
-	return (*nox_window)(GetClient().Cli().GUI.Focused().C())
+func nox_xxx_wndGetFocus_46B4F0() *gui.Window {
+	return (*gui.Window)(GetClient().Cli().GUI.Focused().C())
 }
 
 // nox_xxx_windowFocus_46B500
-func nox_xxx_windowFocus_46B500(win *nox_window) int32 {
+func nox_xxx_windowFocus_46B500(win *gui.Window) int32 {
 	GetClient().Cli().GUI.Focus(asWindow(win))
 	return 0
 }
 
 // nox_client_getWin1064916_46C720
-func nox_client_getWin1064916_46C720() *nox_window {
-	return (*nox_window)(GetClient().Cli().GUI.WinYYY.C())
+func nox_client_getWin1064916_46C720() *gui.Window {
+	return (*gui.Window)(GetClient().Cli().GUI.WinYYY.C())
 }
 
 // nox_xxx_wndSetCaptureMain_46ADC0
-func nox_xxx_wndSetCaptureMain_46ADC0(win *nox_window) int32 {
+func nox_xxx_wndSetCaptureMain_46ADC0(win *gui.Window) int32 {
 	if !asWindow(win).Capture(true) {
 		return -4
 	}
@@ -71,14 +71,14 @@ func nox_xxx_wndSetCaptureMain_46ADC0(win *nox_window) int32 {
 }
 
 // nox_xxx_wndClearCaptureMain_46ADE0
-func nox_xxx_wndClearCaptureMain_46ADE0(win *nox_window) int32 {
+func nox_xxx_wndClearCaptureMain_46ADE0(win *gui.Window) int32 {
 	asWindow(win).Capture(false)
 	return 0
 }
 
 // nox_xxx_wndGetCaptureMain_46AE00
-func nox_xxx_wndGetCaptureMain_46AE00() *nox_window {
-	return (*nox_window)(GetClient().Cli().GUI.Captured().C())
+func nox_xxx_wndGetCaptureMain_46AE00() *gui.Window {
+	return (*gui.Window)(GetClient().Cli().GUI.Captured().C())
 }
 
 // nox_gui_draw
@@ -108,7 +108,7 @@ func nox_xxx_wndWddSetTooltip_46B000(draw *nox_window_data, str *wchar2_t) {
 }
 
 // sub_46B120
-func sub_46B120(a1, a2 *nox_window) int32 {
+func sub_46B120(a1, a2 *gui.Window) int32 {
 	return int32(asWindow(a1).SetParent(asWindow(a2)))
 }
 
@@ -119,7 +119,7 @@ func Sub_46A4A0() int {
 func Nox_xxx_wndEditProc_487D70(a1 *gui.Window, ev gui.WindowEvent) gui.RawEventResp {
 	a2 := ev.EventCode()
 	a3, a4 := ev.EventArgsC()
-	return gui.RawEventResp(nox_xxx_wndEditProc_487D70((*nox_window)(a1.C()), uintptr(a2), a3, a4))
+	return gui.RawEventResp(nox_xxx_wndEditProc_487D70((*gui.Window)(a1.C()), uintptr(a2), a3, a4))
 }
 
 func Nox_gui_xxx_check_446360() int {

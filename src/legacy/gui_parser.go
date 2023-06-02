@@ -9,6 +9,6 @@ var (
 )
 
 // nox_new_window_from_file
-func nox_new_window_from_file(cname *byte, fnc WindowFunc) *nox_window {
-	return (*nox_window)(Nox_new_window_from_file(GoString(cname), gui.WrapFunc(fnc)).C())
+func nox_new_window_from_file(cname *byte, fnc WindowFunc) *gui.Window {
+	return (*gui.Window)(Nox_new_window_from_file(GoString(cname), gui.WrapFunc(fnc)).C())
 }

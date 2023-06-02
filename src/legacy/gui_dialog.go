@@ -23,7 +23,7 @@ var (
 func sub_44A4A0() int { return Sub_44A4A0() }
 
 // nox_xxx_dialogMsgBoxCreate_449A10
-func nox_xxx_dialogMsgBoxCreate_449A10(win *nox_window, title, text *wchar2_t, a4 int, a5, a6 unsafe.Pointer) unsafe.Pointer {
+func nox_xxx_dialogMsgBoxCreate_449A10(win *gui.Window, title, text *wchar2_t, a4 int, a5, a6 unsafe.Pointer) unsafe.Pointer {
 	var fnc5, fnc6 func()
 	if a5 != nil {
 		fnc5 = func() {

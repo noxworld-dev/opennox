@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
 type nox_window_flags uint32
@@ -13,14 +15,14 @@ const (
 )
 
 type nox_window_ref struct {
-	win  *nox_window
+	win  *gui.Window
 	next *nox_window_ref
 }
 
 func sub_46ACE0(a1 *uint32, a2 int32, a3 int32, a4 int32) {
 	for i := int32(a2); i <= a3; i++ {
-		var v5 *uint32 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(a1)), i)))
-		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), a4)
+		var v5 *uint32 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(a1)), i)))
+		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), a4)
 	}
 }
 func sub_46AD20(a1 *uint32, a2 int32, a3 int32, a4 int32) {
@@ -29,11 +31,11 @@ func sub_46AD20(a1 *uint32, a2 int32, a3 int32, a4 int32) {
 		v5 *uint32
 	)
 	for i = a2; i <= a3; i++ {
-		v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(a1)), i)))
-		nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), a4)
+		v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(a1)), i)))
+		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), a4)
 	}
 }
-func nox_gui_getWindowOffs_46AA20(win *nox_window, px *uint32, py *uint32) int32 {
+func nox_gui_getWindowOffs_46AA20(win *gui.Window, px *uint32, py *uint32) int32 {
 	if win == nil {
 		*px = 0
 		*py = 0
@@ -43,7 +45,7 @@ func nox_gui_getWindowOffs_46AA20(win *nox_window, px *uint32, py *uint32) int32
 	*py = uint32(win.Off.Y)
 	return 0
 }
-func nox_client_wndGetPosition_46AA60(win *nox_window, px *uint32, py *uint32) int32 {
+func nox_client_wndGetPosition_46AA60(win *gui.Window, px *uint32, py *uint32) int32 {
 	if win == nil {
 		return -2
 	}
@@ -63,8 +65,8 @@ func nox_xxx_wndPointInWnd_46AAB0(a1 *uint32, a2 int32, a3 int32) bool {
 		v7 int32 = 0
 	)
 	v3 = a1
-	nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&v6)))
-	nox_window_get_size((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), &v5, &v7)
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_window_get_size((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), &v5, &v7)
 	return a2 >= int32(uintptr(unsafe.Pointer(a1))) && a2 <= int32(uintptr(unsafe.Pointer(a1)))+v5 && a3 >= v6 && a3 <= v6+v7
 }
 func sub_46AB20(a1 *uint32, a2 int32, a3 int32) int32 {
@@ -77,10 +79,10 @@ func sub_46AB20(a1 *uint32, a2 int32, a3 int32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = uint32(a2)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) = uint32(a3)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = uint32(v4)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 16388, uintptr(a2), uintptr(a3))
+	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 16388, uintptr(a2), uintptr(a3))
 	return 0
 }
-func nox_window_get_size(win *nox_window, outW *int32, outH *int32) int32 {
+func nox_window_get_size(win *gui.Window, outW *int32, outH *int32) int32 {
 	if win == nil {
 		*outW = 0
 		*outH = 0
@@ -90,7 +92,7 @@ func nox_window_get_size(win *nox_window, outW *int32, outH *int32) int32 {
 	*outH = int32(win.Size().Y)
 	return 0
 }
-func nox_xxx_wnd_46ABB0(win *nox_window, a2 int32) int32 {
+func nox_xxx_wnd_46ABB0(win *gui.Window, a2 int32) int32 {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(win)))
 		v3 int32
@@ -108,7 +110,7 @@ func nox_xxx_wnd_46ABB0(win *nox_window, a2 int32) int32 {
 	}
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 400))))
 	for *(*uint32)(unsafe.Pointer(uintptr(a1 + 4))) = v4; v5 != 0; v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 388)))) {
-		nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(v5))), a2)
+		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(v5))), a2)
 	}
 	return 0
 }
@@ -139,14 +141,14 @@ func nox_xxx_wndGetFlags_46ADA0(a1 int32) int32 {
 	}
 	return result
 }
-func nox_window_is_child(a1 *nox_window, a2 *nox_window) int32 {
+func nox_window_is_child(a1 *gui.Window, a2 *gui.Window) int32 {
 	if a1 == nil {
 		return 0
 	}
 	if a2 == nil {
 		return 0
 	}
-	var cur *nox_window = a2
+	var cur *gui.Window = a2
 	for {
 		cur = cur.Parent()
 		if a1 == cur {
