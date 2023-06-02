@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -14,7 +15,12 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_server_handler_PlayerDamage_4E17B0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(who.CObj()))
+	a3 := int32(uintptr(obj3.CObj()))
+	a4 := int32(dmg)
+	a5 := int32(typ)
 	var (
 		v5           int32
 		v6           int32
@@ -277,7 +283,7 @@ func nox_server_handler_PlayerDamage_4E17B0(a1 int32, a2 int32, a3 int32, a4 int
 		}
 	}
 LABEL_120:
-	switch *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&a5))), 4*0)) {
+	switch typ {
 	case 0, 3, 7, 8, 0xA, 0xB:
 		v51 = float32((1.0 - float64(v53)) * float64(a4))
 		nox_xxx_playerDecrementHPMana_4E20F0(v5, int32(uintptr(unsafe.Pointer(&a1))), v51)
@@ -380,7 +386,7 @@ LABEL_120:
 	} else {
 		v45 = a1
 	}
-	return nox_xxx_damageDefaultProc_4E0B30(v5, a2, a3, v45, *(*int32)(unsafe.Add(unsafe.Pointer(&a5), 4*0)))
+	return nox_xxx_damageDefaultProc_4E0B30(AsObjectP(unsafe.Pointer(uintptr(v5))), who, obj3, int(v45), typ)
 }
 func nox_xxx_playerDecrementHPMana_4E20F0(a1 int32, a2 int32, a3 float32) {
 	var (
@@ -541,19 +547,21 @@ func sub_4E2330(a1 int32, a2 int32, a3 int32, a4 int32, a5 float32, a6 int32) in
 	}
 	return 1
 }
-func sub_4E23C0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func sub_4E23C0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(who.CObj()))
+	a3 := int32(uintptr(obj3.CObj()))
 	var (
-		result int32
-		v6     float32
-		v7     float32
-		v8     int32
-		a3a    float2
+		v6  float32
+		v7  float32
+		v8  int32
+		a3a float2
 	)
 	if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), 23) != 0 {
 		if (int32(uint8(gameFrame())) & 3) == 0 {
 			nox_xxx_aud_501960(71, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
-		result = 1
+		return 1
 	} else if a2 != 0 && (func() bool {
 		if a3 == 0 {
 			v7 = *(*float32)(unsafe.Pointer(uintptr(a2 + 76)))
@@ -570,44 +578,44 @@ func sub_4E23C0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 		}()) && uint32(*(*uint8)(unsafe.Pointer(uintptr(v8 + 481)))) > uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(v8 + 480))))>>1)
 	}()) {
 		nox_xxx_aud_501960(878, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
-		result = 1
+		return 1
 	} else {
-		result = nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, a4, a5)
+		return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, dmg, typ)
 	}
-	return result
 }
-func sub_4E24B0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
-	return nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, a4, a5)
+func sub_4E24B0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, dmg, typ)
 }
-func sub_4E24E0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
-	var v5 int32
-	if a5 != 9 && a5 != 17 {
-		v5 = a4
+func sub_4E24E0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	var v5 int
+	if typ != 9 && typ != 17 {
+		v5 = dmg
 	} else {
-		v5 = a4 * 2
+		v5 = dmg * 2
 	}
-	return nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, v5, a5)
+	return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, v5, typ)
 }
-func nox_xxx_damageFlammable_4E2520(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
-	var v5 int32
-	if a5 == 1 || a5 == 12 || (func() bool {
-		v5 = a4
-		return a5 == 7
+func nox_xxx_damageFlammable_4E2520(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	var v5 int
+	if typ == 1 || typ == 12 || (func() bool {
+		v5 = dmg
+		return typ == 7
 	}()) {
 		v5 = 9999999
 	}
-	return nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, v5, a5)
+	return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, v5, typ)
 }
-func nox_xxx_damageBlackPowder_4E2560(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
-	var result int32
-	if a5 != 1 && a5 != 12 && a5 != 2 && a5 != 0 {
-		result = 0
+func nox_xxx_damageBlackPowder_4E2560(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	if typ != 1 && typ != 12 && typ != 2 && typ != 0 {
+		return 0
 	} else {
-		result = nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, 999999, a5)
+		return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, 999999, typ)
 	}
-	return result
 }
-func nox_xxx_damageMonsterGen_4E27D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func nox_xxx_damageMonsterGen_4E27D0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(who.CObj()))
+	a3 := int32(uintptr(obj3.CObj()))
 	var (
 		v5  int32
 		v7  int32
@@ -640,7 +648,7 @@ func nox_xxx_damageMonsterGen_4E27D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 
 		nox_xxx_aud_501960(1001, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 	}
 	v7 = int32(uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(unsafe.Pointer(uintptr(a1))))))
-	v17 = nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, a4, a5)
+	v17 = int32(nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, dmg, typ))
 	if int32(uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(unsafe.Pointer(uintptr(a1)))))) < v7 {
 		nox_xxx_scriptCallByEventBlock_502490(unsafe.Pointer(uintptr(v5+48)), unsafe.Pointer(uintptr(a2)), unsafe.Pointer(uintptr(a1)), 23)
 	}
@@ -668,7 +676,7 @@ func nox_xxx_damageMonsterGen_4E27D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 
 			}
 		}
 	}
-	return v17
+	return int(v17)
 }
 func sub_4E3CA0() float64 {
 	return float64(*mem_getFloatPtr(0x587000, 202024))

@@ -36,8 +36,8 @@ var (
 	collideParseFuncs = make(map[string]ObjectParseFunc)
 	useFuncs          = make(map[string]objectDefFunc[ccall.Func[ObjectUseFunc]])
 	useParseFuncs     = make(map[string]ObjectParseFunc)
-	damageFuncs       = make(map[string]unsafe.Pointer)
-	damageSoundFuncs  = make(map[string]unsafe.Pointer)
+	damageFuncs       = make(map[string]ccall.Func[ObjectDamageFunc])
+	damageSoundFuncs  = make(map[string]ccall.Func[ObjectDamageSoundFunc])
 	deathFuncs        = make(map[string]objectDefFunc[ccall.Func[ObjectDeathFunc]])
 	deathParseFuncs   = make(map[string]ObjectParseFunc)
 	dropFuncs         = make(map[string]unsafe.Pointer)
@@ -69,6 +69,8 @@ type ObjectInitFunc func(obj *Object)
 type ObjectCreateFunc func(obj *Object)
 type ObjectDeathFunc func(obj *Object)
 type ObjectUpdateFunc func(obj *Object)
+type ObjectDamageFunc func(obj, who, obj3 *Object, dmg int, typ object.DamageType) int
+type ObjectDamageSoundFunc func(obj, obj2 *Object) int
 type ObjectUseFunc func(obj, obj2 *Object) int
 type ObjectCollideFunc func(obj, obj2 *Object, pos *types.Pointf)
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
@@ -81,8 +83,8 @@ type objectDefFunc[T any] struct {
 }
 
 var (
-	DefaultDamage      unsafe.Pointer
-	DefaultDamageSound unsafe.Pointer
+	DefaultDamage      ObjectDamageFunc
+	DefaultDamageSound ObjectDamageSoundFunc
 	DefaultXfer        ObjectXferFunc
 )
 
@@ -180,18 +182,18 @@ func RegisterObjectUseParse(name string, fnc ObjectParseFunc) {
 	useParseFuncs[name] = fnc
 }
 
-func RegisterObjectDamage(name string, fnc unsafe.Pointer) {
+func RegisterObjectDamage(name string, fnc ObjectDamageFunc) {
 	if _, ok := damageFuncs[name]; ok {
 		panic("already registered")
 	}
-	damageFuncs[name] = fnc
+	damageFuncs[name] = ccall.FuncPtr(fnc)
 }
 
-func RegisterObjectDamageSound(name string, fnc unsafe.Pointer) {
+func RegisterObjectDamageSound(name string, fnc ObjectDamageSoundFunc) {
 	if _, ok := damageSoundFuncs[name]; ok {
 		panic("already registered")
 	}
-	damageSoundFuncs[name] = fnc
+	damageSoundFuncs[name] = ccall.FuncPtr(fnc)
 }
 
 func RegisterObjectDeath(name string, fnc ObjectDeathFunc, sz uintptr) {
@@ -371,8 +373,8 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 		material: object.MaterialNone,
 		Mass:     1,
 		ZSize1:   0, ZSize2: 30,
-		Damage:      DefaultDamage,
-		DamageSound: DefaultDamageSound,
+		Damage:      ccall.FuncPtr[ObjectDamageFunc](DefaultDamage),
+		DamageSound: ccall.FuncPtr[ObjectDamageSoundFunc](DefaultDamageSound),
 		Xfer:        ccall.FuncPtr[ObjectXferFunc](DefaultXfer),
 		Weight:      255,
 		CarryCap:    thg.CarryCap,
@@ -865,8 +867,8 @@ type ObjectType struct {
 	Collide         ccall.Func[ObjectCollideFunc]
 	CollideData     unsafe.Pointer
 	CollideDataSize uintptr
-	Damage          unsafe.Pointer
-	DamageSound     unsafe.Pointer
+	Damage          ccall.Func[ObjectDamageFunc]
+	DamageSound     ccall.Func[ObjectDamageSoundFunc]
 	Death           ccall.Func[ObjectDeathFunc]
 	DeathData       unsafe.Pointer
 	Drop            unsafe.Pointer

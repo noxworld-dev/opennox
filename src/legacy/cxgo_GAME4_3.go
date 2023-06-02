@@ -2147,13 +2147,15 @@ func sub_532880(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_soundPlayerDamageSound_5328B0(a1 int32, a2 int32) int32 {
+func nox_xxx_soundPlayerDamageSound_5328B0(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2 uint16
 		i  int32
 	)
 	v2 = 1
-	if a2 == 0 {
+	if obj2 == nil {
 		return 1
 	}
 	for i = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 504)))); i != 0; i = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 496)))) {
@@ -2315,7 +2317,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 		}
 	}
 }
-func nox_xxx_soundDefaultDamageSound_532E20(a1p *server.Object, a2p *server.Object) int32 {
+func nox_xxx_soundDefaultDamageSound_532E20(a1p *server.Object, a2p *server.Object) int {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		a2 int32 = int32(uintptr(unsafe.Pointer(a2p)))

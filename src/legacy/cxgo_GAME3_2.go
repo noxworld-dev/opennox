@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/object"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -6885,7 +6886,12 @@ func nox_xxx_projectileReflect_4E0A70(a1 int32, a2 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(result + 68))) = uint32(v8)
 	return result
 }
-func nox_xxx_damageDefaultProc_4E0B30(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(who.CObj()))
+	a3 := int32(uintptr(obj3.CObj()))
+	a4 := int32(dmg)
+	a5 := int32(typ)
 	var (
 		v6  int32
 		v7  int32
@@ -7362,36 +7368,35 @@ func sub_4E1470(a1 int32) int32 {
 	}
 	return result
 }
-func sub_4E14A0() int32 {
+func sub_4E14A0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
 	return 0
 }
-func sub_4E14B0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
-	var result int32
-	if a1 != 0 && *(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))&0x1001000 != 0 && (*(*uint32)(unsafe.Pointer(uintptr(a1 + 492))) != 0 || a5 == 12) {
-		result = nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, a4, a5)
+func sub_4E14B0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	a1 := int32(uintptr(obj.CObj()))
+	if a1 != 0 && *(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))&0x1001000 != 0 && (*(*uint32)(unsafe.Pointer(uintptr(a1 + 492))) != 0 || typ == 12) {
+		return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, dmg, typ)
 	} else {
-		result = 0
+		return 0
 	}
-	return result
 }
-func nox_xxx_damageArmor_4E1500(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func nox_xxx_damageArmor_4E1500(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a5 := int32(typ)
 	var (
-		v5     int32
-		result int32
+		v5 int
 	)
-	if *(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))&0x2000000 != 0 && (*(*uint32)(unsafe.Pointer(uintptr(a1 + 492))) != 0 || a5 == 12) && (func() int32 {
+	if *(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))&0x2000000 != 0 && (*(*uint32)(unsafe.Pointer(uintptr(a1 + 492))) != 0 || a5 == 12) && (func() int {
 		if a5 != 2 || (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 24))))&0x10) == 0 {
-			v5 = a4
+			v5 = dmg
 		} else {
-			v5 = a4 * 2
+			v5 = dmg * 2
 		}
 		return v5
 	}()) != 0 {
-		result = nox_xxx_damageDefaultProc_4E0B30(a1, a2, a3, v5, a5)
+		return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, v5, typ)
 	} else {
-		result = 0
+		return 0
 	}
-	return result
 }
 func nox_xxx_playerDamageWeapon_4E1560(a1 int32, a2 int32, a3 int32, a4 int32, a5 float32, a6 int32) {
 	var (

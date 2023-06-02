@@ -3,7 +3,6 @@ package legacy
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -15,8 +14,8 @@ var (
 )
 
 func init() {
-	server.DefaultDamage = ccall.FuncAddr(nox_xxx_damageDefaultProc_4E0B30)
-	server.DefaultDamageSound = ccall.FuncAddr(nox_xxx_soundDefaultDamageSound_532E20)
+	server.DefaultDamage = nox_xxx_damageDefaultProc_4E0B30
+	server.DefaultDamageSound = nox_xxx_soundDefaultDamageSound_532E20
 	server.DefaultXfer = nox_xxx_XFerDefault_4F49A0
 
 	server.RegisterObjectCreate("MonsterCreate", nox_xxx_monsterCreateFn_54C480)
