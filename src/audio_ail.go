@@ -87,8 +87,8 @@ func sub_43E940(a1 unsafe.Pointer) int {
 	}
 	audioTimer93944.SetFrequency(30)
 	audioTimer93944.Start()
-	legacy.Sub_42EBB0(1, legacy.Get_sub_43E910(), 0, "Audio")
-	legacy.Sub_42EBB0(2, legacy.Get_sub_43E8E0(), 0, "Audio")
+	legacy.Sub_42EBB0(1, ccall.FuncAddr(legacy.Sub_43E910), 0, "Audio")
+	legacy.Sub_42EBB0(2, ccall.FuncAddr(legacy.Sub_43E8E0), 0, "Audio")
 	*(*uint32)(unsafe.Add(a1, 20)) = 1
 	return 0
 }

@@ -11,7 +11,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/cnxz"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -216,10 +215,6 @@ func Nox_xxx_unitSetDecayTime_511660(obj *server.Object, a2 int) {
 
 func Nox_xxx_tileFreeTileOne_4221E0(p unsafe.Pointer) {
 	nox_xxx_tileFreeTileOne_4221E0(p)
-}
-
-func Get_nox_client_mapSpecialRWObjectData_4AC610() unsafe.Pointer {
-	return ccall.FuncAddr(nox_client_mapSpecialRWObjectData_4AC610)
 }
 
 func Sub_4DE410(pli ntype.PlayerInd) {

@@ -19,6 +19,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -280,7 +281,7 @@ func recreateRenderTarget(sz image.Point) error {
 		flags |= 0x200
 	}
 	c := noxClient
-	legacy.Nox_xxx_setSomeFunc_48A210(legacy.Get_sub_47FCE0()) // TODO: another callback
+	legacy.Nox_xxx_setSomeFunc_48A210(ccall.FuncAddr(legacy.Sub_47FCE0)) // TODO: another callback
 
 	v1 := c.Nox_client_getCursorType()
 	c.Nox_client_setCursorType(gui.CursorSelect)

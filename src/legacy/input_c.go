@@ -2,13 +2,11 @@ package legacy
 
 import (
 	"image"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -142,9 +140,6 @@ func sub_4C3B70() { Sub_4C3B70() }
 // sub_4CBBF0
 func sub_4CBBF0() { Sub_4CBBF0() }
 
-// nox_input_reset_430140
-func nox_input_reset_430140(a1 int) { Nox_input_reset_430140(a1) }
-
 // nox_input_scanCodeToAlpha_47F950
 func nox_input_scanCodeToAlpha_47F950(r uint16) uint16 {
 	return uint16(GetClient().Cli().Inp.KeyToWChar(keybind.Key(r)))
@@ -197,8 +192,4 @@ func Nox_xxx_clientPickup_46C140(a1 *client.Drawable) {
 }
 func Sub_46B630(a1 *gui.Window, a2 int, a3 int) *gui.Window {
 	return asWindow(sub_46B630((*gui.Window)(a1.C()), int32(a2), int32(a3)))
-}
-
-func Get_nox_input_reset_430140() unsafe.Pointer {
-	return ccall.FuncAddr(nox_input_reset_430140)
 }

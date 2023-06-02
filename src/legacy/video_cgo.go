@@ -6,7 +6,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -130,8 +129,4 @@ func Sub_430B50(a1 int, a2 int, a3 int, a4 int) {
 }
 func Sub_495A80(a1 uint32) int {
 	return int(sub_495A80(int32(a1)))
-}
-
-func Get_sub_47FCE0() unsafe.Pointer {
-	return ccall.FuncAddr(sub_47FCE0)
 }

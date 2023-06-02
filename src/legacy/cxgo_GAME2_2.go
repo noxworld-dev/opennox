@@ -1503,7 +1503,7 @@ func sub_47D380(a1 int32, a2 int32) int32 {
 func sub_47DBC0() uint8 {
 	return *memmap.PtrUint8(0x5D4594, 1193128)
 }
-func sub_47FCE0(a1 *uint32, a2 int32) int32 {
+func Sub_47FCE0(a1 *uint32, a2 int32) int32 {
 	var (
 		v2 int32
 		v3 *uint8

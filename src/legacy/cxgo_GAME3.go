@@ -3950,7 +3950,7 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) int3
 	}
 	return v9
 }
-func nox_client_mapSpecialRWObjectData_4AC610(a1 unsafe.Pointer) int32 {
+func Nox_client_mapSpecialRWObjectData_4AC610(a1 unsafe.Pointer) int32 {
 	var (
 		v1 uint16
 		v2 uint16

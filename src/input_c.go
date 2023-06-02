@@ -14,6 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -185,7 +186,7 @@ func nox_xxx_freeKeyboard_430210() {
 
 func nox_xxx_initInput_430190() error {
 	inputInitMouse()
-	legacy.Sub_42EBB0(2, legacy.Get_nox_input_reset_430140(), 0, "Input")
+	legacy.Sub_42EBB0(2, ccall.FuncAddr(legacy.Nox_input_reset_430140), 0, "Input")
 	return nil
 }
 

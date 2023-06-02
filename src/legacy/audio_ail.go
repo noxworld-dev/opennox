@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -65,11 +64,11 @@ type AudioSample struct {
 	Flag7  uint32         // 7, 28
 }
 
-// sub_43E8E0
-func sub_43E8E0(a1 int) {}
+// Sub_43E8E0
+func Sub_43E8E0(a1 int) {}
 
-// sub_43E910
-func sub_43E910(a1 int) {}
+// Sub_43E910
+func Sub_43E910(a1 int) {}
 
 // sub_43F050
 func sub_43F050() int {
@@ -226,14 +225,6 @@ func Sub_486620(v unsafe.Pointer) {
 
 func Sub_42EBB0(a1 int, a2 unsafe.Pointer, a3 int, a4 string) {
 	sub_42EBB0(uint32(a1), a2, int32(a3), internCStr(a4))
-}
-
-func Get_sub_43E910() unsafe.Pointer {
-	return ccall.FuncAddr(sub_43E910)
-}
-
-func Get_sub_43E8E0() unsafe.Pointer {
-	return ccall.FuncAddr(sub_43E8E0)
 }
 
 func Get_dword_587000_127004() unsafe.Pointer {
