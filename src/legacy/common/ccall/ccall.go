@@ -16,10 +16,14 @@ type funcReg struct {
 var funcs = make(map[unsafe.Pointer]funcReg)
 
 func FuncPtr[T any](fnc T) Func[T] {
-	return Func[T]{h: FuncAddr(fnc)}
+	return Func[T]{h: funcAddr(fnc, 1)}
 }
 
 func FuncAddr(fnc any) unsafe.Pointer {
+	return funcAddr(fnc, 1)
+}
+
+func funcAddr(fnc any, skip int) unsafe.Pointer {
 	if fnc == nil {
 		return nil
 	}
@@ -27,7 +31,7 @@ func FuncAddr(fnc any) unsafe.Pointer {
 	if _, ok := funcs[addr]; ok {
 		return addr
 	}
-	funcs[addr] = funcReg{Func: fnc, Where: caller(1)}
+	funcs[addr] = funcReg{Func: fnc, Where: caller(skip + 1)}
 	return addr
 }
 

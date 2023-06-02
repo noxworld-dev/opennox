@@ -13,7 +13,6 @@ func init() {
 	client.RegisterThingParse("DRAW", wrapClientThingFuncC(nox_parse_thing_draw))
 	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(nox_parse_thing_light_dir))
 	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(nox_parse_thing_light_penumbra))
-	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(nox_parse_thing_client_update))
 	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(nox_parse_thing_pretty_image))
 	client.ThingDrawDefault = ccall.FuncAddr(nox_thing_debug_draw)
 }

@@ -12,7 +12,7 @@ func sub_499490(a1 int32, a2 *uint16, a3 int32, a4 int32, a5 int8, a6 int8) {
 		result *uint32
 		v7     *uint32
 	)
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, a3+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*2))), a4+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*3)))).Field_0
+	result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a3+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*2))), a4+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*3)))).C())
 	v7 = result
 	if result != nil {
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*216))) = *a2
@@ -33,7 +33,7 @@ func sub_499520(a1 int32, a2 *int16, a3 int16, a4 int8, a5 int8) {
 	)
 	v6 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*2)))
 	v5 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*3)))
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, v6, v5).Field_0
+	result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(a1, v6, v5).C())
 	v8 = result
 	if result != nil {
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*216))) = uint16(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0)))

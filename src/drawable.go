@@ -49,8 +49,8 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 	}
 	dr.Buffs = 0
 	dr.Field_32 = 0
-	if dr.Field_116 != 0 {
-		c.Objs.List5Add(dr)
+	if dr.ClientUpdateFunc.Ptr() != nil {
+		c.Objs.ClientUpdateAdd(dr)
 	}
 	if dr.Flags30()&0x200000 != 0 {
 		c.Objs.List6Add(dr)
@@ -169,7 +169,7 @@ func (c *Client) Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 		}
 	}
 	c.Objs.List34Delete(dr)
-	c.Objs.List5Delete(dr)
+	c.Objs.ClientUpdateDelete(dr)
 	c.Objs.List6Delete(dr)
 	c.Objs.DeadlineRemove(dr)
 	c.Objs.RemoveHealthBar(dr, 3)

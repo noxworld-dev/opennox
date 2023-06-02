@@ -4,11 +4,14 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_xxx_updDrawSparkleTrail_4CDBF0(a1 int32, a2 *uint32) int32 {
+func nox_xxx_updDrawSparkleTrail_4CDBF0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	var (
 		v2  *uint32
 		v3  int32

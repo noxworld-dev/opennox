@@ -1811,11 +1811,11 @@ func sub_548220(it *server.Object, data unsafe.Pointer) {
 	}
 }
 func sub_548360(a1 int32, a2 int32) int32 {
+	a1p := AsObjectP(unsafe.Pointer(uintptr(a1)))
+	a2p := AsObjectP(unsafe.Pointer(uintptr(a2)))
 	var (
 		v2     int32
 		v3     int32
-		v4     func(int32) int32
-		v5     func(int32) int32
 		v6     int32
 		v7     int32
 		v8     int32
@@ -1836,12 +1836,10 @@ func sub_548360(a1 int32, a2 int32) int32 {
 		*memmap.PtrUint32(0x5D4594, 2490516) = uint32(v2)
 	}
 	v3 = a2
-	v4 = ccall.AsFunc[func(int32) int32](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 696))))
-	if ccall.FuncAddr(v4) == ccall.FuncAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 4)))) == v2 {
+	if a1p.Collide.Ptr() == ccall.FuncAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 4)))) == v2 {
 		return 0
 	}
-	v5 = ccall.AsFunc[func(int32) int32](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a2 + 696))))
-	if ccall.FuncAddr(v5) == ccall.FuncAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4)))) == v2 {
+	if a2p.Collide.Ptr() == ccall.FuncAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4)))) == v2 {
 		return 0
 	}
 	v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))))
@@ -1863,7 +1861,7 @@ func sub_548360(a1 int32, a2 int32) int32 {
 		return 0
 	}
 	v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 16))))
-	if v8&0x60 != 0 || a1 == v3 || v4 == nil || v5 == nil {
+	if v8&0x60 != 0 || a1 == v3 || a1p.Collide.Get() == nil || a2p.Collide.Get() == nil {
 		return 0
 	}
 	if v6&2 != 0 && v7&0x4000 != 0 {

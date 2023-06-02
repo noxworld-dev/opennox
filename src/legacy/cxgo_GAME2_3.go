@@ -9,7 +9,9 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -759,10 +761,10 @@ func sub_48DCF0(a1 *uint32) {
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 668))) = 0
 			if nox_xxx_netTestHighBit_578B70(v5) != 0 {
 				v7 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(v2 + 656))))))
-				v8 = &nox_xxx_netSpriteByCodeStatic_45A720(v7).Field_0
+				v8 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v7).C())
 			} else {
 				v9 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(v2 + 656))))))
-				v8 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v9).Field_0
+				v8 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v9).C())
 			}
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 668))) = uint32(uintptr(unsafe.Pointer(v8)))
 			if v8 != nil {
@@ -1268,9 +1270,9 @@ func nox_xxx_spriteCreate_48E970(a1 int32, a2 uint32, a3 int32, a4 int32) *uint3
 	v5 = v4
 	v10 = v4
 	if nox_xxx_netTestHighBit_578B70(a2) != 0 {
-		v6 = &nox_xxx_netSpriteByCodeStatic_45A720(v10).Field_0
+		v6 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v10).C())
 	} else {
-		v6 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v10).Field_0
+		v6 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v10).C())
 	}
 	v7 = v6
 	if v6 != nil {
@@ -2141,7 +2143,7 @@ func sub_495B50(a1p unsafe.Pointer) {
 }
 func sub_495BB0(dr *nox_drawable, vp *nox_draw_viewport_t) *uint32 {
 	var (
-		a1     *uint32 = &dr.Field_0
+		a1     *uint32 = (*uint32)(dr.C())
 		a2     *uint32 = (*uint32)(unsafe.Pointer(vp))
 		result *uint32
 		v3     *uint32
@@ -4767,7 +4769,7 @@ func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) *uint32 {
 		*memmap.PtrUint32(0x5D4594, 1217508) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("UndeadKiller")))
 	}
 	for i = 0; i < 256; i += 6 {
-		result = &nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1217508), int32(*a1), int32(*(*int16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(int16(0))*1)))).Field_0
+		result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1217508), int32(*a1), int32(*(*int16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(int16(0))*1)))).C())
 		v3 = result
 		if result != nil {
 			v4 = int32(int16(i)) * 8
@@ -4834,7 +4836,7 @@ func sub_499F60(a1 int32, a2 int32, a3 int32, a4 int16, a5 int8, a6 int8, a7 int
 		*memmap.PtrUint32(0x5D4594, 1217536) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("LightVioletBubbleParticle")))
 		*memmap.PtrUint32(0x5D4594, 1217540) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("YellowBubbleParticle")))
 	}
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, a2, a3).Field_0
+	result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a2, a3).C())
 	v13 = result
 	if result != nil {
 		*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v11))), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&a4))), unsafe.Sizeof(int16(0))-1))
@@ -5102,7 +5104,7 @@ func sub_49A8C0() int32 {
 }
 func nox_xxx_updateSpritePosition_49AA90(dr *nox_drawable, a2 int32, a3 int32) {
 	var (
-		a1 *uint32 = &dr.Field_0
+		a1 *uint32 = (*uint32)(dr.C())
 		v3 int32
 		v4 int32
 		v5 int32
@@ -5276,37 +5278,24 @@ func sub_49BBC0() {
 		}
 	}
 }
-func nox_xxx_getSprite178_49BD50(a1 int32) int32 {
-	var result int32
-	if a1 != 0 {
-		result = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 376))))
-	} else {
-		result = 0
+func nox_xxx_getSprite178_49BD50(dr *nox_drawable) *nox_drawable {
+	if dr == nil {
+		return nil
 	}
-	return result
+	return dr.Field_94
 }
-func sub_49BD70(a1p *nox_draw_viewport_t) {
-	var (
-		a1      int32 = int32(uintptr(unsafe.Pointer(a1p)))
-		result2 func(int32, int32)
-		v4      func(int32, uint32) int32
-	)
+func sub_49BD70(vp *noxrender.Viewport) {
 	if nox_xxx_checkGameFlagPause_413A50() == 1 {
 		return
 	}
-	var v2 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_getSomeSprite_49BD40())))
-	for v2 != 0 {
-		var v3 int32 = nox_xxx_getSprite178_49BD50(v2)
-		v4 = ccall.AsFunc[func(int32, uint32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*116))))))
-		if v4 == nil || v4(a1, uint32(v2)) != 0 {
-			result2 = func(arg1 int32, arg2 int32) {
-				ccall.AsFunc[func(int32, int32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*115))))))(arg1, arg2)
-			}
-			if result2 != nil {
-				result2(a1, v2)
+	var next *client.Drawable
+	for it := nox_xxx_getSomeSprite_49BD40(); it != nil; it = next {
+		next = nox_xxx_getSprite178_49BD50(it)
+		if fnc1 := it.ClientUpdateFunc.Get(); fnc1 == nil || fnc1(vp, it) != 0 {
+			if fnc2 := it.Field_115.Get(); fnc2 != nil {
+				fnc2(vp, it)
 			}
 		}
-		v2 = v3
 	}
 }
 func nox_xxx_clientAddRayEffect_49C160(a1 int32) *uint32 {
@@ -5346,19 +5335,19 @@ func nox_xxx_clientAddRayEffect_49C160(a1 int32) *uint32 {
 		v3 = v2
 		v4 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer(uintptr(a1 + 5)))))
 		v5 = v4
-		v6 = &func() *nox_drawable {
+		v6 = (*uint32)(func() *nox_drawable {
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 3))))) != 0 {
 				return nox_xxx_netSpriteByCodeStatic_45A720(v3)
 			}
 			return nox_xxx_netSpriteByCodeDynamic_45A6F0(v3)
-		}().Field_0
+		}().C())
 		v7 = v6
-		result = &func() *nox_drawable {
+		result = (*uint32)(func() *nox_drawable {
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 5))))) != 0 {
 				return nox_xxx_netSpriteByCodeStatic_45A720(v5)
 			}
 			return nox_xxx_netSpriteByCodeDynamic_45A6F0(v5)
-		}().Field_0
+		}().C())
 		if v7 != nil && result != nil {
 			v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*3)))
 			v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)))
@@ -5385,7 +5374,7 @@ func nox_xxx_clientAddRayEffect_49C160(a1 int32) *uint32 {
 			default:
 				return result
 			}
-			result = &nox_xxx_spriteLoadAdd_45A360_drawable(v12, v11, v9+v10/2).Field_0
+			result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(v12, v11, v9+v10/2).C())
 			if result == nil {
 				return result
 			}

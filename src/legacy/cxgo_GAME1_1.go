@@ -197,7 +197,7 @@ func nox_xxx_objGetTeamByNetCode_418C80(a1 int32) *uint32 {
 			return (*uint32)(unsafe.Pointer(uintptr(v1 + 48)))
 		}
 	} else {
-		v3 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).Field_0
+		v3 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).C())
 		if v3 != nil {
 			return (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*6))
 		}

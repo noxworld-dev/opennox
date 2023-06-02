@@ -1085,7 +1085,7 @@ func sub_479300(a1 int32, a2 int32, a3 int32, a4 int16, a5 int32) *uint32 {
 	v6 = result
 	if result != nil {
 		if *result == 0 {
-			result = &nox_new_drawable_for_thing(a1).Field_0
+			result = (*uint32)(nox_new_drawable_for_thing(a1).C())
 			*v6 = uint32(uintptr(unsafe.Pointer(result)))
 			if result == nil {
 				return result

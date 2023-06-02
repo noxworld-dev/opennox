@@ -94,7 +94,7 @@ func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
 		v36[5] = 0
 		if dword_5d4594_1313792 != 0 || (func() bool {
 			v13 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Flag"))
-			v11 = &nox_new_drawable_for_thing(v13).Field_0
+			v11 = (*uint32)(nox_new_drawable_for_thing(v13).C())
 			return (func() uint32 {
 				dword_5d4594_1313792 = uint32(uintptr(unsafe.Pointer(v11)))
 				return dword_5d4594_1313792

@@ -4,10 +4,13 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_xxx_updDrawMagicMissile_4CD9E0(a1 int32, a2 *uint32) int32 {
+func nox_xxx_updDrawMagicMissile_4CD9E0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	var (
 		v2  *uint32
 		v3  int32
@@ -64,7 +67,7 @@ func nox_xxx_updDrawMagicMissile_4CD9E0(a1 int32, a2 *uint32) int32 {
 	}
 	v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)))
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-uint32(v11))*(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-uint32(v11))+(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))*(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109))) > 200 {
-		v12 = &nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522992), v11, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))).Field_0
+		v12 = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522992), v11, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))).C())
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v12)))

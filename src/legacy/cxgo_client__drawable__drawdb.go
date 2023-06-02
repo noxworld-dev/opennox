@@ -4,13 +4,41 @@ import (
 	"math"
 	"unsafe"
 
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
+
+func init() {
+	client.RegisterObjectUpdate("ColorLightUpdateDraw", nox_xxx_updDrawColorlight_4CE390)
+	client.RegisterObjectUpdate("CloudUpdateDraw", nox_xxx_updDrawCloud_4CE1D0)
+	client.RegisterObjectUpdate("SmallCloudUpdateDraw", sub_4CE360)
+	client.RegisterObjectUpdate("DeathBallUpdateDraw", nox_xxx_updDrawDBall_4CDF80)
+	client.RegisterObjectUpdate("DeathBallFragmentUpdateDraw", sub_4CE0A0)
+	client.RegisterObjectUpdate("DeathBallChargeUpdateDraw", nox_xxx_updDrawDBallCharge_4CE0C0)
+	client.RegisterObjectUpdate("MagicUpdateDraw", nox_xxx_updDrawMagic_4CDD80)
+	client.RegisterObjectUpdate("SparkleTrailUpdateDraw", nox_xxx_updDrawSparkleTrail_4CDBF0)
+	client.RegisterObjectUpdate("MagicMissileUpdateDraw", nox_xxx_updDrawMagicMissile_4CD9E0)
+	client.RegisterObjectUpdate("TeleportWakeUpdateDraw", nox_xxx_updDrawTeleportWake_4CD8D0)
+	client.RegisterObjectUpdate("DrainManaUpdateDraw", sub_4CD690)
+	client.RegisterObjectUpdate("HealUpdateDraw", sub_4CD450)
+	client.RegisterObjectUpdate("CharmUpdateDraw", sub_4CD400)
+	client.RegisterObjectUpdate("TitanFireballUpdateDraw", sub_4CCE70)
+	client.RegisterObjectUpdate("StrongFireballUpdateDraw", sub_4CD090)
+	client.RegisterObjectUpdate("FireballUpdateDraw", sub_4CD0C0)
+	client.RegisterObjectUpdate("WeakFireballUpdateDraw", sub_4CD0F0)
+	client.RegisterObjectUpdate("PitifulFireballUpdateDraw", sub_4CD120)
+	client.RegisterObjectUpdate("FistUpdateDraw", nox_xxx_updDrawFist_4CCDB0)
+	client.RegisterObjectUpdate("MeteorUpdateDraw", sub_4CCD00)
+	client.RegisterObjectUpdate("UndeadKillerClientUpdate", nox_xxx_updDrawUndeadKiller_4CCCF0)
+	client.RegisterObjectUpdate("ManaBombChargeClientUpdate", nox_xxx_updDrawManabombCharge_4CCAC0)
+	client.RegisterObjectUpdate("VortexSourceClientUpdate", nox_xxx_updDrawVortexSource_4CC950)
+	client.RegisterObjectUpdate("LinearOrbUpdateDraw", sub_4CA650)
+	client.RegisterObjectUpdate("MonsterGeneratorUpdateDraw", nox_xxx_updDrawMonsterGen_4BC920)
+}
 
 func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
 	var (
@@ -67,37 +95,7 @@ func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, data unsafe.
 	obj.LightPenumbra = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
 	return true
 }
-func nox_parse_thing_client_update(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
-	var (
-		attr_value = (*byte)(data)
-		v3         *byte
-		v4         *byte
-		v5         int32
-		v6         *uint8
-	)
-	v3 = libc.StrTok(attr_value, internCStr(" \t\n\r"))
-	v4 = *(**byte)(memmap.PtrOff(0x587000, 175072))
-	v5 = 0
-	if *memmap.PtrUint32(0x587000, 175072) != 0 {
-		v6 = (*uint8)(memmap.PtrOff(0x587000, 175072))
-		for {
-			if libc.StrCmp(v4, v3) == 0 {
-				break
-			}
-			v4 = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*2))))))
-			v6 = (*uint8)(unsafe.Add(unsafe.Pointer(v6), 8))
-			v5++
-			if v4 == nil {
-				break
-			}
-		}
-	}
-	if *memmap.PtrUint32(0x587000, uintptr(v5*8)+175072) == 0 {
-		return false
-	}
-	obj.ClientUpdate = *memmap.PtrUint32(0x587000, uintptr(v5*8)+175076)
-	return true
-}
+
 func nox_parse_thing_pretty_image(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
 	var (
 		v10       [128]byte

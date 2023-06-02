@@ -7,7 +7,9 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/noxworld-dev/opennox-lib/object"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -17,15 +19,19 @@ import (
 
 var nox_common_maplist nox_list_item_t = nox_list_item_t{}
 
-func nox_xxx_updDrawDBall_4CDF80(a1 int32, a2 int32) int32 {
+func nox_xxx_updDrawDBall_4CDF80(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := int32(uintptr(dr.C()))
 	nox_xxx_updDrawAddRndSpark_4CDFA0(a2, (*uint32)(unsafe.Pointer(uintptr(3))))
 	return 1
 }
-func sub_4CE0A0(a1 int32, a2 int32) int32 {
+func sub_4CE0A0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := int32(uintptr(dr.C()))
 	nox_xxx_updDrawAddRndSpark_4CDFA0(a2, (*uint32)(unsafe.Pointer(uintptr(1))))
 	return 1
 }
-func nox_xxx_updDrawCloud_4CE1D0(a1 int32, a2 int32) int32 {
+func nox_xxx_updDrawCloud_4CE1D0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a1 := int32(uintptr(vp.C()))
+	a2 := int32(uintptr(dr.C()))
 	if int32(uint8(gameFrame()))&1 != 0 {
 		sub_4CE200(a1, a2, 1, 75)
 	}
@@ -35,19 +41,22 @@ func sub_4CE340(a1 int32, a2 int32) int32 {
 	*(*uint16)(unsafe.Pointer(uintptr(a2 + 104))) += uint16(*(*uint8)(unsafe.Pointer(uintptr(a2 + 432))))
 	return 1
 }
-func sub_4CE360(a1 int32, a2 int32) int32 {
+func sub_4CE360(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a1 := int32(uintptr(vp.C()))
+	a2 := int32(uintptr(dr.C()))
 	if int32(uint8(gameFrame()))&1 != 0 {
 		sub_4CE200(a1, a2, 1, 35)
 	}
 	return 1
 }
-func nox_xxx_updDrawColorlight_4CE390(a1 *uint32, a2 int32) int32 {
+func nox_xxx_updDrawColorlight_4CE390(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a1 := (*uint32)(vp.C())
+	a2 := int32(uintptr(dr.C()))
 	var (
-		result int32
-		v3     int32
-		v4     int32
-		v5     int32
-		v6     int32
+		v3 int32
+		v4 int32
+		v5 int32
+		v6 int32
 	)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 432)))) != 0 || int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 433)))) != 0 || int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 434)))) != 0 {
 		v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12))))
@@ -63,12 +72,10 @@ func nox_xxx_updDrawColorlight_4CE390(a1 *uint32, a2 int32) int32 {
 				sub_4CE8C0(a2)
 			}
 		}
-		result = 1
 	} else {
 		sub_49BCD0((*nox_drawable)(unsafe.Pointer(uintptr(a2))))
-		result = 1
 	}
-	return result
+	return 1
 }
 func nox_xxx_colorLightAlterB0ArrayColor_4CE440(a1 int32) {
 	var (
@@ -234,7 +241,7 @@ func sub_4CE8C0(a1 int32) {
 		v4 int32
 	)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 176))))&0x40 != 0 {
-		v1 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 264))))).Field_0
+		v1 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 264))))).C())
 		if v1 != nil {
 			v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4)) - *(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
 			v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) - *(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))

@@ -82,7 +82,7 @@ func sub_459DD0(dr *nox_drawable, a2 uint8) {
 
 // nox_xxx_spriteToList_49BC80_drawable
 func nox_xxx_spriteToList_49BC80_drawable(dr *nox_drawable) {
-	GetClient().Cli().Objs.List5Add(asDrawable(dr))
+	GetClient().Cli().Objs.ClientUpdateAdd(asDrawable(dr))
 }
 
 // nox_xxx_spriteDelete_45A4B0
@@ -142,7 +142,7 @@ func nox_xxx_sprite_49BA10(dr *nox_drawable) {
 
 // sub_49BCD0
 func sub_49BCD0(dr *nox_drawable) {
-	GetClient().Cli().Objs.List5Delete(asDrawable(dr))
+	GetClient().Cli().Objs.ClientUpdateDelete(asDrawable(dr))
 }
 
 // nox_xxx_spriteDeleteAll_45A5E0

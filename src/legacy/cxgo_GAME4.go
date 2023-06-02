@@ -706,7 +706,7 @@ func nox_xxx_XFerObelisk_4F6F60(a1p *server.Object, data unsafe.Pointer) int {
 				nullsub_35(uint32(uintptr(unsafe.Pointer(v1))), *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v7))), 4*0)))
 			}
 			if noxflags.HasGame(2048) {
-				v5 = &nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*10))).Field_0
+				v5 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*10))).C())
 				if v5 != nil {
 					v6 = int32(uintptr(unsafe.Pointer(nox_xxx_cliFirstMinimapObj_459EB0())))
 					if v6 != 0 {
@@ -3112,7 +3112,7 @@ func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 				return 0
 			}
 		}
-	} else if (*(*uint32)(unsafe.Add(unsafe.Pointer(&nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).Field_0), 4*28)) & 4) == 0 {
+	} else if (*(*uint32)(unsafe.Add(unsafe.Pointer(nox_xxx_netSpriteByCodeDynamic_45A6F0(a1)), 4*28)) & 4) == 0 {
 		switch a2 {
 		case 0:
 			return 193

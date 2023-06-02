@@ -112,7 +112,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 			}
 		}
 	} else {
-		v14 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(a4).Field_0
+		v14 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(a4).C())
 		if v14 != nil && *(*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*28))&4 != 0 {
 			v15 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a4)))
 			if v15 != nil {

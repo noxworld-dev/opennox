@@ -4,10 +4,13 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_xxx_updDrawManabombCharge_4CCAC0(a1 int32, a2 *uint32) int32 {
+func nox_xxx_updDrawManabombCharge_4CCAC0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	var rad int32 = int32(nox_xxx_gamedataGetFloat_419D40(internCStr("ManaBombOutRadius")))
 	if dword_5d4594_1522956 == 0 {
 		dword_5d4594_1522956 = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ManaBombOrb")))

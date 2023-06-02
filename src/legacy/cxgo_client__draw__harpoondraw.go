@@ -47,15 +47,15 @@ func nox_thing_harpoon_rope_draw(a1 *int32, dr *nox_drawable) int32 {
 		return 1
 	}
 	if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437)))) != 0 {
-		v9 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
+		v9 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).C())
 	} else {
-		v9 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
+		v9 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).C())
 	}
 	v10 = v9
 	if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441)))) != 0 {
-		v11 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
+		v11 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).C())
 	} else {
-		v11 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
+		v11 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).C())
 	}
 	if v10 != nil && v11 != nil {
 		v12 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))

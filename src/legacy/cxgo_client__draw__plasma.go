@@ -252,18 +252,18 @@ func nox_thing_plasma_draw(a1 *int32, dr *nox_drawable) int32 {
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 432)))) != 0 {
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437)))) != 0 {
 			v12 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))))
-			v13 = &nox_xxx_netSpriteByCodeStatic_45A720(v12).Field_0
+			v13 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v12).C())
 		} else {
 			v14 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))))
-			v13 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v14).Field_0
+			v13 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v14).C())
 		}
 		v15 = v13
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441)))) != 0 {
 			v16 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))))
-			v17 = &nox_xxx_netSpriteByCodeStatic_45A720(v16).Field_0
+			v17 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v16).C())
 		} else {
 			v18 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))))
-			v17 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v18).Field_0
+			v17 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v18).C())
 		}
 		v19 = v17
 		if v15 != nil && v17 != nil {

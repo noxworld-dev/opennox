@@ -5829,10 +5829,10 @@ func nox_xxx_netHandleSummonPacket_4B7C40(a1 int16, a2 *uint16, a3 uint16, a4 ui
 	v10 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*1)))
 	v9 = int32(*a2)
 	v5 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SummonEffect"))
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(v5, v9, v10).Field_0
+	result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(v5, v9, v10).C())
 	v7 = result
 	if result != nil {
-		result = &nox_new_drawable_for_thing(int32(a3)).Field_0
+		result = (*uint32)(nox_new_drawable_for_thing(int32(a3)).C())
 		v8 = result
 		if result != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*3)) = uint32(*a2)
@@ -5919,10 +5919,10 @@ func nox_xxx_fxShield_4B8090(a1 uint32, a2 int32) *uint32 {
 	}
 	if nox_xxx_netTestHighBit_578B70(a1) != 0 {
 		v3 = nox_xxx_netClearHighBit_578B30(int16(uint16(a1)))
-		result = &nox_xxx_netSpriteByCodeStatic_45A720(v3).Field_0
+		result = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v3).C())
 	} else {
 		v5 = nox_xxx_netClearHighBit_578B30(int16(uint16(a1)))
-		result = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v5).Field_0
+		result = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v5).C())
 	}
 	v6 = result
 	if result != nil {
@@ -5934,7 +5934,7 @@ func nox_xxx_fxShield_4B8090(a1 uint32, a2 int32) *uint32 {
 		nox_xxx_forEachSprite_49AB00(&v7, ccall.FuncAddr(nox_xxx_spriteScanForShield_4B81E0), int32(uintptr(unsafe.Pointer(&a1))))
 		result = *(**uint32)(unsafe.Pointer(&dword_5d4594_1313788))
 		if dword_5d4594_1313788 != 1 {
-			result = &nox_xxx_spriteLoadAdd_45A360_drawable(int32(*memmap.PtrUint32(0x5D4594, uintptr(v2*4)+1313748)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*3))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))+3)).Field_0
+			result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(int32(*memmap.PtrUint32(0x5D4594, uintptr(v2*4)+1313748)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*3))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))+3)).C())
 			if result != nil {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*108)) = a1
 			}

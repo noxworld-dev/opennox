@@ -7,7 +7,9 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -370,7 +372,7 @@ func sub_4BC720(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 432))) = uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(result + 27)))) * (int32(*(*uint8)(unsafe.Pointer(uintptr(result + 32)))) + 1))
 	return result
 }
-func nox_xxx_updDrawMonsterGen_4BC920() int32 {
+func nox_xxx_updDrawMonsterGen_4BC920(vp *noxrender.Viewport, dr *client.Drawable) int {
 	return 1
 }
 func sub_4BD280(a1 int32, a2 int32) *uint32 {
@@ -2634,7 +2636,7 @@ func nox_xxx_tradeClientAddItem_4C1790(a1 int32) *byte {
 LABEL_12:
 	if v3 != nil {
 		if *(*uint32)(unsafe.Pointer(v3)) == 0 {
-			v4 = &nox_new_drawable_for_thing(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 3))))).Field_0
+			v4 = (*uint32)(nox_new_drawable_for_thing(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 3))))).C())
 			*(*uint32)(unsafe.Pointer(v3)) = uint32(uintptr(unsafe.Pointer(v4)))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*28))&0x13001000 != 0 {
 				v5 = int32(-11 - a1)
@@ -2991,7 +2993,7 @@ func nox_xxx_guiDrawSummonBox_4C1FE0(win *gui.Window, draw *gui.WindowData) int 
 		v14 = (*int32)(unsafe.Pointer(sub_4C2D60()))
 		if v14 != nil {
 			for {
-				v15 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(*v14).Field_0
+				v15 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(*v14).C())
 				if v15 != nil {
 					if v14 == (*int32)(unsafe.Pointer(uintptr(v13))) || v10 != 0 {
 						*(*uint32)(unsafe.Add(unsafe.Pointer(v15), 4*30)) |= 0x40000000
@@ -3512,7 +3514,7 @@ func nox_xxx_cliSummonOnDieOrBanish_4C3140(a1 int32, a2 unsafe.Pointer) {
 	if result == *(**int32)(unsafe.Pointer(&dword_5d4594_1321204)) {
 		nox_xxx_guiHideSummonWindow_4C2470()
 	}
-	v4 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).Field_0
+	v4 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).C())
 	if v4 != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*30)) &= 0xBFFFFFFF
 	}
@@ -4381,24 +4383,24 @@ func nox_xxx_sprite_4CA540(a1 *uint32, a2 int32) int32 {
 	nox_xxx_spriteDeleteStatic_45A4E0_drawable((*nox_drawable)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))
 	return 0
 }
-func sub_4CA650(a1 int32, a2 int32) int32 {
+func sub_4CA650(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := int32(uintptr(dr.C()))
 	var (
-		v2     int32
-		v3     int32
-		v4     int32
-		v5     int32
-		v6     int32
-		v7     int32
-		v8     int32
-		v9     int32
-		v10    int32
-		v11    int32
-		v12    uint16
-		v13    int32
-		v14    int32
-		result int32
-		v16    int32
-		v17    int32
+		v2  int32
+		v3  int32
+		v4  int32
+		v5  int32
+		v6  int32
+		v7  int32
+		v8  int32
+		v9  int32
+		v10 int32
+		v11 int32
+		v12 uint16
+		v13 int32
+		v14 int32
+		v16 int32
+		v17 int32
 	)
 	v2 = a2
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16))))
@@ -4418,12 +4420,11 @@ func sub_4CA650(a1 int32, a2 int32) int32 {
 	v14 = v11 + v4*v17/v7
 	if v7 <= 10 || v13*(v16-int32(v12))+(v11-int32(*(*uint16)(unsafe.Pointer(uintptr(v2 + 434)))))*(v14-int32(*(*uint16)(unsafe.Pointer(uintptr(v2 + 434))))) < 0 {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v2))))
-		result = 0
+		return 0
 	} else {
 		nox_xxx_updateSpritePosition_49AA90((*nox_drawable)(unsafe.Pointer(uintptr(v2))), v16, v14)
-		result = 1
+		return 1
 	}
-	return result
 }
 func sub_4CA720(a1 int32, a2 int32) int32 {
 	var (
@@ -5128,10 +5129,11 @@ func sub_4CC3C0(a1 uint32) int32 {
 	dword_5d4594_1522632 = 0
 	return 1
 }
-func nox_xxx_updDrawUndeadKiller_4CCCF0() int32 {
+func nox_xxx_updDrawUndeadKiller_4CCCF0(vp *noxrender.Viewport, dr *client.Drawable) int {
 	return 1
 }
-func sub_4CCD00(a1 int32, a2 int32) int32 {
+func sub_4CCD00(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := int32(uintptr(dr.C()))
 	var i uint32
 	for i = *(*uint32)(unsafe.Pointer(uintptr(a2 + 432))); i < gameFrame(); i++ {
 		if float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 436)))) > 0.0 {
@@ -5148,7 +5150,8 @@ func sub_4CCD00(a1 int32, a2 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(a2 + 432))) = gameFrame()
 	return 1
 }
-func nox_xxx_updDrawFist_4CCDB0(a1 int32, a2 int32) int32 {
+func nox_xxx_updDrawFist_4CCDB0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := int32(uintptr(dr.C()))
 	var (
 		i  uint32
 		v3 float64
@@ -5176,37 +5179,44 @@ func nox_xxx_updDrawFist_4CCDB0(a1 int32, a2 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(a2 + 432))) = gameFrame()
 	return 1
 }
-func sub_4CCE70(a1 int32, a2 *uint32) int32 {
+func sub_4CCE70(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*120)) == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
 		sub_4CCEA0(a2, 5)
 	}
 	return 1
 }
-func sub_4CD090(a1 int32, a2 *uint32) int32 {
+func sub_4CD090(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*120)) == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
 		sub_4CCEA0(a2, 4)
 	}
 	return 1
 }
-func sub_4CD0C0(a1 int32, a2 *uint32) int32 {
+func sub_4CD0C0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*120)) == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
 		sub_4CCEA0(a2, 3)
 	}
 	return 1
 }
-func sub_4CD0F0(a1 int32, a2 *uint32) int32 {
+func sub_4CD0F0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*120)) == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
 		sub_4CCEA0(a2, 2)
 	}
 	return 1
 }
-func sub_4CD120(a1 int32, a2 *uint32) int32 {
+func sub_4CD120(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := (*uint32)(dr.C())
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*120)) == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
 		sub_4CCEA0(a2, 1)
 	}
 	return 1
 }
-func sub_4CD400(a1 *uint32, a2 int32) int32 {
+func sub_4CD400(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a1 := (*uint32)(vp.C())
+	a2 := int32(uintptr(dr.C()))
 	var v2 int32
 	v2 = int32(dword_5d4594_1522968)
 	if dword_5d4594_1522968 == 0 {

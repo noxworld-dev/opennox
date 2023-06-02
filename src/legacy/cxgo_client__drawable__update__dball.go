@@ -4,6 +4,8 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -20,7 +22,7 @@ func nox_xxx_updDrawAddRndSpark_4CDFA0(a1 int32, a2 *uint32) *uint32 {
 	if int32(uintptr(unsafe.Pointer(a2))) > 0 {
 		v3 = a2
 		for {
-			result = &nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1523008), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))).Field_0
+			result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1523008), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))).C())
 			v4 = result
 			if result != nil {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*108)) = *(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) << 12
@@ -41,7 +43,8 @@ func nox_xxx_updDrawAddRndSpark_4CDFA0(a1 int32, a2 *uint32) *uint32 {
 	}
 	return result
 }
-func nox_xxx_updDrawDBallCharge_4CE0C0(a1 int32, a2 int32) int32 {
+func nox_xxx_updDrawDBallCharge_4CE0C0(vp *noxrender.Viewport, dr *client.Drawable) int {
+	a2 := int32(uintptr(dr.C()))
 	var (
 		v2  int32
 		v3  int16

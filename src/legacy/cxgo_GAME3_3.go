@@ -12264,20 +12264,20 @@ func Nox_xxx_XFerInvLight_4F5AA0(a1p *server.Object, data unsafe.Pointer) int {
 		goto LABEL_14
 	}
 	if noxflags.HasGame(6291456) {
-		v2 = &sub_45A060().Field_0
+		v2 = (*uint32)(sub_45A060().C())
 		if v2 == nil {
 			goto LABEL_14
 		}
 		for *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*32)) != uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*10))) {
-			v2 = &nox_drawable_next_45A070((*nox_drawable)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2))))))).Field_0
+			v2 = (*uint32)(nox_drawable_next_45A070((*nox_drawable)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2))))))).C())
 			if v2 == nil {
 				goto LABEL_14
 			}
 		}
 	} else if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))&0x20400000 != 0 {
-		v2 = &nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*10))).Field_0
+		v2 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*10))).C())
 	} else {
-		v2 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))).Field_0
+		v2 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))).C())
 	}
 	if v2 == nil {
 		panic("abort")

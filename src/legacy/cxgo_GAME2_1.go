@@ -2905,7 +2905,7 @@ func nox_xxx_cmdSayDo_46A4B0(a1 *wchar2_t, a2 int32) uint32 {
 		v7     int32
 		v8     [520]byte
 	)
-	v2 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(nox_player_netCode_85319C)).Field_0
+	v2 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(nox_player_netCode_85319C)).C())
 	v3 = nox_wcsspn(a1, (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
 	result = nox_wcslen(a1)
 	if v3 != result {
@@ -3457,7 +3457,7 @@ func sub_46E080(a1 int32) int32 {
 			return 4
 		}
 	} else if noxflags.HasGame(16) {
-		v3 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2060))))).Field_0
+		v3 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2060))))).C())
 		if v3 != nil {
 			if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), 30) {
 				return 1
@@ -5274,7 +5274,7 @@ func nox_xxx_drawMinimapAndLines_4738E0() int32 {
 	result = 1
 	if nox_client_gui_flag_1556112 != 1 {
 		if int32(*memmap.PtrUint8(0x5D4594, 1096424))&1 != 0 {
-			v1 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(nox_player_netCode_85319C)).Field_0
+			v1 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(nox_player_netCode_85319C)).C())
 			nox_xxx_drawMinimap4Sprite_4725C0(int32(uintptr(unsafe.Pointer(v1))))
 		}
 		result = nox_xxx_drawMessageLines_445530()
@@ -5776,7 +5776,7 @@ LABEL_9:
 }
 func nox_xxx_sprite_4756E0_drawable(dr *nox_drawable) int32 {
 	var (
-		a1     *uint32 = &dr.Field_0
+		a1     *uint32 = (*uint32)(dr.C())
 		result int32
 		v2     func(*int32, int32) int32
 		v3     int32
@@ -5795,7 +5795,7 @@ func nox_xxx_sprite_4756E0_drawable(dr *nox_drawable) int32 {
 }
 func nox_xxx_sprite_475740_drawable(dr *nox_drawable) int32 {
 	var (
-		a1     *uint32 = &dr.Field_0
+		a1     *uint32 = (*uint32)(dr.C())
 		result int32
 		v2     func(*int32, int32) int32
 		v3     int32
@@ -5838,7 +5838,7 @@ func nox_xxx_sprite_4757A0_drawable(dr *nox_drawable) int32 {
 }
 func sub_4757D0_drawable(dr *nox_drawable) int32 {
 	var (
-		a1     *uint32 = &dr.Field_0
+		a1     *uint32 = (*uint32)(dr.C())
 		result int32
 		v2     int32
 	)
