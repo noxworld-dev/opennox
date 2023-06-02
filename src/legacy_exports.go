@@ -164,11 +164,9 @@ func init() {
 	legacy.Nox_xxx_updateSprings_5113A0 = nox_xxx_updateSprings_5113A0
 	legacy.Nox_xxx_unitIsUnitTT_4E7C80 = nox_xxx_unitIsUnitTT_4E7C80
 	legacy.Nox_xxx_updatePlayer_4F8100 = nox_xxx_updatePlayer_4F8100
-	legacy.Nox_xxx_updatePixie_53CD20 = nox_xxx_updatePixie_53CD20
 	legacy.Nox_xxx_teleportAllPixies_4FD090 = nox_xxx_teleportAllPixies_4FD090
 	legacy.Nox_xxx_enemyAggro_5335D0 = nox_xxx_enemyAggro_5335D0
 	legacy.Sub_5336D0 = sub_5336D0
-	legacy.Nox_xxx_updateProjectile_53AC10 = nox_xxx_updateProjectile_53AC10
 	legacy.Nox_xxx_lightningSpellDuration_52FFD0 = nox_xxx_lightningSpellDuration_52FFD0
 	legacy.Sub_44A4A0 = sub_44A4A0
 	legacy.Nox_script_shouldReadMoreXxx = nox_script_shouldReadMoreXxx
@@ -269,7 +267,6 @@ func init() {
 	legacy.Nox_xxx_drawList1096512_Append_4754C0 = nox_xxx_drawList1096512_Append_4754C0
 	legacy.Sub_473970 = sub_473970
 	legacy.Nox_client_isConnected = nox_client_isConnected
-	legacy.Nox_objectPickupAudEvent_4F3D50 = nox_objectPickupAudEvent_4F3D50
 	legacy.Sub_4A1BE0 = sub_4A1BE0
 	legacy.Sub_41E300 = sub_41E300
 	legacy.Nox_client_resetScreenParticles_431510 = nox_client_resetScreenParticles_431510
@@ -295,7 +292,6 @@ func init() {
 	legacy.Sub_43C6E0 = sub_43C6E0
 	legacy.Sub_43CF40 = sub_43CF40
 	legacy.Sub_43CF70 = sub_43CF70
-	legacy.Nox_objectDropAudEvent_4EE2F0 = nox_objectDropAudEvent_4EE2F0
 	legacy.Sub_47A1F0 = guiCloseNPCDialog
 	legacy.Nox_xxx_unitMonsterInit_4F0040 = objectMonsterInit
 	legacy.Nox_xxx_setNPCColor_4E4A90 = nox_xxx_setNPCColor_4E4A90

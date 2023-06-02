@@ -12,11 +12,9 @@ import (
 
 var (
 	Nox_xxx_updatePlayer_4F8100      func(up *server.Object)
-	Nox_xxx_updatePixie_53CD20       func(cobj *server.Object)
 	Nox_xxx_teleportAllPixies_4FD090 func(cobj *server.Object)
 	Nox_xxx_enemyAggro_5335D0        func(cobj *server.Object, r float32) *server.Object
 	Sub_5336D0                       func(cobj *server.Object) float64
-	Nox_xxx_updateProjectile_53AC10  func(a1 *server.Object)
 )
 
 var _ = [1]struct{}{}[2200-unsafe.Sizeof(server.MonsterUpdateData{})]
@@ -24,7 +22,6 @@ var _ = [1]struct{}{}[556-unsafe.Sizeof(server.PlayerUpdateData{})]
 
 func init() {
 	server.RegisterObjectUpdate("PlayerUpdate", nox_xxx_updatePlayer_4F8100, unsafe.Sizeof(server.PlayerUpdateData{}))
-	server.RegisterObjectUpdate("ProjectileUpdate", nox_xxx_updateProjectile_53AC10, 0)
 	server.RegisterObjectUpdate("SpellProjectileUpdate", nox_xxx_spellFlyUpdate_53B940, unsafe.Sizeof(server.SpellProjectileUpdateData{}))
 	server.RegisterObjectUpdate("AntiSpellProjectileUpdate", nox_xxx_updateAntiSpellProj_53BB00, 28)
 	server.RegisterObjectUpdate("DoorUpdate", nox_xxx_updateDoor_53AC50, 52)
@@ -41,7 +38,6 @@ func init() {
 	server.RegisterObjectUpdate("ObeliskUpdate", nox_xxx_updateObelisk_53C580, 4)
 	server.RegisterObjectUpdate("LifetimeUpdate", nox_xxx_updateLifetime_53B8F0, 4)
 	server.RegisterObjectUpdate("MagicMissileUpdate", nox_xxx_updateMagicMissile_53BDA0, 28)
-	server.RegisterObjectUpdate("PixieUpdate", nox_xxx_updatePixie_53CD20, 28)
 	server.RegisterObjectUpdate("SkullUpdate", nox_xxx_updateShootingTrap_54F9A0, 52)
 	server.RegisterObjectUpdate("PentagramUpdate", nox_xxx_updateTeleportPentagram_53BEF0, 24)
 	server.RegisterObjectUpdate("InvisiblePentagramUpdate", nox_xxx_updateInvisiblePentagram_53C0C0, 24)
@@ -93,9 +89,6 @@ func nox_xxx_objectApplyForce_52DF80(vec *float32, obj *server.Object, force flo
 	GetServer().ApplyForce(asObjectS(obj), AsPointf(unsafe.Pointer(vec)), float64(force))
 }
 
-// nox_xxx_updatePixie_53CD20
-func nox_xxx_updatePixie_53CD20(cobj *server.Object) { Nox_xxx_updatePixie_53CD20(asObjectS(cobj)) }
-
 // nox_xxx_teleportAllPixies_4FD090
 func nox_xxx_teleportAllPixies_4FD090(cobj *server.Object) {
 	Nox_xxx_teleportAllPixies_4FD090(asObjectS(cobj))
@@ -108,11 +101,6 @@ func nox_xxx_enemyAggro_5335D0(cobj *server.Object, r float32) *server.Object {
 
 // sub_5336D0
 func sub_5336D0(cobj *server.Object) float64 { return float64(Sub_5336D0(asObjectS(cobj))) }
-
-// nox_xxx_updateProjectile_53AC10
-func nox_xxx_updateProjectile_53AC10(a1 *server.Object) {
-	Nox_xxx_updateProjectile_53AC10(asObjectS(a1))
-}
 
 func wrapObjectUpdateParseC(fnc ObjectParseFunc) server.ObjectParseFunc {
 	return func(objt *server.ObjectType, args []string) error {

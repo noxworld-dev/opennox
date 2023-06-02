@@ -4,10 +4,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var (
-	Nox_objectPickupAudEvent_4F3D50 func(cobj1 *server.Object, cobj2 *server.Object, a3 int, a4 int) int
-)
-
 func init() {
 	server.RegisterObjectPickup("DefaultPickup", Nox_xxx_pickupDefault_4F31E0)
 	server.RegisterObjectPickup("FoodPickup", nox_xxx_pickupFood_4F3350)
@@ -23,11 +19,5 @@ func init() {
 	server.RegisterObjectPickup("SpellBookPickup", nox_xxx_pickupSpellbook_4F3C60)
 	server.RegisterObjectPickup("AbilityBookPickup", nox_xxx_pickupAbilitybook_4F3CE0)
 	server.RegisterObjectPickup("CrownPickup", sub_4F3400)
-	server.RegisterObjectPickup("AudEventPickup", nox_objectPickupAudEvent_4F3D50)
 	server.RegisterObjectPickup("AnkhTradablePickup", sub_4F3DD0)
-}
-
-// nox_objectPickupAudEvent_4F3D50
-func nox_objectPickupAudEvent_4F3D50(cobj1 *server.Object, cobj2 *server.Object, a3 int, a4 int) int {
-	return Nox_objectPickupAudEvent_4F3D50(asObjectS(cobj1), asObjectS(cobj2), a3, a4)
 }

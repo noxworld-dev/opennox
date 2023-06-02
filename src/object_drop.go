@@ -7,6 +7,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func init() {
+	server.RegisterObjectDrop("AudEventDrop", nox_objectDropAudEvent_4EE2F0)
+}
+
 func nox_objectDropAudEvent_4EE2F0(obj1 *server.Object, obj2 *server.Object, a3 *types.Pointf) int {
 	s := noxServer
 	if obj1 == nil || obj2 == nil || a3 == nil {

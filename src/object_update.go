@@ -26,6 +26,9 @@ var (
 
 func init() {
 	configBoolPtr("game.extensions.reset_countdown_per_phoneme", "", false, &resetCountdownPerPhoneme)
+
+	server.RegisterObjectUpdate("PixieUpdate", nox_xxx_updatePixie_53CD20, 28)
+	server.RegisterObjectUpdate("ProjectileUpdate", nox_xxx_updateProjectile_53AC10, 0)
 }
 
 func nox_xxx_updatePlayer_4F8100(up *server.Object) {
