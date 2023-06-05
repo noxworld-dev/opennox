@@ -317,7 +317,7 @@ func sub_44C7B0(a1 int32) unsafe.Pointer {
 		v6     int32
 		result unsafe.Pointer
 	)
-	v1 = (*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 52)))
+	v1 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 52))
 	v2 = 55
 	for {
 		if *v1 != nil {

@@ -30,21 +30,21 @@ func nox_xxx_updDrawVortexSource_4CC950(vp *noxrender.Viewport, dr *client.Drawa
 	v9 = int32(*memmap.PtrUint32(0x5D4594, 1522948))
 	v4 = nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c"), 54)
 	v5 = int8(v4)
-	v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(v3, int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))+uint32(*memmap.PtrInt32(0x587000, uintptr(v4*8)+192088)*50/16)), int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16)))+uint32(*memmap.PtrInt32(0x587000, uintptr(v4*8)+192092)*50/16))))))
+	v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(v3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12))+uint32(*memmap.PtrInt32(0x587000, uintptr(v4*8)+192088)*50/16)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16))+uint32(*memmap.PtrInt32(0x587000, uintptr(v4*8)+192092)*50/16))))))
 	v7 = v6
 	if v6 != 0 {
-		*(*uint8)(unsafe.Pointer(uintptr(v6 + 448))) = uint8(v5)
-		*(*uint16)(unsafe.Pointer(uintptr(a2 + 104))) = 0
-		*(*uint8)(unsafe.Pointer(uintptr(v6 + 449))) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 3, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c"), 74)))
+		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 448)) = uint8(v5)
+		*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104)) = 0
+		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 449)) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 3, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c"), 74)))
 		if nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c"), 75) > 50 {
-			*(*uint8)(unsafe.Pointer(uintptr(v7 + 449))) = -*(*uint8)(unsafe.Pointer(uintptr(v7 + 449)))
+			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 449)) = -*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 449))
 		}
-		*(*uint8)(unsafe.Pointer(uintptr(v7 + 451))) = 1
-		*(*uint8)(unsafe.Pointer(uintptr(v7 + 450))) = 50
-		*(*uint32)(unsafe.Pointer(uintptr(v7 + 440))) = *(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))
-		*(*uint32)(unsafe.Pointer(uintptr(v7 + 444))) = *(*uint32)(unsafe.Pointer(uintptr(a2 + 16)))
-		*(*uint32)(unsafe.Pointer(uintptr(v7 + 432))) = uint32(v2)
-		*(*uint32)(unsafe.Pointer(uintptr(v7 + 436))) = uint32(v9)
+		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 451)) = 1
+		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 450)) = 50
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 440)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 444)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 432)) = uint32(v2)
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 436)) = uint32(v9)
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v7))))
 		nox_xxx_spriteToSightDestroyList_49BAB0_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v7))))
 	}

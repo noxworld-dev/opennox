@@ -159,11 +159,11 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	dword_5d4594_1090044 = uint32(439 - v0)
 	dword_5d4594_1090048 = nox_window_new(nil, 1560, 0, int(v0)+40, 1, 1, nil)
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090048)))), sub_46F060, sub_46F080, nil)
-	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 56))) = 0x80000000
-	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 64))) = 0x80000000
-	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 72))) = 0x80000000
-	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 80))) = 0x80000000
-	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 88))) = 0x80000000
+	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 56)) = 0x80000000
+	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 64)) = 0x80000000
+	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 72)) = 0x80000000
+	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 80)) = 0x80000000
+	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 88)) = 0x80000000
 	*(*[332]byte)(unsafe.Pointer(&v49[0])) = [332]byte{}
 	nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v49[72])), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1090136)))
 	*(*uint32)(unsafe.Pointer(&v49[68])) = *memmap.PtrUint32(0x85B3FC, 940)
@@ -308,12 +308,12 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 		v6 = int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*27))))
 	}
 	v34 = v6
-	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-		if *(*uint32)(unsafe.Pointer(uintptr(a2 + 20))) != 0x80000000 {
-			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))))
+	if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))) >= 0 {
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 20)) != 0x80000000 {
+			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12))))
 		}
 	} else {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 24)))))), xLeft, yTop)
+		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 24))))), xLeft, yTop)
 	}
 	if dword_587000_145664 != 0 || gameFrame() > (*memmap.PtrUint32(0x5D4594, 1090124)+gameFPS()) {
 		set_dword_5d4594_3799468(1)
@@ -329,7 +329,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			v35 = v2
 		}
 		if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
-			v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 3680))))
+			v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))
 			if (v8&1) == 0 || v8&0x20 != 0 {
 				v33 = 1
 			}
@@ -373,7 +373,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			sub_46DC30(*memmap.PtrInt32(0x5D4594, 1090092), v13, (*wchar2_t)(memmap.PtrOff(0x587000, 146612)))
 			v9 = int32(dword_5d4594_1090120)
 		}
-		v36 = int32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1090060) + 32))) + 46))))
+		v36 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1090060))), 32)))), 46)))
 		if int32(*memmap.PtrUint8(0x5D4594, 1090117)) != 0 && (v9 == 2 || v9 == 4 || v9 == 5) {
 			sub_46F8F0(0, 0)
 			v9 = int32(dword_5d4594_1090120)
@@ -416,7 +416,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 						v40 = 9
 					}
 					if *memmap.PtrUint32(0x5D4594, uintptr(int32(v32)*80)+1084192) == nox_player_netCode_85319C {
-						dword_587000_145672 = uint32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v16*4)+1090060) + 32))) + 46))))
+						dword_587000_145672 = uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v16*4)+1090060))), 32)))), 46)))
 						*memmap.PtrUint32(0x5D4594, 1088996) = uint32(int32(v32) >> 4)
 					}
 					sub_46DC30(int32(*memmap.PtrUint32(0x5D4594, uintptr(v16*4)+1090060)), v40, (*wchar2_t)(memmap.PtrOff(0x587000, 146616)), memmap.PtrOff(0x5D4594, uintptr(v17)+1084132))

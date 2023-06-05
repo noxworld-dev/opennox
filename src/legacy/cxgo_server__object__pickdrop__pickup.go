@@ -16,8 +16,8 @@ func nox_xxx_pickupGold_4F3A60_obj_pickup(obj *server.Object, obj2 *server.Objec
 		v6     int32
 		v7     int32
 	)
-	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
-		v3 = *(**int32)(unsafe.Pointer(uintptr(a2 + 692)))
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))&4 != 0 {
+		v3 = *(**int32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 692))
 		nox_xxx_playerAddGold_4FA590(a1, *v3)
 		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a2))))
 		v7 = *v3

@@ -26,7 +26,7 @@ func nox_xxx_guiSummonCreatureLoad_4C1D80() int32 {
 	dword_5d4594_1321036 = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321032))))), 136, 5, 38, 76, 76, nil))))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1321036)))), nox_xxx_wndSummonProc_4C2B10, nox_xxx_guiDrawSummonBox_4C1FE0, sub_4C2C20)
 	v0 = nox_strman_loadString_40F1D0(internCStr("ToolTipSummon"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guisumn.c"), 818)
-	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1321036+36))), v0)
+	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1321036)), 36)), v0)
 	*memmap.PtrUint32(0x5D4594, 1320996) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("CreatureCageBottom")))))
 	v1 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321036))))), 160, 0, 0, 1, 1, nil)))
 	v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("CreatureCageTop"))))

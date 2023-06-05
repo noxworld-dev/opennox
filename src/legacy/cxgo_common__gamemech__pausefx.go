@@ -38,7 +38,7 @@ func sub_57AF30(a1 int32, a2 int32) {
 	}
 	if v3 != nil {
 		if v2 != 0 {
-			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v3)), nil, *(*float32)(unsafe.Pointer(uintptr(v2 + 56))), *(*float32)(unsafe.Pointer(uintptr(v2 + 60))))
+			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v3)), nil, *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 56)), *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 60)))
 		} else {
 			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(v3)))
 			dword_5d4594_2523776 = 0
@@ -46,22 +46,22 @@ func sub_57AF30(a1 int32, a2 int32) {
 		v2 = int32(dword_5d4594_2523780)
 	}
 	if (a2 == 0 || a2 == 1) && v2 != 0 {
-		nox_xxx_netSendPointFx_522FF0(-102, (*float2)(unsafe.Pointer(uintptr(v2+56))))
+		nox_xxx_netSendPointFx_522FF0(-102, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 56)))
 		v2 = int32(dword_5d4594_2523780)
 	}
 	if a2 == 0 {
 		if v2 == 0 {
 			goto LABEL_29
 		}
-		nox_xxx_aud_501960(902, (*server.Object)(unsafe.Pointer(uintptr(v2))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 36)))))
+		nox_xxx_aud_501960(902, (*server.Object)(unsafe.Pointer(uintptr(v2))), 2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 36))))
 		v4 = nox_strman_loadString_40F1D0(internCStr("expLevel.c:LevelUP"), nil, internCStr("C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c"), 109)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(uintptr(dword_5d4594_2523780))), v4)
 		v2 = int32(dword_5d4594_2523780)
 	}
 	if v2 != 0 {
-		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 748))))
+		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 748)))
 		if nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(uintptr(v2))), 30) == 1 {
-			*(*uint8)(unsafe.Pointer(uintptr(v5 + 236))) = 4
+			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 236)) = 4
 		}
 	}
 	if a2 != 0 {

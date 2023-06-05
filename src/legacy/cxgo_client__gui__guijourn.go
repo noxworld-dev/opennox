@@ -29,13 +29,13 @@ func nox_xxx_cliBuildJournalString_469BC0() {
 	v0 = int32(*memmap.PtrUint32(0x8531A0, 2576))
 	if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
 		v1 = nox_xxx_guiFontHeightMB_43F320(nil)
-		v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v0 + 3644))))
+		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v0)), 3644)))
 		v11 = v1
 		for i = -v1; v2 != 0; i += v11 + v12 {
 			libc.StrCpy(&v13[0], internCStr("Journal:"))
 			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*1)) = 0
 			libc.StrCat(&v13[0], (*byte)(unsafe.Pointer(uintptr(v2))))
-			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(v2 + 72)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 72))
 			v5 = v4 - 2
 			if v5 != 0 {
 				v6 = v5 - 2
@@ -58,7 +58,7 @@ func nox_xxx_cliBuildJournalString_469BC0() {
 			v7 = nox_strman_loadString_40F1D0(&v13[0], nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c"), 74)
 			nox_wcscat(&v14[0], v7)
 			nox_xxx_drawGetStringSize_43F840(nil, &v14[0], nil, &v12, 240)
-			v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 64))))
+			v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 64)))
 		}
 		*memmap.PtrUint32(0x5D4594, 1064848) = uint32(func() int32 {
 			if i <= 0 {
@@ -91,9 +91,9 @@ func nox_xxx_guiDrawJournal_469D40(xLeft int32, yTop int32, a3 int32) {
 	if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
 		nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150)
-		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 3644))))
+		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 3644)))
 		if v5 != 0 {
-			for i = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 64)))); i != 0; i = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 64)))) {
+			for i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 64))); i != 0; i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 64))) {
 				v5 = i
 			}
 			v14 = nox_xxx_guiFontHeightMB_43F320(nil)
@@ -101,7 +101,7 @@ func nox_xxx_guiDrawJournal_469D40(xLeft int32, yTop int32, a3 int32) {
 				*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*1)) = 0
 				libc.StrCpy(&v16[0], internCStr("Journal:"))
 				libc.StrCat(&v16[0], (*byte)(unsafe.Pointer(uintptr(v5))))
-				*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(v5 + 72)))
+				*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 72))
 				switch v7 {
 				case 1:
 					v8 = int32(nox_color_white_2523948)
@@ -135,7 +135,7 @@ func nox_xxx_guiDrawJournal_469D40(xLeft int32, yTop int32, a3 int32) {
 				if v13+v14 > yTop+150 {
 					break
 				}
-				v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 68))))
+				v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 68)))
 				if v5 == 0 {
 					break
 				}

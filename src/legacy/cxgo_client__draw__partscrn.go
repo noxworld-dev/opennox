@@ -17,7 +17,7 @@ func nox_client_screenParticleDraw_489700(a1p *noxrender.Viewport, p *Nox_screen
 	)
 	xLeft.field_0 = int32(p.Field_24 >> 16)
 	xLeft.field_4 = int32(p.Field_28 >> 16)
-	if xLeft.field_0 <= 0 || xLeft.field_4 <= 0 || xLeft.field_0 >= *(*int32)(unsafe.Pointer(uintptr(a1 + 32))) || xLeft.field_4 >= *(*int32)(unsafe.Pointer(uintptr(a1 + 36))) {
+	if xLeft.field_0 <= 0 || xLeft.field_4 <= 0 || xLeft.field_0 >= *(*int32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 32)) || xLeft.field_4 >= *(*int32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36)) {
 		sub_431700((*uint64)(unsafe.Pointer(p)))
 		return
 	}

@@ -24,14 +24,14 @@ func nox_xxx_updDrawManabombCharge_4CCAC0(vp *noxrender.Viewport, dr *client.Dra
 		var v6 int32 = nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c"), 68)
 		var v7 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522960), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))+uint32(v5**memmap.PtrInt32(0x587000, uintptr(v6*8)+192088)/16)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))+uint32(v5**memmap.PtrInt32(0x587000, uintptr(v6*8)+192092)/16))))))
 		if v7 != 0 {
-			*(*uint32)(unsafe.Pointer(uintptr(v7 + 432))) = *(*uint32)(unsafe.Pointer(uintptr(v7 + 12))) << 12
-			*(*uint32)(unsafe.Pointer(uintptr(v7 + 436))) = *(*uint32)(unsafe.Pointer(uintptr(v7 + 16))) << 12
-			*(*uint8)(unsafe.Pointer(uintptr(v7 + 299))) = 0
-			*(*uint32)(unsafe.Pointer(uintptr(v7 + 440))) = 0
-			*(*uint32)(unsafe.Pointer(uintptr(v7 + 448))) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(10, 30, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c"), 88))
-			*(*uint32)(unsafe.Pointer(uintptr(v7 + 444))) = gameFrame()
-			*(*uint16)(unsafe.Pointer(uintptr(v7 + 104))) = 0
-			*(*uint8)(unsafe.Pointer(uintptr(v7 + 296))) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c"), 94)))
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 432)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 12)) << 12
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 436)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 16)) << 12
+			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 299)) = 0
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 440)) = 0
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(10, 30, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c"), 88))
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 444)) = gameFrame()
+			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 104)) = 0
+			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c"), 94)))
 			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v7))))
 		}
 	}

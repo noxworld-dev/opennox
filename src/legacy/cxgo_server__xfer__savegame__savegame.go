@@ -24,22 +24,22 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 		}
 		v2 = int32(uintptr(unsafe.Pointer(nox_server_getFirstObject_4DA790())))
 		if v2 != 0 {
-			for uint32(*(*uint16)(unsafe.Pointer(uintptr(v2 + 4)))) != *memmap.PtrUint32(0x5D4594, 1563124) {
+			for uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 4))) != *memmap.PtrUint32(0x5D4594, 1563124) {
 				v2 = int32(uintptr(unsafe.Pointer(nox_server_getNextObject_4DA7A0((*server.Object)(unsafe.Pointer(uintptr(v2)))))))
 				if v2 == 0 {
 					return
 				}
 			}
-			v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 516))))
+			v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 516)))
 			if v3 != 0 {
 				for {
-					v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 512))))
+					v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 512)))
 					nox_xxx_unitSetOwner_4EC290((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*514)))))), (*server.Object)(unsafe.Pointer(uintptr(v3))))
-					if int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 8))))&2 != 0 {
-						if int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 748))) + 1440))))&0x80 != 0 {
-							v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 12))))
+					if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 8)))&2 != 0 {
+						if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 1440)))&0x80 != 0 {
+							v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)))
 							*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 0x80))
-							*(*uint32)(unsafe.Pointer(uintptr(v3 + 12))) = uint32(v5)
+							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)) = uint32(v5)
 							nox_xxx_netReportAcquireCreature_4D91A0(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 2064)))), (*server.Object)(unsafe.Pointer(uintptr(v3))))
 							nox_xxx_netMarkMinimapObject_417190(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 2064)))), (*server.Object)(unsafe.Pointer(uintptr(v3))), 1)
 						}
@@ -50,7 +50,7 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 					}
 				}
 			}
-			*(*uint32)(unsafe.Pointer(uintptr(v2 + 44))) = 0
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 44)) = 0
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(v2))))
 		}
 	}

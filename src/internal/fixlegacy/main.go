@@ -111,6 +111,7 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) error {
 		case *ast.CallExpr:
 			if len(n.Args) == 1 {
 				changed = fixSameTypeConv(pkg, n) || changed
+				changed = fixUnsafeAdd(pkg, n) || changed
 			}
 		}
 		return true
@@ -129,6 +130,9 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) error {
 }
 
 func fixSameTypeConv(pkg *packages.Package, n *ast.CallExpr) bool {
+	if len(n.Args) != 1 {
+		return false
+	}
 	switch t := pkg.TypesInfo.TypeOf(n.Fun).(type) {
 	case *types.Basic, *types.Pointer:
 		sz := pkg.TypesSizes.Sizeof(t)
@@ -141,9 +145,8 @@ func fixSameTypeConv(pkg *packages.Package, n *ast.CallExpr) bool {
 }
 
 func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr) ast.Expr {
+	x = unwrapParen(x)
 	switch x := x.(type) {
-	case *ast.ParenExpr:
-		return findSameTypeConv(pkg, sz, t, x.X)
 	case *ast.CallExpr:
 		if len(x.Args) != 1 {
 			return nil
@@ -162,4 +165,46 @@ func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr)
 	default:
 		return nil
 	}
+}
+
+func unwrapParen(x ast.Expr) ast.Expr {
+	switch x := x.(type) {
+	case *ast.ParenExpr:
+		return unwrapParen(x.X)
+	default:
+		return x
+	}
+}
+func newCall(name string, args ...ast.Expr) ast.Expr {
+	return &ast.CallExpr{Fun: ast.NewIdent(name), Args: args}
+}
+func fixUnsafeAdd(pkg *packages.Package, c1 *ast.CallExpr) bool {
+	if len(c1.Args) != 1 {
+		return false
+	}
+	if t, ok := pkg.TypesInfo.TypeOf(c1.Fun).(*types.Basic); !ok || t.Kind() != types.UnsafePointer {
+		return false
+	}
+	c2, ok := unwrapParen(c1.Args[0]).(*ast.CallExpr)
+	if !ok || len(c2.Args) != 1 {
+		return false
+	} else if t, ok := pkg.TypesInfo.TypeOf(c2.Fun).(*types.Basic); !ok || t.Kind() != types.Uintptr {
+		return false
+	}
+	add, ok := c2.Args[0].(*ast.BinaryExpr)
+	if !ok || add.Op != token.ADD {
+		return false
+	}
+	rhs, ok := add.Y.(*ast.BasicLit)
+	if !ok || rhs.Kind != token.INT {
+		return false
+	}
+	*c1 = ast.CallExpr{
+		Fun: ast.NewIdent("unsafe.Add"),
+		Args: []ast.Expr{
+			newCall("unsafe.Pointer", newCall("uintptr", add.X)),
+			add.Y,
+		},
+	}
+	return true
 }

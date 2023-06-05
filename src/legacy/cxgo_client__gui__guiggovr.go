@@ -72,7 +72,7 @@ func sub_49B6E0() int32 {
 			if v1 < 0 {
 				v1 = 0
 			}
-			if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2064)))) == 31 {
+			if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2064))) == 31 {
 				nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1303464)))
 			} else {
 				v4 = int32(uint32(v1) / gameFPS())

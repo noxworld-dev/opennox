@@ -102,14 +102,14 @@ func nox_xxx_wnd_46ABB0(win *gui.Window, a2 int32) int32 {
 	if a1 == 0 {
 		return -2
 	}
-	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))))
+	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))
 	if a2 != 0 {
 		v4 = uint32(v3 | 8)
 	} else {
 		v4 = uint32(v3) & 0xFFFFFFF7
 	}
-	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 400))))
-	for *(*uint32)(unsafe.Pointer(uintptr(a1 + 4))) = v4; v5 != 0; v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 388)))) {
+	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 400)))
+	for *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = v4; v5 != 0; v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 388))) {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(v5))), a2)
 	}
 	return 0
@@ -119,8 +119,8 @@ func nox_xxx_wnd_46AD60(a1 int32, a2 int32) int32 {
 	if a1 == 0 {
 		return -2
 	}
-	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))))
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))) = uint32(a2 | result)
+	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = uint32(a2 | result)
 	return result
 }
 func nox_xxx_wndClearFlag_46AD80(a1 int32, a2 int32) int32 {
@@ -128,14 +128,14 @@ func nox_xxx_wndClearFlag_46AD80(a1 int32, a2 int32) int32 {
 	if a1 == 0 {
 		return -2
 	}
-	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))))
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))) = uint32(result & ^a2)
+	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = uint32(result & ^a2)
 	return result
 }
 func nox_xxx_wndGetFlags_46ADA0(a1 int32) int32 {
 	var result int32
 	if a1 != 0 {
-		result = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))))
+		result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))
 	} else {
 		result = -2
 	}
@@ -165,9 +165,9 @@ func nox_xxx_wnd_46B280(a1 int32, a2 int32) int32 {
 		return -2
 	}
 	if a2 != 0 {
-		*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))) = uint32(a2)
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 52)) = uint32(a2)
 	} else {
-		*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))) = uint32(a1)
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 52)) = uint32(a1)
 	}
 	return 0
 }

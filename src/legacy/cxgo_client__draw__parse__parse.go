@@ -70,13 +70,13 @@ func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 int32, f *nox_memfile) int32 
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f)
 }
 func nox_xxx_loadVectorAnimated_44B8B0(a1 int32, f *nox_memfile) int32 {
-	*(*uint16)(unsafe.Pointer(uintptr(a1 + 40))) = uint16(nox_memfile_read_u8(f))
-	*(*uint16)(unsafe.Pointer(uintptr(a1 + 42))) = uint16(nox_memfile_read_u8(f))
+	*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40)) = uint16(nox_memfile_read_u8(f))
+	*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 42)) = uint16(nox_memfile_read_u8(f))
 	var anim_kind_length uint8 = nox_memfile_read_u8(f)
 	var animation_kind [256]byte
 	nox_memfile_read(unsafe.Pointer(&animation_kind[0]), 1, int32(anim_kind_length), f)
 	animation_kind[anim_kind_length] = 0
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))) = uint32(get_animation_kind_id_44B4C0(&animation_kind[0]))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)) = uint32(get_animation_kind_id_44B4C0(&animation_kind[0]))
 	return 1
 }
 func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *nox_memfile) int32 {
@@ -102,13 +102,13 @@ func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *nox_memfile) int32 {
 			v13 = v2
 		}
 		v3 = a1
-		v4 = alloc.Calloc1(int(*(*int16)(unsafe.Pointer(uintptr(a1 + 40)))), 4)
-		*(*uint32)(unsafe.Pointer(uintptr(v13 + a1 + 4))) = uint32(uintptr(v4))
+		v4 = alloc.Calloc1(int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40))), 4)
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v13+a1)), 4)) = uint32(uintptr(v4))
 		if v4 == nil {
 			break
 		}
 		v5 = 0
-		if int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 40)))) > 0 {
+		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40))) > 0 {
 			for {
 				v7 = nox_memfile_read_i32(f)
 				v16[0] = byte(*memmap.PtrUint8(0x5D4594, 830844))
@@ -120,12 +120,12 @@ func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *nox_memfile) int32 {
 					v16[v11] = 0
 					v3 = a1
 				}
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v13 + v3 + 4))) + uint32(func() int32 {
+				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v13+v3)), 4)) + uint32(func() int32 {
 					p := &v5
 					*p++
 					return *p
 				}()*4) - 4))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v7, int8(uintptr(unsafe.Pointer(v15))), &v16[0]))))
-				if v5 >= int32(*(*int16)(unsafe.Pointer(uintptr(v3 + 40)))) {
+				if v5 >= int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 40))) {
 					break
 				}
 			}

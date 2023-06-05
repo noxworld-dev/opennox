@@ -14,27 +14,27 @@ func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {
 		v3     int32
 		v4     int32
 	)
-	switch *(*uint32)(unsafe.Pointer(uintptr(a2 + 44))) {
+	switch *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 44)) {
 	case 0:
-		result = int32((gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*79))) / uint32(int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 42))))+1))
-		v4 = int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 40))))
+		result = int32((gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*79))) / uint32(int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 42)))+1))
+		v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 40)))
 		if result >= v4 {
 			result = v4 - 1
 		}
 	case 1:
-		result = int32((gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*79))) / uint32(int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 42))))+1))
-		if result >= int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 40)))) {
+		result = int32((gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*79))) / uint32(int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 42)))+1))
+		if result >= int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 40))) {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			result = -1
 		}
 	case 2:
-		result = int32((gameFrame() + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*32))) / uint32(int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 42))))+1))
-		v3 = int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 40))))
+		result = int32((gameFrame() + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*32))) / uint32(int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 42)))+1))
+		v3 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 40)))
 		if result >= v3 {
 			result %= v3
 		}
 	case 4:
-		result = nox_common_randomIntMinMax_415FF0(0, int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 40))))-1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c"), 19)
+		result = nox_common_randomIntMinMax_415FF0(0, int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 40)))-1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c"), 19)
 	case 5:
 		result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*77)))
 	default:

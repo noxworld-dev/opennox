@@ -565,7 +565,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 	}
 	switch a2 {
 	case 0:
-		if noxflags.HasGame(8) || noxflags.HasGame(4096) || int32(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(pl))) + 3680))))&1 != 0 {
+		if noxflags.HasGame(8) || noxflags.HasGame(4096) || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(pl), 3680)))&1 != 0 {
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}
@@ -586,7 +586,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		}
 		v8 = int32(uintptr(unsafe.Pointer(pl.PlayerUnit)))
 		if v8 != 0 {
-			nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(uintptr(v8+48)), int32(pl.NetCodeVal))
+			nox_xxx_netChangeTeamMb_419570(unsafe.Add(unsafe.Pointer(uintptr(v8)), 48), int32(pl.NetCodeVal))
 		}
 		v21 = v6
 		v9 = nox_strman_loadString_40F1D0(internCStr("observermode"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4308)
@@ -630,7 +630,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		nox_console_playerWhoSent_823692 = nil
 		return 1
 	case 4:
-		if (int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 3680))))&1) == 0 && !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_REPLAY_READ)) {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 3680)))&1) == 0 && !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 			if noxflags.HasGame(1) {
 				v16 = nox_strman_loadString_40F1D0(internCStr("notinobserver"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4392)
 				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v16)
@@ -641,7 +641,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 			return 1
 		}
 		if *a3 == 0 {
-			nox_xxx_playerCameraUnlock_4E6040((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 2056)))))))
+			nox_xxx_playerCameraUnlock_4E6040((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 2056))))))
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}

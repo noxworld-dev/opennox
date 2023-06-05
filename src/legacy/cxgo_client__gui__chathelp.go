@@ -31,7 +31,7 @@ func nox_xxx_cliShowHelpGui_49C560() *uint32 {
 		nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		sub_46C690((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		nox_xxx_windowFocus_46B500((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
-		nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), (nox_win_width-*(*int32)(unsafe.Pointer(uintptr(dword_5d4594_1305680 + 8))))/2, (nox_win_height-*(*int32)(unsafe.Pointer(uintptr(dword_5d4594_1305680 + 12))))/2)
+		nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), (nox_win_width-*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305680)), 8)))/2, (nox_win_height-*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305680)), 12)))/2)
 		if noxflags.HasGame(1) {
 			v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), 4102)))
 			v6 = (*byte)(unsafe.Pointer(sub_42E8E0(45, 1)))

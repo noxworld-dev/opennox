@@ -52,15 +52,15 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *nox_drawable) int 
 		v10 = 0
 		v11 = (*uint8)(memmap.PtrOff(0x587000, 192092))
 		for {
-			if v10 >= uint32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 8)))) {
+			if v10 >= uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 8))) {
 				v10 = 0
 			}
-			v12 = (v10 + gameFrame() + *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*32))) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 9)))) + 1)
+			v12 = (v10 + gameFrame() + *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*32))) / (uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 9))) + 1)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*77)) = v12
-			if v12 >= uint32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 8)))) {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*77)) = v12 % uint32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 8))))
+			if v12 >= uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 8))) {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*77)) = v12 % uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 8)))
 			}
-			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = 5
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 12)) = 5
 			v13 = int32(uint32(v15) + *((*uint32)(unsafe.Add(unsafe.Pointer(v11), -int(4*1))))*2)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = uint32(v13)
 			v14 = int32(uint32(v17) + *(*uint32)(unsafe.Pointer(v11))*2)
@@ -77,12 +77,12 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *nox_drawable) int 
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = uint32(v15)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4)) = uint32(v17)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*77)) = uint32(v18)
-		*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = 2
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 12)) = 2
 		nox_client_drawEnableAlpha_434560(1)
 		v16 = int64(gameFrame())
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v16), 4*0)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*79))
 		nox_client_drawSetAlpha_434580(uint8(int8(int64((float64(gameFrame()) - float64(v16)) / float64(*((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*218)))) * 255.0))))
-		ccall.AsFunc[func(*int32, uint32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108))+300)))(a1, *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)))
+		ccall.AsFunc[func(*int32, uint32)](unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)))), 300))(a1, *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)))
 		nox_client_drawEnableAlpha_434560(0)
 		result = 1
 	} else {

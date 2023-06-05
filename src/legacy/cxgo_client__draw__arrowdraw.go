@@ -70,13 +70,13 @@ func nox_thing_arrow_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) in
 		v7 int32
 		a2 int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16))))
-	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	v4 = int32(uint32(v2) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Pointer(uintptr(a2 + 106)))) - uint32(*(*int16)(unsafe.Pointer(uintptr(a2 + 104)))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
-	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 436))) - uint32(v2))
-	v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 432))) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	if *(*uint32)(unsafe.Pointer(uintptr(a2 + 356)))-gameFrame() > 0 {
-		v7 = int32(((*(*uint32)(unsafe.Pointer(uintptr(a2 + 356))) - gameFrame()) << 6) / uint32(int32(gameFPS()/3)))
+	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)))
+	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+	v4 = int32(uint32(v2) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
+	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 436)) - uint32(v2))
+	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356))-gameFrame() > 0 {
+		v7 = int32(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame()) << 6) / uint32(int32(gameFPS()/3)))
 		if v7 >= 64 {
 			v7 = 63
 		}
@@ -101,13 +101,13 @@ func nox_thing_weak_arrow_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawabl
 		v7 int32
 		a2 int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16))))
-	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	v4 = int32(uint32(v2) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Pointer(uintptr(a2 + 106)))) - uint32(*(*int16)(unsafe.Pointer(uintptr(a2 + 104)))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
-	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 436))) - uint32(v2))
-	v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 432))) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	if *(*uint32)(unsafe.Pointer(uintptr(a2 + 356)))-gameFrame() > 0 {
-		v7 = int32(((*(*uint32)(unsafe.Pointer(uintptr(a2 + 356))) - gameFrame()) << 6) / uint32(int32(gameFPS()/3)))
+	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)))
+	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+	v4 = int32(uint32(v2) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
+	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 436)) - uint32(v2))
+	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356))-gameFrame() > 0 {
+		v7 = int32(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame()) << 6) / uint32(int32(gameFPS()/3)))
 		if v7 >= 64 {
 			v7 = 63
 		}

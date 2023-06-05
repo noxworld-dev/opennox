@@ -52,11 +52,11 @@ func sub_478730(a1 *int32) {
 		return
 	}
 	v9 = nil
-	if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v5)) + 112)))&0x13001000 != 0 {
-		v9 = unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v5)) + 432))
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v5)))), 112))&0x13001000 != 0 {
+		v9 = unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v5)))), 432)
 	}
 	sub_4C05F0(1, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*34)))))
-	v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v5)) + 108))))
+	v14 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v5)))), 108)))
 	v13 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), *((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)))*4+4)))
 	v12 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
 	v11 = *a1
@@ -203,12 +203,12 @@ func sub_4795E0(a1 int32, a2 int32) int32 {
 		result = sub_4676D0(a1)
 		v5 = result
 		if result != 0 {
-			if *(*uint32)(unsafe.Pointer(uintptr(result + 112)))&0x13001000 != 0 {
-				v2 = unsafe.Pointer(uintptr(result + 432))
+			if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(result)), 112))&0x13001000 != 0 {
+				v2 = unsafe.Add(unsafe.Pointer(uintptr(result)), 432)
 			}
 			sub_4C05F0(1, a2)
 			v10 = sub_467700(a1)
-			v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 108))))
+			v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 108)))
 			var str *wchar2_t = nox_strman_loadString_40F1D0(internCStr("SellLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1504)
 			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, ccall.FuncAddr(sub_479690), ccall.FuncAddr(sub_479680))
 			dword_5d4594_1098616 = 1
@@ -234,15 +234,15 @@ func sub_479740(a1 int32, a2 uint32) {
 		v4 = sub_4676D0(a1)
 		v5 = v4
 		if v4 != 0 {
-			if *(*uint32)(unsafe.Pointer(uintptr(v4 + 112)))&0x13001000 != 0 {
-				v2 = unsafe.Pointer(uintptr(v4 + 432))
+			if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 112))&0x13001000 != 0 {
+				v2 = unsafe.Add(unsafe.Pointer(uintptr(v4)), 432)
 			}
 			sub_4C05F0(1, int32(a2))
 			if a2 > v10 {
 				sub_479520(int32(a2 - v10))
 				sub_467680()
 			} else {
-				v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 108))))
+				v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 108)))
 				v8 = mpos.y
 				v7 = mpos.x
 				v6 = nox_strman_loadString_40F1D0(internCStr("RepairLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1580)

@@ -38,7 +38,7 @@ func sub_4C09D0() int32 {
 	}
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v0)), sub_4C0630, sub_4C0D00, nil)
 	v2 = nox_strman_loadString_40F1D0(internCStr("TradeMain"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 692)
-	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1320940+36))), v2)
+	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1320940)), 36)), v2)
 	v3 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1320940)))), 3702)))
 	v4 = nox_strman_loadString_40F1D0(internCStr("TradePlayerName"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 695)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(wchar2_t(0))*18)))), v4)
@@ -138,7 +138,7 @@ func sub_4C15D0(a1 int32) int32 {
 			v4 = 0
 			v5 = int32(uintptr(unsafe.Pointer(v3)))
 			for {
-				if sub_4C1760(v5, int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 2))))) != 0 {
+				if sub_4C1760(v5, int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2)))) != 0 {
 					v6 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v2+v4*2)*140)+1319284))
 					goto LABEL_18
 				}
@@ -161,7 +161,7 @@ func sub_4C15D0(a1 int32) int32 {
 			v9 = 0
 			v10 = int32(uintptr(unsafe.Pointer(v8)))
 			for {
-				if sub_4C1760(v10, int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 2))))) != 0 {
+				if sub_4C1760(v10, int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2)))) != 0 {
 					v12 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v7+v9*2)*140)+1320308))
 					goto LABEL_17
 				}
@@ -184,7 +184,7 @@ func sub_4C15D0(a1 int32) int32 {
 		v6 = v12
 	LABEL_18:
 		*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) -= *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) / *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)))
-		sub_4C1710(int32(uintptr(unsafe.Pointer(v6))), int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 2)))))
+		sub_4C1710(int32(uintptr(unsafe.Pointer(v6))), int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2))))
 		result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) - 1)
 		*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) = uint32(result)
 		if result == 0 {

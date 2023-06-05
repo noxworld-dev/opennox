@@ -253,20 +253,20 @@ func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		mpos nox_point = nox_client_getMousePos_4309F0()
 	)
 	v3 = a2
-	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 432)))) != 0 {
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437)))) != 0 {
-			v12 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))))
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432))) != 0 {
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437))) != 0 {
+			v12 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))))
 			v13 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v12).C())
 		} else {
-			v14 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))))
+			v14 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))))
 			v13 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v14).C())
 		}
 		v15 = v13
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441)))) != 0 {
-			v16 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))))
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))) != 0 {
+			v16 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))))
 			v17 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v16).C())
 		} else {
-			v18 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))))
+			v18 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))))
 			v17 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v18).C())
 		}
 		v19 = v17
@@ -289,16 +289,16 @@ func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v25.field_4 = float32(float64(mpos.y) - float64(int32(uintptr(unsafe.Pointer(a1)))))
 		v26 = uint8(int8(nox_xxx_math_509ED0(&v25)))
 	} else {
-		v4 = *(*uint16)(unsafe.Pointer(uintptr(a2 + 439)))
-		v26 = *(*uint8)(unsafe.Pointer(uintptr(a2 + 433)))
+		v4 = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 439))
+		v26 = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 433))
 		v5 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))
 		v6 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
 		v7 = *a1
 		v8 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
-		v9 = *a1 + int32(*(*uint16)(unsafe.Pointer(uintptr(v3 + 437)))) - v6
+		v9 = *a1 + int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 437))) - v6
 		a1 = (*int32)(unsafe.Pointer(uintptr(int32(v4) - v5 + v8 - 20)))
-		v10 = (*int32)(unsafe.Pointer(uintptr(v7 + int32(*(*uint16)(unsafe.Pointer(uintptr(v3 + 441)))) - v6)))
-		v11 = (*int32)(unsafe.Pointer(uintptr(int32(*(*uint16)(unsafe.Pointer(uintptr(v3 + 443)))) - v5 + v8 - 20)))
+		v10 = (*int32)(unsafe.Pointer(uintptr(v7 + int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 441))) - v6)))
+		v11 = (*int32)(unsafe.Pointer(uintptr(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 443))) - v5 + v8 - 20)))
 	}
 	sub_4BA230(int32(v26), v9, int32(uintptr(unsafe.Pointer(a1))), int32(uintptr(unsafe.Pointer(v10))), int32(uintptr(unsafe.Pointer(v11))))
 	return 1

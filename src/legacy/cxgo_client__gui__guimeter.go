@@ -118,8 +118,8 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	dword_5d4594_1091364 = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 8, 6, 166, 28, 30, nil))))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1091364)))), nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, nil)
 	v3 = nox_strman_loadString_40F1D0(internCStr("CurePoisonSlotTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1029)
-	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1091364+36))), v3)
-	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1091364 + 32))) = 2
+	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1091364)), 36)), v3)
+	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1091364)), 32)) = 2
 	*memmap.PtrUint16(0x5D4594, 1091384) = 0
 	var t4 *nox_thing = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096276)))
 	if t4 != nil {
@@ -135,17 +135,17 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	dword_5d4594_1090292 = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 8, 34, 166, 28, 30, nil))))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090292)))), nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, nil)
 	v5 = nox_strman_loadString_40F1D0(internCStr("HealthSlotTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1060)
-	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1090292+36))), v5)
-	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1090292 + 32))) = 0
+	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1090292)), 36)), v5)
+	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1090292)), 32)) = 0
 	*memmap.PtrUint16(0x5D4594, 1090312) = 0
 	*memmap.PtrUint32(0x5D4594, 1090296) = 0
 	*memmap.PtrUint32(0x5D4594, 1090308) = 0
-	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251))) != 0 {
 		dword_5d4594_1090828 = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 8, 62, 166, 28, 30, nil))))
 		nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090828)))), nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, nil)
 		v6 = nox_strman_loadString_40F1D0(internCStr("ManaSlotTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1083)
-		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1090828+36))), v6)
-		*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1090828 + 32))) = 1
+		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1090828)), 36)), v6)
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1090828)), 32)) = 1
 		*memmap.PtrUint16(0x5D4594, 1090848) = 0
 		var t7 *nox_thing = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096272)))
 		if t7 != nil {
@@ -229,7 +229,7 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 		v21   *uint8
 	)
 	v1 = (*uint32)(unsafe.Pointer(uintptr(xLeft)))
-	v18 = int32(*(*uint32)(unsafe.Pointer(uintptr(xLeft + 32))))
+	v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(xLeft)), 32)))
 	v2 = v18
 	v3 = (*uint8)(unsafe.Pointer(&nox_windows_arr_1093036[v18]))
 	v20 = v3

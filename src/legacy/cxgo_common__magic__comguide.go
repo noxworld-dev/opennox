@@ -58,7 +58,7 @@ func nox_xxx_loadGuides_427070() int32 {
 		libc.StrCat(&v13[0], v10)
 		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*3))) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v13[0]))))
 		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*4))) = 0
-		v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 36))))
+		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 36)))
 		if v11&1 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(i), 20)) = 1
 		} else if v11&2 != 0 {

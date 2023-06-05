@@ -109,14 +109,14 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		sub_454120()
 		return 0
 	case 1115, 1116:
-		v5 = *(**int16)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32)))
+		v5 = *(**int16)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1045480)), 32))
 		v6 = 0
 		v20 = sub_4165B0()
 		if int32(*v5) > 0 {
 			v7 = 0
 			for {
 				if *((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*6)))+uint32(v7) != 4294967292 {
-					v8 = nox_xxx_spellByTitle_424960((*wchar2_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*6))) + uint32(v7) + 4))))
+					v8 = nox_xxx_spellByTitle_424960((*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*6)))+uint32(v7))), 4)))
 					if v8 != 0 {
 						if v21 == 1115 {
 							if !noxflags.HasGame(64) && (*(*byte)(unsafe.Add(unsafe.Pointer(v20), 52))&0x40) == 0 || v8 != 132 {
@@ -145,8 +145,8 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 		return 0
 	case 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133:
-		v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32))))
-		v12 = (*wchar2_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v11 + 24))) + uint32((sub_4A4800(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32))))+v4-1120)*524) + 4)))
+		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1045480)), 32)))
+		v12 = (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 24))+uint32((sub_4A4800(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1045480)), 32)))+v4-1120)*524))), 4))
 		if v12 == nil {
 			sub_459D50(1)
 			nox_xxx_clientPlaySoundSpecial_452D80(766, 100)

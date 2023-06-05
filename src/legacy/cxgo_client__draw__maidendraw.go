@@ -45,7 +45,7 @@ func nox_thing_maiden_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	var v5 int32 = int32(uintptr(v2.UpdateData))
 	var v6 int32 = 0
-	var v7 *uint8 = (*uint8)(unsafe.Pointer(uintptr(v5 + 2077)))
+	var v7 *uint8 = (*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 2077))
 	var v8 int32
 	for {
 		*((*uint8)(unsafe.Pointer(&v3))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v7), 1))

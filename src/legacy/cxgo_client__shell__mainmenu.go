@@ -26,16 +26,16 @@ func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 	)
 	nox_xxx_bookGet_430B40_get_mouse_prev_seq()
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
-	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
+	if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))) >= 0 {
 		if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*5))) != 0x80000000 {
 			nox_client_drawSetColor_434460(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*5)))
-			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))))
+			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12))))
 		}
 	} else {
-		v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 100))))
-		xLeft += int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 96))))
+		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 100)))
+		xLeft += int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)))
 		v3 = v2 + yTop
-		*((*uint8)(unsafe.Pointer(&v2))) = *(*uint8)(unsafe.Pointer(uintptr(a1 + 36)))
+		*((*uint8)(unsafe.Pointer(&v2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36))
 		yTop = v3
 		if v2&2 != 0 {
 			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*10))))), xLeft, v3)

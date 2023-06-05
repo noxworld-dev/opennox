@@ -31,8 +31,8 @@ func nox_thing_glyph_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		*((*uint8)(unsafe.Pointer(&a2))) = uint8(v3)
 		goto LABEL_10
 	}
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) - *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 12))))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) - *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 16))))
+	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 12)))
+	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16)))
 	v6 = v4*v4 + v5*v5
 	if v6 >= 22500 {
 		return 1

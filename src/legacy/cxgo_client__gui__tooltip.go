@@ -163,14 +163,14 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 		if v7 == 0 || uint32(v7) == 0x1000000 && (uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*29)))&0x7800000) == 0 {
 			v8 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108))
 			if v8 != 0 {
-				v9 = *(**wchar2_t)(unsafe.Pointer(uintptr(v8 + 8)))
+				v9 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 8))
 				if v9 != nil {
 					v3 = v9
 				}
 			}
 			v10 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*109))
 			if v10 != 0 {
-				v11 = *(**wchar2_t)(unsafe.Pointer(uintptr(v10 + 8)))
+				v11 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 8))
 				if v11 != nil {
 					v34 = v11
 				}
@@ -180,14 +180,14 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 		if v7 == 0 || (uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*29)))&0x7800000) == 0 {
 			v13 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*110))
 			if v13 != 0 {
-				v14 = *(**wchar2_t)(unsafe.Pointer(uintptr(v13 + 8)))
+				v14 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(v13)), 8))
 				if v14 != nil {
 					v35 = v14
 				}
 			}
 			v15 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*111))
 			if v15 != 0 {
-				v16 = *(**wchar2_t)(unsafe.Pointer(uintptr(v15 + 12)))
+				v16 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(v15)), 12))
 				if v16 != nil {
 					a1 = v16
 				}
