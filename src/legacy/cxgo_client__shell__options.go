@@ -21,7 +21,7 @@ func sub_4AA650() {
 		nox_strman_loadString_40F1D0(v2, (**byte)(unsafe.Pointer(&v3)), internCStr("C:\\NoxPost\\src\\client\\shell\\Options.c"), 131)
 		*memmap.PtrUint32(0x5D4594, 1309744) %= 3
 		if v3 != nil {
-			nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(int32(uintptr(v3))))), 100)
+			nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(v3))), 100)
 		}
 	}
 }

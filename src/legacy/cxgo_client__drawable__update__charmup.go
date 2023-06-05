@@ -42,17 +42,17 @@ func sub_4CD150(a1 int32, a2 *uint32, a3 int32, a4 int32) {
 		if a4 != 0 {
 			v5 = int32(*(*uint16)(unsafe.Pointer(uintptr(a3 + 441)))) + nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c"), 28)
 			v6 = nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c"), 29)
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v7))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 437)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 437)))
 			v8 = int32(*(*uint16)(unsafe.Pointer(uintptr(a3 + 443)))) + v6
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v9))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 439)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v9), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 439)))
 		} else {
 			v5 = int32(*(*uint16)(unsafe.Pointer(uintptr(a3 + 437)))) + nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c"), 36)
 			v10 = nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c"), 37)
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v7))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 441)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 441)))
 			v8 = int32(*(*uint16)(unsafe.Pointer(uintptr(a3 + 439)))) + v10
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v9))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 443)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v9), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a3 + 443)))
 		}
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v25))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v9))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v25), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v9))
 		goto LABEL_20
 	}
 	if a3 == -432 {
@@ -83,7 +83,7 @@ func sub_4CD150(a1 int32, a2 *uint32, a3 int32, a4 int32) {
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v17 + 12))))
 		v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*4)) + uint32(v19))
 		v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(v17 + 16))))
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v25))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v9))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v25), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v9))
 		goto LABEL_20
 	}
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) + uint32(nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\charmup.c"), 70)))

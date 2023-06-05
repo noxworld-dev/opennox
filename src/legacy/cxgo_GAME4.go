@@ -120,7 +120,7 @@ func nox_xxx_XFerSpellReward_4F5F30(a1p *server.Object, data unsafe.Pointer) int
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14[0])), uint32(uint8(int8(v7))))
 	LABEL_28:
 		if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-			result = nox_xxx_xfer_4F3E30(uint16(int16(v10)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)))
+			result = nox_xxx_xfer_4F3E30(uint16(int16(v10)), (*server.Object)(unsafe.Pointer(a1)), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)))
 			return result
 		}()) != 0 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = v13
@@ -156,7 +156,7 @@ func Nox_xxx_XFerAbilityReward_4F6240(a1p *server.Object, data unsafe.Pointer) i
 			v6[uint8(int8(v3))] = 0
 			*v1 = uint8(int8(nox_xxx_abilityNameToN_424D80(&v6[0])))
 			if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-				result = nox_xxx_xfer_4F3E30(uint16(int16(v4)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)))
+				result = nox_xxx_xfer_4F3E30(uint16(int16(v4)), (*server.Object)(unsafe.Pointer(a1)), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)))
 				return result
 			}()) != 0 {
 				*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = v5
@@ -200,7 +200,7 @@ func Nox_xxx_XFerFieldGuide_4F6390(a1p *server.Object, data unsafe.Pointer) int 
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v2)), uint32(uint8(uintptr(unsafe.Pointer(a1)))))
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-			result = nox_xxx_xfer_4F3E30(uint16(int16(v5)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
+			result = nox_xxx_xfer_4F3E30(uint16(int16(v5)), (*server.Object)(unsafe.Pointer(v1)), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
 			return result
 		}()) != 0 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) = v3
@@ -331,10 +331,10 @@ LABEL_18:
 	}
 LABEL_37:
 	if int32(int16(v17)) >= 42 {
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v11))), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(unsafe.Pointer(uintptr(a1)))))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v11), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(unsafe.Pointer(uintptr(a1)))))
 		v16 = v11
 		v12 = nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v16)), 2)
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v12))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v12), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4)))
 		if int32(uint16(int16(v16))) > int32(uint16(v12)) {
 			v16 = int32(v12)
 		}
@@ -344,9 +344,9 @@ LABEL_37:
 			} else {
 				v13 = (*uint32)(nox_xxx_getProjectileClassById_413250(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4))))))
 				if v13 != nil {
-					*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v13))), unsafe.Sizeof(uint16(0))*26)))
-					*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 2))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v13))), unsafe.Sizeof(uint16(0))*26)))
-					nox_xxx_unitSetHP_4E4560((*server.Object)(unsafe.Pointer(uintptr(a1))), *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v13))), unsafe.Sizeof(uint16(0))*26))))
+					*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(uint16(0))*26)))
+					*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 2))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(uint16(0))*26)))
+					nox_xxx_unitSetHP_4E4560((*server.Object)(unsafe.Pointer(uintptr(a1))), *((*uint16)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(uint16(0))*26))))
 				}
 			}
 		}
@@ -440,10 +440,10 @@ func nox_xxx_XFerArmor_4F6860(a1p *server.Object, data unsafe.Pointer) int {
 		}
 	LABEL_18:
 		if int32(int16(v10)) >= 41 {
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v7))), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(unsafe.Pointer(uintptr(a1)))))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(unsafe.Pointer(uintptr(a1)))))
 			v12 = uint32(v7)
 			v8 = nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 2)
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v8))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v8), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4)))
 			if int32(uint16(v12)) > int32(uint16(v8)) {
 				v12 = v8
 			}
@@ -453,9 +453,9 @@ func nox_xxx_XFerArmor_4F6860(a1p *server.Object, data unsafe.Pointer) int {
 				} else {
 					v9 = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4))))))
 					if v9 != nil {
-						*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v9))), unsafe.Sizeof(uint16(0))*26)))
-						*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 2))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v9))), unsafe.Sizeof(uint16(0))*26)))
-						nox_xxx_unitSetHP_4E4560((*server.Object)(unsafe.Pointer(uintptr(a1))), *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v9))), unsafe.Sizeof(uint16(0))*26))))
+						*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 4))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(uint16(0))*26)))
+						*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) + 2))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(uint16(0))*26)))
+						nox_xxx_unitSetHP_4E4560((*server.Object)(unsafe.Pointer(uintptr(a1))), *((*uint16)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(uint16(0))*26))))
 					}
 				}
 			}
@@ -525,7 +525,7 @@ func nox_xxx_XFerAmmo_4F6B20(a1p *server.Object, data unsafe.Pointer) int {
 				if v6 >= 4 {
 					*(*uint16)(unsafe.Pointer(&v18[16])) = math.MaxUint16
 					*(*uint16)(unsafe.Pointer(&v18[18])) = math.MaxUint16
-					nox_xxx_modifSetItemAttrs_4E4990((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), (*int32)(unsafe.Pointer(&v18[0])))
+					nox_xxx_modifSetItemAttrs_4E4990((*server.Object)(unsafe.Pointer(a1)), (*int32)(unsafe.Pointer(&v18[0])))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13)), 1)
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 1)
 					v9 = !noxflags.HasGame(4096)
@@ -561,7 +561,7 @@ func nox_xxx_XFerAmmo_4F6B20(a1p *server.Object, data unsafe.Pointer) int {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v15), 1)), 1)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v5)), 1)
 	LABEL_17:
-		if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) != 0 && nox_crypt_IsReadOnly() == 1 && nox_xxx_xfer_4F3E30(uint16(int16(v16)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34))) == 0 {
+		if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) != 0 && nox_crypt_IsReadOnly() == 1 && nox_xxx_xfer_4F3E30(uint16(int16(v16)), (*server.Object)(unsafe.Pointer(a1)), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34))) == 0 {
 			return 0
 		}
 		*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = v17
@@ -610,7 +610,7 @@ func nox_xxx_XFerTeam_4F6D20(a1p *server.Object, data unsafe.Pointer) int {
 			}
 			*(*uint16)(unsafe.Pointer(&v11[16])) = math.MaxUint16
 			*(*uint16)(unsafe.Pointer(&v11[18])) = math.MaxUint16
-			nox_xxx_modifSetItemAttrs_4E4990((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), (*int32)(unsafe.Pointer(&v11[0])))
+			nox_xxx_modifSetItemAttrs_4E4990((*server.Object)(unsafe.Pointer(a1)), (*int32)(unsafe.Pointer(&v11[0])))
 			if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))&0x10000000 != 0 {
 				v7 = (*uint32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))))
 				*v7 = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*14)))
@@ -636,7 +636,7 @@ func nox_xxx_XFerTeam_4F6D20(a1p *server.Object, data unsafe.Pointer) int {
 			}
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-			result = nox_xxx_xfer_4F3E30(uint16(int16(v9)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)))
+			result = nox_xxx_xfer_4F3E30(uint16(int16(v9)), (*server.Object)(unsafe.Pointer(a1)), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)))
 			return result
 		}()) != 0 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = v10
@@ -665,7 +665,7 @@ func nox_xxx_XFerGold_4F6EC0(a1p *server.Object, data unsafe.Pointer) int {
 	if result != 0 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, 4)
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
+			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*server.Object)(unsafe.Pointer(v1)), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
 			return result
 		}()) != 0 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) = v3
@@ -703,7 +703,7 @@ func nox_xxx_XFerObelisk_4F6F60(a1p *server.Object, data unsafe.Pointer) int {
 			if nox_crypt_IsReadOnly() == 1 {
 				v9 = int32(*(*uint32)(unsafe.Pointer(v2)) * 80 / 50)
 				v7 = float32(float64(v9))
-				nullsub_35(uint32(uintptr(unsafe.Pointer(v1))), *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v7))), 4*0)))
+				nullsub_35(uint32(uintptr(unsafe.Pointer(v1))), *(*uint32)(unsafe.Add(unsafe.Pointer(&v7), 4*0)))
 			}
 			if noxflags.HasGame(2048) {
 				v5 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*10))).C())
@@ -724,7 +724,7 @@ func nox_xxx_XFerObelisk_4F6F60(a1p *server.Object, data unsafe.Pointer) int {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-			result = nox_xxx_xfer_4F3E30(uint16(int16(v8)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
+			result = nox_xxx_xfer_4F3E30(uint16(int16(v8)), (*server.Object)(unsafe.Pointer(v1)), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
 			return result
 		}()) != 0 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) = v3
@@ -756,7 +756,7 @@ func nox_xxx_XFerToxicCloud_4F70A0(a1p *server.Object, data unsafe.Pointer) int 
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, 4)
 	if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) != 0 {
-		if nox_crypt_IsReadOnly() == 1 && nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34))) == 0 {
+		if nox_crypt_IsReadOnly() == 1 && nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*server.Object)(unsafe.Pointer(v1)), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34))) == 0 {
 			return 0
 		}
 	}
@@ -966,7 +966,7 @@ func nox_xxx_XFerMonsterGen_4F7130(a1p *server.Object, data unsafe.Pointer) int 
 		if int32(int16(v29)) >= 63 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 92)), 4)
 		}
-		if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || nox_xxx_xfer_4F3E30(uint16(int16(v29)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34))) != 0 {
+		if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || nox_xxx_xfer_4F3E30(uint16(int16(v29)), (*server.Object)(unsafe.Pointer(a1)), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34))) != 0 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = v33
 			return 1
 		}
@@ -1163,7 +1163,7 @@ func nox_xxx_XFerRewardMarker_4F74D0(a1p *server.Object, data unsafe.Pointer) in
 				if int32(int16(v23)) >= 63 {
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 216)), 1)
 				}
-				if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || nox_xxx_xfer_4F3E30(uint16(int16(v23)), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34))) != 0 {
+				if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || nox_xxx_xfer_4F3E30(uint16(int16(v23)), (*server.Object)(unsafe.Pointer(a1)), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34))) != 0 {
 					*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = v24
 					return 1
 				}
@@ -1219,8 +1219,8 @@ func nox_xxx_playerSetCustomWP_4F79A0(a1 int32, a2 int32, a3 int32) {
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 276))) + 3680)))) & 3) == 0 {
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 180))))*4 + 168))))
 		if v4 != 0 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v5.field_0))), 4*0)) = uint32(a2)
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v5.field_4))), 4*0)) = uint32(a3)
+			*(*uint32)(unsafe.Add(unsafe.Pointer(&v5.field_0), 4*0)) = uint32(a2)
+			*(*uint32)(unsafe.Add(unsafe.Pointer(&v5.field_4), 4*0)) = uint32(a3)
 			nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(v4))), &v5)
 		} else {
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 180))))*4 + 168))) = uint32(uintptr(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("PlayerWaypoint")))))
@@ -1481,7 +1481,7 @@ func nox_xxx_playerRespawn_4F7EF0(a1p *server.Object) int16 {
 			}
 			if noxflags.HasGame(4096) {
 				nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 1)
-				*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), *(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*69)) + 2064)))))), 452))) = 250
+				*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v3), *(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*69)) + 2064)))))), 452))) = 250
 				nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("GeneralPrint:Respawn"), 0)
 			} else {
 				nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 0)
@@ -1508,7 +1508,7 @@ func nox_xxx_playerRespawn_4F7EF0(a1p *server.Object) int16 {
 			nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(a1))), &v9)
 			if noxflags.HasGame(16) {
 				if nox_xxx_CheckGameplayFlags_417DA0(4) {
-					v7 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 2056))) + 52)))))))), 4*19))))
+					v7 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 2056))) + 52)))))), 4*19))))
 					if v7 != 0 {
 						if *(*uint32)(unsafe.Pointer(uintptr(v7 + 492))) == 0 {
 							sub_4F3400(AsObjectP(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v4 + 2056)))), AsObjectP(unsafe.Pointer(uintptr(v7))), 1, 0)
@@ -1637,14 +1637,14 @@ func nox_xxx_playerInputAttack_4F9C70(a1p *server.Object) {
 		v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
 		v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 276))) + 4))))
 		if v2 != 0 {
-			if uint32(v2)&0x47F0000 != 0 && nox_common_mapPlrActionToStateId_4FA2B0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))) != 29 {
+			if uint32(v2)&0x47F0000 != 0 && nox_common_mapPlrActionToStateId_4FA2B0((*server.Object)(unsafe.Pointer(a1))) != 29 {
 				v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 104))) + 736))))
 				if int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 108)))) != 0 || int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 109)))) == 0 {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = gameFrame()
 					*(*uint8)(unsafe.Pointer(uintptr(v1 + 236))) = 0
 					nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(a1)), 1)
 					nox_xxx_useByNetCode_53F8E0(int32(uintptr(unsafe.Pointer(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 104)))))
-				} else if nox_xxx_playerSubStamina_4F7D30((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 45) != 0 {
+				} else if nox_xxx_playerSubStamina_4F7D30((*server.Object)(unsafe.Pointer(a1)), 45) != 0 {
 					v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 96))))
 					*((*uint8)(unsafe.Pointer(&v4))) = uint8(int8(v4 | 2))
 					*(*uint32)(unsafe.Pointer(uintptr(v3 + 96))) = uint32(v4)
@@ -1655,7 +1655,7 @@ func nox_xxx_playerInputAttack_4F9C70(a1p *server.Object) {
 			} else if int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 88)))) != 1 {
 				v5 = nox_xxx_weaponGetStaminaByType_4F7E80(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 276))) + 4)))))
 				v6 = int8(v5)
-				if nox_xxx_playerSubStamina_4F7D30((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), v5) != 0 {
+				if nox_xxx_playerSubStamina_4F7D30((*server.Object)(unsafe.Pointer(a1)), v5) != 0 {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*34)) = gameFrame()
 					*(*uint8)(unsafe.Pointer(uintptr(v1 + 236))) = 0
 					if nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(a1)), 1) == 0 {
@@ -1663,9 +1663,9 @@ func nox_xxx_playerInputAttack_4F9C70(a1p *server.Object) {
 					}
 				}
 			}
-			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 0)
-			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 23)
-			nox_xxx_spellCancelDurSpell_4FEB10(67, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
+			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(a1)), 0)
+			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(a1)), 23)
+			nox_xxx_spellCancelDurSpell_4FEB10(67, (*server.Object)(unsafe.Pointer(a1)))
 		} else if int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 88)))) != 1 {
 			nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(a1)), 1)
 		}
@@ -1751,7 +1751,7 @@ func nox_xxx_playerSetState_4FA020(a1p *server.Object, a2 int32) int32 {
 		}
 	}
 	if a2 == 24 || a2 == 25 || a2 == 26 || a2 == 27 || a2 == 28 || a2 == 29 {
-		if nox_common_playerIsAbilityActive_4FC250((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 1) != 0 {
+		if nox_common_playerIsAbilityActive_4FC250((*server.Object)(unsafe.Pointer(a1)), 1) != 0 {
 			return 0
 		}
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 88)))) == 12 {
@@ -1762,7 +1762,7 @@ func nox_xxx_playerSetState_4FA020(a1p *server.Object, a2 int32) int32 {
 		if a2 == 1 {
 			goto LABEL_26
 		}
-		if nox_xxx_probablyWarcryCheck_4FC3E0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 2) != 0 && a2 != 4 && a2 != 3 {
+		if nox_xxx_probablyWarcryCheck_4FC3E0((*server.Object)(unsafe.Pointer(a1)), 2) != 0 && a2 != 4 && a2 != 3 {
 			return 0
 		}
 	}
@@ -1774,15 +1774,15 @@ func nox_xxx_playerSetState_4FA020(a1p *server.Object, a2 int32) int32 {
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 164))) = 0
 		case 25:
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 88)))) != a2 {
-				nox_xxx_aud_501960(301, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 0, 0)
+				nox_xxx_aud_501960(301, (*server.Object)(unsafe.Pointer(a1)), 0, 0)
 			}
 		case 26:
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 88)))) != a2 {
-				nox_xxx_aud_501960(300, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 0, 0)
+				nox_xxx_aud_501960(300, (*server.Object)(unsafe.Pointer(a1)), 0, 0)
 			}
 		case 28:
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(v5 + 88)))) != a2 {
-				nox_xxx_aud_501960(302, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 0, 0)
+				nox_xxx_aud_501960(302, (*server.Object)(unsafe.Pointer(a1)), 0, 0)
 			}
 		default:
 			goto LABEL_42
@@ -1801,9 +1801,9 @@ LABEL_26:
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 276))) + 2251)))) == 0 && nox_common_randomInt_415FA0(0, 100) > 75 {
 				*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 276))) + 8))) = 25
 			}
-			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 0)
-			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 23)
-			nox_xxx_spellCancelDurSpell_4FEB10(67, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
+			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(a1)), 0)
+			nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(a1)), 23)
+			nox_xxx_spellCancelDurSpell_4FEB10(67, (*server.Object)(unsafe.Pointer(a1)))
 		}
 	} else {
 		v3 = 0
@@ -2050,21 +2050,21 @@ func nox_xxx_playerBotCreate_4FA700(a1 int32) int32 {
 		v4 = nox_xxx_getNameId_4E3AA0(internCStr("NPC"))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*121)) = uint32(uintptr(nox_xxx_monsterDefByTT_517560(v4)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*334)) = 1048576000
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 1340))) = 1
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1340))) = 1
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*336)) = 1061997773
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 1348))) = 1
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1348))) = 1
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*360)) = 186376
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 1444))) = 0
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 544))) = 0
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1444))) = 0
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 544))) = 0
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*138)) = 5
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*340)) = 38
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*327)) = 1056964608
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*326)) = 1062501089
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*328)) = 1125515264
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*329)) = 1106247680
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 1332))) = math.MaxUint8
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1332))) = math.MaxUint8
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*330)) = 1065353216
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 1324))) = 30
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1324))) = 30
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*332)) = 1056964608
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*338)) = 1065353216
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*307)) = math.MaxUint32
@@ -2094,18 +2094,18 @@ func nox_xxx_playerBotCreate_4FA700(a1 int32) int32 {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*339)) = 1112014848
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*410)) = 0x8000000
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*360)) = uint32(v6 | 0x20)
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*724))) = 0
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*724))) = 0
 					v7 = gameFPS()
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*430)) = 0x10000000
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*725))) = uint16(v7 >> 1)
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*728))) = 0
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*729))) = uint16(int16(int32(uint16(gameFPS())) * 6))
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*725))) = uint16(v7 >> 1)
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*728))) = 0
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*729))) = uint16(int16(int32(uint16(gameFPS())) * 6))
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*432)) = 0x20000000
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*446)) = 0x20000000
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*732))) = uint16(int16(int32(uint16(gameFPS())) * 3))
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*732))) = uint16(int16(int32(uint16(gameFPS())) * 3))
 					v8 = int16(uint16(gameFPS()))
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*736))) = 0
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*733))) = uint16(int16(int32(v8) * 30))
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*736))) = 0
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*733))) = uint16(int16(int32(v8) * 30))
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*401)) = 0x40000000
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*424)) = 0x40000000
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*456)) = 0x40000000
@@ -2113,28 +2113,28 @@ func nox_xxx_playerBotCreate_4FA700(a1 int32) int32 {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*464)) = 0x40000000
 					v9 = int16(uint16(gameFPS()))
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*376)) = 2147483648
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*740))) = 0
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*737))) = uint16(int16(int32(v9) * 2))
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*740))) = 0
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*737))) = uint16(int16(int32(v9) * 2))
 					result = int32(gameFPS())
-					*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*741))) = uint16(int16(int32(uint16(gameFPS())) * 6))
+					*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*741))) = uint16(int16(int32(uint16(gameFPS())) * 6))
 				}
 			} else {
 				v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*360)))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*339)) = 1112014848
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*410)) = 0x8000000
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*360)) = uint32(v10 | 0x20)
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*724))) = 0
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*724))) = 0
 				v11 = gameFPS()
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*728))) = 0
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*725))) = uint16(v11 >> 1)
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*728))) = 0
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*725))) = uint16(v11 >> 1)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*423)) = 0x10000000
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*408)) = 0x10000000
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*411)) = 0x10000000
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*729))) = uint16(gameFPS())
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*729))) = uint16(gameFPS())
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*384)) = 0x20000000
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*405)) = 0x20000000
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*732))) = uint16(int16(int32(uint16(gameFPS())) * 3))
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*733))) = uint16(int16(int32(uint16(gameFPS())) * 30))
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*732))) = uint16(int16(int32(uint16(gameFPS())) * 3))
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*733))) = uint16(int16(int32(uint16(gameFPS())) * 30))
 				v12 = nox_common_randomInt_415FA0(0, 100)
 				if v12 >= 33 {
 					if v12 >= 66 {
@@ -2146,13 +2146,13 @@ func nox_xxx_playerBotCreate_4FA700(a1 int32) int32 {
 				} else {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*399)) = 0x40000000
 				}
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*736))) = 0
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*736))) = 0
 				v13 = int16(uint16(gameFPS()))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*376)) = 2147483648
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*740))) = 0
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*737))) = uint16(int16(int32(v13) * 2))
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*740))) = 0
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*737))) = uint16(int16(int32(v13) * 2))
 				result = int32(gameFPS() * 6)
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*741))) = uint16(int16(int32(uint16(gameFPS())) * 6))
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*741))) = uint16(int16(int32(uint16(gameFPS())) * 6))
 			}
 		} else {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*339)) = 0
@@ -2211,7 +2211,7 @@ func Nox_xxx_updatePlayerMonsterBot_4FAB20(a1 *uint32) int32 {
 		if result == 0 {
 			v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 292))))
 			v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 1440))))
-			*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v4))), 1)) |= 1
+			*(*uint8)(unsafe.Add(unsafe.Pointer(&v4), 1)) |= 1
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 1440))) = uint32(v4)
 			nox_xxx_mobMorphFromPlayer_4FAAC0(a1)
 			nox_xxx_unitUpdateMonster_50A5C0((*server.Object)(unsafe.Pointer(a1)))
@@ -2398,7 +2398,7 @@ func nox_xxx_playerDoSchedSpell_4FB0E0(a1p *server.Object, a2p *server.Object) i
 	*(*float32)(unsafe.Pointer(&v7[2])) = float32(float64(*(*int32)(unsafe.Pointer(uintptr(v3 + 224)))))
 	if a1 != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 276))) + 2064)))), 0, &a1)
-		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 0, 0)
+		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v2)), 0, 0)
 	} else {
 		nox_xxx_castSpellByUser_4FDD20(int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 192)))), (*server.Object)(unsafe.Pointer(v2)), unsafe.Pointer(&v7[0]))
 	}
@@ -2437,7 +2437,7 @@ func nox_xxx_playerDoSchedSpellQueue_4FB1D0(a1p *server.Object, a2p *server.Obje
 	*(*float32)(unsafe.Pointer(&v5[2])) = float32(float64(*(*int32)(unsafe.Pointer(uintptr(v3 + 224)))))
 	if a1 != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 276))) + 2064)))), 0, &a1)
-		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 0, 0)
+		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v2)), 0, 0)
 	} else {
 		nox_xxx_castSpellByUser_4FDD20(int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 212))))*4 + 188)))), (*server.Object)(unsafe.Pointer(v2)), unsafe.Pointer(&v5[0]))
 	}
@@ -3035,24 +3035,24 @@ func nox_xxx_createSpellFly_4FDDA0(a1p *server.Object, a2p *server.Object, a3 in
 		if result != nil {
 			v13 = (*int32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*187)))))
 			*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*4)) = nox_xxx_spellGetPower_4FE7B0(a3, (*server.Object)(unsafe.Pointer(uintptr(v3))))
-			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))), (*server.Object)(unsafe.Pointer(uintptr(v3))), v22.field_8, v22.field_C)
+			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v12)), (*server.Object)(unsafe.Pointer(uintptr(v3))), v22.field_8, v22.field_C)
 			v14 = int16(*(*uint16)(unsafe.Pointer(uintptr(v3 + 124))))
-			*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v12))), unsafe.Sizeof(uint16(0))*62))) = uint16(v14)
-			*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v12))), unsafe.Sizeof(uint16(0))*63))) = uint16(v14)
+			*((*uint16)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(uint16(0))*62))) = uint16(v14)
+			*((*uint16)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(uint16(0))*63))) = uint16(v14)
 			*v13 = v3
 			*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*1)) = a2
 			*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*2)) = v3
 			*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*3)) = a3
 			nox_xxx_xferIndexedDirection_509E20(int32(*(*int16)(unsafe.Pointer(uintptr(v3 + 124)))), &v21)
-			v15 = int32(*((*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(v12))), unsafe.Sizeof(int16(0))*62))))
-			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*20))) = *mem_getFloatPtr(0x587000, uint32(v15*8)+194136) * *((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*136)))
-			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*21))) = *mem_getFloatPtr(0x587000, uint32(v15*8)+194140) * *((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*136)))
-			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*20))) = *((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*20))) + *(*float32)(unsafe.Pointer(uintptr(v3 + 80)))
-			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*21))) = *((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v12))), unsafe.Sizeof(float32(0))*21))) + *(*float32)(unsafe.Pointer(uintptr(v3 + 84)))
+			v15 = int32(*((*int16)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(int16(0))*62))))
+			*((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*20))) = *mem_getFloatPtr(0x587000, uint32(v15*8)+194136) * *((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*136)))
+			*((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*21))) = *mem_getFloatPtr(0x587000, uint32(v15*8)+194140) * *((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*136)))
+			*((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*20))) = *((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*20))) + *(*float32)(unsafe.Pointer(uintptr(v3 + 80)))
+			*((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*21))) = *((*float32)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(float32(0))*21))) + *(*float32)(unsafe.Pointer(uintptr(v3 + 84)))
 			if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(v3))), 21) != 0 {
 				v20 = nox_xxx_buffGetPower_4FF570((*server.Object)(unsafe.Pointer(uintptr(v3))), 21)
 				v16 = int16(nox_xxx_unitGetBuffTimer_4FF550((*server.Object)(unsafe.Pointer(uintptr(v3))), 21))
-				nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))), 21, v16, v20)
+				nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(v12)), 21, v16, v20)
 			}
 			v17 = nox_xxx_spellGetAud44_424800(a3, 0)
 			nox_xxx_aud_501960(v17, (*server.Object)(unsafe.Pointer(uintptr(v3))), 0, 0)
@@ -3262,43 +3262,43 @@ func nox_xxx_spellByBookInsert_4FE340(a1 int32, a2 *int32, a3 int32, a4 int32, a
 			if nox_xxx_spellCheckSmth_4FCEF0(a1, a2, a3) == 0 {
 				a1 = 12
 				nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-				nox_xxx_aud_501960(232, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+				nox_xxx_aud_501960(232, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 				return 0
 			}
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2251)))) == 2 {
-				v15 = uint8(int8(bool2int32(nox_xxx_checkSummonedCreaturesLimit_500D70((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 5))))
+				v15 = uint8(int8(bool2int32(nox_xxx_checkSummonedCreaturesLimit_500D70((*server.Object)(unsafe.Pointer(v5)), 5))))
 				if int32(v15) == 0 {
 					a1 = 4
 					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 					return 0
 				}
 				v16 = nox_xxx_unitCountSlaves_4E7CF0(int32(uintptr(unsafe.Pointer(v5))), 2, 0x2000)
 				if v16 >= int32(int64(nox_xxx_gamedataGetFloat_419D40(internCStr("MaxBomberCount")))) {
 					a1 = 5
 					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 					return 0
 				}
 			} else if int32(*(*uint8)(unsafe.Pointer(uintptr(v9 + 244)))) >= int32(int64(nox_xxx_gamedataGetFloat_419D40(internCStr("MaxTrapCount")))) {
 				a1 = 5
 				nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-				nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+				nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 				return 0
 			}
 			v17 = a2
 			v18 = 0
 			for {
-				a1 = sub_4FD0E0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), *v17)
+				a1 = sub_4FD0E0((*server.Object)(unsafe.Pointer(v5)), *v17)
 				if a1 != 0 {
 					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 					return 0
 				}
-				a1 = nox_xxx_checkPlrCantCastSpell_4FD150((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), *v17, v26)
+				a1 = nox_xxx_checkPlrCantCastSpell_4FD150((*server.Object)(unsafe.Pointer(v5)), *v17, v26)
 				if a1 != 0 {
 					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+					nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 					return 0
 				}
 				v18++
@@ -3313,13 +3313,13 @@ func nox_xxx_spellByBookInsert_4FE340(a1 int32, a2 *int32, a3 int32, a4 int32, a
 	a1 = sub_4FD0E0((*server.Object)(unsafe.Pointer(uintptr(a1))), *a2)
 	if a1 != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 		return 0
 	}
-	a1 = nox_xxx_checkPlrCantCastSpell_4FD150((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), *v6, 0)
+	a1 = nox_xxx_checkPlrCantCastSpell_4FD150((*server.Object)(unsafe.Pointer(v5)), *v6, 0)
 	if a1 != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v9 + 276))) + 2064)))), 0, &a1)
-		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))), 0, 0)
+		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(v5)), 0, 0)
 		return 0
 	}
 LABEL_36:
@@ -3335,12 +3335,12 @@ LABEL_36:
 	v22 = a4
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*1)) = uint32(uintptr(unsafe.Pointer(v5)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*12)) = uint32(v21)
-	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v20))), 36))) = 0
+	*((*uint8)(unsafe.Add(unsafe.Pointer(v20), 36))) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*10)) = gameFrame()
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*11)) = uint32(v22)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*8)) = uint32(uintptr(nox_xxx_spellGetDefArrayPtr_424820()))
-	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v20))), 28))) = 0
-	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v20))), 29))) = 0
+	*((*uint8)(unsafe.Add(unsafe.Pointer(v20), 28))) = 0
+	*((*uint8)(unsafe.Add(unsafe.Pointer(v20), 29))) = 0
 	v23 = 0
 	v24 = v6
 	v25 = (*int32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*2))))
@@ -3350,7 +3350,7 @@ LABEL_36:
 		} else {
 			*v25 = *v24
 			if *v24 == 34 {
-				*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v20))), 29))) = 1
+				*((*uint8)(unsafe.Add(unsafe.Pointer(v20), 29))) = 1
 			}
 		}
 		v23++
@@ -3801,13 +3801,13 @@ func nox_xxx_buffApplyTo_4FF380(unit *server.Object, buff int32, dur int16, powe
 	}
 	var v4 int32 = bool2int32(noxflags.HasGame(4096))
 	if v4 != 0 && (func() bool {
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v4))), unsafe.Sizeof(uint16(0))*0)) = *memmap.PtrUint16(0x5D4594, 1569744)
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = *memmap.PtrUint16(0x5D4594, 1569744)
 		return uint32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4)))) == *memmap.PtrUint32(0x5D4594, 1569744)
 	}()) && buff == 3 {
 		nox_xxx_aud_501960(595, unit, 0, 0)
 	} else if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&2 != 0 && (func() int32 {
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))
-		return int32(*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v4))), 1))) & 0x10
+		return int32(*(*uint8)(unsafe.Add(unsafe.Pointer(&v4), 1))) & 0x10
 	}()) != 0 && buff == 11 && (func() int32 {
 		v4 = bool2int32(noxflags.HasGame(2048))
 		return v4
@@ -4060,7 +4060,7 @@ func sub_4FF900(a1 int32) int32 {
 			} else {
 				v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 8))))
 				*((*uint8)(unsafe.Pointer(&a1))) = 62
-				*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(&a1))), 1)))) = *(*uint16)(unsafe.Pointer(uintptr(v7 + 5)))
+				*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&a1), 1)))) = *(*uint16)(unsafe.Pointer(uintptr(v7 + 5)))
 				result = nox_xxx_netSendPacket0_4E5420(int32(i), unsafe.Pointer(&a1), 3, 0, 1)
 			}
 		}
@@ -4267,10 +4267,10 @@ func nox_xxx_netWallCreate_4FFE80(a1 int32, a2 *uint8, a3 int32, a4 int8, a5 int
 	if result != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = uint32(uintptr(unsafe.Pointer(a2)))
 		*result = uint32(a3)
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 4))) = *a2
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 12))) = uint8(a4)
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 13))) = uint8(a5)
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 14))) = uint8(a6)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 4))) = *a2
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 12))) = uint8(a4)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 13))) = uint8(a5)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 14))) = uint8(a6)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)) = uint32(a1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*4)) = 0
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*7)) = 0
@@ -4551,16 +4551,16 @@ func nox_xxx_journalQuestSet_500540(a1 *byte, a2 int32) *byte {
 	)
 	result = nox_xxx_scriptGetJournal_5005E0(a1)
 	if result != nil {
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*34))) = uint32(a2)
+		*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*34))) = uint32(a2)
 	} else {
 		result = (*byte)(alloc.Calloc1(1, 0x94))
 		v3 = result
 		if result != nil {
 			libc.StrCpy(result, (*byte)(memmap.PtrOff(0x5D4594, 1570140)))
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*33))) = 0
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*34))) = uint32(a2)
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*36))) = 0
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*35))) = dword_5d4594_1570272
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*33))) = 0
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*34))) = uint32(a2)
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*36))) = 0
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*35))) = dword_5d4594_1570272
 			result = *(**byte)(unsafe.Pointer(&dword_5d4594_1570272))
 			if dword_5d4594_1570272 != 0 {
 				*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1570272 + 144))) = uint32(uintptr(unsafe.Pointer(v3)))
@@ -4614,16 +4614,16 @@ func nox_xxx_journalQuestSetBool_5006B0(a1 *byte, a2 int32) *byte {
 	)
 	result = nox_xxx_scriptGetJournal_5005E0(a1)
 	if result != nil {
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*34))) = uint32(a2)
+		*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*34))) = uint32(a2)
 	} else {
 		result = (*byte)(alloc.Calloc1(1, 0x94))
 		v3 = result
 		if result != nil {
 			libc.StrCpy(result, (*byte)(memmap.PtrOff(0x5D4594, 1570140)))
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*33))) = 1
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*34))) = uint32(a2)
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*36))) = 0
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*35))) = dword_5d4594_1570272
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*33))) = 1
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*34))) = uint32(a2)
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*36))) = 0
+			*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*35))) = dword_5d4594_1570272
 			result = *(**byte)(unsafe.Pointer(&dword_5d4594_1570272))
 			if dword_5d4594_1570272 != 0 {
 				*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1570272 + 144))) = uint32(uintptr(unsafe.Pointer(v3)))
@@ -4640,7 +4640,7 @@ func sub_500750(a1 *byte) int32 {
 	)
 	v1 = nox_xxx_scriptGetJournal_5005E0(a1)
 	if v1 != nil {
-		result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*34))))
+		result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*34))))
 	} else {
 		result = 0
 	}
@@ -4653,7 +4653,7 @@ func sub_500770(a1 *byte) float64 {
 	)
 	v1 = nox_xxx_scriptGetJournal_5005E0(a1)
 	if v1 != nil {
-		result = float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v1))), unsafe.Sizeof(float32(0))*34))))
+		result = float64(*((*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*34))))
 	} else {
 		result = 0.0
 	}
@@ -4706,7 +4706,7 @@ func sub_5007E0(a1 *byte) *byte {
 			result = *(**byte)(unsafe.Pointer(&dword_5d4594_1570272))
 			if dword_5d4594_1570272 != 0 {
 				for {
-					v4 = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*35))))))
+					v4 = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*35))))))
 					sub_500790(unsafe.Pointer(result))
 					result = v4
 					if v4 == nil {
@@ -4976,7 +4976,7 @@ func nox_xxx_summonStart_500DA0(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 72))) = *(*uint32)(unsafe.Pointer(&v17[0]))
 	v8 = int32(*(*uint32)(unsafe.Pointer(&v17[8])))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 76))) = uint32(v7)
-	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v7))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(&v17[12]))
+	*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(&v17[12]))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 80))) = uint32(v8)
 	*(*uint16)(unsafe.Pointer(uintptr(a1 + 84))) = uint16(int16(v7))
 	v9 = int32(nox_xxx_guideGetUnitSize_427460(v2)) - 1
@@ -5055,8 +5055,8 @@ func sub_500F40(a1 int32, a2 float32) int32 {
 		}
 		if nox_xxx_mapTraceRay_535250(&v19, nil, nil, 9) != 0 && nox_xxx_mapTileAllowTeleport_411A90((*float2)(unsafe.Pointer(&v19.field_8))) == 0 {
 			v10 = v19.field_C
-			*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v4))), 4*0))))) = *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v19.field_8))), 4*0))
-			*(*float32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v4))), 4*0))) + 4))) = v10
+			*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(&v4), 4*0))))) = *(*uint32)(unsafe.Add(unsafe.Pointer(&v19.field_8), 4*0))
+			*(*float32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v4), 4*0))) + 4))) = v10
 			return 1
 		}
 		v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4)))
@@ -5075,15 +5075,15 @@ func sub_500F40(a1 int32, a2 float32) int32 {
 	v19.field_8 = v15
 	v19.field_C = v16
 	if nox_xxx_mapTraceRay_535250(&v19, nil, nil, 9) != 0 {
-		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v4))), 4*0))))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13))
-		*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v4))), 4*0))) + 4))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*14))
+		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(&v4), 4*0))))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13))
+		*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v4), 4*0))) + 4))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*14))
 		result = 1
 	} else {
 		v17 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4)))
-		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v4))), 4*0))))) = *(*uint32)(unsafe.Pointer(uintptr(v17 + 56)))
+		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(&v4), 4*0))))) = *(*uint32)(unsafe.Pointer(uintptr(v17 + 56)))
 		v18 = int32(*(*uint32)(unsafe.Pointer(uintptr(v17 + 60))))
 		result = 1
-		*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v4))), 4*0))) + 4))) = uint32(v18)
+		*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v4), 4*0))) + 4))) = uint32(v18)
 	}
 	return result
 }
@@ -5119,7 +5119,7 @@ func nox_xxx_summonFinish_5010D0(a1 int32) int32 {
 LABEL_17:
 	v6 = (*uint32)(unsafe.Pointer(nox_xxx_unitDoSummonAt_5016C0(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 72)))), (*float32)(unsafe.Pointer(uintptr(a1+74))), (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16)))))), *(*uint8)(unsafe.Pointer(uintptr(a1 + 82))))))
 	if v6 != nil {
-		nox_xxx_aud_501960(899, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 0, 0)
+		nox_xxx_aud_501960(899, (*server.Object)(unsafe.Pointer(v6)), 0, 0)
 	}
 	*(*uint8)(unsafe.Pointer(uintptr(a1 + 85))) = 1
 	return 1
@@ -5311,7 +5311,7 @@ func nox_xxx_charmCreatureFinish_5013E0(a1 *int32) int32 {
 		*(*uint32)(unsafe.Pointer(uintptr(v18 + 12))) = uint32(v19)
 		v20 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
 		v21 = int32(*(*uint32)(unsafe.Pointer(uintptr(v20 + 12))))
-		*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v21))), 1)) |= 1
+		*(*uint8)(unsafe.Add(unsafe.Pointer(&v21), 1)) |= 1
 		*(*uint32)(unsafe.Pointer(uintptr(v20 + 12))) = uint32(v21)
 		nox_xxx_netReportAcquireCreature_4D91A0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v17 + 276))) + 2064)))), (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))))
 		nox_xxx_netMarkMinimapObject_417190(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v17 + 276))) + 2064)))), (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))), 1)
@@ -5406,7 +5406,7 @@ LABEL_8:
 	v9.field_4 = int32(v6)
 	v7 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v9, 0)
 	if v7 != nil {
-		return int8(*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v7.field_0[32]))), 2)))
+		return int8(*(*uint8)(unsafe.Add(unsafe.Pointer(&v7.field_0[32]), 2)))
 	}
 	return v2
 }
@@ -5444,7 +5444,7 @@ func nox_xxx_netUpdateRemotePlr_501CA0(a1p *server.Object) {
 		v17.field_4 = int32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 3628))) + 60))))
 		v8 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v17, 0)
 		if v8 != nil {
-			v18 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v8.field_0[32]))), 2)))
+			v18 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(&v8.field_0[32]), 2)))
 		} else {
 			v18 = 0
 		}
@@ -5470,7 +5470,7 @@ func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedT
 		if expectedType != 0 {
 			break
 		}
-		for i = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(groupPtr))), 4*21)))))); i != nil; i = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(i), 4*2))))) {
+		for i = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(groupPtr), 4*21)))))); i != nil; i = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(i), 4*2))))) {
 			v5 = nox_xxx_netGetUnitByExtent_4ED020(*i)
 			if v5 != 0 {
 				a3(v5, a4)
@@ -5480,7 +5480,7 @@ func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedT
 		if expectedType != 1 {
 			break
 		}
-		for j = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(groupPtr))), 4*21)))))); j != nil; j = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(j), 4*2))))) {
+		for j = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(groupPtr), 4*21)))))); j != nil; j = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(j), 4*2))))) {
 			v7 = (*uint32)(unsafe.Pointer(nox_server_getWaypointById_579C40(*j)))
 			if v7 != nil {
 				a3(int32(uintptr(unsafe.Pointer(v7))), a4)
@@ -5490,7 +5490,7 @@ func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedT
 		if expectedType != 2 {
 			break
 		}
-		for k = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(groupPtr))), 4*21)))))); k != nil; k = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(k), 4*2))))) {
+		for k = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(groupPtr), 4*21)))))); k != nil; k = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(k), 4*2))))) {
 			v9 = int32(uintptr(nox_server_getWallAtGrid_410580(*k, *(*int32)(unsafe.Add(unsafe.Pointer(k), 4*1)))))
 			if v9 != 0 {
 				a3(v9, a4)
@@ -5498,7 +5498,7 @@ func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedT
 		}
 		fallthrough
 	case 3:
-		for l = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(groupPtr))), 4*21)))))); l != nil; l = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(l), 4*2))))) {
+		for l = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(groupPtr), 4*21)))))); l != nil; l = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(l), 4*2))))) {
 			v11 = (*uint8)(nox_server_scriptGetGroup_57C0A0(*l))
 			if v11 != nil {
 				nox_server_scriptExecuteFnForEachGroupObj_502670(v11, expectedType, a3, a4)
@@ -5812,7 +5812,7 @@ func nox_xxx_mapgenSaveMap_503830(a1 int32) int32 {
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v27[0])), uint32(uint8(int8(v8))))
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v24[0])), 4)
-		if nox_xxx_mapReadSection_426EA0(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&v11[0]))))), &v27[0], (*uint32)(unsafe.Pointer(&v6))) == 0 {
+		if nox_xxx_mapReadSection_426EA0(unsafe.Pointer(&v11[0]), &v27[0], (*uint32)(unsafe.Pointer(&v6))) == 0 {
 			if v6 == 1 {
 				sub_502DF0()
 				return 0
@@ -5893,7 +5893,7 @@ func sub_503B30(a1 *float2) int32 {
 		v6 = v5
 		v7 = int32(*(*uint32)(unsafe.Pointer(v5)))
 		*memmap.PtrUint32(0x5D4594, 1599484) = uint32(v7)
-		*memmap.PtrUint32(0x5D4594, 1599488) = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*1)))
+		*memmap.PtrUint32(0x5D4594, 1599488) = *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)))
 		*mem_getFloatPtr(0x5D4594, 1599492) = float32(float64(v7 * 23))
 		*mem_getFloatPtr(0x5D4594, 1599496) = float32(float64(int32(*memmap.PtrUint32(0x5D4594, 1599488) * 23)))
 		v8 = int32(int64(float64(a2.field_0) - float64(*memmap.PtrInt32(0x5D4594, 1599508))))
@@ -5988,15 +5988,15 @@ func nox_xxx_tileAllocTileInCoordList_5040A0(a1 int32, a2 int32, a3 float32) *ui
 			v6 = float64(a1) * 46.0
 			*memmap.PtrUint32(0x5D4594, 1599560)++
 			v7 = int32(*((*uint8)(unsafe.Pointer(&a3)))) == 1
-			*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v4))), 12))) = *((*uint8)(unsafe.Pointer(&a3)))
-			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v4))), unsafe.Sizeof(float32(0))*1))) = float32(v6)
+			*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 12))) = *((*uint8)(unsafe.Pointer(&a3)))
+			*((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*1))) = float32(v6)
 			v8 = float32(float64(a2) * 46.0)
-			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v4))), unsafe.Sizeof(float32(0))*2))) = v8
+			*((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*2))) = v8
 			result = v4
 			if v7 {
-				*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v4))), unsafe.Sizeof(float32(0))*1))) = float32(v6 + 23.0)
+				*((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*1))) = float32(v6 + 23.0)
 			} else {
-				*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v4))), unsafe.Sizeof(float32(0))*2))) = float32(float64(v8) + 23.0)
+				*((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*2))) = float32(float64(v8) + 23.0)
 			}
 		} else {
 			alloc.Free(v4)
@@ -6143,18 +6143,18 @@ func sub_504330(a1 int32, a2 int32) int32 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 2)) = 0
 		}
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)))&4 != 0 {
-			sub_4107A0(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(v7))), unsafe.Sizeof(unsafe.Pointer(nil))*7))))
+			sub_4107A0(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(unsafe.Pointer(nil))*7))))
 		}
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 4)))&4 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)) |= 4
-			v11 = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(*v2))), 4*7))))))
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*7))) = uint32(uintptr(unsafe.Pointer(v11)))
+			v11 = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(*v2), 4*7))))))
+			*((*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*7))) = uint32(uintptr(unsafe.Pointer(v11)))
 			nox_xxx_wallSecretBlock_410760(v11)
 		}
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 4)))&8 != 0 {
 			v9 = *(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4))
 			if (int32(v9) & 8) == 0 {
-				v12 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*7))))
+				v12 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*7))))
 				*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)) = uint8(int8(int32(v9) | 8))
 				nox_xxx_wallBreackableListAdd_410840(v12)
 			}
@@ -6393,7 +6393,7 @@ func nox_server_mapRWMapIntro_505080() int32 {
 	v4 = *memmap.PtrUint8(0x587000, 229834)
 	v5 = &v19[libc.StrLen(&v19[0])]
 	*(*uint32)(unsafe.Pointer(v5)) = *memmap.PtrUint32(0x587000, 229828)
-	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v5))), unsafe.Sizeof(uint16(0))*2))) = uint16(v3)
+	*((*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*2))) = uint16(v3)
 	*(*byte)(unsafe.Add(unsafe.Pointer(v5), 6)) = byte(v4)
 	libc.StrCat(&v19[0], nox_xxx_mapGetMapName_409B40())
 	*(*uint16)(unsafe.Pointer(&v19[libc.StrLen(&v19[0])])) = *memmap.PtrUint16(0x587000, 229836)
@@ -6593,7 +6593,7 @@ func nox_server_mapRWGroupData_505C30() int32 {
 		v13++
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13)), 4)
-	for v4 := int32(int32(uintptr(nox_server_getFirstMapGroup_57C080()))); v4 != 0; v4 = nox_server_getNextMapGroup_57C090(v4) {
+	for v4 := int32(uintptr(nox_server_getFirstMapGroup_57C080())); v4 != 0; v4 = nox_server_getNextMapGroup_57C090(v4) {
 		*((*uint8)(unsafe.Pointer(&v17))) = uint8(int8(libc.StrLen((*byte)(unsafe.Pointer(uintptr(v4+8)))) + 1))
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v17)), 1)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v4+8))), uint32(uint8(int8(v17))))
@@ -6604,7 +6604,7 @@ func nox_server_mapRWGroupData_505C30() int32 {
 			v12++
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 4)
-		for v6 := int32(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 84))))); v6 != 0; v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 8)))) {
+		for v6 := int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 84)))); v6 != 0; v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 8)))) {
 			v7 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4))))
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(v4)))) == 0 || int32(v7) == 1 {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v6))), 4)
@@ -6691,7 +6691,7 @@ func nox_server_mapRWWaypoints_506260(a1 *uint32) int32 {
 					v7 = nox_xxx_mapGetWallSize_426A70()
 					sub_428170(unsafe.Pointer(a1), &v30)
 					v22 = float32(float64(v22) - float64(int32(*(*uint32)(unsafe.Pointer(v7))*23)) + float64(v30.field_0) - 11.0)
-					v23 = float32(float64(v23) - float64(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*1)))*23)) + float64(v30.field_4) - 11.0)
+					v23 = float32(float64(v23) - float64(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*1)))*23)) + float64(v30.field_4) - 11.0)
 				}
 				if noxflags.HasGame(0x400000) {
 					v8 = (**byte)(unsafe.Pointer(sub_5044B0(v25, v22, v23)))
@@ -6788,8 +6788,8 @@ func nox_server_mapRWWaypoints_506260(a1 *uint32) int32 {
 	}
 	for {
 		if v3 == nil || (func() int32 {
-			v26.field_0 = int32(int64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v4))), unsafe.Sizeof(float32(0))*2)))))
-			v26.field_4 = int32(int64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v4))), unsafe.Sizeof(float32(0))*3)))))
+			v26.field_0 = int32(int64(*((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*2)))))
+			v26.field_4 = int32(int64(*((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*3)))))
 			return nox_xxx_wallMath_427F30(&v26, (*int32)(unsafe.Pointer(v3)))
 		}()) != 0 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v4)), 4)
@@ -6798,14 +6798,14 @@ func nox_server_mapRWWaypoints_506260(a1 *uint32) int32 {
 			*((*uint8)(unsafe.Pointer(&v20))) = uint8(int8(libc.StrLen((*byte)(unsafe.Add(unsafe.Pointer(v4), 16)))))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v20)), 1)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 16)), uint32(uint8(int8(v20))))
-			v27 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*120))) & 1)
+			v27 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*120))) & 1)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v27)), 4)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 476)), 1)
 			v5 = 0
 			if *(*byte)(unsafe.Add(unsafe.Pointer(v4), 476)) != 0 {
 				v6 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 96))
 				for {
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*((**uint8)(unsafe.Add(unsafe.Pointer((**uint8)(unsafe.Pointer(v6))), -int(unsafe.Sizeof((*uint8)(nil))*1)))), 4)
+					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*((**uint8)(unsafe.Add(unsafe.Pointer(v6), -int(unsafe.Sizeof((*uint8)(nil))*1)))), 4)
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v6, 1)
 					v5++
 					v6 = (*uint8)(unsafe.Add(unsafe.Pointer(v6), 8))
@@ -7046,11 +7046,11 @@ func sub_506A20(a1 int32, a2 int32) *uint32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4)) = uint32(a2 + 48)
 	switch a1 {
 	case 0, 1:
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 12))) = *memmap.PtrUint8(0x587000, 229980)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 12))) = *memmap.PtrUint8(0x587000, 229980)
 	case 2, 3:
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 12))) = 6
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 12))) = 6
 	default:
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 12))) = *memmap.PtrUint8(0x587000, 229984)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 12))) = *memmap.PtrUint8(0x587000, 229984)
 	}
 	nox_xxx_voteAddMB_506AD0(int32(uintptr(unsafe.Pointer(v3))))
 	if v2 != 0 {
@@ -7079,7 +7079,7 @@ func sub_506B00(a1 int32, a2 int32) *uint32 {
 	if nox_server_resetQuestMinVotes_229988 != 0 {
 		if a2 != 0 {
 			result = *(**uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 748))) + 276)))
-			v3 = 1 << int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 2064))))
+			v3 = 1 << int32(*((*uint8)(unsafe.Add(unsafe.Pointer(result), 2064))))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1198)) != 0 {
 				result = *(**uint32)(unsafe.Pointer(&dword_5d4594_1599656))
 				if dword_5d4594_1599656 != 0 {
@@ -7098,9 +7098,9 @@ func sub_506B00(a1 int32, a2 int32) *uint32 {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)) = 0
 				}
 				if (*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) & uint32(v3)) == 0 {
-					v4 = int8(int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 4)))) + 1)
+					v4 = int8(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(result), 4)))) + 1)
 					*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) |= uint32(v3)
-					*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 4))) = uint8(v4)
+					*((*uint8)(unsafe.Add(unsafe.Pointer(result), 4))) = uint8(v4)
 				}
 			}
 		}
@@ -7121,28 +7121,28 @@ func sub_506B80(a1 int32, a2 int32, a3 *wchar2_t) *uint32 {
 			result = (*uint32)(unsafe.Pointer(uintptr(a2)))
 			if a2 != 0 {
 				result = *(**uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 748))) + 276)))
-				v4 = 1 << int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 2064))))
+				v4 = 1 << int32(*((*uint8)(unsafe.Add(unsafe.Pointer(result), 2064))))
 				if *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1198)) != 0 {
 					result = (*uint32)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 					v5 = (*wchar2_t)(unsafe.Pointer(result))
 					if result != nil {
 						for {
-							if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*523))) == 1 {
+							if *((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*523))) == 1 {
 								result = (*uint32)(unsafe.Pointer(uintptr(nox_wcscmp((*wchar2_t)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(wchar2_t(0))*2352)), a3))))
 								if result == nil {
 									break
 								}
 							}
-							result = (*uint32)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))))))
+							result = (*uint32)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v5)))))
 							v5 = (*wchar2_t)(unsafe.Pointer(result))
 							if result == nil {
 								return result
 							}
 						}
-						if int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 2064)))) != 31 {
-							result = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*1198))))))
+						if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v5), 2064)))) != 31 {
+							result = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1198))))))
 							if result != nil {
-								v6 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*514))))
+								v6 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*514))))
 								if v6 != 0 {
 									if a2 != v6 {
 										result = *(**uint32)(unsafe.Pointer(&dword_5d4594_1599656))
@@ -7162,9 +7162,9 @@ func sub_506B80(a1 int32, a2 int32, a3 *wchar2_t) *uint32 {
 											*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*7)) = uint32(v6)
 										}
 										if (*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) & uint32(v4)) == 0 {
-											v7 = int8(int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 4)))) + 1)
+											v7 = int8(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(result), 4)))) + 1)
 											*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) |= uint32(v4)
-											*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 4))) = uint8(v7)
+											*((*uint8)(unsafe.Add(unsafe.Pointer(result), 4))) = uint8(v7)
 										}
 									}
 								}
@@ -7207,14 +7207,14 @@ func sub_506D00(a1 int32, a2 *wchar2_t) {
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
 				v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 				if v2 != nil {
-					for *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*523))) != 1 || nox_wcscmp((*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v2))), unsafe.Sizeof(wchar2_t(0))*2352)), a2) != 0 {
-						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
+					for *((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*523))) != 1 || nox_wcscmp((*wchar2_t)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*2352)), a2) != 0 {
+						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v2)))))
 						if v2 == nil {
 							return
 						}
 					}
 					if *(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)) != 31 {
-						v3 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*514))))
+						v3 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*514))))
 						if v3 != 0 {
 							v4 = int32(dword_5d4594_1599656)
 							v5 = 1 << int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2064))))
@@ -7291,14 +7291,14 @@ func sub_506E50(a1 int32, a2 *wchar2_t) {
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
 				v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 				if v2 != nil {
-					for *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*523))) != 1 || nox_wcscmp((*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v2))), unsafe.Sizeof(wchar2_t(0))*2352)), a2) != 0 {
-						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
+					for *((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*523))) != 1 || nox_wcscmp((*wchar2_t)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*2352)), a2) != 0 {
+						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v2)))))
 						if v2 == nil {
 							return
 						}
 					}
 					if *(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)) != 31 {
-						v3 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*514))))
+						v3 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*514))))
 						if v3 != 0 {
 							v4 = int32(dword_5d4594_1599656)
 							v5 = 1 << int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2064))))
@@ -7638,11 +7638,11 @@ func sub_5095E0() int32 {
 	v10 = nil
 	v1 = 0
 	v2 = math.MaxInt32
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
-		v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*13))))
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+		v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*13))))
 		if v4 <= v2 {
 			v1 = bool2int32(v4 == v2 && v0 != 0)
-			v2 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*13))))
+			v2 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*13))))
 			v10 = i
 			v0 = int32(uintptr(unsafe.Pointer(i)))
 		}

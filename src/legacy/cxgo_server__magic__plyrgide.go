@@ -15,11 +15,11 @@ func nox_xxx_netReportGuideAward_4D8000(a1 int32, a2 int8, a3 int8, a4 int32) in
 	result = a1
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
 		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
-		*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&a1))), 1)) = uint8(a2)
+		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint8(a2)
 		*((*uint8)(unsafe.Pointer(&a1))) = 209
-		*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&a1))), 2)) = uint8(a3)
+		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 2)) = uint8(a3)
 		if a4 != 0 {
-			*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&a1))), 2)) = uint8(int8(int32(a3) | 0x80))
+			*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 2)) = uint8(int8(int32(a3) | 0x80))
 		}
 		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 276))) + 2064)))), int32(uintptr(unsafe.Pointer(&a1))), 3, 0, 1)
 	}
@@ -86,7 +86,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 int32, a2 int32, a3 int32)
 					v8 = v17
 				}
 			}
-			v12 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v8))), 4*1))))
+			v12 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*1))))
 			v8 = (*uint8)(unsafe.Add(unsafe.Pointer(v8), 4))
 			v17 = v8
 			if v12 == 0 {
@@ -95,8 +95,8 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 int32, a2 int32, a3 int32)
 		}
 	}
 	if a3 != 0 {
-		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
-			v14 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514))))
+		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
+			v14 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*514))))
 			if v14 != v3 {
 				if v14 != 0 {
 					nox_xxx_netSendRewardNotify_4FAD50(v14, 1, v3, int8(a2))

@@ -131,21 +131,21 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 	v6 = a3
 	*v3 = 16
 	v8 = int8(nox_memfile_read_u8(f))
-	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 8))) = uint8(v8)
+	*((*uint8)(unsafe.Add(unsafe.Pointer(v5), 8))) = uint8(v8)
 	v10 = int8(nox_memfile_read_u8(f))
-	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 9))) = uint8(v10)
+	*((*uint8)(unsafe.Add(unsafe.Pointer(v5), 9))) = uint8(v10)
 	v20 = nox_memfile_read_u8(f)
 	nox_memfile_read(unsafe.Pointer(a3), 1, int32(v20), f)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(a3), v20)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) = uint32(get_animation_kind_id_44B4C0((*byte)(unsafe.Pointer(a3))))
-	result = int32(uintptr(alloc.Calloc1(int(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 8)))), 4)))
+	result = int32(uintptr(alloc.Calloc1(int(*((*uint8)(unsafe.Add(unsafe.Pointer(v5), 8)))), 4)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) = uint32(result)
 	if result == 0 {
 		return false
 	}
 	v13 = 0
 	v22 = 0
-	if int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 8)))) != 0 {
+	if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v5), 8)))) != 0 {
 		for {
 			v15 = int32(nox_memfile_read_u32(f))
 			*v6 = *memmap.PtrUint8(0x5D4594, 830832)
@@ -165,7 +165,7 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 				return x
 			}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v15, int8(uintptr(unsafe.Pointer(v19))), (*byte)(unsafe.Pointer(v6))))))
 			v22 = v13
-			if v13 >= int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 8)))) {
+			if v13 >= int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v5), 8)))) {
 				break
 			}
 		}

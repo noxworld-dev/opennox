@@ -96,7 +96,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 				v12 = 0
 				v13 = (*int32)(unsafe.Add(unsafe.Pointer(v5), 4*2))
 				for {
-					nox_draw_splitColor_435280(int16(*v13), (*uint8)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&v35)))))), (*uint8)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&a2)))))), (*uint8)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&v34)))))))
+					nox_draw_splitColor_435280(int16(*v13), (*uint8)(unsafe.Pointer(&v35)), (*uint8)(unsafe.Pointer(&a2)), (*uint8)(unsafe.Pointer(&v34)))
 					if int32(uint8(int8(a2))) >= 0x9B {
 						*((*uint8)(unsafe.Pointer(&a2))) = math.MaxUint8
 					} else {

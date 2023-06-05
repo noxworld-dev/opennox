@@ -15,12 +15,12 @@ func sub_499490(a1 int32, a2 *uint16, a3 int32, a4 int32, a5 int8, a6 int8) {
 	result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a3+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*2))), a4+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*3)))).C())
 	v7 = result
 	if result != nil {
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*216))) = *a2
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*217))) = *(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*1))
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 443))) = uint8(a5)
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 444))) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 138)))
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v7))), 446))) = uint8(a6)
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v7))), 445))) = uint8(a6)
+		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*216))) = *a2
+		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*217))) = *(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*1))
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 443))) = uint8(a5)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 444))) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 138)))
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v7), 446))) = uint8(a6)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v7), 445))) = uint8(a6)
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v7)))
 	}
 }
@@ -36,18 +36,18 @@ func sub_499520(a1 int32, a2 *int16, a3 int16, a4 int8, a5 int8) {
 	result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(a1, v6, v5).C())
 	v8 = result
 	if result != nil {
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*216))) = uint16(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0)))
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*217))) = uint16(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*1)))
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*218))) = uint16(int16(v6))
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*219))) = uint16(int16(v5))
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 442))) = uint8(int8(a3))
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*220))) = uint16(int16(int64(math.Sqrt(float64((v6-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0))))*(v6-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0)))) + (v5-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*1))))*(v5-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*1)))))))))
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 443))) = uint8(a4)
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 444))) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 182)))
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 446))) = uint8(a5)
-		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 445))) = uint8(a5)
+		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*216))) = uint16(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0)))
+		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*217))) = uint16(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*1)))
+		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*218))) = uint16(int16(v6))
+		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*219))) = uint16(int16(v5))
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 442))) = uint8(int8(a3))
+		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*220))) = uint16(int16(int64(math.Sqrt(float64((v6-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0))))*(v6-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0)))) + (v5-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*1))))*(v5-int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*1)))))))))
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 443))) = uint8(a4)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 444))) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 182)))
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 446))) = uint8(a5)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 445))) = uint8(a5)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*116)) = uint32(uintptr(ccall.FuncAddr(sub_4CA720)))
-		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v8))), unsafe.Sizeof(uint16(0))*254))) = uint16(a3)
+		*((*uint16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(uint16(0))*254))) = uint16(a3)
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v8)))
 	}
 }
@@ -161,7 +161,7 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 	v7 = int32(v6)
 	v16 = int32(v6)
 	if int32(v6) > 0 {
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v6))), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(0, int32(v6), internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 437))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(0, int32(v6), internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 437))
 		v8 = int32(v6)
 		v17 = (*int2)(unsafe.Pointer(uintptr(v6)))
 		if int32(v6) <= v7 {
@@ -184,8 +184,8 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 					nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v12))))
 					v7 = v16
 				}
-				*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v6))), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(8, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 439))
-				v17 = (*int2)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v17))), v6))))
+				*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(8, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 439))
+				v17 = (*int2)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v17), v6))))
 				if int32(uintptr(unsafe.Pointer(v17))) > v7 {
 					break
 				}

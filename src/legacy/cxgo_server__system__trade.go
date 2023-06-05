@@ -232,9 +232,9 @@ func sub_50FD60(a1 *uint32, a2 int32) int32 {
 	if v3 == 0 {
 		return 1
 	}
-	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v9))), unsafe.Sizeof(uint16(0))*1)) = 0
+	*(*uint16)(unsafe.Add(unsafe.Pointer(&v9), unsafe.Sizeof(uint16(0))*1)) = 0
 	for i = &v13[0]; ; i = (*int32)(unsafe.Add(unsafe.Pointer(i), 4*1)) {
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v9))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 4)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v9), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 4)))
 		if *i == v9 && (*(*uint32)(unsafe.Pointer(uintptr(a2 + 8)))&0x13001000) == 0 {
 			break
 		}
@@ -437,7 +437,7 @@ func nox_xxx_tradeP2PAddOffer2_50F820_trade(a1 int32, a2 int32, a3 float32) int3
 	}
 	if *(*uint32)(unsafe.Pointer(uintptr(a1 + 8))) == uint32(a2) {
 		v3 = a3
-		if sub_50FD60(*(**uint32)(unsafe.Pointer(uintptr(a1 + 32))), *(*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(&a3))), 4*0))) == 0 {
+		if sub_50FD60(*(**uint32)(unsafe.Pointer(uintptr(a1 + 32))), *(*int32)(unsafe.Add(unsafe.Pointer(&a3), 4*0))) == 0 {
 			return 0
 		}
 	} else {
@@ -445,7 +445,7 @@ func nox_xxx_tradeP2PAddOffer2_50F820_trade(a1 int32, a2 int32, a3 float32) int3
 			return 0
 		}
 		v3 = a3
-		if sub_50FD60(*(**uint32)(unsafe.Pointer(uintptr(a1 + 36))), *(*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(&a3))), 4*0))) == 0 {
+		if sub_50FD60(*(**uint32)(unsafe.Pointer(uintptr(a1 + 36))), *(*int32)(unsafe.Add(unsafe.Pointer(&a3), 4*0))) == 0 {
 			return 0
 		}
 	}
@@ -537,7 +537,7 @@ func sub_5100C0_trade(a1 int32, a2 *uint32, a3 int32) {
 	result = (*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*5)))))
 	if result != nil {
 		for *(*uint32)(unsafe.Pointer(result)) == 0 || *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(result)) + 36))) != uint32(a3) {
-			result = (*float32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*2))))))
+			result = (*float32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2))))))
 			if result == nil {
 				return
 			}
@@ -594,7 +594,7 @@ func sub_5100C0_trade(a1 int32, a2 *uint32, a3 int32) {
 				v14 = ccall.AsFunc[func(int32, *uint32, int32, int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*177)))))
 				return v14
 			}()) == nil {
-				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(uintptr(v3))), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v13)))))), 1)
+				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(uintptr(v3))), (*server.Object)(unsafe.Pointer(v13)), 1)
 				nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(uintptr(v3))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36)))))
 			} else {
 				v14(v3, v13, 1, 1)
@@ -645,7 +645,7 @@ func sub_510640_trade(a1 int32, a2 int32, a3 int32, a4 *float32) *float32 {
 				return result
 			}
 			for int32(*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(result)) + 4)))) != a3 {
-				result = (*float32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*2))))))
+				result = (*float32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2))))))
 				if result == nil {
 					return result
 				}
@@ -700,7 +700,7 @@ func sub_510640_trade(a1 int32, a2 int32, a3 int32, a4 *float32) *float32 {
 			if v13 != nil {
 				v13(v4, v12, 1, 1)
 			} else {
-				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(uintptr(v4))), (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))), 1)
+				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(uintptr(v4))), (*server.Object)(unsafe.Pointer(v12)), 1)
 			}
 			sub_510320(v7, int32(uintptr(unsafe.Pointer(v6))))
 			if sub_510540(v7) != 0 {
@@ -751,11 +751,11 @@ func sub_5109C0_trade(a1 *int32, a2 int32, a3 *uint32) *uint32 {
 		if nox_xxx_ItemIsDroppable_53EBF0(v4) == 1 {
 			v6 = nox_strman_loadString_40F1D0(internCStr("CantSellQuestItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3298)
 			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v6)
-			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		} else if uint32(*(*uint16)(unsafe.Pointer(uintptr(v4 + 4)))) == *memmap.PtrUint32(0x5D4594, 2386556) {
 			v7 = nox_strman_loadString_40F1D0(internCStr("CantSellItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3308)
 			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v7)
-			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		} else {
 			*(*uint32)(unsafe.Pointer(&v8[4])) = uint32(nox_xxx_shopGetItemCost_50E3D0(0, a2, *(*float32)(unsafe.Pointer(&v4))))
 			result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 276))) + 2064)))), unsafe.Pointer(&v8[0]), 8, 0, 1))))
@@ -791,18 +791,18 @@ func sub_510BE0_trade(a1 *int32, a2 int32, a3 *uint32) *uint32 {
 		if nox_xxx_ItemIsDroppable_53EBF0(v5) == 1 {
 			v6 = nox_strman_loadString_40F1D0(internCStr("CantSellQuestItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3413)
 			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v6)
-			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		} else if uint32(*(*uint16)(unsafe.Pointer(uintptr(v5 + 4)))) == dword_5d4594_2386560 {
 			v7 = nox_strman_loadString_40F1D0(internCStr("CantSellItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3423)
 			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v7)
-			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		} else {
-			sub_4ED0C0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), (*server.Object)(unsafe.Pointer(uintptr(v5))))
+			sub_4ED0C0((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(unsafe.Pointer(uintptr(v5))))
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(v5))))
 			v8 = nox_xxx_shopGetItemCost_50E3D0(0, a2, *(*float32)(unsafe.Pointer(&v5)))
 			nox_xxx_playerAddGold_4FA590(int32(uintptr(unsafe.Pointer(a1))), v8)
 			sub_4D8870(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 276))) + 2064)))), int32(uintptr(unsafe.Pointer(a1))))
-			nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+			nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		}
 	}
 	return result

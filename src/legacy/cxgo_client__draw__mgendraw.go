@@ -84,7 +84,7 @@ func nox_thing_monster_gen_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 432))) = uint32(v11)
 		if v11 == 0 {
 			v12 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 280))))
-			*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v12))), 1)) = uint8(int8(int32(*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v12))), 1)))&0xFB | 8))
+			*(*uint8)(unsafe.Add(unsafe.Pointer(&v12), 1)) = uint8(int8(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(&v12), 1)))&0xFB | 8))
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 280))) = uint32(v12)
 		}
 	}

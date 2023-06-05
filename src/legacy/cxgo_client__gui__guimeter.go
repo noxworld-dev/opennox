@@ -162,12 +162,12 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 		v8 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 136, 0, 0, 91, 159, nil)))
 		v9 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("HealthManaTubes"))))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v8))), int32(uintptr(unsafe.Pointer(v9))))
-		nox_windows_arr_1093036[1].win = nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 8, 60, 34, 25, 125, nil)
+		nox_windows_arr_1093036[1].win = nox_window_new((*gui.Window)(unsafe.Pointer(v8)), 8, 60, 34, 25, 125, nil)
 		nox_window_set_all_funcs(nox_windows_arr_1093036[1].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, nil)
 		v10 = nox_strman_loadString_40F1D0(internCStr("ToolTipMana"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1122)
 		nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[1].win.DrawData(), v10)
 		nox_windows_arr_1093036[1].win.WidgetData = unsafe.Pointer(uintptr(1))
-		nox_windows_arr_1093036[0].win = nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 8, 34, 34, 25, 125, nil)
+		nox_windows_arr_1093036[0].win = nox_window_new((*gui.Window)(unsafe.Pointer(v8)), 8, 34, 34, 25, 125, nil)
 		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, nil)
 		v11 = nox_strman_loadString_40F1D0(internCStr("ToolTipHealth"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1135)
 		nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[0].win.DrawData(), v11)
@@ -184,7 +184,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 		v12 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 136, 0, 0, 91, 159, nil)))
 		v13 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("WarriorHealthTube"))))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(v13))))
-		nox_windows_arr_1093036[0].win = nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))), 8, 34, 34, 25, 125, nil)
+		nox_windows_arr_1093036[0].win = nox_window_new((*gui.Window)(unsafe.Pointer(v12)), 8, 34, 34, 25, 125, nil)
 		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, nox_xxx_guiHealthManaTubeProc_472100, nox_xxx_guiHealthManaTubeDraw_471D10, nil)
 		v14 = nox_strman_loadString_40F1D0(internCStr("ToolTipHealth"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1173)
 		nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[0].win.DrawData(), v14)
@@ -243,11 +243,11 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 		nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125)
 	}
-	v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*2))))
+	v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2))))
 	if v4 != 0 {
-		v6 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1))) * 125 / uint32(v4))
+		v6 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1))) * 125 / uint32(v4))
 		nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 15, 125-v6)
-		nox_client_drawSetColor_434460(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*3)))))
+		nox_client_drawSetColor_434460(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)))))
 		nox_client_drawEnableAlpha_434560(1)
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop-v6+125, 15, v6)
 		nox_client_drawEnableAlpha_434560(0)
@@ -263,7 +263,7 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 					v8 = *((*int32)(unsafe.Add(unsafe.Pointer(v7), -int(4*1)))) >> 4
 					if v8 >= 125-v6 {
 						if dword_5d4594_1096264 != 0 {
-							nox_client_drawSetColor_434460(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v20))), 4*3)))))
+							nox_client_drawSetColor_434460(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*3)))))
 						} else {
 							nox_client_drawSetColor_434460(*(*int32)(unsafe.Add(unsafe.Pointer(v7), 4*3)))
 						}
@@ -288,7 +288,7 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 				v9 = v21
 				v10 = 64
 				for {
-					if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v9))), 4*2))) == 0 {
+					if *((*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2))) == 0 {
 						v11 = nox_common_randomIntMinMax_415FF0(1, 100, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 668)
 						if v11 >= 80 {
 							*(*uint32)(unsafe.Pointer(v9)) = uint32(bool2int32(v11 >= 95) + 2)
@@ -297,20 +297,20 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 						}
 						v12 = nox_common_randomIntMinMax_415FF0(0, 14, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 676)
 						v13 = int32(*(*uint32)(unsafe.Pointer(v9)))
-						*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v9))), -int(4*2)))) = uint32(v12)
+						*((*uint32)(unsafe.Add(unsafe.Pointer(v9), -int(4*2)))) = uint32(v12)
 						if v13+v12 > 15 {
-							*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v9))), -int(4*2)))) = uint32(15 - v13)
+							*((*uint32)(unsafe.Add(unsafe.Pointer(v9), -int(4*2)))) = uint32(15 - v13)
 						}
-						*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v9))), -int(4*1)))) = uint32((125 - v13) * 16)
-						*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v9))), 4*1))) = uint32(nox_common_randomIntMinMax_415FF0(4, 48, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 684))
-						*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v9))), 4*2))) = 1
+						*((*uint32)(unsafe.Add(unsafe.Pointer(v9), -int(4*1)))) = uint32((125 - v13) * 16)
+						*((*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*1))) = uint32(nox_common_randomIntMinMax_415FF0(4, 48, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 684))
+						*((*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2))) = 1
 						*((*uint8)(unsafe.Pointer(&v19))) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 64, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 688)))
 						if v18 != 0 {
 							v14 = int32(nox_color_rgb_4344A0(v19, v19, math.MaxUint8))
 						} else {
 							v14 = int32(nox_color_rgb_4344A0(math.MaxUint8, v19, v19))
 						}
-						*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v9))), 4*3))) = uint32(v14)
+						*((*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*3))) = uint32(v14)
 					}
 					v9 = (*uint8)(unsafe.Add(unsafe.Pointer(v9), 24))
 					v10--

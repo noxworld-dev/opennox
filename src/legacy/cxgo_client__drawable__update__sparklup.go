@@ -46,8 +46,8 @@ func nox_xxx_updDrawSparkleTrail_4CDBF0(vp *noxrender.Viewport, dr *client.Drawa
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 440))) = 0
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 448))) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(2, 10, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c"), 51))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 444))) = gameFrame()
-			*(*uint16)(unsafe.Pointer(uintptr(v5 + 104))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*52)))
-			*(*uint16)(unsafe.Pointer(uintptr(v5 + 106))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*53)))
+			*(*uint16)(unsafe.Pointer(uintptr(v5 + 104))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*52)))
+			*(*uint16)(unsafe.Pointer(uintptr(v5 + 106))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*53)))
 			*(*uint8)(unsafe.Pointer(uintptr(v5 + 296))) = 0
 			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v5))))
 		}

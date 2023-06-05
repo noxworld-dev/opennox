@@ -62,11 +62,11 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 		for {
 			v7 = 30
 			for {
-				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), -int(4*1)))) = 0
+				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), -int(4*1)))) = 0
 				*(*uint32)(unsafe.Pointer(v6)) = 0
-				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*1))) = 0
-				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*2))) = 0
-				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), -int(4*2)))) = 0
+				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) = 0
+				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*2))) = 0
+				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), -int(4*2)))) = 0
 				v6 = (*uint8)(unsafe.Add(unsafe.Pointer(v6), 28))
 				v7--
 				if v7 == 0 {
@@ -150,10 +150,10 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 		if result > 0 {
 			v17 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(j*840)+1313896))
 			for {
-				v36 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), -int(4*1)))))
+				v36 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*1)))))
 				v18 = int32(*(*uint32)(unsafe.Pointer(v17)))
-				v19 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), -int(4*2)))))
-				a1a.field_0 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), -int(4*3)))))
+				v19 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*2)))))
+				a1a.field_0 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*3)))))
 				a1a.field_4 = v19
 				v37 = float32(float64(v36))
 				v28 = v37 * *mem_getFloatPtr(0x587000, uint32(v18*8)+194136)
@@ -162,15 +162,15 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 				a3a.field_0 = v20
 				v29 = v37 * *mem_getFloatPtr(0x587000, uint32(v21*8)+194140)
 				v22 = int32(v29)
-				v23 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*4))))
-				v24 = float64(v37 * *mem_getFloatPtr(0x587000, *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*7)))*8+194136))
+				v23 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*4))))
+				v24 = float64(v37 * *mem_getFloatPtr(0x587000, *((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*7)))*8+194136))
 				a3a.field_4 = v22
-				v25 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*5))))
+				v25 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*5))))
 				a2a.field_0 = v23
 				a2a.field_4 = v25
 				v30 = float32(v24)
 				v26 = int32(v30)
-				v27 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*7))))
+				v27 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*7))))
 				a4a.field_0 = v26
 				v31 = v37 * *mem_getFloatPtr(0x587000, uint32(v27*8)+194140)
 				a4a.field_4 = int32(v31)
@@ -219,7 +219,7 @@ func sub_4BA8B0(a1p, a2p *int2, a3p int32) {
 	if int32(uint8(gameFrame()))&4 != 0 {
 		v6 = nox_common_randomIntMinMax_415FF0(0, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 135)
 		if v6 > 5 {
-			*((*uint8)(unsafe.Pointer(&v6))) = uint8(int8(nox_xxx_drawEnergyBolt_499710(int32(uint32(*a2)+*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*4)))-*(*uint32)(unsafe.Pointer(v4))), int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))+*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*5)))-*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*1)))), 8, *memmap.PtrInt32(0x5D4594, 1316416))))
+			*((*uint8)(unsafe.Pointer(&v6))) = uint8(int8(nox_xxx_drawEnergyBolt_499710(int32(uint32(*a2)+*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*4)))-*(*uint32)(unsafe.Pointer(v4))), int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))+*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*5)))-*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)))), 8, *memmap.PtrInt32(0x5D4594, 1316416))))
 		}
 	}
 }

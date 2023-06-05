@@ -233,13 +233,13 @@ func nox_script_readWriteYyy_542380(f1 *FILE, f2 *FILE, a3 int32) int32 {
 					nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
 					nox_fs_fread(f2, unsafe.Pointer(&a2), 4)
 					nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
-					a2 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(uintptr(a2)))), dword_5d4594_2489428))), -2)))))
+					a2 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428))), -2)))))
 					nox_fs_fwrite(f2, unsafe.Pointer(&a2), 4)
 					if nox_script_shouldReadEvenMoreXxx(v13) {
 						nox_fs_fseek(f2, -12, stdio.SEEK_CUR)
 						nox_fs_fread(f2, unsafe.Pointer(&a2), 4)
 						nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
-						a2 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(uintptr(a2)))), dword_5d4594_2489428))), -2)))))
+						a2 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428))), -2)))))
 						nox_fs_fwrite(f2, unsafe.Pointer(&a2), 4)
 						nox_fs_fseek(f2, 8, stdio.SEEK_CUR)
 					}
@@ -561,8 +561,8 @@ func sub_543110(lpExistingFileName *byte, a2 *int32) int32 {
 	v3 = int32(*memmap.PtrUint32(0x587000, 282616))
 	v4 = &NewFileName[libc.StrLen(&NewFileName[0])]
 	*(*uint32)(unsafe.Pointer(v4)) = *memmap.PtrUint32(0x587000, 282608)
-	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*1))) = uint32(v2)
-	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*2))) = uint32(v3)
+	*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1))) = uint32(v2)
+	*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2))) = uint32(v3)
 	nox_fs_copy(lpExistingFileName, &NewFileName[0])
 	v6 = nox_fs_open(&NewFileName[0])
 	if v6 == nil {

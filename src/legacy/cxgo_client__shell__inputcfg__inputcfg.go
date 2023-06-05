@@ -62,7 +62,7 @@ func sub_4CBF60(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	if a2 > 0x4007 {
 		if a2 == 16393 {
 			v7 := win.WidgetData
-			nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 0x4009, uintptr(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(uintptr(a3))))), a4)
+			nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 0x4009, uintptr(a3), a4)
 			v8 = sub_4A4800(v7)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522620))))), 16412, uintptr(v8), 0)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522624))))), 16412, uintptr(v8), 0)
@@ -77,7 +77,7 @@ func sub_4CBF60(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 				nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522612))))))
 				nox_xxx_windowFocus_46B500((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522612))))))
 				sub_46C690((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522612))))))
-				return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 0x4010, uintptr(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(uintptr(a3))))), a4)
+				return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 0x4010, uintptr(a3), a4)
 			}
 		}
 	} else {
@@ -86,15 +86,15 @@ func sub_4CBF60(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 				return 1
 			}
 			if a2 != 0x4000 {
-				return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, uintptr(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(uintptr(a3))))), a4)
+				return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, uintptr(a3), a4)
 			}
 		}
-		if unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(a3)))) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 921)) || unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(a3)))) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 922)) {
+		if unsafe.Pointer(uintptr(a3)) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 921)) || unsafe.Pointer(uintptr(a3)) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 922)) {
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522620))))), uintptr(a2), uintptr(a3), 0)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522624))))), uintptr(a2), uintptr(a3), 0)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1522628))))), uintptr(a2), uintptr(a3), 0)
-			return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, uintptr(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(uintptr(a3))))), a4)
+			return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, uintptr(a3), a4)
 		}
 	}
-	return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, uintptr(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(uintptr(a3))))), a4)
+	return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, uintptr(a3), a4)
 }

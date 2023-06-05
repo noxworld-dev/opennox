@@ -43,7 +43,7 @@ func nox_xxx_guiSummonCreatureLoad_4C1D80() int32 {
 	v4 = (*uint32)(unsafe.Pointer(nox_window_new(nil, 168, int(dword_5d4594_1320988+27), int(dword_5d4594_1320992+12), 34, 34, nil)))
 	dword_5d4594_1321040 = uint32(uintptr(unsafe.Pointer(v4)))
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*11)))
-	*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v5))), 1)) |= 1
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&v5), 1)) |= 1
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*11)) = uint32(v5)
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1321040)))), nox_xxx_wndSummonBigButtonProc_4C24B0, nil, sub_4C2CE0)
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1321040)), *memmap.PtrInt32(0x5D4594, 1321028))

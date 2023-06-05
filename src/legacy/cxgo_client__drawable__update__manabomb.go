@@ -38,9 +38,9 @@ func nox_xxx_updDrawManabombCharge_4CCAC0(vp *noxrender.Viewport, dr *client.Dra
 	if gameFrame()&1 != 0 {
 		if (gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*80))) < 10 {
 			var vv1 [4]int16
-			vv1[0] = *((*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(a2))), unsafe.Sizeof(int16(0))*6)))
-			vv1[1] = *((*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(a2))), unsafe.Sizeof(int16(0))*8)))
-			for v10 := int32(int32(gameFrame() % 51)); v10 < 256; v10 += 51 {
+			vv1[0] = *((*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*6)))
+			vv1[1] = *((*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*8)))
+			for v10 := int32(gameFrame() % 51); v10 < 256; v10 += 51 {
 				var tbl *int16 = (*int16)(memmap.PtrOff(0x587000, uintptr(v10*8)+192088))
 				vv1[2] = int16(int32(vv1[0]) + (rad/16)*int32(*(*int16)(unsafe.Add(unsafe.Pointer(tbl), unsafe.Sizeof(int16(0))*0))))
 				vv1[3] = int16(int32(vv1[1]) + (rad/16)*int32(*(*int16)(unsafe.Add(unsafe.Pointer(tbl), unsafe.Sizeof(int16(0))*2))))

@@ -205,7 +205,7 @@ LABEL_24:
 			nox_client_drawEnableAlpha_434560(0)
 			return int(v23)
 		}
-		v14 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v13))), 4*514))))
+		v14 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*514))))
 		if v14 == 0 {
 			nox_client_drawEnableAlpha_434560(0)
 			return int(v23)
@@ -222,7 +222,7 @@ LABEL_24:
 		v16 = 1
 	}
 	if (!noxflags.HasGame(4096) || (int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 112))))&2) == 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 116))))&8) == 0) && v16 != 0 {
-		v18 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17))))))))
+		v18 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(v17))))
 		nox_client_drawSetColor_434460(v18)
 		v19 = int32(uint32(*v12) + *(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*4))))
 		v20 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 16))) + uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1))) - uint32(*(*int16)(unsafe.Pointer(uintptr(v2 + 104)))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))) - uint32(int32(*(*float32)(unsafe.Pointer(uintptr(v2 + 100))))*2))

@@ -65,8 +65,8 @@ func nox_xxx_updDrawMagic_4CDD80(vp *noxrender.Viewport, dr *client.Drawable) in
 			*(*uint32)(unsafe.Pointer(uintptr(v11 + 440))) = 0
 			*(*uint32)(unsafe.Pointer(uintptr(v11 + 448))) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(10, 20, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c"), 90))
 			*(*uint32)(unsafe.Pointer(uintptr(v11 + 444))) = gameFrame()
-			*(*uint16)(unsafe.Pointer(uintptr(v11 + 104))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*52)))
-			*(*uint16)(unsafe.Pointer(uintptr(v11 + 106))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*53)))
+			*(*uint16)(unsafe.Pointer(uintptr(v11 + 104))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*52)))
+			*(*uint16)(unsafe.Pointer(uintptr(v11 + 106))) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*53)))
 			*(*uint8)(unsafe.Pointer(uintptr(v11 + 296))) = 0
 			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v11))))
 		}

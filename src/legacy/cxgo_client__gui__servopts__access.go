@@ -68,7 +68,7 @@ func sub_454740() *int32 {
 	v0 = (*byte)(sub_416640())
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10136)))
 	v2 = nox_xxx_sysopGetPass_40A630()
-	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16414, uintptr(unsafe.Pointer(v2)), 0)
+	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v1)), 16414, uintptr(unsafe.Pointer(v2)), 0)
 	if int32(*(*int16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v0), 105))))) != -1 {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045584))))), 1)
 		*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1045568) + 36))) |= 4
@@ -98,7 +98,7 @@ func sub_454740() *int32 {
 			*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045520 + 36))) = 4
 		} else {
 			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10206)))
-			nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 0)
+			nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v4)), 0)
 		}
 	}
 	v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10207)))
@@ -138,9 +138,9 @@ func sub_454740() *int32 {
 	}
 	nox_itow(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v0), 104)))), &WideCharStr[0], 10)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1045592)))), 16414, uintptr(unsafe.Pointer(&WideCharStr[0])), 0)
-	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
+	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
 		if *(*byte)(unsafe.Add(unsafe.Pointer(i), 2064)) != 31 || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-			sub_455920((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 4704)))))))))
+			sub_455920((*wchar2_t)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 4704)))))
 		}
 	}
 	return sub_455800()

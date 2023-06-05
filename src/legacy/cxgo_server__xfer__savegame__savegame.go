@@ -18,7 +18,7 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 	)
 	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
 	v1 = v0
-	if v0 != nil && *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*514))) != 0 {
+	if v0 != nil && *((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))) != 0 {
 		if *memmap.PtrUint32(0x5D4594, 1563124) == 0 {
 			*memmap.PtrUint32(0x5D4594, 1563124) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("SaveGameLocation")))
 		}
@@ -34,7 +34,7 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 			if v3 != 0 {
 				for {
 					v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 512))))
-					nox_xxx_unitSetOwner_4EC290((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*514)))))), (*server.Object)(unsafe.Pointer(uintptr(v3))))
+					nox_xxx_unitSetOwner_4EC290((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*514)))))), (*server.Object)(unsafe.Pointer(uintptr(v3))))
 					if int32(*(*uint8)(unsafe.Pointer(uintptr(v3 + 8))))&2 != 0 {
 						if int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 748))) + 1440))))&0x80 != 0 {
 							v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 12))))

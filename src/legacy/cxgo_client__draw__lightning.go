@@ -55,8 +55,8 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 				}
 			}
 		}
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v24))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), *(*int32)(unsafe.Pointer(&dword_5d4594_1316476)), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 193)/v14 + ((int32(int16(a1)) + int32(int16(a2))) >> 1)))
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v24))), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), *(*int32)(unsafe.Pointer(&dword_5d4594_1316476)), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 196)/v14 + ((int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a1))), unsafe.Sizeof(int16(0))*1))) + int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a2))), unsafe.Sizeof(int16(0))*1)))) >> 1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), *(*int32)(unsafe.Pointer(&dword_5d4594_1316476)), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 193)/v14 + ((int32(int16(a1)) + int32(int16(a2))) >> 1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), *(*int32)(unsafe.Pointer(&dword_5d4594_1316476)), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 196)/v14 + ((int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1))) + int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1)))) >> 1)))
 		nox_xxx_drawLightningStep_4BB070(a1, v24)
 		nox_xxx_drawLightningStep_4BB070(v24, a2)
 		return int32(func() uint32 {
@@ -69,23 +69,23 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 		v23 = int32(*memmap.PtrUint8(0x5D4594, 1316420)) + 48
 		nox_draw_set54RGB32_434040(*memmap.PtrInt32(0x5D4594, 1316440))
 		sub_434080(12)
-		v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a1))), unsafe.Sizeof(int16(0))*1)))
+		v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1)))
 		v5 = int32(int16(a1))
-		nox_client_drawAddPoint_49F500(int32(int16(a1)), int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a1))), unsafe.Sizeof(int16(0))*1))))
-		v6 = int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a2))), unsafe.Sizeof(int16(0))*1)))
+		nox_client_drawAddPoint_49F500(int32(int16(a1)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1))))
+		v6 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1)))
 		v7 = int32(int16(a2))
-		nox_client_drawAddPoint_49F500(int32(int16(a2)), int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a2))), unsafe.Sizeof(int16(0))*1))))
+		nox_client_drawAddPoint_49F500(int32(int16(a2)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1))))
 		sub_49E4F0(v23)
 		v23 = 1
 	} else {
 		nox_draw_set54RGB32_434040(*(*int32)(unsafe.Pointer(&dword_5d4594_1316472)))
 		sub_434080(3)
-		v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a1))), unsafe.Sizeof(int16(0))*1)))
+		v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1)))
 		v5 = int32(int16(a1))
-		nox_client_drawAddPoint_49F500(int32(int16(a1)), int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a1))), unsafe.Sizeof(int16(0))*1))))
-		v6 = int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a2))), unsafe.Sizeof(int16(0))*1)))
+		nox_client_drawAddPoint_49F500(int32(int16(a1)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1))))
+		v6 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1)))
 		v7 = int32(int16(a2))
-		nox_client_drawAddPoint_49F500(int32(int16(a2)), int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&a2))), unsafe.Sizeof(int16(0))*1))))
+		nox_client_drawAddPoint_49F500(int32(int16(a2)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1))))
 		sub_49E4F0(32)
 	}
 	nox_client_drawSetColor_434460(*(*int32)(unsafe.Pointer(&dword_5d4594_1316472)))
@@ -258,10 +258,10 @@ func nox_xxx_lightningProc2_4BAE60(a1 *int2, a2 *int2, a3 int32, a4 *int16, a5 i
 		}
 		v7 = a2
 	}
-	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v22))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(a1.field_0))
-	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v21))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v7.field_0))
-	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v22))), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v8.field_4))
-	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v21))), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v7.field_4))
+	*(*uint16)(unsafe.Add(unsafe.Pointer(&v22), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(a1.field_0))
+	*(*uint16)(unsafe.Add(unsafe.Pointer(&v21), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v7.field_0))
+	*(*uint16)(unsafe.Add(unsafe.Pointer(&v22), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v8.field_4))
+	*(*uint16)(unsafe.Add(unsafe.Pointer(&v21), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v7.field_4))
 	if a6 != 0 {
 		dword_5d4594_1316492 = 1
 		dword_5d4594_1316472 = dword_5d4594_1316456
@@ -387,7 +387,7 @@ func nox_thing_chain_lightning_bolt_draw(vp *noxrender.Viewport, dr *nox_drawabl
 		v7 = int32(v2) + *a1 - v4
 		v19.field_0 = int32(v2)
 		a1a.field_0 = v7
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v7))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 439)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 439)))
 		a2a.field_0 = v3 + int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 441)))) - v4
 		v19.field_4 = int32(uint16(int16(v7)))
 		v8 = *(*uint16)(unsafe.Pointer(uintptr(a2 + 443)))

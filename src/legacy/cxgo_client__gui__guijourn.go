@@ -33,9 +33,9 @@ func nox_xxx_cliBuildJournalString_469BC0() {
 		v11 = v1
 		for i = -v1; v2 != 0; i += v11 + v12 {
 			libc.StrCpy(&v13[0], internCStr("Journal:"))
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v4))), unsafe.Sizeof(uint16(0))*1)) = 0
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*1)) = 0
 			libc.StrCat(&v13[0], (*byte)(unsafe.Pointer(uintptr(v2))))
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v4))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(v2 + 72)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(v2 + 72)))
 			v5 = v4 - 2
 			if v5 != 0 {
 				v6 = v5 - 2
@@ -98,10 +98,10 @@ func nox_xxx_guiDrawJournal_469D40(xLeft int32, yTop int32, a3 int32) {
 			}
 			v14 = nox_xxx_guiFontHeightMB_43F320(nil)
 			for {
-				*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v7))), unsafe.Sizeof(uint16(0))*1)) = 0
+				*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*1)) = 0
 				libc.StrCpy(&v16[0], internCStr("Journal:"))
 				libc.StrCat(&v16[0], (*byte)(unsafe.Pointer(uintptr(v5))))
-				*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v7))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(v5 + 72)))
+				*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(v5 + 72)))
 				switch v7 {
 				case 1:
 					v8 = int32(nox_color_white_2523948)

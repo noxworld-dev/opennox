@@ -72,8 +72,8 @@ func sub_4CD690(vp *noxrender.Viewport, dr *client.Drawable) int {
 			}
 			v2 = int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 441)))) + nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c"), 31)
 			v3 = int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 443)))) + nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\drainup.c"), 32)
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v22))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 437)))
-			*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v4))), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 439)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v22), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 437)))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(uintptr(a2 + 439)))
 		}
 		v13 = (*int32)(unsafe.Pointer(a1))
 		v23 = int16(v4)

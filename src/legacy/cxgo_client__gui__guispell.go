@@ -204,9 +204,9 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 	for {
 		v2 -= 60
 		nox_xxx_quickBarInitWindow_4601F0(int32(uintptr(unsafe.Pointer(v4))), v1, v2, 5, 0, nox_xxx_quickBarWnd_45EF50, nox_xxx_quickBarWarriorDraw_45FDE0)
-		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*52)))))), 1)
+		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*52)))))), 1)
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 200)) = 0
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*51))) = uint32(uintptr(unsafe.Pointer(v4)))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*51))) = uint32(uintptr(unsafe.Pointer(v4)))
 		v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), -256))
 		if int32(uintptr(unsafe.Pointer(v4))) < int32(uintptr(memmap.PtrOff(0x5D4594, 1048196))) {
 			break
@@ -302,7 +302,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v24))), -55, -32)
 		v26 = nox_strman_loadString_40F1D0(internCStr("ToolTipPrevTrap"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1883)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v24), unsafe.Sizeof(wchar2_t(0))*18)))), v26)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v24))), 4*92))) = 3
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v24), 4*92))) = 3
 		v27 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1032, 15, 32, 10, 14, nil)))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v27))), 0)
 		v28 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarTrapTrayDownLit"))))
@@ -311,7 +311,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v27))), -55, -52)
 		v29 = nox_strman_loadString_40F1D0(internCStr("ToolTipNextTrap"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1892)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v27), unsafe.Sizeof(wchar2_t(0))*18)))), v29)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v27))), 4*92))) = 4
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v27), 4*92))) = 4
 		dword_5d4594_1049508 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, int(dword_5d4594_1047548-1), int(dword_5d4594_1047552+26), 61, 48, nil))))
 		nox_xxx_wndSetOffsetMB_46AE40(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508)), 1, -26)
 		v30 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetBase"))))
@@ -345,7 +345,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v38 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetUpLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v37))), int32(uintptr(unsafe.Pointer(v38))))
 		nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v37)), nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, nil)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v37))), 4*92))) = 0
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v37), 4*92))) = 0
 		v39 = nox_strman_loadString_40F1D0(internCStr("ToolTipPrevSpellSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1943)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v37), unsafe.Sizeof(wchar2_t(0))*18)))), v39)
 		v40 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 30, 29, 15, 19, nil)))
@@ -354,7 +354,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v41 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetDownLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v40))), int32(uintptr(unsafe.Pointer(v41))))
 		nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v40)), nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, nil)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v40))), 4*92))) = 1
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v40), 4*92))) = 1
 		v42 = nox_strman_loadString_40F1D0(internCStr("ToolTipNextSpellSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1953)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v40), unsafe.Sizeof(wchar2_t(0))*18)))), v42)
 		v43 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 48, 16, 13, 17, nil)))
@@ -363,7 +363,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v44 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetMaxLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v43))), int32(uintptr(unsafe.Pointer(v44))))
 		nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v43)), nox_xxx_quickbarTrapUpDownProc_45F630, nox_xxx_quickbarTrapUpDownDraw_45F6F0, nil)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v43))), 4*92))) = 2
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v43), 4*92))) = 2
 		v45 = nox_strman_loadString_40F1D0(internCStr("ToolTipAllSpellSets"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1963)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v43), unsafe.Sizeof(wchar2_t(0))*18)))), v45)
 		dword_5d4594_1049516 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, 0, 0, 1, 1, nil))))
@@ -497,17 +497,17 @@ func sub_45F9B0(win *gui.Window, draw *gui.WindowData) int {
 	if *memmap.PtrUint32(0x5D4594, 1049476) == 0 {
 		v1 = a1
 		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&v6)), (*uint32)(unsafe.Pointer(&a1)))
-		nox_window_get_size((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), &v7, &v9)
+		nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v7, &v9)
 		v5 = int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(nox_xxx_aClosewoodengat_587000_133480)) + 200)))) + 1
 		v2 = nox_strman_loadString_40F1D0(internCStr("SpellSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1276)
 		nox_swprintf(&v11[0], v2, v5)
 		nox_xxx_drawGetStringSize_43F840(nil, &v11[0], &v8, &v10, 0)
-		v3 = (*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(a1))), -nox_xxx_guiFontHeightMB_43F320(nil)))
+		v3 = (*byte)(unsafe.Add(unsafe.Pointer(a1), -nox_xxx_guiFontHeightMB_43F320(nil)))
 		a1 = (*uint32)(unsafe.Add(unsafe.Pointer(v3), nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1049684))))+1))
 		v6 += (v7 - v8) / 2
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 		nox_xxx_drawSetColor_4343E0(*memmap.PtrInt32(0x852978, 4))
-		nox_draw_drawStringHL_43F730(nil, (*wchar2_t)(unsafe.Pointer((*int16)(unsafe.Pointer(&v11[0])))), v6, int32(uintptr(unsafe.Pointer(a1))))
+		nox_draw_drawStringHL_43F730(nil, (*wchar2_t)(unsafe.Pointer(&v11[0])), v6, int32(uintptr(unsafe.Pointer(a1))))
 	}
 	return 1
 }
@@ -525,15 +525,15 @@ func nox_xxx_quickbarDraw_45FAC0(win *gui.Window, draw *gui.WindowData) int {
 	)
 	v1 = a1
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&v7)))
-	nox_window_get_size((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), &v5, &v8)
+	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v5, &v8)
 	v4 = int32(*memmap.PtrUint8(0x5D4594, 1048140)) + 1
 	v2 = nox_strman_loadString_40F1D0(internCStr("TrapSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1299)
 	nox_swprintf(&v9[0], v2, v4)
 	nox_xxx_drawGetStringSize_43F840(nil, &v9[0], &v6, nil, 0)
-	a1 = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(a1))), (v5-v6)/2))))
+	a1 = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(a1), (v5-v6)/2))))
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	nox_xxx_drawSetColor_4343E0(*memmap.PtrInt32(0x852978, 4))
-	nox_draw_drawStringHL_43F730(nil, (*wchar2_t)(unsafe.Pointer((*int16)(unsafe.Pointer(&v9[0])))), int32(uintptr(unsafe.Pointer(a1))), v7)
+	nox_draw_drawStringHL_43F730(nil, (*wchar2_t)(unsafe.Pointer(&v9[0])), int32(uintptr(unsafe.Pointer(a1))), v7)
 	return 1
 }
 func nox_xxx_quickBarDrawFn_45FBD0(win *gui.Window, draw *gui.WindowData) int {
@@ -653,7 +653,7 @@ func nox_xxx_quickBarWarriorDraw_45FDE0(win *gui.Window, draw *gui.WindowData) i
 	v2 = 0
 	v3 = *(**uint8)(unsafe.Pointer(uintptr(yTop + 368)))
 	v19 = v3
-	v4 = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*51))))))
+	v4 = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*51))))))
 	v5 = (*uint32)(unsafe.Add(unsafe.Pointer(v3), 212))
 	for {
 		if uint32(yTop) == *v5 {

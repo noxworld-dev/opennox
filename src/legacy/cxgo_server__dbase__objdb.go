@@ -22,7 +22,7 @@ func sub_4E39F0_obj_db(a1p *server.Object) *wchar2_t {
 	)
 	v1 = *a1
 	if *a1 == nil {
-		v1 = nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
+		v1 = nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(a1)))
 	}
 	v2 = libc.StrRChr(v1, 58)
 	if v2 != nil {

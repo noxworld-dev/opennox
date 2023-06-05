@@ -250,13 +250,13 @@ func sub_4A75C0() int32 {
 	v15 = *memmap.PtrUint8(0x587000, 171770)
 	v16 = &v25[libc.StrLen(&v25[4])+4]
 	*(*uint32)(unsafe.Pointer(v16)) = *memmap.PtrUint32(0x587000, 171764)
-	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v16))), unsafe.Sizeof(uint16(0))*2))) = uint16(v14)
+	*((*uint16)(unsafe.Add(unsafe.Pointer(v16), unsafe.Sizeof(uint16(0))*2))) = uint16(v14)
 	*(*byte)(unsafe.Add(unsafe.Pointer(v16), 6)) = byte(v15)
 	if noxflags.HasGame(2048) {
 		v17 = int32(*memmap.PtrUint32(0x587000, 171776))
 		v18 = &v25[libc.StrLen(&v25[4])+4]
 		*(*uint32)(unsafe.Pointer(v18)) = *memmap.PtrUint32(0x587000, 171772)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v18))), 4*1))) = uint32(v17)
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v18), 4*1))) = uint32(v17)
 		*(*uint16)(unsafe.Pointer(&v25[libc.StrLen(&v25[4])+4])) = *memmap.PtrUint16(0x587000, 171780)
 	}
 	nox_fs_mkdir(&v25[4])
@@ -289,5 +289,5 @@ func sub_4A75C0() int32 {
 			nox_xxx_gameSetMapPath_409D70(internCStr("con01a.map"))
 		}
 	}
-	return sub_41CEE0(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&v25[0]))))), 1)
+	return sub_41CEE0(unsafe.Pointer(&v25[0]), 1)
 }

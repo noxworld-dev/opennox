@@ -27,15 +27,15 @@ func nox_xxx_updDrawAddRndSpark_4CDFA0(a1 int32, a2 *uint32) *uint32 {
 			if result != nil {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*108)) = *(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) << 12
 				*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*109)) = *(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) << 12
-				*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 299))) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 37)))
+				*((*uint8)(unsafe.Add(unsafe.Pointer(result), 299))) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 37)))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*110)) = uint32(nox_common_randomIntMinMax_415FF0(1000, 3000, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 40))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*112)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(10, 40, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 43))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*111)) = gameFrame()
-				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*52))) = 22
-				*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v4))), 296))) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 4, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 49)))
+				*((*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*52))) = 22
+				*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 296))) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 4, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 49)))
 				nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v4)))
 			}
-			v3 = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v3))), -1))))
+			v3 = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v3), -1))))
 			if v3 == nil {
 				break
 			}

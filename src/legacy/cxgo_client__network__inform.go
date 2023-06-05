@@ -263,7 +263,7 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 	case 0x11:
 		v45 = nox_strman_loadString_40F1D0(internCStr("Noxworld.c:ErrChangedClass"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 51)
 		v6 = nox_strman_loadString_40F1D0(internCStr("guiserv.c:Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 50)
-		nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v45)))))), 33, nil, nil)
+		nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(v6)), (*wchar2_t)(unsafe.Pointer(v45)), 33, nil, nil)
 		return 2
 	case 0x12:
 		v24 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2)))))))

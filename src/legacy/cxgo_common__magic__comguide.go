@@ -31,7 +31,7 @@ func nox_xxx_loadGuides_427070() int32 {
 			break
 		}
 		nox_sprintf(&v13[0], internCStr("creature:%s"), *v0)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), -int(4*1)))) = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(&v13[0], nil, internCStr("C:\\NoxPost\\src\\common\\Magic\\ComGuide.c"), 57))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(i), -int(4*1)))) = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(&v13[0], nil, internCStr("C:\\NoxPost\\src\\common\\Magic\\ComGuide.c"), 57))))
 		if libc.StrCmp(*(**byte)(unsafe.Pointer(uintptr(v2))), internCStr("Bomber")) == 0 {
 			*(*uint32)(unsafe.Pointer(i)) = 0
 		} else {
@@ -42,7 +42,7 @@ func nox_xxx_loadGuides_427070() int32 {
 		v4 = int32(*memmap.PtrUint32(0x587000, 71248))
 		v5 = int32(*memmap.PtrUint32(0x587000, 71252))
 		v6 = *v0
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*1))) = uint32(uintptr(unsafe.Pointer(v3)))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*1))) = uint32(uintptr(unsafe.Pointer(v3)))
 		*(*uint32)(unsafe.Pointer(&v13[0])) = uint32(v4)
 		libc.StrCpy(&v13[8], internCStr("Cage"))
 		*(*uint32)(unsafe.Pointer(&v13[4])) = uint32(v5)
@@ -51,13 +51,13 @@ func nox_xxx_loadGuides_427070() int32 {
 		v8 = int32(*memmap.PtrUint32(0x587000, 71264))
 		v9 = int32(*memmap.PtrUint32(0x587000, 71268))
 		v10 = *v0
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*2))) = uint32(uintptr(unsafe.Pointer(v7)))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*2))) = uint32(uintptr(unsafe.Pointer(v7)))
 		*(*uint32)(unsafe.Pointer(&v13[0])) = uint32(v8)
 		libc.StrCpy(&v13[8], internCStr("k"))
 		*(*uint32)(unsafe.Pointer(&v13[4])) = uint32(v9)
 		libc.StrCat(&v13[0], v10)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*3))) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v13[0]))))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*4))) = 0
+		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*3))) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v13[0]))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*4))) = 0
 		v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 36))))
 		if v11&1 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(i), 20)) = 1

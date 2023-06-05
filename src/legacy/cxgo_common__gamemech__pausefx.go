@@ -38,9 +38,9 @@ func sub_57AF30(a1 int32, a2 int32) {
 	}
 	if v3 != nil {
 		if v2 != 0 {
-			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), nil, *(*float32)(unsafe.Pointer(uintptr(v2 + 56))), *(*float32)(unsafe.Pointer(uintptr(v2 + 60))))
+			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v3)), nil, *(*float32)(unsafe.Pointer(uintptr(v2 + 56))), *(*float32)(unsafe.Pointer(uintptr(v2 + 60))))
 		} else {
-			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))))
+			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(v3)))
 			dword_5d4594_2523776 = 0
 		}
 		v2 = int32(dword_5d4594_2523780)

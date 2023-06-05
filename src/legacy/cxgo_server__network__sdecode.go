@@ -79,7 +79,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 	case 0x40:
 		v84 = float32(float64(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5))))))
 		v83 = float32(float64(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))
-		nox_xxx_playerSetCustomWP_4F79A0(unit, *(*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(&v83))), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(&v84))), 4*0)))
+		nox_xxx_playerSetCustomWP_4F79A0(unit, *(*int32)(unsafe.Add(unsafe.Pointer(&v83), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(&v84), 4*0)))
 		return 7
 	case 0x72:
 		v19 = nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
@@ -246,8 +246,8 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		v10 = (*int32)(unsafe.Pointer(uintptr(v85)))
 		return 3
 	case 0xA5:
-		*(*uint16)(unsafe.Pointer(uintptr(v8 + int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))*8 + 16))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))
-		*(*uint16)(unsafe.Pointer(uintptr(v8 + int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))*8 + 18))) = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*2)))
+		*(*uint16)(unsafe.Pointer(uintptr(v8 + int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))*8 + 16))) = *((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))
+		*(*uint16)(unsafe.Pointer(uintptr(v8 + int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))*8 + 18))) = *((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*2)))
 		v14 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))
 		v7 = int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 6)))))
 		*(*uint32)(unsafe.Pointer(uintptr(v8 + v14*8 + 20))) = uint32(v7)
@@ -299,20 +299,20 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			if noxflags.HasGame(4096) {
 				c1 = 3
 			}
-			sub_506870(c1, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(data))), unsafe.Sizeof(wchar2_t(0))*1)))
+			sub_506870(c1, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(wchar2_t(0))*1)))
 			return 52
 		case 1:
-			sub_506870(1, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(data))), unsafe.Sizeof(wchar2_t(0))*1)))
+			sub_506870(1, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(wchar2_t(0))*1)))
 			return 52
 		case 2:
 			var c2 int32 = 0
 			if noxflags.HasGame(4096) {
 				c2 = 3
 			}
-			sub_506C90(c2, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(data))), unsafe.Sizeof(wchar2_t(0))*1)))
+			sub_506C90(c2, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(wchar2_t(0))*1)))
 			return 52
 		case 3:
-			sub_506C90(1, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(data))), unsafe.Sizeof(wchar2_t(0))*1)))
+			sub_506C90(1, unit, (*wchar2_t)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(wchar2_t(0))*1)))
 			return 52
 		case 4:
 			sub_506870(2, unit, nil)
@@ -332,9 +332,9 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			}
 			return 2
 		case 0xF:
-			v67 = nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))
+			v67 = nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
-				nox_xxx_netTestHighBit_578B70(uint32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))
+				nox_xxx_netTestHighBit_578B70(uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
 			v68 = (*int32)(unsafe.Pointer(uintptr(nox_xxx_equipedItemByCode_4F7920(unit, v67))))
 			if v68 != nil {
@@ -348,9 +348,9 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			v10 = (*int32)(unsafe.Pointer(uintptr(v85)))
 			return 4
 		case 0x10:
-			v70 = nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))
+			v70 = nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
-				nox_xxx_netTestHighBit_578B70(uint32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))
+				nox_xxx_netTestHighBit_578B70(uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
 			v71 = int32(*(*uint32)(unsafe.Pointer(uintptr(v85 + 280))))
 			if v71 != 0 {
@@ -371,7 +371,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			return 2
 		case 0x15:
 			if nox_xxx_gameGet_4DB1B0() == 0 && (int32(*(*uint8)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*69)) + 3680))))&3) == 0 {
-				v64 = nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))
+				v64 = nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 				v65 = int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v64))))
 				if v65 != 0 {
 					if int32(*(*uint8)(unsafe.Pointer(uintptr(v65 + 12))))&8 != 0 {
@@ -383,43 +383,43 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		case 0x16:
 			v72 = (*uint32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*70)))))
 			if v72 != nil {
-				sub_5100C0_trade(unit, v72, int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))
+				sub_5100C0_trade(unit, v72, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
 			return 4
 		case 0x17:
 			v73 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v73 != 0 {
-				sub_510640_trade(unit, v73, int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))), (*float32)(unsafe.Pointer(uintptr(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 4))))))
+				sub_510640_trade(unit, v73, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))), (*float32)(unsafe.Pointer(uintptr(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 4))))))
 			}
 			return 5
 		case 0x18:
 			v74 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v74 != 0 {
-				sub_510BE0_trade((*int32)(unsafe.Pointer(uintptr(unit))), v74, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))))
+				sub_510BE0_trade((*int32)(unsafe.Pointer(uintptr(unit))), v74, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
 			}
 			return 4
 		case 0x19:
 			v76 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v76 != 0 {
-				sub_510D10((*int32)(unsafe.Pointer(uintptr(unit))), v76, int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))), uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 4))))
+				sub_510D10((*int32)(unsafe.Pointer(uintptr(unit))), v76, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))), uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 4))))
 			}
 			return 5
 		case 0x1A:
 			v75 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v75 != 0 {
-				sub_510AE0((*int32)(unsafe.Pointer(uintptr(unit))), v75, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))))
+				sub_510AE0((*int32)(unsafe.Pointer(uintptr(unit))), v75, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
 			}
 			return 4
 		case 0x1C:
 			v77 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v77 != 0 {
-				sub_5109C0_trade((*int32)(unsafe.Pointer(uintptr(unit))), v77, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))))
+				sub_5109C0_trade((*int32)(unsafe.Pointer(uintptr(unit))), v77, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
 			}
 			return 4
 		case 0x1E:
 			v78 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v78 != 0 {
-				sub_5108D0(unit, v78, int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(data))), unsafe.Sizeof(uint16(0))*1)))))
+				sub_5108D0(unit, v78, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
 			return 4
 		default:

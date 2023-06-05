@@ -115,8 +115,8 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		if int32(*v5) > 0 {
 			v7 = 0
 			for {
-				if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*6)))+uint32(v7) != 4294967292 {
-					v8 = nox_xxx_spellByTitle_424960((*wchar2_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*6))) + uint32(v7) + 4))))
+				if *((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*6)))+uint32(v7) != 4294967292 {
+					v8 = nox_xxx_spellByTitle_424960((*wchar2_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*6))) + uint32(v7) + 4))))
 					if v8 != 0 {
 						if v21 == 1115 {
 							if !noxflags.HasGame(64) && (*(*byte)(unsafe.Add(unsafe.Pointer(v20), 52))&0x40) == 0 || v8 != 132 {
@@ -167,7 +167,7 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*9)) ^= 4
 				v18 = nox_strman_loadString_40F1D0(internCStr("plyrspel.c:Illegal"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c"), 226)
 				v16 = nox_strman_loadString_40F1D0(internCStr("Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c"), 225)
-				nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045484))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v16)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v18)))))), 33, nil, nil)
+				nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045484))))), (*wchar2_t)(unsafe.Pointer(v16)), (*wchar2_t)(unsafe.Pointer(v18)), 33, nil, nil)
 				sub_44A360(1)
 			} else {
 				if *(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*9))&4 != 0 {
@@ -183,7 +183,7 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*9)) ^= 4
 			v17 = nox_strman_loadString_40F1D0(internCStr("NotInternet"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c"), 211)
 			v14 = nox_strman_loadString_40F1D0(internCStr("Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c"), 210)
-			nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045484))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v14)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17)))))), 33, nil, nil)
+			nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045484))))), (*wchar2_t)(unsafe.Pointer(v14)), (*wchar2_t)(unsafe.Pointer(v17)), 33, nil, nil)
 			sub_44A360(1)
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100)

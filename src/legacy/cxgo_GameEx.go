@@ -31,16 +31,16 @@ func playerInfoStructParser_0(a1p unsafe.Pointer) int8 {
 		return 0
 	}
 	for {
-		nox_CharToOemW((*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v1))), unsafe.Sizeof(wchar2_t(0))*2352)), (*byte)(unsafe.Pointer(&pDst)))
+		nox_CharToOemW((*wchar2_t)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(wchar2_t(0))*2352)), (*byte)(unsafe.Pointer(&pDst)))
 		if libc.StrCmp((*byte)(unsafe.Pointer(&pDst)), (*byte)(unsafe.Add(unsafe.Pointer(a1), 2))) == 0 {
 			break
 		}
-		v1 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))))))
+		v1 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v1)))))
 		if v1 == nil {
 			return 0
 		}
 	}
-	*(*byte)(unsafe.Add(unsafe.Pointer(a1), 1)) = byte(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*515)))))))), 4))))
+	*(*byte)(unsafe.Add(unsafe.Pointer(a1), 1)) = byte(*((*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*515)))))), 4))))
 	*a1 = *(*byte)(unsafe.Add(unsafe.Pointer(v1), 2251))
 	return 1
 }
@@ -73,7 +73,7 @@ func playerInfoStructParser_1(a1p unsafe.Pointer, a3 *int32) int8 {
 	}
 	v6 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 2060)))))
 	*a3 = int32(uintptr(unsafe.Pointer(v6)))
-	*(*uint8)(unsafe.Pointer(uintptr(a1 + 1))) = *((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v6))), 4)))
+	*(*uint8)(unsafe.Pointer(uintptr(a1 + 1))) = *((*uint8)(unsafe.Add(unsafe.Pointer(v6), 4)))
 	*(*uint8)(unsafe.Pointer(uintptr(a1))) = *(*uint8)(unsafe.Pointer(uintptr(a2 + 2251)))
 	return 1
 }

@@ -49,10 +49,10 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 	if *(*uint32)(unsafe.Pointer(uintptr(a7 + 16))) == 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(a7 + 16))) = uint32(uintptr(unsafe.Pointer(v8)))
 	}
-	nox_gui_windowCopyDrawData_46AF80((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), unsafe.Pointer(uintptr(a7)))
+	nox_gui_windowCopyDrawData_46AF80((*gui.Window)(unsafe.Pointer(v8)), unsafe.Pointer(uintptr(a7)))
 	arr, _ := alloc.Make([]nox_scrollListBox_item{}, int(opts.count))
 	v9 = unsafe.Pointer(&arr[0])
-	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*6))) = uint32(uintptr(v9))
+	*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*6))) = uint32(uintptr(v9))
 	if v9 == nil {
 		return nil
 	}
@@ -62,23 +62,23 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 	if v21 != 0 {
 		*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*26)) -= int16(nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a7 + 200)))))))
 	}
-	v11 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*4))))
+	v11 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*4))))
 	*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*27)) = 0
-	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*12))) = math.MaxUint32
+	*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*12))) = math.MaxUint32
 	*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*23)) = 0
 	*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*22)) = 0
-	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*10))) = 0
+	*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*10))) = 0
 	if v11 != 0 {
 		v12 = alloc.Calloc1(int(opts.count), 4)
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*12))) = uint32(uintptr(v12))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*12))) = uint32(uintptr(v12))
 		if v12 == nil {
-			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(a8))), unsafe.Sizeof(unsafe.Pointer(nil))*6))))
+			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(unsafe.Pointer(nil))*6))))
 			return nil
 		}
 		libc.MemSet(v12, math.MaxUint8, int(int32(opts.count)*4))
 		v10 = int32(a6)
 	}
-	if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*3))) != 0 {
+	if *((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*3))) != 0 {
 		v24[0] = 0
 		v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(a7 + 200))))
 		v24[1] = 0
@@ -93,7 +93,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 			v22 = 0
 		}
 		*(*[332]byte)(unsafe.Pointer(&v25[0])) = [332]byte{}
-		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 4))))) >= 0 {
+		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 4))))) >= 0 {
 			*(*uint32)(unsafe.Pointer(&v25[20])) = nox_color_black_2650656
 			*(*uint32)(unsafe.Pointer(&v25[44])) = nox_color_black_2650656
 			*(*uint32)(unsafe.Pointer(&v25[28])) = nox_color_orange_2614256
@@ -114,9 +114,9 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 		v17 := v26 | 9
 		*(*uint32)(unsafe.Pointer(&v25[16])) = uint32(uintptr(unsafe.Pointer(v8)))
 		*(*uint32)(unsafe.Pointer(&v25[8])) = 1
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*7))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), v26|9, a5-10, int(v22), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*7))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(v8)), v26|9, a5-10, int(v22), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
 		*(*[332]byte)(unsafe.Pointer(&v25[0])) = [332]byte{}
-		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 4))))) >= 0 {
+		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 4))))) >= 0 {
 			*(*uint32)(unsafe.Pointer(&v25[20])) = nox_color_black_2650656
 			*(*uint32)(unsafe.Pointer(&v25[44])) = nox_color_black_2650656
 			*(*uint32)(unsafe.Pointer(&v25[28])) = nox_color_orange_2614256
@@ -134,9 +134,9 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 		}
 		*(*uint32)(unsafe.Pointer(&v25[8])) = 1
 		*(*uint32)(unsafe.Pointer(&v25[16])) = uint32(uintptr(unsafe.Pointer(v8)))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*8))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), v17, a5-10, int(v22+v10-v23), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*8))) = uint32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(v8)), v17, a5-10, int(v22+v10-v23), 10, int(v23), (*nox_window_data)(unsafe.Pointer(&v25[0]))))))
 		*(*[332]byte)(unsafe.Pointer(&v25[0])) = [332]byte{}
-		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 4))))) >= 0 {
+		if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 4))))) >= 0 {
 			*(*uint32)(unsafe.Pointer(&v25[20])) = nox_color_black_2650656
 			*(*uint32)(unsafe.Pointer(&v25[44])) = nox_color_black_2650656
 			*(*uint32)(unsafe.Pointer(&v25[36])) = nox_color_black_2650656
@@ -157,7 +157,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 		*(*uint32)(unsafe.Pointer(&v25[8])) = 8
 		v24[3] = 0
 		*(*uint32)(unsafe.Pointer(&v25[16])) = uint32(uintptr(unsafe.Pointer(v8)))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*9))) = uint32(uintptr(unsafe.Pointer(nox_gui_newSlider_4B4EE0(int32(uintptr(unsafe.Pointer(v8))), v17, a5-int(v19), int(v22+v23), int(v19), int(v10-v23*2), (*uint32)(unsafe.Pointer(&v25[0])), (*float32)(unsafe.Pointer(&v24[0]))))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*9))) = uint32(uintptr(unsafe.Pointer(nox_gui_newSlider_4B4EE0(int32(uintptr(unsafe.Pointer(v8))), v17, a5-int(v19), int(v22+v23), int(v19), int(v10-v23*2), (*uint32)(unsafe.Pointer(&v25[0])), (*float32)(unsafe.Pointer(&v24[0]))))))
 	}
 	d, _ := alloc.New(nox_scrollListBox_data{})
 	v20 = (*int16)(unsafe.Pointer(d))

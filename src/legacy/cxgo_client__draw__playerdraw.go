@@ -61,7 +61,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	if nox_player_netCode_85319C == dr.Field_32 {
 		v4 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
 		if v4 != nil {
-			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v4))), 4)))))))
+			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)))))))
 			v29 = v5
 		}
 	} else {
@@ -76,7 +76,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 				if nox_xxx_servCompareTeams_419150(int32(uintptr(unsafe.Pointer(v6))), int32(uintptr(unsafe.Pointer(v7)))) != 0 {
 					v31 = 1
 				}
-				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 4)))))))
+				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 4)))))))
 				v29 = v5
 			}
 		}
@@ -139,13 +139,13 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			colors[i] = nox_color_blue_2650684
 		}
 	} else {
-		colors[0] = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*574)))
-		colors[1] = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*576)))
-		colors[2] = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*578)))
-		colors[3] = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*577)))
-		colors[4] = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*575)))
-		colors[5] = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*573)))
-		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*920)))&0x400 != 0 {
+		colors[0] = *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*574)))
+		colors[1] = *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*576)))
+		colors[2] = *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*578)))
+		colors[3] = *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*577)))
+		colors[4] = *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*575)))
+		colors[5] = *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*573)))
+		if *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*920)))&0x400 != 0 {
 			for i := int32(0); i < 6; i++ {
 				var (
 					r int32 = 0
@@ -175,19 +175,19 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	nox_xxx_drawObject_4C4770_draw(v10, dr, v18)
 	v20 = int8(dr.Field_74_2)
 	if int32(v20) != 1 && int32(v20) != 0 && int32(v20) != 2 && int32(v20) != 3 && int32(v20) != 6 || dr.Field_69 == 37 {
-		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1)))&2), (*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*581)), v28, v27)
-		sub_4B8960(v10, dr, int32(*(*uint32)(unsafe.Pointer(v3))), (*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*743)), v28, v27)
-		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1)))&^uint32(2)), (*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*581)), v28, v27)
+		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)))&2), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*581)), v28, v27)
+		sub_4B8960(v10, dr, int32(*(*uint32)(unsafe.Pointer(v3))), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*743)), v28, v27)
+		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)))&^uint32(2)), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*581)), v28, v27)
 	} else {
-		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1)))&^uint32(2)), (*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*581)), v28, v27)
-		sub_4B8960(v10, dr, int32(*(*uint32)(unsafe.Pointer(v3))), (*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*743)), v28, v27)
-		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1)))&2), (*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*581)), v28, v27)
+		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)))&^uint32(2)), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*581)), v28, v27)
+		sub_4B8960(v10, dr, int32(*(*uint32)(unsafe.Pointer(v3))), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*743)), v28, v27)
+		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)))&2), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*581)), v28, v27)
 	}
 	if v30 != 0 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.Field_32 == nox_player_netCode_85319C || *memmap.PtrUint32(0x852978, 8) != 0 && (nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) || v31 != 0) {
 		a1 = (*uint32)(unsafe.Pointer(uintptr(nox_color_rgb_4344A0(155, 155, 155))))
 		if sub_48D830(dr) == 0 && !noxflags.HasGame(2048) {
 			v21 = (*int16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v3), 4704))))
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*2352)))), &v34, nil, 0)
+			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2352)))), &v34, nil, 0)
 			v22 = *v10 + int32(dr.PosVec.X) + v34/(-2) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4))
 			var a2 int32 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) + int32(dr.PosVec.Y) - 64
 			nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x852978, 4))
@@ -195,7 +195,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			nox_xxx_drawSetTextColor_434390(int32(uintptr(unsafe.Pointer(a1))))
 			if v35 != 0 {
 				if v29 != nil {
-					v23 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v29))))))))
+					v23 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(v29))))
 					nox_xxx_drawSetTextColor_434390(v23)
 				}
 			}
@@ -241,7 +241,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		}
 		if unsafe.Pointer(dr) != unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))) && nox_xxx_playerGet_470A90() != 0 {
 			if noxflags.HasGame(4096) {
-				nox_xxx_drawOtherPlayerHP_4B8EB0((*uint32)(unsafe.Pointer(v10)), dr, uint16(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 2282)))), int8(uint8((*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*920)))>>10)&1)))
+				nox_xxx_drawOtherPlayerHP_4B8EB0((*uint32)(unsafe.Pointer(v10)), dr, uint16(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 2282)))), int8(uint8((*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*920)))>>10)&1)))
 			}
 		}
 	}

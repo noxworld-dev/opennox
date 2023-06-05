@@ -67,9 +67,9 @@ func nox_thing_harpoon_rope_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		a1a.field_0 = int32(uint32(v13) + *(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*3)) - uint32(v12))
 		a1a.field_4 = int32(uint32(v14) + *(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*4)) - uint32(v18))
 		a2a.field_0 = int32(uint32(v13) + *(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*3)) - uint32(v12))
-		a2a.field_4 = int32(uint32(v14) + *(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*4)) - uint32(*((*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(v11))), unsafe.Sizeof(int16(0))*53)))) - uint32(*((*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(v11))), unsafe.Sizeof(int16(0))*52)))) - uint32(v18))
-		a1a.field_0 += int32(*memmap.PtrUint32(0x587000, uintptr(int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v10))), 297))))*8)+175864))
-		a1a.field_4 += int32(*memmap.PtrUint32(0x587000, uintptr(int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v10))), 297))))*8)+175868))
+		a2a.field_4 = int32(uint32(v14) + *(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*4)) - uint32(*((*int16)(unsafe.Add(unsafe.Pointer(v11), unsafe.Sizeof(int16(0))*53)))) - uint32(*((*int16)(unsafe.Add(unsafe.Pointer(v11), unsafe.Sizeof(int16(0))*52)))) - uint32(v18))
+		a1a.field_0 += int32(*memmap.PtrUint32(0x587000, uintptr(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v10), 297))))*8)+175864))
+		a1a.field_4 += int32(*memmap.PtrUint32(0x587000, uintptr(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v10), 297))))*8)+175868))
 		a2a.field_4 -= 8
 		*memmap.PtrUint32(0x5D4594, 1312492) = nox_color_rgb_4344A0(144, 104, 64)
 		*memmap.PtrUint32(0x5D4594, 1312496) = nox_color_rgb_4344A0(24, 16, 0)

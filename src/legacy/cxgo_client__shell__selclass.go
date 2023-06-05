@@ -50,7 +50,7 @@ func sub_4A4A20(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 605)))
 		*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307724 + 66))) = uint8(int8(v7 - 89))
 		v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(uint8(int8(v7-89)))*4)+170208)), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelClass.c"), 279)
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 16385, uintptr(unsafe.Pointer(v9)), 0)
+		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v8)), 16385, uintptr(unsafe.Pointer(v9)), 0)
 		*memmap.PtrUint32(0x5D4594, 1307740) = uint32(v7)
 	}
 	nox_xxx_clientPlaySoundSpecial_452D80(920, 100)
@@ -72,7 +72,7 @@ func sub_4A4B70(a1 int32) unsafe.Pointer {
 	)
 	v1 = 0
 	result = unsafe.Pointer(uintptr(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307724 + 66)))))
-	v3 = *(**uint8)(memmap.PtrOff(0x587000, uintptr(uintptr(result))*4+170156))
+	v3 = *(**uint8)(memmap.PtrOff(0x587000, uintptr(result)*4+170156))
 	if int32(*v3) != 0 {
 		for {
 			result = unsafe.Pointer(uintptr(func() uint8 {
