@@ -54,7 +54,7 @@ func nox_xxx_cliBuildJournalString_469BC0() {
 				v10 = nox_strman_loadString_40F1D0(internCStr("Journal:QuestLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c"), 56)
 				nox_wcscpy(&v14[0], v10)
 			}
-			nox_wcscat(&v14[0], (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat(&v14[0], internWStr(" "))
 			v7 = nox_strman_loadString_40F1D0(&v13[0], nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c"), 74)
 			nox_wcscat(&v14[0], v7)
 			nox_xxx_drawGetStringSize_43F840(nil, &v14[0], nil, &v12, 240)
@@ -122,7 +122,7 @@ func nox_xxx_guiDrawJournal_469D40(xLeft int32, yTop int32, a3 int32) {
 					v8 = int32(*memmap.PtrUint32(0x8531A0, 2572))
 					v17[0] = 0
 				}
-				nox_wcscat(&v17[0], (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat(&v17[0], internWStr(" "))
 				v12 = nox_strman_loadString_40F1D0(&v16[0], nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIJourn.c"), 155)
 				nox_wcscat(&v17[0], v12)
 				nox_xxx_drawGetStringSize_43F840(nil, &v17[0], nil, &v15, 240)

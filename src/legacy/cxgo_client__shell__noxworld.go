@@ -413,23 +413,23 @@ func nox_client_gui_serverInfoBlock_4394D0(a1 int32) {
 		nox_sprintAddrPort_43BC80((*byte)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12)), *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 109)), &buf[0])
 	}
 	buf[256-1] = 0
-	nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &buf[0])
+	nox_swprintf(&wbuf[0], internWStr("%S"), &buf[0])
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(&wbuf[0])), math.MaxUint32)
 	if false {
 		nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89332)), math.MaxUint32)
 		var hostTitle *wchar2_t = nox_strman_loadString_40F1D0(internCStr("GameHost"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 766)
 		nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(hostTitle)), 14)
 		sub_439CC0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 32))), &buf[0])
-		nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &buf[0])
+		nox_swprintf(&wbuf[0], internWStr("%S"), &buf[0])
 		nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(&wbuf[0])), math.MaxUint32)
 	}
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89396)), math.MaxUint32)
 	var pingTitle *wchar2_t = nox_strman_loadString_40F1D0(internCStr("Ping"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 774)
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(pingTitle)), 14)
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)) == 9999 {
-		nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("--"))))
+		nox_swprintf(&wbuf[0], internWStr("--"))
 	} else {
-		nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)))
+		nox_swprintf(&wbuf[0], internWStr("%d"), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)))
 	}
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(&wbuf[0])), math.MaxUint32)
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89464)), math.MaxUint32)
@@ -441,7 +441,7 @@ func nox_client_gui_serverInfoBlock_4394D0(a1 int32) {
 		nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89520)), math.MaxUint32)
 		var stageTitle *wchar2_t = nox_strman_loadString_40F1D0(internCStr("Stage"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 794)
 		nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(stageTitle)), 14)
-		nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 165)))
+		nox_swprintf(&wbuf[0], internWStr("%d"), *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 165)))
 		nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(&wbuf[0])), math.MaxUint32)
 	}
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89580)), math.MaxUint32)
@@ -449,7 +449,7 @@ func nox_client_gui_serverInfoBlock_4394D0(a1 int32) {
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(mapTitle)), 14)
 	libc.StrNCpy(&buf[0], (*byte)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 111)), int(256-1))
 	buf[256-1] = 0
-	nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &buf[0])
+	nox_swprintf(&wbuf[0], internWStr("%S"), &buf[0])
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(&wbuf[0])), math.MaxUint32)
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89636)), math.MaxUint32)
 	v9 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 163)))
@@ -466,7 +466,7 @@ func nox_client_gui_serverInfoBlock_4394D0(a1 int32) {
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89788)), math.MaxUint32)
 	var playersTitle *wchar2_t = nox_strman_loadString_40F1D0(internCStr("Occupancy"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 822)
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(playersTitle)), 14)
-	nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d/%d\n"))), *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 103)), *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 104)))
+	nox_swprintf(&wbuf[0], internWStr("%d/%d\n"), *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 103)), *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 104)))
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(&wbuf[0])), math.MaxUint32)
 	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 164))) & 0x20) == 0 {
 		return
@@ -955,20 +955,20 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 		if libc.MemCmp(unsafe.Pointer(&buf[0]), memmap.PtrOff(0x5D4594, 815120), 1) == 0 {
 			nox_sprintAddrPort_43BC80(&srv.addr[0], srv.port, &buf[0])
 		}
-		nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &buf[0])
+		nox_swprintf(&wbuf[0], internWStr("%S"), &buf[0])
 		sub_43BC10(&wbuf[0], 100)
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815016))), 16397, uintptr(unsafe.Pointer(&wbuf[0])), 4)
-		nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d/%d"))), srv.players, srv.max_players)
+		nox_swprintf(&wbuf[0], internWStr("%d/%d"), srv.players, srv.max_players)
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815020))), 16397, uintptr(unsafe.Pointer(&wbuf[0])), 4)
 		var v6 *wchar2_t = nox_gui_wol_gameModeString_43BCB0(int16(srv.flags))
 		if int32(srv.flags)&0x1000 != 0 {
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 814772)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %d"))), v6, srv.quest_level)
+			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 814772)), internWStr("%s %d"), v6, srv.quest_level)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), 16397, uintptr(memmap.PtrOff(0x5D4594, 814772)), 4)
 		} else {
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), 16397, uintptr(unsafe.Pointer(v6)), 4)
 		}
 		if srv.ping == 9999 {
-			nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("--"))))
+			nox_swprintf(&wbuf[0], internWStr("--"))
 		} else {
 			nox_itow(srv.ping, &wbuf[0], 10)
 		}
@@ -980,7 +980,7 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 		}
 		if int32(srv.status)&0x10 != 0 {
 			if wbuf[0] != 0 {
-				nox_wcscat(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("+"))))
+				nox_wcscat(&wbuf[0], internWStr("+"))
 			}
 			var v10 *wchar2_t = nox_strman_loadString_40F1D0(internCStr("Noxworld.wnd:closed"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 3494)
 			nox_wcscat(&wbuf[0], v10)
@@ -1028,9 +1028,9 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 			nox_sprintAddrPort_43BC80((*byte)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12)), *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 109)), &v13[0])
 		}
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)) == 9999 {
-			nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S -- ms"))), &v13[0])
+			nox_swprintf(&wbuf[0], internWStr("%S -- ms"), &v13[0])
 		} else {
-			nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S %dms"))), &v13[0], *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)))
+			nox_swprintf(&wbuf[0], internWStr("%S %dms"), &v13[0], *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)))
 		}
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)))), 36)), &wbuf[0])
 		nox_xxx_wndSetProc_46B2C0(*(**gui.Window)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)), nox_xxx_windowMultiplayerSub_439E70)

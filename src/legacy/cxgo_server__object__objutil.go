@@ -39,14 +39,14 @@ func nox_xxx_itemGetName_4E77E0_obj_util(a1 int32) *wchar2_t {
 		nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1567732)))
 		if *v2 != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*v2)), 8)) != 0 {
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*v2)), 8)))
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), internWStr(" "))
 		}
 		v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*1)))
 		if v7 != 0 {
 			v8 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 8))
 			if v8 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), v8)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), internWStr(" "))
 			}
 		}
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) != 0 {
@@ -54,12 +54,12 @@ func nox_xxx_itemGetName_4E77E0_obj_util(a1 int32) *wchar2_t {
 		}
 		v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))
 		if v9 != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 8)) != 0 {
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), internWStr(" "))
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))), 8)))
 		}
 		v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
 		if v10 != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 12)) != 0 {
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), internWStr(" "))
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660)), *(**wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))), 12)))
 			return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1565660))
 		}

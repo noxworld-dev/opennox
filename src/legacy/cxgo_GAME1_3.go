@@ -963,7 +963,7 @@ func nox_xxx_motdAddSomeTextMB_446730(a1 *uint8) *uint8 {
 	defer free()
 	result = a1
 	if int32(*a1) != 0 {
-		nox_swprintf(&v2[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), a1)
+		nox_swprintf(&v2[0], internWStr("%S"), a1)
 		result = (*uint8)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16397, uintptr(unsafe.Pointer(&v2[0])), math.MaxUint32)))
 	}
 	return result

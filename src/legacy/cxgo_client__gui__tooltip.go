@@ -74,14 +74,14 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 			if v19 != 137 {
 				if nox_strman_get_lang_code() != 6 {
 					v22 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 292)
-					nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr("%s "))), v22)
+					nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr("%s "), v22)
 					v23 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
 					nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v23)
 					goto LABEL_93
 				}
 				v20 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v20)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				v21 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 288)
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v21)
 				goto LABEL_93
@@ -103,12 +103,12 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 			if nox_strman_get_lang_code() == 3 || nox_strman_get_lang_code() == 5 {
 				v27 = nox_strman_loadString_40F1D0(internCStr("LoreScroll"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 313)
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v27)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				v28 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_xxx_guiCreatureGetName_427240(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108))))))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v28)
 			} else {
 				v25 = nox_xxx_guiCreatureGetName_427240(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr("%s "))), v25)
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr("%s "), v25)
 				v26 = nox_strman_loadString_40F1D0(internCStr("LoreScroll"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 320)
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v26)
 			}
@@ -127,13 +127,13 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 			if nox_strman_get_lang_code() == 6 {
 				v30 = nox_xxx_abilityGetName_0_425260(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v30)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				v21 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 342)
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v21)
 				goto LABEL_93
 			}
 			v31 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 346)
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr("%s "))), v31)
+			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr("%s "), v31)
 			v32 = nox_xxx_abilityGetName_0_425260(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v32)
 		} else {
@@ -197,79 +197,79 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 		case 2:
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v12)
 			if v35 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v35)
 			}
 			v17 = a1
 			if a1 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v17)
 			}
 			if v34 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v34)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			}
 			if v3 == nil {
 				return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 			}
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v3)
 			result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 		case 3:
 			if v3 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v3)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			}
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v12)
 			if v34 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v34)
 			}
 			if v35 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v35)
 			}
 			if a1 == nil {
 				return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 			}
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), a1)
 			result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 		case 5:
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v12)
 			if v34 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v34)
 			}
 			if v3 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v3)
 			}
 			if v35 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v35)
 			}
 			if a1 == nil {
 				return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 			}
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), a1)
 			result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 		case 6:
 			if v3 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v3)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			}
 			if v35 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v35)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			}
 			if a1 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), a1)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			}
 			if v34 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v34)
 			}
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v12)
@@ -277,21 +277,21 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 		default:
 			if v3 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v3)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			}
 			if v34 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v34)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			}
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v12)
 			if v35 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v35)
 			}
 			if a1 == nil {
 				return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 			}
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
 			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), a1)
 			result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 		}

@@ -2078,15 +2078,15 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		} else if v200&2 != 0 {
 			if v200&1 != 0 {
 				v203 = nox_strman_loadString_40F1D0(internCStr("Guirank.c:team"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4493)
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)), (*wchar2_t)(unsafe.Pointer(internCStr("%s: %S"))), v203, (*uint8)(unsafe.Add(unsafe.Pointer(data), 11)))
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)), internWStr("%s: %S"), v203, (*uint8)(unsafe.Add(unsafe.Pointer(data), 11)))
 			} else {
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)), (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), (*uint8)(unsafe.Add(unsafe.Pointer(data), 11)))
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)), internWStr("%S"), (*uint8)(unsafe.Add(unsafe.Pointer(data), 11)))
 			}
 			v202 = 1
 		} else {
 			if v200&1 != 0 {
 				v204 = nox_strman_loadString_40F1D0(internCStr("Guirank.c:team"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4506)
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)), (*wchar2_t)(unsafe.Pointer(internCStr("%s: %s"))), v204, (*uint8)(unsafe.Add(unsafe.Pointer(data), 11)))
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)), internWStr("%s: %s"), v204, (*uint8)(unsafe.Add(unsafe.Pointer(data), 11)))
 			} else {
 				nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)), (*wchar2_t)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 11)))))
 			}

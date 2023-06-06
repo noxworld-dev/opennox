@@ -954,7 +954,7 @@ func sub_4E42C0(a1 *FILE) int32 {
 		if v1 == nil {
 			return 1
 		}
-		nox_swprintf(&v4[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), v1)
+		nox_swprintf(&v4[0], internWStr("%S"), v1)
 		if !nox_fs_fgets(a1, (*byte)(memmap.PtrOff(0x5D4594, 1563936)), 1024) {
 			return 1
 		}
@@ -980,7 +980,7 @@ func sub_4E4390(a1 *FILE) int32 {
 		if v1 == nil {
 			break
 		}
-		nox_swprintf(&v3[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), v1)
+		nox_swprintf(&v3[0], internWStr("%S"), v1)
 		sub_4168A0(&v3[0])
 	}
 	return 1

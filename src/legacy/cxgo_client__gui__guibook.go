@@ -191,7 +191,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	if dword_5d4594_1046868 == 1 {
 		v14 = v67 + 51
 		v15 = nox_strman_loadString_40F1D0(internCStr("Size"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 978)
-		nox_swprintf(&v71[0], (*wchar2_t)(unsafe.Pointer(internCStr("%s "))), v15)
+		nox_swprintf(&v71[0], internWStr("%s "), v15)
 		v16 = int32(nox_xxx_guideGetUnitSize_427460(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))) - 1
 		if v16 != 0 {
 			v17 = v16 - 1
@@ -296,14 +296,14 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		v43 = v41 + v68 + 2
 		v44 = nox_xxx_spellManaCost_4249A0(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)), 1)
 		v45 = nox_strman_loadString_40F1D0(internCStr("ManaCost"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1115)
-		nox_swprintf(&v71[0], (*wchar2_t)(unsafe.Pointer(internCStr("%s "))), v45)
+		nox_swprintf(&v71[0], internWStr("%s "), v45)
 		if v44 != 0 {
 			nox_itow(v44, &WideCharStr[0], 10)
 			nox_wcscat(&v71[0], &WideCharStr[0])
 		} else if nox_xxx_spellHasFlags_424A50(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)), 0x800000) {
-			nox_wcscat(&v71[0], (*wchar2_t)(unsafe.Pointer(internCStr("0"))))
+			nox_wcscat(&v71[0], internWStr("0"))
 		} else {
-			nox_wcscat(&v71[0], (*wchar2_t)(unsafe.Pointer(internCStr("*"))))
+			nox_wcscat(&v71[0], internWStr("*"))
 		}
 		nox_xxx_drawGetStringSize_43F840(nil, &v71[0], &v65, nil, 0)
 		v46 = v43 + 2

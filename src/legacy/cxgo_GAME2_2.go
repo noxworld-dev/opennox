@@ -5748,7 +5748,7 @@ func sub_489B80(a1 int32) *uint32 {
 			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10028)))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*9)) |= 4
 		}
-		nox_swprintf(&v13[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4))))
+		nox_swprintf(&v13[0], internWStr("%d"), *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4))))
 		v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10031)))
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v5)), 16414, uintptr(unsafe.Pointer(&v13[0])), math.MaxUint32)
 		if *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1))) != 0 {

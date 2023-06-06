@@ -59,4 +59,3 @@ rules:
     message: Invalid use of interned string.
     severity: ERROR
     pattern: (*wchar2_t)(unsafe.Pointer(internCStr($STR)))
-    fix: internWStr($STR)

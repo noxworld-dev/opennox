@@ -1935,12 +1935,12 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		if v8 > uint32(*(*int32)(unsafe.Pointer(&dword_5d4594_1319248))) {
 			return 0
 		}
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319164)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), v8)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319164)), internWStr("%d"), v8)
 		sub_46AEE0(*(*int32)(unsafe.Pointer(&dword_5d4594_1319232)), int32(uintptr(memmap.PtrOff(0x5D4594, 1319164))))
 		if dword_5d4594_1319264 == 0 {
 			return 0
 		}
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319068)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), dword_5d4594_1319260*v8)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319068)), internWStr("%d"), dword_5d4594_1319260*v8)
 		sub_46AEE0(*(*int32)(unsafe.Pointer(&dword_5d4594_1319236)), int32(uintptr(memmap.PtrOff(0x5D4594, 1319068))))
 		result = 0
 	case 3603:
@@ -1948,10 +1948,10 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v10 = int32(libc.WStrtol(v9, nil, 10))
 		v11 = v10
 		if v10 > 1 {
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319164)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), v10-1)
+			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319164)), internWStr("%d"), v10-1)
 			sub_46AEE0(*(*int32)(unsafe.Pointer(&dword_5d4594_1319232)), int32(uintptr(memmap.PtrOff(0x5D4594, 1319164))))
 			if dword_5d4594_1319264 != 0 {
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319068)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), dword_5d4594_1319260*uint32(v11-1))
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319068)), internWStr("%d"), dword_5d4594_1319260*uint32(v11-1))
 				sub_46AEE0(*(*int32)(unsafe.Pointer(&dword_5d4594_1319236)), int32(uintptr(memmap.PtrOff(0x5D4594, 1319068))))
 			}
 		}
@@ -2009,10 +2009,10 @@ func nox_gui_itemAmountDialog_4C0430(title *wchar2_t, x int32, y int32, a4 int32
 	*memmap.PtrUint32(0x5D4594, 1319252) = uint32(a8)
 	sub_4BFD40()
 	sub_4C0560(x, y)
-	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319164)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), 1)
+	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319164)), internWStr("%d"), 1)
 	sub_46AEE0(*(*int32)(unsafe.Pointer(&dword_5d4594_1319232)), int32(uintptr(memmap.PtrOff(0x5D4594, 1319164))))
 	if dword_5d4594_1319264 != 0 {
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319068)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), dword_5d4594_1319260)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319068)), internWStr("%d"), dword_5d4594_1319260)
 		result = sub_46AEE0(*(*int32)(unsafe.Pointer(&dword_5d4594_1319236)), int32(uintptr(memmap.PtrOff(0x5D4594, 1319068))))
 	} else {
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319068)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1319272)))
@@ -2277,11 +2277,11 @@ func sub_4C0D00(win *gui.Window, draw *gui.WindowData) int {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v6)))), 12)) = uint32(v8 + v21 + 25)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v6)))), 16)) = uint32(v22 + v7 + 25)
 				ccall.AsFunc[func(*uint8, uint32)](unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v6)))), 300))((*uint8)(memmap.PtrOff(0x5D4594, 1320188)), *(*uint32)(unsafe.Pointer(v6)))
-				nox_swprintf(&v23[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))))
+				nox_swprintf(&v23[0], internWStr("%d"), *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))))
 				nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 				nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(&v23[0])), v8+v21+5, v22+v7+5)
 				v9 = v22 + v7 + 50
-				nox_swprintf(&v23[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))))
+				nox_swprintf(&v23[0], internWStr("%d"), *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))))
 				nox_xxx_drawSetTextColor_434390(int32(nox_color_yellow_2589772))
 				nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(&v23[0])), v8+v21+5, v9-v18-5)
 			}
@@ -2310,11 +2310,11 @@ func sub_4C0D00(win *gui.Window, draw *gui.WindowData) int {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11)))), 12)) = uint32(v13 + v21 + 25)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11)))), 16)) = uint32(v22 + v12 + 25)
 				ccall.AsFunc[func(*uint8, uint32)](unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11)))), 300))((*uint8)(memmap.PtrOff(0x5D4594, 1320188)), *(*uint32)(unsafe.Pointer(v11)))
-				nox_swprintf(&v23[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *((*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))))
+				nox_swprintf(&v23[0], internWStr("%d"), *((*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))))
 				nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 				nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(&v23[0])), v13+v21+5, v22+v12+5)
 				v14 = v22 + v12 + 50
-				nox_swprintf(&v23[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *((*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*34))))
+				nox_swprintf(&v23[0], internWStr("%d"), *((*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*34))))
 				nox_xxx_drawSetTextColor_434390(int32(nox_color_yellow_2589772))
 				nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(&v23[0])), v13+v21+5, v14-v18-5)
 			}
@@ -2804,13 +2804,13 @@ func sub_4C1B50(a1 int32) int32 {
 	var result int32
 	result = int32(dword_5d4594_1320964)
 	if dword_5d4594_1320964 != 0 {
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1320240)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2)))
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1320240)), internWStr("%d"), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2)))
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 6)) != 0 {
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1320868)), (*wchar2_t)(unsafe.Pointer(internCStr("(%d)"))), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 6)))
+			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1320868)), internWStr("(%d)"), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 6)))
 		} else {
 			nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1320868)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1320984)))
 		}
-		result = nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1320100)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 10)))
+		result = nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1320100)), internWStr("%d"), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 10)))
 	}
 	return result
 }
@@ -4847,7 +4847,7 @@ func sub_4CAFF0(win *gui.Window, draw *gui.WindowData) int {
 		if (*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) & 0x2000) == 0x2000 {
 			nox_draw_enableTextSmoothing_43F670(1)
 		}
-		nox_swprintf(&v15[0], (*wchar2_t)(unsafe.Pointer(internCStr("%i%%"))), *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))
+		nox_swprintf(&v15[0], internWStr("%i%%"), *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))
 		nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*50)))), &v15[0], &v13, &v12, 64)
 		v6 = int32(uint32(xLeft) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))/2 - uint32(v13/2))
 		v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3))/2 - uint32(v12/2) + uint32(yTop) + 1)

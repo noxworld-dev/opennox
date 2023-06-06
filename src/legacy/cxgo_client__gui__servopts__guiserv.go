@@ -222,9 +222,9 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		}
 		if dword_587000_129656 != 0 {
 			if sub_4D6F30() != 0 || nox_xxx_isQuest_4D6F50() != 0 {
-				nox_server_parseCmdText_443C80((*wchar2_t)(unsafe.Pointer(internCStr("execrul OTQuest.rul"))), 1)
+				nox_server_parseCmdText_443C80(internWStr("execrul OTQuest.rul"), 1)
 			} else if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-				nox_server_parseCmdText_443C80((*wchar2_t)(unsafe.Pointer(internCStr("execrul server.rul"))), 1)
+				nox_server_parseCmdText_443C80(internWStr("execrul server.rul"), 1)
 			}
 		}
 		dword_587000_129656 = 0
@@ -266,11 +266,11 @@ func sub_457FE0() {
 	if noxflags.HasGame(0x4000) {
 		v5 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Individual"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 380)
 		v1 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Ladder"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 379)
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045700)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %s"))), v1, v5)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045700)), internWStr("%s %s"), v1, v5)
 	} else if noxflags.HasGame(0x8000) {
 		v6 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Clan"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 385)
 		v2 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:Ladder"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 384)
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045700)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %s"))), v2, v6)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045700)), internWStr("%s %s"), v2, v6)
 	} else {
 		v3 = nox_strman_loadString_40F1D0(internCStr("WindowDir:Empty"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 389)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045700)), v3)

@@ -466,12 +466,12 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 				if dword_5d4594_1090120 == 1 {
 					v28 = nox_gui_getQuestStage_450B10()
 					v23 = nox_strman_loadString_40F1D0(internCStr("Noxworld.c:Stage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1499)
-					nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %d"))), v23, v28)
+					nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), internWStr("%s %d"), v23, v28)
 				} else {
 					v29 = int32(*memmap.PtrUint8(0x5D4594, 1090118))
 					v27 = int32(uint8(sub_46FEE0()))
 					v24 = nox_strman_loadString_40F1D0(internCStr("yourrank"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1501)
-					nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %d / %d"))), v24, v27, v29)
+					nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), internWStr("%s %d / %d"), v24, v27, v29)
 				}
 			}
 		case 3:
@@ -485,7 +485,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			if !noxflags.HasGame(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 				v30 = int32(*memmap.PtrUint8(0x5D4594, 1090116))
 				v26 = nox_strman_loadString_40F1D0(internCStr("yourteamrank"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1525)
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %d / %d"))), v26, v25, v30)
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), internWStr("%s %d / %d"), v26, v25, v30)
 			}
 		default:
 			v22 = (*wchar2_t)(unsafe.Pointer(uintptr(a2)))
@@ -568,22 +568,22 @@ func sub_46FB50(a1 int32, a2 *uint8) *wchar2_t {
 	switch a1 {
 	case 4:
 		v2 = nox_strman_loadString_40F1D0(internCStr("Ball"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 244)
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), (*wchar2_t)(unsafe.Pointer(internCStr("<%s"))), v2)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), internWStr("<%s"), v2)
 		*a2 = 4
 		result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024))
 	case 1:
 		v4 = nox_strman_loadString_40F1D0(internCStr("King"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 250)
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), (*wchar2_t)(unsafe.Pointer(internCStr("<%s"))), v4)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), internWStr("<%s"), v4)
 		result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024))
 		*a2 = 4
 	case 2:
 		v5 = nox_strman_loadString_40F1D0(internCStr("Flag"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 256)
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), (*wchar2_t)(unsafe.Pointer(internCStr("<%s"))), v5)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), internWStr("<%s"), v5)
 		result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024))
 		*a2 = 7
 	case 3:
 		v6 = nox_strman_loadString_40F1D0(internCStr("Flag"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 262)
-		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), (*wchar2_t)(unsafe.Pointer(internCStr("<%s"))), v6)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024)), internWStr("<%s"), v6)
 		*a2 = 13
 		result = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1090024))
 	default:

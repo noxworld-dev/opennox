@@ -77,7 +77,7 @@ func sub_49B6E0() int32 {
 			} else {
 				v4 = int32(uint32(v1) / gameFPS())
 				v2 = nox_strman_loadString_40F1D0(internCStr("Rules.c:Time"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c"), 265)
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), (*wchar2_t)(unsafe.Pointer(internCStr("%s - %d"))), v2, v4)
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), internWStr("%s - %d"), v2, v4)
 			}
 			v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1303452)))), 10712)))
 			result = sub_46AEE0(int32(uintptr(unsafe.Pointer(v3))), int32(uintptr(memmap.PtrOff(0x5D4594, 1301852))))

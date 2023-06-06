@@ -37,7 +37,7 @@ func nox_xxx_cliShowHelpGui_49C560() *uint32 {
 			v6 = (*byte)(unsafe.Pointer(sub_42E8E0(45, 1)))
 			v3 = nox_strman_loadString_40F1D0(internCStr("Sanchlp.wnd:Help"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\chathelp.c"), 85)
 			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), v3, v6)
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), internWStr(" "))
 			v7 = (*byte)(unsafe.Pointer(sub_42E8E0(8, 1)))
 			v4 = nox_strman_loadString_40F1D0(internCStr("cdecode.c:KeyToChat"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\chathelp.c"), 87)
 		} else {
@@ -45,7 +45,7 @@ func nox_xxx_cliShowHelpGui_49C560() *uint32 {
 			v8 = (*byte)(unsafe.Pointer(sub_42E8E0(45, 1)))
 			v5 = nox_strman_loadString_40F1D0(internCStr("Sanchlp.wnd:ClientHelp"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\chathelp.c"), 94)
 			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), v5, v8)
-			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), internWStr(" "))
 			v7 = (*byte)(unsafe.Pointer(sub_42E8E0(8, 1)))
 			v4 = nox_strman_loadString_40F1D0(internCStr("cdecode.c:KeyToChat"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\chathelp.c"), 96)
 		}

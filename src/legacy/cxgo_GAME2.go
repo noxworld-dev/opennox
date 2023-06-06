@@ -3247,7 +3247,7 @@ func sub_456D00(a1 int32, a2 *wchar2_t) *wchar2_t {
 	v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045684)))), 10502)))
 	v3 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v2)), 16406, uintptr(a1), 0)))
 	nox_wcscpy(&v6[0], v3)
-	v4 = nox_wcstok(&v6[0], (*wchar2_t)(unsafe.Pointer(internCStr("\t\n\r"))))
+	v4 = nox_wcstok(&v6[0], internWStr("\t\n\r"))
 	return nox_wcscpy(a2, v4)
 }
 func sub_456D60(a1 int32) *int32 {
@@ -3364,7 +3364,7 @@ func sub_456F10(a1 *wchar2_t, a2 int32) int32 {
 	}
 	for {
 		nox_wcscpy(&v6[0], (*wchar2_t)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*6)))
-		v4 = nox_wcstok(&v6[0], (*wchar2_t)(unsafe.Pointer(internCStr(" \t\n\r"))))
+		v4 = nox_wcstok(&v6[0], internWStr(" \t\n\r"))
 		if _nox_wcsicmp(v4, a1) == 0 {
 			break
 		}
@@ -3507,7 +3507,7 @@ func sub_457B60(a1 int32) int32 {
 	v20, free2 := alloc.Make([]wchar2_t{}, 100)
 	defer free2()
 	v1 = nox_xxx_serverOptionsGetServername_40A4C0()
-	nox_swprintf(&v20[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), v1)
+	nox_swprintf(&v20[0], internWStr("%S"), v1)
 	nox_window_call_field_94_fnc(dword_5d4594_1046512, 16414, uintptr(unsafe.Pointer(&v20[0])), 0)
 	sub_459CD0()
 	if noxflags.HasGame(128) {
@@ -3912,7 +3912,7 @@ func sub_459A40(a1 *byte) {
 	defer free3()
 	libc.StrNCpy(&v2[0], a1, 0xF)
 	v2[15] = 0
-	nox_swprintf(&v3[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &v2[0])
+	nox_swprintf(&v3[0], internWStr("%S"), &v2[0])
 	nox_window_call_field_94_fnc(dword_5d4594_1046512, 16414, uintptr(unsafe.Pointer(&v3[0])), 0)
 }
 func sub_459AA0(a1p unsafe.Pointer) *byte {

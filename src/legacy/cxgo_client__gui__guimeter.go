@@ -33,7 +33,7 @@ func sub_4710B0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 			}
 			v4 = (*wchar2_t)(unsafe.Pointer(uintptr(sub_461600(v3))))
 			if v4 != nil {
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1091968)), (*wchar2_t)(unsafe.Pointer(internCStr("\n"))))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1091968)), internWStr("\n"))
 				v5 = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(v4)))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1091968)), v5)
 			}

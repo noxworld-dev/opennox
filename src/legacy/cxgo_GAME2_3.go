@@ -5049,7 +5049,7 @@ func sub_49A6A0(vp *nox_draw_viewport_t, dr *nox_drawable) {
 				if *v2 == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 128)) {
 					v5 = int32(*a1 + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 					v6 = int32(uint32(uint64(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16))+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))+uint32((v3-v10)*2)-uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104)))) - uint64(int64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 100)))) - uint64(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))))
-					nox_swprintf(&v13[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), cmath.Abs(int64(*((*int16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(int16(0))*2))))))
+					nox_swprintf(&v13[0], internWStr("%d"), cmath.Abs(int64(*((*int16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(int16(0))*2))))))
 					nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1301780)))), &v13[0], &v12, nil, 0)
 					v7 = v12/(-2) + v5
 					nox_xxx_drawSetTextColor_434390(int32(nox_color_black_2650656))

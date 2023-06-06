@@ -1441,14 +1441,14 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 							}
 						}
 						if int32(*v29) > 1 {
-							nox_swprintf(&WideCharStr[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *v29)
+							nox_swprintf(&WideCharStr[0], internWStr("%d"), *v29)
 							nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 							nox_xxx_drawString_43F6E0(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1063636)))), (*wchar2_t)(unsafe.Pointer(&WideCharStr[0])), v6+6, v5+6)
 						}
 						if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 112))&0x13001000 != 0 {
 							v15 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 448)))
 							if int32(v15) >= 0 {
-								nox_swprintf(&WideCharStr[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), v15)
+								nox_swprintf(&WideCharStr[0], internWStr("%d"), v15)
 								nox_xxx_drawSetTextColor_434390(int32(nox_color_blue_2650684))
 								nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1063636)))), &WideCharStr[0], &v26, nil, 0)
 								nox_xxx_drawString_43F6E0(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1063636)))), (*wchar2_t)(unsafe.Pointer(&WideCharStr[0])), v6-v26+44, v5+6)
@@ -2902,7 +2902,7 @@ func nox_xxx_cmdSayDo_46A4B0(a1 *wchar2_t, a2 int32) uint32 {
 		v8     [520]byte
 	)
 	v2 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(nox_player_netCode_85319C)).C())
-	v3 = nox_wcsspn(a1, (*wchar2_t)(unsafe.Pointer(internCStr(" "))))
+	v3 = nox_wcsspn(a1, internWStr(" "))
 	result = nox_wcslen(a1)
 	if v3 != result {
 		v5 = (*wchar2_t)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(wchar2_t(0))*uintptr(v3)))
@@ -4386,7 +4386,7 @@ func nox_xxx_guiBottleSlotDrawFn_471A80(win *gui.Window, draw *gui.WindowData) i
 			ccall.AsFunc[func(*uint8, uint32)](unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))), 300))((*uint8)(memmap.PtrOff(0x5D4594, 1091908)), *memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))
 		}
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-		nox_swprintf(&v9[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *memmap.PtrUint16(0x5D4594, uintptr(v2)+1090312))
+		nox_swprintf(&v9[0], internWStr("%d"), *memmap.PtrUint16(0x5D4594, uintptr(v2)+1090312))
 		v4 = nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1096288)))))
 		nox_xxx_drawString_43F6E0(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1096288)))), (*wchar2_t)(unsafe.Pointer(&v9[0])), v8-2, int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(a1), -v4))), 10))))))
 	}

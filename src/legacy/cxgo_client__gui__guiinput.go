@@ -153,7 +153,7 @@ func sub_4C3CD0(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 				dword_5d4594_1321252 = uint32(a3)
 				v9 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321240))))), 16406, uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 48))), 0))
 				v6 = nox_strman_loadString_40F1D0(internCStr("InputCfg.wnd:PressKey"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GuiInput.c"), 436)
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1321256)), (*wchar2_t)(unsafe.Pointer(internCStr("%s\n'%s'"))), v6, v9)
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1321256)), internWStr("%s\n'%s'"), v6, v9)
 				nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321232))))))
 				nox_xxx_windowFocus_46B500((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321232))))))
 				sub_46C690((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321232))))))

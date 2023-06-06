@@ -31,7 +31,7 @@ func sub_4952E0(a1 *uint16) {
 		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*2))) != 0 {
 			v3 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*2))))))
 			if v3 != nil {
-				nox_swprintf(&v12[0], (*wchar2_t)(unsafe.Pointer(internCStr(" + %s"))), (*byte)(unsafe.Add(unsafe.Pointer(v3), 4704)))
+				nox_swprintf(&v12[0], internWStr(" + %s"), (*byte)(unsafe.Add(unsafe.Pointer(v3), 4704)))
 				nox_wcscat(&v13[0], &v12[0])
 			}
 		}

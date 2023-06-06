@@ -826,7 +826,7 @@ func sub_4D0670(a1 *byte) int32 {
 				*v4 = 0
 			}
 			if v7[0] != 0 {
-				nox_swprintf(&v8[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &v7[0])
+				nox_swprintf(&v8[0], internWStr("%S"), &v7[0])
 				v5 = sub_57AE30(&v7[0])
 				if v5 != 0 {
 					v1 = v5

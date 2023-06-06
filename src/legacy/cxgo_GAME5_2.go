@@ -1399,7 +1399,7 @@ func sub_57A3F0(a1 *byte, a2 int32, a3 int32, a4 int32) int32 {
 				*v6 = 0
 			}
 			if v8[0] != 0 {
-				nox_swprintf(&v9[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &v8[0])
+				nox_swprintf(&v9[0], internWStr("%S"), &v8[0])
 				sub_57A4D0(&v9[0], a2, a3, a4)
 			}
 			if nox_fs_feof(v5) {
@@ -1430,11 +1430,11 @@ func sub_57A4D0(a1 *wchar2_t, a2 int32, a3 int32, a4 int32) {
 	result = nox_wcscpy(&v13[0], a1)
 	if true {
 		if v13[0] == 34 {
-			result = nox_wcstok(&v13[1], (*wchar2_t)(unsafe.Pointer(internCStr("\"\n\r"))))
+			result = nox_wcstok(&v13[1], internWStr("\"\n\r"))
 			v7 = result
 			v5 = 1
 		} else {
-			result = nox_wcstok(&v13[0], (*wchar2_t)(unsafe.Pointer(internCStr(" \n\t\r"))))
+			result = nox_wcstok(&v13[0], internWStr(" \n\t\r"))
 			v7 = result
 		}
 		if v7 != nil {
@@ -1451,11 +1451,11 @@ func sub_57A4D0(a1 *wchar2_t, a2 int32, a3 int32, a4 int32) {
 					v9 = (*wchar2_t)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(wchar2_t(0))*1))
 				}
 				if *v9 == 34 {
-					result = nox_wcstok((*wchar2_t)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(wchar2_t(0))*1)), (*wchar2_t)(unsafe.Pointer(internCStr("\"\n\r"))))
+					result = nox_wcstok((*wchar2_t)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(wchar2_t(0))*1)), internWStr("\"\n\r"))
 					v7 = result
 					v5 = 1
 				} else {
-					result = nox_wcstok(nil, (*wchar2_t)(unsafe.Pointer(internCStr(" \n\t\r"))))
+					result = nox_wcstok(nil, internWStr(" \n\t\r"))
 					v7 = result
 					v5 = 0
 				}
@@ -1509,12 +1509,12 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 			break
 		}
 	}
-	if (dword_5d4594_2523764&uint32(a4)) == 0 || _nox_wcsicmp(*v4, (*wchar2_t)(unsafe.Pointer(internCStr("set")))) != 0 || int32(a1) <= 1 {
+	if (dword_5d4594_2523764&uint32(a4)) == 0 || _nox_wcsicmp(*v4, internWStr("set")) != 0 || int32(a1) <= 1 {
 		return 0
 	}
-	if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*1)), (*wchar2_t)(unsafe.Pointer(internCStr("spell")))) != 0 {
-		if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*1)), (*wchar2_t)(unsafe.Pointer(internCStr("weapon")))) != 0 {
-			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*1)), (*wchar2_t)(unsafe.Pointer(internCStr("armor")))) != 0 {
+	if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*1)), internWStr("spell")) != 0 {
+		if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*1)), internWStr("weapon")) != 0 {
+			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*1)), internWStr("armor")) != 0 {
 				return 0
 			}
 			if int32(a1) != 4 {
@@ -1532,7 +1532,7 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 			if v14 == 0 {
 				return 0
 			}
-			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*3)), (*wchar2_t)(unsafe.Pointer(internCStr("off")))) != 0 {
+			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*3)), internWStr("off")) != 0 {
 				v15 = int32(uint32(v14) | *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 48)))
 			} else {
 				v15 = int32(uint32(^v14) & *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 48)))
@@ -1570,7 +1570,7 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 				}
 				v18 = v11
 			}
-			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*3)), (*wchar2_t)(unsafe.Pointer(internCStr("off")))) != 0 {
+			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*3)), internWStr("off")) != 0 {
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(v18)+a3)), 43)) |= uint8(int8(v10))
 			} else {
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(v18)+a3)), 43)) &= ^uint8(int8(v10))
@@ -1592,7 +1592,7 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 			return 0
 		}
 		if nox_xxx_spellFlags_424A70(v6)&0x7000000 != 0 {
-			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*3)), (*wchar2_t)(unsafe.Pointer(internCStr("off")))) == 0 {
+			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*wchar2_t)(nil))*3)), internWStr("off")) == 0 {
 				sub_453FA0(a3+24, v6, 0)
 			}
 		}

@@ -44,7 +44,7 @@ func nox_xxx_clientDrawAll_436100_draw_B() {
 	var v17 int32 = v14 + 45
 	var v18 int32 = v16 + (49-v23)/2 + 143
 	nox_client_drawSetColor_434460(int32(nox_color_white_2523948))
-	for tok := nox_wcstok(&v25[0], (*wchar2_t)(unsafe.Pointer(internCStr("\n\r")))); tok != nil; tok = nox_wcstok(nil, (*wchar2_t)(unsafe.Pointer(internCStr("\n\r")))) {
+	for tok := nox_wcstok(&v25[0], internWStr("\n\r")); tok != nil; tok = nox_wcstok(nil, internWStr("\n\r")) {
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 		nox_xxx_drawGetStringSize_43F840(nil, tok, &v22, nil, 0)
 		nox_xxx_drawStringWrap_43FAF0(nil, tok, v17+(220-v22)/2, v18, 220, 0)
@@ -69,13 +69,13 @@ func sub_436F50() int32 {
 	v3 = int32(rdr.Screen.Min.Y + 90)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v4 = nox_server_currentMapGetFilename_409B30()
-	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), v4)
+	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("%S"), v4)
 	nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v3)
 	result = int32(*memmap.PtrUint32(0x852978, 8))
 	v6 = v0 + v3
 	if *memmap.PtrUint32(0x852978, 8) != 0 {
 		if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), (*wchar2_t)(unsafe.Pointer(internCStr("X:%d\tY:%d"))), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 12)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16)))
+			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("X:%d\tY:%d"), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 12)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16)))
 			nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v6)
 			v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251)))*4+29456))), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1357)
 			v8 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3684)))
