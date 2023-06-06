@@ -462,6 +462,14 @@ func asInt(v any) int {
 		return int(v)
 	case int32:
 		return int(v)
+	case uint16:
+		return int(v)
+	case int16:
+		return int(v)
+	case uint8:
+		return int(v)
+	case int8:
+		return int(v)
 	case uint:
 		return int(v)
 	case uintptr:

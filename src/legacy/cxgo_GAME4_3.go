@@ -9548,7 +9548,7 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 			v4 = *v3
 			if (uint32(*(*int32)(unsafe.Add(unsafe.Pointer(*v3), 4*4))) & 0x80000000) == 0x80000000 {
 				if *v4 != 0 {
-					v5 = sub_543620(*v4, a1)
+					v5 = sub_543620(*(*unsafe.Pointer)(unsafe.Pointer(v4)), a1)
 					v6 = (*byte)(alloc.Realloc(unsafe.Pointer(uintptr(*v4)), uintptr(libc.StrLen(v5))+1))
 					*v4 = int32(uintptr(unsafe.Pointer(v6)))
 					libc.StrCpy(v6, v5)
@@ -9557,7 +9557,7 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 				if v7 != nil {
 					v8 = a3
 					if libc.StrLen(v7) != 0 {
-						v9 = sub_5435C0(int32(uintptr(unsafe.Pointer(v7))), a1, a2, a3)
+						v9 = sub_5435C0(unsafe.Pointer(v7), a1, a2, a3)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 14, v9)
 					}
 				} else {
@@ -9568,90 +9568,90 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 				if v11 == ccall.FuncAddr(nox_xxx_unitTriggerXfer_4F4E50) {
 					v12 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 1)
 					if libc.StrLen(v12) != 0 {
-						v13 = sub_5435C0(int32(uintptr(unsafe.Pointer(v12))), a1, a2, v8)
+						v13 = sub_5435C0(unsafe.Pointer(v12), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 1, v13)
 					}
 					v14 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 2)
 					if libc.StrLen(v14) != 0 {
-						v15 = sub_5435C0(int32(uintptr(unsafe.Pointer(v14))), a1, a2, v8)
+						v15 = sub_5435C0(unsafe.Pointer(v14), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 2, v15)
 					}
 					v16 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 0)
 					if libc.StrLen(v16) != 0 {
-						v44 = sub_5435C0(int32(uintptr(unsafe.Pointer(v16))), a1, a2, v8)
+						v44 = sub_5435C0(unsafe.Pointer(v16), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 0, v44)
 					}
 				} else if v11 == ccall.FuncAddr(nox_xxx_XFerMonster_528DB0) {
 					v17 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 3)
 					if libc.StrLen(v17) != 0 {
-						v18 = sub_5435C0(int32(uintptr(unsafe.Pointer(v17))), a1, a2, v8)
+						v18 = sub_5435C0(unsafe.Pointer(v17), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 3, v18)
 					}
 					v19 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 5)
 					if libc.StrLen(v19) != 0 {
-						v20 = sub_5435C0(int32(uintptr(unsafe.Pointer(v19))), a1, a2, v8)
+						v20 = sub_5435C0(unsafe.Pointer(v19), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 5, v20)
 					}
 					v21 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 4)
 					if libc.StrLen(v21) != 0 {
-						v22 = sub_5435C0(int32(uintptr(unsafe.Pointer(v21))), a1, a2, v8)
+						v22 = sub_5435C0(unsafe.Pointer(v21), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 4, v22)
 					}
 					v23 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 6)
 					if libc.StrLen(v23) != 0 {
-						v24 = sub_5435C0(int32(uintptr(unsafe.Pointer(v23))), a1, a2, v8)
+						v24 = sub_5435C0(unsafe.Pointer(v23), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 6, v24)
 					}
 					v25 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 7)
 					if libc.StrLen(v25) != 0 {
-						v26 = sub_5435C0(int32(uintptr(unsafe.Pointer(v25))), a1, a2, v8)
+						v26 = sub_5435C0(unsafe.Pointer(v25), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 7, v26)
 					}
 					v27 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 8)
 					if libc.StrLen(v27) != 0 {
-						v28 = sub_5435C0(int32(uintptr(unsafe.Pointer(v27))), a1, a2, v8)
+						v28 = sub_5435C0(unsafe.Pointer(v27), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 8, v28)
 					}
 					v29 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 9)
 					if libc.StrLen(v29) != 0 {
-						v30 = sub_5435C0(int32(uintptr(unsafe.Pointer(v29))), a1, a2, v8)
+						v30 = sub_5435C0(unsafe.Pointer(v29), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 9, v30)
 					}
 					v31 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 10)
 					if libc.StrLen(v31) != 0 {
-						v32 = sub_5435C0(int32(uintptr(unsafe.Pointer(v31))), a1, a2, v8)
+						v32 = sub_5435C0(unsafe.Pointer(v31), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 10, v32)
 					}
 					v33 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 11)
 					if libc.StrLen(v33) != 0 {
-						v45 = sub_5435C0(int32(uintptr(unsafe.Pointer(v33))), a1, a2, v8)
+						v45 = sub_5435C0(unsafe.Pointer(v33), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 11, v45)
 					}
 				} else if v11 == ccall.FuncAddr(nox_xxx_XFerHole_4F51D0) {
 					v34 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 12)
 					if libc.StrLen(v34) != 0 {
-						v46 = sub_5435C0(int32(uintptr(unsafe.Pointer(v34))), a1, a2, v8)
+						v46 = sub_5435C0(unsafe.Pointer(v34), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 12, v46)
 					}
 				} else if v11 == ccall.FuncAddr(nox_xxx_XFerMonsterGen_4F7130) {
 					v35 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 15)
 					if v35 != nil && libc.StrLen(v35) != 0 {
-						v36 = sub_5435C0(int32(uintptr(unsafe.Pointer(v35))), a1, a2, v8)
+						v36 = sub_5435C0(unsafe.Pointer(v35), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 15, v36)
 					}
 					v37 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 16)
 					if v37 != nil && libc.StrLen(v37) != 0 {
-						v38 = sub_5435C0(int32(uintptr(unsafe.Pointer(v37))), a1, a2, v8)
+						v38 = sub_5435C0(unsafe.Pointer(v37), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 16, v38)
 					}
 					v39 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 18)
 					if v39 != nil && libc.StrLen(v39) != 0 {
-						v40 = sub_5435C0(int32(uintptr(unsafe.Pointer(v39))), a1, a2, v8)
+						v40 = sub_5435C0(unsafe.Pointer(v39), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 18, v40)
 					}
 					v41 = nox_script_objCallbackName_508CB0((*server.Object)(unsafe.Pointer(v4)), 17)
 					if v41 != nil && libc.StrLen(v41) != 0 {
-						v47 = sub_5435C0(int32(uintptr(unsafe.Pointer(v41))), a1, a2, v8)
+						v47 = sub_5435C0(unsafe.Pointer(v41), a1, a2, v8)
 						sub_509120((*uint32)(unsafe.Pointer(v4)), 17, v47)
 					}
 				}
@@ -9669,7 +9669,7 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 	for i = result; result != nil; i = result {
 		if *((*int32)(unsafe.Add(unsafe.Pointer(i), 4*120))) < 0 {
 			if int32(libc.StrLen((*byte)(unsafe.Add(unsafe.Pointer(i), 16)))) > 0 {
-				libc.StrCpy((*byte)(unsafe.Add(unsafe.Pointer(i), 16)), sub_543620(int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 16))))), a1))
+				libc.StrCpy((*byte)(unsafe.Add(unsafe.Pointer(i), 16)), sub_543620(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 16))), a1))
 			}
 			*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*120))) &= math.MaxInt32
 		}
@@ -9677,13 +9677,13 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 	}
 	return result
 }
-func sub_5435C0(a1 int32, a2 int32, a3 int32, a4 int32) *byte {
+func sub_5435C0(a1 unsafe.Pointer, a2 int32, a3 int32, a4 int32) *byte {
 	nox_sprintf((*byte)(memmap.PtrOff(0x5D4594, 2489164)), internCStr("%s%%%d%%%d%%%d"), a1, a2, a3, a4)
 	libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 2489164)))
 	libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, 2489164)), internCStr("ERROR_NAME_TOO_LONG!"))
 	return (*byte)(memmap.PtrOff(0x5D4594, 2489164))
 }
-func sub_543620(a1 int32, a2 int32) *byte {
+func sub_543620(a1 unsafe.Pointer, a2 int32) *byte {
 	nox_sprintf((*byte)(memmap.PtrOff(0x5D4594, 2489164)), internCStr("%s%%%d"), a1, a2)
 	libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 2489164)))
 	libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, 2489164)), internCStr("ERROR_NAME_TOO_LONG!"))

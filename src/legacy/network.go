@@ -48,6 +48,14 @@ func ip2int(ip netip.Addr) uint32 {
 	return v
 }
 
+func parseIP(s string) uint32 {
+	addr, err := netip.ParseAddr(s)
+	if err != nil {
+		return 0
+	}
+	return ip2int(addr)
+}
+
 // nox_xxx_networkLog_print
 func nox_xxx_networkLog_print(cstr *byte) {
 	NetworkLogPrint(GoString(cstr))

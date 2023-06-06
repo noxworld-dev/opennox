@@ -59,3 +59,11 @@ rules:
     message: Invalid use of interned string.
     severity: ERROR
     pattern: (*wchar2_t)(unsafe.Pointer(internCStr($STR)))
+
+  - id: asfunc-forgot-deref
+    languages: [go]
+    message: Incorrect usage of AsFunc. Forgot to dereference the pointer?
+    severity: ERROR
+    pattern-either:
+      - pattern: ccall.AsFunc[...](unsafe.Add(...))
+      - pattern: ccall.AsFunc[...](memmap.PtrOff(...))

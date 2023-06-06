@@ -617,7 +617,7 @@ func sub_543110(lpExistingFileName *byte, a2 *int32) int32 {
 		nox_fs_fread(v6, unsafe.Pointer(&v19[0]), int32(v12))
 		v19[v12] = 0
 		if v10 > 1 {
-			sub_5435C0(int32(uintptr(unsafe.Pointer(&v19[0]))), *(*int32)(unsafe.Pointer(&dword_5d4594_3835312)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
+			sub_5435C0(unsafe.Pointer(&v19[0]), *(*int32)(unsafe.Pointer(&dword_5d4594_3835312)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
 			libc.StrCpy(&v19[0], (*byte)(memmap.PtrOff(0x5D4594, 2489164)))
 			v10 = j
 			v12 = uint32(libc.StrLen(&v19[0]))

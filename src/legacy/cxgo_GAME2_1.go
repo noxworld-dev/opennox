@@ -4383,7 +4383,7 @@ func nox_xxx_guiBottleSlotDrawFn_471A80(win *gui.Window, draw *gui.WindowData) i
 		if v3 != 0 {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)) = uint32(v8 + 14)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))), 16)) = uint32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(a1), 15)))))
-			ccall.AsFunc[func(*uint8, uint32)](unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))), 300))((*uint8)(memmap.PtrOff(0x5D4594, 1091908)), *memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))
+			ccall.AsFunc[client.ObjectDrawFunc](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))), 300)))((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1091908)), AsDrawableP(*memmap.PtrPtr(0x5D4594, uintptr(v2)+1090296)))
 		}
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 		nox_swprintf(&v9[0], internWStr("%d"), *memmap.PtrUint16(0x5D4594, uintptr(v2)+1090312))

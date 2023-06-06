@@ -4028,7 +4028,7 @@ func nox_client_setConnError_43AFA0(a1 int32) {
 func nox_client_getServerAddr_43B300() uint32 {
 	var result uint32
 	if dword_5d4594_815056 != 0 {
-		result = uint32(cnet.ParseAddr(libc.GoString((*byte)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_814624)), 12)))))
+		result = parseIP(GoString((*byte)(unsafe.Add(dword_5d4594_814624, 12))))
 	} else {
 		result = 0
 	}
@@ -4043,7 +4043,7 @@ func nox_client_getServerPort_43B320() int32 {
 func sub_43B340() int32 {
 	var result int32
 	if dword_5d4594_815056 != 0 {
-		result = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_814624)), 163)))
+		result = int32(*(*uint16)(unsafe.Add(dword_5d4594_814624, 163)))
 	} else {
 		result = 0
 	}
