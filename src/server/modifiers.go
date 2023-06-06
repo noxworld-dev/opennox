@@ -47,7 +47,7 @@ func registerModifFloat[T any](m map[string]modFuncs[T], name string, fnc T) {
 type ModifierDamageFunc func(a1 unsafe.Pointer, a2p, a3p, a4p *Object, a5, a6 unsafe.Pointer)
 type ModifierDefendFunc func(m *ModifierEff, a2p, a3p, a4p *Object, a5, a6 unsafe.Pointer)
 type ModifierUpdateFunc func(a1 unsafe.Pointer, a2 *Object)
-type ModifierEngageFunc func(a1 unsafe.Pointer, a2 *Object, a3 int32)
+type ModifierEngageFunc func(m *ModifierEff, a2 *Object, a3 *Object)
 
 func RegisterModifDamageEffectInt(name string, fnc ModifierDamageFunc) {
 	registerModifInt(modDamageEffects, name, ccall.FuncPtr(fnc))

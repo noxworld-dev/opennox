@@ -5099,7 +5099,7 @@ func nox_xxx_equipWeaponNPC_53A030(a1 int32, a2 int32) int32 {
 	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12))) & 2) == 0 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 2064)) = 0
 	}
-	nox_xxx_itemApplyDisengageEffect_4F3030((*server.Object)(unsafe.Pointer(uintptr(a2))), a1)
+	nox_xxx_itemApplyDisengageEffect_4F3030((*server.Object)(unsafe.Pointer(uintptr(a2))), (*server.Object)(unsafe.Pointer(uintptr(a1))))
 	sub_4FEB60(a1, a2)
 	return 1
 }
@@ -5166,7 +5166,7 @@ func nox_xxx_playerDequipWeapon_53A140(a1 *uint32, item *server.Object, a3 int32
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 104)) = 0
 	}
-	nox_xxx_itemApplyDisengageEffect_4F3030(item, int32(uintptr(unsafe.Pointer(a1))))
+	nox_xxx_itemApplyDisengageEffect_4F3030(item, AsObjectP(unsafe.Pointer(a1)))
 	if gameex_flags&2 != 0 {
 		sub_980523((*server.Object)(unsafe.Pointer(a1)))
 		var v16 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
@@ -5245,7 +5245,7 @@ LABEL_22:
 	if (item.ObjSubClass & 2) == 0 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 2064)) = uint32(uintptr(unsafe.Pointer(item)))
 	}
-	nox_xxx_itemApplyEngageEffect_4F2FF0(item, a1)
+	nox_xxx_itemApplyEngageEffect_4F2FF0(item, (*server.Object)(unsafe.Pointer(uintptr(a1))))
 	if uint32(nox_xxx_weaponInventoryEquipFlags_415820(item))&0x7FFE40C != 0 {
 		sub_53A3D0((*uint32)(unsafe.Pointer(uintptr(a1))))
 	}
@@ -5349,7 +5349,7 @@ func nox_xxx_playerEquipWeapon_53A420(a1 *uint32, item *server.Object, a3 int32,
 			*(*uint8)(item.UseData) = 0
 		}
 	}
-	nox_xxx_itemApplyEngageEffect_4F2FF0(item, int32(uintptr(unsafe.Pointer(a1))))
+	nox_xxx_itemApplyEngageEffect_4F2FF0(item, AsObjectP(unsafe.Pointer(a1)))
 	if uint32(v4)&0x7FFE40C != 0 {
 		sub_53A3D0(a1)
 	}
@@ -7780,7 +7780,7 @@ func sub_53E3A0(a1 int32, object *server.Object) int32 {
 	}
 	object.ObjFlags &= 0xEFFFFFFF
 	nox_xxx_recalculateArmorVal_53E300((*uint32)(unsafe.Pointer(uintptr(a1))))
-	nox_xxx_itemApplyDisengageEffect_4F3030(object, a1)
+	nox_xxx_itemApplyDisengageEffect_4F3030(object, (*server.Object)(unsafe.Pointer(uintptr(a1))))
 	return 1
 }
 func sub_53E430(a1 *uint32, object *server.Object, a3 int32, a4 int32) int32 {
@@ -7828,7 +7828,7 @@ func sub_53E430(a1 *uint32, object *server.Object, a3 int32, a4 int32) int32 {
 		nox_xxx_netReportDequip_4D84C0(math.MaxUint8, object)
 	}
 	nox_xxx_recalculateArmorVal_53E300(a1)
-	nox_xxx_itemApplyDisengageEffect_4F3030(object, int32(uintptr(unsafe.Pointer(a1))))
+	nox_xxx_itemApplyDisengageEffect_4F3030(object, AsObjectP(unsafe.Pointer(a1)))
 	if int32(*(*uint8)(unsafe.Pointer(object.TeamPtr())))&2 != 0 {
 		v10 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 88)))
 		if int32(v10) == 15 || int32(v10) == 16 || int32(v10) == 17 {
@@ -7877,7 +7877,7 @@ LABEL_18:
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) |= 0x10000000
 	}
 	nox_xxx_recalculateArmorVal_53E300((*uint32)(unsafe.Pointer(uintptr(a1))))
-	nox_xxx_itemApplyEngageEffect_4F2FF0((*server.Object)(unsafe.Pointer(a2)), a1)
+	nox_xxx_itemApplyEngageEffect_4F2FF0((*server.Object)(unsafe.Pointer(a2)), (*server.Object)(unsafe.Pointer(uintptr(a1))))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))&2 != 0 {
 		sub_53E600((*uint32)(unsafe.Pointer(uintptr(a1))))
 	}
@@ -7955,7 +7955,7 @@ func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *server.Object, a3 int32, 
 		item.ObjFlags |= 0x10000000
 	}
 	nox_xxx_recalculateArmorVal_53E300(a1)
-	nox_xxx_itemApplyEngageEffect_4F2FF0(item, int32(uintptr(unsafe.Pointer(a1))))
+	nox_xxx_itemApplyEngageEffect_4F2FF0(item, AsObjectP(unsafe.Pointer(a1)))
 	if item.ObjSubClass&0x2 != 0 {
 		sub_53E600(a1)
 	}

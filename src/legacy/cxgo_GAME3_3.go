@@ -10574,21 +10574,18 @@ func nox_xxx_playerTryDequip_4F2FB0(a1 *uint32, object *server.Object) int32 {
 	}
 	return result
 }
-func nox_xxx_itemApplyEngageEffect_4F2FF0(item *server.Object, a2 int32) int32 {
+func nox_xxx_itemApplyEngageEffect_4F2FF0(item, a2 *server.Object) {
 	var (
-		v2     int32
-		v3     *int32
-		result int32
-		v5     func(int32, int32, int32) int32
+		v2 int32
+		v3 *int32
 	)
 	v2 = 2
-	v3 = (*int32)(unsafe.Add(unsafe.Pointer(uintptr(item.InitData)), 8))
+	v3 = (*int32)(unsafe.Add(item.InitData, 8))
 	for {
-		result = *v3
+		mod := *(**server.ModifierEff)(unsafe.Pointer(v3))
 		if *v3 != 0 {
-			v5 = ccall.AsFunc[func(int32, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(result)), 112)))
-			if v5 != nil {
-				result = v5(result, a2, int32(uintptr(unsafe.Pointer(item))))
+			if fnc := mod.Engage112.Get(); fnc != nil {
+				fnc(mod, a2, item)
 			}
 		}
 		v3 = (*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1))
@@ -10597,22 +10594,19 @@ func nox_xxx_itemApplyEngageEffect_4F2FF0(item *server.Object, a2 int32) int32 {
 			break
 		}
 	}
-	return result
 }
-func nox_xxx_itemApplyDisengageEffect_4F3030(object *server.Object, a2 int32) int32 {
+func nox_xxx_itemApplyDisengageEffect_4F3030(object, a2 *server.Object) {
 	var (
-		v2     int32
-		v3     *int32
-		result int32
+		v2 int32
+		v3 *int32
 	)
 	v2 = 2
-	v3 = (*int32)(unsafe.Add(unsafe.Pointer(uintptr(object.InitData)), 8))
+	v3 = (*int32)(unsafe.Add(object.InitData, 8))
 	for {
-		result = *v3
+		mod := *(**server.ModifierEff)(unsafe.Pointer(v3))
 		if *v3 != 0 {
-			v5 := ccall.AsFunc[func(int32, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(result)), 116)))
-			if v5 != nil {
-				result = v5(result, a2, int32(uintptr(unsafe.Pointer(object))))
+			if fnc := mod.Disengage116.Get(); fnc != nil {
+				fnc(mod, a2, object)
 			}
 		}
 		v3 = (*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1))
@@ -10621,7 +10615,6 @@ func nox_xxx_itemApplyDisengageEffect_4F3030(object *server.Object, a2 int32) in
 			break
 		}
 	}
-	return result
 }
 func nox_xxx_inventoryPutImpl_4F3070(a1p *server.Object, item *server.Object, a3 int32) {
 	var (
