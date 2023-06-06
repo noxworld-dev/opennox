@@ -19,7 +19,7 @@ import (
 var (
 	modDamageEffects = make(map[string]modFuncs[ccall.Func[ModifierDamageFunc]])
 	modDefendEffects = make(map[string]modFuncs[ccall.Func[ModifierDefendFunc]])
-	modUpdateEffects = make(map[string]modFuncs[unsafe.Pointer])
+	modUpdateEffects = make(map[string]modFuncs[ccall.Func[ModifierUpdateFunc]])
 	modEngageEffects = make(map[string]modFuncs[unsafe.Pointer])
 )
 
@@ -46,6 +46,7 @@ func registerModifFloat[T any](m map[string]modFuncs[T], name string, fnc T) {
 
 type ModifierDamageFunc func(a1 unsafe.Pointer, a2p, a3p, a4p *Object, a5, a6 unsafe.Pointer)
 type ModifierDefendFunc func(m *ModifierEff, a2p, a3p, a4p *Object, a5, a6 unsafe.Pointer)
+type ModifierUpdateFunc func(a1 unsafe.Pointer, a2 *Object)
 
 func RegisterModifDamageEffectInt(name string, fnc ModifierDamageFunc) {
 	registerModifInt(modDamageEffects, name, ccall.FuncPtr(fnc))
@@ -63,12 +64,12 @@ func RegisterModifDefendEffectFloat(name string, fnc ModifierDefendFunc) {
 	registerModifFloat(modDefendEffects, name, ccall.FuncPtr(fnc))
 }
 
-func RegisterModifUpdateEffectInt(name string, fnc unsafe.Pointer) {
-	registerModifInt(modUpdateEffects, name, fnc)
+func RegisterModifUpdateEffectInt(name string, fnc ModifierUpdateFunc) {
+	registerModifInt(modUpdateEffects, name, ccall.FuncPtr(fnc))
 }
 
-func RegisterModifUpdateEffectFloat(name string, fnc unsafe.Pointer) {
-	registerModifFloat(modUpdateEffects, name, fnc)
+func RegisterModifUpdateEffectFloat(name string, fnc ModifierUpdateFunc) {
+	registerModifFloat(modUpdateEffects, name, ccall.FuncPtr(fnc))
 }
 
 func RegisterModifEngageEffectInt(name string, fnc unsafe.Pointer) {
@@ -161,7 +162,7 @@ type ModifierEff struct { // obj_412ae0_t
 	AttackPreDmg64    ModifierEffFnc[ccall.Func[ModifierDamageFunc]] // 16, 64-68-72
 	Defend76          ModifierEffFnc[ccall.Func[ModifierDefendFunc]] // 19, 76-80-84
 	DefendCollide88   ModifierEffFnc[ccall.Func[ModifierDefendFunc]] // 22, 88-92-96
-	update100         ModifierEffFnc[unsafe.Pointer]                 // 25, 100
+	Update100         ModifierEffFnc[ccall.Func[ModifierUpdateFunc]] // 25, 100-104-108
 	engage112         unsafe.Pointer                                 // 28, 112
 	disengage116      unsafe.Pointer                                 // 29, 116
 	engageFloat120    float32                                        // 30, 120
@@ -340,6 +341,9 @@ func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers
 				return err
 			}
 		}
+		if err := modParseEffect("update", modUpdateEffects, p, &p.Update100.Fnc, &p.Update100.Val, &p.Update100.Valf, v.Update); err != nil {
+			return err
+		}
 		for _, d := range []struct {
 			text  string
 			table map[string]modFuncs[unsafe.Pointer]
@@ -348,7 +352,6 @@ func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers
 			ival  *int32
 			src   string
 		}{
-			{"update", modUpdateEffects, &p.update100.Fnc, &p.update100.Valf, &p.update100.Val, v.Update},
 			{"engage", modEngageEffects, &p.engage112, &p.engageFloat120, &p.engageInt124, v.Engage},
 			{"engage", modEngageEffects, &p.disengage116, &p.disengageFloat128, &p.disengageInt132, v.Disengage},
 		} {

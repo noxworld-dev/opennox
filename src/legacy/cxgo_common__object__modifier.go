@@ -21,9 +21,9 @@ func nullsub_41(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsa
 }
 func nullsub_42(m *server.ModifierEff, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 }
-func nullsub_43() {
+func nullsub_43(a1 unsafe.Pointer, a2 *server.Object) {
 }
-func nullsub_44() {
+func nullsub_44(a1 unsafe.Pointer, a2 *server.Object) {
 }
 func sub_413480(a1 int8) *wchar2_t {
 	var (

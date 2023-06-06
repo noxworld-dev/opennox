@@ -47,10 +47,10 @@ func init() {
 	server.RegisterModifDefendEffectFloat("BreakingEffect", nullsub_41)
 	server.RegisterModifDefendEffectFloat("PunctureProneEffect", nullsub_42)
 
-	server.RegisterModifUpdateEffectInt("RegenerationUpdate", ccall.FuncAddr(nox_xxx_effectRegeneration_4E01D0))
-	server.RegisterModifUpdateEffectInt("ParasiteUpdate", ccall.FuncAddr(nullsub_43))
-	server.RegisterModifUpdateEffectInt("AttractionUpdate", ccall.FuncAddr(nullsub_44))
-	server.RegisterModifUpdateEffectInt("ContinualReplenishmentUpdate", ccall.FuncAddr(nox_xxx_attribContinualReplen_4E02C0))
+	server.RegisterModifUpdateEffectInt("RegenerationUpdate", nox_xxx_effectRegeneration_4E01D0)
+	server.RegisterModifUpdateEffectInt("ParasiteUpdate", nullsub_43)
+	server.RegisterModifUpdateEffectInt("AttractionUpdate", nullsub_44)
+	server.RegisterModifUpdateEffectInt("ContinualReplenishmentUpdate", nox_xxx_attribContinualReplen_4E02C0)
 
 	server.RegisterModifEngageEffectInt("BrillianceEngage", ccall.FuncAddr(sub_4DFB50))
 	server.RegisterModifEngageEffectInt("BrillianceDisengage", ccall.FuncAddr(sub_4DFB80))
