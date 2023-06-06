@@ -57,7 +57,7 @@ func nox_xxx_gui_4AD320(a1 int32) int32 {
 		v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10319)))
 		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v9)), 1)
 	}
-	if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10304)))
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v10)), 0)
 	}

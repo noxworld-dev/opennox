@@ -77,7 +77,7 @@ func nox_xxx_playerDisconnByPlrID_4DEB00(id int32) {
 
 // nox_xxx_playerCallDisconnect_4DEAB0
 func nox_xxx_playerCallDisconnect_4DEAB0(ind int32, v int8) *byte {
-	Nox_xxx_playerCallDisconnect_4DEAB0(ntype.PlayerInd(ind), int8(v))
+	Nox_xxx_playerCallDisconnect_4DEAB0(ntype.PlayerInd(ind), v)
 	return nil
 }
 
@@ -323,7 +323,7 @@ func Nox_xxx_player_4E3CE0() int {
 }
 
 func Sub_425E90(pl *server.Player, a2 int8) {
-	sub_425E90(pl.C(), int8(a2))
+	sub_425E90(pl.C(), a2)
 }
 
 func Sub_4E55F0(pli ntype.PlayerInd) {

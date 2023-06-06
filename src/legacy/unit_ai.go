@@ -147,7 +147,7 @@ func Nox_xxx_mobAction_50A910(a1 *server.Object) {
 	nox_xxx_mobAction_50A910(asObjectC(a1))
 }
 func Nox_xxx_monsterGetSoundSet_424300(a1 *server.Object) unsafe.Pointer {
-	return unsafe.Pointer(nox_xxx_monsterGetSoundSet_424300(asObjectC(a1)))
+	return nox_xxx_monsterGetSoundSet_424300(asObjectC(a1))
 }
 func Nox_xxx_monsterPlayHurtSound_532800(a1 *server.Object) {
 	nox_xxx_monsterPlayHurtSound_532800(asObjectC(a1))

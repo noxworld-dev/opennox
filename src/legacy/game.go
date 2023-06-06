@@ -599,7 +599,7 @@ func Sub_40A180(a1 noxflags.GameFlag) int {
 	return int(sub_40A180(int16(a1)))
 }
 func Nox_xxx_servGamedataGet_40A020(a1 int16) int {
-	return int(nox_xxx_servGamedataGet_40A020(int16(a1)))
+	return int(nox_xxx_servGamedataGet_40A020(a1))
 }
 func Sub_41D1A0(a1 int) {
 	sub_41D1A0(int32(a1))
@@ -697,7 +697,7 @@ func Sub_4D71E0(a1 int) {
 	sub_4D71E0(int32(a1))
 }
 func Sub_4D7280(a1 int, a2 int8) {
-	sub_4D7280(int32(a1), int8(a2))
+	sub_4D7280(int32(a1), a2)
 }
 func Nox_xxx_calcDistance_4E6C00(a1 *server.Object, a2 *server.Object) float32 {
 	return float32(nox_xxx_calcDistance_4E6C00(asObjectC(a1), asObjectC(a2)))

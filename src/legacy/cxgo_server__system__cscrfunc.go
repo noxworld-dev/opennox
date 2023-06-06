@@ -34,7 +34,7 @@ func nox_xxx_netSendChat_528AC0(a1p *server.Object, a2 *wchar2_t, a3 wchar2_t) i
 	v7 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 60)))
 	*(*uint16)(unsafe.Pointer(&v11[4])) = uint16(int16(v6))
 	*(*uint16)(unsafe.Pointer(&v11[6])) = uint16(int16(int64(v7)))
-	*(*uint16)(unsafe.Pointer(&v11[9])) = uint16(a3)
+	*(*uint16)(unsafe.Pointer(&v11[9])) = a3
 	v11[8] = byte(nox_wcslen(a2) + 1)
 	if v11[3]&4 != 0 {
 		nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v11[11])), a2)
@@ -45,7 +45,7 @@ func nox_xxx_netSendChat_528AC0(a1p *server.Object, a2 *wchar2_t, a3 wchar2_t) i
 	}
 	result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
 	for i = result; result != 0; i = result {
-		nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))), 2064))), 1, (*uint8)(unsafe.Pointer(&v11[0])), v8*int32(uint8(v11[8]))+11)
+		nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))), 2064))), 1, (*uint8)(unsafe.Pointer(&v11[0])), v8*int32(v11[8])+11)
 		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i)))))))
 	}
 	return result

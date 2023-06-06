@@ -451,7 +451,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	case 47:
 		nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_xxx_spriteCreate_48E970(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))), uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5))))), int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 7)))))))))
@@ -466,7 +466,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 11
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))) != 0 || int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))) != 0 {
@@ -503,7 +503,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 3
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *nox_drawable {
@@ -538,7 +538,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 3
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *nox_drawable {
@@ -576,7 +576,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 3
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *nox_drawable {
@@ -636,7 +636,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v62 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v63 = v62
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))) != 0 {
@@ -653,7 +653,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v64 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v65 = v64
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))) != 0 {
@@ -751,7 +751,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 4
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if nox_xxx_unitSpriteCheckAlly_4951F0(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))) == 0 {
@@ -761,7 +761,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		return 4
 	case 66:
 		nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
-		if nox_client_isConnected_43C700() != 0 && nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_client_isConnected_43C700() != 0 && nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		nox_xxx_cliAddHealthChange_49A650(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))
@@ -777,7 +777,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		sub_4675E0(v93, int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))), int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5))))))
@@ -788,7 +788,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 5
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if uint32(v97) != nox_player_netCode_85319C {
@@ -807,7 +807,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v99 = int32(*memmap.PtrUint32(0x8531A0, 2576))
 		v100 = v98
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			if uint32(v100) == nox_player_netCode_85319C {
@@ -845,7 +845,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 5
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Pointer(&v381[0])) = 0
@@ -865,7 +865,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 9
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		v107 = 0
@@ -895,7 +895,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 5
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		sub_461A80(v110)
@@ -965,7 +965,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v140 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v141 = v140
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			v142 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(v141)))
@@ -995,7 +995,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if (*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1))) <= uint32(*(*int32)(unsafe.Pointer(&dword_5d4594_1200804))) {
 			return 8
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(309, 100)
@@ -1003,7 +1003,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx_setGameFlags_40A4D0(8)
 		}
 		nox_xxx_initTime_435570()
-		if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_470510()
 		}
 		v145 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
@@ -1040,14 +1040,14 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx_setGameFlags_40A4D0(8)
 		}
 		nox_xxx_initTime_435570()
-		if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_470510()
 		}
 		v174 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
 		if v172 != nil {
 			v175 = nox_strman_loadString_40F1D0(internCStr("CTF_Victory"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4071)
 			nox_swprintf(&v398[0], v175, v172)
-			if v174 == nil || nox_xxx_teamCompare2_419180(unsafe.Pointer(v174), uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v172), 57)))) == 0 {
+			if v174 == nil || nox_xxx_teamCompare2_419180(unsafe.Pointer(v174), *(*byte)(unsafe.Add(unsafe.Pointer(v172), 57))) == 0 {
 				v176 = 1
 				goto LABEL_600
 			}
@@ -1082,7 +1082,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if !noxflags.HasGame(1) {
 			nox_xxx_setGameFlags_40A4D0(8)
 		}
-		if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_470510()
 		}
 		nox_xxx_initTime_435570()
@@ -1178,7 +1178,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx_setGameFlags_40A4D0(8)
 		}
 		nox_xxx_initTime_435570()
-		if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+		if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_470510()
 		}
 		v162 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
@@ -1191,7 +1191,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			}
 			v165 = nox_strman_loadString_40F1D0(internCStr("HL_Header"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 3969)
 			nox_swprintf(&v390[0], v165)
-			if v162 != nil && nox_xxx_teamCompare2_419180(unsafe.Pointer(v162), uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v160), 57)))) != 0 {
+			if v162 != nil && nox_xxx_teamCompare2_419180(unsafe.Pointer(v162), *(*byte)(unsafe.Add(unsafe.Pointer(v160), 57))) != 0 {
 				v335 = nox_strman_loadString_40F1D0(internCStr("HL_YourTeam"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 3973)
 				v166 = nox_strman_loadString_40F1D0(internCStr("HL_Victory"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 3973)
 				nox_swprintf(&v388[0], v166, v335)
@@ -1216,7 +1216,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				v164 = 0
 				goto LABEL_585
 			}
-			if v162 != nil && nox_xxx_teamCompare2_419180(unsafe.Pointer(v162), uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v160), 57)))) != 0 {
+			if v162 != nil && nox_xxx_teamCompare2_419180(unsafe.Pointer(v162), *(*byte)(unsafe.Add(unsafe.Pointer(v160), 57))) != 0 {
 				v169 = nox_strman_loadString_40F1D0(internCStr("DM_TeamVictory"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4006)
 				nox_swprintf(&v390[0], v169)
 				v164 = 0
@@ -1243,7 +1243,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *nox_drawable {
@@ -1286,7 +1286,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 6
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *nox_drawable {
@@ -1305,7 +1305,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *nox_drawable {
@@ -1356,7 +1356,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v120 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v121 = v120
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			sub_462040(v121)
@@ -1366,7 +1366,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v122 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v123 = v122
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			sub_4624D0(v123)
@@ -1384,7 +1384,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v71 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v72 = v71
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))) != 0 {
@@ -1425,7 +1425,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v77 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v78 = v77
 		if nox_client_isConnected_43C700() != 0 {
-			if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 			}
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))) != 0 {
@@ -1462,7 +1462,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 8
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if uint32(v83) == nox_player_netCode_85319C {
@@ -1517,7 +1517,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx_playerUnsetStatus_417530((*server.Player)(unsafe.Pointer(v119)), 1059)
 			nox_xxx_netNeedTimestampStatus_4174F0((*server.Player)(unsafe.Pointer(v119)), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))&0x423))
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) || (func() bool {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) || (func() bool {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)) = uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))
 			return uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*2))) != nox_player_netCode_85319C
 		}()) {
@@ -1532,7 +1532,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *nox_drawable {
@@ -2097,7 +2097,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			goto LABEL_693
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))&0x10 != 0 {
@@ -2166,11 +2166,11 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				nox_client_setVersion_409AE0(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5)))))
 				nox_xxx_servSetPlrLimit_409F80(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 17)))))
 				v35 = nox_xxx_cliGamedataGet_416590(0)
-				if *(*byte)(unsafe.Add(unsafe.Pointer(v35), 56)) != byte(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 19)))) || int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v35), unsafe.Sizeof(uint16(0))*27)))) != int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 18)))) {
+				if *(*byte)(unsafe.Add(unsafe.Pointer(v35), 56)) != *((*uint8)(unsafe.Add(unsafe.Pointer(data), 19))) || int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v35), unsafe.Sizeof(uint16(0))*27)))) != int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 18)))) {
 					dword_5d4594_1200768 = 1
 				}
 				*((*uint16)(unsafe.Add(unsafe.Pointer(v35), unsafe.Sizeof(uint16(0))*27))) = uint16(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 18))))
-				*(*byte)(unsafe.Add(unsafe.Pointer(v35), 56)) = byte(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 19))))
+				*(*byte)(unsafe.Add(unsafe.Pointer(v35), 56)) = *((*uint8)(unsafe.Add(unsafe.Pointer(data), 19)))
 				if int32(int8(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 9))))) >= 0 {
 					*((*uint16)(unsafe.Add(unsafe.Pointer(v35), unsafe.Sizeof(uint16(0))*26))) = *(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 9))))
 					libc.StrCpy(v35, nox_xxx_mapGetMapName_409B40())
@@ -2230,7 +2230,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		return 49
 	case 0xB1:
 		v39 = nox_xxx_cliGamedataGet_416590(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))
-		*((*uint8)(unsafe.Pointer(&v40))) = uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v39), 52)))
+		*((*uint8)(unsafe.Pointer(&v40))) = *(*byte)(unsafe.Add(unsafe.Pointer(v39), 52))
 		var v4b int32 = int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 54))))
 		alloc.Memcpy(unsafe.Pointer(v39), unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 2))), 0x3A)
 		if ((v40 >> 5) & 1) != uint32((v4b>>5)&1) {
@@ -2351,7 +2351,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		return 2
 	case 0xC3:
 		nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))) != 0 || int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))) != 0 {
@@ -2401,7 +2401,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			sub_418800((*wchar2_t)(unsafe.Pointer(v272)), &v386[0], 0)
 			sub_418830(int32(uintptr(unsafe.Pointer(v272))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 6))))))
 			nox_xxx_netChangeTeamID_419090(int32(uintptr(unsafe.Pointer(v272))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 10))))))
-			*(*byte)(unsafe.Add(unsafe.Pointer(v272), 56)) = byte(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 16))))
+			*(*byte)(unsafe.Add(unsafe.Pointer(v272), 56)) = *((*uint8)(unsafe.Add(unsafe.Pointer(data), 16)))
 			sub_457230(&v386[0])
 			if (int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 14)))) & 1) == 0 {
 				goto LABEL_888
@@ -2411,7 +2411,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				goto LABEL_888
 			}
 			if noxflags.HasGame(1) {
-				nox_xxx_createAtImpl_4191D0(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v272), 57))), unsafe.Pointer(v273), 1, int32(nox_player_netCode_85319C), 1)
+				nox_xxx_createAtImpl_4191D0(*(*byte)(unsafe.Add(unsafe.Pointer(v272), 57)), unsafe.Pointer(v273), 1, int32(nox_player_netCode_85319C), 1)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)) = uint32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 15))))
 				return int32((*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)))*2 + 18)
 			}
@@ -2797,7 +2797,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if uint32(v91) == nox_player_netCode_85319C {
@@ -2814,7 +2814,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if uint32(v95) != nox_player_netCode_85319C {
@@ -2828,7 +2828,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	case 0xE0:
 		v291 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v292 = v291
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		if int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))) != 0 {
@@ -2844,7 +2844,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	case 0xE2:
 		v294 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v295 = v294
-		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
+		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(sub_478080(v295))
@@ -2866,12 +2866,12 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	case 0xE4:
 		if nox_client_isConnected_43C700() != 0 {
 			if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))) == 1 {
-				if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+				if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 					nox_gameDisableMapDraw_5d4594_2650672 = 0
 					sub_413A00(1)
 					clientPacketFade(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))) == 1, true)
 				}
-			} else if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			} else if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 				clientPacketFade(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))) == 1, false)
 			}
 		}
@@ -3024,7 +3024,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			if nox_client_isConnected_43C700() != 0 {
 				v300 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))))
 				if v300 != nil {
-					*(*byte)(unsafe.Add(unsafe.Pointer(v300), 4816)) = byte(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 2))))
+					*(*byte)(unsafe.Add(unsafe.Pointer(v300), 4816)) = *((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))
 				}
 				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)) = uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3)))))
 				if uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*2))) == nox_player_netCode_85319C {

@@ -20,16 +20,16 @@ var (
 func sub_42BFB0() { Sub_42BFB0() }
 
 // nox_xxx_objectTOCgetTT_42C2B0
-func nox_xxx_objectTOCgetTT_42C2B0(a1 uint16) int { return Nox_xxx_objectTOCgetTT(uint16(a1)) }
+func nox_xxx_objectTOCgetTT_42C2B0(a1 uint16) int { return Nox_xxx_objectTOCgetTT(a1) }
 
 // sub_42C310
-func sub_42C310(a1 int32, a2 uint16) { Sub_42C310(int(a1), uint16(a2)) }
+func sub_42C310(a1 int32, a2 uint16) { Sub_42C310(int(a1), a2) }
 
 // sub_42C2E0
-func sub_42C2E0(a1 int32) uint16 { return uint16(Sub_42C2E0(int(a1))) }
+func sub_42C2E0(a1 int32) uint16 { return Sub_42C2E0(int(a1)) }
 
 // sub_42C300
-func sub_42C300() uint16 { return uint16(Sub_42C300()) }
+func sub_42C300() uint16 { return Sub_42C300() }
 
 // sub_42BFE0
 func sub_42BFE0() { Sub_42BFE0() }

@@ -160,7 +160,7 @@ func sub_4D2160() {
 					v2--
 				}
 				v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(j), 4*514))))
-				if v4 != 0 && nox_xxx_teamCompare2_419180(unsafe.Add(unsafe.Pointer(uintptr(v4)), 48), uint8(*(*byte)(unsafe.Add(unsafe.Pointer(i), 57)))) != 0 {
+				if v4 != 0 && nox_xxx_teamCompare2_419180(unsafe.Add(unsafe.Pointer(uintptr(v4)), 48), *(*byte)(unsafe.Add(unsafe.Pointer(i), 57))) != 0 {
 					break
 				}
 			}
@@ -412,13 +412,13 @@ func sub_4DBA30(a1 int32) {
 			for i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 516))); i != v3; i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 512))) {
 				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 8)))&2 != 0 {
 					if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 1440)))&0x80 != 0 {
-						nox_xxx_netReportAcquireCreature_4D91A0(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))), (*server.Object)(unsafe.Pointer(uintptr(i))))
-						nox_xxx_netMarkMinimapObject_417190(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))), (*server.Object)(unsafe.Pointer(uintptr(i))), 1)
+						nox_xxx_netReportAcquireCreature_4D91A0(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))), (*server.Object)(unsafe.Pointer(uintptr(i))))
+						nox_xxx_netMarkMinimapObject_417190(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))), (*server.Object)(unsafe.Pointer(uintptr(i))), 1)
 						continue
 					}
 					if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 12))) & 0x80) != 0 {
-						nox_xxx_netMonitorCreature_4D9250(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))), i)
-						nox_xxx_netMarkMinimapObject_417190(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))), (*server.Object)(unsafe.Pointer(uintptr(i))), 1)
+						nox_xxx_netMonitorCreature_4D9250(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))), i)
+						nox_xxx_netMarkMinimapObject_417190(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))), (*server.Object)(unsafe.Pointer(uintptr(i))), 1)
 						continue
 					}
 				}

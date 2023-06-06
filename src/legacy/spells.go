@@ -38,7 +38,7 @@ var (
 
 // nox_xxx_spellGetDefArrayPtr_424820
 func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
-	return unsafe.Pointer(GetPhonemeTree())
+	return GetPhonemeTree()
 }
 
 // nox_xxx_getEnchantSpell_424920
@@ -175,7 +175,7 @@ func nox_xxx_spellDisable_424BB0(ind int32) bool { return Nox_xxx_spellDisable_4
 
 // nox_xxx_spellCanUseInTrap_424BF0
 func nox_xxx_spellCanUseInTrap_424BF0(ind int32) bool {
-	return bool(Nox_xxx_spellCanUseInTrap_424BF0(int(ind)))
+	return Nox_xxx_spellCanUseInTrap_424BF0(int(ind))
 }
 
 // nox_xxx_spellPrice_424C40

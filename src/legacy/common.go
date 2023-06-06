@@ -6,17 +6,17 @@ type nox_engine_flag = noxflags.EngineFlag
 
 // nox_common_setEngineFlag
 func nox_common_setEngineFlag(flags nox_engine_flag) {
-	noxflags.SetEngine(noxflags.EngineFlag(flags))
+	noxflags.SetEngine(flags)
 }
 
 // nox_common_resetEngineFlag
 func nox_common_resetEngineFlag(flags nox_engine_flag) {
-	noxflags.UnsetEngine(noxflags.EngineFlag(flags))
+	noxflags.UnsetEngine(flags)
 }
 
 // nox_common_getEngineFlag
 func nox_common_getEngineFlag(flags nox_engine_flag) bool {
-	return bool(noxflags.HasEngine(noxflags.EngineFlag(flags)))
+	return noxflags.HasEngine(flags)
 }
 
 // nox_common_randomInt_415FA0

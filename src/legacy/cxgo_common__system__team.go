@@ -66,11 +66,11 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 	} else {
 		v6 = (*byte)(unsafe.Pointer(nox_xxx_teamCreate_4186D0(int8(a1))))
 	}
-	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4)) = uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 57)))
+	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4)) = *(*byte)(unsafe.Add(unsafe.Pointer(v6), 57))
 	*(*uint32)(unsafe.Pointer(uintptr(a2))) = *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*11)))
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*11))) = uint32(a2)
 	if uint32(a4) == nox_player_netCode_85319C {
-		sub_455E70(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 57))))
+		sub_455E70(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 57)))
 	}
 	if noxflags.HasGame(1) {
 		if noxflags.HasGame(0x2000) {
@@ -102,7 +102,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 			}
 			if a3 != 0 && v7 != 0 && (v8 != nil || uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 4))) == dword_5d4594_527660) {
 				v12 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 4)))
-				v13 = int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 57))))
+				v13 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 57)))
 				*(*uint16)(unsafe.Add(unsafe.Pointer(&v21[0]), unsafe.Sizeof(uint16(0))*0)) = 452
 				*(*uint16)(unsafe.Add(unsafe.Pointer(&v21[1]), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(a4))
 				*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&v21[0]), 2)))) = uint32(v13)

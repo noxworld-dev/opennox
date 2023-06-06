@@ -48,14 +48,14 @@ func nox_client_xxx_switchChatMap_43B510() {
 			return *p
 		}())) = *memmap.PtrUint32(0x587000, 90856)
 		*(*byte)(unsafe.Add(unsafe.Pointer(v2), 4)) = 0
-		if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_REPLAY_READ)) {
+		if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
 			nox_xxx_gameSetMapPath_409D70(&v7[0])
 		}
 		nox_common_gameFlags_unset_40A540(55280)
 		nox_xxx_setGameFlags_40A4D0(128)
 		result = sub_4165D0(0)
 		v5 = int16(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*26)))) & 0x280F)
-		*((*uint8)(unsafe.Pointer(&v5))) = uint8(*(*byte)(unsafe.Add(unsafe.Pointer(result), 52))&0xF | 0x80)
+		*((*uint8)(unsafe.Pointer(&v5))) = *(*byte)(unsafe.Add(unsafe.Pointer(result), 52))&0xF | 0x80
 		*((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*26))) = uint16(v5)
 	}
 }
@@ -644,7 +644,7 @@ func sub_4417E0(a1 *wchar2_t, a2 *byte) {
 		v2 = *memmap.PtrUint8(0x587000, 103296)
 		v3 = &v4[libc.StrLen(&v4[0])]
 		*(*uint32)(unsafe.Pointer(v3)) = *memmap.PtrUint32(0x587000, 103292)
-		*(*byte)(unsafe.Add(unsafe.Pointer(v3), 4)) = byte(v2)
+		*(*byte)(unsafe.Add(unsafe.Pointer(v3), 4)) = v2
 		nox_swprintf(&v5[0], (*wchar2_t)(unsafe.Pointer(internCStr("%-20.20S\t\t"))), &v4[0])
 		nox_wcscat(a1, &v5[0])
 	}
@@ -757,7 +757,7 @@ func nox_xxx_drawMessageLines_445530() int32 {
 			nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 		}
 		nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v6)), v7/2, v1)
-		v11 = int32(-4 - nox_xxx_guiFontHeightMB_43F320(nil))
+		v11 = -4 - nox_xxx_guiFontHeightMB_43F320(nil)
 		result = i
 		v1 += v11
 		if i != 0 {
@@ -963,7 +963,7 @@ func nox_xxx_motdAddSomeTextMB_446730(a1 *uint8) *uint8 {
 	result = a1
 	if int32(*a1) != 0 {
 		nox_swprintf(&v2[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), a1)
-		result = (*uint8)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16397, uintptr(unsafe.Pointer(&v2[0])), math.MaxUint32))))
+		result = (*uint8)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16397, uintptr(unsafe.Pointer(&v2[0])), math.MaxUint32)))
 	}
 	return result
 }
@@ -993,7 +993,7 @@ func nox_xxx_motd_4467F0() {
 			result = uint32(bool2int32(noxflags.HasGame(128)))
 			return result
 		}()) == 0 {
-			if !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			if !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 				result = uint32(nox_xxx_wndGetFlags_46ADA0(*(*int32)(unsafe.Pointer(&dword_5d4594_826028))))
 				if result&0x10 != 0 {
 					result = uint32(sub_44A4A0())
@@ -1072,7 +1072,7 @@ func sub_44B940(a1 *uint32, a2 int32, f *nox_memfile) int32 {
 		if v3 > 0 {
 			for {
 				v8 = nox_memfile_read_i32(f)
-				v17[0] = byte(*memmap.PtrUint8(0x5D4594, 830840))
+				v17[0] = *memmap.PtrUint8(0x5D4594, 830840)
 				if v8 == -1 {
 					v10 = nox_memfile_read_i8(f)
 					v15 = nox_memfile_read_u8(f)

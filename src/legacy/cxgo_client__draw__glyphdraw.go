@@ -37,7 +37,7 @@ func nox_thing_glyph_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	if v6 >= 22500 {
 		return 1
 	}
-	v3 = int8(int32(-56 - v6*200/22500))
+	v3 = int8(-56 - v6*200/22500)
 	*((*uint8)(unsafe.Pointer(&a2))) = uint8(v3)
 LABEL_10:
 	nox_client_drawEnableAlpha_434560(1)

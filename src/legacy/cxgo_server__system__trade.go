@@ -172,7 +172,7 @@ func sub_50FAE0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 		v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 692)))
 		for i = 0; i < 4; i++ {
 			if *(*uint32)(unsafe.Pointer(uintptr(v8))) != 0 {
-				v11[i+11] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8))))), 4)))
+				v11[i+11] = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8))))), 4))
 			} else {
 				v11[i+11] = math.MaxUint8
 			}

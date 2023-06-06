@@ -24,9 +24,9 @@ func nox_netlist_clientSendWrap_40ECA0(ind1, ind2 int32, buf *byte, sz int32) in
 
 // nox_netlist_addToMsgListSrv_40EF40
 func nox_netlist_addToMsgListSrv_40EF40(ind int32, buf *byte, sz int32) bool {
-	return bool(Nox_netlist_addToMsgListSrv(ntype.PlayerInd(ind), unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz)))
+	return Nox_netlist_addToMsgListSrv(ntype.PlayerInd(ind), unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz))
 }
 
 func Nox_xxx_netImportant_4E5770(a1 byte, a2 int) {
-	nox_xxx_netImportant_4E5770(byte(a1), int32(a2))
+	nox_xxx_netImportant_4E5770(a1, int32(a2))
 }

@@ -241,7 +241,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		}
 		if unsafe.Pointer(dr) != unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))) && nox_xxx_playerGet_470A90() != 0 {
 			if noxflags.HasGame(4096) {
-				nox_xxx_drawOtherPlayerHP_4B8EB0((*uint32)(unsafe.Pointer(v10)), dr, uint16(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 2282)))), int8(uint8((*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*920)))>>10)&1)))
+				nox_xxx_drawOtherPlayerHP_4B8EB0((*uint32)(unsafe.Pointer(v10)), dr, uint16(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 2282))), int8(uint8((*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*920)))>>10)&1)))
 			}
 		}
 	}

@@ -127,7 +127,7 @@ func nox_fs_fgets(f *FILE, dst *byte, sz int32) bool {
 		return false
 	}
 	StrCopy(dst, int(sz), string(out))
-	return bool(!errors.Is(err, io.EOF))
+	return !errors.Is(err, io.EOF)
 }
 
 // nox_fs_fputs

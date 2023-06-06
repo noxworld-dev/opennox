@@ -73,7 +73,7 @@ func sub_4E4C50(cobj *server.Object) int32 {
 }
 
 // sub_4F40A0
-func sub_4F40A0(a1 *server.Object) int8 { return int8(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
+func sub_4F40A0(a1 *server.Object) int8 { return GetServer().S().Sub_4F40A0(asObjectS(a1)) }
 
 // sub_4E4C90
 func sub_4E4C90(a1 *server.Object, a2 uint32) int32 {

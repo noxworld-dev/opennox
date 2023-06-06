@@ -26,9 +26,9 @@ var nox_gui_wol_servers_list nox_list_item_t = nox_list_item_t{}
 
 func sub_48C580(a1 *pixel8888, num int32) {
 	var pix *uint32 = (*uint32)(unsafe.Pointer(a1))
-	for i := int32(num - 1); i >= 0; i-- {
+	for i := num - 1; i >= 0; i-- {
 		var result uint32 = *pix
-		for it := (*uint32)((*uint32)(unsafe.Add(unsafe.Pointer(pix), 4*uintptr(i)))); uintptr(unsafe.Pointer(it)) > uintptr(unsafe.Pointer(pix)); it = (*uint32)(unsafe.Add(unsafe.Pointer(it), -int(4*1))) {
+		for it := (*uint32)(unsafe.Add(unsafe.Pointer(pix), 4*uintptr(i))); uintptr(unsafe.Pointer(it)) > uintptr(unsafe.Pointer(pix)); it = (*uint32)(unsafe.Add(unsafe.Pointer(it), -int(4*1))) {
 			if result > *it {
 				result = uint32(atomic.SwapInt32((*int32)(unsafe.Pointer(it)), int32(result)))
 			}
@@ -172,10 +172,10 @@ func sub_48D120() int32 {
 	dword_5d4594_1197328 = dword_5d4594_1197324
 	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1195512), memmap.PtrOff(0x5D4594, 1193720), 0x700)
 	dword_5d4594_1197324 = 0
-	v1 = (*int32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16404, 0, 0))))
+	v1 = (*int32)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16404, 0, 0)))
 	v2 = v1
 	for i = *v1; i != -1; v2 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) {
-		v4 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16406, uintptr(i), 0))))
+		v4 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16406, uintptr(i), 0)))
 		if v4 != nil {
 			nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, uintptr(dword_5d4594_1197324)*56+1193720)), v4)
 			dword_5d4594_1197324++
@@ -321,7 +321,7 @@ func nox_xxx_clientVote_48D3E0() int32 {
 }
 func sub_48D410() *uint32 {
 	var result *uint32
-	result = (*uint32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16404, 0, 0))))
+	result = (*uint32)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16404, 0, 0)))
 	if result == nil {
 		return sub_48CB10(2)
 	}
@@ -782,7 +782,7 @@ func sub_48DCF0(a1 *uint32) {
 			v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 676)))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 648)) += uint32(*v11 / (-2))
 			v13 = (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 664))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 652)) += uint32(int32(-64 - v12))
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 652)) += uint32(-64 - v12)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 660)) = 1
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 664)) = 1
 			if noxflags.HasGame(2048) {
@@ -1446,7 +1446,7 @@ func nox_xxx_netCliProcUpdateStream_494A60(a1 *uint8, a2 int32, a3 *uint32) int3
 			v23[0] = 165
 			*(*uint16)(unsafe.Pointer(&v23[2])) = v3
 			*(*uint16)(unsafe.Pointer(&v23[4])) = v4
-			v23[1] = byte(v24)
+			v23[1] = v24
 			*(*uint32)(unsafe.Pointer(&v23[6])) = math.MaxUint32
 			nox_netlist_addToMsgListCli_40EBC0(a2, 0, (*uint8)(unsafe.Pointer(&v23[0])), 10)
 		}
@@ -1547,7 +1547,7 @@ func nox_xxx_netCliUpdateStream2_494C30(a1 *uint8, a2 int32, a3 *int32) *uint8 {
 		v24 = uint8(nox_xxx_cliGenerateAlias_57B9A0(int32(uintptr(memmap.PtrOff(0x5D4594, 1198020))), int32(v6), int32(v9), gameFrame()))
 		if int32(v24) != -1 {
 			sub_57BA10(int32(uintptr(memmap.PtrOff(0x5D4594, uintptr(int32(v24)*8)+1198020))), int16(v6), int16(v9), int32(gameFrame()+60))
-			v26[1] = byte(v24)
+			v26[1] = v24
 			v26[0] = 165
 			*(*uint16)(unsafe.Pointer(&v26[2])) = v6
 			*(*uint16)(unsafe.Pointer(&v26[4])) = v8
@@ -1782,7 +1782,7 @@ func sub_495180(a1 int32, a2 *uint16, a3 *uint16, a4 *uint8) int32 {
 	}
 	*a2 = *((*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*3)))
 	*a3 = *((*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*4)))
-	*a4 = uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v4), 4)))
+	*a4 = *(*byte)(unsafe.Add(unsafe.Pointer(v4), 4))
 	return 1
 }
 func sub_4951C0() *byte {

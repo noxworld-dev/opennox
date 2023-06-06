@@ -22,7 +22,7 @@ func Sub_516D00(a1 *server.Object) {
 	sub_516D00(asObjectC(a1))
 }
 func Nox_xxx_netSendChat_528AC0(a1 *server.Object, a2 string, a3 uint16) {
-	nox_xxx_netSendChat_528AC0(asObjectC(a1), internWStr(a2), uint16(a3))
+	nox_xxx_netSendChat_528AC0(asObjectC(a1), internWStr(a2), a3)
 }
 func Nox_xxx_playDialogFile_44D900(a1 string, a2 int) {
 	nox_xxx_playDialogFile_44D900(internCStr(a1), int32(a2))

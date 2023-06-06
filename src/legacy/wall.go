@@ -51,7 +51,7 @@ func nox_xxx_wallForeachFn_410640(cfnc func(it *server.Wall, data unsafe.Pointer
 
 // sub_57B500
 func sub_57B500(x, y int32, flags int8) int8 {
-	return int8(GetServer().S().Sub_57B500(image.Pt(int(x), int(y)), byte(int8(flags))))
+	return GetServer().S().Sub_57B500(image.Pt(int(x), int(y)), byte(flags))
 }
 
 // sub_4D72C0

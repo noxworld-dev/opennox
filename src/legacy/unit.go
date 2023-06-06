@@ -20,13 +20,13 @@ func Nox_xxx_unitMove_4E7010(a1 *server.Object, a2 *types.Pointf) {
 	nox_xxx_unitMove_4E7010(asObjectC(a1), (*float2)(unsafe.Pointer(a2)))
 }
 func Nox_xxx_unitSetHP_4E4560(a1 *server.Object, a2 uint16) {
-	nox_xxx_unitSetHP_4E4560(asObjectC(a1), uint16(a2))
+	nox_xxx_unitSetHP_4E4560(asObjectC(a1), a2)
 }
 func Nox_xxx_mobInformOwnerHP_4EE4C0(a1 *server.Object) {
 	nox_xxx_mobInformOwnerHP_4EE4C0(asObjectC(a1))
 }
 func Nox_xxx_protectMana_56F9E0(a1 int, a2 int16) {
-	nox_xxx_protectMana_56F9E0(int32(a1), int16(a2))
+	nox_xxx_protectMana_56F9E0(int32(a1), a2)
 }
 func Nox_xxx_monsterWalkTo_514110(a1 *server.Object, a2 float32, a3 float32) {
 	nox_xxx_monsterWalkTo_514110(asObjectC(a1), float32(a2), float32(a3))

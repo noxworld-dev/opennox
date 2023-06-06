@@ -30,11 +30,11 @@ func nox_xxx_setKeybTimeout_4160D0(key int32) int32 {
 
 // nox_xxx_checkKeybTimeout_4160F0
 func nox_xxx_checkKeybTimeout_4160F0(key byte, dt uint32) bool {
-	return bool(InputKeyCheckTimeoutLegacy(byte(key), uint32(dt)))
+	return InputKeyCheckTimeoutLegacy(key, dt)
 }
 
 // sub_416120
-func sub_416120(key byte) bool { return bool(Sub_416120(byte(key))) }
+func sub_416120(key byte) bool { return Sub_416120(key) }
 
 // sub_416170
 func sub_416170(key int) int { return Sub_416170(key) }
@@ -142,11 +142,11 @@ func sub_4CBBF0() { Sub_4CBBF0() }
 
 // nox_input_scanCodeToAlpha_47F950
 func nox_input_scanCodeToAlpha_47F950(r uint16) uint16 {
-	return uint16(GetClient().Cli().Inp.KeyToWChar(keybind.Key(r)))
+	return GetClient().Cli().Inp.KeyToWChar(keybind.Key(r))
 }
 
 func NoxInputOnChar(c uint16) {
-	nox_xxx_onChar_488BD0(wchar2_t(c))
+	nox_xxx_onChar_488BD0(c)
 }
 func Nox_xxx_clientIsObserver_4372E0() int {
 	return int(nox_xxx_clientIsObserver_4372E0())

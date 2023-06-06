@@ -207,10 +207,10 @@ func nox_script_GetHostInfo_513FA0() int32 {
 		nox_script_push(int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v1), 62))))))
 		result = 0
 	case 4:
-		nox_script_push(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 66)))))
+		nox_script_push(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 66))))
 		result = 0
 	case 5:
-		nox_script_push(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 67)))))
+		nox_script_push(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 67))))
 		result = 0
 	default:
 		nox_script_push(0)

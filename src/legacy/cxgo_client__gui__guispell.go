@@ -404,7 +404,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 				v57 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v72[0])))
 				nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v53))), int32(uintptr(unsafe.Pointer(v57))))
 			}
-			nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v53))), int32(-70-v65), -23)
+			nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v53))), -70-v65, -23)
 			nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v53)), nox_xxx_quickbar_45F8D0, nil, nil)
 			*v50 = int32(uintptr(unsafe.Pointer(v53)))
 			nox_xxx_updateSpellIconDir_45DE10(v0, int32(uintptr(unsafe.Pointer(v71))))

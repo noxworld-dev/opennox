@@ -86,7 +86,7 @@ func sub_4A68C0() *wchar2_t {
 		v20    *uint8
 		result *wchar2_t
 	)
-	v0 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16413, 0, 0))))
+	v0 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16413, 0, 0)))
 	if *v0 == 0 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 225)
 		nox_wcscpy(v0, v1)
@@ -185,7 +185,7 @@ func sub_4A75C0() int32 {
 	}
 	libc.MemSet(unsafe.Pointer(&v25[0]), 0, 0x4FC)
 	*(*uint16)(unsafe.Pointer(&v25[1276])) = 0
-	v0 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16413, 0, 0))))
+	v0 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16413, 0, 0)))
 	if *v0 == 0 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 605)
 		nox_wcscpy(v0, v1)
@@ -201,7 +201,7 @@ func sub_4A75C0() int32 {
 	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308096)), 32))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308096)), 32))))*32)))*3+1307796))
 	*(*uint16)(unsafe.Pointer(&v25[1204])) = *(*uint16)(unsafe.Pointer(v4))
 	v5 = int16(*(*uint16)(unsafe.Pointer(v4)))
-	v25[1206] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 2)))
+	v25[1206] = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 2))
 	v23 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 2)))
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308136)), 4)))&8 != 0 {
 		v8 = int32((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308100)), 32)) >> 16) + uint32(int32(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308100)), 32))))*32))
@@ -212,11 +212,11 @@ func sub_4A75C0() int32 {
 		v7 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 2))
 		*(*uint16)(unsafe.Pointer(&v25[1207])) = uint16(v6)
 	}
-	v25[1209] = byte(v7)
+	v25[1209] = v7
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308140)), 4)))&8 != 0 {
 		v10 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308104)), 32))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308104)), 32))))*32)))*3+1307796))
 		*(*uint16)(unsafe.Pointer(&v25[1210])) = *(*uint16)(unsafe.Pointer(v10))
-		v25[1212] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(v10), 2)))
+		v25[1212] = *(*uint8)(unsafe.Add(unsafe.Pointer(v10), 2))
 		v9 = v23
 	} else {
 		v9 = v23
@@ -226,7 +226,7 @@ func sub_4A75C0() int32 {
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308144)), 4)))&8 != 0 {
 		v11 = int32((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308108)), 32)) >> 16) + uint32(int32(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308108)), 32))))*32))
 		*(*uint16)(unsafe.Pointer(&v25[1213])) = *memmap.PtrUint16(0x5D4594, uintptr(v11*3)+1307796)
-		v25[1215] = byte(*memmap.PtrUint8(0x5D4594, uintptr(v11*3)+1307798))
+		v25[1215] = *memmap.PtrUint8(0x5D4594, uintptr(v11*3)+1307798)
 	} else {
 		*(*uint16)(unsafe.Pointer(&v25[1213])) = uint16(v5)
 		v25[1215] = byte(v9)
@@ -234,7 +234,7 @@ func sub_4A75C0() int32 {
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308148)), 4)))&8 != 0 {
 		v12 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308112)), 32))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1308112)), 32))))*32)))*3+1307796))
 		*(*uint16)(unsafe.Pointer(&v25[1216])) = *(*uint16)(unsafe.Pointer(v12))
-		v25[1218] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(v12), 2)))
+		v25[1218] = *(*uint8)(unsafe.Add(unsafe.Pointer(v12), 2))
 	} else {
 		*(*uint16)(unsafe.Pointer(&v25[1216])) = uint16(v5)
 		v25[1218] = byte(v9)
@@ -251,7 +251,7 @@ func sub_4A75C0() int32 {
 	v16 = &v25[libc.StrLen(&v25[4])+4]
 	*(*uint32)(unsafe.Pointer(v16)) = *memmap.PtrUint32(0x587000, 171764)
 	*((*uint16)(unsafe.Add(unsafe.Pointer(v16), unsafe.Sizeof(uint16(0))*2))) = uint16(v14)
-	*(*byte)(unsafe.Add(unsafe.Pointer(v16), 6)) = byte(v15)
+	*(*byte)(unsafe.Add(unsafe.Pointer(v16), 6)) = v15
 	if noxflags.HasGame(2048) {
 		v17 = int32(*memmap.PtrUint32(0x587000, 171776))
 		v18 = &v25[libc.StrLen(&v25[4])+4]

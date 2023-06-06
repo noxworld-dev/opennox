@@ -14,7 +14,7 @@ var (
 )
 
 // nox_server_questAllowDefault
-func nox_server_questAllowDefault() bool { return bool(Nox_server_questAllowDefault()) }
+func nox_server_questAllowDefault() bool { return Nox_server_questAllowDefault() }
 
 // nox_server_questNextStageThreshold_4D74F0
 func nox_server_questNextStageThreshold_4D74F0(lvl int32) int32 {

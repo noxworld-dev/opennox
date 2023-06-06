@@ -26,7 +26,7 @@ func nox_server_makeServerInfoPacket_554040(inBuf *byte, inSz int32, out *byte) 
 	}
 	var playerLimit int8 = int8(nox_xxx_servGetPlrLimit_409FA0())
 	var playerCount int8 = int8(nox_common_playerInfoCount_416F40())
-	if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		playerCount--
 		playerLimit--
 	}
@@ -37,7 +37,7 @@ func nox_server_makeServerInfoPacket_554040(inBuf *byte, inSz int32, out *byte) 
 	buf[3] = byte(playerCount)
 	buf[4] = byte(playerLimit)
 	buf[5] = *(*byte)(unsafe.Add(unsafe.Pointer(v3), 101)) & 0xF
-	buf[6] = byte(int8(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 101)))) >> 4))
+	buf[6] = byte(int8(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 101))) >> 4))
 	*(*uint32)(unsafe.Pointer(&buf[7])) = *((*uint32)(unsafe.Add(unsafe.Pointer(game), 4*11)))
 	libc.StrCpy(&buf[10], nox_xxx_mapGetMapName_409B40())
 	buf[19] = byte(int8(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 102))) | sub_43BE50_get_video_mode_id()))
@@ -74,8 +74,8 @@ func sub_554290() uint32 {
 		return 0
 	}
 	for {
-		if *(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)) != 31 && sub_554240(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))))) > 0 {
-			v3 = uint32(sub_554240(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))))))
+		if *(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)) != 31 && sub_554240(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))) > 0 {
+			v3 = uint32(sub_554240(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))))
 			if v3 < v0 {
 				v0 = v3
 			}
@@ -105,8 +105,8 @@ func sub_554300() int32 {
 		return 0
 	}
 	for {
-		if *(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)) != 31 && sub_554240(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))))) > 0 {
-			v0 += sub_554240(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))))
+		if *(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)) != 31 && sub_554240(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))) > 0 {
+			v0 += sub_554240(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))))
 			v1++
 		}
 		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v2)))))
@@ -994,7 +994,7 @@ func sub_579A30() *byte {
 				v3 = (*byte)(unsafe.Add(unsafe.Pointer(v3), 8))
 				*(*byte)(unsafe.Add(unsafe.Pointer(i), 477)) |= byte(v4)
 				v2++
-				if v2 >= int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(i), 476)))) {
+				if v2 >= int32(*(*byte)(unsafe.Add(unsafe.Pointer(i), 476))) {
 					break
 				}
 			}
@@ -1005,11 +1005,11 @@ func sub_579A30() *byte {
 				v7 = (*uint8)(unsafe.Add(unsafe.Pointer(j), 96))
 				for {
 					if *((**byte)(unsafe.Add(unsafe.Pointer(v7), -int(unsafe.Sizeof((*byte)(nil))*1)))) == i {
-						*(*byte)(unsafe.Add(unsafe.Pointer(i), 477)) |= byte(*v7)
+						*(*byte)(unsafe.Add(unsafe.Pointer(i), 477)) |= *v7
 					}
 					v6++
 					v7 = (*uint8)(unsafe.Add(unsafe.Pointer(v7), 8))
-					if v6 >= int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(j), 476)))) {
+					if v6 >= int32(*(*byte)(unsafe.Add(unsafe.Pointer(j), 476))) {
 						break
 					}
 				}
@@ -1643,7 +1643,7 @@ func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 		v23      [256]byte
 		FileName [256]byte
 	)
-	*((*uint8)(unsafe.Pointer(&v3))) = uint8(*(*byte)(unsafe.Add(unsafe.Pointer(a2), 52)))
+	*((*uint8)(unsafe.Pointer(&v3))) = *(*byte)(unsafe.Add(unsafe.Pointer(a2), 52))
 	if int32(int8(uintptr(unsafe.Pointer(v3)))) >= 0 {
 		libc.StrCpy(&FileName[0], internCStr("maps\\"))
 		libc.StrNCat(&FileName[0], a2, 8)
@@ -1702,7 +1702,7 @@ func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 			v18 = 27
 			v15 = (*byte)(unsafe.Add(unsafe.Pointer(a2), 44))
 			for {
-				if (int32(uint8(int8(v13))) & int32(uint8(*v15))) == 0 {
+				if (int32(uint8(int8(v13))) & int32(*v15)) == 0 {
 					v16 = sub_4159B0((*byte)(unsafe.Pointer(uintptr(v14))))
 					if v16 != nil {
 						nox_sprintf(&v23[0], internCStr("%s %s \"%s\" %s\n"), "set", "weapon", v16, "off")

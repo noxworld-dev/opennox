@@ -41,7 +41,7 @@ func nox_xxx_getSndName_40AF80(id int32) *byte {
 }
 
 func Sub_419E60(obj *server.Object) int32 {
-	return int32(sub_419E60(asObjectC(obj)))
+	return sub_419E60(asObjectC(obj))
 }
 
 func Sub_501C00(p types.Pointf, obj *server.Object) int32 {

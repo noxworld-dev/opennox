@@ -281,7 +281,7 @@ func Nox_xxx_playerSomeWallsUpdate_5003B0(a1 *server.Object) {
 	nox_xxx_playerSomeWallsUpdate_5003B0(asObjectC(a1))
 }
 func Sub_57B140() bool {
-	return bool(sub_57B140())
+	return sub_57B140()
 }
 func Sub_57B0A0() {
 	sub_57B0A0()

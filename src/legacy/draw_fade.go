@@ -18,7 +18,7 @@ func nox_video_stopAllFades_44E040() {
 
 // clientPacketFade
 func clientPacketFade(flag4 bool, a2 bool) {
-	ClientPacketFade(bool(flag4), bool(a2))
+	ClientPacketFade(flag4, a2)
 }
 
 // nox_video_inFadeTransition_44E0D0

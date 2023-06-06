@@ -88,7 +88,7 @@ func nox_gui_draw() {
 
 // nox_color_rgb_4344A0
 func nox_color_rgb_4344A0(r, g, b int32) uint32 {
-	return uint32(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32())
+	return noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32()
 }
 
 // nox_set_color_rgb_434430

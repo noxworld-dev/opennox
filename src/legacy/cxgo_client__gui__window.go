@@ -20,7 +20,7 @@ type nox_window_ref struct {
 }
 
 func sub_46ACE0(a1 *uint32, a2 int32, a3 int32, a4 int32) {
-	for i := int32(a2); i <= a3; i++ {
+	for i := a2; i <= a3; i++ {
 		var v5 *uint32 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(a1)), i)))
 		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v5)), a4)
 	}

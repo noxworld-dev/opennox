@@ -367,7 +367,7 @@ func nox_client_gui_serverInfoBlockCheckExp_439370(a1 *int2, a2 int32) {
 	nox_client_gui_serverInfoBlock_4394D0(a2)
 	dword_5d4594_815056 = 1
 	*memmap.PtrUint16(0x5D4594, 814604) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 109))
-	if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 815008)))), 0)
 	}
 }
@@ -599,11 +599,11 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 	var v35 [72]byte
 	if a2 > 0x4010 {
 		if a2 == 16403 || a2 == 16412 {
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), uintptr(a2), uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), uintptr(a2), uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), uintptr(a2), uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), uintptr(a2), uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), uintptr(a2), uintptr(unsafe.Pointer(a3)), 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), a2, uintptr(unsafe.Pointer(a3)), 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), a2, uintptr(unsafe.Pointer(a3)), 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), a2, uintptr(unsafe.Pointer(a3)), 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), a2, uintptr(unsafe.Pointer(a3)), 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), a2, uintptr(unsafe.Pointer(a3)), 0)
 		}
 		return 0
 	}

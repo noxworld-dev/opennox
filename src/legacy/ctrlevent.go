@@ -57,7 +57,7 @@ func Nox_xxx_clientCollideOrUse_42E810(dr *client.Drawable) {
 }
 
 func Nox_xxx_packetGetMarshall_476F40() uint32 {
-	return uint32(nox_xxx_packetGetMarshall_476F40())
+	return nox_xxx_packetGetMarshall_476F40()
 }
 
 func Nox_xxx_clientUpdateButtonRow_45E110(ind int) {
@@ -143,7 +143,7 @@ func Nox_xxx_game_4DCCB0() int {
 	return int(nox_xxx_game_4DCCB0())
 }
 func Sub_554290() uint32 {
-	return uint32(sub_554290())
+	return sub_554290()
 }
 func Sub_554300() uint32 {
 	return uint32(sub_554300())

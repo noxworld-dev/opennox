@@ -23,7 +23,7 @@ func WrapCommandC(cfnc func(int, int, **wchar2_t) int) console.CommandLegacyFunc
 		if len(ctokens) > 0 {
 			ptr = &ctokens[0]
 		}
-		return cfnc(int(tokInd), int(len(tokens)), ptr) != 0
+		return cfnc(tokInd, len(tokens), ptr) != 0
 	}
 }
 

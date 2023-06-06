@@ -111,7 +111,7 @@ func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *nox_memfile) int32 {
 		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40))) > 0 {
 			for {
 				v7 = nox_memfile_read_i32(f)
-				v16[0] = byte(*memmap.PtrUint8(0x5D4594, 830844))
+				v16[0] = *memmap.PtrUint8(0x5D4594, 830844)
 				if v7 == -1 {
 					v9 = nox_memfile_read_i8(f)
 					*((*uint8)(unsafe.Pointer(&v15))) = uint8(v9)

@@ -78,7 +78,7 @@ func nox_binfile_fread_raw_40ADD0(cbuf *byte, sz, cnt size_t, cfile *FILE) int32
 	if n >= 0 {
 		n /= int32(sz)
 	}
-	return int32(n)
+	return n
 }
 
 // nox_binfile_fread_align_408FE0

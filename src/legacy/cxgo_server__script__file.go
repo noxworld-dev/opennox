@@ -624,7 +624,7 @@ func sub_543110(lpExistingFileName *byte, a2 *int32) int32 {
 		nox_fs_fread(v6, unsafe.Pointer(&v13), 4)
 		nox_fs_fwrite(v7, unsafe.Pointer(&v13), 4)
 		nox_script_readWriteYyy_542380(v6, v7, 0)
-		v13 = int32(-4-v11) + nox_fs_ftell(v7)
+		v13 = -4 - v11 + nox_fs_ftell(v7)
 		nox_fs_fseek(v7, v11, stdio.SEEK_SET)
 		nox_fs_fwrite(v7, unsafe.Pointer(&v13), 4)
 		nox_fs_fseek(v7, v13, stdio.SEEK_CUR)

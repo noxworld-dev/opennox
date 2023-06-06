@@ -248,7 +248,7 @@ func sub_445C40() {
 							v16 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
 							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v16)), 0)
 						}
-						if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+						if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 							v17 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)))
 							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v17)), 0)
 							v18 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9005)))

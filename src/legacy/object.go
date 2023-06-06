@@ -234,7 +234,7 @@ func nox_xxx_setNPCColor_4E4A90(obj *server.Object, a2 byte, p unsafe.Pointer) {
 
 // nox_xxx_checkSummonedCreaturesLimit_500D70
 func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *server.Object, ind int32) bool {
-	return bool(Nox_xxx_checkSummonedCreaturesLimit_500D70(asObjectS(obj), int(ind)))
+	return Nox_xxx_checkSummonedCreaturesLimit_500D70(asObjectS(obj), int(ind))
 }
 
 // nox_xxx_unitDoSummonAt_5016C0

@@ -275,7 +275,7 @@ func nox_cmd_ban(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		if noxflags.HasGame(4096) {
 			sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*514)))))))
 		} else {
-			nox_xxx_playerDisconnByPlrID_4DEB00(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 2064)))))
+			nox_xxx_playerDisconnByPlrID_4DEB00(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 2064))))
 		}
 		sub_416770(0, v4, (*byte)(unsafe.Add(unsafe.Pointer(v6), 2112)))
 		v9 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v6), 4704)))))
@@ -321,7 +321,7 @@ func nox_cmd_kick(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	if noxflags.HasGame(4096) {
 		sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*514)))))))
 	} else {
-		nox_xxx_playerCallDisconnect_4DEAB0(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v5), 2064)))), 4)
+		nox_xxx_playerCallDisconnect_4DEAB0(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v5), 2064))), 4)
 		v6 = nox_strman_loadString_40F1D0(internCStr("kicked"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3739)
 		sub_440A20(v6, (*byte)(unsafe.Add(unsafe.Pointer(v5), 4704)))
 	}
@@ -630,7 +630,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		nox_console_playerWhoSent_823692 = nil
 		return 1
 	case 4:
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 3680)))&1) == 0 && !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_REPLAY_READ)) {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 3680)))&1) == 0 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
 			if noxflags.HasGame(1) {
 				v16 = nox_strman_loadString_40F1D0(internCStr("notinobserver"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4392)
 				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v16)
@@ -733,14 +733,14 @@ func nox_cmd_set_net_debug(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 
 	if tokCnt != 2 {
 		return 0
 	}
-	nox_common_setEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+	nox_common_setEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)
 	return 1
 }
 func nox_cmd_unset_net_debug(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	if tokCnt != 2 {
 		return 0
 	}
-	nox_common_resetEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG))
+	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)
 	return 1
 }
 func nox_cmd_show_info(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {

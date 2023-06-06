@@ -102,7 +102,7 @@ func AIL_stream_status(s HSTREAM) int32 {
 
 // AIL_load_sample_buffer
 func AIL_load_sample_buffer(s HSAMPLE, num uint32, buf unsafe.Pointer, sz uint32) {
-	ail.Sample(unsafe.Pointer(s)).LoadBuffer(uint32(num), unsafe.Slice((*byte)(buf), int(sz)))
+	ail.Sample(unsafe.Pointer(s)).LoadBuffer(num, unsafe.Slice((*byte)(buf), int(sz)))
 }
 
 // AIL_sample_buffer_ready
@@ -203,12 +203,12 @@ func sub_43F060(a1p *uint32) int {
 
 // sub_43EC30
 func sub_43EC30(a1p unsafe.Pointer) int {
-	return Sub_43EC30(unsafe.Pointer(a1p))
+	return Sub_43EC30(a1p)
 }
 
 // sub_43ECB0
 func sub_43ECB0(a1p unsafe.Pointer) {
-	Sub_43ECB0(unsafe.Pointer(a1p))
+	Sub_43ECB0(a1p)
 }
 
 func Get_dword_5d4594_831092() ail.Driver {

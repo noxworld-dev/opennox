@@ -292,7 +292,7 @@ func nox_xxx_mapSaveMap_51E010(a1 *byte, a2 int32) int32 {
 		*p = (*byte)(unsafe.Add(unsafe.Pointer(*p), -1))
 		return *p
 	}())) = *memmap.PtrUint32(0x587000, 253112)
-	*(*byte)(unsafe.Add(unsafe.Pointer(v2), 4)) = byte(v3)
+	*(*byte)(unsafe.Add(unsafe.Pointer(v2), 4)) = v3
 	result = nox_xxx_cryptOpen_426910(&Mem[0], 0, 19)
 	if result != 0 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 4)
@@ -5690,11 +5690,11 @@ func sub_5259F0(a1 int32, a2 int32, a3 float32) {
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 220))) != 1 || float64(v11) < float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 356))) {
 		*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 356)) = v11
 		v5 = (*int32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 88))
-		v6 = int32(-216 - a1)
+		v6 = -216 - a1
 		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 220)) = 1
 		v7 = (*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 216))
 		v10 = a1 + 88
-		v9 = int32(-216 - a1)
+		v9 = -216 - a1
 		for {
 			v8 = 0
 			if int32(*v7) != 0 {
@@ -5792,11 +5792,11 @@ func sub_525BF0(a1 int32) {
 			dword_5d4594_2487576 = uint32(a1)
 			dword_5d4594_2487580 = uint32(v1)
 		}
-		v2 = int32(-216 - a1)
+		v2 = -216 - a1
 		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 220)) = 2
 		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 216))
 		v4 = a1 + 88
-		v7 = int32(-216 - a1)
+		v7 = -216 - a1
 		for {
 			v5 = 0
 			if int32(*v3) != 0 {
@@ -7793,12 +7793,12 @@ func nox_xxx_monsterCmdSend_528BD0(unit int32, source int32, command *byte, a4 i
 	libc.StrCpy(&v10[11], command)
 	if source != 0 {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(source)), 8)))&4 != 0 {
-			result = nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(source)), 748)))), 276)))), 2064))), 1, (*uint8)(unsafe.Pointer(&v10[0])), int32(uint8(v10[8]))+11)
+			result = nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(source)), 748)))), 276)))), 2064))), 1, (*uint8)(unsafe.Pointer(&v10[0])), int32(v10[8])+11)
 		}
 	} else {
 		result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
 		for i = result; result != 0; i = result {
-			nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))), 2064))), 1, (*uint8)(unsafe.Pointer(&v10[0])), int32(uint8(v10[8]))+11)
+			nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))), 2064))), 1, (*uint8)(unsafe.Pointer(&v10[0])), int32(v10[8])+11)
 			result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i)))))))
 		}
 	}

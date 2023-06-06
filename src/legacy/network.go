@@ -64,7 +64,7 @@ func nox_client_joinGame_438A90() int32 { return int32(Nox_client_joinGame_438A9
 // sub_5550D0
 func sub_5550D0(addr int32, port uint16, cdata *byte) int {
 	buf := unsafe.Slice(cdata, 22)
-	n, err := SendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), uint16(port)), buf)
+	n, err := SendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), port), buf)
 	return convSendToServerErr(n, err)
 }
 
@@ -116,7 +116,7 @@ func Nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
 }
 
 func Nox_client_getServerAddr_43B300() netip.Addr {
-	return int2ip(uint32(nox_client_getServerAddr_43B300()))
+	return int2ip(nox_client_getServerAddr_43B300())
 }
 
 func Nox_xxx_netSendLineMessage_4D9EB0(u *server.Object, s string) bool {

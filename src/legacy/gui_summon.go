@@ -10,5 +10,5 @@ var (
 
 // sub_4C26F0
 func sub_4C26F0(win *gui.Window, draw *gui.WindowData) int {
-	return int(Sub_4C26F0(win))
+	return Sub_4C26F0(win)
 }

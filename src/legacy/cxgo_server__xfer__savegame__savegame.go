@@ -40,8 +40,8 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 							v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)))
 							*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 0x80))
 							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)) = uint32(v5)
-							nox_xxx_netReportAcquireCreature_4D91A0(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 2064)))), (*server.Object)(unsafe.Pointer(uintptr(v3))))
-							nox_xxx_netMarkMinimapObject_417190(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 2064)))), (*server.Object)(unsafe.Pointer(uintptr(v3))), 1)
+							nox_xxx_netReportAcquireCreature_4D91A0(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 2064))), (*server.Object)(unsafe.Pointer(uintptr(v3))))
+							nox_xxx_netMarkMinimapObject_417190(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 2064))), (*server.Object)(unsafe.Pointer(uintptr(v3))), 1)
 						}
 					}
 					v3 = v4

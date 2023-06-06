@@ -63,7 +63,7 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			return 0
 		}
-		nox_client_drawSetAlpha_434580(uint8(int8(int32(-56 - v3*200/v6))))
+		nox_client_drawSetAlpha_434580(uint8(int8(-56 - v3*200/v6)))
 		v4 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)))
 		if v3 >= v4 {
 			v3 %= v4
@@ -193,7 +193,7 @@ func sub_44BE90(a1 int32, f *nox_memfile) int32 {
 		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40))) > 0 {
 			for {
 				v6 = nox_memfile_read_i32(f)
-				v12[0] = byte(*memmap.PtrUint8(0x5D4594, 830848))
+				v12[0] = *memmap.PtrUint8(0x5D4594, 830848)
 				if v6 == -1 {
 					v8 = int8(nox_memfile_read_u8(f))
 					*((*uint8)(unsafe.Pointer(&v11))) = uint8(v8)

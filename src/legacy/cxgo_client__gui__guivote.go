@@ -99,8 +99,8 @@ func sub_48CB10(a1 int32) *uint32 {
 					if i != *(**byte)(memmap.PtrOff(0x8531A0, 2576)) {
 						v18 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515)))))
 						if v18 != nil {
-							if nox_xxx_teamCompare2_419180(unsafe.Pointer(v18), uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v16), 57)))) != 0 {
-								nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16397, uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 4704)))), uintptr(*memmap.PtrUint32(0x587000, uintptr((int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v16), 57))))%10)*8)+156400)))
+							if nox_xxx_teamCompare2_419180(unsafe.Pointer(v18), *(*byte)(unsafe.Add(unsafe.Pointer(v16), 57))) != 0 {
+								nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16397, uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 4704)))), uintptr(*memmap.PtrUint32(0x587000, uintptr((int32(*(*byte)(unsafe.Add(unsafe.Pointer(v16), 57)))%10)*8)+156400)))
 								v19 = 0
 								if dword_5d4594_1197324 > 0 {
 									v20 = (*wchar2_t)(memmap.PtrOff(0x5D4594, 1193720))

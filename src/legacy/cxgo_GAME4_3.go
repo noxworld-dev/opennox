@@ -1721,7 +1721,7 @@ func nox_xxx_mobActionFightStart_531E20(obj *server.Object) {
 	*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*360)) = v3
 	nox_xxx_frameCounterSetCopy_5281E0()
 	nox_xxx_unitUpdateSightMB_5281F0((*server.Object)(unsafe.Pointer(uintptr(a1))))
-	sub_534750(int32(a1))
+	sub_534750(a1)
 }
 func sub_531E90(obj *server.Object) {
 	a1 := int32(uintptr(obj.CObj()))
@@ -2781,7 +2781,7 @@ func sub_534120(a1 int32, a2 *float2) int32 {
 func nox_ai_debug_printf_5341A0(a1 *byte, _rest ...interface{}) {
 	var va libc.ArgList
 	va.Start(a1, _rest)
-	if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI)) {
+	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI) {
 		nox_vsprintf((*byte)(memmap.PtrOff(0x5D4594, 2487996)), a1, va)
 		nox_ai_debug_print((*byte)(memmap.PtrOff(0x5D4594, 2487996)))
 	}

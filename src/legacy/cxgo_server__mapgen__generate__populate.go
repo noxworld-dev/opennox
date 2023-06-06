@@ -109,7 +109,7 @@ func nox_xxx_mapGenMakeExit_522A40(a1 int32) int32 {
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 472)) == 0 {
 		return 1
 	}
-	for v2 := int32(sub_5259E0()); v2 != 0; v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 68))) {
+	for v2 := sub_5259E0(); v2 != 0; v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 68))) {
 		if *(*uint32)(unsafe.Pointer(uintptr(v2))) != 1 {
 			continue
 		}

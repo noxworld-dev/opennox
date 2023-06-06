@@ -3491,7 +3491,7 @@ func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 	v2 = (*float32)(unsafe.Pointer(uintptr(a1)))
 	if uint32(a1) != dword_5d4594_2491592 && (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))&0x8020) == 0 && (nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), 0) == 0 || nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_2491592))))), 21) != 0) && (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8))&0x80000206 != 0 || uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))) == *memmap.PtrUint32(0x5D4594, 2491604)) {
 		if nox_xxx_mapCheck_537110((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_2491592)))))) != 0 {
-			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))&4) == 0 || (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36)) != nox_player_netCode_85319C || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING))) && (func() *byte {
+			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))&4) == 0 || (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36)) != nox_player_netCode_85319C || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) && (func() *byte {
 				v3 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36))))))
 				return v3
 			}()) != nil && (*(*byte)(unsafe.Add(unsafe.Pointer(v3), 3680))&1) == 0 {

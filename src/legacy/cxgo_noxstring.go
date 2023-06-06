@@ -983,13 +983,13 @@ func _nox_wcsicmp(string1 *wchar2_t, string2 *wchar2_t) int32 {
 	var i uint32
 	for i = 0; *(*wchar2_t)(unsafe.Add(unsafe.Pointer(string1), unsafe.Sizeof(wchar2_t(0))*uintptr(i))) != 0 && unicode.ToLower(rune(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(string1), unsafe.Sizeof(wchar2_t(0))*uintptr(i))))) == unicode.ToLower(rune(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(string2), unsafe.Sizeof(wchar2_t(0))*uintptr(i))))); i++ {
 	}
-	return int32(unicode.ToLower(rune(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(string1), unsafe.Sizeof(wchar2_t(0))*uintptr(i))))) - unicode.ToLower(rune(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(string2), unsafe.Sizeof(wchar2_t(0))*uintptr(i))))))
+	return unicode.ToLower(rune(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(string1), unsafe.Sizeof(wchar2_t(0))*uintptr(i))))) - unicode.ToLower(rune(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(string2), unsafe.Sizeof(wchar2_t(0))*uintptr(i)))))
 }
 func nox_strcmpi(string1 *byte, string2 *byte) int32 {
 	var i uint32
 	for i = 0; *(*byte)(unsafe.Add(unsafe.Pointer(string1), i)) != 0 && unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string1), i)))) == unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string2), i)))); i++ {
 	}
-	return int32(unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string1), i)))) - unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string2), i)))))
+	return unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string1), i)))) - unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string2), i))))
 }
 func nox_strnicmp(string1 *byte, string2 *byte, sz int32) int32 {
 	var i uint32
@@ -998,7 +998,7 @@ func nox_strnicmp(string1 *byte, string2 *byte, sz int32) int32 {
 	if i >= uint32(sz) {
 		return 1
 	}
-	return int32(unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string1), i)))) - unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string2), i)))))
+	return unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string1), i)))) - unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string2), i))))
 }
 func nox_swprintf(str *wchar2_t, fmt *wchar2_t, _rest ...interface{}) int32 {
 	var (

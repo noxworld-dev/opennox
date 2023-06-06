@@ -13,12 +13,12 @@ var (
 
 // nox_script_shouldReadMoreXxx
 func nox_script_shouldReadMoreXxx(fi int32) bool {
-	return bool(Nox_script_shouldReadMoreXxx(asm.Builtin(fi)))
+	return Nox_script_shouldReadMoreXxx(asm.Builtin(fi))
 }
 
 // nox_script_shouldReadEvenMoreXxx
 func nox_script_shouldReadEvenMoreXxx(fi int32) bool {
-	return bool(Nox_script_shouldReadEvenMoreXxx(asm.Builtin(fi)))
+	return Nox_script_shouldReadEvenMoreXxx(asm.Builtin(fi))
 }
 
 func wrapScriptC(fnc func() int32) noxscript.Builtin {

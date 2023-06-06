@@ -34,7 +34,7 @@ func asViewport(p *nox_draw_viewport_t) *noxrender.Viewport {
 
 // get_nox_client_texturedFloors_154956
 func get_nox_client_texturedFloors_154956() bool {
-	return bool(Get_nox_client_texturedFloors_154956())
+	return Get_nox_client_texturedFloors_154956()
 }
 
 // sub_4C42A0
@@ -163,7 +163,7 @@ func sub_49F7C0_def() {
 
 // nox_client_drawSetAlpha_434580
 func nox_client_drawSetAlpha_434580(a byte) {
-	GetClient().R2().Data().SetAlpha(byte(a))
+	GetClient().R2().Data().SetAlpha(a)
 }
 
 // nox_draw_enableTextSmoothing_43F670
@@ -208,7 +208,7 @@ func sub_480860(a1, a2 *uint16, w int32, a4, a5 *int32) {
 
 // nox_draw_setColorMultAndIntensityRGB_433CD0
 func nox_draw_setColorMultAndIntensityRGB_433CD0(r, g, b byte) int {
-	return int(GetClient().R2().SetColorMultAndIntensityRGB(byte(r), byte(g), byte(b)))
+	return int(GetClient().R2().SetColorMultAndIntensityRGB(r, g, b))
 }
 
 // nox_draw_set54RGB32_434040

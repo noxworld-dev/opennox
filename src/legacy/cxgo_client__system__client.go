@@ -8,14 +8,14 @@ import (
 
 func nox_xxx_clientDrawAll_436100_draw_A() {
 	if sub_436550() == 0 {
-		nox_common_resetEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_9))
+		nox_common_resetEngineFlag(NOX_ENGINE_FLAG_9)
 	} else {
-		nox_common_setEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_9))
+		nox_common_setEngineFlag(NOX_ENGINE_FLAG_9)
 	}
 	if *memmap.PtrUint32(0x5D4594, 814540) == 0 {
 		*memmap.PtrUint32(0x5D4594, 814540) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MenuSystemBG")))))
 	}
-	if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_9)) {
+	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) {
 		var v10 unsafe.Pointer = nox_xxx_guiFontPtrByName_43F360(internCStr("large"))
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 814540)))), 0, 0)
 		var v11 *wchar2_t = nox_strman_loadString_40F1D0(internCStr("InProgress"), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1550)
@@ -44,7 +44,7 @@ func nox_xxx_clientDrawAll_436100_draw_B() {
 	var v17 int32 = v14 + 45
 	var v18 int32 = v16 + (49-v23)/2 + 143
 	nox_client_drawSetColor_434460(int32(nox_color_white_2523948))
-	for tok := (*wchar2_t)(nox_wcstok(&v25[0], (*wchar2_t)(unsafe.Pointer(internCStr("\n\r"))))); tok != nil; tok = nox_wcstok(nil, (*wchar2_t)(unsafe.Pointer(internCStr("\n\r")))) {
+	for tok := nox_wcstok(&v25[0], (*wchar2_t)(unsafe.Pointer(internCStr("\n\r")))); tok != nil; tok = nox_wcstok(nil, (*wchar2_t)(unsafe.Pointer(internCStr("\n\r")))) {
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 		nox_xxx_drawGetStringSize_43F840(nil, tok, &v22, nil, 0)
 		nox_xxx_drawStringWrap_43FAF0(nil, tok, v17+(220-v22)/2, v18, 220, 0)

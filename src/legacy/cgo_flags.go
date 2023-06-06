@@ -31,7 +31,7 @@ func nox_xxx_GetGameplayFlags_417D90() int {
 
 // nox_xxx_CheckGameplayFlags_417DA0
 func nox_xxx_CheckGameplayFlags_417DA0(v int32) bool {
-	return bool(noxflags.HasGamePlay(uint32(v)))
+	return noxflags.HasGamePlay(uint32(v))
 }
 
 // nox_xxx_SetGameplayFlag_417D50

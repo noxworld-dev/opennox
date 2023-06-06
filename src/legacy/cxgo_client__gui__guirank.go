@@ -462,7 +462,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			default:
 				v22 = (*wchar2_t)(unsafe.Pointer(uintptr(a2)))
 			}
-			if !noxflags.HasGame(1) || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			if !noxflags.HasGame(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 				if dword_5d4594_1090120 == 1 {
 					v28 = nox_gui_getQuestStage_450B10()
 					v23 = nox_strman_loadString_40F1D0(internCStr("Noxworld.c:Stage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1499)
@@ -482,7 +482,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 				v25 = 0
 			}
 			v22 = nox_strman_loadString_40F1D0(internCStr("Teams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1519)
-			if !noxflags.HasGame(1) || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
+			if !noxflags.HasGame(1) || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 				v30 = int32(*memmap.PtrUint8(0x5D4594, 1090116))
 				v26 = nox_strman_loadString_40F1D0(internCStr("yourteamrank"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1525)
 				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1086692)), (*wchar2_t)(unsafe.Pointer(internCStr("%s %d / %d"))), v26, v25, v30)

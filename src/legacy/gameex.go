@@ -10,7 +10,7 @@ func Sub_4BDFD0() {
 	sub_4BDFD0()
 }
 func Mix_MouseKeyboardWeaponRoll(a1 *server.Object, a2 int8) int {
-	return int(mix_MouseKeyboardWeaponRoll(asObjectC(a1), int8(a2)))
+	return int(mix_MouseKeyboardWeaponRoll(asObjectC(a1), a2))
 }
 func PlayerInfoStructParser_0(a1 unsafe.Pointer) int {
 	return int(playerInfoStructParser_0(a1))

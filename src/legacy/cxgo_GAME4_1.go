@@ -170,7 +170,7 @@ func nox_server_checkVictory_509A60() {
 	if int32(v0a) == 0 {
 		return
 	}
-	for v3 := (*byte)((*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))); v3 != nil; v3 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v3))))) {
+	for v3 := (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); v3 != nil; v3 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v3))))) {
 		if *((*int32)(unsafe.Add(unsafe.Pointer(v3), 4*13))) >= v2 {
 			nox_xxx_setGameFlags_40A4D0(8)
 			nox_xxx_netSendDMTeamWinner_4D8BF0(int32(uintptr(unsafe.Pointer(v3))), 0)
@@ -198,7 +198,7 @@ func sub_509C30(pl *server.Player) {
 	v1 = (*byte)(alloc.Calloc1(1, 0x20))
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2068))
 	libc.StrCpy((*byte)(unsafe.Add(unsafe.Pointer(v1), 12)), (*byte)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2096)))
-	*(*byte)(unsafe.Add(unsafe.Pointer(v1), 28)) = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2251)))
+	*(*byte)(unsafe.Add(unsafe.Pointer(v1), 28)) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2251))
 	sub_4257F0(mem_getI32Ptr(0x5D4594, 1599676), (*uint32)(unsafe.Pointer(v1)))
 }
 func sub_509CB0() *int32 {
@@ -3260,7 +3260,7 @@ func sub_50F2B0(a1 int32, a2 *uint32) int32 {
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8))&0x13001000 != 0 {
 		for i = 0; i < 4; i++ {
 			if *(*uint32)(unsafe.Pointer(uintptr(v5))) != 0 {
-				v9[i+14] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5))))), 4)))
+				v9[i+14] = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5))))), 4))
 			} else {
 				v9[i+14] = math.MaxUint8
 			}
@@ -5546,7 +5546,7 @@ func nox_xxx_netSendComplexObject_518960(a1 int32, a2 *uint32, a3 int32) int32 {
 	*(*uint16)(unsafe.Pointer(&v18[7])) = uint16(v12)
 	v18[9] = byte(int8(nox_xxx_mobActionToAnimation_533790(int32(uintptr(unsafe.Pointer(v4))))))
 	v14 = int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 12))))
-	v18[10] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v13)), 481)))
+	v18[10] = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v13)), 481))
 	if int32(v14)&0x10 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v13)), 2094))) != 0 && nox_common_randomInt_415FA0(0, 10) >= 8 {
 		v18[9] = 14
 		nox_xxx_animPlayerGetFrameRange_4F9F90(50, &a3, &a1)
@@ -5696,7 +5696,7 @@ func nox_xxx_netPlayerObjSend_518C30(a1p *server.Object, a2p *server.Object, a3 
 	v22[11] = byte(int8(nox_common_mapPlrActionToStateId_4FA2B0((*server.Object)(unsafe.Pointer(v5)))))
 	v16 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 88)))
 	if int32(v16) == 1 || int32(v16) == 10 || int32(v16) == 2 || int32(v16) == 15 || int32(v16) == 16 || int32(v16) == 17 || int32(v16) == 14 || int32(v16) == 20 || int32(v16) == 18 || int32(v16) == 19 || int32(v16) == 21 || int32(v16) == 22 || int32(v16) == 24 || int32(v16) == 25 || int32(v16) == 27 || int32(v16) == 28 || int32(v16) == 29 || int32(v16) == 26 || int32(v16) == 30 || int32(v16) == 32 {
-		v22[10] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 236)))
+		v22[10] = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 236))
 	} else {
 		v22[10] = math.MaxUint8
 	}
