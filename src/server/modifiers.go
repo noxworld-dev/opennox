@@ -20,7 +20,7 @@ var (
 	modDamageEffects = make(map[string]modFuncs[ccall.Func[ModifierDamageFunc]])
 	modDefendEffects = make(map[string]modFuncs[ccall.Func[ModifierDefendFunc]])
 	modUpdateEffects = make(map[string]modFuncs[ccall.Func[ModifierUpdateFunc]])
-	modEngageEffects = make(map[string]modFuncs[unsafe.Pointer])
+	modEngageEffects = make(map[string]modFuncs[ccall.Func[ModifierEngageFunc]])
 )
 
 func registerModifVoid[T any](m map[string]modFuncs[T], name string, fnc T) {
@@ -47,6 +47,7 @@ func registerModifFloat[T any](m map[string]modFuncs[T], name string, fnc T) {
 type ModifierDamageFunc func(a1 unsafe.Pointer, a2p, a3p, a4p *Object, a5, a6 unsafe.Pointer)
 type ModifierDefendFunc func(m *ModifierEff, a2p, a3p, a4p *Object, a5, a6 unsafe.Pointer)
 type ModifierUpdateFunc func(a1 unsafe.Pointer, a2 *Object)
+type ModifierEngageFunc func(a1 unsafe.Pointer, a2 *Object, a3 int32)
 
 func RegisterModifDamageEffectInt(name string, fnc ModifierDamageFunc) {
 	registerModifInt(modDamageEffects, name, ccall.FuncPtr(fnc))
@@ -72,16 +73,16 @@ func RegisterModifUpdateEffectFloat(name string, fnc ModifierUpdateFunc) {
 	registerModifFloat(modUpdateEffects, name, ccall.FuncPtr(fnc))
 }
 
-func RegisterModifEngageEffectInt(name string, fnc unsafe.Pointer) {
-	registerModifInt(modEngageEffects, name, fnc)
+func RegisterModifEngageEffectInt(name string, fnc ModifierEngageFunc) {
+	registerModifInt(modEngageEffects, name, ccall.FuncPtr(fnc))
 }
 
-func RegisterModifEngageEffectFloat(name string, fnc unsafe.Pointer) {
-	registerModifFloat(modEngageEffects, name, fnc)
+func RegisterModifEngageEffectFloat(name string, fnc ModifierEngageFunc) {
+	registerModifFloat(modEngageEffects, name, ccall.FuncPtr(fnc))
 }
 
-func RegisterModifEngageEffectVoid(name string, fnc unsafe.Pointer) {
-	registerModifVoid(modEngageEffects, name, fnc)
+func RegisterModifEngageEffectVoid(name string, fnc ModifierEngageFunc) {
+	registerModifVoid(modEngageEffects, name, ccall.FuncPtr(fnc))
 }
 
 type serverModifiers struct {
@@ -163,12 +164,12 @@ type ModifierEff struct { // obj_412ae0_t
 	Defend76          ModifierEffFnc[ccall.Func[ModifierDefendFunc]] // 19, 76-80-84
 	DefendCollide88   ModifierEffFnc[ccall.Func[ModifierDefendFunc]] // 22, 88-92-96
 	Update100         ModifierEffFnc[ccall.Func[ModifierUpdateFunc]] // 25, 100-104-108
-	engage112         unsafe.Pointer                                 // 28, 112
-	disengage116      unsafe.Pointer                                 // 29, 116
-	engageFloat120    float32                                        // 30, 120
-	engageInt124      int32                                          // 31, 124
-	disengageFloat128 float32                                        // 32, 128
-	disengageInt132   int32                                          // 33, 132
+	Engage112         ccall.Func[ModifierEngageFunc]                 // 28, 112
+	Disengage116      ccall.Func[ModifierEngageFunc]                 // 29, 116
+	EngageFloat120    float32                                        // 30, 120
+	EngageInt124      int32                                          // 31, 124
+	DisengageFloat128 float32                                        // 32, 128
+	DisengageInt132   int32                                          // 33, 132
 	next136           *ModifierEff                                   // 34, 136
 	prev140           *ModifierEff                                   // 35, 140
 }
@@ -345,17 +346,15 @@ func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers
 			return err
 		}
 		for _, d := range []struct {
-			text  string
-			table map[string]modFuncs[unsafe.Pointer]
-			fnc   *unsafe.Pointer
-			fval  *float32
-			ival  *int32
-			src   string
+			fnc  *ccall.Func[ModifierEngageFunc]
+			fval *float32
+			ival *int32
+			src  string
 		}{
-			{"engage", modEngageEffects, &p.engage112, &p.engageFloat120, &p.engageInt124, v.Engage},
-			{"engage", modEngageEffects, &p.disengage116, &p.disengageFloat128, &p.disengageInt132, v.Disengage},
+			{&p.Engage112, &p.EngageFloat120, &p.EngageInt124, v.Engage},
+			{&p.Disengage116, &p.DisengageFloat128, &p.DisengageInt132, v.Disengage},
 		} {
-			if err := modParseEffect(d.text, d.table, p, d.fnc, d.ival, d.fval, d.src); err != nil {
+			if err := modParseEffect("engage", modEngageEffects, p, d.fnc, d.ival, d.fval, d.src); err != nil {
 				return err
 			}
 		}

@@ -3,7 +3,6 @@ package legacy
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -52,18 +51,18 @@ func init() {
 	server.RegisterModifUpdateEffectInt("AttractionUpdate", nullsub_44)
 	server.RegisterModifUpdateEffectInt("ContinualReplenishmentUpdate", nox_xxx_attribContinualReplen_4E02C0)
 
-	server.RegisterModifEngageEffectInt("BrillianceEngage", ccall.FuncAddr(sub_4DFB50))
-	server.RegisterModifEngageEffectInt("BrillianceDisengage", ccall.FuncAddr(sub_4DFB80))
-	server.RegisterModifEngageEffectFloat("SpeedEngage", ccall.FuncAddr(nox_xxx_effectSpeedEngage_4DFC30))
-	server.RegisterModifEngageEffectFloat("SpeedDisengage", ccall.FuncAddr(nox_xxx_effectSpeedDisengage_4DFCA0))
-	server.RegisterModifEngageEffectFloat("FireProtectEngage", ccall.FuncAddr(sub_4DFD10))
-	server.RegisterModifEngageEffectFloat("FireProtectDisengage", ccall.FuncAddr(nox_xxx_modifFireProtection_4DFD40))
-	server.RegisterModifEngageEffectFloat("LightningProtectEngage", ccall.FuncAddr(nox_xxx_buff_4DFD80))
-	server.RegisterModifEngageEffectFloat("LightningProtectDisengage", ccall.FuncAddr(sub_4DFDB0))
-	server.RegisterModifEngageEffectFloat("PoisonProtectEngage", ccall.FuncAddr(nox_xxx_checkPoisonProtectEnch_4DFDE0))
-	server.RegisterModifEngageEffectFloat("PoisonProtectDisengage", ccall.FuncAddr(sub_4DFE10))
-	server.RegisterModifEngageEffectVoid("RegenerationEngage", ccall.FuncAddr(sub_4E0140))
-	server.RegisterModifEngageEffectVoid("RegenerationDisengage", ccall.FuncAddr(sub_4E0170))
+	server.RegisterModifEngageEffectInt("BrillianceEngage", sub_4DFB50)
+	server.RegisterModifEngageEffectInt("BrillianceDisengage", sub_4DFB80)
+	server.RegisterModifEngageEffectFloat("SpeedEngage", nox_xxx_effectSpeedEngage_4DFC30)
+	server.RegisterModifEngageEffectFloat("SpeedDisengage", nox_xxx_effectSpeedDisengage_4DFCA0)
+	server.RegisterModifEngageEffectFloat("FireProtectEngage", sub_4DFD10)
+	server.RegisterModifEngageEffectFloat("FireProtectDisengage", nox_xxx_modifFireProtection_4DFD40)
+	server.RegisterModifEngageEffectFloat("LightningProtectEngage", nox_xxx_buff_4DFD80)
+	server.RegisterModifEngageEffectFloat("LightningProtectDisengage", sub_4DFDB0)
+	server.RegisterModifEngageEffectFloat("PoisonProtectEngage", nox_xxx_checkPoisonProtectEnch_4DFDE0)
+	server.RegisterModifEngageEffectFloat("PoisonProtectDisengage", sub_4DFE10)
+	server.RegisterModifEngageEffectVoid("RegenerationEngage", sub_4E0140)
+	server.RegisterModifEngageEffectVoid("RegenerationDisengage", sub_4E0170)
 }
 
 // nox_xxx_modifGetModifListByType_4133B0
