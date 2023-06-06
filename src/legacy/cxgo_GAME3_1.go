@@ -288,7 +288,7 @@ func sub_4BA670(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) {
 		}
 		v21 = *mem_getFloatPtr(0x5D4594, uint32(v17*4)+1313856)
 		dword_5d4594_1316412 = 0
-		sub_4BEDE0(&a1a, &a2a, &a3a, &a4a, v18, v21, sub_4BA8B0, int32(uintptr(unsafe.Pointer(&a5))))
+		sub_4BEDE0(&a1a, &a2a, &a3a, &a4a, v18, v21, sub_4BA8B0, unsafe.Pointer(&a5))
 		v17 = func() int32 {
 			p := &a5
 			*p++
@@ -1029,7 +1029,8 @@ func sub_4BE120(a1 int32) int32 {
 	_ = result
 	var v14 *uint32
 	var v15 int32
-	var v16 [16]wchar2_t
+	v16, free16 := alloc.Make([]wchar2_t{}, 16)
+	defer free16()
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1316972)))), 2102)))
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*9)))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 58)) != 0 {
@@ -1047,7 +1048,7 @@ func sub_4BE120(a1 int32) int32 {
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*9)) = v6
 	v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1316972)))), 2110)))
-	nox_swprintf(&v16[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 70)))
+	nox_swprintf(&v16[0], internWStr("%d"), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 70)))
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v7)), 16414, uintptr(unsafe.Pointer(&v16[0])), math.MaxUint32)
 	switch *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 66)) {
 	case 0:
@@ -1400,7 +1401,7 @@ func sub_4BEAD0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 int32) {
 		}
 	}
 }
-func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7 func(*int2, *int2, int32), a8 int32) {
+func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7 func(*int2, *int2, unsafe.Pointer), a8 unsafe.Pointer) {
 	var (
 		v8  int32
 		v9  float64
@@ -1831,8 +1832,8 @@ func sub_4BFE40() int32 {
 	nox_gui_getWindowOffs_46AA20((*gui.Window)(nox_gui_itemAmount_dialog_1319228), (*uint32)(unsafe.Pointer(&v3)), (*uint32)(unsafe.Pointer(&v4)))
 	v5.field_0 = int32(uint32(v3) + dword_587000_183456)
 	v5.field_4 = int32(uint32(v4) + dword_587000_183460)
-	if *memmap.PtrUint32(0x5D4594, 1319100) != 0 {
-		ccall.AsFunc[func(uint32, uint32, uint32, uint32, uint32)](memmap.PtrOff(0x5D4594, 1319100))(uint32(uintptr(unsafe.Pointer(&v5))), *memmap.PtrUint32(0x5D4594, 1319244), *memmap.PtrUint32(0x5D4594, 1319240), v1, *memmap.PtrUint32(0x5D4594, 1319252))
+	if fnc := *memmap.PtrPtr(0x5D4594, 1319100); fnc != nil {
+		ccall.AsFunc[func(unsafe.Pointer, uint32, uint32, uint32, uint32)](fnc)(unsafe.Pointer(&v5), *memmap.PtrUint32(0x5D4594, 1319244), *memmap.PtrUint32(0x5D4594, 1319240), v1, *memmap.PtrUint32(0x5D4594, 1319252))
 	}
 	sub_4BFD40()
 	return 1
@@ -1964,8 +1965,8 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		nox_gui_getWindowOffs_46AA20((*gui.Window)(nox_gui_itemAmount_dialog_1319228), (*uint32)(unsafe.Pointer(&v12)), (*uint32)(unsafe.Pointer(&v13)))
 		v14.field_0 = int32(uint32(v12) + dword_587000_183456)
 		v14.field_4 = int32(uint32(v13) + dword_587000_183460)
-		if *memmap.PtrUint32(0x5D4594, 1319160) != 0 {
-			ccall.AsFunc[func(uint32, uint32, uint32, uint32, uint32)](memmap.PtrOff(0x5D4594, 1319160))(uint32(uintptr(unsafe.Pointer(&v14))), *memmap.PtrUint32(0x5D4594, 1319244), *memmap.PtrUint32(0x5D4594, 1319240), v6, *memmap.PtrUint32(0x5D4594, 1319252))
+		if fnc := *memmap.PtrPtr(0x5D4594, 1319160); fnc != nil {
+			ccall.AsFunc[func(unsafe.Pointer, uint32, uint32, uint32, uint32)](fnc)(unsafe.Pointer(&v14), *memmap.PtrUint32(0x5D4594, 1319244), *memmap.PtrUint32(0x5D4594, 1319240), v6, *memmap.PtrUint32(0x5D4594, 1319252))
 		}
 		sub_4BFD40()
 		result = 0
@@ -2459,8 +2460,9 @@ func sub_4C1410() {
 		v8  *uint32
 		v9  *uint32
 		v10 *uint32
-		v12 [64]wchar2_t
 	)
+	v12, free12 := alloc.Make([]wchar2_t{}, 64)
+	defer free12()
 	*memmap.PtrUint16(0x5D4594, 1320240) = 0
 	*memmap.PtrUint16(0x5D4594, 1320868) = 0
 	*memmap.PtrUint16(0x5D4594, 1320100) = 0

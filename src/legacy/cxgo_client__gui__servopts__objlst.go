@@ -7,6 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func nox_xxx_guiObjlistLoad_4530C0(a1 int32, a2 int32) int32 {
@@ -22,8 +23,9 @@ func nox_xxx_guiObjlistLoad_4530C0(a1 int32, a2 int32) int32 {
 		v10 int32
 		v11 *uint32
 		v12 *uint32
-		v14 [66]wchar2_t
 	)
+	v14, free14 := alloc.Make([]wchar2_t{}, 66)
+	defer free14()
 	v2 = 0
 	dword_5d4594_1045468 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("objlst.wnd"), sub_4533D0))))
 	nox_xxx_wndSetDrawFn_46B340(*(**gui.Window)(unsafe.Pointer(&dword_5d4594_1045468)), sub_453350)

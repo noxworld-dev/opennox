@@ -515,14 +515,15 @@ func nox_cmd_exec_rul(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	if tokCnt != 2 {
 		return 0
 	}
-	var buf [128]wchar2_t
+	buf, free := alloc.Make([]wchar2_t{}, 128)
+	defer free()
 	nox_wcscpy(&buf[0], *(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*1)))
 	if nox_wcschr(&buf[0], 0x2E) == nil {
 		nox_wcscat(&buf[0], (*wchar2_t)(unsafe.Pointer(internCStr(".rul"))))
 	}
 	var s *wchar2_t = nox_strman_loadString_40F1D0(internCStr("ExecutingRul"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4002)
 	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), s, &buf[0])
-	nox_xxx_doExecrul_4438A0(int32(uintptr(unsafe.Pointer(&buf[0]))))
+	nox_xxx_doExecrul_4438A0(unsafe.Pointer(&buf[0]))
 	return 1
 }
 func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wchar2_t) int32 {

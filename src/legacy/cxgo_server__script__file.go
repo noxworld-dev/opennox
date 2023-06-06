@@ -1,6 +1,8 @@
 package legacy
 
 import (
+	"encoding/binary"
+	"math"
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
@@ -14,20 +16,30 @@ var dword_5d4594_2489424 uint32 = 0
 var dword_5d4594_2489428 uint32 = 0
 
 func nox_script_readInt_542B70(f *FILE) int32 {
-	var v int32 = 0
-	nox_fs_fread(f, unsafe.Pointer(&v), 4)
-	return v
+	fp := fileByHandle(f)
+	var b [4]byte
+	fp.Read(b[:])
+	return int32(binary.LittleEndian.Uint32(b[:]))
 }
 func nox_script_readFloat_542B90(f *FILE) float64 {
-	var v float32 = 0
-	nox_fs_fread(f, unsafe.Pointer(&v), 4)
-	return float64(v)
+	fp := fileByHandle(f)
+	var b [4]byte
+	fp.Read(b[:])
+	return float64(math.Float32frombits(binary.LittleEndian.Uint32(b[:])))
 }
 func nox_script_writeFloat_542BD0(v float32, f *FILE) int32 {
-	return nox_fs_fwrite(f, unsafe.Pointer(&v), 4) / 4
+	fp := fileByHandle(f)
+	var b [4]byte
+	binary.LittleEndian.PutUint32(b[:], math.Float32bits(v))
+	n, _ := fp.Write(b[:])
+	return int32(n / 4)
 }
 func nox_script_writeInt_542BB0(v int32, f *FILE) int32 {
-	return nox_fs_fwrite(f, unsafe.Pointer(&v), 4) / 4
+	fp := fileByHandle(f)
+	var b [4]byte
+	binary.LittleEndian.PutUint32(b[:], uint32(v))
+	n, _ := fp.Write(b[:])
+	return int32(n / 4)
 }
 func nox_script_readWriteYyy_542380(f1 *FILE, f2 *FILE, a3 int32) int32 {
 	var (

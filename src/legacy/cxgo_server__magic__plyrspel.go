@@ -23,7 +23,7 @@ func nox_xxx_netSendSpellAward_4D7F90(a1 int32, a2 int32, a3 int8, a4 int32) int
 		if a4 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(int8(int32(a3) | 0x80))
 		}
-		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)))), 2064))), int32(uintptr(unsafe.Pointer(&a1))), 4, 0, 1)
+		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)))), 2064))), unsafe.Pointer(&a1), 4, 0, 1)
 	}
 	return result
 }

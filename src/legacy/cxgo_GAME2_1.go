@@ -1228,7 +1228,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 		v4 += 5
 		v3 += 6
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1050008)), 96)))), 4)) + (gameFrame()%uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1050008)), 96)))), 8))))*4)))))), v3-58, v4-53)
-		nox_swprintf(&v17[0], (*wchar2_t)(unsafe.Pointer(internCStr("X %d"))), *memmap.PtrUint32(0x5D4594, 1050012))
+		nox_swprintf(&v17[0], internWStr("X %d"), *memmap.PtrUint32(0x5D4594, 1050012))
 		nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x852978, 0))
 		nox_xxx_drawString_43F6E0(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1063636)))), (*wchar2_t)(unsafe.Pointer(&v17[0])), v3+20, v4+9)
 		*memmap.PtrUint32(0x5D4594, 1049812) = uint32(v3 - 30)

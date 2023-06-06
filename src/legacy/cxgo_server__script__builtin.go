@@ -335,9 +335,9 @@ func nox_script_HitLocationGroup_515AE0() int32 {
 	v0 = nox_script_pop()
 	v4 = v3
 	v1 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v0))
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 int32, arg2 int32) {
-		nox_xxx_monsterActionMelee_515A30(arg1, (*float2)(unsafe.Pointer(uintptr(arg2))))
-	}, int32(uintptr(unsafe.Pointer(&v4))))
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 int32, arg2 unsafe.Pointer) {
+		nox_xxx_monsterActionMelee_515A30(arg1, (*float2)(arg2))
+	}, unsafe.Pointer(&v4))
 	return 0
 }
 func nox_script_HitFarLocation_515B30() int32 {
@@ -369,9 +369,9 @@ func nox_script_HitFarLocationGroup_515BF0() int32 {
 	v0 = nox_script_pop()
 	*(*uint64)(unsafe.Pointer(&v4[0])) = *(*uint64)(unsafe.Pointer(&v3[0]))
 	v1 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v0))
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 int32, arg2 int32) {
-		nox_xxx_monsterMissileAttack_515B80(arg1, (*uint32)(unsafe.Pointer(uintptr(arg2))))
-	}, int32(uintptr(unsafe.Pointer(&v4[0]))))
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 int32, arg2 unsafe.Pointer) {
+		nox_xxx_monsterMissileAttack_515B80(arg1, (*uint32)(arg2))
+	}, unsafe.Pointer(&v4[0]))
 	return 0
 }
 func nox_script_SetRoamFlag_515C40() int32 {
@@ -400,9 +400,9 @@ func nox_script_SetRoamFlagGroup_515CB0() int32 {
 	v1 = nox_script_pop()
 	v4 = v0
 	v2 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v1))
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, func(arg1 int32, arg2 int32) {
-		sub_515C80(arg1, (*uint8)(unsafe.Pointer(uintptr(arg2))))
-	}, int32(uintptr(unsafe.Pointer(&v4))))
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, func(arg1 int32, arg2 unsafe.Pointer) {
+		sub_515C80(arg1, (*uint8)(arg2))
+	}, unsafe.Pointer(&v4))
 	return 0
 }
 func nox_script_GiveExp_516190() int32 {

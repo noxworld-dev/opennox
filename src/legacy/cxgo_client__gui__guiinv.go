@@ -380,9 +380,11 @@ func sub_4627F0(a1 *uint32) int32 {
 		v72    float32
 		v73    int32
 		v74    int2
-		v75    [256]wchar2_t
-		v76    [256]wchar2_t
 	)
+	v75, free75 := alloc.Make([]wchar2_t{}, 256)
+	defer free75()
+	v76, freev76 := alloc.Make([]wchar2_t{}, 256)
+	defer freev76()
 	v73 = 1
 	var mpos nox_point = nox_client_getMousePos_4309F0()
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
@@ -523,7 +525,7 @@ LABEL_14:
 		if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(&v68), 4*0))))) != 0 && *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v27)), 40)) == ccall.FuncAddr(nox_xxx_effectDamageMultiplier_4E04C0) {
 			v69 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v27)), 44))
 		}
-		v28 = nox_xxx_calcBoltDamage_4EF1E0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v70), 4*0))))), 2239))), int32(uintptr(unsafe.Pointer(v26))))
+		v28 = nox_xxx_calcBoltDamage_4EF1E0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v70), 4*0))))), 2239))), unsafe.Pointer(v26))
 		v29 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v26), 4*1)))
 		v70 = float32(v28*float64(v69) + float64(v71) + float64(v72))
 		if uint32(v29) == *memmap.PtrUint32(0x5D4594, 1063648) && noxflags.HasGame(2048) {

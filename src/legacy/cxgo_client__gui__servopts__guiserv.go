@@ -317,8 +317,9 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 	var (
 		v19 [58]byte
 		v20 [58]byte
-		v21 [100]wchar2_t
 	)
+	v21, free21 := alloc.Make([]wchar2_t{}, 100)
+	defer free21()
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16399, 0, 0)
 	var v18 int32 = -1
 	*memmap.PtrUint32(0x5D4594, 1046552) = uint32(mode)
@@ -327,7 +328,7 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 		if it.Field_6 == 0 {
 			continue
 		}
-		if (sub_4CFFC0(int32(uintptr(unsafe.Pointer(it)))) & mode) == 0 {
+		if (sub_4CFFC0(unsafe.Pointer(it)) & mode) == 0 {
 			continue
 		}
 		libc.StrCpy(&v19[0], &it.Name[0])
@@ -389,45 +390,46 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 }
 func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	var (
-		v4          *uint32
-		v5          *byte
-		v7          int32
-		v8          int32
-		v9          int32
-		v10         *int32
-		v11         int32
-		v12         *uint32
-		v13         *uint32
-		v14         *uint32
-		v15         *uint32
-		v16         int32
-		v17         *uint32
-		v18         *byte
-		v19         int32
-		v20         int16
-		v21         bool
-		v22         *wchar2_t
-		v23         *wchar2_t
-		v24         *wchar2_t
-		v25         *byte
-		v26         *uint32
-		v27         int32
-		v28         int32
-		v29         *byte
-		v30         *uint32
-		v31         int32
-		v32         *wchar2_t
-		v33         int32
-		v34         uint32
-		v35         int32
-		v36         *byte
-		v37         *byte
-		v38         *wchar2_t
-		v39         *wchar2_t
-		WideCharStr [4]wchar2_t
-		v41         [100]byte
-		v42         [100]byte
+		v4  *uint32
+		v5  *byte
+		v7  int32
+		v8  int32
+		v9  int32
+		v10 *int32
+		v11 int32
+		v12 *uint32
+		v13 *uint32
+		v14 *uint32
+		v15 *uint32
+		v16 int32
+		v17 *uint32
+		v18 *byte
+		v19 int32
+		v20 int16
+		v21 bool
+		v22 *wchar2_t
+		v23 *wchar2_t
+		v24 *wchar2_t
+		v25 *byte
+		v26 *uint32
+		v27 int32
+		v28 int32
+		v29 *byte
+		v30 *uint32
+		v31 int32
+		v32 *wchar2_t
+		v33 int32
+		v34 uint32
+		v35 int32
+		v36 *byte
+		v37 *byte
+		v38 *wchar2_t
+		v39 *wchar2_t
+		v41 [100]byte
+		v42 [100]byte
 	)
+	WideCharStr, free := alloc.Make([]wchar2_t{}, 4)
+	defer free()
 	if a2 > 16391 {
 		if a2 == 16400 {
 			v28 = nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3))) - 10114

@@ -160,7 +160,7 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		}
 		if dword_5d4594_2650652 == 0 || (func() int32 {
 			sub_57A1E0(&v19[0], nil, nil, 4, 6128)
-			return sub_454000(int32(uintptr(unsafe.Pointer(&v19[6]))), v13)
+			return sub_454000(unsafe.Pointer(&v19[6]), v13)
 		}()) != 0 {
 			v15 = sub_4165B0()
 			if (noxflags.HasGame(64) || *(*byte)(unsafe.Add(unsafe.Pointer(v15), 52))&0x40 != 0) && v13 == 132 {

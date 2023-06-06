@@ -1670,7 +1670,7 @@ func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 			v7 = 1
 			v8 = 136
 			for {
-				if nox_xxx_spellIsValid_424B50(v7) && sub_454000(int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(a2), 24))))), v7) == 0 && nox_xxx_spellFlags_424A70(v7)&0x7000000 != 0 && (dword_5d4594_2650652 == 0 || sub_454000(int32(uintptr(unsafe.Pointer(&v22[0]))), v7) != 0 || sub_454000(int32(uintptr(unsafe.Pointer(&v20[0]))), v7) == 0) {
+				if nox_xxx_spellIsValid_424B50(v7) && sub_454000(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(a2), 24))), v7) == 0 && nox_xxx_spellFlags_424A70(v7)&0x7000000 != 0 && (dword_5d4594_2650652 == 0 || sub_454000(unsafe.Pointer(&v22[0]), v7) != 0 || sub_454000(unsafe.Pointer(&v20[0]), v7) == 0) {
 					v9 = nox_xxx_spellNameByN_424870(v7)
 					nox_sprintf(&v23[0], internCStr("%s %s \"%s\" %s\n"), "set", "spell", v9, "off")
 					nox_fs_fputs(v4, &v23[0])

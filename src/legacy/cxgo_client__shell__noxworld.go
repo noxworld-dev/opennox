@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
@@ -943,9 +944,10 @@ func sub_43B750() {
 }
 func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 	var (
-		wbuf [128]wchar2_t
-		buf  [332]byte
+		buf [332]byte
 	)
+	wbuf, wfree := alloc.Make([]wchar2_t{}, 128)
+	defer wfree()
 	if dword_587000_87408 != 0 {
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(nox_wol_wnd_gameList_815012))), 16397, uintptr(memmap.PtrOff(0x587000, 91164)), 4)
 		libc.StrNCpy(&buf[0], &srv.server_name[0], 15)

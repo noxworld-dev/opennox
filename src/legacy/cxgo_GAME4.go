@@ -3670,7 +3670,7 @@ func nox_xxx_netStopRaySpell_4FEF90(a1 int32, a2 *uint32) {
 				default:
 					return
 				}
-				nox_xxx_netSendPacket1_4E5390(math.MaxUint8, int32(uintptr(unsafe.Pointer(&v11[0]))), 7, 0, 1)
+				nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v11[0]), 7, 0, 1)
 				nox_xxx_netUnmarkMinimapSpec_417470(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))), 2)
 				nox_xxx_netUnmarkMinimapSpec_417470(int32(uintptr(unsafe.Pointer(a2))), 2)
 			}
@@ -3718,7 +3718,7 @@ func nox_xxx_netStartDurationRaySpell_4FF130(a1 int32) *byte {
 			v9 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))
 			*(*uint16)(unsafe.Pointer(&v11[5])) = uint16(v8)
 			v11[2] = byte(v9)
-			nox_xxx_netSendPacket1_4E5390(math.MaxUint8, int32(uintptr(unsafe.Pointer(&v11[0]))), 7, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v11[0]), 7, 0, 1)
 			nox_xxx_netMarkMinimapForAll_4174B0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))), 2)
 			result = nox_xxx_netMarkMinimapForAll_4174B0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48))), 2)
 		}
@@ -3741,7 +3741,7 @@ func nox_xxx_netStartDurationRaySpell_4FF130(a1 int32) *byte {
 		v7 = *(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))
 		*(*uint16)(unsafe.Pointer(&v11[5])) = uint16(v6)
 		*(*uint16)(unsafe.Pointer(&v11[3])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(v7))))
-		nox_xxx_netSendPacket1_4E5390(math.MaxUint8, int32(uintptr(unsafe.Pointer(&v11[0]))), 7, 0, 1)
+		nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v11[0]), 7, 0, 1)
 		nox_xxx_netMarkMinimapForAll_4174B0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))), 2)
 		result = nox_xxx_netMarkMinimapForAll_4174B0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48))), 2)
 	}
@@ -5451,7 +5451,7 @@ func nox_xxx_netUpdateRemotePlr_501CA0(a1p *server.Object) {
 	}
 	nox_xxx_netUpdateRemotePlr_501CA0_B((*server.Object)(unsafe.Pointer(uintptr(a1))), unsafe.Pointer(uintptr(v2)), v18)
 }
-func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedType int32, a3 func(int32, int32), a4 int32) {
+func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedType int32, a3 func(int32, unsafe.Pointer), a4 unsafe.Pointer) {
 	var (
 		i   *int32
 		v5  int32
@@ -6921,7 +6921,7 @@ func nox_xxx_netSendVote_506840(a1 int32) int32 {
 	var v2 [2]byte
 	v2[0] = 238
 	v2[1] = 7
-	return nox_xxx_netSendPacket1_4E5390(a1, int32(uintptr(unsafe.Pointer(&v2[0]))), 2, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v2[0]), 2, 0, 1)
 }
 func sub_506870(a1 int32, a2 int32, a3 *wchar2_t) int8 {
 	var result int8
@@ -7435,7 +7435,7 @@ func sub_507190(a1 int32, a2 int8) int32 {
 	v4[0] = 238
 	v4[1] = 6
 	v4[2] = byte(a2)
-	return nox_xxx_netSendPacket1_4E5390(a1, int32(uintptr(unsafe.Pointer(&v4[0]))), 3, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v4[0]), 3, 0, 1)
 }
 func sub_5071C0() int32 {
 	return bool2int32(dword_5d4594_1599656 != 0)

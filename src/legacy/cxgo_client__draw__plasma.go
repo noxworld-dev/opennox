@@ -193,10 +193,10 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	}
 	return result
 }
-func sub_4BA8B0(a1p, a2p *int2, a3p int32) {
+func sub_4BA8B0(a1p, a2p *int2, a3p unsafe.Pointer) {
 	a1 := (*int32)(unsafe.Pointer(a1p))
 	a2 := (*int32)(unsafe.Pointer(a2p))
-	a3 := (*int32)(unsafe.Pointer(uintptr(a3p)))
+	a3 := (*int32)(a3p)
 	var (
 		v3 int32
 		v4 *byte

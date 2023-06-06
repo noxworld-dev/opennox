@@ -22,7 +22,7 @@ func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
 	GetClient().Cli().Objs.AddIndex2D(asDrawable(d))
 }
 
-func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc func(*nox_drawable, int32), data int32) {
+func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc func(*nox_drawable, unsafe.Pointer), data unsafe.Pointer) {
 	if cfnc == nil {
 		return
 	}

@@ -366,7 +366,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v330 int32
 	var v331 int32
 	var v332 float32
-	var v333 int32
 	var v334 *wchar2_t
 	var v335 *wchar2_t
 	var v336 *wchar2_t
@@ -932,28 +931,27 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v367 = -1
 		*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))) = uint16(int16(v5 & math.MaxInt16))
 		if ((uint32(int32(v5)) >> 15) & 1) == 1 {
-			nox_xxx_clientEquipWeaponArmor_417AA0(int8(*data), int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))), int32(uintptr(unsafe.Pointer(&v367))))
+			nox_xxx_clientEquipWeaponArmor_417AA0(int8(*data), int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))), unsafe.Pointer(&v367))
 		} else {
-			nox_xxx_clientEquip_49A3D0(int8(*data), int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))), int32(uintptr(unsafe.Pointer(&v367))))
+			nox_xxx_clientEquip_49A3D0(int8(*data), int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))), unsafe.Pointer(&v367))
 		}
 		return 7
 	case 81, 82:
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(nox_client_isConnected_43C700())
 		if uint32(int32(v5)) == 0 {
-			goto LABEL_437
+			return 11
 		}
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))
 		v116 = int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3)))))
 		v117 = uint32(int32(v5))
 		v118 = uint16(int16(v5 & math.MaxInt16))
 		*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))) = v118
-		v333 = int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 7)))))
+		v333 := unsafe.Add(unsafe.Pointer(data), 7)
 		if ((v117 >> 15) & 1) == 1 {
 			nox_xxx_clientEquipWeaponArmor_417AA0(int8(*data), int32(v118), v116, v333)
 		} else {
 			nox_xxx_clientEquip_49A3D0(int8(*data), int32(v118), v116, v333)
 		}
-	LABEL_437:
 		return 11
 	case 83, 84:
 		if nox_client_isConnected_43C700() == 0 {
@@ -2211,7 +2209,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				dword_5d4594_1200768 = 1
 			}
 			alloc.Memcpy(unsafe.Add(unsafe.Pointer(v37), 24), unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 17))), 0x14)
-			sub_4540E0(int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v37), 24))))))
+			sub_4540E0(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v37), 24))))
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v37), 4*11))) = *(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 37))))
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v37), 4*12))) = *(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 41))))
 			if *(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 45)))) != 0 {
@@ -2285,7 +2283,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			}())))
 			v22 = int32(v5)
 			if uint32(int32(v5)) != 0 {
-				nox_xxx_spriteSetActiveMB_45A990_drawable(int32(v5))
+				nox_xxx_spriteSetActiveMB_45A990_drawable(unsafe.Pointer(uintptr(v5)))
 				v328 = float32(float64(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 3)))) * 16 / 10))
 				nox_xxx_spriteChangeIntensity_484D70_light_intensity(v22+136, v328)
 				nox_xxx_spriteSetFrameMB_45AB80(v22, int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))*8/50)

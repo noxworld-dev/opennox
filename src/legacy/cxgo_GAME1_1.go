@@ -217,7 +217,7 @@ func nox_xxx_teamRenameMB_418CD0(a1 *wchar2_t, a2 *wchar2_t) {
 			*(*uint16)(unsafe.Pointer(&v3[0])) = 1220
 			*(*uint32)(unsafe.Pointer(&v3[2])) = uint32(v2)
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v3[6])), a2)
-			nox_xxx_netSendPacket1_4E5390(159, int32(uintptr(unsafe.Pointer(&v3[0]))), 46, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v3[0]), 46, 0, 1)
 		}
 		nox_wcscpy(a1, a2)
 	}
@@ -236,7 +236,7 @@ func sub_418D80(a1 int32) {
 			v5[0] = 196
 			v5[1] = 5
 			*(*uint32)(unsafe.Pointer(&v5[2])) = uint32(v1)
-			nox_xxx_netSendPacket1_4E5390(159, int32(uintptr(unsafe.Pointer(&v5[0]))), 6, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v5[0]), 6, 0, 1)
 		}
 		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
 			v3 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515)))))
@@ -316,7 +316,7 @@ func nox_xxx_netChangeTeamID_419090(a1 int32, a2 int32) {
 			v4[1] = 8
 			*(*uint32)(unsafe.Pointer(&v4[2])) = uint32(v3)
 			*(*uint32)(unsafe.Pointer(&v4[6])) = uint32(v2)
-			nox_xxx_netSendPacket1_4E5390(159, int32(uintptr(unsafe.Pointer(&v4[0]))), 10, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v4[0]), 10, 0, 1)
 		}
 	}
 }
@@ -412,7 +412,7 @@ func nox_xxx_netChangeTeamMb_419570(a1p unsafe.Pointer, a2 int32) {
 					v4[0] = 196
 					v4[1] = 2
 					*(*uint32)(unsafe.Pointer(&v4[2])) = uint32(a2)
-					nox_xxx_netSendPacket1_4E5390(159, int32(uintptr(unsafe.Pointer(&v4[0]))), 6, 0, 1)
+					nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v4[0]), 6, 0, 1)
 				}
 				sub_418E40(unsafe.Pointer(v2), unsafe.Pointer(uintptr(a1)))
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*12)))--
@@ -446,7 +446,7 @@ func sub_4196D0(a1p unsafe.Pointer, a2p unsafe.Pointer, a3 int32, a4 int32) int3
 		v7[1] = 3
 		*(*uint32)(unsafe.Pointer(&v7[2])) = uint32(v4)
 		*(*uint16)(unsafe.Pointer(&v7[6])) = uint16(int16(a3))
-		nox_xxx_netSendPacket1_4E5390(159, int32(uintptr(unsafe.Pointer(&v7[0]))), 10, 0, 1)
+		nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v7[0]), 10, 0, 1)
 		sub_4571A0(a3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 57))))
 	}
 	v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))))))
@@ -483,7 +483,7 @@ func sub_4197C0(a1 *wchar2_t, a2 int32) {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) = *(*uint32)(unsafe.Pointer(&v4[12]))
 		*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*8))) = *(*uint16)(unsafe.Pointer(&v4[16]))
 		alloc.Memcpy(unsafe.Add(unsafe.Pointer(v3), 18), unsafe.Pointer(a1), uintptr(v4[15])*2)
-		nox_xxx_netSendPacket1_4E5390(a2, int32(uintptr(unsafe.Pointer(v3))), v2+18, 0, 1)
+		nox_xxx_netSendPacket1_4E5390(a2, unsafe.Pointer(v3), v2+18, 0, 1)
 		alloc.Free(v3)
 	}
 }
@@ -502,7 +502,7 @@ func sub_4198A0(a1 int32, a2 int32, a3 int32) {
 			*(*uint16)(unsafe.Pointer(&v5[6])) = uint16(int16(a3))
 			*(*uint32)(unsafe.Pointer(&v5[2])) = uint32(v4)
 			*(*uint16)(unsafe.Pointer(&v5[8])) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 4))
-			nox_xxx_netSendPacket1_4E5390(a2, int32(uintptr(unsafe.Pointer(&v5[0]))), 10, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(a2, unsafe.Pointer(&v5[0]), 10, 0, 1)
 		}
 	}
 }
@@ -3222,16 +3222,16 @@ func sub_421160(a1 int32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 136)) = 0
 	return result
 }
-func sub_4211D0(a1 int32) int32 {
+func sub_4211D0(a1 unsafe.Pointer) int32 {
 	var result int32
-	libc.StrCpy((*byte)(memmap.PtrOff(0x587000, 60364)), (*byte)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))
-	*memmap.PtrUint8(0x587000, 60464) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 104))
-	*memmap.PtrUint8(0x587000, 60465) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 105))
-	*memmap.PtrUint8(0x587000, 60466) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 106))
-	*memmap.PtrUint8(0x587000, 60490) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 130))
+	libc.StrCpy((*byte)(memmap.PtrOff(0x587000, 60364)), (*byte)(unsafe.Add(a1, 4)))
+	*memmap.PtrUint8(0x587000, 60464) = *(*uint8)(unsafe.Add(a1, 104))
+	*memmap.PtrUint8(0x587000, 60465) = *(*uint8)(unsafe.Add(a1, 105))
+	*memmap.PtrUint8(0x587000, 60466) = *(*uint8)(unsafe.Add(a1, 106))
+	*memmap.PtrUint8(0x587000, 60490) = *(*uint8)(unsafe.Add(a1, 130))
 	result = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 132)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 136)) = 0
+	*(*uint32)(unsafe.Add(a1, 132)) = 0
+	*(*uint32)(unsafe.Add(a1, 136)) = 0
 	return result
 }
 func sub_421230() *uint8 {
@@ -4976,9 +4976,9 @@ func nox_xxx_abilityNameToN_424D80(a1 *byte) int32 {
 	}
 	return v2
 }
-func sub_4254A0(a1 int32, a2 *uint8) int32 {
-	*(*uint32)(unsafe.Pointer(uintptr(a1))) = uint32(uintptr(unsafe.Pointer(a2)))
-	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = 0
+func sub_4254A0(a1 unsafe.Pointer, a2 *uint8) int32 {
+	*(*uint32)(a1) = uint32(uintptr(unsafe.Pointer(a2)))
+	*(*uint8)(unsafe.Add(a1, 4)) = 0
 	return int32(*a2) & 1
 }
 func sub_4254C0(a1 **uint8) bool {
@@ -4995,34 +4995,34 @@ func sub_4254C0(a1 **uint8) bool {
 	}
 	return ((1 << int32(*((*uint8)(unsafe.Add(unsafe.Pointer(a1), 4))))) & int32(**a1)) > 0
 }
-func sub_425500(a1 int32, a2 *uint8, a3 int8) *uint8 {
+func sub_425500(a1 unsafe.Pointer, a2 *uint8, a3 int8) *uint8 {
 	var result *uint8
 	result = a2
-	*(*uint32)(unsafe.Pointer(uintptr(a1))) = uint32(uintptr(unsafe.Pointer(a2)))
-	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = 0
+	*(*uint32)(a1) = uint32(uintptr(unsafe.Pointer(a2)))
+	*(*uint8)(unsafe.Add(a1, 4)) = 0
 	*a2 = uint8(a3)
 	return result
 }
-func sub_425520(a1 int32, a2 int8) int8 {
+func sub_425520(a1 unsafe.Pointer, a2 int8) int8 {
 	var (
 		v2     int8
 		v3     *uint8
 		result int8
 	)
-	v2 = int8(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))) + 1)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = uint8(v2)
+	v2 = int8(int32(*(*uint8)(unsafe.Add(a1, 4))) + 1)
+	*(*uint8)(unsafe.Add(a1, 4)) = uint8(v2)
 	if int32(v2) == 8 {
-		v3 = *(**uint8)(unsafe.Pointer(uintptr(a1)))
-		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = 0
-		*(*uint32)(unsafe.Pointer(uintptr(a1))) = uint32(uintptr(unsafe.Pointer(func() *uint8 {
+		v3 = *(**uint8)(a1)
+		*(*uint8)(unsafe.Add(a1, 4)) = 0
+		*(*uint32)(a1) = uint32(uintptr(unsafe.Pointer(func() *uint8 {
 			p := &v3
 			*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 			return *p
 		}())))
 		*v3 = 0
 	}
-	result = int8(int32(a2) << int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))))
-	**(**uint8)(unsafe.Pointer(uintptr(a1))) |= uint8(result)
+	result = int8(int32(a2) << int32(*(*uint8)(unsafe.Add(a1, 4))))
+	**(**uint8)(a1) |= uint8(result)
 	return result
 }
 func sub_425550(a1 *uint8, a2 *uint8, a3 int32) int32 {
@@ -5037,8 +5037,8 @@ func sub_425550(a1 *uint8, a2 *uint8, a3 int32) int32 {
 	)
 	v3 = 1
 	v4 = 0
-	v5 = int8(sub_4254A0(int32(uintptr(unsafe.Pointer(&v9[0]))), a1))
-	sub_425500(int32(uintptr(unsafe.Pointer(&v8[0]))), a2, v5)
+	v5 = int8(sub_4254A0(unsafe.Pointer(&v9[0]), a1))
+	sub_425500(unsafe.Pointer(&v8[0]), a2, v5)
 	if a3 == 1 {
 		return 1
 	}
@@ -5049,11 +5049,11 @@ func sub_425550(a1 *uint8, a2 *uint8, a3 int32) int32 {
 			*p++
 			return *p
 		}() % 7) == 0 {
-			sub_425520(int32(uintptr(unsafe.Pointer(&v8[0]))), 1)
+			sub_425520(unsafe.Pointer(&v8[0]), 1)
 			v3++
 		}
 		v10 = sub_4254C0((**uint8)(unsafe.Pointer(&v9[0])))
-		sub_425520(int32(uintptr(unsafe.Pointer(&v8[0]))), int8(bool2int32(v10)))
+		sub_425520(unsafe.Pointer(&v8[0]), int8(bool2int32(v10)))
 		v6--
 		if v6 == 0 {
 			break
@@ -5297,7 +5297,7 @@ func sub_425B30(a1 unsafe.Pointer, a2 int32) {
 	v3 = v2
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = uint32(a2)
 	sub_425770(unsafe.Pointer(v2))
-	nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40)), (*nox_list_item_t)(unsafe.Pointer(v3)))
+	nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Add(a1, 40)), (*nox_list_item_t)(unsafe.Pointer(v3)))
 }
 func sub_425B60(lpMem unsafe.Pointer, a2 int32) *byte {
 	var (

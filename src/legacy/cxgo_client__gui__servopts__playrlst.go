@@ -222,8 +222,9 @@ func sub_457010(a1 int32, a2 *wchar2_t) int32 {
 		v6     uint8
 		v7     uint8
 		v8     *wchar2_t
-		v9     [56]wchar2_t
 	)
+	v9, free9 := alloc.Make([]wchar2_t{}, 56)
+	defer free9()
 	v2 = sub_4165B0()
 	result = int32(dword_5d4594_1045684)
 	if dword_5d4594_1045684 != 0 {
@@ -258,8 +259,9 @@ func sub_457230(a1 *wchar2_t) *byte {
 		v5     int8
 		v6     *uint32
 		v7     *wchar2_t
-		v8     [56]wchar2_t
 	)
+	v8, free8 := alloc.Make([]wchar2_t{}, 56)
+	defer free8()
 	v1 = sub_4165B0()
 	result = *(**byte)(unsafe.Pointer(&dword_5d4594_1045684))
 	if dword_5d4594_1045684 != 0 {

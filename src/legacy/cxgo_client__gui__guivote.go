@@ -5,6 +5,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -36,8 +37,9 @@ func sub_48CB10(a1 int32) *uint32 {
 		v24    *wchar2_t
 		v25    int32
 		v26    *byte
-		v27    [256]wchar2_t
 	)
+	v27, free27 := alloc.Make([]wchar2_t{}, 256)
+	defer free27()
 	v25 = 0
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16399, 0, 0)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16399, 0, 0)

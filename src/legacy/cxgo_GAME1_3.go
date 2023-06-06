@@ -645,11 +645,11 @@ func sub_4417E0(a1 *wchar2_t, a2 *byte) {
 		v3 = &v4[libc.StrLen(&v4[0])]
 		*(*uint32)(unsafe.Pointer(v3)) = *memmap.PtrUint32(0x587000, 103292)
 		*(*byte)(unsafe.Add(unsafe.Pointer(v3), 4)) = v2
-		nox_swprintf(&v5[0], (*wchar2_t)(unsafe.Pointer(internCStr("%-20.20S\t\t"))), &v4[0])
+		nox_swprintf(&v5[0], internWStr("%-20.20S\t\t"), &v4[0])
 		nox_wcscat(a1, &v5[0])
 	}
 }
-func nox_xxx_doExecrul_4438A0(a1 int32) int32 {
+func nox_xxx_doExecrul_4438A0(a1 unsafe.Pointer) int32 {
 	var (
 		v1 *FILE
 		v2 *FILE
@@ -658,7 +658,7 @@ func nox_xxx_doExecrul_4438A0(a1 int32) int32 {
 		v6 [256]byte
 		v7 [128]wchar2_t
 	)
-	if a1 == 0 {
+	if a1 == nil {
 		return 0
 	}
 	v6[0] = 0
@@ -679,7 +679,7 @@ func nox_xxx_doExecrul_4438A0(a1 int32) int32 {
 				*v3 = 0
 			}
 			if v5[0] != 0 {
-				nox_swprintf(&v7[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &v5[0])
+				nox_swprintf(&v7[0], internWStr("%S"), &v5[0])
 				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_WHITE)), (*wchar2_t)(memmap.PtrOff(0x587000, 106956)), &v7[0])
 				nox_server_parseCmdText_443C80(&v7[0], 1)
 			}
@@ -958,8 +958,9 @@ func sub_4466F0(a1 *byte, a2 *uint8) *byte {
 func nox_xxx_motdAddSomeTextMB_446730(a1 *uint8) *uint8 {
 	var (
 		result *uint8
-		v2     [256]wchar2_t
 	)
+	v2, free := alloc.Make([]wchar2_t{}, 256)
+	defer free()
 	result = a1
 	if int32(*a1) != 0 {
 		nox_swprintf(&v2[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), a1)

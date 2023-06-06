@@ -1,0 +1,62 @@
+rules:
+  - id: taking-arg-address
+    languages: [go]
+    message: Taking address of an argument variable $X in an unsafe way!
+    severity: ERROR
+    pattern: |
+      func $FUNC(..., $X $TYPE, ...) {
+          ...
+          uintptr(unsafe.Pointer(&$X))
+          ...
+      }
+  - id: taking-var-address
+    languages: [go]
+    message: Taking address of a local variable $X in an unsafe way!
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          var $X $TYPE
+          ...
+          uintptr(unsafe.Pointer(&$X))
+          ...
+      - pattern: |
+          var $X $TYPE
+          ...
+          uintptr(unsafe.Pointer(&$X.$FIELD))
+          ...
+      - pattern: |
+          var $X $TYPE
+          ...
+          uintptr(unsafe.Pointer(&$X[$IND]))
+          ...
+
+  - id: ptr-var-reconvert
+    languages: [go]
+    message: Pointer $X is converted to uintptr and back!
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          var $X unsafe.Pointer
+          ...
+          unsafe.Pointer(uintptr($X))
+          ...
+      - pattern: |
+          func $FUNC(..., $X unsafe.Pointer, ...) {
+            ...
+            unsafe.Pointer(uintptr($X))
+            ...
+          }
+
+  - id: nox_xxx_netSendPacket1_4E5390-int-addr
+    languages: [go]
+    message: Passing non-pointer variable to nox_xxx_netSendPacket1_4E5390.
+    severity: ERROR
+    pattern: nox_xxx_netSendPacket1_4E5390($A1, int32(uintptr(unsafe.Pointer($X))), $A3, $A4, $A5)
+    fix: nox_xxx_netSendPacket1_4E5390($A1, unsafe.Pointer($X), $A3, $A4, $A5)
+
+  - id: intern-wstring-conv
+    languages: [go]
+    message: Invalid use of interned string.
+    severity: ERROR
+    pattern: (*wchar2_t)(unsafe.Pointer(internCStr($STR)))
+    fix: internWStr($STR)

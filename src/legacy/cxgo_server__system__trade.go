@@ -99,7 +99,7 @@ func sub_50F0F0(a1 int32, a2 int32) int32 {
 	*(*uint16)(unsafe.Pointer(&v6[52])) = 0
 	libc.StrCpy(&v6[54], (*byte)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 692)))), 1684)))
 	*(*uint16)(unsafe.Pointer(&v6[2])) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 4))
-	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 276)))), 2064))), int32(uintptr(unsafe.Pointer(&v6[0]))), 86, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 276)))), 2064))), unsafe.Pointer(&v6[0]), 86, 0, 1)
 }
 func sub_50F1A0(a1 int32, a2 int32) int32 {
 	var (
@@ -115,20 +115,20 @@ func sub_50F1A0(a1 int32, a2 int32) int32 {
 	if a1 != v2 {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)))&4 != 0 {
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v8[2])), (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 748)))), 276)))), 4704)))
-			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), int32(uintptr(unsafe.Pointer(&v8[0]))), 52, 0, 1)
+			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, 0, 1)
 		}
 		v6 = sub_4E39F0_obj_db((*server.Object)(unsafe.Pointer(*(***byte)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)))))
 	} else {
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)))
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8)))&4 != 0 {
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v8[2])), (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 748)))), 276)))), 4704)))
-			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), int32(uintptr(unsafe.Pointer(&v8[0]))), 52, 0, 1)
+			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, 0, 1)
 		}
 		v6 = sub_4E39F0_obj_db((*server.Object)(unsafe.Pointer(uintptr(v4))))
 	}
 	nox_wcsncpy((*wchar2_t)(unsafe.Pointer(&v8[2])), v6, 0x18)
 	*(*uint16)(unsafe.Pointer(&v8[50])) = 0
-	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), int32(uintptr(unsafe.Pointer(&v8[0]))), 52, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, 0, 1)
 }
 func nox_xxx_servSendShopItems_50F280(a1 int32, a2 int32) int32 {
 	var (
@@ -181,7 +181,7 @@ func sub_50FAE0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	} else {
 		*(*uint32)(unsafe.Pointer(&v11[11])) = math.MaxUint32
 	}
-	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)))), 2064))), int32(uintptr(unsafe.Pointer(&v11[0]))), 15, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)))), 2064))), unsafe.Pointer(&v11[0]), 15, 0, 1)
 }
 func sub_50FD60(a1 *uint32, a2 int32) int32 {
 	var (

@@ -21,7 +21,7 @@ func nox_xxx_wndStaticDrawNoImage_488D00(win *gui.Window, draw *nox_window_data)
 }
 
 func Nox_gui_newScrollListBox_4A4310(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.ScrollListBoxData) *gui.Window {
-	return asWindow(nox_gui_newScrollListBox_4A4310((*gui.Window)(par.C()), nox_window_flags(status), px, py, w, h, int32(uintptr(draw.C())), (*nox_scrollListBox_data)(unsafe.Pointer(tdata))))
+	return asWindow(nox_gui_newScrollListBox_4A4310((*gui.Window)(par.C()), nox_window_flags(status), px, py, w, h, draw.C(), (*nox_scrollListBox_data)(unsafe.Pointer(tdata))))
 }
 
 func Nox_gui_newEntryField_488500(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.EntryFieldData) *gui.Window {

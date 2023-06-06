@@ -22,7 +22,7 @@ func nox_xxx_netAbilityReport_4D8060(a1 int32, a2 int32, a3 int32) int32 {
 		if a3 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 2)) |= 0x80
 		}
-		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 276)))), 2064))), int32(uintptr(unsafe.Pointer(&a1))), 3, 0, 1)
+		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 276)))), 2064))), unsafe.Pointer(&a1), 3, 0, 1)
 	}
 	return result
 }

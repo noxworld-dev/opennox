@@ -2126,8 +2126,8 @@ func sub_453FA0(a1 int32, a2 int32, a3 int32) int32 {
 	}
 	return result
 }
-func sub_454000(a1 int32, a2 int32) int32 {
-	return bool2int32((*(*uint32)(unsafe.Pointer(uintptr(a1 + ((a2/32)&math.MaxUint8)*4))) & uint32(1<<(a2%32))) != 0)
+func sub_454000(a1 unsafe.Pointer, a2 int32) int32 {
+	return bool2int32((*(*uint32)(unsafe.Add(a1, ((a2/32)&math.MaxUint8)*4)) & uint32(1<<(a2%32))) != 0)
 }
 func sub_454040(a1 *uint32) int32 {
 	var (
@@ -2169,7 +2169,7 @@ func sub_454040(a1 *uint32) int32 {
 	}
 	return result
 }
-func sub_4540E0(a1 int32) int32 {
+func sub_4540E0(a1 unsafe.Pointer) int32 {
 	var (
 		v1     int32
 		result int32
@@ -2213,7 +2213,7 @@ func sub_454120() int8 {
 		}
 		v1 += 524
 		if v3 != 0 {
-			v5 = sub_454000(int32(uintptr(memmap.PtrOff(0x5D4594, 1045488))), v3) == 0
+			v5 = sub_454000(memmap.PtrOff(0x5D4594, 1045488), v3) == 0
 			v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*9)))
 			if !v5 {
 				*((*uint8)(unsafe.Pointer(&v6))) = uint8(int8(v6 | 4))
@@ -2422,10 +2422,11 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 	var v45 *wchar2_t
 	var v46 *wchar2_t
 	var v47 int32
-	var WideCharStr [8]wchar2_t
 	var v49 *byte
 	var v50 *byte
 	var v51 *byte
+	WideCharStr, free := alloc.Make([]wchar2_t{}, 8)
+	defer free()
 	switch a2 {
 	case 16387:
 		v43 = int32(a4)
@@ -2791,13 +2792,15 @@ func sub_4557D0(a1 int32) int32 {
 }
 func sub_455800() *int32 {
 	var (
-		result      *int32
-		v1          int32
-		i           *int32
-		j           *int32
-		WideCharStr [10]wchar2_t
-		v5          [26]wchar2_t
+		result *int32
+		v1     int32
+		i      *int32
+		j      *int32
 	)
+	WideCharStr, free1 := alloc.Make([]wchar2_t{}, 10)
+	defer free1()
+	v5, free2 := alloc.Make([]wchar2_t{}, 26)
+	defer free2()
 	result = *(**int32)(unsafe.Pointer(&dword_5d4594_1045516))
 	if dword_5d4594_1045516 != 0 {
 		v1 = nox_xxx_servGetPlrLimit_409FA0()
@@ -2815,7 +2818,7 @@ func sub_455800() *int32 {
 				if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(j), 72)))) != 0 {
 					nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045528))))), 16397, uintptr(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(j), 4*3)))), math.MaxUint32)
 				} else {
-					nox_swprintf(&v5[0], (*wchar2_t)(unsafe.Pointer(internCStr("*%s"))), (*int32)(unsafe.Add(unsafe.Pointer(j), 4*3)))
+					nox_swprintf(&v5[0], internWStr("*%s"), (*int32)(unsafe.Add(unsafe.Pointer(j), 4*3)))
 					nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045528))))), 16397, uintptr(unsafe.Pointer(&v5[0])), math.MaxUint32)
 				}
 				result = sub_416910(j)
@@ -3464,7 +3467,8 @@ func sub_4573B0() {
 	*memmap.PtrUint32(0x5D4594, 1045696) = 0
 }
 func sub_457460(a1 int32) {
-	var WideCharStr [16]wchar2_t
+	WideCharStr, free := alloc.Make([]wchar2_t{}, 16)
+	defer free()
 	nox_itow(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 54))), &WideCharStr[0], 10)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046516))))), 16414, uintptr(unsafe.Pointer(&WideCharStr[0])), 0)
 	nox_itow(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))), &WideCharStr[0], 10)
@@ -3480,26 +3484,28 @@ func nox_xxx_guiServerOptionsTryHide_4574D0() int32 {
 }
 func sub_457B60(a1 int32) int32 {
 	var (
-		v1          *byte
-		v2          *uint32
-		v3          *byte
-		v4          uint16
-		v5          *byte
-		v6          *uint32
-		v7          uint16
-		v8          uint8
-		v9          *uint32
-		v10         *uint32
-		v11         *uint32
-		v12         int32
-		v13         *uint32
-		v14         int32
-		v15         *uint32
-		v16         int32
-		v17         uint32
-		WideCharStr [16]wchar2_t
-		v20         [100]wchar2_t
+		v1  *byte
+		v2  *uint32
+		v3  *byte
+		v4  uint16
+		v5  *byte
+		v6  *uint32
+		v7  uint16
+		v8  uint8
+		v9  *uint32
+		v10 *uint32
+		v11 *uint32
+		v12 int32
+		v13 *uint32
+		v14 int32
+		v15 *uint32
+		v16 int32
+		v17 uint32
 	)
+	WideCharStr, free1 := alloc.Make([]wchar2_t{}, 16)
+	defer free1()
+	v20, free2 := alloc.Make([]wchar2_t{}, 100)
+	defer free2()
 	v1 = nox_xxx_serverOptionsGetServername_40A4C0()
 	nox_swprintf(&v20[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), v1)
 	nox_window_call_field_94_fnc(dword_5d4594_1046512, 16414, uintptr(unsafe.Pointer(&v20[0])), 0)
@@ -3900,10 +3906,10 @@ func sub_459870() *byte {
 	return (*byte)(memmap.PtrOff(0x5D4594, 1045956))
 }
 func sub_459A40(a1 *byte) {
-	var (
-		v2 [100]byte
-		v3 [100]wchar2_t
-	)
+	v2, free2 := alloc.Make([]byte{}, 100)
+	defer free2()
+	v3, free3 := alloc.Make([]wchar2_t{}, 100)
+	defer free3()
 	libc.StrNCpy(&v2[0], a1, 0xF)
 	v2[15] = 0
 	nox_swprintf(&v3[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), &v2[0])
@@ -4042,11 +4048,8 @@ func sub_45A0A0(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_spriteSetActiveMB_45A990_drawable(a1 int32) int32 {
-	var result int32
-	result = a1
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 120)) |= 4
-	return result
+func nox_xxx_spriteSetActiveMB_45A990_drawable(a1 unsafe.Pointer) {
+	*(*uint32)(unsafe.Add(a1, 120)) |= 4
 }
 func nox_xxx_cliDestroyObj_45A9A0(a1 int32) int32 {
 	var result int32
@@ -5262,7 +5265,7 @@ func nox_xxx_bookFillAll_45D570(a1 int32, a2 int32) {
 					a3.field_4 = -500
 					a4.field_0 = 350
 					*memmap.PtrUint32(0x5D4594, 1046680) = 0
-					sub_4BEDE0((*int2)(memmap.PtrOff(0x5D4594, 1046844)), (*int2)(memmap.PtrOff(0x5D4594, 1046668)), &a3, &a4, 19, 0.0, sub_45D7D0, 0)
+					sub_4BEDE0((*int2)(memmap.PtrOff(0x5D4594, 1046844)), (*int2)(memmap.PtrOff(0x5D4594, 1046668)), &a3, &a4, 19, 0.0, sub_45D7D0, nil)
 					*memmap.PtrUint32(0x5D4594, 1046628) = 0
 					obj_5d4594_1046620.field_0 = *mem_getFloatPtr(0x5D4594, 1046692) - *mem_getFloatPtr(0x5D4594, 1046684)
 					obj_5d4594_1046620.field_4 = *mem_getFloatPtr(0x5D4594, 1046696) - *mem_getFloatPtr(0x5D4594, 1046688)
@@ -5295,7 +5298,7 @@ func nox_xxx_bookFillAll_45D570(a1 int32, a2 int32) {
 		}
 	}
 }
-func sub_45D7D0(a1p, a2p *int2, _ int32) {
+func sub_45D7D0(a1p, a2p *int2, _ unsafe.Pointer) {
 	a1 := (*int32)(unsafe.Pointer(a1p))
 	a2 := (*int32)(unsafe.Pointer(a2p))
 	var (

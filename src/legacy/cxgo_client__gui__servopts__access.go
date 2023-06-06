@@ -6,6 +6,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -50,21 +51,22 @@ func sub_454640() int32 {
 }
 func sub_454740() *int32 {
 	var (
-		v0          *byte
-		v1          *uint32
-		v2          *wchar2_t
-		v3          *uint32
-		v4          *uint32
-		v5          *uint32
-		v6          *wchar2_t
-		v7          *wchar2_t
-		v8          *wchar2_t
-		v9          int8
-		v10         int32
-		v11         int32
-		i           *byte
-		WideCharStr [18]wchar2_t
+		v0  *byte
+		v1  *uint32
+		v2  *wchar2_t
+		v3  *uint32
+		v4  *uint32
+		v5  *uint32
+		v6  *wchar2_t
+		v7  *wchar2_t
+		v8  *wchar2_t
+		v9  int8
+		v10 int32
+		v11 int32
+		i   *byte
 	)
+	WideCharStr, free := alloc.Make([]wchar2_t{}, 18)
+	defer free()
 	v0 = (*byte)(sub_416640())
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10136)))
 	v2 = nox_xxx_sysopGetPass_40A630()

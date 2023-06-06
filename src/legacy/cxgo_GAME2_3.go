@@ -1295,7 +1295,7 @@ func nox_xxx_spriteCreate_48E970(a1 int32, a2 uint32, a3 int32, a4 int32) *uint3
 			sub_459DD0((*nox_drawable)(unsafe.Pointer(uintptr(v8))), 1)
 		}
 	}
-	nox_xxx_spriteSetActiveMB_45A990_drawable(int32(uintptr(unsafe.Pointer(v7))))
+	nox_xxx_spriteSetActiveMB_45A990_drawable(unsafe.Pointer(v7))
 	nox_xxx_sprite_49BA10((*nox_drawable)(unsafe.Pointer(v7)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*80)) = gameFrame()
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*122)) = 0
@@ -1925,7 +1925,7 @@ func sub_495500(a1 *int32) *int32 {
 		v6 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))))
 		if v6 != nil {
 			if v3 != 0 {
-				nox_swprintf(&v28[0], (*wchar2_t)(unsafe.Pointer(internCStr("+%s"))), (*byte)(unsafe.Add(unsafe.Pointer(v6), 4704)))
+				nox_swprintf(&v28[0], internWStr("+%s"), (*byte)(unsafe.Add(unsafe.Pointer(v6), 4704)))
 			} else {
 				nox_swprintf(&v28[0], (*wchar2_t)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(wchar2_t(0))*2352)))
 			}
@@ -4921,7 +4921,7 @@ func nox_npc_set_328(id int32, a2 int32) *nox_npc {
 	}
 	return p
 }
-func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 int32) *byte {
+func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) *byte {
 	var (
 		npc *byte
 		k   *uint32
@@ -4953,7 +4953,7 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 int32) *byte {
 		v13 = (**byte)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v12), 36))))
 		*((*uint32)(unsafe.Add(unsafe.Pointer(npc), 4*326))) |= uint32(a3)
 		for j = 0; j < 4; j++ {
-			npc = (*byte)(nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Pointer(uintptr(j + a4))))))
+			npc = (*byte)(nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, j)))))
 			*v13 = npc
 			v13 = (**byte)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof((*byte)(nil))*1))
 		}
@@ -4973,7 +4973,7 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 int32) *byte {
 		v8 = (**byte)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v7), 684))))
 		*((*uint32)(unsafe.Add(unsafe.Pointer(npc), 4*327))) |= uint32(a3)
 		for l = 0; l < 4; l++ {
-			npc = (*byte)(nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Pointer(uintptr(l + a4))))))
+			npc = (*byte)(nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, l)))))
 			*v8 = npc
 			v8 = (**byte)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof((*byte)(nil))*1))
 		}
@@ -5730,7 +5730,7 @@ func sub_49FDB0(a1 int32) {
 						sub_420DA0(*mem_getFloatPtr(0x587000, uint32(v6)+165360), *mem_getFloatPtr(0x587000, uint32(v6)+165364))
 					}
 					libc.StrCpy(&v8[4], *((**byte)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*byte)(nil))*3))))
-					sub_4211D0(int32(uintptr(unsafe.Pointer(&v8[0]))))
+					sub_4211D0(unsafe.Pointer(&v8[0]))
 					sub_4214D0()
 					v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 16))
 					v7++
@@ -5747,7 +5747,7 @@ func sub_49FDB0(a1 int32) {
 					sub_420DA0(*mem_getFloatPtr(0x587000, uint32(v3)+165104), *mem_getFloatPtr(0x587000, uint32(v3)+165108))
 				}
 				libc.StrCpy(&v8[4], *((**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*3))))
-				sub_4211D0(int32(uintptr(unsafe.Pointer(&v8[0]))))
+				sub_4211D0(unsafe.Pointer(&v8[0]))
 				sub_4214D0()
 				v1 = (*uint8)(unsafe.Add(unsafe.Pointer(v1), 16))
 				if int32(uintptr(unsafe.Pointer(v1))) >= int32(uintptr(memmap.PtrOff(0x587000, 166016))) {
@@ -5975,19 +5975,21 @@ func sub_4A0390() *int32 {
 		v0 *uint32
 		v1 *int32
 		v2 *int32
-		v4 [3]int32
 		v5 *uint32
 	)
+	v4, free4 := alloc.Make([]int32{}, unsafe.Sizeof(nox_list_item_t{}))
+	defer free4()
 	nox_common_list_clear_425760((*nox_list_item_t)(unsafe.Pointer(&v4[0])))
 	v0 = (*uint32)(unsafe.Pointer(nox_gui_wol_servers_list.field_1))
 	v4[0] = int32(uintptr(unsafe.Pointer(nox_gui_wol_servers_list.field_0)))
 	v5 = (*uint32)(unsafe.Pointer(nox_gui_wol_servers_list.field_1))
 	if nox_gui_wol_servers_list.field_0 != nil {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(nox_gui_wol_servers_list.field_0), 4)) = uint32(uintptr(unsafe.Pointer(&v4[0])))
+		// FIXME: this is suspicious, why it's recording local variable to this list?
+		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(nox_gui_wol_servers_list.field_0), 4)) = unsafe.Pointer(&v4[0])
 		v0 = v5
 	}
 	if v0 != nil {
-		*v0 = uint32(uintptr(unsafe.Pointer(&v4[0])))
+		*(*unsafe.Pointer)(unsafe.Pointer(v0)) = unsafe.Pointer(&v4[0])
 	}
 	nox_common_list_clear_425760(&nox_gui_wol_servers_list)
 	v1 = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(&v4[0])))))
