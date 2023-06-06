@@ -1771,7 +1771,7 @@ func sub_50CB00() int32 {
 func sub_50CB10() unsafe.Pointer {
 	return dword_5d4594_2386176
 }
-func sub_50CB20(a1 int32, a2 *float32) int32 {
+func sub_50CB20(a1 int32, a2 *float32) unsafe.Pointer {
 	var (
 		v2  int32
 		v3  float64
@@ -1819,7 +1819,7 @@ func sub_50CB20(a1 int32, a2 *float32) int32 {
 			if int32(nox_server_xxx_1599716[int32(uint16(int16(v8)))+(v7<<8)].field_8)&0x40 != 0 && sub_50B870(a1, v7, v8) == 0 {
 				v18.field_0 = float32(float64(v7*23 + 11))
 				v18.field_4 = float32(float64(v8*23 + 11))
-				return int32(uintptr(unsafe.Pointer(sub_518740(&v18, 0x80))))
+				return unsafe.Pointer(sub_518740(&v18, 0x80))
 			}
 			v9 = (*uint8)(memmap.PtrOff(0x587000, 234284))
 			for {
@@ -1856,7 +1856,7 @@ func sub_50CB20(a1 int32, a2 *float32) int32 {
 			break
 		}
 	}
-	return 0
+	return nil
 }
 func nox_xxx_creatureSetDetailedPath_50D220(a1 int32, a2 int32) int32 {
 	var (
