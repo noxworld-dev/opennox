@@ -895,7 +895,7 @@ func sub_478C80() int32 {
 				if *(*uint32)(unsafe.Pointer(v2)) != 0 {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 12)) = uint32(v3 + 20)
 					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 16)) = uint32(v1 + 25)
-					ccall.AsFunc[func(*uint8, uint32)](unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 300))((*uint8)(memmap.PtrOff(0x5D4594, 1098492)), *((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))
+					ccall.AsFunc[func(*uint8, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 300)))((*uint8)(memmap.PtrOff(0x5D4594, 1098492)), *((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))
 					if v8 < *((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*33))) {
 						nox_client_drawRectFilledAlpha_49CF10(v3-5, v1, 50, 50)
 					}
@@ -4740,7 +4740,7 @@ func sub_4873C0(a3 unsafe.Pointer) {
 						return v17
 					}()) != 0 || sub_486550((*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 16))) != 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 116)) != 0 && sub_486550(*(**uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 116))) != 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 112)) != 0 && sub_486550(*(**uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 112))) != 0 {
 						sub_4BD840(v12)
-						ccall.AsFunc[func(int32)](unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 172)))), 32))(v12)
+						ccall.AsFunc[func(int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 172)))), 32)))(v12)
 					}
 				}
 				v12 = v13

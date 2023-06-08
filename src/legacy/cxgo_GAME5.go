@@ -1981,7 +1981,7 @@ func nox_xxx_collide_548740() {
 		}
 		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 12)))
 		if v2 == 6 {
-			ccall.AsFunc[func(uint32, uint32, uint32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 8)))), 716))(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 8)), 0, 0, 2, 12)
+			ccall.AsFunc[func(uint32, uint32, uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 8)))), 716)))(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 8)), 0, 0, 2, 12)
 			nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 8))))))
 		} else if v2 != 0 {
 			v3.field_0 = -*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 16))
@@ -2405,7 +2405,7 @@ func sub_549270(it *server.Object, data unsafe.Pointer) {
 				v12.field_8 = v10
 				v12.field_C = v11
 				if nox_xxx_mapTraceRay_535250(&v12, nil, nil, 5) != 0 {
-					ccall.AsFunc[func(int32, int32, int32, uint32, uint32)](unsafe.Add(unsafe.Pointer(uintptr(a1)), 716))(a1, v2, v2, *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 484)))), 116)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 484)))), 124)))
+					ccall.AsFunc[func(int32, int32, int32, uint32, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 716)))(a1, v2, v2, *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 484)))), 116)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 484)))), 124)))
 					nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 56)), (*server.Object)(unsafe.Pointer(uintptr(a1))), *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 484)))), 120)))
 					*memmap.PtrUint32(0x5D4594, 2491556) = 1
 				}
@@ -2642,7 +2642,7 @@ func nox_xxx_monsterAttackAreaDamage_549860(it *server.Object, data unsafe.Point
 				v7.field_8 = v5
 				v7.field_C = v6
 				if nox_xxx_mapTraceRay_535250(&v7, nil, nil, 5) != 0 {
-					ccall.AsFunc[func(int32, int32, int32, uint32, uint32)](unsafe.Add(unsafe.Pointer(uintptr(a1)), 716))(a1, v2, v2, *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 484)))), 116)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 484)))), 124)))
+					ccall.AsFunc[func(int32, int32, int32, uint32, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 716)))(a1, v2, v2, *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 484)))), 116)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 484)))), 124)))
 					if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))&6 != 0 {
 						*memmap.PtrUint32(0x5D4594, 2491576) = 1
 					}
@@ -2685,7 +2685,7 @@ func nox_xxx_strikeWasp_549980(a1 float32) int32 {
 	if nox_xxx_mapTraceRay_535250(&v8, nil, nil, 5) == 0 {
 		return 0
 	}
-	ccall.AsFunc[func(unsafe.Pointer, uint32, uint32, uint32, uint32)](unsafe.Add(unsafe.Pointer(uintptr(v3)), 716))(v3, *(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), *(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 116)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 124)))
+	ccall.AsFunc[func(unsafe.Pointer, uint32, uint32, uint32, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 716)))(v3, *(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), *(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 116)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 124)))
 	if sub_549690(*(*int32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), v3) != 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(v3))), internCStr("aifunc.c:PoisonedByWasp"), 0)
 	}

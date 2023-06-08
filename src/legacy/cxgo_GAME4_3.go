@@ -257,7 +257,7 @@ LABEL_55:
 			nox_xxx_netStartDurationRaySpell_4FF130(int32(uintptr(unsafe.Pointer(v21))))
 		}
 		if v20 > 0 {
-			ccall.AsFunc[func(uint32, uint32, uint32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)))), 716))(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(source)), 16)), 0, v20, 17)
+			ccall.AsFunc[func(uint32, uint32, uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)))), 716)))(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(source)), 16)), 0, v20, 17)
 		}
 		v24 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)))
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v24)), 16))&0x8020 != 0 {
@@ -388,7 +388,7 @@ func nox_xxx_lightningSpellTrapEffect_530020(it *server.Object, data unsafe.Poin
 						if nox_xxx_mapTraceRay_535250(&v9, nil, nil, 9) != 0 {
 							v8 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("LightningGlyphDamage")))
 							v6 = int32(v8)
-							ccall.AsFunc[func(int32, uint32, uint32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a1)), 716))(a1, 0, 0, v6, 17)
+							ccall.AsFunc[func(int32, uint32, uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 716)))(a1, 0, 0, v6, 17)
 							nox_xxx_netSendPointFx_522FF0(-127, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56)))
 							v7 = nox_xxx_spellGetAud44_424800(43, 0)
 							nox_xxx_aud_501960(v7, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -1418,7 +1418,7 @@ LABEL_A:
 		}
 		v20 = float32(v9)
 		v10 = int32(v20)
-		ccall.AsFunc[func(uint32, uint32, uint32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))), 716))(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16)), 0, v10, 14)
+		ccall.AsFunc[func(uint32, uint32, uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))), 716)))(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16)), 0, v10, 14)
 		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 16))&0x8020 != 0 {
 			nox_xxx_netSendPointFx_522FF0(-125, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 56)))
@@ -2014,7 +2014,7 @@ func nox_xxx_mobActionMeleeAtt_532440(obj *server.Object) {
 		}
 	} else {
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 484)))
-		v5 := ccall.AsFunc[func(unsafe.Pointer) int32](unsafe.Add(unsafe.Pointer(uintptr(v4)), 236))
+		v5 := ccall.AsFunc[func(unsafe.Pointer) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 236)))
 		if v5 != nil {
 			if uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 481))) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 108)) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 482))) == 0 {
 				v7 = v5(a1)
@@ -4004,7 +4004,7 @@ func nox_xxx_playerPreAttackEffects_538290(a1 unsafe.Pointer, a2 unsafe.Pointer,
 					for {
 						v8 = *v7
 						if *v7 != 0 {
-							v9 := ccall.AsFunc[func(int32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)](unsafe.Add(unsafe.Pointer(uintptr(v8)), 52))
+							v9 := ccall.AsFunc[func(int32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 52)))
 							if v9 != nil {
 								v9(v8, a3, a2, v6, a4)
 							}
@@ -5025,7 +5025,7 @@ func nox_xxx_shootApplyEffects_539F40(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 i
 			if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 52)) == ccall.FuncAddr(nox_xxx_recoilEffect_4E0640) {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 12)) = uint32(v6)
 			} else {
-				v7 := ccall.AsFunc[func(int32, unsafe.Pointer, unsafe.Pointer, int32, int32) int32](unsafe.Add(unsafe.Pointer(uintptr(v6)), 40))
+				v7 := ccall.AsFunc[func(int32, unsafe.Pointer, unsafe.Pointer, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 40)))
 				if ccall.FuncAddr(v7) == ccall.FuncAddr(nox_xxx_effectProjectileSpeed_4E09B0) {
 					v7(v6, v4, a1, 0, v3)
 				}
@@ -7310,7 +7310,7 @@ func sub_53D8C0(it *server.Object, data unsafe.Pointer) {
 		if nox_xxx_mapTraceRay_535250(&v8, nil, nil, 5) != 0 {
 			v7 = nox_common_randomInt_415FA0(3, 10)
 			v5 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a2)))))))
-			ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a1)), 716))(a1, v5, a2, v7, 5)
+			ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 716)))(a1, v5, a2, v7, 5)
 			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a2)))))))
 			if nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(unsafe.Pointer(uintptr(v6))), (*server.Object)(unsafe.Pointer(uintptr(a1)))) != 0 {
 				nox_xxx_activatePoison_4EE7E0(a1, 1, 1)
@@ -7354,7 +7354,7 @@ func nox_xxx_toxicCloudPoison_53D9D0(it *server.Object, data unsafe.Pointer) {
 		v7.field_C = v4
 		if nox_xxx_mapTraceRay_535250(&v7, nil, nil, 5) != 0 {
 			v5 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a2)))))))
-			ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, uint32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a1)), 716))(a1, v5, a2, 0, 5)
+			ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, uint32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 716)))(a1, v5, a2, 0, 5)
 			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a2)))))))
 			if nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(unsafe.Pointer(uintptr(v6))), (*server.Object)(unsafe.Pointer(uintptr(a1)))) != 0 {
 				nox_xxx_activatePoison_4EE7E0(a1, 1, 1)

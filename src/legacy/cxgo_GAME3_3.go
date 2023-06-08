@@ -3265,7 +3265,7 @@ LABEL_14:
 			sub_4E86E0(a1, (*float32)(unsafe.Pointer(uintptr(a2))))
 		}
 		v5 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-		ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v5, a1, v4, 2)
+		ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v5, a1, v4, 2)
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 8))&0x20006 != 0 {
 			nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(a1))), (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 72)))
 			goto LABEL_26
@@ -3412,7 +3412,7 @@ func nox_xxx_collideProjectileSpark_4E8880(obj *server.Object, obj2 *server.Obje
 	if a2 != 0 {
 		v9 = *v2
 		v3 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-		if int32(ccall.AsFunc[func(int32, int32, int32, int32, int32) uint8](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v3, a1, v9, 11)) != 0 {
+		if int32(ccall.AsFunc[func(int32, int32, int32, int32, int32) uint8](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v3, a1, v9, 11)) != 0 {
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 		}
 	} else {
@@ -3856,7 +3856,7 @@ func nox_xxx_collideDamage_4E9430(obj *server.Object, obj2 *server.Object, pos *
 		v6 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*1))))
 		v5 = v3
 		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-		ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v4, a1, v5, v6)
+		ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v4, a1, v5, v6)
 	}
 }
 func nox_xxx_collideManadrain_4E9490(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
@@ -4122,7 +4122,7 @@ func nox_xxx_fireballCollide_4E9AC0(obj *server.Object, obj2 *server.Object, pos
 			if a2 != nil {
 				v11 = int32(*v3) >> 1
 				v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-				ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v6, a1, v11, 1)
+				ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v6, a1, v11, 1)
 			}
 			if noxflags.HasGame(2048) {
 				v13 = a2
@@ -4217,7 +4217,7 @@ func nox_xxx_collideSulphurShot2_4E9D80(obj *server.Object, obj2 *server.Object,
 				v5 = *v3
 			}
 			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-			if ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32) int32](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v6, a1, v5, 11) != 0 {
+			if ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v6, a1, v5, 11) != 0 {
 				nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 			}
 		}
@@ -4262,7 +4262,7 @@ func nox_xxx_collideDeathBall_4E9E90(obj *server.Object, obj2 *server.Object, po
 			v13 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCollideDamage")))
 			v14 = int32(v13)
 			v11 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-			result = (*int32)(unsafe.Pointer(uintptr(ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32) int32](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v11, a1, v14, 2))))
+			result = (*int32)(unsafe.Pointer(uintptr(ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v11, a1, v14, 2))))
 		} else {
 			v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 748)))
 			v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 76)))
@@ -4308,7 +4308,7 @@ func nox_xxx_collideDeathBallFragment_4E9FE0(obj *server.Object, obj2 *server.Ob
 	)
 	if a2 != nil {
 		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-		ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v4, a1, 20, 2)
+		ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v4, a1, 20, 2)
 	} else if a3 != nil {
 		nox_xxx_collideReflect_57B810(a3, unsafe.Add(a1, 80))
 		nox_xxx_aud_501960(37, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -4351,7 +4351,7 @@ func nox_xxx_collidePixie_4EA080(obj *server.Object, obj2 *server.Object, pos *t
 						if (v8 & 4) == 0 {
 							v15 = *v3
 							v10 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-							ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v10, a1, v15, 11)
+							ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v10, a1, v15, 11)
 							nox_xxx_aud_501960(96, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 							nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 							return
@@ -4366,7 +4366,7 @@ func nox_xxx_collidePixie_4EA080(obj *server.Object, obj2 *server.Object, pos *t
 						} else {
 							v15 = *v3
 							v10 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-							ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v10, a1, v15, 11)
+							ccall.AsFunc[func(unsafe.Pointer, int32, unsafe.Pointer, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v10, a1, v15, 11)
 							nox_xxx_aud_501960(96, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 							nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 							return
@@ -4412,7 +4412,7 @@ func nox_xxx_collideWallReflectSpark_4EA200(obj *server.Object, obj2 *server.Obj
 	if a2 != 0 {
 		v14 = *v3
 		v9 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-		if ccall.AsFunc[func(int32, int32, int32, int32, int32) int32](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v9, a1, v14, 11) != 0 {
+		if ccall.AsFunc[func(int32, int32, int32, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v9, a1, v14, 11) != 0 {
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 		}
 	} else if a3 != nil {
@@ -4475,7 +4475,7 @@ func nox_xxx_collideWebbing_4EA380(obj *server.Object, obj2 *server.Object, pos 
 		nox_xxx_aud_501960(351, obj, 0, 0)
 		nox_xxx_delayedDeleteObject_4E5CC0(obj)
 		v2 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-		if ccall.AsFunc[func(int32, int32, int32, uint32, int32) int32](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v2, a1, 0, 2) != 0 {
+		if ccall.AsFunc[func(int32, int32, int32, uint32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v2, a1, 0, 2) != 0 {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 8)))&6 != 0 {
 				nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(a2))), 4, int16(int32(uint16(gameFPS()))*4), 3)
 			}
@@ -4900,7 +4900,7 @@ func nox_xxx_collideFist_4EADF0(obj *server.Object, obj2 *server.Object, pos *ty
 		if a2 != 0 {
 			v3 = int32(**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
 			v2 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-			ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v2, a1, v3, 2)
+			ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v2, a1, v3, 2)
 		}
 	}
 }
@@ -5299,7 +5299,7 @@ func nox_xxx_collideMonsterArrow_4EB800(obj *server.Object, obj2 *server.Object,
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)))
 		if (v4 & 0x8000) == 0 {
 			v5 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-			ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v5, a1, v3, 3)
+			ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v5, a1, v3, 3)
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a1))))
 		}
 	} else {
@@ -5538,7 +5538,7 @@ func nox_xxx_collideUndeadKiller_4EBD40(obj *server.Object, obj2 *server.Object,
 			if v8 <= int32(v5) {
 				if v8 != 0 {
 					v10 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(v3)))))))
-					ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v10, v3, v8, 6)
+					ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v10, v3, v8, 6)
 					nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(v3))))
 					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 72)) -= uint32(v8)
 				} else {
@@ -5546,7 +5546,7 @@ func nox_xxx_collideUndeadKiller_4EBD40(obj *server.Object, obj2 *server.Object,
 				}
 			} else {
 				v9 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(v3)))))))
-				ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, v9, v3, v7, 6)
+				ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, v9, v3, v7, 6)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 72)) = uint32(v8 - v7)
 			}
 		}
@@ -10694,7 +10694,7 @@ func nox_xxx_pickupFood_4F3350(obj *server.Object, obj2 *server.Object, a3 int, 
 		return 0
 	}
 	if sub_419E60((*server.Object)(unsafe.Pointer(uintptr(a1)))) == 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)))&0x84) == 0 {
-		ccall.AsFunc[func(int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 732))(a1, a2)
+		ccall.AsFunc[func(int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 732)))(a1, a2)
 	}
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)))&0x20 != 0 {
 		return 1

@@ -4077,7 +4077,7 @@ func nox_xxx_sentry_511020(it *server.Object, data unsafe.Pointer) {
 		if float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176))**(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176))) > v3*v3+float64((*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))-a3.field_0)*(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))-a3.field_0)) {
 			v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2))))
 			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2))))))))))
-			ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a1)), 716))(a1, v6, v7, 500, 16)
+			ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 716)))(a1, v6, v7, 500, 16)
 			nox_xxx_aud_501960(298, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
 	}

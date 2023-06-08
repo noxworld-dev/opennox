@@ -1067,7 +1067,7 @@ func sub_4625D0(win *gui.Window, draw *gui.WindowData) int {
 		if dword_5d4594_1062480 != 0 && **(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)) != 0 {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))), 12)) = uint32(v3 + v5/2)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))), 16)) = uint32(v4 + v6/2)
-			ccall.AsFunc[func(*uint8, uint32)](unsafe.Add(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))), 300))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), **(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))
+			ccall.AsFunc[func(*uint8, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))), 300)))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), **(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))
 		}
 		v2 = (*int16)(unsafe.Pointer(sub_42E8E0(35, 1)))
 		if v2 != nil {
@@ -1423,7 +1423,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 						nox_client_drawEnableAlpha_434560(0)
 						*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 16)) = uint32(v5 + 25)
 						*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 12)) = uint32(v6 + 25)
-						ccall.AsFunc[func(*uint8, int32)](unsafe.Add(unsafe.Pointer(uintptr(v7)), 300))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v7)
+						ccall.AsFunc[func(*uint8, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 300)))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v7)
 						if dword_5d4594_1049864 == 6 {
 							if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 112))&0x13001000 != 0 {
 								if (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 112)) & 0x1000) == 4096 {

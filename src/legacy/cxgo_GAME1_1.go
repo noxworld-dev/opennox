@@ -1303,7 +1303,7 @@ func sub_41AC30(a1p unsafe.Pointer, a2p unsafe.Pointer) int32 {
 					v34 = uint32(uint8(int8(v39)))
 					v16 = (*uint8)(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(v15))))))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v16, v34)
-					if ccall.AsFunc[func(int32, uint32) int32](unsafe.Add(unsafe.Pointer(uintptr(v15)), 704))(v15, 0) == 0 {
+					if ccall.AsFunc[func(int32, uint32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v15)), 704)))(v15, 0) == 0 {
 						return 0
 					}
 				}

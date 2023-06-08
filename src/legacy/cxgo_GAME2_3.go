@@ -2219,7 +2219,7 @@ func sub_495BF0(a1 int32, a2 int32, a3 int32) int32 {
 			nox_client_drawSetAlpha_434580(v13)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12)) = *v9
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*1))
-			ccall.AsFunc[func(int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a1)), 300))(a3, a1)
+			ccall.AsFunc[func(int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 300)))(a3, a1)
 			v8++
 			v9 = (*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2))
 			if v8 >= int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 56))) {
@@ -4754,7 +4754,7 @@ func nox_xxx_drawShield_499810(vp *nox_draw_viewport_t, dr *nox_drawable) int32 
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468))), 12)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*8)+161776)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468))), 16)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) + uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*8)+161780)
 	v3 = int32(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468))
-	ccall.AsFunc[func(int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(v3)), 300))(a1, v3)
+	ccall.AsFunc[func(int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 300)))(a1, v3)
 	return 0
 }
 func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) *uint32 {

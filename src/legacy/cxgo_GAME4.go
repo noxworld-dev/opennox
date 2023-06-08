@@ -3062,7 +3062,7 @@ func nox_xxx_collide_4FDF90(a1 int32, a2 int32) {
 		nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(uintptr(a1))), 22)
 		v5 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShockDamage"), v2))
 		v3 = int32(v5)
-		ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Add(unsafe.Pointer(uintptr(a2)), 716))(a2, a1, a1, v3, 9)
+		ccall.AsFunc[func(int32, int32, int32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 716)))(a2, a1, a1, v3, 9)
 	}
 	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 8)))
 	if uint32(result)&0x20006 != 0 {

@@ -6590,7 +6590,7 @@ func nox_xxx_unusedCheckGripEffect_4E03F0(a1 int32, a2 int32, a3 int32, a4 int32
 	for i = v6; ; i = (*uint32)(unsafe.Add(unsafe.Pointer(i), 4*1)) {
 		v7 = int32(*v6)
 		if v7 != 0 {
-			v8 = ccall.AsFunc[func(int32, int32, int32, int32, int32, *int32) int32](unsafe.Add(unsafe.Pointer(uintptr(v7)), 88))
+			v8 = ccall.AsFunc[func(int32, int32, int32, int32, int32, *int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 88)))
 			if ccall.FuncAddr(v8) == ccall.FuncAddr(nox_xxx_gripEffect_4E0480) {
 				v8(v7, v4, a2, v5, a1, &a4)
 				if a4 == 0 {

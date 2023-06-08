@@ -390,7 +390,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.field_0 = v3 + 73
 	v34.field_4 = v4 + 123
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832492)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832492)), 300))(v2, dword_5d4594_832492)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832492)), 300)))(v2, dword_5d4594_832492)
 	v34.field_0 = v3 + 109
 	v34.field_4 = v4 + 76
 	v6 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash2a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 792)))
@@ -404,7 +404,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.field_0 = v3 + 565
 	v34.field_4 = v4 + 117
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832496)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832496)), 300))(v2, dword_5d4594_832496)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832496)), 300)))(v2, dword_5d4594_832496)
 	v29 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash3a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 809)))
 	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_832484)))), (*wchar2_t)(unsafe.Pointer(v29)), &v27, nil, 0)
 	v30 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash3b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 811)))
@@ -431,7 +431,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.field_0 = v3 + 133
 	v34.field_4 = v4 + 192
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832504)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832504)), 300))(v2, dword_5d4594_832504)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832504)), 300)))(v2, dword_5d4594_832504)
 	v34.field_0 = v3 + 157
 	v34.field_4 = v4 + 156
 	v9 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash4a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 862)))
@@ -445,7 +445,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.field_0 = v3 + 525
 	v34.field_4 = v4 + 222
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832500)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832500)), 300))(v2, dword_5d4594_832500)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832500)), 300)))(v2, dword_5d4594_832500)
 	v29 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash7a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 879)))
 	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_832484)))), (*wchar2_t)(unsafe.Pointer(v29)), &v27, nil, 0)
 	v30 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash7b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 881)))
@@ -472,15 +472,15 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.field_0 = v3 + 182
 	v34.field_4 = v4 + 262
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832528)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832528)), 300))(v2, dword_5d4594_832528)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832528)), 300)))(v2, dword_5d4594_832528)
 	v34.field_0 = v3 + 201
 	v34.field_4 = v4 + 251
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832536)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832536)), 300))(v2, dword_5d4594_832536)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832536)), 300)))(v2, dword_5d4594_832536)
 	v34.field_0 = v3 + 185
 	v34.field_4 = v4 + 234
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832532)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832532)), 300))(v2, dword_5d4594_832532)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832532)), 300)))(v2, dword_5d4594_832532)
 	v34.field_0 = v3 + 221
 	v34.field_4 = v4 + 240
 	v12 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash5a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 942)))
@@ -494,11 +494,11 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.field_0 = v3 + 484
 	v34.field_4 = v4 + 278
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832516)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832516)), 300))(v2, dword_5d4594_832516)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832516)), 300)))(v2, dword_5d4594_832516)
 	v34.field_0 = v3 + 503
 	v34.field_4 = v4 + 303
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832520)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832520)), 300))(v2, dword_5d4594_832520)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832520)), 300)))(v2, dword_5d4594_832520)
 	v29 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash6a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 964)))
 	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_832484)))), (*wchar2_t)(unsafe.Pointer(v29)), &v27, nil, 0)
 	v30 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash6b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 966)))
@@ -525,15 +525,15 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.field_0 = v3 + 186
 	v34.field_4 = v4 + 333
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832512)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832512)), 300))(v2, dword_5d4594_832512)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832512)), 300)))(v2, dword_5d4594_832512)
 	v34.field_0 = v3 + 219
 	v34.field_4 = v4 + 345
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832508)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832508)), 300))(v2, dword_5d4594_832508)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832508)), 300)))(v2, dword_5d4594_832508)
 	v34.field_0 = v3 + 220
 	v34.field_4 = v4 + 322
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832524)), 12)))
-	ccall.AsFunc[func(*byte, uint32)](unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832524)), 300))(v2, dword_5d4594_832524)
+	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_832524)), 300)))(v2, dword_5d4594_832524)
 	v34.field_0 = v3 + 241
 	v34.field_4 = v4 + 330
 	v15 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash8a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1027)))
