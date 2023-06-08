@@ -3133,7 +3133,7 @@ func sub_456500() int32 {
 		if *(*byte)(unsafe.Add(unsafe.Pointer(j), 2064)) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_457140(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(j), 4*515)))), (*wchar2_t)(unsafe.Add(unsafe.Pointer(j), unsafe.Sizeof(wchar2_t(0))*2352)))
 			v4 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(j), 4*515)))))
-			if nox_xxx_servObjectHasTeam_419130(int32(uintptr(unsafe.Pointer(v4)))) != 0 {
+			if nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v4)) != 0 {
 				sub_4571A0(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(j), 4*515)))), int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)))))
 			}
 		}
@@ -3202,7 +3202,7 @@ func sub_456BB0(a1 int32) int8 {
 		v1 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
 		v3 = int32(uintptr(unsafe.Pointer(v1)))
 		if v1 != nil {
-			if nox_xxx_servObjectHasTeam_419130(int32(uintptr(unsafe.Pointer(v1)))) != 0 {
+			if nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v1)) != 0 {
 				if v2 == 0 {
 					sub_419960(a1, v3, int16(uint16(nox_player_netCode_85319C)))
 					*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 1045696)) + 1))
@@ -5284,7 +5284,7 @@ func nox_xxx_bookFillAll_45D570(a1 int32, a2 int32) {
 					nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046956))))), 0)
 					nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046956))))))
 					if noxflags.HasGame(2048) {
-						sub_57AF30(0, a1)
+						sub_57AF30(nil, a1)
 					}
 					dword_5d4594_1046648 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
 					if !noxflags.HasGame(2048) || nox_gui_xxx_check_446360() == 1 || (func() bool {

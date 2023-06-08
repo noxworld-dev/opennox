@@ -14,7 +14,7 @@ var gameex_flags uint32 = 0x1E
 func nox_CharToOemW(pSrc *wchar2_t, pDst *byte) int32 {
 	return nox_sprintf(pDst, internCStr("%S"), pSrc)
 }
-func getPlayerClassFromObjPtr(a1 int32) int8 {
+func getPlayerClassFromObjPtr(a1 unsafe.Pointer) int8 {
 	return int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))), 276)))), 2251)))
 }
 func playerInfoStructParser_0(a1p unsafe.Pointer) int8 {
@@ -136,16 +136,15 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 	}
 	return v16
 }
-func playerDropATrap(playerObj int32) int8 {
+func playerDropATrap(playerObj unsafe.Pointer) int8 {
 	var (
 		v2  int32
-		i   int32
 		v7  int8
 		v8  int8
-		pos [2]float32 = [2]float32{}
+		pos [2]float32
 	)
 	v7 = 17
-	if playerObj == 0 {
+	if playerObj == nil {
 		return 0
 	}
 	v8 = 0
@@ -153,7 +152,7 @@ func playerDropATrap(playerObj int32) int8 {
 	pos[0] = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 0xE30))
 	pos[1] = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 0xE34))
 	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x2EC)))), 0x114)))), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x2EC)))), 0x58))) != 1 {
-		for i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x1F8))); i != 0; i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 0x1F0))) {
+		for i := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(i)), 0x1F0)) {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 0xA))) == int32(v7) {
 				nox_xxx_drop_4ED810(playerObj, i, &pos[0])
 				return 1
@@ -162,11 +161,11 @@ func playerDropATrap(playerObj int32) int8 {
 	}
 	return v8
 }
-func OnLibraryNotice_420(arg1 uint32, arg2 uint32, arg3 uint32, arg4 uint32) {
+func OnLibraryNotice_420(arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer, arg4 uint32) {
 	var (
-		v23 int32   = int32(arg1)
+		v23         = arg1
 		v19 int32   = int32(arg2)
-		v16 *uint32 = (*uint32)(unsafe.Pointer(uintptr(getPlayerClassFromObjPtr(int32(arg1)))))
+		v16 *uint32 = (*uint32)(unsafe.Pointer(uintptr(getPlayerClassFromObjPtr(arg1))))
 	)
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 0xA))) != 17 {
 		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)

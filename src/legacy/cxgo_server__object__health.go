@@ -7,7 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_unitGiveXP_4EF270(a1 int32, a2 float32) float64 {
+func nox_xxx_unitGiveXP_4EF270(a1 unsafe.Pointer, a2 float32) float64 {
 	var (
 		v3 int32
 		v4 float64
@@ -25,29 +25,27 @@ func nox_xxx_unitGiveXP_4EF270(a1 int32, a2 float32) float64 {
 	sub_4EF2E0_exp_level(a1)
 	return float64(v5)
 }
-func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 int32) {
+func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 unsafe.Pointer) {
 	var (
-		v1 int32
-		v2 int32
+		v1 unsafe.Pointer
 		v3 int32
-		v4 int32
 		v5 int32
 		v6 float64
 		v7 *wchar2_t
 	)
 	v1 = a1
-	if a1 == 0 {
+	if a1 == nil {
 		return
 	}
 	if !noxflags.HasGame(2048) {
 		return
 	}
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 520)))
-	if v2 == 0 {
+	v2 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 520))
+	if v2 == nil {
 		return
 	}
 	v3 = 1
-	v4 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 520)))))))))
+	v4 := unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 520)))))))
 	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8))) & 4) == 0 {
 		return
 	}
@@ -61,7 +59,7 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 int32) {
 				v3 = nox_xxx_creatureIsMonitored_500CC0((*server.Object)(unsafe.Pointer(uintptr(v4))), (*server.Object)(unsafe.Pointer(uintptr(v2))))
 				v5 = 1
 			}
-			v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 508)))
+			v2 = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 508))
 		}
 		if v3 == 0 {
 			return

@@ -25,7 +25,7 @@ func sub_56F980(a1 int32, a2 uint8) *uint32 {
 	}
 	return result
 }
-func sub_4EF2E0_exp_level(a1 int32) {
+func sub_4EF2E0_exp_level(a1 unsafe.Pointer) {
 	var (
 		v1 int32
 		v2 *wchar2_t
@@ -44,7 +44,7 @@ func sub_4EF2E0_exp_level(a1 int32) {
 		}
 	}
 }
-func nox_xxx_plyrGiveExp_4EF3A0_exp_level(a1 int32, a2 float32) {
+func nox_xxx_plyrGiveExp_4EF3A0_exp_level(a1 unsafe.Pointer, a2 float32) {
 	var (
 		v2 int32
 		v3 *wchar2_t

@@ -7,8 +7,8 @@ import (
 )
 
 func nox_xxx_pickupGold_4F3A60_obj_pickup(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
-	a1 := int32(uintptr(obj.CObj()))
-	a2 := int32(uintptr(obj2.CObj()))
+	a1 := obj.CObj()
+	a2 := obj2.CObj()
 	var (
 		v3     *int32
 		v4     *wchar2_t

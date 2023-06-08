@@ -3909,7 +3909,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *int32, dr *nox_drawable, a3 int32) {
 		if v5 != nil {
 			v6 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32)))))
 			if v6 != nil {
-				if nox_player_netCode_85319C == *((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32))) || nox_xxx_servCompareTeams_419150(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(unsafe.Pointer(v6)))) != 0 {
+				if nox_player_netCode_85319C == *((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32))) || nox_xxx_servCompareTeams_419150(unsafe.Pointer(v5), unsafe.Pointer(v6)) != 0 {
 					v53 = 1
 				}
 			}

@@ -824,7 +824,7 @@ func nox_cmd_cheat_level(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
 			if *((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*514))) != 0 {
 				v5 = uint8(int8(libc.WStrtol(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)), nil, 10)))
-				sub_4EF410(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*514)))), v5)
+				sub_4EF410(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*514)), v5)
 			}
 		}
 	}

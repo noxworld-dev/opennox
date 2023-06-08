@@ -193,7 +193,7 @@ func clientSavePlayerChar(path string, data []byte) int {
 func sub_4DB100() {
 	dword_5d4594_1563080 = false
 	dword_5d4594_1563084 = nil
-	legacy.Set_dword_5d4594_1563096(0)
+	legacy.Set_dword_5d4594_1563096(false)
 	dword_5d4594_1563064 = false
 	dword_5d4594_1563092 = 0
 	dword_5d4594_1563088 = 0
@@ -470,7 +470,7 @@ func loadCoopGame(name string) bool {
 	v5, _ := sub41D090(path)
 	s.Objs.SetFirstObjectScriptID(server.ObjectScriptID(v5))
 	s.Objs.ResetObjectScriptIDs()
-	nox_xxx_gameSetSwitchSolo_4DB220(1)
+	nox_xxx_gameSetSwitchSolo_4DB220(true)
 	nox_xxx_gameSetNoMPFlag_4DB230(1)
 	if legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1) == 0 {
 		return false

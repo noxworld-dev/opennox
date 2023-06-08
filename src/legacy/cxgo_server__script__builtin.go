@@ -29,11 +29,10 @@ func sub_512E80(a1 int32) int32 {
 }
 func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 	var (
-		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
-		a2 int32 = int32(uintptr(unsafe.Pointer(a2p)))
+		a1 = unsafe.Pointer(a1p)
+		a2 = unsafe.Pointer(a2p)
 		v2 *uint32
 		v3 int32
-		v4 int32
 		v5 int32
 		v6 int32
 		v7 float2
@@ -44,13 +43,13 @@ func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 	if sub_467B00(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4))), 1)-dword_5d4594_2386848 <= 0 {
 		v2 = nil
 		v3 = 999999
-		v4 = nox_xxx_inventoryGetFirst_4E7980(a1)
-		if v4 != 0 {
+		v4 := nox_xxx_inventoryGetFirst_4E7980(a1)
+		if v4 != nil {
 			for {
 				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8))) & 0x10) == 0 {
 					v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 16)))
 					if (v5&0x100) == 0 && uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 4))) != *memmap.PtrUint32(0x5D4594, 2386856) && nox_xxx_ItemIsDroppable_53EBF0(v4) == 0 {
-						v6 = nox_xxx_shopGetItemCost_50E3D0(1, 0, *(*float32)(unsafe.Pointer(&v4)))
+						v6 = nox_xxx_shopGetItemCost_50E3D0(1, nil, *(*float32)(unsafe.Pointer(&v4)))
 						if v6 < v3 {
 							v3 = v6
 							v2 = (*uint32)(unsafe.Pointer(uintptr(v4)))
@@ -58,7 +57,7 @@ func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 					}
 				}
 				v4 = nox_xxx_inventoryGetNext_4E7990(v4)
-				if v4 == 0 {
+				if v4 == nil {
 					break
 				}
 			}
@@ -305,18 +304,12 @@ func nox_script_JournalEdit_5155A0() int32 {
 	return 0
 }
 func nox_script_HitLocation_5159E0() int32 {
-	var (
-		v0 int32
-		v1 int32
-		v3 float32
-		v4 float32
-		v5 float2
-	)
-	v4 = nox_script_popf()
-	v3 = nox_script_popf()
-	v0 = nox_script_pop()
-	v1 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v0))))
-	if v1 != 0 {
+	v4 := nox_script_popf()
+	v3 := nox_script_popf()
+	v0 := nox_script_pop()
+	v1 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v0))
+	if v1 != nil {
+		var v5 float2
 		v5.field_0 = v3
 		v5.field_4 = v4
 		nox_xxx_monsterActionMelee_515A30(v1, &v5)
@@ -335,23 +328,19 @@ func nox_script_HitLocationGroup_515AE0() int32 {
 	v0 = nox_script_pop()
 	v4 = v3
 	v1 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v0))
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 int32, arg2 unsafe.Pointer) {
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 unsafe.Pointer, arg2 unsafe.Pointer) {
 		nox_xxx_monsterActionMelee_515A30(arg1, (*float2)(arg2))
 	}, unsafe.Pointer(&v4))
 	return 0
 }
 func nox_script_HitFarLocation_515B30() int32 {
-	var (
-		v0 int32
-		v1 int32
-		v3 [2]int32
-		v4 [2]int32
-	)
+	var v3 [2]int32
 	v3[1] = nox_script_pop()
 	v3[0] = nox_script_pop()
-	v0 = nox_script_pop()
-	v1 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v0))))
-	if v1 != 0 {
+	v0 := nox_script_pop()
+	v1 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v0))
+	if v1 != nil {
+		var v4 [2]int32
 		*(*uint64)(unsafe.Pointer(&v4[0])) = *(*uint64)(unsafe.Pointer(&v3[0]))
 		nox_xxx_monsterMissileAttack_515B80(v1, (*uint32)(unsafe.Pointer(&v4[0])))
 	}
@@ -369,21 +358,16 @@ func nox_script_HitFarLocationGroup_515BF0() int32 {
 	v0 = nox_script_pop()
 	*(*uint64)(unsafe.Pointer(&v4[0])) = *(*uint64)(unsafe.Pointer(&v3[0]))
 	v1 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v0))
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 int32, arg2 unsafe.Pointer) {
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 unsafe.Pointer, arg2 unsafe.Pointer) {
 		nox_xxx_monsterMissileAttack_515B80(arg1, (*uint32)(arg2))
 	}, unsafe.Pointer(&v4[0]))
 	return 0
 }
 func nox_script_SetRoamFlag_515C40() int32 {
-	var (
-		v1 int8
-		v2 int32
-		v3 int32
-	)
-	v1 = int8(nox_script_pop())
-	v2 = nox_script_pop()
-	v3 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v2))))
-	if v3 != 0 {
+	v1 := int8(nox_script_pop())
+	v2 := nox_script_pop()
+	v3 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v2))
+	if v3 != nil {
 		v5 := v1
 		sub_515C80(v3, (*uint8)(unsafe.Pointer(&v5)))
 	}
@@ -400,21 +384,16 @@ func nox_script_SetRoamFlagGroup_515CB0() int32 {
 	v1 = nox_script_pop()
 	v4 = v0
 	v2 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v1))
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, func(arg1 int32, arg2 unsafe.Pointer) {
+	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, func(arg1 unsafe.Pointer, arg2 unsafe.Pointer) {
 		sub_515C80(arg1, (*uint8)(arg2))
 	}, unsafe.Pointer(&v4))
 	return 0
 }
 func nox_script_GiveExp_516190() int32 {
-	var (
-		v0 int32
-		v1 int32
-		v2 int32
-	)
-	v0 = nox_script_pop()
-	v1 = nox_script_pop()
-	v2 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))))
-	if v2 != 0 {
+	v0 := nox_script_pop()
+	v1 := nox_script_pop()
+	v2 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))
+	if v2 != nil {
 		nox_xxx_plyrGiveExp_4EF3A0_exp_level(v2, *(*float32)(unsafe.Pointer(&v0)))
 	}
 	return 0
@@ -462,26 +441,22 @@ func nox_script_HasSubclass_5162D0() int32 {
 	}
 }
 func nox_script_StartupScreen_516600_A() {
-	var (
-		i  int32
-		v1 int32
-		v2 int32
-	)
-	for i = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()))); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i))))))) {
+	var i unsafe.Pointer
+	for i = unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i))))) {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))), 2064))) == 31 {
 			break
 		}
 	}
 	sub_4277B0((*server.Object)(unsafe.Pointer(uintptr(i))), 0xE)
-	v1 = nox_xxx_inventoryGetFirst_4E7980(i)
-	if v1 != 0 {
+	v1 := nox_xxx_inventoryGetFirst_4E7980(i)
+	if v1 != nil {
 		for {
-			v2 = nox_xxx_inventoryGetNext_4E7990(v1)
+			v2 := nox_xxx_inventoryGetNext_4E7990(v1)
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 8)))&0x40 != 0 {
 				nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(v1))))
 			}
 			v1 = v2
-			if v2 == 0 {
+			if v2 == nil {
 				break
 			}
 		}
@@ -567,18 +542,12 @@ func nox_script_builtin_516790() int32 {
 	return 0
 }
 func nox_script_BecomePet_5167D0() int32 {
-	var (
-		v0 *byte
-		v1 int32
-		v2 int32
-		v3 int32
-	)
-	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
-	v1 = nox_script_pop()
-	v2 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))))
-	if v2 != 0 {
-		v3 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))))
-		if v3 != 0 {
+	v0 := (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	v1 := nox_script_pop()
+	v2 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))
+	if v2 != nil {
+		v3 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*514))
+		if v3 != nil {
 			nox_xxx_unitBecomePet_4E7B00(v3, v2)
 		}
 	}

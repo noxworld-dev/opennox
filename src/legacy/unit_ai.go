@@ -103,9 +103,8 @@ func sub_50D1C0() { Sub_50D1C0() }
 // nox_xxx_gameSetAudioFadeoutMb_501AC0
 func nox_xxx_gameSetAudioFadeoutMb_501AC0(v int32) { Nox_xxx_gameSetAudioFadeoutMb_501AC0(int(v)) }
 
-// nox_xxx_monsterPopAction_50A160
-func nox_xxx_monsterPopAction_50A160(a1 *server.Object) int {
-	return Nox_xxx_monsterPopAction_50A160(asObjectS(a1))
+func nox_xxx_monsterPopAction_50A160(a1 *server.Object) {
+	Nox_xxx_monsterPopAction_50A160(asObjectS(a1))
 }
 
 // nox_xxx_monsterPushAction_50A260_impl

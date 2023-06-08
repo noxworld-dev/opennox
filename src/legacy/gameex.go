@@ -19,7 +19,7 @@ func PlayerInfoStructParser_1(a1 unsafe.Pointer, a2 *int32) int {
 	return int(playerInfoStructParser_1(a1, (*int32)(unsafe.Pointer(a2))))
 }
 func PlayerDropATrap(a1 *server.Object) {
-	playerDropATrap(int32(uintptr(a1.CObj())))
+	playerDropATrap(a1.CObj())
 }
 func GetFlagValueFromFlagIndex(a1 int) uint32 {
 	return uint32(getFlagValueFromFlagIndex(int32(a1)))

@@ -3300,7 +3300,7 @@ func sub_46DCC0() *byte {
 				*memmap.PtrUint8(0x5D4594, uintptr(int32(*memmap.PtrUint8(0x5D4594, 1090117))*80)+1084188) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v27)), 2251))
 				v35 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v27)), 2060))))
 				v36 = v35
-				if v35 != nil && nox_xxx_servObjectHasTeam_419130(int32(uintptr(unsafe.Pointer(v35)))) != 0 {
+				if v35 != nil && nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v35)) != 0 {
 					v37 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v36), 4)))))))
 					if v37 != nil {
 						v38 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(v37), 57)))
@@ -3401,7 +3401,7 @@ func sub_46DCC0() *byte {
 				*memmap.PtrUint8(0x5D4594, uintptr(int32(*memmap.PtrUint8(0x5D4594, 1090117))*80)+1084188) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 2251))
 				v17 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 2060))))
 				v18 = v17
-				if v17 != nil && nox_xxx_servObjectHasTeam_419130(int32(uintptr(unsafe.Pointer(v17)))) != 0 {
+				if v17 != nil && nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v17)) != 0 {
 					v19 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v18), 4)))))))
 					if v19 != nil {
 						v20 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(v19), 57)))
@@ -3625,7 +3625,7 @@ func sub_46E4E0() *byte {
 			*memmap.PtrUint8(0x5D4594, uintptr(int32(*memmap.PtrUint8(0x5D4594, 1090117))*80)+1084188) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 2251))
 			v16 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 2060))))
 			v17 = v16
-			if v16 != nil && nox_xxx_servObjectHasTeam_419130(int32(uintptr(unsafe.Pointer(v16)))) != 0 {
+			if v16 != nil && nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v16)) != 0 {
 				v18 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v17), 4)))))))
 				if v18 != nil {
 					v19 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(v18), 57)))
@@ -4736,7 +4736,6 @@ func nox_xxx_cliDrawMinimap_472600(a1 int32, a2 int32) int32 {
 		v66   int32
 		v68   int32
 		v69   int32
-		v70   int32
 		i     int32
 		v72   int32
 		v73   int32
@@ -4937,8 +4936,8 @@ func nox_xxx_cliDrawMinimap_472600(a1 int32, a2 int32) int32 {
 		*memmap.PtrUint32(0x5D4594, 1096308) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("GameBall")))
 	}
 	v39 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
-	v70 = int32(uintptr(unsafe.Pointer(v39)))
-	if v39 != nil && nox_xxx_servObjectHasTeam_419130(int32(uintptr(unsafe.Pointer(v39)))) != 0 {
+	v70 := unsafe.Pointer(v39)
+	if v39 != nil && nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v39)) != 0 {
 		v73 = 1
 	}
 	for k = int32(uintptr(unsafe.Pointer(nox_xxx_cliFirstMinimapObj_459EB0()))); k != 0; k = nox_xxx_cliNextMinimapObj_459EC0(k) {
@@ -4991,7 +4990,7 @@ func nox_xxx_cliDrawMinimap_472600(a1 int32, a2 int32) int32 {
 		if v44 == *memmap.PtrInt32(0x5D4594, 1096308) {
 			v49 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(k)), 128))))
 			v50 = v49
-			if v49 != nil && nox_xxx_servObjectHasTeam_419130(int32(uintptr(unsafe.Pointer(v49)))) != 0 {
+			if v49 != nil && nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v49)) != 0 {
 				v51 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v50), 4)))))))
 				if v51 != nil {
 					v52 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(v51))))
@@ -5066,8 +5065,8 @@ func nox_xxx_cliDrawMinimap_472600(a1 int32, a2 int32) int32 {
 		v68 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(l)), 128)))
 		v81 = int32(uintptr(unsafe.Pointer(v62)))
 		v75 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(v68)))
-		if v70 != 0 && v62 != nil && v73 != 0 {
-			v76.field_0 = nox_xxx_servCompareTeams_419150(v70, int32(uintptr(unsafe.Pointer(v62))))
+		if v70 != nil && v62 != nil && v73 != 0 {
+			v76.field_0 = nox_xxx_servCompareTeams_419150(v70, unsafe.Pointer(v62))
 			if v76.field_0 != 0 {
 				goto LABEL_103
 			}
@@ -5746,7 +5745,7 @@ func sub_474B40(dr *nox_drawable) int32 {
 	if v1 != nil {
 		v2 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 128))))
 		if v2 != nil {
-			if nox_player_netCode_85319C == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 128)) || nox_xxx_servCompareTeams_419150(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v2)))) != 0 {
+			if nox_player_netCode_85319C == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 128)) || nox_xxx_servCompareTeams_419150(unsafe.Pointer(v1), unsafe.Pointer(v2)) != 0 {
 				return 1
 			}
 		}

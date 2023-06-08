@@ -803,8 +803,8 @@ func nox_xxx_gameIsNotMultiplayer_4DB250() bool {
 	return gameIsNotMultiplayer
 }
 
-func nox_xxx_gameSetSwitchSolo_4DB220(a1 int) {
-	gameIsSwitchToSolo = a1 != 0
+func nox_xxx_gameSetSwitchSolo_4DB220(a1 bool) {
+	gameIsSwitchToSolo = a1
 }
 
 func nox_xxx_gameIsSwitchToSolo_4DB240() bool {
@@ -841,7 +841,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		v30 := alloc.GoString(*(**byte)(unsafe.Add(v28, 700)))
 		v31, err := nox_client_checkSaveMapExistsTmp(v30)
 		if err == nil && v31 != "" {
-			nox_xxx_gameSetSwitchSolo_4DB220(1)
+			nox_xxx_gameSetSwitchSolo_4DB220(true)
 			nox_xxx_gameSetNoMPFlag_4DB230(1)
 			nox_xxx_gameSetSoloSavePath_4DB270(v31)
 		} else {

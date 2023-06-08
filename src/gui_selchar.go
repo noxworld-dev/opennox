@@ -718,7 +718,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 					noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
 				}
 				if noxflags.HasGame(noxflags.GameModeCoop) {
-					nox_xxx_gameSetSwitchSolo_4DB220(1)
+					nox_xxx_gameSetSwitchSolo_4DB220(true)
 					nox_xxx_gameSetNoMPFlag_4DB230(1)
 					mname := alloc.GoStringS(sv.Map_name[:])
 					fbase := fmt.Sprintf("%s.map", mname)
@@ -995,7 +995,7 @@ func sub_4DB170(a1 bool, a2 unsafe.Pointer, a3 int) {
 	dword_5d4594_1563088 = noxServer.Frame()
 	dword_5d4594_1563084 = a2
 	dword_5d4594_1563080 = a1
-	legacy.Set_dword_5d4594_1563096(bool2int(a2 != nil))
+	legacy.Set_dword_5d4594_1563096(a2 != nil)
 	if !a1 {
 		sub_4DCBD0(0)
 	}

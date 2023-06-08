@@ -46,8 +46,8 @@ func Get_dword_5d4594_814996() *gui.Window {
 func Get_dword_5d4594_814984() *gui.Window {
 	return AsWindowP(dword_5d4594_814984)
 }
-func Get_dword_5d4594_2488604() int {
-	return int(dword_5d4594_2488604)
+func Get_dword_5d4594_2488604() unsafe.Pointer {
+	return dword_5d4594_2488604
 }
 func Get_dword_5d4594_528252() int {
 	return int(dword_5d4594_528252)
@@ -424,8 +424,8 @@ func Set_nox_gameDisableMapDraw_5d4594_2650672(v int) {
 func Set_dword_5d4594_831224(v int) {
 	dword_5d4594_831224 = uint32(v)
 }
-func Set_dword_5d4594_1563096(v int) {
-	dword_5d4594_1563096 = uint32(v)
+func Set_dword_5d4594_1563096(v bool) {
+	dword_5d4594_1563096 = uint32(bool2int(v))
 }
 func Set_dword_5d4594_830872(v int) {
 	dword_5d4594_830872 = uint32(v)

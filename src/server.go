@@ -142,7 +142,7 @@ func (s *Server) updateCollide() {
 		legacy.Nox_xxx_updateObjectsVelocity_5118A0(0.2)
 		legacy.Sub_548B60()
 	}
-	for legacy.Get_dword_5d4594_2488604() != 0 {
+	for legacy.Get_dword_5d4594_2488604() != nil {
 		obj := legacy.Sub_537700()
 		if int8(uint8(obj.Class())) >= 0 {
 			s.Objs.AddToUpdatable(obj)
@@ -1156,7 +1156,7 @@ func sub_4DB0A0() {
 	dword_5d4594_1563084 = nil
 	dword_5d4594_1563088 = 0
 	dword_5d4594_1563092 = 0
-	legacy.Set_dword_5d4594_1563096(0)
+	legacy.Set_dword_5d4594_1563096(false)
 	*memmap.PtrUint32(0x5D4594, 1563100) = 0
 	noxServer.quest.mapName = ""
 	dword_5d4594_1563064 = false

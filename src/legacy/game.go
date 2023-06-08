@@ -24,7 +24,7 @@ var (
 	Nox_xxx_netServerCmd_440950         func(id byte, cmd string)
 	ExecConsoleCmd                      func(ctx context.Context, cmd string) bool
 	Nox_xxx_gameIsNotMultiplayer_4DB250 func() bool
-	Nox_xxx_gameSetSwitchSolo_4DB220    func(a1 int)
+	Nox_xxx_gameSetSwitchSolo_4DB220    func(a1 bool)
 	Nox_xxx_gameIsSwitchToSolo_4DB240   func() bool
 	Nox_xxx_gameSetWallsDamage_4E25A0   func(v int)
 	GetDoDamageWalls                    func() bool
@@ -94,8 +94,8 @@ func nox_xxx_gameIsNotMultiplayer_4DB250() int32 {
 }
 
 // nox_xxx_gameSetSwitchSolo_4DB220
-func nox_xxx_gameSetSwitchSolo_4DB220(a1 int32) {
-	Nox_xxx_gameSetSwitchSolo_4DB220(int(a1))
+func nox_xxx_gameSetSwitchSolo_4DB220(a1 bool) {
+	Nox_xxx_gameSetSwitchSolo_4DB220(a1)
 }
 
 // nox_xxx_gameIsSwitchToSolo_4DB240
@@ -619,7 +619,7 @@ func Sub_4E79B0(a1 int) {
 	sub_4E79B0(int32(a1))
 }
 func Nox_xxx_playerMakeDefItems_4EF7D0(a1 *server.Object, a2 int, a3 int) {
-	nox_xxx_playerMakeDefItems_4EF7D0(int32(uintptr(a1.CObj())), int32(a2), int32(a3))
+	nox_xxx_playerMakeDefItems_4EF7D0(a1.CObj(), int32(a2), int32(a3))
 }
 func Nox_xxx_cliGamedataGet_416590(a1 int) unsafe.Pointer {
 	return unsafe.Pointer(nox_xxx_cliGamedataGet_416590(int32(a1)))
