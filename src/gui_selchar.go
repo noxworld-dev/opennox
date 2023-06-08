@@ -267,7 +267,7 @@ func nox_game_showSelChar4A4DB0() bool {
 	if win == nil {
 		return false
 	}
-	win.SetFunc93(gui.WrapFunc(sub_4A18E0))
+	win.SetFunc93(gui.WrapFunc(gui_SelProc2))
 	anim := nox_gui_makeAnimation(win, 0, 0, 0, -440, 0, 20, 0, -40)
 	nox_wnd_xxx_1307748 = anim
 	if anim == nil {

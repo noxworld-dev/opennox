@@ -202,7 +202,7 @@ func init() {
 	legacy.Sub_4A24C0 = sub_4A24C0
 	legacy.Sub_43BE40 = sub_43BE40
 	legacy.Sub_43BE30 = sub_43BE30
-	legacy.Sub_4A18E0 = sub_4A18E0
+	legacy.GuiSelProc2 = gui_SelProc2
 	legacy.Sub_42BFB0 = sub_42BFB0
 	legacy.Nox_xxx_objectTOCgetTT = nox_xxx_objectTOCgetTT
 	legacy.Sub_42C310 = sub_42C310

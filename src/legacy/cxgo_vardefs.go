@@ -284,7 +284,6 @@ var dword_5d4594_1045688 uint32
 var dword_5d4594_832528 uint32
 var dword_5d4594_832500 uint32
 var dword_5d4594_832520 uint32
-var dword_5d4594_1307736 uint32
 var dword_5d4594_1046636 uint32
 var dword_5d4594_1046500 uint32
 var dword_587000_136184 uint32 = 0xFFFFFF1F
@@ -571,7 +570,6 @@ var dword_5d4594_1563320 uint32
 var dword_5d4594_1313692 uint32
 var dword_5d4594_1599688 uint32
 var dword_5d4594_2386164 uint32
-var dword_5d4594_1307724 uint32
 var nox_server_kickQuestPlayerMinVotes_229992 uint32 = 0x5
 var dword_5d4594_1523040 uint32
 var dword_5d4594_1096272 uint32

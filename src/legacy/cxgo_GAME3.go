@@ -16,7 +16,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-var nox_wnd_xxx_1307732 *nox_gui_animation = nil
 var nox_wnd_xxx_1308092 *nox_gui_animation = nil
 var nox_wnd_xxx_1309740 *nox_gui_animation = nil
 var dword_5d4594_1307292 unsafe.Pointer = nil
@@ -1406,70 +1405,6 @@ func sub_4A4800(a1 unsafe.Pointer) int32 {
 		result = 0
 	}
 	return result
-}
-func Nox_game_showSelClass_4A4840() int {
-	var (
-		result int32
-		v1     *uint32
-		v2     *uint32
-		v3     *uint32
-	)
-	sub_5007E0(internCStr("*:*"))
-	sub_4A1BE0(1)
-	dword_5d4594_1307724 = uint32(uintptr(unsafe.Pointer(nox_xxx_getHostInfoPtr_431770())))
-	nox_game_addStateCode_43BDD0(600)
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SelClass.wnd"), sub_4A4A20))))
-	dword_5d4594_1307736 = uint32(result)
-	if result != 0 {
-		nox_xxx_wndSetWindowProc_46B300((*gui.Window)(unsafe.Pointer(uintptr(result))), sub_4A18E0)
-		result = int32(uintptr(unsafe.Pointer(nox_gui_makeAnimation_43C5B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 0, 0, 0, -460, 0, 20, 0, -40))))
-		nox_wnd_xxx_1307732 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
-		if result != 0 {
-			nox_wnd_xxx_1307732.StateID = 600
-			nox_wnd_xxx_1307732.Func12Ptr.Set(sub_4A4970)
-			nox_wnd_xxx_1307732.FncDoneOutPtr.Set(sub_4A49A0)
-			v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 601)))
-			nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v1)), sub_4A49D0)
-			v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 603)))
-			nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v2)), sub_4A49D0)
-			v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 602)))
-			nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v3)), sub_4A49D0)
-			*memmap.PtrUint32(0x5D4594, 1307728) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 610))))
-			nox_xxx_wndRetNULL_46A8A0()
-			*memmap.PtrUint32(0x5D4594, 1307740) = 0
-			sub_4A19F0(internCStr("OptsBack.wnd:Back"))
-			sub_4602F0()
-			result = 1
-		}
-	}
-	return int(result)
-}
-func sub_4A4970() int {
-	nox_wnd_xxx_1307732.SetState(NOX_GUI_ANIM_OUT)
-	sub_43BE40(2)
-	nox_xxx_clientPlaySoundSpecial_452D80(923, 100)
-	return 1
-}
-func sub_4A49A0() int {
-	v0 := nox_wnd_xxx_1307732.Func13Ptr.Get()
-	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1307732)
-	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))))
-	v0()
-	return 1
-}
-func sub_4A49D0(win *gui.Window, draw *gui.WindowData) int {
-	var (
-		a1    = int32(uintptr(win.C()))
-		v1    *uint32
-		xLeft int32
-	)
-	v1 = (*uint32)(unsafe.Pointer(uintptr(a1)))
-	if *memmap.PtrUint32(0x5D4594, 1307740) != *(*uint32)(unsafe.Pointer(uintptr(a1))) {
-		var yTop int32
-		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(uintptr(yTop))), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
-		nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))-*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))-*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5))))
-	}
-	return 1
 }
 func sub_4A5E90() int32 {
 	var i **byte
@@ -3292,7 +3227,7 @@ func Nox_game_showOptions_4AA6B0() int {
 	if nox_client_advVideoOpts_New_4CB590((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_1309720)))) == 0 {
 		return 0
 	}
-	nox_xxx_wndSetWindowProc_46B300(*(**gui.Window)(unsafe.Pointer(&dword_5d4594_1309720)), sub_4A18E0)
+	nox_xxx_wndSetWindowProc_46B300(*(**gui.Window)(unsafe.Pointer(&dword_5d4594_1309720)), guiSelProc2)
 	nox_draw_setTabWidth_43FE20(15)
 	nox_wnd_xxx_1309740 = nox_gui_makeAnimation_43C5B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 0, 0, 0, -480, 0, 20, 0, -40)
 	if nox_wnd_xxx_1309740 == nil {

@@ -215,9 +215,8 @@ func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float32, a2, a3 float32, a4, a5 int
 	GetServer().Nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
 }
 
-// nox_game_addStateCode_43BDD0
-func nox_game_addStateCode_43BDD0(code int32) {
-	GetClient().GameAddStateCode(gui.StateID(code))
+func nox_game_addStateCode_43BDD0(code gui.StateID) {
+	GetClient().GameAddStateCode(code)
 }
 
 // nox_game_getStateCode_43BE10

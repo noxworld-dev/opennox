@@ -13,7 +13,6 @@ var (
 var _ = [1]struct{}{}[68-unsafe.Sizeof(gui.Anim{})]
 
 type nox_gui_animation = gui.Anim
-type nox_gui_anim_state = gui.AnimState
 
 func asGUIAnim(p *nox_gui_animation) *gui.Anim {
 	return (*gui.Anim)(unsafe.Pointer(p))

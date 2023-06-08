@@ -34,7 +34,7 @@ func sub_4A1A60() bool {
 	if win == nil {
 		return false
 	}
-	win.SetFunc93(sub4A18E0)
+	win.SetFunc93(guiSelProc2)
 	return true
 }
 
@@ -87,7 +87,7 @@ func (c *Client) nox_xxx_wndLoadMainBG_4A2210() int {
 		return 0
 	}
 	v1 := gui.MainBg.ChildByID(98)
-	v1.SetFunc93(sub4A18E0)
+	v1.SetFunc93(guiSelProc2)
 	v1.SetDraw(legacy.Sub_4A22A0)
 	if memmap.Uint32(0x587000, 168832) != 0 {
 		v3 := memmap.PtrOff(0x587000, 168832)
@@ -196,7 +196,7 @@ func nox_game_showMainMenu4A1C00() bool {
 		return false
 	}
 	winMainMenu = menuWin
-	menuWin.SetFunc93(sub4A18E0)
+	menuWin.SetFunc93(guiSelProc2)
 	topMenu := menuWin.ChildByID(110)
 	topMenu.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
 	winMainMenuAnimTop = nox_gui_makeAnimation(topMenu, 0, 0, 0, -270, 0, 20, 0, -40)
@@ -236,12 +236,12 @@ func sub_4A19D0() {
 	nox_client_gui_flag_815132 = 0
 }
 
-func sub_4A18E0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
-	res := sub4A18E0(a1, gui.AsWindowEvent(int(a2), a3, a4))
+func gui_SelProc2(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
+	res := guiSelProc2(a1, gui.AsWindowEvent(int(a2), a3, a4))
 	return uintptr(gui.EventRespInt(res))
 }
 
-func sub4A18E0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
+func guiSelProc2(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	if sub_450560() {
 		return gui.RawEventResp(1)
 	}
