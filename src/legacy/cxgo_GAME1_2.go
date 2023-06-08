@@ -3264,7 +3264,7 @@ func nox_client_newScreenParticle_431540(a1 int32, a2 int32, a3 int32, a4 int32,
 	p.Field_40[1] = uint8(a8)
 	p.Field_40[2] = uint8(a9)
 	p.Field_40[3] = uint8(a8)
-	p.Draw_fnc = ccall.FuncAddr(nox_client_screenParticleDraw_489700)
+	p.Draw_fnc = ccall.FuncPtr(nox_client_screenParticleDraw_489700)
 	p.Field_16 = uint32(a4 << 16)
 	p.Field_20 = uint32(a5 << 16)
 	p.Field_36 = uint32(a6 << 16)
@@ -3318,7 +3318,7 @@ func nox_client_screenParticlesDraw_431720(rdr *nox_draw_viewport_t) {
 	for p := nox_screenParticles_head; p != nil; p = p2 {
 		set_dword_5d4594_3799468(1)
 		p2 = p.Field_44
-		ccall.AsFunc[func(*nox_draw_viewport_t, *Nox_screenParticle)](p.Draw_fnc)(rdr, p)
+		p.Draw_fnc.Get()(rdr, p)
 	}
 }
 func nox_xxx_getHostInfoPtr_431770() *byte {

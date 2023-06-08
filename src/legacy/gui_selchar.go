@@ -2,6 +2,9 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -38,19 +41,19 @@ type Nox_savegame_xxx struct {
 var _ = [1]struct{}{}[52-unsafe.Sizeof(Nox_screenParticle{})]
 
 type Nox_screenParticle struct {
-	Draw_fnc unsafe.Pointer      // 0, 0, func(unsafe.Pointer, *Nox_screenParticle) int
-	Field_4  uint32              // 1, 4
-	Field_8  uint32              // 2, 8
-	Field_12 uint32              // 3, 12, color
-	Field_16 uint32              // 4, 16, vx
-	Field_20 uint32              // 5, 20, vy
-	Field_24 uint32              // 6, 24, x
-	Field_28 uint32              // 7, 28, y
-	Field_32 uint32              // 8, 32
-	Field_36 uint32              // 9, 36
-	Field_40 [4]byte             // 10, 40
-	Field_44 *Nox_screenParticle // 11, 44, next
-	Field_48 *Nox_screenParticle // 12, 48, prev
+	Draw_fnc ccall.Func[func(vp *noxrender.Viewport, p *Nox_screenParticle)] // 0, 0,
+	Field_4  uint32                                                          // 1, 4
+	Field_8  uint32                                                          // 2, 8
+	Field_12 uint32                                                          // 3, 12, color
+	Field_16 uint32                                                          // 4, 16, vx
+	Field_20 uint32                                                          // 5, 20, vy
+	Field_24 uint32                                                          // 6, 24, x
+	Field_28 uint32                                                          // 7, 28, y
+	Field_32 uint32                                                          // 8, 32
+	Field_36 uint32                                                          // 9, 36
+	Field_40 [4]byte                                                         // 10, 40
+	Field_44 *Nox_screenParticle                                             // 11, 44, next
+	Field_48 *Nox_screenParticle                                             // 12, 48, prev
 }
 
 // sub_4A1BE0
