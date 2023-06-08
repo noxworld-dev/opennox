@@ -7,7 +7,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func sub_530A30_spell_execdur(a1 int32) int32 {
+func Sub_530A30_spell_execdur(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
 		v2     int32

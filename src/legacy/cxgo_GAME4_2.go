@@ -10883,7 +10883,8 @@ func nox_xxx_unitPushAroundFn_52E0E0(it *server.Object, data unsafe.Pointer) {
 		}
 	}
 }
-func nox_xxx_spellDrainMana_52E210(a1 float32) int32 {
+func Nox_xxx_spellDrainMana_52E210(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1  int32
 		v2  int32
@@ -11173,14 +11174,16 @@ func sub_52E7C0(a1 unsafe.Pointer) int32 {
 	}
 	return 0
 }
-func nox_xxx_spellEnergyBoltStop_52E820(a1 int32) int32 {
+func Nox_xxx_spellEnergyBoltStop_52E820(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16)) != 0 {
 		nox_xxx_spellCancelDurSpell_4FEB10(43, (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))))))
 	}
 	nox_xxx_netSendPointFx_522FF0(-126, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)))
 	return 0
 }
-func nox_xxx_spellEnergyBoltTick_52E850(a1 float32) int32 {
+func Nox_xxx_spellEnergyBoltTick_52E850(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
 		v2     int32
@@ -11367,7 +11370,8 @@ func nox_xxx_spellEnergyBoltSetTarget_52EC60(it *server.Object, data unsafe.Poin
 		}
 	}
 }
-func nox_xxx_firewalkTick_52ED40(a1 *float32) int32 {
+func Nox_xxx_firewalkTick_52ED40(sp *server.DurSpell) int32 {
+	a1 := (*float32)(sp.C())
 	var (
 		v1     *float32
 		v2     int32
@@ -11456,7 +11460,8 @@ func nox_xxx_firewalkTick_52ED40(a1 *float32) int32 {
 	}
 	return result
 }
-func sub_52EF30(a1 int32) int32 {
+func Sub_52EF30(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1 int32
 		v2 int32
@@ -11495,7 +11500,8 @@ func sub_52EF30(a1 int32) int32 {
 	}
 	return 0
 }
-func sub_52EFD0(a1 int32) int32 {
+func Sub_52EFD0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
 		v2     int32
@@ -11592,7 +11598,8 @@ func sub_52EFD0(a1 int32) int32 {
 	}
 	return result
 }
-func sub_52F1D0(a1 int32) int32 {
+func Sub_52F1D0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var result int32
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 76)) != 0 {
 		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 76))))))
@@ -11611,7 +11618,8 @@ func sub_52F1D0(a1 int32) int32 {
 	}
 	return result
 }
-func sub_52F220(a1 *int32) int32 {
+func Sub_52F220(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1     int32
 		result int32
@@ -11657,9 +11665,10 @@ func sub_52F220(a1 *int32) int32 {
 	}
 	return result
 }
-func sub_52F2E0(a1 float32) int32 {
+func Sub_52F2E0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
-		v1  float32
+		v1  int32
 		v2  int32
 		v4  int32
 		v5  int32
@@ -11721,9 +11730,10 @@ func sub_52F2E0(a1 float32) int32 {
 	nox_xxx_playerManaSub_4EEBF0(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v1), 4*0))))), 16)), 1)
 	return 0
 }
-func sub_52F460(a1 float32) int32 {
+func Sub_52F460(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
-		v1     float32
+		v1     int32
 		v2     int32
 		result int32
 		v4     int32
@@ -11775,7 +11785,8 @@ func sub_52F460(a1 float32) int32 {
 	}
 	return result
 }
-func nox_xxx_castShield1_52F5A0(a1 *uint32) int32 {
+func Nox_xxx_castShield1_52F5A0(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1 int32
 		v3 int32
@@ -11805,7 +11816,8 @@ func nox_xxx_castShield1_52F5A0(a1 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*18)) = uint32(int32(v6))
 	return 0
 }
-func sub_52F650(a1 int32) int32 {
+func Sub_52F650(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
 		result int32
@@ -11818,7 +11830,8 @@ func sub_52F650(a1 int32) int32 {
 	}
 	return result
 }
-func sub_52F670(a1 int32) int32 {
+func Sub_52F670(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var result int32
 	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))
 	if result != 0 {
@@ -11888,7 +11901,8 @@ func nox_xxx_unitShieldReduceDamage_52F710(a1 unsafe.Pointer, a2 *int32, a3 int3
 		}
 	}
 }
-func nox_xxx_onStartLightning_52F820(a1 int32) int32 {
+func Nox_xxx_onStartLightning_52F820(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1 int32
 		v2 int32

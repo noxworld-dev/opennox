@@ -13,16 +13,16 @@ func nox_xxx_lightningSpellDuration_52FFD0(a1 unsafe.Pointer, from, to *server.O
 	if p == nil {
 		return
 	}
-	src := (*noxDurSpell)(a1)
-	p.obj48 = to
-	p.obj16 = from
-	p.spell = uint32(spell.SPELL_CHAIN_LIGHTNING_BOLT)
-	p.sub108 = nil
-	p.sub104 = nil
-	p.prev = nil
-	p.next = src.sub108
-	if sub := src.sub108; sub != nil {
-		sub.prev = p
+	src := (*server.DurSpell)(a1)
+	p.Obj48 = to
+	p.Obj16 = from
+	p.Spell = uint32(spell.SPELL_CHAIN_LIGHTNING_BOLT)
+	p.Sub108 = nil
+	p.Sub104 = nil
+	p.Prev = nil
+	p.Next = src.Sub108
+	if sub := src.Sub108; sub != nil {
+		sub.Prev = p
 	}
-	src.sub108 = p
+	src.Sub108 = p
 }

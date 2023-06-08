@@ -738,9 +738,9 @@ func nox_xxx_playerSomeWallsUpdate_5003B0(obj *server.Object) int32 {
 		if v1 == 0 {
 			return 0
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 92)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_spellWallCreate_4FFA90)))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_spellWallUpdate_500070)))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 100)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_spellWallDestroy_500080)))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 92)) = uint32(uintptr(ccall.FuncAddr(Nox_xxx_spellWallCreate_4FFA90)))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 96)) = uint32(uintptr(ccall.FuncAddr(Nox_xxx_spellWallUpdate_500070)))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 100)) = uint32(uintptr(ccall.FuncAddr(Nox_xxx_spellWallDestroy_500080)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 48)) = 0
 	}
 	v3 = 0

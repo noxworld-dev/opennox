@@ -16,7 +16,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_onFrameLightning_52F8A0(a1 float32) int32 {
+func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		source              int32
 		v2                  int32
@@ -398,7 +399,8 @@ func nox_xxx_lightningSpellTrapEffect_530020(it *server.Object, data unsafe.Poin
 		}
 	}
 }
-func sub_530100(a1 *uint32) int8 {
+func Sub_530100(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1 int32
 		v2 int32
@@ -438,9 +440,10 @@ func sub_530100(a1 *uint32) int8 {
 		*((*uint8)(unsafe.Pointer(&v3))) = uint8(int8(v3 & 0xFB))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 96)) = uint32(v3)
 	}
-	return int8(v3)
+	return v3
 }
-func nox_xxx_spellTagCreature_530160(a1 *uint32) int32 {
+func Nox_xxx_spellTagCreature_530160(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1  int32
 		v2  int32
@@ -482,20 +485,22 @@ func nox_xxx_spellTagCreature_530160(a1 *uint32) int32 {
 	nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 2064))), unsafe.Pointer(&v10[0]), 7, 0, 1)
 	return 0
 }
-func sub_530250(a1 int32) uint32 {
+func Sub_530250(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
-		result uint32
+		result int32
 	)
 	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))
 	if v1 != 0 {
-		result = ((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 16)) & math.MaxUint8) >> 5) & 1
+		result = int32((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 16))&math.MaxUint8)>>5) & 1
 	} else {
 		result = 1
 	}
 	return result
 }
-func sub_530270(a1 int32) int32 {
+func Sub_530270(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		result int32
 		v2     int32
@@ -525,7 +530,8 @@ func sub_530270(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_spellBlink2_530310(a1 *uint32) int32 {
+func Nox_xxx_spellBlink2_530310(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		result int32
 		v2     float32
@@ -545,7 +551,8 @@ func nox_xxx_spellBlink2_530310(a1 *uint32) int32 {
 	}
 	return result
 }
-func nox_xxx_spellBlink1_530380(a1 *int32) int32 {
+func Nox_xxx_spellBlink1_530380(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1  int32
 		v3  int32
@@ -642,7 +649,8 @@ func nox_xxx_spellTeleportCreateWake_530560(a1 int32, a2 *int32, a3 *uint32) *ui
 	}
 	return result
 }
-func sub_5305D0(a1 *uint32) int32 {
+func Sub_5305D0(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1 int32
 		v2 int32
@@ -663,7 +671,8 @@ func sub_5305D0(a1 *uint32) int32 {
 	}
 	return 0
 }
-func sub_530650(a1 *int32) int32 {
+func Sub_530650(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1  int32
 		v2  int32
@@ -750,7 +759,8 @@ func sub_530650(a1 *int32) int32 {
 	sub_4E7540((*server.Object)(unsafe.Pointer(uintptr(v13))), (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))))
 	return 1
 }
-func nox_xxx_castTele_530820(a1 int32) int32 {
+func Nox_xxx_castTele_530820(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		result int32
 		v2     float32
@@ -765,7 +775,8 @@ func nox_xxx_castTele_530820(a1 int32) int32 {
 	}
 	return result
 }
-func sub_530880(a1 *int32) int32 {
+func Sub_530880(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1 int32
 		v2 int32
@@ -847,7 +858,8 @@ func sub_530880(a1 *int32) int32 {
 	sub_4E7540((*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))), (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))))
 	return 1
 }
-func nox_xxx_castTTT_530B70(a1 *int32) int32 {
+func Nox_xxx_castTTT_530B70(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1  int32
 		v2  int32
@@ -901,7 +913,8 @@ func nox_xxx_castTTT_530B70(a1 *int32) int32 {
 	sub_4E7540((*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))), (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))))
 	return 1
 }
-func sub_530CA0(a1 int32) int32 {
+func Sub_530CA0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
 		v2     int32
@@ -942,7 +955,8 @@ func sub_530CA0(a1 int32) int32 {
 	}
 	return result
 }
-func sub_530D30(a1 *int32) int32 {
+func Sub_530D30(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1  *int32
 		v2  int32
@@ -1017,7 +1031,8 @@ LABEL_23:
 	sub_4E7540((*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*4))))), (*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*12))))))
 	return 1
 }
-func nox_xxx_manaBomb_530F90(a1 *uint32) int32 {
+func Nox_xxx_manaBomb_530F90(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1 int32
 		v2 *uint32
@@ -1055,7 +1070,8 @@ func nox_xxx_manaBomb_530F90(a1 *uint32) int32 {
 	}
 	return 0
 }
-func nox_xxx_manaBombBoom_5310C0(a1 *int32) int32 {
+func Nox_xxx_manaBombBoom_5310C0(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1  int32
 		v2  int32
@@ -1136,7 +1152,8 @@ LABEL_18:
 	}
 	return 0
 }
-func sub_531290(a1 int32) int32 {
+func Sub_531290(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
 		result int32
@@ -1162,7 +1179,8 @@ func sub_531290(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_spellTurnUndeadCreate_531310(a1 *uint32) int32 {
+func Nox_xxx_spellTurnUndeadCreate_531310(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1 int32
 		v2 int32
@@ -1207,10 +1225,11 @@ func nox_xxx_spellTurnUndeadCreate_531310(a1 *uint32) int32 {
 	nox_xxx_netSendPointFx_522FF0(-96, &v9)
 	return 0
 }
-func nox_xxx_spellTurnUndeadUpdate_531410() int32 {
+func Nox_xxx_spellTurnUndeadUpdate_531410(sp *server.DurSpell) int32 {
 	return 0
 }
-func nox_xxx_spellTurnUndeadDelete_531420(a1 int32) int32 {
+func Nox_xxx_spellTurnUndeadDelete_531420(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		result int32
 		i      int32
@@ -1227,7 +1246,8 @@ func nox_xxx_spellTurnUndeadDelete_531420(a1 int32) int32 {
 	}
 	return result
 }
-func sub_531490(a1 *uint32) int32 {
+func Sub_531490(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1     int32
 		v2     int32
@@ -1247,7 +1267,8 @@ func sub_531490(a1 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = uint32(v2) + gameFrame()
 	return result
 }
-func sub_5314F0(a1 int32) int32 {
+func Sub_5314F0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1     int32
 		result int32
@@ -1268,7 +1289,8 @@ func sub_5314F0(a1 int32) int32 {
 	}
 	return result
 }
-func sub_531560(a1 int32) int32 {
+func Sub_531560(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var result int32
 	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))
 	if result != 0 {
@@ -1276,7 +1298,8 @@ func sub_531560(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_plasmaSmth_531580(a1 int32) int32 {
+func Nox_xxx_plasmaSmth_531580(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1 int32
 		v2 int32
@@ -1299,7 +1322,8 @@ func nox_xxx_plasmaSmth_531580(a1 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_plasmaShot_531600(a1 int32) int32 {
+func Nox_xxx_plasmaShot_531600(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1  int32
 		v2  int32
@@ -1468,7 +1492,8 @@ func sub_531920(it *server.Object, data unsafe.Pointer) {
 		}
 	}
 }
-func sub_5319E0(a1 int32) int32 {
+func Sub_5319E0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var result int32
 	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 72)))
 	if result != 0 {
@@ -1477,7 +1502,8 @@ func sub_5319E0(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_spellCreateMoonglow_531A00(a1 *uint32) int32 {
+func Nox_xxx_spellCreateMoonglow_531A00(sp *server.DurSpell) int32 {
+	a1 := (*uint32)(sp.C())
 	var (
 		v1 int16
 		v2 int32
@@ -1516,7 +1542,8 @@ func nox_xxx_spellCreateMoonglow_531A00(a1 *uint32) int32 {
 	nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))), 1, v1, int8(uint8(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))))
 	return 0
 }
-func sub_531AF0(a1 int32) int32 {
+func Sub_531AF0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var result int32
 	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))
 	if result != 0 {

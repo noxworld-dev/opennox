@@ -4103,7 +4103,8 @@ func sub_4FFA40(a1 int32) int8 {
 	}
 	return result
 }
-func nox_xxx_spellWallCreate_4FFA90(a1 int32) int32 {
+func Nox_xxx_spellWallCreate_4FFA90(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1  int32
 		v2  int32
@@ -4394,10 +4395,11 @@ func nox_xxx_spellWallCreateCalcYMB_4FFFB0(a1 int32, a2 int32, a3 int32, a4 int8
 		return int8(a3)
 	}
 }
-func nox_xxx_spellWallUpdate_500070() int32 {
+func Nox_xxx_spellWallUpdate_500070(sp *server.DurSpell) int32 {
 	return 0
 }
-func nox_xxx_spellWallDestroy_500080(a1 int32) int32 {
+func Nox_xxx_spellWallDestroy_500080(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		result int32
 		v2     int32
@@ -4908,7 +4910,8 @@ func nox_xxx_creatureIsMonitored_500CC0(a1p *server.Object, a2p *server.Object) 
 	}
 	return result
 }
-func nox_xxx_summonStart_500DA0(a1 int32) int32 {
+func Nox_xxx_summonStart_500DA0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1  int32
 		v2  int32
@@ -5075,7 +5078,8 @@ func sub_500F40(a1 int32, a2 float32) int32 {
 	}
 	return result
 }
-func nox_xxx_summonFinish_5010D0(a1 int32) int32 {
+func Nox_xxx_summonFinish_5010D0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var (
 		v1 int32
 		v2 int32
@@ -5112,13 +5116,16 @@ LABEL_17:
 	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 85)) = 1
 	return 1
 }
-func nox_xxx_summonCancel_5011C0(a1 int32) {
+func Nox_xxx_summonCancel_5011C0(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 85))) == 0 {
 		nox_xxx_sendSummonCancelFX_523760(int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 83))))
 		nox_xxx_audCreate_501A30(900, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 74)), 0, 0)
 	}
+	return 0
 }
-func nox_xxx_charmCreature1_5011F0(a1 *int32) int32 {
+func Nox_xxx_charmCreature1_5011F0(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1  int16
 		v3  int32
@@ -5197,7 +5204,8 @@ func nox_xxx_charmCreature1_5011F0(a1 *int32) int32 {
 	nox_xxx_aud_501960(16, (*server.Object)(unsafe.Pointer(uintptr(v13))), 0, 0)
 	return 1
 }
-func nox_xxx_charmCreatureFinish_5013E0(a1 *int32) int32 {
+func Nox_xxx_charmCreatureFinish_5013E0(sp *server.DurSpell) int32 {
+	a1 := (*int32)(sp.C())
 	var (
 		v1  int32
 		v2  int32
@@ -5315,7 +5323,8 @@ func nox_xxx_charmCreatureFinish_5013E0(a1 *int32) int32 {
 	nox_xxx_aud_501960(v22, (*server.Object)(unsafe.Pointer(uintptr(v23))), 0, 0)
 	return 1
 }
-func nox_xxx_charmCreature2_501690(a1 int32) int32 {
+func Nox_xxx_charmCreature2_501690(sp *server.DurSpell) int32 {
+	a1 := int32(uintptr(sp.C()))
 	var result int32
 	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 48)))
 	if result != 0 {
