@@ -10684,35 +10684,32 @@ func Nox_xxx_pickupDefault_4F31E0(a1p *server.Object, item *server.Object, a3 in
 	return int(result)
 }
 func nox_xxx_pickupFood_4F3350(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
-	a1 := int32(uintptr(obj.CObj()))
-	a2 := int32(uintptr(obj2.CObj()))
-	var (
-		v4 int32
-		v5 *uint8
-	)
-	if a1 == 0 || a2 == 0 {
+	a1 := obj.CObj()
+	a2 := obj2.CObj()
+	if a1 == nil || a2 == nil {
 		return 0
 	}
-	if sub_419E60((*server.Object)(unsafe.Pointer(uintptr(a1)))) == 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)))&0x84) == 0 {
-		ccall.AsFunc[func(int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 732)))(a1, a2)
+	if sub_419E60(obj) == 0 && (int32(*(*uint8)(unsafe.Add(a2, 12)))&0x84) == 0 {
+		obj2.Use.Get()(obj, obj2)
 	}
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)))&0x20 != 0 {
+	if int32(*(*uint8)(unsafe.Add(a2, 16)))&0x20 != 0 {
 		return 1
 	}
-	v4 = int32(Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4))
-	if v4 != 0 {
-		v5 = (*uint8)(memmap.PtrOff(0x587000, 215640))
-		if int32(*memmap.PtrUint16(0x587000, 215646)) != 0 {
-			for (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12))&*(*uint32)(unsafe.Pointer(v5))) == 0 && (int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*2))))&int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 24)))) == 0 {
-				v5 = (*uint8)(unsafe.Add(unsafe.Pointer(v5), 8))
-				if int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*3)))) == 0 {
-					return int(v4)
-				}
-			}
-			nox_xxx_aud_501960(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*3)))), (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
-		}
+	res := Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4)
+	if res == 0 {
+		return 0
 	}
-	return int(v4)
+	v5 := (*uint8)(memmap.PtrOff(0x587000, 215640))
+	if int32(*memmap.PtrUint16(0x587000, 215646)) != 0 {
+		for (*(*uint32)(unsafe.Add(a2, 12))&*(*uint32)(unsafe.Pointer(v5))) == 0 && (int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*2))))&int32(*(*uint16)(unsafe.Add(a2, 24)))) == 0 {
+			v5 = (*uint8)(unsafe.Add(unsafe.Pointer(v5), 8))
+			if int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*3)))) == 0 {
+				return res
+			}
+		}
+		nox_xxx_aud_501960(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*3)))), obj, 0, 0)
+	}
+	return res
 }
 func sub_4F3400(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
 	a1 := obj.CObj()
