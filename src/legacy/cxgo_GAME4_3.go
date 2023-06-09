@@ -1988,55 +1988,39 @@ func sub_532390(it *server.Object, data unsafe.Pointer) {
 	}
 }
 func nox_xxx_mobActionMeleeAtt_532440(obj *server.Object) {
-	a1 := obj.CObj()
-	var (
-		v1  int32
-		v2  int32
-		v3  int32
-		v4  int32
-		v6  int32
-		v7  int32
-		v8  int32
-		v10 int32
-	)
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12)))&0x10 != 0 {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440))&0x20000 != 0 {
-			nox_xxx_mobMorphToPlayer_4FAAF0((*uint32)(unsafe.Pointer(uintptr(a1))))
+	ud := obj.UpdateDataMonster()
+	if obj.SubClass().AsMonster().Has(object.MonsterNPC) {
+		if ud.StatusFlags.Has(object.MonStatusBot) {
+			nox_xxx_mobMorphToPlayer_4FAAF0((*uint32)(obj.CObj()))
 		}
-		v2 = nox_xxx_playerAttack_538960((*server.Object)(unsafe.Pointer(uintptr(a1))))
-		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440)))
-		if uint32(v3)&0x20000 != 0 {
-			nox_xxx_mobMorphFromPlayer_4FAAC0((*uint32)(unsafe.Pointer(uintptr(a1))))
+		ok := nox_xxx_playerAttack_538960(obj) != 0
+		if ud.StatusFlags.Has(object.MonStatusBot) {
+			nox_xxx_mobMorphFromPlayer_4FAAC0((*uint32)(obj.CObj()))
 		}
-		if v2 == 0 {
-			nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(uintptr(a1))))
+		if !ok {
+			nox_xxx_monsterPopAction_50A160(obj)
 		}
-	} else {
-		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 484)))
-		v5 := ccall.AsFunc[func(unsafe.Pointer) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 236)))
-		if v5 != nil {
-			if uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 481))) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 108)) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 482))) == 0 {
-				v7 = v5(a1)
-				v8 = int32(uintptr(nox_xxx_monsterGetSoundSet_424300((*server.Object)(unsafe.Pointer(uintptr(a1))))))
-				if v8 != 0 {
-					if v7 != 0 {
-						nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 32))), (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
-					} else {
-						nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 36))), (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
-					}
+		return
+	}
+	def := ud.MonsterDef
+	if melee := def.MeleeStrikeFunc236.Get(); melee != nil {
+		if uint32(ud.Field120_1) == def.MeleeAttackFrame108 && int32(ud.Field120_2) == 0 {
+			ok := melee(obj) != 0
+			if snd := nox_xxx_monsterGetSoundSet_424300(obj); snd != nil {
+				if ok {
+					nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Add(snd, 32))), obj, 0, 0)
+				} else {
+					nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Add(snd, 36))), obj, 0, 0)
 				}
 			}
-			*((*uint8)(unsafe.Pointer(&v3))) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 483))
-			if int32(uint8(int8(v3))) != 0 {
-				nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(uintptr(a1))))
-			}
-		} else {
-			v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36)))
-			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(a1)))))))
-			nox_ai_debug_printf_5341A0(internCStr("%d: %s(#%d) Tried to MELEE_ATTACK but cannot\n"), gameFrame(), v6, v10)
-			nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(uintptr(a1))))
 		}
+		if ud.Field120_3 != 0 {
+			nox_xxx_monsterPopAction_50A160(obj)
+		}
+	} else {
+		cname := nox_xxx_getUnitName_4E39D0(obj)
+		nox_ai_debug_printf_5341A0(internCStr("%d: %s(#%d) Tried to MELEE_ATTACK but cannot\n"), gameFrame(), cname, obj.NetCode)
+		nox_xxx_monsterPopAction_50A160(obj)
 	}
 }
 func sub_532540(obj *server.Object) {

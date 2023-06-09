@@ -11,6 +11,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 type AIStackItem struct {
@@ -544,39 +545,41 @@ func (ud *MonsterUpdateData) HasAction(act ai.ActionType) bool { // nox_xxx_chec
 	return false
 }
 
+type MonMeleeAttackFunc func(obj *Object) int32
+
 type MonsterDef struct {
-	Name0                        [64]byte             // 0, 0, TODO: size is a guess
-	Experience64                 uint32               // 16, 64
-	Health68                     uint32               // 17, 68
-	HealthQuest72                uint32               // 18, 72
-	Speed76                      uint32               // 19, 76
-	RetreatRatio80               float32              // 20, 80
-	ResumeRatio84                float32              // 21, 84
-	FleeRange88                  float32              // 22, 88
-	StatusFlags92                object.MonsterStatus // 23, 92
-	RunMultiplier96              float32              // 24, 96
-	MoveSndFrameA100             uint32               // 25, 100
-	MoveSndFrameB104             uint32               // 26, 104
-	MeleeAttackFrame108          uint32               // 27, 108
-	MeleeAttackRange112          float32              // 28, 112
-	MeleeAttackDamage116         uint32               // 29, 116
-	MeleeAttackImpact120         float32              // 30, 120
-	MeleeAttackDamageType124     uint32               // 31, 124
-	MeleeAttackDelayMin128       uint32               // 32, 128
-	MeleeAttackDelayMax132       uint32               // 33, 132
-	MeleeAttackPoisonChange136   uint32               // 34, 136
-	MeleeAttackPoisonStrength140 uint32               // 35, 140
-	MeleeAttackPoisonMax144      uint32               // 36, 144
-	MissileName148               [64]byte             // 37, 148, TODO: size is a guess
-	MissileAttackRange212        float32              // 53, 212
-	MissileAttackFrame216        uint32               // 54, 216
-	MissileAttackDelayMin220     uint32               // 55, 220
-	MissileAttackDelayMax224     uint32               // 56, 224
-	DieFunc228                   unsafe.Pointer       // 57, 228
-	DeadFunc232                  unsafe.Pointer       // 58, 232
-	MeleeStrikeFunc236           unsafe.Pointer       // 59, 236
-	TypeInd240                   uint32               // 60, 240
-	Next244                      *MonsterDef          // 61, 244
+	Name0                        [64]byte                       // 0, 0, TODO: size is a guess
+	Experience64                 uint32                         // 16, 64
+	Health68                     uint32                         // 17, 68
+	HealthQuest72                uint32                         // 18, 72
+	Speed76                      uint32                         // 19, 76
+	RetreatRatio80               float32                        // 20, 80
+	ResumeRatio84                float32                        // 21, 84
+	FleeRange88                  float32                        // 22, 88
+	StatusFlags92                object.MonsterStatus           // 23, 92
+	RunMultiplier96              float32                        // 24, 96
+	MoveSndFrameA100             uint32                         // 25, 100
+	MoveSndFrameB104             uint32                         // 26, 104
+	MeleeAttackFrame108          uint32                         // 27, 108
+	MeleeAttackRange112          float32                        // 28, 112
+	MeleeAttackDamage116         uint32                         // 29, 116
+	MeleeAttackImpact120         float32                        // 30, 120
+	MeleeAttackDamageType124     uint32                         // 31, 124
+	MeleeAttackDelayMin128       uint32                         // 32, 128
+	MeleeAttackDelayMax132       uint32                         // 33, 132
+	MeleeAttackPoisonChange136   uint32                         // 34, 136
+	MeleeAttackPoisonStrength140 uint32                         // 35, 140
+	MeleeAttackPoisonMax144      uint32                         // 36, 144
+	MissileName148               [64]byte                       // 37, 148, TODO: size is a guess
+	MissileAttackRange212        float32                        // 53, 212
+	MissileAttackFrame216        uint32                         // 54, 216
+	MissileAttackDelayMin220     uint32                         // 55, 220
+	MissileAttackDelayMax224     uint32                         // 56, 224
+	DieFunc228                   unsafe.Pointer                 // 57, 228
+	DeadFunc232                  unsafe.Pointer                 // 58, 232
+	MeleeStrikeFunc236           ccall.Func[MonMeleeAttackFunc] // 59, 236
+	TypeInd240                   uint32                         // 60, 240
+	Next244                      *MonsterDef                    // 61, 244
 }
 
 type monsterFieldKind int

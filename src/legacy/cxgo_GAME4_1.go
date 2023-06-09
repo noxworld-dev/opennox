@@ -5110,7 +5110,8 @@ func nox_xxx_servParseMonsterDef_517170(a1 *FILE, a2 *byte) int32 {
 		v9     int32
 		v10    [256]byte
 	)
-	result = int32(uintptr(alloc.Calloc1(1, 0xF8)))
+	def, _ := alloc.New(server.MonsterDef{})
+	result = int32(uintptr(unsafe.Pointer(def)))
 	v3 = (*uint32)(unsafe.Pointer(uintptr(result)))
 	if result == 0 {
 		return 0
@@ -5176,8 +5177,8 @@ func nox_xxx_servParseMonsterDef_517170(a1 *FILE, a2 *byte) int32 {
 			*(*uint32)(unsafe.Pointer(v6)) = uint32(nox_xxx_utilFindSound_40AF50(&v10[0]))
 			continue
 		case 3:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			if nox_xxx_monsterLoadStrikeFn_549040(int32(uintptr(unsafe.Pointer(v3))), &v10[0]) != 0 {
+			nox_xxx_readStr_517090(a1, &v10[0])
+			if nox_xxx_monsterLoadStrikeFn_549040(def, GoString(&v10[0])) {
 				continue
 			}
 			return 0

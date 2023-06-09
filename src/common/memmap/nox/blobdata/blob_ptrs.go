@@ -51,30 +51,19 @@ type Ptrs struct {
 	Ptr_sub_454120 unsafe.Pointer
 	Ptr_sub_453750 unsafe.Pointer
 
-	Ptr_nox_xxx_strikeOgre_549220           unsafe.Pointer
-	Ptr_nox_xxx_strikeScorpion_5495B0       unsafe.Pointer
-	Ptr_nox_xxx_strikeVileZombie_549700     unsafe.Pointer
-	Ptr_nox_xxx_strikeStoneGolem_5497E0     unsafe.Pointer
-	Ptr_nox_xxx_strikeMechGolem_549960      unsafe.Pointer
-	Ptr_nox_xxx_strikeWasp_549980           unsafe.Pointer
-	Ptr_nox_xxx_strikeSpider_549BC0         unsafe.Pointer
-	Ptr_nox_xxx_strikeSpittingSpider_549CA0 unsafe.Pointer
-	Ptr_nox_xxx_strikeGhost_549A60          unsafe.Pointer
-	Ptr_nox_xxx_strikeBomber_549BB0         unsafe.Pointer
-	Ptr_nox_xxx_strikeMonsterDefault_549380 unsafe.Pointer
-	Ptr_sub_549D80                          unsafe.Pointer
-	Ptr_sub_549E00                          unsafe.Pointer
-	Ptr_sub_549E70                          unsafe.Pointer
-	Ptr_sub_549E90                          unsafe.Pointer
-	Ptr_sub_549FA0                          unsafe.Pointer
-	Ptr_nox_bomberDead_54A150               unsafe.Pointer
-	Ptr_sub_54A250                          unsafe.Pointer
-	Ptr_sub_54A310                          unsafe.Pointer
-	Ptr_sub_54A750                          unsafe.Pointer
-	Ptr_nox_xxx_monsterDeadTroll_54A270     unsafe.Pointer
-	Ptr_sub_54A890                          unsafe.Pointer
-	Ptr_sub_54A900                          unsafe.Pointer
-	Ptr_sub_54A7D0                          unsafe.Pointer
-	Ptr_sub_54A850                          unsafe.Pointer
-	Ptr_sub_54A950                          unsafe.Pointer
+	Ptr_sub_549D80                      unsafe.Pointer
+	Ptr_sub_549E00                      unsafe.Pointer
+	Ptr_sub_549E70                      unsafe.Pointer
+	Ptr_sub_549E90                      unsafe.Pointer
+	Ptr_sub_549FA0                      unsafe.Pointer
+	Ptr_nox_bomberDead_54A150           unsafe.Pointer
+	Ptr_sub_54A250                      unsafe.Pointer
+	Ptr_sub_54A310                      unsafe.Pointer
+	Ptr_sub_54A750                      unsafe.Pointer
+	Ptr_nox_xxx_monsterDeadTroll_54A270 unsafe.Pointer
+	Ptr_sub_54A890                      unsafe.Pointer
+	Ptr_sub_54A900                      unsafe.Pointer
+	Ptr_sub_54A7D0                      unsafe.Pointer
+	Ptr_sub_54A850                      unsafe.Pointer
+	Ptr_sub_54A950                      unsafe.Pointer
 }

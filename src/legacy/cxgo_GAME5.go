@@ -2,9 +2,11 @@ package legacy
 
 import (
 	"math"
+	"strings"
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -2266,34 +2268,36 @@ func sub_548FE0(a1 int32, a2 *byte) {
 		libc.StrCpy((*byte)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 692)))), 1684)), a2)
 	}
 }
-func nox_xxx_monsterLoadStrikeFn_549040(a1 int32, a2 *byte) int32 {
-	var (
-		v3 *byte
-		v4 int32
-		v5 *uint8
-	)
-	if nox_strcmpi(internCStr("NULL"), a2) != 0 {
-		v3 = *(**byte)(memmap.PtrOff(0x587000, 287096))
-		v4 = 0
-		if *memmap.PtrUint32(0x587000, 287096) != 0 {
-			v5 = (*uint8)(memmap.PtrOff(0x587000, 287096))
-			for libc.StrCmp(a2, v3) != 0 {
-				v3 = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2))))))
-				v5 = (*uint8)(unsafe.Add(unsafe.Pointer(v5), 8))
-				v4++
-				if v3 == nil {
-					return 0
-				}
-			}
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 236)) = *memmap.PtrUint32(0x587000, uintptr(v4*8)+287100)
-			return 1
-		} else {
-			return 0
-		}
-	} else {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 236)) = 0
-		return 1
+
+var monMeleeAttackTable = []struct {
+	Name string
+	Func server.MonMeleeAttackFunc
+}{
+	{"OgreStrike", nox_xxx_strikeOgre_549220},
+	{"ScorpionStrike", nox_xxx_strikeScorpion_5495B0},
+	{"VileZombieStrike", nox_xxx_strikeVileZombie_549700},
+	{"StoneGolemStrike", nox_xxx_strikeStoneGolem_5497E0},
+	{"MechGolemStrike", nox_xxx_strikeMechGolem_549960},
+	{"WaspStrike", nox_xxx_strikeWasp_549980},
+	{"SpiderStrike", nox_xxx_strikeSpider_549BC0},
+	{"SpittingSpiderStrike", nox_xxx_strikeSpittingSpider_549CA0},
+	{"GhostStrike", nox_xxx_strikeGhost_549A60},
+	{"BomberStrike", nox_xxx_strikeBomber_549BB0},
+	{"MonsterStrike", nox_xxx_strikeMonsterDefault_549380},
+}
+
+func nox_xxx_monsterLoadStrikeFn_549040(def *server.MonsterDef, name string) bool {
+	if strings.ToUpper(name) == "NULL" {
+		def.MeleeStrikeFunc236.Set(nil)
+		return true
 	}
+	for _, v := range monMeleeAttackTable {
+		if name == v.Name {
+			def.MeleeStrikeFunc236.Set(v.Func)
+			return true
+		}
+	}
+	return false
 }
 func nox_xxx_monsterLoadDieFn_5490E0(a1 int32, a2 *byte) int32 {
 	var (
@@ -2353,7 +2357,8 @@ func nox_xxx_monsterLoadDeadFn_549180(a1 int32, a2 *byte) int32 {
 		return 1
 	}
 }
-func nox_xxx_strikeOgre_549220(a1 float32) int32 {
+func nox_xxx_strikeOgre_549220(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 *float2
 		v2 float64
@@ -2413,9 +2418,9 @@ func sub_549270(it *server.Object, data unsafe.Pointer) {
 		}
 	}
 }
-func nox_xxx_strikeMonsterDefault_549380(a1 float32) int32 {
+func nox_xxx_strikeMonsterDefault_549380(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
-		v1     float32
 		v2     int32
 		v4     float32
 		v5     float32
@@ -2424,10 +2429,11 @@ func nox_xxx_strikeMonsterDefault_549380(a1 float32) int32 {
 		v8     float4
 		v9     float32
 	)
-	v1 = a1
+	v1 := a1
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0))))), 748)))
 	v3 := nox_xxx_monsterPickMeleeTarget_549440(*(*int32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), 0)
-	if v3 != nil {
+	obj3 := AsObjectP(v3)
+	if obj3 != nil {
 		v4 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0))))), 56))
 		v5 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 56))
 		v8.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0))))), 60))
@@ -2439,7 +2445,7 @@ func nox_xxx_strikeMonsterDefault_549380(a1 float32) int32 {
 		if result == 0 {
 			return result
 		}
-		ccall.AsFunc[func(unsafe.Pointer, uint32, uint32, uint32, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 716)))(v3, *(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), *(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 116)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 124)))
+		obj3.Damage.Get()(obj3, obj, obj, int(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 116))), object.DamageType(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 124))))
 		v9 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 120))
 		if float64(v9) > 0.0 {
 			nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v1), 4*0))))), 56)), (*server.Object)(unsafe.Pointer(uintptr(v3))), v9)
@@ -2503,7 +2509,8 @@ func sub_5494C0(it *server.Object, data unsafe.Pointer) {
 		}
 	}
 }
-func nox_xxx_strikeScorpion_5495B0(a1 float32) int32 {
+func nox_xxx_strikeScorpion_5495B0(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1     int32
 		v2     int32
@@ -2558,7 +2565,8 @@ func sub_549690(a1 int32, a2 unsafe.Pointer) int32 {
 	}
 	return result
 }
-func nox_xxx_strikeVileZombie_549700(a1 float32) int32 {
+func nox_xxx_strikeVileZombie_549700(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1     int32
 		v2     int32
@@ -2595,11 +2603,12 @@ func nox_xxx_strikeVileZombie_549700(a1 float32) int32 {
 	}
 	return 1
 }
-func nox_xxx_strikeStoneGolem_5497E0(a1 float32) int32 {
+func nox_xxx_strikeStoneGolem_5497E0(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	*memmap.PtrUint32(0x5D4594, 2491560) = 0
 	return nox_xxx_sendEquakeAfterGolem_549800(a1)
 }
-func nox_xxx_sendEquakeAfterGolem_549800(a1 float32) int32 {
+func nox_xxx_sendEquakeAfterGolem_549800(a1 int32) int32 {
 	var (
 		v1 *float2
 		v2 float64
@@ -2655,13 +2664,14 @@ func nox_xxx_monsterAttackAreaDamage_549860(it *server.Object, data unsafe.Point
 		}
 	}
 }
-func nox_xxx_strikeMechGolem_549960(a1 float32) int32 {
+func nox_xxx_strikeMechGolem_549960(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	*memmap.PtrUint32(0x5D4594, 2491560) = 1
 	return nox_xxx_sendEquakeAfterGolem_549800(a1)
 }
-func nox_xxx_strikeWasp_549980(a1 float32) int32 {
+func nox_xxx_strikeWasp_549980(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
-		v1 float32
 		v2 int32
 		v4 float32
 		v5 float32
@@ -2669,7 +2679,7 @@ func nox_xxx_strikeWasp_549980(a1 float32) int32 {
 		v8 float4
 		v9 float32
 	)
-	v1 = a1
+	v1 := a1
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0))))), 748)))
 	v3 := nox_xxx_monsterPickMeleeTarget_549440(*(*int32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)), 0)
 	if v3 == nil {
@@ -2695,7 +2705,8 @@ func nox_xxx_strikeWasp_549980(a1 float32) int32 {
 	}
 	return 1
 }
-func nox_xxx_strikeGhost_549A60(a1 float32) int32 {
+func nox_xxx_strikeGhost_549A60(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1     int32
 		v2     int32
@@ -2748,10 +2759,11 @@ func nox_xxx_strikeGhost_549A60(a1 float32) int32 {
 	}
 	return 1
 }
-func nox_xxx_strikeBomber_549BB0() int32 {
+func nox_xxx_strikeBomber_549BB0(obj *server.Object) int32 {
 	return 1
 }
-func nox_xxx_strikeSpider_549BC0(a1 float32) int32 {
+func nox_xxx_strikeSpider_549BC0(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 int32
@@ -2787,7 +2799,8 @@ func nox_xxx_strikeSpider_549BC0(a1 float32) int32 {
 	}
 	return 1
 }
-func nox_xxx_strikeSpittingSpider_549CA0(a1 float32) int32 {
+func nox_xxx_strikeSpittingSpider_549CA0(obj *server.Object) int32 {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
 		v2 int32
