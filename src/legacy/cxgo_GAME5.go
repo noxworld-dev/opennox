@@ -11,6 +11,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -1115,13 +1116,14 @@ func nox_xxx_unitIsDangerous_547120(a1p *server.Object, a2p *server.Object) int1
 	}
 	return int16(v3)
 }
-func nox_xxx_monsterPopAttackActions_5471B0(a1 unsafe.Pointer) {
-	var v1 int32
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
+func nox_xxx_monsterPopAttackActions_5471B0(obj *server.Object) {
+	ud := obj.UpdateDataMonster()
 	for {
-		switch *(*uint32)(unsafe.Pointer(uintptr(v1 + int32((*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 544))+23)*24)))) {
-		case 0x10, 0x11, 0x12, 0x13, 0x14, 0x19, 0x1A, 0x1B, 0x1C:
-			nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(uintptr(a1))))
+		switch ud.AIStackHead().Type() {
+		case ai.ACTION_MELEE_ATTACK, ai.ACTION_MISSILE_ATTACK,
+			ai.ACTION_CAST_SPELL_ON_OBJECT, ai.ACTION_CAST_SPELL_ON_LOCATION, ai.ACTION_CAST_DURATION_SPELL,
+			ai.ACTION_FACE_LOCATION, ai.ACTION_FACE_OBJECT, ai.ACTION_FACE_ANGLE, ai.ACTION_SET_ANGLE:
+			nox_xxx_monsterPopAction_50A160(obj)
 		default:
 			return
 		}
@@ -1352,7 +1354,7 @@ LABEL_8:
 			v42 = float32(float64(**(**uint16)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 556))) / float64(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 556)))), 4))))
 			v28 = bool2int32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1440)))&0x20 != 0 && nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(v1))), 29) != 0)
 			if float64(v42) <= float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1336))) || v28 != 0 {
-				nox_xxx_monsterPopAttackActions_5471B0(v1)
+				nox_xxx_monsterPopAttackActions_5471B0(a1p)
 				nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(v1))), 68)
 				if ((int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1440)))&0x80) != 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 12)))&0x80 != 0) && noxflags.HasGame(2048) {
 					nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(v1))), 14)
@@ -1374,8 +1376,8 @@ LABEL_8:
 			if uintptr(unsafe.Pointer(*v40)) != uintptr(16) && uintptr(unsafe.Pointer(*v40)) != uintptr(17) && nox_xxx_monsterTestBlockShield_533E70((*server.Object)(unsafe.Pointer(uintptr(v1)))) != 0 {
 				v3 = *v40
 				if uintptr(unsafe.Pointer(*v40)) != uintptr(1) && uintptr(unsafe.Pointer(v3)) != uintptr(23) {
-					nox_xxx_monsterPopAttackActions_5471B0(v1)
-					v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(v1))), 1))
+					nox_xxx_monsterPopAttackActions_5471B0(a1p)
+					v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(a1p, 1))
 					if v3 != nil {
 						*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = int32(gameFrame() + gameFPS())
 					}
@@ -1388,7 +1390,7 @@ LABEL_8:
 		if nox_xxx_monsterHasShield_5342C0(v1) != 0 && uintptr(unsafe.Pointer(*v30)) != uintptr(16) && uintptr(unsafe.Pointer(*v30)) != uintptr(17) && nox_xxx_monsterTestBlockShield_533E70((*server.Object)(unsafe.Pointer(uintptr(v1)))) != 0 {
 			v3 = (*int32)(unsafe.Pointer(uintptr(nox_xxx_checkMobAction_50A0D0((*server.Object)(unsafe.Pointer(uintptr(v1))), 21))))
 			if v3 == nil {
-				nox_xxx_monsterPopAttackActions_5471B0(v1)
+				nox_xxx_monsterPopAttackActions_5471B0(a1p)
 				v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(v1))), 21))
 				if v3 != nil {
 					*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = int32(gameFrame() + (gameFPS() >> 1))
@@ -1522,7 +1524,7 @@ func nox_xxx_monsterCheckDodgeables_547C50(a1 unsafe.Pointer) int32 {
 			return 0
 		}
 	}
-	nox_xxx_monsterPopAttackActions_5471B0(unsafe.Pointer(v1))
+	nox_xxx_monsterPopAttackActions_5471B0(AsObjectP(a1))
 	v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(v1)), 41))
 	if v9 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = int32(gameFrame() + gameFPS())
