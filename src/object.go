@@ -1064,7 +1064,7 @@ func (obj *Object) clearActionStack() { // aka nox_xxx_monsterClearActionStack_5
 }
 
 func (obj *Object) monsterPushAction(act ai.ActionType, args ...any) *server.AIStackItem { // aka nox_xxx_monsterPushAction_50A260
-	st := obj.monsterPushActionImpl(act, "go", 0)
+	st := obj.monsterPushActionImpl(act, 1)
 	st.SetArgs(args...)
 	return st
 }

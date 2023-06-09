@@ -13,7 +13,7 @@ var (
 	Sub_50D1C0                             func()
 	Nox_xxx_gameSetAudioFadeoutMb_501AC0   func(v int)
 	Nox_xxx_monsterPopAction_50A160        func(a1 *server.Object) int
-	Nox_xxx_monsterPushAction_50A260_impl  func(u *server.Object, act int, file string, line int) unsafe.Pointer
+	Nox_xxx_monsterPushAction_50A260_impl  func(u *server.Object, act int, skip int) unsafe.Pointer
 	Nox_xxx_unitUpdateMonster_50A5C0       func(a1 *server.Object)
 	Nox_xxx_monsterClearActionStack_50A3A0 func(a1 *server.Object)
 )
@@ -109,7 +109,7 @@ func nox_xxx_monsterPopAction_50A160(a1 *server.Object) {
 
 // nox_xxx_monsterPushAction_50A260_impl
 func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int32) unsafe.Pointer {
-	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), int(act), "", 0)
+	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), int(act), 1)
 }
 
 // nox_xxx_unitUpdateMonster_50A5C0

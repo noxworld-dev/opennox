@@ -591,11 +591,11 @@ func (obj *Object) monsterPopAction() int {
 	return int(si)
 }
 
-func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int, file string, line int) unsafe.Pointer {
-	return unsafe.Pointer(asObjectS(u).monsterPushActionImpl(ai.ActionType(act), file, line))
+func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int, skip int) unsafe.Pointer {
+	return unsafe.Pointer(asObjectS(u).monsterPushActionImpl(ai.ActionType(act), skip+1))
 }
 
-func (obj *Object) monsterPushActionImpl(act ai.ActionType, file string, line int) *server.AIStackItem {
+func (obj *Object) monsterPushActionImpl(act ai.ActionType, skip int) *server.AIStackItem {
 	if !obj.Class().Has(object.ClassMonster) {
 		return nil
 	}
@@ -624,7 +624,7 @@ func (obj *Object) monsterPushActionImpl(act ai.ActionType, file string, line in
 	}
 	obj.monsterActionReset()
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		ai.Log.Printf("%d: PushActionStack( %s(#%d), %s ), result: (%s:%d)\n", s.Frame(), obj, obj.NetCode, act, file, line)
+		ai.Log.Printf("%d: PushActionStack( %s(#%d), %s ), result: (%s)\n", s.Frame(), obj, obj.NetCode, act, caller(skip+1))
 	}
 	s.ai.stackChanged = true
 	return ud.AIStackHead()
