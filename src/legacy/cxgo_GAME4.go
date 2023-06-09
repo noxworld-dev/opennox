@@ -2013,15 +2013,15 @@ func nox_object_getGold_4FA6D0(a1p *server.Object) int32 {
 }
 func nox_xxx_playerBotCreate_4FA700(obj *server.Object) {
 	ud := obj.UpdateDataPlayer()
-	if ud.Field73 == nil {
+	if ud.UpdateDataBot == nil {
 		m, _ := alloc.New(server.MonsterUpdateData{})
-		ud.Field73 = unsafe.Pointer(m)
+		ud.UpdateDataBot = m
 	}
-	m := (*server.MonsterUpdateData)(ud.Field73)
+	m := ud.UpdateDataBot
 	if m != nil {
 		typ := nox_xxx_getNameId_4E3AA0(internCStr("NPC"))
 		*m = server.MonsterUpdateData{
-			Field545:              unsafe.Pointer(ud),
+			UpdateDataBot:         ud,
 			MonsterDef:            Nox_xxx_monsterDefByTT_517560(int(typ)),
 			RetreatLevel:          math.Float32frombits(1048576000),
 			Field335:              1,
@@ -2121,8 +2121,7 @@ func nox_xxx_mobMorphFromPlayer_4FAAC0(obj *server.Object) {
 		obj.ObjClass &^= uint32(object.ClassPlayer)
 		obj.ObjClass |= uint32(object.ClassMonster)
 		obj.ObjSubClass = uint32(object.MonStatusUnused5)
-		mud := (*server.MonsterUpdateData)(ud.Field73)
-		obj.UpdateData = unsafe.Pointer(mud)
+		obj.UpdateData = unsafe.Pointer(ud.UpdateDataBot)
 	}
 }
 func nox_xxx_mobMorphToPlayer_4FAAF0(obj *server.Object) {
@@ -2131,87 +2130,63 @@ func nox_xxx_mobMorphToPlayer_4FAAF0(obj *server.Object) {
 		obj.ObjClass &^= uint32(object.ClassMonster)
 		obj.ObjClass |= uint32(object.ClassPlayer)
 		obj.ObjSubClass = 0
-		pud := (*server.PlayerUpdateData)(ud.Field545)
-		obj.UpdateData = unsafe.Pointer(pud)
+		obj.UpdateData = unsafe.Pointer(ud.UpdateDataBot)
 	}
 }
 func Nox_xxx_updatePlayerMonsterBot_4FAB20(obj *server.Object) {
-	a1 := obj.CObj()
-	var (
-		result int32
-		v3     int32
-		v4     int32
-		v5     int8
-		v6     int32
-	)
-	ud := obj.UpdateData
-	if *(*uint32)(unsafe.Add(ud, 292)) != 0 || (func() bool {
+	ud := obj.UpdateDataPlayer()
+	if ud.UpdateDataBot == nil {
 		nox_xxx_playerBotCreate_4FA700(obj)
-		return (func() int32 {
-			result = int32(*(*uint32)(unsafe.Add(ud, 292)))
-			return result
-		}()) != 0
-	}()) {
-		if nox_xxx_respawnPlayerBot_4FAC70(obj) == 0 {
-			v3 = int32(*(*uint32)(unsafe.Add(ud, 292)))
-			v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 1440)))
-			*(*uint8)(unsafe.Add(unsafe.Pointer(&v4), 1)) |= 1
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 1440)) = uint32(v4)
-			nox_xxx_mobMorphFromPlayer_4FAAC0(obj)
-			nox_xxx_unitUpdateMonster_50A5C0(obj)
-			nox_xxx_mobMorphToPlayer_4FAAF0(obj)
-			v5 = nox_xxx_monsterActionToPlrState_4FABC0(int32(uintptr(unsafe.Pointer(a1))))
-			v6 = int32(*(*uint32)(unsafe.Add(ud, 276)))
-			*(*uint8)(unsafe.Add(ud, 88)) = uint8(v5)
-			*(*uint8)(unsafe.Add(ud, 236)) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 481))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 3632)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*14))
-			result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*15)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 3636)) = uint32(result)
-		}
-	} else {
+	}
+	if ud.UpdateDataBot == nil {
 		obj.Update.Set(nox_xxx_updatePlayer_4F8100)
+		return
+	}
+	if !nox_xxx_respawnPlayerBot_4FAC70(obj) {
+		mud := ud.UpdateDataBot
+		mud.StatusFlags |= object.MonStatusDestroyWhenDead
+		nox_xxx_mobMorphFromPlayer_4FAAC0(obj)
+		nox_xxx_unitUpdateMonster_50A5C0(obj)
+		nox_xxx_mobMorphToPlayer_4FAAF0(obj)
+		ud.State = uint8(nox_xxx_monsterActionToPlrState_4FABC0(obj))
+		ud.Field59_0 = mud.Field120_1
+		ud.Player.Pos3632Vec = obj.PosVec
 	}
 }
-func nox_xxx_monsterActionToPlrState_4FABC0(a1 int32) int8 {
-	var (
-		v1     int32
-		v2     int8
-		result int8
-	)
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))), 292)))
-	v2 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 544)))
-	if int32(v2) == -1 {
+func nox_xxx_monsterActionToPlrState_4FABC0(obj *server.Object) int8 {
+	ud := obj.UpdateDataPlayer()
+	mud := ud.UpdateDataBot
+	act := mud.AIStackHead()
+	if act == nil {
 		return 13
 	}
-	switch *(*uint32)(unsafe.Pointer(uintptr(v1 + (int32(v2)+23)*24))) {
-	case 7, 8, 0xA, 0xD, 0x1D:
-		if (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440)) & 0x4000) != 0 {
-			result = 5
-		} else {
-			result = 0
+	switch act.Type() {
+	case ai.ACTION_MOVE_TO, ai.ACTION_FAR_MOVE_TO, ai.ACTION_ROAM, ai.ACTION_FIND_OBJECT, ai.ACTION_RANDOM_WALK:
+		if mud.StatusFlags.Has(object.MonStatusRunning) {
+			return 5
 		}
-	case 9:
-		result = 0
-	case 0x10, 0x11:
-		result = 1
-	case 0x12, 0x13, 0x14:
-		result = 2
-	case 0x15, 0x17:
-		result = 16
-	case 0x16:
-		result = 17
-	case 0x18:
-		result = 5
-	case 0x1E:
-		result = 3
-	case 0x1F:
-		result = 4
+		return 0
+	case ai.ACTION_DODGE:
+		return 0
+	case ai.ACTION_MELEE_ATTACK, ai.ACTION_MISSILE_ATTACK:
+		return 1
+	case ai.ACTION_CAST_SPELL_ON_OBJECT, ai.ACTION_CAST_SPELL_ON_LOCATION, ai.ACTION_CAST_DURATION_SPELL:
+		return 2
+	case ai.ACTION_BLOCK_ATTACK, ai.ACTION_WEAPON_BLOCK:
+		return 16
+	case ai.ACTION_BLOCK_FINISH:
+		return 17
+	case ai.ACTION_FLEE:
+		return 5
+	case ai.ACTION_DYING:
+		return 3
+	case ai.ACTION_DEAD:
+		return 4
 	default:
 		return 13
 	}
-	return result
 }
-func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) int32 {
+func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) bool {
 	a1 := obj.CObj()
 	var (
 		v1 int32
@@ -2222,7 +2197,7 @@ func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) int32 {
 	v2 = (*byte)(sub_416640())
 	if int32(**(**uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 556))) == 0 {
 		if gameFrame()-*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 548)) < (gameFPS() * 2) {
-			return 1
+			return true
 		}
 		nox_xxx_playerBotCreate_4FA700(obj)
 		nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 0)
@@ -2236,7 +2211,7 @@ func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) int32 {
 			nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(a1))), 23, int16(int32(uint16(gameFPS()))*5), 5)
 		}
 	}
-	return 0
+	return false
 }
 func nox_xxx_netSendRewardNotify_4FAD50(a1 int32, a2 int32, a3 int32, a4 int8) int32 {
 	var (

@@ -123,7 +123,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 	if oa1, ov68, ok := s.unitUpdatePlayerImplA(u); ok {
 		s.unitUpdatePlayerImplB(u, oa1, ov68)
 	}
-	if u.HasEnchant(server.ENCHANT_RUN) && ud.Field22_0 != 1 {
+	if u.HasEnchant(server.ENCHANT_RUN) && ud.State != 1 {
 		nox_xxx_playerSetState_4FA020(u, 5)
 	}
 	legacy.Nox_xxx_questCheckSecretArea_421C70(u.SObj())
@@ -133,7 +133,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
-	switch ud.Field22_0 {
+	switch ud.State {
 	default:
 		return a1, v68, true
 	case 0, 5:
@@ -155,7 +155,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		dy := float64(dp.Y)
 		a1 = false
 		const runCursorDist = 100
-		if !(ud.Field22_0 != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly)) {
+		if !(ud.State != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly)) {
 			// switch from walking to running
 			a1 = true
 			u.SpeedCur *= 2
@@ -197,7 +197,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			// update force based on direction, speed, etc
 			u.ForceVec = u.ForceVec.Add(u.Direction2.Vec().Mul(u.SpeedCur))
 		}
-		if ud.Field22_0 == 0 {
+		if ud.State == 0 {
 			v67, v69 := s.PlayerAnimFrames(4)
 			v31 := int(u.NetCode) + int(noxServer.Frame())
 			v32 := (v31 - 1) / (v69 + 1) % v67
@@ -490,7 +490,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 	if cb.IsEmpty() {
 		goto LABEL_247
 	}
-	if (ud.Field22_0 == 0 || ud.Field22_0 == 5) && legacy.Sub_4F9A80(u.SObj()) == 0 {
+	if (ud.State == 0 || ud.State == 5) && legacy.Sub_4F9A80(u.SObj()) == 0 {
 		nox_xxx_playerSetState_4FA020(u, 13)
 		u.Field34 = s.Frame()
 	}
@@ -528,8 +528,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 			if legacy.Nox_xxx_playerCanMove_4F9BC0(u.SObj()) != 0 {
 				legacy.Nox_xxx_cancelAllSpells_4FEE90(u.SObj())
 				if !s.Abils.IsActive(u.SObj(), server.AbilityBerserk) &&
-					(ud.Field22_0 != 1 || (pl.Field4&0x47F0000 != 0) && legacy.Nox_common_mapPlrActionToStateId_4FA2B0(u.SObj()) != 29) {
-					if ud.Field22_0 == 16 {
+					(ud.State != 1 || (pl.Field4&0x47F0000 != 0) && legacy.Nox_common_mapPlrActionToStateId_4FA2B0(u.SObj()) != 29) {
+					if ud.State == 16 {
 						nox_xxx_playerSetState_4FA020(u, 17)
 					} else {
 						if a1 {
@@ -561,7 +561,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if !noxflags.HasGame(noxflags.GameModeChat) && legacy.Nox_xxx_checkWinkFlags_4F7DF0(u.SObj()) == 0 {
 					legacy.Nox_xxx_playerInputAttack_4F9C70(u.SObj())
 				}
-				if ud.Field22_0 == 10 {
+				if ud.State == 10 {
 					nox_xxx_playerSetState_4FA020(u, 13)
 				}
 			}
@@ -697,7 +697,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 	}
 
 LABEL_247:
-	if v68 && ud.Field22_0 != 0 && ud.Field22_0 != 5 {
+	if v68 && ud.State != 0 && ud.State != 5 {
 		if s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly) {
 			s.abilities.DisableAbility(u.SObj(), server.AbilityTreadLightly)
 		}
