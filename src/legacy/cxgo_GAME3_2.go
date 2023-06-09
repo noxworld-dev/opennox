@@ -7353,55 +7353,53 @@ func nox_xxx_damageArmor_4E1500(obj, who, obj3 *server.Object, dmg int, typ obje
 		return 0
 	}
 }
-func nox_xxx_playerDamageWeapon_4E1560(a1, a2, a3, a4 unsafe.Pointer, a5 float32, a6 int32) {
-	if a1 != nil {
-		if *(*uint32)(unsafe.Add(a1, 556)) != 0 {
-			v6 := *(**float32)(unsafe.Add(a1, 748))
-			if (*(*uint32)(unsafe.Add(a1, 8))&0x1000000) == 0 || (*(*uint32)(unsafe.Add(a1, 12))&0x7800000) == 0 {
-				v7 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a1, 692)))), 4)))
-				if v7 != 0 {
-					v8 := ccall.AsFunc[func(int32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, *float32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 76)))
-					if v8 != nil {
-						v8(v7, a1, a2, a4, a3, &a5)
-					}
-				}
-				a5 = a5 + *v6
-				v9 := int32(a5)
-				*v6 = float32(float64(a5) - float64(v9))
-				if v9 > 0 {
-					v10 := **(**uint16)(unsafe.Add(a1, 556))
-					ccall.AsFunc[func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(a1, 716)))(a1, a3, a4, v9, a6)
-					if a2 != nil {
-						if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
-							v11 := **(**uint16)(unsafe.Add(a1, 556))
-							if int32(v10) != int32(v11) {
-								nox_xxx_itemDestroyed_4E1650(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 748)))), 276)))), 2064))), (*uint32)(unsafe.Pointer(uintptr(a1))), v10, v11)
-							}
-						}
-					}
-				}
+func nox_xxx_playerDamageWeapon_4E1560(obj, obj2, obj3, obj4 *server.Object, dmg float32, typ object.DamageType) {
+	if obj == nil {
+		return
+	}
+	if obj.HealthData == nil {
+		return
+	}
+	// Oblivion Staff takes no damage
+	if obj.Class().Has(object.ClassWeapon) && obj.SubClass().AsWeapon().HasAny(
+		object.WeaponStaffOblivionHalberd|object.WeaponStaffOblivionHeart|object.WeaponStaffOblivionWierdling|object.WeaponStaffOblivionOrb,
+	) {
+		return
+	}
+	if m := *(**server.ModifierEff)(unsafe.Add(obj.InitData, 4)); m != nil {
+		if fnc := m.Defend76.Fnc.Get(); fnc != nil {
+			fnc(m, obj, obj2, obj4, obj3.CObj(), unsafe.Pointer(&dmg))
+		}
+	}
+	ud := obj.UpdateData
+	dmg = dmg + *(*float32)(ud)
+	dmgi := int(dmg)
+	*(*float32)(ud) = float32(float64(dmg) - float64(dmgi))
+	if dmgi > 0 {
+		hpBefore := obj.HealthData.Cur
+		obj.Damage.Get()(obj, obj3, obj4, dmgi, typ)
+		if obj2 != nil && obj2.Class().Has(object.ClassPlayer) {
+			hpAfter := obj.HealthData.Cur
+			if hpBefore != hpAfter {
+				pud := obj2.UpdateDataPlayer()
+				nox_xxx_itemDestroyed_4E1650(int32(pud.Player.Index()), (*uint32)(obj.CObj()), hpBefore, hpAfter)
 			}
 		}
 	}
 }
-func nox_xxx_itemDestroyed_4E1650(a1 int32, a2 *uint32, a3 uint16, a4 uint16) int32 {
-	var (
-		result int32
-		v5     int32
-	)
-	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*139)))
+func nox_xxx_itemDestroyed_4E1650(a1 int32, a2 *uint32, a3 uint16, a4 uint16) {
+	result := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*139)))
 	if result != 0 {
 		if noxflags.HasGame(2048) {
 			result = nox_xxx_itemReportHealth_4D87A0(a1, (*server.Object)(unsafe.Pointer(a2)))
 		} else {
-			v5 = sub_57B190(a3, *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*139)))), 4)))
+			v5 := sub_57B190(a3, *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*139)))), 4)))
 			result = sub_57B190(a4, *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*139)))), 4)))
 			if v5 != result {
-				result = nox_xxx_itemReportHealth_4D87A0(a1, (*server.Object)(unsafe.Pointer(a2)))
+				nox_xxx_itemReportHealth_4D87A0(a1, (*server.Object)(unsafe.Pointer(a2)))
 			}
 		}
 	}
-	return result
 }
 func nox_xxx_equipDamage_4E16D0(a1, a2, a3, a4 unsafe.Pointer, a5 float32, a6 int32) {
 	var (

@@ -229,7 +229,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 						}
 						v30 = nox_xxx_gamedataGetFloat_419D40(internCStr("ItemDamageFromBlockPercentage"))
 						v47 = float32(v30 * float64(a4))
-						sub_4E22A0(v5, a2, a3, 1024, v47, v27)
+						sub_4E22A0(v5, a2, a3, 1024, v47, object.DamageType(v27))
 						return 0
 					}
 				} else {
@@ -258,7 +258,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 				}
 				v32 = nox_xxx_gamedataGetFloat_419D40(internCStr("ItemDamageFromBlockPercentage"))
 				v48 = float32(v32 * float64(a4))
-				sub_4E22A0(v5, a2, a3, 134184960, v48, v27)
+				sub_4E22A0(v5, a2, a3, 134184960, v48, object.DamageType(v27))
 				return 0
 			}
 		M_LABEL_78:
@@ -484,12 +484,12 @@ func sub_4E2220(a1 unsafe.Pointer) float64 {
 	}
 	return float64(v5)
 }
-func sub_4E22A0(a1 unsafe.Pointer, a2, a3 unsafe.Pointer, a4 int32, a5 float32, a6 int32) int32 {
+func sub_4E22A0(a1 unsafe.Pointer, a2, a3 unsafe.Pointer, subclass int32, dmg float32, typ object.DamageType) int32 {
 	var (
-		i *uint32
+		it *uint32
 	)
-	for i = *(**uint32)(unsafe.Add(a1, 504)); i != nil; i = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*124))))) {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*4))&0x100 != 0 && uint32(a4)&*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*3)) != 0 {
+	for it = *(**uint32)(unsafe.Add(a1, 504)); it != nil; it = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(it), 4*124))))) {
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(it), 4*4))&0x100 != 0 && uint32(subclass)&*(*uint32)(unsafe.Add(unsafe.Pointer(it), 4*3)) != 0 {
 			break
 		}
 	}
@@ -497,11 +497,11 @@ func sub_4E22A0(a1 unsafe.Pointer, a2, a3 unsafe.Pointer, a4 int32, a5 float32, 
 	if a3 == nil {
 		v7 = a2
 	}
-	nox_xxx_playerDamageWeapon_4E1560(unsafe.Pointer(i), a1, a2, v7, a5, a6)
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*4)) & 0x20) == 0 {
+	nox_xxx_playerDamageWeapon_4E1560(AsObjectP(unsafe.Pointer(it)), AsObjectP(a1), AsObjectP(a2), AsObjectP(v7), dmg, typ)
+	if (*(*uint32)(unsafe.Add(unsafe.Pointer(it), 4*4)) & 0x20) == 0 {
 		return 0
 	}
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))&4 != 0 {
+	if int32(*(*uint8)(unsafe.Add(a1, 8)))&4 != 0 {
 		nox_xxx_playerSetState_4FA020(AsObjectP(a1), 13)
 	} else {
 		nox_xxx_monsterPopAction_50A160(AsObjectP(a1))

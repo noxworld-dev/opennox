@@ -4038,8 +4038,6 @@ func nox_xxx_playerTraceAttack_538330(a1, a2 unsafe.Pointer) int32 {
 		v16 float32
 		v17 float32
 		v18 float32
-		v19 float32
-		v20 int32
 		v21 int32
 		a1a int4
 		v23 float32
@@ -4087,9 +4085,9 @@ func nox_xxx_playerTraceAttack_538330(a1, a2 unsafe.Pointer) int32 {
 	nox_xxx_mapDamageToWalls_534FC0(&a1a, unsafe.Add(a2, 16), a3, int32(int64(float64(*(*float32)(a2))+0.5)), int32(*(*uint8)(unsafe.Add(a2, 4))), unsafe.Pointer(uintptr(v12)))
 	if *(*uint32)(unsafe.Add(a2, 28)) != 0 {
 		if dword_5d4594_2488656 != 0 {
-			v20 = int32(*(*uint8)(unsafe.Add(a2, 4)))
-			v19 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ItemDamagePercentage")) * float64(*(*float32)(a2)))
-			nox_xxx_playerDamageWeapon_4E1560(*(*unsafe.Pointer)(unsafe.Add(a2, 28)), *(*unsafe.Pointer)(unsafe.Add(a2, 12)), *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2488660)), *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2488660)), v19, v20)
+			typ := object.DamageType(*(*uint8)(unsafe.Add(a2, 4)))
+			dmg := float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ItemDamagePercentage")) * float64(*(*float32)(a2)))
+			nox_xxx_playerDamageWeapon_4E1560(AsObjectP(*(*unsafe.Pointer)(unsafe.Add(a2, 28))), AsObjectP(*(*unsafe.Pointer)(unsafe.Add(a2, 12))), AsObjectP(dword_5d4594_2488660), AsObjectP(dword_5d4594_2488660), dmg, typ)
 		}
 	}
 	return int32(dword_5d4594_2488656)
