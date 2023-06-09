@@ -21,10 +21,6 @@ func nox_xxx_monsterCreateFn_54C480(u *server.Object) {
 	Nox_xxx_monsterCreateFn_54C480(asObjectS(u))
 }
 
-func Nox_xxx_monsterDefByTT_517560(typ int) *server.MonsterDef {
-	return (*server.MonsterDef)(nox_xxx_monsterDefByTT_517560(int32(typ)))
-}
-
 func Nox_xxx_monsterAutoSpells_54C0C0(u *server.Object) {
 	nox_xxx_monsterAutoSpells_54C0C0(asObjectC(u))
 }

@@ -2034,7 +2034,7 @@ func nox_xxx_playerBotCreate_4FA700(a1 unsafe.Pointer) {
 		libc.MemSet(unsafe.Pointer(v3), 0, 0x898)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*545)) = uint32(v2)
 		v4 = nox_xxx_getNameId_4E3AA0(internCStr("NPC"))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*121)) = uint32(uintptr(nox_xxx_monsterDefByTT_517560(v4)))
+		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*121)) = unsafe.Pointer(Nox_xxx_monsterDefByTT_517560(int(v4)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*334)) = 1048576000
 		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1340))) = 1
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*336)) = 1061997773

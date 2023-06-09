@@ -8376,7 +8376,7 @@ func nox_xxx_monsterOnSpawnSpellcaster_529BC0(a1 unsafe.Pointer) {
 	)
 	if a1 != nil {
 		v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-		v2 = (*uint32)(nox_xxx_monsterDefByTT_517560(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))))
+		v2 = (*uint32)(unsafe.Pointer(Nox_xxx_monsterDefByTT_517560(int(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))))))
 		if v2 != nil {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1445))) == 0 {
 				**(**uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 556)) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*34)))
@@ -8950,7 +8950,7 @@ func nox_xxx_XFerNPC_52ADE0(a1p *server.Object, data unsafe.Pointer) int {
 		return 0
 	}
 	if nox_crypt_IsReadOnly() == 1 {
-		v4 = (*uint32)(nox_xxx_monsterDefByTT_517560(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))))
+		v4 = (*uint32)(unsafe.Pointer(Nox_xxx_monsterDefByTT_517560(int(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))))))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 484)) = uint32(uintptr(unsafe.Pointer(v4)))
 		if v4 != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*23))

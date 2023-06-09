@@ -18,7 +18,7 @@ import (
 
 var nox_xxx_wallSounds_2386840 uint32 = 0
 var dword_5d4594_2386176 unsafe.Pointer = nil
-var nox_monsterBin_head_2386924 unsafe.Pointer = nil
+var nox_monsterBin_head_2386924 *server.MonsterDef
 
 func sub_5098A0() {
 	var (
@@ -5016,24 +5016,24 @@ func sub_516FC0() {
 	sub_516F30()
 }
 func nox_xxx_loadMonsterBin_517010() int32 {
-	var (
-		result int32
-		v1     *FILE
-		v2     [256]byte
-	)
+	var buf [256]byte
 	nox_monsterBin_head_2386924 = nil
-	result = int32(uintptr(unsafe.Pointer(nox_binfile_open_408CC0(internCStr("monster.bin"), 0))))
-	v1 = (*FILE)(unsafe.Pointer(uintptr(result)))
-	if result != 0 {
-		result = nox_binfile_cryptSet_408D40((*FILE)(unsafe.Pointer(uintptr(result))), 23)
-		if result != 0 {
-			for nox_xxx_readStr_517090(v1, (*uint8)(unsafe.Pointer(&v2[0]))) != 0 && nox_xxx_servParseMonsterDef_517170(v1, &v2[0]) != 0 {
-			}
-			nox_binfile_close_408D90(v1)
-			result = 1
+	f := nox_binfile_open_408CC0(internCStr("monster.bin"), 0)
+	if f == nil {
+		return 0
+	}
+	defer nox_binfile_close_408D90(f)
+	if nox_binfile_cryptSet_408D40(f, 23) == 0 {
+		return 0
+	}
+	for {
+		if nox_xxx_readStr_517090(f, &buf[0]) == 0 {
+			return 1
+		}
+		if nox_xxx_servParseMonsterDef_517170(f, &buf[0]) == 0 {
+			return 0
 		}
 	}
-	return result
 }
 func nox_xxx_readStr_517090(a1 *FILE, a2 *uint8) int32 {
 	var (
@@ -5107,8 +5107,8 @@ func nox_xxx_servParseMonsterDef_517170(f *FILE, a2 *byte) int32 {
 	libc.StrCpy(&def.Name0[0], a2)
 	for {
 		if nox_xxx_readStr_517090(f, &buf[0]) == 0 || nox_strcmpi(internCStr("END"), &buf[0]) == 0 {
-			def.Next244 = (*server.MonsterDef)(nox_monsterBin_head_2386924)
-			nox_monsterBin_head_2386924 = unsafe.Pointer(def)
+			def.Next244 = nox_monsterBin_head_2386924
+			nox_monsterBin_head_2386924 = def
 			return 1
 		}
 		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGame(noxflags.GameFlag22) {
@@ -5201,61 +5201,32 @@ func nox_xxx_servParseMonsterDef_517170(f *FILE, a2 *byte) int32 {
 		}
 	}
 }
-func nox_xxx_monsterListFree_5174F0() *uint32 {
-	var (
-		result *uint32
-		v1     *uint32
-	)
-	result = (*uint32)(nox_monsterBin_head_2386924)
-	if nox_monsterBin_head_2386924 != nil {
-		for {
-			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*61)))))
-			alloc.Free(result)
-			result = v1
-			if v1 == nil {
-				break
-			}
-		}
-		nox_monsterBin_head_2386924 = nil
+func nox_xxx_monsterListFree_5174F0() {
+	var next *server.MonsterDef
+	for it := nox_monsterBin_head_2386924; it != nil; it = next {
+		next = it.Next244
+		alloc.Free(it)
 	}
-	return result
+	nox_monsterBin_head_2386924 = nil
 }
 func nox_xxx_monsterList_517520() int32 {
-	var (
-		v0 int32
-		v1 int32
-	)
-	v0 = int32(uintptr(nox_monsterBin_head_2386924))
-	if nox_monsterBin_head_2386924 == nil {
-		return 1
-	}
-	for {
-		v1 = nox_xxx_getNameId_4E3AA0((*byte)(unsafe.Pointer(uintptr(v0))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v0)), 240)) = uint32(v1)
-		if v1 == 0 {
-			break
-		}
-		v0 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v0)), 244)))
-		if v0 == 0 {
-			return 1
+	for it := nox_monsterBin_head_2386924; it != nil; it = it.Next244 {
+		typ := nox_xxx_getNameId_4E3AA0(&it.Name0[0])
+		it.TypeInd240 = uint32(typ)
+		if typ == 0 {
+			nox_xxx_monsterListFree_5174F0()
+			return 0
 		}
 	}
-	nox_xxx_monsterListFree_5174F0()
-	return 0
+	return 1
 }
-func nox_xxx_monsterDefByTT_517560(a1 int32) unsafe.Pointer {
-	var result *uint32
-	result = (*uint32)(nox_monsterBin_head_2386924)
-	if nox_monsterBin_head_2386924 == nil {
-		return nil
-	}
-	for *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*60)) != uint32(a1) {
-		result = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*61)))))
-		if result == nil {
-			return nil
+func Nox_xxx_monsterDefByTT_517560(typ int) *server.MonsterDef {
+	for it := nox_monsterBin_head_2386924; it != nil; it = it.Next244 {
+		if it.TypeInd240 == uint32(typ) {
+			return it
 		}
 	}
-	return unsafe.Pointer(result)
+	return nil
 }
 func sub_517870(a1p *server.Object) int16 {
 	var (

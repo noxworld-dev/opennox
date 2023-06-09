@@ -2520,7 +2520,7 @@ func nox_xxx_enactUnitOrder_5339A0(source unsafe.Pointer, unit unsafe.Pointer, o
 			return (v4 & 0x8000) == 0
 		}()) {
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*121)) != 0 || (func() bool {
-				v5 = (*uint32)(nox_xxx_monsterDefByTT_517560(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 4)))))
+				v5 = (*uint32)(unsafe.Pointer(Nox_xxx_monsterDefByTT_517560(int(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 4))))))
 				return (func() uint32 {
 					p := (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*121))
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*121)) = uint32(uintptr(unsafe.Pointer(v5)))
