@@ -1837,21 +1837,15 @@ func sub_532040(it *server.Object, data unsafe.Pointer) {
 	}
 }
 func nox_xxx_monsterShieldBlockStart_532070(obj *server.Object) {
-	a1 := int32(uintptr(obj.CObj()))
-	var (
-		v1 int32
-		v2 uint32
-	)
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)) + uint32((*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))), 544))+23)*24))
-	if nox_xxx_monsterTestBlockShield_533E70((*server.Object)(unsafe.Pointer(uintptr(a1)))) != 0 {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 4)) = gameFrame() + (gameFPS() >> 1)
+	ud := obj.UpdateDataMonster()
+	act := ud.AIStackHead()
+	if nox_xxx_monsterTestBlockShield_533E70(obj) != 0 {
+		act.Args[0] = uintptr(gameFrame() + (gameFPS() >> 1))
 	}
-	v2 = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 4))
-	if gameFrame() > v2 {
+	if gameFrame() > uint32(act.Args[0]) {
 		nox_xxx_monsterPopAction_50A160(obj)
-		*((*uint8)(unsafe.Pointer(&v2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12))
-		if (v2 & 0x10) == 0 {
-			*((*uint8)(unsafe.Pointer(&v2))) = uint8(uint32(uintptr(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(a1))), 22))))
+		if !obj.SubClass().AsMonster().Has(object.MonsterNPC) {
+			nox_xxx_monsterPushAction_50A260_impl(obj, 22)
 		}
 	}
 }
