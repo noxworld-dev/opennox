@@ -857,7 +857,31 @@ func nox_xxx_XFerMonsterGen_4F7130(a1p *server.Object, data unsafe.Pointer) int 
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v30)), 1)
 					v17 = 0
 					if int32(uint8(int8(v30))) != 0 {
-						break
+						for {
+							nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v28)), 1)
+							nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v34[0])), uint32(uint8(int8(v28))))
+							v34[uint8(int8(v28))] = 0
+							v18 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(&v34[0])))
+							if v18 == nil {
+								return 0
+							}
+							nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v26)), 2)
+							nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v32)), 4)
+							if (ccall.AsFunc[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v18), 4*176))))))(v18, 0) == 0 {
+								return 0
+							}
+							v19 = func() int32 {
+								p := &v17
+								x := *p
+								*p++
+								return x
+							}() + v16*4
+							v20 = v17 < int32(uint8(int8(v30)))
+							*(*uint32)(unsafe.Add(unsafe.Pointer(v1), v19*4)) = uint32(uintptr(unsafe.Pointer(v18)))
+							if !v20 {
+								break
+							}
+						}
 					}
 					if func() int32 {
 						p := &v16
@@ -865,37 +889,6 @@ func nox_xxx_XFerMonsterGen_4F7130(a1p *server.Object, data unsafe.Pointer) int 
 						return *p
 					}() >= int32(uint8(int8(v27))) {
 						goto LABEL_37
-					}
-				}
-				for {
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v28)), 1)
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v34[0])), uint32(uint8(int8(v28))))
-					v34[uint8(int8(v28))] = 0
-					v18 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(&v34[0])))
-					if v18 == nil {
-						return 0
-					}
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v26)), 2)
-					nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v32)), 4)
-					if (ccall.AsFunc[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v18), 4*176))))))(v18, 0) == 0 {
-						return 0
-					}
-					v19 = func() int32 {
-						p := &v17
-						x := *p
-						*p++
-						return x
-					}() + v16*4
-					v20 = v17 < int32(uint8(int8(v30)))
-					*(*uint32)(unsafe.Add(unsafe.Pointer(v1), v19*4)) = uint32(uintptr(unsafe.Pointer(v18)))
-					if !v20 {
-						if func() int32 {
-							p := &v16
-							*p++
-							return *p
-						}() >= int32(uint8(int8(v27))) {
-							goto LABEL_37
-						}
 					}
 				}
 			}
