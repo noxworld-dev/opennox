@@ -5428,7 +5428,7 @@ func nox_xxx_netSendComplexObject_518960(a1 int32, a2 *uint32, a3 int32) int32 {
 	v12 = int16(int32(v11))
 	v13 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*187)))
 	*(*uint16)(unsafe.Pointer(&v18[7])) = uint16(v12)
-	v18[9] = byte(int8(nox_xxx_mobActionToAnimation_533790(unsafe.Pointer(v4))))
+	v18[9] = byte(int8(nox_xxx_mobActionToAnimation_533790(AsObjectP(unsafe.Pointer(v4)))))
 	v14 = int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 12))))
 	v18[10] = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v13)), 481))
 	if int32(v14)&0x10 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v13)), 2094))) != 0 && nox_common_randomInt_415FA0(0, 10) >= 8 {

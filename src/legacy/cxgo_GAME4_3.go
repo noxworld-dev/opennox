@@ -2402,21 +2402,16 @@ func nox_xxx_projAddVelocitySmth_533080(a1, a2 *server.Object, a3 float32, a4 *t
 	a4.X = float32(v7*float64(a2.VelVec.X) + float64(a2.PosVec.X))
 	a4.Y = float32(v7*float64(a2.VelVec.Y) + float64(a2.PosVec.Y))
 }
-func nox_xxx_mobActionToAnimation_533790(a1 unsafe.Pointer) int32 {
-	var (
-		v1     int32
-		v2     int8
-		v3     uint32
-		result int32
-	)
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	v2 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 544)))
-	if int32(v2) == -1 {
+func nox_xxx_mobActionToAnimation_533790(obj *server.Object) int32 {
+	ud := obj.UpdateDataMonster()
+	act := ud.AIStackHead()
+	var v3 uint32
+	if act == nil {
 		v3 = 8
 	} else {
-		switch *(*uint32)(unsafe.Pointer(uintptr(v1 + (int32(v2)+23)*24))) {
+		switch act.Type() {
 		case 7, 8, 0xA, 0xD, 0x1D, 0x24, 0x25:
-			v3 = (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440))&0x4000 | 0x30000) >> 14
+			v3 = uint32((ud.StatusFlags&0x4000 | 0x30000) >> 14)
 		case 9:
 			v3 = 12
 		case 0x10:
@@ -2443,29 +2438,28 @@ func nox_xxx_mobActionToAnimation_533790(a1 unsafe.Pointer) int32 {
 			v3 = 8
 		}
 	}
-	if nox_xxx_unitIsMimic_534840(a1) != 0 && v3 == 8 {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440))&0x40000 != 0 {
+	if nox_xxx_unitIsMimic_534840(obj.CObj()) != 0 && v3 == 8 {
+		if ud.StatusFlags.Has(object.MonStatusMorphed) {
 			return 0
 		}
 		return int32(v3)
 	}
-	if nox_xxx_unitIsPlant_534A10(a1) != 0 && v3 == 8 {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1196)) == 0 {
+	if nox_xxx_unitIsPlant_534A10(obj.CObj()) != 0 && v3 == 8 {
+		if ud.CurrentEnemy == nil {
 			return 14
 		}
 		return int32(v3)
 	}
-	if nox_xxx_unitIsZombie_534A40(a1) == 0 {
+	if nox_xxx_unitIsZombie_534A40(obj.CObj()) == 0 {
 		return int32(v3)
 	}
 	if v3 != 9 {
 		return int32(v3)
 	}
-	result = 15
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440)) & 0x80000) == 0 {
-		return int32(v3)
+	if ud.StatusFlags.Has(object.MonStatusOnFire) {
+		return 15
 	}
-	return result
+	return int32(v3)
 }
 func nox_xxx_orderUnit_533900(ownerp *server.Object, creaturep *server.Object, orderType int32) {
 	var (
@@ -2665,7 +2659,7 @@ func nox_xxx_unitNPCActionToAnim_533D00(a1 unsafe.Pointer) *uint8 {
 		*memmap.PtrUint8(0x5D4594, 2487974) = uint8(int8(v6))
 		result = (*uint8)(memmap.PtrOff(0x5D4594, 2487964))
 	} else if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 476)) != 0 {
-		result = (*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 476)) + uint32(nox_xxx_mobActionToAnimation_533790(a1)*16))))
+		result = (*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 476)) + uint32(nox_xxx_mobActionToAnimation_533790(AsObjectP(a1))*16))))
 	} else {
 		result = nil
 	}
