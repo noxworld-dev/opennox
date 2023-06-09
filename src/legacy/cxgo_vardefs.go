@@ -190,7 +190,6 @@ var qword_5d4594_815068 uint64 = 0
 var qword_5d4594_814956 uint64 = 0
 var qword_581450_10176 uint64 = 0x3FB99999A0000000
 var dword_5d4594_1316408 uint32
-var dword_5d4594_2488660 unsafe.Pointer
 var dword_587000_292492 uint32 = 0x42C80000
 var nox_client_translucentFrontWalls_805844 uint32
 var dword_5d4594_1309732 uint32

@@ -4024,6 +4024,9 @@ func nox_xxx_playerPreAttackEffects_538290(a1 unsafe.Pointer, a2 unsafe.Pointer,
 		}
 	}
 }
+
+var dword_5d4594_2488660 *server.Object
+
 func nox_xxx_playerTraceAttack_538330(a1, a2 unsafe.Pointer) int32 {
 	var (
 		v3  int32
@@ -4054,12 +4057,12 @@ func nox_xxx_playerTraceAttack_538330(a1, a2 unsafe.Pointer) int32 {
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)))
 		return int32(*(*uint8)(unsafe.Add(unsafe.Pointer(&v4), 1))) & 0x40
 	}()) != 0 {
-		sub_518040(unsafe.Add(a2, 16), *(*float32)(unsafe.Add(a2, 8)), int32(uintptr(ccall.FuncAddr(sub_538510))), a2)
+		eachInRect518040((*types.Pointf)(unsafe.Add(a2, 16)), *(*float32)(unsafe.Add(a2, 8)), sub_538510, a2)
 		v21 = 25
 	} else {
 		dword_5d4594_2488660 = nil
 		dword_5d4594_2488652 = *(*uint32)(unsafe.Add(a2, 8))
-		sub_518040(unsafe.Add(a1, 56), *(*float32)(unsafe.Add(a2, 8)), int32(uintptr(ccall.FuncAddr(sub_5386A0))), a1)
+		eachInRect518040((*types.Pointf)(unsafe.Add(a1, 56)), *(*float32)(unsafe.Add(a2, 8)), sub_5386A0, a1)
 		if dword_5d4594_2488660 != nil {
 			sub_538510(dword_5d4594_2488660, a2)
 		}
@@ -4087,12 +4090,13 @@ func nox_xxx_playerTraceAttack_538330(a1, a2 unsafe.Pointer) int32 {
 		if dword_5d4594_2488656 != 0 {
 			typ := object.DamageType(*(*uint8)(unsafe.Add(a2, 4)))
 			dmg := float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ItemDamagePercentage")) * float64(*(*float32)(a2)))
-			nox_xxx_playerDamageWeapon_4E1560(AsObjectP(*(*unsafe.Pointer)(unsafe.Add(a2, 28))), AsObjectP(*(*unsafe.Pointer)(unsafe.Add(a2, 12))), AsObjectP(dword_5d4594_2488660), AsObjectP(dword_5d4594_2488660), dmg, typ)
+			nox_xxx_playerDamageWeapon_4E1560(AsObjectP(*(*unsafe.Pointer)(unsafe.Add(a2, 28))), AsObjectP(*(*unsafe.Pointer)(unsafe.Add(a2, 12))), dword_5d4594_2488660, dword_5d4594_2488660, dmg, typ)
 		}
 	}
 	return int32(dword_5d4594_2488656)
 }
-func sub_538510(a1 unsafe.Pointer, a2 unsafe.Pointer) {
+func sub_538510(it *server.Object, a2 unsafe.Pointer) {
+	a1 := it.CObj()
 	var (
 		v3  int32
 		v4  int32
@@ -4162,7 +4166,8 @@ func sub_538510(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 		}
 	}
 }
-func sub_5386A0(a3 unsafe.Pointer, a2 unsafe.Pointer) {
+func sub_5386A0(it *server.Object, a2 unsafe.Pointer) {
+	a3 := it.CObj()
 	var (
 		v2 int32
 		v3 int32
@@ -4200,9 +4205,9 @@ func sub_5386A0(a3 unsafe.Pointer, a2 unsafe.Pointer) {
 										if v5 < 0.0 {
 											v5 = 0.0
 										}
-										if (v5 < float64(*(*float32)(unsafe.Pointer(&dword_5d4594_2488652))) || dword_5d4594_2488660 != nil && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_2488660)), 8)))&2) == 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 8)))&2) == 2) && (dword_5d4594_2488660 == nil || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_2488660)), 8)))&2) == 0) {
+										if (v5 < float64(*(*float32)(unsafe.Pointer(&dword_5d4594_2488652))) || dword_5d4594_2488660 != nil && (int32(*(*uint8)(unsafe.Add(dword_5d4594_2488660.CObj(), 8)))&2) == 0 && (int32(*(*uint8)(unsafe.Add(a3, 8)))&2) == 2) && (dword_5d4594_2488660 == nil || (int32(*(*uint8)(unsafe.Add(dword_5d4594_2488660.CObj(), 8)))&2) == 0) {
 											*(*float32)(unsafe.Pointer(&dword_5d4594_2488652)) = float32(v5)
-											dword_5d4594_2488660 = a3
+											dword_5d4594_2488660 = AsObjectP(a3)
 										}
 									}
 								}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -5314,63 +5315,35 @@ func sub_517870(a1p *server.Object) int16 {
 	}
 	return int16(v1)
 }
-func sub_518040(arg0 unsafe.Pointer, a2 float32, arg8 int32, a4 unsafe.Pointer) {
-	var (
-		v5 float64
-		v6 float64
-		a3 [4]int32
-		a1 float4
-	)
-	if arg0 != nil {
-		v5 = float64(*(*float32)(arg0) - a2)
-		a3[2] = arg8
-		*(*unsafe.Pointer)(unsafe.Pointer(&a3[0])) = arg0
-		*(*float32)(unsafe.Pointer(&a3[1])) = a2
-		a1.field_0 = float32(v5)
-		v6 = float64(*(*float32)(unsafe.Add(arg0, 4)) - a2)
-		*(*unsafe.Pointer)(unsafe.Pointer(&a3[3])) = a4
-		a1.field_4 = float32(v6)
-		a1.field_8 = a2 + *(*float32)(arg0)
-		a1.field_C = a2 + *(*float32)(unsafe.Add(arg0, 4))
-		nox_xxx_getUnitsInRect_517C10(&a1, sub_5180B0, unsafe.Pointer(&a3[0]))
+func eachInRect518040(posp *types.Pointf, sz float32, fnc func(it *server.Object, data unsafe.Pointer), data unsafe.Pointer) {
+	if posp == nil {
+		return
 	}
-}
-func sub_5180B0(it *server.Object, data unsafe.Pointer) {
-	a1 := it.CObj()
-	a2 := data
-	var (
-		v2 *float2
-		v3 float64
-		v4 float64
-		v5 float64
-		v6 *float2
-		v7 float64
-		v8 float2
-	)
-	if a1 != nil && a2 != nil {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 172)) == 2 {
-			v6 = *(**float2)(unsafe.Pointer(uintptr(a2)))
-			v8.field_0 = **(**float32)(unsafe.Pointer(uintptr(a2))) - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))
-			v7 = float64(v6.field_4 - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 60)))
-			v8.field_4 = float32(v7)
-			v4 = math.Sqrt(v7*float64(v8.field_4)+float64(v8.field_0*v8.field_0)) - float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176)))
-		} else {
-			if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 172)) == 3 {
-				v5 = sub_54A990((*float2)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2)))))), *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4)), a1, &v8)
-				goto LABEL_9
-			}
-			v2 = *(**float2)(unsafe.Pointer(uintptr(a2)))
-			v8.field_0 = **(**float32)(unsafe.Pointer(uintptr(a2))) - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))
-			v3 = float64(v2.field_4 - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 60)))
-			v8.field_4 = float32(v3)
-			v4 = math.Sqrt(v3*float64(v8.field_4) + float64(v8.field_0*v8.field_0))
+	pos := *posp
+	p1 := pos.Sub(types.Ptf(sz, sz))
+	p2 := pos.Add(types.Ptf(sz, sz))
+	GetServer().S().Map.EachObjInRect(types.RectFromPointsf(p1, p2), func(it *server.Object) bool {
+		if it == nil {
+			return true
 		}
-		v5 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4))) - v4
-	LABEL_9:
-		if v5 > 0.0 {
-			ccall.AsFunc[func(unsafe.Pointer, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 8)))(a1, *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)))
+		itc := it.CObj()
+		var dist float64
+		switch it.Shape.Kind {
+		case server.ShapeKindCircle:
+			dp := pos.Sub(it.PosVec)
+			dist = float64(sz) - dp.Len() - float64(it.Shape.Circle.R)
+		case server.ShapeKindBox:
+			var v8 float2
+			dist = sub_54A990((*float2)(unsafe.Pointer(posp)), sz, itc, &v8)
+		default:
+			dp := pos.Sub(it.PosVec)
+			dist = float64(sz) - dp.Len()
 		}
-	}
+		if dist > 0.0 {
+			fnc(it, data)
+		}
+		return true
+	})
 }
 func sub_518770() int32 {
 	var result int32
