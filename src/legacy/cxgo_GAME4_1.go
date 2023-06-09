@@ -5098,60 +5098,41 @@ func sub_517140(a1 *FILE) int32 {
 	}
 	return result
 }
-func nox_xxx_servParseMonsterDef_517170(a1 *FILE, a2 *byte) int32 {
-	var (
-		result int32
-		v3     *uint32
-		v4     *uint8
-		v5     int32
-		v6     *byte
-		v7     int32
-		v8     *uint8
-		v9     int32
-		v10    [256]byte
-	)
+func nox_xxx_servParseMonsterDef_517170(f *FILE, a2 *byte) int32 {
+	var buf [256]byte
 	def, _ := alloc.New(server.MonsterDef{})
-	result = int32(uintptr(unsafe.Pointer(def)))
-	v3 = (*uint32)(unsafe.Pointer(uintptr(result)))
-	if result == 0 {
+	if def == nil {
 		return 0
 	}
-	libc.StrCpy((*byte)(unsafe.Pointer(uintptr(result))), a2)
+	libc.StrCpy(&def.Name0[0], a2)
 	for {
-		if nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0]))) == 0 || nox_strcmpi(internCStr("END"), &v10[0]) == 0 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*61)) = uint32(uintptr(nox_monsterBin_head_2386924))
-			nox_monsterBin_head_2386924 = unsafe.Pointer(v3)
+		if nox_xxx_readStr_517090(f, &buf[0]) == 0 || nox_strcmpi(internCStr("END"), &buf[0]) == 0 {
+			def.Next244 = (*server.MonsterDef)(nox_monsterBin_head_2386924)
+			nox_monsterBin_head_2386924 = unsafe.Pointer(def)
 			return 1
 		}
-		if noxflags.HasGame(2048) || noxflags.HasGame(0x200000) {
-			if nox_strcmpi(internCStr("ARENA"), &v10[0]) != 0 {
-				if nox_strcmpi(internCStr("SOLO"), &v10[0]) != 0 {
-					goto LABEL_10
-				}
-			} else {
-				sub_517140(a1)
+		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGame(noxflags.GameFlag22) {
+			if nox_strcmpi(internCStr("ARENA"), &buf[0]) == 0 {
+				sub_517140(f)
+				continue
+			} else if nox_strcmpi(internCStr("SOLO"), &buf[0]) == 0 {
+				continue
 			}
-			continue
+		} else if noxflags.HasGame(noxflags.GameOnline) {
+			if nox_strcmpi(internCStr("SOLO"), &buf[0]) == 0 {
+				sub_517140(f)
+				continue
+			} else if nox_strcmpi(internCStr("ARENA"), &buf[0]) == 0 {
+				continue
+			}
 		}
-	LABEL_10:
-		if !noxflags.HasGame(0x2000) {
-			goto LABEL_14
-		}
-		if nox_strcmpi(internCStr("SOLO"), &v10[0]) == 0 {
-			sub_517140(a1)
-			continue
-		}
-		if nox_strcmpi(internCStr("ARENA"), &v10[0]) == 0 {
-			continue
-		}
-	LABEL_14:
-		v4 = (*uint8)(memmap.PtrOff(0x587000, 248192))
+		v4 := (*uint8)(memmap.PtrOff(0x587000, 248192))
 		if *memmap.PtrUint32(0x587000, 248192) != 0 {
 			for {
-				if nox_strcmpi(*(**byte)(unsafe.Pointer(v4)), &v10[0]) == 0 {
+				if nox_strcmpi(*(**byte)(unsafe.Pointer(v4)), &buf[0]) == 0 {
 					break
 				}
-				v5 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3))))
+				v5 := int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3))))
 				v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 12))
 				if v5 == 0 {
 					break
@@ -5159,75 +5140,66 @@ func nox_xxx_servParseMonsterDef_517170(a1 *FILE, a2 *byte) int32 {
 			}
 		}
 		if *(*uint32)(unsafe.Pointer(v4)) == 0 {
-			alloc.Free(v3)
+			alloc.Free(def)
 			return 0
 		}
-		v6 = (*byte)(unsafe.Add(unsafe.Pointer(v3), *((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)))))
+		fptr := unsafe.Add(unsafe.Pointer(def), *((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2))))
 		switch *((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1))) {
 		case 0:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			*(*uint32)(unsafe.Pointer(v6)) = uint32(libc.Atoi(libc.GoString(&v10[0])))
-			continue
+			nox_xxx_readStr_517090(f, &buf[0])
+			*(*uint32)(fptr) = uint32(libc.Atoi(libc.GoString(&buf[0])))
 		case 1:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			*(*float32)(unsafe.Pointer(v6)) = float32(libc.Atof(libc.GoString(&v10[0])))
-			continue
+			nox_xxx_readStr_517090(f, &buf[0])
+			*(*float32)(fptr) = float32(libc.Atof(libc.GoString(&buf[0])))
 		case 2:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			*(*uint32)(unsafe.Pointer(v6)) = uint32(nox_xxx_utilFindSound_40AF50(&v10[0]))
-			continue
+			nox_xxx_readStr_517090(f, &buf[0])
+			*(*uint32)(fptr) = uint32(nox_xxx_utilFindSound_40AF50(&buf[0]))
 		case 3:
-			nox_xxx_readStr_517090(a1, &v10[0])
-			if nox_xxx_monsterLoadStrikeFn_549040(def, GoString(&v10[0])) {
-				continue
+			nox_xxx_readStr_517090(f, &buf[0])
+			if !nox_xxx_monsterLoadStrikeFn_549040(def, GoString(&buf[0])) {
+				return 0
 			}
-			return 0
 		case 4:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			if nox_xxx_monsterLoadDieFn_5490E0(int32(uintptr(unsafe.Pointer(v3))), &v10[0]) != 0 {
-				continue
+			nox_xxx_readStr_517090(f, &buf[0])
+			if nox_xxx_monsterLoadDieFn_5490E0(int32(uintptr(unsafe.Pointer(def))), &buf[0]) == 0 {
+				return 0
 			}
-			return 0
 		case 5:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			if nox_xxx_monsterLoadDeadFn_549180(int32(uintptr(unsafe.Pointer(v3))), &v10[0]) != 0 {
-				continue
+			nox_xxx_readStr_517090(f, &buf[0])
+			if nox_xxx_monsterLoadDeadFn_549180(int32(uintptr(unsafe.Pointer(def))), &buf[0]) == 0 {
+				return 0
 			}
-			return 0
 		case 6:
-			v9 = 0
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			set_bitmask_flags_from_plus_separated_names_423930(&v10[0], (*uint32)(unsafe.Pointer(&v9)), (**byte)(memmap.PtrOff(0x587000, 247536)))
-			*(*uint16)(unsafe.Pointer(v6)) = uint16(int16(v9))
-			continue
+			v9 := uint32(0)
+			nox_xxx_readStr_517090(f, &buf[0])
+			set_bitmask_flags_from_plus_separated_names_423930(&buf[0], &v9, (**byte)(memmap.PtrOff(0x587000, 247536)))
+			*(*uint16)(fptr) = uint16(int16(v9))
 		case 7:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(v6)))
-			if libc.StrCmp(internCStr("NULL"), v6) == 0 {
-				*v6 = 0
+			nox_xxx_readStr_517090(f, (*byte)(fptr))
+			if libc.StrCmp(internCStr("NULL"), (*byte)(fptr)) == 0 {
+				*(*byte)(fptr) = 0
 			}
-			continue
 		case 8:
-			nox_xxx_readStr_517090(a1, (*uint8)(unsafe.Pointer(&v10[0])))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*31)) = 18
-			v7 = 0
-			v8 = (*uint8)(memmap.PtrOff(0x587000, 247464))
-		default:
-			continue
-		}
-		for nox_strcmpi(&v10[0], (*byte)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v8)))), 7))) != 0 {
-			v8 = (*uint8)(unsafe.Add(unsafe.Pointer(v8), 4))
-			v7++
-			if int32(uintptr(unsafe.Pointer(v8))) >= int32(uintptr(memmap.PtrOff(0x587000, 247536))) {
-				goto LABEL_27
+			nox_xxx_readStr_517090(f, &buf[0])
+			def.MeleeAttackDamageType124 = 18
+			v7 := 0
+			v8 := (*uint8)(memmap.PtrOff(0x587000, 247464))
+			for {
+				if nox_strcmpi(&buf[0], (*byte)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v8)))), 7))) == 0 {
+					def.MeleeAttackDamageType124 = uint32(v7)
+					break
+				}
+				v8 = (*uint8)(unsafe.Add(unsafe.Pointer(v8), 4))
+				v7++
+				if int32(uintptr(unsafe.Pointer(v8))) >= int32(uintptr(memmap.PtrOff(0x587000, 247536))) {
+					break
+				}
 			}
-		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*31)) = uint32(v7)
-	LABEL_27:
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*31)) == 18 {
-			return 0
+			if def.MeleeAttackDamageType124 == 18 {
+				return 0
+			}
 		}
 	}
-	return result
 }
 func nox_xxx_monsterListFree_5174F0() *uint32 {
 	var (
