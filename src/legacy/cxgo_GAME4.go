@@ -3457,40 +3457,29 @@ func sub_4FEB60(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 		}
 	}
 }
-func nox_xxx_plrCastSmth_4FEDA0(a1p unsafe.Pointer) {
-	var (
-		a1 *int32 = (*int32)(a1p)
-		v1 int32
-		v2 func(*int32)
-		v3 int32
-		v4 int32
-		v5 int32
-	)
-	if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) != 0 {
-		v5 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
-		v1 = nox_xxx_spellGetAud44_424800(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)), 2)
-		nox_xxx_aud_501960(v1, (*server.Object)(unsafe.Pointer(uintptr(v5))), 0, 0)
+func Nox_xxx_plrCastSmth_4FEDA0(sp *server.DurSpell) {
+	if sp.Obj16 != nil {
+		snd := nox_xxx_spellGetAud44_424800(int32(sp.Spell), 2)
+		nox_xxx_aud_501960(snd, sp.Obj16, 0, 0)
 	}
-	v2 = ccall.AsFunc[func(*int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*25)))))
-	if v2 != nil {
-		v2(a1)
+	if destroy := sp.Destroy.Get(); destroy != nil {
+		destroy(sp)
 	}
-	v3 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
-	if v3 != 0 {
-		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 8)))
-		if v4&4 != 0 {
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 276)))), 2251))) != 0 || nox_common_playerIsAbilityActive_4FC250((*server.Object)(unsafe.Pointer(uintptr(v3))), 1) == 0 {
-				nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))), 13)
-				sub_4FE900(unsafe.Pointer(a1))
-				sub_4FE980(unsafe.Pointer(a1))
+	if u := sp.Obj16; u != nil {
+		if u.Class().Has(object.ClassPlayer) {
+			ud := u.UpdateDataPlayer()
+			if ud.Player.PlayerClass() != player.Warrior || nox_common_playerIsAbilityActive_4FC250(u, 1) == 0 {
+				nox_xxx_playerSetState_4FA020(u, 13)
+				sub_4FE900(unsafe.Pointer(sp))
+				sub_4FE980(unsafe.Pointer(sp))
 				return
 			}
-		} else if v4&2 != 0 {
-			sub_541630(v3, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
+		} else if u.Class().Has(object.ClassMonster) {
+			sub_541630(u.CObj(), int32(sp.Spell))
 		}
 	}
-	sub_4FE900(unsafe.Pointer(a1))
-	sub_4FE980(unsafe.Pointer(a1))
+	sub_4FE900(unsafe.Pointer(sp))
+	sub_4FE980(unsafe.Pointer(sp))
 }
 func nox_xxx_cancelAllSpells_4FEE90(a1p *server.Object) {
 	var (

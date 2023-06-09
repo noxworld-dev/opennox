@@ -9451,7 +9451,7 @@ func nox_xxx_mobCastRandomRecoil_541490(a1 unsafe.Pointer, a2 unsafe.Pointer, a3
 	a3.field_0 = float32(nox_common_randomFloat_416030(-60.0, 60.0)*float64(v6) + float64(a3.field_0))
 	a3.field_4 = float32(nox_common_randomFloat_416030(-60.0, 60.0)*float64(v6) + float64(a3.field_4))
 }
-func sub_541630(a1 int32, a2 int32) {
+func sub_541630(a1 unsafe.Pointer, a2 int32) {
 	var (
 		v2 *uint32
 		v3 int32

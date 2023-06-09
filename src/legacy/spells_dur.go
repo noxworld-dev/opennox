@@ -44,9 +44,6 @@ func sub_4FE980(a1 unsafe.Pointer) { Sub_4FE980(a1) }
 
 // sub_4FF310
 func sub_4FF310(a1 *server.Object) { Sub_4FF310(asObjectS(a1)) }
-func Nox_xxx_plrCastSmth_4FEDA0(a1 unsafe.Pointer) {
-	nox_xxx_plrCastSmth_4FEDA0(a1)
-}
 func Nox_xxx_spellCancelSpellDo_4FE9D0(a1 unsafe.Pointer) {
 	nox_xxx_spellCancelSpellDo_4FE9D0(a1)
 }

@@ -119,7 +119,7 @@ func (sp *spellsDuration) newHook() {
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
 		if it.Flags88&0x1 != 0 {
-			legacy.Nox_xxx_plrCastSmth_4FEDA0(it.C())
+			legacy.Nox_xxx_plrCastSmth_4FEDA0(it)
 		}
 	}
 }
@@ -172,7 +172,7 @@ func (sp *spellsDuration) spellCastByPlayer() {
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
 		if it.Flags88&0x1 != 0 {
-			legacy.Nox_xxx_plrCastSmth_4FEDA0(it.C())
+			legacy.Nox_xxx_plrCastSmth_4FEDA0(it)
 			continue
 		}
 		if obj16 := it.Obj16; obj16 != nil && obj16.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
