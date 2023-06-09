@@ -1184,12 +1184,13 @@ func sub_41AC30(a1p unsafe.Pointer, a2p unsafe.Pointer) int32 {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v39)), 1)
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v46[0])), uint32(uint8(int8(v39))))
 				v46[uint8(int8(v39))] = 0
-				v24 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(&v46[0])))
+				v24p := nox_xxx_newObjectByTypeID_4E3810(&v46[0])
+				v24 = (*uint32)(unsafe.Pointer(v24p))
 				v25 = v24
-				if v24 == nil {
+				if v24p == nil {
 					return 0
 				}
-				if (ccall.AsFunc[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v24), 4*176))))))(v24, 0) == 0 {
+				if v24p.Xfer.Get()(v24p, nil) == 0 {
 					return 0
 				}
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v25), 4*14)) = 1161297920
