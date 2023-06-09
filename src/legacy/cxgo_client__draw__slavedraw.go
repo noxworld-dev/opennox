@@ -10,7 +10,7 @@ import (
 func nox_thing_slave_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	a1 := (*uint32)(vp.C())
 	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(&dr.Field_76)))), 4)) + dr.Field_77*4)))))
-	if ccall.FuncAddr(nox_thing_slave_draw) == ccall.FuncAddr(Nox_thing_static_random_draw) {
+	if ccall.Equals(nox_thing_slave_draw, Nox_thing_static_random_draw) {
 		return 0
 	}
 	return 1

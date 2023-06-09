@@ -368,7 +368,7 @@ func Nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw client.ObjectDrawFunc) 
 			if cur.name == "" {
 				break
 			}
-			if ccall.FuncAddr(cur.draw) == ccall.FuncAddr(draw) {
+			if ccall.Equals(cur.draw, draw) {
 				item = cur
 				break
 			}

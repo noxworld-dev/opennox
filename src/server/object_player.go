@@ -81,7 +81,7 @@ type PlayerUpdateData struct {
 	Field70          uint32         // 70, 280
 	DialogWith       *Object        // 71, 284
 	CursorObj        *Object        // 72, 288
-	Field73          uint32         // 73, 292
+	Field73          unsafe.Pointer // 73, 292
 	Field74          uint32         // 74, 296
 	Field75          uint32         // 75, 300
 	Field76          uint32         // 76, 304

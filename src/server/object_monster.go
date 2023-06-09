@@ -326,7 +326,7 @@ type MonsterUpdateData struct {
 	Field373              uint32               // 373, 1492
 	Field374              uint32               // 374, 1496
 	Field375              uint32               // 375, 1500
-	Field376              uint32               // 376, 1504
+	Field376              float32              // 376, 1504
 	Field377              uint32               // 377, 1508
 	Field378              uint32               // 378, 1512
 	Field379              uint32               // 379, 1516
@@ -488,7 +488,7 @@ type MonsterUpdateData struct {
 	Field542              uint32               // 542, 2168
 	Field543              uint32               // 543, 2172
 	Field544              *Object              // 544, 2176, TODO: correct type?
-	Field545              uint32               // 545, 2180
+	Field545              unsafe.Pointer       // 545, 2180
 	Field546              uint32               // 546, 2184
 	Field547              uint32               // 547, 2188
 	Field548              *Object              // 548, 2192

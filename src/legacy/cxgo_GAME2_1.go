@@ -5777,7 +5777,7 @@ func nox_xxx_sprite_4756E0_drawable(dr *nox_drawable) int32 {
 	if ptr := dr.DrawFunc.Ptr(); ptr != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*30)))
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)))
-		if (v3&0x1000) == 0 && v3&1 != 0 && (ptr == ccall.FuncAddr(nox_thing_static_draw) || ptr == ccall.FuncAddr(Nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) && (v3&0x800) == 0 {
+		if (v3&0x1000) == 0 && v3&1 != 0 && (dr.DrawFunc.Equals(nox_thing_static_draw) || dr.DrawFunc.Equals(Nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) && (v3&0x800) == 0 {
 			return 1
 		}
 	}
@@ -5798,7 +5798,7 @@ func nox_xxx_sprite_475740_drawable(dr *nox_drawable) int32 {
 		if (v3 & 0x1000) == 0 {
 			if v3&1 != 0 {
 				result = 1
-				if (ptr == ccall.FuncAddr(nox_thing_static_draw) || ptr == ccall.FuncAddr(Nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x800) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) {
+				if (dr.DrawFunc.Equals(nox_thing_static_draw) || dr.DrawFunc.Equals(Nox_thing_static_random_draw)) && (uint32(v4)&0x80800000) == 0 && (v3&0x800) == 0 && (v3&0x48 != 0 || uint32(v4)&0x400000 != 0) {
 					result = 0
 				}
 			}

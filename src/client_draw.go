@@ -16,7 +16,6 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -587,7 +586,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 	if !(c.drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.LightIntensityRad > 0 && dr.Flags30()&0x4 != 0) {
 		return
 	}
-	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFunc.Ptr() == ccall.FuncAddr(legacy.Nox_thing_glow_orb_draw)) {
+	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFunc.Equals(legacy.Nox_thing_glow_orb_draw)) {
 		return
 	}
 	intens := int(dr.LightIntensityU16)

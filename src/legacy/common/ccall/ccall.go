@@ -63,6 +63,10 @@ func caller(skip int) string {
 	return fmt.Sprintf("%s, %s:%d", fnc, file, line)
 }
 
+func Equals[T any](f1, f2 T) bool {
+	return FuncAddr(f1) == FuncAddr(f2)
+}
+
 type Func[T any] struct {
 	h unsafe.Pointer
 }
@@ -81,4 +85,8 @@ func (f Func[T]) Ptr() unsafe.Pointer {
 
 func (f *Func[T]) Set(v T) {
 	f.h = funcAddr(v, 1)
+}
+
+func (f Func[T]) Equals(f2 T) bool {
+	return f.h == FuncAddr(f2)
 }

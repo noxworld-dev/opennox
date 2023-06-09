@@ -1308,7 +1308,7 @@ LABEL_8:
 											*(*unsafe.Pointer)(unsafe.Pointer(&v43[0])) = v1
 											v43[1] = v21
 											v43[2] = v22
-											nox_xxx_mobCast_541300(4, (*uint32)(unsafe.Pointer(uintptr(v1))), unsafe.Pointer(&v43[0]))
+											nox_xxx_mobCast_541300(4, a1p, unsafe.Pointer(&v43[0]))
 											v3 = (*int32)(unsafe.Pointer(uintptr(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1480))), int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1482))))))))
 											*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1484)) = uint32(uintptr(unsafe.Pointer(v3)))
 											return
@@ -1464,9 +1464,9 @@ LABEL_8:
 				v3 = (*int32)(unsafe.Pointer(uintptr(sub_544AE0(v1, 75.0))))
 				v37 = int32(uintptr(unsafe.Pointer(v3)))
 				if v3 != nil {
-					nox_xxx_mobMorphToPlayer_4FAAF0((*uint32)(unsafe.Pointer(uintptr(v1))))
-					nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v1))), (*server.Object)(unsafe.Pointer(uintptr(v37))), 1, 1)
-					*((*uint8)(unsafe.Pointer(&v3))) = uint8(nox_xxx_mobMorphFromPlayer_4FAAC0((*uint32)(unsafe.Pointer(uintptr(v1)))))
+					nox_xxx_mobMorphToPlayer_4FAAF0(a1p)
+					nox_xxx_inventoryServPlace_4F36F0(a1p, (*server.Object)(unsafe.Pointer(uintptr(v37))), 1, 1)
+					nox_xxx_mobMorphFromPlayer_4FAAC0(a1p)
 				}
 			}
 		}
@@ -1826,10 +1826,10 @@ func sub_548360(a1 int32, a2 int32) int32 {
 		*memmap.PtrUint32(0x5D4594, 2490516) = uint32(v2)
 	}
 	v3 = a2
-	if a1p.Collide.Ptr() == ccall.FuncAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4))) == v2 {
+	if a1p.Collide.Equals(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4))) == v2 {
 		return 0
 	}
-	if a2p.Collide.Ptr() == ccall.FuncAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))) == v2 {
+	if a2p.Collide.Equals(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))) == v2 {
 		return 0
 	}
 	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))

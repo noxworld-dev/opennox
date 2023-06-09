@@ -1991,11 +1991,11 @@ func nox_xxx_mobActionMeleeAtt_532440(obj *server.Object) {
 	ud := obj.UpdateDataMonster()
 	if obj.SubClass().AsMonster().Has(object.MonsterNPC) {
 		if ud.StatusFlags.Has(object.MonStatusBot) {
-			nox_xxx_mobMorphToPlayer_4FAAF0((*uint32)(obj.CObj()))
+			nox_xxx_mobMorphToPlayer_4FAAF0(obj)
 		}
 		ok := nox_xxx_playerAttack_538960(obj) != 0
 		if ud.StatusFlags.Has(object.MonStatusBot) {
-			nox_xxx_mobMorphFromPlayer_4FAAC0((*uint32)(obj.CObj()))
+			nox_xxx_mobMorphFromPlayer_4FAAC0(obj)
 		}
 		if !ok {
 			nox_xxx_monsterPopAction_50A160(obj)
@@ -9389,22 +9389,16 @@ func nox_xxx_mobMayHealThis_5412A0(it *server.Object, data unsafe.Pointer) {
 		}
 	}
 }
-func nox_xxx_mobCast_541300(a1 int32, a2 *uint32, a3 unsafe.Pointer) int8 {
-	var (
-		v3 int32
-		v4 int32
-	)
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*187)))
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 1440))&0x20000 != 0 {
-		nox_xxx_mobMorphToPlayer_4FAAF0(a2)
+func nox_xxx_mobCast_541300(a1 int32, obj *server.Object, a3 unsafe.Pointer) {
+	ud := obj.UpdateDataMonster()
+	if ud.StatusFlags.Has(object.MonStatusBot) {
+		nox_xxx_mobMorphToPlayer_4FAAF0(obj)
 	}
-	nox_xxx_mobCalcDir_533CC0(unsafe.Pointer(a2), (*float32)(unsafe.Add(a3, 4)))
-	nox_xxx_castSpellByUser_4FDD20(a1, (*server.Object)(unsafe.Pointer(a2)), a3)
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 1440)))
-	if uint32(v4)&0x20000 != 0 {
-		*((*uint8)(unsafe.Pointer(&v4))) = uint8(nox_xxx_mobMorphFromPlayer_4FAAC0(a2))
+	nox_xxx_mobCalcDir_533CC0(obj.CObj(), (*float32)(unsafe.Add(a3, 4)))
+	nox_xxx_castSpellByUser_4FDD20(a1, obj, a3)
+	if ud.StatusFlags.Has(object.MonStatusBot) {
+		nox_xxx_mobMorphFromPlayer_4FAAC0(obj)
 	}
-	return int8(v4)
 }
 func nox_xxx_mobActionCast_5413B0(a1p *server.Object, a2 int32) {
 	var (
@@ -9436,12 +9430,12 @@ func nox_xxx_mobActionCast_5413B0(a1p *server.Object, a2 int32) {
 			}
 			v4 := nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(a1)), 29)
 			if v4 == 0 {
-				nox_xxx_mobCast_541300(*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)), a1, unsafe.Pointer(&v8[0]))
+				nox_xxx_mobCast_541300(*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)), a1p, unsafe.Pointer(&v8[0]))
 			}
 		} else if v4_1 == 1 {
-			v4 := nox_xxx_monsterGetSoundSet_424300((*server.Object)(unsafe.Pointer(a1)))
+			v4 := nox_xxx_monsterGetSoundSet_424300(a1p)
 			if v4 != nil {
-				nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Add(v4, 56))), (*server.Object)(unsafe.Pointer(a1)), 0, 0)
+				nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Add(v4, 56))), a1p, 0, 0)
 			}
 		}
 	}

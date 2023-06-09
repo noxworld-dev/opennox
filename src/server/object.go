@@ -310,7 +310,7 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	obj.ScriptVars = nil
 	obj.DeathData = t.DeathData
 	obj.Field192 = -1
-	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer.Ptr() == ccall.FuncAddr(s.XFerInvLight) || obj.Weight != 0xff) {
+	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer.Equals(s.XFerInvLight) || obj.Weight != 0xff) {
 		obj.Field189, _ = alloc.Malloc(2572)
 	}
 	if fnc := t.Create.Get(); fnc != nil {

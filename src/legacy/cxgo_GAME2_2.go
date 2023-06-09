@@ -123,7 +123,7 @@ func sub_476AE0(vp *nox_draw_viewport_t, dr *nox_drawable) {
 	)
 	v2 = a2
 
-	if draw := dr.DrawFunc.Ptr(); draw == ccall.FuncAddr(nox_thing_static_draw) {
+	if dr.DrawFunc.Equals(nox_thing_static_draw) {
 		if *((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*28)))&0x40000 != 0 && (*((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*30)))&0x1000000) == 0 {
 			return
 		}

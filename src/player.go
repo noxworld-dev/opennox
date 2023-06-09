@@ -25,7 +25,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -330,7 +329,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	if !keepPlayer && s.Abils.IsAnyActive(u.SObj()) {
 		return false
 	}
-	if u.Update.Ptr() == ccall.FuncAddr(legacy.Nox_xxx_updatePlayerMonsterBot_4FAB20) {
+	if u.Update.Equals(legacy.Nox_xxx_updatePlayerMonsterBot_4FAB20) {
 		return false
 	}
 	ud := u.UpdateDataPlayer()

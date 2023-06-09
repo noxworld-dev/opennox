@@ -1328,23 +1328,23 @@ func nox_xxx_mapSwitchLevel_4D12E0(a1 int32) {
 		v1 = a1
 	}
 	nox_xxx_mapWall_4FF790()
-	v2 := unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())
-	if v2 != nil {
+
+	if v2 := nox_xxx_getFirstPlayerUnit_4DA7C0(); v2 != nil {
 		for {
-			v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 748)))
-			sub_4F7950(v2)
+			v3 = int32(*(*uint32)(unsafe.Add(v2.CObj(), 748)))
+			sub_4F7950(v2.CObj())
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 296)) = 0
-			nox_xxx_unitUnFreeze_4E7A60((*server.Object)(unsafe.Pointer(uintptr(v2))), 1)
+			nox_xxx_unitUnFreeze_4E7A60(v2, 1)
 			v4 = *(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 280))
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 160)) = 0
 			if v4 != nil {
 				nox_xxx_shopCancelSession_510DC0(v4)
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 280)) = 0
-			if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 744)) == ccall.FuncAddr(Nox_xxx_updatePlayerMonsterBot_4FAB20) {
+			if v2.Update.Equals(Nox_xxx_updatePlayerMonsterBot_4FAB20) {
 				nox_xxx_playerBotCreate_4FA700(v2)
 			}
-			v2 = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(v2)))))
+			v2 = nox_xxx_getNextPlayerUnit_4DA7F0(v2)
 			if v2 == nil {
 				break
 			}
