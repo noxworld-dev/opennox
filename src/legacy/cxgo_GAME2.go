@@ -4321,42 +4321,36 @@ func nox_xxx_bookWndProc_45B070(win *gui.Window, a2, p3, p4 uintptr) uintptr {
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046952))))), 0)
 		}
 		if dword_5d4594_1046872 != 0 {
-			**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickCreature_45B200)))
+			dword_5d4594_1046924.Field24ptr().OnEnd.Set(nox_xxx_bookClickCreature_45B200)
 		} else {
-			**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickSpell_45B1F0)))
+			dword_5d4594_1046924.Field24ptr().OnEnd.Set(nox_xxx_bookClickSpell_45B1F0)
 		}
 		dword_5d4594_1046868 = 2
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)))), 12)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+		dword_5d4594_1046924.Field24ptr().Field_3 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
 		nox_xxx_clientPlaySoundSpecial_452D80(788, 100)
 		return 1
 	}
 	if dword_5d4594_1046932 < uint32(*memmap.PtrInt32(0x5D4594, 1047508))-dword_5d4594_1047512-1 {
 		dword_5d4594_1046932++
 		if dword_5d4594_1046872 != 0 {
-			**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickCreature_45B200)))
+			dword_5d4594_1046924.Field24ptr().OnEnd.Set(nox_xxx_bookClickCreature_45B200)
 		} else {
-			**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickSpell_45B1F0)))
+			dword_5d4594_1046924.Field24ptr().OnEnd.Set(nox_xxx_bookClickSpell_45B1F0)
 		}
 		dword_5d4594_1046868 = 2
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)))), 12)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+		dword_5d4594_1046924.Field24ptr().Field_3 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
 		nox_xxx_clientPlaySoundSpecial_452D80(788, 100)
 		return 1
 	}
 	return 1
 }
-func nox_xxx_bookClickSpell_45B1F0() int32 {
-	var result int32
-	result = 0
+func nox_xxx_bookClickSpell_45B1F0(_ *ImageRef) {
 	dword_5d4594_1046868 = 0
 	dword_5d4594_1046872 = 0
-	return result
 }
-func nox_xxx_bookClickCreature_45B200() int32 {
-	var result int32
-	result = 1
+func nox_xxx_bookClickCreature_45B200(_ *ImageRef) {
 	dword_5d4594_1046868 = 1
 	dword_5d4594_1046872 = 1
-	return result
 }
 func nox_xxx_book_45B210(win *gui.Window, a2, p3, p4 uintptr) uintptr {
 	if dword_5d4594_1047520 == 1 {
@@ -4394,12 +4388,12 @@ func nox_xxx_book_45B210(win *gui.Window, a2, p3, p4 uintptr) uintptr {
 		dword_5d4594_1046936--
 	}
 	if dword_5d4594_1046872 != 0 {
-		**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046928)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickCreature_45B200)))
+		dword_5d4594_1046928.Field24ptr().OnEnd.Set(nox_xxx_bookClickCreature_45B200)
 	} else {
-		**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046928)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickSpell_45B1F0)))
+		dword_5d4594_1046928.Field24ptr().OnEnd.Set(nox_xxx_bookClickSpell_45B1F0)
 	}
 	dword_5d4594_1046868 = 3
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046928)), 96)))), 12)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+	dword_5d4594_1046928.Field24ptr().Field_3 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
 	nox_xxx_clientPlaySoundSpecial_452D80(788, 100)
 	return 1
 }
@@ -4436,8 +4430,8 @@ func nox_xxx_bookChildWndProcMB_45B360(win *gui.Window, p2, p3, p4 uintptr) uint
 			dword_5d4594_1046936 = 0
 			nox_xxx_clientPlaySoundSpecial_452D80(788, 100)
 			dword_5d4594_1046868 = 3
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046928)), 96)))), 12)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
-			**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046928)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickSpell_45B1F0)))
+			dword_5d4594_1046928.Field24ptr().Field_3 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+			dword_5d4594_1046928.Field24ptr().OnEnd.Set(nox_xxx_bookClickSpell_45B1F0)
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046952))))), 1)
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046948))))), 0)
 			nox_xxx_wndClearCaptureMain_46ADE0(nox_win_unk1)
@@ -4468,12 +4462,12 @@ func nox_xxx_bookChildWndProcMB_45B360(win *gui.Window, p2, p3, p4 uintptr) uint
 	nox_xxx_clientPlaySoundSpecial_452D80(788, 100)
 	if v2 == 1 {
 		dword_5d4594_1046868 = 2
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)))), 12)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
-		**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickCreature_45B200)))
+		dword_5d4594_1046924.Field24ptr().Field_3 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+		dword_5d4594_1046924.Field24ptr().OnEnd.Set(nox_xxx_bookClickCreature_45B200)
 	} else {
 		dword_5d4594_1046868 = 3
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046928)), 96)))), 12)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
-		**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046928)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickCreature_45B200)))
+		dword_5d4594_1046928.Field24ptr().Field_3 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+		dword_5d4594_1046928.Field24ptr().OnEnd.Set(nox_xxx_bookClickCreature_45B200)
 	}
 	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046952))))), 1)
 	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046948))))), 0)
@@ -4615,12 +4609,12 @@ func nox_xxx_bookMoveToPage_45B930(a1 int32) int32 {
 	dword_5d4594_1046932 = uint32(a1)
 	dword_5d4594_1046936 = 99
 	if dword_5d4594_1046872 != 0 {
-		**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickCreature_45B200)))
+		dword_5d4594_1046924.Field24ptr().OnEnd.Set(nox_xxx_bookClickCreature_45B200)
 	} else {
-		**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickSpell_45B1F0)))
+		dword_5d4594_1046924.Field24ptr().OnEnd.Set(nox_xxx_bookClickSpell_45B1F0)
 	}
 	dword_5d4594_1046868 = 2
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046924)), 96)))), 12)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+	dword_5d4594_1046924.Field24ptr().Field_3 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
 	nox_xxx_clientPlaySoundSpecial_452D80(788, 100)
 	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046952))))), 0)
 	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046944))))), 0)
@@ -4695,18 +4689,21 @@ func nox_xxx_bookInit_45B9D0() int32 {
 	if result == 0 {
 		return 0
 	}
-	result = int32(uintptr(unsafe.Pointer(nox_xxx_gLoadAnim_42FA20(internCStr("BookPageForward")))))
-	dword_5d4594_1046924 = uint32(result)
-	if result == 0 {
+
+	ani := nox_xxx_gLoadAnim_42FA20(internCStr("BookPageForward"))
+	dword_5d4594_1046924 = ani
+	if ani == nil {
 		return 0
 	}
-	**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(result)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickSpell_45B1F0)))
-	result = int32(uintptr(unsafe.Pointer(nox_xxx_gLoadAnim_42FA20(internCStr("BookPageBackward")))))
-	dword_5d4594_1046928 = uint32(result)
-	if result == 0 {
+	ani.Field24ptr().OnEnd.Set(nox_xxx_bookClickSpell_45B1F0)
+
+	ani = nox_xxx_gLoadAnim_42FA20(internCStr("BookPageBackward"))
+	dword_5d4594_1046928 = ani
+	if ani == nil {
 		return 0
 	}
-	**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(result)), 96)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_bookClickSpell_45B1F0)))
+	ani.Field24ptr().OnEnd.Set(nox_xxx_bookClickSpell_45B1F0)
+
 	nox_win_unk1 = nox_window_new(nil, 1196, 5, int(nox_win_height-323), 285, 168, nil)
 	nox_window_set_all_funcs(nox_win_unk1, nox_xxx_bookListWndProc_45B5F0, nox_xxx_bookDrawList_45BD40, nil)
 	nox_window_set_hidden(nox_win_unk1, 1)

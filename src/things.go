@@ -170,7 +170,7 @@ func nox_thing_read_IMAG_one_42F660(f *binfile.MemFile) error {
 		sz := f.ReadU8()
 		arr, _ := alloc.Make([]noxrender.ImageHandle{}, sz)
 		anim, _ := alloc.New(legacy.ImageRefAnim{})
-		anim.OnEnd = nil
+		anim.OnEnd.Set(nil)
 		anim.ImagesPtr = &arr[0]
 		anim.ImagesSz = uint8(sz)
 		anim.Field_2_1 = uint8(f.ReadU8())

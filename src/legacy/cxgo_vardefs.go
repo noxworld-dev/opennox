@@ -147,7 +147,7 @@ var nox_xxx_lightningTargetArrayIndex_5d4594_2487904 uint32
 var dword_587000_127004 unsafe.Pointer
 var nox_alloc_visitNode_2386184 unsafe.Pointer
 var nox_wol_server_result_cnt_815088 uint32
-var dword_5d4594_1046924 uint32
+var dword_5d4594_1046924 *ImageRef
 var nox_xxx_polygonNextAngle_587000_60356 uint32 = 0x1
 var dword_5d4594_1217460 uint32
 var dword_5d4594_1307716 uint32
@@ -259,7 +259,7 @@ var dword_5d4594_1045508 uint32
 var dword_5d4594_825744 uint32
 var dword_5d4594_1217452 uint32
 var dword_5d4594_1319264 uint32
-var dword_5d4594_1046928 uint32
+var dword_5d4594_1046928 *ImageRef
 var dword_5d4594_1098580 uint32
 var dword_5d4594_831224 uint32
 var nox_xxx_energyBoltTarget_5d4594_2487880 uint32

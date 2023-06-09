@@ -5,7 +5,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/legacy"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 const cursorSize = 64
@@ -22,8 +21,8 @@ func (c *Client) getCursorAnimFrame(ref *legacy.ImageRef, dt int) *noxrender.Ima
 		ind := (ts - int(anim.Field_3)) / (int(anim.Field_2_1) + 1)
 		if ind+1 >= len(imgs) {
 			ind = len(imgs) - 1
-			if anim.OnEnd != nil {
-				ccall.AsFunc[func(*legacy.ImageRef)](anim.OnEnd)(ref)
+			if fnc := anim.OnEnd.Get(); fnc != nil {
+				fnc(ref)
 			}
 		}
 		return c.r.Bag.AsImage(imgs[ind])

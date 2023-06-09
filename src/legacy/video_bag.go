@@ -5,6 +5,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -23,13 +24,13 @@ func asImage(p *nox_video_bag_image_t) *noxrender.Image {
 }
 
 type ImageRefAnim struct {
-	OnEnd     unsafe.Pointer         // 0, 0, func(noxrender.ImageHandle)
-	ImagesPtr *noxrender.ImageHandle // 1, 4
-	ImagesSz  uint8                  // 2, 8
-	Field_2_1 uint8                  // 2, 9
-	AnimType  uint8                  // 2, 10
-	Field_2_3 uint8                  // 2, 11
-	Field_3   uint32                 // 3, 12
+	OnEnd     ccall.Func[func(*ImageRef)] // 0, 0
+	ImagesPtr *noxrender.ImageHandle      // 1, 4
+	ImagesSz  uint8                       // 2, 8
+	Field_2_1 uint8                       // 2, 9
+	AnimType  uint8                       // 2, 10
+	Field_2_3 uint8                       // 2, 11
+	Field_3   uint32                      // 3, 12
 }
 
 func (r *ImageRefAnim) C() unsafe.Pointer {
