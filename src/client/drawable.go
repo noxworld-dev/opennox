@@ -503,7 +503,7 @@ type Drawable struct {
 	Field_105          *Drawable                                            // 105, 420
 	Field_106          *Drawable                                            // 106, 424
 	Field_107          *Drawable                                            // 107, 428
-	Field_108_0        uint8                                                // 108, 432 // TODO: union?
+	Field_108_0        uint8                                                // 108, 432 // TODO: union? size = 20?
 	Field_108_1        uint8                                                // 108, 433 // TODO: union?
 	Field_108_2        uint16                                               // 108, 434 // TODO: union?
 	Field_109          uint32                                               // 109, 436, SE?

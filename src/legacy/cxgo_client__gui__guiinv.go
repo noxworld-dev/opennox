@@ -1161,7 +1161,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					v52 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1049848))), 128)))
 					v51 = v58
 					v50 = nox_strman_loadString_40F1D0(internCStr("DropLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4148)
-					nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v50)), v51.field_0, v51.field_4, v52, v53, v49, v48+1, 0, ccall.FuncAddr(sub_465CD0), nil)
+					nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v50)), v51.field_0, v51.field_4, v52, v53, v49, v48+1, 0, sub_465CD0, nil)
 				} else if sub_4C12C0() == 0 {
 					nox_xxx_clientDrop_465BE0(&v57)
 				}

@@ -7,7 +7,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_478730(a1 *int32) {
@@ -61,7 +60,7 @@ func sub_478730(a1 *int32) {
 	v12 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
 	v11 = *a1
 	v10 = nox_strman_loadString_40F1D0(internCStr("BuyLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 328)
-	nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v10)), v11, v12, v13, v14, v9, v8, 0, ccall.FuncAddr(sub_478850), nil)
+	nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v10)), v11, v12, v13, v14, v9, v8, 0, sub_478850, nil)
 }
 func nox_client_tradeXxxBuyAccept_478880(a1 int32, a2 int16) {
 	var v2 *wchar2_t
@@ -185,7 +184,7 @@ func sub_479520(a1 int32) {
 	nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), (*wchar2_t)(unsafe.Pointer(v2)), (*wchar2_t)(unsafe.Pointer(uintptr(memmap.PtrOff(0x5D4594, 1097352)))), 33, nil, nil)
 	nox_xxx_clientPlaySoundSpecial_452D80(925, 100)
 }
-func sub_479680() {
+func sub_479680(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
 	dword_5d4594_1098616 = 0
 }
 func sub_4795E0(a1 int32, a2 int32) int32 {
@@ -210,7 +209,7 @@ func sub_4795E0(a1 int32, a2 int32) int32 {
 			v10 = sub_467700(a1)
 			v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 108)))
 			var str *wchar2_t = nox_strman_loadString_40F1D0(internCStr("SellLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1504)
-			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, ccall.FuncAddr(sub_479690), ccall.FuncAddr(sub_479680))
+			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, sub_479690, sub_479680)
 			dword_5d4594_1098616 = 1
 		}
 	}
@@ -246,7 +245,7 @@ func sub_479740(a1 int32, a2 uint32) {
 				v8 = mpos.y
 				v7 = mpos.x
 				v6 = nox_strman_loadString_40F1D0(internCStr("RepairLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1580)
-				nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v6)), v7, v8, a1, v9, v2, 1, 0, ccall.FuncAddr(sub_479820), ccall.FuncAddr(sub_479810))
+				nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v6)), v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810)
 				dword_5d4594_1098620 = 1
 			}
 		}

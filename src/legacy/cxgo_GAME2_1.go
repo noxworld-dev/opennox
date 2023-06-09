@@ -739,7 +739,7 @@ LABEL_2:
 					v2 = v24
 					v8 = (*uint8)(unsafe.Pointer(&nox_client_inventory_grid_1050020[v5]))
 				}
-				alloc.Memcpy(unsafe.Pointer(v21), unsafe.Pointer(v8), unsafe.Sizeof(nox_inventory_cell_t{}))
+				*(*nox_inventory_cell_t)(unsafe.Pointer(v21)) = *(*nox_inventory_cell_t)(unsafe.Pointer(v8))
 				if *(*uint32)(unsafe.Pointer(v20)) != 0 {
 					dword_5d4594_1062480 = uint32(uintptr(unsafe.Pointer(v21)))
 				}
@@ -1423,7 +1423,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 						nox_client_drawEnableAlpha_434560(0)
 						*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 16)) = uint32(v5 + 25)
 						*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 12)) = uint32(v6 + 25)
-						ccall.AsFunc[func(*uint8, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 300)))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v7)
+						ccall.AsFunc[client.ObjectDrawFunc](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 300)))((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1049732)), AsDrawableP(unsafe.Pointer(uintptr(v7))))
 						if dword_5d4594_1049864 == 6 {
 							if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 112))&0x13001000 != 0 {
 								if (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 112)) & 0x1000) == 4096 {
@@ -1712,16 +1712,15 @@ func sub_465CA0() int32 {
 	nox_client_setCursorType_477610(6)
 	return nox_xxx_wndSetCaptureMain_46ADC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))))
 }
-func sub_465CD0(a1 *uint32, a2 int32, a3 int32, a4 int32) {
+func sub_465CD0(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
 	var (
-		v4 int32
 		v5 *byte
 		v6 int32
 		v7 int2
 	)
-	v4 = a4
+	v4 := a4
 	if a4 != 0 {
-		sub_473970((*int2)(unsafe.Pointer(a1)), &v7)
+		sub_473970((*int2)(a1), &v7)
 		v5 = sub_461EF0(a2)
 		if v5 != nil {
 			v6 = 4

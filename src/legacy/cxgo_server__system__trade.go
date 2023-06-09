@@ -586,15 +586,15 @@ func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
 			} else {
 				v13 = (*uint32)(unsafe.Pointer(uintptr(v6)))
 			}
-			var v14 func(unsafe.Pointer, *uint32, int32, int32)
+			var v14 server.ObjectPickupFunc
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*2))&0x110 != 0 || (func() bool {
-				v14 = ccall.AsFunc[func(unsafe.Pointer, *uint32, int32, int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*177)))))
+				v14 = ccall.AsFunc[server.ObjectPickupFunc](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*177)))))
 				return v14 == nil
 			}()) {
 				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(uintptr(v3))), (*server.Object)(unsafe.Pointer(v13)), 1)
 				nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(uintptr(v3))), 2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 36))))
 			} else {
-				v14(v3, v13, 1, 1)
+				v14(AsObjectP(v3), AsObjectP(unsafe.Pointer(v13)), 1, 1)
 			}
 			sub_510320(v6, int32(uintptr(unsafe.Pointer(a2))))
 			if sub_510540(v6) != 0 {

@@ -21,7 +21,7 @@ var dword_5d4594_1522620 *gui.Window = nil
 var dword_5d4594_1522624 *gui.Window = nil
 var dword_5d4594_1522628 *gui.Window = nil
 var nox_wnd_xxx_1522608 *nox_gui_animation = nil
-var nox_gui_itemAmount_item_1319256 unsafe.Pointer = nil
+var nox_gui_itemAmount_item_1319256 *client.Drawable
 var nox_gui_itemAmount_dialog_1319228 unsafe.Pointer = nil
 
 func sub_4B9470(a1 **byte) int32 {
@@ -1833,7 +1833,7 @@ func sub_4BFE40() int32 {
 	v5.field_0 = int32(uint32(v3) + dword_587000_183456)
 	v5.field_4 = int32(uint32(v4) + dword_587000_183460)
 	if fnc := *memmap.PtrPtr(0x5D4594, 1319100); fnc != nil {
-		ccall.AsFunc[func(unsafe.Pointer, uint32, uint32, uint32, uint32)](fnc)(unsafe.Pointer(&v5), *memmap.PtrUint32(0x5D4594, 1319244), *memmap.PtrUint32(0x5D4594, 1319240), v1, *memmap.PtrUint32(0x5D4594, 1319252))
+		ccall.AsFunc[ItemDialogFunc](fnc)(unsafe.Pointer(&v5), memmap.Int32(0x5D4594, 1319244), memmap.Uint32(0x5D4594, 1319240), int32(v1), memmap.Uint32(0x5D4594, 1319252))
 	}
 	sub_4BFD40()
 	return 1
@@ -1883,9 +1883,9 @@ func sub_4C0030(win *gui.Window, draw *gui.WindowData) int {
 		v1 = int32(*memmap.PtrUint32(0x5D4594, 1319216))
 	}
 	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v1))), v5, v6)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(nox_gui_itemAmount_item_1319256)), 12)) = uint32(v5) + dword_587000_183456
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(nox_gui_itemAmount_item_1319256)), 16)) = uint32(v6) + dword_587000_183460
-	ccall.AsFunc[func(*uint8, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(nox_gui_itemAmount_item_1319256)), 300)))((*uint8)(memmap.PtrOff(0x5D4594, 1319108)), uint32(uintptr(nox_gui_itemAmount_item_1319256)))
+	nox_gui_itemAmount_item_1319256.PosVec.X = int(uint32(v5) + dword_587000_183456)
+	nox_gui_itemAmount_item_1319256.PosVec.Y = int(uint32(v6) + dword_587000_183460)
+	nox_gui_itemAmount_item_1319256.DrawFunc.Get()((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1319108)), nox_gui_itemAmount_item_1319256)
 	if nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(nox_gui_itemAmount_dialog_1319228), 3603).DrawData().Field0&4 != 0 {
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1319204)))), v5, v6)
 	}
@@ -1966,7 +1966,7 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v14.field_0 = int32(uint32(v12) + dword_587000_183456)
 		v14.field_4 = int32(uint32(v13) + dword_587000_183460)
 		if fnc := *memmap.PtrPtr(0x5D4594, 1319160); fnc != nil {
-			ccall.AsFunc[func(unsafe.Pointer, uint32, uint32, uint32, uint32)](fnc)(unsafe.Pointer(&v14), *memmap.PtrUint32(0x5D4594, 1319244), *memmap.PtrUint32(0x5D4594, 1319240), v6, *memmap.PtrUint32(0x5D4594, 1319252))
+			ccall.AsFunc[ItemDialogFunc](fnc)(unsafe.Pointer(&v14), memmap.Int32(0x5D4594, 1319244), memmap.Uint32(0x5D4594, 1319240), int32(v6), memmap.Uint32(0x5D4594, 1319252))
 		}
 		sub_4BFD40()
 		result = 0
@@ -1989,20 +1989,23 @@ func nox_gui_itemAmount_free_4C03E0() {
 	dword_5d4594_1319236 = 0
 	dword_5d4594_1319264 = 0
 }
-func nox_gui_itemAmountDialog_4C0430(title *wchar2_t, x int32, y int32, a4 int32, a5 int32, a6 unsafe.Pointer, a7 int32, a8 int32, accept unsafe.Pointer, cancel unsafe.Pointer) int32 {
+
+type ItemDialogFunc func(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32)
+
+func nox_gui_itemAmountDialog_4C0430(title *wchar2_t, x int32, y int32, a4 int32, a5 int32, a6 unsafe.Pointer, a7 int32, a8 int32, accept, cancel ItemDialogFunc) int32 {
 	var (
 		v10    *uint32
 		result int32
 	)
 	v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(nox_gui_itemAmount_dialog_1319228), 3606)))
 	sub_46AEE0(int32(uintptr(unsafe.Pointer(v10))), int32(uintptr(unsafe.Pointer(title))))
-	nox_gui_itemAmount_item_1319256 = unsafe.Pointer(nox_new_drawable_for_thing(a5))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(nox_gui_itemAmount_item_1319256)), 120)) |= 0x40000000
+	nox_gui_itemAmount_item_1319256 = nox_new_drawable_for_thing(a5)
+	nox_gui_itemAmount_item_1319256.Flags30Val |= 0x40000000
 	if a6 != nil {
-		alloc.Memcpy(unsafe.Add(unsafe.Pointer(uintptr(nox_gui_itemAmount_item_1319256)), 432), a6, 0x14)
+		alloc.Memcpy(unsafe.Pointer(&nox_gui_itemAmount_item_1319256.Field_108_0), a6, 0x14)
 	}
-	*memmap.PtrUint32(0x5D4594, 1319160) = uint32(uintptr(accept))
-	*memmap.PtrUint32(0x5D4594, 1319100) = uint32(uintptr(cancel))
+	*memmap.PtrPtr(0x5D4594, 1319160) = ccall.FuncAddr(accept)
+	*memmap.PtrPtr(0x5D4594, 1319100) = ccall.FuncAddr(cancel)
 	*memmap.PtrUint32(0x5D4594, 1319240) = uint32(a5)
 	*memmap.PtrUint32(0x5D4594, 1319244) = uint32(a4)
 	dword_5d4594_1319248 = uint32(a7)

@@ -10,6 +10,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -806,12 +807,12 @@ func sub_478650(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	}
 	return 1
 }
-func sub_478850(a1 int32, a2 int16, a3 int32, a4 int32) {
+func sub_478850(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
 	if a4 != 0 {
 		if a4 == 1 {
-			nox_client_tradeXxxBuyAccept_478880(a3, a2)
+			nox_client_tradeXxxBuyAccept_478880(int32(a3), int16(a2))
 		} else {
-			sub_4788F0(a3, a4)
+			sub_4788F0(int32(a3), a4)
 		}
 	}
 }
@@ -895,7 +896,7 @@ func sub_478C80() int32 {
 				if *(*uint32)(unsafe.Pointer(v2)) != 0 {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 12)) = uint32(v3 + 20)
 					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 16)) = uint32(v1 + 25)
-					ccall.AsFunc[func(*uint8, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 300)))((*uint8)(memmap.PtrOff(0x5D4594, 1098492)), *((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))
+					ccall.AsFunc[client.ObjectDrawFunc](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))))), 300)))((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1098492)), *(**client.Drawable)(unsafe.Add(unsafe.Pointer(v2), -int(4*1))))
 					if v8 < *((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*33))) {
 						nox_client_drawRectFilledAlpha_49CF10(v3-5, v1, 50, 50)
 					}
@@ -1240,18 +1241,15 @@ func sub_4795A0(a1 int32) {
 		dword_5d4594_1098628 = uint32(a1)
 	}
 }
-func sub_479690(a1 int32, a2 int16, a3 int16, a4 int32) int32 {
-	var result int32
-	result = a4
+func sub_479690(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
 	dword_5d4594_1098616 = 0
 	if a4 != 0 {
 		if a4 == 1 {
-			result = nox_client_tradeXxxSellAccept_4796D0(a2)
+			nox_client_tradeXxxSellAccept_4796D0(int16(a2))
 		} else {
-			result = sub_479700(a3, int8(a4))
+			sub_479700(int16(int32(a3)), int8(a4))
 		}
 	}
-	return result
 }
 func nox_client_tradeXxxSellAccept_4796D0(a1 int16) int32 {
 	var v2 [4]byte
@@ -1268,14 +1266,12 @@ func sub_479700(a1 int16, a2 int8) int32 {
 	v3[4] = byte(a2)
 	return nox_netlist_addToMsgListCli_40EBC0(31, 0, (*uint8)(unsafe.Pointer(&v3[0])), 5)
 }
-func sub_479810() {
+func sub_479810(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
 	dword_5d4594_1098620 = 0
 }
-func sub_479820(a1 int32, a2 int16) int32 {
-	var result int32
-	result = sub_479840(a2)
+func sub_479820(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
+	sub_479840(int16(int32(a2)))
 	dword_5d4594_1098620 = 0
-	return result
 }
 func sub_479840(a1 int16) int32 {
 	var v2 [4]byte
