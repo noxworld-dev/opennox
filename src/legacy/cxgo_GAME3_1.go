@@ -21,7 +21,7 @@ var dword_5d4594_1522616 *gui.Window = nil
 var dword_5d4594_1522620 *gui.Window = nil
 var dword_5d4594_1522624 *gui.Window = nil
 var dword_5d4594_1522628 *gui.Window = nil
-var nox_wnd_xxx_1522608 *nox_gui_animation = nil
+var nox_wnd_xxx_1522608 *gui.Anim = nil
 var nox_gui_itemAmount_item_1319256 *client.Drawable
 var nox_gui_itemAmount_dialog_1319228 unsafe.Pointer = nil
 
@@ -4906,7 +4906,7 @@ func sub_4CB880() int {
 	if result != 0 {
 		nox_xxx_wndSetWindowProc_46B300((*gui.Window)(unsafe.Pointer(uintptr(result))), guiSelProc2)
 		result = int32(uintptr(unsafe.Pointer(nox_gui_makeAnimation_43C5B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 0, 0, 0, -480, 0, 20, 0, -40))))
-		nox_wnd_xxx_1522608 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
+		nox_wnd_xxx_1522608 = (*gui.Anim)(unsafe.Pointer(uintptr(result)))
 		if result != 0 {
 			nox_wnd_xxx_1522608.StateID = 900
 			nox_wnd_xxx_1522608.Func12Ptr.Set(sub_4CBB70)

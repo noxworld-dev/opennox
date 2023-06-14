@@ -30,7 +30,7 @@ func nox_game_showSelColor_4A5D00() int {
 	if result != 0 {
 		nox_xxx_wndSetWindowProc_46B300((*gui.Window)(unsafe.Pointer(uintptr(result))), guiSelProc2)
 		result = int32(uintptr(unsafe.Pointer(nox_gui_makeAnimation_43C5B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), 0, 0, 0, -440, 0, 20, 0, -40))))
-		nox_wnd_xxx_1308092 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
+		nox_wnd_xxx_1308092 = (*gui.Anim)(unsafe.Pointer(uintptr(result)))
 		if result != 0 {
 			nox_wnd_xxx_1308092.StateID = 700
 			nox_wnd_xxx_1308092.Func12Ptr.Set(sub_4A6890)

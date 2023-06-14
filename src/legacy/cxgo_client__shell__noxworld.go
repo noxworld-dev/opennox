@@ -14,7 +14,7 @@ import (
 )
 
 var dword_5d4594_815104 int32 = 0
-var nox_wnd_xxx_815040 *nox_gui_animation = nil
+var nox_wnd_xxx_815040 *gui.Anim = nil
 
 func Nox_game_showGameSel_4379F0() int {
 	var (

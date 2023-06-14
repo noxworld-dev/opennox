@@ -17,8 +17,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var nox_wnd_xxx_1308092 *nox_gui_animation = nil
-var nox_wnd_xxx_1309740 *nox_gui_animation = nil
+var nox_wnd_xxx_1308092 *gui.Anim = nil
+var nox_wnd_xxx_1309740 *gui.Anim = nil
 var dword_5d4594_1307292 unsafe.Pointer = nil
 var dword_5d4594_1308156 unsafe.Pointer = nil
 var dword_5d4594_1308160 unsafe.Pointer = nil

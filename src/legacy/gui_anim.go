@@ -12,19 +12,12 @@ var (
 
 var _ = [1]struct{}{}[68-unsafe.Sizeof(gui.Anim{})]
 
-type nox_gui_animation = gui.Anim
-
-func asGUIAnim(p *nox_gui_animation) *gui.Anim {
-	return (*gui.Anim)(unsafe.Pointer(p))
-}
-
 // nox_gui_freeAnimation_43C570
-func nox_gui_freeAnimation_43C570(a *nox_gui_animation) {
-	asGUIAnim(a).Free()
+func nox_gui_freeAnimation_43C570(a *gui.Anim) {
+	a.Free()
 }
 
 // nox_gui_makeAnimation_43C5B0
-func nox_gui_makeAnimation_43C5B0(win *gui.Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *nox_gui_animation {
-	a := Nox_gui_makeAnimation_43C5B0(asWindow(win), x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy)
-	return (*nox_gui_animation)(unsafe.Pointer(a))
+func nox_gui_makeAnimation_43C5B0(win *gui.Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *gui.Anim {
+	return Nox_gui_makeAnimation_43C5B0(asWindow(win), x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy)
 }
