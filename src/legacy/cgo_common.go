@@ -5,11 +5,14 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 )
+
+var _ = [1]struct{}{}[16-unsafe.Sizeof(binfile.MemFile{})]
 
 type size_t = uint32
 type long = int32
-type ulonglong = uint64
 
 type int2 struct {
 	field_0 int32

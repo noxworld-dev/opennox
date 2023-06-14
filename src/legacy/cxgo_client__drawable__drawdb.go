@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -41,7 +42,7 @@ func init() {
 	client.RegisterObjectUpdate("MonsterGeneratorUpdateDraw", nox_xxx_updDrawMonsterGen_4BC920)
 }
 
-func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
+func nox_parse_thing_draw(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
 	var (
 		attr_value       = (*byte)(data)
 		read_len   uint8 = nox_memfile_read_u8(f)
@@ -71,7 +72,7 @@ func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) b
 	obj.DrawFunc = ccall.FuncPtr(item.draw)
 	return true
 }
-func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
+func nox_parse_thing_light_dir(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
 	attr_value := (*byte)(data)
 	var deg int32 = 0
 	if stdio.Sscanf(attr_value, "%d", &deg) != 1 {
@@ -84,7 +85,7 @@ func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, data unsafe.Point
 	obj.Field_10 = 0
 	return true
 }
-func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
+func nox_parse_thing_light_penumbra(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
 	attr_value := (*byte)(data)
 	var deg int32 = 0
 	if stdio.Sscanf(attr_value, "%d", &deg) != 1 {
@@ -97,7 +98,7 @@ func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, data unsafe.
 	return true
 }
 
-func nox_parse_thing_pretty_image(obj *nox_thing, f *nox_memfile, data unsafe.Pointer) bool {
+func nox_parse_thing_pretty_image(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
 	var (
 		v10       [128]byte
 		known_idx uint32 = nox_memfile_read_u32(f)

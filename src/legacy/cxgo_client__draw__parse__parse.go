@@ -6,10 +6,11 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *nox_memfile) unsafe.Pointer {
+func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *binfile.MemFile) unsafe.Pointer {
 	var (
 		v2     *uint32
 		v4     *uint32
@@ -63,13 +64,13 @@ func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *nox_memfile)
 	}
 	return result
 }
-func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 int32, f *nox_memfile) int32 {
+func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 int32, f *binfile.MemFile) int32 {
 	if nox_xxx_loadVectorAnimated_44B8B0(a1, f) == 0 {
 		return 0
 	}
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f)
 }
-func nox_xxx_loadVectorAnimated_44B8B0(a1 int32, f *nox_memfile) int32 {
+func nox_xxx_loadVectorAnimated_44B8B0(a1 int32, f *binfile.MemFile) int32 {
 	*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40)) = uint16(nox_memfile_read_u8(f))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 42)) = uint16(nox_memfile_read_u8(f))
 	var anim_kind_length uint8 = nox_memfile_read_u8(f)
@@ -79,7 +80,7 @@ func nox_xxx_loadVectorAnimated_44B8B0(a1 int32, f *nox_memfile) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)) = uint32(get_animation_kind_id_44B4C0(&animation_kind[0]))
 	return 1
 }
-func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *nox_memfile) int32 {
+func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *binfile.MemFile) int32 {
 	var (
 		v2  int32
 		v3  int32

@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -1040,7 +1041,7 @@ func nox_xxx_motd_4467F0() {
 func sub_446950() int32 {
 	return bool2int32(dword_5d4594_826028 != 0 && (nox_xxx_wndGetFlags_46ADA0(*(*int32)(unsafe.Pointer(&dword_5d4594_826028)))&0x10) == 0)
 }
-func sub_44B940(a1 *uint32, a2 int32, f *nox_memfile) int32 {
+func sub_44B940(a1 *uint32, a2 int32, f *binfile.MemFile) int32 {
 	var (
 		v3  int32
 		v4  int32

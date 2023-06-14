@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -1331,7 +1332,7 @@ func sub_452810(a1 int32, a2 int8) *int32 {
 	}
 	return v2
 }
-func nox_thing_read_AVNT_452890(a1p *nox_memfile, a2 unsafe.Pointer) int32 {
+func nox_thing_read_AVNT_452890(a1p *binfile.MemFile, a2 unsafe.Pointer) int32 {
 	var (
 		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v2     int32
@@ -1368,7 +1369,7 @@ func nox_thing_read_AVNT_452890(a1p *nox_memfile, a2 unsafe.Pointer) int32 {
 	v21 = a1
 	v28 = *v3
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v21)), 8)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1)))))
-	nox_memfile_read(a2, 1, int32(v28), (*nox_memfile)(unsafe.Pointer(uintptr(v21))))
+	nox_memfile_read(a2, 1, int32(v28), (*binfile.MemFile)(unsafe.Pointer(uintptr(v21))))
 	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(a2)), v28))) = 0
 	v4 = nox_xxx_utilFindSound_40AF50((*byte)(a2))
 	if v4 != 0 && (func() *byte {
@@ -1428,7 +1429,7 @@ func nox_thing_read_AVNT_452890(a1p *nox_memfile, a2 unsafe.Pointer) int32 {
 					if int32(v29) == 0 {
 						break
 					}
-					nox_memfile_read(a2, 1, int32(v29), (*nox_memfile)(unsafe.Pointer(uintptr(v2))))
+					nox_memfile_read(a2, 1, int32(v29), (*binfile.MemFile)(unsafe.Pointer(uintptr(v2))))
 					*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(a2)), v29))) = 0
 					if v9 < 32 {
 						v11 = int16(uint16(sub_486A10(*(*int32)(unsafe.Pointer(&dword_5d4594_1045420)), a2)))
@@ -1468,17 +1469,17 @@ func nox_thing_read_AVNT_452890(a1p *nox_memfile, a2 unsafe.Pointer) int32 {
 			break
 		}
 	} else {
-		nox_thing_skip_AVNT_inner_452B30((*nox_memfile)(unsafe.Pointer(uintptr(v2))))
+		nox_thing_skip_AVNT_inner_452B30((*binfile.MemFile)(unsafe.Pointer(uintptr(v2))))
 		result = 1
 	}
 	return result
 }
-func nox_thing_skip_AVNT_452B00(f *nox_memfile) int32 {
+func nox_thing_skip_AVNT_452B00(f *binfile.MemFile) int32 {
 	var sz int32 = int32(nox_memfile_read_u8(f))
 	nox_memfile_skip(f, sz)
 	return nox_thing_skip_AVNT_inner_452B30(f)
 }
-func nox_thing_skip_AVNT_inner_452B30(f *nox_memfile) int32 {
+func nox_thing_skip_AVNT_inner_452B30(f *binfile.MemFile) int32 {
 	var (
 		v3     int8
 		v5     uint8
@@ -1555,7 +1556,7 @@ func sub_452BD0(a1 int32, a2 *byte) int32 {
 	v4 = *(**byte)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8))
 	v5 = int32(*v4)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)) = uint32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v4), 1)))))
-	nox_memfile_read(unsafe.Pointer(a2), 1, v5, (*nox_memfile)(unsafe.Pointer(uintptr(a1))))
+	nox_memfile_read(unsafe.Pointer(a2), 1, v5, (*binfile.MemFile)(unsafe.Pointer(uintptr(a1))))
 	*(*byte)(unsafe.Add(unsafe.Pointer(a2), v5)) = 0
 	v6 = nox_xxx_utilFindSound_40AF50(a2)
 	if v6 != 0 && (func() *byte {
@@ -1604,7 +1605,7 @@ func sub_452BD0(a1 int32, a2 *byte) int32 {
 					break
 				}
 				v24 = int32(v23)
-				nox_memfile_read(unsafe.Pointer(v3), 1, int32(v23), (*nox_memfile)(unsafe.Pointer(uintptr(v2))))
+				nox_memfile_read(unsafe.Pointer(v3), 1, int32(v23), (*binfile.MemFile)(unsafe.Pointer(uintptr(v2))))
 				*(*byte)(unsafe.Add(unsafe.Pointer(v3), v24)) = 0
 				v25 = libc.StrRChr(v3, 46)
 				if v25 != nil {

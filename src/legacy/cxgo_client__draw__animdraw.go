@@ -7,6 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -110,7 +111,7 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		return 1
 	}
 }
-func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_things_animate_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		a3     *uint8 = (*uint8)(unsafe.Pointer(attr_value))
 		v3     *uint32
@@ -175,7 +176,7 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 	obj.DrawFunc.Set(nox_thing_animate_draw)
 	return true
 }
-func sub_44BE90(a1 int32, f *nox_memfile) int32 {
+func sub_44BE90(a1 int32, f *binfile.MemFile) int32 {
 	var (
 		v2     int32
 		result int32
@@ -218,7 +219,7 @@ func sub_44BE90(a1 int32, f *nox_memfile) int32 {
 	}
 	return result
 }
-func nox_things_animate_state_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_things_animate_state_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		data_sz      uint32  = 0x94
 		draw_cb_data *uint32 = (*uint32)(alloc.Calloc1(1, uintptr(data_sz)))

@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -21,7 +22,7 @@ func Nox_thing_static_random_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + dr.Field_77*4)))))
 	return 1
 }
-func nox_things_static_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_things_static_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		a3   *uint8 = (*uint8)(unsafe.Pointer(attr_value))
 		v6   *byte
@@ -47,7 +48,7 @@ func nox_things_static_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *by
 	obj.Field_5c = unsafe.Pointer(data)
 	return true
 }
-func nox_things_static_random_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_things_static_random_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
 	obj.DrawFunc.Set(Nox_thing_static_random_draw)
 	obj.Field_5c = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
 	return obj.Field_5c != nil

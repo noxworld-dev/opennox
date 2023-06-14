@@ -5,6 +5,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -47,7 +48,7 @@ func nox_thing_vector_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) 
 	a1 := (*int32)(vp.C())
 	return sub_4BC6B0(a1, dr, int32(*(*uint32)(unsafe.Pointer(&dr.Field_76))))
 }
-func nox_things_vector_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_things_vector_animate_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		v2     *uint32
 		v3     *uint32

@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -232,7 +233,7 @@ LABEL_24:
 	nox_client_drawEnableAlpha_434560(0)
 	return int(v23)
 }
-func nox_things_monster_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
+func nox_things_monster_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		v2 *uint32
 		v4 int32

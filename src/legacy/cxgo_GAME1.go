@@ -10,6 +10,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -1044,7 +1045,7 @@ func sub_411490(a1 int32, a2 int32) int32 {
 	}
 	return 6
 }
-func nox_thing_read_FLOR_411540(f *nox_memfile, a2 *uint8) int32 {
+func nox_thing_read_FLOR_411540(f *binfile.MemFile, a2 *uint8) int32 {
 	if nox_tile_def_cnt >= 176 {
 		return 0
 	}
@@ -1125,7 +1126,7 @@ func nox_xxx_checkFacade_4117E0(tile *nox_tileDef_t) int32 {
 	}
 	return 1
 }
-func nox_thing_read_EDGE_411850(f *nox_memfile, a2 *uint8) int32 {
+func nox_thing_read_EDGE_411850(f *binfile.MemFile, a2 *uint8) int32 {
 	var (
 		v5  int32
 		v7  int32
@@ -1471,7 +1472,7 @@ func nox_xxx_initSinCosTables_414C90() int8 {
 	}
 	return int8(v0)
 }
-func nox_thing_skip_AUD_414D40(f *nox_memfile) int32 {
+func nox_thing_skip_AUD_414D40(f *binfile.MemFile) int32 {
 	var (
 		v2 int32
 		v3 int32
@@ -1499,7 +1500,7 @@ func nox_thing_skip_AUD_414D40(f *nox_memfile) int32 {
 	}
 	return 1
 }
-func nox_thing_read_FLOR_414DB0(f *nox_memfile) int32 {
+func nox_thing_read_FLOR_414DB0(f *binfile.MemFile) int32 {
 	var (
 		v2  *uint8
 		v3  *uint8
@@ -1551,7 +1552,7 @@ func nox_thing_read_FLOR_414DB0(f *nox_memfile) int32 {
 	f.Cur = unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1)))
 	return bool2int32(uint32(v12) == 1162757152)
 }
-func nox_thing_read_EDGE_414E70(f *nox_memfile, a2 unsafe.Pointer) int32 {
+func nox_thing_read_EDGE_414E70(f *binfile.MemFile, a2 unsafe.Pointer) int32 {
 	var (
 		a1  int32 = int32(uintptr(unsafe.Pointer(f)))
 		v2  int32
@@ -1580,7 +1581,7 @@ func nox_thing_read_EDGE_414E70(f *nox_memfile, a2 unsafe.Pointer) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)) = uint32(uintptr(unsafe.Pointer(v3)))
 	v20 = *v3
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1)))))
-	nox_memfile_read(a2, 1, int32(v20), (*nox_memfile)(unsafe.Pointer(uintptr(v18))))
+	nox_memfile_read(a2, 1, int32(v20), (*binfile.MemFile)(unsafe.Pointer(uintptr(v18))))
 	v4 = (*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)))), 9))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)) = uint32(uintptr(unsafe.Pointer(v4)))
 	v5 = *v4
@@ -1621,7 +1622,7 @@ func nox_thing_read_EDGE_414E70(f *nox_memfile, a2 unsafe.Pointer) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)) = uint32(uintptr(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v16), 4*1)))))
 	return bool2int32(uint32(v17) == 1162757152)
 }
-func nox_thing_read_WALL_414F60(f *nox_memfile, a2p unsafe.Pointer) int32 {
+func nox_thing_read_WALL_414F60(f *binfile.MemFile, a2p unsafe.Pointer) int32 {
 	var (
 		a1  *uint32 = (*uint32)(unsafe.Pointer(f))
 		v2  *uint32
@@ -1656,18 +1657,18 @@ func nox_thing_read_WALL_414F60(f *nox_memfile, a2p unsafe.Pointer) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = uint32(uintptr(unsafe.Pointer(v4)))
 	v22 = *v4
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v4), 1)))))
-	nox_memfile_read(v3, 1, int32(v22), (*nox_memfile)(unsafe.Pointer(v20)))
+	nox_memfile_read(v3, 1, int32(v22), (*binfile.MemFile)(unsafe.Pointer(v20)))
 	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(v3)), v22))) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) += 14
 	var a2 uint32
-	nox_memfile_read64align_40AD60((*byte)(unsafe.Pointer(&a2)), 1, 1, (*nox_memfile)(unsafe.Pointer(v2)))
+	nox_memfile_read64align_40AD60((*byte)(unsafe.Pointer(&a2)), 1, 1, (*binfile.MemFile)(unsafe.Pointer(v2)))
 	v5 = 0
 	if a2 != 0 {
 		for v5 < 8 {
 			v6 = (*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))))
 			v23 = *v6
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v6), 1)))))
-			nox_memfile_read(v3, 1, int32(v23), (*nox_memfile)(unsafe.Pointer(v2)))
+			nox_memfile_read(v3, 1, int32(v23), (*binfile.MemFile)(unsafe.Pointer(v2)))
 			*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(v3)), v23))) = 0
 			if func() int32 {
 				p := &v5
@@ -1683,22 +1684,22 @@ LABEL_4:
 	v7 = (*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))))
 	v24 = *v7
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v7), 1)))))
-	nox_memfile_read(v3, 1, int32(v24), (*nox_memfile)(unsafe.Pointer(v2)))
+	nox_memfile_read(v3, 1, int32(v24), (*binfile.MemFile)(unsafe.Pointer(v2)))
 	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(v3)), v24))) = 0
 	v8 = (*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))))
 	v25 = *v8
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v8), 1)))))
-	nox_memfile_read(v3, 1, int32(v25), (*nox_memfile)(unsafe.Pointer(v2)))
+	nox_memfile_read(v3, 1, int32(v25), (*binfile.MemFile)(unsafe.Pointer(v2)))
 	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(v3)), v25))) = 0
 	v9 = (*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))))
 	v26 = *v9
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v9), 1)))))
-	nox_memfile_read(v3, 1, int32(v26), (*nox_memfile)(unsafe.Pointer(v2)))
+	nox_memfile_read(v3, 1, int32(v26), (*binfile.MemFile)(unsafe.Pointer(v2)))
 	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(v3)), v26))) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2))++
 	v10 = 15
 	for {
-		nox_memfile_read64align_40AD60((*byte)(unsafe.Pointer(&v21)), 1, 1, (*nox_memfile)(unsafe.Pointer(v2)))
+		nox_memfile_read64align_40AD60((*byte)(unsafe.Pointer(&v21)), 1, 1, (*binfile.MemFile)(unsafe.Pointer(v2)))
 		if int32(uint8(int8(v21))) > 0 {
 			v11 = int32(uint8(int8(v21)))
 			for {
@@ -1735,7 +1736,7 @@ LABEL_4:
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = uint32(uintptr(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v17), 4*1)))))
 	return bool2int32(uint32(v18) == 1162757152)
 }
-func nox_thing_skip_spells_415100(f *nox_memfile) int32 {
+func nox_thing_skip_spells_415100(f *binfile.MemFile) int32 {
 	var (
 		a1  int32 = int32(uintptr(unsafe.Pointer(f)))
 		v1  *int32
@@ -1803,7 +1804,7 @@ func nox_thing_skip_spells_415100(f *nox_memfile) int32 {
 	}
 	return 1
 }
-func nox_thing_read_image_415240(f *nox_memfile) int32 {
+func nox_thing_read_image_415240(f *binfile.MemFile) int32 {
 	var (
 		a1  int32 = int32(uintptr(unsafe.Pointer(f)))
 		v1  int32
@@ -1864,7 +1865,7 @@ func nox_thing_read_image_415240(f *nox_memfile) int32 {
 	}
 	return 1
 }
-func nox_thing_read_ability_415320(f *nox_memfile) int32 {
+func nox_thing_read_ability_415320(f *binfile.MemFile) int32 {
 	var (
 		a1  int32 = int32(uintptr(unsafe.Pointer(f)))
 		v1  *int32
@@ -1939,7 +1940,7 @@ func nox_thing_read_ability_415320(f *nox_memfile) int32 {
 	}
 	return 1
 }
-func nox_thing_read_audio_415660(a1p *nox_memfile, a2 *byte) int32 {
+func nox_thing_read_audio_415660(a1p *binfile.MemFile, a2 *byte) int32 {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v2 int32

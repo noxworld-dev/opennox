@@ -13,6 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -3895,7 +3896,7 @@ func nox_xxx_spriteChangeIntensity_484D70_light_intensity(a1 int32, a2 float32) 
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)) = uint32(result)
 	return result
 }
-func nox_thing_read_floor_485B30(f *nox_memfile, a2 *byte) int32 {
+func nox_thing_read_floor_485B30(f *binfile.MemFile, a2 *byte) int32 {
 	var (
 		a1  int32 = int32(uintptr(unsafe.Pointer(f)))
 		v2  int32
@@ -3920,7 +3921,7 @@ func nox_thing_read_floor_485B30(f *nox_memfile, a2 *byte) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)) = uint32(uintptr(unsafe.Pointer(v3)))
 	*((*uint8)(unsafe.Pointer(&a1))) = *v3
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1)))))
-	nox_memfile_read(unsafe.Pointer(&v22[0]), 1, int32(uint8(int8(a1))), (*nox_memfile)(unsafe.Pointer(uintptr(v16))))
+	nox_memfile_read(unsafe.Pointer(&v22[0]), 1, int32(uint8(int8(a1))), (*binfile.MemFile)(unsafe.Pointer(uintptr(v16))))
 	v22[uint8(int8(a1))] = 0
 	var v7 int32 = a1
 	if nox_tile_def_cnt > 0 {
@@ -3964,7 +3965,7 @@ func nox_thing_read_floor_485B30(f *nox_memfile, a2 *byte) int32 {
 			*((*uint8)(unsafe.Pointer(&v21))) = uint8(v15)
 			v23 = *v14
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)) = uint32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v14), 1)))))
-			nox_memfile_read(unsafe.Pointer(a2), 1, int32(v23), (*nox_memfile)(unsafe.Pointer(uintptr(v2))))
+			nox_memfile_read(unsafe.Pointer(a2), 1, int32(v23), (*binfile.MemFile)(unsafe.Pointer(uintptr(v2))))
 			v13 = -1
 			*(*byte)(unsafe.Add(unsafe.Pointer(a2), v23)) = 0
 			v11 = i
@@ -3975,7 +3976,7 @@ func nox_thing_read_floor_485B30(f *nox_memfile, a2 *byte) int32 {
 	}
 	return 1
 }
-func nox_thing_read_edge_485D40(f *nox_memfile, a2 *byte) int32 {
+func nox_thing_read_edge_485D40(f *binfile.MemFile, a2 *byte) int32 {
 	var (
 		a1     int32 = int32(uintptr(unsafe.Pointer(f)))
 		v2     int32
@@ -4011,7 +4012,7 @@ func nox_thing_read_edge_485D40(f *nox_memfile, a2 *byte) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)) = uint32(uintptr(unsafe.Pointer(v3)))
 	*((*uint8)(unsafe.Pointer(&a1))) = *v3
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)) = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v3), 1)))))
-	nox_memfile_read(unsafe.Pointer(&v26[0]), 1, int32(uint8(int8(a1))), (*nox_memfile)(unsafe.Pointer(uintptr(v22))))
+	nox_memfile_read(unsafe.Pointer(&v26[0]), 1, int32(uint8(int8(a1))), (*binfile.MemFile)(unsafe.Pointer(uintptr(v22))))
 	v4 = int32(dword_5d4594_251572)
 	v5 = 0
 	v26[uint8(int8(a1))] = 0
@@ -4073,7 +4074,7 @@ func nox_thing_read_edge_485D40(f *nox_memfile, a2 *byte) int32 {
 				*((*uint8)(unsafe.Pointer(&v25))) = uint8(v19)
 				v27 = *v18
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)) = uint32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v18), 1)))))
-				nox_memfile_read(unsafe.Pointer(a2), 1, int32(v27), (*nox_memfile)(unsafe.Pointer(uintptr(v2))))
+				nox_memfile_read(unsafe.Pointer(a2), 1, int32(v27), (*binfile.MemFile)(unsafe.Pointer(uintptr(v2))))
 				v17 = -1
 				*(*byte)(unsafe.Add(unsafe.Pointer(a2), v27)) = 0
 				v15 = i
