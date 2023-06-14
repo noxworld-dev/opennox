@@ -2544,23 +2544,23 @@ func nox_xxx_wndButtonInit_4A8340(a1 int32) int32 {
 }
 func nox_xxx_wndButtonDraw_4A8380(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1  = (*uint32)(win.C())
-		a2  = int32(uintptr(draw.C()))
+		a1p = (*uint32)(win.C())
+		a2p = int32(uintptr(draw.C()))
 		v2  int32
 		v3  *uint32
 		v4  int32
 		v5  int32
-		v6  int32
 		v7  int32
 		v8  int32
 		v10 int32
 		v11 int32
 	)
-	v2 = a2
-	v3 = a1
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 32)))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 24)))
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&a2)))
+	v2 = a2p
+	v3 = a1p
+	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2p)), 32)))
+	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2p)), 24)))
+	var a1, a2 uint32
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1p)), &a1, &a2)
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1))&8 != 0 {
 		if *(*uint32)(unsafe.Pointer(uintptr(v2)))&4 != 0 {
 			v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 56)))
@@ -2571,16 +2571,15 @@ func nox_xxx_wndButtonDraw_4A8380(win *gui.Window, draw *gui.WindowData) int {
 		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48)))
 	}
 	if v5 != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v5))), int32(uint32(int32(uintptr(unsafe.Pointer(a1))))+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*24))), int32(uint32(a2)+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*25))))
+		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v5))), int32(a1+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*24))), int32(a2+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*25))))
 	}
 	if v4 != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v4))), int32(uint32(int32(uintptr(unsafe.Pointer(a1))))+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*24))), int32(uint32(a2)+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*25))))
+		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v4))), int32(a1+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*24))), int32(a2+*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*25))))
 	}
 	if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 72))) != 0 {
-		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)))
-		a1 = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(a1), *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2))/2))))
 		v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) & 0x2000)
-		a2 += v6 / 2
+		a1 += *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) / 2
+		a2 += *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) / 2
 		if v7 == 0x2000 {
 			nox_draw_enableTextSmoothing_43F670(1)
 		}
@@ -2589,7 +2588,7 @@ func nox_xxx_wndButtonDraw_4A8380(win *gui.Window, draw *gui.WindowData) int {
 			nox_xxx_drawSetTextColor_434390(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 68))))
 			v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)))
 			v8 = nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 200)))))
-			nox_xxx_drawStringWrap_43FAF0(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 200)))), (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 72)), int32(uintptr(unsafe.Pointer(a1)))-v11/2, a2-v8/2, v10, 0)
+			nox_xxx_drawStringWrap_43FAF0(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 200)))), (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 72)), int32(a1)-v11/2, int32(a2)-v8/2, v10, 0)
 		}
 		nox_draw_enableTextSmoothing_43F670(0)
 	}

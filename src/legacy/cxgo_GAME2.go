@@ -1200,7 +1200,7 @@ func sub_452410(a1 int32) int32 {
 	result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176)))
 	if result != 0 && uint32(a1) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(result)), 152)) {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24)))&2 != 0 {
-			sub_4BDA80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176))))
+			sub_4BDA80(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176)))
 		}
 		sub_4BDB30(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176))))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 176)))), 152)) = 0
@@ -1276,8 +1276,8 @@ func sub_452690(a3 int32, a4 int64, a5 int32) int64 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 28)) = 2
 	return result
 }
-func sub_4526D0(a1 int32) int32 {
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 152)))), 28)) = 4
+func sub_4526D0(a1 unsafe.Pointer) int32 {
+	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a1, 152)))), 28)) = 4
 	return 0
 }
 func sub_4526F0(a1 unsafe.Pointer) int32 {
@@ -1316,7 +1316,7 @@ func sub_452810(a1 int32, a2 int8) *int32 {
 			if *(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*31))&0x15 != 0 && *(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*30)) > a1 {
 				return nil
 			}
-			sub_4BDA80(int32(uintptr(unsafe.Pointer(v3))))
+			sub_4BDA80(unsafe.Pointer(v3))
 			*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*29)) = int32(uintptr(dword_587000_127004))
 			*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*30)) = a1
 			if int32(a2)&1 != 0 {

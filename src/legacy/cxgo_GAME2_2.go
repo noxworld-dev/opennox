@@ -4949,7 +4949,7 @@ func sub_487970(a1 int32, a2 int32) *int32 {
 			result = sub_4877F0((**int32)(unsafe.Pointer(&a1)))
 			v5 = result
 			if v4 == -1 || *(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) == v4 {
-				result = (*int32)(unsafe.Pointer(uintptr(sub_4BDA80(int32(uintptr(unsafe.Pointer(v3)))))))
+				result = (*int32)(unsafe.Pointer(uintptr(sub_4BDA80(unsafe.Pointer(v3)))))
 			}
 			v3 = v5
 			if v5 == nil {

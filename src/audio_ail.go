@@ -30,7 +30,7 @@ var (
 	audioDev        ail.Driver
 )
 
-func sub_43EFD0(a1 unsafe.Pointer) int {
+func sub_43EFD0(a1 unsafe.Pointer) {
 	s := *(**legacy.AudioSample)(unsafe.Add(a1, 272))
 	s.Smp.End()
 	if s.Flag7 == 0 {
@@ -39,7 +39,6 @@ func sub_43EFD0(a1 unsafe.Pointer) int {
 		ccall.AsFunc[func(unsafe.Pointer)](*fptr)(ptr)
 		s.Flag7 = 1
 	}
-	return 0
 }
 
 func sub_43EC30(a1 unsafe.Pointer) int {

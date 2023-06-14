@@ -709,6 +709,7 @@ func sub_4BD940(a1 int32) {
 		v1(unsafe.Pointer(uintptr(a1)))
 	}
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 288)) != 0 {
+		_ = sub_43F0D0
 		ccall.AsFunc[func(int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 172)))), 36)))(a1)
 	}
 }
@@ -732,24 +733,23 @@ func sub_4BD9B0(a2p unsafe.Pointer) int32 {
 	}
 	return result
 }
-func sub_4BDA60(lpMem unsafe.Pointer) {
-	sub_4BDA80(int32(uintptr(lpMem)))
-	sub_486E90(int32(uintptr(lpMem)))
-	sub_4BD7A0(lpMem)
+func sub_4BDA60(p unsafe.Pointer) {
+	sub_4BDA80(p)
+	sub_486E90(int32(uintptr(p)))
+	sub_4BD7A0(p)
 }
-func sub_4BDA80(a1 int32) int32 {
+func sub_4BDA80(a1 unsafe.Pointer) int32 {
 	var (
-		result  int32 = 0
-		result2 func(int32) int32
+		result int32 = 0
 	)
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 124)))&5 != 0 {
-		ccall.AsFunc[func(int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 172)))), 16)))(a1)
+	if int32(*(*uint8)(unsafe.Add(a1, 124)))&5 != 0 {
+		ccall.AsFunc[func(unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a1, 172)))), 16)))(a1)
 	}
-	result2 = ccall.AsFunc[func(int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 148)))
+	result2 := ccall.AsFunc[func(unsafe.Pointer) int32](*(*unsafe.Pointer)(unsafe.Add(a1, 148)))
 	if result2 != nil {
 		result = result2(a1)
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 288)) = 0
+	*(*uint32)(unsafe.Add(a1, 288)) = 0
 	return result
 }
 func sub_4BDB20(a1 int32) int32 {

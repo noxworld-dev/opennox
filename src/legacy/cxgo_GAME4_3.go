@@ -257,7 +257,7 @@ LABEL_55:
 			nox_xxx_netStartDurationRaySpell_4FF130(int32(uintptr(unsafe.Pointer(v21))))
 		}
 		if v20 > 0 {
-			ccall.AsFunc[func(uint32, uint32, uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)))), 716)))(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(source)), 16)), 0, v20, 17)
+			ccall.AsFunc[server.ObjectDamageFunc](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)))), 716)))(*(**server.Object)(unsafe.Add(unsafe.Pointer(v21), 4*12)), *(**server.Object)(unsafe.Add(unsafe.Pointer(uintptr(source)), 16)), nil, int(v20), 17)
 		}
 		v24 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)))
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v24)), 16))&0x8020 != 0 {

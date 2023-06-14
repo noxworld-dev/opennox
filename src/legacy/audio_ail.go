@@ -10,7 +10,7 @@ var (
 	Sub_43EA20                    func(a1 unsafe.Pointer) int
 	Sub_43E9F0                    func()
 	Sub_43E940                    func(a1 unsafe.Pointer) int
-	Sub_43EFD0                    func(a1 unsafe.Pointer) int
+	Sub_43EFD0                    func(a1 unsafe.Pointer)
 	Sub_43EC10                    func() int
 	Sub_43F130                    func() int
 	Sub_43ED00                    func(a1p unsafe.Pointer) int
@@ -76,8 +76,7 @@ func sub_43F050() int {
 }
 
 // sub_43F0D0
-func sub_43F0D0() int {
-	return 0
+func sub_43F0D0(int32) {
 }
 
 // sub_43F030
@@ -142,8 +141,8 @@ func sub_43E940(a1 unsafe.Pointer) int {
 }
 
 // sub_43EFD0
-func sub_43EFD0(a1 unsafe.Pointer) int {
-	return Sub_43EFD0(a1)
+func sub_43EFD0(a1 unsafe.Pointer) {
+	Sub_43EFD0(a1)
 }
 
 // sub_43EC10
