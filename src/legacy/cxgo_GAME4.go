@@ -3475,7 +3475,7 @@ func Nox_xxx_plrCastSmth_4FEDA0(sp *server.DurSpell) {
 				return
 			}
 		} else if u.Class().Has(object.ClassMonster) {
-			sub_541630(u.CObj(), int32(sp.Spell))
+			sub_541630(u, int32(sp.Spell))
 		}
 	}
 	sub_4FE900(unsafe.Pointer(sp))

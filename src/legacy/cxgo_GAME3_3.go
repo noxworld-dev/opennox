@@ -208,7 +208,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 							if int32(v28) != 13 && int32(v28) != 18 && int32(v28) != 19 && int32(v28) != 20 {
 								goto LABEL_120
 							}
-						} else if sub_534340(v5) == 0 {
+						} else if sub_534340(AsObjectP(v5)) == 0 {
 							goto LABEL_120
 						}
 						if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 8)))&1 != 0 {
@@ -247,7 +247,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 					if int32(v31) != 13 && int32(v31) != 18 && int32(v31) != 19 && int32(v31) != 20 && (int32(v31) != 0 || (gameex_flags&0x4) == 0) {
 						goto LABEL_120
 					}
-				} else if sub_534340(v5) == 0 {
+				} else if sub_534340(AsObjectP(v5)) == 0 {
 					goto LABEL_120
 				}
 				nox_xxx_aud_501960(894, (*server.Object)(unsafe.Pointer(uintptr(v5))), 0, 0)

@@ -1059,7 +1059,7 @@ func sub_50B950(a1 unsafe.Pointer, a2 int32, a3 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_genPathToPoint_50B9A0(a1 int32, a2 int32, a3 unsafe.Pointer, a4 *float32) int32 {
+func nox_xxx_genPathToPoint_50B9A0(a1 unsafe.Pointer, a2 int32, a3 unsafe.Pointer, a4 *float32) int32 {
 	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 748)))), 2172)) = 0
 	nox_xxx_pathFind_50BA00(0, a3, (*float32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 56)), a4, nil, 0)
 	if dword_5d4594_2386180 > uint32(a2) && dword_5d4594_1599712 == 0 {
@@ -1708,38 +1708,39 @@ func nox_xxx_pathfind_preCheckWalls_50C8D0(a1 unsafe.Pointer, a2 *int2) {
 		}
 	}
 }
-func nox_xxx_appendWorkPath_50C990(a1 int32, a2 int32, a3 int32) int32 {
+func nox_xxx_appendWorkPath_50C990(a1 unsafe.Pointer, ind int32, sz int32) int32 {
 	var (
 		v3 int32
 		v4 int32
-		v5 int32
 		v6 *uint32
 	)
 	v3 = 0
 	if *(*int32)(unsafe.Pointer(&dword_5d4594_2386180)) <= 0 {
-		return a2
+		return ind
 	}
-	v4 = a2
-	v5 = a1 + a2*8
-	for v4 != a3-1 {
+	v4 = ind
+	v5 := unsafe.Add(a1, ind*8)
+	for {
+		if v4 == sz-1 {
+			nox_ai_debug_printf_5341A0(internCStr("appendWorkPath: Path truncated.\n"))
+			return v4
+		}
 		v4++
-		v5 += 8
+		v5 = unsafe.Add(v5, 8)
 		v6 = (*uint32)(unsafe.Pointer(uintptr(int32(uintptr(dword_5d4594_2386176)) + func() int32 {
 			p := &v3
 			x := *p
 			*p++
 			return x
 		}()*8)))
-		*(*uint32)(unsafe.Pointer(uintptr(v5 - 8))) = *v6
-		*(*uint32)(unsafe.Pointer(uintptr(v5 - 4))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))
+		*(*uint32)(unsafe.Add(v5, -8)) = *v6
+		*(*uint32)(unsafe.Add(v5, -4)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))
 		if v3 >= *(*int32)(unsafe.Pointer(&dword_5d4594_2386180)) {
 			return v4
 		}
 	}
-	nox_ai_debug_printf_5341A0(internCStr("appendWorkPath: Path truncated.\n"))
-	return v4
 }
-func nox_xxx_generateRetreatPath_50CA00(a1 int32, a2 int32, a3 unsafe.Pointer, a4 *float32) int32 {
+func nox_xxx_generateRetreatPath_50CA00(a1 unsafe.Pointer, a2 int32, a3 unsafe.Pointer, a4 *float32) int32 {
 	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 748)))), 2172)) = 0
 	nox_xxx_pathFind_50BA00(1, a3, (*float32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 56)), a4, sub_50CA60, 6)
 	if dword_5d4594_2386180 > uint32(a2) && dword_5d4594_1599712 == 0 {
@@ -1861,24 +1862,21 @@ func sub_50CB20(a1 unsafe.Pointer, a2 *float32) unsafe.Pointer {
 	return nil
 }
 func nox_xxx_creatureSetDetailedPath_50D220(a1 unsafe.Pointer, a2 int32) int32 {
-	var (
-		result int32
-		v3     int32
-		v4     int32
-	)
-	result = 0
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 280)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 268)) = 0
+	obj := AsObjectP(a1)
+	var result int32
+	ud := obj.UpdateDataMonster()
+	v3 := unsafe.Pointer(ud)
+	v4 := int32(ud.Field70)
+	ud.Field67 = 0
 	if (gameFrame() - uint32(v4)) >= 0xA {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 272)) = *(*uint32)(unsafe.Pointer(uintptr(a2)))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 8)) = uint32(nox_xxx_genPathToPoint_50B9A0(v3+12, 32, a1, (*float32)(unsafe.Pointer(uintptr(a2)))))
+		ud.Field68 = *(*uint32)(unsafe.Pointer(uintptr(a2)))
+		ud.Field69 = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4))
+		ud.Field2 = uint32(nox_xxx_genPathToPoint_50B9A0(unsafe.Pointer(&ud.Path), 32, a1, (*float32)(unsafe.Pointer(uintptr(a2)))))
 		result = nox_xxx_pathFindStatus_50CAF0()
 		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 284)) = uint8(int8(result))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 280)) = gameFrame()
+		ud.Field70 = gameFrame()
 	} else {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 8)) = 0
+		ud.Field2 = 0
 		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 284)) = 1
 	}
 	return result

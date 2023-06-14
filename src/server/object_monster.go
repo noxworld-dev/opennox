@@ -110,70 +110,7 @@ type MonsterUpdateData struct {
 	Field0                uint32               // 0, 0
 	Field1                uint32               // 1, 4
 	Field2                uint32               // 2, 8
-	Field3                uint32               // 3, 12
-	Field4                uint32               // 4, 16
-	Field5                uint32               // 5, 20
-	Field6                uint32               // 6, 24
-	Field7                uint32               // 7, 28
-	Field8                uint32               // 8, 32
-	Field9                uint32               // 9, 36
-	Field10               uint32               // 10, 40
-	Field11               uint32               // 11, 44
-	Field12               uint32               // 12, 48
-	Field13               uint32               // 13, 52
-	Field14               uint32               // 14, 56
-	Field15               uint32               // 15, 60
-	Field16               uint32               // 16, 64
-	Field17               uint32               // 17, 68
-	Field18               uint32               // 18, 72
-	Field19               uint32               // 19, 76
-	Field20               uint32               // 20, 80
-	Field21               uint32               // 21, 84
-	Field22               uint32               // 22, 88
-	Field23               uint32               // 23, 92
-	Field24               uint32               // 24, 96
-	Field25               uint32               // 25, 100
-	Field26               uint32               // 26, 104
-	Field27               uint32               // 27, 108
-	Field28               uint32               // 28, 112
-	Field29               uint32               // 29, 116
-	Field30               uint32               // 30, 120
-	Field31               uint32               // 31, 124
-	Field32               uint32               // 32, 128
-	Field33               uint32               // 33, 132
-	Field34               uint32               // 34, 136
-	Field35               uint32               // 35, 140
-	Field36               uint32               // 36, 144
-	Field37               uint32               // 37, 148
-	Field38               uint32               // 38, 152
-	Field39               uint32               // 39, 156
-	Field40               uint32               // 40, 160
-	Field41               uint32               // 41, 164
-	Field42               uint32               // 42, 168
-	Field43               uint32               // 43, 172
-	Field44               uint32               // 44, 176
-	Field45               uint32               // 45, 180
-	Field46               uint32               // 46, 184
-	Field47               uint32               // 47, 188
-	Field48               uint32               // 48, 192
-	Field49               uint32               // 49, 196
-	Field50               uint32               // 50, 200
-	Field51               uint32               // 51, 204
-	Field52               uint32               // 52, 208
-	Field53               uint32               // 53, 212
-	Field54               uint32               // 54, 216
-	Field55               uint32               // 55, 220
-	Field56               uint32               // 56, 224
-	Field57               uint32               // 57, 228
-	Field58               uint32               // 58, 232
-	Field59               uint32               // 59, 236
-	Field60               uint32               // 60, 240
-	Field61               uint32               // 61, 244
-	Field62               uint32               // 62, 248
-	Field63               uint32               // 63, 252
-	Field64               uint32               // 64, 256
-	Field65               uint32               // 65, 260
-	Field66               uint32               // 66, 264
+	Path                  [32][2]uint32        // 3, 12
 	Field67               uint32               // 67, 268
 	Field68               uint32               // 68, 272
 	Field69               uint32               // 69, 276
