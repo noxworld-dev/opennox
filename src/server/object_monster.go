@@ -259,7 +259,7 @@ type MonsterUpdateData struct {
 	Field301              uint32               // 301, 1204
 	Field302              uint32               // 302, 1208
 	Field303              uint32               // 303, 1212
-	Field304              uint32               // 304, 1216
+	Field304              *Object              // 304, 1216
 	Field305              uint32               // 305, 1220
 	ScriptLookingForEnemy ScriptCallback       // 306, 1224
 	ScriptEnemySighted    ScriptCallback       // 308, 1232

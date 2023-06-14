@@ -312,13 +312,10 @@ func nox_xxx_utilNormalizeVector_509F20(a1 *float2) {
 	a1.field_0 = float32(float64(a1.field_0) / v1)
 	a1.field_4 = float32(float64(a1.field_4) / v1)
 }
-func sub_509FF0(a1 int32) int32 {
-	var result int32
-	result = a1
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1))))), 16)))&0x20 != 0 {
-		*(*uint32)(unsafe.Pointer(uintptr(a1))) = 0
+func sub_509FF0(a1 unsafe.Pointer) {
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(a1))), 16)))&0x20 != 0 {
+		*(*uint32)(a1) = 0
 	}
-	return result
 }
 func nox_xxx_monsterActionIsCondition_50A010(a1 int32) int32 {
 	var result int32
@@ -330,54 +327,24 @@ func nox_xxx_mobActionGet_50A020(obj *server.Object) int32 {
 	ud := obj.UpdateDataMonster()
 	return int32(ud.AIStackHead().Action)
 }
-func sub_50A040(a1 unsafe.Pointer) int32 {
-	var (
-		v1 int32
-		v2 int32
-		i  *int32
-		v4 int32
-	)
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	v2 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 544)) - 1)
-	if v2 < 0 {
-		return 38
-	}
-	for i = (*int32)(unsafe.Pointer(uintptr(v1 + (v2*3+69)*8))); ; i = (*int32)(unsafe.Add(unsafe.Pointer(i), -int(4*6))) {
-		v4 = nox_xxx_monsterActionIsCondition_50A010(*i)
-		if v4 == 0 {
-			break
-		}
-		if func() int32 {
-			p := &v2
-			*p--
-			return *p
-		}() < 0 {
-			return 38
+func sub_50A040(a1 *server.Object) int32 {
+	ud := a1.UpdateDataMonster()
+	for i := ud.AIStackInd; i >= 0; i-- {
+		act := &ud.AIStack[i]
+		if nox_xxx_monsterActionIsCondition_50A010(int32(act.Action)) == 0 {
+			return int32(act.Action)
 		}
 	}
-	return int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + (v2*3+69)*8))))
+	return 38
 }
-func nox_xxx_monsterIsActionScheduled_50A090(a1 int32, a2 int32) int32 {
-	var (
-		v2 int32
-		v3 int32
-		i  *uint32
-	)
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	v3 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 544)) - 1)
-	if v3 < 0 {
-		return 0
-	}
-	for i = (*uint32)(unsafe.Pointer(uintptr(v2 + (v3*3+69)*8))); *i != uint32(a2); i = (*uint32)(unsafe.Add(unsafe.Pointer(i), -int(4*6))) {
-		if func() int32 {
-			p := &v3
-			*p--
-			return *p
-		}() < 0 {
-			return 0
+func nox_xxx_monsterIsActionScheduled_50A090(a1 *server.Object, act ai.ActionType) int32 {
+	ud := a1.UpdateDataMonster()
+	for i := ud.AIStackInd - 1; i >= 0; i-- {
+		if ud.AIStack[i].Action == act {
+			return 1
 		}
 	}
-	return 1
+	return 0
 }
 func nox_xxx_checkMobAction_50A0D0(obj *server.Object, act ai.ActionType) int32 {
 	ud := obj.UpdateDataMonster()
@@ -533,99 +500,147 @@ func nox_xxx_updateNPCAnimData_50A850(a1p *server.Object) int8 {
 	}
 	return int8(uintptr(unsafe.Pointer(v2)))
 }
+
+var aiActionsTable = []struct {
+	Act  ai.ActionType
+	Args []uint32
+}{
+	{Act: ai.ACTION_IDLE, Args: []uint32{5}},
+	{Act: ai.ACTION_WAIT, Args: []uint32{5}},
+	{Act: ai.ACTION_WAIT_RELATIVE, Args: []uint32{3}},
+	{Act: ai.ACTION_ESCORT, Args: []uint32{0, 1}},
+	{Act: ai.ACTION_GUARD, Args: []uint32{0, 3}},
+	{Act: ai.ACTION_HUNT},
+	{Act: ai.ACTION_RETREAT},
+	{Act: ai.ACTION_MOVE_TO, Args: []uint32{0, 1}},
+	{Act: ai.ACTION_FAR_MOVE_TO, Args: []uint32{0, 1}},
+	{Act: ai.ACTION_DODGE, Args: []uint32{0}},
+	{Act: ai.ACTION_ROAM, Args: []uint32{2, 7}},
+	{Act: ai.ACTION_PICKUP_OBJECT},
+	{Act: ai.ACTION_DROP_OBJECT},
+	{Act: ai.ACTION_FIND_OBJECT},
+	{Act: ai.ACTION_RETREAT_TO_MASTER},
+	{Act: ai.ACTION_FIGHT, Args: []uint32{0, 5}},
+	{Act: ai.ACTION_MELEE_ATTACK},
+	{Act: ai.ACTION_MISSILE_ATTACK, Args: []uint32{0, 1}},
+	{Act: ai.ACTION_CAST_SPELL_ON_OBJECT, Args: []uint32{3, 1}},
+	{Act: ai.ACTION_CAST_SPELL_ON_LOCATION, Args: []uint32{3, 0}},
+	{Act: ai.ACTION_CAST_DURATION_SPELL, Args: []uint32{3, 1}},
+	{Act: ai.ACTION_BLOCK_ATTACK, Args: []uint32{5}},
+	{Act: ai.ACTION_BLOCK_FINISH},
+	{Act: ai.ACTION_WEAPON_BLOCK},
+	{Act: ai.ACTION_FLEE, Args: []uint32{0, 1}},
+	{Act: ai.ACTION_FACE_LOCATION, Args: []uint32{0}},
+	{Act: ai.ACTION_FACE_OBJECT, Args: []uint32{1}},
+	{Act: ai.ACTION_FACE_ANGLE, Args: []uint32{3}},
+	{Act: ai.ACTION_SET_ANGLE, Args: []uint32{3}},
+	{Act: ai.ACTION_RANDOM_WALK},
+	{Act: ai.ACTION_DYING},
+	{Act: ai.ACTION_DEAD},
+	{Act: ai.ACTION_REPORT, Args: []uint32{3}},
+	{Act: ai.ACTION_MORPH_INTO_CHEST},
+	{Act: ai.ACTION_MORPH_BACK_TO_SELF},
+	{Act: ai.ACTION_GET_UP},
+	{Act: ai.ACTION_CONFUSED},
+	{Act: ai.ACTION_MOVE_TO_HOME, Args: []uint32{0, 1}},
+	{Act: ai.ACTION_INVALID},
+	{Act: 0x27},
+	{Act: ai.DEPENDENCY_OR},
+	{Act: ai.DEPENDENCY_TIME, Args: []uint32{5}},
+	{Act: ai.DEPENDENCY_ALIVE, Args: []uint32{1}},
+	{Act: ai.DEPENDENCY_UNDER_ATTACK, Args: []uint32{5}},
+	{Act: ai.DEPENDENCY_NOT_UNDER_ATTACK},
+	{Act: ai.DEPENDENCY_CAN_SEE, Args: []uint32{1}},
+	{Act: ai.DEPENDENCY_CANNOT_SEE, Args: []uint32{1}},
+	{Act: ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, Args: []uint32{1}},
+	{Act: ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION, Args: []uint32{0, 1}},
+	{Act: ai.DEPENDENCY_OBJECT_FARTHER_THAN, Args: []uint32{4, 1}},
+	{Act: ai.DEPENDENCY_OBJECT_CLOSER_THAN, Args: []uint32{4, 1}},
+	{Act: ai.DEPENDENCY_LOCATION_FARTHER_THAN, Args: []uint32{4, 0}},
+	{Act: ai.DEPENDENCY_LOCATION_CLOSER_THAN, Args: []uint32{4, 0}},
+	{Act: ai.DEPENDENCY_VISIBLE_ENEMY},
+	{Act: ai.DEPENDENCY_VISIBLE_FRIEND},
+	{Act: ai.DEPENDENCY_VISIBLE_FOOD},
+	{Act: ai.DEPENDENCY_NO_VISIBLE_ENEMY},
+	{Act: ai.DEPENDENCY_NO_VISIBLE_FRIEND},
+	{Act: ai.DEPENDENCY_NO_VISIBLE_FOOD},
+	{Act: ai.DEPENDENCY_NO_INTERESTING_SOUND},
+	{Act: ai.DEPENDENCY_NO_NEW_ENEMY, Args: []uint32{1}},
+	{Act: ai.DEPENDENCY_UNINTERRUPTABLE},
+	{Act: ai.DEPENDENCY_IS_ENCHANTED, Args: []uint32{3}},
+	{Act: ai.DEPENDENCY_ENEMY_CLOSER_THAN, Args: []uint32{4}},
+	{Act: ai.DEPENDENCY_NOT_HEALTHY},
+	{Act: ai.DEPENDENCY_WAIT_FOR_STAMINA},
+	{Act: ai.DEPENDENCY_ENEMY_FARTHER_THAN, Args: []uint32{4}},
+	{Act: ai.DEPENDENCY_UNDER_CURSOR},
+	{Act: ai.DEPENDENCY_NOT_CORNERED},
+	{Act: ai.DEPENDENCY_LOCATION_IS_SAFE, Args: []uint32{0}},
+	{Act: ai.DEPENDENCY_NOT_FRUSTRATED},
+	{Act: ai.DEPENDENCY_NOT_MOVED},
+}
+
 func nox_xxx_mobAction_50A910(a1p *server.Object) int32 {
-	var (
-		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
-		v1     int32
-		v2     int32
-		result int32
-		v4     *uint32
-		v5     int32
-		v6     *uint32
-		v7     int32
-		v8     int32
-		v9     int32
-		v10    int32
-		v11    int32
-		v12    int32
-		v13    int32
-	)
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	v12 = v1
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1216)))
-	if v2 != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 16))&0x8020 != 0 {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1216)) = 0
+	ud := a1p.UpdateDataMonster()
+	v1 := unsafe.Pointer(ud)
+	v12 := v1
+	if p := ud.Field304; p != nil && p.Flags().HasAny(0x8020) {
+		ud.Field304 = nil
 	}
-	result = int32(*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 544)))
+	result := int32(ud.AIStackInd)
 	if result < 0 {
-		return result
+		return -1
 	}
-	v4 = (*uint32)(unsafe.Pointer(uintptr(v1 + (result*3+69)*8)))
-	v13 = result + 1
+	v4 := unsafe.Pointer(ud.AIStackHead())
+	v13 := result + 1
 	for {
-		v5 = 0
-		if *memmap.PtrUint32(0x587000, uintptr(*v4)*16+230388) > 0 {
-			v6 = (*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1))
-			for {
-				if *memmap.PtrUint32(0x587000, uintptr((uint32(v5)+*v4*4))*4+230392) == 1 && *v6 != 0 {
-					sub_509FF0(int32(uintptr(unsafe.Pointer(v6))))
-				}
-				v5++
-				v6 = (*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*2))
-				if v5 >= *memmap.PtrInt32(0x587000, uintptr(*v4)*16+230388) {
-					break
-				}
+		act := (*server.AIStackItem)(v4)
+		tbl := &aiActionsTable[act.Action]
+		for i, t := range tbl.Args {
+			v6 := (*uint32)(unsafe.Pointer(&act.Args[2*i]))
+			if t == 1 && *v6 != 0 {
+				sub_509FF0(unsafe.Pointer(v6))
 			}
-			v1 = v12
 		}
-		switch *v4 {
-		case 3:
-			v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3)))
-			if v7 != 0 {
-				v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 56)))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = uint32(v11)
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 60))
+		v1 = v12
+		switch act.Action {
+		case ai.ACTION_ESCORT:
+			if v7 := *(*unsafe.Pointer)(unsafe.Add(v4, 4*3)); v7 != nil {
+				v11 := int32(*(*uint32)(unsafe.Add(v7, 56)))
+				*(*uint32)(unsafe.Add(v4, 4*1)) = uint32(v11)
+				*(*uint32)(unsafe.Add(v4, 4*2)) = *(*uint32)(unsafe.Add(v7, 60))
 			}
-		case 7, 8:
-			v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3)))
-			if v10 != 0 {
-				if nox_xxx_unitCanInteractWith_5370E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(v10))), 0) != 0 || nox_xxx_checkMobAction_50A0D0((*server.Object)(unsafe.Pointer(uintptr(a1))), 3) != 0 {
-					v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3)))
-					v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 56)))
-					*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = uint32(v11)
-					*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 60))
+		case ai.ACTION_MOVE_TO, ai.ACTION_FAR_MOVE_TO:
+			if v10 := *(*unsafe.Pointer)(unsafe.Add(v4, 4*3)); v10 != nil {
+				if nox_xxx_unitCanInteractWith_5370E0(a1p, (*server.Object)(v10), 0) != 0 || nox_xxx_checkMobAction_50A0D0(a1p, 3) != 0 {
+					v7 := int32(*(*uint32)(unsafe.Add(v4, 4*3)))
+					v11 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 56)))
+					*(*uint32)(unsafe.Add(v4, 4*1)) = uint32(v11)
+					*(*uint32)(unsafe.Add(v4, 4*2)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 60))
 				} else {
-					*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3)) = 0
+					*(*uint32)(unsafe.Add(v4, 4*3)) = 0
 				}
 			}
-		case 0xF:
-			v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1196)))
-			if v7 != 0 {
-				v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 56)))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = uint32(v11)
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 60))
+		case ai.ACTION_FIGHT:
+			if v7 := *(*unsafe.Pointer)(unsafe.Add(v1, 1196)); v7 != nil {
+				v11 := int32(*(*uint32)(unsafe.Add(v7, 56)))
+				*(*uint32)(unsafe.Add(v4, 4*1)) = uint32(v11)
+				*(*uint32)(unsafe.Add(v4, 4*2)) = *(*uint32)(unsafe.Add(v7, 60))
 			}
-		case 0x11:
-			v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3)))
-			if v8 != 0 && nox_xxx_unitCanInteractWith_5370E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(v8))), 0) != 0 {
-				v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3)))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 56))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 60))
+		case ai.ACTION_MISSILE_ATTACK:
+			if v8 := *(*unsafe.Pointer)(unsafe.Add(v4, 4*3)); v8 != nil && nox_xxx_unitCanInteractWith_5370E0(a1p, (*server.Object)(v8), 0) != 0 {
+				v9 := int32(*(*uint32)(unsafe.Add(v4, 4*3)))
+				*(*uint32)(unsafe.Add(v4, 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 56))
+				*(*uint32)(unsafe.Add(v4, 4*2)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 60))
 			}
-		default:
 		}
-		v4 = (*uint32)(unsafe.Add(unsafe.Pointer(v4), -int(4*6)))
-		result = func() int32 {
-			p := &v13
-			*p--
-			return *p
-		}()
+		v4 = unsafe.Add(v4, -int(unsafe.Sizeof(server.AIStackItem{})))
+		v13--
+		result = v13
 		if v13 == 0 {
-			break
+			return result
 		}
 		v1 = v12
 	}
-	return result
 }
 func nox_xxx_minimapFirstMonster_50AAE0() int32 {
 	var v0 int32

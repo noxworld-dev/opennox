@@ -10092,7 +10092,7 @@ func nox_xxx_mobActionMoveTo_5443F0(obj *server.Object) {
 		return
 	}
 	v4 = v2 + int32((*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 544))+23)*24)
-	if sub_50A040(a1) == 3 {
+	if sub_50A040(obj) == 3 {
 		v5 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1316))) * 3.0
 		v14 = float32(v5)
 		v6 = v5 + 30.0

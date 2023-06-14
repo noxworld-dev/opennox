@@ -1219,7 +1219,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					n.clearActionStack()
 					n.Obj130 = nil
 					ud.CurrentEnemy = nil
-					ud.Field304 = 0
+					ud.Field304 = nil
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
 					ud.Field0 = 0xDEADFACE
 					p := m.Pos()
