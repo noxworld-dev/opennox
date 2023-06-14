@@ -24,14 +24,8 @@ var (
 
 var _ = [1]struct{}{}[332-unsafe.Sizeof(gui.WindowData{})]
 
-type nox_window_data = gui.WindowData
-
 func asWindowDataP(data unsafe.Pointer) *gui.WindowData {
 	return (*gui.WindowData)(data)
-}
-
-func asWindowData(data *nox_window_data) *gui.WindowData {
-	return asWindowDataP(unsafe.Pointer(data))
 }
 
 // nox_client_gui_set_flag_815132
@@ -97,14 +91,13 @@ func nox_set_color_rgb_434430(r, g, b int32) {
 }
 
 // nox_xxx_wndWddSetTooltip_46B000
-func nox_xxx_wndWddSetTooltip_46B000(draw *nox_window_data, str *wchar2_t) {
+func nox_xxx_wndWddSetTooltip_46B000(draw *gui.WindowData, str *wchar2_t) {
 	sm := GetClient().Cli().Strings()
-	d := asWindowData(draw)
 	if str == nil {
-		d.SetTooltip(sm, "")
+		draw.SetTooltip(sm, "")
 		return
 	}
-	d.SetTooltip(sm, GoWString(str))
+	draw.SetTooltip(sm, GoWString(str))
 }
 
 // sub_46B120

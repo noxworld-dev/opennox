@@ -11,13 +11,13 @@ var _ = [1]struct{}{}[56-unsafe.Sizeof(gui.ScrollListBoxData{})]
 var _ = [1]struct{}{}[1056-unsafe.Sizeof(gui.EntryFieldData{})]
 
 // nox_gui_newStaticText_489300
-func nox_gui_newStaticText_489300(par *gui.Window, status int32, px, py, w, h int32, draw *nox_window_data, data *nox_staticText_data) *gui.Window {
-	return (*gui.Window)(GetClient().Cli().GUI.NewStaticTextRaw(asWindow(par), gui.StatusFlags(status), int(px), int(py), int(w), int(h), asWindowData(draw), (*gui.StaticTextData)(unsafe.Pointer(data))).C())
+func nox_gui_newStaticText_489300(par *gui.Window, status int32, px, py, w, h int32, draw *gui.WindowData, data *nox_staticText_data) *gui.Window {
+	return (*gui.Window)(GetClient().Cli().GUI.NewStaticTextRaw(asWindow(par), gui.StatusFlags(status), int(px), int(py), int(w), int(h), draw, (*gui.StaticTextData)(unsafe.Pointer(data))).C())
 }
 
 // nox_xxx_wndStaticDrawNoImage_488D00
-func nox_xxx_wndStaticDrawNoImage_488D00(win *gui.Window, draw *nox_window_data) int {
-	return gui.StaticTextDrawNoImage(asWindow(win), asWindowData(draw))
+func nox_xxx_wndStaticDrawNoImage_488D00(win *gui.Window, draw *gui.WindowData) int {
+	return gui.StaticTextDrawNoImage(asWindow(win), draw)
 }
 
 func Nox_gui_newScrollListBox_4A4310(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.ScrollListBoxData) *gui.Window {

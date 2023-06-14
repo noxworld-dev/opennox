@@ -1012,11 +1012,11 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)) >>= 1
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 46)) >>= 1
 			var v3 *uint32 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_814988)))), v1)))
-			v4 = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(v3)), 1185, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)))-5, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 46)))-5, 10, 10, (*nox_window_data)(unsafe.Pointer(&buf[0]))))))
+			v4 = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(v3)), 1185, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)))-5, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 46)))-5, 10, 10, (*gui.WindowData)(unsafe.Pointer(&buf[0]))))))
 		} else {
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)) -= *memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87528)
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 46)) -= *memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87530)
-			v4 = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984))))), 1192, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)))-10, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 46)))-10, 20, 20, (*nox_window_data)(unsafe.Pointer(&buf[0]))))))
+			v4 = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984))))), 1192, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 44)))-10, int(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 46)))-10, 20, 20, (*gui.WindowData)(unsafe.Pointer(&buf[0]))))))
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)) = uint32(v4)
 		sub_437320(a1)
@@ -1032,7 +1032,7 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 		} else {
 			nox_swprintf(&wbuf[0], internWStr("%S %dms"), &v13[0], *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 96)))
 		}
-		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)))), 36)), &wbuf[0])
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)))), 36)), &wbuf[0])
 		nox_xxx_wndSetProc_46B2C0(*(**gui.Window)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)), nox_xxx_windowMultiplayerSub_439E70)
 		var result *uint32 = *(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28))
 		_ = result

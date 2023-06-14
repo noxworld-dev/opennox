@@ -2019,7 +2019,7 @@ func sub_466950(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(&v6[8])) = 1
 	*(*uint16)(unsafe.Pointer(&v6[72])) = 0
 	*(*uint32)(unsafe.Pointer(&v6[16])) = uint32(a1)
-	v1 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 522, 2, 20, 25, (*nox_window_data)(unsafe.Pointer(&v6[0])))))
+	v1 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 522, 2, 20, 25, (*gui.WindowData)(unsafe.Pointer(&v6[0])))))
 	*memmap.PtrUint32(0x5D4594, 1062500) = uint32(uintptr(unsafe.Pointer(v1)))
 	if v1 == nil {
 		return 0
@@ -2035,7 +2035,7 @@ func sub_466950(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(&v6[8])) = 1
 	*(*uint16)(unsafe.Pointer(&v6[72])) = 0
 	*(*uint32)(unsafe.Pointer(&v6[16])) = uint32(a1)
-	v3 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 522, 148, 20, 25, (*nox_window_data)(unsafe.Pointer(&v6[0])))))
+	v3 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 522, 148, 20, 25, (*gui.WindowData)(unsafe.Pointer(&v6[0])))))
 	*memmap.PtrUint32(0x5D4594, 1062504) = uint32(uintptr(unsafe.Pointer(v3)))
 	if v3 == nil {
 		return 0
@@ -2097,7 +2097,7 @@ func sub_466C40(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(&v5[64])) = 4294967126
 	*(*uint32)(unsafe.Pointer(&v5[16])) = uint32(a1)
 	*(*uint32)(unsafe.Pointer(&v5[8])) = 1
-	v1 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 243, 170, 34, 34, (*nox_window_data)(unsafe.Pointer(&v5[0])))))
+	v1 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 243, 170, 34, 34, (*gui.WindowData)(unsafe.Pointer(&v5[0])))))
 	dword_5d4594_1062528 = uint32(uintptr(unsafe.Pointer(v1)))
 	if v1 == nil {
 		return 0
@@ -2114,7 +2114,7 @@ func sub_466C40(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(&v5[64])) = 4294967110
 	*(*uint32)(unsafe.Pointer(&v5[16])) = uint32(a1)
 	*(*uint32)(unsafe.Pointer(&v5[8])) = 1
-	v3 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 5, 186, 34, 34, (*nox_window_data)(unsafe.Pointer(&v5[0])))))
+	v3 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 5, 186, 34, 34, (*gui.WindowData)(unsafe.Pointer(&v5[0])))))
 	dword_5d4594_1062524 = uint32(uintptr(unsafe.Pointer(v3)))
 	if v3 == nil {
 		return 0
@@ -2131,7 +2131,7 @@ func sub_466C40(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(&v5[64])) = 4294967294
 	*(*uint32)(unsafe.Pointer(&v5[16])) = uint32(a1)
 	*(*uint32)(unsafe.Pointer(&v5[8])) = 1
-	v4 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 547, 2, 16, 16, (*nox_window_data)(unsafe.Pointer(&v5[0])))))
+	v4 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 547, 2, 16, 16, (*gui.WindowData)(unsafe.Pointer(&v5[0])))))
 	*memmap.PtrUint32(0x5D4594, 1062532) = uint32(uintptr(unsafe.Pointer(v4)))
 	if v4 == nil {
 		return 0
@@ -3124,7 +3124,7 @@ func nox_gui_windowCopyDrawData_46AF80(win *gui.Window, p unsafe.Pointer) int32 
 	if p == nil {
 		return -3
 	}
-	alloc.Memcpy(unsafe.Pointer(win.DrawData()), p, unsafe.Sizeof(nox_window_data{}))
+	alloc.Memcpy(unsafe.Pointer(win.DrawData()), p, unsafe.Sizeof(gui.WindowData{}))
 	return 0
 }
 func sub_46B630(a1p *gui.Window, a2 int32, a3 int32) *gui.Window {

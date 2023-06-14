@@ -3037,7 +3037,7 @@ LABEL_12:
 	}
 	return 1
 }
-func nox_gui_newButtonOrCheckbox_4A91A0(parent *gui.Window, a2 nox_window_flags, a3, a4, a5, a6 int, draw *nox_window_data) *gui.Window {
+func nox_gui_newButtonOrCheckbox_4A91A0(parent *gui.Window, a2 nox_window_flags, a3, a4, a5, a6 int, draw *gui.WindowData) *gui.Window {
 	if draw.Style&1 != 0 {
 		var btn *gui.Window = nox_window_new(parent, a2, a3, a4, a5, a6, nox_xxx_wndButtonProcPre_4A9250)
 		if btn == nil {
@@ -5352,9 +5352,9 @@ func nox_xxx_wndScrollBoxButtonCreate_4B5640(a1 int32, a2 nox_window_flags, a3 i
 		*(*uint32)(unsafe.Pointer(&v6[40])) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 40))
 	}
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 8)))&0x10 != 0 {
-		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, 10, int(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12))), (*nox_window_data)(unsafe.Pointer(&v6[0]))))))
+		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, 10, int(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 12))), (*gui.WindowData)(unsafe.Pointer(&v6[0]))))))
 	} else {
-		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, int(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8))), 10, (*nox_window_data)(unsafe.Pointer(&v6[0]))))))
+		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, int(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8))), 10, (*gui.WindowData)(unsafe.Pointer(&v6[0]))))))
 	}
 	return result
 }

@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -20,18 +21,18 @@ func sub_456140(a1 uint8) {
 	case 0:
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 24)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("BallAtHome")))))
 		v3 = nox_strman_loadString_40F1D0(internCStr("BallHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guifb.c"), 165)
-		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(v2))), v3)
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Pointer(uintptr(v2))), v3)
 	case 1:
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 24)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("BallAway")))))
 		v4 = nox_strman_loadString_40F1D0(internCStr("BallAwayTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guifb.c"), 170)
-		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(v2))), v4)
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Pointer(uintptr(v2))), v4)
 	case 2:
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 24)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("BallRed")))))
 		v5 = nox_strman_loadString_40F1D0(internCStr("BallRedTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guifb.c"), 175)
-		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(v2))), v5)
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Pointer(uintptr(v2))), v5)
 	case 4:
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 24)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("BallBlue")))))
 		v6 = nox_strman_loadString_40F1D0(internCStr("BallBlueTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guifb.c"), 180)
-		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(v2))), v6)
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Pointer(uintptr(v2))), v6)
 	}
 }

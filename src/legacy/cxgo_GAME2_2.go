@@ -5289,7 +5289,7 @@ func nox_gui_newEntryField_488500(a1p *gui.Window, a2 nox_window_flags, a3, a4, 
 		v12    *uint32
 		v13    int32
 		v14    [unsafe.Sizeof(nox_scrollListBox_data{})]byte
-		v15    [unsafe.Sizeof(nox_window_data{})]byte
+		v15    [unsafe.Sizeof(gui.WindowData{})]byte
 	)
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a7)), 8)))&0x80 != 0 {
 		v8 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(a1))), a2, a3, a4, a5, a6, nox_xxx_wndEditProcPre_488710)))

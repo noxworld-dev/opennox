@@ -5450,7 +5450,7 @@ func nox_xxx_spellKeyPackSetSpell_45DC40(a1 int32, a2 int32, a3 int32) {
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 204)) + uint32(a3*8)))) = uint32(a2)
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3*4)), 212)) != 0 {
 		v3 = nox_xxx_spellTitle_424930(a2)
-		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3*4)), 212)))), 36)), v3)
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3*4)), 212)))), 36)), v3)
 	}
 	if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
 		nox_xxx_clientPlaySoundSpecial_452D80(794, 100)
@@ -5790,9 +5790,9 @@ func nox_xxx_clientSwapQuickbarKeys_45F300(a1 int32, a2 int32, a3 int32) {
 	*v6 = uint32(v4)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)) = uint32(v5)
 	v7 = nox_xxx_spellTitle_424930(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 204)) + uint32(a2*8))))))
-	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a2*4)), 212)))), 36)), v7)
+	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a2*4)), 212)))), 36)), v7)
 	v8 = nox_xxx_spellTitle_424930(int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(a3*8) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 204)))))))
-	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3*4)), 212)))), 36)), v8)
+	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3*4)), 212)))), 36)), v8)
 }
 func sub_45F390(a1 int32, a2 int32, a3 int32, a4 int32) {
 	var (
@@ -5807,7 +5807,7 @@ func sub_45F390(a1 int32, a2 int32, a3 int32, a4 int32) {
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + a3*8))) = uint32(v4)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3*8)), 4)) = uint32(v5)
 	v6 = nox_xxx_spellTitle_424930(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + a4*8)))))
-	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(nox_xxx_aClosewoodengat_587000_133480))+uint32(a4*4))), 212)))), 36)), v6)
+	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(nox_xxx_aClosewoodengat_587000_133480))+uint32(a4*4))), 212)))), 36)), v6)
 }
 func nox_xxx_quickbarButtonBookWnd_45F450(win *gui.Window, a2, p3, p4 uintptr) uintptr {
 	if a2 >= 5 {
