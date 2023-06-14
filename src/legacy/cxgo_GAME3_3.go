@@ -1671,55 +1671,40 @@ func Nox_xxx_netSendPacket_4E5030(a1 int, data []byte, a4 unsafe.Pointer, a5 int
 	return 1
 }
 func nox_xxx_importantCheckRate_4E52B0() int32 {
-	var (
-		v0 *importantClass
-		v2 int32
-		v3 uint16
-		v4 uint32
-		v5 int8
-		v6 int32
-		v8 [32]int16
-	)
-	v1 := dword_5d4594_1565512
-	v8[0] = 0
-	libc.MemSet(unsafe.Pointer(&v8[1]), 0, 2*32)
-	v2 = -1
-	v3 = 0
-	v8[31] = 0
-	v4 = 999999999
 	if dword_5d4594_1565512 == nil {
 		return 0
 	}
-	for {
-		v5 = v1.Field250
-		if v5 != -1 && v5 >= 0 && v5 != 31 {
-			v6 = int32(byte(v1.Field250))
+	v3 := uint16(0)
+	v2 := -1
+	v4 := uint32(999999999)
+	var v8 [32]int16
+	v8[0] = 0
+	v8[31] = 0
+	var found *importantClass
+	for it := dword_5d4594_1565512; it != nil; it = it.Field408 {
+		if v5 := it.Field250; v5 != -1 && v5 >= 0 && v5 != 31 {
+			v6 := it.Field250
 			if int32(uint16(func() int16 {
 				p := &v8[v6]
 				*p++
 				return *p
 			}())) > int32(v3) {
-				v2 = v6
+				v2 = int(v6)
 				v3 = uint16(v8[v6])
 			}
 		}
-		if v1.Field0 < v4 {
-			v4 = v1.Field0
-			v0 = v1
-		}
-		v1 = v1.Field408
-		if v1 == nil {
-			break
+		if it.Field0 < v4 {
+			v4 = it.Field0
+			found = it
 		}
 	}
 	if v2 != -1 {
-		nullsub_24(uint32(uintptr(memmap.PtrOff(0x587000, 202360))))
-		nox_xxx_playerKickDueToRate_4E5360(v2)
+		nox_xxx_playerKickDueToRate_4E5360(int32(v2))
 	}
-	if v0 == nil {
+	if found == nil {
 		return 0
 	}
-	freeImportantMsg(v0)
+	freeImportantMsg(found)
 	return 1
 }
 func nox_xxx_playerKickDueToRate_4E5360(a1 int32) *byte {
