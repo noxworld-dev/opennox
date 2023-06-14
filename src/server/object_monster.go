@@ -219,8 +219,7 @@ type MonsterUpdateData struct {
 	SoundSet122           unsafe.Pointer       // 122, 488
 	Field123              uint32               // 123, 492
 	Field124              uint32               // 124, 496
-	Field125              uint32               // 125, 500
-	Field126              uint32               // 126, 504
+	Field125              types.Pointf         // 125, 500
 	Field127              uint32               // 127, 508
 	Field128              uint32               // 128, 512
 	Field129              uint32               // 129, 516, TODO: some timestamp

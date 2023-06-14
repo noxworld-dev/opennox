@@ -11,6 +11,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -10071,68 +10072,52 @@ func nox_xxx_tileSubtile_544310(a1 *float2) int32 {
 }
 func nox_xxx_mobActionMoveTo_5443F0(obj *server.Object) {
 	a1 := obj.CObj()
-	var (
-		v2  int32
-		v4  int32
-		v5  float64
-		v6  float64
-		v7  float64
-		v8  float64
-		v9  float64
-		v10 int8
-		v11 int32
-		v12 *int32
-		v13 *int32
-		v14 float32
-	)
-	v1 := a1
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
+	ud := obj.UpdateDataMonster()
+	v2 := unsafe.Pointer(ud)
 	if nox_xxx_monsterIsMoveing_534320(a1) == 0 {
 		nox_xxx_monsterPopAction_50A160(obj)
 		return
 	}
-	v4 = v2 + int32((*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 544))+23)*24)
+	act := unsafe.Pointer(ud.AIStackHead())
 	if sub_50A040(obj) == 3 {
-		v5 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1316))) * 3.0
-		v14 = float32(v5)
-		v6 = v5 + 30.0
-		v7 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 4)) - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 56)))
-		v8 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8)) - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 60)))
-		v9 = v8*v8 + v7*v7
+		v5 := float64(ud.Field329) * 3.0
+		v14 := float32(v5)
+		v6 := v5 + 30.0
+		v7 := float64(*(*float32)(unsafe.Add(act, 4)) - obj.PosVec.X)
+		v8 := float64(*(*float32)(unsafe.Add(act, 8)) - obj.PosVec.Y)
+		v9 := v8*v8 + v7*v7
 		if v9 >= float64(v14*v14) {
 			if v9 > v6*v6 {
-				sub_534750(v1)
+				sub_534750(a1)
 			}
 		} else {
-			sub_534780(v1)
+			sub_534780(a1)
 		}
 	}
-	if nox_xxx_creatureSetMovePath_50D5A0(v1) == 1 {
-		v10 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 284)))
-		v11 = bool2int32(int32(v10) == 2 || int32(v10) == 1 && gameFrame()-*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 540)) < (gameFPS()*5))
-		if int32(v10) == 1 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 540)) = gameFrame()
+	if nox_xxx_creatureSetMovePath_50D5A0(a1) == 1 {
+		v10 := int8(*(*uint8)(unsafe.Add(v2, 284)))
+		v11 := v10 == 2 || v10 == 1 && gameFrame()-ud.Field135 < gameFPS()*5
+		if v10 == 1 {
+			ud.Field135 = gameFrame()
 		}
-		if int32(v10) == 0 && sub_547F10() == 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 12)) == 0 {
-			nox_xxx_mobCalcDir_533CC0(v1, (*float32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 4)))
-			nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(uintptr(v1))))
+		if int32(v10) == 0 && sub_547F10() == 0 && *(*uint32)(unsafe.Add(act, 12)) == 0 {
+			nox_xxx_mobCalcDir_533CC0(a1, (*float32)(unsafe.Add(act, 4)))
+			nox_xxx_monsterPopAction_50A160(obj)
 		}
-		if v11 != 0 {
-			v12 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(v1))), 41))
-			if v12 != nil {
-				*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()*2), int32(gameFPS()*4))))
+		if v11 {
+			if v12 := nox_xxx_monsterPushAction_50A260_impl(obj, ai.DEPENDENCY_TIME); v12 != nil {
+				*(*int32)(unsafe.Add(v12, 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()*2), int32(gameFPS()*4))))
 			}
-			nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(v1))), 29)
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 1440)) |= 0x200000
+			nox_xxx_monsterPushAction_50A260_impl(obj, ai.ACTION_RANDOM_WALK)
+			ud.StatusFlags |= object.MonStatusFrustrated
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 284))) != 0 {
-			v13 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(unsafe.Pointer(uintptr(v1))), 1))
-			if v13 != nil {
-				*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()>>1), int32(gameFPS()))))
+		if int32(*(*uint8)(unsafe.Add(v2, 284))) != 0 {
+			if v13 := nox_xxx_monsterPushAction_50A260_impl(obj, ai.ACTION_WAIT); v13 != nil {
+				*(*int32)(unsafe.Add(v13, 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()>>1), int32(gameFPS()))))
 			}
 		}
 	}
-	nox_xxx_monsterMoveAudio_534030(v1)
+	nox_xxx_monsterMoveAudio_534030(a1)
 }
 func nox_xxx_mobActionMoveToFar_5445C0(obj *server.Object) {
 	a1 := (*int32)(obj.CObj())

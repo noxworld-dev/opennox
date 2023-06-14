@@ -1340,30 +1340,26 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 		}
 	}
 	if cur.Type() == ai.ACTION_MOVE_TO || cur.Type() == ai.ACTION_MOVE_TO_HOME || cur.Type() == ai.ACTION_FAR_MOVE_TO || cur.Type() == ai.ACTION_ROAM || cur.Type() == ai.ACTION_FLEE {
-		v32 := float64(*(*float32)(unsafe.Add(v2, 500)) - *(*float32)(unsafe.Add(a1, 56)))
-		v33 := float64(*(*float32)(unsafe.Add(v2, 504)) - *(*float32)(unsafe.Add(a1, 60)))
-		if v33*v33+v32*v32 > 225.0 {
-			*(*uint32)(unsafe.Add(v2, 496)) = gameFrame()
-			*(*uint32)(unsafe.Add(v2, 500)) = *(*uint32)(unsafe.Add(a1, 56))
-			*(*uint32)(unsafe.Add(v2, 504)) = *(*uint32)(unsafe.Add(a1, 60))
-		} else if (gameFrame() - *(*uint32)(unsafe.Add(v2, 496))) > uint32(int32(gameFPS())>>1) {
-			v39 := *(*uint32)(unsafe.Add(a1, 36))
-			v34 := unsafe.Pointer(nox_xxx_getUnitName_4E39D0(u))
-			nox_ai_debug_printf_5341A0(internCStr("%d: %s(#%d) FRUSTRATED\n"), gameFrame(), v34, v39)
-			*(*uint32)(unsafe.Add(v2, 1440)) |= 0x200000
-			if nox_xxx_checkMobAction_50A0D0(u, 6) != 0 || nox_xxx_checkMobAction_50A0D0(u, 14) != 0 || nox_xxx_checkMobAction_50A0D0(u, 24) != 0 {
-				*(*uint32)(unsafe.Add(v2, 508)) = gameFrame()
+		dx := float64(ud.Field125.X - u.PosVec.X)
+		dy := float64(ud.Field125.Y - u.PosVec.Y)
+		if dy*dy+dx*dx > 15*15 {
+			ud.Field124 = gameFrame()
+			ud.Field125 = u.PosVec
+		} else if (gameFrame() - ud.Field124) > gameFPS()/2 {
+			nox_ai_debug_printf_5341A0(internCStr("%d: %s(#%d) FRUSTRATED\n"), gameFrame(), nox_xxx_getUnitName_4E39D0(u), u.NetCode)
+			ud.StatusFlags |= object.MonStatusFrustrated
+			if nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_RETREAT) != 0 || nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_RETREAT_TO_MASTER) != 0 || nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_FLEE) != 0 {
+				ud.Field127 = gameFrame()
 			}
-			if nox_xxx_checkMobAction_50A0D0(u, 15) != 0 {
+			if nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_FIGHT) != 0 {
 				nox_xxx_monsterCheckDodgeables_547C50(u)
 			} else if nox_common_randomInt_415FA0(0, 100) >= 33 || nox_xxx_monsterCheckDodgeables_547C50(u) == 0 {
-				if v35 := nox_xxx_monsterPushAction_50A260_impl(u, 1); v35 != nil {
-					*(*int32)(unsafe.Add(v35, 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()>>1), int32(gameFPS()*2))))
+				if v35 := nox_xxx_monsterPushAction_50A260_impl(u, ai.ACTION_WAIT); v35 != nil {
+					*(*uint32)(unsafe.Add(v35, 4*1)) = gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()/2), int32(gameFPS()*2)))
 				}
 			}
-			*(*uint32)(unsafe.Add(v2, 496)) = gameFrame()
-			*(*uint32)(unsafe.Add(v2, 500)) = *(*uint32)(unsafe.Add(a1, 56))
-			*(*uint32)(unsafe.Add(v2, 504)) = *(*uint32)(unsafe.Add(a1, 60))
+			ud.Field124 = gameFrame()
+			ud.Field125 = u.PosVec
 			return
 		}
 	}
@@ -1371,12 +1367,12 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 	if v3 := (*int32)(unsafe.Pointer(uintptr(sub_534440(a1)))); v3 == nil {
 		v3 = (*int32)(unsafe.Pointer(uintptr(sub_5347C0(a1))))
 		if v3 != nil {
-			if (int32(uint8(gameFrame())) & 0xF) == 0 {
+			if (gameFrame() & 0xF) == 0 {
 				v3 = (*int32)(unsafe.Pointer(uintptr(nox_xxx_mobSearchEdible_544A00(u, 75.0))))
 				v36 := unsafe.Pointer(v3)
 				if v3 != nil {
 					nox_xxx_inventoryServPlace_4F36F0(u, (*server.Object)(unsafe.Pointer(v3)), 1, 1)
-					v3b := *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v36)), 12))
+					v3b := *(*uint8)(unsafe.Add(v36, 12))
 					if v3b&0x90 != 0 {
 						nox_xxx_useByNetCode_53F8E0(a1, v36)
 					}
@@ -1384,8 +1380,8 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 			}
 		}
 	}
-	if *(*uint32)(unsafe.Add(v2, 1440))&0x20000 != 0 {
-		v3 := *(**int32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 2180)))), 276))
+	if ud.StatusFlags.Has(object.MonStatusBot) {
+		v3 := *(**int32)(unsafe.Add(unsafe.Pointer(ud.UpdateDataBot), 276))
 		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 2251)))) == 0 && *(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) == 0 && (int32(uint8(gameFrame()))&0xF) == 0 {
 			if v3b := unsafe.Pointer(uintptr(sub_544AE0(a1, 75.0))); v3b != nil {
 				nox_xxx_mobMorphToPlayer_4FAAF0(u)
