@@ -6073,7 +6073,7 @@ func nox_xxx_quickbarDrawFn_460000(win *gui.Window, draw *gui.WindowData) int {
 		return 1
 	}
 }
-func nox_xxx_quickBarInitWindow_4601F0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 WindowFunc, a7 gui.WindowDrawFunc) int32 {
+func nox_xxx_quickBarInitWindow_4601F0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 gui.WindowFuncLegacy, a7 gui.WindowDrawFunc) int32 {
 	var (
 		v7     int32
 		v8     *byte

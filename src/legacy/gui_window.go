@@ -29,9 +29,7 @@ func set_dword_5d4594_3799468(v int) {
 	GetClient().Cli().GUI.ValYYY = v
 }
 
-type WindowFunc = gui.WindowFuncLegacy
-
-func nox_window_new(par *gui.Window, flags nox_window_flags, a3, a4, w, h int, fnc WindowFunc) *gui.Window {
+func nox_window_new(par *gui.Window, flags nox_window_flags, a3, a4, w, h int, fnc gui.WindowFuncLegacy) *gui.Window {
 	return GetClient().Cli().GUI.NewWindowRaw(par, gui.StatusFlags(flags), a3, a4, w, h, gui.WrapFunc(fnc))
 }
 
@@ -52,7 +50,7 @@ func nox_xxx_wndSetID_46B080(win *gui.Window, id int32) int32 {
 	return 0
 }
 
-func nox_window_set_all_funcs(win *gui.Window, proc WindowFunc, draw gui.WindowDrawFunc, tooltip gui.WindowTooltipFunc) int32 {
+func nox_window_set_all_funcs(win *gui.Window, proc gui.WindowFuncLegacy, draw gui.WindowDrawFunc, tooltip gui.WindowTooltipFunc) int32 {
 	if win == nil {
 		return -2
 	}
@@ -62,7 +60,7 @@ func nox_window_set_all_funcs(win *gui.Window, proc WindowFunc, draw gui.WindowD
 	return 0
 }
 
-func nox_xxx_wndSetWindowProc_46B300(win *gui.Window, fnc WindowFunc) int32 {
+func nox_xxx_wndSetWindowProc_46B300(win *gui.Window, fnc gui.WindowFuncLegacy) int32 {
 	if win == nil {
 		return -2
 	}
@@ -70,7 +68,7 @@ func nox_xxx_wndSetWindowProc_46B300(win *gui.Window, fnc WindowFunc) int32 {
 	return 0
 }
 
-func nox_xxx_wndSetProc_46B2C0(win *gui.Window, fnc WindowFunc) int32 {
+func nox_xxx_wndSetProc_46B2C0(win *gui.Window, fnc gui.WindowFuncLegacy) int32 {
 	if win == nil {
 		return -2
 	}
