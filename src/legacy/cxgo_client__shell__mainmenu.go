@@ -38,9 +38,9 @@ func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 		*((*uint8)(unsafe.Pointer(&v2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36))
 		yTop = v3
 		if v2&2 != 0 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*10))))), xLeft, v3)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*10))), xLeft, v3)
 		} else {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*6))))), xLeft, v3)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*6))), xLeft, v3)
 		}
 	}
 	if *memmap.PtrUint32(0x587000, 168836) != 0 {

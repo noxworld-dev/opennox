@@ -642,7 +642,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 			return 1
 		}
 		if *a3 == 0 {
-			nox_xxx_playerCameraUnlock_4E6040((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 2056))))))
+			nox_xxx_playerCameraUnlock_4E6040((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 2056))))
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}

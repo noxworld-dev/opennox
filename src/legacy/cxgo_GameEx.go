@@ -15,7 +15,7 @@ func nox_CharToOemW(pSrc *wchar2_t, pDst *byte) int32 {
 	return nox_sprintf(pDst, internCStr("%S"), pSrc)
 }
 func getPlayerClassFromObjPtr(a1 unsafe.Pointer) int8 {
-	return int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a1, 748)))), 276)))), 2251)))
+	return int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 276)), 2251)))
 }
 func playerInfoStructParser_0(a1p unsafe.Pointer) int8 {
 	var (
@@ -91,7 +91,7 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 	)
 	v16 = 0
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 748)))
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 3680)))&3) == 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 88))) != 1 {
+	if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)), 3680)))&3) == 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 88))) != 1 {
 		var cur int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 104)))
 		v4 = 496
 		if int32(a2) == 0 {
@@ -106,7 +106,7 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 				}
 				weapFlags = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(unsafe.Pointer(uintptr(next))))
 				if weapFlags != 0 && weapFlags != 2 {
-					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(next))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 748)))), 276)))), 2251)))) != 0 {
+					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(next))), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 748)), 276)), 2251)))) != 0 {
 						v11 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(next)))))
 						if v11 != 0 {
 							if nox_xxx_playerTryDequip_4F2FB0((*uint32)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(cur)))) != 0 && nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(next)))) != 0 {
@@ -121,7 +121,7 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 			for i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 504))); i != 0; i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 496))) {
 				v6 = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(unsafe.Pointer(uintptr(i))))
 				if v6 != 0 && v6 != 2 {
-					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(i))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x2EC)))), 0x114)))), 0x8CB)))) != 0 {
+					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(unsafe.Pointer(uintptr(i))), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x2EC)), 0x114)), 0x8CB)))) != 0 {
 						v8 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(i)))))
 						if v8 != 0 {
 							if nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(uintptr(playerObj))), (*server.Object)(unsafe.Pointer(uintptr(i)))) != 0 {
@@ -148,10 +148,10 @@ func playerDropATrap(playerObj unsafe.Pointer) int8 {
 		return 0
 	}
 	v8 = 0
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(playerObj, 0x2EC)))), 0x114)))
+	v2 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)))
 	pos[0] = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 0xE30))
 	pos[1] = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 0xE34))
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(playerObj, 0x2EC)))), 0x114)))), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(playerObj, 0x2EC)))), 0x58))) != 1 {
+	if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x58))) != 1 {
 		for i := *(*unsafe.Pointer)(unsafe.Add(playerObj, 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(i, 0x1F0)) {
 			if int32(*(*uint8)(unsafe.Add(i, 0xA))) == int32(v7) {
 				nox_xxx_drop_4ED810(playerObj, i, &pos[0])

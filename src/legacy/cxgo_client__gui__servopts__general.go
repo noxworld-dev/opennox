@@ -78,14 +78,14 @@ func sub_4AD4B0() int32 {
 	)
 	v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10317)))
 	v1 = v0
-	v2 = nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*59))))) + 1
+	v2 = nox_xxx_guiFontHeightMB_43F320(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*59))) + 1
 	v3 = 0
 	v4 = (**byte)(memmap.PtrOff(0x587000, 173540))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5)) + uint32(v2*4) + 2
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) = uint32(v2*4 + 2)
 	for {
 		v5 = nox_strman_loadString_40F1D0(*v4, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c"), 92)
-		nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), v5, &v9, nil, 0)
+		nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*59)), v5, &v9, nil, 0)
 		if v9 > v3 {
 			v3 = v9
 		}

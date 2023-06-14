@@ -1,0 +1,5 @@
+@@
+var T identifier
+@@
+-unsafe.Pointer(uintptr(*(*T)(...)))
++*(*unsafe.Pointer)(...)

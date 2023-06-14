@@ -177,7 +177,7 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *client.Drawable) *wchar2_t {
 				}
 			}
 		}
-		v12 = (*wchar2_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)))))
+		v12 = (*wchar2_t)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*2)))
 		if v7 == 0 || (uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*29)))&0x7800000) == 0 {
 			v13 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*110))
 			if v13 != 0 {

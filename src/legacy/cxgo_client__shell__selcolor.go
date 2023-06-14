@@ -46,7 +46,7 @@ func nox_game_showSelColor_4A5D00() int {
 			}
 			if dword_587000_171388 != 0 {
 				v6 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 1138)
-				nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16414, uintptr(unsafe.Pointer(v6)), 0)
+				nox_window_call_field_94_fnc((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1308152))), 16414, uintptr(unsafe.Pointer(v6)), 0)
 			}
 			nox_xxx_wndRetNULL_46A8A0()
 			dword_5d4594_1308088 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), 760))))
@@ -86,7 +86,7 @@ func sub_4A68C0() *wchar2_t {
 		v20    *uint8
 		result *wchar2_t
 	)
-	v0 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16413, 0, 0)))
+	v0 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1308152))), 16413, 0, 0)))
 	if *v0 == 0 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 225)
 		nox_wcscpy(v0, v1)
@@ -185,7 +185,7 @@ func sub_4A75C0() int32 {
 	}
 	libc.MemSet(unsafe.Pointer(&v25[0]), 0, 0x4FC)
 	*(*uint16)(unsafe.Pointer(&v25[1276])) = 0
-	v0 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16413, 0, 0)))
+	v0 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1308152))), 16413, 0, 0)))
 	if *v0 == 0 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 605)
 		nox_wcscpy(v0, v1)

@@ -45,7 +45,7 @@ func nox_xxx_netSendChat_528AC0(a1p *server.Object, a2 *wchar2_t, a3 wchar2_t) i
 	}
 	result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
 	for i = result; result != 0; i = result {
-		nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))), 2064))), 1, &v11[0], v8*int32(v11[8])+11)
+		nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)), 276)), 2064))), 1, &v11[0], v8*int32(v11[8])+11)
 		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i)))))))
 	}
 	return result

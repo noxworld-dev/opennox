@@ -25,10 +25,10 @@ func sub_49B4B0(a1 *uint16) int32 {
 		v14    int32
 		v15    int32
 	)
-	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1303452))))), 0)
-	nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1303452))))), 1)
+	nox_window_set_hidden((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1303452))), 0)
+	nox_xxx_wnd_46ABB0((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1303452))), 1)
 	nox_xxx_clientPlaySoundSpecial_452D80(1007, 100)
-	nox_window_get_size((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1303452))))), &v15, &v14)
+	nox_window_get_size((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1303452))), &v15, &v14)
 	nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1303452)))), nox_win_width/2-v15/2, nox_win_height/2-v14/2)
 	v11 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*1)))
 	v1 = nox_strman_loadString_40F1D0(internCStr("GGOver.wnd:GeneratorsDestroyed"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c"), 178)
@@ -66,7 +66,7 @@ func sub_49B6E0() int32 {
 	)
 	result = int32(dword_5d4594_1303452)
 	if dword_5d4594_1303452 != 0 {
-		result = wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1303452))))))
+		result = wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1303452))))
 		if result == 0 {
 			v1 = int32(*memmap.PtrUint32(0x5D4594, 1303456) + gameFPS()*30 - gameFrame())
 			if v1 < 0 {

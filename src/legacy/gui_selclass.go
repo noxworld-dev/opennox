@@ -136,7 +136,7 @@ func sub_4A4B70(a1 int32) unsafe.Pointer {
 		v11    int32
 	)
 	v1 = 0
-	result = unsafe.Pointer(uintptr(*(*uint8)(unsafe.Add(guiSelClassInfoPtr, 66))))
+	result = *(*unsafe.Pointer)(unsafe.Add(guiSelClassInfoPtr, 66))
 	v3 = *(**uint8)(memmap.PtrOff(0x587000, uintptr(result)*4+170156))
 	if int32(*v3) != 0 {
 		for {

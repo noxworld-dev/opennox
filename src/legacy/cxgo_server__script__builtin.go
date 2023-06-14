@@ -108,7 +108,7 @@ func nox_server_scriptMoveTo_5123C0(a1 int32, a2 int32) *int32 {
 		} else {
 			result = (*int32)(unsafe.Pointer(nox_server_getFirstObject_4DA790()))
 			for i = result; result != nil; i = result {
-				if uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(uint16(0))*2)))) == dword_5d4594_2386836 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(i), 4*187)))), 32)) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40)) {
+				if uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(uint16(0))*2)))) == dword_5d4594_2386836 && *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*187)), 32)) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 40)) {
 					nox_xxx_moverGoTo_5124C0((*uint32)(unsafe.Pointer(i)), (*uint32)(unsafe.Pointer(uintptr(a2))))
 				}
 				result = (*int32)(unsafe.Pointer(nox_server_getNextObject_4DA7A0((*server.Object)(unsafe.Pointer(i)))))
@@ -444,7 +444,7 @@ func nox_script_HasSubclass_5162D0() int32 {
 func nox_script_StartupScreen_516600_A() {
 	var i unsafe.Pointer
 	for i = unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(i, 748)))), 276)))), 2064))) == 31 {
+		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 748)), 276)), 2064))) == 31 {
 			break
 		}
 	}
@@ -471,7 +471,7 @@ func nox_script_IsTalking_5166A0() int32 {
 	)
 	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
 	v1 = 0
-	if v0 != nil && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))))), 748)))), 284)) != 0 {
+	if v0 != nil && *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))))), 748)), 284)) != 0 {
 		v1 = 1
 	}
 	nox_script_push(v1)
@@ -484,7 +484,7 @@ func nox_script_PlayerIsTrading_5166E0() int32 {
 	)
 	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
 	v1 = 0
-	if v0 != nil && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))))), 748)))), 280)) != 0 {
+	if v0 != nil && *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))))), 748)), 280)) != 0 {
 		v1 = 1
 	}
 	nox_script_push(v1)
@@ -597,10 +597,10 @@ func nox_script_OblivionGive_516890() int32 {
 	v0 = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)), 4*514))))))
 	v1 = 0
 	v2 = nox_script_pop()
-	v3 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*126)))))
+	v3 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*126)))
 	if v3 != nil {
 		for (*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2))&0x1000000) == 0 || (*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3))&0x7800000) == 0 {
-			v3 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*124)))))
+			v3 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*124)))
 			if v3 == nil {
 				goto LABEL_7
 			}
@@ -639,7 +639,7 @@ func nox_script_IsSummoned_516C30() int32 {
 	v1 = 0
 	v2 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v0))))
 	if v2 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)))&2 != 0 {
-		v1 = int32((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 748)))), 1440)) >> 7) & 1)
+		v1 = int32((*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 748)), 1440)) >> 7) & 1)
 	}
 	nox_script_push(v1)
 	return 0

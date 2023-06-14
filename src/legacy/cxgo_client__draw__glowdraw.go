@@ -303,10 +303,10 @@ func nox_thing_particle_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v3 func(*uint32)
 		a2 *uint32 = (*uint32)(unsafe.Pointer(dr))
 	)
-	v2 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108)))))
+	v2 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*108)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*20)) >> 16
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*21)) >> 16
-	v3 = ccall.AsFunc[func(*uint32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*31)))))
+	v3 = ccall.AsFunc[func(*uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*31)))
 	if v3 != nil {
 		v3(v2)
 	}

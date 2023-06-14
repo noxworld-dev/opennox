@@ -59,8 +59,8 @@ func sub_4C09D0() int32 {
 	v13 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1320940)))), 3710)))
 	v14 = nox_strman_loadString_40F1D0(internCStr("TradeCancel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 715)
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(wchar2_t(0))*18)), v14)
-	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1320940))))), 1)
-	nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1320940))))), 0)
+	nox_window_set_hidden((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1320940))), 1)
+	nox_xxx_wnd_46ABB0((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1320940))), 0)
 	v15 = (*uint8)(memmap.PtrOff(0x5D4594, 1319288))
 	for {
 		v16 = v15

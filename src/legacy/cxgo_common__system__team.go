@@ -143,8 +143,8 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 		}
 	}
 	v19 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v18), 4*187))))
-	sub_4D97E0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 276)))), 2064))))
-	sub_4E8110(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 276)))), 2064))))
+	sub_4D97E0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 276)), 2064))))
+	sub_4E8110(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 276)), 2064))))
 	result = nox_xxx_monsterMarkUpdate_4E8020((*server.Object)(unsafe.Pointer(v18)))
 	for i = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v18), 4*129)))); i != 0; i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 512))) {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 8)))&6 != 0 {

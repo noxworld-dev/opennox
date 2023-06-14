@@ -23,7 +23,7 @@ func nox_xxx_netSendSpellAward_4D7F90(a1 int32, a2 int32, a3 int8, a4 int32) int
 		if a4 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(int8(int32(a3) | 0x80))
 		}
-		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)))), 2064))), unsafe.Pointer(&a1), 4, nil, 1)
+		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)), 2064))), unsafe.Pointer(&a1), 4, nil, 1)
 	}
 	return result
 }
@@ -85,7 +85,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 	if a5 != 0 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276))+uint32(a2*4))), 3696)) = uint32(a5)
 	}
-	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)))), 4636))), a2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276))+uint32(a2*4))), 3696))))
+	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)), 4636))), a2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276))+uint32(a2*4))), 3696))))
 	var v20 int32 = 0
 	if nox_xxx_spellHasFlags_424A50(a2, 4096) {
 		v20 = 0x2000
@@ -114,7 +114,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 						*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v14+v6*4)), 3696)) = 3
 					}
 				}
-				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)))), 4636))), v6, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(v12) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)))))))
+				nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)), 4636))), v6, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(v12) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)))))))
 			}
 			v12 += 4
 			v11++
@@ -127,7 +127,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 		if noxflags.HasGame(2048) && (v6 == 34 || nox_xxx_spellHasFlags_424A50(v6, 86016)) {
 			v15 = 0
 		}
-		if !noxflags.HasGame(4096) || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)))), 4792)) != 0 {
+		if !noxflags.HasGame(4096) || *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 276)), 4792)) != 0 {
 			if v15 != 0 {
 				nox_xxx_netSendRewardNotify_4FAD50(v5, 0, v5, int8(v6))
 				if sub_419E60((*server.Object)(unsafe.Pointer(uintptr(v5)))) == 0 {

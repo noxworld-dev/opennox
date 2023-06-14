@@ -230,7 +230,7 @@ func sub_56F3B0() *uint32 {
 	result = *(**uint32)(unsafe.Pointer(&dword_5d4594_2516344))
 	if dword_5d4594_2516344 != 0 {
 		for {
-			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)))))
+			v1 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*2)))
 			alloc.Free(result)
 			result = v1
 			if v1 == nil {
@@ -324,7 +324,7 @@ func sub_56F590(a1 int32) *uint32 {
 	result = *(**uint32)(unsafe.Pointer(&dword_5d4594_2516344))
 	if dword_5d4594_2516344 != 0 {
 		for *result != (uint32(a1) ^ dword_5d4594_2516348) {
-			result = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)))))
+			result = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*2)))
 			if result == nil {
 				nullsub_31(1)
 				return nil
@@ -383,7 +383,7 @@ func nox_xxx_protectData_56F5C0() int32 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = v11
 			dword_5d4594_2516328 ^= uint32(v10)
 			dword_5d4594_2516328 ^= uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)))
-			v9 = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*2)))))
+			v9 = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v9), 4*2)))
 			if v9 == nil {
 				break
 			}
@@ -407,7 +407,7 @@ func sub_56F6F0(a1 int32) *uint32 {
 	v2 = 0
 	if dword_5d4594_2516344 != 0 {
 		for v2 != a1 {
-			result = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)))))
+			result = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*2)))
 			v2++
 			if result == nil {
 				nullsub_31(1)
@@ -901,7 +901,7 @@ func nox_xxx_waypoint_5798C0() uint32 {
 			if result <= *v0 {
 				result = *v0 + 1
 			}
-			v0 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*121)))))
+			v0 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*121)))
 			if v0 == nil {
 				break
 			}
@@ -1049,7 +1049,7 @@ func sub_579C80(a1 int32) *uint32 {
 		return nil
 	}
 	for *result != uint32(a1) {
-		result = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*121)))))
+		result = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*121)))
 		if result == nil {
 			return nil
 		}
@@ -1069,7 +1069,7 @@ func sub_579CA0() int32 {
 	if dword_5d4594_2523756 != nil {
 		for {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*1)) = *v0
-			v0 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*121)))))
+			v0 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*121)))
 			if v0 == nil {
 				break
 			}
@@ -1100,7 +1100,7 @@ func sub_579CA0() int32 {
 			}
 		}
 	LABEL_9:
-		v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*121)))))
+		v1 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*121)))
 		if v1 == nil {
 			return 1
 		}
@@ -1125,7 +1125,7 @@ func sub_579D20() int32 {
 			v2 = *v1
 			*v1 = v0
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) = v2
-			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*121)))))
+			v1 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*121)))
 			v0++
 			if v1 == nil {
 				break
@@ -1158,7 +1158,7 @@ func sub_579D20() int32 {
 			}
 		}
 		*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 476))) = uint8(v9)
-		v3 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*121)))))
+		v3 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*121)))
 		if v3 == nil {
 			break
 		}
@@ -1173,7 +1173,7 @@ func nox_xxx_waypointDeleteAll_579DD0() {
 	if nox_xxx_waypointsHead_2523752 != nil {
 		v0 = (*uint32)(unsafe.Pointer(nox_xxx_waypointsHead_2523752))
 		for {
-			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*121)))))
+			v1 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*121)))
 			if noxflags.HasGame(1) {
 				sub_517A70((*server.Waypoint)(unsafe.Pointer(v0)))
 			}
@@ -1804,7 +1804,7 @@ func sub_57B0A0() {
 		v1 = *(**uint32)(unsafe.Pointer(&dword_5d4594_2523780))
 	}
 	if dword_5d4594_2523776 != 0 {
-		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_2523776))))))
+		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2523776))))
 		v1 = *(**uint32)(unsafe.Pointer(&dword_5d4594_2523780))
 	}
 	dword_5d4594_2523776 = 0

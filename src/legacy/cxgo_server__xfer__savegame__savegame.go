@@ -36,7 +36,7 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 					v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 512)))
 					nox_xxx_unitSetOwner_4EC290((*server.Object)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*514)))))), (*server.Object)(unsafe.Pointer(uintptr(v3))))
 					if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 8)))&2 != 0 {
-						if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 1440)))&0x80 != 0 {
+						if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)), 1440)))&0x80 != 0 {
 							v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)))
 							*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 0x80))
 							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)) = uint32(v5)

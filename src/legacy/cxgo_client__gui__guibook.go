@@ -133,7 +133,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		v4 = int32(dword_5d4594_1046936)
 		*(*uint32)(unsafe.Pointer(&WideCharStr[0])) = 141/dword_5d4594_1046656 - 1
 		if dword_5d4594_1046936 == 0 {
-			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046944))))), 1)
+			nox_window_set_hidden((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1046944))), 1)
 			v4 = int32(dword_5d4594_1046936)
 		}
 		v5 = 0
@@ -356,7 +356,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	}
 LABEL_75:
 	if nox_xxx_aNox_cfg_0_587000_132132 == 0 && *(*int32)(unsafe.Pointer(&dword_5d4594_1046932)) >= *memmap.PtrInt32(0x5D4594, 1047508)-*(*int32)(unsafe.Pointer(&dword_5d4594_1047512))-1 {
-		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046948))))), 1)
+		nox_window_set_hidden((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1046948))), 1)
 	}
 	return 1
 }

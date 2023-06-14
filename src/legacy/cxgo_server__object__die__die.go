@@ -27,7 +27,7 @@ func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
 	if nox_strman_get_lang_code() == 0 || nox_strman_get_lang_code() == 1 {
 		v3 = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))))
 		if v3 != nil {
-			v4 = int16(*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) + nox_wcslen((*wchar2_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2))))))*2 - 2))))
+			v4 = int16(*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) + nox_wcslen((*wchar2_t)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*2))))*2 - 2))))
 			if int32(v4) == 83 || int32(v4) == 115 {
 				v2 = 1
 			}
