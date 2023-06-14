@@ -13,6 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
@@ -197,7 +198,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			nox_xxx_drawSetTextColor_434390(int32(uintptr(unsafe.Pointer(a1))))
 			if v35 != 0 {
 				if v29 != nil {
-					v23 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(v29))))
+					v23 = int32(nox_xxx_materialGetTeamColor_418D50((*server.Team)(unsafe.Pointer(v29))))
 					nox_xxx_drawSetTextColor_434390(v23)
 				}
 			}

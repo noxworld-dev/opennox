@@ -227,7 +227,7 @@ func Sub_40AA40() int {
 	return int(sub_40AA40())
 }
 func Nox_xxx_countNonEliminatedPlayersInTeam_40A830(a1 *server.Team) int {
-	return int(nox_xxx_countNonEliminatedPlayersInTeam_40A830((*nox_team_t)(a1.C())))
+	return int(nox_xxx_countNonEliminatedPlayersInTeam_40A830((*server.Team)(a1.C())))
 }
 func Sub_40A770() int {
 	return int(sub_40A770())

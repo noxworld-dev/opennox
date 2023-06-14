@@ -39,7 +39,7 @@ func sub_5098A0() {
 	v10 = nil
 	v1 = 0
 	v2 = math.MinInt32
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 		v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*13))))
 		if v4 >= v2 {
 			v1 = bool2int32(v4 == v2 && v0 != 0)
@@ -95,7 +95,7 @@ func sub_5099B0() int32 {
 	v0 = 0
 	v1 = 0
 	v2 = -1
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 		v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*13))))
 		if v4 >= v2 {
 			v1 = bool2int32(v4 == v2 && v0 != 0)
@@ -171,7 +171,7 @@ func nox_server_checkVictory_509A60() {
 	if int32(v0a) == 0 {
 		return
 	}
-	for v3 := (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); v3 != nil; v3 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v3))))) {
+	for v3 := (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); v3 != nil; v3 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v3))))) {
 		if *((*int32)(unsafe.Add(unsafe.Pointer(v3), 4*13))) >= v2 {
 			nox_xxx_setGameFlags_40A4D0(8)
 			nox_xxx_netSendDMTeamWinner_4D8BF0(int32(uintptr(unsafe.Pointer(v3))), 0)

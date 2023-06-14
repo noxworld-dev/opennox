@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func sub_4BC490(a1 int32) int8 {
@@ -224,7 +225,7 @@ LABEL_24:
 		v16 = 1
 	}
 	if (!noxflags.HasGame(4096) || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 112)))&2) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 116)))&8) == 0) && v16 != 0 {
-		v18 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(v17))))
+		v18 = int32(nox_xxx_materialGetTeamColor_418D50((*server.Team)(unsafe.Pointer(v17))))
 		nox_client_drawSetColor_434460(v18)
 		v19 = int32(uint32(*v12) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*4))))
 		v20 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 16)) + uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 104))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))) - uint32(int32(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 100)))*2))

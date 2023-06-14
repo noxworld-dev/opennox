@@ -629,7 +629,7 @@ func sub_48D990(a1p *noxrender.Viewport) {
 				if v4 != nil {
 					v6 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)))))))
 					if v6 != nil {
-						v7 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(v6))))
+						v7 = int32(nox_xxx_materialGetTeamColor_418D50((*server.Team)(unsafe.Pointer(v6))))
 						v21 = v7
 					}
 				}
@@ -1357,7 +1357,7 @@ func sub_4948B0(a1 int32) int32 {
 	} else {
 		v2 = int32(*((*uint16)(unsafe.Add(unsafe.Pointer(nox_xxx_cliGamedataGet_416590(0)), unsafe.Sizeof(uint16(0))*27))))
 	}
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 		if i == (*byte)(unsafe.Pointer(uintptr(a1))) {
 			if !noxflags.HasGame(1024) {
 				*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*13))) = uint32(v2)

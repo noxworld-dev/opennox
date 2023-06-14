@@ -4397,8 +4397,8 @@ func nox_xxx_playerIncrementElimDeath_4D8D40(a1 unsafe.Pointer) {
 							result = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))
 							v3 = result
 							if result != nil {
-								for nox_xxx_countNonEliminatedPlayersInTeam_40A830((*nox_team_t)(unsafe.Pointer(v3))) != 1 {
-									result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v3)))))
+								for nox_xxx_countNonEliminatedPlayersInTeam_40A830((*server.Team)(unsafe.Pointer(v3))) != 1 {
+									result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v3)))))
 									v3 = result
 									if result == nil {
 										return
@@ -5614,7 +5614,7 @@ func nox_xxx_netPlayerIncomingServ_4DDF60(a1 int32) int32 {
 		v8 = sub_4E8310()
 		nox_xxx_netSendBallStatus_4D95F0(v1, int8(*v8), int16(*((*uint16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(uint16(0))*1)))))
 	} else if noxflags.HasGame(32) {
-		for j = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); j != nil; j = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(j))))) {
+		for j = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); j != nil; j = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(j))))) {
 			v10 = sub_4E8320(*(*byte)(unsafe.Add(unsafe.Pointer(j), 57)))
 			nox_xxx_netSendFlagStatus_4D95A0(v1, int8(*v10), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v10), 2))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v10), 1))), int16(*((*uint16)(unsafe.Add(unsafe.Pointer(v10), unsafe.Sizeof(uint16(0))*2)))))
 		}
@@ -6018,7 +6018,7 @@ func sub_4DF2E0(a1 int32) {
 		j int32
 	)
 	if a1 != 31 {
-		for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+		for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 			sub_4197C0((*wchar2_t)(unsafe.Pointer(i)), a1)
 			for j = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()))); j != 0; j = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(j))))))) {
 				if nox_xxx_teamCompare2_419180(unsafe.Add(unsafe.Pointer(uintptr(j)), 48), *(*byte)(unsafe.Add(unsafe.Pointer(i), 57))) != 0 {
@@ -6109,7 +6109,7 @@ func sub_4DF3C0(pl *server.Player) {
 			}
 			sub_418800((*wchar2_t)(unsafe.Pointer(v2)), (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2072)), 0)
 			sub_418830(int32(uintptr(unsafe.Pointer(v5))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2068))))
-			sub_4184D0((*nox_team_t)(unsafe.Pointer(v5)))
+			sub_4184D0((*server.Team)(unsafe.Pointer(v5)))
 			v6 = unsafe.Add(v1, 48)
 			v7 = nox_xxx_servObjectHasTeam_419130(unsafe.Add(v1, 48))
 		} else {

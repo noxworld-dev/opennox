@@ -2486,7 +2486,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				v280 = (*wchar2_t)(unsafe.Pointer(uintptr(v5)))
 				if uint32(int32(v5)) != 0 {
 					nox_wcscpy(&v387[0], (*wchar2_t)(unsafe.Pointer(uintptr(v5))))
-					sub_418F20((*nox_team_t)(unsafe.Pointer(v280)), 0)
+					sub_418F20((*server.Team)(unsafe.Pointer(v280)), 0)
 					sub_456EA0(&v387[0])
 				}
 			}

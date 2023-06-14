@@ -4520,7 +4520,7 @@ func nox_xxx_pickupFlagCtf_4EA490(a1 unsafe.Pointer, a2p unsafe.Pointer) {
 		v11 = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))
 		if v11 != nil {
 			for *((*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*13))) < uint32(v9) {
-				v11 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v11)))))
+				v11 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v11)))))
 				if v11 == nil {
 					return
 				}
@@ -4627,7 +4627,7 @@ func sub_4EA800(a1 unsafe.Pointer, a2 unsafe.Pointer) int16 {
 			*v4 = 0
 		}
 		v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 52))))))
-		v2 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v5)))))
+		v2 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v5)))))
 		v6 = int32(uintptr(unsafe.Pointer(v2)))
 		if v2 == nil {
 			v2 = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))
@@ -4656,7 +4656,7 @@ func sub_4EA800(a1 unsafe.Pointer, a2 unsafe.Pointer) int16 {
 					v10 = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))
 					if v10 != nil {
 						for *((*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*13))) < uint32(v8) {
-							v10 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v10)))))
+							v10 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v10)))))
 							if v10 == nil {
 								goto LABEL_27
 							}

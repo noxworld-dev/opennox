@@ -3129,7 +3129,7 @@ func sub_456500() int32 {
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v1)), 16399, 0, 0)
 	nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045688))))), 0)
 	nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045692))))), 0)
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 		sub_457230((*wchar2_t)(unsafe.Pointer(i)))
 	}
 	for j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); j != nil; j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(j))))) {
@@ -3678,7 +3678,7 @@ func sub_459150() int8 {
 				sub_418800((*wchar2_t)(unsafe.Pointer(v2)), v4, 1)
 			}
 			*(*byte)(unsafe.Add(unsafe.Pointer(v2), 56)) = byte(int8(v3))
-			sub_4184D0((*nox_team_t)(unsafe.Pointer(v2)))
+			sub_4184D0((*server.Team)(unsafe.Pointer(v2)))
 		}
 		nox_xxx_SetGameplayFlag_417D50(4)
 	}

@@ -407,14 +407,14 @@ func sub_40A770() int32 {
 			v0++
 		}
 	LABEL_10:
-		v1 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v1)))))
+		v1 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v1)))))
 		if v1 == nil {
 			break
 		}
 	}
 	return v0
 }
-func nox_xxx_countNonEliminatedPlayersInTeam_40A830(a1p *nox_team_t) int32 {
+func nox_xxx_countNonEliminatedPlayersInTeam_40A830(a1p *server.Team) int32 {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int32
@@ -488,7 +488,7 @@ func nox_xxx_gamePlayIsAnyPlayers_40A8A0() int32 {
 			v0++
 		}
 	LABEL_10:
-		v1 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v1)))))
+		v1 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v1)))))
 		if v1 == nil {
 			break
 		}
@@ -3205,7 +3205,7 @@ func sub_417DE0() int8 {
 		i  *byte
 	)
 	v0 = 0
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 		if *((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*15))) != 0 {
 			v0++
 		}
@@ -3350,7 +3350,7 @@ func nox_xxx_mapInfoSetKotr_4180D0() int32 {
 			}
 		}
 	}
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*19))) = 0
 	}
 	v3 = 0
@@ -3428,7 +3428,7 @@ func sub_4181F0(a1 int32) {
 	v1 = 0
 	v19 = 0
 	if a1 != 0 {
-		for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+		for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 			sub_418D80(int32(uintptr(unsafe.Pointer(i))))
 		}
 	}
@@ -3556,7 +3556,7 @@ func sub_4183C0() int32 {
 							v6 = int32(uintptr(unsafe.Pointer(v7)))
 						}
 					}
-					v7 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(v7)))))
+					v7 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v7)))))
 					if v7 == nil {
 						break
 					}
@@ -3576,7 +3576,7 @@ func sub_4183C0() int32 {
 	}
 	return result
 }
-func sub_4184D0(a1p *nox_team_t) {
+func sub_4184D0(a1p *server.Team) {
 	var (
 		a1 *wchar2_t = (*wchar2_t)(unsafe.Pointer(a1p))
 		v1 int32
@@ -3629,7 +3629,7 @@ func nox_xxx_wndGuiTeamCreate_4185B0() {
 					sub_418800((*wchar2_t)(unsafe.Pointer(v2)), v5, 1)
 				}
 				*(*byte)(unsafe.Add(unsafe.Pointer(v2), 56)) = byte(v4)
-				sub_4184D0((*nox_team_t)(unsafe.Pointer(v2)))
+				sub_4184D0((*server.Team)(unsafe.Pointer(v2)))
 				*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*18)) = i
 			}
 		}
@@ -3666,7 +3666,7 @@ func nox_xxx_toggleAllTeamFlags_418690(a1 int32) *byte {
 				nox_xxx_objectSetOff_4E7600((*server.Object)(unsafe.Pointer(uintptr(v3))))
 			}
 		}
-		result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i)))))
+		result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i)))))
 	}
 	return result
 }

@@ -167,7 +167,7 @@ func sub_4D2160() {
 			}
 			sub_4F3400(AsObjectP(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(j), 4*514)))), AsObjectP(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*19)))), 1, 0)
 		}
-		result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i)))))
+		result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i)))))
 	}
 }
 func sub_4D2230() {

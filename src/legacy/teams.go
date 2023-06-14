@@ -8,15 +8,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-type nox_team_t = server.Team
-
-func asTeam(p *nox_team_t) *server.Team {
-	if p == nil {
-		return nil
-	}
-	return asTeamP(unsafe.Pointer(p))
-}
-
 func asTeamP(p unsafe.Pointer) *server.Team {
 	if p == nil {
 		return nil
@@ -25,23 +16,23 @@ func asTeamP(p unsafe.Pointer) *server.Team {
 }
 
 // nox_server_teamByXxx_418AE0
-func nox_server_teamByXxx_418AE0(a1 int32) *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.ByXxx(int(a1)).C())
+func nox_server_teamByXxx_418AE0(a1 int32) *server.Team {
+	return (*server.Team)(GetServer().S().Teams.ByXxx(int(a1)).C())
 }
 
 // nox_xxx_getTeamByID_418AB0
-func nox_xxx_getTeamByID_418AB0(a1 int32) *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.ByID(server.TeamID(int(a1))).C())
+func nox_xxx_getTeamByID_418AB0(a1 int32) *server.Team {
+	return (*server.Team)(GetServer().S().Teams.ByID(server.TeamID(int(a1))).C())
 }
 
 // nox_server_teamFirst_418B10
-func nox_server_teamFirst_418B10() *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.First().C())
+func nox_server_teamFirst_418B10() *server.Team {
+	return (*server.Team)(GetServer().S().Teams.First().C())
 }
 
 // nox_server_teamNext_418B60
-func nox_server_teamNext_418B60(t *nox_team_t) *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.Next(asTeam(t)).C())
+func nox_server_teamNext_418B60(t *server.Team) *server.Team {
+	return (*server.Team)(GetServer().S().Teams.Next(t).C())
 }
 
 // nox_server_teamTitle_418C20
@@ -50,13 +41,13 @@ func nox_server_teamTitle_418C20(a1 int32) *wchar2_t {
 }
 
 // nox_xxx_teamCreate_4186D0
-func nox_xxx_teamCreate_4186D0(a1 int8) *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.Create(server.TeamID(a1)).C())
+func nox_xxx_teamCreate_4186D0(a1 int8) *server.Team {
+	return (*server.Team)(GetServer().S().Teams.Create(server.TeamID(a1)).C())
 }
 
 // nox_xxx_materialGetTeamColor_418D50
-func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) uint32 {
-	c := GetServer().S().Teams.GetTeamColor(asTeam(t))
+func nox_xxx_materialGetTeamColor_418D50(t *server.Team) uint32 {
+	c := GetServer().S().Teams.GetTeamColor(t)
 	return noxcolor.ToRGBA5551Color(c).Color32()
 }
 
@@ -76,8 +67,8 @@ func nox_server_teamsZzz_419030(a1 int) int {
 }
 
 // sub_418F20
-func sub_418F20(t *nox_team_t, a2 int) {
-	GetServer().TeamRemove(asTeam(t), a2 != 0)
+func sub_418F20(t *server.Team, a2 int) {
+	GetServer().TeamRemove(t, a2 != 0)
 }
 func Sub_459CD0() {
 	sub_459CD0()

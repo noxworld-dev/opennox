@@ -7523,7 +7523,7 @@ func sub_5095E0() {
 	v10 = nil
 	v1 = 0
 	v2 = math.MaxInt32
-	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(i))))) {
+	for i = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10())); i != nil; i = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))) {
 		v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*13))))
 		if v4 <= v2 {
 			v1 = bool2int32(v4 == v2 && v0 != 0)
