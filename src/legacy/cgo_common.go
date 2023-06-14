@@ -23,11 +23,6 @@ type int4 struct {
 	field_C int32
 }
 
-type float2 struct {
-	field_0 float32
-	field_4 float32
-}
-
 type float4 struct {
 	field_0 float32
 	field_4 float32

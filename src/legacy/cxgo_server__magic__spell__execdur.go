@@ -3,6 +3,8 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -32,7 +34,7 @@ func Sub_530A30_spell_execdur(sp *server.DurSpell) int32 {
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 8)))&4 != 0 {
 		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))
 	}
-	if nox_xxx_mapTileAllowTeleport_411A90((*float2)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 52))) != 0 {
+	if nox_xxx_mapTileAllowTeleport_411A90((*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 52))) != 0 {
 		v4 = nox_strman_loadString_40F1D0(internCStr("UnseenTarget"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c"), 2912)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 48))), v4)
 		nox_xxx_aud_501960(231, (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 48))))), 0, 0)

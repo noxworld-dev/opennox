@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -23,10 +24,10 @@ func nox_xxx_mapgen_522AD0(a1 *float32, a2 int32) *float32 {
 		a3  float32
 		a4  float32
 		a2a int2
-		a1a float2
+		a1a types.Pointf
 		v13 float32 = 0
 		v14 float32 = 0
-		v15 float2
+		v15 types.Pointf
 	)
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 60)))
 	if int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), v2))), 216)))) != 0 {
@@ -34,23 +35,23 @@ func nox_xxx_mapgen_522AD0(a1 *float32, a2 int32) *float32 {
 	}
 	switch v2 {
 	case 0:
-		a1a.field_0 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*7)))*0.5 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*9))) + 1.0)
+		a1a.X = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*7)))*0.5 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*9))) + 1.0)
 		v4 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*10))) + 10.0
-		a1a.field_4 = float32(v4)
+		a1a.Y = float32(v4)
 	case 1:
-		a1a.field_0 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*7)))*0.5 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*9))) + 1.0)
+		a1a.X = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*7)))*0.5 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*9))) + 1.0)
 		v4 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*12))) - 10.0
-		a1a.field_4 = float32(v4)
+		a1a.Y = float32(v4)
 	case 2:
 		v5 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*11))) - 10.0
-		a1a.field_0 = float32(v5)
+		a1a.X = float32(v5)
 		v4 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*8)))*0.5 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*10))) + 1.0
-		a1a.field_4 = float32(v4)
+		a1a.Y = float32(v4)
 	case 3:
 		v5 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*9))) + 10.0
-		a1a.field_0 = float32(v5)
+		a1a.X = float32(v5)
 		v4 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*8)))*0.5 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*10))) + 1.0
-		a1a.field_4 = float32(v4)
+		a1a.Y = float32(v4)
 	default:
 	}
 	nox_xxx_mapGenGetObjID_527940((*byte)(unsafe.Pointer(uintptr(a2))))
@@ -79,8 +80,8 @@ func nox_xxx_mapgen_522AD0(a1 *float32, a2 int32) *float32 {
 		default:
 			v7 = float64(v14)
 		}
-		v15.field_0 = float32(float64(a2a.field_0) * 32.526913)
-		v15.field_4 = float32(float64(a2a.field_4) * 32.526913)
+		v15.X = float32(float64(a2a.field_0) * 32.526913)
+		v15.Y = float32(float64(a2a.field_4) * 32.526913)
 		a4 = float32(v7 * 32.526913)
 		a3 = float32(float64(v13) * 32.526913)
 		sub_521BC0(int32(uintptr(unsafe.Pointer(a1))), &v15, a3, a4)
@@ -175,7 +176,7 @@ func nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(a1 int32) {
 	v8 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*11))+*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*9))) * 0.5)
 	v9 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*12))+*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*10))) * 0.5)
 	nox_xxx_mapGenGetObjID_527940(internCStr("PlayerStart"))
-	nox_xxx_mapGenPlaceObj_5279B0((*float2)(unsafe.Pointer(&v8)))
+	nox_xxx_mapGenPlaceObj_5279B0((*types.Pointf)(unsafe.Pointer(&v8)))
 	sub_469B90((*int32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 536)))
 	sub_526A90()
 }

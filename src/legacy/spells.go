@@ -88,10 +88,10 @@ func nox_xxx_spellAwardAll2_4EFC80(p *server.Player) { Nox_xxx_spellAwardAll2_4E
 func nox_xxx_spellAwardAll3_4EFE10(p *server.Player) { Nox_xxx_spellAwardAll3_4EFE10(asPlayerS(p)) }
 
 // nox_xxx_spellFlySearchTarget_540610
-func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *server.Object, sflags int32, dist float32, a5 int32, self *server.Object) *server.Object {
+func nox_xxx_spellFlySearchTarget_540610(cpos *types.Pointf, msl *server.Object, sflags int32, dist float32, a5 int32, self *server.Object) *server.Object {
 	var pos *types.Pointf
 	if cpos != nil {
-		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}
+		pos = &types.Pointf{X: float32(cpos.X), Y: float32(cpos.Y)}
 	}
 	return asObjectC(GetServer().Nox_xxx_spellFlySearchTarget(pos, ToObjS(msl), things.SpellFlags(sflags), float32(dist), int(a5), asObjectS(self)))
 }
@@ -278,10 +278,6 @@ func Sub_52CA80(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcc
 
 func Sub_52CBD0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
 	return int(sub_52CBD0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), sa, lvl))
-}
-
-func Nox_xxx_castMeteor_52D9D0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return int(nox_xxx_castMeteor_52D9D0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castMeteorShower_52D8A0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {

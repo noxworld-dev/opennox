@@ -6,6 +6,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -834,14 +835,14 @@ func nox_xxx_tileFree_410FC0_free() {
 		}
 	}
 }
-func nox_xxx_tileNFromPoint_411160(a1 *float2) int32 {
+func nox_xxx_tileNFromPoint_411160(a1 *types.Pointf) int32 {
 	var (
-		v12 float32 = float32((float64(a1.field_0) + 11.5) * 0.021739131)
-		v13 float32 = float32((float64(a1.field_4) + 11.5) * 0.021739131)
+		v12 float32 = float32((float64(a1.X) + 11.5) * 0.021739131)
+		v13 float32 = float32((float64(a1.Y) + 11.5) * 0.021739131)
 		i   int32   = int32(v12)
 		j   int32   = int32(v13)
-		v14 float32 = float32(float64(a1.field_0) + 11.5)
-		v15 float32 = float32(float64(a1.field_4) + 11.5)
+		v14 float32 = float32(float64(a1.X) + 11.5)
+		v15 float32 = float32(float64(a1.Y) + 11.5)
 		v4  int32   = int32(v14) % 46
 		v5  int32   = int32(v15) % 46
 	)
@@ -1201,7 +1202,7 @@ func nox_thing_read_EDGE_411850(f *nox_memfile, a2 *uint8) int32 {
 	dword_5d4594_251572++
 	return 1
 }
-func nox_xxx_mapTileAllowTeleport_411A90(a1 *float2) int32 {
+func nox_xxx_mapTileAllowTeleport_411A90(a1 *types.Pointf) int32 {
 	if *memmap.PtrInt32(0x587000, 26520) == -1 {
 		for i := int32(0); i < 176; i++ {
 			var p *nox_tileDef_t = &nox_tile_defs_arr[i]
@@ -3306,7 +3307,7 @@ func sub_417F50(a1 unsafe.Pointer) int32 {
 	nox_xxx_unitClearOwner_4EC300((*server.Object)(unsafe.Pointer(v7)))
 	sub_4EB9B0(unsafe.Pointer(v7), nil)
 	sub_4E8290(0, 0)
-	nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(v7)), (*float2)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 56)))
+	nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(v7)), (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 56)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*20)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*21)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*22)) = 0

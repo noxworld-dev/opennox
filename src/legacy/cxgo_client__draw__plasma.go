@@ -4,6 +4,8 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -247,7 +249,7 @@ func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v21  int32
 		v22  int32
 		v23  int32
-		v25  float2
+		v25  types.Pointf
 		v26  uint8
 		a2   int32     = int32(uintptr(unsafe.Pointer(dr)))
 		mpos nox_point = nox_client_getMousePos_4309F0()
@@ -285,8 +287,8 @@ func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			v10 = a1
 			v11 = a1
 		}
-		v25.field_0 = float32(float64(mpos.x) - float64(a2))
-		v25.field_4 = float32(float64(mpos.y) - float64(int32(uintptr(unsafe.Pointer(a1)))))
+		v25.X = float32(float64(mpos.x) - float64(a2))
+		v25.Y = float32(float64(mpos.y) - float64(int32(uintptr(unsafe.Pointer(a1)))))
 		v26 = uint8(int8(nox_xxx_math_509ED0(&v25)))
 	} else {
 		v4 = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 439))

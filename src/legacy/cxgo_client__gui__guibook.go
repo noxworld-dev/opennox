@@ -3,12 +3,14 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-var obj_5d4594_1046620 float2 = float2{}
+var obj_5d4594_1046620 types.Pointf
 
 func nox_xxx_bookShowMB_45AD70(a1 int32) {
 	var (
@@ -459,8 +461,8 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 		v9 = int32(uintptr(nox_xxx_spellIcon_424A90(*(*int32)(unsafe.Pointer(&dword_5d4594_1047524)))))
 	}
 	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v9))), v21, v22)
-	*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)) = *(*float32)(unsafe.Pointer(&dword_5d4594_1046636)) + obj_5d4594_1046620.field_0
-	*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)) = *(*float32)(unsafe.Pointer(&dword_5d4594_1046640)) + obj_5d4594_1046620.field_4
+	*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)) = *(*float32)(unsafe.Pointer(&dword_5d4594_1046636)) + obj_5d4594_1046620.X
+	*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)) = *(*float32)(unsafe.Pointer(&dword_5d4594_1046640)) + obj_5d4594_1046620.Y
 	if float64(*memmap.PtrInt32(0x5D4594, 1046668)) <= float64(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636))) && float64(*memmap.PtrInt32(0x5D4594, 1046672)) <= float64(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640))) {
 		nox_xxx_book_45DBE0(*(*unsafe.Pointer)(memmap.PtrOff(0x5D4594, 1046676)), *(*int32)(unsafe.Pointer(&dword_5d4594_1047524)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046852)))
 		sub_45D810()
@@ -471,8 +473,8 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 		*memmap.PtrUint32(0x5D4594, 1046628) = uint32(v10)
 		if v10 < *memmap.PtrInt32(0x5D4594, 1046680) {
 			if v10 <= *memmap.PtrInt32(0x5D4594, 1046680)-1 {
-				obj_5d4594_1046620.field_0 = *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046692) - *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046684)
-				obj_5d4594_1046620.field_4 = *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046696) - *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046688)
+				obj_5d4594_1046620.X = *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046692) - *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046684)
+				obj_5d4594_1046620.Y = *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046696) - *mem_getFloatPtr(0x5D4594, uint32(v10*8)+1046688)
 				nox_xxx_utilNormalizeVector_509F20(&obj_5d4594_1046620)
 				if nox_win_width < 1000 {
 					if nox_win_width < 750 {
@@ -483,8 +485,8 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 				} else {
 					v11 = 10.0
 				}
-				obj_5d4594_1046620.field_0 = float32(float64(obj_5d4594_1046620.field_0) * v11)
-				obj_5d4594_1046620.field_4 = float32(float64(obj_5d4594_1046620.field_4) * v11)
+				obj_5d4594_1046620.X = float32(float64(obj_5d4594_1046620.X) * v11)
+				obj_5d4594_1046620.Y = float32(float64(obj_5d4594_1046620.Y) * v11)
 			}
 			goto LABEL_27
 		}

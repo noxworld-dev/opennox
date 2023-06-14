@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -35,7 +36,7 @@ func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 		v3 int32
 		v5 int32
 		v6 int32
-		v7 float2
+		v7 types.Pointf
 	)
 	if *memmap.PtrUint32(0x5D4594, 2386856) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2386856) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Glyph")))
@@ -62,7 +63,7 @@ func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 				}
 			}
 			if v2 != nil {
-				sub_4ED970(50.0, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56)), &v7)
+				sub_4ED970(50.0, (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56)), &v7)
 				nox_xxx_drop_4ED790((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(v2)), &v7)
 				if dword_5d4594_2386852 == 0 {
 					nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("pickup.c:CarryingTooMuch"), 0)
@@ -309,9 +310,9 @@ func nox_script_HitLocation_5159E0() int32 {
 	v0 := nox_script_pop()
 	v1 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v0))
 	if v1 != nil {
-		var v5 float2
-		v5.field_0 = v3
-		v5.field_4 = v4
+		var v5 types.Pointf
+		v5.X = v3
+		v5.Y = v4
 		nox_xxx_monsterActionMelee_515A30(v1, &v5)
 	}
 	return 0
@@ -320,16 +321,16 @@ func nox_script_HitLocationGroup_515AE0() int32 {
 	var (
 		v0 int32
 		v1 *uint8
-		v3 float2
-		v4 float2
+		v3 types.Pointf
+		v4 types.Pointf
 	)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(&v3.field_4), 4*0)) = uint32(nox_script_pop())
-	*(*uint32)(unsafe.Add(unsafe.Pointer(&v3.field_0), 4*0)) = uint32(nox_script_pop())
+	*(*uint32)(unsafe.Add(unsafe.Pointer(&v3.Y), 4*0)) = uint32(nox_script_pop())
+	*(*uint32)(unsafe.Add(unsafe.Pointer(&v3.X), 4*0)) = uint32(nox_script_pop())
 	v0 = nox_script_pop()
 	v4 = v3
 	v1 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v0))
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 unsafe.Pointer, arg2 unsafe.Pointer) {
-		nox_xxx_monsterActionMelee_515A30(arg1, (*float2)(arg2))
+		nox_xxx_monsterActionMelee_515A30(arg1, (*types.Pointf)(arg2))
 	}, unsafe.Pointer(&v4))
 	return 0
 }

@@ -3,6 +3,8 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -29,10 +31,10 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			v20 := nox_xxx_equipedItemByCode_4F7920(unit, v19)
 			if v20 != nil {
 				v21 := *(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5))))
-				var v94 float2
-				v94.field_0 = float32(float64(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))
-				v94.field_4 = float32(float64(v21))
-				nox_xxx_drop_4ED810(unit, v20, &v94.field_0)
+				var v94 types.Pointf
+				v94.X = float32(float64(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))
+				v94.Y = float32(float64(v21))
+				nox_xxx_drop_4ED810(unit, v20, &v94.X)
 			}
 		}
 		return 7
@@ -370,7 +372,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 	case 0xF1:
 		v63 := (*uint32)(unsafe.Pointer(uintptr(nox_xxx_equipedItemByCode_4F7920(unit, int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))))))
 		if v63 != nil {
-			nox_xxx_drop_4ED790((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(v63)), (*float2)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 56)))
+			nox_xxx_drop_4ED790((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(v63)), (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 56)))
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(unit))), internCStr("pickup.c:CarryingTooMuch"), 0)
 		}
 		return 3

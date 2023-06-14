@@ -7,6 +7,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -371,8 +372,8 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 		v24 float32
 		v25 float32
 		v26 float32
-		a3  float2
-		a1  float2
+		a3  types.Pointf
+		a1  types.Pointf
 		v29 int32
 	)
 	if *memmap.PtrUint32(0x5D4594, 1096648) == 0 {
@@ -413,10 +414,10 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 	v29 = int32(v23)
 	v24 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 16))) - float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 96))) - float64(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 104))))
 	v8 = COERCE_FLOAT(uint32(int32(v24)))
-	a3.field_0 = v8
+	a3.X = v8
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 44)) == 2 {
 		v25 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48)) * *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(&a3.field_0), 4*0)) = uint32(int32(v25))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(&a3.X), 4*0)) = uint32(int32(v25))
 		v17 = int32(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48)))
 		v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12)))
 		v19 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12)) - uint32(v17))
@@ -431,18 +432,18 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 				goto LABEL_38
 			}
 		}
-		v15 = a3.field_0
+		v15 = a3.X
 		v16 = int32((*(*uint32)(a2)-uint32(v18))*(*(*uint32)(a2)-uint32(v18)) + (uint32(v21)-(*(*uint32)(unsafe.Add(unsafe.Pointer(&v8), 4*0))))*(uint32(v21)-(*(*uint32)(unsafe.Add(unsafe.Pointer(&v8), 4*0)))))
 	} else {
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 44)) != 3 {
 			return
 		}
-		a1.field_0 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12))))
-		a1.field_4 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(&a3.field_0), 4*0))))
-		a3.field_0 = float32(float64(*(*int32)(a2)))
-		a3.field_4 = float32(float64(*(*int32)(unsafe.Add(a2, 4))))
+		a1.X = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12))))
+		a1.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(&a3.X), 4*0))))
+		a3.X = float32(float64(*(*int32)(a2)))
+		a3.Y = float32(float64(*(*int32)(unsafe.Add(a2, 4))))
 		if nox_xxx_map_57B850(&a1, (*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 44)), &a3) != 0 || (func() int32 {
-			a1.field_4 = float32(float64(v29))
+			a1.Y = float32(float64(v29))
 			return nox_xxx_map_57B850(&a1, (*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 44)), &a3)
 		}()) != 0 || (func() bool {
 			v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12)) + uint32(int32(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 72)))))

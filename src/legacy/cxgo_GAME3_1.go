@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -4538,7 +4539,7 @@ func sub_4CA8B0(a1 int32, a2 int32) int32 {
 	}
 	return result
 }
-func sub_4CA960(a1 *uint32, a2 int8, a3 *float4, a4 *float2) {
+func sub_4CA960(a1 *uint32, a2 int8, a3 *float4, a4 *types.Pointf) {
 	var (
 		v4  int32
 		v5  int32
@@ -4571,7 +4572,7 @@ func sub_4CA960(a1 *uint32, a2 int8, a3 *float4, a4 *float2) {
 		return
 	}
 }
-func sub_4CAA90(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
+func sub_4CAA90(a1 *int2, a2 *float4, a3 *types.Pointf, a4 int32, a5 int32) {
 	var (
 		v5  int32
 		v6  int32
@@ -4600,13 +4601,13 @@ func sub_4CAA90(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 	v8 = int32(v18)
 	if a2.field_8 == a2.field_0 {
 		v9 = float64(a2.field_8)
-		a3.field_0 = a2.field_8
-		a3.field_4 = float32(float64(v8) - v9)
+		a3.X = a2.field_8
+		a3.Y = float32(float64(v8) - v9)
 	} else {
 		v11 = float64(a2.field_C)
 		if v11 == float64(a2.field_4) {
-			a3.field_4 = a2.field_C
-			a3.field_0 = float32(float64(v8) - v11)
+			a3.Y = a2.field_C
+			a3.X = float32(float64(v8) - v11)
 		} else {
 			v13 = (v11 - float64(a2.field_4)) / float64(a2.field_8-a2.field_0)
 			if v13 == -1.0 {
@@ -4618,27 +4619,27 @@ func sub_4CAA90(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 			v16 = cmath.Modf(v15, &v21)
 			v19 = float32(v16)
 			v17 = float64(float32(v21))
-			a3.field_0 = float32(v17)
+			a3.X = float32(v17)
 			if float64(v19) <= *(*float64)(unsafe.Pointer(&qword_581450_9544)) {
 				if float64(v19) < *mem_getDoublePtr(0x581450, 9968) {
-					a3.field_0 = float32(v17 - 1.0)
+					a3.X = float32(v17 - 1.0)
 				}
 			} else {
-				a3.field_0 = float32(v17 + 1.0)
+				a3.X = float32(v17 + 1.0)
 			}
-			if float64(a3.field_0) >= float64(v22) {
-				if float64(a3.field_0) > float64(v23) {
-					a3.field_0 = v23
+			if float64(a3.X) >= float64(v22) {
+				if float64(a3.X) > float64(v23) {
+					a3.X = v23
 				}
-				a3.field_4 = v20 - a3.field_0
+				a3.Y = v20 - a3.X
 			} else {
-				a3.field_0 = v22
-				a3.field_4 = v20 - a3.field_0
+				a3.X = v22
+				a3.Y = v20 - a3.X
 			}
 		}
 	}
 }
-func sub_4CAC30(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
+func sub_4CAC30(a1 *int2, a2 *float4, a3 *types.Pointf, a4 int32, a5 int32) {
 	var (
 		v5  int32
 		v6  int32
@@ -4662,11 +4663,11 @@ func sub_4CAC30(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 	v13 = float32(float64(v5) - float64(v17))
 	v7 = int32(v13)
 	if a2.field_8 == a2.field_0 {
-		a3.field_0 = a2.field_8
-		a3.field_4 = float32(float64(v7) + float64(a2.field_8))
+		a3.X = a2.field_8
+		a3.Y = float32(float64(v7) + float64(a2.field_8))
 	} else if a2.field_C == a2.field_4 {
-		a3.field_0 = float32(float64(a2.field_C) - float64(v7))
-		a3.field_4 = a2.field_C
+		a3.X = float32(float64(a2.field_C) - float64(v7))
+		a3.Y = a2.field_C
 	} else {
 		v8 = float64((a2.field_C - a2.field_4) / (a2.field_8 - a2.field_0))
 		if v8 == 1.0 {
@@ -4678,22 +4679,22 @@ func sub_4CAC30(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 		v11 = cmath.Modf(v10, &v16)
 		v14 = float32(v11)
 		v12 = float64(float32(v16))
-		a3.field_0 = float32(v12)
+		a3.X = float32(v12)
 		if float64(v14) <= *(*float64)(unsafe.Pointer(&qword_581450_9544)) {
 			if float64(v14) < *mem_getDoublePtr(0x581450, 9968) {
-				a3.field_0 = float32(v12 - 1.0)
+				a3.X = float32(v12 - 1.0)
 			}
 		} else {
-			a3.field_0 = float32(v12 + 1.0)
+			a3.X = float32(v12 + 1.0)
 		}
-		if float64(a3.field_0) >= float64(v17) {
-			if float64(a3.field_0) > float64(v18) {
-				a3.field_0 = v18
+		if float64(a3.X) >= float64(v17) {
+			if float64(a3.X) > float64(v18) {
+				a3.X = v18
 			}
-			a3.field_4 = v15 + a3.field_0
+			a3.Y = v15 + a3.X
 		} else {
-			a3.field_0 = v17
-			a3.field_4 = v15 + a3.field_0
+			a3.X = v17
+			a3.Y = v15 + a3.X
 		}
 	}
 }

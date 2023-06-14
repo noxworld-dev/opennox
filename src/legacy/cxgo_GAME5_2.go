@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -1798,7 +1799,7 @@ func sub_57B0A0() {
 	}
 	v1 = *(**uint32)(unsafe.Pointer(&dword_5d4594_2523780))
 	if dword_5d4594_2523780 != nil && (*memmap.PtrUint32(0x5D4594, 2523772) == 0 || *memmap.PtrUint32(0x5D4594, 2523772) == 1) {
-		nox_xxx_netSendPointFx_522FF0(-102, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_2523780)), 56)))
+		nox_xxx_netSendPointFx_522FF0(-102, (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_2523780)), 56)))
 		v1 = *(**uint32)(unsafe.Pointer(&dword_5d4594_2523780))
 	}
 	if dword_5d4594_2523776 != 0 {
@@ -2019,9 +2020,9 @@ func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 	}
 	return -1
 }
-func sub_57B770(a1 *float2, a2 *float2) *float2 {
+func sub_57B770(a1 *types.Pointf, a2 *types.Pointf) *types.Pointf {
 	var (
-		result *float2
+		result *types.Pointf
 		v3     float64
 		v4     float64
 		v5     float64
@@ -2033,17 +2034,17 @@ func sub_57B770(a1 *float2, a2 *float2) *float2 {
 		v11    float32
 	)
 	result = a2
-	v9 = a2.field_0
-	v3 = math.Sqrt(float64(a2.field_0*a2.field_0 + a2.field_4*a2.field_4))
+	v9 = a2.X
+	v3 = math.Sqrt(float64(a2.X*a2.X + a2.Y*a2.Y))
 	v4 = v3 + 0.1
-	v5 = float64(-a2.field_4)
-	v6 = float64(a1.field_0*a2.field_0+a1.field_4*a2.field_4) / (v3 + 0.1)
-	v11 = float32((float64(a2.field_0*a1.field_4) + v5*float64(a1.field_0)) / v4)
-	v7 = float32(v6 * float64(result.field_0) / v4)
-	v8 = float32(v6 * float64(result.field_4) / v4)
+	v5 = float64(-a2.Y)
+	v6 = float64(a1.X*a2.X+a1.Y*a2.Y) / (v3 + 0.1)
+	v11 = float32((float64(a2.X*a1.Y) + v5*float64(a1.X)) / v4)
+	v7 = float32(v6 * float64(result.X) / v4)
+	v8 = float32(v6 * float64(result.Y) / v4)
 	v10 = float32(float64(v11) * v5 / v4)
-	a1.field_0 = v10 - v7
-	a1.field_4 = float32(float64(v11*v9)/v4 - float64(v8))
+	a1.X = v10 - v7
+	a1.Y = float32(float64(v11*v9)/v4 - float64(v8))
 	return result
 }
 func nox_xxx_collideReflect_57B810(a1 *float32, a2 unsafe.Pointer) {
@@ -2061,7 +2062,7 @@ func nox_xxx_collideReflect_57B810(a1 *float32, a2 unsafe.Pointer) {
 		*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4)) = float32(-v3)
 	}
 }
-func nox_xxx_map_57B850(a1 *float2, a2 *float32, a3 *float2) int32 {
+func nox_xxx_map_57B850(a1 *types.Pointf, a2 *float32, a3 *types.Pointf) int32 {
 	var (
 		result int32
 		v4     float32
@@ -2069,13 +2070,13 @@ func nox_xxx_map_57B850(a1 *float2, a2 *float32, a3 *float2) int32 {
 		v6     float32
 		v7     float32
 	)
-	v4 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*5)) + a1.field_0
-	v5 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*6)) + a1.field_4
+	v4 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*5)) + a1.X
+	v5 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*6)) + a1.Y
 	result = 0
-	if float64(v5-v4+a3.field_0-a3.field_4)*0.70709997 < 0.0 && float64(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*8))+a1.field_4-(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*7))+a1.field_0)+a3.field_0-a3.field_4)*0.70709997 > 0.0 {
-		v6 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*9)) + a1.field_0
-		v7 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*10)) + a1.field_4
-		if float64(v7+v6-a3.field_0-a3.field_4)*0.70709997 > 0.0 && float64(v5+v4-a3.field_0-a3.field_4)*0.70709997 < 0.0 {
+	if float64(v5-v4+a3.X-a3.Y)*0.70709997 < 0.0 && float64(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*8))+a1.Y-(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*7))+a1.X)+a3.X-a3.Y)*0.70709997 > 0.0 {
+		v6 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*9)) + a1.X
+		v7 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*10)) + a1.Y
+		if float64(v7+v6-a3.X-a3.Y)*0.70709997 > 0.0 && float64(v5+v4-a3.X-a3.Y)*0.70709997 < 0.0 {
 			result = 1
 		}
 	}
@@ -2225,7 +2226,7 @@ func nox_server_getNextMapGroup_57C090(a1 int32) int32 {
 	}
 	return result
 }
-func sub_57C790(a1 *float4, a2 *float2, a3 *float2, a4 float32) {
+func sub_57C790(a1 *float4, a2 *types.Pointf, a3 *types.Pointf, a4 float32) {
 	var (
 		v4  float64
 		v5  float64
@@ -2241,11 +2242,11 @@ func sub_57C790(a1 *float4, a2 *float2, a3 *float2, a4 float32) {
 	v8 = a1.field_8 - a1.field_0
 	v4 = float64(a1.field_C - a1.field_4)
 	v9 = float32(v4)
-	v5 = v4*float64(a2.field_4-a1.field_4) + float64(v8*(a2.field_0-a1.field_0))
+	v5 = v4*float64(a2.Y-a1.field_4) + float64(v8*(a2.X-a1.field_0))
 	v6 = float64(a4 * a4)
 	v10 = float32(v5 * float64(v8) / v6)
-	a3.field_0 = v10 + a1.field_0
-	a3.field_4 = float32(v5*float64(v9)/v6 + float64(a1.field_4))
+	a3.X = v10 + a1.field_0
+	a3.Y = float32(v5*float64(v9)/v6 + float64(a1.field_4))
 	if float64(a1.field_0) >= float64(a1.field_8) {
 		v12 = a1.field_0
 		v13 = a1.field_8
@@ -2260,25 +2261,25 @@ func sub_57C790(a1 *float4, a2 *float2, a3 *float2, a4 float32) {
 		v7 = float64(a1.field_4)
 		v11 = a1.field_C
 	}
-	if float64(a3.field_0) >= float64(v13) {
-		if float64(a3.field_0) > float64(v12) {
-			a3.field_0 = v12
+	if float64(a3.X) >= float64(v13) {
+		if float64(a3.X) > float64(v12) {
+			a3.X = v12
 		}
 	} else {
-		a3.field_0 = v13
+		a3.X = v13
 	}
-	if v7 <= float64(a3.field_4) {
-		if float64(a3.field_4) > float64(v11) {
-			a3.field_4 = v11
+	if v7 <= float64(a3.Y) {
+		if float64(a3.Y) > float64(v11) {
+			a3.Y = v11
 		}
 	} else {
-		a3.field_4 = float32(v7)
+		a3.Y = float32(v7)
 	}
 }
-func nox_xxx_mathPointOnTheLine_57C8A0(a1 *float4, a2 *float2, a3 *float2) int32 {
+func nox_xxx_mathPointOnTheLine_57C8A0(a1 *float4, a2 *types.Pointf, a3 *types.Pointf) int32 {
 	var (
 		v3  *float4
-		v4  *float2
+		v4  *types.Pointf
 		v5  float64
 		v6  float64
 		v7  float64
@@ -2298,12 +2299,12 @@ func nox_xxx_mathPointOnTheLine_57C8A0(a1 *float4, a2 *float2, a3 *float2) int32
 	v6 = float64(a1.field_C - a1.field_4)
 	v12 = float32(v6)
 	v10 = float32(v6*float64(v12) + v5*v5)
-	v7 = float64((a2.field_4-a1.field_4)*v12) + float64(a2.field_0-a1.field_0)*v5
+	v7 = float64((a2.Y-a1.field_4)*v12) + float64(a2.X-a1.field_0)*v5
 	v14 = float32(v7)
 	v13 = v14 * v12 / v10
-	a3.field_0 = float32(v5*v7/float64(v10) + float64(v3.field_0))
+	a3.X = float32(v5*v7/float64(v10) + float64(v3.field_0))
 	v15 = v13 + v3.field_4
-	a3.field_4 = v15
+	a3.Y = v15
 	if float64(v3.field_0) >= float64(v3.field_8) {
 		v8 = float64(v3.field_8)
 		v16 = v3.field_0
@@ -2318,80 +2319,80 @@ func nox_xxx_mathPointOnTheLine_57C8A0(a1 *float4, a2 *float2, a3 *float2) int32
 		v17 = v3.field_4
 		v11 = v3.field_C
 	}
-	return bool2int32(v8 <= float64(v4.field_0) && float64(v4.field_0) <= float64(v16) && float64(v15) >= float64(v17) && float64(v15) <= float64(v11))
+	return bool2int32(v8 <= float64(v4.X) && float64(v4.X) <= float64(v16) && float64(v15) >= float64(v17) && float64(v15) <= float64(v11))
 }
-func sub_57CDB0(a1 *int2, a2 *float32, a3 *float2) int32 {
+func sub_57CDB0(a1 *int2, a2 *float32, a3 *types.Pointf) int32 {
 	var (
 		v3     *int2
 		v4     int8
 		result int32
-		v6     *float2
-		v7     *float2
-		v8     *float2
+		v6     *types.Pointf
+		v7     *types.Pointf
+		v8     *types.Pointf
 		v9     int8
 	)
 	v3 = a1
-	v9 = int8(sub_57F2A0((*float2)(unsafe.Pointer(a2)), a1.field_0, a1.field_4))
-	v4 = sub_57F1D0((*float2)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float2{})*1)))
+	v9 = int8(sub_57F2A0((*types.Pointf)(unsafe.Pointer(a2)), a1.field_0, a1.field_4))
+	v4 = sub_57F1D0((*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(types.Pointf{})*1)))
 	switch sub_57B500(v3.field_0, v3.field_4, 64) {
 	case 0:
 		if int32(v9) != 1 && int32(v9) != 0 {
 			v8 = a3
-			v8.field_0 = 0.70709997
-			v8.field_4 = 0.70709997
+			v8.X = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		}
-		a3.field_0 = -0.70709997
-		a3.field_4 = -0.70709997
+		a3.X = -0.70709997
+		a3.Y = -0.70709997
 		return 1
 	case 1:
 		if int32(v9) == 1 || int32(v9) == 2 {
-			a3.field_0 = 0.70709997
-			a3.field_4 = -0.70709997
+			a3.X = 0.70709997
+			a3.Y = -0.70709997
 			return 1
 		}
-		a3.field_0 = -0.70709997
-		a3.field_4 = 0.70709997
+		a3.X = -0.70709997
+		a3.Y = 0.70709997
 		return 1
 	case 2:
 		switch v9 {
 		case 0:
 			v8 = a3
-			a3.field_0 = -0.70709997
+			a3.X = -0.70709997
 			if (int32(v4) & 2) == 0 {
-				a3.field_4 = -0.70709997
+				a3.Y = -0.70709997
 				return 1
 			}
-			v8.field_4 = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		case 1:
 			v6 = a3
 			if (int32(v4) & 1) == 0 {
-				v6.field_0 = 0.70709997
-				v6.field_4 = -0.70709997
+				v6.X = 0.70709997
+				v6.Y = -0.70709997
 				return 1
 			}
-			a3.field_0 = -0.70709997
-			a3.field_4 = -0.70709997
+			a3.X = -0.70709997
+			a3.Y = -0.70709997
 			result = 1
 		case 2:
 			v8 = a3
-			a3.field_0 = 0.70709997
+			a3.X = 0.70709997
 			if int32(v4)&1 != 0 {
-				v8.field_4 = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_4 = -0.70709997
+			a3.Y = -0.70709997
 			return 1
 		case 3:
 			v8 = a3
 			if (int32(v4) & 4) == 0 {
-				v8.field_0 = 0.70709997
-				v8.field_4 = 0.70709997
+				v8.X = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_0 = -0.70709997
-			a3.field_4 = 0.70709997
+			a3.X = -0.70709997
+			a3.Y = 0.70709997
 			return 1
 		default:
 			return 1
@@ -2400,144 +2401,144 @@ func sub_57CDB0(a1 *int2, a2 *float32, a3 *float2) int32 {
 	case 3:
 		if int32(v9) == 0 {
 			v8 = a3
-			a3.field_0 = -0.70709997
+			a3.X = -0.70709997
 			if (int32(v4) & 2) == 0 {
-				a3.field_4 = -0.70709997
+				a3.Y = -0.70709997
 				return 1
 			}
-			v8.field_4 = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		}
 		if int32(v9) != 1 {
 			v8 = a3
-			v8.field_0 = 0.70709997
-			v8.field_4 = 0.70709997
+			v8.X = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		}
 		v7 = a3
 		if (int32(v4) & 1) == 0 {
-			v7.field_0 = 0.70709997
-			v7.field_4 = -0.70709997
+			v7.X = 0.70709997
+			v7.Y = -0.70709997
 			return 1
 		}
-		v7.field_0 = -0.70709997
-		v7.field_4 = -0.70709997
+		v7.X = -0.70709997
+		v7.Y = -0.70709997
 		return 1
 	case 4:
 		if int32(v9) == 1 {
 			v7 = a3
 			if (int32(v4) & 1) == 0 {
-				v7.field_0 = 0.70709997
-				v7.field_4 = -0.70709997
+				v7.X = 0.70709997
+				v7.Y = -0.70709997
 				return 1
 			}
-			v7.field_0 = -0.70709997
-			v7.field_4 = -0.70709997
+			v7.X = -0.70709997
+			v7.Y = -0.70709997
 			return 1
 		}
 		if int32(v9) == 2 {
 			v8 = a3
-			a3.field_0 = 0.70709997
+			a3.X = 0.70709997
 			if int32(v4)&1 != 0 {
-				v8.field_4 = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_4 = -0.70709997
+			a3.Y = -0.70709997
 			return 1
 		}
-		a3.field_0 = -0.70709997
-		a3.field_4 = 0.70709997
+		a3.X = -0.70709997
+		a3.Y = 0.70709997
 		return 1
 	case 5:
 		if int32(v9) == 2 {
 			v8 = a3
-			a3.field_0 = 0.70709997
+			a3.X = 0.70709997
 			if int32(v4)&1 != 0 {
-				v8.field_4 = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_4 = -0.70709997
+			a3.Y = -0.70709997
 			return 1
 		}
 		if int32(v9) == 3 {
 			v8 = a3
 			if (int32(v4) & 4) == 0 {
-				v8.field_0 = 0.70709997
-				v8.field_4 = 0.70709997
+				v8.X = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_0 = -0.70709997
-			a3.field_4 = 0.70709997
+			a3.X = -0.70709997
+			a3.Y = 0.70709997
 			return 1
 		}
-		a3.field_0 = -0.70709997
-		a3.field_4 = -0.70709997
+		a3.X = -0.70709997
+		a3.Y = -0.70709997
 		return 1
 	case 6:
 		if int32(v9) == 0 {
 			v8 = a3
-			a3.field_0 = -0.70709997
+			a3.X = -0.70709997
 			if (int32(v4) & 2) == 0 {
-				a3.field_4 = -0.70709997
+				a3.Y = -0.70709997
 				return 1
 			}
-			v8.field_4 = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		}
 		if int32(v9) == 3 {
 			v8 = a3
 			if (int32(v4) & 4) == 0 {
-				v8.field_0 = 0.70709997
-				v8.field_4 = 0.70709997
+				v8.X = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_0 = -0.70709997
-			a3.field_4 = 0.70709997
+			a3.X = -0.70709997
+			a3.Y = 0.70709997
 			return 1
 		}
 		v6 = a3
-		v6.field_0 = 0.70709997
-		v6.field_4 = -0.70709997
+		v6.X = 0.70709997
+		v6.Y = -0.70709997
 		return 1
 	case 7:
 		if int32(v9) == 1 {
 			v7 = a3
 			if (int32(v4) & 1) == 0 {
-				v7.field_0 = 0.70709997
-				v7.field_4 = -0.70709997
+				v7.X = 0.70709997
+				v7.Y = -0.70709997
 				return 1
 			}
-			v7.field_0 = -0.70709997
-			v7.field_4 = -0.70709997
+			v7.X = -0.70709997
+			v7.Y = -0.70709997
 			return 1
 		}
 		v8 = a3
 		if int32(v4)&1 != 0 {
-			v8.field_0 = 0.70709997
-			v8.field_4 = 0.70709997
+			v8.X = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		}
-		a3.field_0 = -0.70709997
-		a3.field_4 = 0.70709997
+		a3.X = -0.70709997
+		a3.Y = 0.70709997
 		return 1
 	case 8:
 		if int32(v9) == 2 {
 			v8 = a3
-			a3.field_0 = 0.70709997
+			a3.X = 0.70709997
 			if int32(v4)&1 != 0 {
-				v8.field_4 = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_4 = -0.70709997
+			a3.Y = -0.70709997
 			return 1
 		} else {
 			v8 = a3
-			a3.field_0 = -0.70709997
+			a3.X = -0.70709997
 			if (int32(v4) & 1) == 0 {
-				v8.field_4 = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_4 = -0.70709997
+			a3.Y = -0.70709997
 			return 1
 		}
 		fallthrough
@@ -2545,22 +2546,22 @@ func sub_57CDB0(a1 *int2, a2 *float32, a3 *float2) int32 {
 		if int32(v9) == 3 {
 			v8 = a3
 			if (int32(v4) & 4) == 0 {
-				v8.field_0 = 0.70709997
-				v8.field_4 = 0.70709997
+				v8.X = 0.70709997
+				v8.Y = 0.70709997
 				return 1
 			}
-			a3.field_0 = -0.70709997
-			a3.field_4 = 0.70709997
+			a3.X = -0.70709997
+			a3.Y = 0.70709997
 			return 1
 		} else {
 			v7 = a3
 			if int32(v4)&4 != 0 {
-				v7.field_0 = 0.70709997
-				v7.field_4 = -0.70709997
+				v7.X = 0.70709997
+				v7.Y = -0.70709997
 				return 1
 			} else {
-				v7.field_0 = -0.70709997
-				v7.field_4 = -0.70709997
+				v7.X = -0.70709997
+				v7.Y = -0.70709997
 				return 1
 			}
 		}
@@ -2568,29 +2569,29 @@ func sub_57CDB0(a1 *int2, a2 *float32, a3 *float2) int32 {
 	case 0xA:
 		if int32(v9) != 0 {
 			if int32(v4)&2 != 0 {
-				a3.field_0 = 0.70709997
-				a3.field_4 = -0.70709997
+				a3.X = 0.70709997
+				a3.Y = -0.70709997
 				return 1
 			}
 			v8 = a3
-			v8.field_0 = 0.70709997
-			v8.field_4 = 0.70709997
+			v8.X = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		} else {
 			v8 = a3
-			a3.field_0 = -0.70709997
+			a3.X = -0.70709997
 			if (int32(v4) & 2) == 0 {
-				a3.field_4 = -0.70709997
+				a3.Y = -0.70709997
 				return 1
 			}
-			v8.field_4 = 0.70709997
+			v8.Y = 0.70709997
 			return 1
 		}
 	default:
 		return 0
 	}
 }
-func sub_57F1D0(a1 *float2) int8 {
+func sub_57F1D0(a1 *types.Pointf) int8 {
 	var (
 		v1 int8
 		v2 int32
@@ -2600,8 +2601,8 @@ func sub_57F1D0(a1 *float2) int8 {
 		v7 uint8
 	)
 	v1 = 0
-	v2 = int32(a1.field_0)
-	v7 = uint8(int8(int32(a1.field_4) % 23))
+	v2 = int32(a1.X)
+	v7 = uint8(int8(int32(a1.Y) % 23))
 	v3 = float64(uint8(int8(v2 % 23)))
 	if v3 >= 11.5 {
 		v4 = float64(v7)
@@ -2623,7 +2624,7 @@ func sub_57F1D0(a1 *float2) int8 {
 	}
 	return v1
 }
-func sub_57F2A0(a1 *float2, a2 int32, a3 int32) int32 {
+func sub_57F2A0(a1 *types.Pointf, a2 int32, a3 int32) int32 {
 	var (
 		v3     int32
 		v4     int32
@@ -2632,9 +2633,9 @@ func sub_57F2A0(a1 *float2, a2 int32, a3 int32) int32 {
 		v7     float32
 		v8     float32
 	)
-	v7 = float32(float64(a1.field_0) - float64(a2*23))
+	v7 = float32(float64(a1.X) - float64(a2*23))
 	v3 = int32(v7)
-	v8 = float32(float64(a1.field_4) - float64(a3*23))
+	v8 = float32(float64(a1.Y) - float64(a3*23))
 	v4 = int32(v8)
 	if v3 <= v4 {
 		*((*uint8)(unsafe.Pointer(&v4))) = uint8(int8(bool2int32(22-v3 <= v4)))

@@ -4,6 +4,8 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -198,7 +200,7 @@ func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v21    float32
 		xLeft  int2
 		v23    [4]int16
-		v24    float2
+		v24    types.Pointf
 		v25    int32
 		a2     int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
@@ -239,8 +241,8 @@ func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)))
 		v6 = int16(v5 + 20)
 		v25 = int32(uint32(v5) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 436)))
-		v24.field_0 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) - *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*108))))
-		v24.field_4 = float32(float64(v25))
+		v24.X = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) - *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*108))))
+		v24.Y = float32(float64(v25))
 		v7 = nox_xxx_math_509ED0(&v24)
 		v23[2] = int16(v4)
 		v23[3] = v6

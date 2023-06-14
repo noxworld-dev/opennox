@@ -165,10 +165,10 @@ func nox_xxx_delayedDeleteObject_4E5CC0(obj *server.Object) {
 }
 
 func AsPointf(p unsafe.Pointer) types.Pointf {
-	cp := (*float2)(p)
+	cp := (*types.Pointf)(p)
 	return types.Pointf{
-		X: float32(cp.field_0),
-		Y: float32(cp.field_4),
+		X: float32(cp.X),
+		Y: float32(cp.Y),
 	}
 }
 func AsPoint(p unsafe.Pointer) image.Point {
@@ -369,7 +369,7 @@ func Nox_xxx_drop_4ED790(a1 *server.Object, a2 *server.Object, pos types.Pointf)
 	cpos, free := alloc.New(types.Pointf{})
 	defer free()
 	*cpos = pos
-	return int(nox_xxx_drop_4ED790(asObjectC(a1), asObjectC(a2), (*float2)(unsafe.Pointer(cpos))))
+	return int(nox_xxx_drop_4ED790(asObjectC(a1), asObjectC(a2), (*types.Pointf)(unsafe.Pointer(cpos))))
 }
 func Nox_xxx_dropAllItems_4EDA40(a1 *server.Object) {
 	nox_xxx_dropAllItems_4EDA40((*uint32)(a1.CObj()))

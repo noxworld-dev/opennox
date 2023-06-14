@@ -643,7 +643,6 @@ var dword_5d4594_1046652 uint32
 var dword_5d4594_2487632 uint32
 var dword_5d4594_3835360 uint32
 var dword_5d4594_1098456 uint32
-var dword_5d4594_2487804 uint32
 var dword_5d4594_1062552 uint32
 var nox_xxx_aSpellphoneme_3_587000_123008 uint32 = 0x1
 var dword_5d4594_811904 uint32

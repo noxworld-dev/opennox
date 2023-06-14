@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/cnet"
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -133,8 +134,8 @@ func nox_xxx_pointInRect_4281F0(a1 *int2, a2 *int4) int32 {
 	}
 	return bool2int32(result)
 }
-func sub_428220(a1 *float2, a2 *float4) int32 {
-	return bool2int32(float64(a1.field_0) >= float64(a2.field_0) && float64(a1.field_0) <= float64(a2.field_8) && float64(a1.field_4) >= float64(a2.field_4) && float64(a1.field_4) <= float64(a2.field_C))
+func sub_428220(a1 *types.Pointf, a2 *float4) int32 {
+	return bool2int32(float64(a1.X) >= float64(a2.field_0) && float64(a1.X) <= float64(a2.field_8) && float64(a1.Y) >= float64(a2.field_4) && float64(a1.Y) <= float64(a2.field_C))
 }
 func nox_shape_box_calc(s *nox_shape) {
 	const mul float32 = 0.35354999

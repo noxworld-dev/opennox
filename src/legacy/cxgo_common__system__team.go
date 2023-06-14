@@ -3,6 +3,8 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -83,8 +85,8 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 				}
 				if v7 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 8)))&4 != 0 {
 					if a5 == 1 && !nox_xxx_CheckGameplayFlags_417DA0(2) && noxflags.HasGame(128) {
-						sub_4ED970(50.0, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*18))))), 56)), (*float2)(unsafe.Pointer(&v21[0])))
-						nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(v7))), (*float2)(unsafe.Pointer(&v21[0])))
+						sub_4ED970(50.0, (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*18))))), 56)), (*types.Pointf)(unsafe.Pointer(&v21[0])))
+						nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(v7))), (*types.Pointf)(unsafe.Pointer(&v21[0])))
 					}
 					v9 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a4)))
 					if v9 != nil {

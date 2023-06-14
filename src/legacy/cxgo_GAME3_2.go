@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -1681,46 +1682,46 @@ func sub_4D3C80(a1 *uint32) *uint32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) = uint32(v12)
 	return result
 }
-func nox_xxx_mapGenFixCoords_4D3D90(a1 *float2, a2 *float2) int32 {
+func nox_xxx_mapGenFixCoords_4D3D90(a1 *types.Pointf, a2 *types.Pointf) int32 {
 	if a1 == nil || a2 == nil {
 		return 0
 	}
-	a2.field_0 = float32(float64(a1.field_4+a1.field_0)*0.70710677 + 2957.0)
-	a2.field_4 = float32(float64(a1.field_4-a1.field_0)*0.70710677 + 2956.0)
-	if float64(a2.field_0) <= 80.5 {
-		a2.field_0 = 82.5
+	a2.X = float32(float64(a1.Y+a1.X)*0.70710677 + 2957.0)
+	a2.Y = float32(float64(a1.Y-a1.X)*0.70710677 + 2956.0)
+	if float64(a2.X) <= 80.5 {
+		a2.X = 82.5
 	}
-	if float64(a2.field_4) <= 80.5 {
-		a2.field_4 = 81.5
+	if float64(a2.Y) <= 80.5 {
+		a2.Y = 81.5
 	}
-	if float64(a2.field_0) >= 5853.5 {
-		a2.field_0 = 5851.5
+	if float64(a2.X) >= 5853.5 {
+		a2.X = 5851.5
 	}
-	if float64(a2.field_4) >= 5853.5 {
-		a2.field_4 = 5852.5
+	if float64(a2.Y) >= 5853.5 {
+		a2.Y = 5852.5
 	}
 	return 1
 }
-func sub_4D3E30(a1 *float2, a2 *float2) int32 {
+func sub_4D3E30(a1 *types.Pointf, a2 *types.Pointf) int32 {
 	var result int32
 	if a1 == nil || a2 == nil {
 		return 0
 	}
-	if float64(a1.field_0) <= 80.5 {
-		a1.field_0 = 82.5
+	if float64(a1.X) <= 80.5 {
+		a1.X = 82.5
 	}
-	if float64(a1.field_4) <= 80.5 {
-		a1.field_4 = 81.5
+	if float64(a1.Y) <= 80.5 {
+		a1.Y = 81.5
 	}
-	if float64(a1.field_0) >= 5853.5 {
-		a1.field_0 = 5851.5
+	if float64(a1.X) >= 5853.5 {
+		a1.X = 5851.5
 	}
-	if float64(a1.field_4) >= 5853.5 {
-		a1.field_4 = 5852.5
+	if float64(a1.Y) >= 5853.5 {
+		a1.Y = 5852.5
 	}
 	result = 1
-	a2.field_0 = float32((float64(a1.field_0) - 1.0 - float64(a1.field_4)) * 0.70710677)
-	a2.field_4 = float32((float64(a1.field_4+a1.field_0) - 5912.0) * 0.70710677)
+	a2.X = float32((float64(a1.X) - 1.0 - float64(a1.Y)) * 0.70710677)
+	a2.Y = float32((float64(a1.Y+a1.X) - 5912.0) * 0.70710677)
 	return result
 }
 func sub_4D3FF0(a1 int32) int32 {
@@ -1840,7 +1841,7 @@ func nox_xxx_mapGenStep_4D44E0() int32 {
 		i      *byte
 		j      *int32
 		k      *int32
-		a2     float2
+		a2     types.Pointf
 	)
 	dword_5d4594_1550916 = 0
 	sub_57C490_2(internCStr("theme"))
@@ -1875,11 +1876,11 @@ func nox_xxx_mapGenStep_4D44E0() int32 {
 				v3 = int32(int64(float64(*mem_getFloatPtr(0x5D4594, 1549860)) * 0.030743772))
 				v4 = nox_xxx_mapGenMakeRoomStruct_521940(v3*2+1, v3*2+1)
 				v5 = float64(-v3) * 32.526913
-				a2.field_0 = float32(v5)
-				a2.field_4 = float32(v5)
+				a2.X = float32(v5)
+				a2.Y = float32(v5)
 				nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v4)), &a2)
 				for i = (*byte)(nox_xxx_mapGenGetTopRoom_521710()); i != nil; i = (*byte)(unsafe.Pointer(uintptr(sub_521720(int32(uintptr(unsafe.Pointer(i))))))) {
-					sub_521BC0(int32(uintptr(unsafe.Pointer(v4))), (*float2)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 20)))), *((*float32)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(float32(0))*7))), *((*float32)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(float32(0))*8))))
+					sub_521BC0(int32(uintptr(unsafe.Pointer(v4))), (*types.Pointf)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 20)))), *((*float32)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(float32(0))*7))), *((*float32)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(float32(0))*8))))
 				}
 				sub_524070(int32(uintptr(memmap.PtrOff(0x5D4594, 1549796))), int32(uintptr(unsafe.Pointer(v4))))
 				nox_xxx_gen_524E00(int32(uintptr(memmap.PtrOff(0x5D4594, 1549796))), int32(uintptr(unsafe.Pointer(v4))))
@@ -1953,12 +1954,12 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 		v31    int32
 		v32    int32
 		v33    int32 = 0
-		v34    float2
-		a2     float2
+		v34    types.Pointf
+		a2     types.Pointf
 		v36    float32
 		v37    float32
-		v38    float2
-		v39    float2
+		v38    types.Pointf
+		v39    types.Pointf
 		a1     int2
 	)
 	result = (*float32)(nox_xxx_mapGenGetTopRoom_521710())
@@ -2004,91 +2005,91 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 							return uint32(v31) == *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)))-1
 						}()) {
 							if v2 != nil && v29 >= 3 {
-								v34.field_0 = float32(float64((v3+v31)/2)*32.526913 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*9))))
+								v34.X = float32(float64((v3+v31)/2)*32.526913 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*9))))
 								if v32 == 1 {
-									v34.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*12))
+									v34.Y = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*12))
 								} else {
-									v34.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*10))
+									v34.Y = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*10))
 								}
 								sub_527030(&v34)
-								v34.field_0 = float32(float64(v34.field_0) - 16.263456)
+								v34.X = float32(float64(v34.X) - 16.263456)
 								if v29 < 4 {
 									nox_xxx_mapGenGetObjID_527940(internCStr("ArchedDoor"))
 								} else {
 									nox_xxx_mapGenGetObjID_527940(internCStr("ArchedHalfDoor"))
 								}
-								v20 = nox_xxx_mapGenPlaceObj_5279B0((*float2)(unsafe.Pointer(&v34.field_0)))
+								v20 = nox_xxx_mapGenPlaceObj_5279B0((*types.Pointf)(unsafe.Pointer(&v34.X)))
 								if v20 != nil {
 									nox_xxx_mapGenOrientObj_527C60(int32(uintptr(unsafe.Pointer(v20))), 5)
 								}
-								a2.field_0 = v34.field_0
+								a2.X = v34.X
 								if v32 == 1 {
-									a2.field_4 = float32(float64(v34.field_4) - 32.526913)
+									a2.Y = float32(float64(v34.Y) - 32.526913)
 								} else {
-									a2.field_4 = v34.field_4
+									a2.Y = v34.Y
 								}
 								sub_521BC0(int32(uintptr(unsafe.Pointer(v1))), &a2, 32.526913, 32.526913)
 								if nox_xxx_mapGenCheckRoomType_5238F0(v2) != 0 {
-									v21 = float64(a2.field_4)
+									v21 = float64(a2.Y)
 									if v32 == 1 {
 										v22 = v21 + 32.526913
 									} else {
 										v22 = v21 - 32.526913
 									}
-									a2.field_4 = float32(v22)
+									a2.Y = float32(v22)
 									sub_521BC0(int32(uintptr(unsafe.Pointer(v2))), &a2, 32.526913, 32.526913)
 								}
-								v23 = float64(v34.field_0) + 16.263456
+								v23 = float64(v34.X) + 16.263456
 								if v29 < 4 {
-									v37 = v34.field_4
+									v37 = v34.Y
 								} else {
-									v34.field_0 = float32(v23 + 32.526913)
+									v34.X = float32(v23 + 32.526913)
 									sub_527030(&v34)
-									v34.field_0 = float32(float64(v34.field_0) + 16.263456)
+									v34.X = float32(float64(v34.X) + 16.263456)
 									nox_xxx_mapGenGetObjID_527940(internCStr("ArchedHalfDoor"))
-									v24 = nox_xxx_mapGenPlaceObj_5279B0((*float2)(unsafe.Pointer(&v34.field_0)))
+									v24 = nox_xxx_mapGenPlaceObj_5279B0((*types.Pointf)(unsafe.Pointer(&v34.X)))
 									if v24 != nil {
 										nox_xxx_mapGenOrientObj_527C60(int32(uintptr(unsafe.Pointer(v24))), 3)
 									}
-									v25 = float64(v34.field_0) - 32.526913
-									v37 = v34.field_4
+									v25 = float64(v34.X) - 32.526913
+									v37 = v34.Y
 									v36 = float32(v25)
-									a2.field_0 = float32(v25)
+									a2.X = float32(v25)
 									if v32 == 1 {
-										a2.field_4 = float32(float64(v34.field_4) - 32.526913)
+										a2.Y = float32(float64(v34.Y) - 32.526913)
 									} else {
-										a2.field_4 = v34.field_4
+										a2.Y = v34.Y
 									}
 									sub_521BC0(int32(uintptr(unsafe.Pointer(v1))), &a2, 32.526913, 32.526913)
 									if nox_xxx_mapGenCheckRoomType_5238F0(v2) != 0 {
-										v26 = float64(a2.field_4)
+										v26 = float64(a2.Y)
 										if v32 == 1 {
 											v27 = v26 + 32.526913
 										} else {
 											v27 = v26 - 32.526913
 										}
-										a2.field_4 = float32(v27)
+										a2.Y = float32(v27)
 										sub_521BC0(int32(uintptr(unsafe.Pointer(v2))), &a2, 32.526913, 32.526913)
 									}
 									v23 = float64(v36)
 								}
-								v39.field_0 = float32(v23)
-								v39.field_4 = float32(float64(v37) - 32.526913)
-								v38.field_0 = float32(v23)
-								v38.field_4 = float32(float64(v37) + 32.526913)
-								sub_522C80(&v39.field_0)
-								sub_522C80(&v38.field_0)
+								v39.X = float32(v23)
+								v39.Y = float32(float64(v37) - 32.526913)
+								v38.X = float32(v23)
+								v38.Y = float32(float64(v37) + 32.526913)
+								sub_522C80(&v39.X)
+								sub_522C80(&v38.X)
 								sub_51D3F0(&v39, &v38)
 								sub_51D3F0(&v38, &v39)
 								if v32 == 1 {
-									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v39.field_0)
+									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v39.X)
 									if *v2 == 1 {
-										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v38.field_0)
+										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v38.X)
 									}
 								} else {
-									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v38.field_0)
+									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v38.X)
 									if *v2 == 1 {
-										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v39.field_0)
+										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v39.X)
 									}
 								}
 								sub_521900(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v2))), v32)
@@ -2138,90 +2139,90 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 						}()) {
 							if v2 != nil && v29 >= 3 {
 								if v32 == 2 {
-									v34.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*11))
+									v34.X = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*11))
 								} else {
-									v34.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*9))
+									v34.X = *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*9))
 								}
-								v34.field_4 = float32(float64((v3+v30)/2)*32.526913 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*10))))
+								v34.Y = float32(float64((v3+v30)/2)*32.526913 + float64(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*10))))
 								sub_527030(&v34)
-								v34.field_4 = float32(float64(v34.field_4) - 16.263456)
+								v34.Y = float32(float64(v34.Y) - 16.263456)
 								if v29 < 4 {
 									nox_xxx_mapGenGetObjID_527940(internCStr("ArchedDoor"))
 								} else {
 									nox_xxx_mapGenGetObjID_527940(internCStr("ArchedHalfDoor"))
 								}
-								v8 = nox_xxx_mapGenPlaceObj_5279B0((*float2)(unsafe.Pointer(&v34.field_0)))
+								v8 = nox_xxx_mapGenPlaceObj_5279B0((*types.Pointf)(unsafe.Pointer(&v34.X)))
 								if v8 != nil {
 									nox_xxx_mapGenOrientObj_527C60(int32(uintptr(unsafe.Pointer(v8))), 7)
 								}
 								if v32 == 2 {
-									a2.field_0 = float32(float64(v34.field_0) - 32.526913)
+									a2.X = float32(float64(v34.X) - 32.526913)
 								} else {
-									a2.field_0 = v34.field_0
+									a2.X = v34.X
 								}
-								a2.field_4 = v34.field_4
+								a2.Y = v34.Y
 								sub_521BC0(int32(uintptr(unsafe.Pointer(v1))), &a2, 32.526913, 32.526913)
 								if nox_xxx_mapGenCheckRoomType_5238F0(v2) != 0 {
-									v9 = float64(a2.field_0)
+									v9 = float64(a2.X)
 									if v32 == 2 {
 										v10 = v9 + 32.526913
 									} else {
 										v10 = v9 - 32.526913
 									}
-									a2.field_0 = float32(v10)
+									a2.X = float32(v10)
 									sub_521BC0(int32(uintptr(unsafe.Pointer(v2))), &a2, 32.526913, 32.526913)
 								}
 								if v29 < 4 {
-									v15 = float64(v34.field_4) + 16.263456
-									v36 = v34.field_0
+									v15 = float64(v34.Y) + 16.263456
+									v36 = v34.X
 								} else {
-									v34.field_4 = float32(float64(v34.field_4) + 16.263456 + 32.526913)
+									v34.Y = float32(float64(v34.Y) + 16.263456 + 32.526913)
 									sub_527030(&v34)
-									v34.field_4 = float32(float64(v34.field_4) + 16.263456)
+									v34.Y = float32(float64(v34.Y) + 16.263456)
 									nox_xxx_mapGenGetObjID_527940(internCStr("ArchedHalfDoor"))
-									v11 = nox_xxx_mapGenPlaceObj_5279B0((*float2)(unsafe.Pointer(&v34.field_0)))
+									v11 = nox_xxx_mapGenPlaceObj_5279B0((*types.Pointf)(unsafe.Pointer(&v34.X)))
 									if v11 != nil {
 										nox_xxx_mapGenOrientObj_527C60(int32(uintptr(unsafe.Pointer(v11))), 1)
 									}
-									v12 = float64(v34.field_4) - 32.526913
-									v36 = v34.field_0
+									v12 = float64(v34.Y) - 32.526913
+									v36 = v34.X
 									v37 = float32(v12)
 									if v32 == 2 {
-										a2.field_0 = float32(float64(v34.field_0) - 32.526913)
+										a2.X = float32(float64(v34.X) - 32.526913)
 									} else {
-										a2.field_0 = v34.field_0
+										a2.X = v34.X
 									}
-									a2.field_4 = float32(v12)
+									a2.Y = float32(v12)
 									sub_521BC0(int32(uintptr(unsafe.Pointer(v1))), &a2, 32.526913, 32.526913)
 									if nox_xxx_mapGenCheckRoomType_5238F0(v2) != 0 {
-										v13 = float64(a2.field_0)
+										v13 = float64(a2.X)
 										if v32 == 2 {
 											v14 = v13 + 32.526913
 										} else {
 											v14 = v13 - 32.526913
 										}
-										a2.field_0 = float32(v14)
+										a2.X = float32(v14)
 										sub_521BC0(int32(uintptr(unsafe.Pointer(v2))), &a2, 32.526913, 32.526913)
 									}
 									v15 = float64(v37)
 								}
-								v39.field_0 = float32(float64(v36) - 32.526913)
-								v39.field_4 = float32(v15)
-								v38.field_0 = float32(float64(v36) + 32.526913)
-								v38.field_4 = float32(v15)
-								sub_522C80(&v39.field_0)
-								sub_522C80(&v38.field_0)
+								v39.X = float32(float64(v36) - 32.526913)
+								v39.Y = float32(v15)
+								v38.X = float32(float64(v36) + 32.526913)
+								v38.Y = float32(v15)
+								sub_522C80(&v39.X)
+								sub_522C80(&v38.X)
 								sub_51D3F0(&v39, &v38)
 								sub_51D3F0(&v38, &v39)
 								if v32 == 2 {
-									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v39.field_0)
+									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v39.X)
 									if *v2 == 1 {
-										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v38.field_0)
+										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v38.X)
 									}
 								} else {
-									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v38.field_0)
+									sub_522CA0(int32(uintptr(unsafe.Pointer(v1))), &v38.X)
 									if *v2 == 1 {
-										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v39.field_0)
+										sub_522CA0(int32(uintptr(unsafe.Pointer(v2))), &v39.X)
 									}
 								}
 								sub_521900(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v2))), v32)
@@ -2291,12 +2292,12 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 		v19    int32
 		v20    int32
 		v21    int32
-		v22    float2
+		v22    types.Pointf
 		v24    int32
 		v25    *int32
 		v26    *float32
 		v27    int32
-		v28    float2
+		v28    types.Pointf
 		v30    [128]int32
 	)
 	v1 = nil
@@ -2304,8 +2305,8 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 	if *a1 == 1 {
 		v26 = nil
 		v24 = 0
-		v22.field_0 = 0.0
-		v22.field_4 = 0.0
+		v22.X = 0.0
+		v22.Y = 0.0
 		v25 = mem_getI32Ptr(0x587000, 197924)
 	LABEL_5:
 		v4 = 0
@@ -2322,26 +2323,26 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 			*(*uint32)(unsafe.Pointer(v6)) = uint32(v27)
 			switch v7 {
 			case 2:
-				v22.field_4 = float32(float64(v22.field_4) - 162.63457)
+				v22.Y = float32(float64(v22.Y) - 162.63457)
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*3))) = 4
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))) = 5
 				sub_521900(int32(uintptr(unsafe.Pointer(v6))), int32(uintptr(unsafe.Pointer(v1))), 1)
 				sub_521900(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v6))), 0)
 			case 3:
 				if *(*uint32)(unsafe.Pointer(v1)) == 4 {
-					v22.field_0 = float32(float64(v22.field_0) + 32.526913)
-					v8 = float64(v22.field_4) + 130.10765
+					v22.X = float32(float64(v22.X) + 32.526913)
+					v8 = float64(v22.Y) + 130.10765
 				} else {
-					v8 = float64(v22.field_4) + 162.63457
+					v8 = float64(v22.Y) + 162.63457
 				}
-				v22.field_4 = float32(v8)
+				v22.Y = float32(v8)
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*3))) = 4
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))) = 5
 				sub_521900(int32(uintptr(unsafe.Pointer(v6))), int32(uintptr(unsafe.Pointer(v1))), 0)
 				sub_521900(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v6))), 1)
 			case 4:
 				if v1 != nil {
-					v22.field_0 = float32(float64(v22.field_0) + 162.63457)
+					v22.X = float32(float64(v22.X) + 162.63457)
 					sub_521900(int32(uintptr(unsafe.Pointer(v6))), int32(uintptr(unsafe.Pointer(v1))), 3)
 					sub_521900(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v6))), 2)
 				}
@@ -2349,9 +2350,9 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))) = 4
 			case 5:
 				if *(*uint32)(unsafe.Pointer(v1)) == 3 {
-					v22.field_4 = float32(float64(v22.field_4) + 32.526913)
+					v22.Y = float32(float64(v22.Y) + 32.526913)
 				}
-				v22.field_0 = float32(float64(v22.field_0) - 162.63457)
+				v22.X = float32(float64(v22.X) - 162.63457)
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*3))) = 5
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))) = 4
 				sub_521900(int32(uintptr(unsafe.Pointer(v6))), int32(uintptr(unsafe.Pointer(v1))), 2)
@@ -2361,8 +2362,8 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 				}
 			default:
 			}
-			v28.field_0 = float32(float64(v22.field_0) - 878.22662)
-			v28.field_4 = float32(float64(v22.field_4) - 878.22662)
+			v28.X = float32(float64(v22.X) - 878.22662)
+			v28.Y = float32(float64(v22.Y) - 878.22662)
 			*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*7)) = float32(float64(*((*int32)(unsafe.Add(unsafe.Pointer(v6), 4*3)))) * 32.526913)
 			*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*8)) = float32(float64(*((*int32)(unsafe.Add(unsafe.Pointer(v6), 4*4)))) * 32.526913)
 			nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v6)), &v28)
@@ -2385,8 +2386,8 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 				sub_521900(v10, v12, 3)
 				v14 = int32(uintptr(unsafe.Pointer(v26)))
 				v15 = 0
-				v22.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*5))
-				v22.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*8)) + *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*6))
+				v22.X = *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*5))
+				v22.Y = *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*8)) + *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*6))
 				for {
 					result = (*float32)(alloc.Calloc1(1, 0x178))
 					v16 = result
@@ -2407,7 +2408,7 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 					v17 = v24 + 1
 					v13 = (*int32)(unsafe.Add(unsafe.Pointer(v13), 4*1))
 					v15++
-					v22.field_4 = float32(float64(v22.field_4) + 162.63457)
+					v22.Y = float32(float64(v22.Y) + 162.63457)
 					v24++
 					if v15 >= 8 {
 						v18 = v17
@@ -2438,8 +2439,8 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 		dword_5d4594_1550916 = uint32(uintptr(unsafe.Pointer(result)))
 		if result != nil {
 			v3 = float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*17))))
-			v22.field_0 = 0.0
-			v22.field_4 = float32(v3*32.526913 - float64(*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*8))) + 97.580734)
+			v22.X = 0.0
+			v22.Y = float32(v3*32.526913 - float64(*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*8))) + 97.580734)
 			nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(result)), &v22)
 			nox_xxx_mapGenAddNewRoom_521730(*(**uint32)(unsafe.Pointer(&dword_5d4594_1550916)))
 			result = *(**float32)(unsafe.Pointer(&dword_5d4594_1550916))
@@ -2512,7 +2513,7 @@ func nox_xxx_mapGenFillRoom_4D53B0(a1 int32, a2 int32, a3 int32, a4 int32, a5 in
 		v25 int32
 		v26 int32
 		v28 int32
-		a2a float2
+		a2a types.Pointf
 		v30 int32
 		v31 int32
 	)
@@ -2578,23 +2579,23 @@ func nox_xxx_mapGenFillRoom_4D53B0(a1 int32, a2 int32, a3 int32, a4 int32, a5 in
 			}
 			switch *(*uint32)(unsafe.Pointer(v18)) {
 			case 2:
-				a2a.field_0 = float32(sub_521B00(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(unsafe.Pointer(v18)))))
+				a2a.X = float32(sub_521B00(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(unsafe.Pointer(v18)))))
 				v19 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(float32(0))*6)) - *(*float32)(unsafe.Add(unsafe.Pointer(v18), unsafe.Sizeof(float32(0))*8)))
-				a2a.field_4 = float32(v19)
+				a2a.Y = float32(v19)
 			case 3:
-				a2a.field_0 = float32(sub_521B00(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(unsafe.Pointer(v18)))))
+				a2a.X = float32(sub_521B00(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(unsafe.Pointer(v18)))))
 				v19 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(float32(0))*8)) + *(*float32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(float32(0))*6)))
-				a2a.field_4 = float32(v19)
+				a2a.Y = float32(v19)
 			case 4:
 				v20 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(float32(0))*7)) + *(*float32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(float32(0))*5)))
-				a2a.field_0 = float32(v20)
+				a2a.X = float32(v20)
 				v19 = sub_521B30(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(unsafe.Pointer(v18))))
-				a2a.field_4 = float32(v19)
+				a2a.Y = float32(v19)
 			case 5:
 				v20 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(float32(0))*5)) - *(*float32)(unsafe.Add(unsafe.Pointer(v18), unsafe.Sizeof(float32(0))*7)))
-				a2a.field_0 = float32(v20)
+				a2a.X = float32(v20)
 				v19 = sub_521B30(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(unsafe.Pointer(v18))))
-				a2a.field_4 = float32(v19)
+				a2a.Y = float32(v19)
 			default:
 			}
 			nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v18)), &a2a)
@@ -2682,7 +2683,7 @@ func sub_4D5630(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 		v43 int32
 		v44 int32
 		v45 int32
-		a2a float2
+		a2a types.Pointf
 		v47 int32
 		v48 int32
 		v49 int32
@@ -2703,23 +2704,23 @@ func sub_4D5630(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 			}
 			switch *(*uint32)(unsafe.Pointer(uintptr(a1))) {
 			case 2:
-				a2a.field_0 = float32(sub_521B60(int32(uintptr(unsafe.Pointer(v8))), a1))
+				a2a.X = float32(sub_521B60(int32(uintptr(unsafe.Pointer(v8))), a1))
 				v9 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24)) - *(*float32)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(float32(0))*8)))
-				a2a.field_4 = float32(v9)
+				a2a.Y = float32(v9)
 			case 3:
-				a2a.field_0 = float32(sub_521B60(int32(uintptr(unsafe.Pointer(v8))), a1))
+				a2a.X = float32(sub_521B60(int32(uintptr(unsafe.Pointer(v8))), a1))
 				v9 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 32)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24)))
-				a2a.field_4 = float32(v9)
+				a2a.Y = float32(v9)
 			case 4:
 				v10 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)))
-				a2a.field_0 = float32(v10)
+				a2a.X = float32(v10)
 				v9 = sub_521B90(int32(uintptr(unsafe.Pointer(v8))), a1)
-				a2a.field_4 = float32(v9)
+				a2a.Y = float32(v9)
 			case 5:
 				v10 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(float32(0))*7)))
-				a2a.field_0 = float32(v10)
+				a2a.X = float32(v10)
 				v9 = sub_521B90(int32(uintptr(unsafe.Pointer(v8))), a1)
-				a2a.field_4 = float32(v9)
+				a2a.Y = float32(v9)
 			default:
 			}
 			nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v8)), &a2a)
@@ -2754,20 +2755,20 @@ func sub_4D5630(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	switch *(*uint32)(unsafe.Pointer(uintptr(a1))) {
 	case 2:
 		v15 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(float32(0))*7)))
-		a2a.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24))
-		a2a.field_0 = float32(v15)
+		a2a.Y = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24))
+		a2a.X = float32(v15)
 	case 3:
-		a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20))
+		a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20))
 		v16 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 32)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24)) - *(*float32)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(float32(0))*8)))
-		a2a.field_4 = float32(v16)
+		a2a.Y = float32(v16)
 	case 4:
-		a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(float32(0))*7))
+		a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(float32(0))*7))
 		v16 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24)) - *(*float32)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(float32(0))*8)))
-		a2a.field_4 = float32(v16)
+		a2a.Y = float32(v16)
 	case 5:
 		v16 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 32)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24)))
-		a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20))
-		a2a.field_4 = float32(v16)
+		a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20))
+		a2a.Y = float32(v16)
 	default:
 	}
 	nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v13)), &a2a)
@@ -2835,22 +2836,22 @@ LABEL_43:
 	switch *(*uint32)(unsafe.Pointer(uintptr(v5))) {
 	case 2:
 		v23 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20)))
-		a2a.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24))
-		a2a.field_0 = float32(v23)
+		a2a.Y = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24))
+		a2a.X = float32(v23)
 	case 3:
-		a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v22), unsafe.Sizeof(float32(0))*7))
+		a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v22), unsafe.Sizeof(float32(0))*7))
 		v24 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 32)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24)))
 		v25 = v24 - float64(*(*float32)(unsafe.Add(unsafe.Pointer(v22), unsafe.Sizeof(float32(0))*8)))
-		a2a.field_4 = float32(v25)
+		a2a.Y = float32(v25)
 	case 4:
-		a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v22), unsafe.Sizeof(float32(0))*7))
+		a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v22), unsafe.Sizeof(float32(0))*7))
 		v25 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 32)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24)))
-		a2a.field_4 = float32(v25)
+		a2a.Y = float32(v25)
 	case 5:
 		v24 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24)))
-		a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20))
+		a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20))
 		v25 = v24 - float64(*(*float32)(unsafe.Add(unsafe.Pointer(v22), unsafe.Sizeof(float32(0))*8)))
-		a2a.field_4 = float32(v25)
+		a2a.Y = float32(v25)
 	default:
 	}
 	nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v22)), &a2a)
@@ -2917,20 +2918,20 @@ LABEL_71:
 			switch *(*uint32)(unsafe.Pointer(uintptr(v5))) {
 			case 2:
 				v33 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24)))
-				a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20))
-				a2a.field_4 = float32(v33 - float64(*(*float32)(unsafe.Add(unsafe.Pointer(v31), unsafe.Sizeof(float32(0))*8))))
+				a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20))
+				a2a.Y = float32(v33 - float64(*(*float32)(unsafe.Add(unsafe.Pointer(v31), unsafe.Sizeof(float32(0))*8))))
 			case 3:
 				v34 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 32)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24)))
-				a2a.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20))
-				a2a.field_4 = float32(v34)
+				a2a.X = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20))
+				a2a.Y = float32(v34)
 			case 4:
 				v35 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 28)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20)))
-				a2a.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24))
-				a2a.field_0 = float32(v35)
+				a2a.Y = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24))
+				a2a.X = float32(v35)
 			case 5:
 				v36 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 20)) - *(*float32)(unsafe.Add(unsafe.Pointer(v31), unsafe.Sizeof(float32(0))*7)))
-				a2a.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24))
-				a2a.field_0 = float32(v36)
+				a2a.Y = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 24))
+				a2a.X = float32(v36)
 			default:
 			}
 			nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v31)), &a2a)
@@ -3444,19 +3445,19 @@ func sub_4D7480(a1p *server.Object) {
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int32
 		v2 int32
-		v3 *float2
+		v3 *types.Pointf
 	)
 	if a1 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))&4 != 0 {
 		v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
 		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 316)))
 		if v2 != 0 {
-			v3 = *(**float2)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 700))
+			v3 = *(**types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 700))
 			nox_xxx_playerLeaveObserver_0_4E6AA0((*server.Player)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 276))))))
 			nox_xxx_playerCameraUnlock_4E6040((*server.Object)(unsafe.Pointer(uintptr(a1))))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 316)) = 0
-			nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(a1))), (*float2)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(float2{})*10)))
+			nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(uintptr(a1))), (*types.Pointf)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(types.Pointf{})*10)))
 			nox_xxx_aud_501960(312, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36))))
-			nox_xxx_netSendPointFx_522FF0(-127, (*float2)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(float2{})*10)))
+			nox_xxx_netSendPointFx_522FF0(-127, (*types.Pointf)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(types.Pointf{})*10)))
 		}
 	}
 }
@@ -4523,7 +4524,7 @@ func sub_4D90E0(a1 int32, a2 int8) int32 {
 	v3[1] = byte(a2)
 	return nox_netlist_addToMsgListCli_40EBC0(a1, 1, (*uint8)(unsafe.Pointer(&v3[0])), 2)
 }
-func nox_xxx_earthquakeSend_4D9110(a1 *float32, a2 int32) int32 {
+func nox_xxx_earthquakeSend_4D9110(a1 *types.Pointf, a2 int32) int32 {
 	var (
 		result int32
 		i      int32
@@ -4535,8 +4536,8 @@ func nox_xxx_earthquakeSend_4D9110(a1 *float32, a2 int32) int32 {
 	result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
 	for i = result; result != 0; i = result {
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))
-		v5 = float64(*a1 - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 3632)))
-		v6 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1)) - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 3636)))
+		v5 = float64(a1.X - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 3632)))
+		v6 = float64(a1.Y - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 3636)))
 		v7 = v6*v6 + v5*v5
 		if v7 < 90000.0 {
 			sub_4D90E0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2064))), int8(int64((1.0-v7*1.1111111e-05)*float64(a2))))
@@ -6674,7 +6675,7 @@ func nox_xxx_confuseEffect_4E0670(a1 unsafe.Pointer, a2p, a3p, a4p *server.Objec
 func nox_xxx_lightngEffect_4E06F0(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5, a6 unsafe.Pointer) {
 	if a4p != nil {
 		a4p.Damage.Get()(a4p, a3p, a2p, int(*(*float32)(unsafe.Add(a1, 56))), object.DamageElectric)
-		nox_xxx_netSendPointFx_522FF0(-127, (*float2)(unsafe.Pointer(&a4p.PosVec)))
+		nox_xxx_netSendPointFx_522FF0(-127, (*types.Pointf)(unsafe.Pointer(&a4p.PosVec)))
 		nox_xxx_aud_501960(225, a4p, 0, 0)
 	}
 }
@@ -6737,7 +6738,7 @@ func nox_xxx_poisonEffect_4E0850(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object
 		v5 int32
 	)
 	v4 := a4
-	if ((int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 8)))&4) == 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 748)))), 88))) != 16 || (nox_server_testTwoPointsAndDirection_4E6E50((*float2)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 56)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 124))), (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 56)))&1) == 0) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8)))&6 != 0 && nox_xxx_activatePoison_4EE7E0(v4, 1, int32(*(*uint32)(unsafe.Add(a1, 72)))) != 0 {
+	if ((int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 8)))&4) == 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 748)))), 88))) != 16 || (nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 56)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a4)), 124))), (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(a3)), 56)))&1) == 0) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8)))&6 != 0 && nox_xxx_activatePoison_4EE7E0(v4, 1, int32(*(*uint32)(unsafe.Add(a1, 72)))) != 0 {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8)))&4 != 0 {
 			v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 748)))
 			a4 := int32(2)
@@ -7402,6 +7403,7 @@ func nox_xxx_itemDestroyed_4E1650(a1 int32, a2 *uint32, a3 uint16, a4 uint16) {
 	}
 }
 func nox_xxx_equipDamage_4E16D0(a1, a2, a3, a4 unsafe.Pointer, a5 float32, a6 int32) {
+	a1p := AsObjectP(a1)
 	var (
 		v6  *float32
 		v7  int32
@@ -7423,7 +7425,7 @@ func nox_xxx_equipDamage_4E16D0(a1, a2, a3, a4 unsafe.Pointer, a5 float32, a6 in
 		*v6 = float32(float64(a5) - float64(v9))
 		if v9 > 0 {
 			v10 = **(**uint16)(unsafe.Add(a1, 556))
-			ccall.AsFunc[func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(a1, 716)))(a1, a3, a4, v9, a6)
+			a1p.Damage.Get()(a1p, AsObjectP(a3), AsObjectP(a4), int(v9), object.DamageType(a6))
 			if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
 				v11 = **(**uint16)(unsafe.Add(a1, 556))
 				if int32(v10) != int32(v11) {

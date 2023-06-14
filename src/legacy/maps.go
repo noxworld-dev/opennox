@@ -206,7 +206,7 @@ func Nox_xxx_tileNFromPoint_411160(p types.Pointf) int {
 	cp, free := alloc.New(types.Pointf{})
 	defer free()
 	*cp = p
-	return int(nox_xxx_tileNFromPoint_411160((*float2)(unsafe.Pointer(cp))))
+	return int(nox_xxx_tileNFromPoint_411160((*types.Pointf)(unsafe.Pointer(cp))))
 }
 
 func Nox_xxx_unitSetDecayTime_511660(obj *server.Object, a2 int) {

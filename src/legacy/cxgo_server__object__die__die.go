@@ -3,6 +3,8 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -18,7 +20,7 @@ func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
 		v7  *wchar2_t
 		v8  int32
 		v9  *wchar2_t
-		v10 *float2
+		v10 *types.Pointf
 	)
 	v1 = a1
 	v2 = 0
@@ -33,9 +35,9 @@ func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
 	}
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 492)))
 	if v5 != 0 {
-		v10 = (*float2)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 56))
+		v10 = (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 56))
 	} else {
-		v10 = (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))
+		v10 = (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))
 	}
 	v6 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 24)))
 	if int32(v6)&0x10 != 0 {
@@ -79,7 +81,7 @@ func nox_xxx_dieWeapon_54E370_obj_die(obj *server.Object) {
 	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1 int32
-		v2 *float2
+		v2 *types.Pointf
 		v3 int16
 		v4 *wchar2_t
 		v5 *wchar2_t
@@ -89,9 +91,9 @@ func nox_xxx_dieWeapon_54E370_obj_die(obj *server.Object) {
 		v9 *wchar2_t
 	)
 	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 492)))
-	v2 = (*float2)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 56))
+	v2 = (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 56))
 	if v1 == 0 {
-		v2 = (*float2)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))
+		v2 = (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56))
 	}
 	v3 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 24)))
 	if int32(v3)&0x10 != 0 {

@@ -3,6 +3,8 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -45,7 +47,7 @@ func sub_57AF30(a1 unsafe.Pointer, a2 int32) {
 		v2 = dword_5d4594_2523780
 	}
 	if (a2 == 0 || a2 == 1) && v2 != nil {
-		nox_xxx_netSendPointFx_522FF0(-102, (*float2)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 56)))
+		nox_xxx_netSendPointFx_522FF0(-102, (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 56)))
 		v2 = dword_5d4594_2523780
 	}
 	if a2 == 0 {

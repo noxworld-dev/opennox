@@ -21,8 +21,8 @@ func nox_xxx_aud_501960(a1 int32, a2p *server.Object, a3 int32, a4 int32) {
 }
 
 // nox_xxx_audCreate_501A30
-func nox_xxx_audCreate_501A30(a1 int32, cpos *float2, a3 int32, a4 int32) {
-	GetServer().AudioEventPos(sound.ID(a1), *(*types.Pointf)(unsafe.Pointer(cpos)), int(a3), uint32(a4))
+func nox_xxx_audCreate_501A30(a1 int32, cpos *types.Pointf, a3 int32, a4 int32) {
+	GetServer().AudioEventPos(sound.ID(a1), *cpos, int(a3), uint32(a4))
 }
 
 // nox_xxx_netUpdateRemotePlr_501CA0_B

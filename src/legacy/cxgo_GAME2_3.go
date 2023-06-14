@@ -8,6 +8,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -2501,8 +2502,8 @@ func nox_xxx_drawBlack_496150(a1p *nox_draw_viewport_t) {
 		v74 int32
 		v75 int32
 		v76 int32
-		a4  float2
-		v78 float2
+		a4  types.Pointf
+		v78 types.Pointf
 		v79 int32
 		v80 int32
 		a1a int2
@@ -2641,45 +2642,45 @@ LABEL_32:
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 12)) = 1
 				v24 = int8(v22 | 1)
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 4)) = uint8(v24)
-				if float64(v78.field_0) < float64(a4.field_0) {
+				if float64(v78.X) < float64(a4.X) {
 					*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 4)) = uint8(int8(int32(v24) | 2))
 				}
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 3)) |= *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 36))
 				v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 24)) + (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 28)) << 8))
 			case 1:
-				a4.field_0 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414C50(int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40))*25736)/75000-19302))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))/2)/4096))
-				a4.field_4 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
+				a4.X = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414C50(int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40))*25736)/75000-19302))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))/2)/4096))
+				a4.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
 				v18 = 0
-				v78.field_0 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414C50(int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44))*25736)/75000-19302))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))/2)/4096))
-				v78.field_4 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
+				v78.X = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414C50(int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44))*25736)/75000-19302))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))/2)/4096))
+				v78.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
 			case 2:
 				v25 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))
 				v26 = int32(*memmap.PtrUint32(0x5D4594, 1217444) - uint32(sub_414C50(int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40))*25736)/75000-6434))*(v25/2)/4096))
 				v27 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + v25 - 1
 				v28 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))
-				a4.field_0 = float32(float64(v26))
-				a4.field_4 = float32(float64(v27))
+				a4.X = float32(float64(v26))
+				a4.Y = float32(float64(v27))
 				v29 = sub_414C50(int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44))*25736)/75000 - 6434))
 				v76 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + v28 - 1
-				v78.field_0 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) - v29*(v28/2)/4096))
-				v78.field_4 = float32(float64(v76))
+				v78.X = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) - v29*(v28/2)/4096))
+				v78.Y = float32(float64(v76))
 				v18 = 0
 			case 3:
 				v32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40)) * 25736)
-				a4.field_0 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
-				a4.field_4 = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) - sub_414C50(int32(uint32(v32)/75000-12868))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8))/2)/4096))
+				a4.X = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
+				a4.Y = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) - sub_414C50(int32(uint32(v32)/75000-12868))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8))/2)/4096))
 				v33 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44)) * 25736)
-				v78.field_0 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
+				v78.X = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
 				v18 = 0
-				v78.field_4 = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) - sub_414C50(int32(uint32(v33)/75000-12868))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8))/2)/4096))
+				v78.Y = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) - sub_414C50(int32(uint32(v33)/75000-12868))*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8))/2)/4096))
 			case 4:
 				v30 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8))
 				v68 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40))*25736) / 75000)
-				a4.field_0 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8)) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) - 1))
-				a4.field_4 = float32(float64(int32(dword_5d4594_1217448 + uint32(sub_414C50(v68)*(v30/2)/4096))))
+				a4.X = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8)) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) - 1))
+				a4.Y = float32(float64(int32(dword_5d4594_1217448 + uint32(sub_414C50(v68)*(v30/2)/4096))))
 				v31 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44))*25736) / 75000)
-				v78.field_0 = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + v30 - 1))
-				v78.field_4 = float32(float64(int32(dword_5d4594_1217448 + uint32(sub_414C50(v31)*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8))/2)/4096))))
+				v78.X = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + v30 - 1))
+				v78.Y = float32(float64(int32(dword_5d4594_1217448 + uint32(sub_414C50(v31)*(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*8))/2)/4096))))
 				v18 = 0
 			case 6:
 				v34 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 20)))
@@ -2692,14 +2693,14 @@ LABEL_32:
 				v36 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40))*25736) / 75000)
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v36)))
 				a3.field_C = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) + sub_414BD0(v36)))
-				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v86.field_0)), (*float2)(unsafe.Pointer(&a4.field_0))) == 0 {
-					a4 = *(*float2)(unsafe.Pointer(&v86.field_0))
+				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v86.field_0)), (*types.Pointf)(unsafe.Pointer(&a4.X))) == 0 {
+					a4 = *(*types.Pointf)(unsafe.Pointer(&v86.field_0))
 				}
 				v37 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44))*25736) / 75000)
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v37)))
 				a3.field_C = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) + sub_414BD0(v37)))
-				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v86.field_0)), (*float2)(unsafe.Pointer(&v78.field_0))) == 0 {
-					v78 = *(*float2)(unsafe.Pointer(&v86.field_8))
+				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v86.field_0)), (*types.Pointf)(unsafe.Pointer(&v78.X))) == 0 {
+					v78 = *(*types.Pointf)(unsafe.Pointer(&v86.field_8))
 				}
 				v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v34)), 128)))
 			case 7:
@@ -2714,17 +2715,17 @@ LABEL_32:
 				v41 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40))*25736) / 75000)
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v41)))
 				a3.field_C = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) + sub_414BD0(v41)))
-				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*float2)(unsafe.Pointer(&a4.field_0))) == 0 {
-					a4 = *(*float2)(unsafe.Pointer(&v83))
+				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*types.Pointf)(unsafe.Pointer(&a4.X))) == 0 {
+					a4 = *(*types.Pointf)(unsafe.Pointer(&v83))
 				}
 				v42 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44))*25736) / 75000)
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v42)))
 				a3.field_C = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) + sub_414BD0(v42)))
-				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*float2)(unsafe.Pointer(&v78.field_0))) != 0 {
+				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*types.Pointf)(unsafe.Pointer(&v78.X))) != 0 {
 					v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 20)))), 128)))
 					break
 				}
-				v78 = *(*float2)(unsafe.Pointer(&v83.field_8))
+				v78 = *(*types.Pointf)(unsafe.Pointer(&v83.field_8))
 				v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 20)))), 128)))
 			case 8, 9, 0xA, 0xB, 0xD, 0xE:
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 20)))), 132)) = 1
@@ -2773,24 +2774,24 @@ LABEL_32:
 				v45 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 40))*25736) / 75000)
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v45)))
 				a3.field_C = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) + sub_414BD0(v45)))
-				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*float2)(unsafe.Pointer(&a4.field_0))) == 0 {
-					a4 = *(*float2)(unsafe.Pointer(&v83.field_0))
+				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*types.Pointf)(unsafe.Pointer(&a4.X))) == 0 {
+					a4 = *(*types.Pointf)(unsafe.Pointer(&v83.field_0))
 				}
 				v46 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 44))*25736) / 75000)
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v46)))
 				a3.field_C = float32(float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)) + sub_414BD0(v46)))
-				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*float2)(unsafe.Pointer(&v78.field_0))) == 0 {
-					v78 = *(*float2)(unsafe.Pointer(&v83.field_8))
+				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*types.Pointf)(unsafe.Pointer(&v78.X))) == 0 {
+					v78 = *(*types.Pointf)(unsafe.Pointer(&v83.field_8))
 					v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 20)))), 128)))
 					break
 				}
 				v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 20)))), 128)))
 			default:
 			}
-			a1a.field_0 = *a1 - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + int32(a4.field_0)
-			a1a.field_4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + int32(a4.field_4)
-			a2.field_0 = *a1 - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + int32(v78.field_0)
-			a2.field_4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + int32(v78.field_4)
+			a1a.field_0 = *a1 - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + int32(a4.X)
+			a1a.field_4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + int32(a4.Y)
+			a2.field_0 = *a1 - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + int32(v78.X)
+			a2.field_4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + int32(v78.Y)
 			if sub_57BA30(&a1a, &a2, (*int4)(unsafe.Pointer(a1))) != 0 {
 				v47 = int32(dword_5d4594_1217464)
 				v48 = a1a.field_4

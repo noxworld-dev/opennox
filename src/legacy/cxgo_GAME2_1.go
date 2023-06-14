@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -5844,11 +5845,11 @@ func nox_xxx_drawAllMB_475810_draw_B(vp *nox_draw_viewport_t) int32 {
 	var (
 		v10 int32 = 1
 		v11 int32
-		v38 float2
+		v38 types.Pointf
 	)
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_FLOOR_RENDERING) || (func() bool {
-		v38.field_0 = float32(float64(vp.World.Max.X))
-		v38.field_4 = float32(float64(vp.World.Max.Y))
+		v38.X = float32(float64(vp.World.Max.X))
+		v38.Y = float32(float64(vp.World.Max.Y))
 		v11 = nox_xxx_tileNFromPoint_411160(&v38)
 		return v11 == math.MaxUint8
 	}()) || v11 == -1 {

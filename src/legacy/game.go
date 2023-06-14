@@ -104,7 +104,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() int32 {
 }
 
 // nox_xxx_mapTraceRay_535250
-func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *float2, a3 *int2, a4 int8) int32 {
+func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *types.Pointf, a3 *int2, a4 int8) int32 {
 	p1 := (*types.Pointf)(unsafe.Pointer(&a1.field_0))
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
 	outPos := (*types.Pointf)(unsafe.Pointer(a2))
@@ -146,7 +146,7 @@ func sub_517A70(a1p *nox_waypoint_t) {
 }
 
 // sub_517B70
-func sub_517B70(pos *float2, fnc func(it *server.Object, data unsafe.Pointer), data unsafe.Pointer) {
+func sub_517B70(pos *types.Pointf, fnc func(it *server.Object, data unsafe.Pointer), data unsafe.Pointer) {
 	if fnc == nil {
 		return
 	}
@@ -161,15 +161,15 @@ func sub_517590(x float32, y float32) int {
 }
 
 // sub_518740
-func sub_518740(a1 *float2, a2 uint8) *nox_waypoint_t {
-	return (*nox_waypoint_t)(GetServer().Sub_518460(*(*types.Pointf)(unsafe.Pointer(a1)), a2, true).C())
+func sub_518740(a1 *types.Pointf, a2 uint8) *nox_waypoint_t {
+	return GetServer().Sub_518460(*a1, a2, true)
 }
 
 type ObjectIter = func(it *server.Object, data unsafe.Pointer)
 
 // nox_xxx_getMissilesInCircle_518170
-func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc ObjectIter, a4 *server.Object) {
-	p := *(*types.Pointf)(unsafe.Pointer(pos))
+func nox_xxx_getMissilesInCircle_518170(pos *types.Pointf, r float32, fnc ObjectIter, a4 *server.Object) {
+	p := *pos
 	GetServer().S().Map.EachMissilesInCircle(p, r, func(it *server.Object) bool {
 		fnc(it, unsafe.Pointer(a4))
 		return true
@@ -195,7 +195,7 @@ func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc ObjectIter, data unsafe.Poi
 }
 
 // nox_xxx_unitsGetInCircle_517F90
-func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float32, fnc ObjectIter, data unsafe.Pointer) {
+func nox_xxx_unitsGetInCircle_517F90(pos *types.Pointf, r float32, fnc ObjectIter, data unsafe.Pointer) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
 		fnc(it, data)
@@ -208,11 +208,8 @@ func nox_xxx_gameSetWallsDamage_4E25A0(v int32) {
 	Nox_xxx_gameSetWallsDamage_4E25A0(int(v))
 }
 
-// nox_xxx_mapDamageUnitsAround_4E25B0
-func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float32, a2, a3 float32, a4, a5 int32, a6, a7 *server.Object) {
-	cpos := unsafe.Slice(a1, 2)
-	pos := types.Pointf{X: float32(cpos[0]), Y: float32(cpos[1])}
-	GetServer().Nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
+func nox_xxx_mapDamageUnitsAround_4E25B0(pos *types.Pointf, a2, a3 float32, a4, a5 int32, a6, a7 *server.Object) {
+	GetServer().Nox_xxx_mapDamageUnitsAround(*pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
 }
 
 func nox_game_addStateCode_43BDD0(code gui.StateID) {
@@ -270,8 +267,7 @@ func nox_xxx_mapCheck_537110(a1, a2 *server.Object) int {
 }
 
 // sub_497180
-func sub_497180(r1, r2 *float4, outp *float2) int {
-	out := (*types.Pointf)(unsafe.Pointer(outp))
+func sub_497180(r1, r2 *float4, out *types.Pointf) int {
 	p, ok := server.LineTracePointXxx(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2)))
 	*out = p
 	return bool2int(ok)
@@ -324,7 +320,7 @@ func Nox_server_testTwoPointsAndDirection_4E6E50(p1 types.Pointf, dir int16, p2 
 	cp2, free2 := alloc.New(types.Pointf{})
 	defer free2()
 	*cp1, *cp2 = p1, p2
-	return int(nox_server_testTwoPointsAndDirection_4E6E50((*float2)(unsafe.Pointer(cp1)), int32(dir), (*float2)(unsafe.Pointer(cp2))))
+	return int(nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Pointer(cp1)), int32(dir), (*types.Pointf)(unsafe.Pointer(cp2))))
 }
 
 func Nox_xxx_mapLoadOrSaveMB_4DCC70(v int) {
@@ -651,13 +647,10 @@ func Sub_455F10(a1 int) {
 	sub_455F10(int32(a1))
 }
 func Nox_xxx_mapFindPlayerStart_4F7AB0(a2 *server.Object) types.Pointf {
-	cp, freeCp := alloc.New(float2{})
+	cp, freeCp := alloc.New(types.Pointf{})
 	defer freeCp()
 	nox_xxx_mapFindPlayerStart_4F7AB0(cp, asObjectC(a2))
-	return types.Pointf{
-		X: float32(cp.field_0),
-		Y: float32(cp.field_4),
-	}
+	return *cp
 }
 func Sub_500510(a1 string) {
 	sub_500510(internCStr(a1))
