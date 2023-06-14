@@ -255,7 +255,7 @@ func nox_things_monster_draw_parse(obj *client.ObjectType, f *binfile.MemFile, a
 			nox_memfile_skip(f, int32(n))
 			n = nox_memfile_read_u8(f)
 			nox_memfile_skip(f, int32(n))
-			v9 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*uintptr(int32(v6)*12+1))))))
+			v9 = int32(uintptr(unsafe.Add(unsafe.Pointer(v2), 4*uintptr(int32(v6)*12+1))))
 			if nox_xxx_loadVectorAnimated_44B8B0(v9, f) != 0 {
 				if nox_xxx_loadVectorAnimated_44BC50(v9, f) != 0 {
 					continue

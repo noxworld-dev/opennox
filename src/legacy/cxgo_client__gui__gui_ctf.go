@@ -25,7 +25,7 @@ func sub_455C30() int32 {
 			v2 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(uintptr(result))), v1)))
 			nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v2)), nil, sub_455CD0, nil)
 			v3 = nox_strman_loadString_40F1D0(internCStr("FlagHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c"), 201)
-			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*18)))), v3)
+			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*18)), v3)
 			if func() int32 {
 				p := &v1
 				*p++
@@ -76,6 +76,6 @@ func sub_455D80(a1 uint8, a2 int8) {
 		} else {
 			v4 = nox_strman_loadString_40F1D0(internCStr("FlagHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c"), 260)
 		}
-		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(wchar2_t(0))*18)))), v4)
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(wchar2_t(0))*18)), v4)
 	}
 }

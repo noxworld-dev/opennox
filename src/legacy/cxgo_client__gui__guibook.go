@@ -156,7 +156,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 						nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x5D4594, 1046884))
 					}
 					v10 = (*uint16)(unsafe.Pointer(uintptr(nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960))))))
-					nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v10)), &v65, nil, 128)
+					nox_xxx_drawGetStringSize_43F840(nil, v10, &v65, nil, 128)
 					v62 = v7
 					v60 = v6 - v65/2
 					v11 = (*int16)(unsafe.Pointer(uintptr(nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960))))))
@@ -164,14 +164,14 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 					if !nox_xxx_spellIsEnabled_424B70(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960))) {
 						nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x5D4594, 1046884))
 					}
-					v13 = (*uint16)(unsafe.Pointer(nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))))
-					nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v13)), &v65, nil, 128)
+					v13 = nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))
+					nox_xxx_drawGetStringSize_43F840(nil, v13, &v65, nil, 128)
 					v62 = v7
 					v60 = v6 - v65/2
 					v11 = (*int16)(unsafe.Pointer(nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))))
 				} else {
-					v12 = (*uint16)(unsafe.Pointer(nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))))
-					nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v12)), &v65, nil, 128)
+					v12 = nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))
+					nox_xxx_drawGetStringSize_43F840(nil, v12, &v65, nil, 128)
 					v62 = v7
 					v60 = v6 - v65/2
 					v11 = (*int16)(unsafe.Pointer(nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))))
@@ -225,7 +225,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		}
 		v23 = v14 + v3 + 2
 		v24 = (*uint16)(unsafe.Pointer(uintptr(nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960))))))
-		nox_xxx_bookGetStringSize_43FA80(nil, (*wchar2_t)(unsafe.Pointer(v24)), &v70, &v68, 108)
+		nox_xxx_bookGetStringSize_43FA80(nil, v24, &v70, &v68, 108)
 		if v68 <= v3 {
 			v25 = (108-v70)/2 + v66 + 24
 		} else {
@@ -233,7 +233,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		}
 		v55 = v25
 		v26 = (*uint16)(unsafe.Pointer(uintptr(nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960))))))
-		nox_xxx_bookDrawString_43FA80_43FD80(nil, (*wchar2_t)(unsafe.Pointer(v26)), v55, v23, 128, 0)
+		nox_xxx_bookDrawString_43FA80_43FD80(nil, v26, v55, v23, 128, 0)
 		v63 = v23 + v20 + v68 + 2
 		v61 = (108-v18)/2 + v66 + 24
 		v27 = nox_xxx_bookGetCreatureImg_427400(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
@@ -242,21 +242,21 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		v29 = v28
 		v30 = v67 + 52
 		if v28 != nil {
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v28)), nil, (*int32)(unsafe.Pointer(&WideCharStr[0])), 92)
+			nox_xxx_drawGetStringSize_43F840(nil, v28, nil, (*int32)(unsafe.Pointer(&WideCharStr[0])), 92)
 			v31 = int32(*(*uint32)(unsafe.Pointer(&WideCharStr[0])))
 			v32 = v66 + 153
 			v37 = (141-v31)/2 + v67 + 17
 			if v37 > v30 {
 				v37 = v30
 			}
-			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(unsafe.Pointer(v29)), v32, v37, 92, 0)
+			nox_xxx_drawStringWrap_43FAF0(nil, v29, v32, v37, 92, 0)
 			goto LABEL_75
 		}
 	} else {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1047516)), 2251))) == 0 {
 			sub_425450(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
-			v33 = (*uint16)(unsafe.Pointer(nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))))
-			nox_xxx_bookGetStringSize_43FA80(nil, (*wchar2_t)(unsafe.Pointer(v33)), &v70, &v68, 108)
+			v33 = nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
+			nox_xxx_bookGetStringSize_43FA80(nil, v33, &v70, &v68, 108)
 			if v68 <= v3 {
 				v34 = (108-v70)/2 + v66 + 24
 			} else {
@@ -264,27 +264,27 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 			}
 			v58 = v67 + 53
 			v56 = v34
-			v35 = (*uint16)(unsafe.Pointer(nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))))
-			nox_xxx_bookDrawString_43FA80_43FD80(nil, (*wchar2_t)(unsafe.Pointer(v35)), v56, v58, 128, 0)
-			v36 = (*uint16)(unsafe.Pointer(sub_4252F0(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))))
+			v35 = nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
+			nox_xxx_bookDrawString_43FA80_43FD80(nil, v35, v56, v58, 128, 0)
+			v36 = sub_4252F0(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
 			v29 = v36
 			v30 = v67 + 52
 			if v36 == nil {
 				goto LABEL_75
 			}
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v36)), nil, (*int32)(unsafe.Pointer(&WideCharStr[0])), 92)
+			nox_xxx_drawGetStringSize_43F840(nil, v36, nil, (*int32)(unsafe.Pointer(&WideCharStr[0])), 92)
 			v31 = int32(*(*uint32)(unsafe.Pointer(&WideCharStr[0])))
 			v32 = v66 + 153
 			v37 = (141-v31)/2 + v67 + 17
 			if v37 > v30 {
 				v37 = v30
 			}
-			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(unsafe.Pointer(v29)), v32, v37, 92, 0)
+			nox_xxx_drawStringWrap_43FAF0(nil, v29, v32, v37, 92, 0)
 			goto LABEL_75
 		}
 		v38 = int16(uint16(nox_xxx_spellFlags_424A70(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))))
-		v39 = (*uint16)(unsafe.Pointer(nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))))
-		nox_xxx_bookGetStringSize_43FA80(nil, (*wchar2_t)(unsafe.Pointer(v39)), &v65, &v68, 108)
+		v39 = nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
+		nox_xxx_bookGetStringSize_43FA80(nil, v39, &v65, &v68, 108)
 		if v68 <= v3 {
 			v40 = (108-v65)/2 + v66 + 24
 		} else {
@@ -293,8 +293,8 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		v41 = v67 + 53
 		v59 = v67 + 53
 		v57 = v40
-		v42 = (*uint16)(unsafe.Pointer(nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))))
-		nox_xxx_bookDrawString_43FA80_43FD80(nil, (*wchar2_t)(unsafe.Pointer(v42)), v57, v59, 128, 0)
+		v42 = nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
+		nox_xxx_bookDrawString_43FA80_43FD80(nil, v42, v57, v59, 128, 0)
 		v43 = v41 + v68 + 2
 		v44 = nox_xxx_spellManaCost_4249A0(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)), 1)
 		v45 = nox_strman_loadString_40F1D0(internCStr("ManaCost"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1115)
@@ -312,27 +312,27 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		nox_xxx_drawStringWrap_43FAF0(nil, &v71[0], (108-v65)/2+v66+24, v46, 128, 0)
 		v47 = v46 + v3 + 2
 		if int32(v38)&0x100 != 0 {
-			v48 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("SpellInstant"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1173)))
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v48)), &v65, nil, 0)
-			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(unsafe.Pointer(v48)), (108-v65)/2+v66+24, v47, 128, 0)
+			v48 = nox_strman_loadString_40F1D0(internCStr("SpellInstant"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1173)
+			nox_xxx_drawGetStringSize_43F840(nil, v48, &v65, nil, 0)
+			nox_xxx_drawStringWrap_43FAF0(nil, v48, (108-v65)/2+v66+24, v47, 128, 0)
 			v47 += v3
 		}
 		if int32(v38)&4 != 0 {
-			v49 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("SpellTargeted"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1181)))
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v49)), &v65, nil, 0)
-			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(unsafe.Pointer(v49)), (108-v65)/2+v66+24, v47, 128, 0)
+			v49 = nox_strman_loadString_40F1D0(internCStr("SpellTargeted"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1181)
+			nox_xxx_drawGetStringSize_43F840(nil, v49, &v65, nil, 0)
+			nox_xxx_drawStringWrap_43FAF0(nil, v49, (108-v65)/2+v66+24, v47, 128, 0)
 			v47 += v3
 		}
 		if int32(v38)&8 != 0 {
-			v50 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("SpellAtLocation"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1189)))
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v50)), &v65, nil, 0)
-			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(unsafe.Pointer(v50)), (108-v65)/2+v66+24, v47, 128, 0)
+			v50 = nox_strman_loadString_40F1D0(internCStr("SpellAtLocation"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1189)
+			nox_xxx_drawGetStringSize_43F840(nil, v50, &v65, nil, 0)
+			nox_xxx_drawStringWrap_43FAF0(nil, v50, (108-v65)/2+v66+24, v47, 128, 0)
 			v47 += v3
 		}
 		if int32(v38)&0x20 != 0 {
-			v51 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("SpellHostile"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1197)))
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v51)), &v65, nil, 0)
-			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(unsafe.Pointer(v51)), (108-v65)/2+v66+24, v47, 128, 0)
+			v51 = nox_strman_loadString_40F1D0(internCStr("SpellHostile"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 1197)
+			nox_xxx_drawGetStringSize_43F840(nil, v51, &v65, nil, 0)
+			nox_xxx_drawStringWrap_43FAF0(nil, v51, (108-v65)/2+v66+24, v47, 128, 0)
 			v47 += v3
 		}
 		v64 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1047516+*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)*4)), 3696)))
@@ -340,17 +340,17 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		nox_swprintf(&v71[0], v52, v64)
 		nox_xxx_drawGetStringSize_43F840(nil, &v71[0], &v65, nil, 0)
 		nox_xxx_drawStringWrap_43FAF0(nil, &v71[0], (108-v65)/2+v66+24, v3+v47, 128, 0)
-		v53 = (*uint16)(unsafe.Pointer(nox_xxx_spellDescription_424A30(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))))
+		v53 = nox_xxx_spellDescription_424A30(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
 		v29 = v53
 		v30 = v67 + 52
 		if v53 != nil {
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v53)), nil, (*int32)(unsafe.Pointer(&WideCharStr[0])), 92)
+			nox_xxx_drawGetStringSize_43F840(nil, v53, nil, (*int32)(unsafe.Pointer(&WideCharStr[0])), 92)
 			v32 = v66 + 153
 			v37 = int32((141-*(*uint32)(unsafe.Pointer(&WideCharStr[0])))/2 + uint32(v67) + 17)
 			if v37 > v30 {
 				v37 = v30
 			}
-			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(unsafe.Pointer(v29)), v32, v37, 92, 0)
+			nox_xxx_drawStringWrap_43FAF0(nil, v29, v32, v37, 92, 0)
 			goto LABEL_75
 		}
 	}

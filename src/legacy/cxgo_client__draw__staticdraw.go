@@ -13,18 +13,18 @@ import (
 func nox_thing_static_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	if (dr.Flags28()&0x40000) == 0 || dr.Flags30()&0x1000000 != 0 {
-		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4))))))
+		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Add(dr.Field_76, 4))))
 	}
 	return 1
 }
 func Nox_thing_static_random_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + dr.Field_77*4)))))
+	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dr.Field_76, 4)) + dr.Field_77*4)))))
 	return 1
 }
 func nox_things_static_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
-		a3   *uint8 = (*uint8)(unsafe.Pointer(attr_value))
+		a3   *uint8 = attr_value
 		v6   *byte
 		v8   int32
 		v11  uint8
@@ -34,7 +34,7 @@ func nox_things_static_draw_parse(obj *client.ObjectType, f *binfile.MemFile, at
 		return false
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(data), 4*0)) = 8
-	v6 = (*byte)(unsafe.Pointer(a3))
+	v6 = a3
 	v8 = int32(nox_memfile_read_u32(f))
 	*a3 = *memmap.PtrUint8(0x5D4594, 830856)
 	if v8 == -1 {

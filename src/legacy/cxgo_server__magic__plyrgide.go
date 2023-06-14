@@ -72,7 +72,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 int32, a2 int32, a3 int32)
 			v9 = *(**uint32)(unsafe.Pointer(v8))
 			if uint32(a2) == **(**uint32)(unsafe.Pointer(v8)) {
 				v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*1)))
-				v11 = (*int32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*1))))
+				v11 = (*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1))
 				if v10 != 0 {
 					for {
 						*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 276))+uint32(v10*4))), 4244)) = 1

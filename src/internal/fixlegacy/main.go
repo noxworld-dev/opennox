@@ -5,13 +5,11 @@ import (
 	"fmt"
 	"go/ast"
 	"go/format"
-	"go/parser"
 	"go/token"
 	"go/types"
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"golang.org/x/tools/go/packages"
 )
@@ -26,51 +24,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-}
-
-func eachSrcFile(fnc func(path string) error) error {
-	names, err := os.ReadDir(*fDir)
-	if err != nil {
-		return err
-	}
-	for _, d := range names {
-		if !strings.HasSuffix(d.Name(), ".go") {
-			continue
-		}
-		path := filepath.Join(*fDir, d.Name())
-		if err := fnc(path); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func eachSrcAST(fs *token.FileSet, fnc func(path string, file *ast.File) (bool, error)) error {
-	return eachSrcFile(func(path string) error {
-		f, err := os.Open(path)
-		if err != nil {
-			return err
-		}
-		defer f.Close()
-		file, err := parser.ParseFile(fs, path, f, parser.ParseComments|parser.SkipObjectResolution)
-		if err != nil {
-			return err
-		}
-		_ = f.Close()
-		changed, err := fnc(path, file)
-		if err != nil {
-			return err
-		}
-		if !changed {
-			return nil
-		}
-		f, err = os.Create(path)
-		if err != nil {
-			return err
-		}
-		defer f.Close()
-		return format.Node(f, fs, file)
-	})
 }
 
 func run() error {
@@ -146,6 +99,11 @@ func fixSameTypeConv(pkg *packages.Package, n *ast.CallExpr) bool {
 
 func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr) ast.Expr {
 	x = unwrapParen(x)
+	if t2 := pkg.TypesInfo.TypeOf(x); t2 == nil {
+		return nil
+	} else if types.Identical(t, t2) {
+		return x
+	}
 	switch x := x.(type) {
 	case *ast.CallExpr:
 		if len(x.Args) != 1 {
@@ -155,7 +113,7 @@ func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr)
 		if _, ok := t2.(*types.Signature); ok {
 			return nil // real call, not a conversion
 		}
-		if t2 == t {
+		if types.Identical(t, t2) {
 			return x.Args[0]
 		}
 		if pkg.TypesSizes.Sizeof(t2) != sz {

@@ -1,8 +1,6 @@
 package legacy
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
@@ -29,17 +27,17 @@ func Set_dword_5d4594_1193156(v int) {
 }
 
 func Get_nox_client_fadeObjects_80836_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_client_fadeObjects_80836))
+	return &nox_client_fadeObjects_80836
 }
 
 func Get_nox_client_translucentFrontWalls_805844_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_client_translucentFrontWalls_805844))
+	return &nox_client_translucentFrontWalls_805844
 }
 
 func Get_nox_client_highResFrontWalls_80820_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_client_highResFrontWalls_80820))
+	return &nox_client_highResFrontWalls_80820
 }
 
 func Get_nox_client_highResFloors_154952_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_client_highResFloors_154952))
+	return &nox_client_highResFloors_154952
 }

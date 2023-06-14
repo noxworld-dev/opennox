@@ -25,7 +25,7 @@ func sub_4952E0(a1 *uint16) {
 		v1 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*1))))))
 		return v1
 	}()) != nil {
-		v8 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v1), 4704)))))
+		v8 = int32(uintptr(unsafe.Add(unsafe.Pointer(v1), 4704)))
 		v2 = nox_strman_loadString_40F1D0(internCStr("die.c:LocalizeAttacker"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\deathmsg.c"), 48)
 		nox_swprintf(&v13[0], v2, v8)
 		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*2))) != 0 {
@@ -43,10 +43,10 @@ func sub_4952E0(a1 *uint16) {
 	if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*3))) != 0 {
 		v5 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*3))))))
 		if v5 != nil {
-			v10 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v5), 4704)))))
+			v10 = int32(uintptr(unsafe.Add(unsafe.Pointer(v5), 4704)))
 			v6 = nox_strman_loadString_40F1D0(internCStr("die.c:LocalizeVictim"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\deathmsg.c"), 72)
 			nox_swprintf(&v11[0], v6, v10)
 		}
 	}
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_WHITE)), (*wchar2_t)(memmap.PtrOff(0x587000, 161668)), &v11[0], &v13[0])
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (*wchar2_t)(memmap.PtrOff(0x587000, 161668)), &v11[0], &v13[0])
 }

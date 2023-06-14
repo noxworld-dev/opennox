@@ -67,7 +67,7 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *client.Drawable) *wchar2_t {
 			v19 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108))
 			if v19 == 0 {
 				*((*uint8)(unsafe.Pointer(&a1))) = 226
-				*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&a1), 1)))) = uint16(nox_xxx_netGetUnitCodeCli_578B00(int32(uintptr(unsafe.Pointer(v1)))))
+				*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint16(nox_xxx_netGetUnitCodeCli_578B00(int32(uintptr(unsafe.Pointer(v1)))))
 				*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof((*wchar2_t)(nil))-1)) = 1
 				*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)) = 137
 				goto LABEL_93
@@ -93,7 +93,7 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *client.Drawable) *wchar2_t {
 			v24 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108))
 			if v24 == 0 {
 				*((*uint8)(unsafe.Pointer(&a1))) = 226
-				*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&a1), 1)))) = uint16(nox_xxx_netGetUnitCodeCli_578B00(int32(uintptr(unsafe.Pointer(v1)))))
+				*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint16(nox_xxx_netGetUnitCodeCli_578B00(int32(uintptr(unsafe.Pointer(v1)))))
 				*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof((*wchar2_t)(nil))-1)) = 2
 				*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)) = 41
 				goto LABEL_93
@@ -117,7 +117,7 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *client.Drawable) *wchar2_t {
 			v29 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108))
 			if v29 == 0 {
 				*((*uint8)(unsafe.Pointer(&a1))) = 226
-				*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&a1), 1)))) = uint16(nox_xxx_netGetUnitCodeCli_578B00(int32(uintptr(unsafe.Pointer(v1)))))
+				*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint16(nox_xxx_netGetUnitCodeCli_578B00(int32(uintptr(unsafe.Pointer(v1)))))
 				*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof((*wchar2_t)(nil))-1)) = 4
 				*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)) = 6
 				goto LABEL_93

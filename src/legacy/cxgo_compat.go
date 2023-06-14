@@ -45,7 +45,7 @@ func compatFindFirstFileA(lpFileName *byte, lpFindFileData LPWIN32_FIND_DATAA) H
 	if len_ >= 2 && *(*byte)(unsafe.Add(unsafe.Pointer(converted), len_-2)) == '.' && *(*byte)(unsafe.Add(unsafe.Pointer(converted), len_-1)) == '*' {
 		*(*byte)(unsafe.Add(unsafe.Pointer(converted), len_-2)) = 0
 	}
-	if ff.globbuf.Glob((*byte)(unsafe.Pointer(converted)), int32(stdio.GlobNoEscape), nil) != 0 {
+	if ff.globbuf.Glob(converted, int32(stdio.GlobNoEscape), nil) != 0 {
 		alloc.Free(converted)
 		alloc.Free(ff)
 		return HANDLE(math.MaxUint32)

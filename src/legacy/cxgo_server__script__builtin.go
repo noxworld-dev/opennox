@@ -41,19 +41,19 @@ func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 	if *memmap.PtrUint32(0x5D4594, 2386856) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2386856) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Glyph")))
 	}
-	if sub_467B00(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4))), 1)-dword_5d4594_2386848 <= 0 {
+	if sub_467B00(int32(*(*uint16)(unsafe.Add(a2, 4))), 1)-dword_5d4594_2386848 <= 0 {
 		v2 = nil
 		v3 = 999999
 		v4 := nox_xxx_inventoryGetFirst_4E7980(a1)
 		if v4 != nil {
 			for {
-				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8))) & 0x10) == 0 {
-					v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 16)))
-					if (v5&0x100) == 0 && uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 4))) != *memmap.PtrUint32(0x5D4594, 2386856) && nox_xxx_ItemIsDroppable_53EBF0(v4) == 0 {
+				if (int32(*(*uint8)(unsafe.Add(v4, 8))) & 0x10) == 0 {
+					v5 = int32(*(*uint32)(unsafe.Add(v4, 16)))
+					if (v5&0x100) == 0 && uint32(*(*uint16)(unsafe.Add(v4, 4))) != *memmap.PtrUint32(0x5D4594, 2386856) && nox_xxx_ItemIsDroppable_53EBF0(v4) == 0 {
 						v6 = nox_xxx_shopGetItemCost_50E3D0(1, nil, *(*float32)(unsafe.Pointer(&v4)))
 						if v6 < v3 {
 							v3 = v6
-							v2 = (*uint32)(unsafe.Pointer(uintptr(v4)))
+							v2 = (*uint32)(v4)
 						}
 					}
 				}
@@ -63,10 +63,10 @@ func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 				}
 			}
 			if v2 != nil {
-				sub_4ED970(50.0, (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56)), &v7)
-				nox_xxx_drop_4ED790((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(v2)), &v7)
+				sub_4ED970(50.0, (*types.Pointf)(unsafe.Add(a1, 56)), &v7)
+				nox_xxx_drop_4ED790((*server.Object)(a1), (*server.Object)(unsafe.Pointer(v2)), &v7)
 				if dword_5d4594_2386852 == 0 {
-					nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("pickup.c:CarryingTooMuch"), 0)
+					nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(a1), internCStr("pickup.c:CarryingTooMuch"), 0)
 					dword_5d4594_2386852 = 1
 				}
 			}
@@ -195,16 +195,16 @@ func nox_script_GetHostInfo_513FA0() int32 {
 	v1 = nox_xxx_getHostInfoPtr_431770()
 	switch v0 {
 	case 0:
-		nox_script_push(int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v1), 50))))))
+		nox_script_push(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 50))))
 		result = 0
 	case 1:
-		nox_script_push(int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v1), 54))))))
+		nox_script_push(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 54))))
 		result = 0
 	case 2:
-		nox_script_push(int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v1), 58))))))
+		nox_script_push(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 58))))
 		result = 0
 	case 3:
-		nox_script_push(int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v1), 62))))))
+		nox_script_push(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 62))))
 		result = 0
 	case 4:
 		nox_script_push(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 66))))
@@ -443,18 +443,18 @@ func nox_script_HasSubclass_5162D0() int32 {
 }
 func nox_script_StartupScreen_516600_A() {
 	var i unsafe.Pointer
-	for i = unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(i))))) {
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 748)))), 276)))), 2064))) == 31 {
+	for i = unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(i, 748)))), 276)))), 2064))) == 31 {
 			break
 		}
 	}
-	sub_4277B0((*server.Object)(unsafe.Pointer(uintptr(i))), 0xE)
+	sub_4277B0((*server.Object)(i), 0xE)
 	v1 := nox_xxx_inventoryGetFirst_4E7980(i)
 	if v1 != nil {
 		for {
 			v2 := nox_xxx_inventoryGetNext_4E7990(v1)
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 8)))&0x40 != 0 {
-				nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(v1))))
+			if int32(*(*uint8)(unsafe.Add(v1, 8)))&0x40 != 0 {
+				nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v1))
 			}
 			v1 = v2
 			if v2 == nil {

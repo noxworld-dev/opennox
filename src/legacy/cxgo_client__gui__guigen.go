@@ -17,11 +17,11 @@ func nox_xxx_mapGenClientText_4A9D00(a1 *uint8) int16 {
 		v7 int32
 	)
 	v1 = a1
-	v2 = int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 1)))))
+	v2 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 1)))
 	if uint32(uint16(int16(v2))) == *memmap.PtrUint32(0x5D4594, 1309668) {
 		return int16(v2)
 	}
-	*memmap.PtrUint32(0x5D4594, 1309668) = uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 1)))))
+	*memmap.PtrUint32(0x5D4594, 1309668) = uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 1)))
 	nox_xxx_clientPlaySoundSpecial_452D80(897, 50)
 	sub_430B50(0, 0, nox_win_width-1, nox_win_height-1)
 	nox_client_clearScreen_440900()
@@ -40,7 +40,7 @@ func nox_xxx_mapGenClientText_4A9D00(a1 *uint8) int16 {
 		v5 = nox_strman_loadString_40F1D0(internCStr("Populating"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guigen.c"), 95)
 		*memmap.PtrUint32(0x5D4594, 1309660) = uint32(uintptr(unsafe.Pointer(v5)))
 	}
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(*(**uint16)(memmap.PtrOff(0x5D4594, 1309660)))), (*int32)(unsafe.Pointer(&a1)), nil, 0)
+	nox_xxx_drawGetStringSize_43F840(nil, *(**uint16)(memmap.PtrOff(0x5D4594, 1309660)), (*int32)(unsafe.Pointer(&a1)), nil, 0)
 	v6 = int32(uint32(nox_win_width) - uint32(uintptr(unsafe.Pointer(a1))))
 	v7 = nox_win_height/2 - (nox_xxx_guiFontHeightMB_43F320(nil)*2 + 70)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))

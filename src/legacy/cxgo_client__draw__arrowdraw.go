@@ -77,7 +77,7 @@ func nox_thing_arrow_tail_link_draw(vp *noxrender.Viewport, dr *client.Drawable)
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 436)) - uint32(v2))
 	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356))-gameFrame() > 0 {
-		v7 = int32(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame()) << 6) / uint32(int32(gameFPS()/3)))
+		v7 = int32(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame()) << 6) / (gameFPS() / 3))
 		if v7 >= 64 {
 			v7 = 63
 		}
@@ -108,7 +108,7 @@ func nox_thing_weak_arrow_tail_link_draw(vp *noxrender.Viewport, dr *client.Draw
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 436)) - uint32(v2))
 	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356))-gameFrame() > 0 {
-		v7 = int32(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame()) << 6) / uint32(int32(gameFPS()/3)))
+		v7 = int32(((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame()) << 6) / (gameFPS() / 3))
 		if v7 >= 64 {
 			v7 = 63
 		}

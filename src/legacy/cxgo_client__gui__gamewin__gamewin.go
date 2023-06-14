@@ -23,7 +23,7 @@ func nox_xxx_clientPickup_46C140(a1p *client.Drawable) {
 		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 108)))
 		if uint32(v2) == *memmap.PtrUint32(0x5D4594, 1064928) || uint32(v2) == *memmap.PtrUint32(0x5D4594, 1064932) || uint32(v2) == *memmap.PtrUint32(0x5D4594, 1064936) || sub_467B00(v2, 1) != 0 {
 			*((*uint8)(unsafe.Pointer(&v4))) = 115
-			*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&v4), 1)))) = uint16(nox_xxx_netGetUnitCodeCli_578B00(a1))
+			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), 1)) = uint16(nox_xxx_netGetUnitCodeCli_578B00(a1))
 			nox_netlist_addToMsgListCli_40EBC0(31, 0, (*uint8)(unsafe.Pointer(&v4)), 3)
 		} else {
 			nox_xxx_clientPlaySoundSpecial_452D80(925, 100)

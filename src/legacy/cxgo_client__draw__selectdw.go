@@ -17,7 +17,7 @@ func nox_video_drawCursorSelectCircle_4773C0(a1p *noxrender.Viewport) {
 		v5 int32
 	)
 	if dword_5d4594_1096640 != nil {
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1096640)), 112)))&6 != 0 && sub_495A80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1096640)), 128)))) == 0 {
+		if int32(*(*uint8)(unsafe.Add(dword_5d4594_1096640, 112)))&6 != 0 && sub_495A80(int32(*(*uint32)(unsafe.Add(dword_5d4594_1096640, 128)))) == 0 {
 			v4 = nox_common_randomIntMinMax_415FF0(0, 1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\selectdw.c"), 440)
 			if v4 == 0 {
 				v3 = (*uint32)(unsafe.Pointer(uintptr(nox_color_violet_2598268)))
@@ -45,7 +45,7 @@ func nox_video_drawCursorSelectCircle_4773C0(a1p *noxrender.Viewport) {
 		}
 		v3 = a1
 	LABEL_15:
-		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1096640)), 112)))
+		v5 = int32(*(*uint32)(unsafe.Add(dword_5d4594_1096640, 112)))
 		if (v5 & 0x200) == 0 {
 			nox_video_drawCursorSelectCircle2_477470(a1, int32(uintptr(unsafe.Pointer(v3))), *(*int32)(unsafe.Pointer(&dword_5d4594_1096640)))
 		}

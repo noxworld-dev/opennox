@@ -14,17 +14,17 @@ var (
 
 // nox_netlist_addToMsgListCli_40EBC0
 func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 int32, buf *byte, sz int32) int32 {
-	return bool2int32(netlist.AddToMsgListCli(ntype.PlayerInd(ind1), netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz)))
+	return bool2int32(netlist.AddToMsgListCli(ntype.PlayerInd(ind1), netlist.Kind(ind2), unsafe.Slice(buf, sz)))
 }
 
 // nox_netlist_clientSendWrap_40ECA0
 func nox_netlist_clientSendWrap_40ECA0(ind1, ind2 int32, buf *byte, sz int32) int32 {
-	return bool2int32(netlist.ClientSend0(ntype.PlayerInd(ind1), netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz), GetNetPlayerBufSize()))
+	return bool2int32(netlist.ClientSend0(ntype.PlayerInd(ind1), netlist.Kind(ind2), unsafe.Slice(buf, sz), GetNetPlayerBufSize()))
 }
 
 // nox_netlist_addToMsgListSrv_40EF40
 func nox_netlist_addToMsgListSrv_40EF40(ind int32, buf *byte, sz int32) bool {
-	return Nox_netlist_addToMsgListSrv(ntype.PlayerInd(ind), unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz))
+	return Nox_netlist_addToMsgListSrv(ntype.PlayerInd(ind), unsafe.Slice(buf, sz))
 }
 
 func Nox_xxx_netImportant_4E5770(a1 byte, a2 int) {

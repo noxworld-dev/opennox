@@ -17,58 +17,58 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 	op := int32(*data)
 	switch op {
 	case 0x40:
-		v84 := float32(float64(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5))))))
-		v83 := float32(float64(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))
+		v84 := float32(float64(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))))
+		v83 := float32(float64(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 3))))
 		nox_xxx_playerSetCustomWP_4F79A0(unit, *(*int32)(unsafe.Add(unsafe.Pointer(&v83), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(&v84), 4*0)))
 		return 7
 	case 0x72:
-		v19 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v19 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
-		v7 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276))
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 3680)))&3) == 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 280)) == 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 284)) == 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 16)))&2) == 0 {
+		v7 := *(*unsafe.Pointer)(unsafe.Add(v85, 276))
+		if (int32(*(*uint8)(unsafe.Add(v7, 3680)))&3) == 0 && *(*uint32)(unsafe.Add(v85, 280)) == 0 && *(*uint32)(unsafe.Add(v85, 284)) == 0 && (int32(*(*uint8)(unsafe.Add(unit, 16)))&2) == 0 {
 			v20 := nox_xxx_equipedItemByCode_4F7920(unit, v19)
 			if v20 != nil {
-				v21 := *(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5))))
+				v21 := *(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))
 				var v94 types.Pointf
-				v94.X = float32(float64(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))
+				v94.X = float32(float64(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 3))))
 				v94.Y = float32(float64(v21))
 				nox_xxx_drop_4ED810(unit, v20, &v94.X)
 			}
 		}
 		return 7
 	case 0x73:
-		v22 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v22 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
 		if nox_xxx_gameGet_4DB1B0() == 0 {
-			v7 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276))
-			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 3680)))&3) == 0 && (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 280))) == 0 && (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 284))) == 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 16)))&2) == 0 {
+			v7 := *(*unsafe.Pointer)(unsafe.Add(v85, 276))
+			if (int32(*(*uint8)(unsafe.Add(v7, 3680)))&3) == 0 && (*(*uint32)(unsafe.Add(v85, 280))) == 0 && (*(*uint32)(unsafe.Add(v85, 284))) == 0 && (int32(*(*uint8)(unsafe.Add(unit, 16)))&2) == 0 {
 				v23 := int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v22))))
 				if v23 != 0 {
 					v24 := int32(0)
 					for i := nox_xxx_inventoryGetFirst_4E7980(unit); i != nil; i = nox_xxx_inventoryGetNext_4E7990(i) {
-						v24 += int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 488)))
+						v24 += int32(*(*uint8)(unsafe.Add(i, 488)))
 					}
-					if v24+int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 488))) <= int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 490))) {
+					if v24+int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 488))) <= int32(*(*uint16)(unsafe.Add(unit, 490))) {
 						OnLibraryNotice_420(unit, uint32(v23), unit, uint32(v23))
 					} else {
-						nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(unit))), internCStr("pickup.c:CarryingTooMuch"), 0)
+						nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unit), internCStr("pickup.c:CarryingTooMuch"), 0)
 					}
 				}
 			}
 		}
 		return 3
 	case 0x74:
-		v26 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v26 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
 		if nox_xxx_gameGet_4DB1B0() == 0 {
-			v7 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276))
-			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 3680))) & 3) == 0 {
+			v7 := *(*unsafe.Pointer)(unsafe.Add(v85, 276))
+			if (int32(*(*uint8)(unsafe.Add(v7, 3680))) & 3) == 0 {
 				v27 := nox_xxx_equipedItemByCode_4F7920(unit, v26)
 				if v27 != nil {
 					nox_xxx_useByNetCode_53F8E0(unit, v27)
@@ -77,67 +77,67 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		}
 		return 3
 	case 0x75:
-		v15 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v15 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
 		if nox_xxx_gameGet_4DB1B0() == 0 {
-			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 3680))) & 3) == 0 {
+			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 3680))) & 3) == 0 {
 				v16 := nox_xxx_equipedItemByCode_4F7920(unit, v15)
 				if v16 != nil {
-					nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(uintptr(v16))))
+					nox_xxx_playerTryEquip_4F2F70((*server.Object)(unit), (*server.Object)(v16))
 				}
 			}
 		}
 		return 3
 	case 0x76:
-		v17 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v17 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 3680))) & 3) == 0 {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 3680))) & 3) == 0 {
 			v18 := nox_xxx_equipedItemByCode_4F7920(unit, v17)
 			if v18 != nil {
-				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 88))) != 1 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v18)), 8))&0x1000000 == 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v18)), 12)))&8 == 0 {
-					nox_xxx_playerTryDequip_4F2FB0((*uint32)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(uintptr(v18))))
+				if int32(*(*uint8)(unsafe.Add(v85, 88))) != 1 || *(*uint32)(unsafe.Add(v18, 8))&0x1000000 == 0 || int32(*(*uint8)(unsafe.Add(v18, 12)))&8 == 0 {
+					nox_xxx_playerTryDequip_4F2FB0((*uint32)(unit), (*server.Object)(v18))
 				}
 			}
 		}
 		return 3
 	case 0x78:
-		v31 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v31 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 3680))) & 1) == 0 {
-			if int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))) != 0 {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 3680))) & 1) == 0 {
+			if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))) != 0 {
 				v32 := int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v31))))
 				if v32 != 0 {
-					nox_xxx_orderUnit_533900((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(uintptr(v32))), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
+					nox_xxx_orderUnit_533900((*server.Object)(unit), (*server.Object)(unsafe.Pointer(uintptr(v32))), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
 				}
 			} else {
-				nox_xxx_orderUnit_533900((*server.Object)(unsafe.Pointer(uintptr(unit))), nil, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
+				nox_xxx_orderUnit_533900((*server.Object)(unit), nil, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
 			}
 		}
 		return 4
 	case 0x79:
 		v34 := 1
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 3680)))&1 != 0 {
-			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(unit))), internCStr("GeneralPrint:NoSpellWarningGeneral"), 0)
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 3680)))&1 != 0 {
+			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unit), internCStr("GeneralPrint:NoSpellWarningGeneral"), 0)
 			v34 = 0
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 3680)))&2 != 0 {
-			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(unit))), internCStr("GeneralPrint:ConjureNoSpellWarning1"), 0)
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 3680)))&2 != 0 {
+			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unit), internCStr("GeneralPrint:ConjureNoSpellWarning1"), 0)
 			v34 = 0
 		}
 		if !noxflags.HasGame(2048) {
-			v35 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 16)))
+			v35 := int32(*(*uint32)(unsafe.Add(unit, 16)))
 			if v35&0x4000 != 0 {
 				v34 = 0
 			}
 		}
 		if !noxflags.HasGame(128) && v34 != 0 {
-			v36 := (*int32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))
+			v36 := (*int32)(unsafe.Add(unsafe.Pointer(data), 1))
 			v37 := int32(0)
 			v38 := (*uint32)(unsafe.Add(unsafe.Pointer(data), 1))
 			v39 := 5
@@ -148,11 +148,11 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 				v38 = (*uint32)(unsafe.Add(unsafe.Pointer(v38), 4*1))
 				v39--
 			}
-			if (v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 288)) == 0 || nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 288)))))) != 0 || noxflags.HasGame(4096)) && nox_xxx_spellByBookInsert_4FE340(unit, (*int32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))), v37, 3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 21)))) == 0 && v37 == 1 {
+			if (v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || *(*uint32)(unsafe.Add(v85, 288)) == 0 || nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(unit), (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 288)))))) != 0 || noxflags.HasGame(4096)) && nox_xxx_spellByBookInsert_4FE340(unit, (*int32)(unsafe.Add(unsafe.Pointer(data), 1)), v37, 3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 21)))) == 0 && v37 == 1 {
 				v40 := 5
 				for v40 != 0 {
 					if *v36 != 0 {
-						nox_xxx_netReportSpellStat_4D9630(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 2064))), *v36, 0)
+						nox_xxx_netReportSpellStat_4D9630(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 2064))), *v36, 0)
 					}
 					v36 = (*int32)(unsafe.Add(unsafe.Pointer(v36), 4*1))
 					v40--
@@ -161,15 +161,15 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		}
 		return 22
 	case 0x7B:
-		v28 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v28 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 3680)))&3) == 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 280)) == 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 284)) == 0 {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 3680)))&3) == 0 && *(*uint32)(unsafe.Add(v85, 280)) == 0 && *(*uint32)(unsafe.Add(v85, 284)) == 0 {
 			v29p := nox_server_getObjectFromNetCode_4ECCB0(v28)
 			if v29p != nil {
 				if v30 := v29p.Collide.Get(); v30 != nil {
-					v30(v29p, AsObjectP(unsafe.Pointer(uintptr(unit))), nil)
+					v30(v29p, AsObjectP(unit), nil)
 				}
 			}
 		}
@@ -178,15 +178,15 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		*(*uint16)(unsafe.Add(unsafe.Add(v8, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))*8), 16)) = *((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))
 		*(*uint16)(unsafe.Add(unsafe.Add(v8, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))*8), 18)) = *((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*2)))
 		v14 := int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))
-		v7 := int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 6)))))
+		v7 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(data), 6)))
 		*(*uint32)(unsafe.Add(unsafe.Add(v8, v14*8), 20)) = uint32(v7)
 		return 10
 	case 0xE0:
-		v58 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v58 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
-		if int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))) != 0 {
+		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))) != 0 {
 			v59 := int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v58))))
 			sub_53AB90(unit, v59)
 		} else {
@@ -194,9 +194,9 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		}
 		return 3
 	case 0xE2:
-		v60 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+		v60 := nox_xxx_packetDynamicUnitCode_578B40(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
-			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
+			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
 		v61 := nox_xxx_equipedItemByCode_4F7920(unit, v60)
 		if v61 != nil || (func() unsafe.Pointer {
@@ -208,16 +208,16 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		}()) != nil {
 			var v88 [4]byte
 			v88[0] = 226
-			*(*uint16)(unsafe.Pointer(&v88[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(uintptr(v61)))))
+			*(*uint16)(unsafe.Pointer(&v88[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(v61)))
 			v62 := *(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))
 			if int32(v62) == 1 {
-				v88[3] = **(**uint8)(unsafe.Add(unsafe.Pointer(uintptr(v61)), 736))
+				v88[3] = **(**uint8)(unsafe.Add(v61, 736))
 			} else if int32(v62) == 2 {
-				v88[3] = byte(int8(nox_xxx_guide_427010(*(**byte)(unsafe.Add(unsafe.Pointer(uintptr(v61)), 736)))))
+				v88[3] = byte(int8(nox_xxx_guide_427010(*(**byte)(unsafe.Add(v61, 736)))))
 			} else {
-				v88[3] = **(**uint8)(unsafe.Add(unsafe.Pointer(uintptr(v61)), 736))
+				v88[3] = **(**uint8)(unsafe.Add(v61, 736))
 			}
-			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 2064))), unsafe.Pointer(&v88[0]), 4, nil, 1)
+			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v85, 276)))), 2064))), unsafe.Pointer(&v88[0]), 4, nil, 1)
 		}
 		return 4
 	case 0xEE:
@@ -263,12 +263,12 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
-			v68 := (*int32)(unsafe.Pointer(uintptr(nox_xxx_equipedItemByCode_4F7920(unit, v67))))
+			v68 := (*int32)(nox_xxx_equipedItemByCode_4F7920(unit, v67))
 			if v68 != nil {
-				v69 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 280))
+				v69 := *(*unsafe.Pointer)(unsafe.Add(v85, 280))
 				if v69 != nil {
 					if nox_xxx_tradeP2PAddOffer2_50F820_trade(v69, unit, *(*float32)(unsafe.Pointer(&v68))) == 1 {
-						sub_4ED0C0((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(v68)))
+						sub_4ED0C0((*server.Object)(unit), (*server.Object)(unsafe.Pointer(v68)))
 					}
 				}
 			}
@@ -278,7 +278,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
-			v71 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 280))
+			v71 := *(*unsafe.Pointer)(unsafe.Add(v85, 280))
 			if v71 != nil {
 				nox_xxx_tradeP2PAddOfferMB_50FE20(v71, v70)
 			}
@@ -299,7 +299,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 				v64 := nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 				v65 := unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v64))
 				if v65 != nil {
-					if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v65)), 12)))&8 != 0 {
+					if int32(*(*uint8)(unsafe.Add(v65, 12)))&8 != 0 {
 						nox_xxx_servShopStart_50EF10_trade(unit, v65)
 					}
 				}
@@ -320,25 +320,25 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		case 0x18:
 			v74 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v74 != nil {
-				sub_510BE0_trade((*int32)(unsafe.Pointer(uintptr(unit))), v74, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
+				sub_510BE0_trade((*int32)(unit), v74, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
 			}
 			return 4
 		case 0x19:
 			v76 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v76 != nil {
-				sub_510D10((*int32)(unsafe.Pointer(uintptr(unit))), v76, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))), uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 4))))
+				sub_510D10((*int32)(unit), v76, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))), uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 4))))
 			}
 			return 5
 		case 0x1A:
 			v75 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v75 != nil {
-				sub_510AE0((*int32)(unsafe.Pointer(uintptr(unit))), v75, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
+				sub_510AE0((*int32)(unit), v75, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
 			}
 			return 4
 		case 0x1C:
 			v77 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v77 != nil {
-				sub_5109C0_trade((*int32)(unsafe.Pointer(uintptr(unit))), v77, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
+				sub_5109C0_trade((*int32)(unit), v77, (*uint32)(unsafe.Pointer(uintptr(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))))
 			}
 			return 4
 		case 0x1E:
@@ -366,14 +366,14 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			if int32(v79) != 27 {
 				return -1
 			}
-			sub_4DD0B0((*server.Object)(unsafe.Pointer(uintptr(unit))))
+			sub_4DD0B0((*server.Object)(unit))
 		}
 		return 2
 	case 0xF1:
-		v63 := (*uint32)(unsafe.Pointer(uintptr(nox_xxx_equipedItemByCode_4F7920(unit, int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))))))
+		v63 := (*uint32)(nox_xxx_equipedItemByCode_4F7920(unit, int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1)))))
 		if v63 != nil {
-			nox_xxx_drop_4ED790((*server.Object)(unsafe.Pointer(uintptr(unit))), (*server.Object)(unsafe.Pointer(v63)), (*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(unit)), 56)))
-			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(unit))), internCStr("pickup.c:CarryingTooMuch"), 0)
+			nox_xxx_drop_4ED790((*server.Object)(unit), (*server.Object)(unsafe.Pointer(v63)), (*types.Pointf)(unsafe.Add(unit, 56)))
+			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unit), internCStr("pickup.c:CarryingTooMuch"), 0)
 		}
 		return 3
 	default:

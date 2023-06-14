@@ -86,9 +86,9 @@ func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFi
 		obj.Field_60 = 0
 		return true
 	}
-	v6 = (*uint8)(unsafe.Pointer(attr_value))
+	v6 = attr_value
 	v20 = (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1))
-	v7 = (*uint8)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*6))))
+	v7 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 4*6))
 	v22 = int32(4294967272 - uint32(uintptr(unsafe.Pointer(v3))))
 	for {
 		v9 = nox_memfile_read_u8(f)
@@ -99,7 +99,7 @@ func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFi
 		nox_memfile_read(unsafe.Pointer(v6), 1, int32(v26), f)
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v6), v26)) = 0
 		v13 = v20
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*8)) = uint32(get_animation_kind_id_44B4C0((*byte)(unsafe.Pointer(v6))))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*8)) = uint32(get_animation_kind_id_44B4C0(v6))
 		v14 = alloc.Calloc1(int(*v7), 4)
 		*v20 = uint32(uintptr(v14))
 		if v14 == nil {
@@ -124,7 +124,7 @@ func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFi
 					x := *p
 					*p++
 					return x
-				}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v16, int8(uintptr(unsafe.Pointer(v21))), (*byte)(unsafe.Pointer(v6))))))
+				}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v16, int8(uintptr(unsafe.Pointer(v21))), v6))))
 				if v28 >= int32(*v7) {
 					break
 				}
@@ -132,7 +132,7 @@ func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFi
 		}
 		v7 = (*uint8)(unsafe.Add(unsafe.Pointer(v7), 1))
 		v20 = (*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*1))
-		if int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v7), v22))))) >= v23 {
+		if int32(uintptr(unsafe.Add(unsafe.Pointer(v7), v22))) >= v23 {
 			v3 = v24
 			obj.Field_5c = unsafe.Pointer(v3)
 			obj.DrawFunc.Set(nox_thing_cond_animate_draw)

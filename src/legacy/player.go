@@ -108,7 +108,7 @@ func nox_xxx_playerObserveClear_4DDEF0(cplayer *server.Object) {
 
 // nox_client_onClassStats
 func nox_client_onClassStats(cbuf *byte, sz int) {
-	data := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), sz)
+	data := unsafe.Slice(cbuf, sz)
 	Nox_client_onClassStats(data)
 }
 
@@ -199,7 +199,7 @@ func Sub_425A70(a1 int) unsafe.Pointer {
 }
 
 func Sub_425AD0(a1 int, a2 *uint16) unsafe.Pointer {
-	return unsafe.Pointer(sub_425AD0(int32(a1), (*uint16)(unsafe.Pointer(a2))))
+	return unsafe.Pointer(sub_425AD0(int32(a1), a2))
 }
 
 func Sub_41D670(a1 string) {

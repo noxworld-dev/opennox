@@ -54,7 +54,7 @@ func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintpt
 		} else {
 			v23 = nox_strman_loadString_40F1D0(internCStr("GUIQuit.c:ReallyLoadMessage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 199)
 			v15 = nox_strman_loadString_40F1D0(internCStr("SelChar.c:LoadLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 198)
-			nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(v15)), (*wchar2_t)(unsafe.Pointer(v23)), 56, ccall.FuncAddr(sub_445B40), ccall.FuncAddr(sub_445BA0))
+			nox_xxx_dialogMsgBoxCreate_449A10(nil, v15, v23, 56, ccall.FuncAddr(sub_445B40), ccall.FuncAddr(sub_445BA0))
 			v16 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 			*((*uint8)(unsafe.Pointer(&v16))) = uint8(int8(v16 & 0xFD))
 			*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9)) = v16
@@ -103,7 +103,7 @@ func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintpt
 		nox_xxx_wndClearCaptureMain_46ADE0(nox_wnd_quitMenu_825760)
 		v22 = nox_strman_loadString_40F1D0(internCStr("GUIQuit.c:ReallyQuitMessage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 185)
 		v13 = nox_strman_loadString_40F1D0(internCStr("GUIQuit.c:ReallyQuitTitle"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 184)
-		nox_xxx_dialogMsgBoxCreate_449A10(nox_wnd_quitMenu_825760, (*wchar2_t)(unsafe.Pointer(v13)), (*wchar2_t)(unsafe.Pointer(v22)), 56, ccall.FuncAddr(nox_xxx_quitDialogYes_445B20), ccall.FuncAddr(nox_xxx_quitDialogNo_445B30))
+		nox_xxx_dialogMsgBoxCreate_449A10(nox_wnd_quitMenu_825760, v13, v22, 56, ccall.FuncAddr(nox_xxx_quitDialogYes_445B20), ccall.FuncAddr(nox_xxx_quitDialogNo_445B30))
 		v14 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 		*((*uint8)(unsafe.Pointer(&v14))) = uint8(int8(v14 & 0xFD))
 		*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9)) = v14

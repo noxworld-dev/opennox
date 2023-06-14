@@ -25,7 +25,7 @@ func Get_nox_common_maplist() unsafe.Pointer {
 }
 
 func Nox_common_maplist_add_4D0760(p *Nox_map_list_item) {
-	nox_common_maplist_add_4D0760((*Nox_map_list_item)(unsafe.Pointer(p)))
+	nox_common_maplist_add_4D0760(p)
 }
 
 func Sub_425770(p *Nox_map_list_item) {

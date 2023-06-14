@@ -158,7 +158,7 @@ func Get_gameex_flags() uint32 {
 	return gameex_flags
 }
 func Get_gameex_flags_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&gameex_flags))
+	return &gameex_flags
 }
 func Get_dword_5d4594_1064868() int {
 	return int(dword_5d4594_1064868)
@@ -245,31 +245,31 @@ func Get_nox_color_yellow_2589772() uint32 {
 	return nox_color_yellow_2589772
 }
 func Get_nox_color_black_2650656_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_black_2650656))
+	return &nox_color_black_2650656
 }
 func Get_nox_color_white_2523948_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_white_2523948))
+	return &nox_color_white_2523948
 }
 func Get_nox_color_violet_2598268_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_violet_2598268))
+	return &nox_color_violet_2598268
 }
 func Get_nox_color_red_2589776_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_red_2589776))
+	return &nox_color_red_2589776
 }
 func Get_nox_color_green_2614268_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_green_2614268))
+	return &nox_color_green_2614268
 }
 func Get_nox_color_cyan_2649820_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_cyan_2649820))
+	return &nox_color_cyan_2649820
 }
 func Get_nox_color_blue_2650684_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_blue_2650684))
+	return &nox_color_blue_2650684
 }
 func Get_nox_color_orange_2614256_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_orange_2614256))
+	return &nox_color_orange_2614256
 }
 func Get_nox_color_yellow_2589772_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&nox_color_yellow_2589772))
+	return &nox_color_yellow_2589772
 }
 func Get_dword_5d4594_823776() int {
 	return int(dword_5d4594_823776)
@@ -650,7 +650,7 @@ func Set_dword_5d4594_1599592(v unsafe.Pointer) {
 	dword_5d4594_1599592 = v
 }
 func Get_dword_5d4594_1599592_ptr() *uint32 {
-	return (*uint32)(unsafe.Pointer(&dword_5d4594_2649712))
+	return &dword_5d4594_2649712
 }
 func Get_nox_xxx_resetMapInit_1569652() int {
 	return int(nox_xxx_resetMapInit_1569652)

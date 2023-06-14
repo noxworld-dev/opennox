@@ -1,8 +1,6 @@
 package legacy
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -10,12 +8,12 @@ import (
 
 func internCStr(s string) *byte {
 	p := alloc.InternCString(s)
-	return (*byte)(unsafe.Pointer(p))
+	return p
 }
 
 func internWStr(s string) *wchar2_t {
 	p := alloc.InternCString16(s)
-	return (*wchar2_t)(unsafe.Pointer(p))
+	return p
 }
 
 // nox_strman_loadString_40F1D0

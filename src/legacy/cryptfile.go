@@ -53,7 +53,7 @@ func nox_xxx_cryptSeekCur_40E0A0(a1 int32) int32 {
 
 // nox_xxx_fileReadWrite_426AC0_file3_fread_impl
 func nox_xxx_fileReadWrite_426AC0_file3_fread_impl(a1 *byte, a2 uint32) uint32 {
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(a1)), int(a2))
+	buf := unsafe.Slice(a1, int(a2))
 	_, err := cryptfile.Global().ReadWrite(buf)
 	if err != nil {
 		return 0
@@ -63,7 +63,7 @@ func nox_xxx_fileReadWrite_426AC0_file3_fread_impl(a1 *byte, a2 uint32) uint32 {
 
 // nox_xxx_fileCryptReadCrcMB_426C20
 func nox_xxx_fileCryptReadCrcMB_426C20(a1 *byte, a2 size_t) {
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(a1)), int(a2))
+	buf := unsafe.Slice(a1, int(a2))
 	cryptfile.Global().ReadMaybeAlign(buf)
 }
 

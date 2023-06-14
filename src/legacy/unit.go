@@ -1,8 +1,6 @@
 package legacy
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -17,7 +15,7 @@ func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int32) int32 {
 	return int32(Nox_xxx_unitIsUnitTT_4E7C80(asObjectS(a1), int(a2)))
 }
 func Nox_xxx_unitMove_4E7010(a1 *server.Object, a2 *types.Pointf) {
-	nox_xxx_unitMove_4E7010(asObjectC(a1), (*types.Pointf)(unsafe.Pointer(a2)))
+	nox_xxx_unitMove_4E7010(asObjectC(a1), a2)
 }
 func Nox_xxx_unitSetHP_4E4560(a1 *server.Object, a2 uint16) {
 	nox_xxx_unitSetHP_4E4560(asObjectC(a1), a2)

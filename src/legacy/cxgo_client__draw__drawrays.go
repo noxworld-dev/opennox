@@ -44,9 +44,9 @@ func nox_xxx_netDrawRays_49BDD0(a1 *uint8) int32 {
 		}
 		v2 = a1
 		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(a1), 1))
-		v4 = int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 1))))) + (int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 5)))))-int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 1))))))/2
+		v4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 1))) + (int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 5)))-int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 1))))/2
 		result = int32(*a1) - 125
-		v5 = int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 3))))) + (int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 7)))))-int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), 3))))))/2
+		v5 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 3))) + (int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 7)))-int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 3))))/2
 		switch *a1 {
 		case 0x7D:
 			v20 = int32(*memmap.PtrUint32(0x5D4594, 1304332))
@@ -73,7 +73,7 @@ func nox_xxx_netDrawRays_49BDD0(a1 *uint8) int32 {
 				sub_499490(*memmap.PtrInt32(0x5D4594, 1304344), (*uint16)(unsafe.Pointer(v3)), v6, v12, v16, 0)
 			}
 			v7 = int32(*(*uint32)(unsafe.Pointer(v3)))
-			*(*uint32)(unsafe.Pointer(&v19[0])) = *(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v2), 5))))
+			*(*uint32)(unsafe.Pointer(&v19[0])) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 5))
 			*(*uint32)(unsafe.Pointer(&v19[2])) = uint32(v7)
 			if nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\drawrays.c"), 112) < 50 {
 				v13 = nox_common_randomIntMinMax_415FF0(-20, 20, internCStr("C:\\NoxPost\\src\\Client\\Draw\\drawrays.c"), 115)

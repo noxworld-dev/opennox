@@ -60,7 +60,7 @@ func sub_478730(a1 *int32) {
 	v12 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
 	v11 = *a1
 	v10 = nox_strman_loadString_40F1D0(internCStr("BuyLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 328)
-	nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v10)), v11, v12, v13, v14, v9, v8, 0, sub_478850, nil)
+	nox_gui_itemAmountDialog_4C0430(v10, v11, v12, v13, v14, v9, v8, 0, sub_478850, nil)
 }
 func nox_client_tradeXxxBuyAccept_478880(a1 int32, a2 int16) {
 	var v2 *wchar2_t
@@ -84,7 +84,7 @@ func sub_4788F0(a1 int32, a2 int32) {
 		v3[1] = 23
 		*(*uint16)(unsafe.Pointer(&v3[2])) = uint16(int16(a1))
 		v3[4] = byte(int8(a2))
-		nox_netlist_addToMsgListCli_40EBC0(31, 0, (*uint8)(unsafe.Pointer(&v3[0])), 5)
+		nox_netlist_addToMsgListCli_40EBC0(31, 0, &v3[0], 5)
 	} else {
 		nox_xxx_clientPlaySoundSpecial_452D80(925, 100)
 		v2 = nox_strman_loadString_40F1D0(internCStr("pickup.c:CarryingTooMuch"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 233)
@@ -181,7 +181,7 @@ func sub_479520(a1 int32) {
 	v1 = nox_strman_loadString_40F1D0(internCStr("NotEnoughGold"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1346)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1097352)), v1, a1)
 	v2 = nox_strman_loadString_40F1D0(internCStr("ShopInformationTitle"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1350)
-	nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), (*wchar2_t)(unsafe.Pointer(v2)), (*wchar2_t)(unsafe.Pointer(uintptr(memmap.PtrOff(0x5D4594, 1097352)))), 33, nil, nil)
+	nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098576))))), v2, (*wchar2_t)(memmap.PtrOff(0x5D4594, 1097352)), 33, nil, nil)
 	nox_xxx_clientPlaySoundSpecial_452D80(925, 100)
 }
 func sub_479680(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
@@ -245,7 +245,7 @@ func sub_479740(a1 int32, a2 uint32) {
 				v8 = mpos.y
 				v7 = mpos.x
 				v6 = nox_strman_loadString_40F1D0(internCStr("RepairLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1580)
-				nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v6)), v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810)
+				nox_gui_itemAmountDialog_4C0430(v6, v7, v8, a1, v9, v2, 1, 0, sub_479820, sub_479810)
 				dword_5d4594_1098620 = 1
 			}
 		}

@@ -122,14 +122,14 @@ func Nox_thing_read_FLOR_411540(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
 	}
-	return int(nox_thing_read_FLOR_411540((*binfile.MemFile)(f.C()), (*byte)(unsafe.Pointer(&buf[0]))))
+	return int(nox_thing_read_FLOR_411540((*binfile.MemFile)(f.C()), &buf[0]))
 }
 
 func Nox_thing_read_EDGE_411850(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
 	}
-	return int(nox_thing_read_EDGE_411850((*binfile.MemFile)(f.C()), (*byte)(unsafe.Pointer(&buf[0]))))
+	return int(nox_thing_read_EDGE_411850((*binfile.MemFile)(f.C()), &buf[0]))
 }
 
 func LoadAllBinFileSectionsResetCounters() {

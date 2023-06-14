@@ -40,15 +40,15 @@ type WIN32_FIND_DATAA struct {
 }
 
 func FindFirstFileA(a1 *byte, f *WIN32_FIND_DATAA) uintptr {
-	return uintptr(unsafe.Pointer(compatFindFirstFileA((*byte)(unsafe.Pointer(a1)), (*WIN32_FIND_DATAA)(unsafe.Pointer(f)))))
+	return compatFindFirstFileA(a1, f)
 }
 
 func FindNextFileA(h uintptr, f *WIN32_FIND_DATAA) int {
-	return int(compatFindNextFileA(HANDLE(unsafe.Pointer(h)), (*WIN32_FIND_DATAA)(unsafe.Pointer(f))))
+	return int(compatFindNextFileA(h, f))
 }
 
 func FindClose(h uintptr) {
-	compatFindClose(HANDLE(unsafe.Pointer(h)))
+	compatFindClose(h)
 }
 
 var _ = [1]struct{}{}[32-unsafe.Sizeof(AudioSample{})]

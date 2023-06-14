@@ -178,7 +178,7 @@ func sub_452580(a1 *uint32) int32 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)))), 144)) = uint32(uintptr(ccall.FuncAddr(sub_4526F0)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)))), 148)) = uint32(uintptr(ccall.FuncAddr(sub_4526D0)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = 1
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)))), 112)) = uint32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*46)))))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)))), 112)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(a1), 4*46)))
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 4)))&8 != 0 {
 			v5 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 68))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 72))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1497)
 			if v5 > 33 {

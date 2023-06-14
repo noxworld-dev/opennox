@@ -49,7 +49,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	if noxflags.HasGame(0x200000) {
-		v2 = int32(*(*uint32)(unsafe.Pointer((*client.ObjectType)(unsafe.Add(unsafe.Pointer(sub_44D330(internCStr("NewPlayer"))), unsafe.Sizeof(client.ObjectType{})*92)))) + 4)
+		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sub_44D330(internCStr("NewPlayer"))), unsafe.Sizeof(client.ObjectType{})*92)) + 4)
 		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 40))) != 0 {
 			nox_xxx_drawObject_4C4770_draw(a1, (*client.Drawable)(unsafe.Pointer(uintptr(a2))), int32(**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48))+uint32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4))), 4))))
 			return 1
@@ -135,11 +135,11 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 				nox_xxx_drawObject_4C4770_draw(a1, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 48))+uint32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 297)))*4))), 4)) + uint32(v20*4))))))
 				v22 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 297)))
 				if int32(v22) != 1 && int32(v22) != 0 && int32(v22) != 2 && int32(v22) != 3 && int32(v22) != 6 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 276)) == 37 {
-					sub_4B8960(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*170)))), v19, v20)
-					sub_4B8D40(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*8)))), v19, v20)
+					sub_4B8960(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Add(unsafe.Pointer(v33), 4*170)), v19, v20)
+					sub_4B8D40(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Add(unsafe.Pointer(v33), 4*8)), v19, v20)
 				} else {
-					sub_4B8D40(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*8)))), v19, v20)
-					sub_4B8960(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*170)))), v19, v20)
+					sub_4B8D40(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Add(unsafe.Pointer(v33), 4*8)), v19, v20)
+					sub_4B8960(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Add(unsafe.Pointer(v33), 4*170)), v19, v20)
 				}
 				if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(v4))), 16) {
 					if dword_5d4594_1313796 == nil {

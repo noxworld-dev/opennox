@@ -152,7 +152,7 @@ func sub_4A4B70(a1 int32) unsafe.Pointer {
 		if int32(v1) != 0 {
 			v4 = 0
 			v9 = uint8(int8(nox_common_randomIntMinMax_415FF0(0, int32(v1)-1, internCStr("C:\\NoxPost\\src\\client\\shell\\SelClass.c"), 195)))
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(guiSelClassInfoPtr)), 66))) != 0 {
+			if int32(*(*uint8)(unsafe.Add(guiSelClassInfoPtr, 66))) != 0 {
 				v10 = 0
 				v11 = 5
 				for {

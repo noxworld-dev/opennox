@@ -35,7 +35,7 @@ func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *binfile.MemF
 		v7 = 0
 		v16 = 0
 		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))) != 0 {
-			v8 = (*uint8)(unsafe.Pointer(attr_value))
+			v8 = attr_value
 			for {
 				v10 = nox_memfile_read_i32(f)
 				*v8 = *memmap.PtrUint8(0x5D4594, 830852)
@@ -53,7 +53,7 @@ func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *binfile.MemF
 					x := *p
 					*p++
 					return x
-				}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v10, int8(uintptr(unsafe.Pointer(v13))), (*byte)(unsafe.Pointer(v8))))))
+				}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v10, int8(uintptr(unsafe.Pointer(v13))), v8))))
 				v16 = v7
 				if v7 >= int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))) {
 					break

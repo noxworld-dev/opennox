@@ -15,7 +15,7 @@ func nox_CharToOemW(pSrc *wchar2_t, pDst *byte) int32 {
 	return nox_sprintf(pDst, internCStr("%S"), pSrc)
 }
 func getPlayerClassFromObjPtr(a1 unsafe.Pointer) int8 {
-	return int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))), 276)))), 2251)))
+	return int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a1, 748)))), 276)))), 2251)))
 }
 func playerInfoStructParser_0(a1p unsafe.Pointer) int8 {
 	var (
@@ -148,12 +148,12 @@ func playerDropATrap(playerObj unsafe.Pointer) int8 {
 		return 0
 	}
 	v8 = 0
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x2EC)))), 0x114)))
+	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(playerObj, 0x2EC)))), 0x114)))
 	pos[0] = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 0xE30))
 	pos[1] = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 0xE34))
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x2EC)))), 0x114)))), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x2EC)))), 0x58))) != 1 {
-		for i := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(playerObj)), 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(i)), 0x1F0)) {
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 0xA))) == int32(v7) {
+	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(playerObj, 0x2EC)))), 0x114)))), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(playerObj, 0x2EC)))), 0x58))) != 1 {
+		for i := *(*unsafe.Pointer)(unsafe.Add(playerObj, 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(i, 0x1F0)) {
+			if int32(*(*uint8)(unsafe.Add(i, 0xA))) == int32(v7) {
 				nox_xxx_drop_4ED810(playerObj, i, &pos[0])
 				return 1
 			}
@@ -168,7 +168,7 @@ func OnLibraryNotice_420(arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer, 
 		v16 *uint32 = (*uint32)(unsafe.Pointer(uintptr(getPlayerClassFromObjPtr(arg1))))
 	)
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 0xA))) != 17 {
-		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(v23), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
 		return
 	}
 	var v17 int8 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 4)))
@@ -176,16 +176,16 @@ func OnLibraryNotice_420(arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer, 
 		if (int32(v17) == 0x6B || int32(v17) == 0x6D) && int32(uint8(uintptr(unsafe.Pointer(v16)))) != 0 {
 			goto ifIsWarrior
 		}
-		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(v23), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
 		return
 	}
 	if int32(uint8(uintptr(unsafe.Pointer(v16)))) == 1 {
-		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(v23), (*server.Object)(unsafe.Pointer(uintptr(v19))), 1, 1)
 		return
 	}
 ifIsWarrior:
-	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(v23))), (*byte)(memmap.PtrOff(0x587000, 215732)), 0)
-	nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(v23))), 2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 36))))
+	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v23), (*byte)(memmap.PtrOff(0x587000, 215732)), 0)
+	nox_xxx_aud_501960(925, (*server.Object)(v23), 2, int32(*(*uint32)(unsafe.Add(v23, 36))))
 }
 func getFlagValueFromFlagIndex(a1 int32) int32 {
 	var (

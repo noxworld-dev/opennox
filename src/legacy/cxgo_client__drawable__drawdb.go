@@ -386,12 +386,12 @@ func Nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw client.ObjectDrawFunc) 
 	var v12 int32 = 0
 	switch kind {
 	case 2, 3:
-		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*1))) != 0 {
-			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(lpMem)), unsafe.Sizeof(unsafe.Pointer(nil))*1))))
+		if *((*uint32)(unsafe.Add(lpMem, 4*1))) != 0 {
+			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(lpMem, unsafe.Sizeof(unsafe.Pointer(nil))*1))))
 		}
 		alloc.FreePtr(lpMem)
 	case 4:
-		v7 = (*unsafe.Pointer)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 4))))
+		v7 = (*unsafe.Pointer)(unsafe.Add(lpMem, 4))
 		v8 = 5
 		for {
 			if *v7 != nil {
@@ -411,7 +411,7 @@ func Nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw client.ObjectDrawFunc) 
 		sub_44C7B0(int32(uintptr(lpMem)))
 		alloc.FreePtr(lpMem)
 	case 7:
-		v9 = (*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 8))
+		v9 = (*byte)(unsafe.Add(lpMem, 8))
 		v10 = 16
 		for {
 			nox_xxx_draw_44C780(int32(uintptr(unsafe.Pointer(v9))))
@@ -423,7 +423,7 @@ func Nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw client.ObjectDrawFunc) 
 		}
 		alloc.FreePtr(lpMem)
 	case 8:
-		v11 = (*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 8))
+		v11 = (*byte)(unsafe.Add(lpMem, 8))
 		v12 = 3
 		for {
 			nox_xxx_draw_44C780(int32(uintptr(unsafe.Pointer(v11))))

@@ -30,7 +30,7 @@ func nox_xxx_mapgen_522AD0(a1 *float32, a2 int32) *float32 {
 		v15 types.Pointf
 	)
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 60)))
-	if int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), v2))), 216)))) != 0 {
+	if int32(*((*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(a1), v2), 216)))) != 0 {
 		return nil
 	}
 	switch v2 {

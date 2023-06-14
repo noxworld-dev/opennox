@@ -84,8 +84,8 @@ func sub_4AD4B0() int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5)) + uint32(v2*4) + 2
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) = uint32(v2*4 + 2)
 	for {
-		v5 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(*v4, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c"), 92)))
-		nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), (*wchar2_t)(unsafe.Pointer(v5)), &v9, nil, 0)
+		v5 = nox_strman_loadString_40F1D0(*v4, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c"), 92)
+		nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), v5, &v9, nil, 0)
 		if v9 > v3 {
 			v3 = v9
 		}

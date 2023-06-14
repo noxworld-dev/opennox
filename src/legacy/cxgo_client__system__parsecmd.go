@@ -21,7 +21,7 @@ func nox_cmd_set_sysop(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	}
 	nox_xxx_sysopSetPass_40A610(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd))))
 	var s *wchar2_t = nox_strman_loadString_40F1D0(internCStr("sysoppasswordset"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 1352)
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), s)
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s)
 	return 1
 }
 func sub_440A20(a1 *wchar2_t, _rest ...interface{}) {
@@ -36,14 +36,14 @@ func nox_cmd_set_cycle(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd))), internWStr("on")) == 0 {
 			sub_4D0D90(1)
 			v3 = nox_strman_loadString_40F1D0(internCStr("MapCycleOn"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2614)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3)
 			sub_4AD840()
 			return 1
 		}
 		if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd))), internWStr("off")) == 0 {
 			sub_4D0D90(0)
 			v3 = nox_strman_loadString_40F1D0(internCStr("MapCycleOff"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2621)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3)
 			sub_4AD840()
 			return 1
 		}
@@ -61,7 +61,7 @@ func nox_cmd_set_weapons(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			nox_server_gameSettingsUpdated_40A670()
 			v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:on"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2644)
 			v3 = nox_strman_loadString_40F1D0(internCStr("weapons"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2645)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 			return 1
 		}
 		if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd))), internWStr("off")) == 0 {
@@ -69,7 +69,7 @@ func nox_cmd_set_weapons(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			nox_server_gameSettingsUpdated_40A670()
 			v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:off"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2652)
 			v3 = nox_strman_loadString_40F1D0(internCStr("weapons"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2653)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 			return 1
 		}
 	}
@@ -86,7 +86,7 @@ func nox_cmd_set_staffs(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			nox_server_gameSettingsUpdated_40A670()
 			v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:on"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2674)
 			v3 = nox_strman_loadString_40F1D0(internCStr("staffs"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2675)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 			return 1
 		}
 		if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd))), internWStr("off")) == 0 {
@@ -94,7 +94,7 @@ func nox_cmd_set_staffs(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			nox_server_gameSettingsUpdated_40A670()
 			v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:off"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2682)
 			v3 = nox_strman_loadString_40F1D0(internCStr("staffs"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2683)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 			return 1
 		}
 	}
@@ -120,7 +120,7 @@ func nox_cmd_set_name(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	}
 	v13[0] = 0
 	if tokInd < tokCnt {
-		v12 = (*uint32)(unsafe.Pointer((**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd)))))
+		v12 = (*uint32)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd)))
 		for {
 			nox_sprintf(&v14[0], internCStr("%S"), *v12)
 			v5 = uint32(libc.StrLen(&v14[0]) + 1)
@@ -143,7 +143,7 @@ func nox_cmd_set_name(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		if v13[0] != 0 {
 			nox_xxx_gameSetServername_40A440(&v13[0])
 			v11 = nox_strman_loadString_40F1D0(internCStr("setgamename"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2766)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v11, &v13[0])
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v11, &v13[0])
 		}
 	}
 	return 1
@@ -160,7 +160,7 @@ func nox_cmd_set_mnstrs(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 				nox_server_gameSettingsUpdated_40A670()
 				v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:on"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2810)
 				v3 = nox_strman_loadString_40F1D0(internCStr("monsters"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2811)
-				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 				return 1
 			}
 			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd))), internWStr("off")) == 0 {
@@ -168,7 +168,7 @@ func nox_cmd_set_mnstrs(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 				nox_server_gameSettingsUpdated_40A670()
 				v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:off"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2818)
 				v3 = nox_strman_loadString_40F1D0(internCStr("monsters"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2819)
-				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 				return 1
 			}
 		} else if tokCnt != 3 {
@@ -177,7 +177,7 @@ func nox_cmd_set_mnstrs(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 				nox_server_gameSettingsUpdated_40A670()
 				v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:on"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2788)
 				v3 = nox_strman_loadString_40F1D0(internCStr("monsterrespawn"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2789)
-				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 				return 1
 			}
 			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*3)), internWStr("off")) == 0 {
@@ -185,7 +185,7 @@ func nox_cmd_set_mnstrs(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 				nox_server_gameSettingsUpdated_40A670()
 				v5 = nox_strman_loadString_40F1D0(internCStr("cmd_token:off"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2796)
 				v3 = nox_strman_loadString_40F1D0(internCStr("monsterrespawn"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 2797)
-				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v5)
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v5)
 				return 1
 			}
 		}
@@ -206,7 +206,7 @@ func nox_cmd_set_spell(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		if noxflags.HasGame(128) {
 			v8 = int32(uintptr(unsafe.Pointer(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)))))
 			v3 = nox_strman_loadString_40F1D0(internCStr("NotInChat"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3293)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v8)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8)
 			return 1
 		}
 		v4 = nox_xxx_spellByTitle_424960(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)))
@@ -229,7 +229,7 @@ func nox_cmd_set_spell(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 				nox_server_gameSettingsUpdated_40A670()
 				v8 = int32(uintptr(unsafe.Pointer(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)))))
 				v3 = nox_strman_loadString_40F1D0(internCStr("spellenabled"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3324)
-				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v8)
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8)
 				return 1
 			}
 			if _nox_wcsicmp(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*3)), internWStr("off")) == 0 {
@@ -240,13 +240,13 @@ func nox_cmd_set_spell(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 				nox_server_gameSettingsUpdated_40A670()
 				v8 = int32(uintptr(unsafe.Pointer(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)))))
 				v3 = nox_strman_loadString_40F1D0(internCStr("spelldisabled"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3333)
-				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v3, v8)
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v3, v8)
 				return 1
 			}
 		} else {
 			v9 = int32(uintptr(unsafe.Pointer(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)))))
 			v7 = nox_strman_loadString_40F1D0(internCStr("invalidspell"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3342)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v7, v9)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v7, v9)
 		}
 	}
 	return 0
@@ -278,7 +278,7 @@ func nox_cmd_ban(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			nox_xxx_playerDisconnByPlrID_4DEB00(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 2064))))
 		}
 		sub_416770(0, v4, (*byte)(unsafe.Add(unsafe.Pointer(v6), 2112)))
-		v9 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v6), 4704)))))
+		v9 = int32(uintptr(unsafe.Add(unsafe.Pointer(v6), 4704)))
 		v7 = nox_strman_loadString_40F1D0(internCStr("banned"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3577)
 	} else {
 		sub_416770(0, v4, nil)
@@ -290,12 +290,12 @@ func nox_cmd_ban(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 }
 func nox_cmd_allow_user(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	var s *wchar2_t = nox_strman_loadString_40F1D0(internCStr("notyetimplemented"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3698)
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), s)
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s)
 	return 1
 }
 func nox_cmd_allow_ip(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	var s *wchar2_t = nox_strman_loadString_40F1D0(internCStr("notyetimplemented"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3704)
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), s)
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s)
 	return 1
 }
 func nox_cmd_kick(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
@@ -361,7 +361,7 @@ func nox_cmd_set_players(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 }
 func nox_cmd_set_spellpts(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	var s *wchar2_t = nox_strman_loadString_40F1D0(internCStr("notyetimplemented"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3830)
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), s)
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s)
 	return 1
 }
 func nox_cmd_list_users(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
@@ -373,7 +373,7 @@ func nox_cmd_list_users(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		v5 [128]wchar2_t
 	)
 	v0 = nox_strman_loadString_40F1D0(internCStr("userslist"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3839)
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v0)
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v0)
 	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
 		v5[0] = 0
 		nox_wcscat(&v5[0], (*wchar2_t)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(wchar2_t(0))*2352)))
@@ -387,7 +387,7 @@ func nox_cmd_list_users(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			v3 = nox_strman_loadString_40F1D0(internCStr("ClientMuted"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3857)
 			nox_wcscat(&v5[0], v3)
 		}
-		nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), (*wchar2_t)(memmap.PtrOff(0x587000, 106604)), &v5[0])
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (*wchar2_t)(memmap.PtrOff(0x587000, 106604)), &v5[0])
 	}
 	return 1
 }
@@ -448,7 +448,7 @@ func nox_cmd_unmute(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	} else {
 		v6 = nox_strman_loadString_40F1D0(internCStr("UserNotFound"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3921)
 	}
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v6, v8)
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8)
 	return 1
 }
 func sub_57A080(a1 *wchar2_t) int32 {
@@ -508,7 +508,7 @@ func nox_cmd_mute(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	} else {
 		v6 = nox_strman_loadString_40F1D0(internCStr("UserNotFound"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 3959)
 	}
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v6, v8)
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8)
 	return 1
 }
 func nox_cmd_exec_rul(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
@@ -522,7 +522,7 @@ func nox_cmd_exec_rul(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		nox_wcscat(&buf[0], internWStr(".rul"))
 	}
 	var s *wchar2_t = nox_strman_loadString_40F1D0(internCStr("ExecutingRul"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4002)
-	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), s, &buf[0])
+	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s, &buf[0])
 	nox_xxx_doExecrul_4438A0(unsafe.Pointer(&buf[0]))
 	return 1
 }
@@ -591,7 +591,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		}
 		v21 = v6
 		v9 = nox_strman_loadString_40F1D0(internCStr("observermode"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4308)
-		nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v9, v21)
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v9, v21)
 		nox_console_playerWhoSent_823692 = nil
 		return 1
 	case 1:
@@ -605,13 +605,13 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		v11 = nox_script_indexByEvent(&v22[0])
 		if v11 != -1 && nox_console_playerWhoSent_823692 != nil {
 			v12 = nox_strman_loadString_40F1D0(internCStr("ExecutingFunction"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4332)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v12, v10)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v12, v10)
 			nox_script_callByIndex_507310(v11, unsafe.Pointer(nox_console_playerWhoSent_823692.PlayerUnit), unsafe.Pointer(nox_console_playerWhoSent_823692.PlayerUnit))
 			nox_console_playerWhoSent_823692 = nil
 		} else {
 			v21 = v10
 			v9 = nox_strman_loadString_40F1D0(internCStr("InvalidFunction"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4329)
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v9, v21)
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v9, v21)
 			nox_console_playerWhoSent_823692 = nil
 		}
 		return 1
@@ -620,9 +620,9 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}
-		v19 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(nox_console_playerWhoSent_823692), 4704)))))
+		v19 = int32(uintptr(unsafe.Add(unsafe.Pointer(nox_console_playerWhoSent_823692), 4704)))
 		v13 = nox_strman_loadString_40F1D0(internCStr("RemoteSysop"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4345)
-		nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v13, v19, a3)
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v13, v19, a3)
 		nox_server_parseCmdText_443C80(a3, 0)
 		nox_console_playerWhoSent_823692 = nil
 		return 1
@@ -634,7 +634,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 3680)))&1) == 0 && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ) {
 			if noxflags.HasGame(1) {
 				v16 = nox_strman_loadString_40F1D0(internCStr("notinobserver"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4392)
-				nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v16)
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v16)
 				nox_console_playerWhoSent_823692 = nil
 				return 1
 			}
@@ -684,7 +684,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 	default:
 		v20 = v3 + 4704
 		v18 = nox_strman_loadString_40F1D0(internCStr("invalidattempt"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4400)
-		nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v18, v20, a3)
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v18, v20, a3)
 		nox_console_playerWhoSent_823692 = nil
 		return 1
 	}
@@ -786,7 +786,7 @@ func nox_cmd_list_maps(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	for i = 1; v0 != nil; i++ {
 		sub_4417E0((*wchar2_t)(memmap.PtrOff(0x5D4594, 822404)), (*byte)(unsafe.Add(unsafe.Pointer(v0), 12)))
 		if (i % 4) == 0 {
-			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), (*wchar2_t)(memmap.PtrOff(0x587000, 103276)), memmap.PtrOff(0x5D4594, 822404))
+			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (*wchar2_t)(memmap.PtrOff(0x587000, 103276)), memmap.PtrOff(0x5D4594, 822404))
 			*memmap.PtrUint16(0x5D4594, 822404) = 0
 		}
 		v0 = (*int32)(unsafe.Pointer(nox_common_maplist_next_4D09C0((*Nox_map_list_item)(unsafe.Pointer(v0)))))
@@ -797,7 +797,7 @@ func nox_cmd_list_maps(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		v2 = (uint32(int32(uint8(int8(v3)))-1) | 0xFFFFFFFC) == math.MaxUint32
 	}
 	if !v2 {
-		nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), (*wchar2_t)(memmap.PtrOff(0x587000, 103284)), memmap.PtrOff(0x5D4594, 822404))
+		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (*wchar2_t)(memmap.PtrOff(0x587000, 103284)), memmap.PtrOff(0x5D4594, 822404))
 	}
 	return 1
 }

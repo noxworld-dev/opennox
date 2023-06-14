@@ -219,16 +219,16 @@ func Nox_xxx_cliSetSettingsAcquired_4169D0(a1 int) {
 	nox_xxx_cliSetSettingsAcquired_4169D0(int32(a1))
 }
 func Sub_457140(a1 int, a2 *uint16) {
-	sub_457140(int32(a1), (*uint16)(unsafe.Pointer(a2)))
+	sub_457140(int32(a1), a2)
 }
 func Sub_455920(a1 *uint16) {
-	sub_455920((*uint16)(unsafe.Pointer(a1)))
+	sub_455920(a1)
 }
 func Sub_456DF0(a1 int) {
 	sub_456DF0(int32(a1))
 }
 func Sub_455950(a1 *uint16) {
-	sub_455950((*uint16)(unsafe.Pointer(a1)))
+	sub_455950(a1)
 }
 func Nox_xxx_netChangeTeamMb_419570(a1 *server.ObjectTeam, a2 uint32) {
 	nox_xxx_netChangeTeamMb_419570(a1.C(), int32(a2))

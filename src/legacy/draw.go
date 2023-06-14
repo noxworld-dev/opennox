@@ -193,8 +193,8 @@ func sub_49E4F0(a1 int32) int32 {
 
 // sub_480860
 func sub_480860(a1, a2 *uint16, w int32, a4, a5 *int32) {
-	dst := unsafe.Slice((*uint16)(unsafe.Pointer(a1)), w)
-	src := unsafe.Slice((*uint16)(unsafe.Pointer(a2)), w)
+	dst := unsafe.Slice(a1, w)
+	src := unsafe.Slice(a2, w)
 	a4p := unsafe.Slice((*uint32)(unsafe.Pointer(a4)), 3)
 	a5p := unsafe.Slice((*uint32)(unsafe.Pointer(a5)), 3)
 	Sub_480860(dst, src, int(w), a4p, a5p)

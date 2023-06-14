@@ -59,8 +59,8 @@ func sub_49C910() *uint32 {
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3))) = uint32(v3 + 2)
 	v4 = 0
 	for {
-		v5 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(*v2, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\conntype.c"), 53)))
-		nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59))))), (*wchar2_t)(unsafe.Pointer(v5)), &v11, nil, 0)
+		v5 = nox_strman_loadString_40F1D0(*v2, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\conntype.c"), 53)
+		nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59))))), v5, &v11, nil, 0)
 		if v11 > v4 {
 			v4 = v11
 		}
@@ -70,7 +70,7 @@ func sub_49C910() *uint32 {
 		}
 	}
 	v6 = v4 + 7
-	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59))))), (*wchar2_t)(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*54)))), &v12, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59))))), (*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*54)), &v12, nil, 0)
 	if v6 <= v12 {
 		v6 = v12
 	}

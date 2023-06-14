@@ -107,7 +107,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() int32 {
 func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *types.Pointf, a3 *int2, a4 int8) int32 {
 	p1 := (*types.Pointf)(unsafe.Pointer(&a1.field_0))
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
-	outPos := (*types.Pointf)(unsafe.Pointer(a2))
+	outPos := a2
 	outGrid := (*image.Point)(unsafe.Pointer(a3))
 	if GetServer().S().MapTraceRayAt(*p1, *p2, outPos, outGrid, server.MapTraceFlags(a4)) {
 		return 1
@@ -150,7 +150,7 @@ func sub_517B70(pos *types.Pointf, fnc func(it *server.Object, data unsafe.Point
 	if fnc == nil {
 		return
 	}
-	GetServer().S().Map.Sub517B70(*(*types.Pointf)(unsafe.Pointer(pos)), func(it *server.Object) {
+	GetServer().S().Map.Sub517B70(*pos, func(it *server.Object) {
 		fnc(it, data)
 	})
 }
@@ -196,7 +196,7 @@ func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc ObjectIter, data unsafe.Poi
 
 // nox_xxx_unitsGetInCircle_517F90
 func nox_xxx_unitsGetInCircle_517F90(pos *types.Pointf, r float32, fnc ObjectIter, data unsafe.Pointer) {
-	p := *(*types.Pointf)(unsafe.Pointer(pos))
+	p := *pos
 	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
 		fnc(it, data)
 		return true

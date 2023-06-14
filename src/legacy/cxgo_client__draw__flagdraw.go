@@ -29,8 +29,8 @@ func nox_thing_flag_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			v6 = (*uint16)(unsafe.Pointer(sub_418A80(v5)))
 			if v6 != nil {
 				nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x8531A0, 2572))
-				nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v6)), &a2, nil, 0)
-				nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v6)), a2/(-2)+v3, v4)
+				nox_xxx_drawGetStringSize_43F840(nil, v6, &a2, nil, 0)
+				nox_xxx_drawString_43F6E0(nil, v6, a2/(-2)+v3, v4)
 			}
 		}
 	}

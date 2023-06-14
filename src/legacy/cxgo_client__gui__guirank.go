@@ -85,8 +85,8 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	v46 = v0
 	*memmap.PtrUint32(0x5D4594, 1084036) = 80
 	v32 = nox_win_width
-	v1 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("Flag"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1641)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v1)), &v41, &v44, v32)
+	v1 = nox_strman_loadString_40F1D0(internCStr("Flag"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1641)
+	nox_xxx_drawGetStringSize_43F840(nil, v1, &v41, &v44, v32)
 	v2 = v41
 	if v41 < 18 {
 		v2 = 18
@@ -94,11 +94,11 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	}
 	*memmap.PtrUint32(0x5D4594, 1084040) = uint32(v2 + 14)
 	v33 = nox_win_width
-	v3 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("Score"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1649)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v3)), &v41, &v44, v33)
+	v3 = nox_strman_loadString_40F1D0(internCStr("Score"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1649)
+	nox_xxx_drawGetStringSize_43F840(nil, v3, &v41, &v44, v33)
 	v34 = nox_win_width
-	v4 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("HealthHeading"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1650)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v4)), &v42, &v43, v34)
+	v4 = nox_strman_loadString_40F1D0(internCStr("HealthHeading"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1650)
+	nox_xxx_drawGetStringSize_43F840(nil, v4, &v42, &v43, v34)
 	v5 = v41
 	if v42 > v41 {
 		v5 = v42
@@ -106,9 +106,9 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	}
 	*memmap.PtrUint32(0x5D4594, 1084048) = uint32(v5 + 7)
 	v35 = nox_win_width
-	v6 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("Ping"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1657)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v6)), &v41, &v44, v35)
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(mem_getU16Ptr(0x587000, 145972))), &v42, &v43, nox_win_width)
+	v6 = nox_strman_loadString_40F1D0(internCStr("Ping"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1657)
+	nox_xxx_drawGetStringSize_43F840(nil, v6, &v41, &v44, v35)
+	nox_xxx_drawGetStringSize_43F840(nil, mem_getU16Ptr(0x587000, 145972), &v42, &v43, nox_win_width)
 	v7 = v41
 	if v42 > v41 {
 		v7 = v42
@@ -116,29 +116,29 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	}
 	*memmap.PtrUint32(0x5D4594, 1084052) = uint32(v7 + 7)
 	v36 = nox_win_width
-	v8 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("Class"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1667)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v8)), &v41, &v44, v36)
+	v8 = nox_strman_loadString_40F1D0(internCStr("Class"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1667)
+	nox_xxx_drawGetStringSize_43F840(nil, v8, &v41, &v44, v36)
 	v37 = nox_win_width
-	v9 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("Warrior"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1668)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v9)), &v42, &v43, v37)
+	v9 = nox_strman_loadString_40F1D0(internCStr("Warrior"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1668)
+	nox_xxx_drawGetStringSize_43F840(nil, v9, &v42, &v43, v37)
 	if v42 > v41 {
 		v41 = v42
 	}
 	v38 = nox_win_width
-	v10 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("Wizard"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1671)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v10)), &v42, &v43, v38)
+	v10 = nox_strman_loadString_40F1D0(internCStr("Wizard"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1671)
+	nox_xxx_drawGetStringSize_43F840(nil, v10, &v42, &v43, v38)
 	if v42 > v41 {
 		v41 = v42
 	}
 	v39 = nox_win_width
-	v11 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("Conjurer"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1674)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v11)), &v42, &v43, v39)
+	v11 = nox_strman_loadString_40F1D0(internCStr("Conjurer"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1674)
+	nox_xxx_drawGetStringSize_43F840(nil, v11, &v42, &v43, v39)
 	if v42 > v41 {
 		v41 = v42
 	}
 	v40 = nox_win_width
-	v12 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("LivesHeading"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1677)))
-	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v12)), &v42, &v43, v40)
+	v12 = nox_strman_loadString_40F1D0(internCStr("LivesHeading"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1677)
+	nox_xxx_drawGetStringSize_43F840(nil, v12, &v42, &v43, v40)
 	v13 = v41
 	if v42 > v41 {
 		v13 = v42

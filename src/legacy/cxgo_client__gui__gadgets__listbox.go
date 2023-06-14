@@ -60,7 +60,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 	v10 = int32(a6)
 	*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*26)) = int16(a6)
 	if v21 != 0 {
-		*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*26)) -= int16(nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a7)), 200))))))
+		*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*26)) -= int16(nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a7, 200))))))
 	}
 	v11 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(a8), 4*4))))
 	*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*27)) = 0

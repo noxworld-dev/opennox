@@ -29,15 +29,15 @@ func sub_454640() int32 {
 	v2 = nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*59))))) + 1
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5)) + uint32(v2*4) + 2
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) = uint32(v2*4 + 2)
-	v3 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("WARRIOR"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c"), 88)))
-	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), (*wchar2_t)(unsafe.Pointer(v3)), &v9, nil, 0)
-	v4 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("WIZARD"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c"), 89)))
-	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), (*wchar2_t)(unsafe.Pointer(v4)), &v10, nil, 0)
+	v3 = nox_strman_loadString_40F1D0(internCStr("WARRIOR"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c"), 88)
+	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), v3, &v9, nil, 0)
+	v4 = nox_strman_loadString_40F1D0(internCStr("WIZARD"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c"), 89)
+	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), v4, &v10, nil, 0)
 	if v10 > v9 {
 		v9 = v10
 	}
-	v5 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("CONJURER"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c"), 94)))
-	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), (*wchar2_t)(unsafe.Pointer(v5)), &v10, nil, 0)
+	v5 = nox_strman_loadString_40F1D0(internCStr("CONJURER"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\access.c"), 94)
+	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59)))), v5, &v10, nil, 0)
 	v6 = v9
 	if v10 > v9 {
 		v6 = v10
@@ -71,16 +71,16 @@ func sub_454740() *int32 {
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10136)))
 	v2 = nox_xxx_sysopGetPass_40A630()
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v1)), 16414, uintptr(unsafe.Pointer(v2)), 0)
-	if int32(*(*int16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v0), 105))))) != -1 {
+	if int32(*(*int16)(unsafe.Add(unsafe.Pointer(v0), 105))) != -1 {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045584))))), 1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1045568))), 36)) |= 4
-		nox_itow(int32(*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v0), 105))))), &WideCharStr[0], 10)
+		nox_itow(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v0), 105))), &WideCharStr[0], 10)
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045584))))), 16414, uintptr(unsafe.Pointer(&WideCharStr[0])), 0)
 	}
-	if int32(*(*int16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v0), 107))))) != -1 {
+	if int32(*(*int16)(unsafe.Add(unsafe.Pointer(v0), 107))) != -1 {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045588))))), 1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1045572))), 36)) |= 4
-		nox_itow(int32(*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v0), 107))))), &WideCharStr[0], 10)
+		nox_itow(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v0), 107))), &WideCharStr[0], 10)
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045588))))), 16414, uintptr(unsafe.Pointer(&WideCharStr[0])), 0)
 	}
 	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10124)))
@@ -91,7 +91,7 @@ func sub_454740() *int32 {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045556))))), 1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1045524))), 36)) |= 4
 	}
-	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045556))))), 16414, uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v0), 78)))), 0)
+	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045556))))), 16414, uintptr(unsafe.Add(unsafe.Pointer(v0), 78)), 0)
 	if sub_4D6F30() != 0 {
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045520))))), 0)
 	} else {
@@ -142,7 +142,7 @@ func sub_454740() *int32 {
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1045592)))), 16414, uintptr(unsafe.Pointer(&WideCharStr[0])), 0)
 	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
 		if *(*byte)(unsafe.Add(unsafe.Pointer(i), 2064)) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-			sub_455920((*wchar2_t)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 4704)))))
+			sub_455920((*wchar2_t)(unsafe.Add(unsafe.Pointer(i), 4704)))
 		}
 	}
 	return sub_455800()

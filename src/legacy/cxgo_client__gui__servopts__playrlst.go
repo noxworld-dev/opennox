@@ -144,7 +144,7 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		if v4 == 10509 {
 			v28 = nox_strman_loadString_40F1D0(internCStr("NewName"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 504)
 			v27 = nox_strman_loadString_40F1D0(internCStr("Rename"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 504)
-			nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045684))))), (*wchar2_t)(unsafe.Pointer(v27)), (*wchar2_t)(unsafe.Pointer(v28)), 163, nil, nil)
+			nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045684))))), v27, v28, 163, nil, nil)
 		}
 		return 0
 	}
@@ -273,7 +273,7 @@ func sub_457230(a1 *wchar2_t) *byte {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*17)) = uint32(*(*byte)(unsafe.Add(unsafe.Pointer(result), 56)))
 			*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 64))) = sub_457120(int32(uintptr(unsafe.Pointer(result))))
 			sub_425770(unsafe.Pointer(v3))
-			nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Pointer(uintptr(memmap.PtrOff(0x5D4594, 1045668)))), (*nox_list_item_t)(unsafe.Pointer(v3)))
+			nox_common_list_append_4258E0((*nox_list_item_t)(memmap.PtrOff(0x5D4594, 1045668)), (*nox_list_item_t)(unsafe.Pointer(v3)))
 			nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(wchar2_t(0))*6)), a1)
 			nox_wcscpy(&v8[0], a1)
 			if noxflags.HasGame(96) || *(*byte)(unsafe.Add(unsafe.Pointer(v1), 52))&0x60 != 0 {

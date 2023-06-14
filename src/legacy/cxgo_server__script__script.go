@@ -26,7 +26,7 @@ func nox_xxx_xferReadScriptHandler_4F5580(a1 int32, a2 *byte) int32 {
 		if v5 >= 0x400 {
 			return 0
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7[0])), v5)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v7[0], v5)
 		v3 = v5 == 0
 		v7[v5] = 0
 		if !v3 {
@@ -41,7 +41,7 @@ func nox_xxx_xferReadScriptHandler_4F5580(a1 int32, a2 *byte) int32 {
 			if a2 != nil {
 				v5 = uint32(libc.StrLen(a2))
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4)
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(a2)), v5)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl(a2, v5)
 				goto LABEL_16
 			}
 		} else {
@@ -51,7 +51,7 @@ func nox_xxx_xferReadScriptHandler_4F5580(a1 int32, a2 *byte) int32 {
 				if name != nil {
 					v5 = uint32(libc.StrLen(name))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4)
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(name)), v5)
+					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(name, v5)
 					goto LABEL_16
 				}
 			}

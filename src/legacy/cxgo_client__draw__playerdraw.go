@@ -108,7 +108,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			v15 = (*uint32)(unsafe.Add(unsafe.Pointer(v3), 2324))
 			for v14 = 0; v14 < 27; v14++ {
 				if *v15 == 1 {
-					alloc.Memcpy(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*108))), unsafe.Add(unsafe.Pointer(v3), v14*24+2328), 0x14)
+					alloc.Memcpy(unsafe.Add(unsafe.Pointer(v11), 4*108), unsafe.Add(unsafe.Pointer(v3), v14*24+2328), 0x14)
 					v11 = *(**uint32)(unsafe.Pointer(&dword_5d4594_1313792))
 					v3 = v32
 					break
@@ -189,8 +189,8 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if v30 != 0 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.Field_32 == nox_player_netCode_85319C || *memmap.PtrUint32(0x852978, 8) != 0 && (nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) || v31 != 0) {
 		a1 = (*uint32)(unsafe.Pointer(uintptr(nox_color_rgb_4344A0(155, 155, 155))))
 		if sub_48D830(dr) == 0 && !noxflags.HasGame(2048) {
-			v21 = (*int16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v3), 4704))))
-			nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2352)))), &v34, nil, 0)
+			v21 = (*int16)(unsafe.Add(unsafe.Pointer(v3), 4704))
+			nox_xxx_drawGetStringSize_43F840(nil, (*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2352)), &v34, nil, 0)
 			v22 = *v10 + int32(dr.PosVec.X) + v34/(-2) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4))
 			var a2 int32 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) + int32(dr.PosVec.Y) - 64
 			nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x852978, 4))
@@ -283,7 +283,7 @@ func nox_thing_player_waypoint_draw(vp *noxrender.Viewport, dr *client.Drawable)
 }
 func nox_things_player_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
-		a3  *uint8 = (*uint8)(unsafe.Pointer(attr_value))
+		a3  *uint8 = attr_value
 		v3  *uint32
 		v5  *uint32
 		v7  int32
@@ -313,11 +313,11 @@ LABEL_3:
 	v22 = nox_memfile_read_u8(f)
 	nox_memfile_read(unsafe.Pointer(a3), 1, int32(v22), f)
 	*((*uint8)(unsafe.Add(unsafe.Pointer(a3), v22))) = 0
-	v10 = sub_44BB20((*byte)(unsafe.Pointer(a3)))
+	v10 = sub_44BB20(a3)
 	if v10 < 0 {
 		return false
 	}
-	v11 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*uintptr(v10*66+1))))))
+	v11 = int32(uintptr(unsafe.Add(unsafe.Pointer(v5), 4*uintptr(v10*66+1))))
 	if nox_xxx_loadVectorAnimated_44B8B0(v11, f) == 0 {
 		return false
 	}
@@ -333,15 +333,15 @@ LABEL_3:
 		v23 = nox_memfile_read_u8(f)
 		nox_memfile_read(unsafe.Pointer(a3), 1, int32(v23), f)
 		*((*uint8)(unsafe.Add(unsafe.Pointer(a3), v23))) = 0
-		if libc.StrCmp(internCStr("NAKED"), (*byte)(unsafe.Pointer(a3))) == 0 {
+		if libc.StrCmp(internCStr("NAKED"), a3) == 0 {
 			v14 = (*uint32)(alloc.Calloc1(1, 0x28))
 			v15 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 40)))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 48)) = uint32(uintptr(unsafe.Pointer(v14)))
 			v16 = sub_44B940(v14, v15, f)
 		} else {
-			v17 = nox_xxx_parse_Armor_44BA60((*byte)(unsafe.Pointer(a3)))
+			v17 = nox_xxx_parse_Armor_44BA60(a3)
 			if v17 < 0 {
-				v19 = sub_44BAC0((*byte)(unsafe.Pointer(a3)))
+				v19 = sub_44BAC0(a3)
 				if v19 < 0 {
 					return false
 				}

@@ -72,7 +72,7 @@ func Nox_game_showGameSel_4379F0() int {
 		sub_43BE40(3)
 		nox_xxx_clientPlaySoundSpecial_452D80(922, 100)
 		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))), 0)
-		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), 0)
+		nox_window_set_hidden((*gui.Window)(dword_5d4594_815000), 0)
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984))))), 1)
 		if nox_game_createOrJoin_815048 != 0 {
 			sub_4375C0(0)
@@ -126,7 +126,7 @@ func Nox_game_showGameSel_4379F0() int {
 	nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v4)), sub_438C80)
 	nox_xxx_wndSetProc_46B2C0(*(**gui.Window)(unsafe.Pointer(&nox_wol_wnd_gameList_815012)), nox_xxx_windowMultiplayerSub_439E70)
 	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012))))), 1)
-	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), 1)
+	nox_window_set_hidden((*gui.Window)(dword_5d4594_815000), 1)
 	nox_xxx_wnd_46B280(*memmap.PtrInt32(0x5D4594, 815008), *(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))
 	dword_587000_87412 = 0
 	nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814988))))), 1)
@@ -163,9 +163,9 @@ func Nox_game_showGameSel_4379F0() int {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*100)))), 8)) = 16
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*100)))), 12)) = 12
 	nox_xxx_wndSetOffsetMB_46AE40(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*100))), 0, -15)
-	v12 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), 10032)))
-	v13 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), 10035)))
-	v14 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), 10036)))
+	v12 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(dword_5d4594_815000), 10032)))
+	v13 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(dword_5d4594_815000), 10035)))
+	v14 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(dword_5d4594_815000), 10036)))
 	v15 = *(**uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_815004), 32))
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(dword_5d4594_815004))))
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v13))), int32(uintptr(unsafe.Pointer(dword_5d4594_815004))))
@@ -195,13 +195,13 @@ func Nox_game_showGameSel_4379F0() int {
 	if dword_5d4594_815096 != 0 {
 		v27 = nox_strman_loadString_40F1D0(internCStr("Kicked"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 2616)
 		v17 = nox_strman_loadString_40F1D0(internCStr("Notification"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 2616)
-		nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(v17)), (*wchar2_t)(unsafe.Pointer(v27)), 33, nil, nil)
+		nox_xxx_dialogMsgBoxCreate_449A10(nil, v17, v27, 33, nil, nil)
 		sub_44A360(1)
 		dword_5d4594_815096 = 0
 	} else if dword_5d4594_815100 != 0 {
 		v28 = nox_strman_loadString_40F1D0(internCStr("Timeout"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 2623)
 		v18 = nox_strman_loadString_40F1D0(internCStr("Notification"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 2623)
-		nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(v18)), (*wchar2_t)(unsafe.Pointer(v28)), 33, nil, nil)
+		nox_xxx_dialogMsgBoxCreate_449A10(nil, v18, v28, 33, nil, nil)
 		sub_44A360(1)
 		dword_5d4594_815100 = 0
 	}
@@ -275,14 +275,14 @@ func sub_438770() bool {
 		case 4:
 			sub_43AF90(3)
 			v2 = nox_strman_loadString_40F1D0(internCStr("TestCon"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1343)
-			sub_449E30((*wchar2_t)(unsafe.Pointer(v2)))
+			sub_449E30(v2)
 			qword_5d4594_814956 = uint64(nox_platform_get_ticks() + 20000)
 			return true
 		case 5:
 			v3 = nox_strman_loadString_40F1D0(internCStr("Password"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1349)
-			sub_449E00((*wchar2_t)(unsafe.Pointer(v3)))
+			sub_449E00(v3)
 			v4 = nox_strman_loadString_40F1D0(internCStr("PasswordRequired"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1350)
-			sub_449E30((*wchar2_t)(unsafe.Pointer(v4)))
+			sub_449E30(v4)
 			sub_449EA0(7)
 			sub_44A360(0)
 			sub_43AF90(6)
@@ -291,7 +291,7 @@ func sub_438770() bool {
 		case 7:
 			sub_44A360(1)
 			v5 = nox_strman_loadString_40F1D0(internCStr("Connected"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1364)
-			sub_449E30((*wchar2_t)(unsafe.Pointer(v5)))
+			sub_449E30(v5)
 			sub_449EA0(0)
 			nox_game_SetCliDrawFunc(ccall.FuncAddr(nox_xxx_cliDrawConnectedLoop_43B360))
 			sub_43AF90(1)
@@ -320,7 +320,7 @@ func sub_438770() bool {
 			return true
 		}
 	} else {
-		if (wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)))))) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)))))) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012)))))) == 0) && nox_game_createOrJoin_815048 == 0 && dword_5d4594_815044 == 0 && dword_5d4594_815052 == 0 && wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000)))) != 0 {
+		if (wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)))))) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)))))) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012)))))) == 0) && nox_game_createOrJoin_815048 == 0 && dword_5d4594_815044 == 0 && dword_5d4594_815052 == 0 && wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_815000)) != 0 {
 			if uint64(nox_platform_get_ticks()) > qword_5d4594_815068 {
 				nox_client_refreshServerList_4378B0()
 				return true
@@ -342,11 +342,11 @@ func sub_438BD0() int32 {
 	v0 = int32(nox_client_connError_814552)
 	if nox_client_connError_814552 != 8 && nox_client_connError_814552 != 9 && nox_client_connError_814552 != 10 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("ConnError"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1262)
-		sub_449E00((*wchar2_t)(unsafe.Pointer(v1)))
+		sub_449E00(v1)
 		v0 = int32(nox_client_connError_814552)
 	}
 	v2 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0*4)+87416)), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1265)
-	sub_449E30((*wchar2_t)(unsafe.Pointer(v2)))
+	sub_449E30(v2)
 	dword_5d4594_815044 = 0
 	sub_449EA0(1)
 	sub_44A360(1)
@@ -355,16 +355,16 @@ func sub_438BD0() int32 {
 func nox_client_gui_serverInfoBlockCheckExp_439370(a1 *int2, a2 int32) {
 	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 164)))&0x10) != 0 && false {
 		var v3 *wchar2_t = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:InformExpansion"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 688)
-		nox_xxx_dialogMsgBoxCreate_449A10(nox_wol_wnd_world_814980, nil, (*wchar2_t)(unsafe.Pointer(v3)), 33, nil, nil)
+		nox_xxx_dialogMsgBoxCreate_449A10(nox_wol_wnd_world_814980, nil, v3, 33, nil, nil)
 		sub_44A360(0)
 		sub_44A4B0()
 		return
 	}
 	sub_439450(a1.field_0, a1.field_4, (*uint32)(unsafe.Pointer(a1)))
-	sub_46B120((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), nil)
-	nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))))
-	sub_46C690((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))))
-	nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), a1.field_0, a1.field_4)
+	sub_46B120((*gui.Window)(dword_5d4594_815000), nil)
+	nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(dword_5d4594_815000))
+	sub_46C690((*gui.Window)(dword_5d4594_815000))
+	nox_window_setPos_46A9B0((*gui.Window)(dword_5d4594_815000), a1.field_0, a1.field_4)
 	nox_client_gui_serverInfoBlock_4394D0(a2)
 	dword_5d4594_815056 = 1
 	*memmap.PtrUint16(0x5D4594, 814604) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 109))
@@ -600,11 +600,11 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 	var v35 [72]byte
 	if a2 > 0x4010 {
 		if a2 == 16403 || a2 == 16412 {
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), a2, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), a2, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), a2, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), a2, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), a2, uintptr(unsafe.Pointer(a3)), 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), a2, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), a2, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), a2, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), a2, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), a2, a3, 0)
 		}
 		return 0
 	}
@@ -622,11 +622,11 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 	case 0x4000:
 		v27 = nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3)))
 		if v27 >= 10043 && v27 <= 10044 {
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), 0x4000, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), 0x4000, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), 0x4000, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), 0x4000, uintptr(unsafe.Pointer(a3)), 0)
-			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), 0x4000, uintptr(unsafe.Pointer(a3)), 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), 0x4000, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), 0x4000, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), 0x4000, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), 0x4000, a3, 0)
+			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), 0x4000, a3, 0)
 			return 0
 		}
 		return 0
@@ -749,7 +749,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 		*((*uint8)(unsafe.Pointer(&v22))) = 1
 		if v22 == 0 {
 			v23 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:InformExpansion"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 2013)
-			nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))), nil, (*wchar2_t)(unsafe.Pointer(v23)), 33, nil, nil)
+			nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))), nil, v23, 33, nil, nil)
 			sub_44A360(0)
 			sub_44A4B0()
 			return 0
@@ -824,7 +824,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 			v14 = sub_449E60(4)
 			nox_sprintf(&v35[0], internCStr("%S"), v14)
 			v15 = nox_strman_loadString_40F1D0(internCStr("Finding"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 2209)
-			sub_449E30((*wchar2_t)(unsafe.Pointer(v15)))
+			sub_449E30(v15)
 			sub_43AF90(11)
 			sub_449EA0(0)
 			return 0
@@ -908,9 +908,9 @@ func sub_43A810() {
 }
 func sub_43B630() *uint32 {
 	var v0 *wchar2_t
-	nox_xxx_wnd_46C6E0((*gui.Window)(unsafe.Pointer(uintptr(dword_5d4594_815000))))
+	nox_xxx_wnd_46C6E0((*gui.Window)(dword_5d4594_815000))
 	v0 = nox_strman_loadString_40F1D0(internCStr("AttemptingConn"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1284)
-	return (*uint32)(nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))), nil, (*wchar2_t)(unsafe.Pointer(v0)), 34, nil, nil))
+	return (*uint32)(nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))), nil, v0, 34, nil, nil))
 }
 func sub_43B6E0() {
 	var (
@@ -920,7 +920,7 @@ func sub_43B6E0() {
 	if nox_wol_wnd_world_814980 != nil {
 		v2 = nox_strman_loadString_40F1D0(internCStr("Kicked"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 3331)
 		v1 = nox_strman_loadString_40F1D0(internCStr("Notification"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 3331)
-		nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(v1)), (*wchar2_t)(unsafe.Pointer(v2)), 33, nil, nil)
+		nox_xxx_dialogMsgBoxCreate_449A10(nil, v1, v2, 33, nil, nil)
 		sub_44A360(1)
 		dword_5d4594_815096 = 0
 	} else {
@@ -935,7 +935,7 @@ func sub_43B750() {
 	if nox_wol_wnd_world_814980 != nil {
 		v2 = nox_strman_loadString_40F1D0(internCStr("Timeout"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 3351)
 		v1 = nox_strman_loadString_40F1D0(internCStr("Notification"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 3351)
-		nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(v1)), (*wchar2_t)(unsafe.Pointer(v2)), 33, nil, nil)
+		nox_xxx_dialogMsgBoxCreate_449A10(nil, v1, v2, 33, nil, nil)
 		sub_44A360(1)
 		dword_5d4594_815100 = 0
 	} else {

@@ -16,7 +16,7 @@ func PlayerInfoStructParser_0(a1 unsafe.Pointer) int {
 	return int(playerInfoStructParser_0(a1))
 }
 func PlayerInfoStructParser_1(a1 unsafe.Pointer, a2 *int32) int {
-	return int(playerInfoStructParser_1(a1, (*int32)(unsafe.Pointer(a2))))
+	return int(playerInfoStructParser_1(a1, a2))
 }
 func PlayerDropATrap(a1 *server.Object) {
 	playerDropATrap(a1.CObj())

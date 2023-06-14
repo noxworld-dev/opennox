@@ -72,7 +72,7 @@ func WStrLenBytes(s []byte) int {
 }
 
 func WStrCopy(p *wchar2_t, max int, src string) int {
-	dst := unsafe.Slice((*uint16)(unsafe.Pointer(p)), max)
+	dst := unsafe.Slice(p, max)
 	val := utf16.Encode([]rune(src))
 	n := copy(dst, val)
 	if n < len(dst) {
@@ -145,7 +145,7 @@ func GoWString(s *wchar2_t) string {
 	if n == 0 {
 		return ""
 	}
-	arr := unsafe.Slice((*uint16)(unsafe.Pointer(s)), n)
+	arr := unsafe.Slice(s, n)
 	return GoWStringSlice(arr)
 }
 
@@ -154,7 +154,7 @@ func GoWStringN(s *wchar2_t, max int) string {
 	if n == 0 {
 		return ""
 	}
-	arr := unsafe.Slice((*uint16)(unsafe.Pointer(s)), n)
+	arr := unsafe.Slice(s, n)
 	return GoWStringSlice(arr)
 }
 
@@ -183,7 +183,7 @@ func CWLen(s string) int {
 }
 
 func CWStringCopyTo(dst *wchar2_t, dstSz int, src string) {
-	str := unsafe.Slice((*uint16)(unsafe.Pointer(dst)), dstSz)
+	str := unsafe.Slice(dst, dstSz)
 	if len(src) == 0 {
 		str[0] = 0
 		return

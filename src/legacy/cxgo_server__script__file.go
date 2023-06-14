@@ -245,13 +245,13 @@ func nox_script_readWriteYyy_542380(f1 *FILE, f2 *FILE, a3 int32) int32 {
 					nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
 					nox_fs_fread(f2, unsafe.Pointer(&a2), 4)
 					nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
-					a2 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428))), -2)))))
+					a2 = int32(uintptr(unsafe.Add(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428), -2)))
 					nox_fs_fwrite(f2, unsafe.Pointer(&a2), 4)
 					if nox_script_shouldReadEvenMoreXxx(v13) {
 						nox_fs_fseek(f2, -12, stdio.SEEK_CUR)
 						nox_fs_fread(f2, unsafe.Pointer(&a2), 4)
 						nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
-						a2 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428))), -2)))))
+						a2 = int32(uintptr(unsafe.Add(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428), -2)))
 						nox_fs_fwrite(f2, unsafe.Pointer(&a2), 4)
 						nox_fs_fseek(f2, 8, stdio.SEEK_CUR)
 					}

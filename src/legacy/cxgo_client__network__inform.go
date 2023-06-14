@@ -91,7 +91,7 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 		if v13 == nil {
 			return 6
 		}
-		v51 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v13), 4704)))))
+		v51 = int32(uintptr(unsafe.Add(unsafe.Pointer(v13), 4704)))
 		v14 = nox_strman_loadString_40F1D0(internCStr("netserv.c:PlayerTimeout"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 147)
 		nox_swprintf(&v62[0], v14, v51)
 		nox_xxx_printCentered_445490(&v62[0])
@@ -101,7 +101,7 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 		if v15 == nil {
 			return 6
 		}
-		v52 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v15), 4704)))))
+		v52 = int32(uintptr(unsafe.Add(unsafe.Pointer(v15), 4704)))
 		v16 = nox_strman_loadString_40F1D0(internCStr("objcoll.c:FlagRetrieveNotice"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 164)
 		nox_swprintf(&v62[0], v16, v52)
 		nox_xxx_printCentered_445490(&v62[0])
@@ -160,7 +160,7 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 		if v38 == nil {
 			return 10
 		}
-		v46 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v39), 4704)))))
+		v46 = int32(uintptr(unsafe.Add(unsafe.Pointer(v39), 4704)))
 		v40 = nox_strman_loadString_40F1D0(internCStr("objcoll.c:FlagBallNotice"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 365)
 		nox_swprintf(&v62[0], v40, v46, v38)
 		nox_xxx_printCentered_445490(&v62[0])
@@ -263,14 +263,14 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 	case 0x11:
 		v45 = nox_strman_loadString_40F1D0(internCStr("Noxworld.c:ErrChangedClass"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 51)
 		v6 = nox_strman_loadString_40F1D0(internCStr("guiserv.c:Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 50)
-		nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(v6)), (*wchar2_t)(unsafe.Pointer(v45)), 33, nil, nil)
+		nox_xxx_dialogMsgBoxCreate_449A10(nil, v6, v45, 33, nil, nil)
 		return 2
 	case 0x12:
 		v24 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2))))))
 		if v24 == nil {
 			return 6
 		}
-		v57 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v24), 4704)))))
+		v57 = int32(uintptr(unsafe.Add(unsafe.Pointer(v24), 4704)))
 		v25 = nox_strman_loadString_40F1D0(internCStr("objcoll.c:PlayerExited"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 247)
 		nox_swprintf(&v62[0], v25, v57)
 		nox_xxx_printCentered_445490(&v62[0])
@@ -278,7 +278,7 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 	case 0x13:
 		v26 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2))))))
 		if v26 != nil {
-			v58 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v26), 4704)))))
+			v58 = int32(uintptr(unsafe.Add(unsafe.Pointer(v26), 4704)))
 			v27 = nox_strman_loadString_40F1D0(internCStr("objcoll.c:PlayerExitedWarp"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 265)
 			nox_swprintf(&v62[0], v27, v58)
 			nox_xxx_printCentered_445490(&v62[0])
@@ -289,7 +289,7 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 		if v7 == nil {
 			return 6
 		}
-		v48 = int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v7), 4704)))))
+		v48 = int32(uintptr(unsafe.Add(unsafe.Pointer(v7), 4704)))
 		v8 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:SecretFoundOther"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 90)
 		nox_swprintf(&v62[0], v8, v48)
 		nox_xxx_printCentered_445490(&v62[0])

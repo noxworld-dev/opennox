@@ -221,7 +221,7 @@ func sub_462040(a1 int32) {
 	v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*30)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*32)) = uint32(v1)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*30)) = uint32(v8) | 0x40000000
-	alloc.Memcpy(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*108))), v4, 0x18)
+	alloc.Memcpy(unsafe.Add(unsafe.Pointer(v6), 4*108), v4, 0x18)
 	*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*146))) = uint16(v18)
 	*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*147))) = uint16(v19)
 	sub_4623E0(v6, v20)
@@ -1162,7 +1162,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					v52 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1049848))), 128)))
 					v51 = v58
 					v50 = nox_strman_loadString_40F1D0(internCStr("DropLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4148)
-					nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(v50)), v51.field_0, v51.field_4, v52, v53, v49, v48+1, 0, sub_465CD0, nil)
+					nox_gui_itemAmountDialog_4C0430(v50, v51.field_0, v51.field_4, v52, v53, v49, v48+1, 0, sub_465CD0, nil)
 				} else if sub_4C12C0() == 0 {
 					nox_xxx_clientDrop_465BE0(&v57)
 				}

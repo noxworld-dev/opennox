@@ -214,7 +214,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 			v11 = nox_strman_loadString_40F1D0(internCStr("servopts.wnd:teams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1811)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16385, uintptr(unsafe.Pointer(v11)), math.MaxUint32)
 			v12 = nox_strman_loadString_40F1D0(internCStr("servopts.wnd:TeamTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1812)
-			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v10), unsafe.Sizeof(wchar2_t(0))*18)))), v12)
+			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v10), unsafe.Sizeof(wchar2_t(0))*18)), v12)
 			v13 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10149)))
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v13)), 0)
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046508))))), 1)
@@ -516,7 +516,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 					v21 = v19 <= 2
 					if v19 < 2 {
 						v22 = nox_strman_loadString_40F1D0(internCStr("NeedTeams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1363)
-						nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), (*wchar2_t)(unsafe.Pointer(uintptr(memmap.PtrOff(0x5D4594, 1046560)))), (*wchar2_t)(unsafe.Pointer(v22)), 56, ccall.FuncAddr(sub_459150), nil)
+						nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1046560)), v22, 56, ccall.FuncAddr(sub_459150), nil)
 						sub_44A360(1)
 						return 1
 					}
@@ -524,14 +524,14 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 				if !v21 {
 					v38 = nox_strman_loadString_40F1D0(internCStr("TooManyTeams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1371)
 					v23 = nox_strman_loadString_40F1D0(internCStr("Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1370)
-					nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), (*wchar2_t)(unsafe.Pointer(v23)), (*wchar2_t)(unsafe.Pointer(v38)), 33, nil, nil)
+					nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), v23, v38, 33, nil, nil)
 					sub_44A360(1)
 					return 1
 				}
 			} else if noxflags.HasGame(128) && noxflags.HasGame(16) && nox_xxx_CheckGameplayFlags_417DA0(4) && v19 > 2 {
 				v39 = nox_strman_loadString_40F1D0(internCStr("TooManyTeams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1384)
 				v24 = nox_strman_loadString_40F1D0(internCStr("Notice"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1383)
-				nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), (*wchar2_t)(unsafe.Pointer(v24)), (*wchar2_t)(unsafe.Pointer(v39)), 33, nil, nil)
+				nox_xxx_dialogMsgBoxCreate_449A10((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), v24, v39, 33, nil, nil)
 				sub_44A360(1)
 				return 1
 			}

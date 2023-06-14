@@ -186,7 +186,7 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 					v7 = v16
 				}
 				*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(8, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 439))
-				v17 = (*int2)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v17), v6))))
+				v17 = (*int2)(unsafe.Add(unsafe.Pointer(v17), v6))
 				if int32(uintptr(unsafe.Pointer(v17))) > v7 {
 					break
 				}
