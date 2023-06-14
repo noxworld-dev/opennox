@@ -216,7 +216,7 @@ func nox_xxx_teamRenameMB_418CD0(a1 *wchar2_t, a2 *wchar2_t) {
 			*(*uint16)(unsafe.Pointer(&v3[0])) = 1220
 			*(*uint32)(unsafe.Pointer(&v3[2])) = uint32(v2)
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v3[6])), a2)
-			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v3[0]), 46, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v3[0]), 46, nil, 1)
 		}
 		nox_wcscpy(a1, a2)
 	}
@@ -235,7 +235,7 @@ func sub_418D80(a1 int32) {
 			v5[0] = 196
 			v5[1] = 5
 			*(*uint32)(unsafe.Pointer(&v5[2])) = uint32(v1)
-			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v5[0]), 6, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v5[0]), 6, nil, 1)
 		}
 		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
 			v3 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515)))))
@@ -315,7 +315,7 @@ func nox_xxx_netChangeTeamID_419090(a1 int32, a2 int32) {
 			v4[1] = 8
 			*(*uint32)(unsafe.Pointer(&v4[2])) = uint32(v3)
 			*(*uint32)(unsafe.Pointer(&v4[6])) = uint32(v2)
-			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v4[0]), 10, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v4[0]), 10, nil, 1)
 		}
 	}
 }
@@ -409,7 +409,7 @@ func nox_xxx_netChangeTeamMb_419570(a1p unsafe.Pointer, a2 int32) {
 					v4[0] = 196
 					v4[1] = 2
 					*(*uint32)(unsafe.Pointer(&v4[2])) = uint32(a2)
-					nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v4[0]), 6, 0, 1)
+					nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v4[0]), 6, nil, 1)
 				}
 				sub_418E40(unsafe.Pointer(v2), unsafe.Pointer(uintptr(a1)))
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*12)))--
@@ -443,7 +443,7 @@ func sub_4196D0(a1p unsafe.Pointer, a2p unsafe.Pointer, a3 int32, a4 int32) int3
 		v7[1] = 3
 		*(*uint32)(unsafe.Pointer(&v7[2])) = uint32(v4)
 		*(*uint16)(unsafe.Pointer(&v7[6])) = uint16(int16(a3))
-		nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v7[0]), 10, 0, 1)
+		nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v7[0]), 10, nil, 1)
 		sub_4571A0(a3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 57))))
 	}
 	v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))))))
@@ -480,7 +480,7 @@ func sub_4197C0(a1 *wchar2_t, a2 int32) {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) = *(*uint32)(unsafe.Pointer(&v4[12]))
 		*((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*8))) = *(*uint16)(unsafe.Pointer(&v4[16]))
 		alloc.Memcpy(unsafe.Add(unsafe.Pointer(v3), 18), unsafe.Pointer(a1), uintptr(v4[15])*2)
-		nox_xxx_netSendPacket1_4E5390(a2, unsafe.Pointer(v3), v2+18, 0, 1)
+		nox_xxx_netSendPacket1_4E5390(a2, unsafe.Pointer(v3), v2+18, nil, 1)
 		alloc.Free(v3)
 	}
 }
@@ -499,7 +499,7 @@ func sub_4198A0(a1 int32, a2 int32, a3 int32) {
 			*(*uint16)(unsafe.Pointer(&v5[6])) = uint16(int16(a3))
 			*(*uint32)(unsafe.Pointer(&v5[2])) = uint32(v4)
 			*(*uint16)(unsafe.Pointer(&v5[8])) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 4))
-			nox_xxx_netSendPacket1_4E5390(a2, unsafe.Pointer(&v5[0]), 10, 0, 1)
+			nox_xxx_netSendPacket1_4E5390(a2, unsafe.Pointer(&v5[0]), 10, nil, 1)
 		}
 	}
 }
@@ -516,7 +516,7 @@ func sub_419900(a1 int32, a2 int32, a3 int16) int8 {
 			v4[0] = 196
 			v4[1] = 10
 			*(*uint16)(unsafe.Pointer(&v4[6])) = uint16(a3)
-			result = int8(nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v4[0]), 10, 0, 1))
+			result = int8(nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v4[0]), 10, 1))
 		}
 	}
 	return result
@@ -534,7 +534,7 @@ func sub_419960(a1 int32, a2 int32, a3 int16) int8 {
 			v4[0] = 196
 			v4[1] = 11
 			*(*uint16)(unsafe.Pointer(&v4[6])) = uint16(a3)
-			result = int8(nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v4[0]), 10, 0, 1))
+			result = int8(nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v4[0]), 10, 1))
 		}
 	}
 	return result
@@ -2310,7 +2310,7 @@ func nox_xxx_netSavePlayer_41CE00() int32 {
 	var v2 [3]byte
 	v2[0] = 193
 	*(*uint16)(unsafe.Pointer(&v2[1])) = uint16(nox_player_netCode_85319C)
-	nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v2[0]), 3, 0, 1)
+	nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v2[0]), 3, 1)
 	return 1
 }
 func sub_41CEE0(a1p unsafe.Pointer, a2 int32) int32 {

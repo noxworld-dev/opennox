@@ -117,12 +117,6 @@ func Sub_43AF90(v int) {
 	dword_5d4594_814548 = uint32(v)
 }
 
-func Nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
-	b, free := alloc.CloneSlice(buf)
-	defer free()
-	return int(nox_xxx_netSendPacket_4E5030(int32(a1), unsafe.Pointer(&b[0]), int32(len(b)), int32(a4), int32(a5), int8(a6)))
-}
-
 func Nox_client_getServerAddr_43B300() netip.Addr {
 	return int2ip(nox_client_getServerAddr_43B300())
 }
@@ -222,8 +216,8 @@ func convSendToServerErr(n int, err error) int {
 	}
 	return n
 }
-func Nox_xxx_netClientSend2_4E53C0(a1 int, a2 unsafe.Pointer, a3 int, a4 int, a5 int) {
-	nox_xxx_netClientSend2_4E53C0(int32(a1), a2, int32(a3), int32(a4), int32(a5))
+func Nox_xxx_netClientSend2_4E53C0(a1 int, a2 unsafe.Pointer, a3 int, a5 int) {
+	nox_xxx_netClientSend2_4E53C0(int32(a1), a2, int32(a3), int32(a5))
 }
 func Nox_xxx_gameClearAll_467DF0(a1 int) {
 	nox_xxx_gameClearAll_467DF0(int32(a1))

@@ -2140,7 +2140,7 @@ func nox_xxx_scriptDialog_548D30(a1p *server.Object, a2 int8) {
 		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 748)))
 		if *(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 2096)) != -1 && *(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 2100)) != -1 {
 			*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*0)) = 1232
-			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&a1), 2, 0, 1)
+			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&a1), 2, nil, 1)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 284)) = 0
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 2104))) == 1 {
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 2105)) = uint8(a2)
@@ -4528,7 +4528,7 @@ func sub_54CE00(a1p unsafe.Pointer) {
 						var a1 int32
 						*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*0)) = 4592
 						*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(i))
-						nox_xxx_netSendPacket0_4E5420(v12, unsafe.Pointer(&a1), 4, 0, 1)
+						nox_xxx_netSendPacket0_4E5420(v12, unsafe.Pointer(&a1), 4, nil, 1)
 						return
 					}
 					v7++
@@ -4578,7 +4578,7 @@ func sub_54CEE0(a1p unsafe.Pointer) {
 						v11 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 2064)))
 						*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*0)) = 5104
 						*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(i))
-						nox_xxx_netSendPacket0_4E5420(v11, unsafe.Pointer(&a1), 4, 0, 1)
+						nox_xxx_netSendPacket0_4E5420(v11, unsafe.Pointer(&a1), 4, nil, 1)
 						return
 					}
 					v7++
@@ -4630,7 +4630,7 @@ func sub_54CFB0(a1 unsafe.Pointer) int8 {
 						v10 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 2064)))
 						*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*0)) = 4848
 						*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v7))
-						*((*uint8)(unsafe.Pointer(&v2))) = uint8(int8(nox_xxx_netSendPacket0_4E5420(v10, unsafe.Pointer(&a1), 4, 0, 1)))
+						*((*uint8)(unsafe.Pointer(&v2))) = uint8(int8(nox_xxx_netSendPacket0_4E5420(v10, unsafe.Pointer(&a1), 4, nil, 1)))
 						return int8(v2)
 					}
 					v6++
@@ -4931,7 +4931,7 @@ LABEL_38:
 			*(*uint16)(unsafe.Pointer(&v23[6])) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v20)), 4664))
 			*(*uint16)(unsafe.Pointer(&v23[4])) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v20)), 4672))
 			*(*uint32)(unsafe.Pointer(&v23[10])) = 0
-			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v20)), 2064))), unsafe.Pointer(&v23[0]), 14, 0, 1)
+			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v20)), 2064))), unsafe.Pointer(&v23[0]), 14, nil, 1)
 			sub_4D6000((*server.Object)(unsafe.Pointer(uintptr(v1))))
 			sub_54CBD0(v1)
 			v21 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("QuestGameStartingExtraLives")))
@@ -5316,7 +5316,7 @@ func nox_xxx_netNotifyPlayerDied_54DF00(a1 unsafe.Pointer) {
 	v2 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 36)))
 	*((*uint8)(unsafe.Pointer(&v4))) = 232
 	*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&v4), 1)))) = uint16(v2)
-	nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v4), 3, 0, 0)
+	nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v4), 3, nil, 0)
 }
 func nox_xxx_dieBarrel_54DFA0(obj *server.Object) {
 	a1 := int32(uintptr(obj.CObj()))

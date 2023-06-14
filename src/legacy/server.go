@@ -464,7 +464,7 @@ func Sub_50D7E0() {
 	sub_50D7E0()
 }
 func Sub_4E4F80() {
-	sub_4E4F80()
+	freeImportantMsg3X()
 }
 
 // nox_xxx_mapSwitchLevel_4D12E0_end

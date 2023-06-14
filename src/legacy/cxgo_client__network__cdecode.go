@@ -2684,7 +2684,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		}
 		if (gameFrame() - *(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 9))))) >= 0x1E {
 			v359 = -44
-			nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v359), 1, 0, 1)
+			nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v359), 1, 1)
 			return 13
 		}
 		if *(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))) != 0 {

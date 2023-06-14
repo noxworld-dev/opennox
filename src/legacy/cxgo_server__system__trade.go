@@ -99,7 +99,7 @@ func sub_50F0F0(a1 unsafe.Pointer, a2 int32) int32 {
 	*(*uint16)(unsafe.Pointer(&v6[52])) = 0
 	libc.StrCpy(&v6[54], (*byte)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 692)))), 1684)))
 	*(*uint16)(unsafe.Pointer(&v6[2])) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 4))
-	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 276)))), 2064))), unsafe.Pointer(&v6[0]), 86, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 276)))), 2064))), unsafe.Pointer(&v6[0]), 86, nil, 1)
 }
 func sub_50F1A0(a1 unsafe.Pointer, a2 int32) int32 {
 	var (
@@ -114,20 +114,20 @@ func sub_50F1A0(a1 unsafe.Pointer, a2 int32) int32 {
 	if a1 != v2 {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)))&4 != 0 {
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v8[2])), (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 748)))), 276)))), 4704)))
-			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, 0, 1)
+			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, nil, 1)
 		}
 		v6 = sub_4E39F0_obj_db((*server.Object)(unsafe.Pointer(*(***byte)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)))))
 	} else {
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)))
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 8)))&4 != 0 {
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v8[2])), (*wchar2_t)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 748)))), 276)))), 4704)))
-			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, 0, 1)
+			return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, nil, 1)
 		}
 		v6 = sub_4E39F0_obj_db((*server.Object)(unsafe.Pointer(uintptr(v4))))
 	}
 	nox_wcsncpy((*wchar2_t)(unsafe.Pointer(&v8[2])), v6, 0x18)
 	*(*uint16)(unsafe.Pointer(&v8[50])) = 0
-	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 52, nil, 1)
 }
 func nox_xxx_servSendShopItems_50F280(a1 int32, a2 int32) int32 {
 	var (
@@ -180,7 +180,7 @@ func sub_50FAE0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 unsafe.Pointer, a4 int3
 	} else {
 		*(*uint32)(unsafe.Pointer(&v11[11])) = math.MaxUint32
 	}
-	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)))), 2064))), unsafe.Pointer(&v11[0]), 15, 0, 1)
+	return nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 276)))), 2064))), unsafe.Pointer(&v11[0]), 15, nil, 1)
 }
 func sub_50FD60(a1 *uint32, a2 int32) int32 {
 	var (
@@ -295,7 +295,7 @@ func sub_5104F0(a1 unsafe.Pointer, a2 int16) int32 {
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
 	v4[0] = 201
 	v4[1] = 27
-	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 2064))), unsafe.Pointer(&v4[0]), 4, 0, 1)
+	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 2064))), unsafe.Pointer(&v4[0]), 4, nil, 1)
 }
 func sub_510540(a1 int32) int32 {
 	if !noxflags.HasGame(4096) {
@@ -751,7 +751,7 @@ func sub_5109C0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 			nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		} else {
 			*(*uint32)(unsafe.Pointer(&v8[4])) = uint32(nox_xxx_shopGetItemCost_50E3D0(0, a2, *(*float32)(unsafe.Pointer(&v4))))
-			result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 8, 0, 1))))
+			result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)))), 2064))), unsafe.Pointer(&v8[0]), 8, nil, 1))))
 		}
 	}
 	return result

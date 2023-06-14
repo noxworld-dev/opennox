@@ -1512,7 +1512,7 @@ func nox_xxx_clientReportSecondaryWeapon_4BF010(a1 int32) int32 {
 	var v3 [3]byte
 	v3[0] = 224
 	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(nox_xxx_netGetUnitCodeCli_578B00(a1))
-	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v3[0]), 3, 0, 1)
+	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v3[0]), 3, 1)
 }
 func sub_4BF7E0(a1 *uint32) int16 {
 	var (

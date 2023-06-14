@@ -108,7 +108,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 				*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&v21[0]), 2)))) = uint32(v13)
 				v22 = v12
 				sub_4571A0(a4, v13)
-				nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v21[0]), 10, 0, 1)
+				nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v21[0]), 10, nil, 1)
 			}
 		}
 	} else {

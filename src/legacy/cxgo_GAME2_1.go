@@ -510,7 +510,7 @@ func nox_xxx_send2ServInvenFail_461630(a1 int16) int32 {
 	var v3 [3]byte
 	v3[0] = 241
 	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(a1)
-	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v3[0]), 3, 0, 0)
+	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v3[0]), 3, 0)
 }
 func sub_461930() int32 {
 	var (

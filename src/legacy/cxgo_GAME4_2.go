@@ -3973,13 +3973,13 @@ func nox_xxx_sendSummonStartFX_5236F0(a1 int16, a2 *float32, a3 int8, a4 int16, 
 	*(*uint16)(unsafe.Pointer(&v9[1])) = uint16(int16(v6))
 	*(*uint16)(unsafe.Pointer(&v9[3])) = uint16(int16(int64(v7)))
 	*(*uint16)(unsafe.Pointer(&v9[10])) = uint16(a5)
-	return nox_xxx_netSendPacket0_4E5420(math.MaxUint8, unsafe.Pointer(&v9[0]), 12, 0, 1)
+	return nox_xxx_netSendPacket0_4E5420(math.MaxUint8, unsafe.Pointer(&v9[0]), 12, nil, 1)
 }
 func nox_xxx_sendSummonCancelFX_523760(a1 int16) int32 {
 	var v3 [3]byte
 	v3[0] = math.MaxInt8
 	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(a1)
-	return nox_xxx_netSendPacket0_4E5420(math.MaxUint8, unsafe.Pointer(&v3[0]), 3, 0, 1)
+	return nox_xxx_netSendPacket0_4E5420(math.MaxUint8, unsafe.Pointer(&v3[0]), 3, nil, 1)
 }
 func nox_xxx_netSendFxGreenBolt_523790(a1 *int4, a2 int16) int32 {
 	var (
@@ -7740,7 +7740,7 @@ func nox_xxx_netReportDestroyObject_5289D0(a1p *server.Object) {
 		if uint32(1<<int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 2064))))&*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 148)) != 0 {
 			*((*uint8)(unsafe.Pointer(&v4))) = uint8(int8((int32(uint8(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)))) >> 6) | 0x31))
 			*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(&v4), 1)))) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(uintptr(a1)))))
-			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 2064))), unsafe.Pointer(&v4), 3, 0, 1)
+			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 2064))), unsafe.Pointer(&v4), 3, nil, 1)
 		}
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8)))&6 != 0 {
 			nox_xxx_netFriendAddRemove_4D97A0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(i)), 2064))), (*uint32)(unsafe.Pointer(uintptr(a1))), 0)
@@ -7752,13 +7752,13 @@ func nox_xxx_netObjectOutOfSight_528A60(a1 int32, a2 *uint32) int32 {
 	var v4 [3]byte
 	v4[0] = 50
 	*(*uint16)(unsafe.Pointer(&v4[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(a2))))
-	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v4[0]), 3, 0, 1)
+	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v4[0]), 3, nil, 1)
 }
 func nox_xxx_netObjectInShadows_528A90(a1 int32, a2 *uint32) int32 {
 	var v4 [3]byte
 	v4[0] = 51
 	*(*uint16)(unsafe.Pointer(&v4[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(a2))))
-	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v4[0]), 3, 0, 1)
+	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v4[0]), 3, nil, 1)
 }
 func nox_xxx_monsterCmdSend_528BD0(unit unsafe.Pointer, source unsafe.Pointer, command *byte, a4 int16) {
 	var (

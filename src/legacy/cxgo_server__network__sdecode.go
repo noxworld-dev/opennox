@@ -215,7 +215,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			} else {
 				v88[3] = **(**uint8)(unsafe.Add(unsafe.Pointer(uintptr(v61)), 736))
 			}
-			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 2064))), unsafe.Pointer(&v88[0]), 4, 0, 1)
+			nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v85)), 276)))), 2064))), unsafe.Pointer(&v88[0]), 4, nil, 1)
 		}
 		return 4
 	case 0xEE:

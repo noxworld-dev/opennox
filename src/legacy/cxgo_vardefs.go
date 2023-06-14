@@ -89,7 +89,6 @@ var dword_5d4594_1046936 uint32
 var nox_xxx_lightningTarget_5d4594_2487908 uint32
 var dword_5d4594_1107036 uint32
 var dword_5d4594_3798836 uint32
-var dword_5d4594_1565512 uint32
 var dword_5d4594_815028 uint32
 var dword_5d4594_1301848 uint32
 var dword_5d4594_1316712 uint32
@@ -370,7 +369,6 @@ var dword_5d4594_3835348 uint32
 var dword_5d4594_1045692 uint32
 var dword_5d4594_1046640 uint32
 var dword_5d4594_1320972 uint32
-var dword_5d4594_1565516 uint32
 var dword_5d4594_1096260 uint32
 var dword_5d4594_529336 uint32
 var dword_5d4594_1308124 uint32
@@ -451,7 +449,6 @@ var dword_5d4594_1305788 uint32
 var dword_5d4594_1098600 uint32
 var dword_5d4594_2523760 uint32
 var dword_5d4594_1064868 uint32
-var dword_5d4594_1565520 uint32
 var dword_5d4594_1320988 uint32
 var dword_5d4594_1599696 uint32
 var dword_587000_261388 uint32 = 0x42480000

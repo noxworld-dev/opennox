@@ -187,15 +187,15 @@ func sendXXX_5550D0(addr netip.AddrPort, data []byte) (int, error) {
 	return sendToServer(addr, data)
 }
 
-func (s *Server) nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
-	return legacy.Nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, a6)
+func (s *Server) nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a5, a6 int) int {
+	return legacy.Nox_xxx_netSendPacket_4E5030(a1, buf, nil, a5, a6)
 }
 
-func (s *Server) nox_xxx_netSendPacket0_4E5420(a1 int, buf []byte, a4, a5 int) int {
-	return s.nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, 0)
+func (s *Server) nox_xxx_netSendPacket0_4E5420(a1 int, buf []byte, a5 int) int {
+	return s.nox_xxx_netSendPacket_4E5030(a1, buf, a5, 0)
 }
-func (s *Server) nox_xxx_netSendPacket1_4E5390(a1 int, buf []byte, a4, a5 int) int {
-	return s.nox_xxx_netSendPacket_4E5030(a1, buf, a4, a5, 1)
+func (s *Server) nox_xxx_netSendPacket1_4E5390(a1 int, buf []byte, a5 int) int {
+	return s.nox_xxx_netSendPacket_4E5030(a1, buf, a5, 1)
 }
 
 func (s *Server) nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
@@ -203,20 +203,18 @@ func (s *Server) nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
 	p[0] = byte(noxnet.MSG_FADE_BEGIN)
 	p[1] = byte(bool2int(a1))
 	p[2] = byte(bool2int(a2))
-	return s.nox_xxx_netSendPacket1_4E5390(255, p[:], 0, 1)
+	return s.nox_xxx_netSendPacket1_4E5390(255, p[:], 1)
 }
 
-func nox_xxx_netClientSendSocial(a1 int, emote byte, a4, a5 int) {
+func nox_xxx_netClientSendSocial(a1 int, emote byte, a5 int) {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_SOCIAL)
 	buf[1] = emote
-	nox_xxx_netClientSend2_4E53C0(a1, buf[:], a4, a5)
+	nox_xxx_netClientSend2_4E53C0(a1, buf[:], a5)
 }
 
-func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
-	p, free := alloc.CloneSlice(buf)
-	defer free()
-	legacy.Nox_xxx_netClientSend2_4E53C0(a1, unsafe.Pointer(&p[0]), len(buf), a4, a5)
+func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a5 int) {
+	legacy.Nox_xxx_netClientSend2_4E53C0(a1, unsafe.Pointer(&buf[0]), len(buf), a5)
 }
 
 func (c *Client) clientSendInput(pli ntype.PlayerInd) bool {
@@ -409,7 +407,7 @@ func nox_xxx_netReportSpellStat_4D9630(a1 int, a2 spell.ID, a3 byte) bool {
 	buf[0] = byte(noxnet.MSG_REPORT_SPELL_STAT)
 	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))
 	buf[5] = a3
-	return noxServer.nox_xxx_netSendPacket0_4E5420(a1, buf[:], 0, 1) != 0
+	return noxServer.nox_xxx_netSendPacket0_4E5420(a1, buf[:], 1) != 0
 }
 
 func nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) bool {
@@ -476,7 +474,7 @@ func nox_xxx_netReportLesson_4D8EF0(u *Object) {
 	binary.LittleEndian.PutUint16(buf[1:], uint16(u.NetCode))
 	binary.LittleEndian.PutUint32(buf[3:], uint32(pl.Lessons))
 	binary.LittleEndian.PutUint32(buf[7:], uint32(pl.Field2140))
-	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
+	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 1)
 }
 
 func nox_xxx_netScriptMessageKill_4D9760(u *Object) {
@@ -486,7 +484,7 @@ func nox_xxx_netScriptMessageKill_4D9760(u *Object) {
 	pl := u.ControllingPlayer()
 	var buf [1]byte
 	buf[0] = byte(noxnet.MSG_MESSAGES_KILL)
-	noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:1], 0, 1)
+	noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:1], 1)
 }
 
 func nox_xxx_netKillChat_528D00(u *Object) {
@@ -506,7 +504,7 @@ func netSendGauntlet() {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_GAUNTLET)
 	buf[1] = 27
-	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:2], 0, 0)
+	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:2], 0)
 }
 
 func nox_xxx_sendGauntlet_4DCF80(ind ntype.PlayerInd, v byte) {
@@ -514,7 +512,7 @@ func nox_xxx_sendGauntlet_4DCF80(ind ntype.PlayerInd, v byte) {
 	buf[0] = byte(noxnet.MSG_GAUNTLET)
 	buf[1] = 28
 	buf[2] = v
-	noxServer.nox_xxx_netSendPacket1_4E5390(int(ind), buf[:3], 0, 0)
+	noxServer.nox_xxx_netSendPacket1_4E5390(int(ind), buf[:3], 0)
 }
 
 func nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
@@ -543,13 +541,13 @@ func nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
 		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.Players.Mult.Conjurer.Strength))
 		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.Players.Mult.Conjurer.Speed))
 	}
-	return noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1)
+	return noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 1)
 }
 
 func netSendServerQuit() {
 	var buf [1]byte
 	buf[0] = byte(noxnet.MSG_SERVER_QUIT)
-	noxServer.nox_xxx_netSendPacket0_4E5420(159, buf[:1], 0, 1)
+	noxServer.nox_xxx_netSendPacket0_4E5420(159, buf[:1], 1)
 }
 
 func nox_xxx_netSendBallStatus_4D95F0(a1 int, a2 byte, a3 uint16) int {
@@ -557,7 +555,7 @@ func nox_xxx_netSendBallStatus_4D95F0(a1 int, a2 byte, a3 uint16) int {
 	buf[0] = byte(noxnet.MSG_REPORT_BALL_STATUS)
 	buf[1] = a2
 	binary.LittleEndian.PutUint16(buf[2:], a3)
-	return noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:4], 0, 1)
+	return noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:4], 1)
 }
 
 func (s *Server) netPrintLineToAll(id strman.ID) { // nox_xxx_netPrintLineToAll_4DA390
@@ -1234,7 +1232,7 @@ func sub_43CF70() {
 			legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl.S(), 64)
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_NEED_TIMESTAMP)
-			nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:1], 0, 1)
+			nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:1], 1)
 		}
 	}
 }
@@ -1518,7 +1516,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				s.Printf(console.ColorRed, str, pl.Name())
 			}
 		}
-		s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:2], 0, 1)
+		s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:2], 1)
 		return 1 + 20, true
 	case noxnet.MSG_SERVER_CMD:
 		if len(data) < 7 {
@@ -1728,7 +1726,7 @@ func nox_xxx_netTimerStatus_4D8F50(a1 ntype.PlayerInd, a2 int) {
 	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))
 	binary.LittleEndian.PutUint32(buf[5:], uint32(legacy.Sub_40A230()))
 	binary.LittleEndian.PutUint32(buf[9:], noxServer.Frame())
-	noxServer.nox_xxx_netSendPacket1_4E5390(int(a1), buf[:13], 0, 1)
+	noxServer.nox_xxx_netSendPacket1_4E5390(int(a1), buf[:13], 1)
 }
 
 func netSendAudioEvent(u *Object, ev *server.AudioEvent, perc int16) {
@@ -1751,14 +1749,14 @@ func (s *Server) nox_xxx_netObjectOutOfSight_528A60(ind int, obj *server.Object)
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_OBJECT_OUT_OF_SIGHT)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(obj)))
-	return s.nox_xxx_netSendPacket0_4E5420(ind, buf[:3], 0, 1)
+	return s.nox_xxx_netSendPacket0_4E5420(ind, buf[:3], 1)
 }
 
 func (s *Server) nox_xxx_netObjectInShadows_528A90(ind int, obj *Object) int {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_OBJECT_IN_SHADOWS)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(obj)))
-	return s.nox_xxx_netSendPacket0_4E5420(ind, buf[:3], 0, 1)
+	return s.nox_xxx_netSendPacket0_4E5420(ind, buf[:3], 1)
 }
 
 func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Object) bool {

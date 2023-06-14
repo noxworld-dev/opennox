@@ -483,7 +483,7 @@ func Nox_xxx_spellTagCreature_530160(sp *server.DurSpell) int32 {
 	v10[5] = 1
 	*(*uint16)(unsafe.Pointer(&v10[3])) = uint16(v7)
 	v10[6] = 1
-	nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 2064))), unsafe.Pointer(&v10[0]), 7, 0, 1)
+	nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 2064))), unsafe.Pointer(&v10[0]), 7, nil, 1)
 	return 0
 }
 func Sub_530250(sp *server.DurSpell) int32 {
@@ -525,7 +525,7 @@ func Sub_530270(sp *server.DurSpell) int32 {
 				v5[5] = 2
 				*(*uint16)(unsafe.Pointer(&v5[3])) = uint16(v4)
 				v5[6] = 1
-				result = nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 2064))), unsafe.Pointer(&v5[0]), 7, 0, 1)
+				result = nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 276)))), 2064))), unsafe.Pointer(&v5[0]), 7, nil, 1)
 			}
 		}
 	}

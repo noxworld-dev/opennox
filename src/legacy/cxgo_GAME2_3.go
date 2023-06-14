@@ -311,13 +311,13 @@ func sub_48D3B0() int32 {
 	var v1 [2]byte
 	v1[0] = 238
 	v1[1] = 4
-	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v1[0]), 2, 0, 1)
+	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v1[0]), 2, 1)
 }
 func nox_xxx_clientVote_48D3E0() int32 {
 	var v1 [2]byte
 	v1[0] = 238
 	v1[1] = 5
-	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v1[0]), 2, 0, 1)
+	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v1[0]), 2, 1)
 }
 func sub_48D410() *uint32 {
 	var result *uint32
@@ -5163,7 +5163,7 @@ func sub_49B420(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 			sub_49B6B0()
 		} else if v3 == 10702 {
 			*(*uint16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(uint16(0))*0)) = 1008
-			nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&a2), 2, 0, 1)
+			nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&a2), 2, 1)
 			sub_49B6B0()
 			return 0
 		}

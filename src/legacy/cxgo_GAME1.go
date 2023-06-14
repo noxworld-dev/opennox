@@ -2906,7 +2906,7 @@ func nox_xxx_sendAllClientStatus_4175C0(a1 int32) *byte {
 		*(*uint16)(unsafe.Pointer(&v4[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(i)), 2060))
 		v3 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 2064)))
 		*(*uint32)(unsafe.Pointer(&v4[3])) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 3680)) & 0x423
-		nox_xxx_netSendPacket1_4E5390(v3, unsafe.Pointer(&v4[0]), 7, 0, 0)
+		nox_xxx_netSendPacket1_4E5390(v3, unsafe.Pointer(&v4[0]), 7, nil, 0)
 		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(i))))))
 	}
 	return result
@@ -2923,7 +2923,7 @@ func nox_xxx_netReportPlayerStatus_417630(pl *server.Player) int32 {
 	v4[0] = 106
 	*(*uint16)(unsafe.Pointer(&v4[1])) = uint16(v1)
 	*(*uint32)(unsafe.Pointer(&v4[3])) = uint32(v2)
-	return nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v4[0]), 7, 0, 0)
+	return nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v4[0]), 7, nil, 0)
 }
 func nox_xxx_cliPlayerRespawn_417680(a1 int32, a2 int8) {
 	var (
@@ -3601,7 +3601,7 @@ func sub_4184D0(a1p *nox_team_t) {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = *(*uint32)(unsafe.Pointer(&v3[12]))
 		*((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*8))) = *(*uint16)(unsafe.Pointer(&v3[16]))
 		alloc.Memcpy(unsafe.Add(unsafe.Pointer(v2), 18), unsafe.Pointer(a1), uintptr(int32(v3[15])*2))
-		nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(v2), v1+18, 0, 1)
+		nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(v2), v1+18, nil, 1)
 		alloc.Free(v2)
 	}
 }

@@ -144,7 +144,7 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
 		}
 	LABEL_93:
 		if int32(uint8(uintptr(unsafe.Pointer(a1)))) != 243 {
-			nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&a1), 4, 0, 1)
+			nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&a1), 4, 1)
 			return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 		}
 		return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))

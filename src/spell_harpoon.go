@@ -121,7 +121,7 @@ func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Object) {
 		buf[2] = 0
 		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.GetUnitNetCode(u1)))
 		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.GetUnitNetCode(u2)))
-		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 0, 1)
+		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 1)
 	}
 }
 
@@ -133,7 +133,7 @@ func (a *abilityHarpoon) netHarpoonBreak(u1 *Object, u2 *Object) {
 		buf[2] = 0
 		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.GetUnitNetCode(u1)))
 		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.GetUnitNetCode(u2)))
-		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 0, 1)
+		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 1)
 	}
 }
 

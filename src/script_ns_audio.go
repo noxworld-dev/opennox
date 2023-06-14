@@ -26,7 +26,7 @@ func (s noxScriptNS) Music(music int, volume int) {
 		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
 		buf[1] = byte(music)
 		buf[2] = byte(volume)
-		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 1)
 	}
 }
 
@@ -36,7 +36,7 @@ func (s noxScriptNS) MusicPushEvent() {
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_PUSH_EVENT)
-		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 1)
 	}
 }
 
@@ -46,7 +46,7 @@ func (s noxScriptNS) MusicPopEvent() {
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_POP_EVENT)
-		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 1)
 	}
 }
 
@@ -56,6 +56,6 @@ func (s noxScriptNS) MusicEvent() {
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
-		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 1)
 	}
 }
