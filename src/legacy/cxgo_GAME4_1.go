@@ -894,7 +894,7 @@ func nox_xxx_aiTestUnitDangerous_50B2C0(a1 int32) int32 {
 			} else if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 172)) == 3 {
 				*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 184)) = *(*float32)(unsafe.Pointer(&dword_587000_234176)) + *(*float32)(unsafe.Pointer(&dword_587000_234176)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 184))
 				*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 188)) = *(*float32)(unsafe.Pointer(&dword_587000_234176)) + *(*float32)(unsafe.Pointer(&dword_587000_234176)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 188))
-				nox_shape_box_calc((*nox_shape)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 172)))
+				nox_shape_box_calc((*server.Shape)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 172)))
 			}
 			nox_xxx_objectUnkUpdateCoords_4E7290((*server.Object)(unsafe.Pointer(uintptr(a1))))
 		}

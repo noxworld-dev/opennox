@@ -14,6 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_wnd_xxx_1308092 *nox_gui_animation = nil
@@ -3980,7 +3981,7 @@ func sub_4AC7B0(a1 int32) int32 {
 				if v10 > 60.0 {
 					*(*uint32)(unsafe.Add(v2, 60)) = 1114636288
 				}
-				nox_shape_box_calc((*nox_shape)(unsafe.Add(v2, 44)))
+				nox_shape_box_calc((*server.Shape)(unsafe.Add(v2, 44)))
 			}
 		} else {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13)), 4)
@@ -4204,7 +4205,7 @@ func sub_4ACEF0(a1 int32) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4)
 		*(*float32)(unsafe.Add(v2, 60)) = float32(float64(v6))
 		v5 += 4
-		nox_shape_box_calc((*nox_shape)(unsafe.Add(v2, 44)))
+		nox_shape_box_calc((*server.Shape)(unsafe.Add(v2, 44)))
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)) = 10
 		*v4 = 90
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 1)) = 90

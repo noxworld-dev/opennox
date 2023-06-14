@@ -11676,7 +11676,7 @@ func nox_xxx_unitTriggerXfer_4F4E50(a1p *server.Object, data unsafe.Pointer) int
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 4)
 		}
-		nox_shape_box_calc((*nox_shape)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 172)))
+		nox_shape_box_calc((*server.Shape)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 172)))
 		if int32(int16(v11)) < 41 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3)

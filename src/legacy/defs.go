@@ -10,7 +10,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const (
@@ -101,7 +100,6 @@ type nox_parse_thing_draw_funcs_t struct {
 	kind      uint32
 	parse_fnc func(*nox_thing, *nox_memfile, *byte) bool
 }
-type nox_shape = server.Shape
 type nox_inventory_cell_t struct {
 	field_0   *client.Drawable
 	field_4   uint32

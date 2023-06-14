@@ -138,7 +138,7 @@ func nox_xxx_pointInRect_4281F0(a1 *int2, a2 *int4) int32 {
 func sub_428220(a1 *types.Pointf, a2 *float4) int32 {
 	return bool2int32(float64(a1.X) >= float64(a2.field_0) && float64(a1.X) <= float64(a2.field_8) && float64(a1.Y) >= float64(a2.field_4) && float64(a1.Y) <= float64(a2.field_C))
 }
-func nox_shape_box_calc(s *nox_shape) {
+func nox_shape_box_calc(s *server.Shape) {
 	const mul float32 = 0.35354999
 	px := s.Box.W * mul
 	py := s.Box.H * mul
