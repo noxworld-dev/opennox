@@ -14,7 +14,7 @@ import (
 )
 
 var dword_5d4594_2523756 unsafe.Pointer = nil
-var nox_xxx_waypointsHead_2523752 *nox_waypoint_t = nil
+var nox_xxx_waypointsHead_2523752 *server.Waypoint = nil
 
 func nox_server_makeServerInfoPacket_554040(inBuf *byte, inSz int32, out *byte) uint32 {
 	var (
@@ -908,7 +908,7 @@ func nox_xxx_waypoint_5798C0() uint32 {
 	}
 	return result
 }
-func nox_xxx_waypointNew_5798F0(a1 float32, a2 float32) *nox_waypoint_t {
+func nox_xxx_waypointNew_5798F0(a1 float32, a2 float32) *server.Waypoint {
 	var (
 		v2 *uint32
 		v3 uint32
@@ -925,11 +925,11 @@ func nox_xxx_waypointNew_5798F0(a1 float32, a2 float32) *nox_waypoint_t {
 	if nox_xxx_waypointsHead_2523752 != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(nox_xxx_waypointsHead_2523752), 488)) = uint32(uintptr(unsafe.Pointer(v2)))
 	}
-	nox_xxx_waypointsHead_2523752 = (*nox_waypoint_t)(unsafe.Pointer(v2))
+	nox_xxx_waypointsHead_2523752 = (*server.Waypoint)(unsafe.Pointer(v2))
 	if noxflags.HasGame(1) {
-		nox_xxx_waypointMapRegister_5179B0((*nox_waypoint_t)(unsafe.Pointer(v2)))
+		nox_xxx_waypointMapRegister_5179B0((*server.Waypoint)(unsafe.Pointer(v2)))
 	}
-	return (*nox_waypoint_t)(unsafe.Pointer(v2))
+	return (*server.Waypoint)(unsafe.Pointer(v2))
 }
 func nox_xxx_waypointNewNotMap_579970(a1 int32, a2 float32, a3 float32) *float32 {
 	var (
@@ -959,9 +959,9 @@ func nox_xxx_waypoint_5799C0() *byte {
 			if nox_xxx_waypointsHead_2523752 != nil {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(nox_xxx_waypointsHead_2523752), 488)) = uint32(v0)
 			}
-			nox_xxx_waypointsHead_2523752 = (*nox_waypoint_t)(unsafe.Pointer(uintptr(v0)))
+			nox_xxx_waypointsHead_2523752 = (*server.Waypoint)(unsafe.Pointer(uintptr(v0)))
 			if noxflags.HasGame(1) {
-				nox_xxx_waypointMapRegister_5179B0((*nox_waypoint_t)(unsafe.Pointer(uintptr(v0))))
+				nox_xxx_waypointMapRegister_5179B0((*server.Waypoint)(unsafe.Pointer(uintptr(v0))))
 			}
 			v0 = v1
 			if v1 == 0 {
@@ -1174,7 +1174,7 @@ func nox_xxx_waypointDeleteAll_579DD0() {
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*121)))))
 			if noxflags.HasGame(1) {
-				sub_517A70((*nox_waypoint_t)(unsafe.Pointer(v0)))
+				sub_517A70((*server.Waypoint)(unsafe.Pointer(v0)))
 			}
 			alloc.Free(v0)
 			v0 = v1
@@ -1203,10 +1203,10 @@ func sub_579E90(a1 int32) {
 	}
 	dword_5d4594_2523756 = unsafe.Pointer(uintptr(a1))
 	if noxflags.HasGame(1) {
-		nox_xxx_waypointMapRegister_5179B0((*nox_waypoint_t)(unsafe.Pointer(uintptr(a1))))
+		nox_xxx_waypointMapRegister_5179B0((*server.Waypoint)(unsafe.Pointer(uintptr(a1))))
 	}
 }
-func sub_579EE0(a1 *nox_waypoint_t, a2 uint8) int32 {
+func sub_579EE0(a1 *server.Waypoint, a2 uint8) int32 {
 	return bool2int32((int32(a2) & int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 477)))) != 0)
 }
 func nox_xxx_waypoint_579F00(a1 *uint32, a2 unsafe.Pointer) int32 {
@@ -1239,7 +1239,7 @@ func nox_xxx_waypoint_579F00(a1 *uint32, a2 unsafe.Pointer) int32 {
 LABEL_9:
 	dword_5d4594_2523760 = 0
 	for i = (*uint8)(nox_xxx_waypointGetList_579860()); i != nil; i = (*uint8)(unsafe.Pointer(uintptr(nox_xxx_waypointNext_579870(int32(uintptr(unsafe.Pointer(i))))))) {
-		if sub_579EE0((*nox_waypoint_t)(unsafe.Pointer(i)), 0x80) != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(i), 480)))&1 != 0 {
+		if sub_579EE0((*server.Waypoint)(unsafe.Pointer(i)), 0x80) != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(i), 480)))&1 != 0 {
 			dword_5d4594_2523760++
 		}
 	}
@@ -1252,7 +1252,7 @@ LABEL_9:
 		return 0
 	}
 	for {
-		if sub_579EE0((*nox_waypoint_t)(unsafe.Pointer(uintptr(v6))), 0x80) == 0 {
+		if sub_579EE0((*server.Waypoint)(unsafe.Pointer(uintptr(v6))), 0x80) == 0 {
 			goto LABEL_24
 		}
 		if (int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(v6)), 480)))) & 1) == 0 {

@@ -945,7 +945,7 @@ func sub_50AFA0() {
 	}
 	result = (*float32)(nox_xxx_waypointGetList_579860())
 	for k = result; result != nil; k = result {
-		if sub_579EE0((*nox_waypoint_t)(unsafe.Pointer(k)), 0x80) != 0 {
+		if sub_579EE0((*server.Waypoint)(unsafe.Pointer(k)), 0x80) != 0 {
 			v35 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(k), unsafe.Sizeof(float32(0))*2))) * 0.043478262)
 			v21 = int32(v35)
 			v36 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(k), unsafe.Sizeof(float32(0))*3))) * 0.043478262)

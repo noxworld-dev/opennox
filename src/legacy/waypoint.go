@@ -14,28 +14,16 @@ var (
 
 var (
 	_ = [1]struct{}{}[516-unsafe.Sizeof(server.Waypoint{})]
-	_ = [1]struct{}{}[516-unsafe.Sizeof(nox_waypoint_t{})]
 )
 
-type nox_waypoint_t = server.Waypoint
-
-func asWaypointS(p *nox_waypoint_t) *server.Waypoint {
-	return (*server.Waypoint)(unsafe.Pointer(p))
-}
-
-func asWaypointC(p *server.Waypoint) *nox_waypoint_t {
-	return (*nox_waypoint_t)(p.C())
-}
-
-// nox_server_getWaypointById_579C40
-func nox_server_getWaypointById_579C40(a1 int32) *nox_waypoint_t {
-	return asWaypointC(Nox_server_getWaypointById_579C40(int(a1)))
+func nox_server_getWaypointById_579C40(a1 int32) *server.Waypoint {
+	return Nox_server_getWaypointById_579C40(int(a1))
 }
 
 func FirstWaypoint() *server.Waypoint {
-	return asWaypointS(nox_xxx_waypointsHead_2523752)
+	return nox_xxx_waypointsHead_2523752
 }
 
 func NewWaypoint(pos types.Pointf) *server.Waypoint {
-	return asWaypointS(nox_xxx_waypointNew_5798F0(float32(pos.X), float32(pos.Y)))
+	return nox_xxx_waypointNew_5798F0(pos.X, pos.Y)
 }

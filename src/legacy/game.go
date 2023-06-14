@@ -136,13 +136,13 @@ func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
 }
 
 // nox_xxx_waypointMapRegister_5179B0
-func nox_xxx_waypointMapRegister_5179B0(a1p *nox_waypoint_t) {
-	GetServer().S().Map.Nox_xxx_waypointMapRegister_5179B0(asWaypointS(a1p))
+func nox_xxx_waypointMapRegister_5179B0(a1p *server.Waypoint) {
+	GetServer().S().Map.Nox_xxx_waypointMapRegister_5179B0(a1p)
 }
 
 // sub_517A70
-func sub_517A70(a1p *nox_waypoint_t) {
-	GetServer().S().Map.Sub517A70(asWaypointS(a1p))
+func sub_517A70(a1p *server.Waypoint) {
+	GetServer().S().Map.Sub517A70(a1p)
 }
 
 // sub_517B70
@@ -161,7 +161,7 @@ func sub_517590(x float32, y float32) int {
 }
 
 // sub_518740
-func sub_518740(a1 *types.Pointf, a2 uint8) *nox_waypoint_t {
+func sub_518740(a1 *types.Pointf, a2 uint8) *server.Waypoint {
 	return GetServer().Sub_518460(*a1, a2, true)
 }
 

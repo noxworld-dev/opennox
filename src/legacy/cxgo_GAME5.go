@@ -1457,7 +1457,7 @@ func sub_547DB0(a1 int32, a2 *types.Pointf) int32 {
 	return 1
 }
 func sub_547EE0(a1 unsafe.Pointer, a2 uint8) int32 {
-	return bool2int32(a1 != nil && int32(*(*uint8)(unsafe.Add(a1, 480)))&1 != 0 && sub_579EE0((*nox_waypoint_t)(a1), a2) != 0)
+	return bool2int32(a1 != nil && int32(*(*uint8)(unsafe.Add(a1, 480)))&1 != 0 && sub_579EE0((*server.Waypoint)(a1), a2) != 0)
 }
 func sub_547F10() int32 {
 	var result int32

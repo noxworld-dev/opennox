@@ -45,8 +45,8 @@ func sub_4CFFE0(sid int32) *server.Object {
 }
 
 // sub_579C60
-func sub_579C60(id uint32) *nox_waypoint_t {
-	return asWaypointC(GetServer().PendingWaypointByInd579C60(id))
+func sub_579C60(id uint32) *server.Waypoint {
+	return GetServer().PendingWaypointByInd579C60(id)
 }
 
 // nox_server_mapLoadAddGroup_57C0C0
@@ -64,7 +64,7 @@ func Nox_server_scriptGetGroupId_57C2D0(g unsafe.Pointer) server.MapGroupKind {
 }
 
 func Get_dword_5d4594_2523756() *server.Waypoint {
-	return asWaypointS((*nox_waypoint_t)(dword_5d4594_2523756))
+	return (*server.Waypoint)(dword_5d4594_2523756)
 }
 
 func Get_dword_5d4594_3835312() int {
