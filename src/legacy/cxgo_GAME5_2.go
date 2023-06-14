@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -1905,7 +1906,7 @@ func nox_xxx_client_57B400(a1 int32) int32 {
 	}
 	return 0
 }
-func sub_57B450(a1p *nox_drawable) int32 {
+func sub_57B450(a1p *client.Drawable) int32 {
 	var (
 		a1 *int32 = (*int32)(unsafe.Pointer(a1p))
 		v1 int32

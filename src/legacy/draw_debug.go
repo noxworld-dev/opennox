@@ -13,8 +13,8 @@ var (
 )
 
 // nox_thing_debug_draw
-func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) int {
-	return Nox_thing_debug_draw(asViewport(cvp), asDrawable(cdr))
+func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *client.Drawable) int {
+	return Nox_thing_debug_draw(asViewport(cvp), cdr)
 }
 
 func Sub_50CB00() int {

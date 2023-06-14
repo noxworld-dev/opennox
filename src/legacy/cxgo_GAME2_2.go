@@ -59,7 +59,7 @@ func sub_476080(a1 *uint8) int32 {
 	}
 	return result
 }
-func sub_4761B0(a1p *nox_drawable) int32 {
+func sub_4761B0(a1p *client.Drawable) int32 {
 	var (
 		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		result int32
@@ -86,7 +86,7 @@ func sub_4761B0(a1p *nox_drawable) int32 {
 	}
 	return result
 }
-func sub_476AE0(vp *nox_draw_viewport_t, dr *nox_drawable) {
+func sub_476AE0(vp *nox_draw_viewport_t, dr *client.Drawable) {
 	var (
 		a2     *uint8 = (*uint8)(unsafe.Pointer(dr))
 		v2     *uint8
@@ -384,7 +384,7 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 		return
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(arg0)), 120)))
-	if (v3&0x8000) != 0 || nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(arg0))), 0) && !nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
+	if (v3&0x8000) != 0 || nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(arg0))), 0) && !nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
 		return
 	}
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(arg0)), 112)))
@@ -397,7 +397,7 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 	if uint32(v4)&0x80400206 == 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(arg0)), 108)) != *memmap.PtrUint32(0x5D4594, 1096648) {
 		return
 	}
-	if nox_xxx_client_4984B0_drawable((*nox_drawable)(unsafe.Pointer(uintptr(arg0)))) == 0 {
+	if nox_xxx_client_4984B0_drawable((*client.Drawable)(unsafe.Pointer(uintptr(arg0)))) == 0 {
 		return
 	}
 	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(arg0)), 112)))&4) != 0 && ((func() *byte {
@@ -954,7 +954,7 @@ func sub_478E50(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 		v6 = (**wchar2_t)(memmap.PtrOff(0x5D4594, uintptr(v5*4)+1098636))
 		if *memmap.PtrUint32(0x5D4594, uintptr(v5*4)+1098640) != 0 {
 			*((*uint32)(unsafe.Add(unsafe.Pointer(*v6), 4*32))) = uint32(uintptr(unsafe.Pointer(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof((*wchar2_t)(nil))*2)))))
-			v7 = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(*v6)))
+			v7 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(*v6)))
 			nox_xxx_cursorSetTooltip_4776B0(v7)
 		}
 	}
@@ -974,7 +974,7 @@ func sub_478F10() *uint32 {
 		v1 = 6
 		for {
 			if *(*uint32)(unsafe.Pointer(v0)) != 0 {
-				nox_xxx_spriteDelete_45A4B0((*nox_drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v0)))))
+				nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v0)))))
 			}
 			*(*uint32)(unsafe.Pointer(v0)) = 0
 			v2 = unsafe.Add(unsafe.Pointer(v0), 8)
@@ -1189,7 +1189,7 @@ func sub_479480(a1 int32) *byte {
 		result = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*1))) - 1)))
 		*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*1))) = uint32(uintptr(unsafe.Pointer(result)))
 		if result == nil {
-			result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_spriteDelete_45A4B0((*nox_drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v2))))))))
+			result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v2))))))))
 			*(*uint32)(unsafe.Pointer(v2)) = 0
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*34))) = 0
 		}

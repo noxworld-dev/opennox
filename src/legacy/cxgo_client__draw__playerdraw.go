@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -13,7 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v3  *byte
@@ -183,7 +184,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		sub_4B8960(v10, dr, int32(*(*uint32)(unsafe.Pointer(v3))), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*743)), v28, v27)
 		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)))&2), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*581)), v28, v27)
 	}
-	if v30 != 0 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.Field_32 == nox_player_netCode_85319C || *memmap.PtrUint32(0x852978, 8) != 0 && (nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) || v31 != 0) {
+	if v30 != 0 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.Field_32 == nox_player_netCode_85319C || *memmap.PtrUint32(0x852978, 8) != 0 && (nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) || v31 != 0) {
 		a1 = (*uint32)(unsafe.Pointer(uintptr(nox_color_rgb_4344A0(155, 155, 155))))
 		if sub_48D830(dr) == 0 && !noxflags.HasGame(2048) {
 			v21 = (*int16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v3), 4704))))
@@ -247,7 +248,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	return 1
 }
-func nox_thing_player_waypoint_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_player_waypoint_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := int32(uintptr(vp.C()))
 	var (
 		v2 int32

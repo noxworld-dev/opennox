@@ -3,18 +3,19 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
-func nox_thing_weapon_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_weapon_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	sub_4B95D0(dr)
 	return nox_thing_static_draw(vp, dr)
 }
-func nox_thing_weapon_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_weapon_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	sub_4B95D0(dr)
 	return nox_thing_animate_draw(vp, dr)
 }
-func nox_thing_spherical_shield_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_spherical_shield_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	var (
 		v2     int32
 		v3     int32

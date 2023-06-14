@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -85,7 +86,7 @@ func sub_4BC490(a1 int32) int8 {
 	}
 	return int8(v1)
 }
-func nox_thing_monster_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_monster_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
@@ -148,7 +149,7 @@ func nox_thing_monster_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 12)))
 		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 16)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16)))
 	}
-	if *memmap.PtrUint32(0x852978, 8) != 0 && nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
+	if *memmap.PtrUint32(0x852978, 8) != 0 && nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
 		nox_xxx_draw_434600(1)
 		nox_draw_setColorMultAndIntensity_433E40(*memmap.PtrInt32(0x8531A0, 2572))
 		*((*uint8)(unsafe.Pointer(&a2))) = math.MaxUint8
@@ -165,7 +166,7 @@ LABEL_21:
 LABEL_22:
 	sub_4BC490(v2)
 	v12 = a1
-	v23 = int32(sub_4BC6B0(a1, (*nox_drawable)(unsafe.Pointer(uintptr(v2))), v8))
+	v23 = int32(sub_4BC6B0(a1, (*client.Drawable)(unsafe.Pointer(uintptr(v2))), v8))
 	nox_xxx_draw_434600(0)
 LABEL_24:
 	if nox_client_drawable_testBuff_4356C0(dr, 16) {

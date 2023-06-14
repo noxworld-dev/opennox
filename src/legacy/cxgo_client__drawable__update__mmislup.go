@@ -53,7 +53,7 @@ func nox_xxx_updDrawMagicMissile_4CD9E0(vp *noxrender.Viewport, dr *client.Drawa
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 444)) = gameFrame()
 				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 104)) = 20
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 6, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c"), 65)))
-				nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v10))))
+				nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v10))))
 			}
 			if func() int32 {
 				p := &v16
@@ -70,10 +70,10 @@ func nox_xxx_updDrawMagicMissile_4CD9E0(vp *noxrender.Viewport, dr *client.Drawa
 		v12 = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522992), v11, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))).C())
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v12)))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v12)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
-		nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(v12)), int32(gameFPS()/3))
+		nox_xxx_spriteTransparentDecay_49B950((*client.Drawable)(unsafe.Pointer(v12)), int32(gameFPS()/3))
 	}
 	return 1
 }

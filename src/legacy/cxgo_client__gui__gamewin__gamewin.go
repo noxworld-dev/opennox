@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_xxx_clientPickup_46C140(a1p *nox_drawable) {
+func nox_xxx_clientPickup_46C140(a1p *client.Drawable) {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v2 int32

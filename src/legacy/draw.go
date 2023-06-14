@@ -439,11 +439,11 @@ func Sub_437180() {
 }
 
 func Sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
-	sub_476AE0((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+	sub_476AE0((*nox_draw_viewport_t)(vp.C()), (*client.Drawable)(dr.C()))
 }
 
 func Nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) {
-	nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+	nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*client.Drawable)(dr.C()))
 }
 
 func Sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
@@ -478,11 +478,11 @@ func Nox_xxx_drawEnergyBolt_499710(a1 int, a2 int, a3 int, a4 int) {
 	nox_xxx_drawEnergyBolt_499710(int32(a1), int32(a2), int16(a3), int32(a4))
 }
 func Nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) {
-	nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+	nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), (*client.Drawable)(dr.C()))
 }
 func Sub_474B40(dr *client.Drawable) int {
-	return int(sub_474B40((*nox_drawable)(dr.C())))
+	return int(sub_474B40((*client.Drawable)(dr.C())))
 }
 func Sub_495BB0(dr *client.Drawable, vp *noxrender.Viewport) {
-	sub_495BB0((*nox_drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
+	sub_495BB0((*client.Drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
 }

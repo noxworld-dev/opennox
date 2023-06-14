@@ -3,13 +3,14 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func nox_thing_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v2 int32
@@ -81,7 +82,7 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	return 1
 }
-func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v2 int32

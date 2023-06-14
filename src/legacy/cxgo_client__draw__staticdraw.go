@@ -3,19 +3,20 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func nox_thing_static_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_static_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	if (dr.Flags28()&0x40000) == 0 || dr.Flags30()&0x1000000 != 0 {
 		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4))))))
 	}
 	return 1
 }
-func Nox_thing_static_random_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func Nox_thing_static_random_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + dr.Field_77*4)))))
 	return 1

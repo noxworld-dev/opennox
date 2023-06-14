@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -188,7 +189,7 @@ func sub_4C15D0(a1 int32) int32 {
 		result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) - 1)
 		*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) = uint32(result)
 		if result == 0 {
-			result = nox_xxx_spriteDelete_45A4B0((*nox_drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v6)))))
+			result = nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v6)))))
 			*(*uint32)(unsafe.Pointer(v6)) = 0
 		}
 	}

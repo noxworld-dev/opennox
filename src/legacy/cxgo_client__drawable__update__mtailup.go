@@ -38,10 +38,10 @@ func nox_xxx_updDrawMagic_4CDD80(vp *noxrender.Viewport, dr *client.Drawable) in
 		v5 = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(v4, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*109)))).C())
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v5)))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v5)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))
-		nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(v5)), int32(gameFPS()))
+		nox_xxx_spriteTransparentDecay_49B950((*client.Drawable)(unsafe.Pointer(v5)), int32(gameFPS()))
 	}
 	v13 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*8)))
 	v14 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*9)))
@@ -68,7 +68,7 @@ func nox_xxx_updDrawMagic_4CDD80(vp *noxrender.Viewport, dr *client.Drawable) in
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 104)) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*52)))
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 106)) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*53)))
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 296)) = 0
-			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v11))))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v11))))
 		}
 		v7 += v13
 		v6 += v14

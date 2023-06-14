@@ -32,7 +32,7 @@ func nox_xxx_updDrawManabombCharge_4CCAC0(vp *noxrender.Viewport, dr *client.Dra
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 444)) = gameFrame()
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 104)) = 0
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c"), 94)))
-			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v7))))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v7))))
 		}
 	}
 	if gameFrame()&1 != 0 {

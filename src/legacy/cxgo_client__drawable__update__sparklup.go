@@ -49,7 +49,7 @@ func nox_xxx_updDrawSparkleTrail_4CDBF0(vp *noxrender.Viewport, dr *client.Drawa
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 104)) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*52)))
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 106)) = *((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*53)))
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 296)) = 0
-			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v5))))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v5))))
 		}
 		v12 += v10
 		v6 = v9 == 1

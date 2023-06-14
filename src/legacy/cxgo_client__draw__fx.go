@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
@@ -21,7 +22,7 @@ func sub_499490(a1 int32, a2 *uint16, a3 int32, a4 int32, a5 int8, a6 int8) {
 		*((*uint8)(unsafe.Add(unsafe.Pointer(result), 444))) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 138)))
 		*((*uint8)(unsafe.Add(unsafe.Pointer(v7), 446))) = uint8(a6)
 		*((*uint8)(unsafe.Add(unsafe.Pointer(v7), 445))) = uint8(a6)
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v7)))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v7)))
 	}
 }
 func sub_499520(a1 int32, a2 *int16, a3 int16, a4 int8, a5 int8) {
@@ -48,7 +49,7 @@ func sub_499520(a1 int32, a2 *int16, a3 int16, a4 int8, a5 int8) {
 		*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 445))) = uint8(a5)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*116)) = uint32(uintptr(ccall.FuncAddr(sub_4CA720)))
 		*((*uint16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(uint16(0))*254))) = uint16(a3)
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v8)))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v8)))
 	}
 }
 func nox_xxx_makePointFxCli_499610(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 int32) int32 {
@@ -71,7 +72,7 @@ func nox_xxx_makePointFxCli_499610(a1 int32, a2 int32, a3 int32, a4 int32, a5 in
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 444)) = gameFrame()
 				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 104)) = 0
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 239)))
-				nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v8))))
+				nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v8))))
 			}
 			result = func() int32 {
 				p := &a2
@@ -105,7 +106,7 @@ func nox_xxx_drawEnergyBolt_499710(a1 int32, a2 int32, a3 int16, a4 int32) int32
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 444)) = gameFrame()
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 104)) = uint16(int16(int32(a3) + nox_common_randomIntMinMax_415FF0(0, 20, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 279)))
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 4, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 280)))
-			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v5))))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v5))))
 		}
 		result = func() int32 {
 			p := &v7
@@ -131,7 +132,7 @@ func sub_499950(a1 int32, a2 *int2, a3 *int2, a4 uint16, a5 int8) int32 {
 		*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(result)), 440)) = a4
 		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(result)), 442)) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 406)))
 		*(*int2)(unsafe.Add(unsafe.Pointer(uintptr(v6)), 432)) = *a3
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v6))))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v6))))
 	}
 	return result
 }
@@ -181,7 +182,7 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 					}
 					*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 104)) = uint16(int16(nox_common_randomIntMinMax_415FF0(15, 30, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 471)))
 					*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(-4, 4, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 472)))
-					nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v12))))
+					nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v12))))
 					v7 = v16
 				}
 				*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(8, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 439))
@@ -265,7 +266,7 @@ func sub_49A150(a1 *int2, a2 int32, a3 uint8) int32 {
 				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 104)) = uint16(int16(nox_common_randomIntMinMax_415FF0(5, 15, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 834)))
 				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 106)) = 0
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 836)))
-				nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v7))))
+				nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v7))))
 			}
 			result = func() int32 {
 				p := &v8

@@ -103,7 +103,7 @@ type nox_parse_thing_draw_funcs_t struct {
 }
 type nox_shape = server.Shape
 type nox_inventory_cell_t struct {
-	field_0   *nox_drawable
+	field_0   *client.Drawable
 	field_4   uint32
 	data_4    [30]uint32
 	field_128 uint32

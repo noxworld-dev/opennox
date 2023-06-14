@@ -8,6 +8,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -3113,7 +3114,7 @@ func sub_42CCE0(this *uint16) int16 {
 	}
 	return int16(uint16(v4))
 }
-func nox_xxx_clientTalk_42E7B0(a1p *nox_drawable) {
+func nox_xxx_clientTalk_42E7B0(a1p *client.Drawable) {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int32
@@ -3127,7 +3128,7 @@ func nox_xxx_clientTalk_42E7B0(a1p *nox_drawable) {
 		nox_netlist_addToMsgListCli_40EBC0(31, 0, (*uint8)(unsafe.Pointer(&a1)), 4)
 	}
 }
-func nox_xxx_clientCollideOrUse_42E810(a1p *nox_drawable) {
+func nox_xxx_clientCollideOrUse_42E810(a1p *client.Drawable) {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int32
@@ -3139,7 +3140,7 @@ func nox_xxx_clientCollideOrUse_42E810(a1p *nox_drawable) {
 		nox_netlist_addToMsgListCli_40EBC0(31, 0, (*uint8)(unsafe.Pointer(&a1)), 3)
 	}
 }
-func nox_xxx_clientTrade_42E850(a1p *nox_drawable) {
+func nox_xxx_clientTrade_42E850(a1p *client.Drawable) {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int32
@@ -3433,7 +3434,7 @@ func sub_435690(a1 *uint32) *uint32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) = *memmap.PtrUint32(0x5D4594, 811368)
 	return result
 }
-func nox_client_drawable_testBuff_4356C0(dr *nox_drawable, a2 int8) bool {
+func nox_client_drawable_testBuff_4356C0(dr *client.Drawable, a2 int8) bool {
 	var (
 		a1     int32 = int32(uintptr(unsafe.Pointer(dr)))
 		result int32

@@ -167,13 +167,13 @@ func Sub_45D9B0() int {
 	return int(sub_45D9B0())
 }
 func Nox_xxx_sprite_4C3220(a1 *client.Drawable) int {
-	return int(nox_xxx_sprite_4C3220((*nox_drawable)(a1.C())))
+	return int(nox_xxx_sprite_4C3220((*client.Drawable)(a1.C())))
 }
 func Nox_xxx_wnd_46C2A0(a1 *gui.Window) int {
 	return int(nox_xxx_wnd_46C2A0((*gui.Window)(a1.C())))
 }
 func Nox_xxx_clientAskInfoMb_4BF050(a1 *client.Drawable) string {
-	return GoWString(nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(a1.C())))
+	return GoWString(nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(a1.C())))
 }
 func Nox_xxx_cursorSetTooltip_4776B0(a1 string) {
 	if a1 == "" {
@@ -185,10 +185,10 @@ func Nox_xxx_cursorSetTooltip_4776B0(a1 string) {
 	nox_xxx_cursorSetTooltip_4776B0(wstr)
 }
 func Sub_57B450(a1 *client.Drawable) int {
-	return int(sub_57B450((*nox_drawable)(a1.C())))
+	return int(sub_57B450((*client.Drawable)(a1.C())))
 }
 func Nox_xxx_clientPickup_46C140(a1 *client.Drawable) {
-	nox_xxx_clientPickup_46C140((*nox_drawable)(a1.C()))
+	nox_xxx_clientPickup_46C140((*client.Drawable)(a1.C()))
 }
 func Sub_46B630(a1 *gui.Window, a2 int, a3 int) *gui.Window {
 	return asWindow(sub_46B630((*gui.Window)(a1.C()), int32(a2), int32(a3)))

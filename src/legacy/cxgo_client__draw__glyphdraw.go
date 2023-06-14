@@ -4,12 +4,13 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_glyph_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_glyph_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	var (
 		v3 int8
 		v4 int32
@@ -24,7 +25,7 @@ func nox_thing_glyph_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		*((*uint8)(unsafe.Pointer(&a2))) = math.MaxUint8
 		goto LABEL_10
 	}
-	if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
+	if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
 		nox_xxx_draw_434600(1)
 		nox_draw_setColorMultAndIntensity_433E40(*memmap.PtrInt32(0x8531A0, 2572))
 		v3 = -1

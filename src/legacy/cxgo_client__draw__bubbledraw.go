@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
-func nox_thing_bubble_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_bubble_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v2    uint32
@@ -37,7 +38,7 @@ func nox_thing_bubble_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)) = 3
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 442)) = 4
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 443)) = 4
-			nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(uintptr(a2))), int32(gameFPS()))
+			nox_xxx_spriteTransparentDecay_49B950((*client.Drawable)(unsafe.Pointer(uintptr(a2))), int32(gameFPS()))
 		}
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))) == 3 {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 440))) == 0 {

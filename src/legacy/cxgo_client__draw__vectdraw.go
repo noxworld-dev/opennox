@@ -3,11 +3,12 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {
+func sub_4BC5D0(dr *client.Drawable, a2 int32) int32 {
 	var (
 		a1     *uint32 = (*uint32)(unsafe.Pointer(dr))
 		result int32
@@ -42,7 +43,7 @@ func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {
 	}
 	return result
 }
-func nox_thing_vector_animate_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_vector_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	return sub_4BC6B0(a1, dr, int32(*(*uint32)(unsafe.Pointer(&dr.Field_76))))
 }

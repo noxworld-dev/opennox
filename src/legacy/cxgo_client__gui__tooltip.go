@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_xxx_clientAskInfoMb_4BF050(a1p *nox_drawable) *wchar2_t {
+func nox_xxx_clientAskInfoMb_4BF050(a1p *client.Drawable) *wchar2_t {
 	var (
 		a1     *wchar2_t = (*wchar2_t)(unsafe.Pointer(a1p))
 		v1     *int32

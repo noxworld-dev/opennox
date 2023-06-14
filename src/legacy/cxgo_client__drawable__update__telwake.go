@@ -33,7 +33,7 @@ func nox_xxx_updDrawTeleportWake_4CD8D0(vp *noxrender.Viewport, dr *client.Drawa
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 444)) = gameFrame()
 		*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 104)) = 0
 		*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c"), 55)))
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v5))))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v5))))
 	}
 	return 1
 }

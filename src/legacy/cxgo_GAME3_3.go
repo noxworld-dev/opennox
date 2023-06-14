@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -12115,7 +12116,7 @@ func Nox_xxx_XFerInvLight_4F5AA0(a1p *server.Object, data unsafe.Pointer) int {
 			goto LABEL_14
 		}
 		for *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*32)) != uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*10))) {
-			v2 = (*uint32)(nox_drawable_next_45A070((*nox_drawable)(unsafe.Pointer(v2))).C())
+			v2 = (*uint32)(nox_drawable_next_45A070((*client.Drawable)(unsafe.Pointer(v2))).C())
 			if v2 == nil {
 				goto LABEL_14
 			}

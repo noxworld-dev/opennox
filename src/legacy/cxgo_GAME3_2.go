@@ -74,7 +74,7 @@ func nox_xxx_updDrawColorlight_4CE390(vp *noxrender.Viewport, dr *client.Drawabl
 			}
 		}
 	} else {
-		sub_49BCD0((*nox_drawable)(unsafe.Pointer(uintptr(a2))))
+		sub_49BCD0((*client.Drawable)(unsafe.Pointer(uintptr(a2))))
 	}
 	return 1
 }

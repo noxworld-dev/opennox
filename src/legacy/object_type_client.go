@@ -76,8 +76,8 @@ func nox_get_thing_pretty_image(i int32) int32 {
 }
 
 // nox_drawable_link_thing
-func nox_drawable_link_thing(a1c *nox_drawable, i int32) int32 {
-	return int32(GetClient().Cli().DrawableLinkThing(asDrawable(a1c), int(i)))
+func nox_drawable_link_thing(a1c *client.Drawable, i int32) int32 {
+	return int32(GetClient().Cli().DrawableLinkThing(a1c, int(i)))
 }
 
 func wrapClientThingFuncC(fnc func(typ *client.ObjectType, f *binfile.MemFile, data unsafe.Pointer) bool) client.ThingFieldFunc {

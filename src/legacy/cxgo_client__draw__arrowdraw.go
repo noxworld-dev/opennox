@@ -3,11 +3,12 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_arrow_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_arrow_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	var (
 		v2 int32
 		v3 int32
@@ -25,15 +26,15 @@ func nox_thing_arrow_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v4 = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))).C())
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v4)))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v4)))
 		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*81)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)) = uint32(v5)
-		nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(v4)), int32(gameFPS()/3))
+		nox_xxx_spriteTransparentDecay_49B950((*client.Drawable)(unsafe.Pointer(v4)), int32(gameFPS()/3))
 	}
 	return nox_thing_slave_draw(vp, dr)
 }
-func nox_thing_weak_arrow_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_weak_arrow_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	var (
 		v2 int32
 		v3 int32
@@ -51,15 +52,15 @@ func nox_thing_weak_arrow_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v4 = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))).C())
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v4)))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v4)))
 		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*81)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)) = uint32(v5)
-		nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(v4)), int32(gameFPS()/3))
+		nox_xxx_spriteTransparentDecay_49B950((*client.Drawable)(unsafe.Pointer(v4)), int32(gameFPS()/3))
 	}
 	return nox_thing_slave_draw(vp, dr)
 }
-func nox_thing_arrow_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_arrow_tail_link_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v2 int32
@@ -90,7 +91,7 @@ func nox_thing_arrow_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) in
 	}
 	return 1
 }
-func nox_thing_weak_arrow_tail_link_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_weak_arrow_tail_link_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v2 int32

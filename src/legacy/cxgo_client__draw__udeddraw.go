@@ -4,11 +4,12 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_undead_killer_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_undead_killer_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var (
 		result int32

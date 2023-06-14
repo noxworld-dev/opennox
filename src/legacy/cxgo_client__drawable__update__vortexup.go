@@ -45,8 +45,8 @@ func nox_xxx_updDrawVortexSource_4CC950(vp *noxrender.Viewport, dr *client.Drawa
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 444)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 432)) = uint32(v2)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 436)) = uint32(v9)
-		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v7))))
-		nox_xxx_spriteToSightDestroyList_49BAB0_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v7))))
+		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v7))))
+		nox_xxx_spriteToSightDestroyList_49BAB0_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v7))))
 	}
 	return 1
 }

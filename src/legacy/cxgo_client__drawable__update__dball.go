@@ -33,7 +33,7 @@ func nox_xxx_updDrawAddRndSpark_4CDFA0(a1 int32, a2 *uint32) *uint32 {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*111)) = gameFrame()
 				*((*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*52))) = 22
 				*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 296))) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 4, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 49)))
-				nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v4)))
+				nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v4)))
 			}
 			v3 = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v3), -1))))
 			if v3 == nil {

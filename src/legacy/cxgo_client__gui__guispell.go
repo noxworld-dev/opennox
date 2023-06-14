@@ -5,6 +5,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -710,7 +711,7 @@ func nox_xxx_quickBarWarriorDraw_45FDE0(win *gui.Window, draw *gui.WindowData) i
 			}
 			v14 = v20
 		}
-		if !nox_xxx_spellIsEnabled_424B70(*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*uintptr(v2*2)))) || nox_xxx_playerAnimCheck_4372B0() != 0 || nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 29) {
+		if !nox_xxx_spellIsEnabled_424B70(*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*uintptr(v2*2)))) || nox_xxx_playerAnimCheck_4372B0() != 0 || nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 29) {
 			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 30, 30)
 			return 1
 		}

@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
-func nox_thing_monster_gen_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_monster_gen_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v2     int32
@@ -88,7 +89,7 @@ func nox_thing_monster_gen_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 280)) = uint32(v12)
 		}
 	}
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), (*nox_drawable)(unsafe.Pointer(uintptr(v2))), int32(*(*uint32)(unsafe.Pointer(uintptr(v20 + v7*4)))))
+	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), (*client.Drawable)(unsafe.Pointer(uintptr(v2))), int32(*(*uint32)(unsafe.Pointer(uintptr(v20 + v7*4)))))
 	v13 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 280)))
 	if (v13 & 0xC00) == 0 {
 		v14 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 28)))
@@ -96,7 +97,7 @@ func nox_thing_monster_gen_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		if v15 >= v14 {
 			v15 %= v14
 		}
-		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), (*nox_drawable)(unsafe.Pointer(uintptr(v2))), int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 20)) + uint32(v15*4))))))
+		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), (*client.Drawable)(unsafe.Pointer(uintptr(v2))), int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 20)) + uint32(v15*4))))))
 	}
 	v16 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 280)))
 	if v16&0x800 != 0 {

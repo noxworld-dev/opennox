@@ -2,9 +2,11 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client"
 )
 
-func nox_thing_falling_sparks_draw_4B7740(a1 int32, a2 int32, dr *nox_drawable) *uint32 {
+func nox_thing_falling_sparks_draw_4B7740(a1 int32, a2 int32, dr *client.Drawable) *uint32 {
 	var (
 		a3     int32 = int32(uintptr(unsafe.Pointer(dr)))
 		v3     *int2

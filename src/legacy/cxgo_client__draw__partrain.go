@@ -3,12 +3,13 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_blue_rain_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_blue_rain_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := int32(uintptr(vp.C()))
 	var (
 		v3 int32
@@ -44,7 +45,7 @@ func nox_thing_blue_rain_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 106)) = 0
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 296)) = 251
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 104)) = uint16(int16(v6 - int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)))))
-			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v8))))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v8))))
 		}
 		v9--
 		if v9 == 0 {
@@ -53,7 +54,7 @@ func nox_thing_blue_rain_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	return 1
 }
-func nox_thing_levelup_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_levelup_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := int32(uintptr(vp.C()))
 	var v2 int32
 	v2 = int32(*memmap.PtrUint32(0x5D4594, 1313708))
@@ -64,7 +65,7 @@ func nox_thing_levelup_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	nox_thing_falling_sparks_draw_4B7740(v2, a1, dr)
 	return 1
 }
-func nox_thing_oblivion_up_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_oblivion_up_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := int32(uintptr(vp.C()))
 	var v2 int32
 	v2 = int32(*memmap.PtrUint32(0x5D4594, 1313712))

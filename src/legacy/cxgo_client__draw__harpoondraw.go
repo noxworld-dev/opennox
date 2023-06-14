@@ -3,14 +3,15 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_thing_harpoon_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_harpoon_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	return nox_thing_slave_draw(vp, dr)
 }
-func nox_thing_harpoon_rope_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_harpoon_rope_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var (
 		v2  int32

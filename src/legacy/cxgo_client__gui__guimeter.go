@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -23,7 +24,7 @@ func sub_4710B0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	v0 = (*wchar2_t)(unsafe.Pointer(uintptr(sub_4615C0())))
 	v1 = v0
 	if v0 != nil {
-		v2 = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(v0)))
+		v2 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(v0)))
 		nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1091968)), v2)
 		if *(*wchar2_t)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(wchar2_t(0))*58))&0xC != 0 {
 			v3 = int32(*memmap.PtrUint32(0x5D4594, 1096292))
@@ -34,7 +35,7 @@ func sub_4710B0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 			v4 = (*wchar2_t)(unsafe.Pointer(uintptr(sub_461600(v3))))
 			if v4 != nil {
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1091968)), internWStr("\n"))
-				v5 = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(v4)))
+				v5 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(v4)))
 				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1091968)), v5)
 			}
 		}
@@ -123,7 +124,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	*memmap.PtrUint16(0x5D4594, 1091384) = 0
 	var t4 *nox_thing = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096276)))
 	if t4 != nil {
-		nox_drawable_link_thing((*nox_drawable)(memmap.PtrOff(0x5D4594, 1091388)), t4.Field_1c)
+		nox_drawable_link_thing((*client.Drawable)(memmap.PtrOff(0x5D4594, 1091388)), t4.Field_1c)
 		*memmap.PtrUint32(0x5D4594, 1091368) = uint32(uintptr(memmap.PtrOff(0x5D4594, 1091388)))
 		if true {
 			*memmap.PtrUint32(0x5D4594, 1091508) |= 0x40000000
@@ -149,7 +150,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 		*memmap.PtrUint16(0x5D4594, 1090848) = 0
 		var t7 *nox_thing = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096272)))
 		if t7 != nil {
-			nox_drawable_link_thing((*nox_drawable)(memmap.PtrOff(0x5D4594, 1090852)), t7.Field_1c)
+			nox_drawable_link_thing((*client.Drawable)(memmap.PtrOff(0x5D4594, 1090852)), t7.Field_1c)
 			*memmap.PtrUint32(0x5D4594, 1090832) = uint32(uintptr(memmap.PtrOff(0x5D4594, 1090852)))
 			if true {
 				*memmap.PtrUint32(0x5D4594, 1090972) |= 0x40000000

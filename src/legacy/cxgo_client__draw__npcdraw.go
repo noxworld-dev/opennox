@@ -4,13 +4,14 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_npc_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var (
 		v2  int32
@@ -50,7 +51,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	if noxflags.HasGame(0x200000) {
 		v2 = int32(*(*uint32)(unsafe.Pointer((*nox_thing)(unsafe.Add(unsafe.Pointer(sub_44D330(internCStr("NewPlayer"))), unsafe.Sizeof(nox_thing{})*92)))) + 4)
 		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 40))) != 0 {
-			nox_xxx_drawObject_4C4770_draw(a1, (*nox_drawable)(unsafe.Pointer(uintptr(a2))), int32(**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48))+uint32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4))), 4))))
+			nox_xxx_drawObject_4C4770_draw(a1, (*client.Drawable)(unsafe.Pointer(uintptr(a2))), int32(**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48))+uint32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4))), 4))))
 			return 1
 		}
 	} else {
@@ -60,7 +61,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 		v5 = (*int32)(unsafe.Pointer(nox_npc_by_id(v30)))
 		v33 = v5
 		if v36 != 0 && v5 != nil {
-			if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(v4))), 23) {
+			if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(v4))), 23) {
 				if int32(uint8(gameFrame()))&1 != 0 {
 					v6 = 0
 					for {
@@ -82,7 +83,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 						}
 					}
 				}
-			} else if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(v4))), 25) {
+			} else if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(v4))), 25) {
 				v10 = 0
 				for {
 					v11 = v10 + 1
@@ -126,21 +127,21 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 			v18 = nox_xxx_spriteNPCInfo_49A4B0((*uint32)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*326)), *(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*327)))
 			v19 = v36 + v18*264 + 4
 			if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v36+v18*264)), 44))) != 0 {
-				v20 = sub_4BC5D0((*nox_drawable)(unsafe.Pointer(uintptr(v4))), v36+v18*264+4)
+				v20 = sub_4BC5D0((*client.Drawable)(unsafe.Pointer(uintptr(v4))), v36+v18*264+4)
 				if v20 < 0 {
 					return 0
 				}
 				v21 = a1
-				nox_xxx_drawObject_4C4770_draw(a1, (*nox_drawable)(unsafe.Pointer(uintptr(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 48))+uint32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 297)))*4))), 4)) + uint32(v20*4))))))
+				nox_xxx_drawObject_4C4770_draw(a1, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v19)), 48))+uint32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 297)))*4))), 4)) + uint32(v20*4))))))
 				v22 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 297)))
 				if int32(v22) != 1 && int32(v22) != 0 && int32(v22) != 2 && int32(v22) != 3 && int32(v22) != 6 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 276)) == 37 {
-					sub_4B8960(v21, (*nox_drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*170)))), v19, v20)
-					sub_4B8D40(v21, (*nox_drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*8)))), v19, v20)
+					sub_4B8960(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*170)))), v19, v20)
+					sub_4B8D40(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*8)))), v19, v20)
 				} else {
-					sub_4B8D40(v21, (*nox_drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*8)))), v19, v20)
-					sub_4B8960(v21, (*nox_drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*170)))), v19, v20)
+					sub_4B8D40(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*326)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*8)))), v19, v20)
+					sub_4B8960(v21, (*client.Drawable)(unsafe.Pointer(uintptr(v4))), *(*int32)(unsafe.Add(unsafe.Pointer(v33), 4*327)), (*uint32)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v33), 4*170)))), v19, v20)
 				}
-				if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(v4))), 16) {
+				if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(v4))), 16) {
 					if dword_5d4594_1313796 == nil {
 						v23 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))
 						dword_5d4594_1313796 = unsafe.Pointer(nox_new_drawable_for_thing(v23))
@@ -153,7 +154,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 					v25 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
 					v24(v25, v31)
 				}
-				if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(v4))), 30) {
+				if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(v4))), 30) {
 					if dword_5d4594_1313800 == nil {
 						v26 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningCrown"))
 						dword_5d4594_1313800 = unsafe.Pointer(nox_new_drawable_for_thing(v26))

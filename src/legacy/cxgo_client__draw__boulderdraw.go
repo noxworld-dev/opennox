@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
-func nox_thing_boulder_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_boulder_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var (
 		v2 int32

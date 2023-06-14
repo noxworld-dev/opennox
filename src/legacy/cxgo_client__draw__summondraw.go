@@ -3,12 +3,13 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var (
 		v2     *uint32
@@ -86,7 +87,7 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *nox_drawable) int 
 		nox_client_drawEnableAlpha_434560(0)
 		result = 1
 	} else {
-		nox_xxx_spriteDelete_45A4B0((*nox_drawable)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108))))))
+		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108))))))
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		result = 0
 	}

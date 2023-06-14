@@ -97,8 +97,8 @@ func nox_xxx_bookSpellDnDclear_477660() { Nox_xxx_bookSpellDnDclear_477660() }
 func nox_xxx_bookGetSpellDnDType_477670() int32 { return int32(Nox_xxx_bookGetSpellDnDType_477670()) }
 
 // nox_xxx_cursorSetDraggedItem_477690
-func nox_xxx_cursorSetDraggedItem_477690(a1 *nox_drawable) {
-	Nox_xxx_cursorSetDraggedItem_477690(asDrawable(a1))
+func nox_xxx_cursorSetDraggedItem_477690(a1 *client.Drawable) {
+	Nox_xxx_cursorSetDraggedItem_477690(a1)
 }
 
 // nox_xxx_cursorResetDraggedItem_4776A0

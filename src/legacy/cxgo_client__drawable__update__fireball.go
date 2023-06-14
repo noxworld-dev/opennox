@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -62,7 +63,7 @@ func sub_4CCEA0(a1 *uint32, a2 int32) {
 				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 104)) = 28
 				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 106)) = 0
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(-2, 4, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 84)))
-				nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v12))))
+				nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v12))))
 			}
 			v16--
 			if v16 == 0 {

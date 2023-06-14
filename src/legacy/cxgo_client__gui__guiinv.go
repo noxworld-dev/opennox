@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -144,7 +145,7 @@ func sub_461A80(a1 int32) {
 		sub_461B50()
 		v3 = (*uint64)(unsafe.Pointer(uintptr(sub_461F90(a1))))
 		if v3 != nil {
-			nox_xxx_spriteDelete_45A4B0((*nox_drawable)(unsafe.Pointer(v3)))
+			nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(v3)))
 		}
 		if v1 != 0 {
 			sub_472310()
@@ -156,7 +157,7 @@ func sub_461A80(a1 int32) {
 				sub_472310()
 				v4 = *(**uint64)(memmap.PtrOff(0x5D4594, 1049848))
 			}
-			nox_xxx_spriteDelete_45A4B0((*nox_drawable)(unsafe.Pointer(v4)))
+			nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(v4)))
 			*memmap.PtrUint32(0x5D4594, 1049848) = 0
 			dword_5d4594_1049856 = 0
 			nox_xxx_cursorResetDraggedItem_4776A0()
@@ -433,7 +434,7 @@ LABEL_14:
 	dword_5d4594_1063120 = dword_5d4594_1063116
 	v7 = nox_strman_loadString_40F1D0(internCStr("IdentifyItem"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2545)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), internWStr("%s "), v7)
-	v8 = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(*(**wchar2_t)(unsafe.Pointer(&dword_5d4594_1063116)))))
+	v8 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(*(**wchar2_t)(unsafe.Pointer(&dword_5d4594_1063116)))))
 	nox_wcscpy(&v75[0], v8)
 	if nox_wcscmp(&v75[0], (*wchar2_t)(memmap.PtrOff(0x5D4594, 1063652))) == 0 {
 		dword_5d4594_1063120 = 0
@@ -1015,9 +1016,9 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 				if sub_464B40(v9, v10) == 0 {
 					return 1
 				}
-				var v11 int32 = v10 + NOX_INVENTORY_ROW_COUNT*v9
+				var v11 = v10 + NOX_INVENTORY_ROW_COUNT*v9
 				if int32(nox_client_inventory_grid_1050020[v11].field_140) != 0 {
-					var dr *nox_drawable = nox_client_inventory_grid_1050020[v11].field_0
+					var dr = nox_client_inventory_grid_1050020[v11].field_0
 					dword_5d4594_1063116 = uint32(uintptr(unsafe.Pointer(dr)))
 					dr.Field_32 = nox_client_inventory_grid_1050020[v11].field_4
 				} else {
@@ -1071,7 +1072,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					sub_4658A0(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456)), &v56)
 				}
 				if *memmap.PtrUint32(0x5D4594, 1049848) != 0 {
-					nox_xxx_cursorSetDraggedItem_477690((*nox_drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1049848)))))
+					nox_xxx_cursorSetDraggedItem_477690((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1049848)))))
 					nox_xxx_setKeybTimeout_4160D0(0)
 					*(*int2)(memmap.PtrOff(0x5D4594, 1062572)) = v56
 					nox_xxx_clientPlaySoundSpecial_452D80(791, 100)
@@ -1266,7 +1267,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 	LABEL_121:
 		nox_xxx_cursorResetDraggedItem_4776A0()
 		if dword_5d4594_1049856 == 0 {
-			nox_xxx_spriteDelete_45A4B0((*nox_drawable)(unsafe.Pointer(*(**uint64)(memmap.PtrOff(0x5D4594, 1049848)))))
+			nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(memmap.PtrOff(0x5D4594, 1049848)))))
 		}
 		*memmap.PtrUint32(0x5D4594, 1049848) = 0
 		dword_5d4594_1049856 = 0
@@ -1363,7 +1364,7 @@ func sub_4661D0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 		v2 *wchar2_t
 	)
 	if dword_5d4594_1062480 != 0 {
-		v0 = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(**(***wchar2_t)(unsafe.Pointer(&dword_5d4594_1062480)))))
+		v0 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(**(***wchar2_t)(unsafe.Pointer(&dword_5d4594_1062480)))))
 		nox_xxx_cursorSetTooltip_4776B0(v0)
 	} else {
 		v2 = nox_strman_loadString_40F1D0(internCStr("ToolTipWeapon2Area"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 3331)
@@ -1408,7 +1409,7 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 				if int32(nox_client_inventory_grid_1050020[v12].field_140) != 0 {
 					v13 = int32(uintptr(unsafe.Pointer(nox_client_inventory_grid_1050020[v12].field_0)))
 					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v13)), 128)) = nox_client_inventory_grid_1050020[v12].field_4
-					return nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(uintptr(v13))))
+					return nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(uintptr(v13))))
 				}
 			}
 		}
@@ -1423,7 +1424,7 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 	}
 	v5 = *(**wchar2_t)(unsafe.Pointer(&array_5D4594_1049872[v3]))
 	if v5 != nil {
-		result = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(v5)))
+		result = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(v5)))
 	} else {
 		result = nox_strman_loadString_40F1D0(internCStr("ToolTipDrag"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 3159)
 	}

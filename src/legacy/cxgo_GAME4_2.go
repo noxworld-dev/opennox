@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -266,7 +267,7 @@ func sub_51DED0() int32 {
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*9))) = uint32(v4)
 			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(v3)))
 		}
-		v0 = (*int32)(unsafe.Pointer(nox_drawable_next_45A070((*nox_drawable)(unsafe.Pointer(v0)))))
+		v0 = (*int32)(unsafe.Pointer(nox_drawable_next_45A070((*client.Drawable)(unsafe.Pointer(v0)))))
 		if v0 == nil {
 			break
 		}

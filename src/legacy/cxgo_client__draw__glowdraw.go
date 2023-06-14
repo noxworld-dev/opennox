@@ -6,12 +6,13 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func sub_4B6770(a1 *int32, dr *nox_drawable, a3 int32, a4 int32) int {
+func sub_4B6770(a1 *int32, dr *client.Drawable, a3 int32, a4 int32) int {
 	var (
 		a2     int32 = int32(uintptr(unsafe.Pointer(dr)))
 		v4     int32
@@ -67,7 +68,7 @@ func sub_4B6770(a1 *int32, dr *nox_drawable, a3 int32, a4 int32) int {
 		return 0
 	}
 }
-func nox_thing_magic_sparkle_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_magic_sparkle_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	if nox_common_randomIntMinMax_415FF0(0, 10, internCStr("C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c"), 317) >= 5 {
 		return sub_4B6770(a1, dr, int32(nox_color_white_2523948), *(*int32)(unsafe.Pointer(&dword_5d4594_1313540)))
@@ -75,7 +76,7 @@ func nox_thing_magic_sparkle_draw(vp *noxrender.Viewport, dr *nox_drawable) int 
 		return sub_4B6770(a1, dr, *(*int32)(unsafe.Pointer(&dword_5d4594_1313540)), *(*int32)(unsafe.Pointer(&dword_5d4594_1313536)))
 	}
 }
-func nox_thing_pixie_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_pixie_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var (
 		v2  bool
@@ -128,7 +129,7 @@ func nox_thing_pixie_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	return 1
 }
-func nox_thing_pixie_dust_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_pixie_dust_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	var result int
 	if nox_common_randomIntMinMax_415FF0(0, 10, internCStr("C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c"), 554) >= 5 {
@@ -138,7 +139,7 @@ func nox_thing_pixie_dust_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	return result
 }
-func nox_thing_blue_rain_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_blue_rain_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		result int32
@@ -168,14 +169,14 @@ func nox_thing_blue_rain_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) in
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 104)) = uint16(int16(nox_common_randomIntMinMax_415FF0(5, 15, internCStr("C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c"), 618)))
 			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 106)) = 0
 			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 8, internCStr("C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c"), 620)))
-			nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v5))))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v5))))
 		}
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		result = 0
 	}
 	return int(result)
 }
-func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	var (
 		v2     *int32
@@ -264,39 +265,39 @@ func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	return int(result)
 }
-func Nox_thing_red_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func Nox_thing_red_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, *(*int32)(unsafe.Pointer(&dword_5d4594_1313532)), *memmap.PtrInt32(0x5D4594, 1313528))
 }
-func Nox_thing_blue_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func Nox_thing_blue_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, *(*int32)(unsafe.Pointer(&dword_5d4594_1313540)), *(*int32)(unsafe.Pointer(&dword_5d4594_1313536)))
 }
-func Nox_thing_cyan_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func Nox_thing_cyan_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313548), *memmap.PtrInt32(0x5D4594, 1313544))
 }
-func Nox_thing_green_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func Nox_thing_green_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313584), *memmap.PtrInt32(0x5D4594, 1313580))
 }
-func Nox_thing_yellow_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func Nox_thing_yellow_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, *(*int32)(unsafe.Pointer(&dword_5d4594_1313532)), *memmap.PtrInt32(0x5D4594, 1313576))
 }
-func nox_thing_violet_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_violet_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313556), *memmap.PtrInt32(0x5D4594, 1313552))
 }
-func nox_thing_death_ball_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_death_ball_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313572), *memmap.PtrInt32(0x5D4594, 1313568))
 }
-func nox_thing_white_spark_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_white_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
 	return sub_4B6970(a1, dr, int32(nox_color_white_2523948), *(*int32)(unsafe.Pointer(&dword_5d4594_1313540)))
 }
-func nox_thing_particle_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_particle_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	var (
 		v2 *uint32
 		v3 func(*uint32)
@@ -311,11 +312,11 @@ func nox_thing_particle_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
 	}
 	return 1
 }
-func Nox_thing_glow_orb_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func Nox_thing_glow_orb_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	return sub_4B6B80(a1, dr, 0)
 }
-func nox_thing_glow_orb_move_draw(vp *noxrender.Viewport, dr *nox_drawable) int {
+func nox_thing_glow_orb_move_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	return sub_4B6B80(a1, dr, 1)
 }

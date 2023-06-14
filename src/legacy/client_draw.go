@@ -94,28 +94,28 @@ func Nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, a2 *server.Wall) {
 	nox_xxx_drawWalls_473C10((*nox_draw_viewport_t)(vp.C()), a2.C())
 }
 func Sub_4761B0(dr *client.Drawable) int {
-	return int(sub_4761B0((*nox_drawable)(dr.C())))
+	return int(sub_4761B0((*client.Drawable)(dr.C())))
 }
 func Sub_476080(a1 unsafe.Pointer) int {
 	return int(sub_476080((*byte)(a1)))
 }
 func Sub_459DB0(dr *client.Drawable) int {
-	return int(sub_459DB0((*nox_drawable)(dr.C())))
+	return int(sub_459DB0((*client.Drawable)(dr.C())))
 }
 func Sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
-	sub_49A6A0((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+	sub_49A6A0((*nox_draw_viewport_t)(vp.C()), (*client.Drawable)(dr.C()))
 }
 func Nox_xxx_sprite_4756E0_drawable(dr *client.Drawable) int {
-	return int(nox_xxx_sprite_4756E0_drawable((*nox_drawable)(dr.C())))
+	return int(nox_xxx_sprite_4756E0_drawable((*client.Drawable)(dr.C())))
 }
 func Nox_xxx_sprite_475740_drawable(dr *client.Drawable) int {
-	return int(nox_xxx_sprite_475740_drawable((*nox_drawable)(dr.C())))
+	return int(nox_xxx_sprite_475740_drawable((*client.Drawable)(dr.C())))
 }
 func Nox_xxx_sprite_4757A0_drawable(dr *client.Drawable) int {
-	return int(nox_xxx_sprite_4757A0_drawable((*nox_drawable)(dr.C())))
+	return int(nox_xxx_sprite_4757A0_drawable((*client.Drawable)(dr.C())))
 }
 func Sub_4757D0_drawable(dr *client.Drawable) int {
-	return int(sub_4757D0_drawable((*nox_drawable)(dr.C())))
+	return int(sub_4757D0_drawable((*client.Drawable)(dr.C())))
 }
 func Nox_xxx_tileDrawImpl_4826A0(vp *noxrender.Viewport) {
 	nox_xxx_tileDrawImpl_4826A0((*nox_draw_viewport_t)(vp.C()))
