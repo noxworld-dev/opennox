@@ -26,7 +26,7 @@ func sub_48C9F0(win *gui.Window, draw *gui.WindowData) int {
 	return 1
 }
 func sub_48C980() int32 {
-	*memmap.PtrUint32(0x5D4594, 1193716) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ObserverIcon")))))
+	*memmap.PtrPtr(0x5D4594, 1193716) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ObserverIcon")))
 	dword_5d4594_1193712 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2-100, 50, 50, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1193712)), *memmap.PtrInt32(0x5D4594, 1193716))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193712)))), nil, sub_48C9F0, nil)

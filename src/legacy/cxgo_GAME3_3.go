@@ -1314,7 +1314,7 @@ LABEL_19:
 	result = *(**int32)(memmap.PtrOff(0x5D4594, 1564960))
 	if *memmap.PtrUint32(0x5D4594, 1564960) == 0 {
 		result = (*int32)(unsafe.Pointer(uintptr(nox_xxx_getNameId_4E3AA0(internCStr("TeamBase")))))
-		*memmap.PtrUint32(0x5D4594, 1564960) = uint32(uintptr(unsafe.Pointer(result)))
+		*memmap.PtrPtr(0x5D4594, 1564960) = unsafe.Pointer(result)
 	}
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 8))&0x13001000 != 0 || (*int32)(unsafe.Pointer(uintptr(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4))))) == result {
 		nox_xxx_unitNeedSync_4E44F0((*server.Object)(unsafe.Pointer(uintptr(a1))))
@@ -4601,7 +4601,7 @@ func sub_4EA800(a1 unsafe.Pointer, a2 unsafe.Pointer) int16 {
 	*(*uint16)(unsafe.Add(unsafe.Pointer(&v2), unsafe.Sizeof(uint16(0))*0)) = *memmap.PtrUint16(0x5D4594, 1567992)
 	if *memmap.PtrUint32(0x5D4594, 1567992) == 0 {
 		v2 = (*byte)(unsafe.Pointer(uintptr(nox_xxx_getNameId_4E3AA0(internCStr("GameBall")))))
-		*memmap.PtrUint32(0x5D4594, 1567992) = uint32(uintptr(unsafe.Pointer(v2)))
+		*memmap.PtrPtr(0x5D4594, 1567992) = unsafe.Pointer(v2)
 	}
 	v3 := a2
 	if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {

@@ -3329,7 +3329,7 @@ func nox_xxx_shopExit_50F4C0(a1 *uint32) {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)))
 	}
 	if noxflags.HasGame(4096) {
-		*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 276)))), 2064)))*4)+2386364) = uint32(uintptr(unsafe.Pointer(a1)))
+		*memmap.PtrPtr(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 748)))), 276)))), 2064)))*4)+2386364) = unsafe.Pointer(a1)
 	} else {
 		sub_510000(int32(uintptr(unsafe.Pointer(a1))))
 	}

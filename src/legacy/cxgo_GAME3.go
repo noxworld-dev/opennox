@@ -82,7 +82,7 @@ func sub_4A2610(win *gui.Window, a2 *uint32, a3 *int32) int32 {
 	for i = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(a3))))); i != nil; i = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(i))))) {
 		if sub_4A2560(a2, int32(uintptr(unsafe.Pointer(i)))) != 0 {
 			v4 = int32(dword_5d4594_1307720)
-			*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1307720)*4+1307316) = uint32(uintptr(unsafe.Pointer(i)))
+			*memmap.PtrPtr(0x5D4594, uintptr(dword_5d4594_1307720)*4+1307316) = unsafe.Pointer(i)
 			dword_5d4594_1307720 = uint32(v4 + 1)
 		}
 	}
@@ -3564,7 +3564,7 @@ func sub_4AB0C0() int {
 	return 1
 }
 func sub_4AB260() int32 {
-	*memmap.PtrUint32(0x5D4594, 1309752) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DisconnectIcon")))))
+	*memmap.PtrPtr(0x5D4594, 1309752) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DisconnectIcon")))
 	dword_5d4594_1309756 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2+3, 50, 50, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1309756)), *memmap.PtrInt32(0x5D4594, 1309752))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309756)))), nil, sub_4AB420, nil)

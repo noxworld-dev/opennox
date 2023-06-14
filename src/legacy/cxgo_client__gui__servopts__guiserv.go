@@ -179,7 +179,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		nox_xxx_wndSetProc_46B2C0(*(**gui.Window)(unsafe.Pointer(&dword_5d4594_1046500)), nox_xxx_guiServerOptionsProcPre_4585D0)
 		nox_xxx_wndSetProc_46B2C0(*(**gui.Window)(unsafe.Pointer(&dword_5d4594_1046504)), nox_xxx_guiServerOptionsProcPre_4585D0)
 		nox_xxx_wndSetProc_46B2C0(*(**gui.Window)(unsafe.Pointer(&dword_5d4594_1046508)), nox_xxx_guiServerOptionsProcPre_4585D0)
-		*memmap.PtrUint32(0x5D4594, 1046352) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs1")))))
+		*memmap.PtrPtr(0x5D4594, 1046352) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs1")))
 		dword_5d4594_1046356 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs2")))))
 		dword_5d4594_1046360 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs3")))))
 		v4 = *(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1046496)), 32))

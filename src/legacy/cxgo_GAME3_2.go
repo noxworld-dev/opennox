@@ -1777,7 +1777,7 @@ func nox_xxx_mapGenStart_4D4320() int32 {
 	v0 = 100
 	nox_xxx_mapSwitchLevel_4D12E0(1)
 	nox_xxx_setGameFlags_40A4D0(0x400000)
-	*memmap.PtrUint32(0x5D4594, 1550924) = uint32(uintptr(unsafe.Pointer(nox_get_and_zero_server_objects_4DA3C0())))
+	*memmap.PtrPtr(0x5D4594, 1550924) = unsafe.Pointer(nox_get_and_zero_server_objects_4DA3C0())
 	libc.MemSet(memmap.PtrOff(0x973F18, 2408), 0, 0x5B8)
 	for {
 		v1 = nox_xxx_mapGenStep_4D44E0()

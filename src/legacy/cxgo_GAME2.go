@@ -603,7 +603,7 @@ func sub_450AD0(a1 *byte) *byte {
 	if a1 == nil {
 		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("WarriorChapterBegin8"))))
 	}
-	*memmap.PtrUint32(0x5D4594, 832460) = uint32(uintptr(unsafe.Pointer(result)))
+	*memmap.PtrPtr(0x5D4594, 832460) = unsafe.Pointer(result)
 	return result
 }
 func sub_450AF0(a1 int32) int32 {
@@ -2265,7 +2265,7 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 int32) int32 {
 	nox_draw_setTabWidth_43FE20(100)
 	sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), (*gui.Window)(unsafe.Pointer(uintptr(a1))))
 	dword_5d4594_1045520 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10102))))
-	*memmap.PtrUint32(0x5D4594, 1045524) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10103))))
+	*memmap.PtrPtr(0x5D4594, 1045524) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10103))
 	dword_5d4594_1045532 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10109))))
 	dword_5d4594_1045528 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10105))))
 	dword_5d4594_1045536 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10200))))
@@ -2273,16 +2273,16 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 int32) int32 {
 	dword_5d4594_1045544 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10112))))
 	dword_5d4594_1045548 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10113))))
 	dword_5d4594_1045556 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10104))))
-	*memmap.PtrUint32(0x5D4594, 1045560) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10125))))
-	*memmap.PtrUint32(0x5D4594, 1045564) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10127))))
-	*memmap.PtrUint32(0x5D4594, 1045568) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10129))))
-	*memmap.PtrUint32(0x5D4594, 1045572) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10131))))
+	*memmap.PtrPtr(0x5D4594, 1045560) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10125))
+	*memmap.PtrPtr(0x5D4594, 1045564) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10127))
+	*memmap.PtrPtr(0x5D4594, 1045568) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10129))
+	*memmap.PtrPtr(0x5D4594, 1045572) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10131))
 	dword_5d4594_1045576 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10126))))
 	dword_5d4594_1045580 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10128))))
 	dword_5d4594_1045584 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10130))))
 	dword_5d4594_1045588 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10132))))
 	dword_5d4594_1045552 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10123))))
-	*memmap.PtrUint32(0x5D4594, 1045592) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10133))))
+	*memmap.PtrPtr(0x5D4594, 1045592) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045516)))), 10133))
 	v3 = *(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1045532)), 32))
 	v4 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISlider"))))
 	v5 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))))
@@ -3082,7 +3082,7 @@ func sub_456070() int32 {
 			return 0
 		}
 		sub_455F10(0)
-		*memmap.PtrUint32(0x5D4594, 1045648) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder")))))
+		*memmap.PtrPtr(0x5D4594, 1045648) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder")))
 	}
 	return 1
 }

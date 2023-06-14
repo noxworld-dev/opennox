@@ -189,18 +189,18 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 		v21 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090048))))), 1088, int(uint32(v17)*dword_5d4594_1090040), int(v18), int(dword_5d4594_1090040), int(dword_5d4594_1090044-uint32(v19)), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v22 = int32(*memmap.PtrUint32(0x5D4594, 1084036))
 		v23 = int32(dword_5d4594_1090044 - uint32(v19))
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052) = uint32(uintptr(unsafe.Pointer(v21)))
+		*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052) = unsafe.Pointer(v21)
 		v24 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(unsafe.Pointer(v21)), 1088, 0, int(v20), int(v22), int(v23), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v25 = int32(dword_5d4594_1090044)
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090060) = uint32(uintptr(unsafe.Pointer(v24)))
+		*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090060) = unsafe.Pointer(v24)
 		v26 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrInt32(0x5D4594, 1084036)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084040)), int(v25-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v27 = int32(dword_5d4594_1090044)
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090068) = uint32(uintptr(unsafe.Pointer(v26)))
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090076) = uint32(uintptr(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084044)), int(v27-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))))
+		*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090068) = unsafe.Pointer(v26)
+		*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090076) = unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084044)), int(v27-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))
 		v28 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084044)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084048)), int(dword_5d4594_1090044-uint32(v19)), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v29 = int32(dword_5d4594_1090044)
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090084) = uint32(uintptr(unsafe.Pointer(v28)))
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090092) = uint32(uintptr(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084048)+*memmap.PtrUint32(0x5D4594, 1084044)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084052)), int(v29-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))))
+		*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090084) = unsafe.Pointer(v28)
+		*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090092) = unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084048)+*memmap.PtrUint32(0x5D4594, 1084044)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084052)), int(v29-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))
 		nox_xxx_wndSetProc_46B2C0((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), nox_xxx_Proc_46F070)
 		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090060)))), (*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)))
 		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090068)))), (*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)))
@@ -227,7 +227,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	dword_5d4594_1090108 = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090048))))), 1088, 0, v47, *(*int32)(unsafe.Pointer(&dword_5d4594_1090040)), v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))
 	*(*uint32)(unsafe.Pointer(&v49[68])) = *memmap.PtrUint32(0x8531A0, 2572)
 	v45[0] = int32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("TeamPlayerRank"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1798))))
-	*memmap.PtrUint32(0x5D4594, 1090104) = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090048))))), 1088, 0, 0, *(*int32)(unsafe.Pointer(&dword_5d4594_1090040)), v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))
+	*memmap.PtrPtr(0x5D4594, 1090104) = unsafe.Pointer(nox_gui_newStaticText_489300((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090048))))), 1088, 0, 0, *(*int32)(unsafe.Pointer(&dword_5d4594_1090040)), v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))
 	result = int32(uintptr(unsafe.Pointer(dword_5d4594_1090048)))
 	dword_587000_145664 = 1
 	return result
@@ -239,7 +239,7 @@ func sub_46F030() *wchar2_t {
 	)
 	for i = 0; i < 12; i += 4 {
 		result = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(i)+145676)), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 167)
-		*memmap.PtrUint32(0x5D4594, uintptr(i)+1084056) = uint32(uintptr(unsafe.Pointer(result)))
+		*memmap.PtrPtr(0x5D4594, uintptr(i)+1084056) = unsafe.Pointer(result)
 	}
 	return result
 }

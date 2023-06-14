@@ -564,7 +564,7 @@ func nox_xxx_createTextBubble_48D880(a1 int32, a2 *wchar2_t) *wchar2_t {
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*171))) = 0
 			dword_5d4594_1197372 = uint32(uintptr(unsafe.Pointer(v2)))
 		} else {
-			*memmap.PtrUint32(0x5D4594, 1197368) = uint32(uintptr(unsafe.Pointer(v2)))
+			*memmap.PtrPtr(0x5D4594, 1197368) = unsafe.Pointer(v2)
 			dword_5d4594_1197372 = uint32(uintptr(unsafe.Pointer(v2)))
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*172))) = 0
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*171))) = 0
@@ -2397,7 +2397,7 @@ func sub_495FC0(a1p unsafe.Pointer, a2p *client.Drawable) {
 		if *memmap.PtrUint32(0x5D4594, 1203872) != 0 {
 			*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1203872), 76)) = uint32(uintptr(unsafe.Pointer(a1)))
 		}
-		*memmap.PtrUint32(0x5D4594, 1203872) = uint32(uintptr(unsafe.Pointer(a1)))
+		*memmap.PtrPtr(0x5D4594, 1203872) = unsafe.Pointer(a1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*16)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 456))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = 0
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 456)))
@@ -4693,22 +4693,22 @@ func nox_xxx_loadReflSheild_499360() int32 {
 		v8 *uint8
 	)
 	v0 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldNW"))
-	*memmap.PtrUint32(0x5D4594, 1217468) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v0))))
+	*memmap.PtrPtr(0x5D4594, 1217468) = unsafe.Pointer(nox_new_drawable_for_thing(v0))
 	v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldN"))
-	*memmap.PtrUint32(0x5D4594, 1217472) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v1))))
+	*memmap.PtrPtr(0x5D4594, 1217472) = unsafe.Pointer(nox_new_drawable_for_thing(v1))
 	v2 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldNE"))
-	*memmap.PtrUint32(0x5D4594, 1217476) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v2))))
+	*memmap.PtrPtr(0x5D4594, 1217476) = unsafe.Pointer(nox_new_drawable_for_thing(v2))
 	v3 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldW"))
-	*memmap.PtrUint32(0x5D4594, 1217480) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v3))))
+	*memmap.PtrPtr(0x5D4594, 1217480) = unsafe.Pointer(nox_new_drawable_for_thing(v3))
 	*memmap.PtrUint32(0x5D4594, 1217484) = 0
 	v4 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldE"))
-	*memmap.PtrUint32(0x5D4594, 1217488) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v4))))
+	*memmap.PtrPtr(0x5D4594, 1217488) = unsafe.Pointer(nox_new_drawable_for_thing(v4))
 	v5 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldSW"))
-	*memmap.PtrUint32(0x5D4594, 1217492) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v5))))
+	*memmap.PtrPtr(0x5D4594, 1217492) = unsafe.Pointer(nox_new_drawable_for_thing(v5))
 	v6 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldS"))
-	*memmap.PtrUint32(0x5D4594, 1217496) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v6))))
+	*memmap.PtrPtr(0x5D4594, 1217496) = unsafe.Pointer(nox_new_drawable_for_thing(v6))
 	v7 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ReflectiveShieldSE"))
-	*memmap.PtrUint32(0x5D4594, 1217500) = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(v7))))
+	*memmap.PtrPtr(0x5D4594, 1217500) = unsafe.Pointer(nox_new_drawable_for_thing(v7))
 	v8 = (*uint8)(memmap.PtrOff(0x5D4594, 1217468))
 	for {
 		if unsafe.Pointer(v8) != memmap.PtrOff(0x5D4594, 1217484) {
@@ -5392,7 +5392,7 @@ func nox_xxx_clientAddRayEffect_49C160(a1 int32) *uint32 {
 					return result
 				}
 			}
-			*memmap.PtrUint32(0x5D4594, uintptr(v13*4)+1303924) = uint32(uintptr(unsafe.Pointer(result)))
+			*memmap.PtrPtr(0x5D4594, uintptr(v13*4)+1303924) = unsafe.Pointer(result)
 		}
 	}
 	return result

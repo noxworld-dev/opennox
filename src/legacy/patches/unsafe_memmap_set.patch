@@ -1,0 +1,5 @@
+@@
+var x,y,z expression
+@@
+-*memmap.PtrUint32(x, y) = uint32(uintptr(unsafe.Pointer(z)))
++*memmap.PtrPtr(x, y) = unsafe.Pointer(z)

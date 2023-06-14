@@ -848,7 +848,7 @@ func sub_461EF0(a1 int32) *byte {
 					if *((*uint32)(unsafe.Add(unsafe.Pointer(p_maybe_stack_items), 4*uintptr(maybe_stack_idx)))) == uint32(a1) {
 						*memmap.PtrUint32(0x5D4594, 1049792) = uint32(maybe_stack_idx)
 						var result *byte = (*byte)(memmap.PtrOff(0x5D4594, 1049788))
-						*memmap.PtrUint32(0x5D4594, 1049788) = uint32(uintptr(unsafe.Pointer(p_item)))
+						*memmap.PtrPtr(0x5D4594, 1049788) = unsafe.Pointer(p_item)
 						return result
 					}
 				}
@@ -1792,7 +1792,7 @@ func nox_xxx_wndCreateInventoryMB_465E00() int32 {
 	dword_5d4594_1062456 = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062452))))), 40, 0, 0, 563, 224, sub_466220))))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062456)))), sub_464BD0, nox_xxx_inventoryDrawAllMB_463430, sub_466620)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1062456)), 44)) |= 0x100
-	*memmap.PtrUint32(0x5D4594, 1062472) = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062452))))), 40, 0, 0, 1, 1, nil))))
+	*memmap.PtrPtr(0x5D4594, 1062472) = unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062452))))), 40, 0, 0, 1, 1, nil))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, 1062472)))), sub_464BD0, nox_xxx_movEax1Sub_4661C0, nil)
 	dword_5d4594_1062468 = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))), 40, 173, 174, 50, 50, nil))))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062468)))), sub_464770, sub_4625D0, sub_4661D0)
@@ -2020,7 +2020,7 @@ func sub_466950(a1 int32) int32 {
 	*(*uint16)(unsafe.Pointer(&v6[72])) = 0
 	*(*uint32)(unsafe.Pointer(&v6[16])) = uint32(a1)
 	v1 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 522, 2, 20, 25, (*gui.WindowData)(unsafe.Pointer(&v6[0])))))
-	*memmap.PtrUint32(0x5D4594, 1062500) = uint32(uintptr(unsafe.Pointer(v1)))
+	*memmap.PtrPtr(0x5D4594, 1062500) = unsafe.Pointer(v1)
 	if v1 == nil {
 		return 0
 	}
@@ -2036,7 +2036,7 @@ func sub_466950(a1 int32) int32 {
 	*(*uint16)(unsafe.Pointer(&v6[72])) = 0
 	*(*uint32)(unsafe.Pointer(&v6[16])) = uint32(a1)
 	v3 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 522, 148, 20, 25, (*gui.WindowData)(unsafe.Pointer(&v6[0])))))
-	*memmap.PtrUint32(0x5D4594, 1062504) = uint32(uintptr(unsafe.Pointer(v3)))
+	*memmap.PtrPtr(0x5D4594, 1062504) = unsafe.Pointer(v3)
 	if v3 == nil {
 		return 0
 	}
@@ -2132,7 +2132,7 @@ func sub_466C40(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(&v5[16])) = uint32(a1)
 	*(*uint32)(unsafe.Pointer(&v5[8])) = 1
 	v4 = (*uint32)(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*gui.Window)(unsafe.Pointer(uintptr(a1))), 1161, 547, 2, 16, 16, (*gui.WindowData)(unsafe.Pointer(&v5[0])))))
-	*memmap.PtrUint32(0x5D4594, 1062532) = uint32(uintptr(unsafe.Pointer(v4)))
+	*memmap.PtrPtr(0x5D4594, 1062532) = unsafe.Pointer(v4)
 	if v4 == nil {
 		return 0
 	}
@@ -2234,31 +2234,31 @@ func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 }
 func nox_xxx_inventoryLoadImages_467050() *byte {
 	var result *byte
-	*memmap.PtrUint32(0x5D4594, 1049908) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryBase")))))
-	*memmap.PtrUint32(0x5D4594, 1049912) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryIdentifyBase")))))
-	*memmap.PtrUint32(0x5D4594, 1049916) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray1")))))
-	*memmap.PtrUint32(0x5D4594, 1049920) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray2")))))
-	*memmap.PtrUint32(0x5D4594, 1049924) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray3")))))
-	*memmap.PtrUint32(0x5D4594, 1049928) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTraySpecial")))))
-	*memmap.PtrUint32(0x5D4594, 1049932) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayIdentifyLit")))))
-	*memmap.PtrUint32(0x5D4594, 1049936) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayMapLit")))))
-	*memmap.PtrUint32(0x5D4594, 1049940) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButton")))))
-	*memmap.PtrUint32(0x5D4594, 1049944) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButtonLit")))))
-	*memmap.PtrUint32(0x5D4594, 1049948) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButton")))))
-	*memmap.PtrUint32(0x5D4594, 1049952) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButtonLit")))))
-	*memmap.PtrUint32(0x5D4594, 1049956) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButton")))))
-	*memmap.PtrUint32(0x5D4594, 1049960) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButtonLit")))))
-	*memmap.PtrUint32(0x5D4594, 1049964) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryEquipRing")))))
-	*memmap.PtrUint32(0x5D4594, 1049968) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryQuickItemRing")))))
-	*memmap.PtrUint32(0x5D4594, 1049972) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryCloseButtonLit")))))
+	*memmap.PtrPtr(0x5D4594, 1049908) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryBase")))
+	*memmap.PtrPtr(0x5D4594, 1049912) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryIdentifyBase")))
+	*memmap.PtrPtr(0x5D4594, 1049916) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray1")))
+	*memmap.PtrPtr(0x5D4594, 1049920) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray2")))
+	*memmap.PtrPtr(0x5D4594, 1049924) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray3")))
+	*memmap.PtrPtr(0x5D4594, 1049928) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTraySpecial")))
+	*memmap.PtrPtr(0x5D4594, 1049932) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayIdentifyLit")))
+	*memmap.PtrPtr(0x5D4594, 1049936) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayMapLit")))
+	*memmap.PtrPtr(0x5D4594, 1049940) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButton")))
+	*memmap.PtrPtr(0x5D4594, 1049944) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButtonLit")))
+	*memmap.PtrPtr(0x5D4594, 1049948) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButton")))
+	*memmap.PtrPtr(0x5D4594, 1049952) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButtonLit")))
+	*memmap.PtrPtr(0x5D4594, 1049956) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButton")))
+	*memmap.PtrPtr(0x5D4594, 1049960) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButtonLit")))
+	*memmap.PtrPtr(0x5D4594, 1049964) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryEquipRing")))
+	*memmap.PtrPtr(0x5D4594, 1049968) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryQuickItemRing")))
+	*memmap.PtrPtr(0x5D4594, 1049972) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryCloseButtonLit")))
 	dword_5d4594_1049976 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryJournalButtonLit")))))
-	*memmap.PtrUint32(0x5D4594, 1049980) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButton")))))
-	*memmap.PtrUint32(0x5D4594, 1049984) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButtonLit")))))
-	*memmap.PtrUint32(0x5D4594, 1049988) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDollButtonLit")))))
+	*memmap.PtrPtr(0x5D4594, 1049980) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButton")))
+	*memmap.PtrPtr(0x5D4594, 1049984) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButtonLit")))
+	*memmap.PtrPtr(0x5D4594, 1049988) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDollButtonLit")))
 	dword_5d4594_1049992 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryStatsButton")))))
 	dword_5d4594_1049996 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryStatsButtonLit")))))
-	*memmap.PtrUint32(0x5D4594, 1050000) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("GUIFist")))))
-	*memmap.PtrUint32(0x5D4594, 1050004) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("SharedKeyMode")))))
+	*memmap.PtrPtr(0x5D4594, 1050000) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("GUIFist")))
+	*memmap.PtrPtr(0x5D4594, 1050004) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("SharedKeyMode")))
 	result = (*byte)(unsafe.Pointer(nox_xxx_gLoadAnim_42FA20(internCStr("ExtraLives"))))
 	dword_5d4594_1050008 = uint32(uintptr(unsafe.Pointer(result)))
 	return result
@@ -5281,9 +5281,9 @@ func nox_xxx____setargv_11_473920() {
 }
 func sub_473930() *byte {
 	var result *byte
-	*memmap.PtrUint32(0x5D4594, 1096456) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadAnim_42FA20(internCStr("ConfusedBirdies")))))
+	*memmap.PtrPtr(0x5D4594, 1096456) = unsafe.Pointer(nox_xxx_gLoadAnim_42FA20(internCStr("ConfusedBirdies")))
 	result = (*byte)(unsafe.Pointer(nox_xxx_gLoadAnim_42FA20(internCStr("SphericalShieldAnim"))))
-	*memmap.PtrUint32(0x5D4594, 1096460) = uint32(uintptr(unsafe.Pointer(result)))
+	*memmap.PtrPtr(0x5D4594, 1096460) = unsafe.Pointer(result)
 	return result
 }
 func sub_473960() int32 {

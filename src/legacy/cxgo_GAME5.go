@@ -1831,7 +1831,7 @@ LABEL_9:
 		*(*int32)(unsafe.Add(unsafe.Pointer(v7), 4*6)) = v4
 		*v7 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v4*4)+2490520))
 		v8 = int32(dword_5d4594_2491544)
-		*memmap.PtrUint32(0x5D4594, uintptr(v4*4)+2490520) = uint32(uintptr(unsafe.Pointer(v7)))
+		*memmap.PtrPtr(0x5D4594, uintptr(v4*4)+2490520) = unsafe.Pointer(v7)
 		*(*int32)(unsafe.Add(unsafe.Pointer(v7), 4*1)) = v8
 		dword_5d4594_2491544 = uint32(uintptr(unsafe.Pointer(v7)))
 	}
@@ -2390,7 +2390,7 @@ func sub_5494C0(it *server.Object, data unsafe.Pointer) {
 					v6 = float64(*(*float32)(unsafe.Pointer(&v8)) - (*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*44)) + *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 176))))
 					if v6 < float64(*mem_getFloatPtr(0x5D4594, 2491572)) {
 						*mem_getFloatPtr(0x5D4594, 2491572) = float32(v6)
-						*memmap.PtrUint32(0x5D4594, 2491564) = uint32(uintptr(unsafe.Pointer(a1)))
+						*memmap.PtrPtr(0x5D4594, 2491564) = unsafe.Pointer(a1)
 					}
 				}
 			}
@@ -3391,7 +3391,7 @@ func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 							v12 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*26)) + *(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*15)))
 							if v12 > float64(*mem_getFloatPtr(0x5D4594, 2491600)) {
 								*mem_getFloatPtr(0x5D4594, 2491600) = float32(v12)
-								*memmap.PtrUint32(0x5D4594, 2491596) = uint32(uintptr(unsafe.Pointer(v2)))
+								*memmap.PtrPtr(0x5D4594, 2491596) = unsafe.Pointer(v2)
 							}
 							return
 						}
@@ -3404,7 +3404,7 @@ func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 							v12 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*26)) + *(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*15)))
 							if v12 > float64(*mem_getFloatPtr(0x5D4594, 2491600)) {
 								*mem_getFloatPtr(0x5D4594, 2491600) = float32(v12)
-								*memmap.PtrUint32(0x5D4594, 2491596) = uint32(uintptr(unsafe.Pointer(v2)))
+								*memmap.PtrPtr(0x5D4594, 2491596) = unsafe.Pointer(v2)
 							}
 							return
 						}
@@ -3412,7 +3412,7 @@ func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 							v12 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*26)) + *(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*15)))
 							if v12 > float64(*mem_getFloatPtr(0x5D4594, 2491600)) {
 								*mem_getFloatPtr(0x5D4594, 2491600) = float32(v12)
-								*memmap.PtrUint32(0x5D4594, 2491596) = uint32(uintptr(unsafe.Pointer(v2)))
+								*memmap.PtrPtr(0x5D4594, 2491596) = unsafe.Pointer(v2)
 							}
 							return
 						}
@@ -3426,7 +3426,7 @@ func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 							v12 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*26)) + *(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*15)))
 							if v12 > float64(*mem_getFloatPtr(0x5D4594, 2491600)) {
 								*mem_getFloatPtr(0x5D4594, 2491600) = float32(v12)
-								*memmap.PtrUint32(0x5D4594, 2491596) = uint32(uintptr(unsafe.Pointer(v2)))
+								*memmap.PtrPtr(0x5D4594, 2491596) = unsafe.Pointer(v2)
 							}
 							return
 						}
@@ -3435,7 +3435,7 @@ func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 							v12 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*26)) + *(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*15)))
 							if v12 > float64(*mem_getFloatPtr(0x5D4594, 2491600)) {
 								*mem_getFloatPtr(0x5D4594, 2491600) = float32(v12)
-								*memmap.PtrUint32(0x5D4594, 2491596) = uint32(uintptr(unsafe.Pointer(v2)))
+								*memmap.PtrPtr(0x5D4594, 2491596) = unsafe.Pointer(v2)
 							}
 							return
 						}
@@ -3443,7 +3443,7 @@ func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 							v12 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*26)) + *(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*15)))
 							if v12 > float64(*mem_getFloatPtr(0x5D4594, 2491600)) {
 								*mem_getFloatPtr(0x5D4594, 2491600) = float32(v12)
-								*memmap.PtrUint32(0x5D4594, 2491596) = uint32(uintptr(unsafe.Pointer(v2)))
+								*memmap.PtrPtr(0x5D4594, 2491596) = unsafe.Pointer(v2)
 							}
 							return
 						}
@@ -3800,7 +3800,7 @@ func sub_54B810(a1 int32, a2 int32, a3 *int32, a4 *int2, a5 int32) int32 {
 		v14 = v13 - 1
 		v21 = (*int2)(unsafe.Pointer(uintptr(v13 - 1)))
 		v15 = sub_523E30(2, a5, *(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*1))-(v13-1))
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v15)))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v15)
 		a2a.X = float32(float64(*v5) * 32.526913)
 		v16 = float64(int32(uintptr(unsafe.Pointer(v21)))) * 32.526913
 		a2a.Y = float32(v16)
@@ -3809,11 +3809,11 @@ func sub_54B810(a1 int32, a2 int32, a3 *int32, a4 *int2, a5 int32) int32 {
 		if v20 <= 0 {
 			v17 = sub_523E30(5, a5, *v5-v6.field_0)
 			a2a.Y = float32(v16)
-			*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v17)))
+			*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v17)
 			a2a.X = float32(float64(v6.field_0) * 32.526913)
 			sub_521A70(*memmap.PtrInt32(0x5D4594, 2491612), *(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), 3)
 		} else {
-			*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(sub_523E30(4, a5, v6.field_0-*v5))))
+			*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(sub_523E30(4, a5, v6.field_0-*v5))
 			v22 = (*int2)(unsafe.Pointer(uintptr(a5 + *v5)))
 			a2a.Y = float32(v16)
 			a2a.X = float32(float64(int32(uintptr(unsafe.Pointer(v22)))) * 32.526913)
@@ -3822,7 +3822,7 @@ func sub_54B810(a1 int32, a2 int32, a3 *int32, a4 *int2, a5 int32) int32 {
 		nox_xxx_mapGenSetRoomPos_521880(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612)), &a2a)
 		*memmap.PtrUint32(0x5D4594, 2491608)++
 		v18 = sub_523E30(2, a5, v14-v6.field_4-1)
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v18)))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v18)
 		v24 = v6.field_4 + 1
 		a2a.X = float32(float64(v6.field_0) * 32.526913)
 		a2a.Y = float32(float64(v24) * 32.526913)
@@ -3830,7 +3830,7 @@ func sub_54B810(a1 int32, a2 int32, a3 *int32, a4 *int2, a5 int32) int32 {
 		sub_521A70(*(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), *memmap.PtrInt32(0x5D4594, 2491620), 0)
 	} else {
 		v8 = sub_523E30(2, a5, *(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*1))-a4.field_4-1)
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v8)))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v8)
 		v23 = a4.field_4 + 1
 		a2a.X = float32(float64(a4.field_0) * 32.526913)
 		a2a.Y = float32(float64(v23) * 32.526913)
@@ -3926,18 +3926,18 @@ func sub_54BB20(a1 int32, a2 int32, a3 *int32, a4 *uint32, a5 int32) int32 {
 		v11 = v9 + v10/2
 		v12 = a5
 		v13 = sub_523E30(4, a5, v11-*a3+a5-1)
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v13)))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v13)
 		a2a.X = float32(float64(*a3+1) * 32.526913)
 		a2a.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1))) * 32.526913)
 		nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v13)), &a2a)
 		*memmap.PtrUint32(0x5D4594, 2491608)++
 		if v16 <= 0 {
-			*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(sub_523E30(2, a5, int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1)))-*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)))))))
+			*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(sub_523E30(2, a5, int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1)))-*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)))))
 			a2a.X = float32(float64(v11) * 32.526913)
 			a2a.Y = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)))) * 32.526913)
 			sub_521A70(*memmap.PtrInt32(0x5D4594, 2491612), *(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), 0)
 		} else {
-			*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(sub_523E30(3, a5, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1))-uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1))))))))
+			*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(sub_523E30(3, a5, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1))-uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1))))))
 			v17 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1)) + a5
 			a2a.X = float32(float64(v11) * 32.526913)
 			a2a.Y = float32(float64(v17) * 32.526913)
@@ -3946,14 +3946,14 @@ func sub_54BB20(a1 int32, a2 int32, a3 *int32, a4 *uint32, a5 int32) int32 {
 		nox_xxx_mapGenSetRoomPos_521880(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612)), &a2a)
 		*memmap.PtrUint32(0x5D4594, 2491608)++
 		v14 = sub_523E30(4, v12, int32(*v5-uint32(v11)-uint32(v12)))
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v14)))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v14)
 		a2a.X = float32(float64(v12+v11) * 32.526913)
 		a2a.Y = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)))) * 32.526913)
 		nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v14)), &a2a)
 		sub_521A70(*(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), *memmap.PtrInt32(0x5D4594, 2491620), 2)
 	} else {
 		v7 = sub_523E30(4, a5, int32(*v5-uint32(*a3)-1))
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v7)))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v7)
 		a2a.X = float32(float64(*a3+1) * 32.526913)
 		a2a.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1))) * 32.526913)
 		nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v7)), &a2a)
@@ -3978,19 +3978,19 @@ func sub_54BD90(a1 int32, a2 int32, a3 *int32, a4 *int32, a5 int32) int32 {
 	*memmap.PtrUint32(0x5D4594, 2491608) = 0
 	v8 = v7 - v6
 	v9 = sub_523E30(2, a5, *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(a4), 4*1)))
-	*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v9)))
+	*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v9)
 	a2a.X = float32(float64(*a3) * 32.526913)
 	a2a.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a4), 4*1))) * 32.526913)
 	nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v9)), &a2a)
 	*memmap.PtrUint32(0x5D4594, 2491608)++
 	if v8 <= 0 {
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(sub_523E30(5, a5, *a3-*a4-1))))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(sub_523E30(5, a5, *a3-*a4-1))
 		a2a.X = float32(float64(*a4+1) * 32.526913)
 		a2a.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a4), 4*1))) * 32.526913)
 		sub_521A70(*memmap.PtrInt32(0x5D4594, 2491612), *(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), 3)
 		v10 = 2
 	} else {
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(sub_523E30(4, a5, *a4-*a3-a5))))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(sub_523E30(4, a5, *a4-*a3-a5))
 		a2a.X = float32(float64(a5+*a3) * 32.526913)
 		a2a.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a4), 4*1))) * 32.526913)
 		sub_521A70(*memmap.PtrInt32(0x5D4594, 2491612), *(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), 2)
@@ -4018,20 +4018,20 @@ func sub_54BF20(a1 int32, a2 int32, a3 *int32, a4 *int32, a5 int32) int32 {
 	v8 = *a4
 	*memmap.PtrUint32(0x5D4594, 2491608) = 0
 	v9 = sub_523E30(3, a5, *(*int32)(unsafe.Add(unsafe.Pointer(a4), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1))+a5-1)
-	*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(v9)))
+	*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(v9)
 	v12 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*1)) + 1
 	a2a.X = float32(float64(*v5) * 32.526913)
 	a2a.Y = float32(float64(v12) * 32.526913)
 	nox_xxx_mapGenSetRoomPos_521880((*uint32)(unsafe.Pointer(v9)), &a2a)
 	*memmap.PtrUint32(0x5D4594, 2491608)++
 	if v8-v7 <= 0 {
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(sub_523E30(5, a5, *v5-*a4-1))))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(sub_523E30(5, a5, *v5-*a4-1))
 		a2a.X = float32(float64(*a4+1) * 32.526913)
 		a2a.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a4), 4*1))) * 32.526913)
 		sub_521A70(*memmap.PtrInt32(0x5D4594, 2491612), *(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), 3)
 		v10 = 2
 	} else {
-		*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = uint32(uintptr(unsafe.Pointer(sub_523E30(4, a5, *a4-*v5-a5))))
+		*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 2491608))*4+2491612) = unsafe.Pointer(sub_523E30(4, a5, *a4-*v5-a5))
 		a2a.X = float32(float64(a5+*v5) * 32.526913)
 		a2a.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a4), 4*1))) * 32.526913)
 		sub_521A70(*memmap.PtrInt32(0x5D4594, 2491612), *(*int32)(unsafe.Pointer(&dword_5d4594_2491616)), 2)

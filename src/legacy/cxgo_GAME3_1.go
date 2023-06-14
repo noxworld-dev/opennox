@@ -1682,11 +1682,11 @@ func sub_4BFAD0() int32 {
 	for i = 0; i < 8; i += 4 {
 		v3 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(i)+180960)))))
 		v4 = *(**byte)(memmap.PtrOff(0x587000, uintptr(i)+180968))
-		*memmap.PtrUint32(0x973A20, uintptr(i+16)) = uint32(uintptr(unsafe.Pointer(v3)))
-		*memmap.PtrUint32(0x973A20, uintptr(i+24)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(v4))))
+		*memmap.PtrPtr(0x973A20, uintptr(i+16)) = unsafe.Pointer(v3)
+		*memmap.PtrPtr(0x973A20, uintptr(i+24)) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(v4))
 		v5 = 26
 		for {
-			*memmap.PtrUint32(0x973A20, uintptr(v1+32)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1)+180976))))))
+			*memmap.PtrPtr(0x973A20, uintptr(v1+32)) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1)+180976))))
 			v1 += 4
 			v5--
 			if v5 == 0 {
@@ -1695,7 +1695,7 @@ func sub_4BFAD0() int32 {
 		}
 		v6 = 27
 		for {
-			*memmap.PtrUint32(0x973A20, uintptr(v0+256)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0)+181184))))))
+			*memmap.PtrPtr(0x973A20, uintptr(v0+256)) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0)+181184))))
 			v0 += 4
 			v6--
 			if v6 == 0 {
@@ -1703,7 +1703,7 @@ func sub_4BFAD0() int32 {
 			}
 		}
 	}
-	*memmap.PtrUint32(0x5D4594, 1319052) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MaleMedievalCloakTop")))))
+	*memmap.PtrPtr(0x5D4594, 1319052) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MaleMedievalCloakTop")))
 	return 1
 }
 func sub_4BFB70(a1 int32) {
@@ -1858,14 +1858,14 @@ func nox_gui_itemAmount_init_4BFEF0() int32 {
 	*memmap.PtrUint32(0x5D4594, 1319144) = uint32(nox_win_height)
 	*memmap.PtrUint32(0x5D4594, 1319124) = 0
 	*memmap.PtrUint32(0x5D4594, 1319128) = 0
-	*memmap.PtrUint32(0x5D4594, 1319196) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBase")))))
-	*memmap.PtrUint32(0x5D4594, 1319200) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveUpLit")))))
-	*memmap.PtrUint32(0x5D4594, 1319204) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveDownLit")))))
-	*memmap.PtrUint32(0x5D4594, 1319208) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressed")))))
-	*memmap.PtrUint32(0x5D4594, 1319212) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressed")))))
-	*memmap.PtrUint32(0x5D4594, 1319216) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBaseNoTag")))))
-	*memmap.PtrUint32(0x5D4594, 1319220) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressedNoTag")))))
-	*memmap.PtrUint32(0x5D4594, 1319224) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressedNoTag")))))
+	*memmap.PtrPtr(0x5D4594, 1319196) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBase")))
+	*memmap.PtrPtr(0x5D4594, 1319200) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveUpLit")))
+	*memmap.PtrPtr(0x5D4594, 1319204) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveDownLit")))
+	*memmap.PtrPtr(0x5D4594, 1319208) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressed")))
+	*memmap.PtrPtr(0x5D4594, 1319212) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressed")))
+	*memmap.PtrPtr(0x5D4594, 1319216) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBaseNoTag")))
+	*memmap.PtrPtr(0x5D4594, 1319220) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressedNoTag")))
+	*memmap.PtrPtr(0x5D4594, 1319224) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressedNoTag")))
 	return 1
 }
 func sub_4C0030(win *gui.Window, draw *gui.WindowData) int {
@@ -3596,7 +3596,7 @@ func nox_xxx_spriteDrawCircleMB_4C32A0(a1 int32, a2 int32, a3 int32, a4 int32) i
 	return 1
 }
 func sub_4C3390() int32 {
-	*memmap.PtrUint32(0x5D4594, 1321220) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("VoteInProgress")))))
+	*memmap.PtrPtr(0x5D4594, 1321220) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("VoteInProgress")))
 	dword_5d4594_1321216 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2-100, 50, 50, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1321216)), *memmap.PtrInt32(0x5D4594, 1321220))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1321216)))), nil, sub_4C3410, nil)
@@ -3988,7 +3988,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *int32, dr *client.Drawable, a3 int32) {
 		}
 		v30 = int32(-v29)
 	}
-	*memmap.PtrUint32(0x5D4594, 1321516) = uint32(uintptr(unsafe.Pointer(a2)))
+	*memmap.PtrPtr(0x5D4594, 1321516) = unsafe.Pointer(a2)
 	v31 = int32(*((*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*52))))
 	a1a.field_0 = v30
 	*memmap.PtrUint32(0x5D4594, 1321512) = uint32(v31)
@@ -4194,7 +4194,7 @@ func nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) i
 	v2 = *(**byte)(memmap.PtrOff(0x5D4594, 1321524))
 	if *memmap.PtrUint32(0x5D4594, 1321524) == 0 {
 		v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadAnim_42FA20(internCStr("ShinySpot"))))
-		*memmap.PtrUint32(0x5D4594, 1321524) = uint32(uintptr(unsafe.Pointer(v2)))
+		*memmap.PtrPtr(0x5D4594, 1321524) = unsafe.Pointer(v2)
 	}
 	v3 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*24))))
 	v4 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 8)))
@@ -4714,9 +4714,9 @@ func sub_4CADD0() int32 {
 			}
 			v1++
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4)) = *memmap.PtrUint32(0x5D4594, 1522584)
-			*memmap.PtrUint32(0x5D4594, 1522584) = uint32(uintptr(unsafe.Pointer(v2)))
+			*memmap.PtrPtr(0x5D4594, 1522584) = unsafe.Pointer(v2)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = *memmap.PtrUint32(0x5D4594, 1522592)
-			*memmap.PtrUint32(0x5D4594, 1522592) = uint32(uintptr(unsafe.Pointer(v2)))
+			*memmap.PtrPtr(0x5D4594, 1522592) = unsafe.Pointer(v2)
 			if v1 >= 10 {
 				break
 			}

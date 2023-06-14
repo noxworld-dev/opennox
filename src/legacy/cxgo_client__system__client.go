@@ -13,7 +13,7 @@ func nox_xxx_clientDrawAll_436100_draw_A() {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_9)
 	}
 	if *memmap.PtrUint32(0x5D4594, 814540) == 0 {
-		*memmap.PtrUint32(0x5D4594, 814540) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MenuSystemBG")))))
+		*memmap.PtrPtr(0x5D4594, 814540) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MenuSystemBG")))
 	}
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) {
 		var v10 unsafe.Pointer = nox_xxx_guiFontPtrByName_43F360(internCStr("large"))

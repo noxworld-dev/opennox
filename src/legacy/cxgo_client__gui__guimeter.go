@@ -159,7 +159,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 			*memmap.PtrUint32(0x5D4594, 1090832) = 0
 		}
 		*memmap.PtrUint32(0x5D4594, 1090844) = dword_5d4594_1096272
-		*memmap.PtrUint32(0x5D4594, 1091900) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("PoisonTube")))))
+		*memmap.PtrPtr(0x5D4594, 1091900) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("PoisonTube")))
 		v8 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 136, 0, 0, 91, 159, nil)))
 		v9 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("HealthManaTubes"))))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v8))), int32(uintptr(unsafe.Pointer(v9))))
@@ -181,7 +181,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 		nox_windows_arr_1093036[3].win.WidgetData = unsafe.Pointer(uintptr(1))
 		*memmap.PtrUint32(0x5D4594, 1093176) = 1
 	} else {
-		*memmap.PtrUint32(0x5D4594, 1091900) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("WarriorPoisonTube")))))
+		*memmap.PtrPtr(0x5D4594, 1091900) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("WarriorPoisonTube")))
 		v12 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 136, 0, 0, 91, 159, nil)))
 		v13 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("WarriorHealthTube"))))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(v13))))
