@@ -8215,7 +8215,7 @@ func nox_xxx_useMushroom_53ECE0(obj, obj2 *server.Object) int {
 func nox_xxx_useEnchant_53ED60(obj, obj2 *server.Object) int {
 	a1 := int32(uintptr(obj.CObj()))
 	a2 := int32(uintptr(obj2.CObj()))
-	nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(a1))), int32(**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 736))), int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 736)))), 4)))), 5)
+	nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(a1))), server.EnchantID(**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 736))), int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 736)))), 4)))), 5)
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a2))))
 	return 1
 }
@@ -9120,7 +9120,7 @@ func sub_540CE0(a1 unsafe.Pointer, a2 int32) int32 {
 	if i == 32 {
 		result = 0
 	} else {
-		result = nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), int8(i))
+		result = nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), server.EnchantID(i))
 	}
 	return result
 }
@@ -10162,38 +10162,25 @@ func nox_xxx_mobActionMoveToFar_5445C0(obj *server.Object) {
 	}
 }
 func nox_xxx_mobActionDodge_544640(obj *server.Object) {
-	a1 := obj.CObj()
-	var (
-		v1 *float32
-		v2 int32
-		v3 float64
-		v4 float64
-		v5 float64
-		v6 float64
-		v7 float32
-		v8 float32
-	)
-	v1 = (*float32)(unsafe.Pointer(uintptr(a1)))
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	if nox_xxx_monsterIsMoveing_534320(a1) != 0 {
-		if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), 3) == 0 && nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), 5) == 0 && nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), 28) == 0 {
-			v3 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2+int32((*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 544))+23)*24))), 4)) - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 56)))
-			v4 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(v2+int32((*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 544))+23)*24))), 8)) - *(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 60)))
-			v7 = float32(v4)
-			v5 = math.Sqrt(v4*float64(v7)+v3*v3) + 9.9999997e-05
-			v8 = float32(v5)
-			if v5 >= 8.0 {
-				v6 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 484)))), 96)) * *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*136)))
-				*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*136)) = float32(v6)
-				*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*22)) = float32(v6 * v3 / float64(v8))
-				*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*23)) = v7 * *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*136)) / v8
-			} else {
-				nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(v1)))
-			}
-		}
-	} else {
-		nox_xxx_monsterPopAction_50A160((*server.Object)(unsafe.Pointer(uintptr(a1))))
+	ud := obj.UpdateDataMonster()
+	if nox_xxx_monsterIsMoveing_534320(obj.CObj()) == 0 {
+		nox_xxx_monsterPopAction_50A160(obj)
+		return
 	}
+	if nox_xxx_testUnitBuffs_4FF350(obj, server.ENCHANT_CONFUSED) != 0 || nox_xxx_testUnitBuffs_4FF350(obj, server.ENCHANT_HELD) != 0 || nox_xxx_testUnitBuffs_4FF350(obj, server.ENCHANT_CHARMING) != 0 {
+		return
+	}
+	act := ud.AIStackHead()
+	dx := float64(*(*float32)(unsafe.Add(unsafe.Pointer(act), 4)) - obj.PosVec.X)
+	dy := float64(*(*float32)(unsafe.Add(unsafe.Pointer(act), 8)) - obj.PosVec.Y)
+	dist := math.Sqrt(dy*dy+dx*dx) + 9.9999997e-05
+	if dist < 8.0 {
+		nox_xxx_monsterPopAction_50A160(obj)
+		return
+	}
+	obj.SpeedCur *= ud.MonsterDef.RunMultiplier96
+	obj.ForceVec.X = float32(float64(obj.SpeedCur) * dx / dist)
+	obj.ForceVec.Y = float32(float64(obj.SpeedCur) * dy / dist)
 }
 func sub_544740(obj *server.Object) {
 	sub_534750(obj.CObj())

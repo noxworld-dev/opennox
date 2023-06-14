@@ -19,9 +19,9 @@ var (
 	Sub_43D6A0                    func()
 	Sub_44D640                    func()
 	Sub_44D7E0                    func(a1 int) int
-	Nox_xxx_musicStartPlay_43D6C0 func(a1p unsafe.Pointer) int
+	Nox_xxx_musicStartPlay_43D6C0 func(a1 unsafe.Pointer) int
 	Sub_44D660                    func(a1 string) bool
-	Sub_43F060                    func(a1p unsafe.Pointer) int
+	Sub_43F060                    func(a1 unsafe.Pointer)
 	Sub_43EC30                    func(a1 unsafe.Pointer) int
 	Sub_43ECB0                    func(a1 unsafe.Pointer) int
 )
@@ -196,8 +196,8 @@ func sub_44D660(a1 *byte) int {
 }
 
 // sub_43F060
-func sub_43F060(a1p *uint32) int {
-	return Sub_43F060(unsafe.Pointer(a1p))
+func sub_43F060(a1 unsafe.Pointer) {
+	Sub_43F060(a1)
 }
 
 // sub_43EC30

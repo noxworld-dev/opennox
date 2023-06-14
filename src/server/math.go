@@ -33,7 +33,7 @@ func DirFromVec(p types.Pointf) Dir16 {
 	return Dir16(uint8(v))
 }
 
-func sincosDir(d byte) (cos, sin float32) { // 194136, 194140
+func SinCosDir(d byte) (cos, sin float32) { // 194136, 194140
 	v := sincosDirTable[d]
 	return v[0], v[1]
 }

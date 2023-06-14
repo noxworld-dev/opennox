@@ -13,7 +13,7 @@ var (
 	Sub_50D1C0                             func()
 	Nox_xxx_gameSetAudioFadeoutMb_501AC0   func(v int)
 	Nox_xxx_monsterPopAction_50A160        func(a1 *server.Object) int
-	Nox_xxx_monsterPushAction_50A260_impl  func(u *server.Object, act int, skip int) unsafe.Pointer
+	Nox_xxx_monsterPushAction_50A260_impl  func(u *server.Object, act ai.ActionType, skip int) unsafe.Pointer
 	Nox_xxx_unitUpdateMonster_50A5C0       func(a1 *server.Object)
 	Nox_xxx_monsterClearActionStack_50A3A0 func(a1 *server.Object)
 )
@@ -107,9 +107,8 @@ func nox_xxx_monsterPopAction_50A160(a1 *server.Object) {
 	Nox_xxx_monsterPopAction_50A160(asObjectS(a1))
 }
 
-// nox_xxx_monsterPushAction_50A260_impl
-func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int32) unsafe.Pointer {
-	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), int(act), 1)
+func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act ai.ActionType) unsafe.Pointer {
+	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), act, 1)
 }
 
 // nox_xxx_unitUpdateMonster_50A5C0
@@ -132,9 +131,6 @@ func Nox_xxx_mobGetMoveAttemptTime_534810(a1 *server.Object) int {
 }
 func Nox_xxx_unitIsDangerous_547120(a1 *server.Object, a2 *server.Object) {
 	nox_xxx_unitIsDangerous_547120(asObjectC(a1), asObjectC(a2))
-}
-func Nox_xxx_checkMobAction_50A0D0(a1 *server.Object, a2 ai.ActionType) int {
-	return int(nox_xxx_checkMobAction_50A0D0(asObjectC(a1), int32(a2)))
 }
 func Nox_xxx_checkIsKillable_528190(a1 *server.Object) int {
 	return int(nox_xxx_checkIsKillable_528190(asObjectC(a1)))

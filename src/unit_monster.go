@@ -13,6 +13,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func init() {
+	server.RegisterObjectUpdate("MonsterUpdate", nox_xxx_unitUpdateMonster_50A5C0, unsafe.Sizeof(server.MonsterUpdateData{}))
+}
+
 var _ = [1]struct{}{}[248-unsafe.Sizeof(server.MonsterDef{})]
 
 func objectMonsterInit(sobj *server.Object) {
@@ -163,7 +167,7 @@ func nox_xxx_monsterCreateFn_54C480(u *server.Object) {
 		ud.FleeRange = def.FleeRange88
 	}
 	ud.AIStackInd = 0
-	ud.AIStack[0].Action = uint32(ai.ACTION_IDLE)
+	ud.AIStack[0].Action = ai.ACTION_IDLE
 	ud.AIAction340 = 0
 	ud.Aggression = 0.5
 	ud.Aggression2 = 0.5

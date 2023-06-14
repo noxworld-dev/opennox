@@ -313,8 +313,8 @@ func sub_44D660(name string) bool {
 	return s != 0
 }
 
-func sub_43F060(a1p unsafe.Pointer) int {
-	a1 := unsafe.Slice((*uint32)(unsafe.Pointer(a1p)), 69)
+func sub_43F060(a1p unsafe.Pointer) {
+	a1 := unsafe.Slice((*uint32)(a1p), 69)
 	s := *(**legacy.AudioSample)(unsafe.Pointer(&a1[68]))
 	smp := s.Smp
 	smp.SetVolume(int((127 * (a1[45] >> 16)) >> 14))
@@ -322,7 +322,6 @@ func sub_43F060(a1p unsafe.Pointer) int {
 	p2 := s.Field4
 	v2 := legacy.Sub_486640(unsafe.Pointer(&a1[44]), int(*(*uint32)(unsafe.Add(p2, 8))))
 	smp.SetPlaybackRate(v2)
-	return 0
 }
 
 func nox_xxx_parseSoundSetBin_424170(path string) error {

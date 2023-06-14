@@ -1851,13 +1851,13 @@ func nox_xxx_guiEnchantment_41B9C0(a1p unsafe.Pointer, a2p unsafe.Pointer) int32
 			*((*uint8)(unsafe.Pointer(&v22))) = uint8(sub_424CB0(int32(uintptr(unsafe.Pointer(a1)))))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22)), 1)
 			for i = sub_424D00(); i != -1; i = sub_424D20(i) {
-				if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(a1)), int8(i)) != 0 {
+				if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(a1)), server.EnchantID(i)) != 0 {
 					v3 = nox_xxx_getEnchantName_4248F0(i)
 					*((*uint8)(unsafe.Pointer(&v20))) = uint8(int8(libc.StrLen(v3)))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v20)), 1)
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v3)), uint32(uint8(int8(v20))))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a1), i*2))), 344)), 2)
-					*((*uint8)(unsafe.Pointer(&v21))) = uint8(nox_xxx_buffGetPower_4FF570((*server.Object)(unsafe.Pointer(a1)), i))
+					*((*uint8)(unsafe.Pointer(&v21))) = uint8(nox_xxx_buffGetPower_4FF570((*server.Object)(unsafe.Pointer(a1)), server.EnchantID(i)))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 1)
 					if i == 26 {
 						v4 = sub_4FF2D0(51, int32(uintptr(unsafe.Pointer(a1))))
@@ -4896,7 +4896,7 @@ func sub_424CB0(a1 int32) int8 {
 	}
 	v3 = (*uint8)(memmap.PtrOff(0x587000, 66000))
 	for {
-		if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), int8(uint8(*(*uint32)(unsafe.Pointer(v3))))) != 0 {
+		if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), server.EnchantID(*(*uint32)(unsafe.Pointer(v3)))) != 0 {
 			v1++
 		}
 		v2++

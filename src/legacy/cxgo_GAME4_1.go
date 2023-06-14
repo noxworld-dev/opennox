@@ -11,6 +11,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -378,36 +379,22 @@ func nox_xxx_monsterIsActionScheduled_50A090(a1 int32, a2 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_checkMobAction_50A0D0(a1p *server.Object, a2 int32) int32 {
-	var (
-		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
-		v2 int32
-		v3 int32
-		i  *uint32
-	)
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 748)))
-	v3 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 544)))
-	if v3 < 0 {
-		return 0
-	}
-	for i = (*uint32)(unsafe.Pointer(uintptr(v2 + (v3*3+69)*8))); *i != uint32(a2); i = (*uint32)(unsafe.Add(unsafe.Pointer(i), -int(4*6))) {
-		if func() int32 {
-			p := &v3
-			*p--
-			return *p
-		}() < 0 {
-			return 0
+func nox_xxx_checkMobAction_50A0D0(obj *server.Object, act ai.ActionType) int32 {
+	ud := obj.UpdateDataMonster()
+	for i := ud.AIStackInd; i >= 0; i-- {
+		if ud.AIStack[i].Action == act {
+			return 1
 		}
 	}
-	return 1
+	return 0
 }
-func nox_xxx_monsterAction_50A360(obj *server.Object, a2 int32) {
+func nox_xxx_monsterAction_50A360(obj *server.Object, typ ai.ActionType) {
 	if !obj.Class().Has(object.ClassMonster) {
 		return
 	}
 	ud := obj.UpdateDataMonster()
-	if ud.AIStackHead().Action != uint32(a2) {
-		nox_xxx_monsterPushAction_50A260_impl(obj, a2)
+	if ud.AIStackHead().Type() != typ {
+		Nox_xxx_monsterPushAction_50A260_impl(obj, typ, 1)
 	}
 }
 func nox_xxx_monsterCallDieFn_50A3D0(a1 *uint32) int32 {

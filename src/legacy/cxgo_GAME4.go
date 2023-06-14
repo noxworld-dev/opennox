@@ -2055,7 +2055,7 @@ func nox_xxx_playerBotCreate_4FA700(obj *server.Object) {
 			Pos95:                 obj.PosVec,
 		}
 		m.AIStackInd = 0
-		m.AIStack[0].Action = uint32(ai.ACTION_HUNT)
+		m.AIStack[0].Action = ai.ACTION_HUNT
 		*(*uint8)(unsafe.Pointer(&m.Field331)) = 30
 		*(*uint8)(unsafe.Pointer(&m.Field333)) = math.MaxUint8
 		switch ud.Player.PlayerClass() {
@@ -3676,13 +3676,10 @@ func sub_4FF2D0(a1 int32, a2 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_testUnitBuffs_4FF350(unit *server.Object, buff int8) int32 {
-	if unit == nil || int32(buff) < 0 || int32(buff) >= 32 {
-		return 0
-	}
-	return bool2int32((uint32(1<<int32(buff)) & unit.Buffs) != 0)
+func nox_xxx_testUnitBuffs_4FF350(obj *server.Object, buff server.EnchantID) int32 {
+	return bool2int32(obj.HasEnchant(buff))
 }
-func nox_xxx_buffApplyTo_4FF380(unit *server.Object, buff int32, dur int16, power int8) {
+func nox_xxx_buffApplyTo_4FF380(unit *server.Object, buff server.EnchantID, dur int16, power int8) {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(unit)))
 		v5 int32
@@ -3723,7 +3720,7 @@ func nox_xxx_buffApplyTo_4FF380(unit *server.Object, buff int32, dur int16, powe
 			nox_xxx_aud_501960(595, unit, 0, 0)
 		}
 	} else if (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16)) & 0x8022) == 0 {
-		if nox_xxx_testUnitBuffs_4FF350(unit, int8(buff)) == 0 || (func() int32 {
+		if nox_xxx_testUnitBuffs_4FF350(unit, buff) == 0 || (func() int32 {
 			v4 = nox_xxx_unitGetBuffTimer_4FF550(unit, buff)
 			return v4
 		}()) != 0 {
@@ -3733,23 +3730,17 @@ func nox_xxx_buffApplyTo_4FF380(unit *server.Object, buff int32, dur int16, powe
 			unit.BuffsDur[buff] = uint16(dur)
 			unit.BuffsPower[buff] = uint8(power)
 			nox_xxx_setUnitBuffFlags_4E48F0(unsafe.Pointer(unit), int32(uint32(1<<buff)|unit.Buffs))
-			v5 = nox_xxx_getEnchantSpell_424920(buff)
+			v5 = nox_xxx_getEnchantSpell_424920(int32(buff))
 			v6 = nox_xxx_spellGetAud44_424800(v5, 1)
 			nox_xxx_aud_501960(v6, unit, 0, 0)
 		}
 	}
 }
-func nox_xxx_unitGetBuffTimer_4FF550(unit *server.Object, buff int32) int32 {
-	if unit == nil || buff < 0 || buff >= 32 {
-		return 0
-	}
-	return int32(unit.BuffsDur[buff])
+func nox_xxx_unitGetBuffTimer_4FF550(unit *server.Object, buff server.EnchantID) int32 {
+	return int32(unit.EnchantDur(buff))
 }
-func nox_xxx_buffGetPower_4FF570(unit *server.Object, buff int32) int8 {
-	if unit == nil || buff < 0 || buff >= 32 {
-		return 0
-	}
-	return int8(unit.BuffsPower[buff])
+func nox_xxx_buffGetPower_4FF570(unit *server.Object, buff server.EnchantID) int8 {
+	return int8(unit.EnchantPower(buff))
 }
 func nox_xxx_unitClearBuffs_4FF580(unit *server.Object) {
 	nox_xxx_setUnitBuffFlags_4E48F0(unsafe.Pointer(unit), 0)

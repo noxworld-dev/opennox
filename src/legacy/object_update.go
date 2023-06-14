@@ -30,7 +30,6 @@ func init() {
 	server.RegisterObjectUpdate("PushUpdate", nox_xxx_updatePush_53B030, 12)
 	server.RegisterObjectUpdate("TriggerUpdate", nox_xxx_updateTrigger_53B1B0, 60)
 	server.RegisterObjectUpdate("ToggleUpdate", nox_xxx_updateToggle_53B060, 60)
-	server.RegisterObjectUpdate("MonsterUpdate", nox_xxx_unitUpdateMonster_50A5C0, unsafe.Sizeof(server.MonsterUpdateData{}))
 	server.RegisterObjectUpdate("LoopAndDamageUpdate", sub_53B300, 16)
 	server.RegisterObjectUpdate("ElevatorUpdate", nox_xxx_updateElevator_53B5D0, 20)
 	server.RegisterObjectUpdate("ElevatorShaftUpdate", nox_xxx_updateElevatorShaft_53B380, 16)

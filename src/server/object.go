@@ -452,7 +452,7 @@ func (s *Server) ObjectsClearPending() {
 type Dir16 uint16
 
 func (v Dir16) Vec() types.Pointf {
-	x, y := sincosDir(byte(v))
+	x, y := SinCosDir(byte(v))
 	return types.Pointf{X: x, Y: y}
 }
 

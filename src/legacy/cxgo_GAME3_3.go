@@ -4639,7 +4639,7 @@ func sub_4EA7A0(a1 unsafe.Pointer) {
 		v3     int32
 	)
 	for i = 0; i < 32; i++ {
-		result = nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), int8(i))
+		result = nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), server.EnchantID(i))
 		if result != 0 {
 			result = nox_xxx_getEnchantSpell_424920(i)
 			if result != 0 {

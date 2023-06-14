@@ -4736,7 +4736,8 @@ func sub_4873C0(a3 unsafe.Pointer) {
 						return v17
 					}()) != 0 || sub_486550((*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 16))) != 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 116)) != 0 && sub_486550(*(**uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 116))) != 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 112)) != 0 && sub_486550(*(**uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 112))) != 0 {
 						sub_4BD840(v12)
-						ccall.AsFunc[func(int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 172)))), 32)))(v12)
+						_ = sub_43F060
+						ccall.AsFunc[func(unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 172)))), 32)))(unsafe.Pointer(uintptr(v12)))
 					}
 				}
 				v12 = v13

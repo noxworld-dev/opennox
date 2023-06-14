@@ -15,16 +15,16 @@ import (
 )
 
 type AIStackItem struct {
-	Action uint32     // 0, 0
-	Args   [4]uintptr // 1, 4 (8, 12, 16)
-	Field5 uint32     // 5, 20
+	Action ai.ActionType // 0, 0
+	Args   [4]uintptr    // 1, 4 (8, 12, 16)
+	Field5 uint32        // 5, 20
 }
 
 func (s *AIStackItem) Type() ai.ActionType {
 	if s == nil {
 		return ai.ACTION_INVALID
 	}
-	return ai.ActionType(s.Action)
+	return s.Action
 }
 
 func (s *AIStackItem) ArgU32(i int) uint32 {

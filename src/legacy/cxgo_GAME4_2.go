@@ -8827,14 +8827,14 @@ func nox_xxx_XFer_ReadMonsterBuffs_52AAB0(a1 *uint32) int32 {
 		return 1
 	}
 	for {
-		if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(a1)), int8(v1)) != 0 {
+		if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(a1)), server.EnchantID(v1)) != 0 {
 			v2 = nox_xxx_getEnchantName_4248F0(v1)
 			*((*uint8)(unsafe.Pointer(&v11))) = uint8(int8(libc.StrLen(v2)))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 1)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v2)), uint32(uint8(int8(v11))))
-			*((*uint8)(unsafe.Pointer(&v15))) = uint8(nox_xxx_buffGetPower_4FF570((*server.Object)(unsafe.Pointer(a1)), v1))
+			*((*uint8)(unsafe.Pointer(&v15))) = uint8(nox_xxx_buffGetPower_4FF570((*server.Object)(unsafe.Pointer(a1)), server.EnchantID(v1)))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v15)), 1)
-			v14 = nox_xxx_unitGetBuffTimer_4FF550((*server.Object)(unsafe.Pointer(a1)), v1)
+			v14 = nox_xxx_unitGetBuffTimer_4FF550((*server.Object)(unsafe.Pointer(a1)), server.EnchantID(v1))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4)
 			if v1 == 26 {
 				v3 = sub_4FF2D0(51, int32(uintptr(unsafe.Pointer(a1))))
@@ -9572,9 +9572,9 @@ func sub_52BDB0(it *server.Object, data unsafe.Pointer) {
 	v3 = 0
 	if a1 != a2 && (*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))&0x8020) == 0 {
 		for i = 0; i < 32; i++ {
-			result = nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), int8(i))
+			result = nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(uintptr(a1))), server.EnchantID(i))
 			if result != 0 {
-				result = nox_xxx_unitGetBuffTimer_4FF550((*server.Object)(unsafe.Pointer(uintptr(a1))), i)
+				result = nox_xxx_unitGetBuffTimer_4FF550((*server.Object)(unsafe.Pointer(uintptr(a1))), server.EnchantID(i))
 				if result != 0 {
 					result = nox_xxx_getEnchantSpell_424920(i)
 					if result != 0 {

@@ -1326,12 +1326,12 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 		}
 		return
 	}
-	if noxflags.HasGame(2048) {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
 		if sub_534440(a1) == 0 && nox_xxx_testUnitBuffs_4FF350(u, 3) == 0 {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 484)))), 92)))&8 != 0 {
-				if nox_xxx_checkMobAction_50A0D0(u, 9) == 0 {
+				if nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_DODGE) == 0 {
 					if nox_xxx_monsterTestBlockShield_533E70(u) != 0 {
-						if nox_xxx_monsterCheckDodgeables_547C50(a1) != 0 {
+						if nox_xxx_monsterCheckDodgeables_547C50(u) != 0 {
 							return
 						}
 					}
@@ -1347,16 +1347,16 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 			*(*uint32)(unsafe.Add(v2, 500)) = *(*uint32)(unsafe.Add(a1, 56))
 			*(*uint32)(unsafe.Add(v2, 504)) = *(*uint32)(unsafe.Add(a1, 60))
 		} else if (gameFrame() - *(*uint32)(unsafe.Add(v2, 496))) > uint32(int32(gameFPS())>>1) {
-			v39 := int32(*(*uint32)(unsafe.Add(a1, 36)))
-			v34 := int32(uintptr(unsafe.Pointer(nox_xxx_getUnitName_4E39D0(u))))
+			v39 := *(*uint32)(unsafe.Add(a1, 36))
+			v34 := unsafe.Pointer(nox_xxx_getUnitName_4E39D0(u))
 			nox_ai_debug_printf_5341A0(internCStr("%d: %s(#%d) FRUSTRATED\n"), gameFrame(), v34, v39)
 			*(*uint32)(unsafe.Add(v2, 1440)) |= 0x200000
 			if nox_xxx_checkMobAction_50A0D0(u, 6) != 0 || nox_xxx_checkMobAction_50A0D0(u, 14) != 0 || nox_xxx_checkMobAction_50A0D0(u, 24) != 0 {
 				*(*uint32)(unsafe.Add(v2, 508)) = gameFrame()
 			}
 			if nox_xxx_checkMobAction_50A0D0(u, 15) != 0 {
-				nox_xxx_monsterCheckDodgeables_547C50(a1)
-			} else if nox_common_randomInt_415FA0(0, 100) >= 33 || nox_xxx_monsterCheckDodgeables_547C50(a1) == 0 {
+				nox_xxx_monsterCheckDodgeables_547C50(u)
+			} else if nox_common_randomInt_415FA0(0, 100) >= 33 || nox_xxx_monsterCheckDodgeables_547C50(u) == 0 {
 				if v35 := nox_xxx_monsterPushAction_50A260_impl(u, 1); v35 != nil {
 					*(*int32)(unsafe.Add(v35, 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()>>1), int32(gameFPS()*2))))
 				}
@@ -1395,67 +1395,37 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 		}
 	}
 }
-func nox_xxx_monsterCheckDodgeables_547C50(a1 unsafe.Pointer) int32 {
-	var (
-		v2  int32
-		v3  int32
-		v4  float64
-		v5  float32
-		v6  float64
-		v7  float64
-		v9  *int32
-		v10 *int32
-		v11 float32
-		v12 float32
-		v13 float4
-		v14 float32
-	)
-	v1 := a1
-	v2 = 0
-	v3 = int32(*(*int16)(unsafe.Add(a1, 124)))
-	v4 = float64(*mem_getFloatPtr(0x587000, uint32(v3*8)+194140))
-	v12 = *mem_getFloatPtr(0x587000, uint32(v3*8)+194136)
-	v5 = *(*float32)(unsafe.Add(a1, 60))
-	v13.field_0 = *(*float32)(unsafe.Add(a1, 56))
-	v11 = float32(-v4)
-	v13.field_4 = v5
-	for {
-		v6 = nox_common_randomFloat_416030(2.0, 3.0) * float64(*(*float32)(unsafe.Add(v1, unsafe.Sizeof(float32(0))*44)))
-		v14 = float32(v6)
+func nox_xxx_monsterCheckDodgeables_547C50(obj *server.Object) int32 {
+	v12, v4 := server.SinCosDir(byte(obj.Direction1))
+	var v13 float4
+	v13.field_0 = obj.PosVec.X
+	v13.field_4 = obj.PosVec.Y
+	for i := 0; i < 5; i++ {
+		v6 := nox_common_randomFloat_416030(2.0, 3.0) * float64(obj.Shape.Circle.R)
 		if v6 > 15.0 {
-			v14 = 15.0
+			v6 = 15.0
 		}
-		v7 = float64(v14)
 		if nox_common_randomInt_415FA0(0, 100) < 50 {
-			v7 = -v7
+			v6 = -v6
 		}
-		v13.field_8 = float32(v7*float64(v11) + float64(*(*float32)(unsafe.Add(v1, unsafe.Sizeof(float32(0))*14))))
-		v13.field_C = float32(v7*float64(v12) + float64(*(*float32)(unsafe.Add(v1, unsafe.Sizeof(float32(0))*15))))
+		v13.field_8 = float32(v6*float64(-v4) + float64(obj.PosVec.X))
+		v13.field_C = float32(v6*float64(v12) + float64(obj.PosVec.Y))
 		if nox_xxx_mapTraceRay_535250(&v13, nil, nil, 1) != 0 {
-			if nox_xxx_mapTraceObstacles_50B580((*server.Object)(v1), &v13) != 0 && nox_xxx_tileNFromPoint_411160((*float2)(unsafe.Pointer(&v13.field_8))) != 6 {
-				break
+			if nox_xxx_mapTraceObstacles_50B580(obj, &v13) != 0 && nox_xxx_tileNFromPoint_411160((*float2)(unsafe.Pointer(&v13.field_8))) != 6 {
+				nox_xxx_monsterPopAttackActions_5471B0(obj)
+				if v9 := nox_xxx_monsterPushAction_50A260_impl(obj, ai.DEPENDENCY_TIME); v9 != nil {
+					*(*int32)(unsafe.Add(v9, 4*1)) = int32(gameFrame() + gameFPS())
+				}
+				if v10 := nox_xxx_monsterPushAction_50A260_impl(obj, ai.ACTION_DODGE); v10 != nil {
+					*(*int32)(unsafe.Add(v10, 4*1)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(&v13.field_8), 4*0)))
+					*(*int32)(unsafe.Add(v10, 4*2)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(&v13.field_C), 4*0)))
+					*(*int32)(unsafe.Add(v10, 4*3)) = 0
+				}
+				return 1
 			}
 		}
-		if func() int32 {
-			p := &v2
-			*p++
-			return *p
-		}() >= 5 {
-			return 0
-		}
 	}
-	nox_xxx_monsterPopAttackActions_5471B0(AsObjectP(a1))
-	v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(v1), 41))
-	if v9 != nil {
-		*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = int32(gameFrame() + gameFPS())
-	}
-	v10 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*server.Object)(v1), 9))
-	if v10 != nil {
-		*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(&v13.field_8), 4*0)))
-		*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*2)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(&v13.field_C), 4*0)))
-		*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*3)) = 0
-	}
-	return 1
+	return 0
 }
 func sub_547DB0(a1 int32, a2 *float2) int32 {
 	var (

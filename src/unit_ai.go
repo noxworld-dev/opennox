@@ -591,8 +591,8 @@ func (obj *Object) monsterPopAction() int {
 	return int(si)
 }
 
-func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int, skip int) unsafe.Pointer {
-	return unsafe.Pointer(asObjectS(u).monsterPushActionImpl(ai.ActionType(act), skip+1))
+func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act ai.ActionType, skip int) unsafe.Pointer {
+	return unsafe.Pointer(asObjectS(u).monsterPushActionImpl(act, skip+1))
 }
 
 func (obj *Object) monsterPushActionImpl(act ai.ActionType, skip int) *server.AIStackItem {
@@ -620,7 +620,7 @@ func (obj *Object) monsterPushActionImpl(act ai.ActionType, skip int) *server.AI
 	}
 	ud.AIStackInd++
 	ud.AIStack[ud.AIStackInd] = server.AIStackItem{
-		Action: uint32(act), Field5: 0,
+		Action: act, Field5: 0,
 	}
 	obj.monsterActionReset()
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
