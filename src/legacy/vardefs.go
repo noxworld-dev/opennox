@@ -137,7 +137,7 @@ func Get_dword_5d4594_2660032() int {
 	return int(dword_5d4594_2660032)
 }
 func Get_dword_5d4594_1090048() *gui.Window {
-	return asWindow(dword_5d4594_1090048)
+	return dword_5d4594_1090048
 }
 func Get_dword_5d4594_1090120() int {
 	return int(dword_5d4594_1090120)
@@ -284,31 +284,31 @@ func Get_dword_5d4594_3799452() int {
 	return int(dword_5d4594_3799452)
 }
 func Get_dword_5d4594_1321236() *gui.Window {
-	return asWindow(dword_5d4594_1321236)
+	return dword_5d4594_1321236
 }
 func Get_dword_5d4594_1321240() *gui.Window {
-	return asWindow(dword_5d4594_1321240)
+	return dword_5d4594_1321240
 }
 func Get_dword_5d4594_1321244() *gui.Window {
-	return asWindow(dword_5d4594_1321244)
+	return dword_5d4594_1321244
 }
 func Get_dword_5d4594_1321248() *gui.Window {
-	return asWindow(dword_5d4594_1321248)
+	return dword_5d4594_1321248
 }
 func Get_dword_5d4594_1522616() *gui.Window {
-	return asWindow(dword_5d4594_1522616)
+	return dword_5d4594_1522616
 }
 func Get_dword_5d4594_1522620() *gui.Window {
-	return asWindow(dword_5d4594_1522620)
+	return dword_5d4594_1522620
 }
 func Get_dword_5d4594_1522624() *gui.Window {
-	return asWindow(dword_5d4594_1522624)
+	return dword_5d4594_1522624
 }
 func Get_dword_5d4594_1522628() *gui.Window {
-	return asWindow(dword_5d4594_1522628)
+	return dword_5d4594_1522628
 }
 func Get_dword_5d4594_1062452() *gui.Window {
-	return asWindow(dword_5d4594_1062452)
+	return dword_5d4594_1062452
 }
 func Get_dword_5d4594_2516356() int {
 	return int(dword_5d4594_2516356)
@@ -335,11 +335,11 @@ func Sub_41E2F0() int {
 }
 
 func Get_nox_wol_wnd_world_814980() *gui.Window {
-	return asWindow(nox_wol_wnd_world_814980)
+	return nox_wol_wnd_world_814980
 }
 
 func Get_dword_5d4594_815004() *gui.Window {
-	return asWindow(dword_5d4594_815004)
+	return dword_5d4594_815004
 }
 
 func Nox_xxx_get_57AF20() int {

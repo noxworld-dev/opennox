@@ -191,5 +191,5 @@ func Nox_xxx_clientPickup_46C140(a1 *client.Drawable) {
 	nox_xxx_clientPickup_46C140((*client.Drawable)(a1.C()))
 }
 func Sub_46B630(a1 *gui.Window, a2 int, a3 int) *gui.Window {
-	return asWindow(sub_46B630((*gui.Window)(a1.C()), int32(a2), int32(a3)))
+	return sub_46B630((*gui.Window)(a1.C()), int32(a2), int32(a3))
 }

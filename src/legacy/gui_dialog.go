@@ -35,7 +35,7 @@ func nox_xxx_dialogMsgBoxCreate_449A10(win *gui.Window, title, text *wchar2_t, a
 			ccall.AsFunc[func()](a6)()
 		}
 	}
-	Nox_xxx_dialogMsgBoxCreate_449A10(asWindow(win), GoWString(title), GoWString(text), gui.DialogFlags(a4), fnc5, fnc6)
+	Nox_xxx_dialogMsgBoxCreate_449A10(win, GoWString(title), GoWString(text), gui.DialogFlags(a4), fnc5, fnc6)
 	return nil
 }
 

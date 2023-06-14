@@ -19,7 +19,7 @@ var (
 )
 
 // nox_video_setMenuOptions
-func nox_video_setMenuOptions(cwin *gui.Window) { Nox_video_setMenuOptions(asWindow(cwin)) }
+func nox_video_setMenuOptions(cwin *gui.Window) { Nox_video_setMenuOptions(cwin) }
 
 // nox_gui_menu_proc_ext
 func nox_gui_menu_proc_ext(id int32) int32 { return int32(Nox_gui_menu_proc_ext(int(id))) }
