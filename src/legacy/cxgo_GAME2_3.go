@@ -22,7 +22,7 @@ import (
 
 var nox_max_npcs int32 = 1024
 var npc_array *nox_npc
-var nox_draw_curDrawData_3799572 *nox_render_data_t = nil
+var nox_draw_curDrawData_3799572 *noxrender.RenderData
 var nox_gui_wol_servers_list nox_list_item_t = nox_list_item_t{}
 
 func sub_48C580(a1 *pixel8888, num int32) {

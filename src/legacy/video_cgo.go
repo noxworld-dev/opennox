@@ -5,7 +5,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
 var (
@@ -31,8 +30,6 @@ var (
 	Nox_xxx_cursorResetDraggedItem_4776A0   func()
 	Sub_478000                              func() int
 )
-
-type nox_render_data_t = noxrender.RenderData
 
 // nox_video_getCutSize_4766D0
 func nox_video_getCutSize_4766D0() int32 { return int32(Nox_video_getCutSize_4766D0()) }
