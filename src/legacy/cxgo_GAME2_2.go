@@ -86,7 +86,7 @@ func sub_4761B0(a1p *client.Drawable) int32 {
 	}
 	return result
 }
-func sub_476AE0(vp *nox_draw_viewport_t, dr *client.Drawable) {
+func sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
 	var (
 		a2     *uint8 = (*uint8)(unsafe.Pointer(dr))
 		v2     *uint8
@@ -2121,7 +2121,7 @@ func nox_xxx_tileCallDrawEdges_481BF0(a1 unsafe.Pointer, a2 int32) {
 		func_587000_154944((*uint32)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(uintptr(i))))
 	}
 }
-func nox_xxx_tileDrawMB_481C20_A(vp *nox_draw_viewport_t, v3 int32) {
+func nox_xxx_tileDrawMB_481C20_A(vp *noxrender.Viewport, v3 int32) {
 	var (
 		v17 int32
 		v63 int32
@@ -2242,7 +2242,7 @@ func nox_xxx_tileDrawMB_481C20_A(vp *nox_draw_viewport_t, v3 int32) {
 		}
 	}
 }
-func nox_xxx_tileDrawMB_481C20_B(vp *nox_draw_viewport_t, v78 int32) {
+func nox_xxx_tileDrawMB_481C20_B(vp *noxrender.Viewport, v78 int32) {
 	var (
 		v33 int32
 		v65 int32
@@ -2356,7 +2356,7 @@ func nox_xxx_tileDrawMB_481C20_B(vp *nox_draw_viewport_t, v78 int32) {
 		}
 	}
 }
-func nox_xxx_tileCheckRedrawMB_482570(vp *nox_draw_viewport_t) int32 {
+func nox_xxx_tileCheckRedrawMB_482570(vp *noxrender.Viewport) int32 {
 	var (
 		a1  *uint32 = (*uint32)(unsafe.Pointer(vp))
 		v1  int32
@@ -2428,7 +2428,7 @@ func nox_xxx_tileCheckRedrawMB_482570(vp *nox_draw_viewport_t) int32 {
 		}
 	}
 }
-func nox_xxx_tileDrawImpl_4826A0(vp *nox_draw_viewport_t) int32 {
+func nox_xxx_tileDrawImpl_4826A0(vp *noxrender.Viewport) int32 {
 	var (
 		a1     *uint32 = (*uint32)(unsafe.Pointer(vp))
 		v1     int32

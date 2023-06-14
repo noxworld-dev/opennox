@@ -10,6 +10,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -3311,7 +3312,7 @@ func sub_431700(a1 *uint64) {
 	sub_4316C0((*Nox_screenParticle)(unsafe.Pointer(a1)))
 	nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_alloc_screenParticles_806044)))), unsafe.Pointer(a1))
 }
-func nox_client_screenParticlesDraw_431720(rdr *nox_draw_viewport_t) {
+func nox_client_screenParticlesDraw_431720(rdr *noxrender.Viewport) {
 	if rdr == nil {
 		return
 	}

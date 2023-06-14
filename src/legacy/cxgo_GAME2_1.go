@@ -5307,7 +5307,7 @@ func sub_473A10(a1 *uint32, a2 *int2, a3 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a3), 4*1)) = uint32(result) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
 	return result
 }
-func nox_xxx_drawWalls_473C10(vp *nox_draw_viewport_t, data unsafe.Pointer) {
+func nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, data unsafe.Pointer) {
 	var (
 		a1   *uint32 = (*uint32)(unsafe.Pointer(vp))
 		a2   *uint8  = (*uint8)(data)
@@ -5841,7 +5841,7 @@ func sub_4757D0_drawable(dr *client.Drawable) int32 {
 	}
 	return result
 }
-func nox_xxx_drawAllMB_475810_draw_B(vp *nox_draw_viewport_t) int32 {
+func nox_xxx_drawAllMB_475810_draw_B(vp *noxrender.Viewport) int32 {
 	var (
 		v10 int32 = 1
 		v11 int32

@@ -572,7 +572,7 @@ func nox_xxx_createTextBubble_48D880(a1 int32, a2 *wchar2_t) *wchar2_t {
 	}
 	return result
 }
-func sub_48D990(a1p *nox_draw_viewport_t) {
+func sub_48D990(a1p *noxrender.Viewport) {
 	var (
 		a1  *uint32 = (*uint32)(unsafe.Pointer(a1p))
 		v1  int32
@@ -2142,7 +2142,7 @@ func sub_495B50(a1p unsafe.Pointer) {
 		}
 	}
 }
-func sub_495BB0(dr *client.Drawable, vp *nox_draw_viewport_t) *uint32 {
+func sub_495BB0(dr *client.Drawable, vp *noxrender.Viewport) *uint32 {
 	var (
 		a1     *uint32 = (*uint32)(dr.C())
 		a2     *uint32 = (*uint32)(unsafe.Pointer(vp))
@@ -2424,7 +2424,7 @@ func sub_496120() int32 {
 	}
 	return 1
 }
-func nox_xxx_drawBlack_496150(a1p *nox_draw_viewport_t) {
+func nox_xxx_drawBlack_496150(a1p *noxrender.Viewport) {
 	var (
 		a1  *int32 = (*int32)(unsafe.Pointer(a1p))
 		v1  int32
@@ -4746,7 +4746,7 @@ func sub_499450() int32 {
 	*memmap.PtrUint32(0x5D4594, 1217504) = 0
 	return result
 }
-func nox_xxx_drawShield_499810(vp *nox_draw_viewport_t, dr *client.Drawable) int32 {
+func nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) int32 {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(vp)))
 		a2 int32 = int32(uintptr(unsafe.Pointer(dr)))
@@ -5016,7 +5016,7 @@ func nox_xxx_cliAddHealthChange_49A650(a1 int32, a2 int16) *uint16 {
 	}
 	return result
 }
-func sub_49A6A0(vp *nox_draw_viewport_t, dr *client.Drawable) {
+func sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 	var (
 		a1  *uint32 = (*uint32)(unsafe.Pointer(vp))
 		a2  int32   = int32(uintptr(unsafe.Pointer(dr)))

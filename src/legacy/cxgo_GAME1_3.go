@@ -727,7 +727,7 @@ func nox_xxx_drawMessageLines_445530() int32 {
 		v14    int32
 	)
 	v13 = 0
-	var rdr *nox_draw_viewport_t = nox_draw_getViewport_437250()
+	var rdr = nox_draw_getViewport_437250()
 	v1 = int32(rdr.Size.Y*3/4 + rdr.Screen.Min.Y - 15)
 	v2 = int32(dword_5d4594_825736)
 	for i = int32(dword_5d4594_825736); ; v2 = i {

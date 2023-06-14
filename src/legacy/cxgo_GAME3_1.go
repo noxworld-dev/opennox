@@ -4181,7 +4181,7 @@ func sub_4C4EC0(a1 *uint32, a2 int32) int8 {
 	}
 	return int8(v5)
 }
-func nox_xxx_drawShinySpot_4C4F40(vp *nox_draw_viewport_t, dr *client.Drawable) int16 {
+func nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) int16 {
 	var (
 		a1 *uint32 = (*uint32)(unsafe.Pointer(vp))
 		a2 int32   = int32(uintptr(unsafe.Pointer(dr)))
@@ -4227,7 +4227,7 @@ func sub_4C5020(a1 int32) int32 {
 func sub_4C5050() {
 	dword_5d4594_1321800 = 0
 }
-func sub_4C5060(a1p *nox_draw_viewport_t) int32 {
+func sub_4C5060(a1p *noxrender.Viewport) int32 {
 	var (
 		a1     *uint32 = (*uint32)(unsafe.Pointer(a1p))
 		result int32

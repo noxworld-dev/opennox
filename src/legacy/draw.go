@@ -22,14 +22,8 @@ var (
 	Nox_client_isConnected                func() bool
 )
 
-type nox_draw_viewport_t = noxrender.Viewport
-
 func asViewportP(p unsafe.Pointer) *noxrender.Viewport {
 	return (*noxrender.Viewport)(p)
-}
-
-func asViewport(p *nox_draw_viewport_t) *noxrender.Viewport {
-	return asViewportP(unsafe.Pointer(p))
 }
 
 // get_nox_client_texturedFloors_154956
@@ -48,8 +42,8 @@ func sub_4C5630(a1 int32, a2 int32, a3 int32) int32 {
 }
 
 // nox_draw_getViewport_437250
-func nox_draw_getViewport_437250() *nox_draw_viewport_t {
-	return (*nox_draw_viewport_t)(GetClient().Viewport().C())
+func nox_draw_getViewport_437250() *noxrender.Viewport {
+	return (*noxrender.Viewport)(GetClient().Viewport().C())
 }
 
 // sub_4355B0
@@ -435,15 +429,15 @@ func nox_client_isConnected_43C700() int32 {
 }
 
 func Sub_437180() {
-	sub_48D990((*nox_draw_viewport_t)(GetClient().Viewport().C()))
+	sub_48D990((*noxrender.Viewport)(GetClient().Viewport().C()))
 }
 
 func Sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
-	sub_476AE0((*nox_draw_viewport_t)(vp.C()), (*client.Drawable)(dr.C()))
+	sub_476AE0((*noxrender.Viewport)(vp.C()), (*client.Drawable)(dr.C()))
 }
 
 func Nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) {
-	nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*client.Drawable)(dr.C()))
+	nox_xxx_drawShinySpot_4C4F40((*noxrender.Viewport)(vp.C()), (*client.Drawable)(dr.C()))
 }
 
 func Sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
@@ -478,11 +472,11 @@ func Nox_xxx_drawEnergyBolt_499710(a1 int, a2 int, a3 int, a4 int) {
 	nox_xxx_drawEnergyBolt_499710(int32(a1), int32(a2), int16(a3), int32(a4))
 }
 func Nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) {
-	nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), (*client.Drawable)(dr.C()))
+	nox_xxx_drawShield_499810((*noxrender.Viewport)(vp.C()), (*client.Drawable)(dr.C()))
 }
 func Sub_474B40(dr *client.Drawable) int {
 	return int(sub_474B40((*client.Drawable)(dr.C())))
 }
 func Sub_495BB0(dr *client.Drawable, vp *noxrender.Viewport) {
-	sub_495BB0((*client.Drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
+	sub_495BB0((*client.Drawable)(dr.C()), (*noxrender.Viewport)(vp.C()))
 }

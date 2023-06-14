@@ -3,10 +3,11 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func nox_video_drawCursorSelectCircle_4773C0(a1p *nox_draw_viewport_t) {
+func nox_video_drawCursorSelectCircle_4773C0(a1p *noxrender.Viewport) {
 	var (
 		a1 *uint32 = (*uint32)(unsafe.Pointer(a1p))
 		v1 int32
