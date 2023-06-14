@@ -3122,7 +3122,7 @@ func nox_xxx_clientTalk_42E7B0(a1p *client.Drawable) {
 		v2 int16
 	)
 	v1 = a1
-	if a1 != 0 && (*memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))&3) == 0) && sub_478030() != 1 && nox_gui_xxx_check_446360() != 1 {
+	if a1 != 0 && (*memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&3) == 0) && sub_478030() != 1 && nox_gui_xxx_check_446360() != 1 {
 		v2 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 128)))
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*0)) = 464
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*1)) = uint16(v2)
@@ -3134,7 +3134,7 @@ func nox_xxx_clientCollideOrUse_42E810(a1p *client.Drawable) {
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int32
 	)
-	if a1 != 0 && (*memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))&3) == 0) {
+	if a1 != 0 && (*memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&3) == 0) {
 		v1 = a1
 		*((*uint8)(unsafe.Pointer(&a1))) = 123
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint16(nox_xxx_netGetUnitCodeCli_578B00(v1))
@@ -3147,7 +3147,7 @@ func nox_xxx_clientTrade_42E850(a1p *client.Drawable) {
 		v1 int32
 	)
 	v1 = a1
-	if a1 != 0 && (*memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))&3) == 0) && sub_47A260() != 1 && nox_gui_xxx_check_446360() != 1 {
+	if a1 != 0 && (*memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&3) == 0) && sub_47A260() != 1 && nox_gui_xxx_check_446360() != 1 {
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*0)) = 5577
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*1)) = uint16(nox_xxx_netGetUnitCodeCli_578B00(v1))
 		nox_netlist_addToMsgListCli_40EBC0(31, 0, (*uint8)(unsafe.Pointer(&a1)), 4)
@@ -3457,7 +3457,7 @@ func sub_435700(a1 *wchar2_t, a2 int32) *wchar2_t {
 }
 func nox_xxx_cliToggleObsWindow_4357A0() int32 {
 	var result int32
-	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))&1 != 0 {
+	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&1 != 0 {
 		result = nox_xxx_showObserverWindow_48CA70(0)
 	} else {
 		result = nox_xxx_showObserverWindow_48CA70(1)
@@ -3508,7 +3508,7 @@ func nox_xxx_playerAnimCheck_4372B0() int32 {
 	)
 	result = 1
 	if *memmap.PtrUint32(0x852978, 8) != 0 {
-		v0 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 276)))
+		v0 = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276)))
 		if v0 != 1 && v0 != 2 && v0 != 51 {
 			result = 0
 		}
@@ -3517,8 +3517,8 @@ func nox_xxx_playerAnimCheck_4372B0() int32 {
 }
 func nox_xxx_clientIsObserver_4372E0() int32 {
 	var result int32
-	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2092)) == 1 {
-		result = bool2int32((*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)) & 3) != 0)
+	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2092)) == 1 {
+		result = bool2int32((*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)) & 3) != 0)
 	} else {
 		result = 0
 	}

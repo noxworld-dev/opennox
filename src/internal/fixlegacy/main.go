@@ -89,7 +89,7 @@ func fixSameTypeConv(pkg *packages.Package, n *ast.CallExpr) bool {
 	switch t := pkg.TypesInfo.TypeOf(n.Fun).(type) {
 	case *types.Basic, *types.Pointer:
 		sz := pkg.TypesSizes.Sizeof(t)
-		if x := findSameTypeConv(pkg, sz, t, n.Args[0]); x != nil {
+		if x := findSameTypeConv(pkg, sz, t, n.Args[0], true); x != nil {
 			n.Args[0] = x
 			return true
 		}
@@ -97,11 +97,14 @@ func fixSameTypeConv(pkg *packages.Package, n *ast.CallExpr) bool {
 	return false
 }
 
-func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr) ast.Expr {
+func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr, root bool) ast.Expr {
 	x = unwrapParen(x)
 	if t2 := pkg.TypesInfo.TypeOf(x); t2 == nil {
 		return nil
 	} else if types.Identical(t, t2) {
+		if root {
+			return nil
+		}
 		return x
 	}
 	switch x := x.(type) {
@@ -119,7 +122,7 @@ func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr)
 		if pkg.TypesSizes.Sizeof(t2) != sz {
 			return nil
 		}
-		return findSameTypeConv(pkg, sz, t, x.Args[0])
+		return findSameTypeConv(pkg, sz, t, x.Args[0], false)
 	default:
 		return nil
 	}

@@ -160,7 +160,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0
 		*(*float32)(unsafe.Pointer(&nox_xxx_lightningClosestTargetDistance_5d4594_2487912)) = lightningRange * lightningRange
 		range1 = float32(float64(lightningRange) * 0.94999999)
-		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487844))), 56)), range1, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
+		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range1, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 			v15 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
 			*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
@@ -171,7 +171,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0
 		*(*float32)(unsafe.Pointer(&nox_xxx_lightningClosestTargetDistance_5d4594_2487912)) = lightningRange * lightningRange
 		range2 = float32(float64(lightningRange) * 0.89999998)
-		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487844))), 56)), range2, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
+		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range2, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 			v16 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
 			*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
@@ -183,7 +183,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 			nox_xxx_lightningTarget_5d4594_2487908 = 0
 			*(*float32)(unsafe.Pointer(&nox_xxx_lightningClosestTargetDistance_5d4594_2487912)) = lightningRange * lightningRange
 			range3 = float32(float64(lightningRange) * 0.85000002)
-			nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487848))), 56)), range3, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487848))))))
+			nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487848), 56)), range3, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487848))))))
 			if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 				v17 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
 				*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
@@ -197,7 +197,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 			range5 = lightningRange * lightningRange
 			*(*float32)(unsafe.Pointer(&nox_xxx_lightningClosestTargetDistance_5d4594_2487912)) = lightningRange * lightningRange
 			range4 = float32(float64(lightningRange) * 0.80000001)
-			nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487852))), 56)), range4, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487852))))))
+			nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487852), 56)), range4, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487852))))))
 			if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 				v18 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
 				*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908

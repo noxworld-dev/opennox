@@ -1274,7 +1274,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			v130 = int32((v129 >> 3) & 1)
 			sub_467420(int8(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))
 			if v130 == 1 && (int32(sub_467430())&8) == 0 && *memmap.PtrUint32(0x852978, 8) != 0 && !nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 15) {
-				var v131 *client.ObjectType = nox_get_thing(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 108))))
+				var v131 *client.ObjectType = nox_get_thing(int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 108))))
 				nox_xxx_spriteChangeIntensity_484D70_light_intensity(int32(*memmap.PtrUint32(0x852978, 8)+136), v131.LightIntensity)
 			}
 		}
@@ -1417,7 +1417,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	case 102:
 		if nox_client_isConnected_43C700() != 0 && *memmap.PtrUint32(0x852978, 8) != 0 {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(data), 1))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 120)) = *(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1))
+			*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 120)) = *(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1))
 		}
 		return 5
 	case 103:
@@ -1840,8 +1840,8 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			sub_4C5020(int32(uintptr(unsafe.Pointer(data))))
 			if nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4987) < 25 {
 				if *memmap.PtrUint32(0x852978, 8) != 0 {
-					v225 = int32(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 12)))
-					v226 = int32(math.Sqrt(float64(uint32(v225*v225) + (uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 7)))-*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16)))*(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 7)))-*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16))))))
+					v225 = int32(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))) - *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 12)))
+					v226 = int32(math.Sqrt(float64(uint32(v225*v225) + (uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 7)))-*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 16)))*(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 7)))-*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 16))))))
 					if v226 < 600 {
 						nox_xxx_clientPlaySoundSpecial_452D80(297, (600-v226)*100/600)
 					}

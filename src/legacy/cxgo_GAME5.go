@@ -3337,7 +3337,7 @@ func nox_xxx_findObjectAtCursor_54AF40(a1p *server.Object) *server.Object {
 	*memmap.PtrUint32(0x5D4594, 2491596) = 0
 	*memmap.PtrUint32(0x5D4594, 2491600) = 0
 	nox_xxx_unitsGetInCircle_517F90(&a1a, 100.0, nox_xxx_playerCursorScanFn_54AFB0, unsafe.Pointer(&a1a))
-	return (*server.Object)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2491596))))
+	return (*server.Object)(*memmap.PtrPtr(0x5D4594, 2491596))
 }
 func nox_xxx_playerCursorScanFn_54AFB0(it *server.Object, data unsafe.Pointer) {
 	a1 := int32(uintptr(it.CObj()))

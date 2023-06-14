@@ -2395,7 +2395,7 @@ func sub_495FC0(a1p unsafe.Pointer, a2p *client.Drawable) {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*18)) = *memmap.PtrUint32(0x5D4594, 1203872)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*19)) = 0
 		if *memmap.PtrUint32(0x5D4594, 1203872) != 0 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1203872))), 76)) = uint32(uintptr(unsafe.Pointer(a1)))
+			*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1203872), 76)) = uint32(uintptr(unsafe.Pointer(a1)))
 		}
 		*memmap.PtrUint32(0x5D4594, 1203872) = uint32(uintptr(unsafe.Pointer(a1)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*16)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 456))
@@ -4752,8 +4752,8 @@ func nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) int3
 		a2 int32 = int32(uintptr(unsafe.Pointer(dr)))
 		v3 int32
 	)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468))), 12)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*8)+161776)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468))), 16)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) + uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*8)+161780)
+	*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468), 12)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*8)+161776)
+	*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468), 16)) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) + uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*8)+161780)
 	v3 = int32(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4)+1217468))
 	ccall.AsFunc[func(int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 300)))(a1, v3)
 	return 0

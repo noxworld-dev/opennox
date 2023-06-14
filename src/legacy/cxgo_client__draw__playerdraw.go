@@ -58,7 +58,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if v3 == nil {
 		return 1
 	}
-	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))&1) != 0 {
+	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&1) != 0 {
 		v30 = 1
 	}
 	if nox_player_netCode_85319C == dr.Field_32 {
@@ -242,7 +242,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		for i := int32(0); i < 6; i++ {
 			nox_draw_setMaterial_4341D0(i, int32(nox_color_white_2523948))
 		}
-		if unsafe.Pointer(dr) != unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))) && nox_xxx_playerGet_470A90() != 0 {
+		if unsafe.Pointer(dr) != *memmap.PtrPtr(0x852978, 8) && nox_xxx_playerGet_470A90() != 0 {
 			if noxflags.HasGame(4096) {
 				nox_xxx_drawOtherPlayerHP_4B8EB0((*uint32)(unsafe.Pointer(v10)), dr, uint16(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 2282))), int8(uint8((*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*920)))>>10)&1)))
 			}

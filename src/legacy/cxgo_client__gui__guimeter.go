@@ -141,7 +141,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	*memmap.PtrUint16(0x5D4594, 1090312) = 0
 	*memmap.PtrUint32(0x5D4594, 1090296) = 0
 	*memmap.PtrUint32(0x5D4594, 1090308) = 0
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251))) != 0 {
+	if int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) != 0 {
 		dword_5d4594_1090828 = uint32(uintptr(unsafe.Pointer(nox_window_new((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 8, 62, 166, 28, 30, nil))))
 		nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090828)))), nox_xxx_guiBottleSlotProc_471B90, nox_xxx_guiBottleSlotDrawFn_471A80, nil)
 		v6 = nox_strman_loadString_40F1D0(internCStr("ManaSlotTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1083)

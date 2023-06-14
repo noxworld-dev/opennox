@@ -1,0 +1,4 @@
+@@
+@@
+-unsafe.Pointer(uintptr(*memmap.PtrUint32(...)))
++*memmap.PtrPtr(...)

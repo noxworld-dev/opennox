@@ -27,7 +27,7 @@ func nox_xxx_bookShowMB_45AD70(a1 int32) {
 	}()) != 0 {
 		return
 	}
-	if *memmap.PtrUint32(0x8531A0, 2576) == 0 || nox_xxx_guiSpellSortList_45ADF0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251)))) != 0 {
+	if *memmap.PtrUint32(0x8531A0, 2576) == 0 || nox_xxx_guiSpellSortList_45ADF0(int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))) != 0 {
 		nox_xxx_book_45B010(a1)
 	} else {
 		v2 = nox_strman_loadString_40F1D0(internCStr("EmptyBook"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 377)

@@ -57,7 +57,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	} else {
 		v4 = a2
 		v30 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 128)))
-		v36 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 304)))
+		v36 = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 304)))
 		v5 = (*int32)(unsafe.Pointer(nox_npc_by_id(v30)))
 		v33 = v5
 		if v36 != 0 && v5 != nil {

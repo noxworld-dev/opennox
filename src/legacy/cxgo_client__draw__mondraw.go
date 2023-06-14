@@ -148,8 +148,8 @@ func nox_thing_monster_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v10 = 0
 		v11 = 0
 	} else {
-		v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 12)))
-		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 16)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16)))
+		v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 12)) - *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 12)))
+		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 16)) - *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 16)))
 	}
 	if *memmap.PtrUint32(0x852978, 8) != 0 && nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
 		nox_xxx_draw_434600(1)

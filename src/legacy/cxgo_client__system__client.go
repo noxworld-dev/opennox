@@ -75,10 +75,10 @@ func sub_436F50() int32 {
 	v6 = v0 + v3
 	if *memmap.PtrUint32(0x852978, 8) != 0 {
 		if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("X:%d\tY:%d"), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 12)), *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 16)))
+			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("X:%d\tY:%d"), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 12)), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 16)))
 			nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v6)
-			v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251)))*4+29456))), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1357)
-			v8 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3684)))
+			v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))*4+29456))), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1357)
+			v8 = int32(*(*byte)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3684)))
 			v7 = nox_strman_loadString_40F1D0(internCStr("PlayerInfo"), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1355)
 			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), v7, v8, v9)
 			result = nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v0+v6)

@@ -4488,7 +4488,7 @@ func sub_511DC0() int32 {
 	if *memmap.PtrUint32(0x5D4594, 2386620) == 0 {
 		return 0
 	}
-	*memmap.PtrUint32(0x5D4594, 2386620) = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2386620))), 8))
+	*memmap.PtrUint32(0x5D4594, 2386620) = *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2386620), 8))
 	return result
 }
 func sub_511DE0(a1 *server.Object) int32 {

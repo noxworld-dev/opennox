@@ -61,7 +61,7 @@ func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			result = 0
 		}
 	case 9002:
-		v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 120)))
+		v18 = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 120)))
 		if (v18 & 0x8000) == 0 {
 			sub_445C40()
 			if noxflags.HasGame(2048) {
@@ -191,7 +191,7 @@ func sub_445C40() {
 	)
 	if nox_xxx_wndGetFlags_46ADA0(int32(uintptr(unsafe.Pointer(nox_wnd_quitMenu_825760))))&0x10 != 0 {
 		if *memmap.PtrUint32(0x852978, 8) == 0 || !noxflags.HasGame(2048) || (func() bool {
-			result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8))), 276)))
+			result = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276)))
 			return result != 2
 		}()) && result != 1 && result != 51 {
 			if sub_45D9B0() != 1 {

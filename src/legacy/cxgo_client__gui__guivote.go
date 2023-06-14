@@ -47,7 +47,7 @@ func sub_48CB10(a1 int32) *uint32 {
 	dword_5d4594_1197308 = uint32(a1)
 	switch a1 {
 	case 4:
-		if *memmap.PtrUint32(0x8531A0, 2576) != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 4792)) == 0 {
+		if *memmap.PtrUint32(0x8531A0, 2576) != 0 && *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 4792)) == 0 {
 			v24 = nox_strman_loadString_40F1D0(internCStr("GUIVote.c:NotAllowedVote"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 452)
 			v2 = nox_strman_loadString_40F1D0(internCStr("guiquit.c:Vote"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 451)
 			return (*uint32)(nox_xxx_dialogMsgBoxCreate_449A10(nil, v2, v24, 33, nil, nil))

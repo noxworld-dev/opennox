@@ -1901,7 +1901,7 @@ func nox_xxx_client_57B400(a1 int32) int32 {
 	if *memmap.PtrUint32(0x8531A0, 2576) == 0 {
 		return 0
 	}
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 108)) != uint32(v1) || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251))) == 1 {
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 108)) != uint32(v1) || int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) == 1 {
 		return 1
 	}
 	return 0
@@ -1917,13 +1917,13 @@ func sub_57B450(a1p *client.Drawable) int32 {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Glyph"))
 		*memmap.PtrUint32(0x5D4594, 2523880) = uint32(v1)
 	}
-	if a1 == nil || *memmap.PtrUint32(0x852978, 8) == 0 || *memmap.PtrUint32(0x8531A0, 2576) == 0 || *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*27)) == v1 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251))) != 1 {
+	if a1 == nil || *memmap.PtrUint32(0x852978, 8) == 0 || *memmap.PtrUint32(0x8531A0, 2576) == 0 || *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*27)) == v1 && int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) != 1 {
 		return 0
 	}
 	if nox_cheat_allowall != 0 {
 		return 1
 	}
-	v2 = uint8(int8(1 << int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2251)))))
+	v2 = uint8(int8(1 << int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))))
 	return bool2int32((int32(v2) & int32(uint8(sub_57B370(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*28)), uint8(int8(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*29)))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*27)))))) != 0)
 }
 func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {

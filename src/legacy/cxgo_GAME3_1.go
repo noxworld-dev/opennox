@@ -1541,16 +1541,16 @@ func sub_4BF7E0(a1 *uint32) int16 {
 	if *memmap.PtrUint32(0x852978, 8) != 0 {
 		v4 = int32(*memmap.PtrUint32(0x8531A0, 2576))
 		if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
-			nox_draw_setMaterial_4341D0(1, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 2296))))
+			nox_draw_setMaterial_4341D0(1, int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2296))))
 			nox_draw_setMaterial_4341D0(2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2304))))
 			nox_draw_setMaterial_4341D0(3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2312))))
 			nox_draw_setMaterial_4341D0(4, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2308))))
 			nox_draw_setMaterial_4341D0(5, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2300))))
 			nox_draw_setMaterial_4341D0(6, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2292))))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2292)) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2296)) {
-				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x973A20, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2252)))*4+24))))), v2, v1)
+				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x973A20, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2252)))*4+24))), v2, v1)
 			} else {
-				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x973A20, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2252)))*4+16))))), v2, v1)
+				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x973A20, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2252)))*4+16))), v2, v1)
 			}
 			v5 = 0
 			v14 = (*uint8)(memmap.PtrOff(0x973A20, uintptr(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v4)), 2252)))*104+32)))
@@ -4044,7 +4044,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *int32, dr *client.Drawable, a3 int32) {
 		nox_client_drawSetAlpha_434580(0x80)
 	}
 	if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(v3)), 0) || v54 != 0 || *((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*27))) == dword_5d4594_1321520 && *memmap.PtrUint32(0x852978, 8) != 0 && nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
-		if *memmap.PtrUint32(0x8531A0, 2576) != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))&1) != 0 {
+		if *memmap.PtrUint32(0x8531A0, 2576) != 0 && (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&1) != 0 {
 			nox_client_drawEnableAlpha_434560(1)
 			nox_client_drawSetAlpha_434580(0x80)
 		} else {

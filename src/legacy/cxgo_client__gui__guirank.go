@@ -193,20 +193,20 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 		v24 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(unsafe.Pointer(v21)), 1088, 0, int(v20), int(v22), int(v23), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v25 = int32(dword_5d4594_1090044)
 		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090060) = uint32(uintptr(unsafe.Pointer(v24)))
-		v26 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))), 1088, int(*memmap.PtrInt32(0x5D4594, 1084036)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084040)), int(v25-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
+		v26 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrInt32(0x5D4594, 1084036)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084040)), int(v25-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v27 = int32(dword_5d4594_1090044)
 		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090068) = uint32(uintptr(unsafe.Pointer(v26)))
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090076) = uint32(uintptr(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084044)), int(v27-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))))
-		v28 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084044)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084048)), int(dword_5d4594_1090044-uint32(v19)), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
+		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090076) = uint32(uintptr(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084044)), int(v27-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))))
+		v28 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084044)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084048)), int(dword_5d4594_1090044-uint32(v19)), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v29 = int32(dword_5d4594_1090044)
 		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090084) = uint32(uintptr(unsafe.Pointer(v28)))
-		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090092) = uint32(uintptr(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084048)+*memmap.PtrUint32(0x5D4594, 1084044)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084052)), int(v29-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))))
+		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090092) = uint32(uintptr(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), 1088, int(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084048)+*memmap.PtrUint32(0x5D4594, 1084044)), int(v20), int(*memmap.PtrInt32(0x5D4594, 1084052)), int(v29-v19), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0]))))))
 		nox_xxx_wndSetProc_46B2C0((*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)), nox_xxx_Proc_46F070)
-		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090060)))), (*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))
-		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090068)))), (*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))
-		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090076)))), (*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))
-		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090084)))), (*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))
-		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090092)))), (*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))
+		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090060)))), (*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)))
+		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090068)))), (*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)))
+		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090076)))), (*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)))
+		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090084)))), (*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)))
+		sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090092)))), (*gui.Window)(*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052)))
 		v17++
 		if v17 >= 2 {
 			break
@@ -329,7 +329,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			v35 = v2
 		}
 		if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
-			v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576))), 3680)))
+			v8 = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))
 			if (v8&1) == 0 || v8&0x20 != 0 {
 				v33 = 1
 			}
@@ -373,7 +373,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			sub_46DC30(*memmap.PtrInt32(0x5D4594, 1090092), v13, (*wchar2_t)(memmap.PtrOff(0x587000, 146612)))
 			v9 = int32(dword_5d4594_1090120)
 		}
-		v36 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1090060))), 32)))), 46)))
+		v36 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1090060), 32)))), 46)))
 		if int32(*memmap.PtrUint8(0x5D4594, 1090117)) != 0 && (v9 == 2 || v9 == 4 || v9 == 5) {
 			sub_46F8F0(0, 0)
 			v9 = int32(dword_5d4594_1090120)
@@ -416,7 +416,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 						v40 = 9
 					}
 					if *memmap.PtrUint32(0x5D4594, uintptr(int32(v32)*80)+1084192) == nox_player_netCode_85319C {
-						dword_587000_145672 = uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v16*4)+1090060))), 32)))), 46)))
+						dword_587000_145672 = uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, uintptr(v16*4)+1090060), 32)))), 46)))
 						*memmap.PtrUint32(0x5D4594, 1088996) = uint32(int32(v32) >> 4)
 					}
 					sub_46DC30(int32(*memmap.PtrUint32(0x5D4594, uintptr(v16*4)+1090060)), v40, (*wchar2_t)(memmap.PtrOff(0x587000, 146616)), memmap.PtrOff(0x5D4594, uintptr(v17)+1084132))
