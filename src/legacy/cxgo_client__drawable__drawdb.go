@@ -42,7 +42,7 @@ func init() {
 	client.RegisterObjectUpdate("MonsterGeneratorUpdateDraw", nox_xxx_updDrawMonsterGen_4BC920)
 }
 
-func nox_parse_thing_draw(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
+func nox_parse_thing_draw(obj *client.ObjectType, f *binfile.MemFile, data unsafe.Pointer) bool {
 	var (
 		attr_value       = (*byte)(data)
 		read_len   uint8 = nox_memfile_read_u8(f)
@@ -72,7 +72,7 @@ func nox_parse_thing_draw(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointe
 	obj.DrawFunc = ccall.FuncPtr(item.draw)
 	return true
 }
-func nox_parse_thing_light_dir(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
+func nox_parse_thing_light_dir(obj *client.ObjectType, f *binfile.MemFile, data unsafe.Pointer) bool {
 	attr_value := (*byte)(data)
 	var deg int32 = 0
 	if stdio.Sscanf(attr_value, "%d", &deg) != 1 {
@@ -85,7 +85,7 @@ func nox_parse_thing_light_dir(obj *nox_thing, f *binfile.MemFile, data unsafe.P
 	obj.Field_10 = 0
 	return true
 }
-func nox_parse_thing_light_penumbra(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
+func nox_parse_thing_light_penumbra(obj *client.ObjectType, f *binfile.MemFile, data unsafe.Pointer) bool {
 	attr_value := (*byte)(data)
 	var deg int32 = 0
 	if stdio.Sscanf(attr_value, "%d", &deg) != 1 {
@@ -98,7 +98,7 @@ func nox_parse_thing_light_penumbra(obj *nox_thing, f *binfile.MemFile, data uns
 	return true
 }
 
-func nox_parse_thing_pretty_image(obj *nox_thing, f *binfile.MemFile, data unsafe.Pointer) bool {
+func nox_parse_thing_pretty_image(obj *client.ObjectType, f *binfile.MemFile, data unsafe.Pointer) bool {
 	var (
 		v10       [128]byte
 		known_idx uint32 = nox_memfile_read_u32(f)

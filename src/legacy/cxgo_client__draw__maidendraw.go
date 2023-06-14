@@ -63,7 +63,7 @@ func nox_thing_maiden_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	}
 	return nox_thing_monster_draw(vp, dr)
 }
-func nox_things_maiden_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
+func nox_things_maiden_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var result int32 = bool2int32(nox_things_monster_draw_parse(obj, f, attr_value))
 	obj.DrawFunc.Set(nox_thing_maiden_draw)
 	return result != 0

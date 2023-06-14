@@ -16,8 +16,6 @@ func init() {
 	client.ThingDrawDefault = nox_thing_debug_draw
 }
 
-type nox_thing = client.ObjectType
-
 // nox_xxx_getTTByNameSpriteMB_44CFC0
 func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *byte) int32 {
 	id := GoString(cstr)
@@ -25,9 +23,9 @@ func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *byte) int32 {
 }
 
 // sub_44D330
-func sub_44D330(cstr *byte) *nox_thing {
+func sub_44D330(cstr *byte) *client.ObjectType {
 	id := GoString(cstr)
-	return (*nox_thing)(GetClient().Cli().Things.TypeByID(id).C())
+	return (*client.ObjectType)(GetClient().Cli().Things.TypeByID(id).C())
 }
 
 // nox_get_thing_name
@@ -40,12 +38,12 @@ func nox_get_thing_name(i int32) *byte {
 }
 
 // nox_get_thing
-func nox_get_thing(i int32) *nox_thing {
+func nox_get_thing(i int32) *client.ObjectType {
 	t := GetClient().Cli().Things.TypeByInd(int(i))
 	if t == nil {
 		return nil
 	}
-	return (*nox_thing)(t.C())
+	return (*client.ObjectType)(t.C())
 }
 
 // nox_get_thing_pretty_name

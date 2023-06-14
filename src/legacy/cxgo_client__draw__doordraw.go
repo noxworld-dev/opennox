@@ -93,7 +93,7 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		return 1
 	}
 }
-func nox_things_door_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
+func nox_things_door_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	obj.DrawFunc.Set(nox_thing_door_draw)
 	var v3 unsafe.Pointer = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
 	obj.Field_5c = v3

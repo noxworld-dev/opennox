@@ -54,7 +54,7 @@ func nox_thing_cond_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) in
 	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + v10*4)))))
 	return 1
 }
-func nox_things_cond_animate_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
+func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		v3  *uint32
 		v6  *uint8

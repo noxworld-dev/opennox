@@ -111,7 +111,7 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		return 1
 	}
 }
-func nox_things_animate_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
+func nox_things_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		a3     *uint8 = (*uint8)(unsafe.Pointer(attr_value))
 		v3     *uint32
@@ -219,7 +219,7 @@ func sub_44BE90(a1 int32, f *binfile.MemFile) int32 {
 	}
 	return result
 }
-func nox_things_animate_state_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
+func nox_things_animate_state_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		data_sz      uint32  = 0x94
 		draw_cb_data *uint32 = (*uint32)(alloc.Calloc1(1, uintptr(data_sz)))

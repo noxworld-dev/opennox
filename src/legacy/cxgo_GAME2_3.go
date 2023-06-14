@@ -1901,7 +1901,7 @@ func sub_495500(a1 *int32) *int32 {
 		v28    [32]wchar2_t
 		v29    [32]wchar2_t
 		v30    [32]wchar2_t
-		t9     *nox_thing = nil
+		t9     *client.ObjectType = nil
 	)
 	v1 = int32(uintptr(nox_xxx_guiFontPtrByName_43F360(internCStr("large"))))
 	v2 = *a1

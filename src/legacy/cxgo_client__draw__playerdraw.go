@@ -280,7 +280,7 @@ func nox_thing_player_waypoint_draw(vp *noxrender.Viewport, dr *client.Drawable)
 	nox_client_drawEnableAlpha_434560(0)
 	return 1
 }
-func nox_things_player_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
+func nox_things_player_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		a3  *uint8 = (*uint8)(unsafe.Pointer(attr_value))
 		v3  *uint32

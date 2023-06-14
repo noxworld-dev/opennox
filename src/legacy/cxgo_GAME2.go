@@ -26,7 +26,7 @@ var dword_5d4594_831092 uint32 = 0
 var nox_player_netCode_85319C uint32 = 0
 
 func sub_44D040(i int32) int32 {
-	var obj *nox_thing = nox_get_thing(i)
+	var obj *client.ObjectType = nox_get_thing(i)
 	if obj == nil {
 		return 0
 	}

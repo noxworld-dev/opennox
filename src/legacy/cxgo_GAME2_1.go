@@ -4571,7 +4571,7 @@ func sub_472310() *uint8 {
 	} else {
 		*memmap.PtrUint16(0x5D4594, 1090312) = uint16(int16(sub_467850(*(*int32)(unsafe.Pointer(&dword_5d4594_1096284)))))
 		if int32(*memmap.PtrUint16(0x5D4594, 1090312)) != 0 {
-			var t1 *nox_thing = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096284)))
+			var t1 *client.ObjectType = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096284)))
 			if t1 != nil {
 				nox_drawable_link_thing((*client.Drawable)(memmap.PtrOff(0x5D4594, 1090316)), t1.Field_1c)
 				*memmap.PtrUint32(0x5D4594, 1090296) = uint32(uintptr(memmap.PtrOff(0x5D4594, 1090316)))

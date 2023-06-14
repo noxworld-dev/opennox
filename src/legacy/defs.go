@@ -99,7 +99,7 @@ type nox_parse_thing_draw_funcs_t struct {
 	name      string
 	draw      client.ObjectDrawFunc
 	kind      uint32
-	parse_fnc func(*nox_thing, *binfile.MemFile, *byte) bool
+	parse_fnc func(*client.ObjectType, *binfile.MemFile, *byte) bool
 }
 type nox_inventory_cell_t struct {
 	field_0   *client.Drawable

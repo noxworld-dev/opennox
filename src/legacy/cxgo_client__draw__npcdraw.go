@@ -49,7 +49,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	if noxflags.HasGame(0x200000) {
-		v2 = int32(*(*uint32)(unsafe.Pointer((*nox_thing)(unsafe.Add(unsafe.Pointer(sub_44D330(internCStr("NewPlayer"))), unsafe.Sizeof(nox_thing{})*92)))) + 4)
+		v2 = int32(*(*uint32)(unsafe.Pointer((*client.ObjectType)(unsafe.Add(unsafe.Pointer(sub_44D330(internCStr("NewPlayer"))), unsafe.Sizeof(client.ObjectType{})*92)))) + 4)
 		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 40))) != 0 {
 			nox_xxx_drawObject_4C4770_draw(a1, (*client.Drawable)(unsafe.Pointer(uintptr(a2))), int32(**(**uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 48))+uint32(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 297)))*4))), 4))))
 			return 1

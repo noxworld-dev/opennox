@@ -233,7 +233,7 @@ LABEL_24:
 	nox_client_drawEnableAlpha_434560(0)
 	return int(v23)
 }
-func nox_things_monster_draw_parse(obj *nox_thing, f *binfile.MemFile, attr_value *byte) bool {
+func nox_things_monster_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
 		v2 *uint32
 		v4 int32

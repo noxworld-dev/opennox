@@ -122,7 +122,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1091364)), 36)), v3)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1091364)), 32)) = 2
 	*memmap.PtrUint16(0x5D4594, 1091384) = 0
-	var t4 *nox_thing = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096276)))
+	var t4 *client.ObjectType = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096276)))
 	if t4 != nil {
 		nox_drawable_link_thing((*client.Drawable)(memmap.PtrOff(0x5D4594, 1091388)), t4.Field_1c)
 		*memmap.PtrUint32(0x5D4594, 1091368) = uint32(uintptr(memmap.PtrOff(0x5D4594, 1091388)))
@@ -148,7 +148,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1090828)), 36)), v6)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1090828)), 32)) = 1
 		*memmap.PtrUint16(0x5D4594, 1090848) = 0
-		var t7 *nox_thing = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096272)))
+		var t7 *client.ObjectType = nox_get_thing(*(*int32)(unsafe.Pointer(&dword_5d4594_1096272)))
 		if t7 != nil {
 			nox_drawable_link_thing((*client.Drawable)(memmap.PtrOff(0x5D4594, 1090852)), t7.Field_1c)
 			*memmap.PtrUint32(0x5D4594, 1090832) = uint32(uintptr(memmap.PtrOff(0x5D4594, 1090852)))
