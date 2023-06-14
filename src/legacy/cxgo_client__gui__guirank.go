@@ -498,7 +498,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 		} else if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100)))))) == 0 {
 			nox_window_set_hidden((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100))))), 1)
 		}
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1090104)))), 16385, uintptr(unsafe.Pointer(v22)), 0)
+		nox_window_call_field_94_fnc((*gui.Window)(*memmap.PtrPtr(0x5D4594, 1090104)), 16385, uintptr(unsafe.Pointer(v22)), 0)
 		sub_46FC50()
 		sub_46FD80()
 	}

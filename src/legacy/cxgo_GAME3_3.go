@@ -5053,7 +5053,7 @@ func sub_4EB340(it *server.Object, data unsafe.Pointer) {
 	)
 	if uint32(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*2)))&0x20006 != 0 {
 		if (uint32(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*4)))&0x8020) == 0 && nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(a1)), 0) == 0 && a1 != *(**float32)(memmap.PtrOff(0x5D4594, 1567840)) && a1 != *(**float32)(memmap.PtrOff(0x5D4594, 1567932)) {
-			if nox_xxx_mapCheck_537110((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1567924))))) != 0 {
+			if nox_xxx_mapCheck_537110((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(*memmap.PtrPtr(0x5D4594, 1567924))) != 0 {
 				v2 = float64(*(*float32)(unsafe.Pointer(uintptr(a2))) - *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*14)))
 				v3 = float64(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 4)) - *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*15)))
 				v4 = v3*v3 + v2*v2

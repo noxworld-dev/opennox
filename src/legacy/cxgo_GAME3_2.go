@@ -1823,7 +1823,7 @@ func nox_xxx_mapGenStart_4D4320() int32 {
 				return 0
 			}
 			nox_xxx_mapSwitchLevel_4D12E0(1)
-			nox_set_server_objects_4DA3E0((*server.Object)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1550924)))))
+			nox_set_server_objects_4DA3E0((*server.Object)(*memmap.PtrPtr(0x5D4594, 1550924)))
 			*memmap.PtrUint32(0x5D4594, 1550924) = 0
 			nox_common_gameFlags_unset_40A540(0x400000)
 			result = 1

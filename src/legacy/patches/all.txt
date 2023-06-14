@@ -1,0 +1,4 @@
+patches/unsafe_memmap_u32p.patch
+patches/unsafe_memmap_i32p.patch
+patches/unsafe_memmap_u32.patch
+patches/unsafe_memmap_i32.patch

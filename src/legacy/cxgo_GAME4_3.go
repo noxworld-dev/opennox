@@ -160,7 +160,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0
 		*(*float32)(unsafe.Pointer(&nox_xxx_lightningClosestTargetDistance_5d4594_2487912)) = lightningRange * lightningRange
 		range1 = float32(float64(lightningRange) * 0.94999999)
-		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range1, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
+		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range1, nox_xxx_lightningCanAttackCheck_52FF10, *memmap.PtrPtr(0x5D4594, 2487844))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 			v15 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
 			*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
@@ -171,7 +171,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0
 		*(*float32)(unsafe.Pointer(&nox_xxx_lightningClosestTargetDistance_5d4594_2487912)) = lightningRange * lightningRange
 		range2 = float32(float64(lightningRange) * 0.89999998)
-		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range2, nox_xxx_lightningCanAttackCheck_52FF10, unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
+		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range2, nox_xxx_lightningCanAttackCheck_52FF10, *memmap.PtrPtr(0x5D4594, 2487844))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 			v16 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
 			*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
@@ -301,7 +301,7 @@ LABEL_55:
 	}
 	if (gameFrame() % (gameFPS() / 3)) == 0 {
 		nox_xxx_aud_501960(78, (*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(source)), 16))))), 0, 0)
-		nox_xxx_aud_501960(78, (*server.Object)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844)))), 0, 0)
+		nox_xxx_aud_501960(78, (*server.Object)(*memmap.PtrPtr(0x5D4594, 2487844)), 0, 0)
 	}
 	lightningSearchTime = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("LightningSearchTime")))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(source)), 68)) = gameFrame() + uint32(int32(lightningSearchTime))

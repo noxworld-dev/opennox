@@ -25,7 +25,7 @@ func nox_thing_glyph_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		*((*uint8)(unsafe.Pointer(&a2))) = math.MaxUint8
 		goto LABEL_10
 	}
-	if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 21) {
+	if nox_client_drawable_testBuff_4356C0((*client.Drawable)(*memmap.PtrPtr(0x852978, 8)), 21) {
 		nox_xxx_draw_434600(1)
 		nox_draw_setColorMultAndIntensity_433E40(*memmap.PtrInt32(0x8531A0, 2572))
 		v3 = -1

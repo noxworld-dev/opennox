@@ -1072,7 +1072,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					sub_4658A0(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456)), &v56)
 				}
 				if *memmap.PtrUint32(0x5D4594, 1049848) != 0 {
-					nox_xxx_cursorSetDraggedItem_477690((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1049848)))))
+					nox_xxx_cursorSetDraggedItem_477690((*client.Drawable)(*memmap.PtrPtr(0x5D4594, 1049848)))
 					nox_xxx_setKeybTimeout_4160D0(0)
 					*(*int2)(memmap.PtrOff(0x5D4594, 1062572)) = v56
 					nox_xxx_clientPlaySoundSpecial_452D80(791, 100)

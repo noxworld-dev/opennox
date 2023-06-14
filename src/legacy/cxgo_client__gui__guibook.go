@@ -115,11 +115,11 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	v3 = nox_xxx_guiFontHeightMB_43F320(nil)
 	dword_5d4594_1046656 = uint32(v3 + 2)
 	nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x5D4594, 1046880))
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1046856)))), v1, v2)
+	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1046856)), v1, v2)
 	if dword_5d4594_1046872 != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1046660)))), v1, v2)
+		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1046660)), v1, v2)
 	} else {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1046644)))), v1, v2)
+		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1046644)), v1, v2)
 	}
 	if dword_5d4594_1046868 == 3 {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046928)), v1, v2)

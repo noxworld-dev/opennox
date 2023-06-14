@@ -1273,7 +1273,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			*((*uint8)(unsafe.Pointer(&v129))) = sub_467430()
 			v130 = int32((v129 >> 3) & 1)
 			sub_467420(int8(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))
-			if v130 == 1 && (int32(sub_467430())&8) == 0 && *memmap.PtrUint32(0x852978, 8) != 0 && !nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x852978, 8)))), 15) {
+			if v130 == 1 && (int32(sub_467430())&8) == 0 && *memmap.PtrUint32(0x852978, 8) != 0 && !nox_client_drawable_testBuff_4356C0((*client.Drawable)(*memmap.PtrPtr(0x852978, 8)), 15) {
 				var v131 *client.ObjectType = nox_get_thing(int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 108))))
 				nox_xxx_spriteChangeIntensity_484D70_light_intensity(int32(*memmap.PtrUint32(0x852978, 8)+136), v131.LightIntensity)
 			}

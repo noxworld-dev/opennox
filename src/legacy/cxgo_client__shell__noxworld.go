@@ -369,7 +369,7 @@ func nox_client_gui_serverInfoBlockCheckExp_439370(a1 *int2, a2 int32) {
 	dword_5d4594_815056 = 1
 	*memmap.PtrUint16(0x5D4594, 814604) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 109))
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 815008)))), 0)
+		nox_xxx_wnd_46ABB0((*gui.Window)(*memmap.PtrPtr(0x5D4594, 815008)), 0)
 	}
 }
 func nox_client_gui_serverInfoBlock_4394D0(a1 int32) {
