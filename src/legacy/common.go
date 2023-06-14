@@ -2,20 +2,18 @@ package legacy
 
 import noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 
-type nox_engine_flag = noxflags.EngineFlag
-
 // nox_common_setEngineFlag
-func nox_common_setEngineFlag(flags nox_engine_flag) {
+func nox_common_setEngineFlag(flags noxflags.EngineFlag) {
 	noxflags.SetEngine(flags)
 }
 
 // nox_common_resetEngineFlag
-func nox_common_resetEngineFlag(flags nox_engine_flag) {
+func nox_common_resetEngineFlag(flags noxflags.EngineFlag) {
 	noxflags.UnsetEngine(flags)
 }
 
 // nox_common_getEngineFlag
-func nox_common_getEngineFlag(flags nox_engine_flag) bool {
+func nox_common_getEngineFlag(flags noxflags.EngineFlag) bool {
 	return noxflags.HasEngine(flags)
 }
 
