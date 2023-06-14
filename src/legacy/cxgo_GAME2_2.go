@@ -1272,7 +1272,7 @@ func sub_479810(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
 	dword_5d4594_1098620 = 0
 }
 func sub_479820(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
-	sub_479840(int16(int32(a2)))
+	sub_479840(int16(a2))
 	dword_5d4594_1098620 = 0
 }
 func sub_479840(a1 int16) int32 {
@@ -2119,7 +2119,7 @@ func Nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 func nox_xxx_tileCallDrawEdges_481BF0(a1 unsafe.Pointer, a2 int32) {
 	var i int32
 	for i = a2; i != 0; i = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(i)), 16))) {
-		func_587000_154944((*uint32)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(uintptr(i))))
+		func_587000_154944((*uint32)(a1), (*uint32)(unsafe.Pointer(uintptr(i))))
 	}
 }
 func nox_xxx_tileDrawMB_481C20_A(vp *noxrender.Viewport, v3 int32) {

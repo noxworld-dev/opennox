@@ -1790,7 +1790,7 @@ func sub_4BFD40() {
 		nox_xxx_wnd_46ABB0((*gui.Window)(nox_gui_itemAmount_dialog_1319228), 0)
 		nox_xxx_wnd_46C6E0((*gui.Window)(nox_gui_itemAmount_dialog_1319228))
 		if nox_gui_itemAmount_item_1319256 != nil {
-			nox_xxx_spriteDelete_45A4B0((*client.Drawable)(nox_gui_itemAmount_item_1319256))
+			nox_xxx_spriteDelete_45A4B0(nox_gui_itemAmount_item_1319256)
 		}
 		nox_gui_itemAmount_item_1319256 = nil
 		dword_5d4594_1319268 = 0
@@ -1981,7 +1981,7 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 }
 func nox_gui_itemAmount_free_4C03E0() {
 	if nox_gui_itemAmount_item_1319256 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(nox_gui_itemAmount_item_1319256))
+		nox_xxx_spriteDelete_45A4B0(nox_gui_itemAmount_item_1319256)
 	}
 	nox_gui_itemAmount_item_1319256 = nil
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(nox_gui_itemAmount_dialog_1319228))

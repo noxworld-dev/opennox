@@ -5857,7 +5857,7 @@ func nox_xxx_spriteScanForShield_4B81E0(it *client.Drawable, a2 unsafe.Pointer) 
 	var v2 *uint8
 	v2 = (*uint8)(memmap.PtrOff(0x5D4594, 1313748))
 	for {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 108)) == *(*uint32)(unsafe.Pointer(v2)) && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 432)) == *(*uint32)(unsafe.Pointer(a2)) {
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 108)) == *(*uint32)(unsafe.Pointer(v2)) && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 432)) == *(*uint32)(a2) {
 			dword_5d4594_1313788 = 1
 		}
 		v2 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), 4))

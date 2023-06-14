@@ -10350,8 +10350,8 @@ func nox_xxx_mobGenericDeath_544C40(obj *server.Object) {
 func nox_xxx_zombieBurnDeleteCheck_544CA0(obj *server.Object) {
 	a1 := obj.CObj()
 	var v1 int32
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
-	if nox_xxx_unitIsZombie_534A40(unsafe.Pointer(a1)) != 0 {
+	v1 = int32(*(*uint32)(unsafe.Add(a1, 4*187)))
+	if nox_xxx_unitIsZombie_534A40(a1) != 0 {
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v1)), 1440))&0x80000 != 0 {
 			nox_xxx_zombieBurnDelete_544CE0((*uint32)(a1))
 		}

@@ -1516,11 +1516,11 @@ func nox_thing_read_FLOR_414DB0(f *binfile.MemFile) int32 {
 		v14 uint8
 		v15 uint8
 	)
-	v2 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(f.Cur), 4))))
+	v2 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(f.Cur, 4))))
 	f.Cur = unsafe.Pointer(v2)
 	v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), int32(*v2)+13))
 	f.Cur = unsafe.Pointer(v3)
-	v4 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(f.Cur), 1))))
+	v4 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(f.Cur, 1))))
 	v14 = *v3
 	f.Cur = unsafe.Pointer(v4)
 	v15 = *v4
@@ -1532,14 +1532,14 @@ func nox_thing_read_FLOR_414DB0(f *binfile.MemFile) int32 {
 	v6 = v5 * int32(v14)
 	if v6 > 0 {
 		for {
-			v7 = (*int32)(unsafe.Pointer(f.Cur))
+			v7 = (*int32)(f.Cur)
 			v8 = *v7
 			v9 = int32(uintptr(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v7), 4*1)))))
 			f.Cur = unsafe.Pointer(uintptr(v9))
 			if v8 == -1 {
 				v10 = (*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 1))
 				f.Cur = unsafe.Pointer(v10)
-				f.Cur = unsafe.Add(unsafe.Pointer(f.Cur), int32(*v10)+1)
+				f.Cur = unsafe.Add(f.Cur, int32(*v10)+1)
 			}
 			v6--
 			if v6 == 0 {
@@ -1547,7 +1547,7 @@ func nox_thing_read_FLOR_414DB0(f *binfile.MemFile) int32 {
 			}
 		}
 	}
-	v11 = (*int32)(unsafe.Pointer(f.Cur))
+	v11 = (*int32)(f.Cur)
 	v12 = *v11
 	f.Cur = unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1)))
 	return bool2int32(uint32(v12) == 1162757152)

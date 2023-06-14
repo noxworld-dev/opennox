@@ -7251,7 +7251,7 @@ func sub_551250(a1 unsafe.Pointer, a2 *float32, a3 int32) {
 						v15 = v13 - float64(v39)
 						v40 = float32(v15)
 						if v15 > 0.0 {
-							nox_xxx_collSysAddCollision_548630(unsafe.Pointer(a2), unsafe.Pointer(v3), &v29)
+							nox_xxx_collSysAddCollision_548630(unsafe.Pointer(a2), v3, &v29)
 							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 44)) = gameFrame()
 							if a3 == 1 {
 								v41 = -(v29.Y * *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*21))) - v29.X**(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*20))
@@ -7272,7 +7272,7 @@ func sub_551250(a1 unsafe.Pointer, a2 *float32, a3 int32) {
 								*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*4))) &= 0xF7FFFFFF
 							}
 							nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(unsafe.Pointer(uintptr(v3))))
-							if nox_xxx_servObjectHasTeam_419130(unsafe.Add(unsafe.Pointer(v3), 48)) == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 12)) != *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(v3, 48), unsafe.Pointer((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*12)))) != 0 {
+							if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v3, 48)) == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 12)) != *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(v3, 48), unsafe.Pointer((*float32)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*12)))) != 0 {
 								if a3 == 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 1))) == 0 {
 									v23 = *(**float32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 508))
 									if v23 == nil || v23 == v4 {
