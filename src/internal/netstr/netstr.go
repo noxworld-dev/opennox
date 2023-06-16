@@ -27,6 +27,38 @@ const (
 	maxStructs = 128
 )
 
+const (
+	code0        = noxnet.Op(0x00)
+	code1        = noxnet.Op(0x01)
+	code2        = noxnet.Op(0x02)
+	code3        = noxnet.Op(0x03)
+	code4        = noxnet.Op(0x04)
+	code5        = noxnet.Op(0x05)
+	code6        = noxnet.Op(0x06)
+	code7        = noxnet.Op(0x07)
+	code8        = noxnet.Op(0x08)
+	code9        = noxnet.Op(0x09)
+	code10       = noxnet.Op(0x0A)
+	code11       = noxnet.Op(0x0B)
+	codeDiscover = noxnet.Op(0x0C)
+	code13       = noxnet.Op(0x0D)
+	code14       = noxnet.Op(0x0E)
+	code15       = noxnet.Op(0x0F)
+	code16       = noxnet.Op(0x10)
+	code17       = noxnet.Op(0x11)
+	code18       = noxnet.Op(0x12)
+	code19       = noxnet.Op(0x13)
+	codeOK       = noxnet.Op(0x14)
+	code31       = noxnet.Op(0x1F)
+	code32       = noxnet.Op(0x20)
+	code33       = noxnet.Op(0x21)
+	code34       = noxnet.Op(0x22)
+	code35       = noxnet.Op(0x23)
+	code36       = noxnet.Op(0x24)
+	code37       = noxnet.Op(0x25)
+	code38       = noxnet.Op(0x26)
+)
+
 var (
 	Log    = log.New("network")
 	Global = NewStreams()
@@ -387,9 +419,9 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 			return err
 		}
 		buf := make([]byte, 3+len(data))
-		buf[0] = byte(noxnet.MSG_ACCEPTED)
+		buf[0] = byte(code31) // TODO: it isn't a code, it an ID?
 		buf[1] = ns.Data2hdr()[1]
-		buf[2] = 32
+		buf[2] = byte(code32)
 		if len(data) > 0 {
 			copy(buf[3:], data[:153])
 		}
@@ -845,7 +877,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 		}
 		ii.SendReadPacket(1)
 		var buf [1]byte
-		buf[0] = 11
+		buf[0] = byte(code11)
 		_, _ = ii.Send(buf[:], 0)
 		ii.SendReadPacket(1)
 		v4.get().playerInd21--
@@ -907,7 +939,7 @@ func (h Handle) SendClose() {
 	}
 	h.SendReadPacket(0)
 	var buf [1]byte
-	buf[0] = 10
+	buf[0] = byte(code10)
 	_, _ = h.Send(buf[:1], 0)
 	h.SendReadPacket(0)
 	h.Close()
@@ -920,13 +952,13 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 	out[0] = 0
 	out[1] = p1
 	if int(ns1.playerInd21) >= g.GetMaxPlayers()+(g.cntX-1) {
-		out[2] = 2
+		out[2] = byte(code2)
 		return 3
 	}
 	if pid.i != -1 {
 		g.Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid, from.String())
 		// pid in the request must be -1 (0xff); fail if it's not
-		out[2] = 2
+		out[2] = byte(code2)
 		return 3
 	}
 	// now, find free net struct index and use it as pid
@@ -936,12 +968,12 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 			break
 		}
 		if from == it.addr {
-			out[2] = 4 // already joined?
+			out[2] = byte(code4) // already joined?
 			return 3
 		}
 	}
 	if pid.i == -1 {
-		out[2] = 2
+		out[2] = byte(code2)
 		return 3
 	}
 	ns2 := g.newStruct(&Options{
@@ -972,9 +1004,9 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 
 	ns2.SetAddr(from)
 
-	out[0] = byte(noxnet.MSG_ACCEPTED)
+	out[0] = byte(code31) // TODO: it's not a code here, but an ID?
 	out[1] = p1
-	out[2] = 1
+	out[2] = byte(code1)
 	binary.LittleEndian.PutUint32(out[3:], uint32(pid.i))
 	out[7] = key
 	v67, _ := pid.Send(out[:8], SendNoLock|SendFlagFlush)
@@ -996,7 +1028,7 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *stream, packetCu
 	if ns2 == nil {
 		return 0
 	}
-	out[0] = 37
+	out[0] = byte(code37)
 	ns1.callFunc2(pid, out[:1], ns2.data3)
 
 	g.timing[pid.i].field4 = v
@@ -1009,7 +1041,7 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *stream, packetCu
 		v18 = ns1.Data2hdr()
 	}
 	out[1] = v18[0]
-	out[2] = 8
+	out[2] = byte(code8)
 	binary.LittleEndian.PutUint32(out[3:], v)
 	return 7
 }
@@ -1024,7 +1056,7 @@ func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *stream) int {
 	if v31 >= 1 {
 		v32 = 256000 / v31
 	}
-	out[0] = 35
+	out[0] = byte(code35)
 	binary.LittleEndian.PutUint32(out[1:], uint32(v32))
 	if ns1.id.i == -1 {
 		ns1.callFunc2(pid, out[:5], ns4.data3)
@@ -1040,7 +1072,7 @@ func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *stream, packetCu
 		return 0
 	}
 	ns5.field24 = uint32(int(g.ticks2) - int(ns5.ticks23))
-	out[0] = 36
+	out[0] = byte(code36) // MSG_PING?
 	binary.LittleEndian.PutUint32(out[1:], ns5.field24)
 	var v19 unsafe.Pointer
 	if ns1.id.i == -1 {
@@ -1052,7 +1084,7 @@ func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *stream, packetCu
 
 	out[0] = ns1.Data2hdr()[0]
 	out[1] = ns5.Data2hdr()[1]
-	out[2] = 9
+	out[2] = byte(code9)
 	binary.LittleEndian.PutUint32(out[3:], uint32(g.ticks2))
 	return 7
 }
@@ -1104,7 +1136,7 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 b
 
 	ind2 := g.getFreeNetStruct2Ind()
 	if ind2 < 0 {
-		out[2] = byte(noxnet.MSG_SERVER_JOIN_OK) // OK
+		out[2] = byte(codeOK)
 		return 3
 	}
 	nx := &g.streams2[ind2]
@@ -1136,7 +1168,7 @@ func (g *Streams) Sub552E70(ind Handle) int {
 		max = Handle{g, ind.i + 1}
 		find = ns.id
 	}
-	buf[0] = 6
+	buf[0] = byte(code6)
 	for i := min.i; i < max.i; i++ {
 		ns2 := g.streams[i]
 		if ns2 != nil && ns2.id == find {
@@ -1191,9 +1223,9 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 		switch noxnet.Op(op) {
 		default:
 			return 0
-		case 0:
+		case code0:
 			return g.processStreamOp0(id, out, pidb, p1, ns1, from)
-		case 1:
+		case code1:
 			if len(packetCur) < 5 {
 				return 0
 			}
@@ -1205,51 +1237,51 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 			ns1.data2[0] = byte(v11.i)
 			ns1.xorKey = xor
 			g.Flag1 = true
-		case 2:
+		case code2:
 			ns1.id.i = -18
 			g.Flag1 = true
-		case 3: // ack?
+		case code3: // ack?
 			ns1.id.i = -12
 			g.Flag1 = true
-		case 4:
+		case code4:
 			ns1.id.i = -13
 			g.Flag1 = true
-		case 5:
+		case code5:
 			if len(packetCur) < 4 {
 				return 0
 			}
 			v := binary.LittleEndian.Uint32(packetCur[:4])
 			out[0] = ns1.xorKey
 			out[1] = 0
-			out[2] = 7
+			out[2] = byte(code7)
 			binary.LittleEndian.PutUint32(out[3:], v)
 			return 7
-		case 6:
+		case code6:
 			return g.processStreamOp6(pid, out, ns1, packetCur)
-		case 7:
+		case code7:
 			return g.processStreamOp7(pid, out, ns1)
-		case 8:
+		case code8:
 			return g.processStreamOp8(pid, out, ns1, packetCur)
-		case 9:
+		case code9:
 			return g.processStreamOp9(pid, packetCur)
-		case 10:
+		case code10:
 			return g.processStreamOp10(id, pid, out, ns1)
-		case 11:
+		case code11:
 			ns7 := pid.get()
 			if ns7 == nil {
 				return 0
 			}
-			out[0] = 33
+			out[0] = byte(code33)
 			ns1.callFunc2(pid, out[:1], ns7.data3)
 			id.Close()
 			return 0
-		case noxnet.MSG_SERVER_JOIN: // join game request?
+		case code14: // join game request?
 			return g.processStreamOp14(out, packet, ns1, p1, from, ns1.check14)
-		case 17:
+		case code17:
 			return g.processStreamOp17(out, packet, p1, from, ns1.check17)
-		case 18:
+		case code18:
 			return g.processStreamOp18(out, packet, from)
-		case noxnet.MSG_ACCEPTED:
+		case code31:
 			if len(packetCur) < 1 {
 				return 0
 			}
@@ -1266,7 +1298,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 				ns9.setActiveInQueue(v14, true)
 				ns9.maybeFreeQueue(v14, 1)
 				ns8.ind28 = int8(v14)
-				out[0] = 38
+				out[0] = byte(code38)
 				out[1] = v14
 				ns1.callFunc2(pid, out[:2], ns8.data3)
 			}
@@ -1311,7 +1343,7 @@ func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *stre
 	if ns6 == nil || ns6.field38 == 1 {
 		return 0
 	}
-	out[0] = 34
+	out[0] = byte(code34)
 	ns1.callFunc2(pid, out[:1], ns6.data3)
 
 	g.timing[id.i] = timingStruct{}
@@ -1335,7 +1367,7 @@ func (g *Streams) processStreamOp17(out []byte, packet []byte, p1 byte, from net
 	}
 	ind2 := g.getFreeNetStruct2Ind()
 	if ind2 < 0 {
-		out[2] = 20
+		out[2] = byte(codeOK)
 		return 3
 	}
 	nx := &g.streams2[ind2]
@@ -1418,7 +1450,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 		if h.g.Debug {
 			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
 		}
-		if op == noxnet.MSG_SERVER_DISCOVER {
+		if op == codeDiscover {
 			n = h.g.OnDiscover(ns.Data1yyy(), buf)
 			if n > 0 {
 				n, _ = ns.WriteToRaw(buf[:n], src)
@@ -1436,7 +1468,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			}
 			continue
 		}
-		if op >= noxnet.MSG_SERVER_JOIN && op <= noxnet.MSG_SERVER_JOIN_OK {
+		if op >= code14 && op <= codeOK {
 			v26 = 1
 		} else {
 			if id2 == 255 {
@@ -1468,7 +1500,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 					} else {
 						v20 = 1
 					}
-					buf[0] = 38
+					buf[0] = byte(code38)
 					buf[1] = byte(ns2.ind28)
 					ns.callFunc2(id2i, buf[:2], ns2.data3)
 					if v20 == 0 {
@@ -1534,7 +1566,7 @@ func (nx *stream2) makeTimePacket() []byte {
 	nx.ticks = platformTicks()
 
 	var buf [8]byte
-	buf[2] = 16
+	buf[2] = byte(code16)
 	buf[3] = nx.cur
 	binary.LittleEndian.PutUint32(buf[4:], uint32(nx.ticks))
 	return buf[:]
@@ -1552,7 +1584,7 @@ func (g *Streams) sendCode20(ind2 int) (int, error) {
 	var buf [3]byte
 	buf[0] = 0
 	buf[1] = 0
-	buf[2] = 20
+	buf[2] = byte(codeOK)
 
 	nx := &g.streams2[ind2]
 	nx.active = false
@@ -1565,7 +1597,7 @@ func (g *Streams) sendCode19(code byte, ind2 int) (int, error) {
 	var buf [4]byte
 	buf[0] = 0
 	buf[1] = 0
-	buf[2] = 19
+	buf[2] = byte(code19)
 	buf[3] = code
 
 	nx := &g.streams2[ind2]
