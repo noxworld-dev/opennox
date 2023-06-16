@@ -245,10 +245,9 @@ func (g *Streams) newStruct(opt *Options) *stream {
 	} else {
 		opt.DataSize = 1024
 	}
-	data1, _ := alloc.Make([]byte{}, opt.DataSize+2)
-	ns.data1 = data1
-	ns.data1xxx = 0
-	ns.data1yyy = 0
+	ns.recvBuf = make([]byte, 2+opt.DataSize)
+	ns.recvWrite = 0
+	ns.recvRead = 0
 
 	data2, _ := alloc.Make([]byte{}, opt.DataSize+2)
 	data2[0] = 0xff
@@ -428,7 +427,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		buf[1] = ns.Data2hdr()[1]
 		buf[2] = byte(code32)
 		if len(data) > 0 {
-			copy(buf[3:], data[:153])
+			copy(buf[3:], data)
 		}
 		_, _ = h.Send(buf, SendNoLock|SendFlagFlush)
 	}
@@ -466,9 +465,9 @@ type stream struct {
 	addr netip.AddrPort
 	id   Handle
 
-	data1    []byte
-	data1xxx int
-	data1yyy int
+	recvBuf   []byte
+	recvWrite int
+	recvRead  int
 
 	data2    []byte
 	data2xxx int
@@ -500,7 +499,7 @@ func (ns *stream) freeData() {
 	if ns.data3 != nil {
 		alloc.FreePtr(ns.data3)
 	}
-	alloc.FreeSlice(ns.data1)
+	ns.recvBuf = nil
 	alloc.FreeSlice(ns.data2)
 	*ns = stream{g: ns.g}
 }
@@ -538,18 +537,18 @@ func (ns *stream) Datax2() []byte {
 	return ns.data2[:ns.data2xxx]
 }
 
-func (ns *stream) Data1xxx() []byte {
+func (ns *stream) RecvWriteBuf() []byte {
 	if ns == nil {
 		return nil
 	}
-	return ns.data1[ns.data1xxx:]
+	return ns.recvBuf[ns.recvWrite:]
 }
 
-func (ns *stream) Data1yyy() []byte {
+func (ns *stream) RecvReadBuf() []byte {
 	if ns == nil {
 		return nil
 	}
-	return ns.data1[ns.data1yyy:ns.data1xxx]
+	return ns.recvBuf[ns.recvRead:ns.recvWrite]
 }
 
 func (ns *stream) Data2xxx() []byte {
@@ -1150,6 +1149,7 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 b
 	nx.lost = 0
 	nx.addr = from
 
+	// TODO: this overwrites first 2 bytes
 	return copy(out, nx.makeTimePacket())
 }
 
@@ -1381,6 +1381,7 @@ func (g *Streams) processStreamOp17(out []byte, packet []byte, p1 byte, from net
 	nx.lost = 0
 	nx.addr = from
 
+	// TODO: this overwrites first 2 bytes
 	return copy(out, nx.makeTimePacket())
 }
 
@@ -1399,6 +1400,7 @@ func (g *Streams) processStreamOp18(out []byte, packet []byte, from netip.AddrPo
 	if int(nx.cur) >= len(nx.arr) {
 		return 0
 	}
+	// TODO: this overwrites first 2 bytes
 	return copy(out, nx.makeTimePacket())
 }
 
@@ -1423,18 +1425,18 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			return -1
 		}
 	}
-	buf, bfree := alloc.Make([]byte{}, 256)
+	tmp, bfree := alloc.Make([]byte{}, 256)
 	defer bfree()
 
 	v26 := 1
 	for {
-		n, src := h.g.recvRoot(ns.pc, ns.Data1xxx())
+		n, src := h.g.recvRoot(ns.pc, ns.RecvWriteBuf())
 		if n == -1 {
 			return -1
 		}
-		if n < 3 {
-			ns.data1xxx = 0
-			ns.data1yyy = 0
+		if n <= 2 { // empty payload
+			ns.recvWrite = 0
+			ns.recvRead = 0
 			if flags&ServeCanRead == 0 || flags&ServeJustOne != 0 {
 				return n
 			}
@@ -1446,8 +1448,8 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			}
 			continue
 		}
-		ns.data1xxx += n
-		hdr := ns.Data1yyy()[:3]
+		ns.recvWrite += n
+		hdr := ns.RecvReadBuf()[:3]
 		id2 := int(hdr[0])
 		id2i := Handle{h.g, id2 & 127}
 		v9 := hdr[1]
@@ -1456,12 +1458,12 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
 		}
 		if op == codeDiscover {
-			n = h.g.OnDiscover(ns.Data1yyy(), buf)
+			n = h.g.OnDiscover(ns.RecvReadBuf(), tmp)
 			if n > 0 {
-				n, _ = ns.WriteToRaw(buf[:n], src)
+				n, _ = ns.WriteToRaw(tmp[:n], src)
 			}
-			ns.data1xxx = 0
-			ns.data1yyy = 0
+			ns.recvWrite = 0
+			ns.recvRead = 0
 			if flags&ServeCanRead == 0 || flags&ServeJustOne != 0 {
 				return n
 			}
@@ -1500,29 +1502,28 @@ func (h Handle) ServeInitialPackets(flags int) int {
 					ns9.maybeFreeQueue(v9, 1)
 					ns2.ind28 = int8(v9)
 					v20 := 0
-					if h.g.readXxx(h, id2i, v9, ns.Data1yyy()) {
+					if h.g.readXxx(h, id2i, v9, ns.RecvReadBuf()) {
 						v20 = 0
 					} else {
 						v20 = 1
 					}
-					buf[0] = byte(code38)
-					buf[1] = byte(ns2.ind28)
-					ns.callFunc2(id2i, buf[:2], ns2.data3)
+					tmp[0] = byte(code38)
+					tmp[1] = byte(ns2.ind28)
+					ns.callFunc2(id2i, tmp[:2], ns2.data3)
 					if v20 == 0 {
 						goto continueX
 					}
 				}
 			} else if id2 == 255 {
 				if op == 0 {
-					data := ns.Data1yyy()
-					n = h.g.processStreamOp(h, data, buf, src)
+					n = h.g.processStreamOp(h, ns.RecvReadBuf(), tmp, src)
 					if n > 0 {
-						n, _ = ns.WriteTo(buf[:n], src)
+						n, _ = ns.WriteTo(tmp[:n], src)
 					}
 					goto continueX
 				}
 			} else {
-				data := ns.Data1yyy()
+				data := ns.RecvReadBuf()
 				data[0] &= 127
 				id2 = int(data[0])
 				id2i = Handle{h.g, id2}
@@ -1534,26 +1535,24 @@ func (h Handle) ServeInitialPackets(flags int) int {
 					goto continueX
 				}
 				hdr2[1]++
-				if h.g.readXxx(h, id2i, v9, ns.Data1yyy()) {
+				if h.g.readXxx(h, id2i, v9, ns.RecvReadBuf()) {
 					goto continueX
 				}
 			}
 		}
 		if op < 32 {
-			data := ns.Data1yyy()
-			n = h.g.processStreamOp(h, data, buf, src)
+			n = h.g.processStreamOp(h, ns.RecvReadBuf(), tmp, src)
 			if n > 0 {
-				n, _ = ns.WriteTo(buf[:n], src)
+				n, _ = ns.WriteTo(tmp[:n], src)
 			}
 		} else {
 			if ns2 != nil && flags&ServeNoHandle2 == 0 {
-				data := ns.Data1yyy()[2:n]
-				ns.callFunc2(id2i, data, ns2.data3)
+				ns.callFunc2(id2i, ns.RecvReadBuf()[2:n], ns2.data3)
 			}
 		}
 	continueX:
-		ns.data1xxx = 0
-		ns.data1yyy = 0
+		ns.recvWrite = 0
+		ns.recvRead = 0
 		if flags&ServeCanRead == 0 || flags&ServeJustOne != 0 {
 			return n
 		}
