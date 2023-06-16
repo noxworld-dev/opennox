@@ -445,7 +445,7 @@ func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) 
 	}
 	for {
 		now := platform.Ticks()
-		if now >= deadline {
+		if timeout >= 0 && now >= deadline {
 			return NewConnectFailErr(-19, errors.New("timeout 2"))
 		}
 		h.ServeInitialPackets(ServeCanRead)
