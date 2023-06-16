@@ -64,6 +64,10 @@ var (
 	Global = NewStreams()
 )
 
+func init() {
+	Global.GameFlags = noxflags.GetGame
+}
+
 func NewStreams() *Streams {
 	return &Streams{
 		playerIDs: make(map[Handle]struct{}),
@@ -94,6 +98,7 @@ type Streams struct {
 	playerIDs      map[Handle]struct{}
 	sendXorBuf     [4096]byte // TODO: remove this buffer?
 	Log            *log.Logger
+	GameFlags      func() noxflags.GameFlag
 	GameFrame      func() uint32
 	GetMaxPlayers  func() int
 	OnDiscover     func(src, dst []byte) int
@@ -946,7 +951,7 @@ func (h Handle) SendClose() {
 }
 
 func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, ns1 *stream, from netip.AddrPort) int {
-	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag4) {
+	if f := g.GameFlags(); f.Has(noxflags.GameHost) && f.Has(noxflags.GameFlag4) {
 		return 0
 	}
 	out[0] = 0
@@ -1314,7 +1319,7 @@ func (g *Streams) recvRoot(pc net.PacketConn, buf []byte) (int, netip.AddrPort) 
 			g.netCrypt(ns.xorKey, buf[:n])
 		}
 	}
-	if noxflags.HasGame(noxflags.GameHost) {
+	if g.GameFlags().Has(noxflags.GameHost) {
 		return n, src
 	}
 	if r := g.PacketDropRand(1, 99); r < g.PacketDrop {
