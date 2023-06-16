@@ -340,7 +340,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
 	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, 6) != 0 {
+	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHandle2|netstr.ServeJustOne) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -352,7 +352,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
 	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, 6) != 0 {
+	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHandle2|netstr.ServeJustOne) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -373,10 +373,10 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
 	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, 6) != 0 {
+	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHandle2|netstr.ServeJustOne) != 0 {
 		return 0
 	}
-	conn.ServeInitialPackets(3)
+	conn.ServeInitialPackets(netstr.ServeCanRead | netstr.ServeNoHandle2)
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }

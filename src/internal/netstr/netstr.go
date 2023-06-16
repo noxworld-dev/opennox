@@ -360,7 +360,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		return fmt.Errorf("cannot send data: %w", err)
 	}
 
-	retries, flags, counter := 60, 6, 0
+	retries, counter := 60, 0
 	for {
 		ns := h.get()
 		if ns == nil {
@@ -371,7 +371,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		if counter > 20*retries {
 			return NewConnectFailErr(-23, errors.New("timeout"))
 		}
-		h.ServeInitialPackets(flags | 1)
+		h.ServeInitialPackets(ServeCanRead | ServeNoHandle2 | ServeJustOne)
 		h.g.MaybeSendAll()
 		f28 := int(ns.ind28)
 		if f28 >= v11 {
@@ -412,7 +412,7 @@ func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) 
 		if now >= deadline {
 			return NewConnectFailErr(-19, errors.New("timeout 2"))
 		}
-		h.ServeInitialPackets(1)
+		h.ServeInitialPackets(ServeCanRead)
 		send()
 		h.g.MaybeSendAll()
 		if check() {
@@ -1365,6 +1365,12 @@ func (g *Streams) processStreamOp18(out []byte, packet []byte, from netip.AddrPo
 	return copy(out, nx.makeTimePacket())
 }
 
+const (
+	ServeCanRead   = 0x1
+	ServeNoHandle2 = 0x2
+	ServeJustOne   = 0x4
+)
+
 func (h Handle) ServeInitialPackets(flags int) int {
 	ns := h.get()
 	if ns == nil {
@@ -1374,7 +1380,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 
 	argp := 1
 	var err error
-	if flags&1 != 0 {
+	if flags&ServeCanRead != 0 {
 		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
 		if err != nil || argp == 0 {
 			return -1
@@ -1392,7 +1398,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 		if n < 3 {
 			ns.data1xxx = 0
 			ns.data1yyy = 0
-			if flags&1 == 0 || flags&4 != 0 {
+			if flags&ServeCanRead == 0 || flags&ServeJustOne != 0 {
 				return n
 			}
 			argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
@@ -1419,7 +1425,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			}
 			ns.data1xxx = 0
 			ns.data1yyy = 0
-			if flags&1 == 0 || flags&4 != 0 {
+			if flags&ServeCanRead == 0 || flags&ServeJustOne != 0 {
 				return n
 			}
 			argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
@@ -1503,7 +1509,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 				n, _ = ns.WriteTo(buf[:n], src)
 			}
 		} else {
-			if ns2 != nil && flags&2 == 0 {
+			if ns2 != nil && flags&ServeNoHandle2 == 0 {
 				data := ns.Data1yyy()[2:n]
 				ns.callFunc2(id2i, data, ns2.data3)
 			}
@@ -1511,7 +1517,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 	continueX:
 		ns.data1xxx = 0
 		ns.data1yyy = 0
-		if flags&1 == 0 || flags&4 != 0 {
+		if flags&ServeCanRead == 0 || flags&ServeJustOne != 0 {
 			return n
 		}
 		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
@@ -1649,7 +1655,7 @@ func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
 	}
 	for v6 := 0; v6 <= 20*a3; v6++ {
 		platform.Sleep(50 * time.Millisecond)
-		h.ServeInitialPackets(flags | 1)
+		h.ServeInitialPackets(flags | ServeCanRead)
 		h.g.MaybeSendAll()
 		if int(ns.ind28) >= a2 {
 			return 0

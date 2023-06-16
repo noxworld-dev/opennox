@@ -415,7 +415,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
-		netstr.Global.GetInitInd().ServeInitialPackets(1)
+		netstr.Global.GetInitInd().ServeInitialPackets(netstr.ServeCanRead)
 	}
 }
 
