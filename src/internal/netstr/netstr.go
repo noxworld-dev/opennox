@@ -272,7 +272,7 @@ func (ns *stream) Close() error {
 	}
 	if ns.pc != nil {
 		if ns.g.Debug {
-			ns.g.Log.Printf("closing connection: %d", ns.id)
+			ns.g.Log.Printf("closing connection: %d", ns.id.i)
 		}
 		_ = ns.pc.Close()
 	}
@@ -960,7 +960,7 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 		return 3
 	}
 	if pid.i != -1 {
-		g.Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid, from.String())
+		g.Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid.i, from.String())
 		// pid in the request must be -1 (0xff); fail if it's not
 		out[2] = byte(code2)
 		return 3
@@ -1117,7 +1117,7 @@ func (g *Streams) processStreamOp9(pid Handle, packetCur []byte) int {
 	return 0
 }
 
-type Check14 func(out []byte, packet []byte, a4a bool, add func(pid Handle) bool) int
+type Check14 func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int
 
 func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 byte, from netip.AddrPort, check Check14) int {
 	out[0] = 0
@@ -1127,7 +1127,8 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 b
 	if int(ns1.playerInd21) >= g.GetMaxPlayers()-1 {
 		a4a = true
 	}
-	if n := check(out, packet, a4a, func(pid Handle) bool {
+	if n := check(out, packet, a4a, func(pl ntype.Player) bool {
+		pid := g.Player(pl)
 		if _, ok := g.playerIDs[pid]; ok {
 			return false
 		}
@@ -1679,7 +1680,7 @@ func (h Handle) CountInQueue(ops ...noxnet.Op) int {
 
 func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
 	if h.g.Debug {
-		h.g.Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h, a2, a3, flags)
+		h.g.Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h.i, a2, a3, flags)
 	}
 	ns := h.get()
 	if ns == nil {

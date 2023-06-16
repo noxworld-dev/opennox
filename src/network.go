@@ -614,7 +614,7 @@ func nox_xxx_netBigSwitch_553210_op_17_check(out []byte, packet []byte) int {
 	return 0
 }
 
-func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool, add func(pid netstr.Handle) bool) int {
+func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
 	s := noxServer
 	v43 := false
 	v78 := sub_416640()
@@ -676,7 +676,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		var found *Player
 		s.Players.EachReplaceable(func(it *server.Player) bool {
 			pit := asPlayerS(it)
-			if add(netstr.Global.Player(it)) {
+			if add(it) {
 				found = pit
 				return false
 			}
