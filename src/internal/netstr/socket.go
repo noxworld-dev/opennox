@@ -3,10 +3,13 @@ package netstr
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net"
 	"net/netip"
 	"syscall"
 )
+
+var DebugSockets = false
 
 func ErrIsInUse(err error) bool {
 	return errors.Is(err, syscall.EADDRINUSE)
@@ -51,7 +54,11 @@ func GetAddr(addr net.Addr) netip.AddrPort {
 }
 
 func Listen(addr netip.AddrPort) (net.PacketConn, error) {
-	Log.Printf("listen udp %s", addr)
+	return listen(Log, addr)
+}
+
+func listen(log *log.Logger, addr netip.AddrPort) (net.PacketConn, error) {
+	log.Printf("listen udp %s", addr)
 	l, err := net.ListenUDP("udp4", net.UDPAddrFromAddrPort(addr))
 	if err != nil {
 		return nil, err
@@ -60,22 +67,30 @@ func Listen(addr netip.AddrPort) (net.PacketConn, error) {
 }
 
 func ReadFrom(pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
+	return readFrom(DebugSockets, Log, pc, buf)
+}
+
+func readFrom(debug bool, log *log.Logger, pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
 	n, src, err := pc.ReadFrom(buf)
 	ap := GetAddr(src)
 	if err != nil {
 		Log.Println(err)
 		return n, ap, err
 	}
-	//if g.Debug {
-	//	Log.Printf("recv %s -> %s [%d]\n%x", ap, pc.LocalAddr(), n, buf[:n])
-	//}
+	if debug {
+		log.Printf("recv %s -> %s [%d]\n%x", ap, pc.LocalAddr(), n, buf[:n])
+	}
 	return n, ap, nil
 }
 
 func WriteTo(pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
-	//if g.Debug {
-	//	Log.Printf("send %s -> %s [%d]\n%x", pc.LocalAddr(), addr, len(buf), buf)
-	//}
+	return writeTo(DebugSockets, Log, pc, buf, addr)
+}
+
+func writeTo(debug bool, log *log.Logger, pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
+	if debug {
+		log.Printf("send %s -> %s [%d]\n%x", pc.LocalAddr(), addr, len(buf), buf)
+	}
 	n, err := pc.WriteTo(buf, net.UDPAddrFromAddrPort(addr))
 	if err != nil {
 		Log.Println(err)
@@ -85,6 +100,10 @@ func WriteTo(pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
 }
 
 func CanReadConn(pc net.PacketConn) (int, error) {
+	return canReadConn(DebugSockets, Log, pc)
+}
+
+func canReadConn(debug bool, log *log.Logger, pc net.PacketConn) (int, error) {
 	if pc == nil {
 		return 0, errors.New("nil conn")
 	}
@@ -109,8 +128,8 @@ func CanReadConn(pc net.PacketConn) (int, error) {
 	if ierr == 0 {
 		return int(cnt), nil
 	}
-	//if g.Debug {
-	//	Log.Printf("can read: %d", cnt)
-	//}
+	if debug {
+		log.Printf("can read: %d", cnt)
+	}
 	return int(cnt), ierr
 }

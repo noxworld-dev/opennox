@@ -41,6 +41,8 @@ func NewStreams() *Streams {
 		PacketDropRand: func(min, max int) int {
 			return min + rand.Intn(max-min)
 		},
+		Debug:         DebugSockets,
+		Log:           Log,
 		Xor:           true,
 		MaxPacketLoss: 3,
 	}
@@ -59,6 +61,7 @@ type Streams struct {
 	allocQueue     alloc.ClassT[queueItem]
 	playerIDs      map[Handle]struct{}
 	sendXorBuf     [4096]byte // TODO: remove this buffer?
+	Log            *log.Logger
 	GameFrame      func() uint32
 	GetMaxPlayers  func() int
 	OnDiscover     func(src, dst []byte) int
@@ -231,7 +234,12 @@ func (ns *stream) Close() error {
 	if ns == nil {
 		return nil
 	}
-	_ = ns.pc.Close()
+	if ns.pc != nil {
+		if ns.g.Debug {
+			ns.g.Log.Printf("closing connection: %d", ns.id)
+		}
+		_ = ns.pc.Close()
+	}
 	ns.pc = nil
 	ns.freeData()
 	return nil
@@ -303,7 +311,7 @@ func (g *Streams) NewClient(narg *Options) (Handle, error) {
 
 func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarshaler) error {
 	if h.g.Debug {
-		Log.Println("NET_CONNECT", h, host, port)
+		h.g.Log.Println("NET_CONNECT", h, host, port)
 	}
 	ns := h.get()
 	if ns == nil {
@@ -336,7 +344,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	ns.SetAddr(addr)
 
 	for {
-		sock, err := Listen(netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(cport)))
+		sock, err := listen(h.g.Log, netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(cport)))
 		if err == nil {
 			ns.pc = sock
 			break
@@ -397,7 +405,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) error {
 	deadline := platform.Ticks() + timeout
 	if h.g.Debug {
-		Log.Println("CONNECT_WAIT_LOOP_START", deadline)
+		h.g.Log.Println("CONNECT_WAIT_LOOP_START", deadline)
 	}
 	for {
 		now := platform.Ticks()
@@ -646,7 +654,7 @@ func (ns *stream) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 				it.active = false
 				it.ticks = ns.g.ticks2 + 2000
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
-					Log.Println(err)
+					ns.g.Log.Println(err)
 					return 0
 				}
 			}
@@ -656,7 +664,7 @@ func (ns *stream) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 				it.active = false
 				it.ticks = ns.g.ticks2 + 2000
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
-					Log.Println(err)
+					ns.g.Log.Println(err)
 					return 0
 				}
 			}
@@ -710,7 +718,7 @@ func (g *Streams) NewServer(narg *Options) (Handle, error) {
 	}
 
 	for {
-		sock, err := Listen(netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(narg.Port)))
+		sock, err := listen(g.Log, netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(narg.Port)))
 		if err == nil {
 			ns.pc = sock
 			break
@@ -916,7 +924,7 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 		return 3
 	}
 	if pid.i != -1 {
-		Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid, from.String())
+		g.Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid, from.String())
 		// pid in the request must be -1 (0xff); fail if it's not
 		out[2] = 2
 		return 3
@@ -1178,7 +1186,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 		op := packetCur[0]
 		packetCur = packetCur[1:]
 		if g.Debug {
-			Log.Printf("processStreamOp: op=%d [%d]\n", op, len(packetCur))
+			g.Log.Printf("processStreamOp: op=%d [%d]\n", op, len(packetCur))
 		}
 		switch noxnet.Op(op) {
 		default:
@@ -1252,7 +1260,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 			if ns8 == nil {
 				return 0
 			}
-			Log.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.ind28)
+			g.Log.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.ind28)
 			if v14 != byte(ns8.ind28) {
 				ns9 := pid.get()
 				ns9.setActiveInQueue(v14, true)
@@ -1284,7 +1292,7 @@ func (g *Streams) recvRoot(pc net.PacketConn, buf []byte) (int, netip.AddrPort) 
 }
 
 func (g *Streams) recvRaw(pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
-	n, src, err := ReadFrom(pc, buf)
+	n, src, err := readFrom(g.Debug, g.Log, pc, buf)
 	if err != nil {
 		return n, src, err
 	}
@@ -1367,7 +1375,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 	argp := 1
 	var err error
 	if flags&1 != 0 {
-		argp, err = CanReadConn(ns.pc)
+		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
 		if err != nil || argp == 0 {
 			return -1
 		}
@@ -1387,7 +1395,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			if flags&1 == 0 || flags&4 != 0 {
 				return n
 			}
-			argp, err = CanReadConn(ns.pc)
+			argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
 			if err != nil {
 				return -1
 			} else if argp == 0 {
@@ -1402,7 +1410,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 		v9 := hdr[1]
 		op := noxnet.Op(hdr[2])
 		if h.g.Debug {
-			Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
+			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
 		}
 		if op == noxnet.MSG_SERVER_DISCOVER {
 			n = h.g.OnDiscover(ns.Data1yyy(), buf)
@@ -1414,7 +1422,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			if flags&1 == 0 || flags&4 != 0 {
 				return n
 			}
-			argp, err = CanReadConn(ns.pc)
+			argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
 			if err != nil {
 				return -1
 			} else if argp == 0 {
@@ -1506,7 +1514,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 		if flags&1 == 0 || flags&4 != 0 {
 			return n
 		}
-		argp, err = CanReadConn(ns.pc)
+		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
 		if err != nil {
 			return -1
 		} else if argp == 0 {
@@ -1629,7 +1637,7 @@ func (h Handle) CountInQueue(ops ...noxnet.Op) int {
 
 func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
 	if h.g.Debug {
-		Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h, a2, a3, flags)
+		h.g.Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h, a2, a3, flags)
 	}
 	ns := h.get()
 	if ns == nil {
@@ -1668,7 +1676,7 @@ func (ns *stream) WriteToRaw(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns == nil || len(buf) == 0 {
 		return 0, nil
 	}
-	return WriteTo(ns.pc, buf, addr)
+	return writeTo(ns.g.Debug, ns.g.Log, ns.pc, buf, addr)
 }
 
 func (ns *stream) WriteTo(buf []byte, addr netip.AddrPort) (int, error) {
