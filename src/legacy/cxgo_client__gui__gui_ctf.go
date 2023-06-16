@@ -22,7 +22,7 @@ func sub_455C30() int32 {
 	if result != 0 {
 		v1 = 8811
 		for {
-			v2 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(uintptr(result))), v1)))
+			v2 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(result), v1)))
 			nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v2)), nil, sub_455CD0, nil)
 			v3 = nox_strman_loadString_40F1D0(internCStr("FlagHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c"), 201)
 			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*18)), v3)
@@ -48,7 +48,7 @@ func sub_455D80(a1 uint8, a2 int8) {
 		v4     *wchar2_t
 	)
 	*memmap.PtrUint8(0x5D4594, uintptr(a1)+1045611) = uint8(a2)
-	result = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045604)))), int32(a1)+8810)))
+	result = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1045604)), int32(a1)+8810)))
 	v3 = result
 	if result != nil {
 		if *(*wchar2_t)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(wchar2_t(0))*2))&0x20 != 0 {

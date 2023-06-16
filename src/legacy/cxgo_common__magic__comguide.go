@@ -32,7 +32,7 @@ func nox_xxx_loadGuides_427070() int32 {
 		}
 		nox_sprintf(&v13[0], internCStr("creature:%s"), *v0)
 		*((*uint32)(unsafe.Add(unsafe.Pointer(i), -int(4*1)))) = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(&v13[0], nil, internCStr("C:\\NoxPost\\src\\common\\Magic\\ComGuide.c"), 57))))
-		if libc.StrCmp(*(**byte)(unsafe.Pointer(uintptr(v2))), internCStr("Bomber")) == 0 {
+		if libc.StrCmp(*(**byte)(v2), internCStr("Bomber")) == 0 {
 			*(*uint32)(unsafe.Pointer(i)) = 0
 		} else {
 			*(*uint32)(unsafe.Pointer(i)) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(*v0))
@@ -58,7 +58,7 @@ func nox_xxx_loadGuides_427070() int32 {
 		libc.StrCat(&v13[0], v10)
 		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*3))) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v13[0]))))
 		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*4))) = 0
-		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 36)))
+		v11 = int32(*(*uint32)(unsafe.Add(v2, 36)))
 		if v11&1 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(i), 20)) = 1
 		} else if v11&2 != 0 {

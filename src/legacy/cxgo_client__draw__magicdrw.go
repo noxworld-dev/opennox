@@ -29,8 +29,8 @@ func nox_thing_magic_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	}
 	v2 = *a1
 	v3 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
-	v4 = int32(uint32(*a1) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
+	v4 = int32(uint32(*a1) + *(*uint32)(unsafe.Add(a2, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
+	v5 = int32(*(*uint32)(unsafe.Add(a2, 16)) - uint32(*(*int16)(unsafe.Add(a2, 106))) - uint32(*(*int16)(unsafe.Add(a2, 104))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
 	v10.field_0 = v4
 	v6 = v3 + v5
 	v10.field_4 = v6
@@ -39,7 +39,7 @@ func nox_thing_magic_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		sub_4B6720(&v10, *memmap.PtrInt32(0x5D4594, 1313808), v7*2+1, int8((v7>>1)+3))
 		nox_client_drawSetColor_434460(int32(nox_color_white_2523948))
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0-(v7>>1), v10.field_4-(v7>>1), v7, v7)
-		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 136)), 200, 200, math.MaxUint8)
+		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(a2, 136)), 200, 200, math.MaxUint8)
 		v9 = float32(nox_common_randomFloatXxx_416090(0.0, 100.0))
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(a2+136, v9)
 	}
@@ -65,8 +65,8 @@ func nox_thing_magic_missle_draw(vp *noxrender.Viewport, dr *client.Drawable) in
 	}
 	v2 = *a1
 	v3 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
-	v4 = int32(uint32(*a1) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
+	v4 = int32(uint32(*a1) + *(*uint32)(unsafe.Add(a2, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
+	v5 = int32(*(*uint32)(unsafe.Add(a2, 16)) - uint32(*(*int16)(unsafe.Add(a2, 106))) - uint32(*(*int16)(unsafe.Add(a2, 104))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
 	v10.field_0 = v4
 	v6 = v3 + v5
 	v10.field_4 = v6
@@ -75,7 +75,7 @@ func nox_thing_magic_missle_draw(vp *noxrender.Viewport, dr *client.Drawable) in
 		sub_4B6720(&v10, *memmap.PtrInt32(0x5D4594, 1313812), v7*2+1, int8((v7>>1)+3))
 		nox_client_drawSetColor_434460(int32(nox_color_white_2523948))
 		nox_client_drawRectFilledOpaque_49CE30(v10.field_0-(v7>>1), v10.field_4-(v7>>1), v7, v7)
-		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 136)), math.MaxUint8, 180, 50)
+		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(a2, 136)), math.MaxUint8, 180, 50)
 		v9 = float32(nox_common_randomFloatXxx_416090(0.0, 100.0))
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(a2+136, v9)
 	}
@@ -99,11 +99,11 @@ func nox_thing_magic_missle_tail_link_draw(vp *noxrender.Viewport, dr *client.Dr
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	v2 = a2
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
-	v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 436)))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame())
-	v11 = int32(*a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432)))
+	v3 = int32(*(*uint32)(unsafe.Add(a2, 12)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+	v4 = int32(*(*uint32)(unsafe.Add(a2, 16)) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(a2, 106))) - uint32(*(*int16)(unsafe.Add(a2, 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
+	v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(a2, 106))) - uint32(*(*int16)(unsafe.Add(a2, 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + *(*uint32)(unsafe.Add(a2, 436)))
+	v5 = int32(*(*uint32)(unsafe.Add(a2, 356)) - gameFrame())
+	v11 = int32(*a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + *(*uint32)(unsafe.Add(a2, 432)))
 	v14 = v5
 	if v5 > 0 {
 		v6 = (v5 << 6) / int32(gameFPS()/3)
@@ -113,7 +113,7 @@ func nox_thing_magic_missle_tail_link_draw(vp *noxrender.Viewport, dr *client.Dr
 		}
 		v7 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v6*4)+1312756))
 		v8 = v2 + 136
-		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 136)), math.MaxUint8, 128, 50)
+		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(v2, 136)), math.MaxUint8, 128, 50)
 		v10 = float32(float64(v14) * 20.0 / float64(v13))
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v8, v10)
 		nox_client_drawSetColor_434460(v7)
@@ -145,12 +145,12 @@ func nox_thing_magic_tail_link_draw(vp *noxrender.Viewport, dr *client.Drawable)
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	v2 = a2
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
-	v13 = int32(*a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432)))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) - gameFrame())
-	v6 = *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 356)) == gameFrame()
-	v14 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 106))) - uint32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 436)))
+	v3 = int32(*(*uint32)(unsafe.Add(a2, 12)) + *a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+	v4 = int32(*(*uint32)(unsafe.Add(a2, 16)) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(a2, 106))) - uint32(*(*int16)(unsafe.Add(a2, 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
+	v13 = int32(*a1 - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) + *(*uint32)(unsafe.Add(a2, 432)))
+	v5 = int32(*(*uint32)(unsafe.Add(a2, 356)) - gameFrame())
+	v6 = *(*uint32)(unsafe.Add(a2, 356)) == gameFrame()
+	v14 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(a2, 106))) - uint32(*(*int16)(unsafe.Add(a2, 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) + *(*uint32)(unsafe.Add(a2, 436)))
 	v15 = v5
 	if v5 >= 0 && !v6 {
 		v8 = uint32(v5 << 6)
@@ -160,7 +160,7 @@ func nox_thing_magic_tail_link_draw(vp *noxrender.Viewport, dr *client.Drawable)
 		}
 		v9 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v7*4)+1312500))
 		v10 = v2 + 136
-		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 136)), 128, 128, math.MaxUint8)
+		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(v2, 136)), 128, 128, math.MaxUint8)
 		v12 = float32(float64(v15) * 20.0 / float64(int32(gameFPS())))
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v10, v12)
 		nox_client_drawSetColor_434460(v9)

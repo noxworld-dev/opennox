@@ -28,9 +28,9 @@ func nox_thing_spider_spit_draw(vp *noxrender.Viewport, dr *client.Drawable) int
 		v17 int32
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	v2 = (*uint32)(unsafe.Pointer(uintptr(a2)))
+	v2 = (*uint32)(a2)
 	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 104)))
+	v4 = int32(*(*int16)(unsafe.Add(a2, 104)))
 	v16 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
 	v13 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4)))
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))

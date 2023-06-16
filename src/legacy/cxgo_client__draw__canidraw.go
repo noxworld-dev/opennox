@@ -24,15 +24,15 @@ func nox_thing_cond_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) in
 	)
 	v2 = int32(uintptr(dr.Field_76))
 	if dr.Flags30()&0x1000000 != 0 {
-		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 4)))
-		v4 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 24)))
-		v5 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 29)))
-		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 36)))
+		v3 = int32(*(*uint32)(unsafe.Add(v2, 4)))
+		v4 = int32(*(*uint8)(unsafe.Add(v2, 24)))
+		v5 = int32(*(*uint8)(unsafe.Add(v2, 29)))
+		v6 = int32(*(*uint32)(unsafe.Add(v2, 36)))
 	} else {
-		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 8)))
-		v4 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 25)))
-		v5 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 30)))
-		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 40)))
+		v3 = int32(*(*uint32)(unsafe.Add(v2, 8)))
+		v4 = int32(*(*uint8)(unsafe.Add(v2, 25)))
+		v5 = int32(*(*uint8)(unsafe.Add(v2, 30)))
+		v6 = int32(*(*uint32)(unsafe.Add(v2, 40)))
 	}
 	v7 = v6 - 2
 	if v7 != 0 {

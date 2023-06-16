@@ -30,22 +30,22 @@ func nox_thing_blue_rain_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	v3 = a2
 	v9 = 2
 	for {
-		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 12)) + uint32(nox_common_randomIntMinMax_415FF0(-10, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartRain.c"), 42)))
+		v4 = int32(*(*uint32)(unsafe.Add(v3, 12)) + uint32(nox_common_randomIntMinMax_415FF0(-10, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartRain.c"), 42)))
 		v5 = nox_common_randomIntMinMax_415FF0(-10, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartRain.c"), 43)
-		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 16)) + uint32(v5))
+		v6 = int32(*(*uint32)(unsafe.Add(v3, 16)) + uint32(v5))
 		v7 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1313716), v4, v6))))
 		v8 = v7
 		if v7 != 0 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 432)) = uint32(v4 << 12)
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 436)) = uint32(v6 << 12)
-			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 299)) = 0
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 440)) = 0
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7)), 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(90, 120, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartRain.c"), 63))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 444)) = gameFrame()
-			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 106)) = 0
-			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 296)) = 251
-			*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v8)), 104)) = uint16(int16(v6 - int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)))))
-			nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v8))))
+			*(*uint32)(unsafe.Add(v7, 432)) = uint32(v4 << 12)
+			*(*uint32)(unsafe.Add(v7, 436)) = uint32(v6 << 12)
+			*(*uint8)(unsafe.Add(v7, 299)) = 0
+			*(*uint32)(unsafe.Add(v7, 440)) = 0
+			*(*uint32)(unsafe.Add(v7, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(90, 120, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartRain.c"), 63))
+			*(*uint32)(unsafe.Add(v8, 444)) = gameFrame()
+			*(*uint16)(unsafe.Add(v8, 106)) = 0
+			*(*uint8)(unsafe.Add(v8, 296)) = 251
+			*(*uint16)(unsafe.Add(v8, 104)) = uint16(int16(v6 - int32(*(*uint16)(unsafe.Add(a1, 20)))))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(v8))
 		}
 		v9--
 		if v9 == 0 {

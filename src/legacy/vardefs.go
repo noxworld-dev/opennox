@@ -165,7 +165,7 @@ func Get_dword_5d4594_1064868() int {
 	return int(dword_5d4594_1064868)
 }
 func Get_dword_5d4594_1316972() *gui.Window {
-	return AsWindowP(unsafe.Pointer(uintptr(dword_5d4594_1316972)))
+	return AsWindowP(dword_5d4594_1316972)
 }
 func Get_dword_5d4594_1599588() unsafe.Pointer {
 	return dword_5d4594_1599588
@@ -276,7 +276,7 @@ func Get_dword_5d4594_823776() int {
 	return int(dword_5d4594_823776)
 }
 func Get_dword_5d4594_831236() *gui.Window {
-	return AsWindowP(unsafe.Pointer(uintptr(dword_5d4594_831236)))
+	return AsWindowP(dword_5d4594_831236)
 }
 func Get_dword_5d4594_1049844() int {
 	return int(dword_5d4594_1049844)

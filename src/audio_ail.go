@@ -160,8 +160,8 @@ func sub_43EC10() int {
 	return 0
 }
 
-func sub_43F130() int {
-	return int(audioDev)
+func sub_43F130() ail.Driver {
+	return audioDev
 }
 
 func sub_43ED00(a1p unsafe.Pointer) int {

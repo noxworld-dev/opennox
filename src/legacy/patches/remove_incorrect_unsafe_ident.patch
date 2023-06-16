@@ -1,0 +1,5 @@
+@@
+var x identifier
+@@
+-unsafe.Pointer(uintptr(x))
++x

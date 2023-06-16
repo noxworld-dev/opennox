@@ -56,8 +56,8 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 				}
 			}
 		}
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), *(*int32)(unsafe.Pointer(&dword_5d4594_1316476)), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 193)/v14 + ((int32(int16(a1)) + int32(int16(a2))) >> 1)))
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), *(*int32)(unsafe.Pointer(&dword_5d4594_1316476)), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 196)/v14 + ((int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1))) + int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1)))) >> 1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), dword_5d4594_1316476, internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 193)/v14 + ((int32(int16(a1)) + int32(int16(a2))) >> 1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), dword_5d4594_1316476, internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 196)/v14 + ((int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1))) + int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1)))) >> 1)))
 		nox_xxx_drawLightningStep_4BB070(a1, v24)
 		nox_xxx_drawLightningStep_4BB070(v24, a2)
 		return int32(func() uint32 {
@@ -79,7 +79,7 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 		sub_49E4F0(v23)
 		v23 = 1
 	} else {
-		nox_draw_set54RGB32_434040(*(*int32)(unsafe.Pointer(&dword_5d4594_1316472)))
+		nox_draw_set54RGB32_434040(dword_5d4594_1316472)
 		sub_434080(3)
 		v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1)))
 		v5 = int32(int16(a1))
@@ -89,7 +89,7 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 		nox_client_drawAddPoint_49F500(int32(int16(a2)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1))))
 		sub_49E4F0(32)
 	}
-	nox_client_drawSetColor_434460(*(*int32)(unsafe.Pointer(&dword_5d4594_1316472)))
+	nox_client_drawSetColor_434460(dword_5d4594_1316472)
 	nox_client_drawAddPoint_49F500(v5, v4)
 	nox_client_drawAddPoint_49F500(v7, v6)
 	nox_client_drawLineFromPoints_49E4B0()
@@ -304,32 +304,32 @@ func nox_thing_lightning_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v19 int32
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432))) == 0 {
+	if int32(*(*uint8)(unsafe.Add(a2, 432))) == 0 {
 		v2 = *a1
 		v3 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
 		v4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))
 		v5 = *a1
 		v19 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
-		v18.field_0 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))
+		v18.field_0 = int32(*(*uint16)(unsafe.Add(a2, 437)))
 		a1a.field_0 = v18.field_0 + v5 - v3
-		v6 = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))
-		v18.field_4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 439)))
+		v6 = *(*uint16)(unsafe.Add(a2, 441))
+		v18.field_4 = int32(*(*uint16)(unsafe.Add(a2, 439)))
 		a1a.field_4 = v19 - v4 + v18.field_4 - 20
 		a3.field_0 = int32(v6)
 		a2a.field_0 = v2 + int32(v6) - v3
-		a3.field_4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 443)))
+		a3.field_4 = int32(*(*uint16)(unsafe.Add(a2, 443)))
 		a2a.field_4 = a3.field_4 - v4 + v19 - 20
 	} else {
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437))) != 0 {
-			v7 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))).C())
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 437))) != 0 {
+			v7 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(a2, 437)))).C())
 		} else {
-			v7 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))).C())
+			v7 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(a2, 437)))).C())
 		}
 		v8 = v7
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))) != 0 {
-			v9 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))).C())
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 441))) != 0 {
+			v9 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(a2, 441)))).C())
 		} else {
-			v9 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))).C())
+			v9 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(a2, 441)))).C())
 		}
 		if v8 == nil || v9 == nil {
 			return 1
@@ -379,8 +379,8 @@ func nox_thing_chain_lightning_bolt_draw(vp *noxrender.Viewport, dr *client.Draw
 		a3  int2
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432))) == 0 {
-		v2 = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437))
+	if int32(*(*uint8)(unsafe.Add(a2, 432))) == 0 {
+		v2 = *(*uint16)(unsafe.Add(a2, 437))
 		v3 = *a1
 		v4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
 		v5 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))
@@ -388,24 +388,24 @@ func nox_thing_chain_lightning_bolt_draw(vp *noxrender.Viewport, dr *client.Draw
 		v7 = int32(v2) + *a1 - v4
 		v19.field_0 = int32(v2)
 		a1a.field_0 = v7
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 439))
-		a2a.field_0 = v3 + int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))) - v4
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(a2, 439))
+		a2a.field_0 = v3 + int32(*(*uint16)(unsafe.Add(a2, 441))) - v4
 		v19.field_4 = int32(uint16(int16(v7)))
-		v8 = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 443))
+		v8 = *(*uint16)(unsafe.Add(a2, 443))
 		a1a.field_4 = v6 - v5 + int32(uint16(int16(v7))) - 20
 		a3.field_0 = int32(v8)
 		a2a.field_4 = int32(v8) - v5 + v6 - 20
 	} else {
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437))) != 0 {
-			v9 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))).C())
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 437))) != 0 {
+			v9 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(a2, 437)))).C())
 		} else {
-			v9 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))).C())
+			v9 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(a2, 437)))).C())
 		}
 		v10 = v9
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))) != 0 {
-			v11 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))).C())
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 441))) != 0 {
+			v11 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(a2, 441)))).C())
 		} else {
-			v11 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))).C())
+			v11 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(a2, 441)))).C())
 		}
 		if v10 == nil || v11 == nil {
 			return 1
@@ -458,34 +458,34 @@ func nox_thing_energy_bolt_draw(vp *noxrender.Viewport, dr *client.Drawable) int
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	v2 = a2
-	v3 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432))) == 0
-	v22 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 433)))
+	v3 = int32(*(*uint8)(unsafe.Add(a2, 432))) == 0
+	v22 = int8(*(*uint8)(unsafe.Add(a2, 433)))
 	if v3 {
 		v4 = *a1
 		v5 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
 		v6 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))
 		v7 = *a1
 		v21 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
-		v20.field_0 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 437)))
+		v20.field_0 = int32(*(*uint16)(unsafe.Add(v2, 437)))
 		a1a.field_0 = v20.field_0 + v7 - v5
-		v8 = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 441))
-		v20.field_4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 439)))
+		v8 = *(*uint16)(unsafe.Add(v2, 441))
+		v20.field_4 = int32(*(*uint16)(unsafe.Add(v2, 439)))
 		a1a.field_4 = v21 - v6 + v20.field_4 - 20
 		a3.field_0 = int32(v8)
 		a2a.field_0 = v4 + int32(v8) - v5
-		a3.field_4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 443)))
+		a3.field_4 = int32(*(*uint16)(unsafe.Add(v2, 443)))
 		a2a.field_4 = a3.field_4 - v6 + v21 - 20
 	} else {
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 437))) != 0 {
-			v9 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 437)))).C())
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(v2, 437))) != 0 {
+			v9 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(v2, 437)))).C())
 		} else {
-			v9 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 437)))).C())
+			v9 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(v2, 437)))).C())
 		}
 		v10 = v9
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 441))) != 0 {
-			v11 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 441)))).C())
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(v2, 441))) != 0 {
+			v11 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(v2, 441)))).C())
 		} else {
-			v11 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v2)), 441)))).C())
+			v11 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(v2, 441)))).C())
 		}
 		if v10 == nil || v11 == nil {
 			return 1
@@ -534,17 +534,17 @@ func nox_thing_green_bolt_draw(vp *noxrender.Viewport, dr *client.Drawable) int 
 		v21 int32
 		a2  int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 432))) != 0 {
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437))) != 0 {
-			v10 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))).C())
+	if int32(*(*uint8)(unsafe.Add(a2, 432))) != 0 {
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 437))) != 0 {
+			v10 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(a2, 437)))).C())
 		} else {
-			v10 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))).C())
+			v10 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(a2, 437)))).C())
 		}
 		v11 = v10
-		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))) != 0 {
-			v12 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))).C())
+		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 441))) != 0 {
+			v12 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Add(a2, 441)))).C())
 		} else {
-			v12 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441)))).C())
+			v12 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Add(a2, 441)))).C())
 		}
 		if v11 == nil || v12 == nil {
 			return 1
@@ -560,10 +560,10 @@ func nox_thing_green_bolt_draw(vp *noxrender.Viewport, dr *client.Drawable) int 
 		a2a.field_4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*4)) - uint32(v15) + uint32(v16) - 20)
 		a3 = *(*int2)(unsafe.Add(unsafe.Pointer(v12), 4*3))
 	} else {
-		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 433)))
+		v2 = int32(*(*uint32)(unsafe.Add(a2, 433)))
 		if v2 != 0 {
 			v3 = v2 - 1
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 433)) = uint32(v3)
+			*(*uint32)(unsafe.Add(a2, 433)) = uint32(v3)
 			if v3 == 0 {
 				nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 				return 0
@@ -574,14 +574,14 @@ func nox_thing_green_bolt_draw(vp *noxrender.Viewport, dr *client.Drawable) int 
 		v7 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))
 		v8 = *a1
 		v21 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
-		v20.field_0 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 437)))
+		v20.field_0 = int32(*(*uint16)(unsafe.Add(a2, 437)))
 		a1a.field_0 = v20.field_0 + v8 - v6
-		v9 = *(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 441))
-		v20.field_4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 439)))
+		v9 = *(*uint16)(unsafe.Add(a2, 441))
+		v20.field_4 = int32(*(*uint16)(unsafe.Add(a2, 439)))
 		a1a.field_4 = v21 - v7 + v20.field_4 - 20
 		a3.field_0 = int32(v9)
 		a2a.field_0 = v5 + int32(v9) - v6
-		a3.field_4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 443)))
+		a3.field_4 = int32(*(*uint16)(unsafe.Add(a2, 443)))
 		a2a.field_4 = a3.field_4 - v7 + v21 - 20
 	}
 	dword_5d4594_1316452 = *memmap.PtrUint32(0x5D4594, 1316444)

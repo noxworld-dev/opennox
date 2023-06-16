@@ -12,7 +12,7 @@ var (
 	Sub_43E940                    func(a1 unsafe.Pointer) int
 	Sub_43EFD0                    func(a1 unsafe.Pointer)
 	Sub_43EC10                    func() int
-	Sub_43F130                    func() int
+	Sub_43F130                    func() ail.Driver
 	Sub_43ED00                    func(a1p unsafe.Pointer) int
 	Sub_43D650                    func()
 	Sub_43D680                    func()
@@ -84,33 +84,27 @@ func sub_43F030(a1 int) int {
 	panic("abort")
 }
 
-// AIL_set_stream_volume
-func AIL_set_stream_volume(s HSTREAM, volume int32) {
+func AIL_set_stream_volume(s ail.Stream, volume int32) {
 	ail.Stream(unsafe.Pointer(s)).SetVolume(int(volume))
 }
 
-// AIL_stream_position
-func AIL_stream_position(s HSTREAM) int32 {
+func AIL_stream_position(s ail.Stream) int32 {
 	return int32(ail.Stream(unsafe.Pointer(s)).Position())
 }
 
-// AIL_stream_status
-func AIL_stream_status(s HSTREAM) int32 {
+func AIL_stream_status(s ail.Stream) int32 {
 	return int32(ail.Stream(unsafe.Pointer(s)).Status())
 }
 
-// AIL_load_sample_buffer
-func AIL_load_sample_buffer(s HSAMPLE, num uint32, buf unsafe.Pointer, sz uint32) {
+func AIL_load_sample_buffer(s ail.Sample, num uint32, buf unsafe.Pointer, sz uint32) {
 	ail.Sample(unsafe.Pointer(s)).LoadBuffer(num, unsafe.Slice((*byte)(buf), int(sz)))
 }
 
-// AIL_sample_buffer_ready
-func AIL_sample_buffer_ready(s HSAMPLE) int32 {
+func AIL_sample_buffer_ready(s ail.Sample) int32 {
 	return int32(ail.Sample(unsafe.Pointer(s)).BufferReady())
 }
 
-// AIL_sample_user_data
-func AIL_sample_user_data(s HSAMPLE) unsafe.Pointer {
+func AIL_sample_user_data(s ail.Sample) unsafe.Pointer {
 	v := ail.Sample(unsafe.Pointer(s)).UserData()
 	if v == nil {
 		return nil
@@ -150,9 +144,8 @@ func sub_43EC10(a1 unsafe.Pointer) {
 	Sub_43EC10()
 }
 
-// sub_43F130
-func sub_43F130() int32 {
-	return int32(Sub_43F130())
+func sub_43F130() ail.Driver {
+	return Sub_43F130()
 }
 
 // sub_43ED00
@@ -239,15 +232,15 @@ func Sub_43EE00(v *AudioSample) {
 }
 
 func Sub_43EDB0(v ail.Sample) {
-	sub_43EDB0((HSAMPLE)(unsafe.Pointer(v)))
+	sub_43EDB0(v)
 }
 
 func Get_dword_5d4594_816364() ail.Stream {
-	return ail.Stream(dword_5d4594_816364)
+	return audioStream1
 }
 
 func Set_dword_5d4594_816364(v ail.Stream) {
-	dword_5d4594_816364 = uint32(v)
+	audioStream1 = v
 }
 
 func Set_dword_5d4594_816092(v int) {
@@ -255,11 +248,11 @@ func Set_dword_5d4594_816092(v int) {
 }
 
 func Get_dword_5d4594_831088() ail.Stream {
-	return ail.Stream(dword_5d4594_831088)
+	return audioStream2
 }
 
 func Set_dword_5d4594_831088(v ail.Stream) {
-	dword_5d4594_831088 = uint32(v)
+	audioStream2 = v
 }
 
 func Sub_413890() string {
@@ -295,15 +288,15 @@ func Sub_453050() {
 }
 
 func Sub_44D5C0(s ail.Stream, a2 int) {
-	sub_44D5C0(int32(s), int32(a2))
+	sub_44D5C0(s, int32(a2))
 }
 
 func Get_dword_5d4594_816376() ail.Driver {
-	return ail.Driver(dword_5d4594_816376)
+	return audioDriver
 }
 
 func Sub_486320(p unsafe.Pointer, a2 int) {
-	sub_486320((*uint32)(p), int32(a2))
+	sub_486320(p, uint32(a2))
 }
 
 func Sub_486350(p unsafe.Pointer, a2 int) {
@@ -311,7 +304,7 @@ func Sub_486350(p unsafe.Pointer, a2 int) {
 }
 
 func Sub_43D3C0(s ail.Stream, a2 int) {
-	sub_43D3C0(int32(s), int32(a2))
+	sub_43D3C0(s, int32(a2))
 }
 
 func Get_dword_587000_122856() int {
@@ -322,8 +315,8 @@ func Get_dword_587000_122848() int {
 	return int(dword_587000_122848)
 }
 
-func Get_dword_5d4594_830872() int {
-	return int(dword_5d4594_830872)
+func Get_dword_5d4594_830872() unsafe.Pointer {
+	return dword_5d4594_830872
 }
 
 func Set_dword_587000_122856(v int) {
@@ -348,10 +341,6 @@ func Set_dword_587000_81128(v unsafe.Pointer) {
 
 func Sub_4864A0(v unsafe.Pointer) {
 	sub_4864A0((*uint32)(v))
-}
-
-func Sub_451850(a1 unsafe.Pointer, a2 unsafe.Pointer) {
-	sub_451850(int32(uintptr(a1)), a2)
 }
 
 func Sub_4866A0(a1 int) int {

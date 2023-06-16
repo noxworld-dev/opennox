@@ -47,8 +47,8 @@ func sub_4CCEA0(a1 *uint32, a2 int32) {
 			v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*9)) + uint32((v3*v8)/100))
 			v12 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522964), v9, v11))))
 			if v12 != 0 {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 432)) = uint32(v9 << 12)
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 436)) = uint32(v11 << 12)
+				*(*uint32)(unsafe.Add(v12, 432)) = uint32(v9 << 12)
+				*(*uint32)(unsafe.Add(v12, 436)) = uint32(v11 << 12)
 				v17.X = float32(float64(-v18))
 				v17.Y = float32(float64(-v15))
 				v13 = nox_common_randomIntMinMax_415FF0(-25, 25, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 63)
@@ -56,14 +56,14 @@ func sub_4CCEA0(a1 *uint32, a2 int32) {
 				if v14 < 0 {
 					v14 += int32(uint32(math.MaxUint8-v14) >> 8 << 8)
 				}
-				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 299)) = uint8(int8(v14))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 440)) = uint32(a2 * nox_common_randomIntMinMax_415FF0(100, 300, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 74))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(30, 45, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 77))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 444)) = gameFrame()
-				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 104)) = 28
-				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 106)) = 0
-				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v12)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(-2, 4, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 84)))
-				nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v12))))
+				*(*uint8)(unsafe.Add(v12, 299)) = uint8(int8(v14))
+				*(*uint32)(unsafe.Add(v12, 440)) = uint32(a2 * nox_common_randomIntMinMax_415FF0(100, 300, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 74))
+				*(*uint32)(unsafe.Add(v12, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(30, 45, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 77))
+				*(*uint32)(unsafe.Add(v12, 444)) = gameFrame()
+				*(*uint16)(unsafe.Add(v12, 104)) = 28
+				*(*uint16)(unsafe.Add(v12, 106)) = 0
+				*(*uint8)(unsafe.Add(v12, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(-2, 4, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c"), 84)))
+				nox_xxx_sprite_45A110_drawable((*client.Drawable)(v12))
 			}
 			v16--
 			if v16 == 0 {

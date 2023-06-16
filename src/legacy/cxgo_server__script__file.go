@@ -245,13 +245,13 @@ func nox_script_readWriteYyy_542380(f1 *FILE, f2 *FILE, a3 int32) int32 {
 					nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
 					nox_fs_fread(f2, unsafe.Pointer(&a2), 4)
 					nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
-					a2 = int32(uintptr(unsafe.Add(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428), -2)))
+					a2 = int32(uintptr(unsafe.Add(unsafe.Add(a2, dword_5d4594_2489428), -2)))
 					nox_fs_fwrite(f2, unsafe.Pointer(&a2), 4)
 					if nox_script_shouldReadEvenMoreXxx(v13) {
 						nox_fs_fseek(f2, -12, stdio.SEEK_CUR)
 						nox_fs_fread(f2, unsafe.Pointer(&a2), 4)
 						nox_fs_fseek(f2, -4, stdio.SEEK_CUR)
-						a2 = int32(uintptr(unsafe.Add(unsafe.Add(unsafe.Pointer(uintptr(a2)), dword_5d4594_2489428), -2)))
+						a2 = int32(uintptr(unsafe.Add(unsafe.Add(a2, dword_5d4594_2489428), -2)))
 						nox_fs_fwrite(f2, unsafe.Pointer(&a2), 4)
 						nox_fs_fseek(f2, 8, stdio.SEEK_CUR)
 					}
@@ -567,7 +567,7 @@ func sub_543110(lpExistingFileName *byte, a2 *int32) int32 {
 		v19         [2048]byte
 		NewFileName [2048]byte
 	)
-	sub_542BF0(*(*int32)(unsafe.Pointer(&dword_5d4594_3835312)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
+	sub_542BF0(dword_5d4594_3835312, *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
 	v2 = int32(*memmap.PtrUint32(0x587000, 282612))
 	libc.StrCpy(&NewFileName[0], (*byte)(memmap.PtrOff(0x973F18, 42152)))
 	v3 = int32(*memmap.PtrUint32(0x587000, 282616))
@@ -617,7 +617,7 @@ func sub_543110(lpExistingFileName *byte, a2 *int32) int32 {
 		nox_fs_fread(v6, unsafe.Pointer(&v19[0]), int32(v12))
 		v19[v12] = 0
 		if v10 > 1 {
-			sub_5435C0(unsafe.Pointer(&v19[0]), *(*int32)(unsafe.Pointer(&dword_5d4594_3835312)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
+			sub_5435C0(unsafe.Pointer(&v19[0]), dword_5d4594_3835312, *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
 			libc.StrCpy(&v19[0], (*byte)(memmap.PtrOff(0x5D4594, 2489164)))
 			v10 = j
 			v12 = uint32(libc.StrLen(&v19[0]))

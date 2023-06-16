@@ -445,9 +445,9 @@ func asPtr(v any) unsafe.Pointer {
 	case uintptr:
 		return unsafe.Pointer(v)
 	case uint32:
-		return unsafe.Pointer(uintptr(v))
+		return v
 	case int32:
-		return unsafe.Pointer(uintptr(v))
+		return v
 	default:
 		return reflect.ValueOf(v).UnsafePointer()
 	}

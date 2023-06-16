@@ -26,7 +26,7 @@ func sub_57AF30(a1 unsafe.Pointer, a2 int32) {
 	}
 	if a2 != 0 {
 		if a2 != 1 {
-			v3 = *(**uint32)(unsafe.Pointer(&dword_5d4594_2523776))
+			v3 = dword_5d4594_2523776
 		} else {
 			v3 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("OblivionUp"))))
 			v2 = dword_5d4594_2523780
@@ -62,7 +62,7 @@ func sub_57AF30(a1 unsafe.Pointer, a2 int32) {
 	if v2 != nil {
 		v5 = int32(*(*uint32)(unsafe.Add(v2, 748)))
 		if nox_xxx_playerSetState_4FA020((*server.Object)(v2), 30) == 1 {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v5)), 236)) = 4
+			*(*uint8)(unsafe.Add(v5, 236)) = 4
 		}
 	}
 	if a2 != 0 {

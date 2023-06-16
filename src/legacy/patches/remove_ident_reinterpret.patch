@@ -1,0 +1,6 @@
+@@
+var T expression
+var V identifier
+@@
+-*(*T)(unsafe.Pointer(&V))
++V

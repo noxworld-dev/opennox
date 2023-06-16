@@ -100,9 +100,8 @@ func nox_xxx_wndWddSetTooltip_46B000(draw *gui.WindowData, str *wchar2_t) {
 	draw.SetTooltip(sm, GoWString(str))
 }
 
-// sub_46B120
-func sub_46B120(a1, a2 *gui.Window) int32 {
-	return int32(a1.SetParent(a2))
+func sub_46B120(a1, a2 *gui.Window) {
+	a1.SetParent(a2)
 }
 
 func Sub_46A4A0() int {

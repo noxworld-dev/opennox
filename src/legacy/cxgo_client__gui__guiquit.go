@@ -10,7 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var nox_wnd_quitMenu_825760 *gui.Window = nil
+var nox_wnd_quitMenu_825760 *gui.Window
 
 func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	var (

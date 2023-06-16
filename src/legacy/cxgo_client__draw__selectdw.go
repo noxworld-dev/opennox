@@ -20,7 +20,7 @@ func nox_video_drawCursorSelectCircle_4773C0(a1p *noxrender.Viewport) {
 		if int32(*(*uint8)(unsafe.Add(dword_5d4594_1096640, 112)))&6 != 0 && sub_495A80(int32(*(*uint32)(unsafe.Add(dword_5d4594_1096640, 128)))) == 0 {
 			v4 = nox_common_randomIntMinMax_415FF0(0, 1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\selectdw.c"), 440)
 			if v4 == 0 {
-				v3 = (*uint32)(unsafe.Pointer(uintptr(nox_color_violet_2598268)))
+				v3 = (*uint32)(nox_color_violet_2598268)
 				goto LABEL_15
 			}
 			if v4 == 1 {
@@ -30,16 +30,16 @@ func nox_video_drawCursorSelectCircle_4773C0(a1p *noxrender.Viewport) {
 		} else {
 			v1 = nox_common_randomIntMinMax_415FF0(0, 2, internCStr("C:\\NoxPost\\src\\Client\\Draw\\selectdw.c"), 423)
 			if v1 == 0 {
-				v3 = (*uint32)(unsafe.Pointer(uintptr(nox_color_white_2523948)))
+				v3 = (*uint32)(nox_color_white_2523948)
 				goto LABEL_15
 			}
 			v2 = v1 - 1
 			if v2 == 0 {
-				v3 = (*uint32)(unsafe.Pointer(uintptr(nox_color_blue_2650684)))
+				v3 = (*uint32)(nox_color_blue_2650684)
 				goto LABEL_15
 			}
 			if v2 == 1 {
-				v3 = (*uint32)(unsafe.Pointer(uintptr(nox_color_cyan_2649820)))
+				v3 = (*uint32)(nox_color_cyan_2649820)
 				goto LABEL_15
 			}
 		}
@@ -47,7 +47,7 @@ func nox_video_drawCursorSelectCircle_4773C0(a1p *noxrender.Viewport) {
 	LABEL_15:
 		v5 = int32(*(*uint32)(unsafe.Add(dword_5d4594_1096640, 112)))
 		if (v5 & 0x200) == 0 {
-			nox_video_drawCursorSelectCircle2_477470(a1, int32(uintptr(unsafe.Pointer(v3))), *(*int32)(unsafe.Pointer(&dword_5d4594_1096640)))
+			nox_video_drawCursorSelectCircle2_477470(a1, int32(uintptr(unsafe.Pointer(v3))), dword_5d4594_1096640)
 		}
 	}
 }

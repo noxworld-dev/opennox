@@ -33,7 +33,7 @@ func nox_xxx_xferReadScriptHandler_4F5580(a1 int32, a2 *byte) int32 {
 			if noxflags.HasGame(0x600000) {
 				libc.StrCpy(a2, &v7[0])
 			} else {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)) = uint32(nox_script_indexByEvent(&v7[0]))
+				*(*uint32)(unsafe.Add(a1, 4)) = uint32(nox_script_indexByEvent(&v7[0]))
 			}
 		}
 	} else {
@@ -45,7 +45,7 @@ func nox_xxx_xferReadScriptHandler_4F5580(a1 int32, a2 *byte) int32 {
 				goto LABEL_16
 			}
 		} else {
-			v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 4)))
+			v4 = int32(*(*uint32)(unsafe.Add(a1, 4)))
 			if v4 != -1 {
 				var name *byte = nox_script_callbackName(v4)
 				if name != nil {
@@ -60,6 +60,6 @@ func nox_xxx_xferReadScriptHandler_4F5580(a1 int32, a2 *byte) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4)
 	}
 LABEL_16:
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(a1))), 4)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(a1), 4)
 	return 1
 }

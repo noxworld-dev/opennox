@@ -20,7 +20,7 @@ func nox_xxx_unitGiveXP_4EF270(a1 unsafe.Pointer, a2 float32) float64 {
 	v4 = float64((a2-*(*float32)(unsafe.Add(a1, 28)))**mem_getFloatPtr(0x587000, 206148)) + 1.0
 	v5 = float32(v4)
 	*(*float32)(unsafe.Add(a1, 28)) = float32(v4 + float64(*(*float32)(unsafe.Add(a1, 28))))
-	sub_56FA40(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3)), 276)), 4604))), v5)
+	sub_56FA40(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 4604))), v5)
 	sub_4D81A0(a1)
 	sub_4EF2E0_exp_level(a1)
 	return float64(v5)

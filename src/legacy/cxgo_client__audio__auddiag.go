@@ -21,7 +21,7 @@ func nox_xxx_WorkerHurt_44D810() int32 {
 		dword_5d4594_831076 = 1
 		nox_strman_loadString_40F1D0(internCStr("Con03B.scr:WorkerHurt"), (**byte)(unsafe.Pointer(&v1)), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudDiag.c"), 279)
 		if v1 != 0 {
-			nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(v1))), 0)
+			nox_xxx_playDialogFile_44D900((*byte)(v1), 0)
 		}
 	}
 	return 1

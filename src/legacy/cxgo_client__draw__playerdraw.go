@@ -90,7 +90,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if (*(*byte)(unsafe.Add(unsafe.Pointer(v3), 4)) & 1) != 0 {
 		v36[2] = nox_win_width
 		v36[8] = nox_win_width
-		v11 = *(**uint32)(unsafe.Pointer(&dword_5d4594_1313792))
+		v11 = dword_5d4594_1313792
 		v36[0] = 0
 		v36[1] = 0
 		v36[3] = nox_win_height
@@ -109,15 +109,15 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			for v14 = 0; v14 < 27; v14++ {
 				if *v15 == 1 {
 					alloc.Memcpy(unsafe.Add(unsafe.Pointer(v11), 4*108), unsafe.Add(unsafe.Pointer(v3), v14*24+2328), 0x14)
-					v11 = *(**uint32)(unsafe.Pointer(&dword_5d4594_1313792))
+					v11 = dword_5d4594_1313792
 					v3 = v32
 					break
 				}
 				v15 = (*uint32)(unsafe.Add(unsafe.Pointer(v15), 4*6))
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*3)) = uint32(int32(dr.PosVec.X) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)) + *v10 + 15)
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1313792)), 16)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) + int32(dr.PosVec.Y) - 25)
-			ccall.AsFunc[func(*int32, uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1313792)), 300)))(&v36[0], dword_5d4594_1313792)
+			*(*uint32)(unsafe.Add(dword_5d4594_1313792, 16)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) + int32(dr.PosVec.Y) - 25)
+			ccall.AsFunc[func(*int32, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313792, 300)))(&v36[0], dword_5d4594_1313792)
 		}
 	}
 	var colors [6]uint32
@@ -261,9 +261,9 @@ func nox_thing_player_waypoint_draw(vp *noxrender.Viewport, dr *client.Drawable)
 		a2 int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	v2 = int32(*memmap.PtrUint32(0x85B3FC, 940))
-	nox_xxx_spriteDrawCircleMB_4C32A0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12))-*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16))-*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20))), 10, *memmap.PtrInt32(0x85B3FC, 940))
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 16)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 20)))
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 12)) - *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 16)))
+	nox_xxx_spriteDrawCircleMB_4C32A0(int32(*(*uint32)(unsafe.Add(a2, 12))-*(*uint32)(unsafe.Add(a1, 16))), int32(*(*uint32)(unsafe.Add(a2, 16))-*(*uint32)(unsafe.Add(a1, 20))), 10, *memmap.PtrInt32(0x85B3FC, 940))
+	v3 = int32(*(*uint32)(unsafe.Add(a2, 16)) - *(*uint32)(unsafe.Add(a1, 20)))
+	v4 = int32(*(*uint32)(unsafe.Add(a2, 12)) - *(*uint32)(unsafe.Add(a1, 16)))
 	v5 = int32(uint8(int8(int32(uint8(gameFrame())) * 2)))
 	nox_client_drawEnableAlpha_434560(1)
 	nox_client_drawSetColor_434460(v2)
@@ -335,8 +335,8 @@ LABEL_3:
 		*((*uint8)(unsafe.Add(unsafe.Pointer(a3), v23))) = 0
 		if libc.StrCmp(internCStr("NAKED"), a3) == 0 {
 			v14 = (*uint32)(alloc.Calloc1(1, 0x28))
-			v15 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 40)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 48)) = uint32(uintptr(unsafe.Pointer(v14)))
+			v15 = int32(*(*int16)(unsafe.Add(v11, 40)))
+			*(*uint32)(unsafe.Add(v11, 48)) = uint32(uintptr(unsafe.Pointer(v14)))
 			v16 = sub_44B940(v14, v15, f)
 		} else {
 			v17 = nox_xxx_parse_Armor_44BA60(a3)
@@ -347,11 +347,11 @@ LABEL_3:
 				}
 				v20 = (*uint32)(alloc.Calloc1(1, 0x28))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11+v19*4)), 156)) = uint32(uintptr(unsafe.Pointer(v20)))
-				v16 = sub_44B940(v20, int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 40))), f)
+				v16 = sub_44B940(v20, int32(*(*int16)(unsafe.Add(v11, 40))), f)
 			} else {
 				v18 = (*uint32)(alloc.Calloc1(1, 0x28))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11+v17*4)), 52)) = uint32(uintptr(unsafe.Pointer(v18)))
-				v16 = sub_44B940(v18, int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v11)), 40))), f)
+				v16 = sub_44B940(v18, int32(*(*int16)(unsafe.Add(v11, 40))), f)
 			}
 		}
 		if v16 == 0 {

@@ -52,7 +52,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 					for i := nox_xxx_inventoryGetFirst_4E7980(unit); i != nil; i = nox_xxx_inventoryGetNext_4E7990(i) {
 						v24 += int32(*(*uint8)(unsafe.Add(i, 488)))
 					}
-					if v24+int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v23)), 488))) <= int32(*(*uint16)(unsafe.Add(unit, 490))) {
+					if v24+int32(*(*uint8)(unsafe.Add(v23, 488))) <= int32(*(*uint16)(unsafe.Add(unit, 490))) {
 						OnLibraryNotice_420(unit, uint32(v23), unit, uint32(v23))
 					} else {
 						nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unit), internCStr("pickup.c:CarryingTooMuch"), 0)
@@ -113,7 +113,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))) != 0 {
 				v32 := int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v31))))
 				if v32 != 0 {
-					nox_xxx_orderUnit_533900((*server.Object)(unit), (*server.Object)(unsafe.Pointer(uintptr(v32))), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
+					nox_xxx_orderUnit_533900((*server.Object)(unit), (*server.Object)(v32), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
 				}
 			} else {
 				nox_xxx_orderUnit_533900((*server.Object)(unit), nil, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
@@ -267,7 +267,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			if v68 != nil {
 				v69 := *(*unsafe.Pointer)(unsafe.Add(v85, 280))
 				if v69 != nil {
-					if nox_xxx_tradeP2PAddOffer2_50F820_trade(v69, unit, *(*float32)(unsafe.Pointer(&v68))) == 1 {
+					if nox_xxx_tradeP2PAddOffer2_50F820_trade(v69, unit, v68) == 1 {
 						sub_4ED0C0((*server.Object)(unit), (*server.Object)(unsafe.Pointer(v68)))
 					}
 				}
@@ -354,12 +354,12 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		v79 := *(*uint8)(unsafe.Add(unsafe.Pointer(data), 1))
 		if int32(v79) == 3 {
 			v80 := *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*69))
-			v81 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v80)), 2056)))
+			v81 := int32(*(*uint32)(unsafe.Add(v80, 2056)))
 			if v81 != 0 {
-				v7 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v81)), 16)))
+				v7 := int32(*(*uint32)(unsafe.Add(v81, 16)))
 				if (v7 & 0x8000) != 0 {
 					*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*137)) = 0
-					nox_xxx_playerRespawn_4F7EF0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v80)), 2056))))
+					nox_xxx_playerRespawn_4F7EF0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(v80, 2056))))
 				}
 			}
 		} else {

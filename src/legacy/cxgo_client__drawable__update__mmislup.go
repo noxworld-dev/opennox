@@ -45,15 +45,15 @@ func nox_xxx_updDrawMagicMissile_4CD9E0(vp *noxrender.Viewport, dr *client.Drawa
 			v9 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522984), v6, v8))))
 			v10 = v9
 			if v9 != 0 {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 432)) = uint32(v6 << 12)
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 436)) = uint32(v8 << 12)
-				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v9)), 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c"), 52)))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 440)) = 0
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c"), 59))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 444)) = gameFrame()
-				*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 104)) = 20
-				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v10)), 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 6, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c"), 65)))
-				nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(uintptr(v10))))
+				*(*uint32)(unsafe.Add(v9, 432)) = uint32(v6 << 12)
+				*(*uint32)(unsafe.Add(v9, 436)) = uint32(v8 << 12)
+				*(*uint8)(unsafe.Add(v9, 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c"), 52)))
+				*(*uint32)(unsafe.Add(v10, 440)) = 0
+				*(*uint32)(unsafe.Add(v10, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c"), 59))
+				*(*uint32)(unsafe.Add(v10, 444)) = gameFrame()
+				*(*uint16)(unsafe.Add(v10, 104)) = 20
+				*(*uint8)(unsafe.Add(v10, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 6, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c"), 65)))
+				nox_xxx_sprite_45A110_drawable((*client.Drawable)(v10))
 			}
 			if func() int32 {
 				p := &v16

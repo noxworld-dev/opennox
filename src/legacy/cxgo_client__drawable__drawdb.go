@@ -81,7 +81,7 @@ func nox_parse_thing_light_dir(obj *client.ObjectType, f *binfile.MemFile, data 
 	if deg < 0 || deg >= 360 {
 		return false
 	}
-	obj.LightDir = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
+	obj.LightDir = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)*qword_581450_9552 + qword_581450_9544)))
 	obj.Field_10 = 0
 	return true
 }
@@ -94,7 +94,7 @@ func nox_parse_thing_light_penumbra(obj *client.ObjectType, f *binfile.MemFile, 
 	if deg < 0 || deg >= 180 {
 		return false
 	}
-	obj.LightPenumbra = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
+	obj.LightPenumbra = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)*qword_581450_9552 + qword_581450_9544)))
 	return true
 }
 
@@ -129,7 +129,7 @@ func sub_485F30() int32 {
 		v1 *unsafe.Pointer
 	)
 	v0 = 0
-	if *(*int32)(unsafe.Pointer(&dword_5d4594_251572)) <= 0 {
+	if dword_5d4594_251572 <= 0 {
 		return 1
 	}
 	v1 = (*unsafe.Pointer)(memmap.PtrOff(0x85B3FC, 28676))
@@ -140,7 +140,7 @@ func sub_485F30() int32 {
 		}
 		v0++
 		v1 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(unsafe.Pointer(nil))*15))
-		if v0 >= *(*int32)(unsafe.Pointer(&dword_5d4594_251572)) {
+		if v0 >= dword_5d4594_251572 {
 			break
 		}
 	}
@@ -318,7 +318,7 @@ func sub_44C7B0(a1 int32) unsafe.Pointer {
 		v6     int32
 		result unsafe.Pointer
 	)
-	v1 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1)), 52))
+	v1 = (*unsafe.Pointer)(unsafe.Add(a1, 52))
 	v2 = 55
 	for {
 		if *v1 != nil {

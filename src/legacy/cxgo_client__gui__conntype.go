@@ -15,15 +15,15 @@ func sub_49C820() int32 {
 		v2 *wchar2_t
 	)
 	dword_5d4594_1305684 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("conntype.wnd"), sub_49CA60))))
-	sub_46B120((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305684)))), nil)
-	nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1305684))))
-	sub_46C690((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1305684))))
-	nox_xxx_windowFocus_46B500((*gui.Window)(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1305684))))
+	sub_46B120((*gui.Window)(unsafe.Pointer(dword_5d4594_1305684)), nil)
+	nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(dword_5d4594_1305684))
+	sub_46C690((*gui.Window)(dword_5d4594_1305684))
+	nox_xxx_windowFocus_46B500((*gui.Window)(dword_5d4594_1305684))
 	sub_49C910()
-	nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305684)))), nox_win_width/2-*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 8))/2, nox_win_height/2-*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 12))/2)
+	nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305684)), nox_win_width/2-*(*int32)(unsafe.Add(dword_5d4594_1305684, 8))/2, nox_win_height/2-*(*int32)(unsafe.Add(dword_5d4594_1305684, 12))/2)
 	nox_xxx_guiServerOptsLoad_457500()
 	sub_459D80(1)
-	v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305684)))), 10352)))
+	v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305684)), 10352)))
 	v1 = (**byte)(memmap.PtrOff(0x587000, 164928))
 	for {
 		v2 = nox_strman_loadString_40F1D0(*v1, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\conntype.c"), 158)
@@ -51,7 +51,7 @@ func sub_49C910() *uint32 {
 		v11    int32
 		v12    int32
 	)
-	v0 = (*uint16)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305684)))), 10352)))
+	v0 = (*uint16)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305684)), 10352)))
 	v1 = v0
 	v2 = (**byte)(memmap.PtrOff(0x587000, 164928))
 	v3 = (nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*59)))))) + 1) * 5
@@ -77,13 +77,13 @@ func sub_49C910() *uint32 {
 	v7 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4))))
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2))) = uint32(v6)
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) = uint32(v7 + v6)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 16)) = uint32(v7 - 40)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 20)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5))) - 40
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 24)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) + 40
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 28)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 40
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 8)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2))) + 80
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(dword_5d4594_1305684)), 12)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3))) + 80
-	result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305684)))), 10353)))
+	*(*uint32)(unsafe.Add(dword_5d4594_1305684, 16)) = uint32(v7 - 40)
+	*(*uint32)(unsafe.Add(dword_5d4594_1305684, 20)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5))) - 40
+	*(*uint32)(unsafe.Add(dword_5d4594_1305684, 24)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) + 40
+	*(*uint32)(unsafe.Add(dword_5d4594_1305684, 28)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 40
+	*(*uint32)(unsafe.Add(dword_5d4594_1305684, 8)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2))) + 80
+	*(*uint32)(unsafe.Add(dword_5d4594_1305684, 12)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3))) + 80
+	result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305684)), 10353)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 10
 	v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)))
 	v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)))

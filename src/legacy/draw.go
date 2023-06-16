@@ -338,7 +338,7 @@ func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *wchar2_t, x, y int3
 
 // nox_video_drawAnimatedImageOrCursorAt_4BE6D0
 func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 int32) {
-	GetClient().Nox_video_drawAnimatedImageOrCursorAt(AsImageRefP(unsafe.Pointer(uintptr(a1))), image.Point{X: int(a2), Y: int(a3)})
+	GetClient().Nox_video_drawAnimatedImageOrCursorAt(AsImageRefP(a1), image.Point{X: int(a2), Y: int(a3)})
 }
 
 // sub_484C60
