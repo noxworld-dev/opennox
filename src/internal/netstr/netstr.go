@@ -689,7 +689,7 @@ func (g *Streams) GetInitInd() Handle {
 	return g.initIndex
 }
 
-func (g *Streams) InitNew(narg *Options) (Handle, error) {
+func (g *Streams) NewServer(narg *Options) (Handle, error) {
 	if narg == nil {
 		return Handle{nil, -2}, errors.New("empty options")
 	}
