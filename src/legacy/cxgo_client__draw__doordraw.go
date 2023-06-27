@@ -53,9 +53,9 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		a3.field_0 -= 15
 		a3.field_4 -= 20
 		if int32(v7) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_110))), a3.field_0, v12)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_110))), a3.field_0, v12)
 		} else {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_111))), a3.field_0, v12)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_111))), a3.field_0, v12)
 		}
 		return 1
 	} else if int32(v6) == 8 {
@@ -64,9 +64,9 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		a3.field_0 += 15
 		a3.field_4 -= 20
 		if int32(v9) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_109))), a3.field_0, v13)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_109))), a3.field_0, v13)
 		} else {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_112))), a3.field_0, v13)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_112))), a3.field_0, v13)
 		}
 		return 1
 	} else if int32(v6) == 16 {
@@ -75,9 +75,9 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		a3.field_0 += 8
 		a3.field_4 += 2
 		if int32(v10) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_110))), a3.field_0, v14)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_110))), a3.field_0, v14)
 		} else {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_111))), a3.field_0, v14)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_111))), a3.field_0, v14)
 		}
 		return 1
 	} else {
@@ -86,9 +86,9 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		a3.field_0 -= 8
 		a3.field_4 += 2
 		if int32(v11) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_109))), a3.field_0, v15)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_109))), a3.field_0, v15)
 		} else {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_112))), a3.field_0, v15)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_112))), a3.field_0, v15)
 		}
 		return 1
 	}

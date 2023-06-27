@@ -368,12 +368,12 @@ func nox_video_drawCircle_4B0B90(a1, a2, a3 int32) {
 }
 
 // nox_client_drawImageAt_47D2C0
-func nox_client_drawImageAt_47D2C0(img *nox_video_bag_image_t, x, y int32) {
+func nox_client_drawImageAt_47D2C0(img noxrender.ImageHandle, x, y int32) {
 	GetClient().R2().DrawImageAt(asImage(img), image.Point{X: int(x), Y: int(y)})
 }
 
 // nox_draw_imageMeta_47D5C0
-func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *uint32) int32 {
+func nox_draw_imageMeta_47D5C0(img noxrender.ImageHandle, px, py, pw, ph *uint32) int32 {
 	if img == nil {
 		return 0
 	}
@@ -403,7 +403,7 @@ func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *uint3
 }
 
 // nox_video_getImagePixdata_42FB30
-func nox_video_getImagePixdata_42FB30(img *nox_video_bag_image_t) unsafe.Pointer {
+func nox_video_getImagePixdata_42FB30(img noxrender.ImageHandle) unsafe.Pointer {
 	data := asImage(img).Pixdata()
 	if len(data) == 0 {
 		return nil

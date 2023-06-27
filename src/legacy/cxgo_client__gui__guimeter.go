@@ -236,7 +236,7 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 	v20 = v3
 	if v18 == 0 && dword_5d4594_1096264 != 0 {
 		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(dword_5d4594_1090276)), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1091900)), xLeft, yTop)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1091900)), xLeft, yTop)
 	}
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
 	xLeft += 5

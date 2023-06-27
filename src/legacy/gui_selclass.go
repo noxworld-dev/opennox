@@ -121,7 +121,7 @@ func guiSelClassProc1(_ *gui.Window, ev, a3, a4 uintptr) uintptr {
 	}
 }
 
-func sub_4A4B70(a1 int32) unsafe.Pointer {
+func sub_4A4B70(a1 int32) {
 	var (
 		v1     uint8
 		result unsafe.Pointer
@@ -138,66 +138,67 @@ func sub_4A4B70(a1 int32) unsafe.Pointer {
 	v1 = 0
 	result = *(*unsafe.Pointer)(unsafe.Add(guiSelClassInfoPtr, 66))
 	v3 = *(**uint8)(memmap.PtrOff(0x587000, uintptr(result)*4+170156))
-	if int32(*v3) != 0 {
+	if int32(*v3) == 0 {
+		return
+	}
+	for {
+		result = unsafe.Pointer(uintptr(func() uint8 {
+			p := &v1
+			*p++
+			return *p
+		}()))
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), int32(v1)*4+int32(v1)))) == 0 {
+			break
+		}
+	}
+	if int32(v1) == 0 {
+		return
+	}
+	v4 = 0
+	v9 = uint8(int8(nox_common_randomIntMinMax_415FF0(0, int32(v1)-1, internCStr("C:\\NoxPost\\src\\client\\shell\\SelClass.c"), 195)))
+	if int32(*(*uint8)(unsafe.Add(guiSelClassInfoPtr, 66))) != 0 {
+		v10 = 0
+		v11 = 5
 		for {
-			result = unsafe.Pointer(uintptr(func() uint8 {
-				p := &v1
-				*p++
-				return *p
-			}()))
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), int32(v1)*4+int32(v1)))) == 0 {
+			nox_xxx_clientUpdateButtonRow_45E110(v10)
+			v6 = 0
+			v7 = 5
+			for {
+				if a1 == 1 {
+					nox_xxx_book_45DBE0(2, 0, v6)
+				} else {
+					nox_xxx_book_45DBE0(2, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), int32(v9)*4+v6+int32(v9)))), v6)
+				}
+				v6++
+				v7--
+				if v7 == 0 {
+					break
+				}
+			}
+			v8 = v11 == 1
+			v10++
+			v11--
+			if v8 {
 				break
 			}
 		}
-		if int32(v1) != 0 {
-			v4 = 0
-			v9 = uint8(int8(nox_common_randomIntMinMax_415FF0(0, int32(v1)-1, internCStr("C:\\NoxPost\\src\\client\\shell\\SelClass.c"), 195)))
-			if int32(*(*uint8)(unsafe.Add(guiSelClassInfoPtr, 66))) != 0 {
-				v10 = 0
-				v11 = 5
-				for {
-					nox_xxx_clientUpdateButtonRow_45E110(v10)
-					v6 = 0
-					v7 = 5
-					for {
-						if a1 == 1 {
-							nox_xxx_book_45DBE0(unsafe.Pointer(uintptr(2)), 0, v6)
-						} else {
-							nox_xxx_book_45DBE0(unsafe.Pointer(uintptr(2)), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), int32(v9)*4+v6+int32(v9)))), v6)
-						}
-						v6++
-						v7--
-						if v7 == 0 {
-							break
-						}
-					}
-					v8 = v11 == 1
-					v10++
-					v11--
-					if v8 {
-						break
-					}
-				}
-				result = unsafe.Pointer(uintptr(nox_xxx_clientUpdateButtonRow_45E110(0)))
+		nox_xxx_clientUpdateButtonRow_45E110(0)
+	} else {
+		nox_xxx_clientUpdateButtonRow_45E110(0)
+		v5 = 5
+		for {
+			if a1 == 1 {
+				nox_xxx_book_45DBE0(3, 0, v4)
 			} else {
-				nox_xxx_clientUpdateButtonRow_45E110(0)
-				v5 = 5
-				for {
-					if a1 == 1 {
-						result = nox_xxx_book_45DBE0(unsafe.Pointer(uintptr(3)), 0, v4)
-					} else {
-						result = nox_xxx_book_45DBE0(unsafe.Pointer(uintptr(3)), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), int32(v9)*4+v4+int32(v9)))), v4)
-					}
-					v4++
-					v5--
-					if v5 == 0 {
-						break
-					}
-				}
+				nox_xxx_book_45DBE0(3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), int32(v9)*4+v4+int32(v9)))), v4)
+			}
+			v4++
+			v5--
+			if v5 == 0 {
+				break
 			}
 		}
 	}
-	return result
 }
 
 func guiSelProc2(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {

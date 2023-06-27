@@ -3347,9 +3347,9 @@ func sub_438E30(win *gui.Window, draw *gui.WindowData) int {
 	nox_client_wndGetPosition_46AA60(win, &v6, &a1)
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*25)))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*9))&6 != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(v1, 4*19))), int32(uint32(v6)+*(*uint32)(unsafe.Add(v1, 4*24))), a1+v2)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(v1, 4*19))), int32(uint32(v6)+*(*uint32)(unsafe.Add(v1, 4*24))), a1+v2)
 	} else {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(v1, 4*15))), int32(uint32(v6)+*(*uint32)(unsafe.Add(v1, 4*24))), a1+v2)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(v1, 4*15))), int32(uint32(v6)+*(*uint32)(unsafe.Add(v1, 4*24))), a1+v2)
 	}
 	v3 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*100))
 	if v3 == nil {

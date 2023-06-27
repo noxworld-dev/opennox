@@ -13,14 +13,8 @@ var (
 	Nox_xxx_gLoadAnim func(name string) *ImageRef
 )
 
-type nox_video_bag_image_t = [0]byte
-
-func asImageH(p *nox_video_bag_image_t) noxrender.ImageHandle {
-	return noxrender.ImageHandle(unsafe.Pointer(p))
-}
-
-func asImage(p *nox_video_bag_image_t) *noxrender.Image {
-	return GetClient().R2().GetBag().AsImage(asImageH(p))
+func asImage(p noxrender.ImageHandle) *noxrender.Image {
+	return GetClient().R2().GetBag().AsImage(p)
 }
 
 type ImageRefAnim struct {
@@ -93,18 +87,18 @@ func (r *ImageRef) Field24ptr() *ImageRefAnim {
 }
 
 // nox_video_bag_image_type
-func nox_video_bag_image_type(img *nox_video_bag_image_t) int32 {
+func nox_video_bag_image_type(img noxrender.ImageHandle) int32 {
 	return int32(asImage(img).Type())
 }
 
 // nox_xxx_readImgMB_42FAA0
-func nox_xxx_readImgMB_42FAA0(known_idx int32, typ int8, cname2 *byte) *nox_video_bag_image_t {
-	return (*nox_video_bag_image_t)(GetClient().R2().GetBag().ImageRef(int(known_idx), byte(typ), GoString(cname2)).C())
+func nox_xxx_readImgMB_42FAA0(known_idx int32, typ int8, cname2 *byte) noxrender.ImageHandle {
+	return (noxrender.ImageHandle)(GetClient().R2().GetBag().ImageRef(int(known_idx), byte(typ), GoString(cname2)).C())
 }
 
 // nox_xxx_gLoadImg_42F970
-func nox_xxx_gLoadImg_42F970(name *byte) *nox_video_bag_image_t {
-	return (*nox_video_bag_image_t)(Nox_xxx_gLoadImg(GoString(name)).C())
+func nox_xxx_gLoadImg_42F970(name *byte) noxrender.ImageHandle {
+	return (noxrender.ImageHandle)(Nox_xxx_gLoadImg(GoString(name)).C())
 }
 
 // nox_xxx_gLoadAnim_42FA20

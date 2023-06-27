@@ -17,15 +17,15 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var nox_win_unk5 *gui.Window = nil
-var dword_5d4594_1062452 *gui.Window = nil
-var nox_windows_arr_1093036 [7]nox_window_yyy = [7]nox_window_yyy{}
-var ptr_5D4594_2650668 **obj_5D4594_2650668_t = nil
+var nox_win_unk5 *gui.Window
+var dword_5d4594_1062452 *gui.Window
+var nox_windows_arr_1093036 [7]nox_window_yyy
+var ptr_5D4594_2650668 **obj_5D4594_2650668_t
 var ptr_5D4594_2650668_cap int32 = 128
-var nox_client_inventory_grid_1050020 [84]nox_inventory_cell_t = [84]nox_inventory_cell_t{}
+var nox_client_inventory_grid_1050020 [84]nox_inventory_cell_t
 
 func sub_460D40() int32 {
-	return bool2int32(dword_5d4594_1049508 != 0)
+	return bool2int32(dword_5d4594_1049508 != nil)
 }
 func sub_460D50() int32 {
 	var (
@@ -36,17 +36,17 @@ func sub_460D50() int32 {
 		result int32
 	)
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1049500)))
-	dword_5d4594_1049500 = 0
+	dword_5d4594_1049500 = nil
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1049504)))
-	dword_5d4594_1049504 = 0
+	dword_5d4594_1049504 = nil
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1049520)))
-	dword_5d4594_1049520 = 0
+	dword_5d4594_1049520 = nil
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1049508)))
-	dword_5d4594_1049508 = 0
+	dword_5d4594_1049508 = nil
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1049512)))
-	dword_5d4594_1049512 = 0
+	dword_5d4594_1049512 = nil
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1049516)))
-	dword_5d4594_1049516 = 0
+	dword_5d4594_1049516 = nil
 	v0 = (*uint8)(memmap.PtrOff(0x5D4594, 1048404))
 	for {
 		nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(v0)))))
@@ -97,8 +97,8 @@ func nox_xxx_cliPrepareGameplay1_460E60() int32 {
 	}
 	return result
 }
-func sub_460EA0(a1 int32) int32 {
-	return sub_460B90(a1)
+func sub_460EA0(a1 int32) {
+	sub_460B90(a1)
 }
 func sub_460EB0(a1 int32, a2 int8) {
 	if a1 < 0 || a1 >= 140 {
@@ -1205,7 +1205,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 		if uint32(1<<v2)&*memmap.PtrUint32(0x5D4594, 1062540) != 0 && v2 != 31 && v2 != 30 {
 			v5 = nox_xxx_getEnchantSpell_424920(v2)
 			v6 = int32(uintptr(nox_xxx_spellIcon_424A90(v5)))
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v6), v3, v4)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v6), v3, v4)
 			v3 += 35
 		}
 		v2++
@@ -1217,7 +1217,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 	for {
 		if int32(*memmap.PtrUint8(0x5D4594, 1062536))&int32(uint8(int8(1<<v7))) != 0 {
 			v8 = sub_413420(int8(1 << v7))
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v8), v3, v4)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v8), v3, v4)
 			v3 += 35
 		}
 		v7++
@@ -1228,7 +1228,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 	if noxflags.HasGame(4096) && dword_5d4594_1050008 != 0 {
 		v4 += 5
 		v3 += 6
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1050008, 96)), 4)) + (gameFrame()%uint32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1050008, 96)), 8))))*4)))), v3-58, v4-53)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1050008, 96)), 4)) + (gameFrame()%uint32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1050008, 96)), 8))))*4)))), v3-58, v4-53)
 		nox_swprintf(&v17[0], internWStr("X %d"), *memmap.PtrUint32(0x5D4594, 1050012))
 		nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x852978, 0))
 		nox_xxx_drawString_43F6E0(dword_5d4594_1063636, &v17[0], v3+20, v4+9)
@@ -1240,7 +1240,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 	if noxflags.HasGame(4096) && sub_4BFD30() != 0 {
 		v9 = v4 + 5
 		v10 = v3 + 66
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1050004)), v10-64, v9-58)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1050004)), v10-64, v9-58)
 		*memmap.PtrUint32(0x5D4594, 1049828) = uint32(v10 - 30)
 		*memmap.PtrUint32(0x5D4594, 1049832) = uint32(v9 - 20)
 		*memmap.PtrUint32(0x5D4594, 1049836) = uint32(v10 + 30)
@@ -1263,16 +1263,16 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 		}
 		if dword_5d4594_1049864 == 5 {
 			sub_4627F0((*uint32)(unsafe.Pointer(&v16)))
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1049912)), v16.field_0, v16.field_4)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1049912)), v16.field_0, v16.field_4)
 		} else {
 			if int32(*memmap.PtrUint8(0x5D4594, 1049870)) != 0 {
 				if int32(*memmap.PtrUint8(0x5D4594, 1049870)) == 1 {
 					nox_client_makePlayerStatsDlg_463880(&v16.field_0)
-					nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1049912)), v16.field_0, v16.field_4)
+					nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1049912)), v16.field_0, v16.field_4)
 				}
 			} else {
 				sub_4BF7E0((*uint32)(unsafe.Pointer(&v16)))
-				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1049908)), v16.field_0, v16.field_4)
+				nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1049908)), v16.field_0, v16.field_4)
 			}
 			nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 			nox_xxx_drawStringWrap_43FAF0(nil, (*wchar2_t)(memmap.PtrOff(0x5D4594, 1062588)), v16.field_0+13, v16.field_4+17, 196, 0)
@@ -1349,16 +1349,16 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 		v29         *uint8
 	)
 	v2 = a2
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1049928)), a1, a2)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1049928)), a1, a2)
 	nox_itow(dword_5d4594_1062552, &WideCharStr[0], 10)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_yellow_2589772))
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_1063636, &WideCharStr[0], &v24, nil, 0)
 	nox_xxx_drawString_43F6E0(dword_5d4594_1063636, &WideCharStr[0], a1-v24+43, a2+36)
 	if dword_5d4594_1049864 == 5 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1049932)), a1, a2+50)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1049932)), a1, a2+50)
 	}
 	if sub_473670() != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1049936)), a1, a2+100)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1049936)), a1, a2+100)
 	}
 	v3 = a1 + 60
 	v4 = &nox_client_inventory_grid_1050020[0].field_140
@@ -1369,7 +1369,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 	for {
 		if v5 > v2-50 {
 			v6 = v3
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, uintptr((v20%3)*4)+1049916)), v3, v5)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, uintptr((v20%3)*4)+1049916)), v3, v5)
 			v29 = v4
 			v22 = 4
 			for {
@@ -1402,7 +1402,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 							v18 = v6
 						} else {
 							if *(*uint32)(unsafe.Add(unsafe.Pointer(v4), -int(4*1))) != 0 {
-								nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1049968)), v6, v5)
+								nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1049968)), v6, v5)
 								goto LABEL_27
 							}
 							if *(*uint32)(unsafe.Add(unsafe.Pointer(v4), -int(4*34))) != dword_5d4594_1062488 {
@@ -1419,7 +1419,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 							v19 = v5
 							v18 = v6
 						}
-						nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v11), v18, v19)
+						nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v11), v18, v19)
 					LABEL_27:
 						nox_client_drawEnableAlpha_434560(0)
 						*(*uint32)(unsafe.Add(v7, 16)) = uint32(v5 + 25)
@@ -1755,7 +1755,7 @@ func sub_465D50_draw(a1 int32) int32 {
 		return 1
 	} else {
 		if dword_5d4594_1062496 == 0 && dword_5d4594_1062492 == 0 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1050000)), v4+21, a1+50)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1050000)), v4+21, a1+50)
 		}
 		return 1
 	}
@@ -1977,7 +1977,7 @@ func nox_xxx_inventoryDrawProc_466580(win *gui.Window, draw *gui.WindowData) int
 	} else {
 		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)))
 	}
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v2), v5, int32(a1b))
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v2), v5, int32(a1b))
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v3 = (*int16)(unsafe.Pointer(sub_42E8E0(35, 1)))
 	if v3 != nil {
@@ -2229,7 +2229,7 @@ func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 		}
 	}
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&v15)), (*uint32)(unsafe.Pointer(&v16)))
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*6))), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*15))+v15, *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*16))+v16)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*6))), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*15))+v15, *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*16))+v16)
 	return 1
 }
 func nox_xxx_inventoryLoadImages_467050() *byte {
@@ -3037,46 +3037,37 @@ func nox_xxx_wndRetNULL_46A8A0() int32 {
 func nox_xxx_wndRetNULL_0_46A8B0() int32 {
 	return 0
 }
-func sub_46AE10(a1 int32, a2 int32) int32 {
-	var (
-		result int32
-		v3     int32
-	)
-	result = a1
-	if a1 != 0 {
-		v3 = int32(*(*uint32)(unsafe.Add(a1, 36)))
+func sub_46AE10(a1 unsafe.Pointer, a2 int32) {
+	if a1 != nil {
+		v3 := int32(*(*uint32)(unsafe.Add(a1, 36)))
 		if a2 != 0 {
 			*(*uint32)(unsafe.Add(a1, 36)) = uint32(v3 | 2)
 		} else {
 			*(*uint32)(unsafe.Add(a1, 36)) = uint32(v3) & 0xFFFFFFFD
 		}
 	}
-	return result
 }
-func nox_xxx_wndSetOffsetMB_46AE40(a1 *gui.Window, a2 int32, a3 int32) int32 {
-	var result int32
-	result = a1
-	if a1 != 0 {
+func nox_xxx_wndSetOffsetMB_46AE40(a1 *gui.Window, a2 int32, a3 int32) {
+	if a1 != nil {
 		*(*uint32)(unsafe.Add(a1, 96)) = uint32(a2)
 		*(*uint32)(unsafe.Add(a1, 100)) = uint32(a3)
 	}
-	return result
 }
-func nox_xxx_wndSetIcon_46AE60(a1 *gui.Window, a2 int32) int32 {
+func nox_xxx_wndSetIcon_46AE60(a1 *gui.Window, a2 noxrender.ImageHandle) int32 {
 	if a1 == nil {
 		return -2
 	}
 	*(*uint32)(unsafe.Add(a1.C(), 60)) = uint32(a2)
 	return 0
 }
-func nox_xxx_wndSetIconLit_46AEA0(a1 *gui.Window, a2 int32) int32 {
+func nox_xxx_wndSetIconLit_46AEA0(a1 *gui.Window, a2 noxrender.ImageHandle) int32 {
 	if a1 == nil {
 		return -2
 	}
 	*(*uint32)(unsafe.Add(a1.C(), 76)) = uint32(a2)
 	return 0
 }
-func sub_46AEC0(a1 unsafe.Pointer, a2 int32) int32 {
+func sub_46AEC0(a1 unsafe.Pointer, a2 noxrender.ImageHandle) int32 {
 	if a1 == nil {
 		return -2
 	}
@@ -5703,7 +5694,7 @@ LABEL_64:
 			if sub_47D380(a3, a4) != 0 {
 				sub_47D400(bool2int32(nox_client_highResFrontWalls_80820 == 0), int8(uint8(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))))
 				v61 = int32(uintptr(nox_xxx_getWallSprite_46A3B0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 1))), v84, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 2))), v73)))
-				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v61), v56, v57)
+				nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v61), v56, v57)
 				sub_47D400(0, 0)
 			}
 			goto LABEL_106
@@ -5718,7 +5709,7 @@ LABEL_64:
 		v67 = v56
 		v51 = int32(uintptr(nox_xxx_getWallSprite_46A3B0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 1))), v84, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 2))), v73)))
 	}
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v51), v67, v68)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v51), v67, v68)
 	sub_47D400(0, 0)
 	nox_client_drawEnableAlpha_434560(0)
 LABEL_106:

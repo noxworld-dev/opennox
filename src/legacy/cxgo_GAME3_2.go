@@ -375,7 +375,7 @@ func sub_4CEED0(win *gui.Window, draw *gui.WindowData) int {
 			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, int32(*(*uint32)(unsafe.Add(a1, 8))), int32(*(*uint32)(unsafe.Add(a1, 12))))
 		}
 	} else {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(a2, 24))), xLeft, yTop)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(a2, 24))), xLeft, yTop)
 	}
 	v2 = int32(nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_1523028), 16404, 0, 0))
 	v3 = int8(*(*uint8)(unsafe.Add(dword_5d4594_1523040, 4)))

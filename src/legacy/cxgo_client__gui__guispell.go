@@ -593,7 +593,7 @@ func nox_xxx_quickBarDrawFn_45FBD0(win *gui.Window, draw *gui.WindowData) int {
 			v10 = nox_xxx_abilityGetName_0_425260(v16)
 			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(v1, 36)), v10)
 			if v9 != 0 {
-				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v9), xLeft, yTop)
+				nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v9), xLeft, yTop)
 			} else {
 				nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 				v17 = yTop + v5 + 2
@@ -605,7 +605,7 @@ func nox_xxx_quickBarDrawFn_45FBD0(win *gui.Window, draw *gui.WindowData) int {
 			v12 = nox_xxx_abilityGetName_0_425260(v16)
 			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(v1, 36)), v12)
 			if v9 != 0 {
-				nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v9), xLeft, yTop)
+				nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v9), xLeft, yTop)
 			} else {
 				nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 				v17 = yTop + v5 + 2
@@ -685,7 +685,7 @@ func nox_xxx_quickBarWarriorDraw_45FDE0(win *gui.Window, draw *gui.WindowData) i
 		v11 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*uintptr(v2*2))))
 		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(v1, 36)), v11)
 		if v9 != 0 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v9), xLeft, yTop)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v9), xLeft, yTop)
 		} else {
 			nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 			v17 = nox_xxx_guiFontHeightMB_43F320(nil) + yTop + 2

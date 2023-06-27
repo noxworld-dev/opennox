@@ -133,7 +133,7 @@ func sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
 	} else {
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*76)))), 4)) + *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*77))*4))))
 	}
-	result = int32(uintptr(nox_video_getImagePixdata_42FB30((*nox_video_bag_image_t)(v4))))
+	result = int32(uintptr(nox_video_getImagePixdata_42FB30((noxrender.ImageHandle)(v4))))
 	if result != 0 {
 		v33 = func(arg1 uint32, arg2 *uint8, arg3 int32) {
 			sub_476D70((*uint32)(arg1), (*int32)(unsafe.Pointer(arg2)), uint32(arg3))
@@ -306,7 +306,7 @@ func sub_476E90(win *gui.Window, draw *gui.WindowData) int {
 	v1 = 0
 	for {
 		if *memmap.PtrUint32(0x5D4594, uintptr(v1)+1096596) != 0 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, uintptr(v1)+1096564)), int32(uint32(nox_win_width/2)+*(*uint32)(unsafe.Pointer(v0))-16), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*1))+uint32(nox_win_height/2)-41))
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, uintptr(v1)+1096564)), int32(uint32(nox_win_width/2)+*(*uint32)(unsafe.Pointer(v0))-16), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*1))+uint32(nox_win_height/2)-41))
 			if (gameFrame() - *memmap.PtrUint32(0x5D4594, uintptr(v1)+1096596)) > 3 {
 				*memmap.PtrUint32(0x5D4594, uintptr(v1)+1096596) = 0
 			}
@@ -824,22 +824,22 @@ func sub_478970(win *gui.Window, draw *gui.WindowData) int {
 	)
 	a1.field_0 = nox_win_width - NOX_DEFAULT_WIDTH
 	a1.field_4 = nox_win_height - NOX_DEFAULT_HEIGHT
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1098400)), nox_win_width-NOX_DEFAULT_WIDTH, nox_win_height-NOX_DEFAULT_HEIGHT)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1098400)), nox_win_width-NOX_DEFAULT_WIDTH, nox_win_height-NOX_DEFAULT_HEIGHT)
 	if dword_5d4594_1098628 == 2 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1098404)), a1.field_0, a1.field_4)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1098404)), a1.field_0, a1.field_4)
 		sub_478C80()
 		return 1
 	} else if dword_5d4594_1098628 == 3 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1098408)), a1.field_0, a1.field_4)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1098408)), a1.field_0, a1.field_4)
 		sub_478B10(&a1)
 		return 1
 	} else if dword_5d4594_1098628 == 1 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1098412)), a1.field_0, a1.field_4)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1098412)), a1.field_0, a1.field_4)
 		sub_478A70(&a1)
 		return 1
 	} else {
 		if dword_5d4594_1098628 == 4 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1098416)), a1.field_0, a1.field_4)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1098416)), a1.field_0, a1.field_4)
 			sub_478BC0(&a1.field_0)
 		}
 		return 1
@@ -858,7 +858,7 @@ func sub_478A70(a1 *int2) int32 {
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v4, &v3)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(dword_5d4594_1098456), a1.field_0, a1.field_4)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(dword_5d4594_1098456), a1.field_0, a1.field_4)
 	result = int32(dword_5d4594_1098604)
 	if dword_5d4594_1098604 != 0 {
 		result = nox_xxx_drawStringWrap_43FAF0(nil, dword_5d4594_1098604, v5+8, v6+8, v4-16, v3-16)
@@ -891,7 +891,7 @@ func sub_478C80() int32 {
 	v7 = (*uint8)(memmap.PtrOff(0x5D4594, 1098640))
 	for {
 		if v1 > *memmap.PtrInt32(0x5D4594, 1098384)-50 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, uintptr((v6%2)*4)+1098424)), v0, v1)
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, uintptr((v6%2)*4)+1098424)), v0, v1)
 			v3 = v0 + 5
 			v4 = 6
 			for {
@@ -1442,7 +1442,7 @@ func sub_479CB0(win *gui.Window, draw *gui.WindowData) int {
 	)
 	v2 = int32(*(*uint32)(unsafe.Add(a2, 24)))
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(dword_5d4594_1123524)), (*uint32)(unsafe.Pointer(&v4)), (*uint32)(unsafe.Pointer(&v5)))
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v2), nox_win_width-NOX_DEFAULT_WIDTH, nox_win_height-NOX_DEFAULT_HEIGHT)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v2), nox_win_width-NOX_DEFAULT_WIDTH, nox_win_height-NOX_DEFAULT_HEIGHT)
 	return 1
 }
 func sub_479D00(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
@@ -1609,7 +1609,7 @@ func nox_xxx_edgeDraw_480EF0(a1 int32, a2 int32, a3 int32, a4 *int32, a5 *int32,
 	if result == nil {
 		return nil
 	}
-	v11 = int8(nox_video_bag_image_type((*nox_video_bag_image_t)(a1)))
+	v11 = int8(nox_video_bag_image_type((noxrender.ImageHandle)(a1)))
 	v45.field_4 = 0
 	v45.field_0 = 0
 	v46.field_4 = 0
@@ -1617,7 +1617,7 @@ func nox_xxx_edgeDraw_480EF0(a1 int32, a2 int32, a3 int32, a4 *int32, a5 *int32,
 	if (int32(v11) & 0x3F) != 3 {
 		return result
 	}
-	result = (*int32)(nox_video_getImagePixdata_42FB30((*nox_video_bag_image_t)(a1)))
+	result = (*int32)(nox_video_getImagePixdata_42FB30((noxrender.ImageHandle)(a1)))
 	if result == nil {
 		return result
 	}
@@ -1861,7 +1861,7 @@ func Nox_xxx_tileDraw_4815E0(a1 *uint32, a2 int32, _ int32) int8 {
 	if uintptr(v2) >= uintptr(nox_video_tileBuf_end_3798844) {
 		v2 += uint32(uintptr(nox_video_tileBuf_ptr_3798796)) - uint32(uintptr(nox_video_tileBuf_end_3798844))
 	}
-	v3 = int32(uintptr(nox_video_getImagePixdata_42FB30((*nox_video_bag_image_t)(a2))))
+	v3 = int32(uintptr(nox_video_getImagePixdata_42FB30((noxrender.ImageHandle)(a2))))
 	v4 = (*byte)(v3)
 	v14 = (*byte)(v3)
 	if v3 != 0 {
@@ -2009,7 +2009,7 @@ func Nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 		tile *nox_tileDef_t = &nox_tile_defs_arr[*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*0))]
 	)
 	v2 = int32(dword_5d4594_3798824)
-	v3 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(tile.data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))+uint32(tile.field_46)))))))
+	v3 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(tile.data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))+uint32(tile.field_46)))))))
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*2)))
 	v5 = int32(dword_5d4594_3798836)
 	addr = (*int32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x85B3FC, uintptr(v4*60+28676)) + (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))+uint32(*memmap.PtrUint16(0x85B3FC, uintptr(v4*60+28690))))*4)))
@@ -2017,12 +2017,12 @@ func Nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 	v7 = int32(dword_5d4594_3798840)
 	*memmap.PtrUint32(0x5D4594, uintptr(v4*4)+2523980) = 1
 	v8 = int32(dword_5d4594_3798804*(uint32(v7)+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))-uint32(v2)) + uint32(uintptr(nox_video_tileBuf_ptr_3798796)) + ((uint32(v5) + *a1 - dword_5d4594_3798820) << uint32(*memmap.PtrUint8(0x973F18, 7696))))
-	v9 = int32(uintptr(nox_video_getImagePixdata_42FB30((*nox_video_bag_image_t)(v6))))
+	v9 = int32(uintptr(nox_video_getImagePixdata_42FB30((noxrender.ImageHandle)(v6))))
 	if v9 != 0 {
 		v32 = *(*uint8)(v9)
 		v25 = *(*uint8)(unsafe.Add(v9, 1))
 		v10 = (*uint8)(unsafe.Add(v9, 2))
-		v9 = int32(uintptr(nox_video_getImagePixdata_42FB30((*nox_video_bag_image_t)(v3))))
+		v9 = int32(uintptr(nox_video_getImagePixdata_42FB30((noxrender.ImageHandle)(v3))))
 		v11 = v9
 		if v9 != 0 {
 			v12 = uint32(uintptr(nox_video_tileBuf_end_3798844))
@@ -2208,7 +2208,7 @@ func nox_xxx_tileDrawMB_481C20_A(vp *noxrender.Viewport, v3 int32) {
 			if int32(*(*uint8)(v14))&2 != 0 {
 				*(*uint16)(unsafe.Add(unsafe.Pointer(&v13), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v14, 24))
 				v15 = int32(*(*uint16)(unsafe.Add(v14, 24)))
-				v62 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v15].data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(v14, 28))+uint32(nox_tile_defs_arr[v15].field_46)))))))
+				v62 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v15].data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(v14, 28))+uint32(nox_tile_defs_arr[v15].field_46)))))))
 				v68.field_0 = v76
 				v68.field_4 = v11 + 23
 				func_587000_154940((*uint32)(unsafe.Pointer(&v68)), v62, v13)
@@ -2220,7 +2220,7 @@ func nox_xxx_tileDrawMB_481C20_A(vp *noxrender.Viewport, v3 int32) {
 			if int32(*(*uint8)(v14))&1 != 0 {
 				*(*uint16)(unsafe.Add(unsafe.Pointer(&v13), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v14, 4))
 				v16 = int32(*(*uint16)(unsafe.Add(v14, 4)))
-				v63 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v16].data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(v14, 8))+uint32(nox_tile_defs_arr[v16].field_46)))))))
+				v63 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v16].data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(v14, 8))+uint32(nox_tile_defs_arr[v16].field_46)))))))
 				v68.field_0 = v76 + 23
 				v68.field_4 = v11
 				func_587000_154940((*uint32)(unsafe.Pointer(&v68)), v63, v13)
@@ -2322,7 +2322,7 @@ func nox_xxx_tileDrawMB_481C20_B(vp *noxrender.Viewport, v78 int32) {
 			if int32(v29)&2 != 0 {
 				*(*uint16)(unsafe.Add(unsafe.Pointer(&v27), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v30, 24))
 				v31 = int32(*(*uint16)(unsafe.Add(v30, 24)))
-				v64 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v31].data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(v30, 28))+uint32(nox_tile_defs_arr[v31].field_46)))))))
+				v64 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v31].data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(v30, 28))+uint32(nox_tile_defs_arr[v31].field_46)))))))
 				v68.field_0 = v26
 				v68.field_4 = v76 + 23
 				func_587000_154940((*uint32)(unsafe.Pointer(&v68)), v64, v27)
@@ -2334,7 +2334,7 @@ func nox_xxx_tileDrawMB_481C20_B(vp *noxrender.Viewport, v78 int32) {
 			if int32(*(*uint8)(v30))&1 != 0 {
 				*(*uint16)(unsafe.Add(unsafe.Pointer(&v27), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v30, 4))
 				v32 = int32(*(*uint16)(unsafe.Add(v30, 4)))
-				v65 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v32].data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(v30, 8))+uint32(nox_tile_defs_arr[v32].field_46)))))))
+				v65 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v32].data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(v30, 8))+uint32(nox_tile_defs_arr[v32].field_46)))))))
 				v68.field_0 = v26 + 23
 				v68.field_4 = v76
 				func_587000_154940((*uint32)(unsafe.Pointer(&v68)), v65, v27)
@@ -2509,7 +2509,7 @@ func nox_xxx_tileDrawImpl_4826A0(vp *noxrender.Viewport) int32 {
 						if int32(v12)&2 != 0 {
 							*(*uint16)(unsafe.Add(unsafe.Pointer(&v10), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v13, 24))
 							v14 = int32(*(*uint16)(unsafe.Add(v13, 24)))
-							v18 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v14].data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(v13, 28))+uint32(nox_tile_defs_arr[v14].field_46)))))))
+							v18 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v14].data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(v13, 28))+uint32(nox_tile_defs_arr[v14].field_46)))))))
 							v24.field_0 = v8
 							v24.field_4 = v6 + 23
 							func_587000_154940((*uint32)(unsafe.Pointer(&v24)), v18, v10)
@@ -2521,7 +2521,7 @@ func nox_xxx_tileDrawImpl_4826A0(vp *noxrender.Viewport) int32 {
 						if int32(*(*uint8)(v13))&1 != 0 {
 							*(*uint16)(unsafe.Add(unsafe.Pointer(&v10), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v13, 4))
 							v15 = int32(*(*uint16)(unsafe.Add(v13, 4)))
-							v19 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v15].data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(v13, 8))+uint32(nox_tile_defs_arr[v15].field_46)))))))
+							v19 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v15].data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(v13, 8))+uint32(nox_tile_defs_arr[v15].field_46)))))))
 							v24.field_0 = v8 + 23
 							v24.field_4 = v6
 							func_587000_154940((*uint32)(unsafe.Pointer(&v24)), v19, v10)
@@ -3946,7 +3946,7 @@ func nox_thing_read_floor_485B30(f *binfile.MemFile, a2 *byte) int32 {
 	v17 = *(*uint8)(unsafe.Add(unsafe.Pointer(v9), 2))
 	*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(v9), 4)))
 	v10 = int32(uint8(uintptr(unsafe.Pointer(v21)))) * int32(v19) * int32(v17)
-	nox_tile_defs_arr[v7].data_32 = (**nox_video_bag_image_t)(alloc.Calloc1(int(v10), 4))
+	nox_tile_defs_arr[v7].data_32 = (*noxrender.ImageHandle)(alloc.Calloc1(int(v10), 4))
 	var v11 int32 = 0
 	for i = 0; v11 < v10; {
 		v12 = *(**int32)(unsafe.Add(v2, 8))
@@ -3970,7 +3970,7 @@ func nox_thing_read_floor_485B30(f *binfile.MemFile, a2 *byte) int32 {
 			*(*byte)(unsafe.Add(unsafe.Pointer(a2), v23)) = 0
 			v11 = i
 		}
-		*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v7].data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(v11))) = nox_xxx_readImgMB_42FAA0(v13, int8(uintptr(unsafe.Pointer(v21))), a2)
+		*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(nox_tile_defs_arr[v7].data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(v11))) = nox_xxx_readImgMB_42FAA0(v13, int8(uintptr(unsafe.Pointer(v21))), a2)
 		v11++
 		i = v11
 	}
@@ -5437,7 +5437,7 @@ func nox_xxx_wndEditDrawWithImage_488870(win *gui.Window, draw *gui.WindowData) 
 		v7 = int32(*(*uint32)(unsafe.Add(a2, 48)))
 	}
 	if v7 != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v7), xLeft, v21)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v7), xLeft, v21)
 	}
 	nox_xxx_drawSetTextColor_434390(int32(*(*uint32)(unsafe.Add(a2, 68))))
 	if int32(*(*uint16)(unsafe.Add(a2, 72))) != 0 {

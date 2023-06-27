@@ -5423,14 +5423,14 @@ func nox_xxx_guide_427010(a1 *byte) int32 {
 func nox_xxx_guideNameByN_427230(a1 int32) *byte {
 	return *(**byte)(memmap.PtrOff(0x587000, uintptr(a1*4)+70500))
 }
-func nox_xxx_guiCreatureGetName_427240(a1 int32) int32 {
-	var result int32
-	if a1 > 0 && a1 < 41 && *memmap.PtrUint32(0x5D4594, uintptr(a1*28)+740080) != 0 {
-		result = int32(*memmap.PtrUint32(0x5D4594, uintptr(a1*28)+740076))
-	} else {
-		result = 0
+func nox_xxx_guiCreatureGetName_427240(a1 int32) *wchar2_t {
+	if a1 <= 0 || a1 >= 41 {
+		return nil
 	}
-	return result
+	if memmap.Uint32(0x5D4594, uintptr(a1*28)+740080) == 0 {
+		return nil
+	}
+	return (*wchar2_t)(*memmap.PtrPtr(0x5D4594, uintptr(a1*28)+740076))
 }
 func nox_xxx_creatureIsCharmableByTT_4272B0(a1 int32) int32 {
 	var (

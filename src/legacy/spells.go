@@ -7,6 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -21,8 +22,8 @@ var (
 	Nox_xxx_spellByTitle_424960       func(ctitle string) int
 	Nox_xxx_spellManaCost_4249A0      func(ind, a2 int) int
 	Nox_xxx_spellPhonemes_424A20      func(ind, ind2 int) spell.Phoneme
-	Nox_xxx_spellIcon_424A90          func(ind int) unsafe.Pointer
-	Nox_xxx_spellIconHighlight_424AB0 func(ind int) unsafe.Pointer
+	Nox_xxx_spellIcon_424A90          func(ind int) noxrender.ImageHandle
+	Nox_xxx_spellIconHighlight_424AB0 func(ind int) noxrender.ImageHandle
 	Nox_xxx_spellFirstValid_424AD0    func() int
 	Nox_xxx_spellNextValid_424AF0     func(ind int) int
 	Nox_xxx_spellIsValid_424B50       func(ind int) bool
@@ -145,10 +146,12 @@ func nox_xxx_spellFlags_424A70(ind int32) uint32 {
 }
 
 // nox_xxx_spellIcon_424A90
-func nox_xxx_spellIcon_424A90(ind int32) unsafe.Pointer { return Nox_xxx_spellIcon_424A90(int(ind)) }
+func nox_xxx_spellIcon_424A90(ind int32) noxrender.ImageHandle {
+	return Nox_xxx_spellIcon_424A90(int(ind))
+}
 
 // nox_xxx_spellIconHighlight_424AB0
-func nox_xxx_spellIconHighlight_424AB0(ind int32) unsafe.Pointer {
+func nox_xxx_spellIconHighlight_424AB0(ind int32) noxrender.ImageHandle {
 	return Nox_xxx_spellIconHighlight_424AB0(int(ind))
 }
 

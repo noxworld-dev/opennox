@@ -1982,7 +1982,7 @@ LABEL_26:
 		v8 = int32(*memmap.PtrUint32(0x5D4594, 1203828))
 	}
 LABEL_28:
-	nox_draw_imageMeta_47D5C0((*nox_video_bag_image_t)(v8), (*uint32)(unsafe.Pointer(&v27)), (*uint32)(unsafe.Pointer(&v26)), (*uint32)(unsafe.Pointer(&v23)), (*uint32)(unsafe.Pointer(&v25)))
+	nox_draw_imageMeta_47D5C0((noxrender.ImageHandle)(v8), (*uint32)(unsafe.Pointer(&v27)), (*uint32)(unsafe.Pointer(&v26)), (*uint32)(unsafe.Pointer(&v23)), (*uint32)(unsafe.Pointer(&v25)))
 	nox_xxx_drawGetStringSize_43F840(v1, &v29[0], &v21, &v22, 0)
 	v11 = v21
 	nox_xxx_drawGetStringSize_43F840(v1, &v28[0], &v21, &v22, 0)
@@ -2010,7 +2010,7 @@ LABEL_28:
 	}
 	v18 = v15 + 5
 	if v8 != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v8), v18-v27, v16+(36-v25)/2-v26)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v8), v18-v27, v16+(36-v25)/2-v26)
 	}
 	result = a1
 	v20 = v18 + v23 + 5
@@ -4712,7 +4712,7 @@ func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) *uint32 {
 	}
 	return result
 }
-func nox_xxx_bookRewardCli_499CF0(a1 *int32, a2 int32, a3 int32) {
+func nox_xxx_bookRewardCli_499CF0(a1 uint32, a2 int32, a3 int32) {
 	var (
 		result uint32
 		v4     int32
@@ -4723,10 +4723,10 @@ func nox_xxx_bookRewardCli_499CF0(a1 *int32, a2 int32, a3 int32) {
 		return result >= 2
 	}()) {
 		*memmap.PtrUint32(0x5D4594, 1217504) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
-		if uintptr(unsafe.Pointer(a1)) == uintptr(2) {
+		if a1 == 2 {
 			v4 = 0
 		} else {
-			v4 = bool2int32(uintptr(unsafe.Pointer(a1)) == uintptr(3)) + 2
+			v4 = bool2int32(a1 == 3) + 2
 		}
 		a3a.field_0 = 5
 		a3a.field_4 = nox_win_height / 3
@@ -4737,8 +4737,8 @@ func nox_xxx_bookRewardCli_499CF0(a1 *int32, a2 int32, a3 int32) {
 		nox_xxx_draw_499E70(v4, a3a.field_0+271, a3a.field_4, 271, 166, 1, 2)
 		nox_xxx_draw_499E70(v4, a3a.field_0+135, a3a.field_4, 135, 166, 2, 2)
 		nox_xxx_draw_499E70(v4, a3a.field_0+135, a3a.field_4+166, 135, 166, 2, 2)
-		if uintptr(unsafe.Pointer(a1)) != uintptr(4) && a3 == 1 {
-			nox_xxx_bookFillAll_45D570(int32(uintptr(unsafe.Pointer(a1))), a2)
+		if a1 != 4 && a3 == 1 {
+			nox_xxx_bookFillAll_45D570(a1, a2)
 		}
 	}
 }

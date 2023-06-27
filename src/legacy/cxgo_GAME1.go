@@ -8,6 +8,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
@@ -22,7 +23,7 @@ var nox_tile_defs_arr [176]nox_tileDef_t = [176]nox_tileDef_t{}
 
 type nox_tileDef_t struct {
 	name     [32]byte
-	data_32  **nox_video_bag_image_t
+	data_32  *noxrender.ImageHandle
 	field_36 int32
 	field_40 int32
 	field_44 uint16

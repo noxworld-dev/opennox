@@ -27,8 +27,8 @@ func nox_xxx_mapGenClientText_4A9D00(a1 *uint8) int16 {
 	nox_client_clearScreen_440900()
 	v3 = nox_win_height/2 - 120
 	v4 = nox_win_width/2 - 160
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, uintptr((*memmap.PtrUint32(0x5D4594, 1309672)%4))*4+1309644)), v4, v3)
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 1309672))*4+1309516)), v4, v3)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, uintptr((*memmap.PtrUint32(0x5D4594, 1309672)%4))*4+1309644)), v4, v3)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 1309672))*4+1309516)), v4, v3)
 	switch *v1 {
 	case 0x9B:
 		v5 = nox_strman_loadString_40F1D0(internCStr("Generating"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guigen.c"), 89)

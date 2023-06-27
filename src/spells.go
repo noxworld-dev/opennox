@@ -145,20 +145,20 @@ func nox_xxx_spellPhonemes_424A20(ind, ind2 int) spell.Phoneme {
 	return list[ind2]
 }
 
-func nox_xxx_spellIcon_424A90(ind int) unsafe.Pointer {
+func nox_xxx_spellIcon_424A90(ind int) noxrender.ImageHandle {
 	sp := noxServer.SpellDefByInd(spell.ID(ind))
 	if sp == nil {
 		return nil
 	}
-	return unsafe.Pointer(sp.Icon.C())
+	return sp.Icon.C()
 }
 
-func nox_xxx_spellIconHighlight_424AB0(ind int) unsafe.Pointer {
+func nox_xxx_spellIconHighlight_424AB0(ind int) noxrender.ImageHandle {
 	sp := noxServer.SpellDefByInd(spell.ID(ind))
 	if sp == nil {
 		return nil
 	}
-	return unsafe.Pointer(sp.IconEnabled.C())
+	return sp.IconEnabled.C()
 }
 
 func nox_xxx_spellFirstValid_424AD0() int {

@@ -94,8 +94,8 @@ func nox_xxx_abilityCooldown_4252D0(ca int32) int { return Nox_xxx_abilityCooldo
 func sub_4252F0(ca int32) *wchar2_t { return internWStr(Sub_4252F0(int(ca))) }
 
 // nox_xxx_spellGetAbilityIcon_425310
-func nox_xxx_spellGetAbilityIcon_425310(abil, icon int32) *nox_video_bag_image_t {
-	return (*nox_video_bag_image_t)(Nox_xxx_spellGetAbilityIcon_425310(int(abil), int(icon)))
+func nox_xxx_spellGetAbilityIcon_425310(abil, icon int32) noxrender.ImageHandle {
+	return (noxrender.ImageHandle)(Nox_xxx_spellGetAbilityIcon_425310(int(abil), int(icon)))
 }
 
 // nox_xxx_bookFirstKnownAbil_425330

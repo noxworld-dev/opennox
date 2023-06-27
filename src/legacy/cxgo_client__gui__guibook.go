@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -115,11 +116,11 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	v3 = nox_xxx_guiFontHeightMB_43F320(nil)
 	dword_5d4594_1046656 = uint32(v3 + 2)
 	nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x5D4594, 1046880))
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1046856)), v1, v2)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1046856)), v1, v2)
 	if dword_5d4594_1046872 != 0 {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1046660)), v1, v2)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1046660)), v1, v2)
 	} else {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 1046644)), v1, v2)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1046644)), v1, v2)
 	}
 	if dword_5d4594_1046868 == 3 {
 		nox_video_drawAnimatedImageOrCursorAt_4BE6D0(dword_5d4594_1046928, v1, v2)
@@ -237,7 +238,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		v63 = v23 + v20 + v68 + 2
 		v61 = (108-v18)/2 + v66 + 24
 		v27 = nox_xxx_bookGetCreatureImg_427400(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)))
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v27), v61, v63)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v27), v61, v63)
 		v28 = (*uint16)(unsafe.Pointer(uintptr(nox_xxx_guideGetDescById_4272E0(int32(*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960))))))
 		v29 = v28
 		v30 = v67 + 52
@@ -460,11 +461,11 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 	} else {
 		v9 = int32(uintptr(nox_xxx_spellIcon_424A90(dword_5d4594_1047524)))
 	}
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(v9), v21, v22)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v9), v21, v22)
 	dword_5d4594_1046636 = dword_5d4594_1046636 + obj_5d4594_1046620.X
 	dword_5d4594_1046640 = dword_5d4594_1046640 + obj_5d4594_1046620.Y
 	if float64(*memmap.PtrInt32(0x5D4594, 1046668)) <= float64(dword_5d4594_1046636) && float64(*memmap.PtrInt32(0x5D4594, 1046672)) <= float64(dword_5d4594_1046640) {
-		nox_xxx_book_45DBE0(*(*unsafe.Pointer)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
+		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
 		sub_45D810()
 		goto LABEL_27
 	}
@@ -490,7 +491,7 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 			}
 			goto LABEL_27
 		}
-		nox_xxx_book_45DBE0(*(*unsafe.Pointer)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
+		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
 		sub_45D810()
 	}
 LABEL_27:
@@ -534,7 +535,7 @@ func sub_45D870() {
 				break
 			}
 		}
-		nox_xxx_book_45DBE0(*(*unsafe.Pointer)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
+		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
 		sub_45D810()
 	}
 }

@@ -9,12 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func sub_57AF30(a1 unsafe.Pointer, a2 int32) {
-	var (
-		v3 *uint32
-		v4 *wchar2_t
-		v5 int32
-	)
+func sub_57AF30(a1 unsafe.Pointer, a2 uint32) {
 	if dword_5d4594_2523804 == 1 || nox_xxx_checkGameFlagPause_413A50() != 0 {
 		return
 	}
@@ -24,25 +19,26 @@ func sub_57AF30(a1 unsafe.Pointer, a2 int32) {
 	} else {
 		v2 = dword_5d4594_2523780
 	}
+	var v3 *server.Object
 	if a2 != 0 {
 		if a2 != 1 {
 			v3 = dword_5d4594_2523776
 		} else {
-			v3 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("OblivionUp"))))
+			v3 = nox_xxx_newObjectByTypeID_4E3810(internCStr("OblivionUp"))
 			v2 = dword_5d4594_2523780
-			dword_5d4594_2523776 = uint32(uintptr(unsafe.Pointer(v3)))
+			dword_5d4594_2523776 = v3
 		}
 	} else {
-		v3 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("LevelUp"))))
+		v3 = nox_xxx_newObjectByTypeID_4E3810(internCStr("LevelUp"))
 		v2 = dword_5d4594_2523780
-		dword_5d4594_2523776 = uint32(uintptr(unsafe.Pointer(v3)))
+		dword_5d4594_2523776 = v3
 	}
 	if v3 != nil {
 		if v2 != nil {
-			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v3)), nil, *(*float32)(unsafe.Add(v2, 56)), *(*float32)(unsafe.Add(v2, 60)))
+			nox_xxx_createAt_4DAA50(v3, nil, *(*float32)(unsafe.Add(v2, 56)), *(*float32)(unsafe.Add(v2, 60)))
 		} else {
-			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(v3)))
-			dword_5d4594_2523776 = 0
+			nox_xxx_objectFreeMem_4E38A0(v3)
+			dword_5d4594_2523776 = nil
 		}
 		v2 = dword_5d4594_2523780
 	}
@@ -55,12 +51,12 @@ func sub_57AF30(a1 unsafe.Pointer, a2 int32) {
 			goto LABEL_29
 		}
 		nox_xxx_aud_501960(902, (*server.Object)(v2), 2, int32(*(*uint32)(unsafe.Add(v2, 36))))
-		v4 = nox_strman_loadString_40F1D0(internCStr("expLevel.c:LevelUP"), nil, internCStr("C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c"), 109)
+		v4 := nox_strman_loadString_40F1D0(internCStr("expLevel.c:LevelUP"), nil, internCStr("C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c"), 109)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(dword_5d4594_2523780), v4)
 		v2 = dword_5d4594_2523780
 	}
 	if v2 != nil {
-		v5 = int32(*(*uint32)(unsafe.Add(v2, 748)))
+		v5 := *(*unsafe.Pointer)(unsafe.Add(v2, 748))
 		if nox_xxx_playerSetState_4FA020((*server.Object)(v2), 30) == 1 {
 			*(*uint8)(unsafe.Add(v5, 236)) = 4
 		}

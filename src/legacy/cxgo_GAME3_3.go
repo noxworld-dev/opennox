@@ -7687,7 +7687,7 @@ func sub_4EF410(a1 unsafe.Pointer, a2 uint8) {
 		v5 = (*uint32)(unsafe.Add(v3, 3700))
 		for {
 			if *v5 != 0 {
-				nox_xxx_book_45DBE0(unsafe.Pointer(uintptr(3)), v4, v4-1)
+				nox_xxx_book_45DBE0(3, v4, v4-1)
 			}
 			v4++
 			v5 = (*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1))

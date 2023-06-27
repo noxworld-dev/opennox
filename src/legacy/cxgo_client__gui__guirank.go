@@ -313,7 +313,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, int32(*(*uint32)(unsafe.Add(a1, 8))), int32(*(*uint32)(unsafe.Add(a1, 12))))
 		}
 	} else {
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(a2, 24))), xLeft, yTop)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(a2, 24))), xLeft, yTop)
 	}
 	if dword_587000_145664 != 0 || gameFrame() > (*memmap.PtrUint32(0x5D4594, 1090124)+gameFPS()) {
 		set_dword_5d4594_3799468(1)

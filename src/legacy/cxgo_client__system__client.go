@@ -17,7 +17,7 @@ func nox_xxx_clientDrawAll_436100_draw_A() {
 	}
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) {
 		var v10 unsafe.Pointer = nox_xxx_guiFontPtrByName_43F360(internCStr("large"))
-		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*memmap.PtrPtr(0x5D4594, 814540)), 0, 0)
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 814540)), 0, 0)
 		var v11 *wchar2_t = nox_strman_loadString_40F1D0(internCStr("InProgress"), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1550)
 		var v22 int32 = 0
 		nox_xxx_drawGetStringSize_43F840(v10, v11, &v22, nil, 0)
@@ -37,7 +37,7 @@ func nox_xxx_clientDrawAll_436100_draw_B() {
 	if *v15 == 0 {
 		*v15 = int32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(*memmap.PtrUint32(0x5D4594, 811060))*4+85712))))))
 	}
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*v15))), v14, v16)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(*v15))), v14, v16)
 	var v22 int32 = 0
 	var v23 int32 = 0
 	nox_xxx_drawGetStringSize_43F840(nil, &v25[0], &v22, &v23, 220)

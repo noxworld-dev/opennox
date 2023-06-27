@@ -8,6 +8,7 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
@@ -766,7 +767,7 @@ func nox_xxx_guiChatMode_4456E0(win *gui.Window, draw *gui.WindowData) int {
 	nox_client_wndGetPosition_46AA60(win, &a1a, &v4)
 	v2 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*25))
 	a1 := a1a + *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*24))
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*15))), a1, v2+v4)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*15))), a1, v2+v4)
 	return 1
 }
 func nox_xxx_guiChatShowHide_445730(a1 int32) int32 {

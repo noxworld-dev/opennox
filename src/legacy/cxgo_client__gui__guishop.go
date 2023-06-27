@@ -103,7 +103,7 @@ func sub_478B10(a1 *int2) *wchar2_t {
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1098576)), 3806)))
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v4, &v3)
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(dword_5d4594_1098456), a1.field_0, a1.field_4)
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(dword_5d4594_1098456), a1.field_0, a1.field_4)
 	result = dword_5d4594_1098596
 	if dword_5d4594_1098596 != 0 || (func() bool {
 		result = nox_strman_loadString_40F1D0(internCStr("SellInstructions"), (**byte)(unsafe.Pointer(dword_5d4594_1098596)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 597)
@@ -129,7 +129,7 @@ func sub_478BC0(a1 *int32) *wchar2_t {
 	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v4, &v3)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(dword_5d4594_1098456), *a1, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
+	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(dword_5d4594_1098456), *a1, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
 	result = dword_5d4594_1098600
 	if dword_5d4594_1098600 != 0 || (func() bool {
 		result = nox_strman_loadString_40F1D0(internCStr("RepairInstructions"), (**byte)(unsafe.Pointer(dword_5d4594_1098600)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 628)
