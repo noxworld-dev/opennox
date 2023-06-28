@@ -49,7 +49,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		v8          int32
 		v9          int8
 		v10         *uint16
-		v11         *int16
+		v11         *wchar2_t
 		v12         *uint16
 		v13         *uint16
 		v14         int32
@@ -143,7 +143,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		if *(*uint32)(unsafe.Pointer(&WideCharStr[0]))*2 > 0 {
 			for {
 				v8 = int32(uint32(v5) + *(*uint32)(unsafe.Pointer(&WideCharStr[0]))*2*uint32(v4))
-				if uint32(v8) >= uint32(*memmap.PtrInt32(0x5D4594, 1047508))-dword_5d4594_1047512 {
+				if int32(v8) >= int32(*memmap.PtrInt32(0x5D4594, 1047508))-dword_5d4594_1047512 {
 					break
 				}
 				if uint32(v5) == *(*uint32)(unsafe.Pointer(&WideCharStr[0])) {
@@ -156,11 +156,11 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 					if int32(v9) == 2 && !nox_xxx_spellIsEnabled_424B70(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)+74)) {
 						nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x5D4594, 1046884))
 					}
-					v10 = (*uint16)(unsafe.Pointer(uintptr(nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960))))))
+					v10 = nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))
 					nox_xxx_drawGetStringSize_43F840(nil, v10, &v65, nil, 128)
 					v62 = v7
 					v60 = v6 - v65/2
-					v11 = (*int16)(unsafe.Pointer(uintptr(nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960))))))
+					v11 = nox_xxx_guiCreatureGetName_427240(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))
 				} else if int32(v9) != 0 {
 					if !nox_xxx_spellIsEnabled_424B70(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960))) {
 						nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x5D4594, 1046884))
@@ -169,15 +169,15 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 					nox_xxx_drawGetStringSize_43F840(nil, v13, &v65, nil, 128)
 					v62 = v7
 					v60 = v6 - v65/2
-					v11 = (*int16)(unsafe.Pointer(nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))))
+					v11 = nox_xxx_spellTitle_424930(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))
 				} else {
 					v12 = nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))
 					nox_xxx_drawGetStringSize_43F840(nil, v12, &v65, nil, 128)
 					v62 = v7
 					v60 = v6 - v65/2
-					v11 = (*int16)(unsafe.Pointer(nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))))
+					v11 = nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))
 				}
-				nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v11)), v60, v62)
+				nox_xxx_drawString_43F6E0(nil, v11, v60, v62)
 				v7 += dword_5d4594_1046656
 				if uint32(func() int32 {
 					p := &v5

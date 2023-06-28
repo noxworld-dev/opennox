@@ -3717,8 +3717,8 @@ func sub_459DA0() int32 {
 func sub_459DB0(dr *client.Drawable) int32 {
 	return bool2int32(dr.Flags28Val&0x400000 != 0 && int32(dr.Flags29Val)&8 != 0)
 }
-func nox_xxx_cliNextMinimapObj_459EC0(a1 unsafe.Pointer) unsafe.Pointer {
-	next := *(*unsafe.Pointer)(unsafe.Add(a1, 408))
+func nox_xxx_cliNextMinimapObj_459EC0(a1 *client.Drawable) *client.Drawable {
+	next := a1.Field_102
 	if a1 != nil && a1 == next {
 		panic("infinite loop!")
 	}

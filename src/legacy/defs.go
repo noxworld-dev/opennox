@@ -202,11 +202,11 @@ type obj_412ae0_t struct {
 	field_35 *obj_412ae0_t
 }
 type nox_window_yyy struct {
-	win     *gui.Window
-	field_1 uint32
-	field_2 uint32
-	color_1 uint32
-	color_2 uint32
+	Win    *gui.Window
+	Field4 uint32
+	Field8 uint32
+	Color1 uint32
+	Color2 uint32
 }
 type nox_gui_server_ent_t struct {
 	field_0     uint32

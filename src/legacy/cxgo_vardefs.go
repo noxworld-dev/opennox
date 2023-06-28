@@ -175,7 +175,7 @@ var dword_5d4594_1049512 *gui.Window
 var dword_5d4594_1047932 uint32
 var dword_5d4594_816368 uint32
 var dword_5d4594_1062476 *gui.Window
-var dword_5d4594_1090276 uint32
+var dword_5d4594_1090276 *gui.Window
 var dword_5d4594_1049496 uint32
 var dword_587000_93164 unsafe.Pointer
 var dword_5d4594_1098624 uint32
@@ -351,7 +351,7 @@ var dword_5d4594_2487620 uint32
 var dword_5d4594_1309824 uint32
 var dword_5d4594_531656 uint32
 var nox_alloc_tradeSession_2386492 unsafe.Pointer
-var dword_5d4594_1096288 uint32
+var dword_5d4594_1096288 unsafe.Pointer
 var dword_5d4594_3835352 uint32
 var dword_5d4594_1046956 *gui.Window
 var dword_587000_145664 uint32 = 0x1

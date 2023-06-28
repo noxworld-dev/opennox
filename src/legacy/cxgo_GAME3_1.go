@@ -25,7 +25,7 @@ var nox_wnd_xxx_1522608 *gui.Anim = nil
 var nox_gui_itemAmount_item_1319256 *client.Drawable
 var nox_gui_itemAmount_dialog_1319228 unsafe.Pointer = nil
 
-func sub_4B9470(a1 **byte) int32 {
+func sub_4B9470(a1 unsafe.Pointer) int32 {
 	var (
 		v1 *byte
 		v2 int32
@@ -40,7 +40,7 @@ func sub_4B9470(a1 **byte) int32 {
 		return 0
 	}
 	v3 = (*uint8)(memmap.PtrOff(0x587000, 177488))
-	for libc.StrCmp(*a1, v1) != 0 {
+	for libc.StrCmp(*(**byte)(a1), v1) != 0 {
 		v1 = (*byte)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)))))
 		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 8))
 		v2++
