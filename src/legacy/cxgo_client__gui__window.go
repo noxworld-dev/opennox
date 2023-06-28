@@ -61,7 +61,7 @@ func nox_xxx_wndPointInWnd_46AAB0(a1 *gui.Window, a2 int32, a3 int32) bool {
 		v7 int32 = 0
 	)
 	v3 = a1
-	nox_client_wndGetPosition_46AA60(a1, (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_client_wndGetPosition_46AA60(a1, (*uint32)(unsafe.Pointer(&a1)), &v6)
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v3)), &v5, &v7)
 	return a2 >= int32(uintptr(unsafe.Pointer(a1))) && a2 <= int32(uintptr(unsafe.Pointer(a1)))+v5 && a3 >= v6 && a3 <= v6+v7
 }

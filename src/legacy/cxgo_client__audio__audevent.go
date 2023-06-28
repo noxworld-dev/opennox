@@ -171,7 +171,7 @@ func sub_452580(a1 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) = uint32(result)
 	if result != 0 {
 		v4 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 76))), int32(*(*uint32)(unsafe.Add(v1, 80))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1482)
-		sub_486320((*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 48)), v4+100)
+		sub_486320(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 48), v4+100)
 		sub_4BDB20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44))))
 		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 152)) = uint32(uintptr(unsafe.Pointer(a1)))
 		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 140)) = uint32(uintptr(ccall.FuncAddr(sub_452770)))
@@ -182,7 +182,7 @@ func sub_452580(a1 *uint32) int32 {
 		if int32(*(*uint8)(unsafe.Add(v1, 4)))&8 != 0 {
 			v5 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 68))), int32(*(*uint32)(unsafe.Add(v1, 72))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1497)
 			if v5 > 33 {
-				sub_452690(int32(uintptr(unsafe.Pointer(a1))), int64(v5), 1)
+				sub_452690(unsafe.Pointer(a1), int64(v5), 1)
 			}
 		}
 		result = 1

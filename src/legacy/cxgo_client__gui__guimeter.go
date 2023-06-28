@@ -235,10 +235,10 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 	v3 = (*uint8)(unsafe.Pointer(&nox_windows_arr_1093036[v18]))
 	v20 = v3
 	if v18 == 0 && dword_5d4594_1096264 != 0 {
-		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(dword_5d4594_1090276)), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(dword_5d4594_1090276)), &xLeft, &yTop)
 		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1091900)), xLeft, yTop)
 	}
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), &xLeft, &yTop)
 	xLeft += 5
 	if get_dword_5d4594_3799468() != 0 {
 		nox_client_drawSetColor_434460(int32(nox_color_black_2650656))

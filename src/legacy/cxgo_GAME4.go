@@ -4155,7 +4155,7 @@ func nox_xxx_netWallCreate_4FFE80(a1 int32, a2 *uint8, a3 int32, a4 int8, a5 int
 		if dword_5d4594_1569752 != 0 {
 			*(*uint32)(unsafe.Add(dword_5d4594_1569752, 28)) = uint32(uintptr(unsafe.Pointer(result)))
 		}
-		dword_5d4594_1569752 = uint32(uintptr(unsafe.Pointer(result)))
+		dword_5d4594_1569752 = unsafe.Pointer(result)
 	}
 	return result
 }
@@ -5082,7 +5082,7 @@ func Nox_xxx_charmCreature1_5011F0(sp *server.DurSpell) int32 {
 		v11 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
 		*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = int32(uint32(int32(uintptr(unsafe.Pointer(v10)))) + gameFrame())
 		nox_xxx_buffApplyTo_4FF380((*server.Object)(v11), 28, int16(int32(uint16(uintptr(unsafe.Pointer(v10))))+1), 5)
-		nox_xxx_netStartDurationRaySpell_4FF130(int32(uintptr(unsafe.Pointer(a1))))
+		nox_xxx_netStartDurationRaySpell_4FF130(unsafe.Pointer(a1))
 		return 0
 	}
 	v13 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))

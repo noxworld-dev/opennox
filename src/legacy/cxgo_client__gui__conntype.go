@@ -14,7 +14,7 @@ func sub_49C820() int32 {
 		v1 **byte
 		v2 *wchar2_t
 	)
-	dword_5d4594_1305684 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("conntype.wnd"), sub_49CA60))))
+	dword_5d4594_1305684 = nox_new_window_from_file(internCStr("conntype.wnd"), sub_49CA60)
 	sub_46B120(dword_5d4594_1305684, nil)
 	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1305684)
 	sub_46C690(dword_5d4594_1305684)

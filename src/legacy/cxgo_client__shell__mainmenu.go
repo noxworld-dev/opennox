@@ -25,7 +25,7 @@ func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 		yTop  int32
 	)
 	nox_xxx_bookGet_430B40_get_mouse_prev_seq()
-	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), &xLeft, &yTop)
 	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
 		if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*5))) != 0x80000000 {
 			nox_client_drawSetColor_434460(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*5)))

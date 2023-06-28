@@ -67,7 +67,7 @@ func sub_426060() {
 			}
 		}
 		sub_426150()
-		sub_428810(int32(uintptr(memmap.PtrOff(0x5D4594, 599476))), 0)
+		sub_428810(memmap.PtrOff(0x5D4594, 599476), 0)
 		*memmap.PtrUint16(0x5D4594, 599482) = 0
 	}
 }
@@ -151,7 +151,7 @@ func sub_4D2160() {
 	v5 = nox_common_playerInfoCount_416F40()
 	result = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))
 	for i = result; result != nil; i = result {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*19))))), 492)) == 0 && sub_418BC0(int32(uintptr(unsafe.Pointer(i)))) != 0 {
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*19))))), 492)) == 0 && sub_418BC0(unsafe.Pointer(i)) != 0 {
 			for {
 				v2 = nox_common_randomInt_415FA0(0, v5-1)
 				for j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); j != nil; j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(j))))) {

@@ -78,7 +78,7 @@ func Nox_server_mapRWWallMap_429B20(_ *cryptfile.CryptFile, a1 unsafe.Pointer) e
 	return nil
 }
 func Nox_server_mapRWFloorMap_422230(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if nox_server_mapRWFloorMap_422230(int32(uintptr(a1))) == 0 {
+	if nox_server_mapRWFloorMap_422230(a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil

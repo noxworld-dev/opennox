@@ -1492,7 +1492,7 @@ func nox_xxx_netCliProcUpdateStream_494A60(a1 *uint8, a2 int32, a3 *uint32) int3
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v16), 4*69)) = uint32(v26)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v16), 4*79)) = uint32(v18)
 			}
-			nox_xxx_spriteSetFrameMB_45AB80(int32(uintptr(unsafe.Pointer(v16))), int32(v25))
+			nox_xxx_spriteSetFrameMB_45AB80(unsafe.Pointer(v16), int32(v25))
 		}
 	}
 	*a3 = uint32(v20)

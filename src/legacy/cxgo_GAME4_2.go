@@ -8770,7 +8770,7 @@ func nox_xxx_XFer_ReadMonsterBuffs_52AAB0(a1 *uint32) int32 {
 	if int32(int16(v13)) > 2 || int32(int16(v13)) <= 0 {
 		return 0
 	}
-	*((*uint8)(unsafe.Pointer(&v16))) = uint8(sub_424CB0(int32(uintptr(unsafe.Pointer(a1)))))
+	*((*uint8)(unsafe.Pointer(&v16))) = uint8(sub_424CB0(unsafe.Pointer(a1)))
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v16)), 1)
 	if nox_crypt_IsReadOnly() != 0 {
 		v5 = 0
@@ -8797,7 +8797,7 @@ func nox_xxx_XFer_ReadMonsterBuffs_52AAB0(a1 *uint32) int32 {
 			*((*uint16)(unsafe.Add(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*uintptr(v6)), unsafe.Sizeof(uint16(0))*172))) = uint16(int16(v14))
 			if v6 == 26 && int32(int16(v13)) >= 2 {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 4)
-				v9 = sub_4FF2D0(51, int32(uintptr(unsafe.Pointer(a1))))
+				v9 = sub_4FF2D0(51, unsafe.Pointer(a1))
 				if v9 != 0 {
 					*(*uint32)(unsafe.Add(v9, 72)) = uint32(v12)
 				}
@@ -8827,7 +8827,7 @@ func nox_xxx_XFer_ReadMonsterBuffs_52AAB0(a1 *uint32) int32 {
 			v14 = nox_xxx_unitGetBuffTimer_4FF550((*server.Object)(unsafe.Pointer(a1)), server.EnchantID(v1))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4)
 			if v1 == 26 {
-				v3 = sub_4FF2D0(51, int32(uintptr(unsafe.Pointer(a1))))
+				v3 = sub_4FF2D0(51, unsafe.Pointer(a1))
 				if v3 != 0 {
 					v12 = int32(*(*uint32)(unsafe.Add(v3, 72)))
 				} else {
@@ -11607,7 +11607,7 @@ func Sub_52F220(sp *server.DurSpell) int32 {
 	if v6 != 0 {
 		result = nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), (*server.Object)(v6))
 		if result == 0 {
-			nox_xxx_netStartDurationRaySpell_4FF130(int32(uintptr(unsafe.Pointer(a1))))
+			nox_xxx_netStartDurationRaySpell_4FF130(unsafe.Pointer(a1))
 			result = 0
 		}
 	} else {

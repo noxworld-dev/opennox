@@ -299,7 +299,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 			return 1
 		}
 	}
-	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), &xLeft, &yTop)
 	v4 = nox_xxx_cliGamedataGet_416590(0)
 	if noxflags.HasGame(1) {
 		v5 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))

@@ -251,11 +251,11 @@ LABEL_55:
 				if v23 != 0 {
 					nox_xxx_netStopRaySpell_4FEF90(int32(uintptr(unsafe.Pointer(j))), (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(j), 4*12))))
 				}
-				nox_xxx_netStartDurationRaySpell_4FF130(int32(uintptr(unsafe.Pointer(v21))))
+				nox_xxx_netStartDurationRaySpell_4FF130(unsafe.Pointer(v21))
 			}
 			j = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(j), 4*29)))
 		} else {
-			nox_xxx_netStartDurationRaySpell_4FF130(int32(uintptr(unsafe.Pointer(v21))))
+			nox_xxx_netStartDurationRaySpell_4FF130(unsafe.Pointer(v21))
 		}
 		if v20 > 0 {
 			ccall.AsFunc[server.ObjectDamageFunc](*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v21), 4*12)), 716)))(*(**server.Object)(unsafe.Add(unsafe.Pointer(v21), 4*12)), *(**server.Object)(unsafe.Add(source, 16)), nil, int(v20), 17)

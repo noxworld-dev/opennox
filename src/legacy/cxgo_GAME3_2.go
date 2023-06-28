@@ -317,7 +317,7 @@ func sub_4CEBA0(a1 unsafe.Pointer, a2 *byte) unsafe.Pointer {
 	v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10178)))
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*100)), 8)) = 16
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*100)), 12)) = 10
-	sub_4B5700(int32(uintptr(unsafe.Pointer(v5))), 0, 0, int32(uintptr(unsafe.Pointer(v9))), int32(uintptr(unsafe.Pointer(v4))), int32(uintptr(unsafe.Pointer(v4))))
+	sub_4B5700(int32(uintptr(unsafe.Pointer(v5))), 0, 0, unsafe.Pointer(v9), unsafe.Pointer(v4), unsafe.Pointer(v4))
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v5))), dword_5d4594_1523028)
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v6))), dword_5d4594_1523028)
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v8))), dword_5d4594_1523028)
@@ -369,7 +369,7 @@ func sub_4CEED0(win *gui.Window, draw *gui.WindowData) int {
 		xLeft int32
 		yTop  int32
 	)
-	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), &xLeft, &yTop)
 	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
 		if *(*uint32)(unsafe.Add(a2, 20)) != 0x80000000 {
 			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, int32(*(*uint32)(unsafe.Add(a1, 8))), int32(*(*uint32)(unsafe.Add(a1, 12))))
@@ -5612,7 +5612,7 @@ func nox_xxx_netPlayerIncomingServ_4DDF60(a1 int32) int32 {
 			nox_xxx_netSendFlagStatus_4D95A0(v1, int8(*v10), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v10), 2))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v10), 1))), int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v10), unsafe.Sizeof(uint16(0))*2))))
 		}
 	}
-	nox_xxx_sendAllClientStatus_4175C0(int32(uintptr(unsafe.Pointer(v2))))
+	nox_xxx_sendAllClientStatus_4175C0(unsafe.Pointer(v2))
 	if sub_409F40(0x2000) != 0 {
 		nox_xxx_sendAllPlayerIDs_4DE270(int32(uintptr(unsafe.Pointer(v2))))
 	}
@@ -6099,7 +6099,7 @@ func sub_4DF3C0(pl *server.Player) {
 				return
 			}
 			sub_418800((*wchar2_t)(unsafe.Pointer(v2)), (*wchar2_t)(unsafe.Add(a1, 2072)), 0)
-			sub_418830(int32(uintptr(unsafe.Pointer(v5))), int32(*(*uint32)(unsafe.Add(a1, 2068))))
+			sub_418830(unsafe.Pointer(v5), int32(*(*uint32)(unsafe.Add(a1, 2068))))
 			sub_4184D0((*server.Team)(unsafe.Pointer(v5)))
 			v6 = unsafe.Add(v1, 48)
 			v7 = nox_xxx_servObjectHasTeam_419130(unsafe.Add(v1, 48))

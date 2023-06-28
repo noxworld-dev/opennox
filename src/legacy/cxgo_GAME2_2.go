@@ -855,7 +855,7 @@ func sub_478A70(a1 *int2) int32 {
 		v6     int32
 	)
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1098576)), 3806)))
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), &v5, &v6)
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v4, &v3)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(dword_5d4594_1098456), a1.field_0, a1.field_4)
@@ -1357,7 +1357,7 @@ func sub_4799A0() int32 {
 		v9 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))))
 		v8 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))))
 		v6 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISlider"))))
-		sub_4B5700(int32(uintptr(unsafe.Pointer(v1))), 0, 0, int32(uintptr(unsafe.Pointer(v6))), int32(uintptr(unsafe.Pointer(v8))), int32(uintptr(unsafe.Pointer(v9))))
+		sub_4B5700(int32(uintptr(unsafe.Pointer(v1))), 0, 0, unsafe.Pointer(v6), unsafe.Pointer(v8), unsafe.Pointer(v9))
 		nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v1))), v4)
 		nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v2))), v4)
 		nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v10))), v4)
@@ -1428,7 +1428,7 @@ func sub_479C40(win *gui.Window, draw *gui.WindowData) int {
 	)
 	v2 = int8(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
 	if sub_44D930() == 0 && (int32(v2)&math.MaxInt8) < 0x1E && int32(v2)&8 != 0 {
-		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), &xLeft, &yTop)
 		sub_49CD30(xLeft, yTop, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3))-2), *memmap.PtrInt32(0x5D4594, 1107052), 4)
 	}
 	return nox_xxx_wndButtonDrawNoImg_4A81D0(win, draw)
@@ -1441,7 +1441,7 @@ func sub_479CB0(win *gui.Window, draw *gui.WindowData) int {
 		v5 int32
 	)
 	v2 = int32(*(*uint32)(unsafe.Add(a2, 24)))
-	nox_client_wndGetPosition_46AA60((*gui.Window)(dword_5d4594_1123524), (*uint32)(unsafe.Pointer(&v4)), (*uint32)(unsafe.Pointer(&v5)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(dword_5d4594_1123524), &v4, &v5)
 	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v2), nox_win_width-NOX_DEFAULT_WIDTH, nox_win_height-NOX_DEFAULT_HEIGHT)
 	return 1
 }
@@ -4204,9 +4204,9 @@ func sub_4863B0(a2 unsafe.Pointer) int32 {
 	return result
 }
 func sub_4864A0(a3 *uint32) {
-	sub_4862E0(int32(uintptr(unsafe.Pointer(a3))), 0x4000)
-	sub_4862E0(int32(uintptr(unsafe.Add(unsafe.Pointer(a3), 4*8))), 100)
-	sub_4862E0(int32(uintptr(unsafe.Add(unsafe.Pointer(a3), 4*16))), 0x2000)
+	sub_4862E0(unsafe.Pointer(a3), 0x4000)
+	sub_4862E0(unsafe.Add(unsafe.Pointer(a3), 4*8), 100)
+	sub_4862E0(unsafe.Add(unsafe.Pointer(a3), 4*16), 0x2000)
 	sub_486380((*uint32)(unsafe.Add(unsafe.Pointer(a3), 4*8)), 0x3E8, 0, 10)
 	sub_486380(a3, 0x3E8, 0, 0x4000)
 	sub_486380((*uint32)(unsafe.Add(unsafe.Pointer(a3), 4*16)), 0x3E8, 0, 0x4000)
@@ -4214,17 +4214,17 @@ func sub_4864A0(a3 *uint32) {
 }
 func sub_486520(a2 unsafe.Pointer) {
 	sub_4863B0(a2)
-	sub_4863B0((*uint32)(unsafe.Add(a2, 4*8)))
-	sub_4863B0((*uint32)(unsafe.Add(a2, 4*16)))
+	sub_4863B0(unsafe.Add(a2, 4*8))
+	sub_4863B0(unsafe.Add(a2, 4*16))
 }
 func sub_486550(a1 *uint8) int32 {
 	return bool2int32(int32(*a1)&2 != 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 32)))&2 != 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 64)))&2 != 0)
 }
 func sub_486570(a1 unsafe.Pointer, a2 *uint32) int32 {
 	var v2 int32
-	sub_486320(a1, int32(((*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))>>16)*(*(*uint32)(unsafe.Add(a1, 4*1))>>16))>>14))
+	sub_486320(a1, ((*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))>>16)*(*(*uint32)(unsafe.Add(a1, 4*1))>>16))>>14)
 	sub_4863B0(a1)
-	sub_486320((*uint32)(unsafe.Add(a1, 4*8)), int32((*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*9))>>16)*(*(*uint32)(unsafe.Add(a1, 4*9))>>16))/100)
+	sub_486320(unsafe.Add(a1, 4*8), int32((*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*9))>>16)*(*(*uint32)(unsafe.Add(a1, 4*9))>>16))/100)
 	sub_4863B0(unsafe.Add(a1, 4*8))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*17))>>16 != 0x2000 {
 		v2 = int32((*(*uint32)(unsafe.Add(a1, 4*17)) >> 16) + (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*17)) >> 16) - 0x2000)
@@ -4235,7 +4235,7 @@ func sub_486570(a1 unsafe.Pointer, a2 *uint32) int32 {
 		} else {
 			v2 = 0
 		}
-		sub_486320((*uint32)(unsafe.Add(a1, 4*16)), v2)
+		sub_486320(unsafe.Add(a1, 4*16), v2)
 	}
 	return sub_4863B0(unsafe.Add(a1, 4*16))
 }
@@ -4697,7 +4697,7 @@ func sub_4873C0(a3 unsafe.Pointer) {
 		}
 		v11 = (*uint32)(unsafe.Add(a3, 88))
 		v15 = int32(uintptr(unsafe.Add(a3, 88)))
-		sub_486520((*uint32)(unsafe.Add(a3, 88)))
+		sub_486520(unsafe.Add(a3, 88))
 		if *(*uint32)(unsafe.Add(a3, 184)) != 0 {
 			sub_486520(*(**uint32)(unsafe.Add(a3, 184)))
 		}
@@ -5162,7 +5162,7 @@ func nox_xxx_wndEditDrawNoImage_488160(win *gui.Window, draw *gui.WindowData) in
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v23), 4*261)) = 0
 	v30 = v3
 	v26 = &v31[0]
-	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&yTop)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), &xLeft, &yTop)
 	v4 = xLeft
 	v21 = int32(*(*uint32)(unsafe.Add(a1, 8)))
 	v5 = nox_xxx_guiFontHeightMB_43F320(*(*unsafe.Pointer)(unsafe.Add(a2, 200)))
@@ -5422,7 +5422,7 @@ func nox_xxx_wndEditDrawWithImage_488870(win *gui.Window, draw *gui.WindowData) 
 	v22 = *(**wchar2_t)(unsafe.Add(a1, 32))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v22), 4*261)) = 0
 	v18 = &v24[0]
-	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), (*uint32)(unsafe.Pointer(&xLeft)), (*uint32)(unsafe.Pointer(&v21)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), &xLeft, &v21)
 	v3 = int32(*(*uint32)(unsafe.Add(a1, 8)))
 	v4 = nox_xxx_guiFontHeightMB_43F320(*(*unsafe.Pointer)(unsafe.Add(a2, 200)))
 	v5 = int32(*(*uint32)(unsafe.Add(a1, 12)))

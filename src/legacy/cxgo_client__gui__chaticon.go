@@ -10,7 +10,7 @@ import (
 func nox_xxx_guiChatIconLoad_445650() int32 {
 	var v0 *uint16
 	*memmap.PtrPtr(0x5D4594, 825748) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ChatIcon")))
-	dword_5d4594_825744 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2-50, 50, 50, nil))))
+	dword_5d4594_825744 = nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2-50, 50, 50, nil)
 	nox_xxx_wndSetIcon_46AE60(dword_5d4594_825744, *memmap.PtrInt32(0x5D4594, 825748))
 	nox_window_set_all_funcs(dword_5d4594_825744, nil, nox_xxx_guiChatMode_4456E0, nil)
 	v0 = nox_strman_loadString_40F1D0(internCStr("chatmode"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\chaticon.c"), 73)

@@ -189,7 +189,7 @@ func sub_445C40() {
 		v20    *wchar2_t
 		v21    *wchar2_t
 	)
-	if nox_xxx_wndGetFlags_46ADA0(int32(uintptr(unsafe.Pointer(nox_wnd_quitMenu_825760))))&0x10 != 0 {
+	if nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760)&0x10 != 0 {
 		if *memmap.PtrUint32(0x852978, 8) == 0 || !noxflags.HasGame(2048) || (func() bool {
 			result = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276)))
 			return result != 2
@@ -217,7 +217,7 @@ func sub_445C40() {
 						v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004)))
 						nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(v7)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*5))))
 						sub_413A00(1)
-						sub_46AB20((*uint32)(unsafe.Pointer(nox_wnd_quitMenu_825760)), 220, 285)
+						sub_46AB20(nox_wnd_quitMenu_825760, 220, 285)
 					} else {
 						v21 = nox_strman_loadString_40F1D0(internCStr("MultiplayerSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 427)
 						v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
@@ -241,7 +241,7 @@ func sub_445C40() {
 						}
 						v14 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004)))
 						nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(v14)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*5))+45))
-						sub_46AB20((*uint32)(unsafe.Pointer(nox_wnd_quitMenu_825760)), 220, 330)
+						sub_46AB20(nox_wnd_quitMenu_825760, 220, 330)
 						if noxflags.HasGame(4096) {
 							v15 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)))
 							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v15)), 0)

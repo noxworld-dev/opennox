@@ -256,7 +256,7 @@ func sub_462040(a1 int32) {
 				}
 				v15 = v9 + NOX_INVENTORY_ROW_COUNT*v13
 				nox_client_inventory_grid_1050020[v15].field_0.Field_32 = nox_client_inventory_grid_1050020[v15].field_4
-				nox_xxx_clientEquip_4623B0(int32(uintptr(unsafe.Pointer(nox_client_inventory_grid_1050020[v15].field_0))))
+				nox_xxx_clientEquip_4623B0(nox_client_inventory_grid_1050020[v15].field_0)
 				v10 = 0
 			LABEL_26:
 				v12 = (*uint8)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(nox_inventory_cell_t{})))
@@ -1016,7 +1016,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 				var v11 = v10 + NOX_INVENTORY_ROW_COUNT*v9
 				if int32(nox_client_inventory_grid_1050020[v11].field_140) != 0 {
 					var dr = nox_client_inventory_grid_1050020[v11].field_0
-					dword_5d4594_1063116 = uint32(uintptr(unsafe.Pointer(dr)))
+					dword_5d4594_1063116 = unsafe.Pointer(dr)
 					dr.Field_32 = nox_client_inventory_grid_1050020[v11].field_4
 				} else {
 					dword_5d4594_1063116 = nil
@@ -1064,7 +1064,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			} else {
 				nox_xxx_wndSetCaptureMain_46ADC0(dword_5d4594_1062456)
 				if sub_479590() == 3 {
-					nox_xxx_clientTradeMB_4657E0((*uint32)(unsafe.Pointer(&v56)))
+					nox_xxx_clientTradeMB_4657E0(&v56)
 				} else {
 					sub_4658A0(dword_5d4594_1062456, &v56)
 				}
@@ -1258,7 +1258,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			var v46 int32 = int32(dword_5d4594_1049808 + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049804)
 			nox_client_inventory_grid_1050020[v46].field_136 = uint32(v45)
 			nox_client_inventory_grid_1050020[v43].field_136 = 0
-			dword_5d4594_1062480 = unsafe.Pointer(&nox_client_inventory_grid_1050020[v46])
+			dword_5d4594_1062480 = &nox_client_inventory_grid_1050020[v46]
 		}
 		sub_461B50()
 	LABEL_121:
@@ -1390,17 +1390,17 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 				v7 = a2.field_4 - 13
 				v8 = v7 / 50
 				v9 = 20
-				dword_5d4594_1049796_inventory_click_column_index = uint32(v7 / 50)
+				dword_5d4594_1049796_inventory_click_column_index = v7 / 50
 			} else {
 				v10 = nox_xxx_pointInRect_4281F0(a2, (*int4)(memmap.PtrOff(0x587000, 136352)))
 				if v10 == 0 {
 					return nil
 				}
 				v8 = (a2.field_0 - 314) / 50
-				dword_5d4594_1049796_inventory_click_column_index = uint32((a2.field_0 - 314) / 50)
+				dword_5d4594_1049796_inventory_click_column_index = (a2.field_0 - 314) / 50
 				v9 = int32((uint32(a2.field_4) + dword_5d4594_1062512 - 13) / 50)
 			}
-			dword_5d4594_1049800_inventory_click_row_index = uint32(v9)
+			dword_5d4594_1049800_inventory_click_row_index = v9
 			if sub_464B40(v8, v9) != 0 {
 				var v12 int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
 				if int32(nox_client_inventory_grid_1050020[v12].field_140) != 0 {

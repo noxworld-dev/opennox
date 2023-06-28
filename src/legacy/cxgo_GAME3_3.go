@@ -4492,7 +4492,7 @@ func nox_xxx_pickupFlagCtf_4EA490(a1 unsafe.Pointer, a2p unsafe.Pointer) {
 				nox_xxx_netReportLesson_4D8EF0((*server.Object)(v3))
 				if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v3, 48)) != 0 {
 					v10 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(v3, 52))))))
-					nox_xxx_netChangeTeamID_419090(int32(uintptr(unsafe.Pointer(v10))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*13))+1))
+					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v10), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*13))+1))
 					if dword_5d4594_2650652 != 0 {
 						if a2 != nil {
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(a2, 276))), nil)
@@ -4533,7 +4533,7 @@ func nox_xxx_pickupFlagCtf_4EA490(a1 unsafe.Pointer, a2p unsafe.Pointer) {
 	v20 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 	if *(*uint32)(unsafe.Add(v2, 492)) == 0 {
 		v12 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(v2, 52))))))
-		if v12 != nil && sub_418BC0(int32(uintptr(unsafe.Pointer(v12)))) != 0 {
+		if v12 != nil && sub_418BC0(unsafe.Pointer(v12)) != 0 {
 			v13 = *(**uint32)(unsafe.Add(v3, 504))
 			if v13 != nil {
 				for (*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*2)) & 0x10000000) == 0 {
@@ -5306,7 +5306,7 @@ func nox_xxx_collideBall_4EBA00(obj *server.Object, obj2 *server.Object, pos *ty
 	v3 = *(**uint32)(unsafe.Add(a1, 748))
 	if a2 != nil {
 		v2 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a2, 52))))))
-		if *(*unsafe.Pointer)(unsafe.Pointer(v3)) == a2 && v2 != nil && sub_418BC0(int32(uintptr(unsafe.Pointer(v2)))) > 1 {
+		if *(*unsafe.Pointer)(unsafe.Pointer(v3)) == a2 && v2 != nil && sub_418BC0(unsafe.Pointer(v2)) > 1 {
 			if (gameFrame() - *memmap.PtrUint32(0x5D4594, 1568008)) > 0x2D {
 				nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(a2), internCStr("objcoll.c:CantPickupBall"), 0)
 				*memmap.PtrUint32(0x5D4594, 1568008) = gameFrame()
@@ -5398,7 +5398,7 @@ func nox_xxx_collideHomeBase_4EBB80(obj *server.Object, obj2 *server.Object, pos
 				nox_xxx_netReportLesson_4D8EF0((*server.Object)(unsafe.Pointer(uintptr(*v4))))
 			}
 			if v5 != nil {
-				nox_xxx_netChangeTeamID_419090(int32(uintptr(unsafe.Pointer(v5))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*13))+1))
+				nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v5), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*13))+1))
 				if dword_5d4594_2650652 != 0 {
 					v7 = *v4
 					if v7 != 0 {

@@ -81,7 +81,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 			v23 = v8
 			if v8 != nil {
 				if noxflags.HasGame(0x8000) {
-					sub_425ED0(int32(uintptr(unsafe.Pointer(v8))), 1)
+					sub_425ED0(unsafe.Pointer(v8), 1)
 				}
 				if v7 != 0 && int32(*(*uint8)(unsafe.Add(v7, 8)))&4 != 0 {
 					if a5 == 1 && !nox_xxx_CheckGameplayFlags_417DA0(2) && noxflags.HasGame(128) {

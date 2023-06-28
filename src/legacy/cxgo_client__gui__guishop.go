@@ -101,7 +101,7 @@ func sub_478B10(a1 *int2) *wchar2_t {
 		v6     int32
 	)
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1098576)), 3806)))
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), &v5, &v6)
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v4, &v3)
 	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(dword_5d4594_1098456), a1.field_0, a1.field_4)
 	result = dword_5d4594_1098596
@@ -126,7 +126,7 @@ func sub_478BC0(a1 *int32) *wchar2_t {
 		v6     int32
 	)
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1098576)), 3806)))
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v1)), &v5, &v6)
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v4, &v3)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(dword_5d4594_1098456), *a1, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))

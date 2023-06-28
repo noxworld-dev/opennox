@@ -114,7 +114,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	v1 = v66 - 24
 	v2 = v67 - 76
 	v3 = nox_xxx_guiFontHeightMB_43F320(nil)
-	dword_5d4594_1046656 = uint32(v3 + 2)
+	dword_5d4594_1046656 = v3 + 2
 	nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x5D4594, 1046880))
 	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1046856)), v1, v2)
 	if dword_5d4594_1046872 != 0 {
@@ -421,7 +421,7 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 	if dword_5d4594_1046648 != 0 && uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())-dword_5d4594_1046648 < (gameFPS()*2) {
 		return 1
 	}
-	nox_client_wndGetPosition_46AA60(win, (*uint32)(unsafe.Pointer(&v25)), (*uint32)(unsafe.Pointer(&v24)))
+	nox_client_wndGetPosition_46AA60(win, &v25, &v24)
 	if dword_5d4594_1046648 != 0 {
 		v3 = 50
 		for {

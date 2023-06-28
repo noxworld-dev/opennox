@@ -14,12 +14,12 @@ func nox_xxx_guiSpelllistLoad_453850(a1 unsafe.Pointer) unsafe.Pointer {
 		v9  *uint32
 		v10 *uint32
 	)
-	dword_5d4594_1045484 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("spelllst.wnd"), sub_453C00))))
+	dword_5d4594_1045484 = nox_new_window_from_file(internCStr("spelllst.wnd"), sub_453C00)
 	nox_xxx_wndSetDrawFn_46B340(dword_5d4594_1045484, sub_453B80)
 	sub_46B120(dword_5d4594_1045484, (*gui.Window)(a1))
 	nox_xxx_wnd_46B280(dword_5d4594_1045484, a1)
-	dword_5d4594_1045480 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1110))))
-	dword_5d4594_1045508 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1112))))
+	dword_5d4594_1045480 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1110)
+	dword_5d4594_1045508 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1112)
 	sub_453B00()
 	nox_window_call_field_94_fnc(dword_5d4594_1045480, 16399, 0, 0)
 	nox_window_call_field_94_fnc(dword_5d4594_1045508, 16399, 0, 0)
