@@ -4495,7 +4495,7 @@ func nox_xxx_pickupFlagCtf_4EA490(a1 unsafe.Pointer, a2p unsafe.Pointer) {
 					nox_xxx_netChangeTeamID_419090(int32(uintptr(unsafe.Pointer(v10))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*13))+1))
 					if dword_5d4594_2650652 != 0 {
 						if a2 != nil {
-							sub_425CA0(int32(*(*uint32)(unsafe.Add(a2, 276))), 0)
+							sub_425CA0(int32(*(*uint32)(unsafe.Add(a2, 276))), nil)
 						}
 					}
 				}
@@ -4644,7 +4644,7 @@ func sub_4EA800(a1 unsafe.Pointer, a2 unsafe.Pointer) int16 {
 				if dword_5d4594_2650652 != 0 {
 					v9 = int32(*(*uint32)(unsafe.Add(v7, 748)))
 					if v9 != 0 {
-						sub_425CA0(int32(*(*uint32)(unsafe.Add(v9, 276))), 0)
+						sub_425CA0(int32(*(*uint32)(unsafe.Add(v9, 276))), nil)
 					}
 				}
 				nox_xxx_aud_501960(929, (*server.Object)(a1), 0, 0)
@@ -5404,7 +5404,7 @@ func nox_xxx_collideHomeBase_4EBB80(obj *server.Object, obj2 *server.Object, pos
 					if v7 != 0 {
 						v8 = int32(*(*uint32)(unsafe.Add(v7, 748)))
 						if v8 != 0 {
-							sub_425CA0(int32(*(*uint32)(unsafe.Add(v8, 276))), 0)
+							sub_425CA0(int32(*(*uint32)(unsafe.Add(v8, 276))), nil)
 						}
 					}
 				}

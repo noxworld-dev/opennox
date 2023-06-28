@@ -5456,7 +5456,7 @@ func sub_49CA60(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			v6 = sub_40A710(v5 + 1)
 			nox_xxx_rateUpdate_40A6D0(v6)
 			nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1305684)
-			dword_5d4594_1305684 = 0
+			dword_5d4594_1305684 = nil
 			nox_xxx_windowFocus_46B500(nil)
 		}
 	}

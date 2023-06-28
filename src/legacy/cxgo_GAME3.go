@@ -4354,7 +4354,7 @@ func nox_xxx_windowServerOptionsGeneralProc_4AD5D0(win *gui.Window, a2, a3, a4 u
 }
 func sub_4AD820() int32 {
 	nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1309812)
-	dword_5d4594_1309812 = 0
+	dword_5d4594_1309812 = nil
 	return sub_4BE610()
 }
 func sub_4AD9B0(a1 int32) int32 {

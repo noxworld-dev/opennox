@@ -66,6 +66,21 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) error {
 				changed = fixSameTypeConv(pkg, n) || changed
 				changed = fixUnsafeAdd(pkg, n) || changed
 			}
+			if ft, ok := pkg.TypesInfo.TypeOf(n.Fun).(*types.Signature); ok && len(n.Args) == ft.Params().Len() {
+				for i := range n.Args {
+					expectType(&n.Args[i], ft.Params().At(i).Type(), &changed)
+				}
+			}
+		case *ast.AssignStmt:
+			if len(n.Lhs) == len(n.Rhs) {
+				for i := range n.Lhs {
+					t := pkg.TypesInfo.TypeOf(n.Lhs[i])
+					if t == nil {
+						continue
+					}
+					expectType(&n.Rhs[i], t, &changed)
+				}
+			}
 		}
 		return true
 	})
@@ -168,4 +183,42 @@ func fixUnsafeAdd(pkg *packages.Package, c1 *ast.CallExpr) bool {
 		},
 	}
 	return true
+}
+
+func simplifyExpr(p *ast.Expr, changed *bool) {
+	switch x := (*p).(type) {
+	case *ast.StarExpr:
+		if y, ok := x.X.(*ast.UnaryExpr); ok && y.Op == token.AND {
+			*p = y.X
+			*changed = true
+		}
+	}
+}
+
+func expectType(p *ast.Expr, t types.Type, changed *bool) {
+	simplifyExpr(p, changed)
+	if t == nil {
+		return
+	}
+	switch x := (*p).(type) {
+	case *ast.BasicLit:
+		switch x.Kind {
+		case token.INT:
+			if x.Value == "0" {
+				changeToNil := false
+				switch t := t.(type) {
+				case *types.Pointer:
+					changeToNil = true
+				case *types.Basic:
+					if t.Kind() == types.UnsafePointer {
+						changeToNil = true
+					}
+				}
+				if changeToNil {
+					*p = ast.NewIdent("nil")
+					*changed = true
+				}
+			}
+		}
+	}
 }

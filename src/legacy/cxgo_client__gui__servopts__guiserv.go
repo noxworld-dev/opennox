@@ -583,15 +583,15 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 			sub_46B120((*gui.Window)(unsafe.Pointer(a3)), (*gui.Window)(v16))
 			if dword_5d4594_1046532 != 0 {
 				sub_456D60(1)
-				dword_5d4594_1046532 = 0
+				dword_5d4594_1046532 = nil
 			}
 			if dword_5d4594_1046528 != 0 {
 				sub_4557D0(1)
-				dword_5d4594_1046528 = 0
+				dword_5d4594_1046528 = nil
 			}
 			if dword_5d4594_1046536 != 0 {
 				sub_4AD820()
-				dword_5d4594_1046540 = 0
+				dword_5d4594_1046540 = nil
 			}
 			sub_46ACE0(dword_5d4594_1046492, 10161, 10163, 1)
 			if noxflags.HasGame(1) {

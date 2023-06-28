@@ -2630,7 +2630,7 @@ func sub_467CD0() int32 {
 						}
 						*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 132)) = 1
 						if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 136)) != 0 {
-							nox_xxx_clientSetAltWeapon_461550(0)
+							nox_xxx_clientSetAltWeapon_461550(nil)
 							*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 136)) = 0
 						}
 					}

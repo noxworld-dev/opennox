@@ -1806,7 +1806,7 @@ func sub_57B0A0() {
 		nox_xxx_delayedDeleteObject_4E5CC0(dword_5d4594_2523776)
 		v1 = dword_5d4594_2523780
 	}
-	dword_5d4594_2523776 = 0
+	dword_5d4594_2523776 = nil
 	if v1 != nil {
 		nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(v1)), 13)
 	}

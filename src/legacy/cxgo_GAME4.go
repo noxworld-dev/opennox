@@ -3812,13 +3812,13 @@ func sub_4FF770() int32 {
 	nox_free_alloc_class((*nox_alloc_class)(nox_alloc_magicWall_1569748))
 	result = 0
 	nox_alloc_magicWall_1569748 = nil
-	dword_5d4594_1569752 = 0
+	dword_5d4594_1569752 = nil
 	dword_5d4594_1569756 = 0
 	return result
 }
 func nox_xxx_mapWall_4FF790() {
 	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_magicWall_1569748))
-	dword_5d4594_1569752 = 0
+	dword_5d4594_1569752 = nil
 }
 func sub_4FF7B0(a1p *server.Player) {
 	var (

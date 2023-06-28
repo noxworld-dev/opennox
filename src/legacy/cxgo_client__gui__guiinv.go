@@ -226,7 +226,7 @@ func sub_462040(a1 int32) {
 	if v2 != nil {
 		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 132)) = 1
 		if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 136)) != 0 {
-			nox_xxx_clientSetAltWeapon_461550(0)
+			nox_xxx_clientSetAltWeapon_461550(nil)
 			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 136)) = 0
 		}
 	}
@@ -292,7 +292,7 @@ func sub_462740() int32 {
 		return 0
 	}
 	nox_window_set_hidden(dword_5d4594_1062476, 1)
-	dword_5d4594_1063116 = 0
+	dword_5d4594_1063116 = nil
 	dword_5d4594_1063120 = 0
 	v0 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2361)
 	nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), v0)
@@ -940,7 +940,7 @@ func sub_4649B0(a1 int32, a2 int32, a3 int32) int32 {
 			v10 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*34))))
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*33))) = 1
 			if v10 != 0 {
-				nox_xxx_clientSetAltWeapon_461550(0)
+				nox_xxx_clientSetAltWeapon_461550(nil)
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*34))) = 0
 			}
 			return 1
@@ -1019,7 +1019,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					dword_5d4594_1063116 = uint32(uintptr(unsafe.Pointer(dr)))
 					dr.Field_32 = nox_client_inventory_grid_1050020[v11].field_4
 				} else {
-					dword_5d4594_1063116 = 0
+					dword_5d4594_1063116 = nil
 				}
 				return 1
 			}
@@ -1183,7 +1183,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 				if *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1049848), 112))&0x3001000 != 0 {
 					var v35 int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
 					if nox_client_inventory_grid_1050020[v35].field_136 != 0 {
-						nox_xxx_clientSetAltWeapon_461550(0)
+						nox_xxx_clientSetAltWeapon_461550(nil)
 						nox_client_inventory_grid_1050020[v35].field_136 = 0
 					} else if nox_client_inventory_grid_1050020[v35].field_132 != 0 {
 						nox_xxx_clientDequip_464B70(*memmap.PtrInt32(0x5D4594, 1049848))
@@ -1584,7 +1584,7 @@ func sub_467750(a1 int32, a2 int8) int32 {
 	} else {
 		if dword_5d4594_1062480 != 0 {
 			*(*uint32)(unsafe.Add(dword_5d4594_1062480, 136)) = 0
-			dword_5d4594_1062480 = 0
+			dword_5d4594_1062480 = nil
 		}
 	}
 	if int32(a2) != 0 {

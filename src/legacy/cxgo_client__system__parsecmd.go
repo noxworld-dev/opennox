@@ -881,7 +881,7 @@ func nox_cmd_set_qual_t1(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	return 1
 }
 func nox_cmd_set_qual_lan(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
-	dword_5d4594_2650652 = 0
+	dword_5d4594_2650652 = nil
 	var v0 int32 = sub_40A710(1)
 	nox_xxx_rateUpdate_40A6D0(v0)
 	nox_server_connectionType_3596 = 1
