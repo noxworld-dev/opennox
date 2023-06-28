@@ -72,6 +72,41 @@ func hasPtrKind[T types.Type](t types.Type) bool {
 	}
 }
 
+func isPointer(t types.Type) bool {
+	switch t := t.(type) {
+	case *types.Pointer:
+		return true
+	case *types.Basic:
+		return t.Kind() == types.UnsafePointer || t.Kind() == types.UntypedNil
+	case *types.Named:
+		return isPointer(t.Underlying())
+	default:
+		return false
+	}
+}
+
+func isBasicKind(t types.Type, kind types.BasicKind) bool {
+	switch t := t.(type) {
+	case *types.Basic:
+		return t.Kind() == kind
+	case *types.Named:
+		return isBasicKind(t.Underlying(), kind)
+	default:
+		return false
+	}
+}
+
+func isInteger(t types.Type) bool {
+	switch t := t.(type) {
+	case *types.Basic:
+		return t.Info()&types.IsInteger != 0
+	case *types.Named:
+		return isInteger(t.Underlying())
+	default:
+		return false
+	}
+}
+
 func int64lit(v int64) ast.Expr {
 	return &ast.BasicLit{Kind: token.INT, Value: strconv.FormatInt(v, 10)}
 }

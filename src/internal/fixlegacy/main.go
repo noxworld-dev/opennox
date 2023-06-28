@@ -415,12 +415,6 @@ func fixBinExprConv(pkg *packages.Package, b *ast.BinaryExpr, changed *bool) {
 	}
 	tx := pkg.TypesInfo.TypeOf(b.X)
 	ty := pkg.TypesInfo.TypeOf(b.Y)
-	if !isValidType(tx) || !isValidType(ty) {
-		return
-	}
-	if types.Identical(tx, ty) {
-		return
-	}
 	best := bestBinExprType(tx, ty)
 	if best == nil {
 		return
@@ -430,15 +424,26 @@ func fixBinExprConv(pkg *packages.Package, b *ast.BinaryExpr, changed *bool) {
 }
 
 func bestBinExprType(x, y types.Type) types.Type {
-	bx, xok := x.(*types.Basic)
-	by, yok := y.(*types.Basic)
-	if xok && yok {
-		if bx.Kind() == types.Int && by.Info()&types.IsInteger != 0 {
-			return bx
-		}
-		if by.Kind() == types.Int && bx.Info()&types.IsInteger != 0 {
-			return by
-		}
+	if !isValidType(x) || !isValidType(y) {
+		return nil
+	}
+	if types.Identical(x, y) {
+		return nil
+	}
+	if hasKind[*types.Interface](x) || hasKind[*types.Interface](y) {
+		return nil
+	}
+	if isBasicKind(x, types.Int) && isInteger(y) {
+		return x
+	}
+	if isBasicKind(x, types.Int) && isInteger(x) {
+		return y
+	}
+	if isPointer(x) && isInteger(y) {
+		return x
+	}
+	if isPointer(y) && isInteger(x) {
+		return y
 	}
 	return nil
 }
