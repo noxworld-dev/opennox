@@ -5455,13 +5455,13 @@ func nox_xxx_quickbarTrapUpDownProc_45F630(win *gui.Window, a2, p3, p4 uintptr) 
 	if a2 == 5 {
 		switch v2 {
 		case 0:
-			dword_5d4594_1049508.DrawData().BgImageHnd = 0
+			dword_5d4594_1049508.DrawData().BgImageHnd = nil
 			nox_client_spellSetPrev_460540()
 		case 1:
-			dword_5d4594_1049508.DrawData().BgImageHnd = 0
+			dword_5d4594_1049508.DrawData().BgImageHnd = nil
 			nox_client_spellSetNext_4604F0()
 		case 2:
-			dword_5d4594_1049508.DrawData().BgImageHnd = 0
+			dword_5d4594_1049508.DrawData().BgImageHnd = nil
 			sub_460920()
 		case 3:
 			nox_client_trapSetPrev_4603F0()

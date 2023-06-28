@@ -464,7 +464,7 @@ var dword_5d4594_1316436 uint32
 var dword_587000_145672 uint32 = math.MaxUint32
 var dword_5d4594_1046864 uint32
 var dword_5d4594_1523044 uint32
-var dword_5d4594_1046356 uint32
+var dword_5d4594_1046356 noxrender.ImageHandle
 var dword_5d4594_3799452 uint32
 var dword_5d4594_1096280 uint32
 var dword_5d4594_1316472 uint32
@@ -526,7 +526,7 @@ var dword_5d4594_2487568 uint32
 var dword_5d4594_1045540 *gui.Window
 var dword_5d4594_2487580 uint32
 var dword_5d4594_1556856 uint32
-var dword_5d4594_1046360 uint32
+var dword_5d4594_1046360 noxrender.ImageHandle
 var dword_5d4594_1049976 noxrender.ImageHandle
 var dword_5d4594_1193188 uint32
 var dword_5d4594_1565628 uint32
