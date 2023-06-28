@@ -22,7 +22,7 @@ func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc func(*client.Drawable, unsafe.P
 	}
 	rect := image.Rect(int(a1.field_0), int(a1.field_4), int(a1.field_8), int(a1.field_C))
 	GetClient().Cli().Objs.EachInRect(rect, func(dr *client.Drawable) {
-		cfnc((*client.Drawable)(dr.C()), data)
+		cfnc(dr, data)
 	})
 }
 
@@ -142,7 +142,7 @@ func nox_xxx_spriteDeleteAll_45A5E0(a1 int32) {
 }
 
 func Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {
-	return int(nox_xxx_client_4984B0_drawable((*client.Drawable)(dr.C())))
+	return int(nox_xxx_client_4984B0_drawable(dr))
 }
 
 func Nox_xxx_spriteGetMB_476F80() *client.Drawable {
@@ -171,8 +171,8 @@ func Sub_4523D0(p unsafe.Pointer) {
 	sub_4523D0(p)
 }
 func Sub_495FC0(p *client.DrawableFX, dr *client.Drawable) {
-	sub_495FC0(p.C(), (*client.Drawable)(dr.C()))
+	sub_495FC0(p.C(), dr)
 }
 func Sub_49C520(dr *client.Drawable) int {
-	return int(sub_49C520((*client.Drawable)(dr.C())))
+	return int(sub_49C520(dr))
 }

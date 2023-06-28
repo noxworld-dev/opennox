@@ -444,7 +444,7 @@ func Set_dword_5d4594_823776(v int) {
 	dword_5d4594_823776 = uint32(v)
 }
 func Set_nox_draw_curDrawData_3799572(v *noxrender.RenderData) {
-	nox_draw_curDrawData_3799572 = (*noxrender.RenderData)(v.C())
+	nox_draw_curDrawData_3799572 = v
 }
 func Set_nox_color_black_2650656(v uint32) {
 	nox_color_black_2650656 = v

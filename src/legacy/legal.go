@@ -7,7 +7,7 @@ import (
 )
 
 func Sub_46AF00(a1 *gui.Window) string {
-	return GoWString(sub_46AF00((*gui.Window)(a1.C())))
+	return GoWString(sub_46AF00(a1))
 }
 func Sub_46AF40(a1 *gui.Window) unsafe.Pointer {
 	return sub_46AF40(a1.C())

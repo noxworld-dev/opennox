@@ -146,7 +146,7 @@ func Nox_xxx_netReportUnitHeight_4D9020(a1 ntype.PlayerInd, a2 *server.Object) {
 	nox_xxx_netReportUnitHeight_4D9020(int32(a1), asObjectC(a2))
 }
 func Sub_4FF7B0(pl *server.Player) {
-	sub_4FF7B0((*server.Player)(pl.C()))
+	sub_4FF7B0(pl)
 }
 func Sub_511100(a1 int) {
 	sub_511100(int32(a1))
@@ -227,7 +227,7 @@ func Sub_40AA40() int {
 	return int(sub_40AA40())
 }
 func Nox_xxx_countNonEliminatedPlayersInTeam_40A830(a1 *server.Team) int {
-	return int(nox_xxx_countNonEliminatedPlayersInTeam_40A830((*server.Team)(a1.C())))
+	return int(nox_xxx_countNonEliminatedPlayersInTeam_40A830(a1))
 }
 func Sub_40A770() int {
 	return int(sub_40A770())

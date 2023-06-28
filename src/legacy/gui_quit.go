@@ -51,7 +51,7 @@ func Sub_445C40() {
 }
 
 func Set_nox_wnd_quitMenu_825760(win *gui.Window) {
-	nox_wnd_quitMenu_825760 = (*gui.Window)(win.C())
+	nox_wnd_quitMenu_825760 = win
 }
 
 func Nox_xxx____setargv_4_44B000() {

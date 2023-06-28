@@ -429,15 +429,15 @@ func nox_client_isConnected_43C700() int32 {
 }
 
 func Sub_437180() {
-	sub_48D990((*noxrender.Viewport)(GetClient().Viewport().C()))
+	sub_48D990(GetClient().Viewport())
 }
 
 func Sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
-	sub_476AE0((*noxrender.Viewport)(vp.C()), (*client.Drawable)(dr.C()))
+	sub_476AE0(vp, dr)
 }
 
 func Nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) {
-	nox_xxx_drawShinySpot_4C4F40((*noxrender.Viewport)(vp.C()), (*client.Drawable)(dr.C()))
+	nox_xxx_drawShinySpot_4C4F40(vp, dr)
 }
 
 func Sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
@@ -472,11 +472,11 @@ func Nox_xxx_drawEnergyBolt_499710(a1 int, a2 int, a3 int, a4 int) {
 	nox_xxx_drawEnergyBolt_499710(int32(a1), int32(a2), int16(a3), int32(a4))
 }
 func Nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) {
-	nox_xxx_drawShield_499810((*noxrender.Viewport)(vp.C()), (*client.Drawable)(dr.C()))
+	nox_xxx_drawShield_499810(vp, dr)
 }
 func Sub_474B40(dr *client.Drawable) int {
-	return int(sub_474B40((*client.Drawable)(dr.C())))
+	return int(sub_474B40(dr))
 }
 func Sub_495BB0(dr *client.Drawable, vp *noxrender.Viewport) {
-	sub_495BB0((*client.Drawable)(dr.C()), (*noxrender.Viewport)(vp.C()))
+	sub_495BB0(dr, vp)
 }

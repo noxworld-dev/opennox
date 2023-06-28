@@ -191,5 +191,5 @@ func sub_46C690(p *gui.Window) int32 {
 }
 
 func Nox_xxx_wnd_46ABB0(p *gui.Window, v int) int {
-	return int(nox_xxx_wnd_46ABB0((*gui.Window)(p.C()), int32(v)))
+	return int(nox_xxx_wnd_46ABB0(p, int32(v)))
 }

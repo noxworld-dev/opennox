@@ -143,7 +143,7 @@ func Nox_xxx_playerForceDisconnect_4DE7C0(ind ntype.PlayerInd) {
 }
 
 func Nox_xxx_netNeedTimestampStatus_4174F0(pl *server.Player, v int) {
-	nox_xxx_netNeedTimestampStatus_4174F0((*server.Player)(pl.C()), int32(v))
+	nox_xxx_netNeedTimestampStatus_4174F0(pl, int32(v))
 }
 
 func Sub_40A1F0(v int) {
@@ -167,15 +167,15 @@ func Sub_4D7E50(u *server.Object) {
 }
 
 func Nox_xxx_playerObserverFindGoodSlave0_4E6280(p *server.Player) *server.Object {
-	return asObjectS(nox_xxx_playerObserverFindGoodSlave0_4E6280((*server.Player)(p.C())))
+	return asObjectS(nox_xxx_playerObserverFindGoodSlave0_4E6280(p))
 }
 
 func Sub_4E6150(p *server.Player) *server.Object {
-	return asObjectS(sub_4E6150((*server.Player)(p.C())))
+	return asObjectS(sub_4E6150(p))
 }
 
 func Nox_xxx_playerUnsetStatus_417530(p *server.Player, a2 int) {
-	nox_xxx_playerUnsetStatus_417530((*server.Player)(p.C()), int32(a2))
+	nox_xxx_playerUnsetStatus_417530(p, int32(a2))
 }
 
 func Nox_xxx_playerResetImportantCtr_4E4F40(v ntype.PlayerInd) {
@@ -187,7 +187,7 @@ func Get_dword_5d4594_1046492() int {
 }
 
 func Nox_xxx_playerInitColors_461460(pl *server.Player) {
-	nox_xxx_playerInitColors_461460((*server.Player)(pl.C()))
+	nox_xxx_playerInitColors_461460(pl)
 }
 
 func Sub_425B30(a1 unsafe.Pointer, a2 ntype.PlayerInd) {
@@ -207,27 +207,27 @@ func Sub_41D670(a1 string) {
 }
 
 func Sub_425F10(p *server.Player) {
-	sub_425F10((*server.Player)(p.C()))
+	sub_425F10(p)
 }
 
 func Sub_4DF3C0(p *server.Player) {
-	sub_4DF3C0((*server.Player)(p.C()))
+	sub_4DF3C0(p)
 }
 
 func Sub_40AA70(p *server.Player) int {
-	return int(sub_40AA70((*server.Player)(p.C())))
+	return int(sub_40AA70(p))
 }
 
 func Nox_xxx_netReportPlayerStatus_417630(p *server.Player) {
-	nox_xxx_netReportPlayerStatus_417630((*server.Player)(p.C()))
+	nox_xxx_netReportPlayerStatus_417630(p)
 }
 
 func Sub_509C30(p *server.Player) {
-	sub_509C30((*server.Player)(p.C()))
+	sub_509C30(p)
 }
 
 func Nox_xxx_playerLeaveObserver_0_4E6AA0(p *server.Player) {
-	nox_xxx_playerLeaveObserver_0_4E6AA0((*server.Player)(p.C()))
+	nox_xxx_playerLeaveObserver_0_4E6AA0(p)
 }
 
 func Nox_xxx_netGuiGameSettings_4DD9B0(a1 int, a2 unsafe.Pointer, a3 int) {

@@ -1413,7 +1413,7 @@ func nox_xxx_guiDialog_479B00(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 func sub_479BE0(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	switch a2 {
 	case 5, 6, 7, 9, 10, 11, 13, 14, 15:
-		nox_xxx_wndPointInWnd_46AAB0((*uint32)(win.C()), int32(uint16(a3)), int32(a3>>16))
+		nox_xxx_wndPointInWnd_46AAB0(win, int32(uint16(a3)), int32(a3>>16))
 	default:
 		return 1
 	}

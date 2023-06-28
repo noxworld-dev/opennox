@@ -1480,7 +1480,7 @@ func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7
 func nox_xxx_clientReportSecondaryWeapon_4BF010(a1 *client.Drawable) int32 {
 	var v3 [3]byte
 	v3[0] = 224
-	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(nox_xxx_netGetUnitCodeCli_578B00((*client.Drawable)(a1.C())))
+	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(nox_xxx_netGetUnitCodeCli_578B00(a1))
 	return nox_xxx_netClientSend2_4E53C0(31, unsafe.Pointer(&v3[0]), 3, 1)
 }
 func sub_4BF7E0(a1 *uint32) int16 {
@@ -1772,7 +1772,7 @@ func sub_4BFD40() {
 func sub_4BFDD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 	switch a2 {
 	case 5, 9, 13:
-		if !nox_xxx_wndPointInWnd_46AAB0((*uint32)(win.C()), int32(uint16(a3)), int32(a3>>16)) {
+		if !nox_xxx_wndPointInWnd_46AAB0(win, int32(uint16(a3)), int32(a3>>16)) {
 			sub_4BFE40()
 		}
 		return 1

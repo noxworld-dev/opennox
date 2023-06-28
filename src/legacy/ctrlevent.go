@@ -45,15 +45,15 @@ func Nox_xxx_guiSpellTargetClickCheckSend_45DBB0() {
 }
 
 func Nox_xxx_clientTrade_42E850(dr *client.Drawable) {
-	nox_xxx_clientTrade_42E850((*client.Drawable)(dr.C()))
+	nox_xxx_clientTrade_42E850(dr)
 }
 
 func Nox_xxx_clientTalk_42E7B0(dr *client.Drawable) {
-	nox_xxx_clientTalk_42E7B0((*client.Drawable)(dr.C()))
+	nox_xxx_clientTalk_42E7B0(dr)
 }
 
 func Nox_xxx_clientCollideOrUse_42E810(dr *client.Drawable) {
-	nox_xxx_clientCollideOrUse_42E810((*client.Drawable)(dr.C()))
+	nox_xxx_clientCollideOrUse_42E810(dr)
 }
 
 func Nox_xxx_packetGetMarshall_476F40() uint32 {

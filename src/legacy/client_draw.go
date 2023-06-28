@@ -75,57 +75,57 @@ func Sub_498AE0() {
 }
 
 func Sub_49BD70(vp *noxrender.Viewport) {
-	sub_49BD70((*noxrender.Viewport)(vp.C()))
+	sub_49BD70(vp)
 }
 
 func Nox_xxx_drawBlack_496150(vp *noxrender.Viewport) {
-	nox_xxx_drawBlack_496150((*noxrender.Viewport)(vp.C()))
+	nox_xxx_drawBlack_496150(vp)
 }
 func Nox_xxx_drawAllMB_475810_draw_B(vp *noxrender.Viewport) int {
-	return int(nox_xxx_drawAllMB_475810_draw_B((*noxrender.Viewport)(vp.C())))
+	return int(nox_xxx_drawAllMB_475810_draw_B(vp))
 }
 func Nox_video_drawCursorSelectCircle_4773C0(vp *noxrender.Viewport) {
-	nox_video_drawCursorSelectCircle_4773C0((*noxrender.Viewport)(vp.C()))
+	nox_video_drawCursorSelectCircle_4773C0(vp)
 }
 func Sub_4C5060(vp *noxrender.Viewport) {
-	sub_4C5060((*noxrender.Viewport)(vp.C()))
+	sub_4C5060(vp)
 }
 func Nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, a2 *server.Wall) {
-	nox_xxx_drawWalls_473C10((*noxrender.Viewport)(vp.C()), a2.C())
+	nox_xxx_drawWalls_473C10(vp, a2.C())
 }
 func Sub_4761B0(dr *client.Drawable) int {
-	return int(sub_4761B0((*client.Drawable)(dr.C())))
+	return int(sub_4761B0(dr))
 }
 func Sub_476080(a1 unsafe.Pointer) int {
 	return int(sub_476080((*byte)(a1)))
 }
 func Sub_459DB0(dr *client.Drawable) int {
-	return int(sub_459DB0((*client.Drawable)(dr.C())))
+	return int(sub_459DB0(dr))
 }
 func Sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
-	sub_49A6A0((*noxrender.Viewport)(vp.C()), (*client.Drawable)(dr.C()))
+	sub_49A6A0(vp, dr)
 }
 func Nox_xxx_sprite_4756E0_drawable(dr *client.Drawable) int {
-	return int(nox_xxx_sprite_4756E0_drawable((*client.Drawable)(dr.C())))
+	return int(nox_xxx_sprite_4756E0_drawable(dr))
 }
 func Nox_xxx_sprite_475740_drawable(dr *client.Drawable) int {
-	return int(nox_xxx_sprite_475740_drawable((*client.Drawable)(dr.C())))
+	return int(nox_xxx_sprite_475740_drawable(dr))
 }
 func Nox_xxx_sprite_4757A0_drawable(dr *client.Drawable) int {
-	return int(nox_xxx_sprite_4757A0_drawable((*client.Drawable)(dr.C())))
+	return int(nox_xxx_sprite_4757A0_drawable(dr))
 }
 func Sub_4757D0_drawable(dr *client.Drawable) int {
-	return int(sub_4757D0_drawable((*client.Drawable)(dr.C())))
+	return int(sub_4757D0_drawable(dr))
 }
 func Nox_xxx_tileDrawImpl_4826A0(vp *noxrender.Viewport) {
-	nox_xxx_tileDrawImpl_4826A0((*noxrender.Viewport)(vp.C()))
+	nox_xxx_tileDrawImpl_4826A0(vp)
 }
 func Nox_xxx_tileDrawMB_481C20_A(vp *noxrender.Viewport, a2 int) {
-	nox_xxx_tileDrawMB_481C20_A((*noxrender.Viewport)(vp.C()), int32(a2))
+	nox_xxx_tileDrawMB_481C20_A(vp, int32(a2))
 }
 func Nox_xxx_tileDrawMB_481C20_B(vp *noxrender.Viewport, a2 int) {
-	nox_xxx_tileDrawMB_481C20_B((*noxrender.Viewport)(vp.C()), int32(a2))
+	nox_xxx_tileDrawMB_481C20_B(vp, int32(a2))
 }
 func Nox_xxx_tileCheckRedrawMB_482570(vp *noxrender.Viewport) int {
-	return int(nox_xxx_tileCheckRedrawMB_482570((*noxrender.Viewport)(vp.C())))
+	return int(nox_xxx_tileCheckRedrawMB_482570(vp))
 }
