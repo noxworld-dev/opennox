@@ -120,6 +120,8 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) (bool, error)
 					}
 				}
 			}
+		case *ast.BlockStmt:
+			optimizeBlock(pkg, n, &changed)
 		}
 		return true
 	})
@@ -446,4 +448,27 @@ func bestBinExprType(x, y types.Type) types.Type {
 		return y
 	}
 	return nil
+}
+
+func optimizeBlock(pkg *packages.Package, b *ast.BlockStmt, changed *bool) {
+	n := len(b.List)
+	if n >= 2 {
+		ret, ok1 := b.List[n-1].(*ast.ReturnStmt)
+		iff, ok2 := b.List[n-2].(*ast.IfStmt)
+		if ok1 && len(ret.Results) == 1 &&
+			ok2 && iff.Init == nil && iff.Else == nil &&
+			stmtCount(iff.Body) > 3 &&
+			!Is[*ast.ReturnStmt](iff.Body.List[len(iff.Body.List)-1]) {
+			b.List = b.List[:n-2]
+			b.List = append(b.List,
+				&ast.IfStmt{Cond: not(iff.Cond), Body: &ast.BlockStmt{List: []ast.Stmt{
+					&ast.ReturnStmt{Results: ret.Results},
+				}}},
+			)
+			b.List = append(b.List, iff.Body.List...)
+			b.List = append(b.List, &ast.ReturnStmt{Results: ret.Results})
+			*changed = true
+			return
+		}
+	}
 }
