@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"go/ast"
 	"go/format"
+	"go/parser"
 	"go/token"
 	"go/types"
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"golang.org/x/tools/go/packages"
 )
@@ -63,22 +65,21 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) error {
 		switch n := n.(type) {
 		case *ast.CallExpr:
 			if len(n.Args) == 1 {
-				changed = fixSameTypeConv(pkg, n) || changed
 				changed = fixUnsafeAdd(pkg, n) || changed
 			}
 			if ft, ok := pkg.TypesInfo.TypeOf(n.Fun).(*types.Signature); ok && len(n.Args) == ft.Params().Len() {
 				for i := range n.Args {
-					expectType(&n.Args[i], ft.Params().At(i).Type(), &changed)
+					expectType(pkg, ft.Params().At(i).Type(), &n.Args[i], &changed)
 				}
 			}
 		case *ast.AssignStmt:
-			if len(n.Lhs) == len(n.Rhs) {
+			if n.Tok != token.DEFINE && len(n.Lhs) == len(n.Rhs) {
 				for i := range n.Lhs {
 					t := pkg.TypesInfo.TypeOf(n.Lhs[i])
 					if t == nil {
 						continue
 					}
-					expectType(&n.Rhs[i], t, &changed)
+					expectType(pkg, t, &n.Rhs[i], &changed)
 				}
 			}
 		}
@@ -95,52 +96,6 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) error {
 	err = format.Node(w, pkg.Fset, f)
 	log.Println(filepath.Base(fname))
 	return err
-}
-
-func fixSameTypeConv(pkg *packages.Package, n *ast.CallExpr) bool {
-	if len(n.Args) != 1 {
-		return false
-	}
-	switch t := pkg.TypesInfo.TypeOf(n.Fun).(type) {
-	case *types.Basic, *types.Pointer:
-		sz := pkg.TypesSizes.Sizeof(t)
-		if x := findSameTypeConv(pkg, sz, t, n.Args[0], true); x != nil {
-			n.Args[0] = x
-			return true
-		}
-	}
-	return false
-}
-
-func findSameTypeConv(pkg *packages.Package, sz int64, t types.Type, x ast.Expr, root bool) ast.Expr {
-	x = unwrapParen(x)
-	if t2 := pkg.TypesInfo.TypeOf(x); t2 == nil {
-		return nil
-	} else if types.Identical(t, t2) {
-		if root {
-			return nil
-		}
-		return x
-	}
-	switch x := x.(type) {
-	case *ast.CallExpr:
-		if len(x.Args) != 1 {
-			return nil
-		}
-		t2 := pkg.TypesInfo.TypeOf(x.Fun)
-		if _, ok := t2.(*types.Signature); ok {
-			return nil // real call, not a conversion
-		}
-		if types.Identical(t, t2) {
-			return x.Args[0]
-		}
-		if pkg.TypesSizes.Sizeof(t2) != sz {
-			return nil
-		}
-		return findSameTypeConv(pkg, sz, t, x.Args[0], false)
-	default:
-		return nil
-	}
 }
 
 func unwrapParen(x ast.Expr) ast.Expr {
@@ -195,9 +150,21 @@ func simplifyExpr(p *ast.Expr, changed *bool) {
 	}
 }
 
-func expectType(p *ast.Expr, t types.Type, changed *bool) {
+func expectType(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool) {
 	simplifyExpr(p, changed)
 	if t == nil {
+		return
+	}
+	switch t := t.(type) {
+	case *types.Basic:
+		if t.Kind() == types.Invalid {
+			return
+		}
+	}
+	if hasKind[*types.Interface](t) {
+		return
+	}
+	if hasKind[*types.Signature](t) {
 		return
 	}
 	switch x := (*p).(type) {
@@ -217,8 +184,125 @@ func expectType(p *ast.Expr, t types.Type, changed *bool) {
 				if changeToNil {
 					*p = ast.NewIdent("nil")
 					*changed = true
+					return
+				}
+			}
+		}
+	case *ast.CallExpr:
+		if len(x.Args) == 1 {
+			// unconvert
+			switch pkg.TypesInfo.TypeOf(x.Fun).(type) {
+			case *types.Basic, *types.Pointer:
+				t2 := pkg.TypesInfo.TypeOf(x.Args[0])
+				if t2 != nil && types.Identical(t, t2) {
+					*p = x.Args[0]
+					*changed = true
+					return
 				}
 			}
 		}
 	}
+	fixSameTypeConv2(pkg, t, *p, p, changed)
+	fixTypeConv(pkg, t, p, changed)
+}
+
+func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Expr, changed *bool) {
+	root := x == *p
+	x = unwrapParen(x)
+	if t2 := pkg.TypesInfo.TypeOf(x); t2 == nil {
+		return
+	} else if types.Identical(t, t2) && !root {
+		*p = x
+		*changed = true
+		return
+	}
+	switch x := x.(type) {
+	case *ast.CallExpr:
+		if len(x.Args) != 1 {
+			return
+		}
+		ct := pkg.TypesInfo.TypeOf(x.Fun)
+		if _, ok := ct.(*types.Signature); ok {
+			return // real call, not a conversion
+		}
+		if types.Identical(t, ct) && !root {
+			*p = x
+			*changed = true
+			return
+		}
+		if pkg.TypesSizes.Sizeof(ct) != pkg.TypesSizes.Sizeof(t) {
+			return // incompatible value sizes - stop
+		}
+		fixSameTypeConv2(pkg, t, x.Args[0], p, changed)
+	}
+}
+
+func hasKind[T types.Type](t types.Type) bool {
+	switch t := t.(type) {
+	case T:
+		return true
+	case *types.Named:
+		return hasKind[T](t.Underlying())
+	default:
+		return false
+	}
+}
+
+func hasPtrKind[T types.Type](t types.Type) bool {
+	switch t := t.(type) {
+	case T:
+		return true
+	case *types.Named:
+		return hasPtrKind[T](t.Underlying())
+	case *types.Pointer:
+		return hasKind[T](t.Elem())
+	default:
+		return false
+	}
+}
+
+func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool) {
+	x := unwrapParen(*p)
+	xt := pkg.TypesInfo.TypeOf(x)
+	if xt == nil {
+		return
+	}
+	if types.Identical(t, xt) {
+		return
+	}
+	if hasKind[*types.Interface](t) {
+		return
+	}
+	if hasKind[*types.TypeParam](t) || hasPtrKind[*types.TypeParam](t) {
+		return
+	}
+	switch xt := xt.(type) {
+	case *types.Basic:
+		if xt.Info()&types.IsUntyped != 0 {
+			return
+		}
+	}
+	if types.ConvertibleTo(xt, t) {
+		*p = &ast.CallExpr{Fun: astType(pkg, t), Args: []ast.Expr{x}}
+		*changed = true
+	}
+}
+
+func astType(pkg *packages.Package, t types.Type) ast.Expr {
+	s := types.TypeString(t, func(p *types.Package) string {
+		if p == pkg.Types {
+			return ""
+		}
+		return p.Name()
+	})
+	s = strings.ReplaceAll(s, "\n\t", " ")
+	x, err := parser.ParseExprFrom(pkg.Fset, "", s, 0)
+	if err != nil {
+		panic(fmt.Errorf("cannot parse: %q, %w", s, err))
+	}
+	switch x.(type) {
+	case *ast.StarExpr, *ast.ArrayType, *ast.InterfaceType:
+		return &ast.ParenExpr{X: x}
+	}
+	return x
 }
