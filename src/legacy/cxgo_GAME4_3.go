@@ -6723,7 +6723,7 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 		}
 		v5 = int32(*(*uint32)(unsafe.Add(v3, 748)))
 		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v1, 48))) != 0 {
-			if nox_xxx_servCompareTeams_419150(unsafe.Add(v1, 48), unsafe.Add(v3, 48)) == 0 {
+			if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v1, 48)), (*server.ObjectTeam)(unsafe.Add(v3, 48))) == 0 {
 				goto LABEL_47
 			}
 		}

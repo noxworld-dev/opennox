@@ -158,11 +158,11 @@ func sub_418BC0(a1 unsafe.Pointer) int32 {
 	}
 	return v1
 }
-func nox_xxx_teamCheckSmth_418C60(a1 unsafe.Pointer) int32 {
+func nox_xxx_teamCheckSmth_418C60(a1 *server.Team) int32 {
 	if a1 == nil {
 		return 0
 	}
-	return int32(*(*uint32)(unsafe.Add(a1, 44)))
+	return int32(a1.Field44Val)
 }
 func sub_418C70(a1 unsafe.Pointer) unsafe.Pointer {
 	if a1 == nil {
@@ -231,7 +231,7 @@ func sub_418E40(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 		if *(*unsafe.Pointer)(unsafe.Add(a1, 44)) == a2 {
 			*(*uint32)(unsafe.Add(a1, 44)) = *(*uint32)(a2)
 		} else {
-			result = unsafe.Pointer(uintptr(nox_xxx_teamCheckSmth_418C60(a1)))
+			result = unsafe.Pointer(uintptr(nox_xxx_teamCheckSmth_418C60((*server.ObjectTeam)(a1))))
 			if result == nil {
 				return
 			}
@@ -306,7 +306,7 @@ func nox_xxx_servObjectHasTeam_419130(a1 *server.ObjectTeam) int32 {
 	}
 	return 0
 }
-func nox_xxx_servCompareTeams_419150(a1 unsafe.Pointer, a2 unsafe.Pointer) int32 {
+func nox_xxx_servCompareTeams_419150(a1 *server.ObjectTeam, a2 *server.ObjectTeam) int32 {
 	var (
 		v2     int8
 		v3     int8
@@ -319,11 +319,11 @@ func nox_xxx_servCompareTeams_419150(a1 unsafe.Pointer, a2 unsafe.Pointer) int32
 	if a2 == nil {
 		return result
 	}
-	v2 = int8(*(*uint8)(unsafe.Add(a1, 4)))
+	v2 = int8(a1.ID)
 	if int32(v2) == 0 {
 		return result
 	}
-	v3 = int8(*(*uint8)(unsafe.Add(a2, 4)))
+	v3 = int8(a2.ID)
 	if int32(v3) == 0 {
 		return result
 	}
@@ -333,20 +333,17 @@ func nox_xxx_servCompareTeams_419150(a1 unsafe.Pointer, a2 unsafe.Pointer) int32
 	return result
 }
 func nox_xxx_teamCompare2_419180(a1 unsafe.Pointer, a2 uint8) int32 {
-	var (
-		v2 *byte
-	)
 	if a1 == nil {
 		return 0
 	}
 	if int32(*(*uint8)(unsafe.Add(a1, 4))) != int32(a2) {
 		return 0
 	}
-	v2 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(a2))))
+	v2 := nox_xxx_getTeamByID_418AB0(int32(a2))
 	if v2 == nil {
 		return 0
 	}
-	v3 := unsafe.Pointer(uintptr(nox_xxx_teamCheckSmth_418C60(unsafe.Pointer(v2))))
+	v3 := unsafe.Pointer(uintptr(nox_xxx_teamCheckSmth_418C60(v2)))
 	if v3 == nil {
 		return 0
 	}

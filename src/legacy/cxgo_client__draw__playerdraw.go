@@ -76,7 +76,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			v7 = nox_xxx_objGetTeamByNetCode_418C80(dr.Field_32)
 			v8 = v7
 			if v7 != nil {
-				if nox_xxx_servCompareTeams_419150(unsafe.Pointer(v6), unsafe.Pointer(v7)) != 0 {
+				if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Pointer(v6)), (*server.ObjectTeam)(unsafe.Pointer(v7))) != 0 {
 					v31 = 1
 				}
 				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 4)))))))

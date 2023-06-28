@@ -1991,7 +1991,7 @@ func sub_5488B0(a1 *int32, a2 *float32, a3 int32) {
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4))) &= 0xF7FFFFFF
 		}
 		nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(unsafe.Pointer(v3)))
-		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 4*12))) == 0 || *(*uint32)(unsafe.Add(v4, 12)) != *(*uint32)(unsafe.Add(v4, 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(unsafe.Pointer(v3), 4*12), unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(float32(0))*12)) != 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 4*12))) == 0 || *(*uint32)(unsafe.Add(v4, 12)) != *(*uint32)(unsafe.Add(v4, 4)) || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 4*12)), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(float32(0))*12))) != 0 {
 			if a3 == 0 && int32(*(*uint8)(unsafe.Add(v4, 1))) == 0 {
 				v18 = (*float32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*math.MaxInt8)))
 				if v18 == nil || v18 == v7 {
@@ -7292,7 +7292,7 @@ func sub_551250(a1 unsafe.Pointer, a2 *float32, a3 int32) {
 								*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*4))) &= 0xF7FFFFFF
 							}
 							nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(v3))
-							if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v3, 48))) == 0 || *(*uint32)(unsafe.Add(v5, 12)) != *(*uint32)(unsafe.Add(v5, 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(v3, 48), unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*12)) != 0 {
+							if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v3, 48))) == 0 || *(*uint32)(unsafe.Add(v5, 12)) != *(*uint32)(unsafe.Add(v5, 4)) || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v3, 48)), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*12))) != 0 {
 								if a3 == 0 && int32(*(*uint8)(unsafe.Add(v5, 1))) == 0 {
 									v23 = *(**float32)(unsafe.Add(v3, 508))
 									if v23 == nil || v23 == v4 {

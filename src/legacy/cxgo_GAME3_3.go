@@ -4493,7 +4493,7 @@ func nox_xxx_pickupFlagCtf_4EA490(a1 unsafe.Pointer, a2p unsafe.Pointer) {
 	a2 := *(*unsafe.Pointer)(unsafe.Add(a2p, 748))
 	v4 = int8(sub_4ECBD0(a1))
 	v16 = *(*uint8)(unsafe.Add(a1, 52))
-	if nox_xxx_servCompareTeams_419150(unsafe.Add(v3, 48), unsafe.Add(a1, 48)) != 0 {
+	if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v3, 48)), (*server.ObjectTeam)(unsafe.Add(a1, 48))) != 0 {
 		v5 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 		if math.Abs(float64(*(*float32)(unsafe.Add(a1, 56))-*(*float32)(v5))) > *mem_getDoublePtr(0x581450, 10160) || math.Abs(float64(*(*float32)(unsafe.Add(a1, 60))-*(*float32)(unsafe.Add(v5, 4)))) > *mem_getDoublePtr(0x581450, 10160) {
 			v15 = *(**types.Pointf)(unsafe.Add(a1, 748))
@@ -5873,7 +5873,7 @@ func nox_xxx_unitsHaveSameTeam_4EC520(a1p *server.Object, a2p *server.Object) in
 	for {
 		v3 := a2
 		for {
-			if nox_xxx_servCompareTeams_419150(unsafe.Add(v2, 48), unsafe.Add(v3, 48)) != 0 || v2 == v3 {
+			if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v2, 48)), (*server.ObjectTeam)(unsafe.Add(v3, 48))) != 0 || v2 == v3 {
 				return 1
 			}
 			v3 = *(*unsafe.Pointer)(unsafe.Add(v3, 508))
@@ -10578,7 +10578,7 @@ func Nox_xxx_pickupDefault_4F31E0(a1p *server.Object, item *server.Object, a3 in
 	)
 	v3 = bool2int32(noxflags.HasGame(4096))
 	v4 := a1
-	if v3 != 0 || nox_xxx_servObjectHasTeam_419130(item.TeamPtr()) == 0 || nox_xxx_servCompareTeams_419150(unsafe.Add(v4, 48), unsafe.Pointer(item.TeamPtr())) != 0 || (func() *byte {
+	if v3 != 0 || nox_xxx_servObjectHasTeam_419130(item.TeamPtr()) == 0 || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v4, 48)), item.TeamPtr()) != 0 || (func() *byte {
 		v6 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(item.TeamVal.ID))))
 		return v6
 	}()) == nil {

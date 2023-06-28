@@ -1983,10 +1983,8 @@ func Sub_481770(a1 *uint32, a2 int32, a3 int32) int8 {
 func Nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 	var (
 		v2   int32
-		v3   int32
 		v4   int32
 		v5   int32
-		v6   int32
 		v7   int32
 		v8   int32
 		v9   int32
@@ -2013,14 +2011,14 @@ func Nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 		v32  uint8
 		v33  *byte
 		addr *int32
-		tile *nox_tileDef_t = &nox_tile_defs_arr[*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*0))]
+		tile = &nox_tile_defs_arr[*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*0))]
 	)
 	v2 = int32(dword_5d4594_3798824)
-	v3 = int32(uintptr(unsafe.Pointer(*(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(tile.data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))+uint32(tile.field_46)))))))
+	v3 := *(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(tile.data_32), unsafe.Sizeof((noxrender.ImageHandle)(nil))*uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))+uint32(tile.field_46))))
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*2)))
 	v5 = int32(dword_5d4594_3798836)
 	addr = (*int32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x85B3FC, uintptr(v4*60+28676)) + (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))+uint32(*memmap.PtrUint16(0x85B3FC, uintptr(v4*60+28690))))*4)))
-	v6 = int32(*(*uint32)(unsafe.Pointer(addr)))
+	v6 := *(*noxrender.ImageHandle)(unsafe.Pointer(addr))
 	v7 = int32(dword_5d4594_3798840)
 	*memmap.PtrUint32(0x5D4594, uintptr(v4*4)+2523980) = 1
 	v8 = int32(dword_5d4594_3798804*(uint32(v7)+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))-uint32(v2)) + uint32(uintptr(nox_video_tileBuf_ptr_3798796)) + ((uint32(v5) + *a1 - dword_5d4594_3798820) << uint32(*memmap.PtrUint8(0x973F18, 7696))))
@@ -2127,8 +2125,7 @@ func Nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 	return int8(v9)
 }
 func nox_xxx_tileCallDrawEdges_481BF0(a1 unsafe.Pointer, a2 int32) {
-	var i int32
-	for i = a2; i != 0; i = int32(*(*uint32)(unsafe.Add(i, 16))) {
+	for i := a2; i != 0; i = int32(*(*uint32)(unsafe.Add(i, 16))) {
 		func_587000_154944((*uint32)(a1), (*uint32)(i))
 	}
 }

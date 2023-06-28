@@ -1250,7 +1250,7 @@ func nox_xxx_waypoint_579F00(a1 *uint32, a2 unsafe.Pointer) int32 {
 		if a2 != nil {
 			v3 := unsafe.Pointer(nox_server_getFirstObject_4DA790())
 			if v3 != nil {
-				for (*(*uint32)(unsafe.Add(v3, 8))&0x10000000) == 0 || nox_xxx_servCompareTeams_419150(unsafe.Add(a2, 48), unsafe.Add(v3, 48)) != 0 {
+				for (*(*uint32)(unsafe.Add(v3, 8))&0x10000000) == 0 || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(a2, 48)), (*server.ObjectTeam)(unsafe.Add(v3, 48))) != 0 {
 					v3 = unsafe.Pointer(nox_server_getNextObject_4DA7A0((*server.Object)(v3)))
 					if v3 == nil {
 						goto LABEL_9

@@ -3331,7 +3331,7 @@ func nox_xxx_spell_4FE680(a1p *server.Object, a2 float32) {
 		v3 := a1
 		for {
 			v4 := *(*unsafe.Pointer)(unsafe.Add(v2, 4))
-			if ((int32(*(*uint8)(unsafe.Add(v4, 8)))&4) != 4 || nox_xxx_servCompareTeams_419150(unsafe.Add(v3, 48), unsafe.Add(v4, 48)) == 0) && (func() bool {
+			if ((int32(*(*uint8)(unsafe.Add(v4, 8)))&4) != 4 || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v3, 48)), unsafe.Add(v4, 48)) == 0) && (func() bool {
 				v5 = int32(*(*uint32)(unsafe.Add(v2, 4)))
 				v6 = float64(*(*float32)(unsafe.Add(v5, 56)) - *(*float32)(unsafe.Add(v3, 56)))
 				v7 = float64(*(*float32)(unsafe.Add(v5, 60)) - *(*float32)(unsafe.Add(v3, 60)))
@@ -6914,7 +6914,7 @@ func sub_5068E0(a1 int32, a2 unsafe.Pointer, a3 *wchar2_t) int8 {
 		return int8(v3)
 	}
 	if !(!nox_xxx_CheckGameplayFlags_417DA0(4) || (func() int32 {
-		v3 = nox_xxx_servCompareTeams_419150(unsafe.Add(a2, 48), unsafe.Add(v6, 48))
+		v3 = nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(a2, 48)), unsafe.Add(v6, 48))
 		return v3
 	}()) != 0) {
 		return int8(v3)
@@ -7295,7 +7295,7 @@ func sub_507000(a1 int32) int32 {
 	}
 	if *(*uint32)(unsafe.Add(a1, 20)) == 1 {
 		for i := unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
-			if nox_xxx_servCompareTeams_419150(*(*unsafe.Pointer)(unsafe.Add(a1, 16)), unsafe.Add(i, 48)) != 0 {
+			if nox_xxx_servCompareTeams_419150(*(*unsafe.Pointer)(unsafe.Add(a1, 16)), (*server.ObjectTeam)(unsafe.Add(i, 48))) != 0 {
 				v1++
 			}
 		}

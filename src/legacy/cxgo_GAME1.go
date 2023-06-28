@@ -18,8 +18,8 @@ import (
 )
 
 var nox_server_gameSettingsUpdated int32
-var nox_tile_def_cnt uint32 = 0
-var nox_tile_defs_arr [176]nox_tileDef_t = [176]nox_tileDef_t{}
+var nox_tile_def_cnt uint32
+var nox_tile_defs_arr [176]nox_tileDef_t
 
 type nox_tileDef_t struct {
 	name     [32]byte
