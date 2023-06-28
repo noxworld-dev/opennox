@@ -131,10 +131,10 @@ func (s *serverTeams) Reset() {
 	}
 	for i := 0; i < len(s.Arr)-1; i++ { // TODO: why -1 ?
 		t := &s.Arr[i]
-		t.id = 0
+		t.IDVal = 0
 		t.Field_72 = nil
 		t.field_76 = 0
-		t.field_60 = 0
+		t.Field60Val = 0
 	}
 	s.teamsReloadTitles()
 }
@@ -192,19 +192,19 @@ func (s *serverTeams) getFreeID() TeamID {
 
 func (s *serverTeams) create(id TeamID) *Team {
 	t, ind := s.getInactive()
-	t.name[0] = 0
+	t.NameBuf[0] = 0
 	t.Lessons = 0
 	t.ColorInd = TeamColor(ind)
 	t.ind = byte(ind)
 	t.active = 1
-	t.field_44 = 0
-	t.field_48 = 0
-	t.field_60 = 0
+	t.Field44Val = 0
+	t.Field48Val = 0
+	t.Field60Val = 0
 	t.field_68 = 0
 	if id == 0 {
 		id = s.getFreeID()
 	}
-	t.id = id
+	t.IDVal = id
 	return t
 }
 
@@ -267,31 +267,31 @@ type TeamID byte
 type TeamColor byte
 
 type Team struct {
-	name     [22]uint16     // 0, 0
-	field_44 uint32         // 11, 44
-	field_48 uint32         // 12, 48
-	Lessons  int            // 13, 52
-	ColorInd TeamColor      // 14, 56
-	id       TeamID         // 14, 57 TODO: team def code?
-	ind      byte           // 14, 58
-	_        byte           // 14, 59
-	field_60 uint32         // 15, 60 TODO: id? net code?
-	active   uint32         // 16, 64
-	field_68 uint32         // 17, 68
-	Field_72 unsafe.Pointer // 18, 72 TODO: team flag? team spawn?
-	field_76 uint32         // 19, 76
+	NameBuf    [22]uint16     // 0, 0
+	Field44Val uint32         // 11, 44
+	Field48Val uint32         // 12, 48
+	Lessons    int            // 13, 52
+	ColorInd   TeamColor      // 14, 56
+	IDVal      TeamID         // 14, 57 TODO: team def code?
+	ind        byte           // 14, 58
+	_          byte           // 14, 59
+	Field60Val uint32         // 15, 60 TODO: id? net code?
+	active     uint32         // 16, 64
+	field_68   uint32         // 17, 68
+	Field_72   unsafe.Pointer // 18, 72 TODO: team flag? team spawn?
+	field_76   uint32         // 19, 76
 }
 
 func (t *Team) Reset() {
-	t.name[0] = 0
-	t.field_44 = 0
-	t.field_48 = 0
+	t.NameBuf[0] = 0
+	t.Field44Val = 0
+	t.Field48Val = 0
 	t.active = 0
-	t.field_60 = 0
+	t.Field60Val = 0
 	t.field_68 = 0
 	t.Field_72 = nil
 	t.field_76 = 0
-	t.id = 0
+	t.IDVal = 0
 }
 
 func (t *Team) C() unsafe.Pointer {
@@ -299,11 +299,11 @@ func (t *Team) C() unsafe.Pointer {
 }
 
 func (t *Team) Name() string {
-	return alloc.GoString16S(t.name[:])
+	return alloc.GoString16S(t.NameBuf[:])
 }
 
 func (t *Team) ID() TeamID {
-	return t.id
+	return t.IDVal
 }
 
 // Ind returns a server team array index.
@@ -318,7 +318,7 @@ func (t *Team) Ind60() int {
 	if t == nil {
 		return 0
 	}
-	return int(t.field_60)
+	return int(t.Field60Val)
 }
 
 func (t *Team) Active() bool {
@@ -329,7 +329,7 @@ func (t *Team) Active() bool {
 }
 
 func (t *Team) SetNameAnd68(name string, a3 int) { // sub_418800
-	alloc.StrCopy16(t.name[:20], name)
-	t.name[20] = 0
+	alloc.StrCopy16(t.NameBuf[:20], name)
+	t.NameBuf[20] = 0
 	t.field_68 = uint32(a3)
 }
