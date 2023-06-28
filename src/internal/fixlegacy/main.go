@@ -242,7 +242,7 @@ func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Ex
 	switch x := x.(type) {
 	case *ast.CallExpr:
 		if len(x.Args) == 0 {
-			if dot, ok := x.Fun.(*ast.SelectorExpr); ok && dot.Sel.Name == "C" {
+			if dot, ok := x.Fun.(*ast.SelectorExpr); ok && (dot.Sel.Name == "C" || dot.Sel.Name == "CObj") {
 				ct := pkg.TypesInfo.TypeOf(dot.X)
 				if types.Identical(t, ct) {
 					*p = dot.X
@@ -347,7 +347,7 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	switch px := ptr.(type) {
 	case *ast.CallExpr:
 		if len(px.Args) == 0 {
-			if dot, ok := unwrapParen(px.Fun).(*ast.SelectorExpr); ok && dot.Sel.Name == "C" {
+			if dot, ok := unwrapParen(px.Fun).(*ast.SelectorExpr); ok && (dot.Sel.Name == "C" || dot.Sel.Name == "CObj") {
 				ptr = dot.X
 			}
 		} else if len(px.Args) == 1 {
