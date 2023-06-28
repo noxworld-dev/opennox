@@ -389,10 +389,19 @@ func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off, sz in
 			doff = off - foff
 		}
 	}
-	if fld == nil || !fld.Exported() {
+	if fld == nil {
 		return nil
 	}
-	x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
+	if fld.Exported() {
+		x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
+	} else {
+		switch fld.Name() {
+		case "drawData": // Window.drawData
+			x = &ast.CallExpr{Fun: &ast.SelectorExpr{X: x, Sel: ast.NewIdent("DrawData")}}
+		default:
+			return nil
+		}
+	}
 	nt, ok := fld.Type().(*types.Named)
 	if !ok {
 		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
