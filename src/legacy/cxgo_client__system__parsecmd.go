@@ -566,7 +566,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *server.Player, a2 int8, a3 *wc
 	}
 	switch a2 {
 	case 0:
-		if noxflags.HasGame(8) || noxflags.HasGame(4096) || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(pl), 3680)))&1 != 0 {
+		if noxflags.HasGame(8) || noxflags.HasGame(4096) || int32(pl.Field3680)&1 != 0 {
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}

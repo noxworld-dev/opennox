@@ -3893,7 +3893,7 @@ func nox_xxx_collideBomb_4E96F0(obj *server.Object, obj2 *server.Object, pos *ty
 		v3 int32
 	)
 	v2 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	if !noxflags.HasGame(2048) || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()), 16)))&2) != 2 {
+	if !noxflags.HasGame(2048) || (int32(nox_xxx_getFirstPlayerUnit_4DA7C0().ObjFlags)&2) != 2 {
 		nox_xxx_scriptCallByEventBlock_502490(unsafe.Add(v2, 1272), a2, a1, 21)
 		if a2 != 0 && int32(*(*uint8)(unsafe.Add(a2, 8)))&6 != 0 && nox_xxx_unitsHaveSameTeam_4EC520((*server.Object)(a1), (*server.Object)(a2)) == 0 {
 			v3 = int32(*(*uint32)(unsafe.Add(a2, 16)))
@@ -3997,7 +3997,7 @@ func sub_4E9A30(a1p *server.Object, a2p *server.Object) int32 {
 		v4 int32
 		v5 int32
 	)
-	if noxflags.HasGame(2048) && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()), 16)))&2) == 2 {
+	if noxflags.HasGame(2048) && (int32(nox_xxx_getFirstPlayerUnit_4DA7C0().ObjFlags)&2) == 2 {
 		return 0
 	}
 	v5 = 1
@@ -5794,7 +5794,7 @@ func nox_xxx_unitRemoveChild_4EC470(a1 *server.Object) {
 		v2 int32
 	)
 	if a1 != nil {
-		v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 516)))
+		v1 = int32(a1.Field129)
 		if v1 != 0 {
 			for {
 				v2 = int32(*(*uint32)(unsafe.Add(v1, 512)))

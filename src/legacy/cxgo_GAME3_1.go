@@ -3526,7 +3526,7 @@ func sub_4C3210(a1 int32) int32 {
 	return result
 }
 func nox_xxx_sprite_4C3220(a1 *client.Drawable) int32 {
-	return bool2int32(sub_4C31D0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 128)))) != nil)
+	return bool2int32(sub_4C31D0(int32(a1.Field_32)) != nil)
 }
 func sub_4C3260() int32 {
 	return bool2int32(sub_4C2D60() != nil)
@@ -3693,7 +3693,7 @@ func sub_4C3FC0(a1 uint32) int32 {
 		return 1
 	}
 	var v7 int32 = 0
-	var v8 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1321244), 32)))
+	var v8 int32 = int32(dword_5d4594_1321244.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v8, 44))) > 0 {
 		for {
 			{
@@ -3709,7 +3709,7 @@ func sub_4C3FC0(a1 uint32) int32 {
 		}
 	}
 	var v10 int32 = 0
-	var v11 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1321248), 32)))
+	var v11 int32 = int32(dword_5d4594_1321248.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v11, 44))) > 0 {
 		for {
 			{
@@ -3744,7 +3744,7 @@ func sub_4C4100(a1 uint32) int32 {
 		return 1
 	}
 	v2 = 0
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1321244), 32)))
+	v3 = int32(dword_5d4594_1321244.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v3, 44))) > 0 {
 		for {
 			v4 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1321244, 16406, uintptr(v2), 0)))
@@ -3758,7 +3758,7 @@ func sub_4C4100(a1 uint32) int32 {
 		}
 	}
 	v5 = 0
-	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1321248), 32)))
+	v6 = int32(dword_5d4594_1321248.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v6, 44))) > 0 {
 		for {
 			v7 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1321248, 16406, uintptr(v5), 0)))
@@ -5020,7 +5020,7 @@ func sub_4CC280(a1 uint32) int32 {
 		return 1
 	}
 	var v7 int32 = 0
-	var v8 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1522624), 32)))
+	var v8 int32 = int32(dword_5d4594_1522624.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v8, 44))) > 0 {
 		for {
 			{
@@ -5036,7 +5036,7 @@ func sub_4CC280(a1 uint32) int32 {
 		}
 	}
 	var v10 int32 = 0
-	var v11 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1522628), 32)))
+	var v11 int32 = int32(dword_5d4594_1522628.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v11, 44))) > 0 {
 		for {
 			{
@@ -5071,7 +5071,7 @@ func sub_4CC3C0(a1 uint32) int32 {
 		return 1
 	}
 	v2 = 0
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1522624), 32)))
+	v3 = int32(dword_5d4594_1522624.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v3, 44))) > 0 {
 		for {
 			v4 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1522624, 16406, uintptr(v2), 0)))
@@ -5085,7 +5085,7 @@ func sub_4CC3C0(a1 uint32) int32 {
 		}
 	}
 	v5 = 0
-	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1522628), 32)))
+	v6 = int32(dword_5d4594_1522628.WidgetData)
 	if int32(*(*uint16)(unsafe.Add(v6, 44))) > 0 {
 		for {
 			v7 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1522628, 16406, uintptr(v5), 0)))

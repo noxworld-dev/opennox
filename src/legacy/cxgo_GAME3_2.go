@@ -5761,7 +5761,7 @@ func nox_xxx_playerForceDisconnect_4DE7C0(ind int32) {
 			sub_425B60(unsafe.Pointer(v3), ind)
 		}
 	}
-	var v4 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(plr.PlayerUnit), 748)))
+	var v4 int32 = int32(plr.PlayerUnit.UpdateData)
 	if *(*uint32)(unsafe.Add(v4, 280)) != 0 {
 		nox_xxx_shopCancelSession_510DC0(*(**uint32)(unsafe.Add(v4, 280)))
 	}

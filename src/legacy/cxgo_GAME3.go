@@ -1078,7 +1078,7 @@ func nox_xxx_wndListBoxAddLine_4A3AC0(a1 *wchar2_t, a2 int32, a3 *uint32) int32 
 }
 func nox_xxx_wndListboxInit_4A3C00(a1 *gui.Window, a2 int32) {
 	if a1 != nil {
-		if int32(int8(*(*uint8)(unsafe.Add(a1.C(), 4)))) >= 0 {
+		if int32(int8(a1.Flags)) >= 0 {
 			nox_xxx_wndSetDrawFn_46B340(a1, nox_xxx_wndListboxDrawNoImage_4A3C50)
 		} else {
 			nox_xxx_wndSetDrawFn_46B340(a1, nox_xxx_wndListboxDrawWithImage_4A3FC0)
@@ -5347,9 +5347,9 @@ func nox_xxx_wndScrollBoxButtonCreate_4B5640(a1 *gui.Window, a2 nox_window_flags
 		*(*uint32)(unsafe.Pointer(&v6[40])) = *(*uint32)(unsafe.Add(a3, 40))
 	}
 	if int32(*(*uint8)(unsafe.Add(a3, 8)))&0x10 != 0 {
-		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0(a1, v4, 0, 0, 10, int(*(*uint32)(unsafe.Add(a1.C(), 12))), (*gui.WindowData)(unsafe.Pointer(&v6[0]))))))
+		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0(a1, v4, 0, 0, 10, a1.SizeVal.Y, (*gui.WindowData)(unsafe.Pointer(&v6[0]))))))
 	} else {
-		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0(a1, v4, 0, 0, int(*(*uint32)(unsafe.Add(a1.C(), 8))), 10, (*gui.WindowData)(unsafe.Pointer(&v6[0]))))))
+		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0(a1, v4, 0, 0, a1.SizeVal.X, 10, (*gui.WindowData)(unsafe.Pointer(&v6[0]))))))
 	}
 	return result
 }

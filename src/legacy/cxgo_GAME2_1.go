@@ -856,7 +856,7 @@ func sub_461F90(a1 int32) *client.Drawable {
 				v6.Field_93 = v3.Field_93
 			}
 			v7 := v3.Flags28()
-			if v7&0x1000 != 0 || nox_xxx_ammoCheck_415880(uint16(*(*uint32)(unsafe.Add(v3.C(), 108)))) == 2 || nox_xxx_ammoCheck_415880(uint16(*(*uint32)(unsafe.Add(v3.C(), 108)))) == 128 {
+			if v7&0x1000 != 0 || nox_xxx_ammoCheck_415880(uint16(v3.Field_27)) == 2 || nox_xxx_ammoCheck_415880(uint16(v3.Field_27)) == 128 {
 				sub_470D70()
 			}
 			return v3
@@ -924,7 +924,7 @@ func sub_4623E0(a1 *client.Drawable, a2 int32) *uint32 {
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)) & 0x2000000) == 0 {
 		goto LABEL_19
 	}
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*29)))
+	v2 = int32(a1.Flags29Val)
 	if v2&0x140 != 0 {
 		result = (*uint32)(array_5D4594_1049872[a2].C())
 		if result == nil {
@@ -990,7 +990,7 @@ func sub_4624D0(a1 int32) {
 	}
 	(*v3).field_132 = 0
 	if dword_5d4594_1062492 != v2 {
-		if nox_xxx_ammoCheck_415880(uint16(*(*uint32)(unsafe.Add(v2.C(), 108))))&0xC != 0 && dword_5d4594_1062480 != nil && nox_xxx_ammoCheck_415880(uint16(*(*uint32)(unsafe.Add(dword_5d4594_1062480.field_0.C(), 108)))) == 2 {
+		if nox_xxx_ammoCheck_415880(uint16(v2.Field_27))&0xC != 0 && dword_5d4594_1062480 != nil && nox_xxx_ammoCheck_415880(uint16(dword_5d4594_1062480.field_0.Field_27)) == 2 {
 			dword_5d4594_1062480.field_136 = 0
 			nox_xxx_clientSetAltWeapon_461550(nil)
 		}
@@ -1601,7 +1601,7 @@ func sub_465990(a1 *uint32) int32 {
 	if array_5D4594_1049872[8] == nil {
 		return 5
 	}
-	for (*(*uint32)(unsafe.Add(v5.C(), 112))&0x2000000) == 0 || (int32(*(*uint8)(unsafe.Add(v5.C(), 116)))&2) == 0 {
+	for (*(*uint32)(unsafe.Add(v5.C(), 112))&0x2000000) == 0 || (int32(v5.Flags29Val)&2) == 0 {
 		v5 = v5.Next()
 		if v5 == nil {
 			return 5
@@ -2182,7 +2182,7 @@ func nox_client_invAlterWeapon_4672C0() {
 	}
 	v3 := dword_5d4594_1062480
 	if dword_5d4594_1062480 != nil {
-		if nox_xxx_ammoCheck_415880(uint16(uintptr(unsafe.Pointer(*(**byte)(unsafe.Add(dword_5d4594_1062480.field_0.C(), 108)))))) == 2 {
+		if nox_xxx_ammoCheck_415880(uint16(uintptr(unsafe.Pointer(dword_5d4594_1062480.field_0.Field_27)))) == 2 {
 			v4 := sub_415840(2)
 			r4 := sub_461600(v4)
 			if r4 == nil {
@@ -2428,7 +2428,7 @@ func sub_4678D0() int32 {
 			return 0
 		}
 	}
-	v5 := sub_461EF0(int32(*(*uint32)(unsafe.Add(v3.C(), 128))))
+	v5 := sub_461EF0(int32(v3.Field_32))
 	if v5 != nil {
 		return int32(**(**uint32)(unsafe.Pointer(v5)))
 	} else {
@@ -2795,7 +2795,7 @@ func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 		v2 = 320
 		v5 = v2
 	}
-	nox_window_setPos_46A9B0(dword_5d4594_1064856, (nox_win_width-v2)/2, int32(*(*uint32)(unsafe.Add(dword_5d4594_1064856, 20))))
+	nox_window_setPos_46A9B0(dword_5d4594_1064856, (nox_win_width-v2)/2, int32(dword_5d4594_1064856.Off.Y))
 	sub_46AB20(win, v5, 20)
 	return nox_xxx_wndEditDrawNoImage_488160(win, draw)
 }

@@ -23,7 +23,7 @@ func sub_4CBD30() *byte {
 		result *byte
 		v12    [256]byte
 	)
-	v0 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1522620), 32)))
+	v0 = int32(dword_5d4594_1522620.WidgetData)
 	sub_42CD90()
 	for i = 0; i < int32(*(*int16)(unsafe.Add(v0, 44))); i++ {
 		v2 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1522620, 16406, uintptr(i), 0)))

@@ -848,7 +848,7 @@ func nox_xxx_guiMotdLoad_4465C0() *gui.Window {
 	dword_5d4594_826028 = v0
 	v1 := nox_xxx_wndGetChildByID_46B0C0(v0, 4203)
 	dword_5d4594_826032 = v1
-	v2 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*8))
+	v2 := v1.WidgetData
 	v7 := nox_xxx_gLoadImg_42F970(internCStr("UISlider"))
 	v3 := nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))
 	v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_826028, 4204)

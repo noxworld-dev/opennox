@@ -215,7 +215,7 @@ func sub_462040(a1 int32) {
 		nox_xxx_printCentered_445490(v7)
 		return
 	}
-	v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*30)))
+	v8 = int32(v5.Flags30Val)
 	v6.Field_32 = uint32(v1)
 	v6.Flags30Val = uint32(v8) | 0x40000000
 	alloc.Memcpy(unsafe.Add(unsafe.Pointer(v6), 4*108), v4, 0x18)

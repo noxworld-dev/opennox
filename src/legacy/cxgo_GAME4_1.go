@@ -4270,13 +4270,13 @@ func nox_xxx_decayDestroy_5117B0() int32 {
 func sub_5117F0(a1 *server.Object) int8 {
 	var result int8
 	result = int8(uintptr(unsafe.Pointer(a1)))
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8))) & 1) == 0 {
+	if (int32(a1.ObjClass) & 1) == 0 {
 		result = nox_xxx_unitHasCollideOrUpdateFn_537610(a1)
 	}
 	return result
 }
 func nox_xxx_unit_511810(a1 *server.Object) {
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8))) & 1) == 0 {
+	if (int32(a1.ObjClass) & 1) == 0 {
 		if sub_537580(unsafe.Pointer(a1)) != 0 {
 			sub_5375A0(unsafe.Pointer(a1))
 		}

@@ -119,7 +119,7 @@ func sub_454740() {
 	v9 = int8(*(*byte)(unsafe.Add(unsafe.Pointer(v0), 100)))
 	if int32(v9) != 0 {
 		v10 = 0
-		v11 = int32(*(*uint32)(unsafe.Add(dword_5d4594_1045552, 32)))
+		v11 = int32(dword_5d4594_1045552.WidgetData)
 		if int32(v9)&1 != 0 {
 			**(**uint32)(unsafe.Add(v11, 48)) = 0
 			v10 = 1

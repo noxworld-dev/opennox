@@ -784,7 +784,7 @@ func nox_xxx_quickbarAddTrap_460EC0(a1 int32) *uint32 {
 		return (*uint32)(unsafe.Pointer(uintptr(sub_460070())))
 	}
 	result = dword_5d4594_1049500
-	if (int32(*(*uint8)(unsafe.Add(dword_5d4594_1049500, 4))) & 8) == 0 {
+	if (int32(dword_5d4594_1049500.Flags) & 8) == 0 {
 		v2 = 50
 		dword_5d4594_1049536 = uint32(nox_win_height + 1)
 		for {
