@@ -3920,7 +3920,7 @@ func sub_4FF900(a1 int32) int32 {
 	)
 	v1 = a1
 	for i = 0; i < 0x20; i++ {
-		result = int32(1 << i)
+		result = 1 << i
 		if (1<<i)&*(*uint32)(unsafe.Add(v1, 16)) != 0 {
 			if *(*uint32)(v1) != 0 {
 				v4 = int8(*(*uint8)(unsafe.Add(v1, 12)))

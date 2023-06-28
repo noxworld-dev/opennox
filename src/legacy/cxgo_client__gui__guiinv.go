@@ -479,7 +479,7 @@ LABEL_14:
 	nox_swprintf(&v75[0], v14, v64)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(unsafe.Pointer(&v75[0])), math.MaxUint32)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(memmap.PtrOff(0x5D4594, 1063660)), math.MaxUint32)
-	v15 = int32(dword_5d4594_1063116)
+	v15 = dword_5d4594_1063116
 	v16 = int32(*(*uint32)(unsafe.Add(dword_5d4594_1063116, 112)))
 	if (uint32(v16) & 0x2000000) == 0 {
 		if (uint32(v16) & 0x1001000) == 0 {
@@ -494,7 +494,7 @@ LABEL_14:
 			v24 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ArcherBolt"))
 			v23 = int32(*memmap.PtrUint32(0x8531A0, 2576))
 			*memmap.PtrUint32(0x5D4594, 1063648) = uint32(v24)
-			v15 = int32(dword_5d4594_1063116)
+			v15 = dword_5d4594_1063116
 		}
 		if v23 == 0 || (int32(*(*uint8)(unsafe.Add(v15, 116)))&2) == 0 {
 			goto LABEL_50
@@ -604,7 +604,7 @@ LABEL_14:
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(unsafe.Pointer(&v75[0])), math.MaxUint32)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(memmap.PtrOff(0x5D4594, 1063664)), math.MaxUint32)
 LABEL_71:
-	v15 = int32(dword_5d4594_1063116)
+	v15 = dword_5d4594_1063116
 LABEL_72:
 	v39 = int32(*(*uint32)(unsafe.Add(v15, 112)))
 	if uint32(v39)&0x13001000 != 0 {
@@ -614,7 +614,7 @@ LABEL_72:
 			v40 = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint32)(unsafe.Add(v15, 108)))))
 		}
 		if v40 != nil {
-			v15 = int32(dword_5d4594_1063116)
+			v15 = dword_5d4594_1063116
 			v43 = int32(dword_5d4594_1063116 + 432)
 			if *(*uint32)(unsafe.Add(dword_5d4594_1063116, 112))&0x10000000 != 0 {
 				goto LABEL_91
@@ -629,7 +629,7 @@ LABEL_72:
 				nox_swprintf(&v76[0], *(**wchar2_t)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v43, 8)), 16)))
 				nox_wcscat(&v75[0], &v76[0])
 				nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(unsafe.Pointer(&v75[0])), math.MaxUint32)
-				v15 = int32(dword_5d4594_1063116)
+				v15 = dword_5d4594_1063116
 			} else {
 				v46 = v73
 			}
@@ -646,7 +646,7 @@ LABEL_72:
 				nox_swprintf(&v76[0], *(**wchar2_t)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v43, 12)), 16)))
 				nox_wcscat(&v75[0], &v76[0])
 				nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(unsafe.Pointer(&v75[0])), math.MaxUint32)
-				v15 = int32(dword_5d4594_1063116)
+				v15 = dword_5d4594_1063116
 			}
 			if v46 != 0 {
 				goto LABEL_91
@@ -660,7 +660,7 @@ LABEL_72:
 			nox_swprintf(&v75[0], v42)
 			nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(unsafe.Pointer(&v75[0])), math.MaxUint32)
 		}
-		v15 = int32(dword_5d4594_1063116)
+		v15 = dword_5d4594_1063116
 	}
 LABEL_91:
 	v49 = int32(uintptr(unsafe.Pointer(nox_get_thing_desc(int32(*(*uint32)(unsafe.Add(v15, 108)))))))
@@ -1483,7 +1483,7 @@ func nox_xxx_inventroryOnHovewerSub_4667E0(win *gui.Window, draw *gui.WindowData
 		}
 	}
 	if v9 != 6 {
-		v10 = sub_413480(int8(1 << v9))
+		v10 = sub_413480(1 << v9)
 		nox_xxx_cursorSetTooltip_4776B0(v10)
 		return 1
 	}

@@ -408,7 +408,7 @@ func nox_client_gui_serverInfoBlock_4394D0(a1 int32) {
 	var nameTitle *wchar2_t = nox_strman_loadString_40F1D0(internCStr("Name"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 749)
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(nameTitle)), 14)
 	if int32(*(*uint8)(unsafe.Add(a1, 120))) != 0 {
-		libc.StrNCpy(&buf[0], (*byte)(unsafe.Add(a1, 120)), int(256-1))
+		libc.StrNCpy(&buf[0], (*byte)(unsafe.Add(a1, 120)), 256-1)
 	} else {
 		nox_sprintAddrPort_43BC80((*byte)(unsafe.Add(a1, 12)), *(*uint16)(unsafe.Add(a1, 109)), &buf[0])
 	}
@@ -447,7 +447,7 @@ func nox_client_gui_serverInfoBlock_4394D0(a1 int32) {
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(memmap.PtrOff(0x587000, 89580)), math.MaxUint32)
 	var mapTitle *wchar2_t = nox_strman_loadString_40F1D0(internCStr("Map"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 801)
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(mapTitle)), 14)
-	libc.StrNCpy(&buf[0], (*byte)(unsafe.Add(a1, 111)), int(256-1))
+	libc.StrNCpy(&buf[0], (*byte)(unsafe.Add(a1, 111)), 256-1)
 	buf[256-1] = 0
 	nox_swprintf(&wbuf[0], internWStr("%S"), &buf[0])
 	nox_window_call_field_94_fnc(dword_5d4594_815004, 16397, uintptr(unsafe.Pointer(&wbuf[0])), math.MaxUint32)

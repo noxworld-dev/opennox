@@ -5564,7 +5564,7 @@ func nox_xxx_netPlayerIncomingServ_4DDF60(a1 int32) int32 {
 	}
 	sub_57B920(unsafe.Add(unsafe.Pointer(v2), 16))
 	v13 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*514)))
-	dword_5d4594_2649712 |= uint32(1 << v1)
+	dword_5d4594_2649712 |= 1 << v1
 	v4 = int32(*(*uint32)(unsafe.Add(v13, 56)))
 	v5 = int32(*(*uint32)(unsafe.Add(v13, 60)))
 	nox_xxx_newPlayerSendAllPlayers_4DE300(v1)

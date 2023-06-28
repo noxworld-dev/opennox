@@ -197,7 +197,7 @@ func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc ObjectIter, data unsafe.Poi
 // nox_xxx_unitsGetInCircle_517F90
 func nox_xxx_unitsGetInCircle_517F90(pos *types.Pointf, r float32, fnc ObjectIter, data unsafe.Pointer) {
 	p := *pos
-	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
+	GetServer().S().Map.EachObjInCircle(p, r, func(it *server.Object) bool {
 		fnc(it, data)
 		return true
 	})
@@ -209,7 +209,7 @@ func nox_xxx_gameSetWallsDamage_4E25A0(v int32) {
 }
 
 func nox_xxx_mapDamageUnitsAround_4E25B0(pos *types.Pointf, a2, a3 float32, a4, a5 int32, a6, a7 *server.Object) {
-	GetServer().Nox_xxx_mapDamageUnitsAround(*pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
+	GetServer().Nox_xxx_mapDamageUnitsAround(*pos, a2, a3, int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
 }
 
 func nox_game_addStateCode_43BDD0(code gui.StateID) {
@@ -299,7 +299,7 @@ func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), float32(rad), int32(dmg), int32(dtyp), who.CObj())
+	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), rad, int32(dmg), int32(dtyp), who.CObj())
 }
 
 func Nox_xxx_getSomeMapName_4D0CF0() string {
@@ -704,5 +704,5 @@ func Sub_41CAC0(a1 string, data []byte) {
 	sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))
 }
 func Nox_xxx_spell_4FE680(a1 *server.Object, a2 float32) {
-	nox_xxx_spell_4FE680(asObjectC(a1), float32(a2))
+	nox_xxx_spell_4FE680(asObjectC(a1), a2)
 }

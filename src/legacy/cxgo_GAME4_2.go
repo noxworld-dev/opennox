@@ -6548,7 +6548,7 @@ func sub_526950() *byte {
 					if int32(*memmap.PtrUint8(0x587000, 255032)) != 0 {
 						for {
 							if libc.StrChr(v4, *memmap.PtrUint8(0x587000, uintptr(v5)+255032)) != nil {
-								*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*15))) |= uint32(1 << v5)
+								*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*15))) |= 1 << v5
 							}
 							v6 = *memmap.PtrUint8(0x587000, uintptr(func() int32 {
 								p := &v5

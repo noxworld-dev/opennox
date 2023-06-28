@@ -51,7 +51,7 @@ func nox_parse_thing_draw(obj *client.ObjectType, f *binfile.MemFile, data unsaf
 	nox_memfile_read(unsafe.Pointer(&read_str[0]), 1, int32(read_len), f)
 	read_str[read_len] = 0
 	var tmp uint32
-	nox_memfile_read64align_40AD60((*byte)(unsafe.Pointer(&tmp)), int32(4), 1, f)
+	nox_memfile_read64align_40AD60((*byte)(unsafe.Pointer(&tmp)), 4, 1, f)
 	if *(*uint32)(unsafe.Pointer(&nox_parse_thing_draw_funcs[0])) == 0 {
 		return true
 	}

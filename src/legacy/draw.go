@@ -343,7 +343,7 @@ func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 int32) {
 
 // sub_484C60
 func sub_484C60(a1 float32) int32 {
-	return int32(client.LightRadius(float32(a1)))
+	return int32(client.LightRadius(a1))
 }
 
 // sub_469920

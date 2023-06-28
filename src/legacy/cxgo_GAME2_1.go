@@ -1155,7 +1155,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 	v7 = 0
 	for {
 		if int32(*memmap.PtrUint8(0x5D4594, 1062536))&int32(uint8(int8(1<<v7))) != 0 {
-			v8 := sub_413420(int8(1 << v7))
+			v8 := sub_413420(1 << v7)
 			nox_client_drawImageAt_47D2C0(v8, v3, v4)
 			v3 += 35
 		}
@@ -2198,7 +2198,7 @@ func nox_client_invAlterWeapon_4672C0() {
 	for i := 1; i < 27; i++ {
 		r5 := 1 << i
 		if 1<<i != 2 && uint32(r5)&*(*uint32)(unsafe.Add(v1, 4)) != 0 {
-			v6 := sub_415840(uint32(1 << i))
+			v6 := sub_415840(1 << i)
 			r6 := sub_461600(v6)
 			if r6 != nil {
 				dword_5d4594_1062492 = r6
@@ -2413,7 +2413,7 @@ func sub_4678D0() int32 {
 	for {
 		if 1<<v1 != 2 {
 			if uint32(1<<v1)&*(*uint32)(unsafe.Add(v0, 4)) != 0 {
-				v2 = sub_415840(uint32(1 << v1))
+				v2 = sub_415840(1 << v1)
 				v3 = sub_461600(v2)
 				if v3 != nil {
 					break
@@ -2713,9 +2713,9 @@ func nox_client_chatStart_46A430(a1 int32) {
 		if dword_5d4594_1064868 == 0 {
 			*(*uint32)(dword_5d4594_1064864) = 0
 			*(*uint16)(unsafe.Add(dword_5d4594_1064864, 1052)) = 0
-			nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(dword_5d4594_1064856))
-			sub_46C690((*gui.Window)(dword_5d4594_1064856))
-			nox_xxx_windowFocus_46B500((*gui.Window)(dword_5d4594_1064860))
+			nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1064856)
+			sub_46C690(dword_5d4594_1064856)
+			nox_xxx_windowFocus_46B500(dword_5d4594_1064860)
 			dword_5d4594_1064868 = 1
 			*memmap.PtrUint32(0x5D4594, 1064872) = uint32(a1)
 		}
@@ -2782,8 +2782,8 @@ func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 	var v6 int32
 	v5 = 0
 	v6 = 0
-	nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(dword_5d4594_1064856))
-	nox_xxx_windowFocus_46B500((*gui.Window)(dword_5d4594_1064860))
+	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1064856)
+	nox_xxx_windowFocus_46B500(dword_5d4594_1064860)
 	nox_xxx_drawGetStringSize_43F840(nil, dword_5d4594_1064864, &v5, nil, 0)
 	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Add(dword_5d4594_1064864, 512)), &v6, nil, 0)
 	v3 = v5+v6-90 < 0
@@ -2796,19 +2796,19 @@ func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 		v2 = 320
 		v5 = v2
 	}
-	nox_window_setPos_46A9B0((*gui.Window)(dword_5d4594_1064856), (nox_win_width-v2)/2, int32(*(*uint32)(unsafe.Add(dword_5d4594_1064856, 20))))
+	nox_window_setPos_46A9B0(dword_5d4594_1064856, (nox_win_width-v2)/2, int32(*(*uint32)(unsafe.Add(dword_5d4594_1064856, 20))))
 	sub_46AB20(a1, v5, 20)
 	return nox_xxx_wndEditDrawNoImage_488160(win, draw)
 }
 func sub_46A6A0() int32 {
-	if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_1064856)) != 0 {
+	if wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1064856) != 0 {
 		return 0
 	}
 	if unsafe.Pointer(nox_xxx_wndGetFocus_46B4F0()) == dword_5d4594_1064860 {
 		nox_xxx_windowFocus_46B500(nil)
 	}
-	nox_xxx_wnd_46C6E0((*gui.Window)(dword_5d4594_1064856))
-	nox_window_set_hidden((*gui.Window)(dword_5d4594_1064856), 1)
+	nox_xxx_wnd_46C6E0(dword_5d4594_1064856)
+	nox_window_set_hidden(dword_5d4594_1064856, 1)
 	*(*uint32)(unsafe.Add(dword_5d4594_1064856, 4)) &= 0xFFFFFFF7
 	*(*uint32)(unsafe.Add(dword_5d4594_1064860, 4)) &= 0xFFFFFFF7
 	set_dword_5d4594_3799468(1)
@@ -2823,7 +2823,7 @@ func sub_46A730() *uint32 {
 	dword_5d4594_1064856 = uint32(uintptr(unsafe.Pointer(result)))
 	if result != nil {
 		nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(result)), *memmap.PtrInt32(0x5D4594, 1064876), *memmap.PtrInt32(0x5D4594, 1064880))
-		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(dword_5d4594_1064856), 9201)))
+		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1064856, 9201)))
 		dword_5d4594_1064860 = uint32(uintptr(unsafe.Pointer(result)))
 		if result != nil {
 			nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(result)), sub_46A5D0)
@@ -2856,7 +2856,7 @@ func sub_46A860() int32 {
 	var result int32
 	result = int32(dword_5d4594_1064856)
 	if dword_5d4594_1064856 != 0 {
-		result = nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(dword_5d4594_1064856))
+		result = nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1064856)
 		dword_5d4594_1064856 = nil
 	}
 	dword_5d4594_1064860 = nil

@@ -3480,7 +3480,7 @@ LABEL_12:
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*33)) = uint32(v9)
 			}
 			v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*29)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*34)) |= uint32(1 << int32(*(*uint8)(unsafe.Add(v1, 2064))))
+			*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*34)) |= 1 << int32(*(*uint8)(unsafe.Add(v1, 2064)))
 			if v10 != -1 {
 				nox_xxx_scriptCallByEventBlock_502490(unsafe.Add(unsafe.Pointer(v4), 4*28), a1, nil, 28)
 			}
@@ -4570,7 +4570,7 @@ func set_bitmask_flags_from_plus_separated_names_423930(input *byte, bitmask *ui
 func set_one_bitmask_flag_by_name_4239C0(name *byte, bitmask *uint32, allowed_names **byte) int32 {
 	for i := int8(0); *(**byte)(unsafe.Add(unsafe.Pointer(allowed_names), unsafe.Sizeof((*byte)(nil))*uintptr(i))) != nil; i++ {
 		if nox_strcmpi(*(**byte)(unsafe.Add(unsafe.Pointer(allowed_names), unsafe.Sizeof((*byte)(nil))*uintptr(i))), name) == 0 {
-			*bitmask |= uint32(1 << int32(i))
+			*bitmask |= 1 << int32(i)
 			return 1
 		}
 	}

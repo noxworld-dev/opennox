@@ -121,7 +121,7 @@ func nox_xxx_monsterClearActionStack_50A3A0(a1 *server.Object) {
 	Nox_xxx_monsterClearActionStack_50A3A0(asObjectS(a1))
 }
 func Nox_xxx_mobSearchEdible_544A00(a1 *server.Object, a2 float32) int {
-	return int(nox_xxx_mobSearchEdible_544A00(asObjectC(a1), float32(a2)))
+	return int(nox_xxx_mobSearchEdible_544A00(asObjectC(a1), a2))
 }
 func Nox_xxx_weaponGetStaminaByType_4F7E80(a1 int) int {
 	return int(nox_xxx_weaponGetStaminaByType_4F7E80(int32(a1)))

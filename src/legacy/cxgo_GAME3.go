@@ -2426,7 +2426,7 @@ func nox_xxx_wndButtonProc_4A7F50(win *gui.Window, ev, a3, a4 uintptr) uintptr {
 		if (win.DrawData().Field0 & 4) == 0 {
 			return 0
 		}
-		nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|7), uintptr(unsafe.Pointer(win)), a3)
+		nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|7, uintptr(unsafe.Pointer(win)), a3)
 		win.DrawData().Field0 &= 0xFFFFFFFB
 		return 1
 	case 8:
@@ -2435,14 +2435,14 @@ func nox_xxx_wndButtonProc_4A7F50(win *gui.Window, ev, a3, a4 uintptr) uintptr {
 	case 17:
 		if win.DrawData().Style&0x100 != 0 {
 			win.DrawData().Field0 |= 2
-			nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|5), uintptr(unsafe.Pointer(win)), a3)
+			nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|5, uintptr(unsafe.Pointer(win)), a3)
 			nox_xxx_windowFocus_46B500(win)
 		}
 		return 1
 	case 18:
 		if win.DrawData().Style&0x100 != 0 {
 			win.DrawData().Field0 &= 0xFFFFFFFD
-			nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|6), uintptr(unsafe.Pointer(win)), a3)
+			nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|6, uintptr(unsafe.Pointer(win)), a3)
 		}
 		if win.DrawData().Field0&4 != 0 {
 			win.DrawData().Field0 &= 0xFFFFFFFB
@@ -2461,7 +2461,7 @@ func nox_xxx_wndButtonProc_4A7F50(win *gui.Window, ev, a3, a4 uintptr) uintptr {
 				return 1
 			}
 			if win.DrawData().Field0&4 != 0 {
-				nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|7), uintptr(unsafe.Pointer(win)), 0)
+				nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|7, uintptr(unsafe.Pointer(win)), 0)
 				win.DrawData().Field0 &= 0xFFFFFFFB
 			}
 			return 1

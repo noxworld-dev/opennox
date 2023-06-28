@@ -29,9 +29,9 @@ func fill_find_data(path *byte, lpFindFileData LPWIN32_FIND_DATAA) {
 	csys.Stat(path, &st)
 	*lpFindFileData = WIN32_FIND_DATAA{}
 	if csys.IsDir(st.Mode) != 0 {
-		lpFindFileData.FileAttributes = uint32(FILE_ATTRIBUTE_DIRECTORY)
+		lpFindFileData.FileAttributes = FILE_ATTRIBUTE_DIRECTORY
 	} else {
-		lpFindFileData.FileAttributes = uint32(FILE_ATTRIBUTE_NORMAL)
+		lpFindFileData.FileAttributes = FILE_ATTRIBUTE_NORMAL
 	}
 	lpFindFileData.nFileSizeHigh = uint32(st.Size >> 32)
 	lpFindFileData.nFileSizeLow = uint32(st.Size)

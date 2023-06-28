@@ -74,7 +74,7 @@ func nox_input_pollEvents_4453A0() int {
 
 // nox_input_setSensitivity
 func nox_input_setSensitivity(v float32) {
-	GetClient().SetSensitivity(float32(v))
+	GetClient().SetSensitivity(v)
 }
 
 // nox_input_enableTextEdit_5700CA

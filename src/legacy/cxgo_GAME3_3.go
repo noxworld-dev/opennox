@@ -8231,7 +8231,7 @@ func nox_server_rewardgen_activateMarker_4F0720(a1 unsafe.Pointer, a2 uint32) *u
 	v12 = 0
 	v13 = (*uint8)(memmap.PtrOff(0x587000, 207044))
 	for {
-		v14 = uint32(1 << int32(v12))
+		v14 = 1 << int32(v12)
 		if v10&(1<<int32(v12)) != 0 {
 			v11 += uint32(*v13)
 			v3 = a1

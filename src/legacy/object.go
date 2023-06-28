@@ -357,7 +357,7 @@ func Nox_xxx_unitSetOwner_4EC290(a1 *server.Object, a2 *server.Object) {
 	nox_xxx_unitSetOwner_4EC290(asObjectC(a1), asObjectC(a2))
 }
 func Nox_xxx_unitRaise_4E46F0(a1 *server.Object, a2 float32) {
-	nox_xxx_unitRaise_4E46F0(asObjectC(a1), float32(a2))
+	nox_xxx_unitRaise_4E46F0(asObjectC(a1), a2)
 }
 func Nox_xxx_objectSetOff_4E7600(a1 *server.Object) {
 	nox_xxx_objectSetOff_4E7600(asObjectC(a1))
@@ -454,5 +454,5 @@ func Nox_xxx_mapPushUnitsAround_52E040(pos types.Pointf, a2 float32, a3 float32,
 	cpos, free := alloc.New(types.Pointf{})
 	defer free()
 	*cpos = pos
-	nox_xxx_mapPushUnitsAround_52E040(unsafe.Pointer(cpos), float32(a2), float32(a3), float32(a4), asObjectC(a5), int32(a6), int32(a7))
+	nox_xxx_mapPushUnitsAround_52E040(unsafe.Pointer(cpos), a2, a3, a4, asObjectC(a5), int32(a6), int32(a7))
 }

@@ -191,7 +191,7 @@ func Nox_xxx_allocHitArray_5486D0() {
 	nox_xxx_allocHitArray_5486D0()
 }
 func Nox_xxx_updateObjectsVelocity_5118A0(a1 float32) {
-	nox_xxx_updateObjectsVelocity_5118A0(float32(a1))
+	nox_xxx_updateObjectsVelocity_5118A0(a1)
 }
 func Sub_548B60() {
 	sub_548B60()

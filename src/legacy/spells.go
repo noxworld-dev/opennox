@@ -94,7 +94,7 @@ func nox_xxx_spellFlySearchTarget_540610(cpos *types.Pointf, msl *server.Object,
 	if cpos != nil {
 		pos = &types.Pointf{X: float32(cpos.X), Y: float32(cpos.Y)}
 	}
-	return asObjectC(GetServer().Nox_xxx_spellFlySearchTarget(pos, ToObjS(msl), things.SpellFlags(sflags), float32(dist), int(a5), asObjectS(self)))
+	return asObjectC(GetServer().Nox_xxx_spellFlySearchTarget(pos, ToObjS(msl), things.SpellFlags(sflags), dist, int(a5), asObjectS(self)))
 }
 
 // nox_xxx_spellGetAud44_424800

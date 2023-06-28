@@ -287,27 +287,27 @@ func Get_nox_xxx_wizardMaximumMana_587000_312820() float32 {
 }
 
 func Set_nox_xxx_warriorMaxHealth_587000_312784(v float32) {
-	nox_xxx_warriorMaxHealth_587000_312784 = float32(v)
+	nox_xxx_warriorMaxHealth_587000_312784 = v
 }
 
 func Set_nox_xxx_warriorMaxMana_587000_312788(v float32) {
-	nox_xxx_warriorMaxMana_587000_312788 = float32(v)
+	nox_xxx_warriorMaxMana_587000_312788 = v
 }
 
 func Set_nox_xxx_conjurerMaxHealth_587000_312800(v float32) {
-	nox_xxx_conjurerMaxHealth_587000_312800 = float32(v)
+	nox_xxx_conjurerMaxHealth_587000_312800 = v
 }
 
 func Set_nox_xxx_conjurerMaxMana_587000_312804(v float32) {
-	nox_xxx_conjurerMaxMana_587000_312804 = float32(v)
+	nox_xxx_conjurerMaxMana_587000_312804 = v
 }
 
 func Set_nox_xxx_wizardMaxHealth_587000_312816(v float32) {
-	nox_xxx_wizardMaxHealth_587000_312816 = float32(v)
+	nox_xxx_wizardMaxHealth_587000_312816 = v
 }
 
 func Set_nox_xxx_wizardMaximumMana_587000_312820(v float32) {
-	nox_xxx_wizardMaximumMana_587000_312820 = float32(v)
+	nox_xxx_wizardMaximumMana_587000_312820 = v
 }
 
 func Sub_4D79A0(pli ntype.PlayerInd) {

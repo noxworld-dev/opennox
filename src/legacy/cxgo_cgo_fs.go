@@ -11,7 +11,7 @@ func nox_fs_fprintf(f *FILE, format *byte, _rest ...interface{}) int32 {
 		args libc.ArgList
 	)
 	args.Start(format, _rest)
-	stdio.Vsnprintf(&buf[0], int(2048), libc.GoString(format), args)
+	stdio.Vsnprintf(&buf[0], 2048, libc.GoString(format), args)
 	args.End()
 	return nox_fs_fputs(f, &buf[0])
 }

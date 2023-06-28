@@ -27,7 +27,7 @@ func Nox_xxx_protectMana_56F9E0(a1 int, a2 int16) {
 	nox_xxx_protectMana_56F9E0(int32(a1), a2)
 }
 func Nox_xxx_monsterWalkTo_514110(a1 *server.Object, a2 float32, a3 float32) {
-	nox_xxx_monsterWalkTo_514110(asObjectC(a1), float32(a2), float32(a3))
+	nox_xxx_monsterWalkTo_514110(asObjectC(a1), a2, a3)
 }
 func Nox_xxx_monsterLookAt_5125A0(a1 *server.Object, a2 int) {
 	nox_xxx_monsterLookAt_5125A0(asObjectC(a1), int32(a2))
