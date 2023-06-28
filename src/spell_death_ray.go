@@ -73,7 +73,7 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 		z := c.srv.Rand.Other.Int(15, 30)
 		vz := c.srv.Rand.Other.Int(-4, 4)
 		*(*uint32)(unsafe.Pointer(&dr.Field_108_0)) = uint32(pos.X) << 12
-		dr.Field_109 = uint32(pos.Y) << 12
+		dr.Field_109 = unsafe.Pointer(uintptr(uint32(pos.Y) << 12)) // FIXME: this doesn't look right!
 		dr.Field_74_4 = byte(r1)
 		dr.Field_110 = uint32(r2)
 		dr.Field_111 = c.srv.Frame()
