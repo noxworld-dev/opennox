@@ -6,13 +6,11 @@ import (
 	"go/ast"
 	"go/constant"
 	"go/format"
-	"go/parser"
 	"go/token"
 	"go/types"
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"golang.org/x/tools/go/packages"
 )
@@ -30,7 +28,10 @@ func main() {
 }
 
 func run() error {
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 25; i++ {
+		if i > 0 {
+			log.Printf("iteration: %d", i+1)
+		}
 		changed, err := runOnce()
 		if err != nil {
 			return err
@@ -88,6 +89,7 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) (bool, error)
 		case *ast.BinaryExpr:
 			simplifyExpr(pkg, &n.X, &changed)
 			simplifyExpr(pkg, &n.Y, &changed)
+			fixBinExprConv(pkg, n, &changed)
 		case *ast.IncDecStmt:
 			simplifyExpr(pkg, &n.X, &changed)
 		case *ast.CallExpr:
@@ -134,17 +136,6 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) (bool, error)
 	return err == nil, err
 }
 
-func unwrapParen(x ast.Expr) ast.Expr {
-	switch x := x.(type) {
-	case *ast.ParenExpr:
-		return unwrapParen(x.X)
-	default:
-		return x
-	}
-}
-func newCall(name string, args ...ast.Expr) ast.Expr {
-	return &ast.CallExpr{Fun: ast.NewIdent(name), Args: args}
-}
 func fixUnsafeAdd(pkg *packages.Package, c1 *ast.CallExpr) bool {
 	if len(c1.Args) != 1 {
 		return false
@@ -282,30 +273,6 @@ func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Ex
 	}
 }
 
-func hasKind[T types.Type](t types.Type) bool {
-	switch t := t.(type) {
-	case T:
-		return true
-	case *types.Named:
-		return hasKind[T](t.Underlying())
-	default:
-		return false
-	}
-}
-
-func hasPtrKind[T types.Type](t types.Type) bool {
-	switch t := t.(type) {
-	case T:
-		return true
-	case *types.Named:
-		return hasPtrKind[T](t.Underlying())
-	case *types.Pointer:
-		return hasKind[T](t.Elem())
-	default:
-		return false
-	}
-}
-
 func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool) {
 	x := unwrapParen(*p)
 	xt := pkg.TypesInfo.TypeOf(x)
@@ -328,38 +295,8 @@ func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool
 		}
 	}
 	if types.ConvertibleTo(xt, t) {
-		*p = &ast.CallExpr{Fun: astType(pkg, t), Args: []ast.Expr{x}}
+		*p = &ast.CallExpr{Fun: maybeParen(astType(pkg, t)), Args: []ast.Expr{x}}
 		*changed = true
-	}
-}
-
-func astType(pkg *packages.Package, t types.Type) ast.Expr {
-	s := types.TypeString(t, func(p *types.Package) string {
-		if p == pkg.Types {
-			return ""
-		}
-		return p.Name()
-	})
-	s = strings.ReplaceAll(s, "\n\t", " ")
-	x, err := parser.ParseExprFrom(pkg.Fset, "", s, 0)
-	if err != nil {
-		panic(fmt.Errorf("cannot parse: %q, %w", s, err))
-	}
-	switch x.(type) {
-	case *ast.StarExpr, *ast.ArrayType, *ast.InterfaceType:
-		return &ast.ParenExpr{X: x}
-	}
-	return x
-}
-
-func isValidType(t types.Type) bool {
-	switch t := t.(type) {
-	case nil:
-		return false
-	case *types.Basic:
-		return t.Kind() != types.Invalid
-	default:
-		return true
 	}
 }
 
@@ -471,14 +408,37 @@ func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off, sz in
 	return fieldForOff(pkg, st2, x, doff, sz)
 }
 
-func fullNameOf(x ast.Expr) string {
-	x = unwrapParen(x)
-	switch x := x.(type) {
-	case *ast.Ident:
-		return x.Name
-	case *ast.SelectorExpr:
-		return fullNameOf(x.X) + "." + x.Sel.Name
-	default:
-		return ""
+func fixBinExprConv(pkg *packages.Package, b *ast.BinaryExpr, changed *bool) {
+	switch b.Op {
+	case token.SHL, token.SHR:
+		return
 	}
+	tx := pkg.TypesInfo.TypeOf(b.X)
+	ty := pkg.TypesInfo.TypeOf(b.Y)
+	if !isValidType(tx) || !isValidType(ty) {
+		return
+	}
+	if types.Identical(tx, ty) {
+		return
+	}
+	best := bestBinExprType(tx, ty)
+	if best == nil {
+		return
+	}
+	expectType(pkg, best, &b.X, changed)
+	expectType(pkg, best, &b.Y, changed)
+}
+
+func bestBinExprType(x, y types.Type) types.Type {
+	bx, xok := x.(*types.Basic)
+	by, yok := y.(*types.Basic)
+	if xok && yok {
+		if bx.Kind() == types.Int && by.Info()&types.IsInteger != 0 {
+			return bx
+		}
+		if by.Kind() == types.Int && bx.Info()&types.IsInteger != 0 {
+			return by
+		}
+	}
+	return nil
 }
