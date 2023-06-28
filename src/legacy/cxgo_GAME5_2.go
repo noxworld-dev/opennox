@@ -152,7 +152,7 @@ func sub_56F250() int32 {
 	)
 	v0 = 7
 	for {
-		result = nox_xxx_protectionCreateStructForInt_56F280(dword_5d4594_2516356, 0)
+		result = nox_xxx_protectionCreateStructForInt_56F280(int32(dword_5d4594_2516356), 0)
 		v0--
 		dword_5d4594_2516356++
 		if v0 == 0 {
@@ -1797,14 +1797,14 @@ func sub_57B0A0() {
 	if result == 0 {
 		return
 	}
-	v1 = dword_5d4594_2523780
+	v1 = (*uint32)(dword_5d4594_2523780)
 	if dword_5d4594_2523780 != nil && (*memmap.PtrUint32(0x5D4594, 2523772) == 0 || *memmap.PtrUint32(0x5D4594, 2523772) == 1) {
 		nox_xxx_netSendPointFx_522FF0(-102, (*types.Pointf)(unsafe.Add(dword_5d4594_2523780, 56)))
-		v1 = dword_5d4594_2523780
+		v1 = (*uint32)(dword_5d4594_2523780)
 	}
 	if dword_5d4594_2523776 != 0 {
 		nox_xxx_delayedDeleteObject_4E5CC0(dword_5d4594_2523776)
-		v1 = dword_5d4594_2523780
+		v1 = (*uint32)(dword_5d4594_2523780)
 	}
 	dword_5d4594_2523776 = nil
 	if v1 != nil {

@@ -1624,9 +1624,9 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v377.field_4 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*2)))
 		*((*uint8)(unsafe.Pointer(&v5))) = *data
 		if int32(*data) == 140 || int32(uint8(int8(v5))) == 142 {
-			nox_xxx_makeLightningParticles_4999D0(dword_5d4594_1200776, &v379, &v377)
+			nox_xxx_makeLightningParticles_4999D0(int32(dword_5d4594_1200776), &v379, &v377)
 		} else if int32(uint8(int8(v5))) == 125 {
-			nox_xxx_drawEnergyBolt_499710(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))), int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 7))), 10, dword_5d4594_1200776)
+			nox_xxx_drawEnergyBolt_499710(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))), int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 7))), 10, int32(dword_5d4594_1200776))
 		}
 	LABEL_732:
 		return 9
@@ -1649,7 +1649,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if nox_client_isConnected_43C700() == 0 {
 			return 5
 		}
-		nox_xxx_makePointFxCli_499610(dword_5d4594_1200776, 50, 1000, 30, int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 1))), int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 3))))
+		nox_xxx_makePointFxCli_499610(int32(dword_5d4594_1200776), 50, 1000, 30, int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 1))), int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 3))))
 		return 5
 	case 0x82:
 		if nox_client_isConnected_43C700() == 0 {
@@ -1665,7 +1665,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		return 5
 	case 0x84:
 		if nox_client_isConnected_43C700() != 0 {
-			nox_xxx_makePointFxCli_499610(dword_5d4594_1200796, 25, 500, 25, int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 1))), int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 3))))
+			nox_xxx_makePointFxCli_499610(int32(dword_5d4594_1200796), 25, 500, 25, int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 1))), int32(*(*int16)(unsafe.Add(unsafe.Pointer(data), 3))))
 		}
 		return 5
 	case 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0xA3:
@@ -1856,7 +1856,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				}
 				v230 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))) - v227*4/v229
 				v231 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 7))) - v228*4/v229
-				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(dword_5d4594_1200796, v230, v231))))
+				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(int32(dword_5d4594_1200796), v230, v231))))
 				v362 = int32(v5)
 				if uint32(int32(v5)) != 0 {
 					v232 = (*uint32)(unsafe.Add(v5, 432))

@@ -129,7 +129,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 		}
 		return target == 0
 	}()) {
-		nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange
+		nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = uint32(lightningRange * lightningRange)
 		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(source, 28)), lightningRange, nox_xxx_lightningCanAttackCheck_52FF10, *(*unsafe.Pointer)(unsafe.Add(source, 16)))
 		target = int32(nox_xxx_lightningTarget_5d4594_2487908)
 		if nox_xxx_lightningTarget_5d4594_2487908 == 0 {
@@ -158,7 +158,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 	nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = uint32(index + 1)
 	if spellLevel > 1 {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0
-		nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange
+		nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = uint32(lightningRange * lightningRange)
 		range1 = float32(float64(lightningRange) * 0.94999999)
 		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range1, nox_xxx_lightningCanAttackCheck_52FF10, *memmap.PtrPtr(0x5D4594, 2487844))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
@@ -169,7 +169,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 	}
 	if spellLevel > 2 {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0
-		nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange
+		nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = uint32(lightningRange * lightningRange)
 		range2 = float32(float64(lightningRange) * 0.89999998)
 		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487844), 56)), range2, nox_xxx_lightningCanAttackCheck_52FF10, *memmap.PtrPtr(0x5D4594, 2487844))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
@@ -181,7 +181,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 	if *memmap.PtrUint32(0x5D4594, 2487848) != 0 {
 		if spellLevel > 3 {
 			nox_xxx_lightningTarget_5d4594_2487908 = 0
-			nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange
+			nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = uint32(lightningRange * lightningRange)
 			range3 = float32(float64(lightningRange) * 0.85000002)
 			nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487848), 56)), range3, nox_xxx_lightningCanAttackCheck_52FF10, *(*unsafe.Pointer)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487848))))
 			if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
@@ -195,7 +195,7 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 		if spellLevel > 4 {
 			nox_xxx_lightningTarget_5d4594_2487908 = 0
 			range5 = lightningRange * lightningRange
-			nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = lightningRange * lightningRange
+			nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = uint32(lightningRange * lightningRange)
 			range4 = float32(float64(lightningRange) * 0.80000001)
 			nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 2487852), 56)), range4, nox_xxx_lightningCanAttackCheck_52FF10, *(*unsafe.Pointer)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487852))))
 			if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
@@ -350,7 +350,7 @@ func nox_xxx_lightningCanAttackCheck_52FF10(it *server.Object, data unsafe.Point
 					yDistance = float64(*(*float32)(unsafe.Add(target, 60)) - *(*float32)(unsafe.Add(source, 60)))
 					distance = yDistance*yDistance + xDistance*xDistance
 					if distance < float64(nox_xxx_lightningClosestTargetDistance_5d4594_2487912) {
-						nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = float32(distance)
+						nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = uint32(float32(distance))
 						nox_xxx_lightningTarget_5d4594_2487908 = uint32(target)
 					}
 				}
@@ -3831,7 +3831,7 @@ func nox_xxx_projectileTraceHit_537850(a1 int32, a2 *int32, a3 *types.Pointf) in
 		*(*float32)(unsafe.Pointer(&v29[1])) = v16
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v28.X), 4*0)) = uint32(v29[0])
 		v28.Y = v16
-		v35 = float32(float64(v34) / v17)
+		v35 = int32(float32(float64(v34) / v17))
 		v27.X = float32(float64(v26) / v17)
 		if v15 > 0 {
 			for {
@@ -4164,7 +4164,7 @@ func sub_5386A0(it *server.Object, a2 unsafe.Pointer) {
 										if *(*uint32)(unsafe.Add(a3, 172)) == 2 {
 											v5 = v5 - float64(*(*float32)(unsafe.Add(a3, 176)))
 										} else if *(*uint32)(unsafe.Add(a3, 172)) == 3 {
-											v7 = sub_54A990((*types.Pointf)(unsafe.Add(a2, 56)), dword_5d4594_2488652, a3, &a4)
+											v7 = sub_54A990((*types.Pointf)(unsafe.Add(a2, 56)), float32(dword_5d4594_2488652), a3, &a4)
 											if v7 < 0.0 {
 												return
 											}
@@ -4174,7 +4174,7 @@ func sub_5386A0(it *server.Object, a2 unsafe.Pointer) {
 											v5 = 0.0
 										}
 										if (v5 < float64(dword_5d4594_2488652) || dword_5d4594_2488660 != nil && (int32(*(*uint8)(unsafe.Add(dword_5d4594_2488660.CObj(), 8)))&2) == 0 && (int32(*(*uint8)(unsafe.Add(a3, 8)))&2) == 2) && (dword_5d4594_2488660 == nil || (int32(*(*uint8)(unsafe.Add(dword_5d4594_2488660.CObj(), 8)))&2) == 0) {
-											dword_5d4594_2488652 = float32(v5)
+											dword_5d4594_2488652 = uint32(float32(v5))
 											dword_5d4594_2488660 = AsObjectP(a3)
 										}
 									}

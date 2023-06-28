@@ -695,10 +695,10 @@ func Nox_xxx_calcDistance_4E6C00(a1 *server.Object, a2 *server.Object) float32 {
 	return float32(nox_xxx_calcDistance_4E6C00(asObjectC(a1), asObjectC(a2)))
 }
 func Sub_415CD0(a1 int) int {
-	return int(sub_415CD0(int32(a1)))
+	return int(sub_415CD0(uint32(int32(a1))))
 }
 func Sub_415840(a1 int) int {
-	return int(sub_415840(int32(a1)))
+	return int(sub_415840(uint32(int32(a1))))
 }
 func Sub_41CAC0(a1 string, data []byte) {
 	sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))

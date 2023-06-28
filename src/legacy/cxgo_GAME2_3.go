@@ -3009,7 +3009,7 @@ func sub_497260(a1 *int32) int32 {
 								if float64(*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*5))+*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*9))) > float64(v12) {
 									v18 = float32(v8 + float64(*(*float32)(unsafe.Add(v2, 48))))
 									if float64(*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*5))) < float64(v18) {
-										sub_497650(v2)
+										sub_497650(float32(v2))
 									}
 								}
 							}
@@ -4555,7 +4555,7 @@ func sub_4992B0(a1 int32, a2 int32) int32 {
 	v7 = 0
 	v8 = 0
 	if dword_5d4594_1217464 > 0 {
-		v3 = dword_5d4594_1217464*8 - 8
+		v3 = int32(dword_5d4594_1217464*8 - 8)
 		for {
 			v4 = *memmap.PtrInt32(0x5D4594, uintptr(v3)+1203876)
 			v5 = *memmap.PtrInt32(0x5D4594, uintptr(v3)+1203880)

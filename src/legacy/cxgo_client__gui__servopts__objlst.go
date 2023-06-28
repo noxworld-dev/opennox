@@ -30,7 +30,7 @@ func nox_xxx_guiObjlistLoad_4530C0(a1 unsafe.Pointer, a2 int32) unsafe.Pointer {
 	dword_5d4594_1045468 = nox_new_window_from_file(internCStr("objlst.wnd"), sub_4533D0)
 	nox_xxx_wndSetDrawFn_46B340(dword_5d4594_1045468, sub_453350)
 	sub_46B120(dword_5d4594_1045468, (*gui.Window)(a1))
-	nox_xxx_wnd_46B280(dword_5d4594_1045468, a1)
+	nox_xxx_wnd_46B280(dword_5d4594_1045468, (*gui.Window)(a1))
 	dword_5d4594_1045464 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, 1510)
 	sub_4532E0()
 	nox_window_call_field_94_fnc(dword_5d4594_1045464, 16399, 0, 0)

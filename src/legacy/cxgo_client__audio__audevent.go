@@ -171,7 +171,7 @@ func sub_452580(a1 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) = uint32(result)
 	if result != 0 {
 		v4 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 76))), int32(*(*uint32)(unsafe.Add(v1, 80))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1482)
-		sub_486320(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 48), v4+100)
+		sub_486320(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 48), uint32(v4+100))
 		sub_4BDB20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44))))
 		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 152)) = uint32(uintptr(unsafe.Pointer(a1)))
 		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 140)) = uint32(uintptr(ccall.FuncAddr(sub_452770)))
@@ -200,15 +200,15 @@ func sub_452770(a1p unsafe.Pointer) {
 	v1 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*38)))
 	v2 = (*uint32)(unsafe.Pointer(uintptr(sub_451CF0((*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*38)))))))
 	if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*9)), 72)) < 0x21 {
-		sub_4BDB90(a1, v2)
+		sub_4BDB90(unsafe.Pointer(a1), unsafe.Pointer(v2))
 		return
 	}
-	sub_4BDB90(a1, nil)
+	sub_4BDB90(unsafe.Pointer(a1), nil)
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*9)))
 	if (int32(*(*uint8)(unsafe.Add(v4, 4)))&8) == 0 || v2 != nil || *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*142)) != 0 {
 		v5 = uint32(nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v4, 68))), int32(*(*uint32)(unsafe.Add(v4, 72))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 706))
 		if v5 < 0x21 {
-			sub_4BDB90(a1, v2)
+			sub_4BDB90(unsafe.Pointer(a1), unsafe.Pointer(v2))
 			return
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*71)) = v5

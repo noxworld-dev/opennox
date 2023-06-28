@@ -991,7 +991,7 @@ func sub_4E43F0(a1 *byte) *FILE {
 	v2 = result
 	if result != nil {
 		nox_fs_fprintf(result, internCStr("%s\n"), memmap.PtrOff(0x587000, 202212))
-		for i = sub_416900(); i != nil; i = sub_416910(i) {
+		for i = (*int32)(sub_416900()); i != nil; i = (*int32)(sub_416910(unsafe.Pointer(i))) {
 			if *(*uint64)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(uint64(0))*8)) == 0 {
 				nox_fs_fprintf(v2, internCStr("%S\n"), (*int32)(unsafe.Add(unsafe.Pointer(i), 4*3)))
 				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(i), 72))) != 0 {
@@ -1002,7 +1002,7 @@ func sub_4E43F0(a1 *byte) *FILE {
 			}
 		}
 		nox_fs_fprintf(v2, internCStr("\n%s\n"), memmap.PtrOff(0x587000, 202228))
-		for j = sub_4168E0(); j != nil; j = sub_4168F0(j) {
+		for j = (*int32)(sub_4168E0()); j != nil; j = (*int32)(sub_4168F0(unsafe.Pointer(j))) {
 			nox_fs_fprintf(v2, internCStr("%S\n"), (*int32)(unsafe.Add(unsafe.Pointer(j), 4*3)))
 		}
 		nox_fs_close(v2)
@@ -2352,8 +2352,8 @@ func sub_4E6CE0(a1 *types.Pointf, a2 *types.Pointf) int32 {
 		v6     int32
 		result int32
 	)
-	dword_5d4594_1565628 = a2.X - a1.X
-	dword_5d4594_1565632 = a2.Y - a1.Y
+	dword_5d4594_1565628 = uint32(a2.X - a1.X)
+	dword_5d4594_1565632 = uint32(a2.Y - a1.Y)
 	*mem_getFloatPtr(0x5D4594, 1565652) = float32(float64(dword_5d4594_1565628)*0.41304299 - float64(dword_5d4594_1565632))
 	v2 = float64(dword_5d4594_1565628)*2.4210529 - float64(dword_5d4594_1565632)
 	*mem_getFloatPtr(0x5D4594, 1565656) = float32(v2)
@@ -4068,7 +4068,7 @@ func nox_xxx_fireballCollide_4E9AC0(obj *server.Object, obj2 *server.Object, pos
 				v9 = 1097859072
 			}
 			v8 = float32(float64(int32(v14)) * 0.33333334)
-			nox_xxx_mapDamageUnitsAround_4E25B0(&obj.PosVec, v8, v9, v10, 1, (*server.Object)(v12), (*server.Object)(v13))
+			nox_xxx_mapDamageUnitsAround_4E25B0(&obj.PosVec, v8, float32(v9), v10, 1, (*server.Object)(v12), (*server.Object)(v13))
 			nox_xxx_netSparkExplosionFx_5231B0((*float32)(unsafe.Add(v2, 56)), int8(*v3))
 			nox_xxx_aud_501960(42, (*server.Object)(v2), 0, 0)
 			nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(v2, 56)), 2)

@@ -48,8 +48,8 @@ func nox_thing_vortex_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		nox_client_drawSetColor_434460(int32(*(*uint32)(unsafe.Add(a2, 436))))
 		nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, 3)
 	} else {
-		sub_4B6720(&xLeft, dword_5d4594_1313816, 2, 4)
-		nox_client_drawSetColor_434460(dword_5d4594_1313816)
+		sub_4B6720(&xLeft, int32(dword_5d4594_1313816), 2, 4)
+		nox_client_drawSetColor_434460(int32(dword_5d4594_1313816))
 		nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, 2)
 	}
 	nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4)
@@ -73,7 +73,7 @@ func nox_thing_vortex_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if a2a.field_4 >= *(*int32)(unsafe.Add(a2, 444)) {
 		nox_client_drawSetColor_434460(int32(*(*uint32)(unsafe.Add(a2, 436))))
 	} else {
-		nox_client_drawSetColor_434460(dword_5d4594_1313816)
+		nox_client_drawSetColor_434460(int32(dword_5d4594_1313816))
 	}
 	nox_client_drawLineFromPoints_49E4B0()
 	*(*uint8)(unsafe.Add(a2, 448)) += *(*uint8)(unsafe.Add(a2, 449))

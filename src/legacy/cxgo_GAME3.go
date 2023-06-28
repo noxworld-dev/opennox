@@ -2091,7 +2091,7 @@ func sub_4A72D0(a1 uint16) *uint32 {
 	nox_xxx_wnd_46C6E0((*gui.Window)(dword_5d4594_1308088))
 	result = (*uint32)(unsafe.Pointer(uintptr(nox_window_set_hidden((*gui.Window)(dword_5d4594_1308088), 1))))
 	if int32(a1) < 0x20 {
-		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308088)), dword_5d4594_1307792)))
+		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308088)), int32(dword_5d4594_1307792))))
 		if result != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*8)) = uint32(int32(*memmap.PtrUint16(0x5D4594, 1307788)) | int32(a1)<<16)
 		}
@@ -3222,7 +3222,7 @@ func Nox_game_showOptions_4AA6B0() int {
 	if nox_client_advVideoOpts_New_4CB590((*gui.Window)(dword_5d4594_1309720)) == 0 {
 		return 0
 	}
-	nox_xxx_wndSetWindowProc_46B300(dword_5d4594_1309720, guiSelProc2)
+	nox_xxx_wndSetWindowProc_46B300((*gui.Window)(dword_5d4594_1309720), guiSelProc2)
 	nox_draw_setTabWidth_43FE20(15)
 	nox_wnd_xxx_1309740 = nox_gui_makeAnimation_43C5B0((*gui.Window)(dword_5d4594_1309720), 0, 0, 0, -480, 0, 20, 0, -40)
 	if nox_wnd_xxx_1309740 == nil {
@@ -3411,7 +3411,7 @@ func sub_4AABE0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v8 = int32(uintptr(unsafe.Pointer(nox_client_getWin1064916_46C720())))
 		switch v7 {
 		case 351:
-			sub_486320(dword_587000_127004, int32(a4))
+			sub_486320(dword_587000_127004, uint32(int32(a4)))
 			if v8 != 0 && *(*uint32)(unsafe.Add(v8, 396)) == uint32(a3) {
 				return 0
 			}
@@ -3440,7 +3440,7 @@ func sub_4AABE0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			v14(dword_5d4594_1309728, 21, 28, 2)
 			result = 0
 		case 352:
-			sub_486320(dword_587000_122852, int32(a4))
+			sub_486320(dword_587000_122852, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_44D990() != 0 {
 					sub_4AA650()
@@ -3466,7 +3466,7 @@ func sub_4AABE0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			v11(dword_5d4594_1309732, 21, 28, 2)
 			result = 0
 		case 353:
-			sub_486320(dword_587000_93164, int32(a4))
+			sub_486320(dword_587000_93164, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_43DC30() != 0 {
 					return 0
@@ -3501,7 +3501,7 @@ func sub_4AABE0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			if v17 != 1 {
 				return 0
 			}
-			sub_486320(dword_587000_122852, int32(a4))
+			sub_486320(dword_587000_122852, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_44D990() == 0 {
 					v12 = dword_5d4594_1309732
@@ -3524,7 +3524,7 @@ func sub_4AABE0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 				result = 0
 			}
 		} else {
-			sub_486320(dword_587000_127004, int32(a4))
+			sub_486320(dword_587000_127004, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_453070() == 0 {
 					v15 = int32(dword_5d4594_1309728)
@@ -3993,7 +3993,7 @@ func sub_4AC7B0(a1 int32) int32 {
 			a1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(&v13), 4*0)))
 			if int32(int16(v12)) >= 41 {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
-				v6 = a1
+				v6 = float32(a1)
 				v11 += 4
 			}
 			*(*uint8)(unsafe.Add(v2, 299)) = *(*uint8)(unsafe.Pointer(&v13))
@@ -4605,7 +4605,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 *gui.Window, a2, a3, a4 uintptr) uintpt
 		v6 = int32(uintptr(unsafe.Pointer(nox_client_getWin1064916_46C720())))
 		switch v5 {
 		case 351:
-			sub_486320(dword_587000_127004, int32(a4))
+			sub_486320(dword_587000_127004, uint32(int32(a4)))
 			if v6 != 0 && *(*uint32)(unsafe.Add(v6, 396)) == uint32(a3) {
 				return 0
 			}
@@ -4634,7 +4634,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 *gui.Window, a2, a3, a4 uintptr) uintpt
 			v12(dword_5d4594_1309828, 21, 28, 2)
 			result = 0
 		case 352:
-			sub_486320(dword_587000_122852, int32(a4))
+			sub_486320(dword_587000_122852, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_44D990() != 0 {
 					sub_4AA650()
@@ -4660,7 +4660,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 *gui.Window, a2, a3, a4 uintptr) uintpt
 			v9(dword_5d4594_1309836, 21, 28, 2)
 			return 0
 		case 353:
-			sub_486320(dword_587000_93164, int32(a4))
+			sub_486320(dword_587000_93164, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_43DC30() != 0 {
 					return 0
@@ -4695,7 +4695,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 *gui.Window, a2, a3, a4 uintptr) uintpt
 			if v15 != 1 {
 				return 0
 			}
-			sub_486320(dword_587000_122852, int32(a4))
+			sub_486320(dword_587000_122852, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_44D990() == 0 {
 					v10 = dword_5d4594_1309836
@@ -4718,7 +4718,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 *gui.Window, a2, a3, a4 uintptr) uintpt
 				return 0
 			}
 		} else {
-			sub_486320(dword_587000_127004, int32(a4))
+			sub_486320(dword_587000_127004, uint32(int32(a4)))
 			if a4 != 0 {
 				if sub_453070() == 0 {
 					v13 = int32(dword_5d4594_1309828)
@@ -5768,7 +5768,7 @@ func sub_4B7EE0(a1 int16) {
 			return
 		}
 	}
-	nox_xxx_makePointFxCli_499610(dword_5d4594_1313740, 50, 1000, 30, int32(*(*uint32)(unsafe.Add(v2, 12))), int32(*(*uint32)(unsafe.Add(v2, 16))))
+	nox_xxx_makePointFxCli_499610(int32(dword_5d4594_1313740), 50, 1000, 30, int32(*(*uint32)(unsafe.Add(v2, 12))), int32(*(*uint32)(unsafe.Add(v2, 16))))
 	nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Add(v2, 432)))))
 	nox_xxx_spriteDeleteStatic_45A4E0_drawable((*client.Drawable)(v2))
 }
@@ -6066,7 +6066,7 @@ func sub_4B8CA0(a1 *uint32, a2 *byte) *uint32 {
 			return result
 		}
 	}
-	v4 = sub_415CD0(int32(uintptr(unsafe.Pointer(a2))))
+	v4 = sub_415CD0(uint32(int32(uintptr(unsafe.Pointer(a2)))))
 	result = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(v4))
 	v7 = result
 	if result != nil {
@@ -6178,7 +6178,7 @@ func sub_4B8E10(a1 *uint32, a2 *byte) *uint32 {
 			return result
 		}
 	}
-	v4 = sub_415840(int32(uintptr(unsafe.Pointer(a2))))
+	v4 = sub_415840(uint32(int32(uintptr(unsafe.Pointer(a2)))))
 	result = (*uint32)(nox_xxx_getProjectileClassById_413250(v4))
 	v7 = result
 	if result != nil {

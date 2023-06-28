@@ -272,7 +272,7 @@ func nox_xxx_xferIndexedDirection_509E20(a1 int32, a2 *int2) int32 {
 	v3 = *memmap.PtrInt32(0x587000, uintptr(a1*8)+192092)
 	result = int32(dword_587000_230092)
 	if v3 <= dword_587000_230092 {
-		result = -dword_587000_230092
+		result = int32(-dword_587000_230092)
 		if v3 >= -dword_587000_230092 {
 			a2.field_4 = 0
 		} else {
@@ -3125,7 +3125,7 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 												v1 = a1
 												v33 = v43
 											}
-											nox_xxx_addItemToShopSession_50EE00(v1, v36)
+											nox_xxx_addItemToShopSession_50EE00(v1, float32(v36))
 										}
 										v41++
 									}
@@ -3862,7 +3862,7 @@ func sub_510AE0(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 				return result
 			}
 		}
-		v6 = uint32(nox_xxx_shopGetItemCost_50E3D0(2, a2, v4))
+		v6 = uint32(nox_xxx_shopGetItemCost_50E3D0(2, a2, float32(v4)))
 		nox_xxx_playerSubGold_4FA5D0(unsafe.Pointer(a1), v6)
 		nox_xxx_unitSetHP_4E4560((*server.Object)(v4), *(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 556)), 4)))
 		nox_xxx_itemReportHealth_4D87A0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 276)), 2064))), (*server.Object)(v4))
@@ -3908,7 +3908,7 @@ func sub_510D10(a1 *int32, a2 unsafe.Pointer, a3 int32, a4 uint32) {
 			}
 			sub_4ED0C0((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(v7))
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v7))
-			v8 = nox_xxx_shopGetItemCost_50E3D0(0, a2, v7)
+			v8 = nox_xxx_shopGetItemCost_50E3D0(0, a2, float32(v7))
 			nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), v8)
 			sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 276)), 2064))), unsafe.Pointer(a1))
 			result = uint16(a4)
@@ -5976,7 +5976,7 @@ func nox_xxx_updateFallLogic_51B870(a1p *server.Object) {
 		v6 = float64(*(*float32)(unsafe.Add(a1, 60)) - *(*float32)(unsafe.Add(a1, 160)))
 		v13 = float32(v6)
 		v7 = math.Sqrt(v6*float64(v13) + v5*v5)
-		v14 = float32(v7)
+		v14 = int32(float32(v7))
 		if v7 > 0.0 {
 			*(*float32)(unsafe.Add(v1, 88)) = float32(v5 * (-3.0) / float64(v14))
 			*(*float32)(unsafe.Add(v1, 92)) = float32(float64(v13) * (-3.0) / float64(v14))
@@ -6054,8 +6054,8 @@ func sub_51D120(a1 *float32) *uint32 {
 		if result != nil {
 			if dword_5d4594_2487244 != 0 {
 				if *memmap.PtrUint32(0x973F18, 35976) == 1 {
-					sub_51D300(dword_5d4594_2487244, int32(uintptr(unsafe.Pointer(result))), int8(*memmap.PtrUint8(0x973F18, 35972)))
-					sub_51D300(int32(uintptr(unsafe.Pointer(v2))), dword_5d4594_2487244, int8(*memmap.PtrUint8(0x973F18, 35972)))
+					sub_51D300(int32(dword_5d4594_2487244), int32(uintptr(unsafe.Pointer(result))), int8(*memmap.PtrUint8(0x973F18, 35972)))
+					sub_51D300(int32(uintptr(unsafe.Pointer(v2))), int32(dword_5d4594_2487244), int8(*memmap.PtrUint8(0x973F18, 35972)))
 				}
 			}
 			dword_5d4594_2487244 = uint32(uintptr(unsafe.Pointer(v2)))

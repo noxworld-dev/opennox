@@ -254,7 +254,7 @@ func nox_script_GetQuestFloat_514C60() int32 {
 		v2 int32
 	)
 	v0 = nox_script_pop()
-	v2 = float32(sub_500770(nox_script_getString_512E40(v0)))
+	v2 = int32(float32(sub_500770(nox_script_getString_512E40(v0))))
 	nox_script_push(v2)
 	return 0
 }
@@ -395,7 +395,7 @@ func nox_script_GiveExp_516190() int32 {
 	v1 := nox_script_pop()
 	v2 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))
 	if v2 != nil {
-		nox_xxx_plyrGiveExp_4EF3A0_exp_level(v2, v0)
+		nox_xxx_plyrGiveExp_4EF3A0_exp_level(v2, float32(v0))
 	}
 	return 0
 }

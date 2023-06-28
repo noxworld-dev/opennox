@@ -2773,7 +2773,6 @@ func nox_xxx_cmdSayDo_46A4B0(a1 *wchar2_t, a2 int32) uint32 {
 }
 func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1 = (*uint32)(win.C())
 		v2 int32
 		v3 bool
 	)
@@ -2784,7 +2783,7 @@ func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 	v6 = 0
 	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1064856)
 	nox_xxx_windowFocus_46B500(dword_5d4594_1064860)
-	nox_xxx_drawGetStringSize_43F840(nil, dword_5d4594_1064864, &v5, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(nil, (*uint16)(dword_5d4594_1064864), &v5, nil, 0)
 	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Add(dword_5d4594_1064864, 512)), &v6, nil, 0)
 	v3 = v5+v6-90 < 0
 	v5 += v6 + 10
@@ -2797,7 +2796,7 @@ func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 		v5 = v2
 	}
 	nox_window_setPos_46A9B0(dword_5d4594_1064856, (nox_win_width-v2)/2, int32(*(*uint32)(unsafe.Add(dword_5d4594_1064856, 20))))
-	sub_46AB20(a1, v5, 20)
+	sub_46AB20(win, v5, 20)
 	return nox_xxx_wndEditDrawNoImage_488160(win, draw)
 }
 func sub_46A6A0() int32 {
@@ -2846,7 +2845,7 @@ func sub_46A7E0(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 func sub_46A820(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	if a2 == 16415 {
 		if int32(*(*uint16)(unsafe.Add(dword_5d4594_1064864, 1052))) != 0 {
-			nox_xxx_cmdSayDo_46A4B0(dword_5d4594_1064864, *memmap.PtrInt32(0x5D4594, 1064872))
+			nox_xxx_cmdSayDo_46A4B0((*uint16)(dword_5d4594_1064864), *memmap.PtrInt32(0x5D4594, 1064872))
 		}
 		sub_46A6A0()
 	}
@@ -4367,9 +4366,9 @@ func sub_472280() *wchar2_t {
 }
 func sub_472310() *uint8 {
 	var result *uint8
-	*memmap.PtrUint16(0x5D4594, 1091384) = uint16(int16(sub_467850(dword_5d4594_1096276)))
-	*memmap.PtrUint16(0x5D4594, 1090848) = uint16(int16(sub_467850(dword_5d4594_1096272)))
-	*memmap.PtrUint16(0x5D4594, 1091384) = uint16(int16(sub_467850(dword_5d4594_1096276)))
+	*memmap.PtrUint16(0x5D4594, 1091384) = uint16(int16(sub_467850(int32(dword_5d4594_1096276))))
+	*memmap.PtrUint16(0x5D4594, 1090848) = uint16(int16(sub_467850(int32(dword_5d4594_1096272))))
+	*memmap.PtrUint16(0x5D4594, 1091384) = uint16(int16(sub_467850(int32(dword_5d4594_1096276))))
 	*memmap.PtrUint16(0x5D4594, 1090312) = uint16(int16(sub_467850(*memmap.PtrInt32(0x5D4594, 1096268))))
 	if int32(*memmap.PtrUint16(0x5D4594, 1090312)) != 0 {
 		result = (*uint8)(unsafe.Pointer(nox_get_thing(*memmap.PtrInt32(0x5D4594, 1096268))))
@@ -4388,9 +4387,9 @@ func sub_472310() *uint8 {
 		}
 		*memmap.PtrUint32(0x5D4594, 1090308) = *memmap.PtrUint32(0x5D4594, 1096268)
 	} else {
-		*memmap.PtrUint16(0x5D4594, 1090312) = uint16(int16(sub_467850(dword_5d4594_1096284)))
+		*memmap.PtrUint16(0x5D4594, 1090312) = uint16(int16(sub_467850(int32(dword_5d4594_1096284))))
 		if int32(*memmap.PtrUint16(0x5D4594, 1090312)) != 0 {
-			var t1 *client.ObjectType = nox_get_thing(dword_5d4594_1096284)
+			var t1 *client.ObjectType = nox_get_thing(int32(dword_5d4594_1096284))
 			if t1 != nil {
 				nox_drawable_link_thing((*client.Drawable)(memmap.PtrOff(0x5D4594, 1090316)), t1.Field_1c)
 				*memmap.PtrUint32(0x5D4594, 1090296) = uint32(uintptr(memmap.PtrOff(0x5D4594, 1090316)))
@@ -4406,10 +4405,10 @@ func sub_472310() *uint8 {
 			result = dword_5d4594_1096284
 			*memmap.PtrUint32(0x5D4594, 1090308) = dword_5d4594_1096284
 		} else {
-			result = (*uint8)(unsafe.Pointer(uintptr(sub_467850(dword_5d4594_1096280))))
+			result = (*uint8)(unsafe.Pointer(uintptr(sub_467850(int32(dword_5d4594_1096280)))))
 			*memmap.PtrUint16(0x5D4594, 1090312) = uint16(uintptr(unsafe.Pointer(result)))
 			if int32(uint16(uintptr(unsafe.Pointer(result)))) != 0 {
-				result = (*uint8)(unsafe.Pointer(nox_get_thing(dword_5d4594_1096280)))
+				result = (*uint8)(unsafe.Pointer(nox_get_thing(int32(dword_5d4594_1096280))))
 				if result != nil {
 					result = (*uint8)(unsafe.Pointer(uintptr(nox_drawable_link_thing((*client.Drawable)(memmap.PtrOff(0x5D4594, 1090316)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*7)))))))
 					*memmap.PtrUint32(0x5D4594, 1090296) = uint32(uintptr(memmap.PtrOff(0x5D4594, 1090316)))

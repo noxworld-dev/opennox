@@ -1220,7 +1220,7 @@ func nox_xxx_playerSetCustomWP_4F79A0(a1 unsafe.Pointer, a2 int32, a3 int32) {
 			nox_xxx_unitMove_4E7010((*server.Object)(v4), &v5)
 		} else {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v3+int32(*(*uint8)(unsafe.Add(v3, 180)))*4)), 168)) = uint32(uintptr(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("PlayerWaypoint")))))
-			nox_xxx_createAt_4DAA50((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3+int32(*(*uint8)(unsafe.Add(v3, 180)))*4)), 168))), (*server.Object)(a1), a2, a3)
+			nox_xxx_createAt_4DAA50((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v3+int32(*(*uint8)(unsafe.Add(v3, 180)))*4)), 168))), (*server.Object)(a1), float32(a2), float32(a3))
 		}
 	}
 }
@@ -3833,7 +3833,7 @@ func sub_4FF7B0(a1p *server.Player) {
 	v1 = int8(*(*uint8)(unsafe.Add(a1, 2064)))
 	v2 = 1 << int32(v1)
 	if int32(v1) != 31 {
-		v3 = dword_5d4594_1569752
+		v3 = (*uint32)(dword_5d4594_1569752)
 		if dword_5d4594_1569752 != 0 {
 			for {
 				if int32(*(*uint8)(unsafe.Add(a1, 3680)))&0x10 != 0 {
@@ -4923,7 +4923,7 @@ func sub_500F40(a1 int32, a2 float32) int32 {
 		v7 = float64(v19.field_8 - v19.field_0)
 		v19.field_4 = v5
 		v8 = float64(v6 - v5)
-		a1 = float32(v8)
+		a1 = int32(float32(v8))
 		v9 = math.Sqrt(v8*float64(a1) + v7*v7)
 		a2 = float32(v9)
 		if v9 > 50.0 {
@@ -5735,7 +5735,7 @@ func sub_503B30(a1 *types.Pointf) int32 {
 	if result != 0 {
 		v2 = int32(dword_5d4594_3835396)
 		if dword_5d4594_1599480 != dword_5d4594_3835396 || dword_5d4594_1599480 == -1 || dword_5d4594_1599476 == 1 {
-			result = nox_xxx_mapgenSaveMap_503830(dword_5d4594_3835396)
+			result = nox_xxx_mapgenSaveMap_503830(int32(dword_5d4594_3835396))
 			if result == 0 {
 				return result
 			}
@@ -5783,7 +5783,7 @@ func sub_503B30(a1 *types.Pointf) int32 {
 						for i = sub_579890(); i != 0; i = sub_5798A0(i) {
 							*(*uint32)(unsafe.Add(i, 480)) |= 0x80000000
 						}
-						dword_5d4594_3835392 = uint32(nox_xxx_interesting_xfer_4D0010((*uint32)(unsafe.Pointer(&v17)), dword_5d4594_3835392))
+						dword_5d4594_3835392 = uint32(nox_xxx_interesting_xfer_4D0010((*uint32)(unsafe.Pointer(&v17)), int32(dword_5d4594_3835392)))
 						result = sub_504720(uint32(v8), uint32(v9))
 						if result != 0 {
 							for j = sub_579890(); j != 0; j = sub_5798A0(j) {
@@ -5797,7 +5797,7 @@ func sub_503B30(a1 *types.Pointf) int32 {
 							dword_5d4594_1599476 = 1
 							if dword_5d4594_1599644 != 0 {
 								*memmap.PtrUint32(0x973F18, 35880)++
-								sub_542BF0(dword_5d4594_3835312, v8, v9)
+								sub_542BF0(int32(dword_5d4594_3835312), v8, v9)
 								v16.field_0 = v8
 								v16.field_4 = v9
 								sub_543110((*byte)(memmap.PtrOff(0x973F18, 30760)), &v16.field_0)
@@ -6153,7 +6153,7 @@ func sub_504910(a1 int32, a2 int32) int32 {
 }
 func sub_504980() int32 {
 	var result int32
-	if (dword_5d4594_1599480 == dword_5d4594_3835396 && dword_5d4594_1599480 != -1 && dword_5d4594_1599476 != 1 || nox_xxx_mapgenSaveMap_503830(dword_5d4594_3835396) != 0) && dword_5d4594_1599540 != nil {
+	if (dword_5d4594_1599480 == dword_5d4594_3835396 && dword_5d4594_1599480 != -1 && dword_5d4594_1599476 != 1 || nox_xxx_mapgenSaveMap_503830(int32(dword_5d4594_3835396)) != 0) && dword_5d4594_1599540 != nil {
 		result = int32(*dword_5d4594_1599540)
 	} else {
 		result = 0

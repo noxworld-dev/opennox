@@ -56,8 +56,8 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 				}
 			}
 		}
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), dword_5d4594_1316476, internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 193)/v14 + ((int32(int16(a1)) + int32(int16(a2))) >> 1)))
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), dword_5d4594_1316476, internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 196)/v14 + ((int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1))) + int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1)))) >> 1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), int32(dword_5d4594_1316476), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 193)/v14 + ((int32(int16(a1)) + int32(int16(a2))) >> 1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v24), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v15*nox_common_randomIntMinMax_415FF0(int32(-dword_5d4594_1316476), int32(dword_5d4594_1316476), internCStr("C:\\NoxPost\\src\\Client\\Draw\\lightning.c"), 196)/v14 + ((int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1))) + int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1)))) >> 1)))
 		nox_xxx_drawLightningStep_4BB070(a1, v24)
 		nox_xxx_drawLightningStep_4BB070(v24, a2)
 		return int32(func() uint32 {
@@ -79,7 +79,7 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 		sub_49E4F0(v23)
 		v23 = 1
 	} else {
-		nox_draw_set54RGB32_434040(dword_5d4594_1316472)
+		nox_draw_set54RGB32_434040(int32(dword_5d4594_1316472))
 		sub_434080(3)
 		v4 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(int16(0))*1)))
 		v5 = int32(int16(a1))
@@ -89,7 +89,7 @@ func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {
 		nox_client_drawAddPoint_49F500(int32(int16(a2)), int32(*(*int16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(int16(0))*1))))
 		sub_49E4F0(32)
 	}
-	nox_client_drawSetColor_434460(dword_5d4594_1316472)
+	nox_client_drawSetColor_434460(int32(dword_5d4594_1316472))
 	nox_client_drawAddPoint_49F500(v5, v4)
 	nox_client_drawAddPoint_49F500(v7, v6)
 	nox_client_drawLineFromPoints_49E4B0()

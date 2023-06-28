@@ -71,9 +71,9 @@ func sub_4B6770(a1 *int32, dr *client.Drawable, a3 int32, a4 int32) int {
 func nox_thing_magic_sparkle_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*int32)(vp.C())
 	if nox_common_randomIntMinMax_415FF0(0, 10, internCStr("C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c"), 317) >= 5 {
-		return sub_4B6770(a1, dr, int32(nox_color_white_2523948), dword_5d4594_1313540)
+		return sub_4B6770(a1, dr, int32(nox_color_white_2523948), int32(dword_5d4594_1313540))
 	} else {
-		return sub_4B6770(a1, dr, dword_5d4594_1313540, dword_5d4594_1313536)
+		return sub_4B6770(a1, dr, int32(dword_5d4594_1313540), int32(dword_5d4594_1313536))
 	}
 }
 func nox_thing_pixie_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
@@ -122,7 +122,7 @@ func nox_thing_pixie_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			v9 = v15.field_0 - v11*20/int32(v13)
 			v10 = v15.field_4 - v12*20/int32(v13)
 		}
-		nox_client_drawSetColor_434460(dword_5d4594_1313564)
+		nox_client_drawSetColor_434460(int32(dword_5d4594_1313564))
 		nox_client_drawAddPoint_49F500(v15.field_0, v15.field_4)
 		nox_client_drawAddPoint_49F500(v9, v10)
 		nox_client_drawLineFromPoints_49E4B0()
@@ -133,9 +133,9 @@ func nox_thing_pixie_dust_draw(vp *noxrender.Viewport, dr *client.Drawable) int 
 	a1 := (*int32)(vp.C())
 	var result int
 	if nox_common_randomIntMinMax_415FF0(0, 10, internCStr("C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c"), 554) >= 5 {
-		result = sub_4B6770(a1, dr, int32(nox_color_white_2523948), dword_5d4594_1313564)
+		result = sub_4B6770(a1, dr, int32(nox_color_white_2523948), int32(dword_5d4594_1313564))
 	} else {
-		result = sub_4B6770(a1, dr, dword_5d4594_1313564, *memmap.PtrInt32(0x5D4594, 1313560))
+		result = sub_4B6770(a1, dr, int32(dword_5d4594_1313564), *memmap.PtrInt32(0x5D4594, 1313560))
 	}
 	return result
 }
@@ -148,7 +148,7 @@ func nox_thing_blue_rain_spark_draw(vp *noxrender.Viewport, dr *client.Drawable)
 		v5     int32
 		a2     int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
-	result = int32(sub_4B6970(a1, dr, int32(nox_color_white_2523948), dword_5d4594_1313540))
+	result = int32(sub_4B6970(a1, dr, int32(nox_color_white_2523948), int32(dword_5d4594_1313540)))
 	if result == 1 && int32(*(*uint8)(unsafe.Add(a2, 296))) >= 5 {
 		v3 = int32(*memmap.PtrUint32(0x5D4594, 1313688))
 		if *memmap.PtrUint32(0x5D4594, 1313688) == 0 {
@@ -267,11 +267,11 @@ func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 }
 func Nox_thing_red_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, dword_5d4594_1313532, *memmap.PtrInt32(0x5D4594, 1313528))
+	return sub_4B6970(a1, dr, int32(dword_5d4594_1313532), *memmap.PtrInt32(0x5D4594, 1313528))
 }
 func Nox_thing_blue_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, dword_5d4594_1313540, dword_5d4594_1313536)
+	return sub_4B6970(a1, dr, int32(dword_5d4594_1313540), int32(dword_5d4594_1313536))
 }
 func Nox_thing_cyan_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
@@ -283,7 +283,7 @@ func Nox_thing_green_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int
 }
 func Nox_thing_yellow_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, dword_5d4594_1313532, *memmap.PtrInt32(0x5D4594, 1313576))
+	return sub_4B6970(a1, dr, int32(dword_5d4594_1313532), *memmap.PtrInt32(0x5D4594, 1313576))
 }
 func nox_thing_violet_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
@@ -295,7 +295,7 @@ func nox_thing_death_ball_spark_draw(vp *noxrender.Viewport, dr *client.Drawable
 }
 func nox_thing_white_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, int32(nox_color_white_2523948), dword_5d4594_1313540)
+	return sub_4B6970(a1, dr, int32(nox_color_white_2523948), int32(dword_5d4594_1313540))
 }
 func nox_thing_particle_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	var (

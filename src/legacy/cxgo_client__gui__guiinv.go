@@ -233,7 +233,7 @@ func sub_462040(a1 int32) {
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*28))&0x1000000 != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*29))&0xC != 0 {
 		v10 = 1
 		if dword_5d4594_1062488 != 0 && (func() *byte {
-			v11 = sub_461EF0(dword_5d4594_1062488)
+			v11 = sub_461EF0(int32(dword_5d4594_1062488))
 			return v11
 		}()) != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(v11)))), 128)) = *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v11)), 4))
@@ -275,7 +275,7 @@ func sub_462040(a1 int32) {
 		sub_470D90(int32(v16), int32(*((*int16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(int16(0))*225)))))
 	}
 	if dword_5d4594_1062496 != 0 {
-		v17 = (*int32)(unsafe.Pointer(sub_461EF0(dword_5d4594_1062496)))
+		v17 = (*int32)(unsafe.Pointer(sub_461EF0(int32(dword_5d4594_1062496))))
 		if v17 != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*v17)), 136)) = 1
 			nox_xxx_clientSetAltWeapon_461550(*v17)
@@ -801,7 +801,7 @@ func nox_client_makePlayerStatsDlg_463880(a1 *int32) {
 	}
 	if float64(v69) >= 0.0 {
 		if float64(v69) > 0.0 {
-			v68 = COERCE_FLOAT(uint32(int32(v69)))
+			v68 = int32(COERCE_FLOAT(uint32(int32(v69))))
 			if v67+v68 > 90 {
 				v68 = 90 - v67
 			}
@@ -816,7 +816,7 @@ func nox_client_makePlayerStatsDlg_463880(a1 *int32) {
 		var v27 int32 = int32(v69)
 		nox_client_drawRectFilledOpaque_49CE30(v67+v27+v10+60, v25, v46, v1)
 	}
-	v68 = float32(float64(v69) * 100.0 * 0.011111111)
+	v68 = int32(float32(float64(v69) * 100.0 * 0.011111111))
 	var v63 float32 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(v70), unsafe.Sizeof(float32(0))*2))) * 100.0 / float64(*(*float32)(unsafe.Add(unsafe.Pointer(v71), unsafe.Sizeof(float32(0))*2))))
 	var v64 int32 = int32(v63)
 	var v47 float32 = float32(float64(*(*int32)(unsafe.Add(v4, 2235)))*100.0/float64(*(*float32)(unsafe.Add(unsafe.Pointer(v71), unsafe.Sizeof(float32(0))*2))) + float64(v68) + 0.5)
@@ -1247,7 +1247,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), v54, v55)
 			goto LABEL_121
 		}
-		if sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), dword_5d4594_1049804, dword_5d4594_1049808) == 0 {
+		if sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), int32(dword_5d4594_1049804), int32(dword_5d4594_1049808)) == 0 {
 			sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), dword_5d4594_1049796_inventory_click_column_index, dword_5d4594_1049800_inventory_click_row_index)
 			goto LABEL_121
 		}
@@ -1596,7 +1596,7 @@ func sub_467750(a1 int32, a2 int8) int32 {
 		if dword_5d4594_1062484 == 0 {
 			return 0
 		}
-		var v6 *int32 = (*int32)(unsafe.Pointer(sub_461EF0(dword_5d4594_1062484)))
+		var v6 *int32 = (*int32)(unsafe.Pointer(sub_461EF0(int32(dword_5d4594_1062484))))
 		if v6 != nil {
 			nox_xxx_clientSetAltWeapon_461550(*v6)
 			return 0

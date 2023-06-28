@@ -1870,8 +1870,8 @@ func nox_xxx_mapGenStep_4D44E0() int32 {
 				v2 = 0
 				goto LABEL_25
 			}
-			sub_5259F0(dword_5d4594_1550916, 0, 0.0)
-			sub_525AF0(dword_5d4594_1550916)
+			sub_5259F0(int32(dword_5d4594_1550916), 0, 0.0)
+			sub_525AF0(int32(dword_5d4594_1550916))
 			if *memmap.PtrUint32(0x5D4594, 1549980) != 0 {
 				v3 = int32(int64(float64(*mem_getFloatPtr(0x5D4594, 1549860)) * 0.030743772))
 				v4 = nox_xxx_mapGenMakeRoomStruct_521940(v3*2+1, v3*2+1)
@@ -6060,7 +6060,7 @@ func sub_4DF3C0(pl *server.Player) {
 	if sub_40A740() == 0 && !noxflags.HasGame(0x8000) {
 		var v2b = nox_xxx_getTeamCounter_417DD0()
 		if int32(v2b) != 0 {
-			v2 = sub_4189D0()
+			v2 = (*byte)(sub_4189D0())
 			v4 = v2
 			if v2 != nil {
 				v2 = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130(unsafe.Add(v1, 48)))))
@@ -6186,8 +6186,8 @@ func nox_xxx_effectSpeedEngage_4DFC30(a1 *server.ModifierEff, a2 *server.Object,
 		if int32(*(*uint8)(unsafe.Add(a2.CObj(), 8)))&4 != 0 {
 			v3 = int32(*(*uint32)(unsafe.Add(a2.CObj(), 748)))
 			*(*uint8)(unsafe.Add(a2.CObj(), 440)) |= 0x10
-			v5 = a1.EngageFloat120 + *(*float32)(unsafe.Add(a2.CObj(), 552))
-			*(*float32)(unsafe.Add(v2.CObj(), 552)) = v5
+			v5 = int32(a1.EngageFloat120 + *(*float32)(unsafe.Add(a2.CObj(), 552)))
+			*(*float32)(unsafe.Add(v2.CObj(), 552)) = float32(v5)
 			nox_xxx_netReportStatsSpeed_4D9360(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), (*uint32)(v2.CObj()), 0, v5)
 			nox_xxx_aud_501960(59, v2, 0, 0)
 		}
@@ -6204,8 +6204,8 @@ func nox_xxx_effectSpeedDisengage_4DFCA0(a1 *server.ModifierEff, a2 *server.Obje
 			*(*uint8)(unsafe.Add(a2.CObj(), 440)) &= 0xEF
 		}
 		v3 = int32(*(*uint32)(unsafe.Add(a2.CObj(), 748)))
-		v4 = *(*float32)(unsafe.Add(a2.CObj(), 552)) - a1.EngageFloat120
-		*(*float32)(unsafe.Add(v2.CObj(), 552)) = v4
+		v4 = int32(*(*float32)(unsafe.Add(a2.CObj(), 552)) - a1.EngageFloat120)
+		*(*float32)(unsafe.Add(v2.CObj(), 552)) = float32(v4)
 		nox_xxx_netReportStatsSpeed_4D9360(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), (*uint32)(v2.CObj()), 0, v4)
 		nox_xxx_aud_501960(60, v2, 0, 0)
 	}

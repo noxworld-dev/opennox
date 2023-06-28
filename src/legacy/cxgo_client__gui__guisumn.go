@@ -177,7 +177,7 @@ func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 			return 1
 		}
 		if dword_5d4594_1321204 != 0 {
-			if sub_4C2DD0(dword_5d4594_1321204) != 0 {
+			if sub_4C2DD0(int32(dword_5d4594_1321204)) != 0 {
 				sub_4C2A00(v11+v4, v10+3, int32(nox_color_white_2523948), int32(nox_color_black_2650656), (*int16)(unsafe.Pointer(v2)))
 				return 1
 			}

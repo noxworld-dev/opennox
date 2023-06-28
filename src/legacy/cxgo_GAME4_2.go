@@ -4633,7 +4633,7 @@ func sub_524550(a1 *int32, a2 int32) int32 {
 	)
 	v2 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
 	v5 = *a1
-	v6 = v2
+	v6 = float32(v2)
 	result = sub_526D50(1)
 	v4 = a2
 	if a2 > 0 {
@@ -5877,7 +5877,7 @@ func nox_xxx_mapGen_InPrefab1_525D20(a1 int32) int32 {
 		*memmap.PtrUint32(0x5D4594, 2487664) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("ExitEastMarker")))
 		*memmap.PtrUint32(0x5D4594, 2487668) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("ExitWestMarker")))
 	}
-	sub_525DF0(a1)
+	sub_525DF0(float32(a1))
 	for i = *(**uint32)(unsafe.Add(a1, 80)); i != nil; i = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*39))) {
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*18)) != 0 {
 			if v1 == 5 || nox_xxx_mapGenPrefabMkRoom_526100(a1, int32(uintptr(unsafe.Pointer(i)))) == 0 {
@@ -5988,13 +5988,13 @@ LABEL_10:
 		if nox_xxx_mapGenRandFunc_526AC0(0, 100) >= 50 {
 			*mem_getFloatPtr(0x5D4594, 2487612) = float32(v8)
 			*mem_getFloatPtr(0x5D4594, 2487616) = float32(sub_526BC0(v15, v16))
-			dword_5d4594_2487620 = v16
-			dword_5d4594_2487624 = float32(sub_526BC0(v15, v16))
+			dword_5d4594_2487620 = uint32(v16)
+			dword_5d4594_2487624 = uint32(float32(sub_526BC0(v15, v16)))
 		} else {
 			*mem_getFloatPtr(0x5D4594, 2487612) = float32(sub_526BC0(v15, v16))
 			*mem_getFloatPtr(0x5D4594, 2487616) = v15
-			dword_5d4594_2487620 = float32(sub_526BC0(v15, v16))
-			dword_5d4594_2487624 = v16
+			dword_5d4594_2487620 = uint32(float32(sub_526BC0(v15, v16)))
+			dword_5d4594_2487624 = uint32(v16)
 		}
 	case 3:
 		v9 = nox_xxx_mapGenRandFunc_526AC0(0, 100)
@@ -6004,44 +6004,44 @@ LABEL_10:
 				if v9 >= 75 {
 					*mem_getFloatPtr(0x5D4594, 2487612) = float32(v12)
 					*mem_getFloatPtr(0x5D4594, 2487616) = float32(v12)
-					dword_5d4594_2487620 = float32(v12)
-					dword_5d4594_2487624 = v16
-					dword_5d4594_2487628 = v16
+					dword_5d4594_2487620 = uint32(float32(v12))
+					dword_5d4594_2487624 = uint32(v16)
+					dword_5d4594_2487628 = uint32(v16)
 				} else {
 					*mem_getFloatPtr(0x5D4594, 2487616) = float32(v12)
-					dword_5d4594_2487628 = float32(v12)
+					dword_5d4594_2487628 = uint32(float32(v12))
 					*mem_getFloatPtr(0x5D4594, 2487612) = v16
-					dword_5d4594_2487620 = v16
-					dword_5d4594_2487624 = v16
+					dword_5d4594_2487620 = uint32(v16)
+					dword_5d4594_2487624 = uint32(v16)
 				}
 				dword_5d4594_2487632 = 0
 			} else {
 				v11 = float64(-v16)
 				*mem_getFloatPtr(0x5D4594, 2487612) = float32(v11)
-				dword_5d4594_2487632 = float32(v11)
+				dword_5d4594_2487632 = uint32(float32(v11))
 				*mem_getFloatPtr(0x5D4594, 2487616) = v16
-				dword_5d4594_2487620 = v16
-				dword_5d4594_2487624 = v16
+				dword_5d4594_2487620 = uint32(v16)
+				dword_5d4594_2487624 = uint32(v16)
 				dword_5d4594_2487628 = 0
 			}
 		} else {
 			v10 = float64(-v16)
 			*mem_getFloatPtr(0x5D4594, 2487612) = float32(v10)
 			*mem_getFloatPtr(0x5D4594, 2487616) = float32(v10)
-			dword_5d4594_2487624 = float32(v10)
-			dword_5d4594_2487620 = v16
+			dword_5d4594_2487624 = uint32(float32(v10))
+			dword_5d4594_2487620 = uint32(v16)
 			dword_5d4594_2487628 = 0
-			dword_5d4594_2487632 = v16
+			dword_5d4594_2487632 = uint32(v16)
 		}
 	case 4, 5:
 		*memmap.PtrUint32(0x5D4594, 2487644) = 0
 		v13 = float64(-v16)
 		*mem_getFloatPtr(0x5D4594, 2487612) = float32(v13)
 		*mem_getFloatPtr(0x5D4594, 2487616) = float32(v13)
-		dword_5d4594_2487624 = float32(v13)
-		dword_5d4594_2487628 = float32(v13)
-		dword_5d4594_2487620 = v16
-		dword_5d4594_2487632 = v16
+		dword_5d4594_2487624 = uint32(float32(v13))
+		dword_5d4594_2487628 = uint32(float32(v13))
+		dword_5d4594_2487620 = uint32(v16)
+		dword_5d4594_2487632 = uint32(v16)
 		*mem_getFloatPtr(0x5D4594, 2487636) = v16
 		*mem_getFloatPtr(0x5D4594, 2487640) = v16
 		*memmap.PtrUint32(0x5D4594, 2487648) = 0
@@ -7093,7 +7093,7 @@ func nox_xxx_mapGenPlaceObj_5279B0(a1 *types.Pointf) *float32 {
 	}
 	result = (*float32)(unsafe.Pointer(uintptr(nox_xxx_mapGenFixCoords_4D3D90(a1, &a2))))
 	if result != nil {
-		result = (*float32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(dword_5d4594_3835388)))
+		result = (*float32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(dword_5d4594_3835388))))
 		if result != nil {
 			result = nox_xxx_mapGenMoveObject_527A10(result, (*types.Pointf)(unsafe.Pointer(&a1.X)))
 		}
@@ -7115,7 +7115,7 @@ func nox_xxx_mapGenMoveObject_527A10(a1 *float32, a2 *types.Pointf) *float32 {
 		return nil
 	}
 	v3 = v7.Y
-	*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*10)) = dword_5d4594_3835392
+	*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*10)) = float32(dword_5d4594_3835392)
 	v4 = v7.X
 	dword_5d4594_3835392++
 	*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*15)) = v3
@@ -8855,7 +8855,7 @@ func nox_xxx_readNPCVoiceSet_52AD10(a1 unsafe.Pointer) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 1)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v6[0], uint32(uint8(int8(v5))))
 		v6[uint8(int8(v5))] = 0
-		v4 = nox_xxx_getDefaultSoundSet_424350(&v6[0])
+		v4 = (**byte)(nox_xxx_getDefaultSoundSet_424350(&v6[0]))
 		nox_xxx_setNPCVoiceSet_424320(a1, int32(uintptr(unsafe.Pointer(v4))))
 	} else {
 		v1 = (**byte)(nox_xxx_monsterGetSoundSet_424300((*server.Object)(a1)))
@@ -10174,7 +10174,7 @@ func nox_xxx_castLock_52CE90(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.
 	}
 	*(*uint32)(unsafe.Add(dword_5d4594_2487708, 508)) = uint32(a3)
 	*(*uint32)(unsafe.Add(dword_5d4594_2487708, 136)) = gameFrame() + gameFPS()*60
-	sub_52D060(dword_5d4594_2487708, a3)
+	sub_52D060(int32(dword_5d4594_2487708), a3)
 	v8 = int32(dword_5d4594_2487708)
 	v7 = nox_xxx_spellGetAud44_424800(a1, 0)
 	nox_xxx_aud_501960(v7, (*server.Object)(v8), 0, 0)
@@ -10918,9 +10918,9 @@ func Nox_xxx_spellDrainMana_52E210(sp *server.DurSpell) int32 {
 	}
 	v21 = *(*float32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0))))), 72))
 	v22 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ManaDrainCoeff"), int32(*(*uint32)(unsafe.Add(v1, 8))-1)) + float64(v21))
-	v14 = COERCE_FLOAT(uint32(int32(v22)))
+	v14 = int32(COERCE_FLOAT(uint32(int32(v22))))
 	v15 = *(**uint32)(unsafe.Add(v1, 48))
-	v19.X = v14
+	v19.X = float32(v14)
 	v16 = float64(v14)
 	v17 = *(**uint32)(unsafe.Add(v1, 36))
 	*(*float32)(unsafe.Add(v1, 72)) = float32(float64(v22) - v16)
@@ -11209,7 +11209,7 @@ func Nox_xxx_spellEnergyBoltTick_52E850(sp *server.DurSpell) int32 {
 		v14 = int32(*(*uint32)(unsafe.Add(v1, 16)))
 		*mem_getFloatPtr(0x5D4594, 2487868) = *(*float32)(unsafe.Add(v14, 56))
 		*mem_getFloatPtr(0x5D4594, 2487872) = *(*float32)(unsafe.Add(v14, 60))
-		dword_5d4594_2487884 = v31 * v31
+		dword_5d4594_2487884 = uint32(v31 * v31)
 		nox_xxx_unitsGetInCircle_517F90((*types.Pointf)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 16)), 56)), v31, nox_xxx_spellEnergyBoltSetTarget_52EC60, *(*unsafe.Pointer)(unsafe.Add(v1, 16)))
 		*(*uint32)(unsafe.Add(v1, 48)) = nox_xxx_energyBoltTarget_5d4594_2487880
 	LABEL_31:
@@ -11275,7 +11275,7 @@ func Nox_xxx_spellEnergyBoltTick_52E850(sp *server.DurSpell) int32 {
 	*mem_getFloatPtr(0x5D4594, 2487868) = v29.X
 	*mem_getFloatPtr(0x5D4594, 2487872) = v29.Y
 	nox_xxx_energyBoltTarget_5d4594_2487880 = 0
-	dword_5d4594_2487884 = v31 * v31
+	dword_5d4594_2487884 = uint32(v31 * v31)
 	*memmap.PtrUint32(0x5D4594, 2487832) = 1
 	v5 = int32(*(*uint32)(unsafe.Add(v1, 16)))
 	nox_xxx_unitsGetInCircle_517F90(&v29, v31, nox_xxx_spellEnergyBoltSetTarget_52EC60, v5)
@@ -11313,7 +11313,7 @@ func nox_xxx_spellEnergyBoltSetTarget_52EC60(it *server.Object, data unsafe.Poin
 					v5 = float64(*(*float32)(unsafe.Add(target, 60)) - *mem_getFloatPtr(0x5D4594, 2487872))
 					v6 = v5*v5 + v4*v4
 					if v6 < float64(dword_5d4594_2487884) {
-						dword_5d4594_2487884 = float32(v6)
+						dword_5d4594_2487884 = uint32(float32(v6))
 						nox_xxx_energyBoltTarget_5d4594_2487880 = uint32(target)
 					}
 				}

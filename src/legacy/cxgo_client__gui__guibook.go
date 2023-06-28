@@ -132,7 +132,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	}
 	if nox_xxx_aNox_cfg_0_587000_132132 != 0 {
 		v4 = dword_5d4594_1046936
-		*(*uint32)(unsafe.Pointer(&WideCharStr[0])) = 141/dword_5d4594_1046656 - 1
+		*(*uint32)(unsafe.Pointer(&WideCharStr[0])) = uint32(141/dword_5d4594_1046656 - 1)
 		if dword_5d4594_1046936 == 0 {
 			nox_window_set_hidden(dword_5d4594_1046944, 1)
 			v4 = dword_5d4594_1046936
@@ -457,15 +457,15 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 	v22 = v24
 	v21 = v25
 	if dword_5d4594_1046652 == 1 {
-		v9 = int32(uintptr(unsafe.Pointer(nox_xxx_spellGetAbilityIcon_425310(dword_5d4594_1047524, 0))))
+		v9 = int32(uintptr(unsafe.Pointer(nox_xxx_spellGetAbilityIcon_425310(int32(dword_5d4594_1047524), 0))))
 	} else {
-		v9 = int32(uintptr(nox_xxx_spellIcon_424A90(dword_5d4594_1047524)))
+		v9 = int32(uintptr(nox_xxx_spellIcon_424A90(int32(dword_5d4594_1047524))))
 	}
 	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(v9), v21, v22)
 	dword_5d4594_1046636 = dword_5d4594_1046636 + obj_5d4594_1046620.X
 	dword_5d4594_1046640 = dword_5d4594_1046640 + obj_5d4594_1046620.Y
 	if float64(*memmap.PtrInt32(0x5D4594, 1046668)) <= float64(dword_5d4594_1046636) && float64(*memmap.PtrInt32(0x5D4594, 1046672)) <= float64(dword_5d4594_1046640) {
-		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
+		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), int32(dword_5d4594_1047524), dword_5d4594_1046852)
 		sub_45D810()
 		goto LABEL_27
 	}
@@ -491,7 +491,7 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 			}
 			goto LABEL_27
 		}
-		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
+		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), int32(dword_5d4594_1047524), dword_5d4594_1046852)
 		sub_45D810()
 	}
 LABEL_27:
@@ -535,7 +535,7 @@ func sub_45D870() {
 				break
 			}
 		}
-		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), dword_5d4594_1047524, dword_5d4594_1046852)
+		nox_xxx_book_45DBE0(*(*uint32)(memmap.PtrOff(0x5D4594, 1046676)), int32(dword_5d4594_1047524), dword_5d4594_1046852)
 		sub_45D810()
 	}
 }
