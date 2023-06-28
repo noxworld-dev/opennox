@@ -217,7 +217,7 @@ func sub_418D80(a1 unsafe.Pointer) {
 			v3 := nox_xxx_objGetTeamByNetCode_418C80(i.NetCodeVal)
 			v4 := v3
 			if v3 != nil {
-				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 4))) == int32(*(*uint8)(unsafe.Add(a1, 57))) {
+				if int32(v3.ID) == int32(*(*uint8)(unsafe.Add(a1, 57))) {
 					sub_4571A0(int32(i.NetCodeVal), 0)
 					sub_418E40(a1, unsafe.Pointer(v4))
 				}
@@ -302,7 +302,7 @@ func sub_4190F0(a1 *wchar2_t) int32 {
 }
 func nox_xxx_servObjectHasTeam_419130(a1 *server.ObjectTeam) int32 {
 	if a1 != nil {
-		return bool2int32(int32(*(*uint8)(unsafe.Add(a1, 4))) != 0)
+		return bool2int32(a1.ID != 0)
 	}
 	return 0
 }
@@ -485,7 +485,7 @@ func sub_419960(a1 unsafe.Pointer, a2 *server.ObjectTeam, a3 int16) {
 	var v4 [10]byte
 	if a1 != nil && a2 != nil {
 		result := int8(*(*uint8)(unsafe.Add(a1, 57)))
-		if int32(*(*uint8)(unsafe.Add(a2, 4))) != int32(result) {
+		if int32(a2.ID) != int32(result) {
 			*(*uint32)(unsafe.Pointer(&v4[2])) = uint32(*(*uint8)(unsafe.Add(a1, 57)))
 			v4[0] = 196
 			v4[1] = 11

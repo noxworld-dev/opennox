@@ -232,15 +232,15 @@ func sub_457230(a1 *wchar2_t) {
 		r2 := sub_418A40(a1)
 		v4 := r2
 		if r2 != nil {
-			*(*uint32)(unsafe.Add(v3, 4*15)) = uint32(*(*byte)(unsafe.Add(unsafe.Pointer(r2), 57)))
-			*(*uint32)(unsafe.Add(v3, 4*17)) = uint32(*(*byte)(unsafe.Add(unsafe.Pointer(r2), 56)))
+			*(*uint32)(unsafe.Add(v3, 4*15)) = uint32(r2.IDVal)
+			*(*uint32)(unsafe.Add(v3, 4*17)) = uint32(r2.ColorInd)
 			*((*uint8)(unsafe.Add(v3, 64))) = sub_457120(unsafe.Pointer(r2))
 			sub_425770(v3)
 			nox_common_list_append_4258E0((*nox_list_item_t)(memmap.PtrOff(0x5D4594, 1045668)), (*nox_list_item_t)(v3))
 			nox_wcscpy((*wchar2_t)(unsafe.Add(v3, unsafe.Sizeof(wchar2_t(0))*6)), a1)
 			nox_wcscpy(&v8[0], a1)
 			if noxflags.HasGame(96) || *(*byte)(unsafe.Add(unsafe.Pointer(v1), 52))&0x60 != 0 {
-				v5 := int8(*(*byte)(unsafe.Add(unsafe.Pointer(v4), 57)))
+				v5 := int8(v4.IDVal)
 				if int32(uint8(v5)) < 3 {
 					var v7 *wchar2_t
 					if int32(v5) == 1 {

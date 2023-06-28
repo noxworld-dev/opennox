@@ -14,8 +14,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var dword_5d4594_2523756 unsafe.Pointer = nil
-var nox_xxx_waypointsHead_2523752 *server.Waypoint = nil
+var dword_5d4594_2523756 *server.Waypoint
+var nox_xxx_waypointsHead_2523752 *server.Waypoint
 
 func nox_server_makeServerInfoPacket_554040(inBuf *byte, inSz int32, out *byte) uint32 {
 	var (
@@ -967,7 +967,7 @@ func nox_xxx_waypointNewNotMap_579970(a1 int32, a2 float32, a3 float32) *float32
 	*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*2)) = a2
 	*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*120))) = uint32(v4)
 	*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*121))) = uint32(uintptr(dword_5d4594_2523756))
-	dword_5d4594_2523756 = unsafe.Pointer(result)
+	dword_5d4594_2523756 = (*server.Waypoint)(unsafe.Pointer(result))
 	return result
 }
 func nox_xxx_waypoint_5799C0() *byte {
@@ -1219,19 +1219,19 @@ func sub_579E70() *uint32 {
 	}
 	return result
 }
-func sub_579E90(a1 int32) {
-	*(*uint32)(unsafe.Add(a1, 480)) |= 0x1000000
-	*(*uint32)(unsafe.Add(a1, 484)) = uint32(uintptr(dword_5d4594_2523756))
+func sub_579E90(a1 *server.Waypoint) {
+	a1.Flags |= 0x1000000
+	a1.WpNext = uint32(uintptr(dword_5d4594_2523756))
 	if dword_5d4594_2523756 != nil {
-		*(*uint32)(unsafe.Add(dword_5d4594_2523756, 488)) = uint32(a1)
+		dword_5d4594_2523756.WpPrev = a1
 	}
 	dword_5d4594_2523756 = a1
 	if noxflags.HasGame(1) {
-		nox_xxx_waypointMapRegister_5179B0((*server.Waypoint)(a1))
+		nox_xxx_waypointMapRegister_5179B0(a1)
 	}
 }
 func sub_579EE0(a1 *server.Waypoint, a2 uint8) int32 {
-	return bool2int32((int32(a2) & int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 477)))) != 0)
+	return bool2int32((int32(a2) & int32(a1.Flags2)) != 0)
 }
 func nox_xxx_waypoint_579F00(a1 *uint32, a2 unsafe.Pointer) int32 {
 	var (

@@ -6313,7 +6313,7 @@ func sub_4ED0C0(a1 *server.Object, object *server.Object) {
 				v10 = int32(*(*uint8)(unsafe.Add(v7, 488)))
 				v7 = int32(*(*uint32)(unsafe.Add(v7, 496)))
 			}
-			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v8, 276)), 3656)) = uint32(bool2int32(i > int32(*(*uint16)(unsafe.Add(a1, 490)))))
+			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v8, 276)), 3656)) = uint32(bool2int32(i > int32(a1.CarryCapacity)))
 		}
 	}
 }
@@ -6371,7 +6371,7 @@ LABEL_19:
 		v7 := a2.UpdateData
 		v8 = sub_4ECBD0(unsafe.Pointer(a2))
 		v9 = int8(v8)
-		v14 = *(*uint8)(unsafe.Add(a2, 52))
+		v14 = uint8(a2.TeamVal.ID)
 		*(*uint32)(unsafe.Pointer(&v13[2])) = v3.NetCode
 		*(*uint32)(unsafe.Pointer(&v13[6])) = uint32(v8)
 		nox_xxx_netInformTextMsg2_4DA180(7, &v13[0])
@@ -6382,7 +6382,7 @@ LABEL_19:
 	if *memmap.PtrUint32(0x5D4594, 1568252) == 0 {
 		*memmap.PtrUint32(0x5D4594, 1568252) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Glyph")))
 	}
-	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && (a2.ObjFlags&0x80000) == 0 && (a2.ObjClass&0x10000000) == 0 && uint32(*(*uint16)(unsafe.Add(a2, 4))) != *memmap.PtrUint32(0x5D4594, 1568252) {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && (a2.ObjFlags&0x80000) == 0 && (a2.ObjClass&0x10000000) == 0 && uint32(a2.TypeInd) != *memmap.PtrUint32(0x5D4594, 1568252) {
 		nox_xxx_unitSetDecayTime_511660(a2, int32(gameFPS()*10))
 	}
 	nox_xxx_unitRaise_4E46F0(a2, 0.0)
@@ -6400,7 +6400,7 @@ LABEL_19:
 		*memmap.PtrUint32(0x5D4594, 1568256) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Torch")))
 		*memmap.PtrUint32(0x5D4594, 1568244) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Lantern")))
 	}
-	v12 = int32(*(*uint16)(unsafe.Add(a2, 4)))
+	v12 = int32(a2.TypeInd)
 	if uint32(uint16(int16(v12))) == *memmap.PtrUint32(0x5D4594, 1568256) || uint32(v12) == *memmap.PtrUint32(0x5D4594, 1568244) {
 		nox_xxx_spellBuffOff_4FF5B0(v3, 15)
 	}

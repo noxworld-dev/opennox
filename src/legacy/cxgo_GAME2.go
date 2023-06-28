@@ -2936,7 +2936,7 @@ func sub_456500() {
 			sub_457140(int32(*(*uint32)(unsafe.Add(j, 4*515))), (*wchar2_t)(unsafe.Add(j, unsafe.Sizeof(wchar2_t(0))*2352)))
 			v4 := nox_xxx_objGetTeamByNetCode_418C80(*(*uint32)(unsafe.Add(j, 4*515)))
 			if nox_xxx_servObjectHasTeam_419130(v4) != 0 {
-				sub_4571A0(int32(*(*uint32)(unsafe.Add(j, 4*515))), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 4))))
+				sub_4571A0(int32(*(*uint32)(unsafe.Add(j, 4*515))), int32(v4.ID))
 			}
 		}
 	}
