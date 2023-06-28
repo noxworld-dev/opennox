@@ -112,7 +112,7 @@ var dword_5d4594_1309748 uint32
 var dword_5d4594_1045464 *gui.Window
 var dword_5d4594_1045484 *gui.Window
 var dword_5d4594_1049856 uint32
-var dword_5d4594_1064856 uint32
+var dword_5d4594_1064856 *gui.Window
 var nox_xxx_aNox_cfg_0_587000_132132 uint32 = 0x1
 var dword_5d4594_1217456 uint32
 var dword_5d4594_1193348 uint32
@@ -318,7 +318,7 @@ var dword_5d4594_1565616 uint32
 var dword_5d4594_816356 uint32
 var dword_5d4594_1203836 uint32
 var dword_5d4594_1301780 uint32
-var dword_5d4594_1064864 uint32
+var dword_5d4594_1064864 unsafe.Pointer
 var dword_5d4594_1096252 uint32
 var dword_5d4594_741356 int32
 var dword_5d4594_1197356 uint32
@@ -327,7 +327,7 @@ var dword_5d4594_1321800 uint32
 var dword_5d4594_1197336 uint32
 var dword_5d4594_1197352 uint32
 var dword_5d4594_826036 unsafe.Pointer
-var dword_5d4594_1064860 uint32
+var dword_5d4594_1064860 *gui.Window
 var dword_5d4594_1046536 *gui.Window
 var dword_5d4594_1062468 *gui.Window
 var dword_5d4594_1523036 uint32

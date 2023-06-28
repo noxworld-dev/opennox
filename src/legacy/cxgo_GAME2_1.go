@@ -2711,7 +2711,7 @@ func sub_469FA0() int32 {
 func nox_client_chatStart_46A430(a1 int32) {
 	if !noxflags.HasGame(2048) {
 		if dword_5d4594_1064868 == 0 {
-			*dword_5d4594_1064864 = 0
+			*(*uint32)(dword_5d4594_1064864) = 0
 			*(*uint16)(unsafe.Add(dword_5d4594_1064864, 1052)) = 0
 			nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(dword_5d4594_1064856))
 			sub_46C690((*gui.Window)(dword_5d4594_1064856))
