@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"go/ast"
+	"go/constant"
 	"go/format"
 	"go/parser"
 	"go/token"
@@ -69,12 +70,15 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) error {
 			}
 			if ft, ok := pkg.TypesInfo.TypeOf(n.Fun).(*types.Signature); ok && len(n.Args) == ft.Params().Len() {
 				for i := range n.Args {
+					simplifyExpr(pkg, &n.Args[i], &changed)
 					expectType(pkg, ft.Params().At(i).Type(), &n.Args[i], &changed)
 				}
 			}
 		case *ast.AssignStmt:
 			if n.Tok != token.DEFINE && len(n.Lhs) == len(n.Rhs) {
 				for i := range n.Lhs {
+					simplifyExpr(pkg, &n.Lhs[i], &changed)
+					simplifyExpr(pkg, &n.Rhs[i], &changed)
 					t := pkg.TypesInfo.TypeOf(n.Lhs[i])
 					if t == nil {
 						continue
@@ -140,7 +144,7 @@ func fixUnsafeAdd(pkg *packages.Package, c1 *ast.CallExpr) bool {
 	return true
 }
 
-func simplifyExpr(p *ast.Expr, changed *bool) {
+func simplifyExpr(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	switch x := (*p).(type) {
 	case *ast.StarExpr:
 		if y, ok := x.X.(*ast.UnaryExpr); ok && y.Op == token.AND {
@@ -148,18 +152,12 @@ func simplifyExpr(p *ast.Expr, changed *bool) {
 			*changed = true
 		}
 	}
+	fixUnsafeFieldAccess(pkg, p, changed)
 }
 
 func expectType(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool) {
-	simplifyExpr(p, changed)
-	if t == nil {
+	if !isValidType(t) {
 		return
-	}
-	switch t := t.(type) {
-	case *types.Basic:
-		if t.Kind() == types.Invalid {
-			return
-		}
 	}
 	if hasKind[*types.Interface](t) {
 		return
@@ -209,7 +207,7 @@ func expectType(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool)
 func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Expr, changed *bool) {
 	root := x == *p
 	x = unwrapParen(x)
-	if t2 := pkg.TypesInfo.TypeOf(x); t2 == nil {
+	if t2 := pkg.TypesInfo.TypeOf(x); !isValidType(t2) {
 		return
 	} else if types.Identical(t, t2) && !root {
 		*p = x
@@ -264,7 +262,7 @@ func hasPtrKind[T types.Type](t types.Type) bool {
 func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool) {
 	x := unwrapParen(*p)
 	xt := pkg.TypesInfo.TypeOf(x)
-	if xt == nil {
+	if !isValidType(xt) {
 		return
 	}
 	if types.Identical(t, xt) {
@@ -305,4 +303,135 @@ func astType(pkg *packages.Package, t types.Type) ast.Expr {
 		return &ast.ParenExpr{X: x}
 	}
 	return x
+}
+
+func isValidType(t types.Type) bool {
+	switch t := t.(type) {
+	case nil:
+		return false
+	case *types.Basic:
+		return t.Kind() != types.Invalid
+	default:
+		return true
+	}
+}
+
+func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
+	x := unwrapParen(*p)
+	star, ok := x.(*ast.StarExpr)
+	if !ok {
+		return
+	}
+	conv, ok := star.X.(*ast.CallExpr)
+	if !ok || len(conv.Args) != 1 {
+		return
+	}
+	ct := pkg.TypesInfo.TypeOf(conv.Fun)
+	if !isValidType(ct) {
+		return
+	}
+	if _, ok := ct.(*types.Signature); ok {
+		return // real call, not conversion
+	}
+	x = unwrapParen(conv.Args[0])
+	add, ok := x.(*ast.CallExpr)
+	if !ok || len(add.Args) != 2 {
+		return
+	}
+	if fullNameOf(add.Fun) != "unsafe.Add" {
+		return
+	}
+	ptr, offx := unwrapParen(add.Args[0]), unwrapParen(add.Args[1])
+	offv := pkg.TypesInfo.Types[offx].Value
+	if offv == nil || offv.Kind() != constant.Int {
+		return
+	}
+	off, ok := constant.Int64Val(offv)
+	if !ok || off < 0 {
+		return
+	}
+	switch px := ptr.(type) {
+	case *ast.CallExpr:
+		if len(px.Args) == 0 {
+			if dot, ok := px.Fun.(*ast.SelectorExpr); ok && dot.Sel.Name == "C" {
+				ptr = dot.X
+			}
+		} else if len(px.Args) == 1 {
+			if fullNameOf(px.Fun) == "unsafe.Pointer" {
+				ptr = px.Args[0]
+			}
+		}
+	}
+	t := pkg.TypesInfo.TypeOf(ptr)
+	if !isValidType(t) {
+		return
+	}
+	pt, ok := t.(*types.Pointer)
+	if !ok {
+		return
+	}
+	nt, ok := pt.Elem().(*types.Named)
+	if !ok {
+		return
+	}
+	st, ok := nt.Underlying().(*types.Struct)
+	if !ok {
+		return
+	}
+	if x := fieldForOff(pkg, st, ptr, off); x != nil {
+		*p = x
+		*changed = true
+	}
+}
+
+func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off int64) ast.Expr {
+	if pkg.TypesSizes.Sizeof(st) <= off {
+		return nil
+	}
+	fields := make([]*types.Var, 0, st.NumFields())
+	for i := 0; i < st.NumFields(); i++ {
+		fields = append(fields, st.Field(i))
+	}
+	foffs := pkg.TypesSizes.Offsetsof(fields)
+	var (
+		fld  *types.Var
+		doff int64
+	)
+	for i, foff := range foffs {
+		if off >= foff {
+			fld = fields[i]
+			doff = off - foff
+		}
+	}
+	if fld == nil || !fld.Exported() {
+		return nil
+	}
+	x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
+	nt, ok := fld.Type().(*types.Named)
+	if !ok {
+		if doff == 0 {
+			return x
+		}
+		return nil
+	}
+	st2, ok := nt.Underlying().(*types.Struct)
+	if !ok {
+		if doff == 0 {
+			return x
+		}
+		return nil
+	}
+	return fieldForOff(pkg, st2, x, doff)
+}
+
+func fullNameOf(x ast.Expr) string {
+	x = unwrapParen(x)
+	switch x := x.(type) {
+	case *ast.Ident:
+		return x.Name
+	case *ast.SelectorExpr:
+		return fullNameOf(x.X) + "." + x.Sel.Name
+	default:
+		return ""
+	}
 }
