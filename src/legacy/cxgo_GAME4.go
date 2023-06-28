@@ -1538,7 +1538,7 @@ func sub_4F80C0(a1 int32, a3 *types.Pointf) int32 {
 	return result
 }
 func sub_4F9A80(a1 *server.Object) int32 {
-	return bool2int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 748))+uint32(int32(*(*uint8)(unsafe.Add(a1.UpdateData, 181)))*4))), 168)) != 0)
+	return bool2int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1.UpdateData+uint32(int32(*(*uint8)(unsafe.Add(a1.UpdateData, 181)))*4))), 168)) != 0)
 }
 func sub_4F9AB0(a1p *server.Object) int32 {
 	var (
@@ -3029,7 +3029,7 @@ func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 				return 0
 			}
 		}
-	} else if (*(*uint32)(unsafe.Add(unsafe.Pointer(nox_xxx_netSpriteByCodeDynamic_45A6F0(a1)), 4*28)) & 4) == 0 {
+	} else if (nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).Flags28Val & 4) == 0 {
 		switch a2 {
 		case 0:
 			return 193

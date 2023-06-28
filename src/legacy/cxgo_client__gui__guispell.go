@@ -7,6 +7,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -792,9 +793,9 @@ func nox_xxx_quickbarAddTrap_460EC0(a1 int32) *uint32 {
 			v7 = int8(nox_common_randomIntMinMax_415FF0(3, 6, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 2731))
 			v6 = nox_common_randomIntMinMax_415FF0(-20, -5, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 2729)
 			v5 = nox_common_randomIntMinMax_415FF0(-5, 5, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 2728)
-			v4 = int32(uint32(nox_common_randomIntMinMax_415FF0(0, 20, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 2727)) + *(*uint32)(unsafe.Add(dword_5d4594_1049504, 20)) + 10)
+			v4 = int32(uint32(nox_common_randomIntMinMax_415FF0(0, 20, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 2727)) + dword_5d4594_1049504.Off.Y + 10)
 			v3 = nox_common_randomIntMinMax_415FF0(0, 20, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 2726)
-			result = (*uint32)(unsafe.Pointer(nox_client_newScreenParticle_431540(0, int32(uint32(v3)+*(*uint32)(unsafe.Add(dword_5d4594_1049504, 16))+10), v4, v5, v6, 1, v7, v8, 2, 1)))
+			result = (*uint32)(unsafe.Pointer(nox_client_newScreenParticle_431540(0, int32(uint32(v3)+dword_5d4594_1049504.Off.X+10), v4, v5, v6, 1, v7, v8, 2, 1)))
 			v2--
 			if v2 == 0 {
 				break

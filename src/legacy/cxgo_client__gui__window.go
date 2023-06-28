@@ -70,8 +70,8 @@ func sub_46AB20(a1 *gui.Window, a2 int32, a3 int32) int32 {
 	if a1 == nil {
 		return -2
 	}
-	a1.EndPos.X = int(uint32(a2) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-	v4 = int32(uint32(a3) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
+	a1.EndPos.X = int(uint32(a2) + a1.Off.X)
+	v4 = int32(uint32(a3) + a1.Off.Y)
 	a1.SizeVal.X = int(uint32(a2))
 	a1.SizeVal.Y = int(uint32(a3))
 	a1.EndPos.Y = int(uint32(v4))

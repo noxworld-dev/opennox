@@ -20,7 +20,7 @@ func nox_xxx_cliShowHelpGui_49C560() {
 		nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1305680)
 		sub_46C690(dword_5d4594_1305680)
 		nox_xxx_windowFocus_46B500(dword_5d4594_1305680)
-		nox_window_setPos_46A9B0(dword_5d4594_1305680, (nox_win_width-*(*int32)(unsafe.Add(dword_5d4594_1305680.C(), 8)))/2, (nox_win_height-*(*int32)(unsafe.Add(dword_5d4594_1305680.C(), 12)))/2)
+		nox_window_setPos_46A9B0(dword_5d4594_1305680, (nox_win_width-dword_5d4594_1305680.SizeVal.X)/2, (nox_win_height-dword_5d4594_1305680.SizeVal.Y)/2)
 		var v4 *wchar2_t
 		var v7 *byte
 		var v2 *gui.Window

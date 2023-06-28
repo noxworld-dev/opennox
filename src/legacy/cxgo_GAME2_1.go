@@ -480,7 +480,7 @@ func sub_461600(a1 int32) *client.Drawable {
 		v1 := &array_5D4594_1049872[i]
 		result := *v1
 		if *v1 != nil {
-			for *(*uint32)(unsafe.Add(result.C(), 108)) != uint32(a1) {
+			for result.Field_27 != uint32(a1) {
 				result = result.Next()
 				if result == nil {
 					goto LABEL_5
@@ -503,7 +503,7 @@ func sub_461930() int32 {
 		v0 := &array_5D4594_1049872[i]
 		v1 := *v0
 		if v1 != nil {
-			for (*(*uint32)(unsafe.Add(v1.C(), 112)) & 0x1001000) == 0 {
+			for (v1.Flags28Val & 0x1001000) == 0 {
 				v1 = v1.Next()
 				if v1 == nil {
 					goto LABEL_5
@@ -839,7 +839,7 @@ func sub_461F90(a1 int32) *client.Drawable {
 		v2 := &array_5D4594_1049872[i]
 		v3 := *v2
 		if *(*uint32)(unsafe.Pointer(v2)) != 0 {
-			for *(*uint32)(unsafe.Add(v3.C(), 128)) != uint32(a1) {
+			for v3.Field_32 != uint32(a1) {
 				v3 = v3.Next()
 				if v3 == nil {
 					goto LABEL_5
@@ -921,7 +921,7 @@ func sub_4623E0(a1 *client.Drawable, a2 int32) *uint32 {
 		v4     int32
 		v5     unsafe.Pointer
 	)
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)) & 0x2000000) == 0 {
+	if (a1.Flags28Val & 0x2000000) == 0 {
 		goto LABEL_19
 	}
 	v2 = int32(a1.Flags29Val)
@@ -1601,7 +1601,7 @@ func sub_465990(a1 *uint32) int32 {
 	if array_5D4594_1049872[8] == nil {
 		return 5
 	}
-	for (*(*uint32)(unsafe.Add(v5.C(), 112))&0x2000000) == 0 || (int32(v5.Flags29Val)&2) == 0 {
+	for (v5.Flags28Val&0x2000000) == 0 || (int32(v5.Flags29Val)&2) == 0 {
 		v5 = v5.Next()
 		if v5 == nil {
 			return 5

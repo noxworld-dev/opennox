@@ -68,7 +68,7 @@ func guiSelClassShadeDraw(win *gui.Window, draw *gui.WindowData) int {
 	if guiSelClassCurID != win.ID() {
 		var x, y uint32
 		nox_client_wndGetPosition_46AA60(win, &x, &y)
-		nox_client_drawRectFilledAlpha_49CF10(int32(x), int32(y), int32(*(*uint32)(unsafe.Add(win.C(), 4*6))-*(*uint32)(unsafe.Add(win.C(), 4*4))), int32(*(*uint32)(unsafe.Add(win.C(), 4*7))-*(*uint32)(unsafe.Add(win.C(), 4*5))))
+		nox_client_drawRectFilledAlpha_49CF10(int32(x), int32(y), int32(win.EndPos.X-win.Off.X), int32(win.EndPos.Y-win.Off.Y))
 	}
 	return 1
 }

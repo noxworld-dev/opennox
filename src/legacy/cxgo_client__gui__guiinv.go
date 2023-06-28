@@ -48,7 +48,7 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 		}
 		v8 := nox_get_thing(a2)
 		if v8 != nil {
-			if *(*uint32)(unsafe.Add(v8.C(), 32))&0x1001000 != 0 {
+			if v8.ObjClass&0x1001000 != 0 {
 				sub_4673F0(a4.field_0, a4.field_4)
 			}
 		}
@@ -230,7 +230,7 @@ func sub_462040(a1 int32) {
 			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 136)) = 0
 		}
 	}
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*28))&0x1000000 != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*29))&0xC != 0 {
+	if v6.Flags28Val&0x1000000 != 0 && v6.Flags29Val&0xC != 0 {
 		v10 = 1
 		if dword_5d4594_1062488 != 0 && (func() *byte {
 			v11 = sub_461EF0(int32(dword_5d4594_1062488))
