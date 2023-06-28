@@ -1344,7 +1344,7 @@ func nox_xxx_mapSwitchLevel_4D12E0(a1 int32) {
 
 	if v2 := nox_xxx_getFirstPlayerUnit_4DA7C0(); v2 != nil {
 		for {
-			v3 = int32(*(*uint32)(unsafe.Add(v2.CObj(), 748)))
+			v3 = int32(v2.UpdateData)
 			sub_4F7950(v2.CObj())
 			*(*uint32)(unsafe.Add(v3, 296)) = 0
 			nox_xxx_unitUnFreeze_4E7A60(v2, 1)
@@ -6167,12 +6167,12 @@ func sub_4DF3C0(pl *server.Player) {
 	return
 }
 func sub_4DFB50(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
-	*(*uint8)(unsafe.Add(a2.CObj(), 440)) |= 8
+	a2.Field110 |= 8
 	nox_xxx_aud_501960(75, a2, 0, 0)
 }
 func sub_4DFB80(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
 	if nox_xxx_enchantItemTestInventory_4DFBB0(a2, 8) == 0 {
-		*(*uint8)(unsafe.Add(a2.CObj(), 440)) &= 0xF7
+		a2.Field110 &= 0xF7
 	}
 	nox_xxx_aud_501960(76, a2, 0, 0)
 }
@@ -6235,11 +6235,11 @@ func nox_xxx_effectSpeedEngage_4DFC30(a1 *server.ModifierEff, a2 *server.Object,
 	)
 	v2 := a2
 	if a2 != nil {
-		if int32(*(*uint8)(unsafe.Add(a2.CObj(), 8)))&4 != 0 {
-			v3 = int32(*(*uint32)(unsafe.Add(a2.CObj(), 748)))
-			*(*uint8)(unsafe.Add(a2.CObj(), 440)) |= 0x10
-			v5 = int32(a1.EngageFloat120 + *(*float32)(unsafe.Add(a2.CObj(), 552)))
-			*(*float32)(unsafe.Add(v2.CObj(), 552)) = float32(v5)
+		if int32(a2.ObjClass)&4 != 0 {
+			v3 = int32(a2.UpdateData)
+			a2.Field110 |= 0x10
+			v5 = int32(a1.EngageFloat120 + a2.SpeedBonus)
+			v2.SpeedBonus = float32(v5)
 			nox_xxx_netReportStatsSpeed_4D9360(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), (*uint32)(v2.CObj()), 0, v5)
 			nox_xxx_aud_501960(59, v2, 0, 0)
 		}
@@ -6251,46 +6251,46 @@ func nox_xxx_effectSpeedDisengage_4DFCA0(a1 *server.ModifierEff, a2 *server.Obje
 		v4 int32
 	)
 	v2 := a2
-	if a2 != nil && int32(*(*uint8)(unsafe.Add(a2.CObj(), 8)))&4 != 0 {
+	if a2 != nil && int32(a2.ObjClass)&4 != 0 {
 		if nox_xxx_enchantItemTestInventory_4DFBB0(a2, 16) == 0 {
-			*(*uint8)(unsafe.Add(a2.CObj(), 440)) &= 0xEF
+			a2.Field110 &= 0xEF
 		}
-		v3 = int32(*(*uint32)(unsafe.Add(a2.CObj(), 748)))
-		v4 = int32(*(*float32)(unsafe.Add(a2.CObj(), 552)) - a1.EngageFloat120)
-		*(*float32)(unsafe.Add(v2.CObj(), 552)) = float32(v4)
+		v3 = int32(a2.UpdateData)
+		v4 = int32(a2.SpeedBonus - a1.EngageFloat120)
+		v2.SpeedBonus = float32(v4)
 		nox_xxx_netReportStatsSpeed_4D9360(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), (*uint32)(v2.CObj()), 0, v4)
 		nox_xxx_aud_501960(60, v2, 0, 0)
 	}
 }
 func sub_4DFD10(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
-	*(*uint8)(unsafe.Add(a2.CObj(), 440)) |= 1
+	a2.Field110 |= 1
 	nox_xxx_aud_501960(102, a2, 0, 0)
 }
 func nox_xxx_modifFireProtection_4DFD40(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
 	if a2 != nil && a3 != nil {
 		if nox_xxx_enchantItemTestInventory_4DFBB0(a2, 1) == 0 {
-			*(*uint8)(unsafe.Add(a2.CObj(), 440)) &= 0xFE
+			a2.Field110 &= 0xFE
 		}
 		nox_xxx_aud_501960(103, a2, 0, 0)
 	}
 }
 func nox_xxx_buff_4DFD80(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
-	*(*uint8)(unsafe.Add(a2.CObj(), 440)) |= 4
+	a2.Field110 |= 4
 	nox_xxx_aud_501960(106, a2, 0, 0)
 }
 func sub_4DFDB0(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
 	if nox_xxx_enchantItemTestInventory_4DFBB0(a2, 4) == 0 {
-		*(*uint8)(unsafe.Add(a2.CObj(), 440)) &= 0xFB
+		a2.Field110 &= 0xFB
 	}
 	nox_xxx_aud_501960(107, a2, 0, 0)
 }
 func nox_xxx_checkPoisonProtectEnch_4DFDE0(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
-	*(*uint8)(unsafe.Add(a2.CObj(), 440)) |= 2
+	a2.Field110 |= 2
 	nox_xxx_aud_501960(110, a2, 0, 0)
 }
 func sub_4DFE10(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
 	if nox_xxx_enchantItemTestInventory_4DFBB0(a2, 2) == 0 {
-		*(*uint8)(unsafe.Add(a2.CObj(), 440)) &= 0xFD
+		a2.Field110 &= 0xFD
 	}
 	nox_xxx_aud_501960(111, a2, 0, 0)
 }
@@ -6523,13 +6523,13 @@ func nox_xxx_getPoisonDmg_4E0040(a1 *uint32) float64 {
 	return result
 }
 func sub_4E0140(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
-	*(*uint8)(unsafe.Add(a2.CObj(), 440)) |= 0x20
+	a2.Field110 |= 0x20
 	nox_xxx_aud_501960(123, a2, 0, 0)
 }
 func sub_4E0170(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
-	if a2 != nil && int32(*(*uint8)(unsafe.Add(a2.CObj(), 8)))&4 != 0 {
+	if a2 != nil && int32(a2.ObjClass)&4 != 0 {
 		if nox_xxx_enchantItemTestInventory_4DFBB0(a2, 32) == 0 {
-			*(*uint8)(unsafe.Add(a2.CObj(), 440)) &= 0xDF
+			a2.Field110 &= 0xDF
 		}
 		nox_xxx_aud_501960(124, a2, 0, 0)
 	}
@@ -6542,14 +6542,14 @@ func nox_xxx_effectRegeneration_4E01D0(a1 unsafe.Pointer, a2 *server.Object) {
 		v5 int32
 	)
 	if a2 != nil {
-		v2 = *(**uint32)(unsafe.Add(a2.CObj(), 492))
+		v2 = a2.InvHolder
 		if v2 != nil {
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*139)) != 0 {
 				if (gameFrame()-*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*134))) >= gameFPS() && (*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))&0x8020) == 0 {
-					v3 = uint16(nox_xxx_unitGetMaxHP_4EE7A0(*(*unsafe.Pointer)(unsafe.Add(a2.CObj(), 492))))
+					v3 = uint16(nox_xxx_unitGetMaxHP_4EE7A0(unsafe.Pointer(a2.InvHolder)))
 					if int32(uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(unsafe.Pointer(v2))))) < int32(v3) {
 						v4 = *(*uint32)(unsafe.Add(a1, 108))
-						if *(*uint32)(unsafe.Add(a2.CObj(), 8))&0x2000000 != 0 {
+						if a2.ObjClass&0x2000000 != 0 {
 							v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
 							if v5&0x4000 != 0 {
 								v4 /= 3
@@ -6576,8 +6576,8 @@ func nox_xxx_attribContinualReplen_4E02C0(a1 unsafe.Pointer, a2 *server.Object) 
 	)
 	if a2 != nil {
 		if (gameFrame() % *(*uint32)(unsafe.Add(a1, 108))) == 0 {
-			v2 = int32(*(*uint32)(unsafe.Add(a2.CObj(), 4*2)))
-			v3 = int32(*(*uint32)(unsafe.Add(a2.CObj(), 4*184)))
+			v2 = int32(a2.ObjClass)
+			v3 = int32(a2.UseData)
 			if v2&0x1000 != 0 {
 				v4 = *(*uint8)(unsafe.Add(v3, 108))
 				v5 = *(*uint8)(unsafe.Add(v3, 109))
@@ -6593,7 +6593,7 @@ func nox_xxx_attribContinualReplen_4E02C0(a1 unsafe.Pointer, a2 *server.Object) 
 				}
 				v7 = int32(*(*uint8)(unsafe.Add(v3, 108)))
 				if v6 != v7 {
-					v8 = int32(*(*uint32)(unsafe.Add(a2.CObj(), 4*123)))
+					v8 = int32(a2.InvHolder)
 					if v8 != 0 {
 						if int32(*(*uint8)(unsafe.Add(v8, 8)))&4 != 0 {
 							nox_xxx_netReportCharges_4D82B0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v8, 748)), 276)), 2064))), a2, int8(v7), int8(v5))

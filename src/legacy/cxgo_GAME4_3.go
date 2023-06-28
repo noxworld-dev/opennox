@@ -4203,7 +4203,7 @@ func sub_5386A0(it *server.Object, a2 unsafe.Pointer) {
 										if v5 < 0.0 {
 											v5 = 0.0
 										}
-										if (v5 < float64(dword_5d4594_2488652) || dword_5d4594_2488660 != nil && (int32(*(*uint8)(unsafe.Add(dword_5d4594_2488660.CObj(), 8)))&2) == 0 && (int32(*(*uint8)(unsafe.Add(a3, 8)))&2) == 2) && (dword_5d4594_2488660 == nil || (int32(*(*uint8)(unsafe.Add(dword_5d4594_2488660.CObj(), 8)))&2) == 0) {
+										if (v5 < float64(dword_5d4594_2488652) || dword_5d4594_2488660 != nil && (int32(dword_5d4594_2488660.ObjClass)&2) == 0 && (int32(*(*uint8)(unsafe.Add(a3, 8)))&2) == 2) && (dword_5d4594_2488660 == nil || (int32(dword_5d4594_2488660.ObjClass)&2) == 0) {
 											dword_5d4594_2488652 = uint32(float32(v5))
 											dword_5d4594_2488660 = AsObjectP(a3)
 										}
