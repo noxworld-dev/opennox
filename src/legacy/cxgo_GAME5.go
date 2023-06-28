@@ -1991,7 +1991,7 @@ func sub_5488B0(a1 *int32, a2 *float32, a3 int32) {
 			*((*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4))) &= 0xF7FFFFFF
 		}
 		nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(unsafe.Pointer(v3)))
-		if nox_xxx_servObjectHasTeam_419130(unsafe.Add(unsafe.Pointer(v3), 4*12)) == 0 || *(*uint32)(unsafe.Add(v4, 12)) != *(*uint32)(unsafe.Add(v4, 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(unsafe.Pointer(v3), 4*12), unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(float32(0))*12)) != 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 4*12))) == 0 || *(*uint32)(unsafe.Add(v4, 12)) != *(*uint32)(unsafe.Add(v4, 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(unsafe.Pointer(v3), 4*12), unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(float32(0))*12)) != 0 {
 			if a3 == 0 && int32(*(*uint8)(unsafe.Add(v4, 1))) == 0 {
 				v18 = (*float32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*math.MaxInt8)))
 				if v18 == nil || v18 == v7 {
@@ -4975,12 +4975,12 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 	v8 = nil
 	v6 := unsafe.Add(a1, 48)
 	v9 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	if nox_xxx_servObjectHasTeam_419130(v6) != 0 {
+	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(v6)) != 0 {
 		v8 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(v2, 52))))))
 	}
 	if a2 != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(a2, 748)))
-		if nox_xxx_servObjectHasTeam_419130(unsafe.Add(a2, 48)) != 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))) != 0 {
 			v4 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a2, 52))))))
 		}
 	}
@@ -5062,19 +5062,19 @@ func nox_xxx_playerUpdateScore_54D980(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 u
 	v17 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 	v6 = 0
 	v16 = nil
-	if nox_xxx_servObjectHasTeam_419130(v12) != 0 {
+	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(v12)) != 0 {
 		v14 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(v4, 52))))))
 	}
 	if a2 != nil {
 		v6 = int32(*(*uint32)(unsafe.Add(a2, 748)))
-		if nox_xxx_servObjectHasTeam_419130(unsafe.Add(a2, 48)) != 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))) != 0 {
 			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a2, 52))))))
 		}
 	}
 	if a4 != 0 {
 		if a3 != nil {
 			v16 = *(*unsafe.Pointer)(unsafe.Add(a3, 748))
-			if nox_xxx_servObjectHasTeam_419130(unsafe.Add(a3, 48)) != 0 {
+			if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a3, 48))) != 0 {
 				v15 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a3, 52))))))
 			}
 		}
@@ -5226,14 +5226,14 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 	v2 = nil
 	v3 = nil
 	v16 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130(unsafe.Add(a1, 48)))))
+	result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a1, 48))))))
 	if result != nil {
 		result = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a1, 52))))))
 		v3 = result
 	}
 	if a2 != nil {
 		v5 = int32(*(*uint32)(unsafe.Add(a2, 748)))
-		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130(unsafe.Add(a2, 48)))))
+		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))))))
 		if result != nil {
 			result = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a2, 52))))))
 			v2 = result
@@ -6051,7 +6051,7 @@ func nox_xxx_unitUpdateMover_54F740(obj *server.Object) {
 		return
 	}
 	if *((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*7))) == 0 {
-		v3 = nox_xxx_netGetUnitByExtent_4ED020(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*8)))))
+		v3 = unsafe.Pointer(nox_xxx_netGetUnitByExtent_4ED020(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*8))))))
 		*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*7))) = v3
 		if v3 == nil {
 			nox_xxx_unitRemoveFromUpdatable_4DA920((*server.Object)(a1))
@@ -7292,7 +7292,7 @@ func sub_551250(a1 unsafe.Pointer, a2 *float32, a3 int32) {
 								*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*4))) &= 0xF7FFFFFF
 							}
 							nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(v3))
-							if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v3, 48)) == 0 || *(*uint32)(unsafe.Add(v5, 12)) != *(*uint32)(unsafe.Add(v5, 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(v3, 48), unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*12)) != 0 {
+							if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v3, 48))) == 0 || *(*uint32)(unsafe.Add(v5, 12)) != *(*uint32)(unsafe.Add(v5, 4)) || nox_xxx_servCompareTeams_419150(unsafe.Add(v3, 48), unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(float32(0))*12)) != 0 {
 								if a3 == 0 && int32(*(*uint8)(unsafe.Add(v5, 1))) == 0 {
 									v23 = *(**float32)(unsafe.Add(v3, 508))
 									if v23 == nil || v23 == v4 {

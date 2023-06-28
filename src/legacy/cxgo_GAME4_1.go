@@ -52,7 +52,7 @@ func sub_5098A0() {
 	if v5 != nil {
 		for {
 			v6 = int32(*(*uint32)(unsafe.Add(v5, 748)))
-			if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v5, 48)) == 0 {
+			if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v5, 48))) == 0 {
 				v7 = int32(*(*uint32)(unsafe.Add(v6, 276)))
 				if (int32(*(*uint8)(unsafe.Add(v7, 3680))) & 1) == 0 {
 					v8 = int32(*(*uint32)(unsafe.Add(v7, 2136)))
@@ -132,7 +132,7 @@ func nox_server_checkVictory_509A60() {
 		for i := unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
 			var v11 int32 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 748)), 276)))
 			if (int32(*(*uint8)(unsafe.Add(v11, 3680)))&1) == 0 && *(*uint32)(unsafe.Add(v11, 2140)) < uint32(v8) {
-				if nox_xxx_servObjectHasTeam_419130(unsafe.Add(i, 48)) != 0 {
+				if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(i, 48))) != 0 {
 					var v0 *byte = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(i, 52))))))
 					if v6 != nil {
 						if v6 != v0 {

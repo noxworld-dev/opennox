@@ -2935,7 +2935,7 @@ func sub_456500() {
 		if *(*byte)(unsafe.Add(j, 2064)) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_457140(int32(*(*uint32)(unsafe.Add(j, 4*515))), (*wchar2_t)(unsafe.Add(j, unsafe.Sizeof(wchar2_t(0))*2352)))
 			v4 := nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(j, 4*515))))
-			if nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v4)) != 0 {
+			if nox_xxx_servObjectHasTeam_419130(v4) != 0 {
 				sub_4571A0(int32(*(*uint32)(unsafe.Add(j, 4*515))), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 4))))
 			}
 		}
@@ -2996,15 +2996,15 @@ func sub_456BB0(a1 unsafe.Pointer) {
 	if *memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 4)))&1) == 0 && (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&1) == 0 {
 		v2 := bool2int32(noxflags.HasGame(1))
 		v1a := nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
-		v3 := unsafe.Pointer(v1a)
+		v3 := v1a
 		if v1a != nil {
-			if nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v1a)) != 0 {
+			if nox_xxx_servObjectHasTeam_419130(v1a) != 0 {
 				if v2 == 0 {
 					sub_419960(a1, v3, int16(uint16(nox_player_netCode_85319C)))
 					*memmap.PtrUint32(0x5D4594, 1045696)++
 					return
 				}
-				sub_4196D0(v3, a1, int32(nox_player_netCode_85319C), 1)
+				sub_4196D0(unsafe.Pointer(v3), a1, int32(nox_player_netCode_85319C), 1)
 				if !noxflags.HasGame(128) {
 					v1 := nox_common_playerInfoGetByID_417040(int32(nox_player_netCode_85319C))
 					v4 := v1
@@ -3017,11 +3017,11 @@ func sub_456BB0(a1 unsafe.Pointer) {
 				}
 			} else {
 				if v2 != 0 {
-					nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(a1, 57)), v3, v2, int32(nox_player_netCode_85319C), 1)
+					nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(a1, 57)), unsafe.Pointer(v3), v2, int32(nox_player_netCode_85319C), 1)
 					*memmap.PtrUint32(0x5D4594, 1045696)++
 					return
 				}
-				sub_419900(a1, v3, int16(uint16(nox_player_netCode_85319C)))
+				sub_419900(a1, unsafe.Pointer(v3), int16(uint16(nox_player_netCode_85319C)))
 			}
 			*memmap.PtrUint32(0x5D4594, 1045696)++
 		}

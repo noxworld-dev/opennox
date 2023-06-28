@@ -7236,7 +7236,7 @@ func nox_xxx_gameballOnPlayerDamage_4E1230(a1 unsafe.Pointer, a2 unsafe.Pointer,
 			nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Add(a2, 56)), (*server.Object)(v4), 30.0)
 			nox_xxx_unitClearOwner_4EC300((*server.Object)(v4))
 			sub_4EB9B0(v4, a2)
-			if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v4, 48)) != 0 {
+			if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v4, 48))) != 0 {
 				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a1, 52))))))
 				if v5 != nil {
 					sub_4196D0(unsafe.Add(v4, 48), unsafe.Pointer(v5), int32(*(*uint32)(unsafe.Add(v4, 36))), 0)

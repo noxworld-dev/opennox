@@ -1581,15 +1581,15 @@ func sub_467750(a1 int32, a2 int8) int32 {
 		var v2 *uint32 = (*uint32)(unsafe.Pointer(sub_461EF0(a1)))
 		if v2 != nil {
 			if dword_5d4594_1062480 != nil {
-				*(*uint32)(unsafe.Add(dword_5d4594_1062480, 136)) = 0
+				dword_5d4594_1062480.field_136 = 0
 			}
 			dword_5d4594_1062480 = *v2
-			*(*uint32)(unsafe.Add(dword_5d4594_1062480, 136)) = 1
+			dword_5d4594_1062480.field_136 = 1
 			return 1
 		}
 	} else {
 		if dword_5d4594_1062480 != nil {
-			*(*uint32)(unsafe.Add(dword_5d4594_1062480, 136)) = 0
+			dword_5d4594_1062480.field_136 = 0
 			dword_5d4594_1062480 = nil
 		}
 	}

@@ -73,7 +73,7 @@ func nox_xxx_unused_418840() int32 {
 		}
 	}
 	for k := unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); k != nil; k = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(k))) {
-		if nox_xxx_servObjectHasTeam_419130(unsafe.Add(k, 48)) == 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(k, 48))) == 0 {
 			v11 := *(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(k, 748)), 276))
 			if (*(*uint32)(unsafe.Add(v11, 2060)) != nox_player_netCode_85319C || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) && (int32(*(*uint8)(unsafe.Add(v11, 3680)))&1) == 0 {
 				nox_xxx_playerGoObserver_4E6860((*server.Player)(v11), 0, 0)
@@ -99,28 +99,26 @@ func sub_4189D0() unsafe.Pointer {
 	}
 	return v0
 }
-func sub_418A10() *byte {
-	var result *byte
-	result = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))
+func sub_418A10() *server.Team {
+	result := nox_server_teamFirst_418B10()
 	if result == nil {
-		return (*byte)(unsafe.Pointer(nox_xxx_teamCreate_4186D0(0)))
+		return nox_xxx_teamCreate_4186D0(0)
 	}
-	for *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*15)) != 0 {
-		result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(result)))))
+	for result.Field60Val != 0 {
+		result = nox_server_teamNext_418B60(result)
 		if result == nil {
-			return (*byte)(unsafe.Pointer(nox_xxx_teamCreate_4186D0(0)))
+			return nox_xxx_teamCreate_4186D0(0)
 		}
 	}
 	return result
 }
-func sub_418A40(a1 *wchar2_t) *byte {
-	var v1 *byte
-	v1 = (*byte)(unsafe.Pointer(nox_server_teamFirst_418B10()))
+func sub_418A40(a1 *wchar2_t) *server.Team {
+	v1 := nox_server_teamFirst_418B10()
 	if v1 == nil {
 		return nil
 	}
-	for _nox_wcsicmp((*wchar2_t)(unsafe.Pointer(v1)), a1) != 0 {
-		v1 = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(v1)))))
+	for _nox_wcsicmp(&v1.NameBuf[0], a1) != 0 {
+		v1 = nox_server_teamNext_418B60(v1)
 		if v1 == nil {
 			return nil
 		}
@@ -173,16 +171,14 @@ func sub_418C70(a1 unsafe.Pointer) unsafe.Pointer {
 	}
 	return *(*unsafe.Pointer)(a1)
 }
-func nox_xxx_objGetTeamByNetCode_418C80(a1 int32) *uint32 {
+func nox_xxx_objGetTeamByNetCode_418C80(a1 int32) *server.ObjectTeam {
 	if noxflags.HasGame(1) {
-		v1 := unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(a1))
-		if v1 != nil {
-			return (*uint32)(unsafe.Add(v1, 48))
+		if obj := nox_server_getObjectFromNetCode_4ECCB0(a1); obj != nil {
+			return obj.TeamPtr()
 		}
 	} else {
-		v3 := nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).C()
-		if v3 != nil {
-			return (*uint32)(unsafe.Add(v3, 4*6))
+		if obj := nox_xxx_netSpriteByCodeDynamic_45A6F0(a1); obj != nil {
+			return obj.TeamPtr()
 		}
 	}
 	return nil
@@ -307,7 +303,7 @@ func sub_4190F0(a1 *wchar2_t) int32 {
 	}
 	return 1
 }
-func nox_xxx_servObjectHasTeam_419130(a1 unsafe.Pointer) int32 {
+func nox_xxx_servObjectHasTeam_419130(a1 *server.ObjectTeam) int32 {
 	if a1 != nil {
 		return bool2int32(int32(*(*uint8)(unsafe.Add(a1, 4))) != 0)
 	}
@@ -488,7 +484,7 @@ func sub_419900(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int16) {
 		}
 	}
 }
-func sub_419960(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int16) {
+func sub_419960(a1 unsafe.Pointer, a2 *server.ObjectTeam, a3 int16) {
 	var v4 [10]byte
 	if a1 != nil && a2 != nil {
 		result := int8(*(*uint8)(unsafe.Add(a1, 57)))

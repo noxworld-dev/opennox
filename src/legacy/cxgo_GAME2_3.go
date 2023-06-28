@@ -5935,7 +5935,7 @@ func sub_4A0390() *int32 {
 	v5 = (*uint32)(unsafe.Pointer(nox_gui_wol_servers_list.field_1))
 	if nox_gui_wol_servers_list.field_0 != nil {
 		// FIXME: this is suspicious, why it's recording local variable to this list?
-		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(nox_gui_wol_servers_list.field_0), 4)) = unsafe.Pointer(&v4[0])
+		nox_gui_wol_servers_list.field_0.field_1 = unsafe.Pointer(&v4[0])
 		v0 = v5
 	}
 	if v0 != nil {

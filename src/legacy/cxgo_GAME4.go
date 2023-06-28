@@ -1285,7 +1285,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a1 *types.Pointf, a2p *server.Object) {
 		dword_5d4594_1568868 = uint32(uintptr(unsafe.Pointer(result)))
 	}
 	if a2 != nil {
-		if nox_xxx_servObjectHasTeam_419130(unsafe.Add(a2, 48)) != 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))) != 0 {
 			v16 = int32(*(*uint8)(unsafe.Add(a2, 52)))
 			nox_xxx_getTeamByID_418AB0(v16)
 			v3 = v16
@@ -1364,7 +1364,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a1 *types.Pointf, a2p *server.Object) {
 	}
 }
 func sub_4F7CE0(a1 unsafe.Pointer, a2 int32) int32 {
-	return bool2int32(*(*uint32)(unsafe.Add(a1, 16))&0x1000000 != 0 && (a2 == 0 || nox_xxx_servObjectHasTeam_419130(unsafe.Add(a1, 48)) == 0 || nox_xxx_teamCompare2_419180(unsafe.Add(a1, 48), uint8(int8(a2))) != 0))
+	return bool2int32(*(*uint32)(unsafe.Add(a1, 16))&0x1000000 != 0 && (a2 == 0 || nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a1, 48))) == 0 || nox_xxx_teamCompare2_419180(unsafe.Add(a1, 48), uint8(int8(a2))) != 0))
 }
 func nox_xxx_playerSubStamina_4F7D30(a1p *server.Object, a2 int32) int32 {
 	var (
@@ -2778,7 +2778,7 @@ func nox_xxx_checkPlrCantCastSpell_4FD150(a1p *server.Object, a2 int32, a3 int32
 						goto LABEL_9
 					}
 				}
-				if nox_xxx_servObjectHasTeam_419130(unsafe.Add(a1, 48)) != 0 {
+				if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a1, 48))) != 0 {
 					return 17
 				}
 			}
@@ -2908,7 +2908,7 @@ func nox_xxx_gameCaptureMagic_4FDC10(a1 int32, a2p *server.Object) int32 {
 	} else if noxflags.HasGame(16) {
 		v5 = int32(*(*uint32)(unsafe.Add(a2, 516)))
 		if v5 != 0 {
-			for uint32(*(*uint16)(unsafe.Add(v5, 4))) != *memmap.PtrUint32(0x5D4594, 1569716) || nox_xxx_servObjectHasTeam_419130(unsafe.Add(a2, 48)) == 0 {
+			for uint32(*(*uint16)(unsafe.Add(v5, 4))) != *memmap.PtrUint32(0x5D4594, 1569716) || nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))) == 0 {
 				v5 = int32(*(*uint32)(unsafe.Add(v5, 512)))
 				if v5 == 0 {
 					return 1
@@ -5199,7 +5199,7 @@ func Nox_xxx_charmCreatureFinish_5013E0(sp *server.DurSpell) int32 {
 	}
 	nox_xxx_unitClearOwner_4EC300((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
 	nox_xxx_unitSetOwner_4EC290((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
-	if nox_xxx_servObjectHasTeam_419130(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 48)) != 0 {
+	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 48))) != 0 {
 		nox_xxx_netChangeTeamMb_419570(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 48), int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 36))))
 	}
 	v10 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 748)))
@@ -5384,7 +5384,7 @@ func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedT
 		for i := (*int32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(groupPtr), 4*21))))); i != nil; i = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*2))) {
 			v5 := nox_xxx_netGetUnitByExtent_4ED020(*i)
 			if v5 != nil {
-				a3(v5, a4)
+				a3(unsafe.Pointer(v5), a4)
 			}
 		}
 	case 1:
@@ -7584,7 +7584,7 @@ func sub_5095E0() {
 	if v5 != nil {
 		for {
 			v6 = int32(*(*uint32)(unsafe.Add(v5, 748)))
-			if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v5, 48)) == 0 {
+			if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v5, 48))) == 0 {
 				v7 = int32(*(*uint32)(unsafe.Add(v6, 276)))
 				if (int32(*(*uint8)(unsafe.Add(v7, 3680))) & 1) == 0 {
 					v8 = int32(*(*uint32)(unsafe.Add(v7, 2140)))

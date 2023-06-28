@@ -197,7 +197,7 @@ LABEL_24:
 		sub_495180(int32(*(*uint32)(unsafe.Add(v2, 128))), (*uint16)(unsafe.Pointer(&v22)), (*uint16)(unsafe.Pointer(&v21)), (*uint8)(unsafe.Pointer(&a2)))
 		nox_xxx_spriteDrawMonsterHP_4BC080((*uint32)(unsafe.Pointer(v12)), v2, uint16(int16(v22)), uint16(int16(v21)), int8(a2))
 	}
-	if !nox_xxx_CheckGameplayFlags_417DA0(4) && (*memmap.PtrUint32(0x852978, 8) == 0 || nox_xxx_servObjectHasTeam_419130(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 24)) == 0) {
+	if !nox_xxx_CheckGameplayFlags_417DA0(4) && (*memmap.PtrUint32(0x852978, 8) == 0 || nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 24))) == 0) {
 		nox_client_drawEnableAlpha_434560(0)
 		return int(v23)
 	}

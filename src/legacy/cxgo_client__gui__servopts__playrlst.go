@@ -8,6 +8,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_xxx_guiServerPlayersLoad_456270(a1 *gui.Window) *gui.Window {
@@ -177,7 +178,7 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 						v15 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*515)))))
 						v16 := unsafe.Pointer(v15)
 						if v15 != nil {
-							if nox_xxx_servObjectHasTeam_419130(unsafe.Pointer(v15)) != 0 {
+							if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Pointer(v15))) != 0 {
 								sub_4196D0(v16, unsafe.Pointer(v29), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*515)))), 1)
 							} else {
 								nox_xxx_createAtImpl_4191D0(*(*byte)(unsafe.Add(unsafe.Pointer(v29), 57)), v16, 1, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*515)))), 1)

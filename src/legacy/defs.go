@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const (
@@ -251,9 +252,9 @@ type nox_gui_server_ent_t struct {
 	field_42    uint8
 }
 type nox_dblLinkedList struct {
-	value unsafe.Pointer
-	next  unsafe.Pointer
-	prev  unsafe.Pointer
+	value *server.Object
+	next  *nox_dblLinkedList
+	prev  *nox_dblLinkedList
 }
 type nox_server_netCodeCacheStruct struct {
 	firstFreeObject *nox_dblLinkedList

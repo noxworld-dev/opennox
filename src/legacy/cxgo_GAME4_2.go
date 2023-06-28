@@ -11012,7 +11012,7 @@ func sub_52E450(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32) int32 {
 	v4 = int32(*(*uint32)(unsafe.Add(a2, 8)))
 	if uint32(v4)&0x400000 != 0 && int32(*(*uint8)(unsafe.Add(a2, 12)))&0x18 != 0 {
 		v5 = *(**int32)(unsafe.Add(a2, 748))
-		if nox_xxx_servObjectHasTeam_419130(unsafe.Add(a2, 48)) != 0 && nox_xxx_servCompareTeams_419150(unsafe.Add(a2, 48), unsafe.Add(a1, 48)) == 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))) != 0 && nox_xxx_servCompareTeams_419150(unsafe.Add(a2, 48), unsafe.Add(a1, 48)) == 0 {
 			return 0
 		}
 		v6 = a3

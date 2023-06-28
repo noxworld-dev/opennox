@@ -5137,17 +5137,17 @@ func sub_53A0F0(a1 unsafe.Pointer, a2 int32, a3 int32) {
 		nox_xxx_playerDequipWeapon_53A140((*uint32)(a1), (*server.Object)(v3), a2, a3)
 	}
 }
-func nox_xxx_playerDequipWeapon_53A140(a1 *uint32, item *server.Object, a3 int32, a4 int32) int32 {
+func nox_xxx_playerDequipWeapon_53A140(a1 *server.Object, item *server.Object, a3 int32, a4 int32) int32 {
 	var eflags int32 = nox_xxx_weaponInventoryEquipFlags_415820(item)
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))&2 != 0 {
+	if a1.ObjClass&2 != 0 {
 		return nox_xxx_equipWeaponNPC_53A030(unsafe.Pointer(a1), unsafe.Pointer(item))
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))&4) == 0 || (item.ObjClass&0x1001000) == 0 {
+	if (a1.ObjClass&4) == 0 || (item.ObjClass&0x1001000) == 0 {
 		return 0
 	}
-	var v10 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
+	var v10 int32 = int32(a1.UpdateData)
 	if int32(*(*uint8)(unsafe.Add(v10, 88))) == 1 {
-		nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(a1)), 13)
+		nox_xxx_playerSetState_4FA020(a1, 13)
 	}
 	var v11 unsafe.Pointer = unsafe.Pointer(*(**uint32)(unsafe.Add(v10, 104)))
 	if v11 == nil || v11 != unsafe.Pointer(item) && eflags != 2 {
@@ -5182,18 +5182,18 @@ func nox_xxx_playerDequipWeapon_53A140(a1 *uint32, item *server.Object, a3 int32
 	if gameex_flags&2 == 0 {
 		return 1
 	}
-	sub_980523((*server.Object)(unsafe.Pointer(a1)))
-	var v16 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
+	sub_980523(a1)
+	var v16 int32 = int32(a1.UpdateData)
 	if !(*(*uint32)(unsafe.Add(v16, 108)) == 0 || (uint32(nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(v16, 108)))))&0x7FFE40C) == 0) {
 		return 1
 	}
 	var v17 int32 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v16, 276)), 2500)))
 	if v17 != 0 && int32(uint8(*(*uint32)(unsafe.Add(v17, 16)))) == 16 {
-		nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(v17))
+		nox_xxx_playerTryEquip_4F2F70(a1, (*server.Object)(v17))
 	} else {
-		var v18 unsafe.Pointer = unsafe.Pointer(sub_9805EB((*server.Object)(unsafe.Pointer(a1))))
+		var v18 unsafe.Pointer = unsafe.Pointer(sub_9805EB(a1))
 		if v18 != nil {
-			nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(v18))
+			nox_xxx_playerTryEquip_4F2F70(a1, (*server.Object)(v18))
 		}
 	}
 	return 1
@@ -6722,7 +6722,7 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 			goto LABEL_47
 		}
 		v5 = int32(*(*uint32)(unsafe.Add(v3, 748)))
-		if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v1, 48)) != 0 {
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v1, 48))) != 0 {
 			if nox_xxx_servCompareTeams_419150(unsafe.Add(v1, 48), unsafe.Add(v3, 48)) == 0 {
 				goto LABEL_47
 			}
@@ -7792,7 +7792,7 @@ func sub_53E3A0(a1 unsafe.Pointer, object *server.Object) int32 {
 	nox_xxx_itemApplyDisengageEffect_4F3030(object, (*server.Object)(a1))
 	return 1
 }
-func sub_53E430(a1 *uint32, object *server.Object, a3 int32, a4 int32) int32 {
+func sub_53E430(a1 *server.Object, object *server.Object, a3 int32, a4 int32) int32 {
 	var (
 		v4 int32
 		v5 int32
@@ -7809,15 +7809,15 @@ func sub_53E430(a1 *uint32, object *server.Object, a3 int32, a4 int32) int32 {
 	if (v4 & 0x100) == 0 {
 		return 0
 	}
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))
+	v5 = int32(a1.ObjClass)
 	if v5&2 != 0 {
 		return sub_53E3A0(unsafe.Pointer(a1), object)
 	}
 	if (v5 & 4) == 0 {
 		return 0
 	}
-	v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*126)))
-	v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
+	v7 = int32(a1.InvFirstItem)
+	v8 = int32(a1.UpdateData)
 	if v7 == 0 {
 		return 0
 	}
@@ -7843,7 +7843,7 @@ func sub_53E430(a1 *uint32, object *server.Object, a3 int32, a4 int32) int32 {
 	}
 	v10 = int8(*(*uint8)(unsafe.Add(v8, 88)))
 	if int32(v10) == 15 || int32(v10) == 16 || int32(v10) == 17 {
-		nox_xxx_playerSetState_4FA020((*server.Object)(unsafe.Pointer(a1)), 13)
+		nox_xxx_playerSetState_4FA020(a1, 13)
 	}
 	return 1
 }

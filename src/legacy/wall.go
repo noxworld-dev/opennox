@@ -4,6 +4,7 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -75,8 +76,8 @@ func nox_xxx_wallGetBrickObj_410E60(ind int32, ind2 int32) *byte {
 }
 
 // nox_xxx_getWallSprite_46A3B0
-func nox_xxx_getWallSprite_46A3B0(ind int32, a2 int32, a3 int32, a4 int32) unsafe.Pointer {
-	return GetServer().S().Walls.DefByInd(int(ind)).Sprite(int(a2), int(a3), int(a4))
+func nox_xxx_getWallSprite_46A3B0(ind int32, a2 int32, a3 int32, a4 int32) noxrender.ImageHandle {
+	return noxrender.ImageHandle(GetServer().S().Walls.DefByInd(int(ind)).Sprite(int(a2), int(a3), int(a4)))
 }
 
 // nox_xxx_getWallDrawOffset_46A3F0

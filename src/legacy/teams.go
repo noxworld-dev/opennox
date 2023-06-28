@@ -17,22 +17,21 @@ func asTeamP(p unsafe.Pointer) *server.Team {
 
 // nox_server_teamByXxx_418AE0
 func nox_server_teamByXxx_418AE0(a1 int32) *server.Team {
-	return (*server.Team)(GetServer().S().Teams.ByXxx(int(a1)).C())
+	return GetServer().S().Teams.ByXxx(int(a1))
 }
 
 // nox_xxx_getTeamByID_418AB0
 func nox_xxx_getTeamByID_418AB0(a1 int32) *server.Team {
-	return (*server.Team)(GetServer().S().Teams.ByID(server.TeamID(int(a1))).C())
+	return GetServer().S().Teams.ByID(server.TeamID(int(a1)))
 }
 
 // nox_server_teamFirst_418B10
 func nox_server_teamFirst_418B10() *server.Team {
-	return (*server.Team)(GetServer().S().Teams.First().C())
+	return GetServer().S().Teams.First()
 }
 
-// nox_server_teamNext_418B60
 func nox_server_teamNext_418B60(t *server.Team) *server.Team {
-	return (*server.Team)(GetServer().S().Teams.Next(t).C())
+	return GetServer().S().Teams.Next(t)
 }
 
 // nox_server_teamTitle_418C20
@@ -42,7 +41,7 @@ func nox_server_teamTitle_418C20(a1 int32) *wchar2_t {
 
 // nox_xxx_teamCreate_4186D0
 func nox_xxx_teamCreate_4186D0(a1 int8) *server.Team {
-	return (*server.Team)(GetServer().S().Teams.Create(server.TeamID(a1)).C())
+	return GetServer().S().Teams.Create(server.TeamID(a1))
 }
 
 // nox_xxx_materialGetTeamColor_418D50

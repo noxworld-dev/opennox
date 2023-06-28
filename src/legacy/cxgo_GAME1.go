@@ -3405,7 +3405,7 @@ func sub_4181F0(a1 int32) {
 		v5 = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*514))
 		if v5 != nil && (*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*515)) != nox_player_netCode_85319C || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 			v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*920)))
-			if ((v6&1) == 0 || v6&0x20 != 0) && nox_xxx_servObjectHasTeam_419130(unsafe.Add(v5, 48)) == 0 {
+			if ((v6&1) == 0 || v6&0x20 != 0) && nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v5, 48))) == 0 {
 				v7 = int32(v19)
 				v19 = func() uint8 {
 					p := &v1

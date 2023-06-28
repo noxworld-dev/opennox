@@ -878,7 +878,7 @@ func nox_xxx_packetDynamicUnitCode_578B40(a1 int32) int32 {
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&result), 1)) &= math.MaxInt8
 	v2 := nox_xxx_netGetUnitByExtent_4ED020(result)
 	if v2 != nil {
-		result = int32(*(*uint32)(unsafe.Add(v2, 36)))
+		result = int32(v2.NetCode)
 	} else {
 		result = 0
 	}

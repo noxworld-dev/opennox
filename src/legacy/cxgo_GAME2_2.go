@@ -1849,10 +1849,9 @@ func nox_xxx_edgeDraw_480EF0(a1 int32, a2 int32, a3 int32, a4 *int32, a5 *int32,
 func sub_481410() {
 	nox_xxx_waypointCounterMB_587000_154948 = math.MaxUint32
 }
-func Nox_xxx_tileDraw_4815E0(a1 *uint32, a2 int32, _ int32) int8 {
+func Nox_xxx_tileDraw_4815E0(a1 *uint32, a2 noxrender.ImageHandle, _ int32) {
 	var (
 		v2  uint32
-		v3  int32
 		v4  *byte
 		v5  uint32
 		v6  int32
@@ -1869,11 +1868,11 @@ func Nox_xxx_tileDraw_4815E0(a1 *uint32, a2 int32, _ int32) int8 {
 	if uintptr(v2) >= uintptr(nox_video_tileBuf_end_3798844) {
 		v2 += uint32(uintptr(nox_video_tileBuf_ptr_3798796)) - uint32(uintptr(nox_video_tileBuf_end_3798844))
 	}
-	v3 = int32(uintptr(nox_video_getImagePixdata_42FB30((noxrender.ImageHandle)(a2))))
+	v3 := nox_video_getImagePixdata_42FB30(a2)
 	v4 = (*byte)(v3)
 	v14 = (*byte)(v3)
-	if v3 == 0 {
-		return int8(v3)
+	if v3 == nil {
+		return
 	}
 	v5 = uint32(uintptr(nox_video_tileBuf_end_3798844))
 	if uintptr(v2+uint32(*memmap.PtrInt32(0x973CE0, 376))) >= uintptr(nox_video_tileBuf_end_3798844) {
@@ -1909,14 +1908,13 @@ func Nox_xxx_tileDraw_4815E0(a1 *uint32, a2 int32, _ int32) int8 {
 			*(*uint8)(unsafe.Pointer(&v3)) = uint8(int8(i + 4))
 			i += 4
 			if i >= 184 {
-				return int8(v3)
+				return
 			}
 			v4 = v14
 		}
 	} else {
 		*(*uint8)(unsafe.Pointer(&v3)) = uint8(int8(sub_4831C0(v3, int32(v2))))
 	}
-	return int8(v3)
 }
 
 var dword_5d4594_1193156 uint32 = 0
