@@ -8687,7 +8687,7 @@ LABEL_67:
 	}
 	v16 = (*int32)(unsafe.Add(v1, 2140))
 	for {
-		v17 = int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(*v16))))
+		v17 = int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(*v16)))))
 		if v17 != 0 {
 			v18 = int32(*(*uint32)(unsafe.Add(v17, 44)))
 		} else {

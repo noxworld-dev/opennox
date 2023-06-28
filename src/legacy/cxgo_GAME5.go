@@ -4809,7 +4809,7 @@ func nox_xxx_diePlayer_54D2B0(obj *server.Object) {
 		v22 = v5
 		if v5 != nil {
 			if *((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*523))) != 0 && *((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*514))) != 0 {
-				v2 = unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*515))))))
+				v2 = unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*515)))))
 			} else {
 				v22 = nil
 				v2 = nil

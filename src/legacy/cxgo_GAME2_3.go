@@ -770,10 +770,10 @@ func sub_48DCF0(a1 *uint32) {
 			*(*uint32)(unsafe.Add(v2, 668)) = 0
 			if nox_xxx_netTestHighBit_578B70(v5) != 0 {
 				v7 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(v2, 656)))))
-				v8 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v7).C())
+				v8 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v7)).C())
 			} else {
 				v9 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(v2, 656)))))
-				v8 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v9).C())
+				v8 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v9)).C())
 			}
 			*(*uint32)(unsafe.Add(v2, 668)) = uint32(uintptr(unsafe.Pointer(v8)))
 			if v8 != nil {
@@ -1281,9 +1281,9 @@ func nox_xxx_spriteCreate_48E970(a1 int32, a2 uint32, a3 int32, a4 int32) *uint3
 	v5 = v4
 	v10 = v4
 	if nox_xxx_netTestHighBit_578B70(a2) != 0 {
-		v6 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v10).C())
+		v6 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v10)).C())
 	} else {
-		v6 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v10).C())
+		v6 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v10)).C())
 	}
 	v7 = v6
 	if v6 != nil {
@@ -5290,16 +5290,16 @@ func nox_xxx_clientAddRayEffect_49C160(a1 int32) *uint32 {
 	v5 = v4
 	v6 = (*uint32)(func() *client.Drawable {
 		if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(a1, 3)))) != 0 {
-			return nox_xxx_netSpriteByCodeStatic_45A720(v3)
+			return nox_xxx_netSpriteByCodeStatic_45A720(uint32(v3))
 		}
-		return nox_xxx_netSpriteByCodeDynamic_45A6F0(v3)
+		return nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v3))
 	}().C())
 	v7 = v6
 	result = (*uint32)(func() *client.Drawable {
 		if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(a1, 5)))) != 0 {
-			return nox_xxx_netSpriteByCodeStatic_45A720(v5)
+			return nox_xxx_netSpriteByCodeStatic_45A720(uint32(v5))
 		}
-		return nox_xxx_netSpriteByCodeDynamic_45A6F0(v5)
+		return nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v5))
 	}().C())
 	if !(v7 != nil && result != nil) {
 		return result

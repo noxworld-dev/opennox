@@ -76,7 +76,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 	}
 	if noxflags.HasGame(1) {
 		if noxflags.HasGame(0x2000) {
-			v7 = int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(a4))))
+			v7 = int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(a4)))))
 			v8 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a4)))
 			v23 = v8
 			if v8 != nil {
@@ -114,7 +114,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 			}
 		}
 	} else {
-		v14 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(a4).C())
+		v14 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(a4)).C())
 		if v14 != nil && *(*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*28))&4 != 0 {
 			v15 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a4)))
 			if v15 != nil {

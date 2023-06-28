@@ -279,7 +279,7 @@ func nox_xxx_doorGetSomeKey_4E8910(u, door *server.Object) *server.Object {
 }
 
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
-	return asObjectS(nox_server_getObjectFromNetCode_4ECCB0(int32(a1)))
+	return asObjectS(nox_server_getObjectFromNetCode_4ECCB0(uint32(int32(a1))))
 }
 func Nox_xxx_creatureIsMonitored_500CC0(a1 *server.Object, a2 *server.Object) int {
 	return int(nox_xxx_creatureIsMonitored_500CC0(asObjectC(a1), asObjectC(a2)))

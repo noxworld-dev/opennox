@@ -58,18 +58,18 @@ func sub_4CD150(a1 int32, a2 *uint32, a3 int32, a4 int32) {
 	}
 	if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a3, 437))) != 0 {
 		v11 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a3, 437)))))
-		v12 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v11).C())
+		v12 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v11)).C())
 	} else {
 		v13 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a3, 437)))))
-		v12 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v13).C())
+		v12 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v13)).C())
 	}
 	v14 = v12
 	if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a3, 441))) != 0 {
 		v15 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a3, 441)))))
-		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_netSpriteByCodeStatic_45A720(v15))))
+		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v15)))))
 	} else {
 		v16 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a3, 441)))))
-		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_netSpriteByCodeDynamic_45A6F0(v16))))
+		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v16)))))
 	}
 	v17 = v4
 	if v14 == nil || v4 == 0 {

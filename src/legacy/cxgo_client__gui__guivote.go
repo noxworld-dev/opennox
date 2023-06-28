@@ -93,13 +93,13 @@ func sub_48CB10(a1 int32) *uint32 {
 		v14 = nox_strman_loadString_40F1D0(internCStr("VoteKickPlayer"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 520)
 		sub_46AEE0(int32(uintptr(unsafe.Pointer(v13))), int32(uintptr(unsafe.Pointer(v14))))
 		if int32(nox_xxx_getTeamCounter_417DD0()) != 0 {
-			v15 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+			v15 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 			v16 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v15), 4)))))))
 			v26 = v16
 			if v16 != nil {
 				for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
 					if i != *(**byte)(memmap.PtrOff(0x8531A0, 2576)) {
-						v18 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515)))))
+						v18 = nox_xxx_objGetTeamByNetCode_418C80(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515))))
 						if v18 != nil {
 							if nox_xxx_teamCompare2_419180(unsafe.Pointer(v18), *(*byte)(unsafe.Add(unsafe.Pointer(v16), 57))) != 0 {
 								nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_1197316), 16397, uintptr(unsafe.Add(unsafe.Pointer(i), 4704)), uintptr(*memmap.PtrUint32(0x587000, uintptr((int32(*(*byte)(unsafe.Add(unsafe.Pointer(v16), 57)))%10)*8)+156400)))

@@ -719,7 +719,7 @@ func nox_xxx_XFerObelisk_4F6F60(a1p *server.Object, data unsafe.Pointer) int {
 			nullsub_35(unsafe.Pointer(v1), *(*uint32)(unsafe.Add(unsafe.Pointer(&v7), 4*0)))
 		}
 		if noxflags.HasGame(2048) {
-			v5 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*10))).C())
+			v5 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*10)))).C())
 			if v5 != nil {
 				v6 = int32(uintptr(unsafe.Pointer(nox_xxx_cliFirstMinimapObj_459EB0())))
 				if v6 != 0 {
@@ -3034,7 +3034,7 @@ func nox_xxx_collide_4FDF90(a1 int32, a2 int32) {
 func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 	var v2 *byte
 	if noxflags.HasGame(1) {
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(a1)), unsafe.Sizeof(server.Object{})*8))) & 4) == 0 {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(a1))), unsafe.Sizeof(server.Object{})*8))) & 4) == 0 {
 			switch a2 {
 			case 0:
 				return 193
@@ -3056,7 +3056,7 @@ func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 				return 0
 			}
 		}
-	} else if (nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).Flags28Val & 4) == 0 {
+	} else if (nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(a1)).Flags28Val & 4) == 0 {
 		switch a2 {
 		case 0:
 			return 193

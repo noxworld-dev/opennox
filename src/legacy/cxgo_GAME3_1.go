@@ -2990,7 +2990,7 @@ func nox_xxx_guiDrawSummonBox_4C1FE0(win *gui.Window, draw *gui.WindowData) int 
 		v14 = (*int32)(unsafe.Pointer(sub_4C2D60()))
 		if v14 != nil {
 			for {
-				v15 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(*v14).C())
+				v15 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(*v14)).C())
 				if v15 != nil {
 					if v14 == (*int32)(v13) || v10 != 0 {
 						*(*uint32)(unsafe.Add(unsafe.Pointer(v15), 4*30)) |= 0x40000000
@@ -3517,7 +3517,7 @@ func nox_xxx_cliSummonOnDieOrBanish_4C3140(a1 int32, a2 unsafe.Pointer) {
 	if result == dword_5d4594_1321204 {
 		nox_xxx_guiHideSummonWindow_4C2470()
 	}
-	v4 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).C())
+	v4 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(a1)).C())
 	if v4 != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*30)) &= 0xBFFFFFFF
 	}
@@ -3907,9 +3907,9 @@ func nox_xxx_drawObject_4C4770_draw(a1 *int32, dr *client.Drawable, a3 int32) {
 		} else if v4 != nil && *(*byte)(unsafe.Add(unsafe.Pointer(v4), 3680))&1 != 0 {
 			return
 		}
-		v5 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+		v5 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 		if v5 != nil {
-			v6 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32))))
+			v6 = nox_xxx_objGetTeamByNetCode_418C80(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32)))
 			if v6 != nil {
 				if nox_player_netCode_85319C == *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32)) || nox_xxx_servCompareTeams_419150(unsafe.Pointer(v5), unsafe.Pointer(v6)) != 0 {
 					v53 = 1

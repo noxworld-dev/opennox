@@ -62,7 +62,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v30 = 1
 	}
 	if nox_player_netCode_85319C == dr.Field_32 {
-		v4 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+		v4 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 		if v4 != nil {
 			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)))))))
 			v29 = v5
@@ -71,9 +71,9 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		if *(*byte)(unsafe.Add(unsafe.Pointer(v3), 3680))&1 != 0 {
 			return 1
 		}
-		v6 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+		v6 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 		if v6 != nil {
-			v7 = nox_xxx_objGetTeamByNetCode_418C80(int32(dr.Field_32))
+			v7 = nox_xxx_objGetTeamByNetCode_418C80(dr.Field_32)
 			v8 = v7
 			if v7 != nil {
 				if nox_xxx_servCompareTeams_419150(unsafe.Pointer(v6), unsafe.Pointer(v7)) != 0 {

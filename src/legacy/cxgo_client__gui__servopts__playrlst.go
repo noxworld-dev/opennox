@@ -175,7 +175,7 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 				v14 = v13
 				if v13 != nil {
 					if (*(*byte)(unsafe.Add(unsafe.Pointer(v13), 3680))&1) == 0 && (*(*byte)(unsafe.Add(unsafe.Pointer(v13), 4))&1) == 0 {
-						v15 = nox_xxx_objGetTeamByNetCode_418C80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*515)))))
+						v15 = nox_xxx_objGetTeamByNetCode_418C80(*((*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*515))))
 						v16 := unsafe.Pointer(v15)
 						if v15 != nil {
 							if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Pointer(v15))) != 0 {

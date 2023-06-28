@@ -6010,7 +6010,7 @@ func sub_4ECC00(a1 **byte) int32 {
 	}
 	return int32(*memmap.PtrUint32(0x587000, uintptr(v2*8)+205228))
 }
-func nox_server_getObjectFromNetCode_4ECCB0(a1 int32) *server.Object {
+func nox_server_getObjectFromNetCode_4ECCB0(a1 uint32) *server.Object {
 	var (
 		v2 int32
 		v3 int32
@@ -6080,7 +6080,7 @@ LABEL_17:
 
 var nox_server_netCodeCache nox_server_netCodeCacheStruct
 
-func nox_server_netCodeCache_lookupObj_4ECD90(a1 int32) *server.Object {
+func nox_server_netCodeCache_lookupObj_4ECD90(a1 uint32) *server.Object {
 	if nox_server_needInitNetCodeCache != 0 {
 		nox_server_netCodeCache_initArray_4ECE50()
 	}
@@ -12156,9 +12156,9 @@ func Nox_xxx_XFerInvLight_4F5AA0(a1p *server.Object, data unsafe.Pointer) int {
 			}
 		}
 	} else if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))&0x20400000 != 0 {
-		v2 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*10))).C())
+		v2 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*10)))).C())
 	} else {
-		v2 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9))).C())
+		v2 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))).C())
 	}
 	if v2 == nil {
 		panic("abort")

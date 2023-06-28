@@ -143,14 +143,13 @@ func sub_418BC0(a1 unsafe.Pointer) int32 {
 	var (
 		v1 int32
 		i  *byte
-		v4 *uint32
 	)
 	v1 = 0
 	if a1 == nil {
 		return 0
 	}
 	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
-		v4 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515))))
+		v4 := nox_xxx_objGetTeamByNetCode_418C80(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515)))
 		if v4 != nil {
 			if nox_xxx_teamCompare2_419180(unsafe.Pointer(v4), *(*uint8)(unsafe.Add(a1, 57))) != 0 {
 				v1++
@@ -171,7 +170,7 @@ func sub_418C70(a1 unsafe.Pointer) unsafe.Pointer {
 	}
 	return *(*unsafe.Pointer)(a1)
 }
-func nox_xxx_objGetTeamByNetCode_418C80(a1 int32) *server.ObjectTeam {
+func nox_xxx_objGetTeamByNetCode_418C80(a1 uint32) *server.ObjectTeam {
 	if noxflags.HasGame(1) {
 		if obj := nox_server_getObjectFromNetCode_4ECCB0(a1); obj != nil {
 			return obj.TeamPtr()
@@ -204,8 +203,6 @@ func nox_xxx_teamRenameMB_418CD0(a1 *wchar2_t, a2 *wchar2_t) {
 func sub_418D80(a1 unsafe.Pointer) {
 	var (
 		v1 int32
-		i  *byte
-		v3 *uint32
 		v5 [6]byte
 	)
 	if a1 != nil && sub_418BC0(a1) > 0 {
@@ -216,13 +213,13 @@ func sub_418D80(a1 unsafe.Pointer) {
 			*(*uint32)(unsafe.Pointer(&v5[2])) = uint32(v1)
 			nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v5[0]), 6, nil, 1)
 		}
-		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
-			v3 = nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515))))
-			v4 := unsafe.Pointer(v3)
+		for i := nox_common_playerInfoGetFirst_416EA0(); i != nil; i = nox_common_playerInfoGetNext_416EE0(i) {
+			v3 := nox_xxx_objGetTeamByNetCode_418C80(i.NetCodeVal)
+			v4 := v3
 			if v3 != nil {
 				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 4))) == int32(*(*uint8)(unsafe.Add(a1, 57))) {
-					sub_4571A0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*515))), 0)
-					sub_418E40(a1, v4)
+					sub_4571A0(int32(i.NetCodeVal), 0)
+					sub_418E40(a1, unsafe.Pointer(v4))
 				}
 			}
 		}
@@ -459,7 +456,7 @@ func sub_4198A0(a1 unsafe.Pointer, a2 int32, a3 int32) {
 		v5 [10]byte
 	)
 	if a1 != nil {
-		v3 := unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(a3))
+		v3 := unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(a3)))
 		if v3 != nil {
 			v5[0] = 196
 			v4 = int32(*(*uint8)(unsafe.Add(a1, 4)))

@@ -47,18 +47,18 @@ func sub_4CD690(vp *noxrender.Viewport, dr *client.Drawable) int {
 		}
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 437))) != 0 {
 			v5 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a2, 437)))))
-			v6 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v5).C())
+			v6 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v5)).C())
 		} else {
 			v7 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a2, 437)))))
-			v6 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v7).C())
+			v6 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v7)).C())
 		}
 		v8 = v6
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Add(a2, 441))) != 0 {
 			v9 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a2, 441)))))
-			v10 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v9).C())
+			v10 = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v9)).C())
 		} else {
 			v11 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Add(a2, 441)))))
-			v10 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v11).C())
+			v10 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v11)).C())
 		}
 		v12 = v10
 		if v8 == nil || v10 == nil {

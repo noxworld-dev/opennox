@@ -42,12 +42,12 @@ func nox_xxx_sprite_45A110_drawable(dr *client.Drawable) {
 }
 
 // nox_xxx_netSpriteByCodeStatic_45A720
-func nox_xxx_netSpriteByCodeStatic_45A720(id int32) *client.Drawable {
+func nox_xxx_netSpriteByCodeStatic_45A720(id uint32) *client.Drawable {
 	return (*client.Drawable)(GetClient().Cli().Objs.ByNetCodeStatic(int(id)).C())
 }
 
 // nox_xxx_netSpriteByCodeDynamic_45A6F0
-func nox_xxx_netSpriteByCodeDynamic_45A6F0(id int32) *client.Drawable {
+func nox_xxx_netSpriteByCodeDynamic_45A6F0(id uint32) *client.Drawable {
 	return (*client.Drawable)(GetClient().Cli().Objs.ByNetCodeDynamic(int(id)).C())
 }
 

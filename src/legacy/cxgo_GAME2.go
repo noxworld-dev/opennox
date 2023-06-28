@@ -2735,7 +2735,7 @@ func sub_455A50(a1 int8) {
 		v4 int32
 	)
 	v1 = nil
-	nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+	nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 	if dword_5d4594_1045604 == nil && sub_455C30() == 0 {
 		return
 	}
@@ -2859,7 +2859,7 @@ func sub_455F60() {
 		v5 int32
 		v6 int32
 	)
-	nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+	nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 	if dword_5d4594_1045636 != nil || sub_456070() != 0 {
 		nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(&v3, &v2, &v6)
 		nox_xxx_screenGetSize_430C50_get_video_max(&v4, &v5)
@@ -2934,7 +2934,7 @@ func sub_456500() {
 	for j := unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()); j != nil; j = unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(j))) {
 		if *(*byte)(unsafe.Add(j, 2064)) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_457140(int32(*(*uint32)(unsafe.Add(j, 4*515))), (*wchar2_t)(unsafe.Add(j, unsafe.Sizeof(wchar2_t(0))*2352)))
-			v4 := nox_xxx_objGetTeamByNetCode_418C80(int32(*(*uint32)(unsafe.Add(j, 4*515))))
+			v4 := nox_xxx_objGetTeamByNetCode_418C80(*(*uint32)(unsafe.Add(j, 4*515)))
 			if nox_xxx_servObjectHasTeam_419130(v4) != 0 {
 				sub_4571A0(int32(*(*uint32)(unsafe.Add(j, 4*515))), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 4))))
 			}
@@ -2961,7 +2961,7 @@ func sub_456640(win *gui.Window, draw *gui.WindowData) int {
 		xLeft int32
 		yTop  int32
 	)
-	nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+	nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 	nox_client_wndGetPosition_46AA60(win, &xLeft, &yTop)
 	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
 		if *(*uint32)(unsafe.Add(a2, 20)) != 0x80000000 {
@@ -2995,7 +2995,7 @@ func sub_456BB0(a1 unsafe.Pointer) {
 	)
 	if *memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 4)))&1) == 0 && (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&1) == 0 {
 		v2 := bool2int32(noxflags.HasGame(1))
-		v1a := nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+		v1a := nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 		v3 := v1a
 		if v1a != nil {
 			if nox_xxx_servObjectHasTeam_419130(v1a) != 0 {

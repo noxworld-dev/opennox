@@ -5843,10 +5843,10 @@ func nox_xxx_fxShield_4B8090(a1 uint32, a2 int32) *uint32 {
 	}
 	if nox_xxx_netTestHighBit_578B70(a1) != 0 {
 		v3 = nox_xxx_netClearHighBit_578B30(int16(uint16(a1)))
-		result = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(v3).C())
+		result = (*uint32)(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v3)).C())
 	} else {
 		v5 = nox_xxx_netClearHighBit_578B30(int16(uint16(a1)))
-		result = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(v5).C())
+		result = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v5)).C())
 	}
 	v6 = result
 	if result == nil {

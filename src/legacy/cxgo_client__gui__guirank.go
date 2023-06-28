@@ -324,7 +324,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 		sub_46DB80()
 		sub_46DCC0()
 		dword_587000_145664 = 0
-		v7 = nox_xxx_objGetTeamByNetCode_418C80(int32(nox_player_netCode_85319C))
+		v7 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 		if v7 != nil {
 			v2 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)))))))
 			v35 = v2
