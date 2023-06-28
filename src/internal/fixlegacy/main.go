@@ -320,13 +320,11 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	if !ok || len(conv.Args) != 1 {
 		return
 	}
-	ct := pkg.TypesInfo.TypeOf(conv.Fun)
-	if !isValidType(ct) {
+	cpt, ok := pkg.TypesInfo.TypeOf(conv.Fun).(*types.Pointer)
+	if !ok {
 		return
 	}
-	if _, ok := ct.(*types.Signature); ok {
-		return // real call, not conversion
-	}
+	ct := cpt.Elem()
 	x = unwrapParen(conv.Args[0])
 	add, ok := x.(*ast.CallExpr)
 	if !ok || len(add.Args) != 2 {
