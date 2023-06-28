@@ -1716,12 +1716,12 @@ func nox_xxx_wndCreateInventoryMB_465E00() *gui.Window {
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v0)), nox_xxx_XorEaxEaxSub_464BA0, nox_xxx_movEax1Sub_4661C0, nox_xxx_inventroryOnHovewerSub_4667E0)
 	dword_5d4594_1062456 = nox_window_new(dword_5d4594_1062452, 40, 0, 0, 563, 224, sub_466220)
 	nox_window_set_all_funcs(dword_5d4594_1062456, sub_464BD0, nox_xxx_inventoryDrawAllMB_463430, sub_466620)
-	*(*uint32)(unsafe.Add(dword_5d4594_1062456.C(), 44)) |= 0x100
+	dword_5d4594_1062456.DrawData().Style |= 0x100
 	*memmap.PtrPtr(0x5D4594, 1062472) = unsafe.Pointer(nox_window_new(dword_5d4594_1062452, 40, 0, 0, 1, 1, nil))
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, 1062472)))), sub_464BD0, nox_xxx_movEax1Sub_4661C0, nil)
 	dword_5d4594_1062468 = nox_window_new(dword_5d4594_1062456, 40, 173, 174, 50, 50, nil)
 	nox_window_set_all_funcs(dword_5d4594_1062468, sub_464770, sub_4625D0, sub_4661D0)
-	*(*uint32)(unsafe.Add(dword_5d4594_1062468.C(), 44)) |= 0x100
+	dword_5d4594_1062468.DrawData().Style |= 0x100
 	result := sub_466950(dword_5d4594_1062456)
 	if result == 0 {
 		return nil
@@ -2886,29 +2886,29 @@ func sub_46AE10(a1 unsafe.Pointer, a2 int32) {
 }
 func nox_xxx_wndSetOffsetMB_46AE40(a1 *gui.Window, a2 int32, a3 int32) {
 	if a1 != nil {
-		*(*uint32)(unsafe.Add(a1, 96)) = uint32(a2)
-		*(*uint32)(unsafe.Add(a1, 100)) = uint32(a3)
+		a1.DrawData().ImgPtVal.X = int(a2)
+		a1.DrawData().ImgPtVal.Y = int(a3)
 	}
 }
 func nox_xxx_wndSetIcon_46AE60(a1 *gui.Window, a2 noxrender.ImageHandle) int32 {
 	if a1 == nil {
 		return -2
 	}
-	*(*noxrender.ImageHandle)(unsafe.Add(a1, 60)) = a2
+	a1.DrawData().BgImageHnd = a2
 	return 0
 }
 func nox_xxx_wndSetIconLit_46AEA0(a1 *gui.Window, a2 noxrender.ImageHandle) int32 {
 	if a1 == nil {
 		return -2
 	}
-	*(*noxrender.ImageHandle)(unsafe.Add(a1, 76)) = a2
+	a1.DrawData().HlImageHnd = a2
 	return 0
 }
 func sub_46AEC0(a1 *gui.Window, a2 noxrender.ImageHandle) int32 {
 	if a1 == nil {
 		return -2
 	}
-	*(*noxrender.ImageHandle)(unsafe.Add(a1, 92)) = a2
+	a1.DrawData().SelImageHnd = a2
 	return 0
 }
 func sub_46AEE0(a1 *gui.Window, a2 int32) int32 {
@@ -2919,7 +2919,7 @@ func sub_46AF00(a1 *gui.Window) *wchar2_t {
 	if a1 == nil {
 		return nil
 	}
-	v1 := int32(*(*uint32)(unsafe.Add(a1, 44)))
+	v1 := int32(a1.DrawData().Style)
 	if v1&0x800 != 0 {
 		return (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(a1, 16386, 0, 0)))
 	}

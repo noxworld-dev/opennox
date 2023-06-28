@@ -5038,7 +5038,7 @@ func nox_xxx_wndEditProc_487D70_key(win *gui.Window, v4, a3, a4 uintptr) uintptr
 		if a4 != 2 || *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 1044)) != 0 {
 			return 1
 		}
-		nox_window_call_field_94_fnc((*gui.Window)(*(*unsafe.Pointer)(unsafe.Add(win.C(), 4*13))), 16415, uintptr(win.C()), 0)
+		nox_window_call_field_94_fnc(win.DrawData().Window, 16415, uintptr(win.C()), 0)
 		return 1
 	case 200, 203:
 		if a4 != 2 {

@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -159,11 +160,11 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	dword_5d4594_1090044 = uint32(439 - v0)
 	dword_5d4594_1090048 = nox_window_new(nil, 1560, 0, int(v0)+40, 1, 1, nil)
 	nox_window_set_all_funcs(dword_5d4594_1090048, sub_46F060, sub_46F080, nil)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 56)) = 0x80000000
-	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 64)) = 0x80000000
-	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 72)) = 0x80000000
-	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 80)) = 0x80000000
-	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 88)) = 0x80000000
+	dword_5d4594_1090048.DrawData().BgColorVal = 0x80000000
+	dword_5d4594_1090048.DrawData().EnColorVal = 0x80000000
+	dword_5d4594_1090048.DrawData().HlColorVal = 0x80000000
+	dword_5d4594_1090048.DrawData().DisColorVal = 0x80000000
+	dword_5d4594_1090048.DrawData().SelColorVal = 0x80000000
 	*(*[332]byte)(unsafe.Pointer(&v49[0])) = [332]byte{}
 	nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v49[72])), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1090136)))
 	*(*uint32)(unsafe.Pointer(&v49[68])) = *memmap.PtrUint32(0x85B3FC, 940)

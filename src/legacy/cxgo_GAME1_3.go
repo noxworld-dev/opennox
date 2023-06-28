@@ -455,7 +455,7 @@ func nox_xxx_gui_43E1A0(a1 int32) {
 	if a1 != 0 {
 		result := nox_window_new(nil, 552, 0, 0, int(nox_win_width), int(nox_win_height), nil)
 		dword_5d4594_816412 = result
-		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*14)) = nox_color_black_2650656
+		result.DrawData().BgColorVal = nox_color_black_2650656
 	} else {
 		if dword_5d4594_816412 != nil {
 			nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_816412)

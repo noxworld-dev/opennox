@@ -263,7 +263,7 @@ func sub_44E560() *gui.Window {
 		return nil
 	}
 	nox_xxx_wndSetWindowProc_46B300(r1, nox_client_wndQuestBriefProc_44E630)
-	*(*uint32)(unsafe.Add(dword_5d4594_831236.C(), 56)) = nox_color_black_2650656
+	dword_5d4594_831236.DrawData().BgColorVal = nox_color_black_2650656
 	nox_wnd_briefing_831232 = nox_new_window_from_file(internCStr("Briefing.wnd"), nil)
 	r2 := nox_wnd_briefing_831232
 	if r2 == nil {
@@ -435,13 +435,13 @@ func nox_client_lockScreenBriefing_450160(a1 int32, a2 int32, a3 int8) int32 {
 		}
 		dword_5d4594_831240 = (*byte)(v11)
 	}
-	nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*59)), *v15, nil, (*int32)(memmap.PtrOff(0x5D4594, 831280)), NOX_DEFAULT_HEIGHT)
+	nox_xxx_drawGetStringSize_43F840(v5.DrawData().FontPtr, *v15, nil, (*int32)(memmap.PtrOff(0x5D4594, 831280)), NOX_DEFAULT_HEIGHT)
 	sub_46AB20(v5, NOX_DEFAULT_WIDTH, *memmap.PtrInt32(0x5D4594, 831280))
 	if v3 == math.MaxUint8 {
 		dword_5d4594_831276 = 1140457472
 		*memmap.PtrUint32(0x5D4594, 831280) = 4294967276 - *memmap.PtrUint32(0x5D4594, 831280)
 	} else {
-		*memmap.PtrUint32(0x5D4594, 831280) = uint32((480 - nox_xxx_guiFontHeightMB_43F320(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*59))) - *memmap.PtrInt32(0x5D4594, 831280)) / 2)
+		*memmap.PtrUint32(0x5D4594, 831280) = uint32((480 - nox_xxx_guiFontHeightMB_43F320(v5.DrawData().FontPtr) - *memmap.PtrInt32(0x5D4594, 831280)) / 2)
 		dword_5d4594_831276 = float32(float64(*memmap.PtrInt32(0x5D4594, 831280)))
 	}
 	sub_431290()
@@ -1669,7 +1669,7 @@ func sub_453080(a1 int8) int32 {
 	return result
 }
 func sub_4532E0() {
-	v0 := nox_xxx_guiFontHeightMB_43F320(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1045464.C(), 236))) + 1
+	v0 := nox_xxx_guiFontHeightMB_43F320(dword_5d4594_1045464.DrawData().FontPtr) + 1
 	sub_46AB20(dword_5d4594_1045464, int32(dword_5d4594_1045464.SizeVal.X), v0*15+2)
 	v1 := int32(1520)
 	v2 := int32(dword_5d4594_1045464.Off.Y + int(uint32(v0)) + 2)
@@ -1950,7 +1950,7 @@ func sub_453B00() *uint32 {
 		v2     int32
 		result *uint32
 	)
-	v0 = nox_xxx_guiFontHeightMB_43F320(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1045480.C(), 236))) + 1
+	v0 = nox_xxx_guiFontHeightMB_43F320(dword_5d4594_1045480.DrawData().FontPtr) + 1
 	sub_46AB20(dword_5d4594_1045480, int32(dword_5d4594_1045480.SizeVal.X), v0*15+2)
 	sub_46AB20(dword_5d4594_1045508, int32(dword_5d4594_1045508.SizeVal.X), v0*15+2)
 	v1 = 1120
@@ -2392,7 +2392,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			nox_window_call_field_94_fnc(dword_5d4594_1045540, 16414, uintptr(memmap.PtrOff(0x5D4594, 1045600)), 0)
 			return 0
 		case 10113:
-			if int32(*(*uint8)(unsafe.Add(dword_5d4594_1045520.C(), 36)))&4 != 0 {
+			if int32(dword_5d4594_1045520.DrawData().Field0)&4 != 0 {
 				v23 = int32(nox_window_call_field_94_fnc(dword_5d4594_1045532, 16404, 0, 0))
 				nox_window_call_field_94_fnc(dword_5d4594_1045532, 16398, uintptr(v23), 0)
 				sub_416860(v23)
@@ -3493,8 +3493,8 @@ func sub_4593B0(a1 int32) {
 	v3 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10162)
 	if a1 != 0 {
 		if a1 == 1 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = dword_5d4594_1046360
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*15)) = dword_5d4594_1046356
+			v1.DrawData().BgImageHnd = dword_5d4594_1046360
+			v3.DrawData().BgImageHnd = dword_5d4594_1046356
 			if dword_5d4594_1046532 != nil {
 				sub_456D60(1)
 				dword_5d4594_1046532 = nil
@@ -3507,11 +3507,11 @@ func sub_4593B0(a1 int32) {
 			sub_459560(10161)
 		} else {
 			if a1 == 2 {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = dword_5d4594_1046360
+				v1.DrawData().BgImageHnd = dword_5d4594_1046360
 				if noxflags.HasGame(1) {
-					*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*15)) = dword_5d4594_1046360
+					v2.DrawData().BgImageHnd = dword_5d4594_1046360
 				} else {
-					*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*21)) = dword_5d4594_1046360
+					v2.DrawData().DisImageHnd = dword_5d4594_1046360
 				}
 				if dword_5d4594_1046528 != nil {
 					sub_4557D0(1)
@@ -3527,11 +3527,11 @@ func sub_4593B0(a1 int32) {
 		}
 	} else {
 		if noxflags.HasGame(1) {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*15)) = dword_5d4594_1046356
+			v2.DrawData().BgImageHnd = dword_5d4594_1046356
 		} else {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*21)) = dword_5d4594_1046356
+			v2.DrawData().DisImageHnd = dword_5d4594_1046356
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*15)) = dword_5d4594_1046356
+		v3.DrawData().BgImageHnd = dword_5d4594_1046356
 		if dword_5d4594_1046532 != nil {
 			sub_456D60(1)
 			dword_5d4594_1046532 = nil
@@ -5455,13 +5455,13 @@ func nox_xxx_quickbarTrapUpDownProc_45F630(win *gui.Window, a2, p3, p4 uintptr) 
 	if a2 == 5 {
 		switch v2 {
 		case 0:
-			*(*uint32)(unsafe.Add(dword_5d4594_1049508.C(), 60)) = 0
+			dword_5d4594_1049508.DrawData().BgImageHnd = 0
 			nox_client_spellSetPrev_460540()
 		case 1:
-			*(*uint32)(unsafe.Add(dword_5d4594_1049508.C(), 60)) = 0
+			dword_5d4594_1049508.DrawData().BgImageHnd = 0
 			nox_client_spellSetNext_4604F0()
 		case 2:
-			*(*uint32)(unsafe.Add(dword_5d4594_1049508.C(), 60)) = 0
+			dword_5d4594_1049508.DrawData().BgImageHnd = 0
 			sub_460920()
 		case 3:
 			nox_client_trapSetPrev_4603F0()
@@ -5503,7 +5503,7 @@ func nox_xxx_quickbarTrapUpDownDraw_45F6F0(win *gui.Window, draw *gui.WindowData
 			*p--
 			return *p
 		}() == 0 && *memmap.PtrUint32(0x5D4594, 1049704) <= 2 {
-			*(*uint32)(unsafe.Add(dword_5d4594_1049508.C(), 60)) = *(*uint32)(unsafe.Add(dword_5d4594_1049508.C(), 76))
+			dword_5d4594_1049508.DrawData().BgImageHnd = dword_5d4594_1049508.DrawData().HlImageHnd
 		}
 	}
 	v6 = sub_45CFC0()

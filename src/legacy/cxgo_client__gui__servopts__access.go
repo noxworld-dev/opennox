@@ -97,7 +97,7 @@ func sub_454740() {
 	} else {
 		nox_xxx_wnd_46ABB0(dword_5d4594_1045520, 1)
 		if *(*byte)(unsafe.Add(unsafe.Pointer(v0), 100))&0x10 != 0 {
-			*(*uint32)(unsafe.Add(dword_5d4594_1045520, 36)) = 4
+			dword_5d4594_1045520.DrawData().Field0 = 4
 		} else {
 			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10206)))
 			nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v4)), 0)
