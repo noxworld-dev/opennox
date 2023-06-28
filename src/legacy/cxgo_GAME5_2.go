@@ -829,19 +829,18 @@ func sub_56FF80(a1 int32, a2 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_netGetUnitCodeCli_578B00(a1 int32) uint32 {
-	var result uint32
-	if a1 == 0 {
+func nox_xxx_netGetUnitCodeCli_578B00(a1 *client.Drawable) uint32 {
+	if a1 == nil {
 		return 0
 	}
-	result = *(*uint32)(unsafe.Add(a1, 128))
-	if result >= 0x8000 {
+	code := a1.Field_32
+	if code >= 0x8000 {
 		return 0
 	}
-	if *(*uint32)(unsafe.Add(a1, 112))&0x20400000 != 0 {
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&result), 1)) |= 0x80
+	if a1.Flags28()&0x20400000 != 0 {
+		*(*uint8)(unsafe.Add(unsafe.Pointer(&code), 1)) |= 0x80
 	}
-	return result
+	return code
 }
 func nox_xxx_netClearHighBit_578B30(a1 int16) int32 {
 	return int32(a1) & math.MaxInt16

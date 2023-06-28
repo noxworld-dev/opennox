@@ -53,7 +53,7 @@ func nox_client_wndGetPosition_46AA60(win *gui.Window, px *int32, py *int32) int
 	}
 	return 0
 }
-func nox_xxx_wndPointInWnd_46AAB0(a1 *uint32, a2 int32, a3 int32) bool {
+func nox_xxx_wndPointInWnd_46AAB0(a1 *gui.Window, a2 int32, a3 int32) bool {
 	var (
 		v3 *uint32
 		v5 int32

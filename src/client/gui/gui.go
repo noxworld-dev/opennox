@@ -132,8 +132,8 @@ func (g *GUI) NewWindowRaw(parent *Window, status StatusFlags, px, py, w, h int,
 	}
 	win.SetID(0)
 	win.Flags = status
-	win.size.X = w
-	win.size.Y = h
+	win.SizeVal.X = w
+	win.SizeVal.Y = h
 	win.SetPos(image.Point{X: px, Y: py})
 	win.drawData.tooltip[0] = 0
 	win.SetDraw(nil)

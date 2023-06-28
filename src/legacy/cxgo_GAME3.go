@@ -4977,7 +4977,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 		return 0
 	}
 }
-func nox_gui_newSlider_4B4EE0(a1 int32, a2 nox_window_flags, a3, a4, a5, a6 int, a7 *uint32, a8 *float32) *gui.Window {
+func nox_gui_newSlider_4B4EE0(a1 *gui.Window, a2 nox_window_flags, a3, a4, a5, a6 int, a7 *uint32, a8 *float32) *gui.Window {
 	var (
 		v8  int32
 		v9  int32
@@ -5353,8 +5353,9 @@ func nox_xxx_wndScrollBoxButtonCreate_4B5640(a1 *gui.Window, a2 nox_window_flags
 	}
 	return result
 }
-func sub_4B5700(a1 unsafe.Pointer, a2 int32, a3 int32, a4 unsafe.Pointer, a5 unsafe.Pointer, a6 unsafe.Pointer) {
-	if a1 != nil {
+func sub_4B5700(a1p *gui.Window, a2 int32, a3 int32, a4 unsafe.Pointer, a5 unsafe.Pointer, a6 unsafe.Pointer) {
+	a1 := a1p.C()
+	if a1p != nil {
 		v6 := *(*unsafe.Pointer)(unsafe.Add(a1, 400))
 		v7 := int32(*(*uint32)(unsafe.Add(v6, 4)))
 		*(*uint8)(unsafe.Pointer(&v7)) = uint8(int8(v7 | 0x80))

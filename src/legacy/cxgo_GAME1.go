@@ -1229,7 +1229,7 @@ func sub_4133D0(a1 unsafe.Pointer) int32 {
 	}
 	return bool2int32(*(*uint32)(unsafe.Add(a1, 8))&0x13001000 != 0 && *(*uint32)(unsafe.Add(v2, 4)) == uint32(v1))
 }
-func sub_413420(a1 int8) int32 {
+func sub_413420(a1 int8) noxrender.ImageHandle {
 	var (
 		v1 *uint8
 		v2 int32
@@ -1252,10 +1252,10 @@ func sub_413420(a1 int8) int32 {
 		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 20))
 		v2++
 		if int32(uintptr(unsafe.Pointer(v3))) >= int32(uintptr(memmap.PtrOff(0x587000, 27452))) {
-			return 0
+			return nil
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uintptr(v2*20+27340)))
+	return noxrender.ImageHandle(*memmap.PtrPtr(0x587000, uintptr(v2*20+27340)))
 }
 func sub_4134D0() int32 {
 	dword_5d4594_251708 = 0

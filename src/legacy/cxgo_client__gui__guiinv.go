@@ -18,10 +18,9 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 		v4 *wchar2_t
 		v6 int32
 		v7 int32
-		v8 int32
 		a4 int2
 	)
-	if uint32(a2) != dword_5d4594_1062560 && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049728) && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049724) && uint32(a2) != dword_5d4594_1062556 && uint32(a2) != dword_5d4594_1062564 {
+	if a2 != dword_5d4594_1062560 && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049728) && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049724) && a2 != dword_5d4594_1062556 && a2 != dword_5d4594_1062564 {
 		v3 = sub_461970(a1, a2)
 		if v3 != nil {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*v3)), 112)))&0x10 != 0 {
@@ -43,13 +42,13 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 			if nox_client_inventory_grid_1050020[v7+NOX_INVENTORY_ROW_COUNT*v6].field_0.Flags28()&0x3001000 != 0 {
 				dword_5d4594_1062516 = 0
 				if v7 >= 3 {
-					dword_5d4594_1062516 = uint32((v7*5 - 10) * 10)
+					dword_5d4594_1062516 = int32((v7*5 - 10) * 10)
 				}
 			}
 		}
-		v8 = int32(uintptr(unsafe.Pointer(nox_get_thing(a2))))
-		if v8 != 0 {
-			if *(*uint32)(unsafe.Add(v8, 32))&0x1001000 != 0 {
+		v8 := nox_get_thing(a2)
+		if v8 != nil {
+			if *(*uint32)(unsafe.Add(v8.C(), 32))&0x1001000 != 0 {
 				sub_4673F0(a4.field_0, a4.field_4)
 			}
 		}
@@ -171,10 +170,8 @@ func sub_462040(a1 int32) {
 	var (
 		v1  int32
 		v2  *byte
-		v3  int32
+		v3  unsafe.Pointer
 		v4  unsafe.Pointer
-		v5  *uint32
-		v6  *uint32
 		v7  *wchar2_t
 		v8  int32
 		v9  int32
@@ -192,16 +189,16 @@ func sub_462040(a1 int32) {
 	v1 = a1
 	v2 = sub_461EF0(a1)
 	if v2 != nil {
-		v20 = sub_4622E0(int32(**(**uint32)(unsafe.Pointer(v2))))
-		v3 = int32(**(**uint32)(unsafe.Pointer(v2)))
+		v20 = sub_4622E0(**(**unsafe.Pointer)(unsafe.Pointer(v2)))
+		v3 = **(**unsafe.Pointer)(unsafe.Pointer(v2))
 	} else {
 		if *memmap.PtrUint32(0x5D4594, 1049848) == 0 || *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1049848), 128)) != uint32(a1) {
 			v7 = nox_strman_loadString_40F1D0(internCStr("EquippedNotFound"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 1605)
 			nox_xxx_printCentered_445490(v7)
 			return
 		}
-		v20 = sub_4622E0(*memmap.PtrInt32(0x5D4594, 1049848))
-		v3 = int32(*memmap.PtrUint32(0x5D4594, 1049848))
+		v20 = sub_4622E0(*memmap.PtrPtr(0x5D4594, 1049848))
+		v3 = *memmap.PtrPtr(0x5D4594, 1049848)
 	}
 	v4 = unsafe.Add(v3, 432)
 	v19 = int16(*(*uint16)(unsafe.Add(v3, 294)))
@@ -211,8 +208,8 @@ func sub_462040(a1 int32) {
 		nox_xxx_printCentered_445490(v7)
 		return
 	}
-	v5 = (*uint32)(nox_new_drawable_for_thing(int32(*(*uint32)(unsafe.Add(v3, 108)))).C())
-	v6 = v5
+	v5 := nox_new_drawable_for_thing(int32(*(*uint32)(unsafe.Add(v3, 108))))
+	v6 := v5
 	if v5 == nil {
 		v7 = nox_strman_loadString_40F1D0(internCStr("DrawablesExhausted"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 1619)
 		nox_xxx_printCentered_445490(v7)
@@ -321,7 +318,7 @@ func sub_4627F0(a1 *uint32) int32 {
 		v12    *wchar2_t
 		v13    *wchar2_t
 		v14    *wchar2_t
-		v15    int32
+		v15    unsafe.Pointer
 		v16    int32
 		v17    *float32
 		v18    float64
@@ -516,7 +513,7 @@ LABEL_14:
 		if v26 != nil {
 			goto LABEL_51
 		}
-		v15 = int32(dword_5d4594_1063116)
+		v15 = dword_5d4594_1063116
 	LABEL_50:
 		v26 = (*uint32)(nox_xxx_getProjectileClassById_413250(int32(*(*uint32)(unsafe.Add(v15, 108)))))
 	LABEL_51:
@@ -1261,7 +1258,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			var v46 int32 = int32(dword_5d4594_1049808 + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049804)
 			nox_client_inventory_grid_1050020[v46].field_136 = uint32(v45)
 			nox_client_inventory_grid_1050020[v43].field_136 = 0
-			dword_5d4594_1062480 = uint32(uintptr(unsafe.Pointer(&nox_client_inventory_grid_1050020[v46])))
+			dword_5d4594_1062480 = unsafe.Pointer(&nox_client_inventory_grid_1050020[v46])
 		}
 		sub_461B50()
 	LABEL_121:

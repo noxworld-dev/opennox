@@ -46,7 +46,7 @@ type WidgetData interface {
 type Window struct {
 	id             int32                         // 0, 0
 	Flags          StatusFlags                   // 1, 4
-	size           image.Point                   // 2, 8
+	SizeVal        image.Point                   // 2, 8
 	Off            image.Point                   // 4, 16
 	EndPos         image.Point                   // 6, 24
 	WidgetData     unsafe.Pointer                // 8, 32; different types
@@ -114,7 +114,7 @@ func (win *Window) Size() image.Point {
 	if win.isNilOrDead() {
 		return image.Point{}
 	}
-	return win.size
+	return win.SizeVal
 }
 
 func (win *Window) DrawData() *WindowData {
