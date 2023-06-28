@@ -51,15 +51,15 @@ type Window struct {
 	EndPos         image.Point                   // 6, 24
 	WidgetData     unsafe.Pointer                // 8, 32; different types
 	drawData       WindowData                    // 9, 36
-	field92        uint32                        // 92, 368
+	Field92Val     uintptr                       // 92, 368
 	field93        ccall.Func[WindowFuncLegacy]  // 93
 	field94        ccall.Func[WindowFuncLegacy]  // 94, 376
 	drawFunc       ccall.Func[WindowDrawFunc]    // 95, 380, second arg is &field_9
 	TooltipFuncPtr ccall.Func[WindowTooltipFunc] // 96, 384
-	prev           *Window                       // 97, 388
-	next           *Window                       // 98, 392
-	parent         *Window                       // 99, 396
-	field100       *Window                       // 100, 400
+	PrevPtr        *Window                       // 97, 388
+	NextPtr        *Window                       // 98, 392
+	ParentPtr      *Window                       // 99, 396
+	Field100Ptr    *Window                       // 100, 400
 }
 
 func (win *Window) C() unsafe.Pointer {
@@ -141,35 +141,35 @@ func (win *Window) Next() *Window {
 	if win == nil {
 		return nil
 	}
-	return win.next
+	return win.NextPtr
 }
 
 func (win *Window) Prev() *Window {
 	if win == nil {
 		return nil
 	}
-	return win.prev
+	return win.PrevPtr
 }
 
 func (win *Window) Parent() *Window {
 	if win == nil {
 		return nil
 	}
-	return win.parent
+	return win.ParentPtr
 }
 
 func (win *Window) setParent(par *Window) {
 	if par == nil {
 		return
 	}
-	win.next = nil
-	v2 := par.field100
-	win.prev = v2
+	win.NextPtr = nil
+	v2 := par.Field100Ptr
+	win.PrevPtr = v2
 	if v2 != nil {
-		v2.next = win
+		v2.NextPtr = win
 	}
-	par.field100 = win
-	win.parent = par
+	par.Field100Ptr = win
+	win.ParentPtr = par
 }
 
 func (win *Window) SetParent(par *Window) int {
@@ -183,7 +183,7 @@ func (win *Window) Field100() *Window {
 	if win == nil {
 		return nil
 	}
-	return win.field100
+	return win.Field100Ptr
 }
 
 func (win *Window) Show() {
@@ -255,7 +255,7 @@ func (win *Window) ChildByID(id uint) *Window {
 		if cur.ID() == id {
 			return cur
 		}
-		if sub := cur.field100; sub != nil {
+		if sub := cur.Field100Ptr; sub != nil {
 			if res := sub.ChildByID(id); res != nil {
 				return res
 			}
@@ -485,7 +485,7 @@ func (win *Window) drawRecursive() bool {
 		win.GUI().drawWindowBorder(win)
 	}
 
-	for sub := win.field100; sub != nil; sub = sub.Prev() {
+	for sub := win.Field100Ptr; sub != nil; sub = sub.Prev() {
 		sub.drawRecursive()
 	}
 	return true
@@ -495,16 +495,16 @@ func (win *Window) unlink() {
 	next := win.Next()
 	prev := win.Prev()
 	if next != nil {
-		next.prev = prev
+		next.PrevPtr = prev
 		if prev != nil {
-			prev.next = win.Next()
+			prev.NextPtr = win.Next()
 		}
 	} else if prev != nil {
-		win.Parent().field100 = prev
-		win.Prev().next = win.Next()
-		win.prev = nil
+		win.Parent().Field100Ptr = prev
+		win.Prev().NextPtr = win.Next()
+		win.PrevPtr = nil
 	} else {
-		win.Parent().field100 = nil
+		win.Parent().Field100Ptr = nil
 	}
 }
 

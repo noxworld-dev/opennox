@@ -142,7 +142,7 @@ func (g *GUI) NewWindowRaw(parent *Window, status StatusFlags, px, py, w, h int,
 	if fnc94 != nil {
 		fnc94(win, WindowInit{})
 	}
-	win.field92 = 0
+	win.Field92Val = 0
 	return win
 }
 
@@ -214,10 +214,10 @@ func (g *GUI) Focused() *Window {
 }
 
 func (g *GUI) add(win *Window) {
-	win.next = nil
-	win.prev = g.last
+	win.NextPtr = nil
+	win.PrevPtr = g.last
 	if g.last != nil {
-		g.last.next = win
+		g.last.NextPtr = win
 	} else {
 		g.head = win
 	}
@@ -228,12 +228,12 @@ func (g *GUI) remove(win *Window) {
 	prev := win.Prev()
 	next := win.Next()
 	if prev != nil {
-		prev.next = next
+		prev.NextPtr = next
 	} else {
 		g.head = next
 	}
 	if next != nil {
-		next.prev = prev
+		next.PrevPtr = prev
 	} else {
 		g.last = prev
 	}
@@ -317,7 +317,7 @@ func (g *GUI) FreeDestroyed() {
 	g.free = nil
 	for win != nil {
 		prev := win.Prev()
-		win.prev = nil
+		win.PrevPtr = nil
 		if g.captured == win {
 			g.captured = nil
 		}
@@ -375,8 +375,8 @@ func (g *GUI) destroyWindow(win *Window) {
 	} else {
 		g.remove(win)
 	}
-	win.next = nil
-	win.prev = g.free
+	win.NextPtr = nil
+	win.PrevPtr = g.free
 	g.free = win
 
 	ext := win.ext()
@@ -423,7 +423,7 @@ func (g *GUI) setParent(win, par *Window) int {
 		win.setParent(par)
 	} else {
 		g.add(win)
-		win.parent = nil
+		win.ParentPtr = nil
 	}
 	return 0
 }
