@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go/ast"
+	"go/constant"
 	"go/parser"
 	"go/token"
 	"go/types"
@@ -199,4 +200,12 @@ func stmtCount(root ast.Node) int {
 		return true
 	})
 	return cnt
+}
+
+func evalInt(pkg *packages.Package, x ast.Expr) (int64, bool) {
+	offv := pkg.TypesInfo.Types[x].Value
+	if offv == nil || offv.Kind() != constant.Int {
+		return 0, false
+	}
+	return constant.Int64Val(offv)
 }

@@ -293,12 +293,20 @@ func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool
 	switch xt := xt.(type) {
 	case *types.Basic:
 		if xt.Info()&types.IsUntyped != 0 {
+			if isPointer(t) {
+				if v, ok := evalInt(pkg, x); ok && v == 0 {
+					*p = ast.NewIdent("nil")
+					*changed = true
+					return
+				}
+			}
 			return
 		}
 	}
 	if types.ConvertibleTo(xt, t) {
 		*p = &ast.CallExpr{Fun: maybeParen(astType(pkg, t)), Args: []ast.Expr{x}}
 		*changed = true
+		return
 	}
 }
 
