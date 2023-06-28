@@ -30,6 +30,18 @@ func main() {
 }
 
 func run() error {
+	for i := 0; i < 10; i++ {
+		changed, err := runOnce()
+		if err != nil {
+			return err
+		} else if !changed {
+			break
+		}
+	}
+	return nil
+}
+
+func runOnce() (bool, error) {
 	fs := token.NewFileSet()
 	pkgs, err := packages.Load(&packages.Config{
 		Mode: packages.NeedName |
@@ -43,24 +55,27 @@ func run() error {
 		Fset: fs,
 	}, ".")
 	if err != nil {
-		return err
+		return false, err
 	} else if len(pkgs) != 1 {
-		return fmt.Errorf("unexpected packages")
+		return false, fmt.Errorf("unexpected packages")
 	}
 	pkg := pkgs[0]
 	if len(pkg.CompiledGoFiles) != len(pkg.Syntax) {
-		return fmt.Errorf("unexpected list of files")
+		return false, fmt.Errorf("unexpected list of files")
 	}
+	anyChanged := false
 	for i, f := range pkg.Syntax {
 		fname := pkg.CompiledGoFiles[i]
-		if err := processFile(pkg, fname, f); err != nil {
-			return err
+		changed, err := processFile(pkg, fname, f)
+		if err != nil {
+			return false, err
 		}
+		anyChanged = anyChanged || changed
 	}
-	return nil
+	return anyChanged, nil
 }
 
-func processFile(pkg *packages.Package, fname string, f *ast.File) error {
+func processFile(pkg *packages.Package, fname string, f *ast.File) (bool, error) {
 	changed := false
 	ast.Inspect(f, func(n ast.Node) bool {
 		switch n := n.(type) {
@@ -68,38 +83,44 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) error {
 			if len(n.Args) == 1 {
 				changed = fixUnsafeAdd(pkg, n) || changed
 			}
+			for i := range n.Args {
+				simplifyExpr(pkg, &n.Args[i], &changed)
+			}
 			if ft, ok := pkg.TypesInfo.TypeOf(n.Fun).(*types.Signature); ok && len(n.Args) == ft.Params().Len() {
 				for i := range n.Args {
-					simplifyExpr(pkg, &n.Args[i], &changed)
 					expectType(pkg, ft.Params().At(i).Type(), &n.Args[i], &changed)
 				}
 			}
 		case *ast.AssignStmt:
-			if n.Tok != token.DEFINE && len(n.Lhs) == len(n.Rhs) {
+			if len(n.Lhs) == len(n.Rhs) {
 				for i := range n.Lhs {
 					simplifyExpr(pkg, &n.Lhs[i], &changed)
 					simplifyExpr(pkg, &n.Rhs[i], &changed)
-					t := pkg.TypesInfo.TypeOf(n.Lhs[i])
-					if t == nil {
-						continue
+				}
+				if n.Tok != token.DEFINE {
+					for i := range n.Lhs {
+						t := pkg.TypesInfo.TypeOf(n.Lhs[i])
+						if t == nil {
+							continue
+						}
+						expectType(pkg, t, &n.Rhs[i], &changed)
 					}
-					expectType(pkg, t, &n.Rhs[i], &changed)
 				}
 			}
 		}
 		return true
 	})
 	if !changed {
-		return nil
+		return false, nil
 	}
 	w, err := os.Create(fname)
 	if err != nil {
-		return err
+		return false, err
 	}
 	defer w.Close()
 	err = format.Node(w, pkg.Fset, f)
 	log.Println(filepath.Base(fname))
-	return err
+	return err == nil, err
 }
 
 func unwrapParen(x ast.Expr) ast.Expr {
@@ -368,7 +389,7 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	switch px := ptr.(type) {
 	case *ast.CallExpr:
 		if len(px.Args) == 0 {
-			if dot, ok := px.Fun.(*ast.SelectorExpr); ok && dot.Sel.Name == "C" {
+			if dot, ok := unwrapParen(px.Fun).(*ast.SelectorExpr); ok && dot.Sel.Name == "C" {
 				ptr = dot.X
 			}
 		} else if len(px.Args) == 1 {
@@ -393,13 +414,13 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	if !ok {
 		return
 	}
-	if x := fieldForOff(pkg, st, ptr, off); x != nil {
+	if x := fieldForOff(pkg, st, ptr, off, pkg.TypesSizes.Sizeof(ct)); x != nil {
 		*p = x
 		*changed = true
 	}
 }
 
-func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off int64) ast.Expr {
+func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off, sz int64) ast.Expr {
 	if pkg.TypesSizes.Sizeof(st) <= off {
 		return nil
 	}
@@ -424,19 +445,19 @@ func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off int64)
 	x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
 	nt, ok := fld.Type().(*types.Named)
 	if !ok {
-		if doff == 0 {
+		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
 			return x
 		}
 		return nil
 	}
 	st2, ok := nt.Underlying().(*types.Struct)
 	if !ok {
-		if doff == 0 {
+		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
 			return x
 		}
 		return nil
 	}
-	return fieldForOff(pkg, st2, x, doff)
+	return fieldForOff(pkg, st2, x, doff, sz)
 }
 
 func fullNameOf(x ast.Expr) string {
