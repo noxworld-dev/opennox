@@ -79,6 +79,17 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) (bool, error)
 	changed := false
 	ast.Inspect(f, func(n ast.Node) bool {
 		switch n := n.(type) {
+		case *ast.ParenExpr:
+			simplifyExpr(pkg, &n.X, &changed)
+		case *ast.StarExpr:
+			simplifyExpr(pkg, &n.X, &changed)
+		case *ast.UnaryExpr:
+			simplifyExpr(pkg, &n.X, &changed)
+		case *ast.BinaryExpr:
+			simplifyExpr(pkg, &n.X, &changed)
+			simplifyExpr(pkg, &n.Y, &changed)
+		case *ast.IncDecStmt:
+			simplifyExpr(pkg, &n.X, &changed)
 		case *ast.CallExpr:
 			if len(n.Args) == 1 {
 				changed = fixUnsafeAdd(pkg, n) || changed
