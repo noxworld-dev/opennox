@@ -1661,7 +1661,7 @@ func sub_4532E0() {
 	v0 := nox_xxx_guiFontHeightMB_43F320(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1045464.C(), 236))) + 1
 	sub_46AB20(dword_5d4594_1045464, int32(dword_5d4594_1045464.SizeVal.X), v0*15+2)
 	v1 := int32(1520)
-	v2 := int32(dword_5d4594_1045464.Off.Y + uint32(v0) + 2)
+	v2 := int32(dword_5d4594_1045464.Off.Y + int(uint32(v0)) + 2)
 	for {
 		result := (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, v1)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)) = uint32(v2)
@@ -1942,7 +1942,7 @@ func sub_453B00() *uint32 {
 	sub_46AB20(dword_5d4594_1045480, int32(dword_5d4594_1045480.SizeVal.X), v0*15+2)
 	sub_46AB20(dword_5d4594_1045508, int32(dword_5d4594_1045508.SizeVal.X), v0*15+2)
 	v1 = 1120
-	v2 = int32(dword_5d4594_1045480.Off.Y + uint32(v0) + 2)
+	v2 = int32(dword_5d4594_1045480.Off.Y + int(uint32(v0)) + 2)
 	for {
 		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, v1)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)) = uint32(v2)
@@ -2759,9 +2759,9 @@ func sub_455A50(a1 int8) {
 		}
 	}
 	if int32(*memmap.PtrUint8(0x5D4594, 1045628)) <= 4 {
-		v4 = int32(uint32(cur_w) - dword_5d4594_1045604.SizeVal.X/2)
+		v4 = int32(int(uint32(cur_w)) - dword_5d4594_1045604.SizeVal.X/2)
 	} else {
-		v4 = int32(uint32(cur_w) - dword_5d4594_1045604.SizeVal.X)
+		v4 = int32(int(uint32(cur_w)) - dword_5d4594_1045604.SizeVal.X)
 	}
 	dword_5d4594_1045604.Off.X = int(uint32(v4 - 91))
 	dword_5d4594_1045604.EndPos.X = dword_5d4594_1045604.SizeVal.X + dword_5d4594_1045604.Off.X
@@ -2773,10 +2773,10 @@ func sub_455A50(a1 int8) {
 			}
 			dword_5d4594_1045604.Off.Y = int(uint32(cur_h - int32(*memmap.PtrUint8(0x5D4594, 1045628))*40))
 		} else {
-			dword_5d4594_1045604.Off.Y = int(uint32(cur_h - dword_5d4594_1045604.SizeVal.Y/2))
+			dword_5d4594_1045604.Off.Y = int(cur_h) - dword_5d4594_1045604.SizeVal.Y/2
 		}
 	} else {
-		dword_5d4594_1045604.Off.Y = int(uint32(cur_h) - dword_5d4594_1045604.SizeVal.Y)
+		dword_5d4594_1045604.Off.Y = int(uint32(cur_h)) - dword_5d4594_1045604.SizeVal.Y
 	}
 	dword_5d4594_1045604.EndPos.Y = dword_5d4594_1045604.SizeVal.Y + dword_5d4594_1045604.Off.Y
 	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1045604)
@@ -2860,7 +2860,7 @@ func sub_455F60() {
 			v2 = v5
 		}
 		dword_5d4594_1045640 = 1
-		dword_5d4594_1045636.Off.X = int(uint32(v1) - dword_5d4594_1045636.SizeVal.X/3 - 91)
+		dword_5d4594_1045636.Off.X = int(uint32(v1)) - dword_5d4594_1045636.SizeVal.X/3 - 91
 		dword_5d4594_1045636.EndPos.X = dword_5d4594_1045636.SizeVal.X + dword_5d4594_1045636.Off.X
 		dword_5d4594_1045636.Off.Y = int(uint32(v2 - 120))
 		dword_5d4594_1045636.EndPos.Y = dword_5d4594_1045636.SizeVal.Y + dword_5d4594_1045636.Off.Y
@@ -3777,7 +3777,7 @@ func sub_45A9B0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 				} else {
 					v3 = 100
 				}
-				v16 = (*(*int32)(unsafe.Add(a1, 12)) - v18.World.Max.X - *(*int32)(unsafe.Pointer(v18))) * 50 / (nox_win_width / 2)
+				v16 = int32((int(*(*int32)(unsafe.Add(a1, 12))) - v18.World.Max.X - int(*(*int32)(unsafe.Pointer(v18)))) * 50 / int(nox_win_width/2))
 			}
 		}
 		v2 = a1
@@ -5602,7 +5602,7 @@ func nox_xxx_quickbarDrawFn_460000(win *gui.Window, draw *gui.WindowData) int {
 		v1 int32
 	)
 	v0 = int32(dword_5d4594_1049504.Off.Y)
-	v1 = int32(dword_5d4594_1049504.Off.Y - dword_5d4594_1049536)
+	v1 = int32(dword_5d4594_1049504.Off.Y - int(dword_5d4594_1049536))
 	if v1 >= 0 {
 		if v1 <= 0 {
 			if dword_5d4594_1049536 > uint32(nox_win_height) {

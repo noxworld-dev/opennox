@@ -2182,7 +2182,7 @@ func nox_client_invAlterWeapon_4672C0() {
 	}
 	v3 := dword_5d4594_1062480
 	if dword_5d4594_1062480 != nil {
-		if nox_xxx_ammoCheck_415880(uint16(uintptr(unsafe.Pointer(dword_5d4594_1062480.field_0.Field_27)))) == 2 {
+		if nox_xxx_ammoCheck_415880(uint16(dword_5d4594_1062480.field_0.Field_27)) == 2 {
 			v4 := sub_415840(2)
 			r4 := sub_461600(v4)
 			if r4 == nil {

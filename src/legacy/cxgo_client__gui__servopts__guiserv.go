@@ -150,7 +150,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		}
 		dword_5d4594_1046492 = nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+129760)), nox_xxx_guiServerOptionsProcPre_4585D0)
 		nox_draw_setTabWidth_43FE20(100)
-		nox_window_setPos_46A9B0(dword_5d4594_1046492, int32(uint32(nox_win_width)-dword_5d4594_1046492.SizeVal.X-10), 0)
+		nox_window_setPos_46A9B0(dword_5d4594_1046492, int32(int(uint32(nox_win_width))-dword_5d4594_1046492.SizeVal.X-10), 0)
 		nox_xxx_wndSetWindowProc_46B300(dword_5d4594_1046492, nox_xxx_guiServerOptionsProc_458590)
 		nox_xxx_wndSetDrawFn_46B340(dword_5d4594_1046492, nox_xxx_windowServerOptionsDrawProc_458500)
 		dword_5d4594_1046512 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10101)

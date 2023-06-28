@@ -20,7 +20,7 @@ func sub_49C820() int32 {
 	sub_46C690(dword_5d4594_1305684)
 	nox_xxx_windowFocus_46B500(dword_5d4594_1305684)
 	sub_49C910()
-	nox_window_setPos_46A9B0(dword_5d4594_1305684, nox_win_width/2-dword_5d4594_1305684.SizeVal.X/2, nox_win_height/2-dword_5d4594_1305684.SizeVal.Y/2)
+	nox_window_setPos_46A9B0(dword_5d4594_1305684, int32(int(nox_win_width/2)-dword_5d4594_1305684.SizeVal.X/2), int32(int(nox_win_height/2)-dword_5d4594_1305684.SizeVal.Y/2))
 	nox_xxx_guiServerOptsLoad_457500()
 	sub_459D80(1)
 	v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)))
