@@ -92,7 +92,7 @@ func sub_4617C0(a1 int32, a2 int32, a3 unsafe.Pointer, a4 *int2) int32 {
 						a4.field_0 = v7
 						a4.field_4 = v8
 					}
-					if sub_461930() != 0 && dword_5d4594_1062480 == 0 {
+					if sub_461930() != 0 && dword_5d4594_1062480 == nil {
 						if (func() uint32 {
 							v13 = int32(*(*uint32)(unsafe.Pointer(v9)))
 							v14 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v9)), 112)))
@@ -415,7 +415,7 @@ func sub_4627F0(a1 *uint32) int32 {
 	nox_client_setCursorType_477610(6)
 LABEL_14:
 	result = int32(dword_5d4594_1063116)
-	if dword_5d4594_1063116 == 0 {
+	if dword_5d4594_1063116 == nil {
 		if dword_5d4594_1063120 != 0 {
 			dword_5d4594_1063120 = 0
 			v5 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2529)
@@ -1360,7 +1360,7 @@ func sub_4661D0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 		v0 *wchar2_t
 		v2 *wchar2_t
 	)
-	if dword_5d4594_1062480 != 0 {
+	if dword_5d4594_1062480 != nil {
 		v0 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(*dword_5d4594_1062480)))
 		nox_xxx_cursorSetTooltip_4776B0(v0)
 	} else {
@@ -1574,7 +1574,7 @@ func sub_467750(a1 int32, a2 int8) int32 {
 	if a1 != 0 {
 		var v2 *uint32 = (*uint32)(unsafe.Pointer(sub_461EF0(a1)))
 		if v2 != nil {
-			if dword_5d4594_1062480 != 0 {
+			if dword_5d4594_1062480 != nil {
 				*(*uint32)(unsafe.Add(dword_5d4594_1062480, 136)) = 0
 			}
 			dword_5d4594_1062480 = *v2
@@ -1582,7 +1582,7 @@ func sub_467750(a1 int32, a2 int8) int32 {
 			return 1
 		}
 	} else {
-		if dword_5d4594_1062480 != 0 {
+		if dword_5d4594_1062480 != nil {
 			*(*uint32)(unsafe.Add(dword_5d4594_1062480, 136)) = 0
 			dword_5d4594_1062480 = nil
 		}

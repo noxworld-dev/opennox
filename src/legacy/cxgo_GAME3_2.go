@@ -3115,7 +3115,7 @@ func sub_4D6170(a1 unsafe.Pointer) int32 {
 		v2     int32
 	)
 	result = a1
-	if a1 != 0 {
+	if a1 != nil {
 		if (int32(*(*uint8)(unsafe.Add(a1, 16))) & 0x20) != 32 {
 			v2 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 4664))++

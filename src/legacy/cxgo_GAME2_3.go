@@ -5463,7 +5463,7 @@ func sub_49CA60(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 	return 1
 }
 func sub_49CB40() int32 {
-	return bool2int32(dword_5d4594_1305684 != 0)
+	return bool2int32(dword_5d4594_1305684 != nil)
 }
 func sub_49CD30(xLeft int32, yTop int32, a3 int32, a4 int32, a5 int32, a6 int32) {
 	var rc image.Rectangle

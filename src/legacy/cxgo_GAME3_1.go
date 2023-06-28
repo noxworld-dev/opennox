@@ -862,7 +862,7 @@ func nox_xxx_windowAdvancedServProc_4BDDB0(a1 *gui.Window, a2, a3, a4 uintptr) u
 		sub_4BDF30()
 		return 1
 	case 10164:
-		if dword_5d4594_1316712 != 0 {
+		if dword_5d4594_1316712 != nil {
 			nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(dword_5d4594_1316712))
 			dword_5d4594_1316712 = nil
 		}
@@ -870,7 +870,7 @@ func nox_xxx_windowAdvancedServProc_4BDDB0(a1 *gui.Window, a2, a3, a4 uintptr) u
 		sub_4BDD10()
 		result = 1
 	case 10165:
-		if dword_5d4594_1316712 != 0 {
+		if dword_5d4594_1316712 != nil {
 			nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(dword_5d4594_1316712))
 			dword_5d4594_1316712 = nil
 		}
@@ -878,7 +878,7 @@ func nox_xxx_windowAdvancedServProc_4BDDB0(a1 *gui.Window, a2, a3, a4 uintptr) u
 		sub_4BDD10()
 		result = 1
 	case 10166:
-		if dword_5d4594_1316712 != 0 {
+		if dword_5d4594_1316712 != nil {
 			nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(dword_5d4594_1316712))
 			dword_5d4594_1316712 = nil
 		}
@@ -886,7 +886,7 @@ func nox_xxx_windowAdvancedServProc_4BDDB0(a1 *gui.Window, a2, a3, a4 uintptr) u
 		sub_4BDD10()
 		result = 1
 	case 10167:
-		if dword_5d4594_1316712 != 0 {
+		if dword_5d4594_1316712 != nil {
 			nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(dword_5d4594_1316712))
 			dword_5d4594_1316712 = nil
 		}
@@ -901,7 +901,7 @@ func nox_xxx_windowAdvancedServProc_4BDDB0(a1 *gui.Window, a2, a3, a4 uintptr) u
 func sub_4BDF30() int32 {
 	var result int32
 	result = int32(dword_5d4594_1316708)
-	if dword_5d4594_1316708 != 0 {
+	if dword_5d4594_1316708 != nil {
 		nox_xxx_wnd_46C6E0(dword_5d4594_1316708)
 		nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1316708)
 		dword_5d4594_1316708 = nil
@@ -913,7 +913,7 @@ func sub_4BDF30() int32 {
 func sub_4BDF70(a1 *int32) int32 {
 	var result int32
 	result = dword_5d4594_1316708
-	if dword_5d4594_1316708 != 0 {
+	if dword_5d4594_1316708 != nil {
 		result = sub_4BDF90(a1)
 	}
 	return result

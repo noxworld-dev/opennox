@@ -1366,7 +1366,7 @@ func sub_57A1E0(a1 *int32, a2 *byte, a3 *int32, a4 int8, a5 int16) int8 {
 			sub_57A3F0(&v14[0], int32(uintptr(unsafe.Pointer(a1))), int32(uintptr(unsafe.Pointer(v5))), v6)
 		}
 	}
-	if dword_5d4594_2650652 != 0 && int32(a4)&4 != 0 {
+	if dword_5d4594_2650652 != nil && int32(a4)&4 != 0 {
 		sub_57A3F0(internCStr("internet.rul"), int32(uintptr(unsafe.Pointer(a1))), int32(uintptr(unsafe.Pointer(v5))), v6)
 	}
 	result = int8(a5)
@@ -1651,7 +1651,7 @@ func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 		v3 = nox_fs_create_text(&FileName[0])
 		v4 = v3
 		if v3 != nil {
-			if dword_5d4594_2650652 != 0 {
+			if dword_5d4594_2650652 != nil {
 				libc.StrCpy(&v21[0], a2)
 				libc.StrCpy(&v19[0], a2)
 				sub_57A1E0((*int32)(unsafe.Pointer(&v21[0])), nil, nil, 4, int16(*((*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*26)))))
@@ -1669,7 +1669,7 @@ func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 			v7 = 1
 			v8 = 136
 			for {
-				if nox_xxx_spellIsValid_424B50(v7) && sub_454000(unsafe.Add(unsafe.Pointer(a2), 24), v7) == 0 && nox_xxx_spellFlags_424A70(v7)&0x7000000 != 0 && (dword_5d4594_2650652 == 0 || sub_454000(unsafe.Pointer(&v22[0]), v7) != 0 || sub_454000(unsafe.Pointer(&v20[0]), v7) == 0) {
+				if nox_xxx_spellIsValid_424B50(v7) && sub_454000(unsafe.Add(unsafe.Pointer(a2), 24), v7) == 0 && nox_xxx_spellFlags_424A70(v7)&0x7000000 != 0 && (dword_5d4594_2650652 == nil || sub_454000(unsafe.Pointer(&v22[0]), v7) != 0 || sub_454000(unsafe.Pointer(&v20[0]), v7) == 0) {
 					v9 = nox_xxx_spellNameByN_424870(v7)
 					nox_sprintf(&v23[0], internCStr("%s %s \"%s\" %s\n"), "set", "spell", v9, "off")
 					nox_fs_fputs(v4, &v23[0])
@@ -1802,7 +1802,7 @@ func sub_57B0A0() {
 		nox_xxx_netSendPointFx_522FF0(-102, (*types.Pointf)(unsafe.Add(dword_5d4594_2523780, 56)))
 		v1 = (*uint32)(dword_5d4594_2523780)
 	}
-	if dword_5d4594_2523776 != 0 {
+	if dword_5d4594_2523776 != nil {
 		nox_xxx_delayedDeleteObject_4E5CC0(dword_5d4594_2523776)
 		v1 = (*uint32)(dword_5d4594_2523780)
 	}

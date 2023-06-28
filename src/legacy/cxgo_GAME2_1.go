@@ -2854,7 +2854,7 @@ func sub_46A820(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 func sub_46A860() int32 {
 	var result int32
 	result = int32(dword_5d4594_1064856)
-	if dword_5d4594_1064856 != 0 {
+	if dword_5d4594_1064856 != nil {
 		result = nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1064856)
 		dword_5d4594_1064856 = nil
 	}
@@ -2955,7 +2955,7 @@ func sub_46B630(a1p *gui.Window, a2 int32, a3 int32) *gui.Window {
 		j      int32
 	)
 	result = a1
-	if a1 != 0 {
+	if a1 != nil {
 	LABEL_2:
 		for i = int32(*(*uint32)(unsafe.Add(result, 400))); i != 0; i = int32(*(*uint32)(unsafe.Add(i, 388))) {
 			v5 = *(**uint32)(unsafe.Add(i, 396))

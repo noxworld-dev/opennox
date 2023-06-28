@@ -4972,7 +4972,7 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 		if v8 != nil {
 			nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v8), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*13)))+1))
 		}
-		if dword_5d4594_2650652 != 0 {
+		if dword_5d4594_2650652 != nil {
 			if v3 != 0 {
 				sub_425CA0(int32(*(*uint32)(unsafe.Add(v3, 276))), int32(*(*uint32)(unsafe.Add(v3, 276))))
 			}
@@ -4985,7 +4985,7 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 				if v4 == v8 {
 					nox_xxx_playerSubLessons_4D8EC0(a2, 1)
 					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
-					if dword_5d4594_2650652 != 0 && v3 != 0 {
+					if dword_5d4594_2650652 != nil && v3 != 0 {
 						sub_425CA0(int32(*(*uint32)(unsafe.Add(v3, 276))), int32(*(*uint32)(unsafe.Add(v3, 276))))
 					}
 					goto LABEL_32
@@ -4993,14 +4993,14 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 			} else if v8 == nil {
 				nox_xxx_changeScore_4D8E90(a2, 1)
 				nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
-				if dword_5d4594_2650652 != 0 && v3 != 0 && v9 != 0 {
+				if dword_5d4594_2650652 != nil && v3 != 0 && v9 != 0 {
 					sub_425CA0(int32(*(*uint32)(unsafe.Add(v3, 276))), int32(*(*uint32)(unsafe.Add(v9, 276))))
 				}
 				goto LABEL_32
 			}
 			nox_xxx_changeScore_4D8E90(a2, 1)
 			nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
-			if dword_5d4594_2650652 != 0 {
+			if dword_5d4594_2650652 != nil {
 				if v3 != 0 && v9 != 0 {
 					v5 = int32(*(*uint32)(unsafe.Add(v3, 276)))
 					v7 = int32(*(*uint32)(unsafe.Add(v9, 276)))
@@ -5009,7 +5009,7 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 				}
 			}
 		}
-	} else if dword_5d4594_2650652 != 0 && v9 != 0 {
+	} else if dword_5d4594_2650652 != nil && v9 != 0 {
 		v5 = int32(*(*uint32)(unsafe.Add(v9, 276)))
 		v7 = int32(*(*uint32)(unsafe.Add(v9, 276)))
 		sub_425CA0(v5, v7)
@@ -5075,7 +5075,7 @@ func nox_xxx_playerUpdateScore_54D980(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 u
 				nox_xxx_playerSubLessons_4D8EC0(a2, 1)
 				nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
 				nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v5), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*13)))-1))
-				if dword_5d4594_2650652 == 0 || v6 == 0 {
+				if dword_5d4594_2650652 == nil || v6 == 0 {
 					nox_xxx_playerIncrementElimDeath_4D8D40(v4)
 					result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
 					v9 = v14
@@ -5092,7 +5092,7 @@ func nox_xxx_playerUpdateScore_54D980(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 u
 		} else if v14 == nil {
 			nox_xxx_changeScore_4D8E90(a2, 1)
 			nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
-			if dword_5d4594_2650652 == 0 || v6 == 0 || v17 == 0 {
+			if dword_5d4594_2650652 == nil || v6 == 0 || v17 == 0 {
 				nox_xxx_playerIncrementElimDeath_4D8D40(v4)
 				result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
 				v9 = v14
@@ -5109,7 +5109,7 @@ func nox_xxx_playerUpdateScore_54D980(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 u
 		nox_xxx_changeScore_4D8E90(a2, 1)
 		nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
 		nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v5), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*13)))+1))
-		if dword_5d4594_2650652 != 0 && v6 != 0 && v17 != 0 {
+		if dword_5d4594_2650652 != nil && v6 != 0 && v17 != 0 {
 			sub_425CA0(int32(*(*uint32)(unsafe.Add(v6, 276))), int32(*(*uint32)(unsafe.Add(v17, 276))))
 		}
 		nox_xxx_playerIncrementElimDeath_4D8D40(v4)
@@ -5130,7 +5130,7 @@ LABEL_31:
 	if v14 != nil {
 		nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v14), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*13)))-1))
 	}
-	if dword_5d4594_2650652 != 0 && v6 != 0 {
+	if dword_5d4594_2650652 != nil && v6 != 0 {
 		sub_425CA0(int32(*(*uint32)(unsafe.Add(v6, 276))), int32(*(*uint32)(unsafe.Add(v6, 276))))
 	}
 LABEL_36:
@@ -5231,7 +5231,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 				if v2 != nil {
 					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v2), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13)))-1))
 				}
-				if dword_5d4594_2650652 == 0 || v5 == 0 {
+				if dword_5d4594_2650652 == nil || v5 == 0 {
 					nox_xxx_playerIncrementElimDeath_4D8D40(a1)
 					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))
 					return
@@ -5250,7 +5250,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 						v11 = int32(v15)
 						nox_xxx_changeScore_4D8E90(a2, v11)
 						nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
-						if dword_5d4594_2650652 != 0 && v5 != 0 && v16 != 0 {
+						if dword_5d4594_2650652 != nil && v5 != 0 && v16 != 0 {
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(v5, 276))), int32(*(*uint32)(unsafe.Add(v16, 276))))
 						}
 						if !nox_xxx_CheckGameplayFlags_417DA0(4) && nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
@@ -5272,7 +5272,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 					nox_xxx_changeScore_4D8E90(a2, v7)
 					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v2), int32(uint32(v7)+*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13)))))
 					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
-					if dword_5d4594_2650652 != 0 && v5 != 0 {
+					if dword_5d4594_2650652 != nil && v5 != 0 {
 						if v16 != 0 {
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(v5, 276))), int32(*(*uint32)(unsafe.Add(v16, 276))))
 						}
@@ -5287,7 +5287,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 					nox_xxx_changeScore_4D8E90(a2, v8)
 					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v2), int32(uint32(v8)+*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13)))))
 					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
-					return dword_5d4594_2650652 == 0
+					return dword_5d4594_2650652 == nil
 				}()) || v5 == 0 || v16 == 0 {
 					nox_xxx_playerIncrementElimDeath_4D8D40(a1)
 					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))

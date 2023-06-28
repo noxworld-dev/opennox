@@ -14,7 +14,7 @@ func sub_455C30() int32 {
 		v2     *wchar2_t
 		v3     *wchar2_t
 	)
-	if dword_5d4594_1045604 != 0 {
+	if dword_5d4594_1045604 != nil {
 		return 1
 	}
 	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GUI_CTF.wnd"), nil))))

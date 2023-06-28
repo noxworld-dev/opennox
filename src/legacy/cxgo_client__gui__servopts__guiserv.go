@@ -133,7 +133,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		v15 *uint32
 	)
 	if nox_gui_xxx_check_446360() == 0 {
-		if dword_5d4594_1046492 != 0 {
+		if dword_5d4594_1046492 != nil {
 			nox_xxx_clientPlaySoundSpecial_452D80(231, 100)
 			nox_xxx_guiServerOptionsTryHide_4574D0()
 			return 1
@@ -581,15 +581,15 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 			v16 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a3), 396)))
 			sub_46B120((*gui.Window)(unsafe.Pointer(a3)), nil)
 			sub_46B120((*gui.Window)(unsafe.Pointer(a3)), (*gui.Window)(v16))
-			if dword_5d4594_1046532 != 0 {
+			if dword_5d4594_1046532 != nil {
 				sub_456D60(1)
 				dword_5d4594_1046532 = nil
 			}
-			if dword_5d4594_1046528 != 0 {
+			if dword_5d4594_1046528 != nil {
 				sub_4557D0(1)
 				dword_5d4594_1046528 = nil
 			}
-			if dword_5d4594_1046536 != 0 {
+			if dword_5d4594_1046536 != nil {
 				sub_4AD820()
 				dword_5d4594_1046540 = nil
 			}
@@ -758,7 +758,7 @@ func sub_459CD0() int32 {
 		v4     int32
 	)
 	result = int32(dword_5d4594_1046492)
-	if dword_5d4594_1046492 != 0 {
+	if dword_5d4594_1046492 != nil {
 		if sub_40A740() != 0 || noxflags.HasGame(0x8000) {
 			v1 = uint8(sub_417DE0())
 		} else {

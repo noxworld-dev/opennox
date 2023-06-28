@@ -4493,7 +4493,7 @@ func nox_xxx_pickupFlagCtf_4EA490(a1 unsafe.Pointer, a2p unsafe.Pointer) {
 				if nox_xxx_servObjectHasTeam_419130(unsafe.Add(v3, 48)) != 0 {
 					v10 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(v3, 52))))))
 					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v10), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*13))+1))
-					if dword_5d4594_2650652 != 0 {
+					if dword_5d4594_2650652 != nil {
 						if a2 != nil {
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(a2, 276))), nil)
 						}
@@ -4641,7 +4641,7 @@ func sub_4EA800(a1 unsafe.Pointer, a2 unsafe.Pointer) int16 {
 				nox_xxx_changeScore_4D8E90(v7, 1)
 				nox_xxx_netReportLesson_4D8EF0((*server.Object)(v7))
 				nox_xxx_netChangeTeamID_419090(v6, int32(*(*uint32)(unsafe.Add(v6, 52))+1))
-				if dword_5d4594_2650652 != 0 {
+				if dword_5d4594_2650652 != nil {
 					v9 = int32(*(*uint32)(unsafe.Add(v7, 748)))
 					if v9 != 0 {
 						sub_425CA0(int32(*(*uint32)(unsafe.Add(v9, 276))), nil)
@@ -5399,7 +5399,7 @@ func nox_xxx_collideHomeBase_4EBB80(obj *server.Object, obj2 *server.Object, pos
 			}
 			if v5 != nil {
 				nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v5), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*13))+1))
-				if dword_5d4594_2650652 != 0 {
+				if dword_5d4594_2650652 != nil {
 					v7 = *v4
 					if v7 != 0 {
 						v8 = int32(*(*uint32)(unsafe.Add(v7, 748)))

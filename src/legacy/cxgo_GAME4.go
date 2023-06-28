@@ -1484,7 +1484,7 @@ func nox_xxx_playerRespawn_4F7EF0(a1p *server.Object) int16 {
 			} else {
 				nox_xxx_aud_501960(148, (*server.Object)(a1), 0, 0)
 			}
-			if dword_5d4594_2650652 == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 58)) != 0 {
+			if dword_5d4594_2650652 == nil || *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 58)) != 0 {
 				nox_xxx_respawnPlayerImpl_53FBC0((*float32)(unsafe.Add(a1, 56)), int32(*(*int16)(unsafe.Add(a1, 124))))
 			}
 			v5 = *(*float32)(unsafe.Add(a1, 60))
@@ -2202,7 +2202,7 @@ func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) bool {
 		}
 		nox_xxx_playerBotCreate_4FA700(obj)
 		nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 0)
-		if dword_5d4594_2650652 == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 58)) != 0 {
+		if dword_5d4594_2650652 == nil || *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 58)) != 0 {
 			nox_xxx_respawnPlayerImpl_53FBC0((*float32)(unsafe.Add(a1, 56)), int32(*(*int16)(unsafe.Add(a1, 124))))
 		}
 		nox_xxx_mapFindPlayerStart_4F7AB0(&v4, obj)
@@ -2221,7 +2221,7 @@ func nox_xxx_netSendRewardNotify_4FAD50(a1 unsafe.Pointer, a2 int32, a3 unsafe.P
 		v6     [5]byte
 	)
 	result = a1
-	if a1 != 0 && int32(*(*uint8)(unsafe.Add(a1, 8)))&4 != 0 {
+	if a1 != nil && int32(*(*uint8)(unsafe.Add(a1, 8)))&4 != 0 {
 		v5 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 		v6[0] = 240
 		if a2 != 0 {
@@ -2488,7 +2488,7 @@ func nox_xxx_spellCastByBook_4FCB80() {
 			v19 = (*byte)(sub_416640())
 			*(*uint8)(unsafe.Pointer(&v27)) = uint8(nox_xxx_spellPhonemes_424A20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v0+int32(*(*uint8)(unsafe.Add(v0, 28)))*4)), 8))), int32(*(*uint8)(unsafe.Add(v0, 36)))))
 			v20 = uint8(int8(v27))
-			if dword_5d4594_2650652 == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v19), 62)) != 0 {
+			if dword_5d4594_2650652 == nil || *(*uint32)(unsafe.Add(unsafe.Pointer(v19), 62)) != 0 {
 				sub_4FC960(int32(*(*uint32)(unsafe.Add(v0, 4))), int8(v27))
 			}
 			v21 = int32(uintptr(nox_xxx_updateSpellRelated_424830(*(*unsafe.Pointer)(unsafe.Add(v0, 32)), int32(v20))))
@@ -3834,7 +3834,7 @@ func sub_4FF7B0(a1p *server.Player) {
 	v2 = 1 << int32(v1)
 	if int32(v1) != 31 {
 		v3 = (*uint32)(dword_5d4594_1569752)
-		if dword_5d4594_1569752 != 0 {
+		if dword_5d4594_1569752 != nil {
 			for {
 				if int32(*(*uint8)(unsafe.Add(a1, 3680)))&0x10 != 0 {
 					if (uint32(v2) & *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4))) == 0 {
@@ -3864,7 +3864,7 @@ func nox_xxx_wallDestroyMagicwallSysuse_4FF840(a1 int32) int32 {
 		v2     int32
 	)
 	result = int32(dword_5d4594_1569752)
-	if dword_5d4594_1569752 != 0 {
+	if dword_5d4594_1569752 != nil {
 		for {
 			v2 = int32(*(*uint32)(unsafe.Add(result, 24)))
 			if *(*uint32)(unsafe.Add(result, 8)) == uint32(a1) {
@@ -4152,7 +4152,7 @@ func nox_xxx_netWallCreate_4FFE80(a1 int32, a2 *uint8, a3 int32, a4 int8, a5 int
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*4)) = 0
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*7)) = 0
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*6)) = dword_5d4594_1569752
-		if dword_5d4594_1569752 != 0 {
+		if dword_5d4594_1569752 != nil {
 			*(*uint32)(unsafe.Add(dword_5d4594_1569752, 28)) = uint32(uintptr(unsafe.Pointer(result)))
 		}
 		dword_5d4594_1569752 = unsafe.Pointer(result)
@@ -4293,7 +4293,7 @@ func Nox_xxx_spellWallDestroy_500080(sp *server.DurSpell) int32 {
 		v2     int32
 	)
 	result = int32(dword_5d4594_1569752)
-	if dword_5d4594_1569752 != 0 {
+	if dword_5d4594_1569752 != nil {
 		for {
 			v2 = int32(*(*uint32)(unsafe.Add(result, 24)))
 			if *(*uint32)(unsafe.Add(result, 20)) == uint32(a1) {

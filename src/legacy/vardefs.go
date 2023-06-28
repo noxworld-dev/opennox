@@ -9,7 +9,7 @@ import (
 )
 
 func Sub_460D40() bool {
-	return dword_5d4594_1049508 != 0
+	return dword_5d4594_1049508 != nil
 }
 
 func Sub_4D7140(a1 uint32) {

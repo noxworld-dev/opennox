@@ -8833,7 +8833,7 @@ func nox_xxx_respawnPlayerImpl_53FBC0(a1 *float32, a2 int32) *uint32 {
 		if result == nil {
 			break
 		}
-		if dword_5d4594_2650652 != 0 {
+		if dword_5d4594_2650652 != nil {
 			if noxflags.HasGame(0x2000) {
 				v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4)))
 				*((*uint8)(unsafe.Pointer(&v7))) = uint8(int8(v7 | 0x40))
