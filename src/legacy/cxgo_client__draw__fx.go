@@ -59,29 +59,30 @@ func nox_xxx_makePointFxCli_499610(a1 int32, a2 int32, a3 int32, a4 int32, a5 in
 		v8     int32
 	)
 	result = a2
-	if a2 > 0 {
-		for {
-			v7 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a5, a6))))
-			v8 = v7
-			if v7 != 0 {
-				*(*uint32)(unsafe.Add(v7, 432)) = *(*uint32)(unsafe.Add(v7, 12)) << 12
-				*(*uint32)(unsafe.Add(v7, 436)) = *(*uint32)(unsafe.Add(v7, 16)) << 12
-				*(*uint8)(unsafe.Add(v7, 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 227)))
-				*(*uint32)(unsafe.Add(v8, 440)) = uint32(nox_common_randomIntMinMax_415FF0(1, a3, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 230))
-				*(*uint32)(unsafe.Add(v8, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(a4, 64, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 233))
-				*(*uint32)(unsafe.Add(v8, 444)) = gameFrame()
-				*(*uint16)(unsafe.Add(v8, 104)) = 0
-				*(*uint8)(unsafe.Add(v8, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 239)))
-				nox_xxx_sprite_45A110_drawable((*client.Drawable)(v8))
-			}
-			result = func() int32 {
-				p := &a2
-				*p--
-				return *p
-			}()
-			if a2 == 0 {
-				break
-			}
+	if a2 <= 0 {
+		return result
+	}
+	for {
+		v7 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a5, a6))))
+		v8 = v7
+		if v7 != 0 {
+			*(*uint32)(unsafe.Add(v7, 432)) = *(*uint32)(unsafe.Add(v7, 12)) << 12
+			*(*uint32)(unsafe.Add(v7, 436)) = *(*uint32)(unsafe.Add(v7, 16)) << 12
+			*(*uint8)(unsafe.Add(v7, 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 227)))
+			*(*uint32)(unsafe.Add(v8, 440)) = uint32(nox_common_randomIntMinMax_415FF0(1, a3, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 230))
+			*(*uint32)(unsafe.Add(v8, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(a4, 64, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 233))
+			*(*uint32)(unsafe.Add(v8, 444)) = gameFrame()
+			*(*uint16)(unsafe.Add(v8, 104)) = 0
+			*(*uint8)(unsafe.Add(v8, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(2, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 239)))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(v8))
+		}
+		result = func() int32 {
+			p := &a2
+			*p--
+			return *p
+		}()
+		if a2 == 0 {
+			break
 		}
 	}
 	return result
@@ -126,14 +127,15 @@ func sub_499950(a1 int32, a2 *int2, a3 *int2, a4 uint16, a5 int8) int32 {
 	)
 	result = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a2.field_0, a2.field_4))))
 	v6 = result
-	if result != 0 {
-		*(*uint32)(unsafe.Add(result, 104)) = uint32(a4)
-		*(*uint8)(unsafe.Add(result, 296)) = uint8(a5)
-		*(*uint16)(unsafe.Add(result, 440)) = a4
-		*(*uint8)(unsafe.Add(result, 442)) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 406)))
-		*(*int2)(unsafe.Add(v6, 432)) = *a3
-		nox_xxx_sprite_45A110_drawable((*client.Drawable)(v6))
+	if result == 0 {
+		return result
 	}
+	*(*uint32)(unsafe.Add(result, 104)) = uint32(a4)
+	*(*uint8)(unsafe.Add(result, 296)) = uint8(a5)
+	*(*uint16)(unsafe.Add(result, 440)) = a4
+	*(*uint8)(unsafe.Add(result, 442)) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 406)))
+	*(*int2)(unsafe.Add(v6, 432)) = *a3
+	nox_xxx_sprite_45A110_drawable((*client.Drawable)(v6))
 	return result
 }
 func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
@@ -161,41 +163,43 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 	v6 = int64(math.Sqrt(float64(v4*v4 + v5*v5)))
 	v7 = int32(v6)
 	v16 = int32(v6)
-	if int32(v6) > 0 {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(0, int32(v6), internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 437))
-		v8 = int32(v6)
-		v17 = (*int2)(v6)
-		if int32(v6) <= v7 {
-			for {
-				v9 = v3.field_0 + v4*v8/v7
-				v10 = v3.field_4 + v5*v8/v7
-				v11 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, v9, v10))))
-				v12 = v11
-				if v11 != 0 {
-					if v11 != -432 {
-						*(*uint32)(unsafe.Add(v11, 432)) = uint32(v9 << 12)
-						*(*uint32)(unsafe.Add(v11, 436)) = uint32(v10 << 12)
-						*(*uint8)(unsafe.Add(v11, 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 458)))
-						*(*uint32)(unsafe.Add(v12, 440)) = uint32(nox_common_randomIntMinMax_415FF0(1, 3000, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 461))
-						*(*uint32)(unsafe.Add(v12, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(5, 20, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 464))
-						*(*uint32)(unsafe.Add(v12, 444)) = gameFrame()
-					}
-					*(*uint16)(unsafe.Add(v12, 104)) = uint16(int16(nox_common_randomIntMinMax_415FF0(15, 30, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 471)))
-					*(*uint8)(unsafe.Add(v12, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(-4, 4, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 472)))
-					nox_xxx_sprite_45A110_drawable((*client.Drawable)(v12))
-					v7 = v16
-				}
-				*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(8, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 439))
-				v17 = (*int2)(unsafe.Add(unsafe.Pointer(v17), v6))
-				if int32(uintptr(unsafe.Pointer(v17))) > v7 {
-					break
-				}
-				v3 = a2
-				v4 = v14
-				v5 = v15
-				v8 = int32(uintptr(unsafe.Pointer(v17)))
+	if int32(v6) <= 0 {
+		return int32(v6)
+	}
+	*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(0, int32(v6), internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 437))
+	v8 = int32(v6)
+	v17 = (*int2)(v6)
+	if int32(v6) > v7 {
+		return int32(v6)
+	}
+	for {
+		v9 = v3.field_0 + v4*v8/v7
+		v10 = v3.field_4 + v5*v8/v7
+		v11 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, v9, v10))))
+		v12 = v11
+		if v11 != 0 {
+			if v11 != -432 {
+				*(*uint32)(unsafe.Add(v11, 432)) = uint32(v9 << 12)
+				*(*uint32)(unsafe.Add(v11, 436)) = uint32(v10 << 12)
+				*(*uint8)(unsafe.Add(v11, 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 458)))
+				*(*uint32)(unsafe.Add(v12, 440)) = uint32(nox_common_randomIntMinMax_415FF0(1, 3000, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 461))
+				*(*uint32)(unsafe.Add(v12, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(5, 20, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 464))
+				*(*uint32)(unsafe.Add(v12, 444)) = gameFrame()
 			}
+			*(*uint16)(unsafe.Add(v12, 104)) = uint16(int16(nox_common_randomIntMinMax_415FF0(15, 30, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 471)))
+			*(*uint8)(unsafe.Add(v12, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(-4, 4, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 472)))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(v12))
+			v7 = v16
 		}
+		*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(8, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 439))
+		v17 = (*int2)(unsafe.Add(unsafe.Pointer(v17), v6))
+		if int32(uintptr(unsafe.Pointer(v17))) > v7 {
+			break
+		}
+		v3 = a2
+		v4 = v14
+		v5 = v15
+		v8 = int32(uintptr(unsafe.Pointer(v17)))
 	}
 	return int32(v6)
 }
@@ -249,33 +253,34 @@ func sub_49A150(a1 *int2, a2 int32, a3 uint8) int32 {
 	v3 = int32(a3)*2400/math.MaxUint8 + 200
 	result = int32(uint32(a3) * 84215050)
 	v5 = int32(a3)*10/math.MaxUint8 + 5
-	if int32(a3)*180/math.MaxUint8+10 > 0 {
-		v8 = int32(a3)*180/math.MaxUint8 + 10
-		for {
-			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a2, a1.field_0, a1.field_4))))
-			v7 = v6
-			if v6 != 0 {
-				if v6 != -432 {
-					*(*uint32)(unsafe.Add(v6, 432)) = *(*uint32)(unsafe.Add(v6, 12)) << 12
-					*(*uint32)(unsafe.Add(v6, 436)) = *(*uint32)(unsafe.Add(v6, 16)) << 12
-					*(*uint8)(unsafe.Add(v6, 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 822)))
-					*(*uint32)(unsafe.Add(v7, 440)) = uint32(nox_common_randomIntMinMax_415FF0(1, v3, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 825))
-					*(*uint32)(unsafe.Add(v7, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(v5, 96, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 828))
-					*(*uint32)(unsafe.Add(v7, 444)) = gameFrame()
-				}
-				*(*uint16)(unsafe.Add(v7, 104)) = uint16(int16(nox_common_randomIntMinMax_415FF0(5, 15, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 834)))
-				*(*uint16)(unsafe.Add(v7, 106)) = 0
-				*(*uint8)(unsafe.Add(v7, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 836)))
-				nox_xxx_sprite_45A110_drawable((*client.Drawable)(v7))
+	if int32(a3)*180/math.MaxUint8+10 <= 0 {
+		return result
+	}
+	v8 = int32(a3)*180/math.MaxUint8 + 10
+	for {
+		v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a2, a1.field_0, a1.field_4))))
+		v7 = v6
+		if v6 != 0 {
+			if v6 != -432 {
+				*(*uint32)(unsafe.Add(v6, 432)) = *(*uint32)(unsafe.Add(v6, 12)) << 12
+				*(*uint32)(unsafe.Add(v6, 436)) = *(*uint32)(unsafe.Add(v6, 16)) << 12
+				*(*uint8)(unsafe.Add(v6, 299)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 822)))
+				*(*uint32)(unsafe.Add(v7, 440)) = uint32(nox_common_randomIntMinMax_415FF0(1, v3, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 825))
+				*(*uint32)(unsafe.Add(v7, 448)) = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(v5, 96, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 828))
+				*(*uint32)(unsafe.Add(v7, 444)) = gameFrame()
 			}
-			result = func() int32 {
-				p := &v8
-				*p--
-				return *p
-			}()
-			if v8 == 0 {
-				break
-			}
+			*(*uint16)(unsafe.Add(v7, 104)) = uint16(int16(nox_common_randomIntMinMax_415FF0(5, 15, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 834)))
+			*(*uint16)(unsafe.Add(v7, 106)) = 0
+			*(*uint8)(unsafe.Add(v7, 296)) = uint8(int8(nox_common_randomIntMinMax_415FF0(0, 8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 836)))
+			nox_xxx_sprite_45A110_drawable((*client.Drawable)(v7))
+		}
+		result = func() int32 {
+			p := &v8
+			*p--
+			return *p
+		}()
+		if v8 == 0 {
+			break
 		}
 	}
 	return result

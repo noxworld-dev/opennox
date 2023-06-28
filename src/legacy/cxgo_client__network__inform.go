@@ -150,11 +150,12 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 		v38 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint32)(unsafe.Add(a1, 6))))))
 		v39 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(*(*uint32)(unsafe.Add(a1, 2))))))
 		if v39 == nil {
-			if v38 != nil {
-				v41 = nox_strman_loadString_40F1D0(internCStr("objcoll.c:FlagBallUnknownNotice"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 374)
-				nox_swprintf(&v62[0], v41, v38)
-				nox_xxx_printCentered_445490(&v62[0])
+			if v38 == nil {
+				return 10
 			}
+			v41 = nox_strman_loadString_40F1D0(internCStr("objcoll.c:FlagBallUnknownNotice"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 374)
+			nox_swprintf(&v62[0], v41, v38)
+			nox_xxx_printCentered_445490(&v62[0])
 			return 10
 		}
 		if v38 == nil {

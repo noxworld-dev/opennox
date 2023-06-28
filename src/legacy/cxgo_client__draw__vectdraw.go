@@ -58,10 +58,11 @@ func nox_things_vector_animate_draw_parse(obj *client.ObjectType, f *binfile.Mem
 	v3 = v2
 	*v2 = 48
 	result = nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int32(uintptr(unsafe.Pointer(v2))), f)
-	if result != 0 {
-		obj.DrawFunc.Set(nox_thing_vector_animate_draw)
-		obj.Field_5c = unsafe.Pointer(v3)
-		result = 1
+	if result == 0 {
+		return result != 0
 	}
+	obj.DrawFunc.Set(nox_thing_vector_animate_draw)
+	obj.Field_5c = unsafe.Pointer(v3)
+	result = 1
 	return result != 0
 }

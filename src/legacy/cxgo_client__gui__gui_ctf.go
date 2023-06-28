@@ -19,26 +19,27 @@ func sub_455C30() int32 {
 	}
 	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GUI_CTF.wnd"), nil))))
 	dword_5d4594_1045604 = uint32(result)
-	if result != 0 {
-		v1 = 8811
-		for {
-			v2 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(result), v1)))
-			nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v2)), nil, sub_455CD0, nil)
-			v3 = nox_strman_loadString_40F1D0(internCStr("FlagHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c"), 201)
-			nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*18)), v3)
-			if func() int32 {
-				p := &v1
-				*p++
-				return *p
-			}() > 8826 {
-				break
-			}
-			result = int32(dword_5d4594_1045604)
-		}
-		sub_455A00(0)
-		*memmap.PtrPtr(0x5D4594, 1045632) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder")))
-		result = 1
+	if result == 0 {
+		return result
 	}
+	v1 = 8811
+	for {
+		v2 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(result), v1)))
+		nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v2)), nil, sub_455CD0, nil)
+		v3 = nox_strman_loadString_40F1D0(internCStr("FlagHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c"), 201)
+		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*18)), v3)
+		if func() int32 {
+			p := &v1
+			*p++
+			return *p
+		}() > 8826 {
+			break
+		}
+		result = int32(dword_5d4594_1045604)
+	}
+	sub_455A00(0)
+	*memmap.PtrPtr(0x5D4594, 1045632) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder")))
+	result = 1
 	return result
 }
 func sub_455D80(a1 uint8, a2 int8) {

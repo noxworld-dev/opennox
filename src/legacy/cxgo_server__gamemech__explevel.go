@@ -13,16 +13,18 @@ func sub_56F980(a1 int32, a2 uint8) *uint32 {
 		v3     int32
 	)
 	result = (*uint32)(a1)
-	if uint32(a1) >= 657757279 {
-		result = sub_56F590(a1)
-		if result != nil {
-			dword_5d4594_2516328 ^= *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-			v3 = int32(dword_5d4594_2516348 ^ (uint32(a2) + (dword_5d4594_2516348 ^ *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)))))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(v3)
-			dword_5d4594_2516328 ^= uint32(v3)
-			result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_protectData_56F5C0())))
-		}
+	if uint32(a1) < 657757279 {
+		return result
 	}
+	result = sub_56F590(a1)
+	if result == nil {
+		return result
+	}
+	dword_5d4594_2516328 ^= *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1))
+	v3 = int32(dword_5d4594_2516348 ^ (uint32(a2) + (dword_5d4594_2516348 ^ *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)))))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(v3)
+	dword_5d4594_2516328 ^= uint32(v3)
+	result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_protectData_56F5C0())))
 	return result
 }
 func sub_4EF2E0_exp_level(a1 unsafe.Pointer) {

@@ -73,17 +73,19 @@ func sub_436F50() int32 {
 	nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v3)
 	result = int32(*memmap.PtrUint32(0x852978, 8))
 	v6 = v0 + v3
-	if *memmap.PtrUint32(0x852978, 8) != 0 {
-		if *memmap.PtrUint32(0x8531A0, 2576) != 0 {
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("X:%d\tY:%d"), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 12)), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 16)))
-			nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v6)
-			v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))*4+29456))), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1357)
-			v8 = int32(*(*byte)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3684)))
-			v7 = nox_strman_loadString_40F1D0(internCStr("PlayerInfo"), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1355)
-			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), v7, v8, v9)
-			result = nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v0+v6)
-		}
+	if *memmap.PtrUint32(0x852978, 8) == 0 {
+		return result
 	}
+	if *memmap.PtrUint32(0x8531A0, 2576) == 0 {
+		return result
+	}
+	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("X:%d\tY:%d"), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 12)), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 16)))
+	nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v6)
+	v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))*4+29456))), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1357)
+	v8 = int32(*(*byte)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3684)))
+	v7 = nox_strman_loadString_40F1D0(internCStr("PlayerInfo"), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1355)
+	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), v7, v8, v9)
+	result = nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v0+v6)
 	return result
 }
 func nox_xxx_getRandomName_4358A0() *byte {
@@ -128,17 +130,18 @@ func nox_xxx_getRandomName_4358A0() *byte {
 	v4[31] = internCStr("Zug")
 	v4[32] = internCStr("Zivik")
 	v4[33] = nil
-	if *memmap.PtrUint32(0x5D4594, 814516) == 0 {
-		v1 = &v4[0]
-		for {
-			v2 = *(**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*1))
-			v1 = (**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*1))
-			v0++
-			if v2 == nil {
-				break
-			}
-		}
-		*memmap.PtrUint32(0x5D4594, 814516) = uint32(v0)
+	if *memmap.PtrUint32(0x5D4594, 814516) != 0 {
+		return v4[nox_common_randomIntMinMax_415FF0(0, v0-1, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 559)]
 	}
+	v1 = &v4[0]
+	for {
+		v2 = *(**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*1))
+		v1 = (**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*1))
+		v0++
+		if v2 == nil {
+			break
+		}
+	}
+	*memmap.PtrUint32(0x5D4594, 814516) = uint32(v0)
 	return v4[nox_common_randomIntMinMax_415FF0(0, v0-1, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 559)]
 }

@@ -100,10 +100,11 @@ func nox_thing_monster_gen_draw(vp *noxrender.Viewport, dr *client.Drawable) int
 		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), (*client.Drawable)(v2), int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v4, 20)) + uint32(v15*4))))))
 	}
 	v16 = int32(*(*uint32)(unsafe.Add(v2, 280)))
-	if v16&0x800 != 0 {
-		v17 = int32(*(*uint32)(unsafe.Add(v2, 120)))
-		*((*uint8)(unsafe.Pointer(&v17))) = uint8(int8(v17 | 1))
-		*(*uint32)(unsafe.Add(v2, 120)) = uint32(v17)
+	if v16&0x800 == 0 {
+		return 1
 	}
+	v17 = int32(*(*uint32)(unsafe.Add(v2, 120)))
+	*((*uint8)(unsafe.Pointer(&v17))) = uint8(int8(v17 | 1))
+	*(*uint32)(unsafe.Add(v2, 120)) = uint32(v17)
 	return 1
 }

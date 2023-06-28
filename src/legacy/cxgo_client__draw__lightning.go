@@ -273,13 +273,14 @@ func nox_xxx_lightningProc2_4BAE60(a1 *int2, a2 *int2, a3 int32, a4 *int16, a5 i
 		nox_xxx_drawLightningStep_4BB070(int32(uintptr(unsafe.Pointer(v22))), int32(uintptr(unsafe.Pointer(v21))))
 	}
 	result = a7
-	if a7 != 0 {
-		dword_5d4594_1316492 = 1
-		dword_5d4594_1316472 = dword_5d4594_1316436
-		*memmap.PtrUint32(0x5D4594, 1316440) = dword_5d4594_1316484
-		*memmap.PtrUint32(0x5D4594, 1316508) = 1
-		result = nox_xxx_drawLightningStep_4BB070(int32(uintptr(unsafe.Pointer(v22))), int32(uintptr(unsafe.Pointer(v21))))
+	if a7 == 0 {
+		return result
 	}
+	dword_5d4594_1316492 = 1
+	dword_5d4594_1316472 = dword_5d4594_1316436
+	*memmap.PtrUint32(0x5D4594, 1316440) = dword_5d4594_1316484
+	*memmap.PtrUint32(0x5D4594, 1316508) = 1
+	result = nox_xxx_drawLightningStep_4BB070(int32(uintptr(unsafe.Pointer(v22))), int32(uintptr(unsafe.Pointer(v21))))
 	return result
 }
 func nox_thing_lightning_draw(vp *noxrender.Viewport, dr *client.Drawable) int {

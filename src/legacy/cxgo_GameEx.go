@@ -91,44 +91,45 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 	)
 	v16 = 0
 	v2 = int32(*(*uint32)(unsafe.Add(playerObj, 748)))
-	if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 3680)))&3) == 0 && int32(*(*uint8)(unsafe.Add(v2, 88))) != 1 {
-		var cur int32 = int32(*(*uint32)(unsafe.Add(v2, 104)))
-		v4 = 496
-		if int32(a2) == 0 {
-			v4 = 500
-		}
-		if cur != 0 {
-			var next int32 = cur
-			for {
-				next = int32(*(*uint32)(unsafe.Pointer(uintptr(next + v4))))
-				if next == 0 {
-					break
-				}
-				weapFlags = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(next))
-				if weapFlags != 0 && weapFlags != 2 {
-					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(next), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 748)), 276)), 2251)))) != 0 {
-						v11 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(playerObj), (*server.Object)(next)))
-						if v11 != 0 {
-							if nox_xxx_playerTryDequip_4F2FB0((*uint32)(playerObj), (*server.Object)(cur)) != 0 && nox_xxx_playerTryEquip_4F2F70((*server.Object)(playerObj), (*server.Object)(next)) != 0 {
-								v16 = 1
-							}
-							return v16
+	if !((int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 3680)))&3) == 0 && int32(*(*uint8)(unsafe.Add(v2, 88))) != 1) {
+		return v16
+	}
+	var cur int32 = int32(*(*uint32)(unsafe.Add(v2, 104)))
+	v4 = 496
+	if int32(a2) == 0 {
+		v4 = 500
+	}
+	if cur != 0 {
+		var next int32 = cur
+		for {
+			next = int32(*(*uint32)(unsafe.Pointer(uintptr(next + v4))))
+			if next == 0 {
+				break
+			}
+			weapFlags = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(next))
+			if weapFlags != 0 && weapFlags != 2 {
+				if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(next), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 748)), 276)), 2251)))) != 0 {
+					v11 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(playerObj), (*server.Object)(next)))
+					if v11 != 0 {
+						if nox_xxx_playerTryDequip_4F2FB0((*uint32)(playerObj), (*server.Object)(cur)) != 0 && nox_xxx_playerTryEquip_4F2F70((*server.Object)(playerObj), (*server.Object)(next)) != 0 {
+							v16 = 1
 						}
+						return v16
 					}
 				}
 			}
-		} else {
-			for i = int32(*(*uint32)(unsafe.Add(playerObj, 504))); i != 0; i = int32(*(*uint32)(unsafe.Add(i, 496))) {
-				v6 = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(i))
-				if v6 != 0 && v6 != 2 {
-					if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(i), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)), 0x8CB)))) != 0 {
-						v8 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(playerObj), (*server.Object)(i)))
-						if v8 != 0 {
-							if nox_xxx_playerTryEquip_4F2F70((*server.Object)(playerObj), (*server.Object)(i)) != 0 {
-								v16 = 1
-							}
-							return v16
+		}
+	} else {
+		for i = int32(*(*uint32)(unsafe.Add(playerObj, 504))); i != 0; i = int32(*(*uint32)(unsafe.Add(i, 496))) {
+			v6 = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(i))
+			if v6 != 0 && v6 != 2 {
+				if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(i), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)), 0x8CB)))) != 0 {
+					v8 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(playerObj), (*server.Object)(i)))
+					if v8 != 0 {
+						if nox_xxx_playerTryEquip_4F2F70((*server.Object)(playerObj), (*server.Object)(i)) != 0 {
+							v16 = 1
 						}
+						return v16
 					}
 				}
 			}
@@ -151,12 +152,13 @@ func playerDropATrap(playerObj unsafe.Pointer) int8 {
 	v2 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)))
 	pos[0] = *(*float32)(unsafe.Add(v2, 0xE30))
 	pos[1] = *(*float32)(unsafe.Add(v2, 0xE34))
-	if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x58))) != 1 {
-		for i := *(*unsafe.Pointer)(unsafe.Add(playerObj, 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(i, 0x1F0)) {
-			if int32(*(*uint8)(unsafe.Add(i, 0xA))) == int32(v7) {
-				nox_xxx_drop_4ED810(playerObj, i, &pos[0])
-				return 1
-			}
+	if !((int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x58))) != 1) {
+		return v8
+	}
+	for i := *(*unsafe.Pointer)(unsafe.Add(playerObj, 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(i, 0x1F0)) {
+		if int32(*(*uint8)(unsafe.Add(i, 0xA))) == int32(v7) {
+			nox_xxx_drop_4ED810(playerObj, i, &pos[0])
+			return 1
 		}
 	}
 	return v8

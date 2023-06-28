@@ -198,21 +198,23 @@ func sub_4795E0(a1 int32, a2 int32) int32 {
 	v2 = nil
 	var mpos nox_point = nox_client_getMousePos_4309F0()
 	result = int32(dword_5d4594_1098616)
-	if dword_5d4594_1098616 != 1 {
-		result = sub_4676D0(a1)
-		v5 = result
-		if result != 0 {
-			if *(*uint32)(unsafe.Add(result, 112))&0x13001000 != 0 {
-				v2 = unsafe.Add(result, 432)
-			}
-			sub_4C05F0(1, a2)
-			v10 = sub_467700(a1)
-			v9 = int32(*(*uint32)(unsafe.Add(v5, 108)))
-			var str *wchar2_t = nox_strman_loadString_40F1D0(internCStr("SellLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1504)
-			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, sub_479690, sub_479680)
-			dword_5d4594_1098616 = 1
-		}
+	if dword_5d4594_1098616 == 1 {
+		return result
 	}
+	result = sub_4676D0(a1)
+	v5 = result
+	if result == 0 {
+		return result
+	}
+	if *(*uint32)(unsafe.Add(result, 112))&0x13001000 != 0 {
+		v2 = unsafe.Add(result, 432)
+	}
+	sub_4C05F0(1, a2)
+	v10 = sub_467700(a1)
+	v9 = int32(*(*uint32)(unsafe.Add(v5, 108)))
+	var str *wchar2_t = nox_strman_loadString_40F1D0(internCStr("SellLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1504)
+	result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, sub_479690, sub_479680)
+	dword_5d4594_1098616 = 1
 	return result
 }
 func sub_479740(a1 int32, a2 uint32) {

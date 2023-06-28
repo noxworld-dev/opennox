@@ -276,16 +276,17 @@ func sub_4F0640() int32 {
 		}
 	}
 	result = *(**byte)(memmap.PtrOff(0x587000, 209344))
-	if *memmap.PtrUint32(0x587000, 209344) != 0 {
-		v14 = (*uint8)(memmap.PtrOff(0x587000, 209344))
-		for {
-			v15 = nox_xxx_modifGetIdByName_413290(result)
-			*((*uint32)(unsafe.Add(unsafe.Pointer(v14), -int(4*1)))) = uint32(uintptr(nox_xxx_modifGetDescById_413330(v15)))
-			result = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*6))))))
-			v14 = (*uint8)(unsafe.Add(unsafe.Pointer(v14), 24))
-			if result == nil {
-				break
-			}
+	if *memmap.PtrUint32(0x587000, 209344) == 0 {
+		return int32(uintptr(unsafe.Pointer(result)))
+	}
+	v14 = (*uint8)(memmap.PtrOff(0x587000, 209344))
+	for {
+		v15 = nox_xxx_modifGetIdByName_413290(result)
+		*((*uint32)(unsafe.Add(unsafe.Pointer(v14), -int(4*1)))) = uint32(uintptr(nox_xxx_modifGetDescById_413330(v15)))
+		result = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*6))))))
+		v14 = (*uint8)(unsafe.Add(unsafe.Pointer(v14), 24))
+		if result == nil {
+			break
 		}
 	}
 	return int32(uintptr(unsafe.Pointer(result)))

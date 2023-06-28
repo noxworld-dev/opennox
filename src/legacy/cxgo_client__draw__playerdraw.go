@@ -186,67 +186,69 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		sub_4B8960(v10, dr, int32(*(*uint32)(unsafe.Pointer(v3))), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*743)), v28, v27)
 		sub_4B8D40(v10, dr, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)))&2), (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*581)), v28, v27)
 	}
-	if v30 != 0 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.Field_32 == nox_player_netCode_85319C || *memmap.PtrUint32(0x852978, 8) != 0 && (nox_client_drawable_testBuff_4356C0((*client.Drawable)(*memmap.PtrPtr(0x852978, 8)), 21) || v31 != 0) {
-		a1 = (*uint32)(unsafe.Pointer(uintptr(nox_color_rgb_4344A0(155, 155, 155))))
-		if sub_48D830(dr) == 0 && !noxflags.HasGame(2048) {
-			v21 = (*int16)(unsafe.Add(unsafe.Pointer(v3), 4704))
-			nox_xxx_drawGetStringSize_43F840(nil, (*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2352)), &v34, nil, 0)
-			v22 = *v10 + int32(dr.PosVec.X) + v34/(-2) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4))
-			var a2 int32 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) + int32(dr.PosVec.Y) - 64
-			nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x852978, 4))
-			nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v21)), v22+1, a2+1)
-			nox_xxx_drawSetTextColor_434390(int32(uintptr(unsafe.Pointer(a1))))
-			if v35 != 0 {
-				if v29 != nil {
-					v23 = int32(nox_xxx_materialGetTeamColor_418D50((*server.Team)(unsafe.Pointer(v29))))
-					nox_xxx_drawSetTextColor_434390(v23)
-				}
-			}
-			nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v21)), v22, a2)
-			v3 = v32
-		}
-		if nox_client_drawable_testBuff_4356C0(dr, 16) {
-			v36[0] = 0
-			v36[1] = 0
-			v36[2] = nox_win_width
-			v36[3] = nox_win_height
-			v36[4] = 0
-			v36[5] = 0
-			v36[8] = nox_win_width
-			v36[9] = nox_win_height
-			if dword_5d4594_1313796 == nil {
-				dword_5d4594_1313796 = unsafe.Pointer(nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))))
-				*(*uint32)(unsafe.Add(dword_5d4594_1313796, 120)) |= 0x1000000
-			}
-			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
-			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
-			ccall.AsFunc[func(*int32, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313796, 300)))(&v36[0], dword_5d4594_1313796)
-		}
-		if nox_client_drawable_testBuff_4356C0(dr, 30) {
-			v36[0] = 0
-			v36[1] = 0
-			v36[2] = nox_win_width
-			v36[3] = nox_win_height
-			v36[4] = 0
-			v36[5] = 0
-			v36[8] = nox_win_width
-			v36[9] = nox_win_height
-			if dword_5d4594_1313800 == nil {
-				dword_5d4594_1313800 = unsafe.Pointer(nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningCrown"))))
-				*(*uint32)(unsafe.Add(dword_5d4594_1313800, 120)) |= 0x1000000
-			}
-			*(*uint32)(unsafe.Add(dword_5d4594_1313800, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
-			*(*uint32)(unsafe.Add(dword_5d4594_1313800, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
-			ccall.AsFunc[func(*int32, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313800, 300)))(&v36[0], dword_5d4594_1313800)
-		}
-		for i := int32(0); i < 6; i++ {
-			nox_draw_setMaterial_4341D0(i, int32(nox_color_white_2523948))
-		}
-		if unsafe.Pointer(dr) != *memmap.PtrPtr(0x852978, 8) && nox_xxx_playerGet_470A90() != 0 {
-			if noxflags.HasGame(4096) {
-				nox_xxx_drawOtherPlayerHP_4B8EB0((*uint32)(unsafe.Pointer(v10)), dr, uint16(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 2282))), int8(uint8((*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*920)))>>10)&1)))
+	if !(v30 != 0 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.Field_32 == nox_player_netCode_85319C || *memmap.PtrUint32(0x852978, 8) != 0 && (nox_client_drawable_testBuff_4356C0((*client.Drawable)(*memmap.PtrPtr(0x852978, 8)), 21) || v31 != 0)) {
+		return 1
+	}
+	a1 = (*uint32)(unsafe.Pointer(uintptr(nox_color_rgb_4344A0(155, 155, 155))))
+	if sub_48D830(dr) == 0 && !noxflags.HasGame(2048) {
+		v21 = (*int16)(unsafe.Add(unsafe.Pointer(v3), 4704))
+		nox_xxx_drawGetStringSize_43F840(nil, (*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2352)), &v34, nil, 0)
+		v22 = *v10 + int32(dr.PosVec.X) + v34/(-2) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4))
+		var a2 int32 = *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) + int32(dr.PosVec.Y) - 64
+		nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x852978, 4))
+		nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v21)), v22+1, a2+1)
+		nox_xxx_drawSetTextColor_434390(int32(uintptr(unsafe.Pointer(a1))))
+		if v35 != 0 {
+			if v29 != nil {
+				v23 = int32(nox_xxx_materialGetTeamColor_418D50((*server.Team)(unsafe.Pointer(v29))))
+				nox_xxx_drawSetTextColor_434390(v23)
 			}
 		}
+		nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v21)), v22, a2)
+		v3 = v32
+	}
+	if nox_client_drawable_testBuff_4356C0(dr, 16) {
+		v36[0] = 0
+		v36[1] = 0
+		v36[2] = nox_win_width
+		v36[3] = nox_win_height
+		v36[4] = 0
+		v36[5] = 0
+		v36[8] = nox_win_width
+		v36[9] = nox_win_height
+		if dword_5d4594_1313796 == nil {
+			dword_5d4594_1313796 = unsafe.Pointer(nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))))
+			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 120)) |= 0x1000000
+		}
+		*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
+		*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
+		ccall.AsFunc[func(*int32, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313796, 300)))(&v36[0], dword_5d4594_1313796)
+	}
+	if nox_client_drawable_testBuff_4356C0(dr, 30) {
+		v36[0] = 0
+		v36[1] = 0
+		v36[2] = nox_win_width
+		v36[3] = nox_win_height
+		v36[4] = 0
+		v36[5] = 0
+		v36[8] = nox_win_width
+		v36[9] = nox_win_height
+		if dword_5d4594_1313800 == nil {
+			dword_5d4594_1313800 = unsafe.Pointer(nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningCrown"))))
+			*(*uint32)(unsafe.Add(dword_5d4594_1313800, 120)) |= 0x1000000
+		}
+		*(*uint32)(unsafe.Add(dword_5d4594_1313800, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
+		*(*uint32)(unsafe.Add(dword_5d4594_1313800, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
+		ccall.AsFunc[func(*int32, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313800, 300)))(&v36[0], dword_5d4594_1313800)
+	}
+	for i := int32(0); i < 6; i++ {
+		nox_draw_setMaterial_4341D0(i, int32(nox_color_white_2523948))
+	}
+	if !(unsafe.Pointer(dr) != *memmap.PtrPtr(0x852978, 8) && nox_xxx_playerGet_470A90() != 0) {
+		return 1
+	}
+	if noxflags.HasGame(4096) {
+		nox_xxx_drawOtherPlayerHP_4B8EB0((*uint32)(unsafe.Pointer(v10)), dr, uint16(*(*byte)(unsafe.Add(unsafe.Pointer(v3), 2282))), int8(uint8((*((*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*920)))>>10)&1)))
 	}
 	return 1
 }

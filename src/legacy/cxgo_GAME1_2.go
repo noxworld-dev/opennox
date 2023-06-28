@@ -128,11 +128,12 @@ func nox_xxx_pointInRect_4281F0(a1 *int2, a2 *int4) int32 {
 		result bool
 	)
 	result = false
-	if a1.field_0 >= a2.field_0 && a1.field_0 <= a2.field_8 {
-		v2 = a1.field_4
-		if v2 >= a2.field_4 && v2 <= a2.field_C {
-			result = true
-		}
+	if !(a1.field_0 >= a2.field_0 && a1.field_0 <= a2.field_8) {
+		return bool2int32(result)
+	}
+	v2 = a1.field_4
+	if v2 >= a2.field_4 && v2 <= a2.field_C {
+		result = true
 	}
 	return bool2int32(result)
 }
@@ -2927,11 +2928,12 @@ func nox_client_newScreenParticle_431540(a1 int32, a2 int32, a3 int32, a4 int32,
 	p.Field_8 = uint32(v10)
 	p.Field_12 = uint32(v11)
 	nox_client_addScreenParticle_431680(p)
-	if p.Field_36 == 0 && int32(p.Field_40[1]) == 0 {
-		p.Field_40[1] = 3
-		p.Field_40[2] = 2
-		p.Field_40[3] = 3
+	if !(p.Field_36 == 0 && int32(p.Field_40[1]) == 0) {
+		return p
 	}
+	p.Field_40[1] = 3
+	p.Field_40[2] = 2
+	p.Field_40[3] = 3
 	return p
 }
 func nox_client_addScreenParticle_431680(p *Nox_screenParticle) {
@@ -3154,11 +3156,12 @@ func nox_xxx_playerAnimCheck_4372B0() int32 {
 		result int32
 	)
 	result = 1
-	if *memmap.PtrUint32(0x852978, 8) != 0 {
-		v0 = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276)))
-		if v0 != 1 && v0 != 2 && v0 != 51 {
-			result = 0
-		}
+	if *memmap.PtrUint32(0x852978, 8) == 0 {
+		return result
+	}
+	v0 = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276)))
+	if v0 != 1 && v0 != 2 && v0 != 51 {
+		result = 0
 	}
 	return result
 }
@@ -3511,29 +3514,30 @@ func sub_439D90(a1 uint32, a2 uint32) int32 {
 		v3     int16
 	)
 	result = sub_438DD0(a1, a2)
-	if result != 0 {
-		v3 = int16(uint16(a2 + uint32(*memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87530)) - 27))
-		*memmap.PtrUint16(0x5D4594, 814916) = uint16(a1 + uint32(*memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87528)) - 216)
-		*memmap.PtrUint16(0x5D4594, 814918) = uint16(v3)
-		sub_43B460()
-		if sub_43BDB0()&2 != 0 {
-			nox_xxx_setQuest_4D6F60(1)
-		}
-		if nox_xxx_isQuest_4D6F50() != 0 {
-			if nox_client_countPlayerFiles04_4DC7D0() != 0 {
-				sub_4A7A70(1)
-				nox_game_showSelChar_4A4DB0()
-				return nox_client_setCursorType_477610(0)
-			}
-		} else if nox_client_countPlayerFiles02_4DC630() != 0 {
+	if result == 0 {
+		return result
+	}
+	v3 = int16(uint16(a2 + uint32(*memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87530)) - 27))
+	*memmap.PtrUint16(0x5D4594, 814916) = uint16(a1 + uint32(*memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87528)) - 216)
+	*memmap.PtrUint16(0x5D4594, 814918) = uint16(v3)
+	sub_43B460()
+	if sub_43BDB0()&2 != 0 {
+		nox_xxx_setQuest_4D6F60(1)
+	}
+	if nox_xxx_isQuest_4D6F50() != 0 {
+		if nox_client_countPlayerFiles04_4DC7D0() != 0 {
 			sub_4A7A70(1)
 			nox_game_showSelChar_4A4DB0()
 			return nox_client_setCursorType_477610(0)
 		}
-		sub_4A7A70(0)
-		Nox_game_showSelClass_4A4840()
-		nox_client_setCursorType_477610(0)
+	} else if nox_client_countPlayerFiles02_4DC630() != 0 {
+		sub_4A7A70(1)
+		nox_game_showSelChar_4A4DB0()
+		return nox_client_setCursorType_477610(0)
 	}
+	sub_4A7A70(0)
+	Nox_game_showSelClass_4A4840()
+	nox_client_setCursorType_477610(0)
 	return result
 }
 func sub_43A920() int32 {

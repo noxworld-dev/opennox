@@ -436,12 +436,13 @@ func sub_43DD10(a1 *int32) int32 {
 	*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2)))
 	*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)))
 	result = int32(audioStream1)
-	if audioStream1 != 0 {
-		result = *a1
-		if dword_5d4594_816092 == uint32(*a1) {
-			result = AIL_stream_position(audioStream1)
-			*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = result
-		}
+	if audioStream1 == 0 {
+		return result
+	}
+	result = *a1
+	if dword_5d4594_816092 == uint32(*a1) {
+		result = AIL_stream_position(audioStream1)
+		*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = result
 	}
 	return result
 }

@@ -27,38 +27,40 @@ func nox_game_showSelColor_4A5D00() int {
 	*(*byte)(unsafe.Add(unsafe.Pointer(v0), 67)) = 0
 	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SelColor.wnd"), sub_4A7330))))
 	dword_5d4594_1308084 = uint32(result)
-	if result != 0 {
-		nox_xxx_wndSetWindowProc_46B300((*gui.Window)(result), guiSelProc2)
-		result = int32(uintptr(unsafe.Pointer(nox_gui_makeAnimation_43C5B0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), 0, 0, 0, -440, 0, 20, 0, -40))))
-		nox_wnd_xxx_1308092 = (*gui.Anim)(result)
-		if result != 0 {
-			nox_wnd_xxx_1308092.StateID = 700
-			nox_wnd_xxx_1308092.Func12Ptr.Set(sub_4A6890)
-			nox_wnd_xxx_1308092.FncDoneOutPtr.Set(sub_4A6C90)
-			sub_4A5E90()
-			for i = 720; i <= 729; i++ {
-				v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), i)))
-				nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v3)), sub_4A6D20)
-			}
-			for j = 761; j <= 792; j++ {
-				v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), j)))
-				nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v5)), sub_4A6D20)
-			}
-			if dword_587000_171388 != 0 {
-				v6 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 1138)
-				nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_1308152), 16414, uintptr(unsafe.Pointer(v6)), 0)
-			}
-			nox_xxx_wndRetNULL_46A8A0()
-			dword_5d4594_1308088 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), 760))))
-			nox_xxx_wndSetProc_46B2C0(dword_5d4594_1308088, sub_4A7330)
-			nox_xxx_wndSetWindowProc_46B300(dword_5d4594_1308088, sub_4A7270)
-			sub_46B120((*gui.Window)(unsafe.Pointer(dword_5d4594_1308088)), nil)
-			sub_4BFAD0()
-			v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), 740)))
-			nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v7)), sub_4A6DC0)
-			result = 1
-		}
+	if result == 0 {
+		return int(result)
 	}
+	nox_xxx_wndSetWindowProc_46B300((*gui.Window)(result), guiSelProc2)
+	result = int32(uintptr(unsafe.Pointer(nox_gui_makeAnimation_43C5B0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), 0, 0, 0, -440, 0, 20, 0, -40))))
+	nox_wnd_xxx_1308092 = (*gui.Anim)(result)
+	if result == 0 {
+		return int(result)
+	}
+	nox_wnd_xxx_1308092.StateID = 700
+	nox_wnd_xxx_1308092.Func12Ptr.Set(sub_4A6890)
+	nox_wnd_xxx_1308092.FncDoneOutPtr.Set(sub_4A6C90)
+	sub_4A5E90()
+	for i = 720; i <= 729; i++ {
+		v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), i)))
+		nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v3)), sub_4A6D20)
+	}
+	for j = 761; j <= 792; j++ {
+		v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), j)))
+		nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v5)), sub_4A6D20)
+	}
+	if dword_587000_171388 != 0 {
+		v6 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 1138)
+		nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_1308152), 16414, uintptr(unsafe.Pointer(v6)), 0)
+	}
+	nox_xxx_wndRetNULL_46A8A0()
+	dword_5d4594_1308088 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), 760))))
+	nox_xxx_wndSetProc_46B2C0(dword_5d4594_1308088, sub_4A7330)
+	nox_xxx_wndSetWindowProc_46B300(dword_5d4594_1308088, sub_4A7270)
+	sub_46B120((*gui.Window)(unsafe.Pointer(dword_5d4594_1308088)), nil)
+	sub_4BFAD0()
+	v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1308084)), 740)))
+	nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v7)), sub_4A6DC0)
+	result = 1
 	return int(result)
 }
 func sub_4A68C0() *wchar2_t {
@@ -280,14 +282,15 @@ func sub_4A75C0() int32 {
 		return 0
 	}
 	libc.StrCat(&v25[4], &v24[0])
-	if noxflags.HasGame(2048) {
-		if v25[1274] == 0 {
-			nox_xxx_gameSetMapPath_409D70(internCStr("war01a.map"))
-		} else if v25[1274] == 1 {
-			nox_xxx_gameSetMapPath_409D70(internCStr("wiz01a.map"))
-		} else if v25[1274] == 2 {
-			nox_xxx_gameSetMapPath_409D70(internCStr("con01a.map"))
-		}
+	if !(noxflags.HasGame(2048)) {
+		return sub_41CEE0(unsafe.Pointer(&v25[0]), 1)
+	}
+	if v25[1274] == 0 {
+		nox_xxx_gameSetMapPath_409D70(internCStr("war01a.map"))
+	} else if v25[1274] == 1 {
+		nox_xxx_gameSetMapPath_409D70(internCStr("wiz01a.map"))
+	} else if v25[1274] == 2 {
+		nox_xxx_gameSetMapPath_409D70(internCStr("con01a.map"))
 	}
 	return sub_41CEE0(unsafe.Pointer(&v25[0]), 1)
 }

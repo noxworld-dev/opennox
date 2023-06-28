@@ -66,14 +66,15 @@ func nox_xxx_updDrawMagicMissile_4CD9E0(vp *noxrender.Viewport, dr *client.Drawa
 		}
 	}
 	v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)))
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-uint32(v11))*(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-uint32(v11))+(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))*(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109))) > 200 {
-		v12 = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522992), v11, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))).C())
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
-		nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v12)))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
-		nox_xxx_spriteTransparentDecay_49B950((*client.Drawable)(unsafe.Pointer(v12)), int32(gameFPS()/3))
+	if (*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-uint32(v11))*(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-uint32(v11))+(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))*(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109))) <= 200 {
+		return 1
 	}
+	v12 = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522992), v11, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)))).C())
+	*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
+	nox_xxx_sprite_45A110_drawable((*client.Drawable)(unsafe.Pointer(v12)))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
+	nox_xxx_spriteTransparentDecay_49B950((*client.Drawable)(unsafe.Pointer(v12)), int32(gameFPS()/3))
 	return 1
 }

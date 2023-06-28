@@ -26,64 +26,65 @@ func sub_4BC490(a1 int32) int8 {
 		v8 int32
 	)
 	*((*uint8)(unsafe.Pointer(&v1))) = uint8(gameFrame())
-	if (int32(uint8(gameFrame()))&3) == 0 && *(*uint32)(unsafe.Add(a1, 276)) == 8 && *(*uint32)(unsafe.Add(a1, 116))&0x40000 != 0 {
-		v2 = *(*uint32)(unsafe.Add(a1, 308))
-		v3 = int32(*(*uint32)(unsafe.Add(a1, 308)))
-		if v3 != 0 {
-			v4 = v3 - 2
-			if v4 != 0 {
-				if v4 == 2 {
-					v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 74)
-					if v1 < 15 {
-						v5 = int32(*(*uint32)(unsafe.Add(a1, 308)))
-						*(*uint8)(unsafe.Add(a1, 299)) = 0
-						v1 = v5 - 1
-						*(*uint32)(unsafe.Add(a1, 308)) = uint32(v1)
-					}
-				} else {
-					*((*uint8)(unsafe.Pointer(&v1))) = *(*uint8)(unsafe.Add(a1, 299))
-					switch uint8(int8(v1)) {
-					case 0:
-						if v2 < 2 {
-							*(*uint32)(unsafe.Add(a1, 308)) = v2 + 1
-							return int8(v1)
-						}
-						*(*uint32)(unsafe.Add(a1, 308)) = v2 - 1
-						return int8(v1)
-					case 1:
-						*(*uint32)(unsafe.Add(a1, 308)) = v2 - 1
-						return int8(v1)
-					case 2:
-						*(*uint32)(unsafe.Add(a1, 308)) = v2 + 1
-					default:
-						*(*uint32)(unsafe.Add(a1, 308)) = 2
-						*(*uint8)(unsafe.Add(a1, 299)) = 0
-					}
+	if !((int32(uint8(gameFrame()))&3) == 0 && *(*uint32)(unsafe.Add(a1, 276)) == 8 && *(*uint32)(unsafe.Add(a1, 116))&0x40000 != 0) {
+		return int8(v1)
+	}
+	v2 = *(*uint32)(unsafe.Add(a1, 308))
+	v3 = int32(*(*uint32)(unsafe.Add(a1, 308)))
+	if v3 != 0 {
+		v4 = v3 - 2
+		if v4 != 0 {
+			if v4 == 2 {
+				v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 74)
+				if v1 < 15 {
+					v5 = int32(*(*uint32)(unsafe.Add(a1, 308)))
+					*(*uint8)(unsafe.Add(a1, 299)) = 0
+					v1 = v5 - 1
+					*(*uint32)(unsafe.Add(a1, 308)) = uint32(v1)
 				}
 			} else {
-				v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 52)
-				if v1 >= 5 {
-					if v1 < 10 {
-						v7 = int32(*(*uint32)(unsafe.Add(a1, 308)))
-						*(*uint8)(unsafe.Add(a1, 299)) = 2
-						v1 = v7 + 1
-						*(*uint32)(unsafe.Add(a1, 308)) = uint32(v1)
+				*((*uint8)(unsafe.Pointer(&v1))) = *(*uint8)(unsafe.Add(a1, 299))
+				switch uint8(int8(v1)) {
+				case 0:
+					if v2 < 2 {
+						*(*uint32)(unsafe.Add(a1, 308)) = v2 + 1
+						return int8(v1)
 					}
-				} else {
-					v6 = int32(*(*uint32)(unsafe.Add(a1, 308)))
-					*(*uint8)(unsafe.Add(a1, 299)) = 1
-					v1 = v6 - 1
-					*(*uint32)(unsafe.Add(a1, 308)) = uint32(v1)
+					*(*uint32)(unsafe.Add(a1, 308)) = v2 - 1
+					return int8(v1)
+				case 1:
+					*(*uint32)(unsafe.Add(a1, 308)) = v2 - 1
+					return int8(v1)
+				case 2:
+					*(*uint32)(unsafe.Add(a1, 308)) = v2 + 1
+				default:
+					*(*uint32)(unsafe.Add(a1, 308)) = 2
+					*(*uint8)(unsafe.Add(a1, 299)) = 0
 				}
 			}
 		} else {
-			v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 66)
-			if v1 < 15 {
-				v8 = int32(*(*uint32)(unsafe.Add(a1, 308)))
-				*(*uint8)(unsafe.Add(a1, 299)) = 0
-				v1 = v8 + 1
+			v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 52)
+			if v1 >= 5 {
+				if v1 < 10 {
+					v7 = int32(*(*uint32)(unsafe.Add(a1, 308)))
+					*(*uint8)(unsafe.Add(a1, 299)) = 2
+					v1 = v7 + 1
+					*(*uint32)(unsafe.Add(a1, 308)) = uint32(v1)
+				}
+			} else {
+				v6 = int32(*(*uint32)(unsafe.Add(a1, 308)))
+				*(*uint8)(unsafe.Add(a1, 299)) = 1
+				v1 = v6 - 1
 				*(*uint32)(unsafe.Add(a1, 308)) = uint32(v1)
 			}
+		}
+	} else {
+		v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 66)
+		if v1 < 15 {
+			v8 = int32(*(*uint32)(unsafe.Add(a1, 308)))
+			*(*uint8)(unsafe.Add(a1, 299)) = 0
+			v1 = v8 + 1
+			*(*uint32)(unsafe.Add(a1, 308)) = uint32(v1)
 		}
 	}
 	return int8(v1)
@@ -249,18 +250,20 @@ func nox_things_monster_draw_parse(obj *client.ObjectType, f *binfile.MemFile, a
 			break
 		}
 		v6 = nox_memfile_read_u8(f)
-		if int32(v6) < 0x10 {
-			var n uint8
-			n = nox_memfile_read_u8(f)
-			nox_memfile_skip(f, int32(n))
-			n = nox_memfile_read_u8(f)
-			nox_memfile_skip(f, int32(n))
-			v9 = int32(uintptr(unsafe.Add(unsafe.Pointer(v2), 4*uintptr(int32(v6)*12+1))))
-			if nox_xxx_loadVectorAnimated_44B8B0(v9, f) != 0 {
-				if nox_xxx_loadVectorAnimated_44BC50(v9, f) != 0 {
-					continue
-				}
-			}
+		if int32(v6) >= 0x10 {
+			return false
+		}
+		var n uint8
+		n = nox_memfile_read_u8(f)
+		nox_memfile_skip(f, int32(n))
+		n = nox_memfile_read_u8(f)
+		nox_memfile_skip(f, int32(n))
+		v9 = int32(uintptr(unsafe.Add(unsafe.Pointer(v2), 4*uintptr(int32(v6)*12+1))))
+		if nox_xxx_loadVectorAnimated_44B8B0(v9, f) == 0 {
+			return false
+		}
+		if nox_xxx_loadVectorAnimated_44BC50(v9, f) != 0 {
+			continue
 		}
 		return false
 	}

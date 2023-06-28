@@ -133,65 +133,66 @@ func sub_4C15D0(a1 int32) int32 {
 	result = int32(dword_5d4594_1320964)
 	v2 = 0
 	v12 = nil
-	if dword_5d4594_1320964 != 0 {
-		v3 = (*uint8)(memmap.PtrOff(0x5D4594, 1319284))
+	if dword_5d4594_1320964 == 0 {
+		return result
+	}
+	v3 = (*uint8)(memmap.PtrOff(0x5D4594, 1319284))
+	for {
+		v4 = 0
+		v5 = int32(uintptr(unsafe.Pointer(v3)))
 		for {
-			v4 = 0
-			v5 = int32(uintptr(unsafe.Pointer(v3)))
-			for {
-				if sub_4C1760(v5, int32(*(*uint16)(unsafe.Add(a1, 2)))) != 0 {
-					v6 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v2+v4*2)*140)+1319284))
-					goto LABEL_18
-				}
-				v4++
-				v5 += 280
-				if v4 >= 2 {
-					break
-				}
+			if sub_4C1760(v5, int32(*(*uint16)(unsafe.Add(a1, 2)))) != 0 {
+				v6 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v2+v4*2)*140)+1319284))
+				goto LABEL_18
 			}
-			v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 140))
-			v2++
-			if int32(uintptr(unsafe.Pointer(v3))) < int32(uintptr(memmap.PtrOff(0x5D4594, 1319564))) {
-				continue
+			v4++
+			v5 += 280
+			if v4 >= 2 {
+				break
 			}
-			break
 		}
-		v7 = 0
-		v8 = (*uint8)(memmap.PtrOff(0x5D4594, 1320308))
+		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 140))
+		v2++
+		if int32(uintptr(unsafe.Pointer(v3))) < int32(uintptr(memmap.PtrOff(0x5D4594, 1319564))) {
+			continue
+		}
+		break
+	}
+	v7 = 0
+	v8 = (*uint8)(memmap.PtrOff(0x5D4594, 1320308))
+	for {
+		v9 = 0
+		v10 = int32(uintptr(unsafe.Pointer(v8)))
 		for {
-			v9 = 0
-			v10 = int32(uintptr(unsafe.Pointer(v8)))
-			for {
-				if sub_4C1760(v10, int32(*(*uint16)(unsafe.Add(a1, 2)))) != 0 {
-					v12 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v7+v9*2)*140)+1320308))
-					goto LABEL_17
-				}
-				v9++
-				v10 += 280
-				if v9 >= 2 {
-					break
-				}
+			if sub_4C1760(v10, int32(*(*uint16)(unsafe.Add(a1, 2)))) != 0 {
+				v12 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v7+v9*2)*140)+1320308))
+				goto LABEL_17
 			}
-			v8 = (*uint8)(unsafe.Add(unsafe.Pointer(v8), 140))
-			v7++
-			if int32(uintptr(unsafe.Pointer(v8))) < int32(uintptr(memmap.PtrOff(0x5D4594, 1320588))) {
-				continue
+			v9++
+			v10 += 280
+			if v9 >= 2 {
+				break
 			}
-			break
 		}
-		v11 = nox_strman_loadString_40F1D0(internCStr("TradeGUIItemNotFound"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 1141)
-		nox_xxx_printCentered_445490(v11)
-	LABEL_17:
-		v6 = v12
-	LABEL_18:
-		*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) -= *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) / *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)))
-		sub_4C1710(int32(uintptr(unsafe.Pointer(v6))), int32(*(*uint16)(unsafe.Add(a1, 2))))
-		result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) - 1)
-		*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) = uint32(result)
-		if result == 0 {
-			result = nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v6)))))
-			*(*uint32)(unsafe.Pointer(v6)) = 0
+		v8 = (*uint8)(unsafe.Add(unsafe.Pointer(v8), 140))
+		v7++
+		if int32(uintptr(unsafe.Pointer(v8))) < int32(uintptr(memmap.PtrOff(0x5D4594, 1320588))) {
+			continue
 		}
+		break
+	}
+	v11 = nox_strman_loadString_40F1D0(internCStr("TradeGUIItemNotFound"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 1141)
+	nox_xxx_printCentered_445490(v11)
+LABEL_17:
+	v6 = v12
+LABEL_18:
+	*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) -= *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) / *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)))
+	sub_4C1710(int32(uintptr(unsafe.Pointer(v6))), int32(*(*uint16)(unsafe.Add(a1, 2))))
+	result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) - 1)
+	*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) = uint32(result)
+	if result == 0 {
+		result = nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v6)))))
+		*(*uint32)(unsafe.Pointer(v6)) = 0
 	}
 	return result
 }

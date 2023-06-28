@@ -65,23 +65,25 @@ func sub_49B6E0() int32 {
 		v4     int32
 	)
 	result = int32(dword_5d4594_1303452)
-	if dword_5d4594_1303452 != 0 {
-		result = wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_1303452))
-		if result == 0 {
-			v1 = int32(*memmap.PtrUint32(0x5D4594, 1303456) + gameFPS()*30 - gameFrame())
-			if v1 < 0 {
-				v1 = 0
-			}
-			if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2064))) == 31 {
-				nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1303464)))
-			} else {
-				v4 = int32(uint32(v1) / gameFPS())
-				v2 = nox_strman_loadString_40F1D0(internCStr("Rules.c:Time"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c"), 265)
-				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), internWStr("%s - %d"), v2, v4)
-			}
-			v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1303452)), 10712)))
-			result = sub_46AEE0(int32(uintptr(unsafe.Pointer(v3))), int32(uintptr(memmap.PtrOff(0x5D4594, 1301852))))
-		}
+	if dword_5d4594_1303452 == 0 {
+		return result
 	}
+	result = wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_1303452))
+	if result != 0 {
+		return result
+	}
+	v1 = int32(*memmap.PtrUint32(0x5D4594, 1303456) + gameFPS()*30 - gameFrame())
+	if v1 < 0 {
+		v1 = 0
+	}
+	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2064))) == 31 {
+		nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1303464)))
+	} else {
+		v4 = int32(uint32(v1) / gameFPS())
+		v2 = nox_strman_loadString_40F1D0(internCStr("Rules.c:Time"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c"), 265)
+		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), internWStr("%s - %d"), v2, v4)
+	}
+	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1303452)), 10712)))
+	result = sub_46AEE0(int32(uintptr(unsafe.Pointer(v3))), int32(uintptr(memmap.PtrOff(0x5D4594, 1301852))))
 	return result
 }

@@ -78,12 +78,13 @@ func Nox_game_showGameSel_4379F0() int {
 			sub_4375C0(0)
 		}
 		sub_46ACE0(nox_wol_wnd_world_814980, 10047, 10051, bool2int32(dword_587000_87408 == 0))
-		if sub_4D6FA0() == 2 {
-			v25 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10010)))
-			nox_window_call_field_94_fnc(nox_wol_wnd_world_814980, 16391, uintptr(unsafe.Pointer(v25)), 0)
-			v26 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10010)))
-			nox_window_call_field_94_fnc(nox_wol_wnd_world_814980, 16391, uintptr(unsafe.Pointer(v26)), 0)
+		if sub_4D6FA0() != 2 {
+			return 1
 		}
+		v25 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10010)))
+		nox_window_call_field_94_fnc(nox_wol_wnd_world_814980, 16391, uintptr(unsafe.Pointer(v25)), 0)
+		v26 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10010)))
+		nox_window_call_field_94_fnc(nox_wol_wnd_world_814980, 16391, uintptr(unsafe.Pointer(v26)), 0)
 		return 1
 	}
 	nox_wol_wnd_world_814980 = nox_new_window_from_file(internCStr("noxworld.wnd"), nox_xxx_windowMultiplayerSub_439E70)
@@ -221,13 +222,14 @@ func Nox_game_showGameSel_4379F0() int {
 	if dword_587000_87408 == 0 {
 		sub_46ACE0(nox_wol_wnd_world_814980, 10047, 10051, 1)
 	}
-	if sub_4D6FA0() == 1 {
-		v23 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10002)))
-		nox_window_call_field_94_fnc(nox_wol_wnd_world_814980, 16391, uintptr(unsafe.Pointer(v23)), 0)
-		nox_xxx_setQuest_4D6F60(1)
-		v24 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10020)))
-		nox_window_call_field_93((*gui.Window)(unsafe.Pointer(v24)), 5, 15663512, 0)
+	if sub_4D6FA0() != 1 {
+		return 1
 	}
+	v23 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10002)))
+	nox_window_call_field_94_fnc(nox_wol_wnd_world_814980, 16391, uintptr(unsafe.Pointer(v23)), 0)
+	nox_xxx_setQuest_4D6F60(1)
+	v24 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_world_814980, 10020)))
+	nox_window_call_field_93((*gui.Window)(unsafe.Pointer(v24)), 5, 15663512, 0)
 	return 1
 }
 func sub_4383A0() int32 {
@@ -320,13 +322,14 @@ func sub_438770() bool {
 			return true
 		}
 	} else {
-		if (wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_814984)) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_814988)) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_wol_wnd_gameList_815012) == 0) && nox_game_createOrJoin_815048 == 0 && dword_5d4594_815044 == 0 && dword_5d4594_815052 == 0 && wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_815000) != 0 {
-			if uint64(nox_platform_get_ticks()) > qword_5d4594_815068 {
-				nox_client_refreshServerList_4378B0()
-				return true
-			}
-			sub_438770_waitList()
+		if !((wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_814984)) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_814988)) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_wol_wnd_gameList_815012) == 0) && nox_game_createOrJoin_815048 == 0 && dword_5d4594_815044 == 0 && dword_5d4594_815052 == 0 && wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_815000) != 0) {
+			return true
 		}
+		if uint64(nox_platform_get_ticks()) > qword_5d4594_815068 {
+			nox_client_refreshServerList_4378B0()
+			return true
+		}
+		sub_438770_waitList()
 		return true
 	}
 }
@@ -599,13 +602,14 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 	_ = v34
 	var v35 [72]byte
 	if a2 > 0x4010 {
-		if a2 == 16403 || a2 == 16412 {
-			nox_window_call_field_94_fnc(dword_5d4594_815016, a2, a3, 0)
-			nox_window_call_field_94_fnc(dword_5d4594_815020, a2, a3, 0)
-			nox_window_call_field_94_fnc(dword_5d4594_815024, a2, a3, 0)
-			nox_window_call_field_94_fnc(dword_5d4594_815028, a2, a3, 0)
-			nox_window_call_field_94_fnc(dword_5d4594_815032, a2, a3, 0)
+		if !(a2 == 16403 || a2 == 16412) {
+			return 0
 		}
+		nox_window_call_field_94_fnc(dword_5d4594_815016, a2, a3, 0)
+		nox_window_call_field_94_fnc(dword_5d4594_815020, a2, a3, 0)
+		nox_window_call_field_94_fnc(dword_5d4594_815024, a2, a3, 0)
+		nox_window_call_field_94_fnc(dword_5d4594_815028, a2, a3, 0)
+		nox_window_call_field_94_fnc(dword_5d4594_815032, a2, a3, 0)
 		return 0
 	}
 	switch a2 {

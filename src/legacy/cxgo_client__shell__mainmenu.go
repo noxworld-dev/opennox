@@ -81,17 +81,18 @@ func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 			}
 		}
 	}
-	if *memmap.PtrUint32(0x587000, 168832) != 0 {
-		v10 = (*uint8)(memmap.PtrOff(0x587000, 168872))
-		for {
-			if *((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*6)))) == 0 && *(*uint32)(unsafe.Pointer(v10)) == 0 {
-				nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*9))))))), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*8))))), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*7))))))
-			}
-			v11 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*2))))
-			v10 = (*uint8)(unsafe.Add(unsafe.Pointer(v10), 48))
-			if v11 == 0 {
-				break
-			}
+	if *memmap.PtrUint32(0x587000, 168832) == 0 {
+		return 1
+	}
+	v10 = (*uint8)(memmap.PtrOff(0x587000, 168872))
+	for {
+		if *((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*6)))) == 0 && *(*uint32)(unsafe.Pointer(v10)) == 0 {
+			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*9))))))), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*8))))), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), -int(4*7))))))
+		}
+		v11 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*2))))
+		v10 = (*uint8)(unsafe.Add(unsafe.Pointer(v10), 48))
+		if v11 == 0 {
+			break
 		}
 	}
 	return 1

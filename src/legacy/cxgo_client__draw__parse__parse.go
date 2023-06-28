@@ -31,37 +31,38 @@ func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *binfile.MemF
 	*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 8))) = v15
 	result = alloc.Calloc1(int(v15), 4)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = uint32(uintptr(result))
-	if result != nil {
-		v7 = 0
-		v16 = 0
-		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))) != 0 {
-			v8 = attr_value
-			for {
-				v10 = nox_memfile_read_i32(f)
-				*v8 = *memmap.PtrUint8(0x5D4594, 830852)
-				if v10 == -1 {
-					v12 = nox_memfile_read_i8(f)
-					*((*uint8)(unsafe.Pointer(&v13))) = uint8(v12)
-					v14 = uint8(nox_memfile_read_i8(f))
-					nox_memfile_read(unsafe.Pointer(v8), 1, int32(v14), f)
-					v10 = -1
-					*(*uint8)(unsafe.Add(unsafe.Pointer(v8), v14)) = 0
-					v7 = v16
-				}
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) + uint32(func() int32 {
-					p := &v7
-					x := *p
-					*p++
-					return x
-				}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v10, int8(uintptr(unsafe.Pointer(v13))), v8))))
-				v16 = v7
-				if v7 >= int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))) {
-					break
-				}
+	if result == nil {
+		return result
+	}
+	v7 = 0
+	v16 = 0
+	if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))) != 0 {
+		v8 = attr_value
+		for {
+			v10 = nox_memfile_read_i32(f)
+			*v8 = *memmap.PtrUint8(0x5D4594, 830852)
+			if v10 == -1 {
+				v12 = nox_memfile_read_i8(f)
+				*((*uint8)(unsafe.Pointer(&v13))) = uint8(v12)
+				v14 = uint8(nox_memfile_read_i8(f))
+				nox_memfile_read(unsafe.Pointer(v8), 1, int32(v14), f)
+				v10 = -1
+				*(*uint8)(unsafe.Add(unsafe.Pointer(v8), v14)) = 0
+				v7 = v16
+			}
+			*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) + uint32(func() int32 {
+				p := &v7
+				x := *p
+				*p++
+				return x
+			}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v10, int8(uintptr(unsafe.Pointer(v13))), v8))))
+			v16 = v7
+			if v7 >= int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))) {
+				break
 			}
 		}
-		result = unsafe.Pointer(v4)
 	}
+	result = unsafe.Pointer(v4)
 	return result
 }
 func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 int32, f *binfile.MemFile) int32 {

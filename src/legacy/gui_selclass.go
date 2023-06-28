@@ -65,11 +65,12 @@ func sub_4A4970() int {
 }
 
 func guiSelClassShadeDraw(win *gui.Window, draw *gui.WindowData) int {
-	if guiSelClassCurID != win.ID() {
-		var x, y uint32
-		nox_client_wndGetPosition_46AA60(win, &x, &y)
-		nox_client_drawRectFilledAlpha_49CF10(int32(x), int32(y), int32(win.EndPos.X-win.Off.X), int32(win.EndPos.Y-win.Off.Y))
+	if guiSelClassCurID == win.ID() {
+		return 1
 	}
+	var x, y uint32
+	nox_client_wndGetPosition_46AA60(win, &x, &y)
+	nox_client_drawRectFilledAlpha_49CF10(int32(x), int32(y), int32(win.EndPos.X-win.Off.X), int32(win.EndPos.Y-win.Off.Y))
 	return 1
 }
 

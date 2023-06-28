@@ -190,33 +190,34 @@ func sub_44BE90(a1 int32, f *binfile.MemFile) int32 {
 	v2 = a1
 	result = int32(uintptr(alloc.Calloc1(int(*(*int16)(unsafe.Add(a1, 40))), 4)))
 	*(*uint32)(unsafe.Add(a1, 4)) = uint32(result)
-	if result != 0 {
-		v4 = 0
-		if int32(*(*uint16)(unsafe.Add(a1, 40))) > 0 {
-			for {
-				v6 = nox_memfile_read_i32(f)
-				v12[0] = *memmap.PtrUint8(0x5D4594, 830848)
-				if v6 == -1 {
-					v8 = int8(nox_memfile_read_u8(f))
-					*((*uint8)(unsafe.Pointer(&v11))) = uint8(v8)
-					v10 = int32(nox_memfile_read_u8(f))
-					nox_memfile_read(unsafe.Pointer(&v12[0]), 1, v10, f)
-					v12[v10] = 0
-					v2 = a1
-				}
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 4)) + uint32(func() int32 {
-					p := &v4
-					x := *p
-					*p++
-					return x
-				}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v6, int8(uintptr(unsafe.Pointer(v11))), &v12[0]))))
-				if v4 >= int32(*(*int16)(unsafe.Add(v2, 40))) {
-					break
-				}
+	if result == 0 {
+		return result
+	}
+	v4 = 0
+	if int32(*(*uint16)(unsafe.Add(a1, 40))) > 0 {
+		for {
+			v6 = nox_memfile_read_i32(f)
+			v12[0] = *memmap.PtrUint8(0x5D4594, 830848)
+			if v6 == -1 {
+				v8 = int8(nox_memfile_read_u8(f))
+				*((*uint8)(unsafe.Pointer(&v11))) = uint8(v8)
+				v10 = int32(nox_memfile_read_u8(f))
+				nox_memfile_read(unsafe.Pointer(&v12[0]), 1, v10, f)
+				v12[v10] = 0
+				v2 = a1
+			}
+			*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 4)) + uint32(func() int32 {
+				p := &v4
+				x := *p
+				*p++
+				return x
+			}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v6, int8(uintptr(unsafe.Pointer(v11))), &v12[0]))))
+			if v4 >= int32(*(*int16)(unsafe.Add(v2, 40))) {
+				break
 			}
 		}
-		result = 1
 	}
+	result = 1
 	return result
 }
 func nox_things_animate_state_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {

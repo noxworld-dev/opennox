@@ -72,21 +72,22 @@ func nox_xxx_clientAskInfoMb_4BF050(a1p *client.Drawable) *wchar2_t {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)) = 137
 				goto LABEL_93
 			}
-			if v19 != 137 {
-				if nox_strman_get_lang_code() != 6 {
-					v22 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 292)
-					nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr("%s "), v22)
-					v23 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
-					nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v23)
-					goto LABEL_93
-				}
-				v20 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v20)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
-				v21 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 288)
-				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v21)
+			if v19 == 137 {
+				return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
+			}
+			if nox_strman_get_lang_code() != 6 {
+				v22 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 292)
+				nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr("%s "), v22)
+				v23 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
+				nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v23)
 				goto LABEL_93
 			}
+			v20 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*108)))
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v20)
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), internWStr(" "))
+			v21 = nox_strman_loadString_40F1D0(internCStr("BookOf"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ToolTip.c"), 288)
+			nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000)), v21)
+			goto LABEL_93
 			return (*wchar2_t)(memmap.PtrOff(0x5D4594, 1317000))
 		}
 		if v18&2 != 0 {

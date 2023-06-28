@@ -140,15 +140,16 @@ func sub_451E80(a1 int32) int32 {
 	v8 = nox_common_randomIntMinMax_415FF0(0, v7, internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 431)
 	v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+v8*4)), 440)))
 	v10 = v8
-	if v8 < *(*int32)(unsafe.Add(a1, 568)) {
-		v11 = (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+v8*4)), 440))
-		for {
-			v10++
-			*v11 = *(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
-			v11 = (*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
-			if v10 >= *(*int32)(unsafe.Add(a1, 568)) {
-				break
-			}
+	if v8 >= *(*int32)(unsafe.Add(a1, 568)) {
+		return v9
+	}
+	v11 = (*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+v8*4)), 440))
+	for {
+		v10++
+		*v11 = *(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
+		v11 = (*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
+		if v10 >= *(*int32)(unsafe.Add(a1, 568)) {
+			break
 		}
 	}
 	return v9
@@ -169,24 +170,25 @@ func sub_452580(a1 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*109)) = 0
 	result = int32(uintptr(sub_452810(int32(*(*uint32)(unsafe.Add(v1, 48))+uint32(v3)), 0)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) = uint32(result)
-	if result != 0 {
-		v4 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 76))), int32(*(*uint32)(unsafe.Add(v1, 80))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1482)
-		sub_486320(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 48), uint32(v4+100))
-		sub_4BDB20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44))))
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 152)) = uint32(uintptr(unsafe.Pointer(a1)))
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 140)) = uint32(uintptr(ccall.FuncAddr(sub_452770)))
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 144)) = uint32(uintptr(ccall.FuncAddr(sub_4526F0)))
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 148)) = uint32(uintptr(ccall.FuncAddr(sub_4526D0)))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = 1
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 112)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(a1), 4*46)))
-		if int32(*(*uint8)(unsafe.Add(v1, 4)))&8 != 0 {
-			v5 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 68))), int32(*(*uint32)(unsafe.Add(v1, 72))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1497)
-			if v5 > 33 {
-				sub_452690(unsafe.Pointer(a1), int64(v5), 1)
-			}
-		}
-		result = 1
+	if result == 0 {
+		return result
 	}
+	v4 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 76))), int32(*(*uint32)(unsafe.Add(v1, 80))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1482)
+	sub_486320(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 48), uint32(v4+100))
+	sub_4BDB20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44))))
+	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 152)) = uint32(uintptr(unsafe.Pointer(a1)))
+	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 140)) = uint32(uintptr(ccall.FuncAddr(sub_452770)))
+	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 144)) = uint32(uintptr(ccall.FuncAddr(sub_4526F0)))
+	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 148)) = uint32(uintptr(ccall.FuncAddr(sub_4526D0)))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = 1
+	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*44)), 112)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(a1), 4*46)))
+	if int32(*(*uint8)(unsafe.Add(v1, 4)))&8 != 0 {
+		v5 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 68))), int32(*(*uint32)(unsafe.Add(v1, 72))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1497)
+		if v5 > 33 {
+			sub_452690(unsafe.Pointer(a1), int64(v5), 1)
+		}
+	}
+	result = 1
 	return result
 }
 func sub_452770(a1p unsafe.Pointer) {

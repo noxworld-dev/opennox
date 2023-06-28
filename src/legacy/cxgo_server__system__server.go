@@ -1218,11 +1218,12 @@ func sub_57B140() bool {
 		result int32
 	)
 	result = 0
-	if *memmap.PtrUint64(0x5D4594, 2523796) != 0 {
-		v0 = uint64(nox_xxx___Getcvt_57B180() + 5000)
-		if v0 < uint64(nox_platform_get_ticks()) {
-			result = 1
-		}
+	if *memmap.PtrUint64(0x5D4594, 2523796) == 0 {
+		return result != 0
+	}
+	v0 = uint64(nox_xxx___Getcvt_57B180() + 5000)
+	if v0 < uint64(nox_platform_get_ticks()) {
+		result = 1
 	}
 	return result != 0
 }

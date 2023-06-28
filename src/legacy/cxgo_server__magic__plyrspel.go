@@ -14,17 +14,18 @@ func nox_xxx_netSendSpellAward_4D7F90(a1 int32, a2 int32, a3 int8, a4 int32) int
 		v5     int32
 	)
 	result = a1
-	if int32(*(*uint8)(unsafe.Add(a1, 8)))&4 != 0 {
-		v5 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-		*((*uint8)(unsafe.Pointer(&a1))) = 111
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint8(int8(a2))
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 2)) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v5, 276))+uint32(a2*4))), 3696))
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(a3)
-		if a4 != 0 {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(int8(int32(a3) | 0x80))
-		}
-		result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 276)), 2064))), unsafe.Pointer(&a1), 4, nil, 1)
+	if int32(*(*uint8)(unsafe.Add(a1, 8)))&4 == 0 {
+		return result
 	}
+	v5 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	*((*uint8)(unsafe.Pointer(&a1))) = 111
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint8(int8(a2))
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 2)) = *(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v5, 276))+uint32(a2*4))), 3696))
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(a3)
+	if a4 != 0 {
+		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(int8(int32(a3) | 0x80))
+	}
+	result = nox_xxx_netSendPacket1_4E5390(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 276)), 2064))), unsafe.Pointer(&a1), 4, nil, 1)
 	return result
 }
 func nox_xxx_abilGetError_4FB0B0_magic_plyrspel(a1 int32) {

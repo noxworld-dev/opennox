@@ -89,11 +89,12 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v21 int32
 	)
 	if a2 == 0x4000 {
-		if unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1113)) || unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1114)) {
-			nox_window_call_field_94_fnc(dword_5d4594_1045480, 0x4000, a3, 0)
-			nox_window_call_field_94_fnc(dword_5d4594_1045508, 0x4000, a3, 0)
-			sub_454120()
+		if !(unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1113)) || unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, 1114))) {
+			return 0
 		}
+		nox_window_call_field_94_fnc(dword_5d4594_1045480, 0x4000, a3, 0)
+		nox_window_call_field_94_fnc(dword_5d4594_1045508, 0x4000, a3, 0)
+		sub_454120()
 		return 0
 	}
 	if a2 != 16391 {

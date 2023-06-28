@@ -20,38 +20,40 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 		v7 int32
 		a4 int2
 	)
-	if a2 != dword_5d4594_1062560 && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049728) && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049724) && a2 != dword_5d4594_1062556 && a2 != dword_5d4594_1062564 {
-		v3 = sub_461970(a1, a2)
-		if v3 != nil {
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*v3)), 112)))&0x10 != 0 {
-				sub_472310()
-			}
-		} else {
-			if sub_4617C0(a1, a2, a3, &a4) == 0 {
-				v4 = nox_strman_loadString_40F1D0(internCStr("InventoryFull"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 682)
-				nox_xxx_printCentered_445490(v4)
-				return 0
-			}
-			v6 = a4.field_0
+	if !(a2 != dword_5d4594_1062560 && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049728) && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049724) && a2 != dword_5d4594_1062556 && a2 != dword_5d4594_1062564) {
+		return 1
+	}
+	v3 = sub_461970(a1, a2)
+	if v3 != nil {
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*v3)), 112)))&0x10 != 0 {
+			sub_472310()
+		}
+	} else {
+		if sub_4617C0(a1, a2, a3, &a4) == 0 {
+			v4 = nox_strman_loadString_40F1D0(internCStr("InventoryFull"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 682)
+			nox_xxx_printCentered_445490(v4)
+			return 0
+		}
+		v6 = a4.field_0
+		v7 = a4.field_4
+		if nox_client_inventory_grid_1050020[a4.field_4+NOX_INVENTORY_ROW_COUNT*a4.field_0].field_0.Flags28()&0x10 != 0 {
+			sub_472310()
 			v7 = a4.field_4
-			if nox_client_inventory_grid_1050020[a4.field_4+NOX_INVENTORY_ROW_COUNT*a4.field_0].field_0.Flags28()&0x10 != 0 {
-				sub_472310()
-				v7 = a4.field_4
-				v6 = a4.field_0
-			}
-			if nox_client_inventory_grid_1050020[v7+NOX_INVENTORY_ROW_COUNT*v6].field_0.Flags28()&0x3001000 != 0 {
-				dword_5d4594_1062516 = 0
-				if v7 >= 3 {
-					dword_5d4594_1062516 = (v7*5 - 10) * 10
-				}
+			v6 = a4.field_0
+		}
+		if nox_client_inventory_grid_1050020[v7+NOX_INVENTORY_ROW_COUNT*v6].field_0.Flags28()&0x3001000 != 0 {
+			dword_5d4594_1062516 = 0
+			if v7 >= 3 {
+				dword_5d4594_1062516 = (v7*5 - 10) * 10
 			}
 		}
-		v8 := nox_get_thing(a2)
-		if v8 != nil {
-			if v8.ObjClass&0x1001000 != 0 {
-				sub_4673F0(a4.field_0, a4.field_4)
-			}
-		}
+	}
+	v8 := nox_get_thing(a2)
+	if v8 == nil {
+		return 1
+	}
+	if v8.ObjClass&0x1001000 != 0 {
+		sub_4673F0(a4.field_0, a4.field_4)
 	}
 	return 1
 }
@@ -416,13 +418,14 @@ func sub_4627F0(a1 *uint32) int32 {
 LABEL_14:
 	result = int32(dword_5d4594_1063116)
 	if dword_5d4594_1063116 == nil {
-		if dword_5d4594_1063120 != 0 {
-			dword_5d4594_1063120 = 0
-			v5 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2529)
-			nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), v5)
-			v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1062476, 9156)))
-			result = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v6)), 16399, 0, 0))
+		if dword_5d4594_1063120 == 0 {
+			return result
 		}
+		dword_5d4594_1063120 = 0
+		v5 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2529)
+		nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), v5)
+		v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1062476, 9156)))
+		result = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v6)), 16399, 0, 0))
 		return result
 	}
 	if dword_5d4594_1063120 == dword_5d4594_1063116 {
@@ -1384,31 +1387,33 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 	)
 	v2 = nox_xxx_pointInRect_4281F0(a2, (*int4)(memmap.PtrOff(0x587000, 136336)))
 	if v2 == 0 {
-		if int32(*memmap.PtrUint8(0x5D4594, 1049869)) == 0 {
-			v6 = nox_xxx_pointInRect_4281F0(a2, (*int4)(memmap.PtrOff(0x587000, 136368)))
-			if v6 != 0 {
-				v7 = a2.field_4 - 13
-				v8 = v7 / 50
-				v9 = 20
-				dword_5d4594_1049796_inventory_click_column_index = v7 / 50
-			} else {
-				v10 = nox_xxx_pointInRect_4281F0(a2, (*int4)(memmap.PtrOff(0x587000, 136352)))
-				if v10 == 0 {
-					return nil
-				}
-				v8 = (a2.field_0 - 314) / 50
-				dword_5d4594_1049796_inventory_click_column_index = (a2.field_0 - 314) / 50
-				v9 = int32((uint32(a2.field_4) + dword_5d4594_1062512 - 13) / 50)
+		if int32(*memmap.PtrUint8(0x5D4594, 1049869)) != 0 {
+			return nil
+		}
+		v6 = nox_xxx_pointInRect_4281F0(a2, (*int4)(memmap.PtrOff(0x587000, 136368)))
+		if v6 != 0 {
+			v7 = a2.field_4 - 13
+			v8 = v7 / 50
+			v9 = 20
+			dword_5d4594_1049796_inventory_click_column_index = v7 / 50
+		} else {
+			v10 = nox_xxx_pointInRect_4281F0(a2, (*int4)(memmap.PtrOff(0x587000, 136352)))
+			if v10 == 0 {
+				return nil
 			}
-			dword_5d4594_1049800_inventory_click_row_index = v9
-			if sub_464B40(v8, v9) != 0 {
-				var v12 int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
-				if int32(nox_client_inventory_grid_1050020[v12].field_140) != 0 {
-					v13 = int32(uintptr(unsafe.Pointer(nox_client_inventory_grid_1050020[v12].field_0)))
-					*(*uint32)(unsafe.Add(v13, 128)) = nox_client_inventory_grid_1050020[v12].field_4
-					return nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(v13))
-				}
-			}
+			v8 = (a2.field_0 - 314) / 50
+			dword_5d4594_1049796_inventory_click_column_index = (a2.field_0 - 314) / 50
+			v9 = int32((uint32(a2.field_4) + dword_5d4594_1062512 - 13) / 50)
+		}
+		dword_5d4594_1049800_inventory_click_row_index = v9
+		if sub_464B40(v8, v9) == 0 {
+			return nil
+		}
+		var v12 int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
+		if int32(nox_client_inventory_grid_1050020[v12].field_140) != 0 {
+			v13 = int32(uintptr(unsafe.Pointer(nox_client_inventory_grid_1050020[v12].field_0)))
+			*(*uint32)(unsafe.Add(v13, 128)) = nox_client_inventory_grid_1050020[v12].field_4
+			return nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(v13))
 		}
 		return nil
 	}
@@ -1561,13 +1566,14 @@ func nox_xxx_inventoryNameSignInit_4671E0() int32 {
 		}
 		result = int32(*(*byte)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3684)))
 	}
-	if v1 != 0 {
-		nox_sprintf(&v5[0], internCStr("experience:%s%d"), *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(v1, 2251)))*4+29456)), result)
-		v4 = nox_strman_loadString_40F1D0(&v5[0], nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4763)
-		v3 = int32(*memmap.PtrUint32(0x8531A0, 2576) + 4704)
-		v2 = nox_strman_loadString_40F1D0(internCStr("ElaborateNameFormat"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4761)
-		result = nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1062588)), v2, v3, v4)
+	if v1 == 0 {
+		return result
 	}
+	nox_sprintf(&v5[0], internCStr("experience:%s%d"), *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(v1, 2251)))*4+29456)), result)
+	v4 = nox_strman_loadString_40F1D0(&v5[0], nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4763)
+	v3 = int32(*memmap.PtrUint32(0x8531A0, 2576) + 4704)
+	v2 = nox_strman_loadString_40F1D0(internCStr("ElaborateNameFormat"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4761)
+	result = nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1062588)), v2, v3, v4)
 	return result
 }
 func sub_467750(a1 int32, a2 int8) int32 {

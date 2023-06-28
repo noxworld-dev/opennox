@@ -439,15 +439,16 @@ func nox_script_readWriteIii_541D80(a1 *FILE, a2 *FILE) int32 {
 	nox_fs_fread(a1, unsafe.Pointer(&v5), 4)
 	nox_fs_fwrite(a2, unsafe.Pointer(&v5), 4)
 	result = v4
-	if v4 != 0 && v4 > 0 {
-		for {
-			nox_fs_fread(a1, unsafe.Pointer(&v6), 4)
-			nox_fs_fwrite(a2, unsafe.Pointer(&v6), 4)
-			result = v4
-			v2++
-			if v2 >= v4 {
-				break
-			}
+	if !(v4 != 0 && v4 > 0) {
+		return result
+	}
+	for {
+		nox_fs_fread(a1, unsafe.Pointer(&v6), 4)
+		nox_fs_fwrite(a2, unsafe.Pointer(&v6), 4)
+		result = v4
+		v2++
+		if v2 >= v4 {
+			break
 		}
 	}
 	return result

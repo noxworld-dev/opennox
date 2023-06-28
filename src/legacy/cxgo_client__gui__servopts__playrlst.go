@@ -121,11 +121,12 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 	v4 = nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3)))
 	nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 	if v4 > 10507 {
-		if v4 == 10509 {
-			v28 = nox_strman_loadString_40F1D0(internCStr("NewName"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 504)
-			v27 = nox_strman_loadString_40F1D0(internCStr("Rename"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 504)
-			nox_xxx_dialogMsgBoxCreate_449A10(dword_5d4594_1045684, v27, v28, 163, nil, nil)
+		if v4 != 10509 {
+			return 0
 		}
+		v28 = nox_strman_loadString_40F1D0(internCStr("NewName"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 504)
+		v27 = nox_strman_loadString_40F1D0(internCStr("Rename"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 504)
+		nox_xxx_dialogMsgBoxCreate_449A10(dword_5d4594_1045684, v27, v28, 163, nil, nil)
 		return 0
 	}
 	if v4 == 10507 {
@@ -144,12 +145,13 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v21 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v20)), 16404, 0, 0))
 		sub_456D00(v21, &v30[0])
 		v22 = sub_418A40(&v30[0])
-		if v22 != nil {
-			v23 = (*wchar2_t)(unsafe.Pointer(uintptr(sub_449E60(-88))))
-			if sub_4190F0(v23) == 0 {
-				nox_xxx_teamRenameMB_418CD0((*wchar2_t)(unsafe.Pointer(v22)), v23)
-				return 0
-			}
+		if v22 == nil {
+			return 0
+		}
+		v23 = (*wchar2_t)(unsafe.Pointer(uintptr(sub_449E60(-88))))
+		if sub_4190F0(v23) == 0 {
+			nox_xxx_teamRenameMB_418CD0((*wchar2_t)(unsafe.Pointer(v22)), v23)
+			return 0
 		}
 		return 0
 	}
