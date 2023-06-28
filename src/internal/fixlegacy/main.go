@@ -372,13 +372,13 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	if !ok {
 		return
 	}
-	if x := fieldForOff(pkg, st, ptr, off, pkg.TypesSizes.Sizeof(ct)); x != nil {
+	if x := fieldForOff(pkg, nt, st, ptr, off, pkg.TypesSizes.Sizeof(ct)); x != nil {
 		*p = x
 		*changed = true
 	}
 }
 
-func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off, sz int64) ast.Expr {
+func fieldForOff(pkg *packages.Package, nt *types.Named, st *types.Struct, x ast.Expr, off, sz int64) ast.Expr {
 	if pkg.TypesSizes.Sizeof(st) <= off {
 		return nil
 	}
@@ -400,31 +400,32 @@ func fieldForOff(pkg *packages.Package, st *types.Struct, x ast.Expr, off, sz in
 	if fld == nil {
 		return nil
 	}
-	if fld.Exported() {
+	obj := nt.Obj()
+	if fld.Exported() || obj.Pkg() == pkg.Types {
 		x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
 	} else {
-		switch fld.Name() {
-		case "drawData": // Window.drawData
+		switch obj.Pkg().Name() + "." + obj.Name() + "." + fld.Name() {
+		case "gui.Window.drawData":
 			x = &ast.CallExpr{Fun: &ast.SelectorExpr{X: x, Sel: ast.NewIdent("DrawData")}}
 		default:
 			return nil
 		}
 	}
-	nt, ok := fld.Type().(*types.Named)
+	nt2, ok := fld.Type().(*types.Named)
 	if !ok {
 		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
 			return x
 		}
 		return nil
 	}
-	st2, ok := nt.Underlying().(*types.Struct)
+	st2, ok := nt2.Underlying().(*types.Struct)
 	if !ok {
 		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
 			return x
 		}
 		return nil
 	}
-	return fieldForOff(pkg, st2, x, doff, sz)
+	return fieldForOff(pkg, nt2, st2, x, doff, sz)
 }
 
 func fixBinExprConv(pkg *packages.Package, b *ast.BinaryExpr, changed *bool) {
