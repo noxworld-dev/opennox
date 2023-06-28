@@ -216,6 +216,21 @@ func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Ex
 	}
 	switch x := x.(type) {
 	case *ast.CallExpr:
+		if len(x.Args) == 0 {
+			if dot, ok := x.Fun.(*ast.SelectorExpr); ok && dot.Sel.Name == "C" {
+				ct := pkg.TypesInfo.TypeOf(dot.X)
+				if types.Identical(t, ct) {
+					*p = dot.X
+					*changed = true
+					return
+				}
+				if pkg.TypesSizes.Sizeof(ct) != pkg.TypesSizes.Sizeof(t) {
+					return // incompatible value sizes - stop
+				}
+				fixSameTypeConv2(pkg, t, dot.X, p, changed)
+			}
+			return
+		}
 		if len(x.Args) != 1 {
 			return
 		}
