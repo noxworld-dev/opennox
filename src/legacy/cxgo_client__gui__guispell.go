@@ -321,7 +321,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		nox_xxx_wndSetIcon_46AE60(dword_5d4594_1049508, int32(uintptr(unsafe.Pointer(v30))))
 		v31 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetBase"))))
 		nox_xxx_wndSetIconLit_46AEA0(dword_5d4594_1049508, int32(uintptr(unsafe.Pointer(v31))))
-		*(*uint32)(unsafe.Add(dword_5d4594_1049508, 368)) = 5
+		dword_5d4594_1049508.Field92Val = 5
 		nox_window_set_all_funcs(dword_5d4594_1049508, nox_xxx_quickbar_45F8D0, nox_xxx_quickbarTrapUpDownDraw_45F6F0, nil)
 	} else {
 		dword_5d4594_1049508 = nox_window_new(nil, 1032, int(dword_5d4594_1047548-1), int(dword_5d4594_1047552+26), 61, 48, nil)

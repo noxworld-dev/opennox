@@ -2149,8 +2149,8 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 *gui.Window) *gui.Window {
 	v6 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10190)
 	v15 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10188)
 	v12 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10189)
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v6), 4*100)), 8)) = 16
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v6), 4*100)), 12)) = 10
+	v6.Field100Ptr.SizeVal.X = 16
+	v6.Field100Ptr.SizeVal.Y = 10
 	sub_4B5700(v6, 0, 0, unsafe.Pointer(v4), unsafe.Pointer(v5), unsafe.Pointer(v5))
 	nox_xxx_wnd_46B280(v6, dword_5d4594_1045532)
 	nox_xxx_wnd_46B280(v15, dword_5d4594_1045532)
@@ -2162,8 +2162,8 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 *gui.Window) *gui.Window {
 	v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10187)
 	v16 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10185)
 	v13 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10186)
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*100)), 8)) = 16
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*100)), 12)) = 10
+	v8.Field100Ptr.SizeVal.X = 16
+	v8.Field100Ptr.SizeVal.Y = 10
 	sub_4B5700(v8, 0, 0, unsafe.Pointer(v4), unsafe.Pointer(v5), unsafe.Pointer(v5))
 	nox_xxx_wnd_46B280(v8, dword_5d4594_1045528)
 	nox_xxx_wnd_46B280(v16, dword_5d4594_1045528)
@@ -2175,9 +2175,9 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 *gui.Window) *gui.Window {
 	v10 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10203)
 	v17 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10201)
 	v11 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10202)
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*100)), 8)) = 16
+	v10.Field100Ptr.SizeVal.X = 16
 	v14 := v11
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*100)), 12)) = 10
+	v10.Field100Ptr.SizeVal.Y = 10
 	sub_4B5700(v10, 0, 0, unsafe.Pointer(v4), unsafe.Pointer(v5), unsafe.Pointer(v5))
 	nox_xxx_wnd_46B280(v10, dword_5d4594_1045536)
 	nox_xxx_wnd_46B280(v17, dword_5d4594_1045536)
@@ -3545,35 +3545,35 @@ func sub_4593B0(a1 int32) {
 }
 func sub_459560(a1 int32) {
 	v1 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, a1)
-	v2 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*99))
+	v2 := v1.ParentPtr
 	switch a1 {
 	case 10161:
 		v6 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10163)
 		sub_46B120(v6, nil)
-		sub_46B120(v6, (*gui.Window)(v2))
+		sub_46B120(v6, v2)
 		v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10162)
 		v7 := v4
 		sub_46B120(v4, nil)
-		sub_46B120(v7, (*gui.Window)(v2))
+		sub_46B120(v7, v2)
 	case 10162:
 		v5 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10163)
 		sub_46B120(v5, nil)
-		sub_46B120(v5, (*gui.Window)(v2))
+		sub_46B120(v5, v2)
 		v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10161)
 		v7 := v4
 		sub_46B120(v4, nil)
-		sub_46B120(v7, (*gui.Window)(v2))
+		sub_46B120(v7, v2)
 	case 10163:
 		v3 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10162)
 		sub_46B120(v3, nil)
-		sub_46B120(v3, (*gui.Window)(v2))
+		sub_46B120(v3, v2)
 		v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10161)
 		v7 := v4
 		sub_46B120(v4, nil)
-		sub_46B120(v7, (*gui.Window)(v2))
+		sub_46B120(v7, v2)
 	}
 	sub_46B120(v1, nil)
-	sub_46B120(v1, (*gui.Window)(v2))
+	sub_46B120(v1, v2)
 }
 func sub_459700() int32 {
 	var (
@@ -5219,7 +5219,7 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		v14 int2
 		v15 int32
 	)
-	v3 := *(*unsafe.Pointer)(unsafe.Add(win.C(), 368))
+	v3 := unsafe.Pointer(win.Field92Val)
 	if !(*memmap.PtrUint32(0x852978, 8) == 0 || (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 120)))&2) != 2) {
 		return 1
 	}
@@ -5292,19 +5292,19 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 				}
 				*(*uint32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(v3, 4*51)) + v4*8))) = 0
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(v3, 4*51))+v8)), 4)) = 0
-				if v3 == memmap.PtrOff(0x5D4594, 1047940) {
+				if unsafe.Pointer(v3) == memmap.PtrOff(0x5D4594, 1047940) {
 					goto LABEL_51
 				}
 			} else {
 				*(*uint32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(v3, 4*51)) + v4*8))) = v12 >> 16
 				*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(v3, 4*51))+v8)), 4)) = uint8(v12)
-				if v3 == memmap.PtrOff(0x5D4594, 1047940) {
+				if unsafe.Pointer(v3) == memmap.PtrOff(0x5D4594, 1047940) {
 					goto LABEL_51
 				}
 			}
 		} else {
 			if dword_5d4594_1049692 != nil {
-				if dword_5d4594_1049692 == v3 && dword_5d4594_1049692 == nox_xxx_aClosewoodengat_587000_133480 {
+				if dword_5d4594_1049692 == unsafe.Pointer(v3) && dword_5d4594_1049692 == nox_xxx_aClosewoodengat_587000_133480 {
 					if dword_5d4594_1049696 != nil {
 						v11 = *(*unsafe.Pointer)(unsafe.Add(v3, 4*51))
 						if dword_5d4594_1049696 != v11 {
@@ -5318,7 +5318,7 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			}
 			if v10 == v4 {
 				dword_5d4594_1049532 = win
-				if *memmap.PtrUint32(0x8531A0, 2576) == 0 || v3 == memmap.PtrOff(0x5D4594, 1047940) {
+				if *memmap.PtrUint32(0x8531A0, 2576) == 0 || unsafe.Pointer(v3) == memmap.PtrOff(0x5D4594, 1047940) {
 					nox_xxx_wndClearCaptureMain_46ADE0(win)
 					dword_5d4594_1049532 = nil
 					nox_xxx_bookSpellDnDclear_477660()
@@ -5337,7 +5337,7 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			}
 			nox_xxx_clientSwapQuickbarKeys_45F300(v3, v4, v10)
 			nox_xxx_clientPlaySoundSpecial_452D80(794, 100)
-			if v3 == memmap.PtrOff(0x5D4594, 1047940) {
+			if unsafe.Pointer(v3) == memmap.PtrOff(0x5D4594, 1047940) {
 				goto LABEL_51
 			}
 		}
@@ -5435,7 +5435,7 @@ func sub_45F520(win *gui.Window, a2, p3, p4 uintptr) uintptr {
 	return 1
 }
 func sub_45F5D0(win *gui.Window, draw *gui.WindowData) int {
-	v1 := int32(*(*uint32)(unsafe.Add(win.C(), 4*92)))
+	v1 := int32(win.Field92Val)
 	var v4, a1 int32
 	nox_client_wndGetPosition_46AA60(win, &v4, &a1)
 	v2 := (*int16)(unsafe.Pointer(sub_42E8E0(v1+28, 1)))
@@ -5484,7 +5484,7 @@ func nox_xxx_quickbarTrapUpDownDraw_45F6F0(win *gui.Window, draw *gui.WindowData
 		v6 int32
 	)
 	v1 := win.C()
-	v2 = int32(*(*uint32)(unsafe.Add(win.C(), 4*92)))
+	v2 = int32(win.Field92Val)
 	var a1, v8 int32
 	nox_client_wndGetPosition_46AA60(win, &a1, &v8)
 	v3 = a1 + *(*int32)(unsafe.Add(v1, 4*24))

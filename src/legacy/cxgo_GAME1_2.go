@@ -3554,7 +3554,7 @@ func nox_client_guiXxx_43A9D0() int32 {
 	nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(dword_5d4594_814984))
 	sub_489FB0()
 	sub_4A2890()
-	if dword_5d4594_815000 != nil && *(*uint32)(unsafe.Add(dword_5d4594_815000.C(), 396)) == 0 {
+	if dword_5d4594_815000 != nil && dword_5d4594_815000.ParentPtr == nil {
 		nox_xxx_wnd_46C6E0(dword_5d4594_815000)
 		nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_815000)
 		dword_5d4594_815000 = nil

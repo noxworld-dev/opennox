@@ -34,8 +34,8 @@ func nox_xxx_guiServerPlayersLoad_456270(a1 *gui.Window) *gui.Window {
 	v6 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10517)
 	v15 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10515)
 	v11 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10516)
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v6), 4*100)), 8)) = 16
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v6), 4*100)), 12)) = 10
+	v6.Field100Ptr.SizeVal.X = 16
+	v6.Field100Ptr.SizeVal.Y = 10
 	sub_4B5700(v6, 0, 0, unsafe.Pointer(v13), unsafe.Pointer(v5), unsafe.Pointer(v5))
 	nox_xxx_wnd_46B280(v6, v3)
 	nox_xxx_wnd_46B280(v15, v3)
@@ -47,8 +47,8 @@ func nox_xxx_guiServerPlayersLoad_456270(a1 *gui.Window) *gui.Window {
 	v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10520)
 	v16 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10518)
 	v12 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10519)
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*100)), 8)) = 16
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*100)), 12)) = 10
+	v8.Field100Ptr.SizeVal.X = 16
+	v8.Field100Ptr.SizeVal.Y = 10
 	sub_4B5700(v8, 0, 0, unsafe.Pointer(v13), unsafe.Pointer(v5), unsafe.Pointer(v5))
 	nox_xxx_wnd_46B280(v8, v4)
 	nox_xxx_wnd_46B280(v16, v4)

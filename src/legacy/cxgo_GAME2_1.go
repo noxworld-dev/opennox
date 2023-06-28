@@ -972,7 +972,7 @@ func sub_4623E0(a1 *client.Drawable, a2 int32) {
 LABEL_19:
 	a1.Field_93 = nil
 	a1.NextPtr = array_5D4594_1049872[a2]
-	result = *(**uint32)(unsafe.Pointer(&array_5D4594_1049872[a2]))
+	result = array_5D4594_1049872[a2]
 	if result != nil {
 		result.Field_93 = a1
 	}
@@ -2930,14 +2930,10 @@ func sub_46AF00(a1 *gui.Window) *wchar2_t {
 	}
 }
 func sub_46AF40(a1 unsafe.Pointer) unsafe.Pointer {
-	var (
-		result int32
-	)
-	result = a1
-	if a1 != nil {
-		result = int32(*(*uint32)(unsafe.Add(a1, 236)))
+	if a1 == nil {
+		return nil
 	}
-	return result
+	return *(*unsafe.Pointer)(unsafe.Add(a1, 236))
 }
 func nox_gui_windowCopyDrawData_46AF80(win *gui.Window, p unsafe.Pointer) int32 {
 	if win == nil {
@@ -2951,26 +2947,22 @@ func nox_gui_windowCopyDrawData_46AF80(win *gui.Window, p unsafe.Pointer) int32 
 }
 func sub_46B630(a1p *gui.Window, a2 int32, a3 int32) *gui.Window {
 	var (
-		a1     = unsafe.Pointer(a1p)
-		result int32
-		i      int32
-		v5     *uint32
-		v6     int32
-		j      int32
+		v6 int32
+		j  int32
 	)
-	result = a1
-	if a1 == nil {
+	result := a1p
+	if a1p == nil {
 		return (*gui.Window)(result)
 	}
 LABEL_2:
-	for i = int32(*(*uint32)(unsafe.Add(result, 400))); i != 0; i = int32(*(*uint32)(unsafe.Add(i, 388))) {
-		v5 = *(**uint32)(unsafe.Add(i, 396))
-		v6 = int32(*(*uint32)(unsafe.Add(i, 16)))
-		for j = int32(*(*uint32)(unsafe.Add(i, 20))); v5 != nil; v5 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*99))) {
-			v6 += int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*4)))
-			j += int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*5)))
+	for i := result.Field100Ptr; i != nil; i = i.PrevPtr {
+		v6 = int32(i.Off.X)
+		j = int32(i.Off.Y)
+		for v5 := i.ParentPtr; v5 != nil; v5 = v5.ParentPtr {
+			v6 += int32(v5.Off.X)
+			j += int32(v5.Off.Y)
 		}
-		if a2 >= v6 && uint32(a2) <= uint32(v6)+*(*uint32)(unsafe.Add(i, 8)) && a3 >= j && uint32(a3) <= uint32(j)+*(*uint32)(unsafe.Add(i, 12)) && (int32(*(*uint8)(unsafe.Add(i, 4)))&0x10) == 0 {
+		if a2 >= v6 && int(a2) <= int(v6)+i.SizeVal.X && a3 >= j && int(a3) <= int(j)+i.SizeVal.Y && (int32(i.Flags)&0x10) == 0 {
 			result = i
 			goto LABEL_2
 		}

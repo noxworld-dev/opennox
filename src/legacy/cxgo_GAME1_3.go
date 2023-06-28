@@ -855,8 +855,8 @@ func nox_xxx_guiMotdLoad_4465C0() *gui.Window {
 	v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_826028, 4204)
 	v5 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_826028, 4205)
 	v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_826028, 4206)
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*100)), 8)) = 16
-	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*100)), 12)) = 10
+	v4.Field100Ptr.SizeVal.X = 16
+	v4.Field100Ptr.SizeVal.Y = 10
 	sub_4B5700(v4, 0, 0, unsafe.Pointer(v7), unsafe.Pointer(v3), unsafe.Pointer(v3))
 	nox_xxx_wnd_46B280(v4, dword_5d4594_826032)
 	nox_xxx_wnd_46B280(v5, dword_5d4594_826032)
