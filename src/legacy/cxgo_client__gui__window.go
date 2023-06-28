@@ -61,7 +61,7 @@ func nox_xxx_wndPointInWnd_46AAB0(a1 *gui.Window, a2 int32, a3 int32) bool {
 		v7 int32 = 0
 	)
 	v3 = a1
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&v6)))
+	nox_client_wndGetPosition_46AA60(a1, (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&v6)))
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v3)), &v5, &v7)
 	return a2 >= int32(uintptr(unsafe.Pointer(a1))) && a2 <= int32(uintptr(unsafe.Pointer(a1)))+v5 && a3 >= v6 && a3 <= v6+v7
 }
@@ -75,7 +75,7 @@ func sub_46AB20(a1 *gui.Window, a2 int32, a3 int32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = uint32(a2)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) = uint32(a3)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = uint32(v4)
-	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(a1)), 16388, uintptr(a2), uintptr(a3))
+	nox_window_call_field_94_fnc(a1, 16388, uintptr(a2), uintptr(a3))
 	return 0
 }
 func nox_window_get_size(win *gui.Window, outW *int32, outH *int32) int32 {

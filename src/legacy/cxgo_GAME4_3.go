@@ -9842,7 +9842,7 @@ func nox_xxx_tile_543C50(a1 *uint32, a2 int32, a3 int32, a4 int32, a5 int32, a6 
 		v11 = 0
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) == 0 {
 			v12 = nox_xxx_mapGenEdge_543EB0(a4, a5)
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(unsafe.Pointer(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, v12))))
+			*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, v12)))
 			return 1
 		}
 		for {
@@ -9857,7 +9857,7 @@ func nox_xxx_tile_543C50(a1 *uint32, a2 int32, a3 int32, a4 int32, a5 int32, a6 
 		}
 		if v11 == 0 {
 			v12 = nox_xxx_mapGenEdge_543EB0(a4, a5)
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(unsafe.Pointer(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, v12))))
+			*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, v12)))
 			return 1
 		}
 		for {
@@ -9907,13 +9907,13 @@ func nox_xxx_tile_543C50(a1 *uint32, a2 int32, a3 int32, a4 int32, a5 int32, a6 
 			}
 			v8 = (**uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) == 0 {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(unsafe.Pointer(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, a5))))
+				*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, a5)))
 				return 1
 			}
 		}
 		return 0
 	} else {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(unsafe.Pointer(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, a5))))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)) = uint32(uintptr(nox_xxx_tileListAddNewSubtile_422160(a2, a3, a4, a5)))
 		return 1
 	}
 }

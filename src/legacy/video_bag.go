@@ -93,12 +93,12 @@ func nox_video_bag_image_type(img noxrender.ImageHandle) int32 {
 
 // nox_xxx_readImgMB_42FAA0
 func nox_xxx_readImgMB_42FAA0(known_idx int32, typ int8, cname2 *byte) noxrender.ImageHandle {
-	return (noxrender.ImageHandle)(GetClient().R2().GetBag().ImageRef(int(known_idx), byte(typ), GoString(cname2)).C())
+	return GetClient().R2().GetBag().ImageRef(int(known_idx), byte(typ), GoString(cname2)).C()
 }
 
 // nox_xxx_gLoadImg_42F970
 func nox_xxx_gLoadImg_42F970(name *byte) noxrender.ImageHandle {
-	return (noxrender.ImageHandle)(Nox_xxx_gLoadImg(GoString(name)).C())
+	return Nox_xxx_gLoadImg(GoString(name)).C()
 }
 
 // nox_xxx_gLoadAnim_42FA20

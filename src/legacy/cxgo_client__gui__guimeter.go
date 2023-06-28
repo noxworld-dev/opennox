@@ -49,8 +49,8 @@ func sub_4710B0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	return int(result)
 }
 func sub_471160(a1 *gui.Window, a2, a3, a4, a5 int) {
-	nox_windows_arr_1093036[5].win = nox_window_new((*gui.Window)(a1), 1032, a2, a3, a4, a5, nil)
-	nox_windows_arr_1093036[6].win = nox_window_new((*gui.Window)(a1), 1032, a2-17, a3-15, 15, 15, nil)
+	nox_windows_arr_1093036[5].win = nox_window_new(a1, 1032, a2, a3, a4, a5, nil)
+	nox_windows_arr_1093036[6].win = nox_window_new(a1, 1032, a2-17, a3-15, 15, 15, nil)
 	nox_window_set_all_funcs(nox_windows_arr_1093036[5].win, nil, sub_471250, nil)
 	v5 := nox_strman_loadString_40F1D0(internCStr("ToolTipCharges"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 921)
 	nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[5].win.DrawData(), v5)

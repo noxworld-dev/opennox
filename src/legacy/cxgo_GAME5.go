@@ -1823,7 +1823,7 @@ func nox_xxx_collSysAddCollision_548630(a1 unsafe.Pointer, a2 unsafe.Pointer, a3
 		return
 	}
 LABEL_9:
-	v7 = (*int32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_hit_2491548))))
+	v7 = (*int32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_hit_2491548)))
 	if v7 != nil {
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v7), 4*2)) = a1
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v7), 4*3)) = a2
@@ -5165,7 +5165,7 @@ LABEL_36:
 			if v16 != nil {
 				v11 = v17
 				if v17 != 0 {
-					sub_425CA0(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*69)), *(*unsafe.Pointer)(unsafe.Add(v11, 276)))
+					sub_425CA0(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), *(*unsafe.Pointer)(unsafe.Add(v11, 276)))
 					return
 				}
 			}
@@ -5180,7 +5180,7 @@ LABEL_44:
 		if v16 != nil {
 			v11 = v17
 			if v17 != 0 {
-				sub_425CA0(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*69)), *(*unsafe.Pointer)(unsafe.Add(v11, 276)))
+				sub_425CA0(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), *(*unsafe.Pointer)(unsafe.Add(v11, 276)))
 				return
 			}
 		}
@@ -5637,7 +5637,7 @@ func nox_xxx_updateMonsterGenerator_54E930(obj *server.Object) {
 				default:
 					v4 = uint32(uintptr(unsafe.Pointer(a1)))
 				}
-				if v1 >= uint32(dword_5d4594_2491716) {
+				if v1 >= dword_5d4594_2491716 {
 					v6 = *memmap.PtrUint32(0x5D4594, 2491720) * (v1 - dword_5d4594_2491716 + 1)
 					if v6 > v4 {
 						v7 = 0

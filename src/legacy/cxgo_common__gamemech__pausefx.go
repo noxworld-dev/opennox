@@ -71,7 +71,7 @@ LABEL_29:
 	*memmap.PtrUint32(0x5D4594, 2523796) = 5000
 LABEL_30:
 	*memmap.PtrUint32(0x5D4594, 2523800) = 0
-	*memmap.PtrUint32(0x5D4594, 2523772) = uint32(a2)
+	*memmap.PtrUint32(0x5D4594, 2523772) = a2
 	dword_5d4594_2523804 = 1
 	sub_413A00(1)
 	*memmap.PtrUint64(0x5D4594, 2523788) = uint64(nox_platform_get_ticks())

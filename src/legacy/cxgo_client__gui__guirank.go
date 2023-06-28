@@ -158,7 +158,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	dword_5d4594_1090040 = uint32(v14)
 	dword_5d4594_1090044 = uint32(439 - v0)
 	dword_5d4594_1090048 = nox_window_new(nil, 1560, 0, int(v0)+40, 1, 1, nil)
-	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(dword_5d4594_1090048)), sub_46F060, sub_46F080, nil)
+	nox_window_set_all_funcs(dword_5d4594_1090048, sub_46F060, sub_46F080, nil)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 56)) = 0x80000000
 	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 64)) = 0x80000000
 	*(*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1090048), 72)) = 0x80000000
@@ -186,7 +186,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	v19 = (v0 + 1) * 2
 	v20 = v0 * 2
 	for {
-		v21 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*gui.Window)(dword_5d4594_1090048), 1088, int(uint32(v17)*dword_5d4594_1090040), int(v18), int(dword_5d4594_1090040), int(dword_5d4594_1090044-uint32(v19)), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
+		v21 = (*uint32)(unsafe.Pointer(nox_gui_newScrollListBox_4A4310(dword_5d4594_1090048, 1088, int(uint32(v17)*dword_5d4594_1090040), int(v18), int(dword_5d4594_1090040), int(dword_5d4594_1090044-uint32(v19)), unsafe.Pointer(&v49[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v48[0])))))
 		v22 = int32(*memmap.PtrUint32(0x5D4594, 1084036))
 		v23 = int32(dword_5d4594_1090044 - uint32(v19))
 		*memmap.PtrPtr(0x5D4594, uintptr(v17*4)+1090052) = unsafe.Pointer(v21)
@@ -218,16 +218,16 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	v30 = v46 + 1
 	v45[1] = 0
 	v45[2] = 0
-	dword_5d4594_1090100 = unsafe.Pointer(nox_gui_newStaticText_489300((*gui.Window)(dword_5d4594_1090048), 1088, 0, v46, dword_5d4594_1090040, v46+1, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))
+	dword_5d4594_1090100 = unsafe.Pointer(nox_gui_newStaticText_489300(dword_5d4594_1090048, 1088, 0, v46, dword_5d4594_1090040, v46+1, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))
 	*(*uint32)(unsafe.Pointer(&v49[68])) = nox_color_white_2523948
 	v45[0] = int32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("WindowDir:Empty"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1782))))
-	dword_5d4594_1090112 = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300((*gui.Window)(dword_5d4594_1090048), 1088, 0, v20, dword_5d4594_1090040, v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))
+	dword_5d4594_1090112 = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300(dword_5d4594_1090048, 1088, 0, v20, dword_5d4594_1090040, v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))
 	*(*uint32)(unsafe.Pointer(&v49[68])) = *memmap.PtrUint32(0x85B3FC, 940)
 	v45[0] = int32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("WindowDir:Empty"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1790))))
-	dword_5d4594_1090108 = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300((*gui.Window)(dword_5d4594_1090048), 1088, 0, v47, dword_5d4594_1090040, v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))
+	dword_5d4594_1090108 = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300(dword_5d4594_1090048, 1088, 0, v47, dword_5d4594_1090040, v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))
 	*(*uint32)(unsafe.Pointer(&v49[68])) = *memmap.PtrUint32(0x8531A0, 2572)
 	v45[0] = int32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("TeamPlayerRank"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1798))))
-	*memmap.PtrPtr(0x5D4594, 1090104) = unsafe.Pointer(nox_gui_newStaticText_489300((*gui.Window)(dword_5d4594_1090048), 1088, 0, 0, dword_5d4594_1090040, v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))
+	*memmap.PtrPtr(0x5D4594, 1090104) = unsafe.Pointer(nox_gui_newStaticText_489300(dword_5d4594_1090048, 1088, 0, 0, dword_5d4594_1090040, v30, (*gui.WindowData)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))
 	result = int32(uintptr(unsafe.Pointer(dword_5d4594_1090048)))
 	dword_587000_145664 = 1
 	return result

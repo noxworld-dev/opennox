@@ -991,7 +991,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 8
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(data), 4))
-		if (*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1))) <= uint32(dword_5d4594_1200804) {
+		if (*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1))) <= dword_5d4594_1200804 {
 			return 8
 		}
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
@@ -1026,7 +1026,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 8
 		}
 		k = int32(dword_5d4594_1200804)
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(data), 4)) <= uint32(dword_5d4594_1200804) {
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(data), 4)) <= dword_5d4594_1200804 {
 			return 8
 		}
 		v393[0] = 0
@@ -1069,7 +1069,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 8
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(data), 4))
-		if (*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1))) <= uint32(dword_5d4594_1200804) {
+		if (*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1))) <= dword_5d4594_1200804 {
 			return 8
 		}
 		v391[0] = 0
@@ -1164,7 +1164,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 8
 		}
 		k = int32(dword_5d4594_1200804)
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(data), 4)) <= uint32(dword_5d4594_1200804) {
+		if *(*uint32)(unsafe.Add(unsafe.Pointer(data), 4)) <= dword_5d4594_1200804 {
 			return 8
 		}
 		v394[0] = 0

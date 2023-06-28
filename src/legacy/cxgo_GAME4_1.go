@@ -1166,8 +1166,8 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 unsafe.Pointer, a3 *float32, a4 *float
 		dword_5d4594_1599712 = 2
 		return
 	}
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_visitNode_2386184)))
-	v11 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_visitNode_2386184))))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_visitNode_2386184))
+	v11 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
 	*v11 = uint16(int16(a2a.field_0))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(v11), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(a2a.field_4))
 	v12 = *v11
@@ -1337,7 +1337,7 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 unsafe.Pointer, a3 *float32, a4 *float
 					}
 				}
 			LABEL_32:
-				v31 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_visitNode_2386184))))
+				v31 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
 				if v31 == nil {
 					v55 = int32(*(*uint32)(unsafe.Add(v30, 36)))
 					v47 = int32(uintptr(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*server.Object)(v30)))))
@@ -1354,7 +1354,7 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 unsafe.Pointer, a3 *float32, a4 *float
 			}
 			if sub_50AC20(int32(uintptr(unsafe.Pointer(v15))), (*uint16)(unsafe.Pointer(&v68[0]))) != 0 {
 				*(*uint8)(unsafe.Add(unsafe.Pointer(v15), 12)) |= 2
-				v32 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_visitNode_2386184))))
+				v32 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
 				if v32 == nil {
 					v30 = a2
 					v56 = int32(*(*uint32)(unsafe.Add(a2, 36)))
@@ -1791,8 +1791,8 @@ func sub_50CB20(a1 unsafe.Pointer, a2 *float32) unsafe.Pointer {
 	v15 = float32(v3)
 	a2a.field_4 = int32(v15)
 	nox_xxx_pathfind_preCheckWalls_50C8D0(a1, &a2a)
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_visitNode_2386184)))
-	v4 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_visitNode_2386184))))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_visitNode_2386184))
+	v4 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
 	*v4 = uint16(int16(a2a.field_0))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(a2a.field_4))
 	v5 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*1))) + (int32(*v4) << 8)
@@ -1822,7 +1822,7 @@ func sub_50CB20(a1 unsafe.Pointer, a2 *float32) unsafe.Pointer {
 					nox_server_xxx_1599716[v11+(v10<<8)].field_0 = dword_5d4594_2386160
 					if sub_50B870(a1, v10, v16) == 0 {
 						if sub_50C830(a1, v10, v11) != 0 {
-							v12 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_visitNode_2386184))))
+							v12 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
 							if v12 != nil {
 								*v12 = uint16(int16(v10))
 								*(*uint16)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v11))
@@ -2114,9 +2114,9 @@ func nox_xxx_allocMonsterRelatedArrays_50D780() int32 {
 	return result
 }
 func sub_50D7E0() {
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_spawn_2386216)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_spawn_2386216))
 	dword_5d4594_2386212 = 0
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_monsterList_2386220)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_monsterList_2386220))
 	dword_5d4594_2386224 = 0
 	dword_5d4594_2386228 = 0
 }
@@ -2229,7 +2229,7 @@ func sub_50D960() int32 {
 							if nox_xxx_mapTraceRay_535250(&v39, nil, nil, 69) != 0 {
 								v5 = sub_50DE60(*v3)
 								if v5 == nil {
-									v6 = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_monsterList_2386220))))
+									v6 = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_monsterList_2386220)))
 									v5 = v6
 									if v6 == nil {
 										break
@@ -2380,7 +2380,7 @@ func sub_50D960() int32 {
 							} else {
 								dword_5d4594_2386224 = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v26), 4*35)))
 							}
-							nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_monsterList_2386220)), unsafe.Pointer(v26))
+							nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_monsterList_2386220), unsafe.Pointer(v26))
 							v32 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v23*4)+2386232))
 							dword_5d4594_2386228--
 							if v32 <= v35 {
@@ -2407,7 +2407,7 @@ func sub_50DE10() int32 {
 	if dword_5d4594_2386224 != 0 {
 		for {
 			v1 = int32(*(*uint32)(unsafe.Add(result, 140)))
-			nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_monsterList_2386220)), result)
+			nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_monsterList_2386220), result)
 			result = v1
 			dword_5d4594_2386228--
 			if v1 == 0 {
@@ -2513,7 +2513,7 @@ func sub_50E030(a1 int32, a2 *uint32) int32 {
 	v2 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 	v3 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*187)))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*549)) == 0 {
-		result = int32(uintptr(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_spawn_2386216)))))
+		result = int32(uintptr(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_spawn_2386216))))
 		v5 = (*uint32)(result)
 		if result == 0 {
 			return result
@@ -2588,7 +2588,7 @@ func sub_50E140(a1 unsafe.Pointer) {
 		}
 		if *(*uint32)(unsafe.Add(v1, 2196)) != 0 {
 			sub_50E1B0(int32(*(*uint32)(unsafe.Add(v1, 2196))))
-			nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_spawn_2386216)), unsafe.Pointer(*(**uint64)(unsafe.Add(v1, 2196))))
+			nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_spawn_2386216), unsafe.Pointer(*(**uint64)(unsafe.Add(v1, 2196))))
 			*(*uint32)(unsafe.Add(v1, 2196)) = 0
 		}
 	}
@@ -2705,8 +2705,8 @@ func sub_50E360() int32 {
 			}
 		}
 	}
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeSession_2386492)))
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeItems_2386496)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_tradeSession_2386492))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_tradeItems_2386496))
 	result = 0
 	libc.MemSet(memmap.PtrOff(0x5D4594, 2386364), 0, 0x80)
 	dword_5d4594_2386500 = 0
@@ -2885,7 +2885,7 @@ func nox_xxx_createShopStruct_50E870() *uint32 {
 		v0 *uint32
 		v1 *uint32
 	)
-	v0 = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeSession_2386492))))
+	v0 = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_tradeSession_2386492)))
 	v1 = v0
 	if v0 == nil {
 		return nil
@@ -3155,7 +3155,7 @@ func nox_xxx_addItemToShopSession_50EE00(a1 unsafe.Pointer, a2 float32) *float32
 		i      *uint32
 		v7     int32
 	)
-	result = (*float32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeItems_2386496))))
+	result = (*float32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_tradeItems_2386496)))
 	v3 = result
 	if result != nil {
 		*result = a2
@@ -3384,7 +3384,7 @@ func sub_50F6B0(a1 unsafe.Pointer) {
 	if a1 != nil {
 		for {
 			v2 := *(*unsafe.Pointer)(unsafe.Add(result, 8))
-			nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeItems_2386496)), result)
+			nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_tradeItems_2386496), result)
 			result = v2
 			if v2 == nil {
 				break
@@ -3660,7 +3660,7 @@ func nox_xxx_tradeP2PAddOfferMB_50FE20(a1 unsafe.Pointer, a2 int32) int32 {
 		sub_50FF90(int32(*(*uint32)(unsafe.Add(a1, 12))), a1, *v2)
 		sub_50F720(*(*unsafe.Pointer)(unsafe.Add(a1, 12)), (*uint32)(a1))
 	}
-	nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeItems_2386496)), unsafe.Pointer(v2))
+	nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_tradeItems_2386496), unsafe.Pointer(v2))
 	return 1
 }
 func sub_50FF90(a1 int32, a2 unsafe.Pointer, a3 int32) int32 {
@@ -3699,7 +3699,7 @@ func sub_510000(a1 int32) {
 		for {
 			v2 = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*2)))
 			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(uintptr(*v1))))
-			nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeItems_2386496)), unsafe.Pointer(v1))
+			nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_tradeItems_2386496), unsafe.Pointer(v1))
 			v1 = v2
 			if v2 == nil {
 				break
@@ -3721,7 +3721,7 @@ func sub_510000(a1 int32) {
 	if uint32(a1) == dword_5d4594_2386500 {
 		dword_5d4594_2386500 = *(*uint32)(unsafe.Add(a1, 56))
 	}
-	nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeSession_2386492)), a1)
+	nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_tradeSession_2386492), a1)
 }
 func nox_xxx_getSomeShopData_5103A0(a1 int32, a2 int32) int32 {
 	var (
@@ -4968,12 +4968,12 @@ func sub_516F10() int32 {
 	return result
 }
 func sub_516F30() {
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_pendingOwn_2386916)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_pendingOwn_2386916))
 	dword_5d4594_2386920 = 0
 }
 func sub_516F90(a1 int32, a2 int32) *uint32 {
 	var result *uint32
-	result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_pendingOwn_2386916))))
+	result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_pendingOwn_2386916)))
 	if result != nil {
 		*result = uint32(a1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(a2)

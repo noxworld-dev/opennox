@@ -5858,7 +5858,7 @@ func nox_xxx_unitsHaveSameTeam_4EC520(a1p *server.Object, a2p *server.Object) in
 }
 func sub_4EC5B0() {
 	dword_5d4594_1568024 = 0
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_respawn_1568020)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_respawn_1568020))
 	nox_xxx_respawnAllow_587000_205200 = 1
 }
 func nox_xxx_respawnAdd_4EC5E0(a1p *server.Object) *uint32 {
@@ -5871,7 +5871,7 @@ func nox_xxx_respawnAdd_4EC5E0(a1p *server.Object) *uint32 {
 	)
 	result = nox_xxx_respawnAllow_587000_205200
 	if nox_xxx_respawnAllow_587000_205200 != 0 {
-		result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_respawn_1568020))))
+		result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_respawn_1568020)))
 		v2 = result
 		if result != nil {
 			v3 = *(*uint16)(unsafe.Add(a1, 4))
@@ -5915,7 +5915,7 @@ func sub_4EC6A0(a1 unsafe.Pointer) {
 		if v3 != 0 {
 			*(*uint32)(unsafe.Add(v3, 56)) = 0
 		}
-		nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_respawn_1568020)), unsafe.Pointer(v2))
+		nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_respawn_1568020), unsafe.Pointer(v2))
 	} else if dword_5d4594_1568024 != 0 {
 		for *(*unsafe.Pointer)(unsafe.Add(v1, 4)) != a1 {
 			v1 = int32(*(*uint32)(unsafe.Add(v1, 52)))
@@ -5931,7 +5931,7 @@ func sub_4EC6A0(a1 unsafe.Pointer) {
 		if v5 != 0 {
 			*(*uint32)(unsafe.Add(v5, 56)) = *(*uint32)(unsafe.Add(v1, 56))
 		}
-		nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_respawn_1568020)), v1)
+		nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_respawn_1568020), v1)
 	}
 }
 func nox_xxx_allocItemRespawnArray_4ECA60() int32 {

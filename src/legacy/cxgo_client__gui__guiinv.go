@@ -42,7 +42,7 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 			if nox_client_inventory_grid_1050020[v7+NOX_INVENTORY_ROW_COUNT*v6].field_0.Flags28()&0x3001000 != 0 {
 				dword_5d4594_1062516 = 0
 				if v7 >= 3 {
-					dword_5d4594_1062516 = int32((v7*5 - 10) * 10)
+					dword_5d4594_1062516 = (v7*5 - 10) * 10
 				}
 			}
 		}
@@ -288,17 +288,17 @@ func sub_462740() int32 {
 		v0 *wchar2_t
 		v1 *uint32
 	)
-	if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_1062476)) != 0 {
+	if wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1062476) != 0 {
 		return 0
 	}
-	nox_window_set_hidden((*gui.Window)(dword_5d4594_1062476), 1)
+	nox_window_set_hidden(dword_5d4594_1062476, 1)
 	dword_5d4594_1063116 = 0
 	dword_5d4594_1063120 = 0
 	v0 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2361)
 	nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), v0)
-	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1062476)), 9156)))
+	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1062476, 9156)))
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v1)), 16399, 0, 0)
-	nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(dword_5d4594_1062456))
+	nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1062456)
 	dword_5d4594_1049864 = 0
 	nox_client_setCursorType_477610(0)
 	return 1
@@ -420,7 +420,7 @@ LABEL_14:
 			dword_5d4594_1063120 = 0
 			v5 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2529)
 			nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), v5)
-			v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1062476)), 9156)))
+			v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1062476, 9156)))
 			result = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v6)), 16399, 0, 0))
 		}
 		return result
@@ -431,15 +431,15 @@ LABEL_14:
 	dword_5d4594_1063120 = dword_5d4594_1063116
 	v7 = nox_strman_loadString_40F1D0(internCStr("IdentifyItem"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2545)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), internWStr("%s "), v7)
-	v8 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(unsafe.Pointer(dword_5d4594_1063116)))
+	v8 = nox_xxx_clientAskInfoMb_4BF050((*client.Drawable)(dword_5d4594_1063116))
 	nox_wcscpy(&v75[0], v8)
 	if nox_wcscmp(&v75[0], (*wchar2_t)(memmap.PtrOff(0x5D4594, 1063652))) == 0 {
 		dword_5d4594_1063120 = 0
 	}
 	nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), &v75[0])
-	v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1062476)), 9151)))
+	v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1062476, 9151)))
 	sub_46AEE0(int32(uintptr(unsafe.Pointer(v9))), int32(uintptr(memmap.PtrOff(0x5D4594, 1063124))))
-	v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1062476)), 9156)))
+	v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1062476, 9156)))
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16399, 0, 0)
 	if noxflags.HasGame(2048) {
 		if int32(*(*uint16)(unsafe.Add(dword_5d4594_1063116, 294))) != 0 {
@@ -668,7 +668,7 @@ LABEL_91:
 		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v10)), 16397, uintptr(v49), math.MaxUint32)
 	}
 	v67 = nox_get_thing_pretty_image(int32(*(*uint32)(unsafe.Add(dword_5d4594_1063116, 108))))
-	v50 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1062476)), 9155)))
+	v50 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1062476, 9155)))
 	return nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v50))), v67)
 }
 func nox_client_makePlayerStatsDlg_463880(a1 *int32) {
@@ -1062,7 +1062,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					return 0
 				}
 			} else {
-				nox_xxx_wndSetCaptureMain_46ADC0((*gui.Window)(dword_5d4594_1062456))
+				nox_xxx_wndSetCaptureMain_46ADC0(dword_5d4594_1062456)
 				if sub_479590() == 3 {
 					nox_xxx_clientTradeMB_4657E0((*uint32)(unsafe.Pointer(&v56)))
 				} else {
@@ -1107,7 +1107,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 				return 1
 			}
 		} else {
-			nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(dword_5d4594_1062456))
+			nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1062456)
 		}
 		if dword_5d4594_1049864 == 4 {
 			v58 = v59
@@ -1146,11 +1146,11 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					nox_xxx_clientDrop_465BE0(&v57)
 				}
 			} else {
-				v47 = int32(dword_5d4594_1049800_inventory_click_row_index + dword_5d4594_1049796_inventory_click_column_index*14 + dword_5d4594_1049796_inventory_click_column_index*7)
+				v47 = dword_5d4594_1049800_inventory_click_row_index + dword_5d4594_1049796_inventory_click_column_index*14 + dword_5d4594_1049796_inventory_click_column_index*7
 				v48 = int32(nox_client_inventory_grid_1050020[v47].field_140)
 				if int32(nox_client_inventory_grid_1050020[v47].field_140) != 0 {
 					v49 = nil
-					nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(dword_5d4594_1062456))
+					nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1062456)
 					if *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1049848), 112))&0x13001000 != 0 {
 						v49 = unsafe.Add(*memmap.PtrPtr(0x5D4594, 1049848), 432)
 					}
@@ -1167,8 +1167,8 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			if dword_5d4594_1049856 != 0 {
 				goto LABEL_121
 			}
-			v55 = int32(dword_5d4594_1049800_inventory_click_row_index)
-			v54 = int32(dword_5d4594_1049796_inventory_click_column_index)
+			v55 = dword_5d4594_1049800_inventory_click_row_index
+			v54 = dword_5d4594_1049796_inventory_click_column_index
 			sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), v54, v55)
 			goto LABEL_121
 		}
@@ -1181,7 +1181,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			}
 			if sub_4C12C0() == 0 {
 				if *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1049848), 112))&0x3001000 != 0 {
-					var v35 int32 = int32(dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index)
+					var v35 int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
 					if nox_client_inventory_grid_1050020[v35].field_136 != 0 {
 						nox_xxx_clientSetAltWeapon_461550(0)
 						nox_client_inventory_grid_1050020[v35].field_136 = 0
@@ -1207,8 +1207,8 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		}
 		v37 = nox_xxx_pointInRect_4281F0(&v56, (*int4)(memmap.PtrOff(0x587000, 136352)))
 		if v37 == 0 {
-			v55 = int32(dword_5d4594_1049800_inventory_click_row_index)
-			v54 = int32(dword_5d4594_1049796_inventory_click_column_index)
+			v55 = dword_5d4594_1049800_inventory_click_row_index
+			v54 = dword_5d4594_1049796_inventory_click_column_index
 			sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), v54, v55)
 			goto LABEL_121
 		}
@@ -1242,8 +1242,8 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			goto LABEL_121
 		}
 		if int32(nox_client_inventory_grid_1050020[dword_5d4594_1049800_inventory_click_row_index+NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index].field_140) != 0 {
-			v55 = int32(dword_5d4594_1049800_inventory_click_row_index)
-			v54 = int32(dword_5d4594_1049796_inventory_click_column_index)
+			v55 = dword_5d4594_1049800_inventory_click_row_index
+			v54 = dword_5d4594_1049796_inventory_click_column_index
 			sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), v54, v55)
 			goto LABEL_121
 		}
@@ -1252,7 +1252,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			goto LABEL_121
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(792, 100)
-		v43 = int32(dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index)
+		v43 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
 		v45 = int32(nox_client_inventory_grid_1050020[v43].field_136)
 		if v45 != 0 {
 			var v46 int32 = int32(dword_5d4594_1049808 + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049804)
@@ -1295,7 +1295,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			}
 			return 0
 		}
-		nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_1062456), 16391, uintptr(*memmap.PtrInt32(0x5D4594, 1062500)), 0)
+		nox_window_call_field_94_fnc(dword_5d4594_1062456, 16391, uintptr(*memmap.PtrInt32(0x5D4594, 1062500)), 0)
 		return 1
 	case 20:
 		if nox_xxx_playerAnimCheck_4372B0() != 0 {
@@ -1315,7 +1315,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			}
 			return 0
 		}
-		nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_1062456), 16391, uintptr(*memmap.PtrInt32(0x5D4594, 1062504)), 0)
+		nox_window_call_field_94_fnc(dword_5d4594_1062456, 16391, uintptr(*memmap.PtrInt32(0x5D4594, 1062504)), 0)
 		return 1
 	default:
 		if dword_5d4594_1049864 == 5 {
@@ -1325,7 +1325,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 	}
 }
 func nox_xxx_cliInventorySpriteUpd_465A30() {
-	var inventory_item_idx int32 = int32(dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index)
+	var inventory_item_idx int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
 	if int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_140) != 0 {
 		var v1 *uint32 = (*uint32)(nox_new_drawable_for_thing(int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_0.Field_27)).C())
 		*memmap.PtrPtr(0x5D4594, 1049848) = unsafe.Pointer(v1)
@@ -1402,7 +1402,7 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 			}
 			dword_5d4594_1049800_inventory_click_row_index = uint32(v9)
 			if sub_464B40(v8, v9) != 0 {
-				var v12 int32 = int32(dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index)
+				var v12 int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
 				if int32(nox_client_inventory_grid_1050020[v12].field_140) != 0 {
 					v13 = int32(uintptr(unsafe.Pointer(nox_client_inventory_grid_1050020[v12].field_0)))
 					*(*uint32)(unsafe.Add(v13, 128)) = nox_client_inventory_grid_1050020[v12].field_4

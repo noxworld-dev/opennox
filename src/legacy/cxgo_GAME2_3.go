@@ -533,7 +533,7 @@ func nox_xxx_createTextBubble_48D880(a1 int32, a2 *wchar2_t) *wchar2_t {
 	if v2 != nil {
 		v3 = 0
 	} else {
-		result = (*wchar2_t)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_chat_1197364))))
+		result = (*wchar2_t)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_chat_1197364)))
 		v2 = result
 		if result == nil {
 			return result
@@ -842,7 +842,7 @@ func sub_48DCF0(a1 *uint32) {
 				} else {
 					dword_5d4594_1197372 = *(*uint32)(unsafe.Add(v2, 688))
 				}
-				nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_chat_1197364)), v2)
+				nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_chat_1197364), v2)
 			}
 			v2 = v25
 			if v25 == 0 {
@@ -1251,11 +1251,11 @@ func sub_48E8E0(a1 int32) {
 		if v3 != 0 {
 			*(*uint32)(unsafe.Add(v3, 688)) = *(*uint32)(unsafe.Add(v1, 688))
 		}
-		nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_chat_1197364)), v1)
+		nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_chat_1197364), v1)
 	}
 }
 func sub_48E940() {
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_chat_1197364)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_chat_1197364))
 	*memmap.PtrUint32(0x5D4594, 1197368) = 0
 }
 func nox_xxx_spriteCreate_48E970(a1 int32, a2 uint32, a3 int32, a4 int32) *uint32 {
@@ -2048,7 +2048,7 @@ func nox_xxx_allocClassListFriends_495980() int32 {
 	return bool2int32(nox_alloc_friendList_1203860 != nil)
 }
 func sub_4959B0() {
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_friendList_1203860)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_friendList_1203860))
 	dword_5d4594_1203864 = 0
 }
 func sub_4959D0() int32 {
@@ -2061,7 +2061,7 @@ func sub_4959D0() int32 {
 }
 func nox_xxx_cliAddObjFriend_4959F0(a1 int32) *uint32 {
 	var result *uint32
-	result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_friendList_1203860))))
+	result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_friendList_1203860)))
 	if result != nil {
 		*result = uint32(a1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = dword_5d4594_1203864
@@ -2089,7 +2089,7 @@ func sub_495A20(a1 int32) {
 		} else {
 			dword_5d4594_1203864 = *(*uint32)(unsafe.Add(v1, 4))
 		}
-		nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_friendList_1203860)), v1)
+		nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_friendList_1203860), v1)
 	}
 }
 func sub_495A80(a1 int32) int32 {
@@ -4915,7 +4915,7 @@ func nox_xxx_allocArrayHealthChanges_49A5F0() int32 {
 	return result
 }
 func sub_49A630() {
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_healthChange_1301772)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_healthChange_1301772))
 	dword_5d4594_1301776 = 0
 }
 func nox_xxx_cliAddHealthChange_49A650(a1 int32, a2 int16) *uint16 {
@@ -4923,7 +4923,7 @@ func nox_xxx_cliAddHealthChange_49A650(a1 int32, a2 int16) *uint16 {
 		result *uint16
 		v3     *uint16
 	)
-	result = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_healthChange_1301772))))
+	result = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_healthChange_1301772)))
 	v3 = result
 	if result != nil {
 		*(*uint32)(unsafe.Pointer(result)) = uint32(a1)
@@ -5015,7 +5015,7 @@ func sub_49A880(a1 int32) {
 	if v2 != 0 {
 		*(*uint32)(unsafe.Add(v2, 16)) = *(*uint32)(unsafe.Add(a1, 16))
 	}
-	nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_healthChange_1301772)), a1)
+	nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_healthChange_1301772), a1)
 }
 func sub_49A8C0() int32 {
 	var result int32
@@ -5418,10 +5418,10 @@ func nox_xxx_wnd_49C760(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 }
 func sub_49C7A0() {
 	if dword_5d4594_1305680 != nil {
-		nox_server_sanctuaryHelp_54276 = (^nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305680)), 4104).DrawData().Field0 >> 2) & 1
-		nox_xxx_wnd_46C6E0((*gui.Window)(dword_5d4594_1305680))
-		nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(dword_5d4594_1305680))
-		nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305680)))
+		nox_server_sanctuaryHelp_54276 = (^nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305680, 4104).DrawData().Field0 >> 2) & 1
+		nox_xxx_wnd_46C6E0(dword_5d4594_1305680)
+		nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1305680)
+		nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1305680)
 		dword_5d4594_1305680 = nil
 		nox_xxx_windowFocus_46B500(nil)
 		if noxflags.HasGame(1) {
@@ -5443,19 +5443,19 @@ func sub_49CA60(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v3 = nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3)))
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 		if v3 == 10353 {
-			nox_xxx_wnd_46C6E0((*gui.Window)(dword_5d4594_1305684))
-			nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(dword_5d4594_1305684))
+			nox_xxx_wnd_46C6E0(dword_5d4594_1305684)
+			nox_xxx_wndClearCaptureMain_46ADE0(dword_5d4594_1305684)
 			if noxflags.HasGame(128) && nox_server_sanctuaryHelp_54276 != 0 {
 				nox_xxx_cliShowHelpGui_49C560()
 			} else {
 				sub_459D80(0)
 			}
-			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305684)), 10352)))
+			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)))
 			v5 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v4)), 16404, 0, 0))
 			nox_server_connectionType_3596 = uint32(v5 + 1)
 			v6 = sub_40A710(v5 + 1)
 			nox_xxx_rateUpdate_40A6D0(v6)
-			nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1305684)))
+			nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1305684)
 			dword_5d4594_1305684 = 0
 			nox_xxx_windowFocus_46B500(nil)
 		}

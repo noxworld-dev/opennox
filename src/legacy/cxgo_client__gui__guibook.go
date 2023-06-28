@@ -131,11 +131,11 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 		goto LABEL_75
 	}
 	if nox_xxx_aNox_cfg_0_587000_132132 != 0 {
-		v4 = int32(dword_5d4594_1046936)
+		v4 = dword_5d4594_1046936
 		*(*uint32)(unsafe.Pointer(&WideCharStr[0])) = 141/dword_5d4594_1046656 - 1
 		if dword_5d4594_1046936 == 0 {
-			nox_window_set_hidden((*gui.Window)(dword_5d4594_1046944), 1)
-			v4 = int32(dword_5d4594_1046936)
+			nox_window_set_hidden(dword_5d4594_1046944, 1)
+			v4 = dword_5d4594_1046936
 		}
 		v5 = 0
 		v6 = v66 + 78
@@ -178,7 +178,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 					v11 = (*int16)(unsafe.Pointer(nox_xxx_abilityGetName_0_425260(int32(*memmap.PtrUint32(0x5D4594, uintptr(v8*4)+1046960)))))
 				}
 				nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v11)), v60, v62)
-				v7 += int32(dword_5d4594_1046656)
+				v7 += dword_5d4594_1046656
 				if uint32(func() int32 {
 					p := &v5
 					*p++
@@ -186,7 +186,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 				}()) >= *(*uint32)(unsafe.Pointer(&WideCharStr[0]))*2 {
 					break
 				}
-				v4 = int32(dword_5d4594_1046936)
+				v4 = dword_5d4594_1046936
 			}
 		}
 		goto LABEL_75
@@ -357,7 +357,7 @@ func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	}
 LABEL_75:
 	if nox_xxx_aNox_cfg_0_587000_132132 == 0 && dword_5d4594_1046932 >= *memmap.PtrInt32(0x5D4594, 1047508)-dword_5d4594_1047512-1 {
-		nox_window_set_hidden((*gui.Window)(dword_5d4594_1046948), 1)
+		nox_window_set_hidden(dword_5d4594_1046948, 1)
 	}
 	return 1
 }
@@ -495,8 +495,8 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 		sub_45D810()
 	}
 LABEL_27:
-	v23 = int32(dword_5d4594_1046640)
-	v12 = int32(dword_5d4594_1046636)
+	v23 = dword_5d4594_1046640
+	v12 = dword_5d4594_1046636
 	nox_window_setPos_46A9B0(win, v12, v23)
 	return 1
 }
@@ -518,10 +518,10 @@ func sub_45D870() {
 		} else {
 			v1 = 3
 		}
-		v9 = (int32(*memmap.PtrUint32(0x5D4594, 1046668)) - int32(dword_5d4594_1046636)) / 50
-		v10 = (int32(*memmap.PtrUint32(0x5D4594, 1046672)) - int32(dword_5d4594_1046640)) / 50
-		v3 = int32(dword_5d4594_1046636)
-		v4 = int32(dword_5d4594_1046640)
+		v9 = (int32(*memmap.PtrUint32(0x5D4594, 1046668)) - dword_5d4594_1046636) / 50
+		v10 = (int32(*memmap.PtrUint32(0x5D4594, 1046672)) - dword_5d4594_1046640) / 50
+		v3 = dword_5d4594_1046636
+		v4 = dword_5d4594_1046640
 		v5 = 50
 		for {
 			v8 = int8(nox_common_randomIntMinMax_415FF0(3, 4, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 2483))

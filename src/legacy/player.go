@@ -195,7 +195,7 @@ func Sub_425B30(a1 unsafe.Pointer, a2 ntype.PlayerInd) {
 }
 
 func Sub_425A70(a1 int) unsafe.Pointer {
-	return unsafe.Pointer(sub_425A70(int32(a1)))
+	return sub_425A70(int32(a1))
 }
 
 func Sub_425AD0(a1 int, a2 *uint16) unsafe.Pointer {

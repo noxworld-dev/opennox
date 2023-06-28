@@ -787,7 +787,7 @@ func nox_xxx_wallBreackableListClear_410810() {
 }
 func nox_xxx_wallBreackableListAdd_410840(a1 int32) {
 	result := alloc.Calloc1(1, 8)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(a1)
+	*(*uint32)(unsafe.Add(result, 4*1)) = uint32(a1)
 	*(*unsafe.Pointer)(result) = dword_5d4594_251564
 	dword_5d4594_251564 = result
 }
@@ -1138,7 +1138,7 @@ func nox_thing_read_EDGE_411850(f *binfile.MemFile, a2 *uint8) int32 {
 	nox_memfile_skip(f, 4)
 	v30 = nox_memfile_read_u8(f)
 	nox_memfile_read(unsafe.Pointer(&v29[0]), 1, int32(v30), f)
-	v5 = int32(dword_5d4594_251572 * 3)
+	v5 = dword_5d4594_251572 * 3
 	v29[v30] = 0
 	libc.StrCpy((*byte)(memmap.PtrOff(0x85B3FC, uintptr(v5*20+28644))), &v29[0])
 	v7 = nox_memfile_read_i32(f)
@@ -1149,11 +1149,11 @@ func nox_thing_read_EDGE_411850(f *binfile.MemFile, a2 *uint8) int32 {
 	*memmap.PtrUint8(0x85B3FC, uintptr(dword_5d4594_251572)*60+28701) = uint8(int8(v9))
 	*(*uint8)(unsafe.Pointer(&v9)) = nox_memfile_read_u8(f)
 	v28 = uint8(int8(v9))
-	v12 = int32(dword_5d4594_251572 * 60)
+	v12 = dword_5d4594_251572 * 60
 	*memmap.PtrUint8(0x85B3FC, uintptr(v12+28698)) = uint8(int8(v9))
 	*memmap.PtrUint16(0x85B3FC, uintptr(v12+28690)) = 0
 	*(*uint8)(unsafe.Pointer(&v9)) = nox_memfile_read_u8(f)
-	v14 = int32(dword_5d4594_251572 * 60)
+	v14 = dword_5d4594_251572 * 60
 	*memmap.PtrUint8(0x85B3FC, uintptr(v14+28699)) = uint8(int8(v9))
 	*memmap.PtrUint8(0x85B3FC, uintptr(v14+28700)) = uint8(int8(v9))
 	*(*uint8)(unsafe.Pointer(&v9)) = nox_memfile_read_u8(f)
@@ -1163,7 +1163,7 @@ func nox_thing_read_EDGE_411850(f *binfile.MemFile, a2 *uint8) int32 {
 	v17 = nox_memfile_read_u8(f)
 	*memmap.PtrUint8(0x85B3FC, uintptr(dword_5d4594_251572)*60+28697) = v17
 	v19 = nox_memfile_read_u8(f)
-	v20 = int32(dword_5d4594_251572 * 60)
+	v20 = dword_5d4594_251572 * 60
 	*memmap.PtrUint8(0x85B3FC, uintptr(v20+28696)) = v19
 	*memmap.PtrUint16(0x85B3FC, uintptr(v20+28688)) = uint16(int16((int32(v17) + int32(v19)) * 2))
 	*memmap.PtrUint32(0x85B3FC, uintptr(v20+28676)) = 0
@@ -2538,7 +2538,7 @@ func sub_416860(a1 int32) {
 				return
 			}
 		}
-		nox_common_list_remove_425920(unsafe.Pointer(v2))
+		nox_common_list_remove_425920(v2)
 		alloc.FreePtr(v2)
 	}
 }
@@ -3436,7 +3436,7 @@ func sub_4181F0(a1 int32) {
 			}
 		} else {
 			v18 = sub_4189D0()
-			nox_xxx_createAtImpl_4191D0(*(*byte)(unsafe.Add(unsafe.Pointer(v18), 57)), unsafe.Add(v15, 48), 1, int32(*(*uint32)(unsafe.Add(v15, 36))), 1)
+			nox_xxx_createAtImpl_4191D0(*(*byte)(unsafe.Add(v18, 57)), unsafe.Add(v15, 48), 1, int32(*(*uint32)(unsafe.Add(v15, 36))), 1)
 		}
 		v13 = (*int32)(unsafe.Add(unsafe.Pointer(v13), 4*1))
 		v14--
@@ -3588,14 +3588,14 @@ func nox_xxx_teamAssignFlags_418640() {
 func nox_xxx_toggleAllTeamFlags_418690(a1 int32) {
 	result := unsafe.Pointer(nox_server_teamFirst_418B10())
 	for i := result; result != nil; i = result {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*18)) != 0 {
-			v3 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*18))
+		if *(*uint32)(unsafe.Add(i, 4*18)) != 0 {
+			v3 := *(*unsafe.Pointer)(unsafe.Add(i, 4*18))
 			if a1 != 0 {
 				nox_xxx_objectSetOn_4E75B0((*server.Object)(v3))
 			} else {
 				nox_xxx_objectSetOff_4E7600((*server.Object)(v3))
 			}
 		}
-		result = unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(unsafe.Pointer(i))))
+		result = unsafe.Pointer(nox_server_teamNext_418B60((*server.Team)(i)))
 	}
 }

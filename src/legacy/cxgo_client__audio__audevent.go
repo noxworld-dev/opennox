@@ -167,7 +167,7 @@ func sub_452580(a1 *uint32) int32 {
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*75)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*109)) = 0
-	result = int32(uintptr(unsafe.Pointer(sub_452810(int32(*(*uint32)(unsafe.Add(v1, 48))+uint32(v3)), 0))))
+	result = int32(uintptr(sub_452810(int32(*(*uint32)(unsafe.Add(v1, 48))+uint32(v3)), 0)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) = uint32(result)
 	if result != 0 {
 		v4 = nox_common_randomIntMinMax_415FF0(int32(*(*uint32)(unsafe.Add(v1, 76))), int32(*(*uint32)(unsafe.Add(v1, 80))), internCStr("C:\\NoxPost\\src\\client\\Audio\\AudEvent.c"), 1482)

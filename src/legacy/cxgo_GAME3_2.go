@@ -3340,7 +3340,7 @@ func sub_4D7150() int32 {
 	)
 	result = int32(dword_5d4594_1556144)
 	if dword_5d4594_1556144 != 0 {
-		if gameFrame() > uint32(dword_5d4594_1556144) {
+		if gameFrame() > dword_5d4594_1556144 {
 			result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
 			for i = result; result != 0; i = result {
 				v2 = *(**int32)(unsafe.Add(i, 748))

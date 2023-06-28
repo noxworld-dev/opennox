@@ -3919,7 +3919,7 @@ func nox_xxx_mapGenSetFlags_5235F0(a1 int8) {
 	var v3 int32
 	if !noxflags.HasGame(0x200000) {
 		dword_5d4594_2487564 = nox_platform_get_ticks()
-		if dword_5d4594_2487568 > uint32(dword_5d4594_2487564) {
+		if dword_5d4594_2487568 > dword_5d4594_2487564 {
 			dword_5d4594_2487568 = 0
 		}
 		nox_input_pollEvents_4453A0()

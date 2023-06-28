@@ -46,7 +46,7 @@ func sub_50E7A0(a1 *uint32, a2 int32) int32 {
 		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)))
 	}
 	sub_50E820(v6, *v2)
-	nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeItems_2386496)), unsafe.Pointer(v2))
+	nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_tradeItems_2386496), unsafe.Pointer(v2))
 	return 1
 }
 func nox_xxx_createPlayerShopSession_50E8F0(a1 unsafe.Pointer, a2 unsafe.Pointer) *uint32 {
@@ -448,7 +448,7 @@ func nox_xxx_tradeP2PAddOffer2_50F820_trade(a1 unsafe.Pointer, a2 unsafe.Pointer
 			return 0
 		}
 	}
-	v5 = (*int32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_tradeItems_2386496))))
+	v5 = (*int32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_tradeItems_2386496)))
 	v6 = v5
 	if v5 != nil {
 		*(*float32)(unsafe.Pointer(v5)) = v3

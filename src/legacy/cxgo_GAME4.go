@@ -3604,7 +3604,7 @@ func nox_xxx_netStartDurationRaySpell_4FF130(a1 unsafe.Pointer) {
 		if *(*uint32)(unsafe.Add(a1, 16)) != *(*uint32)(unsafe.Add(a1, 48)) {
 			v10 := *(*unsafe.Pointer)(unsafe.Add(a1, 48))
 			v11[1] = 6
-			*(*uint16)(unsafe.Pointer(&v11[3])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(v10))))
+			*(*uint16)(unsafe.Pointer(&v11[3])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(v10)))
 			v8 := int16(uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(*(**uint32)(unsafe.Add(a1, 16)))))))
 			v9 := int8(*(*uint8)(unsafe.Add(a1, 8)))
 			*(*uint16)(unsafe.Pointer(&v11[5])) = uint16(v8)
@@ -3630,7 +3630,7 @@ func nox_xxx_netStartDurationRaySpell_4FF130(a1 unsafe.Pointer) {
 		v6 := nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(*(**uint32)(unsafe.Add(a1, 48)))))
 		v7 := *(*unsafe.Pointer)(unsafe.Add(a1, 16))
 		*(*uint16)(unsafe.Pointer(&v11[5])) = uint16(v6)
-		*(*uint16)(unsafe.Pointer(&v11[3])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(v7))))
+		*(*uint16)(unsafe.Pointer(&v11[3])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(v7)))
 		nox_xxx_netSendPacket1_4E5390(math.MaxUint8, unsafe.Pointer(&v11[0]), 7, nil, 1)
 		nox_xxx_netMarkMinimapForAll_4174B0(*(*unsafe.Pointer)(unsafe.Add(a1, 16)), 2)
 		nox_xxx_netMarkMinimapForAll_4174B0(*(*unsafe.Pointer)(unsafe.Add(a1, 48)), 2)
@@ -3817,7 +3817,7 @@ func sub_4FF770() int32 {
 	return result
 }
 func nox_xxx_mapWall_4FF790() {
-	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(nox_alloc_magicWall_1569748)))
+	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_magicWall_1569748))
 	dword_5d4594_1569752 = 0
 }
 func sub_4FF7B0(a1p *server.Player) {
@@ -3905,7 +3905,7 @@ func nox_xxx_wallDestroy_4FF870(a1 int32) {
 	if v3 != 0 {
 		*(*uint32)(unsafe.Add(v3, 28)) = *(*uint32)(unsafe.Add(a1, 28))
 	}
-	nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_magicWall_1569748)), a1)
+	nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_magicWall_1569748), a1)
 }
 func sub_4FF900(a1 int32) int32 {
 	var (
@@ -4140,7 +4140,7 @@ LABEL_12:
 }
 func nox_xxx_netWallCreate_4FFE80(a1 int32, a2 *uint8, a3 int32, a4 int8, a5 int8, a6 int8) *uint32 {
 	var result *uint32
-	result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_magicWall_1569748))))
+	result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_magicWall_1569748)))
 	if result != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = uint32(uintptr(unsafe.Pointer(a2)))
 		*result = uint32(a3)
@@ -4334,7 +4334,7 @@ func sub_5000B0(a1 unsafe.Pointer) int32 {
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 1)
 	if nox_crypt_IsReadOnly() != 0 {
 		if int32(uint8(int8(v5))) != 0 {
-			sub_5002D0((*server.Object)(unsafe.Pointer(a1)))
+			sub_5002D0((*server.Object)(a1))
 			v4 = 0
 			dword_5d4594_1569756 = 0
 			if int32(uint8(int8(v5))) != 0 {
@@ -4349,7 +4349,7 @@ func sub_5000B0(a1 unsafe.Pointer) int32 {
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 1)
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 1)
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
-					sub_500330(int8(v15), int8(v14), v13, int8(v12), int8(v11), int8(v10), int8(v9), int8(v8), int8(v7), int8(uintptr(unsafe.Pointer(a1))))
+					sub_500330(int8(v15), int8(v14), v13, int8(v12), int8(v11), int8(v10), int8(v9), int8(v8), int8(v7), int8(uintptr(a1)))
 					v4++
 					if v4 >= int32(uint8(int8(v5))) {
 						break
@@ -6764,7 +6764,7 @@ func sub_5067B0(a1 int32) {
 			}
 		}
 		sub_506810(a1)
-		nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(nox_alloc_vote_1599652)), a1)
+		nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_vote_1599652), a1)
 		if dword_5d4594_1599656 == 0 {
 			sub_507190(math.MaxUint8, 0)
 		}
@@ -6904,7 +6904,7 @@ func sub_506A20(a1 int32, a2 unsafe.Pointer) *uint32 {
 	if dword_5d4594_1599656 == 0 {
 		v2 = 1
 	}
-	v3 = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(unsafe.Pointer(nox_alloc_vote_1599652))))
+	v3 = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_vote_1599652)))
 	if v3 == nil {
 		return nil
 	}

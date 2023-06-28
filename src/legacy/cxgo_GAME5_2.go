@@ -822,7 +822,7 @@ func sub_56FF80(a1 int32, a2 int32) int32 {
 	dword_5d4594_2516380 = uint32(a1)
 	dword_5d4594_2516372 = uint32(a2 - a1 + 1)
 	v2 = int64(nox_xxx_unkDoubleSmth_56FE30() * float64(dword_5d4594_2516372))
-	if uint32(int32(v2)) < uint32(dword_5d4594_2516372) {
+	if uint32(int32(v2)) < dword_5d4594_2516372 {
 		result = int32(int64(dword_5d4594_2516380) + v2)
 	} else {
 		result = int32(dword_5d4594_2516372 + dword_5d4594_2516380)
@@ -1803,7 +1803,7 @@ func sub_57B0A0() {
 		v1 = dword_5d4594_2523780
 	}
 	if dword_5d4594_2523776 != 0 {
-		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(dword_5d4594_2523776))
+		nox_xxx_delayedDeleteObject_4E5CC0(dword_5d4594_2523776)
 		v1 = dword_5d4594_2523780
 	}
 	dword_5d4594_2523776 = 0
