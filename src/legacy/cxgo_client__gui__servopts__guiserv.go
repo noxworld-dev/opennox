@@ -181,7 +181,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		*memmap.PtrPtr(0x5D4594, 1046352) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs1")))
 		dword_5d4594_1046356 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs2")))))
 		dword_5d4594_1046360 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs3")))))
-		v4 = *(**uint32)(unsafe.Add(dword_5d4594_1046496, 32))
+		v4 = (*uint32)(dword_5d4594_1046496.WidgetData)
 		v14 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISlider"))))
 		v5 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))))
 		v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1046500)), 10182)))

@@ -1734,7 +1734,7 @@ func sub_4533D0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		sub_453750()
 		sub_459D50(1)
 	case 1520, 1521, 1522, 1523, 1524, 1525, 1526, 1527, 1528, 1529, 1530, 1531, 1532, 1533:
-		v5 = sub_4A4800(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1045464.C(), 32)))
+		v5 = sub_4A4800(dword_5d4594_1045464.WidgetData)
 		v11 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1045464, 16406, uintptr(v5+v3-1520), 0)))
 		if dword_5d4594_1045460 != 0 {
 			v6 = sub_415DA0(v11)
@@ -1910,7 +1910,7 @@ func sub_453750() int8 {
 		v3 bool
 		v4 int32
 	)
-	v0 = sub_4A4800(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1045464.C(), 32)))
+	v0 = sub_4A4800(dword_5d4594_1045464.WidgetData)
 	for i = 1520; i <= 1533; i++ {
 		for j = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, i))); (1<<v0)&0x33 != 0; v0++ {
 		}
@@ -2763,22 +2763,22 @@ func sub_455A50(a1 int8) {
 	} else {
 		v4 = int32(uint32(cur_w) - *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 8)))
 	}
-	*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 16)) = uint32(v4 - 91)
-	*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 24)) = *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 8)) + *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 16))
+	dword_5d4594_1045604.Off.X = int(uint32(v4 - 91))
+	dword_5d4594_1045604.EndPos.X = int(*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 8)) + *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 16)))
 	if int32(*memmap.PtrUint8(0x5D4594, 1045628)) <= 8 {
 		if int32(*memmap.PtrUint8(0x5D4594, 1045628)) <= 4 {
 			if v1 == nil {
 				*memmap.PtrUint32(0x5D4594, 1045608) = 0
 				return
 			}
-			*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 20)) = uint32(cur_h - int32(*memmap.PtrUint8(0x5D4594, 1045628))*40)
+			dword_5d4594_1045604.Off.Y = int(uint32(cur_h - int32(*memmap.PtrUint8(0x5D4594, 1045628))*40))
 		} else {
-			*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 20)) = uint32(cur_h - *(*int32)(unsafe.Add(dword_5d4594_1045604.C(), 12))/2)
+			dword_5d4594_1045604.Off.Y = int(uint32(cur_h - *(*int32)(unsafe.Add(dword_5d4594_1045604.C(), 12))/2))
 		}
 	} else {
-		*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 20)) = uint32(cur_h) - *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 12))
+		dword_5d4594_1045604.Off.Y = int(uint32(cur_h) - *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 12)))
 	}
-	*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 28)) = *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 12)) + *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 20))
+	dword_5d4594_1045604.EndPos.Y = int(*(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 12)) + *(*uint32)(unsafe.Add(dword_5d4594_1045604.C(), 20)))
 	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1045604)
 }
 func sub_455C10() int32 {
@@ -2860,10 +2860,10 @@ func sub_455F60() {
 			v2 = v5
 		}
 		dword_5d4594_1045640 = 1
-		*(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 16)) = uint32(v1) - *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 8))/3 - 91
-		*(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 24)) = *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 8)) + *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 16))
-		*(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 20)) = uint32(v2 - 120)
-		*(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 28)) = *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 12)) + *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 20))
+		dword_5d4594_1045636.Off.X = int(uint32(v1) - *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 8))/3 - 91)
+		dword_5d4594_1045636.EndPos.X = int(*(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 8)) + *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 16)))
+		dword_5d4594_1045636.Off.Y = int(uint32(v2 - 120))
+		dword_5d4594_1045636.EndPos.Y = int(*(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 12)) + *(*uint32)(unsafe.Add(dword_5d4594_1045636.C(), 20)))
 		*memmap.PtrUint8(0x5D4594, 1045644) = 0
 		nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1045636)
 	}
@@ -3288,7 +3288,7 @@ func sub_457B60(a1 unsafe.Pointer) {
 		v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10161)))
 		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v9)), 0)
 		nox_xxx_wnd_46ABB0(dword_5d4594_1046536, 0)
-		*(*uint32)(unsafe.Add(dword_5d4594_1046536.C(), 4)) |= 8
+		dword_5d4594_1046536.Flags |= 8
 		nox_xxx_wnd_46ABB0(dword_5d4594_1046504, 1)
 		sub_46AD20(dword_5d4594_1046504, 10134, 10135, 0)
 		sub_46ACE0(dword_5d4594_1046492, 10141, 10141, 1)

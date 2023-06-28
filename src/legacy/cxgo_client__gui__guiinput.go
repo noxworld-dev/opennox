@@ -81,7 +81,7 @@ func sub_4C3760() int32 {
 		dword_5d4594_1321248 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1321228)), 913)
 		result = int32(uintptr(unsafe.Pointer(dword_5d4594_1321236)))
 		if dword_5d4594_1321236 != nil {
-			v1 = *(***uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_1321236), 32))
+			v1 = (**uint32)(dword_5d4594_1321236.WidgetData)
 			**(**uint32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*uint32)(nil))*7)) = 921
 			**(**uint32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*uint32)(nil))*8)) = 922
 			**(**uint32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*uint32)(nil))*9)) = 920

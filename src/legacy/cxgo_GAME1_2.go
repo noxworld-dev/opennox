@@ -3266,24 +3266,24 @@ func sub_438480() {
 	nox_xxx_wndSetWindowProc_46B300(dword_5d4594_815028, sub_438EF0)
 	sub_46B120(dword_5d4594_815032, nox_wol_wnd_gameList_815012)
 	nox_xxx_wndSetWindowProc_46B300(dword_5d4594_815032, sub_438EF0)
-	**(**uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_815004), 32)), 28)) = 10035
-	**(**uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_815004), 32)), 32)) = 10036
-	**(**uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_815004), 32)), 36)) = 10032
-	nox_window_call_field_94_fnc(dword_5d4594_815016, 16408, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 28))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815020, 16408, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 28))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815024, 16408, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 28))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815028, 16408, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 28))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815032, 16408, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 28))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815016, 16409, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 32))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815020, 16409, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 32))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815024, 16409, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 32))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815028, 16409, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 32))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815032, 16409, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 32))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815016, 16410, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 36))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815020, 16410, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 36))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815024, 16410, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 36))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815028, 16410, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 36))), 0)
-	nox_window_call_field_94_fnc(dword_5d4594_815032, 16410, uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(nox_wol_wnd_gameList_815012.C(), 32)), 36))), 0)
+	**(**uint32)(unsafe.Add(dword_5d4594_815004.WidgetData, 28)) = 10035
+	**(**uint32)(unsafe.Add(dword_5d4594_815004.WidgetData, 32)) = 10036
+	**(**uint32)(unsafe.Add(dword_5d4594_815004.WidgetData, 36)) = 10032
+	nox_window_call_field_94_fnc(dword_5d4594_815016, 16408, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 28))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815020, 16408, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 28))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815024, 16408, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 28))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815028, 16408, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 28))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815032, 16408, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 28))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815016, 16409, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 32))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815020, 16409, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 32))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815024, 16409, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 32))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815028, 16409, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 32))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815032, 16409, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 32))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815016, 16410, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 36))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815020, 16410, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 36))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815024, 16410, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 36))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815028, 16410, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 36))), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_815032, 16410, uintptr(*(*uint32)(unsafe.Add(nox_wol_wnd_gameList_815012.WidgetData, 36))), 0)
 }
 func sub_438C80(win *gui.Window, draw *gui.WindowData) int {
 	mpos := nox_client_getMousePos_4309F0()

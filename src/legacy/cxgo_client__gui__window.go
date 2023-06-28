@@ -70,11 +70,11 @@ func sub_46AB20(a1 *gui.Window, a2 int32, a3 int32) int32 {
 	if a1 == nil {
 		return -2
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*6)) = uint32(a2) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
+	a1.EndPos.X = int(uint32(a2) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 	v4 = int32(uint32(a3) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = uint32(a2)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) = uint32(a3)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = uint32(v4)
+	a1.SizeVal.X = int(uint32(a2))
+	a1.SizeVal.Y = int(uint32(a3))
+	a1.EndPos.Y = int(uint32(v4))
 	nox_window_call_field_94_fnc(a1, 16388, uintptr(a2), uintptr(a3))
 	return 0
 }

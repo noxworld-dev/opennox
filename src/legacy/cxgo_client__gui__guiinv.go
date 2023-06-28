@@ -216,8 +216,8 @@ func sub_462040(a1 int32) {
 		return
 	}
 	v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*30)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*32)) = uint32(v1)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*30)) = uint32(v8) | 0x40000000
+	v6.Field_32 = uint32(v1)
+	v6.Flags30Val = uint32(v8) | 0x40000000
 	alloc.Memcpy(unsafe.Add(unsafe.Pointer(v6), 4*108), v4, 0x18)
 	*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*146))) = uint16(v18)
 	*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*147))) = uint16(v19)
@@ -268,7 +268,7 @@ func sub_462040(a1 int32) {
 		}
 	}
 	if v20 == 0 {
-		dword_5d4594_1062488 = *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*32))
+		dword_5d4594_1062488 = v6.Field_32
 	}
 	v16 = int16(*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*224))))
 	if int32(v16) >= 0 {

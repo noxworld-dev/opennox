@@ -1011,7 +1011,7 @@ func sub_4E43F0(a1 *byte) *FILE {
 	return result
 }
 func nox_xxx_unitNeedSync_4E44F0(a1 *server.Object) {
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 152)) = math.MaxUint32
+	a1.Field38 = math.MaxUint32
 }
 func sub_4E4500(a1p *server.Object, a2 int32, a3 int32, a4 int32) *int32 {
 	var (
@@ -5806,7 +5806,7 @@ func nox_xxx_unitRemoveChild_4EC470(a1 *server.Object) {
 				}
 			}
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 516)) = 0
+		a1.Field129 = nil
 	}
 }
 func nox_xxx_unitTransferSlaves_4EC4B0(a1p *server.Object) {

@@ -923,7 +923,7 @@ func nox_xxx_waypointNew_5798F0(a1 float32, a2 float32) *server.Waypoint {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*120)) = uint32(v4 | 1)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*121)) = uint32(uintptr(unsafe.Pointer(nox_xxx_waypointsHead_2523752)))
 	if nox_xxx_waypointsHead_2523752 != nil {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(nox_xxx_waypointsHead_2523752), 488)) = uint32(uintptr(unsafe.Pointer(v2)))
+		nox_xxx_waypointsHead_2523752.WpPrev = uint32(uintptr(unsafe.Pointer(v2)))
 	}
 	nox_xxx_waypointsHead_2523752 = (*server.Waypoint)(unsafe.Pointer(v2))
 	if noxflags.HasGame(1) {
@@ -957,7 +957,7 @@ func nox_xxx_waypoint_5799C0() *byte {
 			v1 = int32(*(*uint32)(unsafe.Add(v0, 484)))
 			*(*uint32)(unsafe.Add(v0, 484)) = uint32(uintptr(unsafe.Pointer(nox_xxx_waypointsHead_2523752)))
 			if nox_xxx_waypointsHead_2523752 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(nox_xxx_waypointsHead_2523752), 488)) = uint32(v0)
+				nox_xxx_waypointsHead_2523752.WpPrev = uint32(v0)
 			}
 			nox_xxx_waypointsHead_2523752 = (*server.Waypoint)(v0)
 			if noxflags.HasGame(1) {

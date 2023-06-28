@@ -1538,7 +1538,7 @@ func sub_4F80C0(a1 int32, a3 *types.Pointf) int32 {
 	return result
 }
 func sub_4F9A80(a1 *server.Object) int32 {
-	return bool2int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 748))+uint32(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 748)), 181)))*4))), 168)) != 0)
+	return bool2int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 748))+uint32(int32(*(*uint8)(unsafe.Add(a1.UpdateData, 181)))*4))), 168)) != 0)
 }
 func sub_4F9AB0(a1p *server.Object) int32 {
 	var (
@@ -4767,7 +4767,7 @@ func sub_500B70() int32 {
 	return 1
 }
 func nox_xxx_orderUnitLocal_500C70(owner int32, orderType int32) int32 {
-	*(*uint32)(unsafe.Add(unsafe.Pointer(nox_common_playerInfoFromNum_417090(owner)), 4*912)) = uint32(orderType)
+	nox_common_playerInfoFromNum_417090(owner).SummonOrderAll = uint32(orderType)
 	return nox_xxx_netCreatureCmd_4D7EE0(owner, int8(orderType))
 }
 func sub_500CA0(a1 int32, a2 unsafe.Pointer) int32 {

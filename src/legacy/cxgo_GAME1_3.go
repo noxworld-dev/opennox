@@ -932,8 +932,8 @@ func sub_446780() int32 {
 	}
 	nox_xxx_windowFocus_46B500(nil)
 	nox_window_set_hidden(dword_5d4594_826028, 1)
-	*(*uint32)(unsafe.Add(dword_5d4594_826028.C(), 4)) &= 0xFFFFFFF7
-	*(*uint32)(unsafe.Add(dword_5d4594_826032.C(), 4)) &= 0xFFFFFFF7
+	dword_5d4594_826028.Flags &= 0xFFFFFFF7
+	dword_5d4594_826032.Flags &= 0xFFFFFFF7
 	nox_window_call_field_94_fnc(dword_5d4594_826032, 16399, 0, 0)
 	return 1
 }
@@ -966,8 +966,8 @@ func nox_xxx_motd_4467F0() {
 								if v1 != nil {
 									nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(v1)))
 								}
-								*(*uint32)(unsafe.Add(dword_5d4594_826028.C(), 4)) |= 8
-								*(*uint32)(unsafe.Add(dword_5d4594_826032.C(), 4)) |= 8
+								dword_5d4594_826028.Flags |= 8
+								dword_5d4594_826032.Flags |= 8
 								v2 = *(**byte)(memmap.PtrOff(0x5D4594, 826060))
 								if *memmap.PtrUint32(0x5D4594, 826060) != 0 {
 									for {

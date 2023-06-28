@@ -896,7 +896,7 @@ func nox_xxx_mobActionEscort_546430(obj *server.Object) {
 			nox_xxx_monsterPopAction_50A160(obj)
 			return
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v2p), 4*1)) = *(*uint32)(unsafe.Add(v3, 56))
+		v2p.Args = *(*uint32)(unsafe.Add(v3, 56))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2p), 4*2)) = *(*uint32)(unsafe.Add(v3, 60))
 	}
 	if nox_xxx_monsterCanAttackAtWill_534390((*server.Object)(unsafe.Pointer(a1))) != 0 {

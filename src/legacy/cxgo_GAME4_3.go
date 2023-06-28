@@ -2829,7 +2829,7 @@ func nox_xxx_monsterHasShield_5342C0(a1 unsafe.Pointer) int32 {
 	return result
 }
 func nox_xxx_monsterCanCast_534300(a1 *server.Object) int32 {
-	return int32((*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 748)), 1440)) >> 5) & 1)
+	return int32((*(*uint32)(unsafe.Add(a1.UpdateData, 1440)) >> 5) & 1)
 }
 func nox_xxx_monsterIsMoveing_534320(a1 unsafe.Pointer) int32 {
 	return bool2int32(float64(*(*float32)(unsafe.Add(a1, 548))) >= 0.0099999998)
@@ -2846,7 +2846,7 @@ func sub_534340(obj *server.Object) int32 {
 	return 0
 }
 func nox_xxx_monsterCanAttackAtWill_534390(a1 *server.Object) int32 {
-	return bool2int32(float64(*(*float32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 748)), 1304))) > 0.66000003)
+	return bool2int32(float64(*(*float32)(unsafe.Add(a1.UpdateData, 1304))) > 0.66000003)
 }
 func sub_5343C0(a1 unsafe.Pointer) int32 {
 	var v1 int32
@@ -2986,7 +2986,7 @@ func sub_534780(a1 unsafe.Pointer) int32 {
 	return result
 }
 func sub_5347A0(a1 *server.Object) int32 {
-	return int32((*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 748)), 1440)) >> 9) & 1)
+	return int32((*(*uint32)(unsafe.Add(a1.UpdateData, 1440)) >> 9) & 1)
 }
 func sub_5347C0(a1 unsafe.Pointer) int32 {
 	var (
@@ -3010,7 +3010,7 @@ func nox_xxx_isNotPoisoned_5347F0(a1 int32) int32 {
 	return bool2int32(int32(*(*uint8)(unsafe.Add(a1, 540))) != 0)
 }
 func nox_xxx_mobGetMoveAttemptTime_534810(a1 *server.Object) int32 {
-	return bool2int32(gameFrame()-*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 748)), 508)) < (gameFPS() * 3))
+	return bool2int32(gameFrame()-*(*uint32)(unsafe.Add(a1.UpdateData, 508)) < (gameFPS() * 3))
 }
 func nox_xxx_unitIsMimic_534840(a1 unsafe.Pointer) int32 {
 	var v1 int32
