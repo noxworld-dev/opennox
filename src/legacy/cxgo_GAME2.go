@@ -3370,7 +3370,7 @@ func nox_xxx_windowServerOptionsDrawProc_458500(win *gui.Window, draw *gui.Windo
 	nox_client_wndGetPosition_46AA60(win, &xLeft, &v5)
 	nox_client_drawRectFilledAlpha_49CF10(xLeft, v5+25, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3))-25))
 	v2 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10120)
-	if wndIsShown_nox_xxx_wndIsShown_46ACC0(v2) == 0 && !nox_xxx_wndPointInWnd_46AAB0(v2, mpos.x, mpos.y) {
+	if wndIsShown_nox_xxx_wndIsShown_46ACC0(v2) == 0 && !nox_xxx_wndPointInWnd_46AAB0(v2, mpos.X, mpos.Y) {
 		nox_xxx_wndClearCaptureMain_46ADE0(v2)
 		nox_window_set_hidden(v2, 1)
 	}
@@ -4662,9 +4662,9 @@ func nox_xxx_netGuideRewardCli_45D140(a1 int32, a2 int32) {
 		}
 	}
 }
-func nox_xxx_bookSetForward_45D200(a1 uint32, a2 int32, a3 *int2) {
+func nox_xxx_bookSetForward_45D200(a1 uint32, a2 int32, a3 *Point32) {
 	nox_xxx_bookShowMB_45AD70(1)
-	nox_window_setPos_46A9B0(nox_win_unk1, a3.field_0, a3.field_4)
+	nox_window_setPos_46A9B0(nox_win_unk1, a3.X, a3.Y)
 	if a1 == 2 || a1 == 4 {
 		v5 := int32(0)
 		result := mem_getI32Ptr(0x5D4594, 1046960)
@@ -4832,16 +4832,16 @@ func sub_45D500(a1 int32) int32 {
 	}
 	return result
 }
-func sub_45D550(a1p *int2) {
+func sub_45D550(a1p *Point32) {
 	if a1p != nil {
-		nox_client_wndGetPosition_46AA60(dword_5d4594_1046952, &a1p.field_0, &a1p.field_4)
+		nox_client_wndGetPosition_46AA60(dword_5d4594_1046952, &a1p.X, &a1p.Y)
 	}
 }
 func nox_xxx_bookFillAll_45D570(a1 uint32, a2 int32) {
 	var (
 		v3 float64
-		a4 int2
-		a3 int2
+		a4 Point32
+		a3 Point32
 	)
 	if dword_5d4594_1047520 == 1 {
 		return
@@ -4867,21 +4867,21 @@ func nox_xxx_bookFillAll_45D570(a1 uint32, a2 int32) {
 					dword_5d4594_1046868 = 1
 					dword_5d4594_1046872 = 1
 				}
-				sub_45D550((*int2)(memmap.PtrOff(0x5D4594, 1046844)))
+				sub_45D550((*Point32)(memmap.PtrOff(0x5D4594, 1046844)))
 				dword_5d4594_1046636 = *memmap.PtrInt32(0x5D4594, 1046844)
 				dword_5d4594_1046640 = *memmap.PtrInt32(0x5D4594, 1046848)
 				nox_window_setPos_46A9B0(dword_5d4594_1046956, *memmap.PtrInt32(0x5D4594, 1046844), *memmap.PtrInt32(0x5D4594, 1046848))
-				nox_xxx_buttonSetImgMB_461320(dword_5d4594_1046852, (*int2)(memmap.PtrOff(0x5D4594, 1046668)))
-				a3.field_0 = 400
-				a4.field_4 = 400
+				nox_xxx_buttonSetImgMB_461320(dword_5d4594_1046852, (*Point32)(memmap.PtrOff(0x5D4594, 1046668)))
+				a3.X = 400
+				a4.Y = 400
 				dword_5d4594_1047524 = uint32(a2)
 				dword_5d4594_1046652 = uint32(bool2int32(a1 == 3))
 				*memmap.PtrUint32(0x5D4594, 1046676) = a1
 				nox_client_setRenderGUI(1)
-				a3.field_4 = -500
-				a4.field_0 = 350
+				a3.Y = -500
+				a4.X = 350
 				*memmap.PtrUint32(0x5D4594, 1046680) = 0
-				sub_4BEDE0((*int2)(memmap.PtrOff(0x5D4594, 1046844)), (*int2)(memmap.PtrOff(0x5D4594, 1046668)), &a3, &a4, 19, 0.0, sub_45D7D0, nil)
+				sub_4BEDE0((*Point32)(memmap.PtrOff(0x5D4594, 1046844)), (*Point32)(memmap.PtrOff(0x5D4594, 1046668)), &a3, &a4, 19, 0.0, sub_45D7D0, nil)
 				*memmap.PtrUint32(0x5D4594, 1046628) = 0
 				obj_5d4594_1046620.X = *mem_getFloatPtr(0x5D4594, 1046692) - *mem_getFloatPtr(0x5D4594, 1046684)
 				obj_5d4594_1046620.Y = *mem_getFloatPtr(0x5D4594, 1046696) - *mem_getFloatPtr(0x5D4594, 1046688)
@@ -4910,7 +4910,7 @@ func nox_xxx_bookFillAll_45D570(a1 uint32, a2 int32) {
 		}
 	}
 }
-func sub_45D7D0(a1p, a2p *int2, _ unsafe.Pointer) {
+func sub_45D7D0(a1p, a2p *Point32, _ unsafe.Pointer) {
 	a1 := (*int32)(unsafe.Pointer(a1p))
 	a2 := (*int32)(unsafe.Pointer(a2p))
 	var (
@@ -5216,7 +5216,7 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		v11 unsafe.Pointer
 		v12 uint32
 		v13 int32
-		v14 int2
+		v14 Point32
 		v15 int32
 	)
 	v3 := unsafe.Pointer(win.Field92Val)
@@ -5242,14 +5242,14 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 	v8 = v4 * 8
 	v15 = int32(a3 >> 16)
 	v9 = (*uint32)(unsafe.Pointer(uintptr(v4*8 + *(*int32)(unsafe.Add(v3, 4*51)))))
-	v14.field_0 = v4*8 + *(*int32)(unsafe.Add(v3, 4*51))
+	v14.X = v4*8 + *(*int32)(unsafe.Add(v3, 4*51))
 	switch a2 {
 	case 5:
-		if *v9 == 0 || *memmap.PtrUint32(0x5D4594, 1047928) != 0 || dword_5d4594_1047932 != 0 || nox_xxx_get_57AF20() != 0 || int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) != 0 && !nox_xxx_spellIsEnabled_424B70(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.field_0))))) {
+		if *v9 == 0 || *memmap.PtrUint32(0x5D4594, 1047928) != 0 || dword_5d4594_1047932 != 0 || nox_xxx_get_57AF20() != 0 || int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) != 0 && !nox_xxx_spellIsEnabled_424B70(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.X))))) {
 			return 1
 		}
 		nox_xxx_wndSetCaptureMain_46ADC0(win)
-		nox_xxx_bookSaveSpellForDragDrop_477640(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.field_0)))), 2)
+		nox_xxx_bookSaveSpellForDragDrop_477640(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.X)))), 2)
 		dword_5d4594_1049692 = v3
 		dword_5d4594_1049696 = *(*unsafe.Pointer)(unsafe.Add(v3, 4*51))
 		nox_xxx_clientPlaySoundSpecial_452D80(793, 100)
@@ -5284,8 +5284,8 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		if v10 < 0 {
 			v12 = uint32(nox_xxx_bookSpellDrop_45DCA0(int32(*(*uint32)(unsafe.Pointer(uintptr(v8 + *(*int32)(unsafe.Add(v3, 4*51)))))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v8+*(*int32)(unsafe.Add(v3, 4*51)))), 4))), int32(v7), v15, v3))
 			if v12>>16 == 137 {
-				v14.field_0 = int32(v7)
-				v14.field_4 = v15
+				v14.X = int32(v7)
+				v14.Y = v15
 				v13 = nox_xxx_pointInRect_4281F0(&v14, (*int4)(memmap.PtrOff(0x587000, 133656)))
 				if v13 != 0 || dword_5d4594_1049696 != nil && dword_5d4594_1049696 != *(*unsafe.Pointer)(unsafe.Add(v3, 4*51)) {
 					goto LABEL_51
@@ -5325,12 +5325,12 @@ func nox_xxx_quickBarWnd_45EF50(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					return 1
 				}
 				if int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) != 0 {
-					if nox_xxx_spellIsEnabled_424B70(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.field_0))))) {
-						nox_xxx_guiSpellSetCursor_45DF60(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.field_0)))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v14.field_0)), 4))))
+					if nox_xxx_spellIsEnabled_424B70(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.X))))) {
+						nox_xxx_guiSpellSetCursor_45DF60(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.X)))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(v14.X)), 4))))
 						nox_xxx_clientStoreLastButton_45DAD0(v4)
 					}
 				} else {
-					sub_45DFC0(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.field_0)))))
+					sub_45DFC0(int32(*(*uint32)(unsafe.Pointer(uintptr(v14.X)))))
 					nox_xxx_clientStoreLastButton_45DAD0(v4)
 				}
 				goto LABEL_51

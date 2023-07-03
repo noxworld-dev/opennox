@@ -1977,7 +1977,7 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 		v37    float32
 		v38    types.Pointf
 		v39    types.Pointf
-		a1     int2
+		a1     Point32
 	)
 	result = (*float32)(nox_xxx_mapGenGetTopRoom_521710())
 	v1 = result
@@ -1997,11 +1997,11 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(v1), v4), 216))) == 0 && nox_xxx_mapGenRandFunc_526AC0(1, 100) <= *memmap.PtrInt32(0x5D4594, 1549848) {
 				switch v4 {
 				case 0, 1:
-					a1.field_0 = int32(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1)))
+					a1.X = int32(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1)))
 					if v4 == 1 {
-						a1.field_4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2)) + *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4)))
+						a1.Y = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2)) + *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4)))
 					} else {
-						a1.field_4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2)) - 1)
+						a1.Y = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2)) - 1)
 					}
 					v31 = 0
 					if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) <= 0 {
@@ -2121,7 +2121,7 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 								v2 = nil
 							}
 						}
-						a1.field_0++
+						a1.X++
 						v31 = v19 + 1
 						if uint32(v19+1) >= *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) {
 							v4 = v32
@@ -2131,12 +2131,12 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 					fallthrough
 				case 2, 3:
 					if v4 == 2 {
-						a1.field_0 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) + *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)))
+						a1.X = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) + *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)))
 					} else {
-						a1.field_0 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) - 1)
+						a1.X = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) - 1)
 					}
 					v30 = 0
-					a1.field_4 = int32(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*2)))
+					a1.Y = int32(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*2)))
 					if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*4)) <= 0 {
 						goto LABEL_115
 					}
@@ -2254,7 +2254,7 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 								v2 = nil
 							}
 						}
-						a1.field_4++
+						a1.Y++
 						v30 = v7 + 1
 						if uint32(v7+1) >= *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4)) {
 							v4 = v32
@@ -6046,7 +6046,7 @@ func sub_4DF2A0(a1 int8) *int32 {
 		result *int32
 	)
 	v1 = 1 << int32(a1)
-	for result = (*int32)(nox_xxx_wallSecretGetFirstWall_410780()); result != nil; result = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallSecretNext_410790(result)))) {
+	for result = (*int32)(nox_xxx_wallSecretGetFirstWall_410780()); result != nil; result = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallSecretNext_410790(unsafe.Pointer(result))))) {
 		if *(*int32)(unsafe.Add(unsafe.Pointer(result), 4*5))&8 != 0 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*7)) |= v1
 		} else {
@@ -7254,7 +7254,7 @@ func nox_xxx_itemApplyDefendEffect2_4E1320(a1 unsafe.Pointer, a2 unsafe.Pointer,
 		v7  int32
 		v8  *int32
 		v9  int32
-		v10 int2
+		v10 Point32
 		v11 int32
 	)
 	v6 = *(**uint32)(unsafe.Add(a1, 504))
@@ -7269,10 +7269,10 @@ func nox_xxx_itemApplyDefendEffect2_4E1320(a1 unsafe.Pointer, a2 unsafe.Pointer,
 					v9 = *v8
 					if *v8 != 0 {
 						if *(*uint32)(unsafe.Add(v9, 76)) != 0 {
-							v10.field_0 = *a4
-							v10.field_4 = v7
-							ccall.AsFunc[func(int32, *uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, *int2)](*(*unsafe.Pointer)(unsafe.Add(v9, 76)))(v9, v6, a1, a3, a2, &v10)
-							*a4 = v10.field_0
+							v10.X = *a4
+							v10.Y = v7
+							ccall.AsFunc[func(int32, *uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, *Point32)](*(*unsafe.Pointer)(unsafe.Add(v9, 76)))(v9, v6, a1, a3, a2, &v10)
+							*a4 = v10.X
 						}
 					}
 					v8 = (*int32)(unsafe.Add(unsafe.Pointer(v8), 4*1))

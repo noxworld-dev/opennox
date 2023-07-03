@@ -25,7 +25,7 @@ func nox_thing_undead_killer_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		v12    int32
 		v13    int8
 		v14    [4]int16
-		v15    int2
+		v15    Point32
 		a2     int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	if *memmap.PtrUint32(0x5D4594, 1313728) == 0 {
@@ -48,10 +48,10 @@ func nox_thing_undead_killer_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		v6 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - int32(*(*int16)(unsafe.Add(a2, 106))) - int32(*(*int16)(unsafe.Add(a2, 104)))
 		v7 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))
 		v8 = int32(*(*uint32)(unsafe.Add(a2, 328)))
-		v15.field_0 = v5 + *a1 - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
+		v15.X = v5 + *a1 - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
 		v12 = int32(*(*uint32)(unsafe.Add(a2, 324)))
 		v11 = int32(*(*uint32)(unsafe.Add(a2, 16)))
-		v15.field_4 = int32(*(*uint32)(unsafe.Add(a2, 16)) + uint32(v6) - uint32(v7))
+		v15.Y = int32(*(*uint32)(unsafe.Add(a2, 16)) + uint32(v6) - uint32(v7))
 		v9 = int32(sub_48C690(v5, v11, v12, v8))
 		v10 = 8 - v9/40
 		if v10 < 0 {

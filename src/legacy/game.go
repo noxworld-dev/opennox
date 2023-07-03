@@ -104,7 +104,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() int32 {
 }
 
 // nox_xxx_mapTraceRay_535250
-func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *types.Pointf, a3 *int2, a4 int8) int32 {
+func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *types.Pointf, a3 *Point32, a4 int8) int32 {
 	p1 := (*types.Pointf)(unsafe.Pointer(&a1.field_0))
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
 	outPos := a2
@@ -445,9 +445,6 @@ func Sub_476E20() unsafe.Pointer {
 }
 func Sub_4BFAD0() int {
 	return int(sub_4BFAD0())
-}
-func Nox_xxx_wndCreateInventoryMB_465E00() uint32 {
-	return uint32(nox_xxx_wndCreateInventoryMB_465E00())
 }
 func Nox_game_initOptionsInGame_4ADAD0() int {
 	return int(nox_game_initOptionsInGame_4ADAD0())

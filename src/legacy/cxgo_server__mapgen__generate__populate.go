@@ -23,7 +23,7 @@ func nox_xxx_mapgen_522AD0(a1 *float32, a2 int32) *float32 {
 		v7  float64
 		a3  float32
 		a4  float32
-		a2a int2
+		a2a Point32
 		a1a types.Pointf
 		v13 float32 = 0
 		v14 float32 = 0
@@ -64,26 +64,26 @@ func nox_xxx_mapgen_522AD0(a1 *float32, a2 int32) *float32 {
 	case 0:
 		v13 = 3.0
 		v7 = 2.0
-		a2a.field_0--
+		a2a.X--
 	case 1:
 		v7 = 2.0
-		a2a.field_0--
-		a2a.field_4 -= 2
+		a2a.X--
+		a2a.Y -= 2
 		v13 = 3.0
 	case 2:
-		a2a.field_0 -= 2
+		a2a.X -= 2
 		v13 = 2.0
 		v7 = 3.0
-		a2a.field_4--
+		a2a.Y--
 	case 3:
 		v13 = 2.0
 		v7 = 3.0
-		a2a.field_4--
+		a2a.Y--
 	default:
 		v7 = float64(v14)
 	}
-	v15.X = float32(float64(a2a.field_0) * 32.526913)
-	v15.Y = float32(float64(a2a.field_4) * 32.526913)
+	v15.X = float32(float64(a2a.X) * 32.526913)
+	v15.Y = float32(float64(a2a.Y) * 32.526913)
 	a4 = float32(v7 * 32.526913)
 	a3 = float32(float64(v13) * 32.526913)
 	sub_521BC0(int32(uintptr(unsafe.Pointer(a1))), &v15, a3, a4)

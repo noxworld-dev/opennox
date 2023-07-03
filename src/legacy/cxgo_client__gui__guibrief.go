@@ -364,7 +364,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 		v31    int32
 		v32    *uint16
 		v33    *uint16
-		v34    int2
+		v34    Point32
 	)
 	v2 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
 	sub_44E110()
@@ -387,22 +387,22 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v5, int32(uintptr(unsafe.Pointer(v33))), v4+21)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
 	nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v5, int32(uintptr(unsafe.Pointer(v29))), v4+20)
-	v34.field_0 = v3 + 73
-	v34.field_4 = v4 + 123
+	v34.X = v3 + 73
+	v34.Y = v4 + 123
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832492, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832492, 300)))(v2, dword_5d4594_832492)
-	v34.field_0 = v3 + 109
-	v34.field_4 = v4 + 76
+	v34.X = v3 + 109
+	v34.Y = v4 + 76
 	v6 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash2a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 792)))
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v6)), v34.field_0, v34.field_4)
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v6)), v34.X, v34.Y)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v6)), &v27, nil, 0)
-	v34.field_0 += v27 + 4
+	v34.X += v27 + 4
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v7 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash2b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 799)
-	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v7, v34.field_0, v34.field_4, v3-v34.field_0+520, 0)
-	v34.field_0 = v3 + 565
-	v34.field_4 = v4 + 117
+	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v7, v34.X, v34.Y, v3-v34.X+520, 0)
+	v34.X = v3 + 565
+	v34.Y = v4 + 117
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832496, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832496, 300)))(v2, dword_5d4594_832496)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash3a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 809)
@@ -411,39 +411,39 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v30, &v28, nil, 0)
 	v8 = v3 + 520
 	if v28+v27 <= 390 {
-		v34.field_4 = v4 + 115
-		v34.field_0 = v8 - v28 - v27 - 4
+		v34.Y = v4 + 115
+		v34.X = v8 - v28 - v27 - 4
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.field_0, v34.field_4)
-		v34.field_0 = v8 - v28
-		v34.field_4 = v4 + 115
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.X, v34.Y)
+		v34.X = v8 - v28
+		v34.Y = v4 + 115
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v30, v34.field_0, v34.field_4)
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v30, v34.X, v34.Y)
 	} else {
-		v34.field_0 = v3 + 199
-		v34.field_4 = v4 + 115
+		v34.X = v3 + 199
+		v34.Y = v4 + 115
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.field_0, v34.field_4)
-		v34.field_0 += v27 + 4
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.X, v34.Y)
+		v34.X += v27 + 4
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-		nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v30, v34.field_0, v34.field_4, v8-v34.field_0, 0)
+		nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v30, v34.X, v34.Y, v8-v34.X, 0)
 	}
-	v34.field_0 = v3 + 133
-	v34.field_4 = v4 + 192
+	v34.X = v3 + 133
+	v34.Y = v4 + 192
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832504, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832504, 300)))(v2, dword_5d4594_832504)
-	v34.field_0 = v3 + 157
-	v34.field_4 = v4 + 156
+	v34.X = v3 + 157
+	v34.Y = v4 + 156
 	v9 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash4a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 862)))
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v9)), v34.field_0, v34.field_4)
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v9)), v34.X, v34.Y)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v9)), &v27, nil, 0)
-	v34.field_0 += v27 + 4
+	v34.X += v27 + 4
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v10 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash4b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 869)
-	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v10, v34.field_0, v34.field_4, v4-v34.field_0+630, 0)
-	v34.field_0 = v3 + 525
-	v34.field_4 = v4 + 222
+	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v10, v34.X, v34.Y, v4-v34.X+630, 0)
+	v34.X = v3 + 525
+	v34.Y = v4 + 222
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832500, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832500, 300)))(v2, dword_5d4594_832500)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash7a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 879)
@@ -452,51 +452,51 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v30, &v28, nil, 0)
 	v11 = v3 + 500
 	if v28+v27 <= 215 {
-		v34.field_4 = v4 + 198
-		v34.field_0 = v11 - v28 - v27 - 4
+		v34.Y = v4 + 198
+		v34.X = v11 - v28 - v27 - 4
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.field_0, v34.field_4)
-		v34.field_0 = v11 - v28
-		v34.field_4 = v4 + 198
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.X, v34.Y)
+		v34.X = v11 - v28
+		v34.Y = v4 + 198
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v30, v34.field_0, v34.field_4)
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v30, v34.X, v34.Y)
 	} else {
-		v34.field_0 = v3 + 250
-		v34.field_4 = v4 + 198
+		v34.X = v3 + 250
+		v34.Y = v4 + 198
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.field_0, v34.field_4)
-		v34.field_0 += v27 + 4
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.X, v34.Y)
+		v34.X += v27 + 4
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-		nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v30, v34.field_0, v34.field_4, v11-v34.field_0, 0)
+		nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v30, v34.X, v34.Y, v11-v34.X, 0)
 	}
-	v34.field_0 = v3 + 182
-	v34.field_4 = v4 + 262
+	v34.X = v3 + 182
+	v34.Y = v4 + 262
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832528, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832528, 300)))(v2, dword_5d4594_832528)
-	v34.field_0 = v3 + 201
-	v34.field_4 = v4 + 251
+	v34.X = v3 + 201
+	v34.Y = v4 + 251
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832536, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832536, 300)))(v2, dword_5d4594_832536)
-	v34.field_0 = v3 + 185
-	v34.field_4 = v4 + 234
+	v34.X = v3 + 185
+	v34.Y = v4 + 234
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832532, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832532, 300)))(v2, dword_5d4594_832532)
-	v34.field_0 = v3 + 221
-	v34.field_4 = v4 + 240
+	v34.X = v3 + 221
+	v34.Y = v4 + 240
 	v12 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash5a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 942)))
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v12)), v34.field_0, v34.field_4)
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v12)), v34.X, v34.Y)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v12)), &v27, nil, 0)
-	v34.field_0 += v27 + 4
+	v34.X += v27 + 4
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v13 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash5b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 949)
-	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v13, v34.field_0, v34.field_4, v3-v34.field_0+470, 0)
-	v34.field_0 = v3 + 484
-	v34.field_4 = v4 + 278
+	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v13, v34.X, v34.Y, v3-v34.X+470, 0)
+	v34.X = v3 + 484
+	v34.Y = v4 + 278
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832516, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832516, 300)))(v2, dword_5d4594_832516)
-	v34.field_0 = v3 + 503
-	v34.field_4 = v4 + 303
+	v34.X = v3 + 503
+	v34.Y = v4 + 303
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832520, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832520, 300)))(v2, dword_5d4594_832520)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash6a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 964)
@@ -505,78 +505,78 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v30, &v28, nil, 0)
 	v14 = v3 + 462
 	if v28+v27 <= 350 {
-		v34.field_4 = v4 + 286
-		v34.field_0 = v14 - v28 - v27 - 4
+		v34.Y = v4 + 286
+		v34.X = v14 - v28 - v27 - 4
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.field_0, v34.field_4)
-		v34.field_0 = v14 - v28
-		v34.field_4 = v4 + 286
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.X, v34.Y)
+		v34.X = v14 - v28
+		v34.Y = v4 + 286
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v30, v34.field_0, v34.field_4)
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v30, v34.X, v34.Y)
 	} else {
-		v34.field_0 = v3 + 113
-		v34.field_4 = v4 + 286
+		v34.X = v3 + 113
+		v34.Y = v4 + 286
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.field_0, v34.field_4)
-		v34.field_0 += v27 + 4
+		nox_xxx_drawString_43F6E0(dword_5d4594_832484, v29, v34.X, v34.Y)
+		v34.X += v27 + 4
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-		nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v30, v34.field_0, v34.field_4, v14-v34.field_0, 0)
+		nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v30, v34.X, v34.Y, v14-v34.X, 0)
 	}
-	v34.field_0 = v3 + 186
-	v34.field_4 = v4 + 333
+	v34.X = v3 + 186
+	v34.Y = v4 + 333
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832512, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832512, 300)))(v2, dword_5d4594_832512)
-	v34.field_0 = v3 + 219
-	v34.field_4 = v4 + 345
+	v34.X = v3 + 219
+	v34.Y = v4 + 345
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832508, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832508, 300)))(v2, dword_5d4594_832508)
-	v34.field_0 = v3 + 220
-	v34.field_4 = v4 + 322
+	v34.X = v3 + 220
+	v34.Y = v4 + 322
 	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832524, 12)))
 	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832524, 300)))(v2, dword_5d4594_832524)
-	v34.field_0 = v3 + 241
-	v34.field_4 = v4 + 330
+	v34.X = v3 + 241
+	v34.Y = v4 + 330
 	v15 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash8a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1027)))
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v15)), v34.field_0, v34.field_4)
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v15)), v34.X, v34.Y)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, (*wchar2_t)(unsafe.Pointer(v15)), &v27, nil, 0)
-	v34.field_0 += v27 + 4
+	v34.X += v27 + 4
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v16 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash8b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1034)
-	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v16, v34.field_0, v34.field_4, v3-v34.field_0+550, 0)
+	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v16, v34.X, v34.Y, v3-v34.X+550, 0)
 	v17 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash9a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1040)
 	v18 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash9b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1041)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v17, &v27, nil, 0)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v18, &v28, nil, 0)
-	v34.field_0 = v3 - (v27+v28)/2 + 320
-	v34.field_4 = v4 + 370
+	v34.X = v3 - (v27+v28)/2 + 320
+	v34.Y = v4 + 370
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v17, v34.field_0, v34.field_4)
-	v34.field_0 += v27 + 4
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v17, v34.X, v34.Y)
+	v34.X += v27 + 4
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v18, v34.field_0, v34.field_4)
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v18, v34.X, v34.Y)
 	v19 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash10a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1055)
 	v20 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash10b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1056)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v19, &v27, nil, 0)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v20, &v28, nil, 0)
-	v34.field_0 = v3 - (v28+v27)/2 + 320
-	v34.field_4 = v4 + 395
+	v34.X = v3 - (v28+v27)/2 + 320
+	v34.Y = v4 + 395
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v19, v34.field_0, v34.field_4)
-	v34.field_0 += v27 + 4
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v19, v34.X, v34.Y)
+	v34.X += v27 + 4
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v20, v34.field_0, v34.field_4)
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v20, v34.X, v34.Y)
 	v21 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash11a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1070)
 	v22 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash11b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1071)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v21, &v27, nil, 0)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v22, &v28, nil, 0)
-	v34.field_0 = v3 - (v28+v27)/2 + 320
-	v34.field_4 = v4 + 420
+	v34.X = v3 - (v28+v27)/2 + 320
+	v34.Y = v4 + 420
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v21, v34.field_0, v34.field_4)
-	v34.field_0 += v27 + 4
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v21, v34.X, v34.Y)
+	v34.X += v27 + 4
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v22, v34.field_0, v34.field_4)
+	nox_xxx_drawString_43F6E0(dword_5d4594_832484, v22, v34.X, v34.Y)
 	result = int32(gameFrame() / 0x1E)
 	if gameFrame()%0x1E != 0 {
 		if *memmap.PtrUint32(0x587000, 123012) != 1 {
@@ -593,10 +593,10 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v24 = int32(nox_color_white_2523948)
 	v25 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash12"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1097)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v25, &v27, nil, 0)
-	v34.field_4 = v4 + 450
-	v34.field_0 = v3 - v27/2 + 320
+	v34.Y = v4 + 450
+	v34.X = v3 - v27/2 + 320
 	nox_xxx_drawSetTextColor_434390(v24)
-	return nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v25, v34.field_0, v34.field_4)
+	return nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v25, v34.X, v34.Y)
 }
 func nox_xxx_clientQuestWinScreen_450770(a1 int32) int32 {
 	var (

@@ -27,8 +27,8 @@ func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc func(*client.Drawable, unsafe.P
 }
 
 // nox_drawable_find_49ABF0
-func nox_drawable_find_49ABF0(pt *nox_point, r int) *client.Drawable {
-	return (*client.Drawable)(GetClient().Nox_drawable_find(image.Point{X: int(pt.x), Y: int(pt.y)}, r).C())
+func nox_drawable_find_49ABF0(pt *Point32, r int) *client.Drawable {
+	return (*client.Drawable)(GetClient().Nox_drawable_find(image.Point{X: int(pt.X), Y: int(pt.Y)}, r).C())
 }
 
 // nox_xxx_spriteLoadAdd_45A360_drawable
@@ -153,10 +153,10 @@ func Nox_xxx_clientGetSpriteAtCursor_476F90() *client.Drawable {
 	return (*client.Drawable)(nox_client_spriteUnderCursorXxx_1096644)
 }
 func Get_dword_5d4594_1096640() *client.Drawable {
-	return AsDrawableP(dword_5d4594_1096640)
+	return AsDrawableP(unsafe.Pointer(dword_5d4594_1096640))
 }
 func Set_dword_5d4594_1096640(dr *client.Drawable) {
-	dword_5d4594_1096640 = dr.C()
+	dword_5d4594_1096640 = dr
 }
 func Get_nox_client_spriteUnderCursorXxx_1096644() *client.Drawable {
 	return AsDrawableP(nox_client_spriteUnderCursorXxx_1096644)

@@ -18,7 +18,7 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 		v4 *wchar2_t
 		v6 int32
 		v7 int32
-		a4 int2
+		a4 Point32
 	)
 	if !(a2 != dword_5d4594_1062560 && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049728) && uint32(a2) != *memmap.PtrUint32(0x5D4594, 1049724) && a2 != dword_5d4594_1062556 && a2 != dword_5d4594_1062564) {
 		return 1
@@ -34,12 +34,12 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 			nox_xxx_printCentered_445490(v4)
 			return 0
 		}
-		v6 = a4.field_0
-		v7 = a4.field_4
-		if nox_client_inventory_grid_1050020[a4.field_4+NOX_INVENTORY_ROW_COUNT*a4.field_0].field_0.Flags28()&0x10 != 0 {
+		v6 = a4.X
+		v7 = a4.Y
+		if nox_client_inventory_grid_1050020[a4.Y+NOX_INVENTORY_ROW_COUNT*a4.X].field_0.Flags28()&0x10 != 0 {
 			sub_472310()
-			v7 = a4.field_4
-			v6 = a4.field_0
+			v7 = a4.Y
+			v6 = a4.X
 		}
 		if nox_client_inventory_grid_1050020[v7+NOX_INVENTORY_ROW_COUNT*v6].field_0.Flags28()&0x3001000 != 0 {
 			dword_5d4594_1062516 = 0
@@ -53,11 +53,11 @@ func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 		return 1
 	}
 	if v8.ObjClass&0x1001000 != 0 {
-		sub_4673F0(a4.field_0, a4.field_4)
+		sub_4673F0(a4.X, a4.Y)
 	}
 	return 1
 }
-func sub_4617C0(a1 int32, a2 int32, a3 unsafe.Pointer, a4 *int2) int32 {
+func sub_4617C0(a1 int32, a2 int32, a3 unsafe.Pointer, a4 *Point32) int32 {
 	var (
 		v4     uint16
 		i      uint16
@@ -91,8 +91,8 @@ func sub_4617C0(a1 int32, a2 int32, a3 unsafe.Pointer, a4 *int2) int32 {
 						v8 = int32(v4)
 					}
 					if a4 != nil {
-						a4.field_0 = v7
-						a4.field_4 = v8
+						a4.X = v7
+						a4.Y = v8
 					}
 					if sub_461930() != 0 && dword_5d4594_1062480 == nil {
 						if (func() uint32 {
@@ -379,21 +379,21 @@ func sub_4627F0(a1 *uint32) int32 {
 		v71    float32
 		v72    float32
 		v73    int32
-		v74    int2
+		v74    Point32
 	)
 	v75, free75 := alloc.Make([]wchar2_t{}, 256)
 	defer free75()
 	v76, freev76 := alloc.Make([]wchar2_t{}, 256)
 	defer freev76()
 	v73 = 1
-	var mpos nox_point = nox_client_getMousePos_4309F0()
+	var mpos Point32 = nox_client_getMousePos_4309F0()
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v2 = 0
 	nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
 	nox_client_drawRectFilledOpaque_49CE30(int32(*a1+11), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))+15), 200, 200)
 	sub_463370(dword_5d4594_1062456, &mpos, (*uint32)(unsafe.Pointer(&v74)))
 	if nox_xxx_pointInRect_4281F0(&v74, (*int4)(memmap.PtrOff(0x587000, 136352))) != 0 || nox_xxx_pointInRect_4281F0(&v74, (*int4)(memmap.PtrOff(0x587000, 136368))) != 0 {
-		if nox_xxx_pointInRect_4281F0(&v74, (*int4)(memmap.PtrOff(0x587000, 136368))) != 0 && (v74.field_4-13)/50 != 1 {
+		if nox_xxx_pointInRect_4281F0(&v74, (*int4)(memmap.PtrOff(0x587000, 136368))) != 0 && (v74.Y-13)/50 != 1 {
 			nox_client_setCursorType_477610(7)
 			goto LABEL_14
 		}
@@ -987,19 +987,19 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		v48 int32
 		v49 unsafe.Pointer
 		v50 *wchar2_t
-		v51 int2
+		v51 Point32
 		v52 int32
 		v53 int32
 		v54 int32
 		v55 int32
-		v56 int2
-		v57 int2
-		v58 int2
-		v59 int2
+		v56 Point32
+		v57 Point32
+		v58 Point32
+		v59 Point32
 	)
-	v59.field_4 = int32(a3 >> 16)
-	v59.field_0 = int32(uint16(a3))
-	sub_463370(dword_5d4594_1062456, (*nox_point)(unsafe.Pointer(&v59)), (*uint32)(unsafe.Pointer(&v56)))
+	v59.Y = int32(a3 >> 16)
+	v59.X = int32(uint16(a3))
+	sub_463370(dword_5d4594_1062456, &v59, (*uint32)(unsafe.Pointer(&v56)))
 	if sub_45D9B0() != 0 || int32(*memmap.PtrUint8(0x5D4594, 1049868)) != 2 {
 		return 1
 	}
@@ -1011,8 +1011,8 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		if dword_5d4594_1049864 == 5 {
 			v8 = nox_xxx_pointInRect_4281F0(&v56, (*int4)(memmap.PtrOff(0x587000, 136352)))
 			if v8 != 0 {
-				v9 = (v56.field_0 - 314) / 50
-				v10 = int32((dword_5d4594_1062512 + uint32(v56.field_4) - 13) / 50)
+				v9 = (v56.X - 314) / 50
+				v10 = int32((dword_5d4594_1062512 + uint32(v56.Y) - 13) / 50)
 				if sub_464B40(v9, v10) == 0 {
 					return 1
 				}
@@ -1038,8 +1038,8 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		} else if dword_5d4594_1049864 == 6 {
 			v15 = nox_xxx_pointInRect_4281F0(&v56, (*int4)(memmap.PtrOff(0x587000, 136352)))
 			if v15 != 0 {
-				v16 = (v56.field_0 - 314) / 50
-				v17 = int32((dword_5d4594_1062512 + uint32(v56.field_4) - 13) / 50)
+				v16 = (v56.X - 314) / 50
+				v17 = int32((dword_5d4594_1062512 + uint32(v56.Y) - 13) / 50)
 				if sub_464B40(v16, v17) != 0 {
 					var v18 int32 = v17 + NOX_INVENTORY_ROW_COUNT*v16
 					if int32(nox_client_inventory_grid_1050020[v18].field_140) != 0 {
@@ -1074,7 +1074,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 				if *memmap.PtrUint32(0x5D4594, 1049848) != 0 {
 					nox_xxx_cursorSetDraggedItem_477690((*client.Drawable)(*memmap.PtrPtr(0x5D4594, 1049848)))
 					nox_xxx_setKeybTimeout_4160D0(0)
-					*(*int2)(memmap.PtrOff(0x5D4594, 1062572)) = v56
+					*(*Point32)(memmap.PtrOff(0x5D4594, 1062572)) = v56
 					nox_xxx_clientPlaySoundSpecial_452D80(791, 100)
 					return 1
 				}
@@ -1088,7 +1088,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		if int32(*memmap.PtrUint8(0x5D4594, 1049869)) == 0 {
 			v26 = nox_xxx_pointInRect_4281F0(&v56, (*int4)(memmap.PtrOff(0x587000, 136368)))
 			if v26 != 0 {
-				if (v56.field_4-13)/50 == 1 {
+				if (v56.Y-13)/50 == 1 {
 					if dword_5d4594_1049864 != 5 {
 						sub_465CA0()
 						return 1
@@ -1115,12 +1115,12 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		if dword_5d4594_1049864 == 4 {
 			v58 = v59
 			sub_473970(&v58, &v58)
-			v28 = (*uint32)(nox_drawable_find_49ABF0((*nox_point)(unsafe.Pointer(&v58)), 20).C())
+			v28 = (*uint32)(nox_drawable_find_49ABF0(&v58, 20).C())
 			if v28 != nil {
-				v57.field_0 = nox_win_width / 2
-				v57.field_4 = nox_win_height / 2
+				v57.X = nox_win_width / 2
+				v57.Y = nox_win_height / 2
 				sub_473970(&v57, &v57)
-				if (uint32(v57.field_0)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*3)))*(uint32(v57.field_0)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*3)))+(uint32(v57.field_4)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*4)))*(uint32(v57.field_4)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*4))) <= 5625 {
+				if (uint32(v57.X)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*3)))*(uint32(v57.X)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*3)))+(uint32(v57.Y)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*4)))*(uint32(v57.Y)-*(*uint32)(unsafe.Add(unsafe.Pointer(v28), 4*4))) <= 5625 {
 					dword_5d4594_1049864 = 0
 					return 1
 				}
@@ -1135,7 +1135,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		if *memmap.PtrUint32(0x5D4594, 1049848) == 0 {
 			return 1
 		}
-		if !nox_xxx_wndPointInWnd_46AAB0(dword_5d4594_1062456, v59.field_0, v59.field_4) || (func() int32 {
+		if !nox_xxx_wndPointInWnd_46AAB0(dword_5d4594_1062456, v59.X, v59.Y) || (func() int32 {
 			v30 = nox_xxx_pointInRect_4281F0(&v56, (*int4)(memmap.PtrOff(0x587000, 136384)))
 			return v30
 		}()) != 0 || (func() int32 {
@@ -1162,7 +1162,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 					v52 = int32(*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1049848), 128)))
 					v51 = v58
 					v50 = nox_strman_loadString_40F1D0(internCStr("DropLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4148)
-					nox_gui_itemAmountDialog_4C0430(v50, v51.field_0, v51.field_4, v52, v53, v49, v48+1, 0, sub_465CD0, nil)
+					nox_gui_itemAmountDialog_4C0430(v50, v51.X, v51.Y, v52, v53, v49, v48+1, 0, sub_465CD0, nil)
 				} else if sub_4C12C0() == 0 {
 					nox_xxx_clientDrop_465BE0(&v57)
 				}
@@ -1175,8 +1175,8 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), v54, v55)
 			goto LABEL_121
 		}
-		v32 = int32(*memmap.PtrUint32(0x5D4594, 1062572) - uint32(v56.field_0))
-		v33 = int32(*memmap.PtrUint32(0x5D4594, 1062576) - uint32(v56.field_4))
+		v32 = int32(*memmap.PtrUint32(0x5D4594, 1062572) - uint32(v56.X))
+		v33 = int32(*memmap.PtrUint32(0x5D4594, 1062576) - uint32(v56.Y))
 		if !nox_xxx_checkKeybTimeout_4160F0(0, gameFPS()/3) && v32*v32+v33*v33 < 100 {
 			v34 = nox_xxx_pointInRect_4281F0(&v56, (*int4)(memmap.PtrOff(0x587000, 136352)))
 			if v34 == 0 {
@@ -1220,9 +1220,9 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 			sub_4649B0(*memmap.PtrInt32(0x5D4594, 1049848), dword_5d4594_1049796_inventory_click_column_index, dword_5d4594_1049800_inventory_click_row_index)
 			goto LABEL_121
 		}
-		dword_5d4594_1049804 = uint32((v56.field_0 - 314) / 50)
-		dword_5d4594_1049808 = (dword_5d4594_1062512 + uint32(v56.field_4) - 13) / 50
-		if sub_464B40((v56.field_0-314)/50, int32((dword_5d4594_1062512+uint32(v56.field_4)-13)/50)) == 0 {
+		dword_5d4594_1049804 = uint32((v56.X - 314) / 50)
+		dword_5d4594_1049808 = (dword_5d4594_1062512 + uint32(v56.Y) - 13) / 50
+		if sub_464B40((v56.X-314)/50, int32((dword_5d4594_1062512+uint32(v56.Y)-13)/50)) == 0 {
 			goto LABEL_121
 		}
 		if dword_5d4594_1049856 != 0 {
@@ -1372,7 +1372,7 @@ func sub_4661D0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	}
 	return 1
 }
-func sub_466660(a1 int32, a2 *int2) *wchar2_t {
+func sub_466660(a1 int32, a2 *Point32) *wchar2_t {
 	var (
 		v2     int32
 		v3     int32
@@ -1392,7 +1392,7 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 		}
 		v6 = nox_xxx_pointInRect_4281F0(a2, (*int4)(memmap.PtrOff(0x587000, 136368)))
 		if v6 != 0 {
-			v7 = a2.field_4 - 13
+			v7 = a2.Y - 13
 			v8 = v7 / 50
 			v9 = 20
 			dword_5d4594_1049796_inventory_click_column_index = v7 / 50
@@ -1401,9 +1401,9 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 			if v10 == 0 {
 				return nil
 			}
-			v8 = (a2.field_0 - 314) / 50
-			dword_5d4594_1049796_inventory_click_column_index = (a2.field_0 - 314) / 50
-			v9 = int32((uint32(a2.field_4) + dword_5d4594_1062512 - 13) / 50)
+			v8 = (a2.X - 314) / 50
+			dword_5d4594_1049796_inventory_click_column_index = (a2.X - 314) / 50
+			v9 = int32((uint32(a2.Y) + dword_5d4594_1062512 - 13) / 50)
 		}
 		dword_5d4594_1049800_inventory_click_row_index = v9
 		if sub_464B40(v8, v9) == 0 {
@@ -1445,11 +1445,11 @@ func nox_xxx_inventroryOnHovewerSub_4667E0(win *gui.Window, draw *gui.WindowData
 		v12 *wchar2_t
 		v13 int32
 		v14 *wchar2_t
-		v15 int2
+		v15 Point32
 	)
 	v3 = 40
-	v15.field_0 = int32(uint16(a3))
-	v15.field_4 = int32(a3 >> 16)
+	v15.X = int32(uint16(a3))
+	v15.Y = int32(a3 >> 16)
 	v4 = 0
 	for v3 <= int32(uint16(a3)) {
 		v3 += 35

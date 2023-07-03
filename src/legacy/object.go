@@ -172,10 +172,10 @@ func AsPointf(p unsafe.Pointer) types.Pointf {
 	}
 }
 func AsPoint(p unsafe.Pointer) image.Point {
-	cp := (*nox_point)(p)
+	cp := (*Point32)(p)
 	return image.Point{
-		X: int(cp.x),
-		Y: int(cp.y),
+		X: int(cp.X),
+		Y: int(cp.Y),
 	}
 }
 

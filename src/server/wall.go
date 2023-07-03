@@ -546,7 +546,7 @@ type Wall struct {
 	Next20      *Wall          // 5, 20
 	NextByY24   *Wall          // 6, 24
 	Data28      unsafe.Pointer // 7, 28, TODO: *Object ?
-	Field32     uint32         // 8, 32
+	Field32     unsafe.Pointer // 8, 32
 }
 
 func (w *Wall) C() unsafe.Pointer {

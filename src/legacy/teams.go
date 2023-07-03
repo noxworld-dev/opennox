@@ -75,9 +75,6 @@ func Sub_459CD0() {
 func Sub_456FA0() {
 	sub_456FA0()
 }
-func Sub_418E40(t *server.Team, p *server.ObjectTeam) {
-	sub_418E40(t.C(), unsafe.Pointer(p))
-}
 func Sub_456EA0(name string) {
 	sub_456EA0(internWStr(name))
 }

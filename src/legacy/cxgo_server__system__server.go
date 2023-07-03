@@ -1123,7 +1123,7 @@ func nox_xxx_updateUnits_51B100_D() {
 	var v32 *uint8 = (*uint8)(nox_xxx_wallSecretGetFirstWall_410780())
 	if v32 != nil {
 		var v33 int8 = 0
-		for ; v32 != nil; v32 = (*uint8)(unsafe.Pointer(uintptr(nox_xxx_wallSecretNext_410790((*int32)(unsafe.Pointer(v32)))))) {
+		for ; v32 != nil; v32 = (*uint8)(unsafe.Pointer(uintptr(nox_xxx_wallSecretNext_410790(unsafe.Pointer(v32))))) {
 			switch *(*uint8)(unsafe.Add(unsafe.Pointer(v32), 21)) {
 			case 1:
 				var v47 int8 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v32), 20)))

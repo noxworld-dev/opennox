@@ -40,10 +40,10 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 		v29    float32
 		v30    float32
 		v31    float32
-		a4a    int2
-		a3a    int2
-		a2a    int2
-		a1a    int2
+		a4a    Point32
+		a3a    Point32
+		a2a    Point32
+		a1a    Point32
 		v36    int32
 		v37    float32
 	)
@@ -156,27 +156,27 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 				v36 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*1)))))
 				v18 = int32(*(*uint32)(unsafe.Pointer(v17)))
 				v19 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*2)))))
-				a1a.field_0 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*3)))))
-				a1a.field_4 = v19
+				a1a.X = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*3)))))
+				a1a.Y = v19
 				v37 = float32(float64(v36))
 				v28 = v37 * *mem_getFloatPtr(0x587000, uint32(v18*8)+194136)
 				v20 = int32(v28)
 				v21 = int32(*(*uint32)(unsafe.Pointer(v17)))
-				a3a.field_0 = v20
+				a3a.X = v20
 				v29 = v37 * *mem_getFloatPtr(0x587000, uint32(v21*8)+194140)
 				v22 = int32(v29)
 				v23 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*4))))
 				v24 = float64(v37 * *mem_getFloatPtr(0x587000, *((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*7)))*8+194136))
-				a3a.field_4 = v22
+				a3a.Y = v22
 				v25 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*5))))
-				a2a.field_0 = v23
-				a2a.field_4 = v25
+				a2a.X = v23
+				a2a.Y = v25
 				v30 = float32(v24)
 				v26 = int32(v30)
 				v27 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*7))))
-				a4a.field_0 = v26
+				a4a.X = v26
 				v31 = v37 * *mem_getFloatPtr(0x587000, uint32(v27*8)+194140)
-				a4a.field_4 = int32(v31)
+				a4a.Y = int32(v31)
 				sub_4BE800(int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313828)))
 				sub_4BE810(1, int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313828)), int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313844)), int8(*memmap.PtrUint8(0x5D4594, uintptr(j)+1313840)))
 				if j == 1 {
@@ -196,7 +196,7 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	}
 	return result
 }
-func sub_4BA8B0(a1p, a2p *int2, a3p unsafe.Pointer) {
+func sub_4BA8B0(a1p, a2p *Point32, a3p unsafe.Pointer) {
 	a1 := (*int32)(unsafe.Pointer(a1p))
 	a2 := (*int32)(unsafe.Pointer(a2p))
 	a3 := (*int32)(a3p)
@@ -252,8 +252,8 @@ func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v23  int32
 		v25  types.Pointf
 		v26  uint8
-		a2   int32     = int32(uintptr(unsafe.Pointer(dr)))
-		mpos nox_point = nox_client_getMousePos_4309F0()
+		a2   int32   = int32(uintptr(unsafe.Pointer(dr)))
+		mpos Point32 = nox_client_getMousePos_4309F0()
 	)
 	v3 = a2
 	if int32(*(*uint8)(unsafe.Add(a2, 432))) != 0 {
@@ -288,8 +288,8 @@ func nox_thing_plasma_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			v10 = a1
 			v11 = a1
 		}
-		v25.X = float32(float64(mpos.x) - float64(a2))
-		v25.Y = float32(float64(mpos.y) - float64(int32(uintptr(unsafe.Pointer(a1)))))
+		v25.X = float32(float64(mpos.X) - float64(a2))
+		v25.Y = float32(float64(mpos.Y) - float64(int32(uintptr(unsafe.Pointer(a1)))))
 		v26 = uint8(int8(nox_xxx_math_509ED0(&v25)))
 	} else {
 		v4 = *(*uint16)(unsafe.Add(a2, 439))

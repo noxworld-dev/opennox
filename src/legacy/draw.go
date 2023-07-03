@@ -32,7 +32,7 @@ func get_nox_client_texturedFloors_154956() bool {
 }
 
 // sub_4C42A0
-func sub_4C42A0(a1 *int2, a2 *int2, a3 *int32, a4 *int32) int32 {
+func sub_4C42A0(a1 *Point32, a2 *Point32, a3 *int32, a4 *int32) int32 {
 	return GetClient().Sub4C42A0(AsPoint(unsafe.Pointer(a1)), AsPoint(unsafe.Pointer(a2)), a3, a4)
 }
 
@@ -52,10 +52,10 @@ func sub_4355B0(a1 int32) {
 }
 
 // nox_xxx_getSomeCoods_435670
-func nox_xxx_getSomeCoods_435670(a1 *int2) {
+func nox_xxx_getSomeCoods_435670(a1 *Point32) {
 	p := GetClient().Viewport().World.Max
-	a1.field_0 = int32(p.X)
-	a1.field_4 = int32(p.Y)
+	a1.X = int32(p.X)
+	a1.Y = int32(p.Y)
 }
 
 // nox_xxx_cliUpdateCameraPos_435600
@@ -345,10 +345,9 @@ func sub_484C60(a1 float32) int32 {
 	return int32(client.LightRadius(a1))
 }
 
-// sub_469920
-func sub_469920(p *nox_point) *byte {
+func sub_469920(p *Point32) unsafe.Pointer {
 	dst := GetClient().Sub469920(AsPoint(unsafe.Pointer(p)))
-	return (*byte)(unsafe.Pointer(&dst[0]))
+	return unsafe.Pointer(&dst[0])
 }
 
 // nox_xxx_drawList1096512_Append_4754C0
@@ -416,10 +415,10 @@ func sub_4AE6F0(cx, cy, rad, ang, ccl int32) {
 }
 
 // sub_473970
-func sub_473970(a1, a2p *int2) {
-	a2 := Sub_473970(image.Pt(int(a1.field_0), int(a1.field_4)))
-	a2p.field_0 = int32(a2.X)
-	a2p.field_4 = int32(a2.Y)
+func sub_473970(a1, a2p *Point32) {
+	a2 := Sub_473970(image.Pt(int(a1.X), int(a1.Y)))
+	a2p.X = int32(a2.X)
+	a2p.Y = int32(a2.Y)
 }
 
 // nox_client_isConnected_43C700

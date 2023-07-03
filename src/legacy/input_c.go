@@ -43,10 +43,10 @@ func sub_416170(key int) int { return Sub_416170(key) }
 func sub_416150(key, ts int) int { return Sub_416150(key, ts) }
 
 // nox_client_getMousePos_4309F0
-func nox_client_getMousePos_4309F0() (out nox_point) {
+func nox_client_getMousePos_4309F0() (out Point32) {
 	mpos := GetClient().GetMousePos()
-	out.x = int32(mpos.X)
-	out.y = int32(mpos.Y)
+	out.X = int32(mpos.X)
+	out.Y = int32(mpos.Y)
 	return
 }
 

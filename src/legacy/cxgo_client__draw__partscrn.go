@@ -13,17 +13,17 @@ func nox_client_screenParticleDraw_489700(a1p *noxrender.Viewport, p *Nox_screen
 		v10   int32
 		v11   int8
 		v12   int8
-		xLeft int2
+		xLeft Point32
 	)
-	xLeft.field_0 = int32(p.Field_24 >> 16)
-	xLeft.field_4 = int32(p.Field_28 >> 16)
-	if xLeft.field_0 <= 0 || xLeft.field_4 <= 0 || xLeft.field_0 >= *(*int32)(unsafe.Add(a1, 32)) || xLeft.field_4 >= *(*int32)(unsafe.Add(a1, 36)) {
+	xLeft.X = int32(p.Field_24 >> 16)
+	xLeft.Y = int32(p.Field_28 >> 16)
+	if xLeft.X <= 0 || xLeft.Y <= 0 || xLeft.X >= *(*int32)(unsafe.Add(a1, 32)) || xLeft.Y >= *(*int32)(unsafe.Add(a1, 36)) {
 		sub_431700((*uint64)(unsafe.Pointer(p)))
 		return
 	}
 	sub_4B6720(&xLeft, int32(p.Field_8), int32(p.Field_40[0]), int8(p.Field_40[0]))
 	nox_client_drawSetColor_434460(int32(p.Field_12))
-	nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, int32(p.Field_40[0])>>1)
+	nox_xxx_drawPointMB_499B70(xLeft.X, xLeft.Y, int32(p.Field_40[0])>>1)
 	var v3 int8 = int8(p.Field_40[1])
 	p.Field_20 += p.Field_36
 	if int32(v3) != 0 {
@@ -50,9 +50,9 @@ func nox_client_screenParticleDraw_489700(a1p *noxrender.Viewport, p *Nox_screen
 	if int32(*(*uint8)(unsafe.Pointer(&p.Field_32))) == 1 && nox_common_randomIntMinMax_415FF0(0, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartScrn.c"), 105) >= 8 {
 		v12 = int8(nox_common_randomIntMinMax_415FF0(3, 5, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartScrn.c"), 115))
 		v11 = int8(nox_common_randomIntMinMax_415FF0(2, 3, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartScrn.c"), 114))
-		v10 = xLeft.field_4
+		v10 = xLeft.Y
 		v7 = nox_common_randomIntMinMax_415FF0(-2, 2, internCStr("C:\\NoxPost\\src\\client\\Draw\\PartScrn.c"), 109)
-		nox_client_newScreenParticle_431540(int32(p.Field_4), xLeft.field_0+v7, v10, 0, 0, 1, v11, v12, 2, 2)
+		nox_client_newScreenParticle_431540(int32(p.Field_4), xLeft.X+v7, v10, 0, 0, 1, v11, v12, 2, 2)
 	}
 	p.Field_24 += p.Field_16
 	p.Field_28 += p.Field_20

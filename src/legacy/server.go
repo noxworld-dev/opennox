@@ -433,9 +433,6 @@ func Nox_xxx_teamAssignFlags_418640() {
 func Nox_xxx_toggleAllTeamFlags_418690(a1 int) {
 	nox_xxx_toggleAllTeamFlags_418690(int32(a1))
 }
-func Sub_410730() {
-	sub_410730()
-}
 func Nox_xxx_wallBreackableListClear_410810() {
 	nox_xxx_wallBreackableListClear_410810()
 }

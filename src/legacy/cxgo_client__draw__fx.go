@@ -120,12 +120,12 @@ func nox_xxx_drawEnergyBolt_499710(a1 int32, a2 int32, a3 int16, a4 int32) int32
 	}
 	return result
 }
-func sub_499950(a1 int32, a2 *int2, a3 *int2, a4 uint16, a5 int8) int32 {
+func sub_499950(a1 int32, a2 *Point32, a3 *Point32, a4 uint16, a5 int8) int32 {
 	var (
 		result int32
 		v6     int32
 	)
-	result = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a2.field_0, a2.field_4))))
+	result = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, a2.X, a2.Y))))
 	v6 = result
 	if result == 0 {
 		return result
@@ -134,13 +134,13 @@ func sub_499950(a1 int32, a2 *int2, a3 *int2, a4 uint16, a5 int8) int32 {
 	*(*uint8)(unsafe.Add(result, 296)) = uint8(a5)
 	*(*uint16)(unsafe.Add(result, 440)) = a4
 	*(*uint8)(unsafe.Add(result, 442)) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 406)))
-	*(*int2)(unsafe.Add(v6, 432)) = *a3
+	*(*Point32)(unsafe.Add(v6, 432)) = *a3
 	nox_xxx_sprite_45A110_drawable((*client.Drawable)(v6))
 	return result
 }
-func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
+func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *Point32, a3 *Point32) int32 {
 	var (
-		v3  *int2
+		v3  *Point32
 		v4  int32
 		v5  int32
 		v6  int64
@@ -153,12 +153,12 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 		v14 int32
 		v15 int32
 		v16 int32
-		v17 *int2
+		v17 *Point32
 	)
 	v3 = a2
-	v4 = a3.field_0 - a2.field_0
-	v5 = a3.field_4 - a2.field_4
-	v14 = a3.field_0 - a2.field_0
+	v4 = a3.X - a2.X
+	v5 = a3.Y - a2.Y
+	v14 = a3.X - a2.X
 	v15 = v5
 	v6 = int64(math.Sqrt(float64(v4*v4 + v5*v5)))
 	v7 = int32(v6)
@@ -168,13 +168,13 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(0, int32(v6), internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 437))
 	v8 = int32(v6)
-	v17 = (*int2)(v6)
+	v17 = (*Point32)(v6)
 	if int32(v6) > v7 {
 		return int32(v6)
 	}
 	for {
-		v9 = v3.field_0 + v4*v8/v7
-		v10 = v3.field_4 + v5*v8/v7
+		v9 = v3.X + v4*v8/v7
+		v10 = v3.Y + v5*v8/v7
 		v11 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a1, v9, v10))))
 		v12 = v11
 		if v11 != 0 {
@@ -192,7 +192,7 @@ func nox_xxx_makeLightningParticles_4999D0(a1 int32, a2 *int2, a3 *int2) int32 {
 			v7 = v16
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v6), 4*0)) = uint32(nox_common_randomIntMinMax_415FF0(8, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 439))
-		v17 = (*int2)(unsafe.Add(unsafe.Pointer(v17), v6))
+		v17 = (*Point32)(unsafe.Add(unsafe.Pointer(v17), v6))
 		if int32(uintptr(unsafe.Pointer(v17))) > v7 {
 			break
 		}
@@ -241,7 +241,7 @@ func nox_xxx_draw_499E70(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 in
 	}
 	return result
 }
-func sub_49A150(a1 *int2, a2 int32, a3 uint8) int32 {
+func sub_49A150(a1 *Point32, a2 int32, a3 uint8) int32 {
 	var (
 		v3     int32
 		result int32
@@ -258,7 +258,7 @@ func sub_49A150(a1 *int2, a2 int32, a3 uint8) int32 {
 	}
 	v8 = int32(a3)*180/math.MaxUint8 + 10
 	for {
-		v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a2, a1.field_0, a1.field_4))))
+		v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(a2, a1.X, a1.Y))))
 		v7 = v6
 		if v6 != 0 {
 			if v6 != -432 {

@@ -2080,13 +2080,13 @@ func sub_4A7270(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 	a1 := int32(uintptr(win.C()))
 	var (
 		v3 int32
-		v5 int2
+		v5 Point32
 	)
 	if a2 != 5 {
 		return 0
 	}
-	v5.field_4 = int32(a3 >> 16)
-	v5.field_0 = int32(uint16(a3))
+	v5.Y = int32(a3 >> 16)
+	v5.X = int32(uint16(a3))
 	v3 = nox_xxx_pointInRect_4281F0(&v5, (*int4)(unsafe.Add(a1, 16)))
 	if v3 != 0 {
 		return 0
@@ -3592,8 +3592,8 @@ func sub_4AB340(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 		return 1
 	}
 	if a3 == 57 {
-		var mpos nox_point = nox_client_getMousePos_4309F0()
-		nox_window_call_field_93(win, 5, mpos.x|mpos.y<<16, 0)
+		var mpos Point32 = nox_client_getMousePos_4309F0()
+		nox_window_call_field_93(win, 5, mpos.X|mpos.Y<<16, 0)
 	}
 	return 0
 }
@@ -4280,13 +4280,13 @@ func sub_4AD040(a1 int32) int32 {
 func sub_4AD570(win *gui.Window, draw *gui.WindowData) int {
 	var (
 		v1   *uint32
-		mpos nox_point = nox_client_getMousePos_4309F0()
+		mpos Point32 = nox_client_getMousePos_4309F0()
 	)
 	if !(false) {
 		return 1
 	}
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1309812, 10317)))
-	if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(v1))) == 0 && !nox_xxx_wndPointInWnd_46AAB0(v1, mpos.x, mpos.y) {
+	if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(unsafe.Pointer(v1))) == 0 && !nox_xxx_wndPointInWnd_46AAB0(v1, mpos.X, mpos.Y) {
 		nox_xxx_wndClearCaptureMain_46ADE0((*gui.Window)(unsafe.Pointer(v1)))
 		nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v1)), 1)
 	}
@@ -5452,17 +5452,17 @@ func sub_4B5CD0() int32 {
 	}
 	return result
 }
-func sub_4B63B0(a1 *int2, a2 *int2) int32 {
+func sub_4B63B0(a1 *Point32, a2 *Point32) int32 {
 	var (
 		v2 int32
 		v3 int32
 	)
 	nox_client_drawSetColor_434460(*memmap.PtrInt32(0x5D4594, 1312492))
-	nox_client_drawAddPoint_49F500(a1.field_0, a1.field_4)
-	nox_client_drawAddPoint_49F500(a2.field_0, a2.field_4)
+	nox_client_drawAddPoint_49F500(a1.X, a1.Y)
+	nox_client_drawAddPoint_49F500(a2.X, a2.Y)
 	nox_client_drawLineFromPoints_49E4B0()
-	v2 = a2.field_0 - a1.field_0
-	v3 = a2.field_4 - a1.field_4
+	v2 = a2.X - a1.X
+	v3 = a2.Y - a1.Y
 	nox_client_drawSetColor_434460(*memmap.PtrInt32(0x5D4594, 1312496))
 	if v2 < 0 {
 		v2 = -v2
@@ -5471,17 +5471,17 @@ func sub_4B63B0(a1 *int2, a2 *int2) int32 {
 		v3 = -v3
 	}
 	if v2 <= v3 {
-		nox_client_drawAddPoint_49F500(a1.field_0-1, a1.field_4)
-		nox_client_drawAddPoint_49F500(a2.field_0-1, a2.field_4)
+		nox_client_drawAddPoint_49F500(a1.X-1, a1.Y)
+		nox_client_drawAddPoint_49F500(a2.X-1, a2.Y)
 		nox_client_drawLineFromPoints_49E4B0()
-		nox_client_drawAddPoint_49F500(a1.field_0+1, a1.field_4)
-		nox_client_drawAddPoint_49F500(a2.field_0+1, a2.field_4)
+		nox_client_drawAddPoint_49F500(a1.X+1, a1.Y)
+		nox_client_drawAddPoint_49F500(a2.X+1, a2.Y)
 	} else {
-		nox_client_drawAddPoint_49F500(a1.field_0, a1.field_4-1)
-		nox_client_drawAddPoint_49F500(a2.field_0, a2.field_4-1)
+		nox_client_drawAddPoint_49F500(a1.X, a1.Y-1)
+		nox_client_drawAddPoint_49F500(a2.X, a2.Y-1)
 		nox_client_drawLineFromPoints_49E4B0()
-		nox_client_drawAddPoint_49F500(a1.field_0, a1.field_4+1)
-		nox_client_drawAddPoint_49F500(a2.field_0, a2.field_4+1)
+		nox_client_drawAddPoint_49F500(a1.X, a1.Y+1)
+		nox_client_drawAddPoint_49F500(a2.X, a2.Y+1)
 	}
 	return nox_client_drawLineFromPoints_49E4B0()
 }
@@ -5556,7 +5556,7 @@ func sub_4B6880(a1 *uint32, a2 int32, a3 int32, a4 int32) int32 {
 		v11    int32
 		v12    bool
 		v13    int32
-		xLeft  int2
+		xLeft  Point32
 		v15    int32
 	)
 	v4 = a2
@@ -5576,13 +5576,13 @@ func sub_4B6880(a1 *uint32, a2 int32, a3 int32, a4 int32) int32 {
 		v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
 		v11 = v10 + v9
 		v12 = uint32(v8-10) < *a1
-		xLeft.field_0 = v8
-		xLeft.field_4 = v11
+		xLeft.X = v8
+		xLeft.Y = v11
 		if !v12 && v11-10 >= v10 && uint32(v8+10) < *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) && uint32(v11+10) < *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) {
 			v13 = v15 * 4 / v5
 			sub_4B6720(&xLeft, a4, v13*2+1, int8(v15*5/v5))
 			nox_client_drawSetColor_434460(a3)
-			nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, v13)
+			nox_xxx_drawPointMB_499B70(xLeft.X, xLeft.Y, v13)
 		}
 		result = 1
 	} else {
@@ -5648,7 +5648,7 @@ func sub_4B6B80(a1 *int32, dr *client.Drawable, a3 int32) int {
 		v17   int8
 		v18   int8
 		v19   int32
-		xLeft int2
+		xLeft Point32
 		v21   int32
 		a2    int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
@@ -5696,28 +5696,28 @@ LABEL_14:
 	v10 = *a1
 	v11 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
 	v12 = int32(*(*uint32)(unsafe.Add(v3, 16)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))))
-	xLeft.field_0 = int32(*(*uint32)(unsafe.Add(v3, 12)) + uint32(*a1) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
-	xLeft.field_4 = v12 + v11 - 22
+	xLeft.X = int32(*(*uint32)(unsafe.Add(v3, 12)) + uint32(*a1) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
+	xLeft.Y = v12 + v11 - 22
 	v13 = int32(*(*uint8)(unsafe.Add(v3, 444)))
-	if xLeft.field_0-v13 < v10 {
+	if xLeft.X-v13 < v10 {
 		return 1
 	}
-	if xLeft.field_4-v13 < v11 {
+	if xLeft.Y-v13 < v11 {
 		return 1
 	}
-	if v13+xLeft.field_0 >= *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) {
+	if v13+xLeft.X >= *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) {
 		return 1
 	}
-	if v13+xLeft.field_4 >= *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) {
+	if v13+xLeft.Y >= *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) {
 		return 1
 	}
 	sub_4B6720(&xLeft, v21, v13, 5)
 	nox_client_drawSetColor_434460(v19)
-	nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, int32(*(*uint8)(unsafe.Add(v3, 444)))>>1)
+	nox_xxx_drawPointMB_499B70(xLeft.X, xLeft.Y, int32(*(*uint8)(unsafe.Add(v3, 444)))>>1)
 	v14 = int32(*(*uint32)(unsafe.Add(v3, 32)) - *(*uint32)(unsafe.Add(v3, 12)))
 	v15 = int32(*(*uint32)(unsafe.Add(v3, 36)) - *(*uint32)(unsafe.Add(v3, 16)))
 	nox_client_drawSetColor_434460(v19)
-	nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4)
+	nox_client_drawAddPoint_49F500(xLeft.X, xLeft.Y)
 	nox_xxx_rasterPointRel_49F570(v14, v15)
 	nox_client_drawLineFromPoints_49E4B0()
 	v16 = int8(*(*uint8)(unsafe.Add(v3, 445)))

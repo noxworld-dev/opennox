@@ -67,7 +67,7 @@ func nox_xxx_guiSummonCreatureLoad_4C1D80() int32 {
 	dword_5d4594_1321196 = 0
 	return 1
 }
-func nox_xxx_wndSummonCreateList_4C2560(a1 *int2) {
+func nox_xxx_wndSummonCreateList_4C2560(a1 *Point32) {
 	var (
 		v1  **byte
 		v2  *uint16
@@ -99,9 +99,9 @@ func nox_xxx_wndSummonCreateList_4C2560(a1 *int2) {
 	}
 	nox_xxx_screenWidth_587000_184452 += 8
 	v3 = nox_xxx_guiFontHeightMB_43F320(nil) + 2
-	v5 = int32(uint32(a1.field_0) - nox_xxx_screenWidth_587000_184452/2)
+	v5 = int32(uint32(a1.X) - nox_xxx_screenWidth_587000_184452/2)
 	v4 = v5 < 0
-	v12 = int32(uint32(a1.field_0) - nox_xxx_screenWidth_587000_184452/2)
+	v12 = int32(uint32(a1.X) - nox_xxx_screenWidth_587000_184452/2)
 	v6 = v3*5 + 12
 	if v4 {
 		v5 = 0
@@ -113,7 +113,7 @@ func nox_xxx_wndSummonCreateList_4C2560(a1 *int2) {
 	}
 	v12 = v5
 LABEL_11:
-	v7 = a1.field_4 - v6/2
+	v7 = a1.Y - v6/2
 	v13 = v7
 	if v7 < 0 {
 		v7 = 0
@@ -164,10 +164,10 @@ func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 		v2 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))*4+184344)), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guisumn.c"), 446)
 		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), &v11, &v10)
 		nox_xxx_drawGetStringSize_43F840(nil, v2, &v12, nil, 0)
-		var mpos nox_point = nox_client_getMousePos_4309F0()
+		var mpos Point32 = nox_client_getMousePos_4309F0()
 		nox_xxx_guiFontHeightMB_43F320(nil)
 		v4 = int32((nox_xxx_screenWidth_587000_184452-uint32(v12))/2 + 1)
-		if nox_xxx_wndPointInWnd_46AAB0(a1, mpos.x, mpos.y) {
+		if nox_xxx_wndPointInWnd_46AAB0(a1, mpos.X, mpos.Y) {
 			sub_4C2A00(v11+v4, v10+3, int32(nox_color_yellow_2589772), int32(nox_color_black_2650656), (*int16)(unsafe.Pointer(v2)))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)) != *memmap.PtrUint32(0x587000, 184552) {
 				*memmap.PtrUint32(0x587000, 184552) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8))

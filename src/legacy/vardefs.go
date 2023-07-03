@@ -495,22 +495,22 @@ func Set_dword_5d4594_3798812(v int) {
 	dword_5d4594_3798812 = uint32(v)
 }
 func Set_dword_5d4594_3798800(v int) {
-	dword_5d4594_3798800 = uint32(v)
+	dword_5d4594_3798800 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798816(v int) {
 	dword_5d4594_3798816 = uint32(v)
 }
 func Set_dword_5d4594_3798808(v int) {
-	dword_5d4594_3798808 = uint32(v)
+	dword_5d4594_3798808 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798804(v int) {
-	dword_5d4594_3798804 = uint32(v)
+	dword_5d4594_3798804 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798820(v int) {
-	dword_5d4594_3798820 = uint32(v)
+	dword_5d4594_3798820 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798824(v int) {
-	dword_5d4594_3798824 = uint32(v)
+	dword_5d4594_3798824 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798828(v int) {
 	dword_5d4594_3798828 = uint32(v)
@@ -519,22 +519,16 @@ func Set_dword_5d4594_3798832(v int) {
 	dword_5d4594_3798832 = uint32(v)
 }
 func Set_dword_5d4594_3798836(v int) {
-	dword_5d4594_3798836 = uint32(v)
+	dword_5d4594_3798836 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798840(v int) {
-	dword_5d4594_3798840 = uint32(v)
+	dword_5d4594_3798840 = int32(uint32(v))
 }
 func Set_nox_video_tileBuf_ptr_3798796(v unsafe.Pointer) {
 	nox_video_tileBuf_ptr_3798796 = v
 }
 func Set_nox_video_tileBuf_end_3798844(v unsafe.Pointer) {
 	nox_video_tileBuf_end_3798844 = v
-}
-func Set_func_587000_154940(v func(a1 *uint32, a2 int32, a3 int32) int8) {
-	func_587000_154940 = v
-}
-func Set_func_587000_154944(v func(a1 *uint32, a2 *uint32) int8) {
-	func_587000_154944 = v
 }
 func Set_dword_5d4594_3799452(v int) {
 	dword_5d4594_3799452 = uint32(v)

@@ -429,7 +429,7 @@ func nox_xxx_countNonEliminatedPlayersInTeam_40A830(a1p *server.Team) int32 {
 		return 0
 	}
 	for {
-		if nox_xxx_teamCompare2_419180(unsafe.Add(v2, 48), *(*uint8)(unsafe.Add(a1, 57))) != 0 {
+		if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(v2, 48)), *(*uint8)(unsafe.Add(a1, 57))) != 0 {
 			v3 := *(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 748)), 276))
 			if (int32(*(*uint8)(unsafe.Add(v3, 3680)))&1) == 0 && (int32(*(*uint8)(unsafe.Add(v3, 2064))) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				v1++
@@ -476,7 +476,7 @@ func nox_xxx_gamePlayIsAnyPlayers_40A8A0() int32 {
 		v2 = unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())
 		if v2 != nil {
 			for {
-				if nox_xxx_teamCompare2_419180(unsafe.Add(v2, 48), *(*byte)(unsafe.Add(unsafe.Pointer(v1), 57))) != 0 {
+				if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(v2, 48)), *(*byte)(unsafe.Add(unsafe.Pointer(v1), 57))) != 0 {
 					v3 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 748)), 276)), 3680)))
 					if (v3&1) == 0 || v3&0x20 != 0 {
 						break
@@ -627,54 +627,46 @@ func nox_xxx_cliCanTalkMB_4100F0(a1 *int16) int32 {
 	}
 	return 0
 }
-func nox_xxx_doorAttachWall_410360(a1 int32, a2 int32, a3 int32) *uint8 {
-	var (
-		result *uint8
-		v4     int8
-	)
-	result = (*uint8)(nox_xxx_wallCreateAt_410250(a2, a3))
-	if result == nil {
-		return result
+func nox_xxx_doorAttachWall_410360(data unsafe.Pointer, x, y int32) {
+	wl := nox_xxx_wallCreateAt_410250(x, y)
+	if wl == nil {
+		return
 	}
-	v4 = int8(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(result), 4))) | 0x10)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*7)) = uint32(a1)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 4)) = uint8(v4)
-	return result
+	wl.Data28 = data
+	wl.Flags4 |= 0x10
 }
-func sub_410390(a1 unsafe.Pointer, a2 int32, a3 int32) *uint32 {
+func sub_410390(a1 unsafe.Pointer, a2 int32, a3 int32) {
 	var (
-		v3     *uint32
-		result *uint32
-		v5     int32
-		v6     int8
-		v7     [2]int32
+		v5 int32
+		v6 int8
+		v7 [2]int32
 	)
-	v3 = (*uint32)(nox_xxx_wall_4105E0(a2, a3))
+	v3 := nox_xxx_wall_4105E0(a2, a3)
+	var r1 *server.Wall
 	if !(v3 != nil || (func() bool {
-		result = (*uint32)(nox_xxx_wallCreateAt_410250(a2, a3))
-		return (func() *uint32 {
-			v3 = result
+		r1 = nox_xxx_wallCreateAt_410250(a2, a3)
+		return (func() *server.Wall {
+			v3 = r1
 			return v3
 		}()) != nil
 	}())) {
-		return result
+		return
 	}
 	v5 = int32(*(*uint32)(unsafe.Add(a1, 16)))
 	v7[0] = int32(*(*uint32)(unsafe.Add(a1, 12)))
-	v6 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 4)))
-	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*8)) = a1
+	v6 = int8(v3.Flags4)
+	v3.Field32 = a1
 	v7[1] = v5
-	*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 4)) = uint8(int8(int32(v6) | 0x10))
-	result = (*uint32)(unsafe.Pointer(nox_xxx_polygonIsPlayerInPolygon_4217B0((*int2)(unsafe.Pointer(&v7[0])), 0)))
-	if result != nil || (func() *uint32 {
-		result = (*uint32)(unsafe.Pointer(sub_421990((*int2)(unsafe.Pointer(&v7[0])), 10.0, 0)))
+	v3.Flags4 = server.WallFlags(uint8(int8(int32(v6) | 0x10)))
+	result := nox_xxx_polygonIsPlayerInPolygon_4217B0((*Point32)(unsafe.Pointer(&v7[0])), 0)
+	if result != nil || (func() *nox_player_polygon_check_data {
+		result = (*nox_player_polygon_check_data)(unsafe.Pointer(sub_421990((*Point32)(unsafe.Pointer(&v7[0])), 10.0, 0)))
 		return result
 	}()) != nil {
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 8)) = *(*uint8)(unsafe.Add(unsafe.Pointer(result), 130))
 	} else {
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 8)) = 1
 	}
-	return result
 }
 func nox_xxx_wallDestroyedByWallid_410520(a1 int16) *int32 {
 	var (
@@ -699,84 +691,64 @@ func nox_xxx_wallDestroyedByWallid_410520(a1 int16) *int32 {
 	return result
 }
 func sub_410550(a1 int16) int32 {
-	var v1 *int32
-	v1 = (*int32)(nox_xxx_wallSecretGetFirstWall_410780())
+	v1 := nox_xxx_wallSecretGetFirstWall_410780()
 	if v1 == nil {
 		return 0
 	}
-	for int32(*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*3)), 10))) != int32(a1) {
-		v1 = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallSecretNext_410790(v1))))
+	for int32(*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 4*3)), 10))) != int32(a1) {
+		v1 = nox_xxx_wallSecretNext_410790(v1)
 		if v1 == nil {
 			return 0
 		}
 	}
-	return *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*3))
+	return *(*int32)(unsafe.Add(v1, 4*3))
 }
-func sub_410730() *uint32 {
-	var (
-		result *uint32
-		v1     *uint32
-	)
-	result = (*uint32)(dword_5d4594_251560)
+func Sub_410730() {
+	result := dword_5d4594_251560
 	if dword_5d4594_251560 != nil {
 		for {
-			v1 = (*uint32)(unsafe.Pointer(uintptr(*result)))
-			alloc.Free(result)
+			v1 := *(*unsafe.Pointer)(result)
+			alloc.FreePtr(result)
 			result = v1
 			if v1 == nil {
 				break
 			}
 		}
-		dword_5d4594_251560 = nil
-	} else {
-		dword_5d4594_251560 = nil
 	}
-	return result
+	dword_5d4594_251560 = nil
 }
-func nox_xxx_wallSecretBlock_410760(a1 *uint32) *uint32 {
-	var result *uint32
-	result = a1
+func nox_xxx_wallSecretBlock_410760(a1 *uint32) {
 	*a1 = uint32(uintptr(dword_5d4594_251560))
 	dword_5d4594_251560 = unsafe.Pointer(a1)
-	return result
 }
 func nox_xxx_wallSecretGetFirstWall_410780() unsafe.Pointer {
 	return dword_5d4594_251560
 }
-func nox_xxx_wallSecretNext_410790(a1 *int32) int32 {
-	var result int32
-	if a1 != nil {
-		result = *a1
-	} else {
-		result = 0
+func nox_xxx_wallSecretNext_410790(a1 unsafe.Pointer) unsafe.Pointer {
+	if a1 == nil {
+		return nil
 	}
-	return result
+	return *(*unsafe.Pointer)(a1)
 }
-func sub_4107A0(lpMem unsafe.Pointer) *int32 {
-	var (
-		result *int32
-		v2     *int32
-	)
-	_ = v2
-	result = (*int32)(dword_5d4594_251560)
-	v2 = nil
+func sub_4107A0(lpMem unsafe.Pointer) {
+	result := dword_5d4594_251560
+	var v2 unsafe.Pointer
 	if dword_5d4594_251560 == nil {
-		return result
+		return
 	}
 	for unsafe.Pointer(result) != lpMem {
 		v2 = result
-		result = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallSecretNext_410790(result))))
+		result = nox_xxx_wallSecretNext_410790(result)
 		if result == nil {
-			return result
+			return
 		}
 	}
 	if unsafe.Pointer(result) == dword_5d4594_251560 {
-		dword_5d4594_251560 = unsafe.Pointer(uintptr(nox_xxx_wallSecretNext_410790(result)))
+		dword_5d4594_251560 = nox_xxx_wallSecretNext_410790(result)
 	} else {
-		*v2 = nox_xxx_wallSecretNext_410790(result)
+		*(*unsafe.Pointer)(v2) = nox_xxx_wallSecretNext_410790(result)
 	}
 	alloc.FreePtr(lpMem)
-	return result
 }
 func nox_xxx_wallBreackableListClear_410810() {
 	result := dword_5d4594_251564

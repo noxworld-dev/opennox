@@ -24,7 +24,7 @@ func nox_thing_bubble_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v14   int8
 		v15   int8
 		v16   int8
-		xLeft int2
+		xLeft Point32
 		a2    int32 = int32(uintptr(unsafe.Pointer(dr)))
 	)
 	if int32(*(*uint8)(unsafe.Add(a2, 441))) == 3 {
@@ -48,12 +48,12 @@ func nox_thing_bubble_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		}
 	}
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
-	xLeft.field_0 = int32(*a1 + *(*uint32)(unsafe.Add(a2, 12)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+	xLeft.X = int32(*a1 + *(*uint32)(unsafe.Add(a2, 12)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 	v5 = int32(*(*uint8)(unsafe.Add(a2, 440)))
-	xLeft.field_4 = int32(*(*uint32)(unsafe.Add(a2, 16)) + uint32(v4) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - uint32(*(*int16)(unsafe.Add(a2, 104))))
+	xLeft.Y = int32(*(*uint32)(unsafe.Add(a2, 16)) + uint32(v4) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - uint32(*(*int16)(unsafe.Add(a2, 104))))
 	sub_4B6720(&xLeft, int32(*(*uint32)(unsafe.Add(a2, 432))), v5, int8(v5+3))
 	nox_client_drawSetColor_434460(int32(*(*uint32)(unsafe.Add(a2, 436))))
-	nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, int32(*(*uint8)(unsafe.Add(a2, 440)))>>1)
+	nox_xxx_drawPointMB_499B70(xLeft.X, xLeft.Y, int32(*(*uint8)(unsafe.Add(a2, 440)))>>1)
 	if int32(uint8(gameFrame()))&3 != 0 {
 		*(*uint16)(unsafe.Add(a2, 104)) += uint16(*(*byte)(unsafe.Add(a2, 446)))
 	}

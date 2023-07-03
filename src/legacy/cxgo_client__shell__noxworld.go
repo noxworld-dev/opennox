@@ -355,7 +355,7 @@ func sub_438BD0() int32 {
 	sub_44A360(1)
 	return sub_4A24C0(1)
 }
-func nox_client_gui_serverInfoBlockCheckExp_439370(a1 *int2, a2 int32) {
+func nox_client_gui_serverInfoBlockCheckExp_439370(a1 *Point32, a2 int32) {
 	if (int32(*(*uint8)(unsafe.Add(a2, 164)))&0x10) != 0 && false {
 		var v3 *wchar2_t = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:InformExpansion"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 688)
 		nox_xxx_dialogMsgBoxCreate_449A10(nox_wol_wnd_world_814980, nil, v3, 33, nil, nil)
@@ -363,11 +363,11 @@ func nox_client_gui_serverInfoBlockCheckExp_439370(a1 *int2, a2 int32) {
 		sub_44A4B0()
 		return
 	}
-	sub_439450(a1.field_0, a1.field_4, (*uint32)(unsafe.Pointer(a1)))
+	sub_439450(a1.X, a1.Y, (*uint32)(unsafe.Pointer(a1)))
 	sub_46B120(dword_5d4594_815000, nil)
 	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_815000)
 	sub_46C690(dword_5d4594_815000)
-	nox_window_setPos_46A9B0(dword_5d4594_815000, a1.field_0, a1.field_4)
+	nox_window_setPos_46A9B0(dword_5d4594_815000, a1.X, a1.Y)
 	nox_client_gui_serverInfoBlock_4394D0(a2)
 	dword_5d4594_815056 = 1
 	*memmap.PtrUint16(0x5D4594, 814604) = *(*uint16)(unsafe.Add(a2, 109))
@@ -615,9 +615,9 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 	switch a2 {
 	case 0x4010:
 		if nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3))) == 10061 {
-			var mpos nox_point = nox_client_getMousePos_4309F0()
+			var mpos Point32 = nox_client_getMousePos_4309F0()
 			dword_5d4594_814624 = unsafe.Pointer(uintptr(sub_4A28C0(int32(a4))))
-			nox_client_gui_serverInfoBlockCheckExp_439370((*int2)(unsafe.Pointer(&mpos)), int32(uintptr(dword_5d4594_814624)))
+			nox_client_gui_serverInfoBlockCheckExp_439370(&mpos, int32(uintptr(dword_5d4594_814624)))
 			return 0
 		}
 		return 0
@@ -644,16 +644,16 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 	}
 	if v5 >= 10070 {
-		var mpos nox_point = nox_client_getMousePos_4309F0()
-		v30 = mpos.x - 216
-		v31 = mpos.y - 27
+		var mpos Point32 = nox_client_getMousePos_4309F0()
+		v30 = mpos.X - 216
+		v31 = mpos.Y - 27
 		v6 = (*int32)(unsafe.Pointer(sub_4A0020()))
 		if sub_4A25C0((*uint32)(unsafe.Pointer(&v30)), v6) >= 2 {
 			v7 = (*int32)(unsafe.Pointer(sub_4A0020()))
 			*memmap.PtrUint32(0x5D4594, 815036) = uint32(sub_4A2610(nox_wol_wnd_world_814980, (*uint32)(unsafe.Pointer(&v30)), v7))
 		} else {
 			dword_5d4594_814624 = unsafe.Pointer(sub_4A0490(v5 - 10070))
-			nox_client_gui_serverInfoBlockCheckExp_439370((*int2)(unsafe.Pointer(&mpos)), int32(uintptr(dword_5d4594_814624)))
+			nox_client_gui_serverInfoBlockCheckExp_439370(&mpos, int32(uintptr(dword_5d4594_814624)))
 		}
 		nox_xxx_cursorSetTooltip_4776B0((*wchar2_t)(memmap.PtrOff(0x5D4594, 815112)))
 	}

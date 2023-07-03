@@ -2291,14 +2291,14 @@ func nox_xxx_mapGenRoundFloatToPtr_520DF0(a1 *types.Pointf, a2 *uint32) int64 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1)) = uint32(int32(result))
 	return result
 }
-func sub_520E60(a1 *int2) int32 {
+func sub_520E60(a1 *Point32) int32 {
 	var (
 		v1     int32
 		v2     int32
 		result int32
 	)
-	v1 = int32(dword_5d4594_2487536 + uint32(a1.field_0))
-	v2 = int32(dword_5d4594_2487536 + uint32(a1.field_4))
+	v1 = int32(dword_5d4594_2487536 + uint32(a1.X))
+	v2 = int32(dword_5d4594_2487536 + uint32(a1.Y))
 	if v1 < 0 || v1 >= dword_5d4594_2487540 || v2 < 0 || v2 >= dword_5d4594_2487540 {
 		result = 0
 	} else {
@@ -2385,15 +2385,15 @@ func sub_521100(a1 int32) int32 {
 		v3     int32
 		v4     int32
 		v5     int32
-		a1a    int2
-		a2     int2
+		a1a    Point32
+		a2     Point32
 	)
 	nox_xxx_mapGenRoundFloatToPtr_520DF0((*types.Pointf)(unsafe.Add(a1, 20)), (*uint32)(unsafe.Pointer(&a2)))
 	result = int32(*(*uint32)(unsafe.Add(a1, 16)))
 	v2 = 0
-	for a1a.field_4 = a2.field_4; v2 < result; a1a.field_4++ {
+	for a1a.Y = a2.Y; v2 < result; a1a.Y++ {
 		v3 = 0
-		a1a.field_0 = a2.field_0
+		a1a.X = a2.X
 		if *(*uint32)(unsafe.Add(a1, 12)) > 0 {
 			for {
 				v4 = sub_520E60(&a1a)
@@ -2402,7 +2402,7 @@ func sub_521100(a1 int32) int32 {
 				}
 				v5 = int32(*(*uint32)(unsafe.Add(a1, 12)))
 				v3++
-				a1a.field_0++
+				a1a.X++
 				if v3 >= v5 {
 					break
 				}
@@ -2420,15 +2420,15 @@ func sub_521180(a1 int32) int32 {
 		v3     int32
 		v4     int32
 		v5     int32
-		a1a    int2
-		a2     int2
+		a1a    Point32
+		a2     Point32
 	)
 	nox_xxx_mapGenRoundFloatToPtr_520DF0((*types.Pointf)(unsafe.Add(a1, 20)), (*uint32)(unsafe.Pointer(&a2)))
 	result = int32(*(*uint32)(unsafe.Add(a1, 16)))
 	v2 = 0
-	for a1a.field_4 = a2.field_4; v2 < result; a1a.field_4++ {
+	for a1a.Y = a2.Y; v2 < result; a1a.Y++ {
 		v3 = 0
-		a1a.field_0 = a2.field_0
+		a1a.X = a2.X
 		if *(*uint32)(unsafe.Add(a1, 12)) > 0 {
 			for {
 				v4 = sub_520E60(&a1a)
@@ -2437,7 +2437,7 @@ func sub_521180(a1 int32) int32 {
 				}
 				v5 = int32(*(*uint32)(unsafe.Add(a1, 12)))
 				v3++
-				a1a.field_0++
+				a1a.X++
 				if v3 >= v5 {
 					break
 				}
@@ -2456,19 +2456,19 @@ func sub_521200(a1 int32) int32 {
 		v4  int32
 		v5  int32
 		v6  int32
-		a1a int2
-		a2  int2
+		a1a Point32
+		a2  Point32
 	)
 	nox_xxx_mapGenRoundFloatToPtr_520DF0((*types.Pointf)(unsafe.Add(a1, 20)), (*uint32)(unsafe.Pointer(&a2)))
 	v1 = int32(*(*uint32)(unsafe.Add(a1, 16)))
 	v2 = 0
-	a1a.field_4 = a2.field_4
+	a1a.Y = a2.Y
 	if v1 <= 0 {
 		return 0
 	}
 	for {
 		v3 = 0
-		a1a.field_0 = a2.field_0
+		a1a.X = a2.X
 		if *(*uint32)(unsafe.Add(a1, 12)) > 0 {
 			for {
 				v4 = sub_520E60(&a1a)
@@ -2479,7 +2479,7 @@ func sub_521200(a1 int32) int32 {
 				}
 				v5 = int32(*(*uint32)(unsafe.Add(a1, 12)))
 				v3++
-				a1a.field_0++
+				a1a.X++
 				if v3 >= v5 {
 					goto LABEL_6
 				}
@@ -2488,13 +2488,13 @@ func sub_521200(a1 int32) int32 {
 	LABEL_6:
 		v6 = int32(*(*uint32)(unsafe.Add(a1, 16)))
 		v2++
-		a1a.field_4++
+		a1a.Y++
 		if v2 >= v6 {
 			return 0
 		}
 	}
 }
-func sub_521290(a1 *int2) int32 {
+func sub_521290(a1 *Point32) int32 {
 	var (
 		v1     int32
 		result int32
@@ -6176,7 +6176,7 @@ func sub_5262F0(a1 int32, a2 int32) int32 {
 		result int32
 	)
 	_ = result
-	var v24 int2
+	var v24 Point32
 	var v26 types.Pointf
 	var v28 types.Pointf
 	v2 = sub_5029A0((*byte)(a2))
@@ -6197,15 +6197,15 @@ func sub_5262F0(a1 int32, a2 int32) int32 {
 		v6 = int32(*(*uint16)(unsafe.Add(i, 4)))
 		if uint32(uint16(int16(v6))) == dword_5d4594_2487656 {
 			if *(*uint32)(unsafe.Add(a2, 92)) != 0 {
-				if v24.field_0 < *(*int32)(unsafe.Add(a2, 80)) {
-					*(*uint32)(unsafe.Add(a2, 80)) = uint32(v24.field_0)
+				if v24.X < *(*int32)(unsafe.Add(a2, 80)) {
+					*(*uint32)(unsafe.Add(a2, 80)) = uint32(v24.X)
 				}
 				v7 = int32(*(*uint32)(unsafe.Add(a2, 88)) + 1)
-				*(*uint32)(unsafe.Add(a2, 84)) = uint32(v24.field_4)
+				*(*uint32)(unsafe.Add(a2, 84)) = uint32(v24.Y)
 				*(*uint32)(unsafe.Add(a2, 88)) = uint32(v7)
 			} else {
-				v8 = v24.field_0
-				v9 = v24.field_4
+				v8 = v24.X
+				v9 = v24.Y
 				*(*uint32)(unsafe.Add(a2, 92)) = 1
 				*(*uint32)(unsafe.Add(a2, 80)) = uint32(v8)
 				*(*uint32)(unsafe.Add(a2, 84)) = uint32(v9)
@@ -6213,15 +6213,15 @@ func sub_5262F0(a1 int32, a2 int32) int32 {
 			}
 		} else if uint32(v6) == *memmap.PtrUint32(0x5D4594, 2487660) {
 			if *(*uint32)(unsafe.Add(a2, 108)) != 0 {
-				if v24.field_0 < *(*int32)(unsafe.Add(a2, 96)) {
-					*(*uint32)(unsafe.Add(a2, 96)) = uint32(v24.field_0)
+				if v24.X < *(*int32)(unsafe.Add(a2, 96)) {
+					*(*uint32)(unsafe.Add(a2, 96)) = uint32(v24.X)
 				}
 				v10 = int32(*(*uint32)(unsafe.Add(a2, 104)) + 1)
-				*(*uint32)(unsafe.Add(a2, 100)) = uint32(v24.field_4)
+				*(*uint32)(unsafe.Add(a2, 100)) = uint32(v24.Y)
 				*(*uint32)(unsafe.Add(a2, 104)) = uint32(v10)
 			} else {
-				v11 = v24.field_0
-				v12 = v24.field_4
+				v11 = v24.X
+				v12 = v24.Y
 				*(*uint32)(unsafe.Add(a2, 108)) = 1
 				*(*uint32)(unsafe.Add(a2, 96)) = uint32(v11)
 				*(*uint32)(unsafe.Add(a2, 100)) = uint32(v12)
@@ -6229,15 +6229,15 @@ func sub_5262F0(a1 int32, a2 int32) int32 {
 			}
 		} else if uint32(v6) == *memmap.PtrUint32(0x5D4594, 2487668) {
 			if *(*uint32)(unsafe.Add(a2, 140)) != 0 {
-				if v24.field_4 < *(*int32)(unsafe.Add(a2, 132)) {
-					*(*uint32)(unsafe.Add(a2, 132)) = uint32(v24.field_4)
+				if v24.Y < *(*int32)(unsafe.Add(a2, 132)) {
+					*(*uint32)(unsafe.Add(a2, 132)) = uint32(v24.Y)
 				}
 				v13 = int32(*(*uint32)(unsafe.Add(a2, 136)) + 1)
-				*(*uint32)(unsafe.Add(a2, 128)) = uint32(v24.field_0)
+				*(*uint32)(unsafe.Add(a2, 128)) = uint32(v24.X)
 				*(*uint32)(unsafe.Add(a2, 136)) = uint32(v13)
 			} else {
-				v14 = v24.field_0
-				v15 = v24.field_4
+				v14 = v24.X
+				v15 = v24.Y
 				*(*uint32)(unsafe.Add(a2, 140)) = 1
 				*(*uint32)(unsafe.Add(a2, 128)) = uint32(v14)
 				*(*uint32)(unsafe.Add(a2, 132)) = uint32(v15)
@@ -6245,15 +6245,15 @@ func sub_5262F0(a1 int32, a2 int32) int32 {
 			}
 		} else if uint32(v6) == *memmap.PtrUint32(0x5D4594, 2487664) {
 			if *(*uint32)(unsafe.Add(a2, 124)) != 0 {
-				if v24.field_4 < *(*int32)(unsafe.Add(a2, 116)) {
-					*(*uint32)(unsafe.Add(a2, 116)) = uint32(v24.field_4)
+				if v24.Y < *(*int32)(unsafe.Add(a2, 116)) {
+					*(*uint32)(unsafe.Add(a2, 116)) = uint32(v24.Y)
 				}
 				v16 = int32(*(*uint32)(unsafe.Add(a2, 120)) + 1)
-				*(*uint32)(unsafe.Add(a2, 112)) = uint32(v24.field_0)
+				*(*uint32)(unsafe.Add(a2, 112)) = uint32(v24.X)
 				*(*uint32)(unsafe.Add(a2, 120)) = uint32(v16)
 			} else {
-				v17 = v24.field_0
-				v18 = v24.field_4
+				v17 = v24.X
+				v18 = v24.Y
 				*(*uint32)(unsafe.Add(a2, 124)) = 1
 				*(*uint32)(unsafe.Add(a2, 112)) = uint32(v17)
 				*(*uint32)(unsafe.Add(a2, 116)) = uint32(v18)
@@ -7915,7 +7915,7 @@ func nox_xxx_XFerMonster_528DB0(a1p *server.Object, data unsafe.Pointer) int {
 		return 0
 	}
 	if nox_crypt_IsReadOnly() == 0 {
-		nox_xxx_xferIndexedDirection_509E20(int32(*(*int16)(unsafe.Add(a1, 124))), (*int2)(unsafe.Pointer(&v52[0])))
+		nox_xxx_xferIndexedDirection_509E20(int32(*(*int16)(unsafe.Add(a1, 124))), (*Point32)(unsafe.Pointer(&v52[0])))
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v52[0])), 8)
 	if int32(int16(v45)) >= 3 {
@@ -8999,7 +8999,7 @@ func nox_xxx_XFerNPC_52ADE0(a1p *server.Object, data unsafe.Pointer) int {
 		return 0
 	}
 	if nox_crypt_IsReadOnly() == 0 {
-		nox_xxx_xferIndexedDirection_509E20(int32(*(*int16)(unsafe.Add(a1, 124))), (*int2)(unsafe.Pointer(&v55[0])))
+		nox_xxx_xferIndexedDirection_509E20(int32(*(*int16)(unsafe.Add(a1, 124))), (*Point32)(unsafe.Pointer(&v55[0])))
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v55[0])), 8)
 	if v2 != nil {

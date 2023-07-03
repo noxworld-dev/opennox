@@ -1917,7 +1917,7 @@ func nox_xxx_playerClassCanUseItem_57B3D0(item *server.Object, a2 int8) int32 {
 	}
 	return bool2int32((int32(uint8(int8(1<<int32(a2)))) & int32(uint8(sub_57B370(int32(item.ObjClass), uint8(item.ObjSubClass), int32(item.TypeInd))))) != 0)
 }
-func nox_xxx_client_57B400(a1 int32) int32 {
+func nox_xxx_client_57B400(a1 *client.Drawable) int32 {
 	var v1 int32
 	v1 = int32(*memmap.PtrUint32(0x5D4594, 2523876))
 	if *memmap.PtrUint32(0x5D4594, 2523876) == 0 {
@@ -1927,7 +1927,7 @@ func nox_xxx_client_57B400(a1 int32) int32 {
 	if *memmap.PtrUint32(0x8531A0, 2576) == 0 {
 		return 0
 	}
-	if *(*uint32)(unsafe.Add(a1, 108)) != uint32(v1) || int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) == 1 {
+	if a1.Field_27 != uint32(v1) || int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) == 1 {
 		return 1
 	}
 	return 0
@@ -1954,7 +1954,6 @@ func sub_57B450(a1p *client.Drawable) int32 {
 }
 func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 	var (
-		v3  int32
 		v4  int8
 		v5  int32
 		v6  int32
@@ -1968,13 +1967,13 @@ func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 	if !(a2 >= 0 && a2 < 256 && (a3 >= 0 || a3 < 256)) {
 		return -1
 	}
-	v3 = int32(uintptr(nox_xxx_wall_4105E0(a2, a3)))
-	if v3 == 0 {
+	v3 := nox_xxx_wall_4105E0(a2, a3)
+	if v3 == nil {
 		return -1
 	}
-	v4 = int8(*(*uint8)(unsafe.Add(v3, 4)))
+	v4 = int8(v3.Flags4)
 	if int32(v4)&0x10 != 0 {
-		v5 = int32(*(*uint32)(unsafe.Add(v3, 28)))
+		v5 = int32(v3.Data28)
 		if v5 != 0 {
 			v6 = int32(*(*uint32)(unsafe.Add(v5, 748)))
 			v7 = int32(*(*uint32)(unsafe.Add(v6, 12)))
@@ -2042,7 +2041,7 @@ func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 		if (int32(v4) & 4) == 0 {
 			return int8(*(*uint8)(v3))
 		}
-		v13 = int32(*(*uint32)(unsafe.Add(v3, 28)))
+		v13 = int32(v3.Data28)
 		if (int32(*(*uint8)(unsafe.Add(v13, 20)))&2) == 0 && int32(*(*uint8)(unsafe.Add(v13, 22))) <= 0xB {
 			return int8(*(*uint8)(v3))
 		}
@@ -2152,7 +2151,7 @@ func sub_57BA10(a1 int32, a2 int16, a3 int16, a4 int32) int32 {
 	*(*uint32)(unsafe.Add(a1, 4)) = uint32(a4)
 	return result
 }
-func sub_57BA30(a1 *int2, a2 *int2, a3 *int4) int32 {
+func sub_57BA30(a1 *Point32, a2 *Point32, a3 *int4) int32 {
 	var (
 		v3  int32
 		v4  int32
@@ -2166,8 +2165,8 @@ func sub_57BA30(a1 *int2, a2 *int2, a3 *int4) int32 {
 	)
 	v12 = 0
 	for {
-		if a1.field_0 >= a3.field_0 {
-			if a1.field_0 <= a3.field_8 {
+		if a1.X >= a3.field_0 {
+			if a1.X <= a3.field_8 {
 				v3 = 0
 			} else {
 				v3 = 4
@@ -2175,7 +2174,7 @@ func sub_57BA30(a1 *int2, a2 *int2, a3 *int4) int32 {
 		} else {
 			v3 = 8
 		}
-		v4 = a1.field_4
+		v4 = a1.Y
 		v5 = a3.field_4
 		if v4 >= v5 {
 			if v4 > a3.field_C {
@@ -2184,8 +2183,8 @@ func sub_57BA30(a1 *int2, a2 *int2, a3 *int4) int32 {
 		} else {
 			*((*uint8)(unsafe.Pointer(&v3))) = uint8(int8(v3 | 2))
 		}
-		if a2.field_0 >= a3.field_0 {
-			if a2.field_0 <= a3.field_8 {
+		if a2.X >= a3.field_0 {
+			if a2.X <= a3.field_8 {
 				v6 = 0
 			} else {
 				v6 = 4
@@ -2193,7 +2192,7 @@ func sub_57BA30(a1 *int2, a2 *int2, a3 *int4) int32 {
 		} else {
 			v6 = 8
 		}
-		v7 = a2.field_4
+		v7 = a2.Y
 		if v7 >= v5 {
 			if v7 > a3.field_C {
 				v6 |= 1
@@ -2205,20 +2204,20 @@ func sub_57BA30(a1 *int2, a2 *int2, a3 *int4) int32 {
 			if v12 == 0 {
 				return 0
 			}
-			v10 = a1.field_0
-			v11 = a1.field_4
+			v10 = a1.X
+			v11 = a1.Y
 			*a1 = *a2
-			a2.field_0 = v10
-			a2.field_4 = v11
+			a2.X = v10
+			a2.Y = v11
 			return 0
 		}
 		if v3 == 0 {
 			if v6 != 0 {
-				v3 = a1.field_0
-				v8 = a1.field_4
+				v3 = a1.X
+				v8 = a1.Y
 				*a1 = *a2
-				a2.field_0 = v3
-				a2.field_4 = v8
+				a2.X = v3
+				a2.Y = v8
 				*((*uint8)(unsafe.Pointer(&v3))) = uint8(int8(v6))
 				v12 = bool2int32(v12 == 0)
 				goto LABEL_20
@@ -2226,26 +2225,26 @@ func sub_57BA30(a1 *int2, a2 *int2, a3 *int4) int32 {
 			if v12 == 0 {
 				return 1
 			}
-			v10 = a1.field_0
-			v11 = a1.field_4
+			v10 = a1.X
+			v11 = a1.Y
 			*a1 = *a2
-			a2.field_0 = v10
-			a2.field_4 = v11
+			a2.X = v10
+			a2.Y = v11
 			return 1
 		}
 	LABEL_20:
 		if v3&1 != 0 {
-			a1.field_0 += (a3.field_C - a1.field_4) * (a2.field_0 - a1.field_0) / (a2.field_4 - a1.field_4)
-			a1.field_4 = a3.field_C
+			a1.X += (a3.field_C - a1.Y) * (a2.X - a1.X) / (a2.Y - a1.Y)
+			a1.Y = a3.field_C
 		} else if v3&2 != 0 {
-			a1.field_0 += (a3.field_4 - a1.field_4) * (a2.field_0 - a1.field_0) / (a2.field_4 - a1.field_4)
-			a1.field_4 = a3.field_4
+			a1.X += (a3.field_4 - a1.Y) * (a2.X - a1.X) / (a2.Y - a1.Y)
+			a1.Y = a3.field_4
 		} else if v3&4 != 0 {
-			a1.field_4 += (a3.field_8 - a1.field_0) * (a2.field_4 - a1.field_4) / (a2.field_0 - a1.field_0)
-			a1.field_0 = a3.field_8
+			a1.Y += (a3.field_8 - a1.X) * (a2.Y - a1.Y) / (a2.X - a1.X)
+			a1.X = a3.field_8
 		} else if v3&8 != 0 {
-			a1.field_4 += (a2.field_4 - a1.field_4) * (a3.field_0 - a1.field_0) / (a2.field_0 - a1.field_0)
-			a1.field_0 = a3.field_0
+			a1.Y += (a2.Y - a1.Y) * (a3.field_0 - a1.X) / (a2.X - a1.X)
+			a1.X = a3.field_0
 		}
 	}
 }
@@ -2353,9 +2352,9 @@ func nox_xxx_mathPointOnTheLine_57C8A0(a1 *float4, a2 *types.Pointf, a3 *types.P
 	}
 	return bool2int32(v8 <= float64(v4.X) && float64(v4.X) <= float64(v16) && float64(v15) >= float64(v17) && float64(v15) <= float64(v11))
 }
-func sub_57CDB0(a1 *int2, a2 *float32, a3 *types.Pointf) int32 {
+func sub_57CDB0(a1 *Point32, a2 *float32, a3 *types.Pointf) int32 {
 	var (
-		v3     *int2
+		v3     *Point32
 		v4     int8
 		result int32
 		v6     *types.Pointf
@@ -2364,9 +2363,9 @@ func sub_57CDB0(a1 *int2, a2 *float32, a3 *types.Pointf) int32 {
 		v9     int8
 	)
 	v3 = a1
-	v9 = int8(sub_57F2A0((*types.Pointf)(unsafe.Pointer(a2)), a1.field_0, a1.field_4))
+	v9 = int8(sub_57F2A0((*types.Pointf)(unsafe.Pointer(a2)), a1.X, a1.Y))
 	v4 = sub_57F1D0((*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(types.Pointf{})*1)))
-	switch sub_57B500(v3.field_0, v3.field_4, 64) {
+	switch sub_57B500(v3.X, v3.Y, 64) {
 	case 0:
 		if int32(v9) != 1 && int32(v9) != 0 {
 			v8 = a3
@@ -2695,8 +2694,7 @@ func nox_xxx_j_inventoryNameSignInit_467460() int32 {
 func nox_alloc_npcs_2() {
 	nox_alloc_npcs()
 }
-func Nullsub_8(a1 *uint32, a2 *uint32) int8 {
-	return 0
+func Nullsub_8(a1 *Point32, a2 unsafe.Pointer) {
 }
 func nullsub_28(a1 uint32) {
 }

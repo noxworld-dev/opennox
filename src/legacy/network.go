@@ -249,7 +249,7 @@ func Nox_xxx_gameServerReadyMB_4DD180(a1 int) {
 	nox_xxx_gameServerReadyMB_4DD180(int32(a1))
 }
 func Nox_xxx_teamCompare2_419180(t *server.ObjectTeam, id server.TeamID) int {
-	return int(nox_xxx_teamCompare2_419180(unsafe.Pointer(t), byte(id)))
+	return int(nox_xxx_teamCompare2_419180(t, byte(id)))
 }
 func Sub_4D12A0(a1 int) int {
 	return int(sub_4D12A0(int32(a1)))

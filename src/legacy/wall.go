@@ -19,18 +19,18 @@ func asWallP(p unsafe.Pointer) *server.Wall {
 }
 
 // nox_server_getWallAtGrid_410580
-func nox_server_getWallAtGrid_410580(x, y int32) unsafe.Pointer {
-	return GetServer().S().Walls.GetWallAtGrid(image.Pt(int(x), int(y))).C()
+func nox_server_getWallAtGrid_410580(x, y int32) *server.Wall {
+	return GetServer().S().Walls.GetWallAtGrid(image.Pt(int(x), int(y)))
 }
 
 // nox_xxx_wall_4105E0
-func nox_xxx_wall_4105E0(x, y int32) unsafe.Pointer {
-	return GetServer().S().Walls.GetWallAtGrid2(image.Pt(int(x), int(y))).C()
+func nox_xxx_wall_4105E0(x, y int32) *server.Wall {
+	return GetServer().S().Walls.GetWallAtGrid2(image.Pt(int(x), int(y)))
 }
 
 // nox_xxx_wallCreateAt_410250
-func nox_xxx_wallCreateAt_410250(x, y int32) unsafe.Pointer {
-	return GetServer().S().Walls.CreateAtGrid(image.Pt(int(x), int(y))).C()
+func nox_xxx_wallCreateAt_410250(x, y int32) *server.Wall {
+	return GetServer().S().Walls.CreateAtGrid(image.Pt(int(x), int(y)))
 }
 
 // nox_xxx_mapDelWallAtPt_410430

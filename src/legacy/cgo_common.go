@@ -14,11 +14,6 @@ var _ = [1]struct{}{}[16-unsafe.Sizeof(binfile.MemFile{})]
 type size_t = uint32
 type long = int32
 
-type int2 struct {
-	field_0 int32
-	field_4 int32
-}
-
 type int4 struct {
 	field_0 int32
 	field_4 int32
@@ -33,9 +28,9 @@ type float4 struct {
 	field_C float32
 }
 
-type nox_point struct {
-	x int32
-	y int32
+type Point32 struct {
+	X int32
+	Y int32
 }
 
 func bool2int32(v bool) int32 {

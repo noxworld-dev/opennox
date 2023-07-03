@@ -2421,7 +2421,7 @@ func nox_server_testTwoPointsAndDirection_4E6E50(a1 *types.Pointf, a2 int32, a3 
 		v3 int32
 		v5 [2]int32
 	)
-	nox_xxx_xferIndexedDirection_509E20(a2, (*int2)(unsafe.Pointer(&v5[0])))
+	nox_xxx_xferIndexedDirection_509E20(a2, (*Point32)(unsafe.Pointer(&v5[0])))
 	v3 = v5[1] + v5[0] + v5[1]*2 + 4
 	return int32(*memmap.PtrUint32(0x587000, uintptr((sub_4E6CE0(a1, a3)+v3*16)*4)+202504))
 }
@@ -6469,7 +6469,7 @@ func nox_xxx_dropCrown_4ED5E0(obj, obj2 *server.Object, pos *types.Pointf) int {
 	if v6 != nil {
 		for {
 			v7 = int32(*(*uint32)(unsafe.Add(v6, 748)))
-			if nox_xxx_teamCompare2_419180(unsafe.Add(v6, 48), *(*uint8)(unsafe.Add(a2, 52))) != 0 && *(*uint32)(unsafe.Add(v7, 264)) < uint32(v4) {
+			if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(v6, 48)), *(*uint8)(unsafe.Add(a2, 52))) != 0 && *(*uint32)(unsafe.Add(v7, 264)) < uint32(v4) {
 				v4 = int32(*(*uint32)(unsafe.Add(v7, 264)))
 				v5 = v6
 			}
@@ -11596,10 +11596,7 @@ func nox_xxx_XFerExit_4F4B90(a1p *server.Object, data unsafe.Pointer) int {
 	return int(result)
 }
 func nox_xxx_XFerDoor_4F4CB0(a1p *server.Object, data unsafe.Pointer) int {
-	a1 := int32(uintptr(a1p.CObj()))
 	var (
-		v1     int32
-		v2     int32
 		result int32
 		v4     int32
 		v5     int32
@@ -11607,20 +11604,20 @@ func nox_xxx_XFerDoor_4F4CB0(a1p *server.Object, data unsafe.Pointer) int {
 		v7     int32
 		v8     int32
 		v9     int32
-		v10    int32
 	)
-	v1 = a1
-	v2 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	v10 = int32(*(*uint32)(unsafe.Add(a1, 136)))
+	v1 := a1p
+	v2 := a1p.UpdateData
+	v10 := int32(a1p.Field34)
 	v7 = 60
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 2)
 	if int32(int16(v7)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530((*server.Object)(v1), int32(int16(v7)))
+	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(v7)))
 	if result == 0 {
 		return int(result)
 	}
+	var a1 int32
 	if nox_crypt_IsReadOnly() == 0 {
 		a1 = int32(*(*uint32)(unsafe.Add(v2, 12)))
 		v8 = int32(*(*uint8)(unsafe.Add(v2, 1)))
@@ -11639,19 +11636,19 @@ func nox_xxx_XFerDoor_4F4CB0(a1p *server.Object, data unsafe.Pointer) int {
 		*(*uint32)(unsafe.Add(v2, 4)) = uint32(v6)
 		*(*uint32)(unsafe.Add(v2, 8)) = uint32(a1)
 		v9 = *memmap.PtrInt32(0x587000, uintptr(v6*8)+196184) / 2
-		v4 = int32(int64((float64(v9) + float64(*(*float32)(unsafe.Add(v1, 56)))) * 0.043478262))
+		v4 = int32(int64((float64(v9) + float64(v1.PosVec.X)) * 0.043478262))
 		v9 = *memmap.PtrInt32(0x587000, uintptr(v6*8)+196188) / 2
-		v5 = int32(int64((float64(v9) + float64(*(*float32)(unsafe.Add(v1, 60)))) * 0.043478262))
-		nox_xxx_doorAttachWall_410360(v1, v4, v5)
+		v5 = int32(int64((float64(v9) + float64(v1.PosVec.Y)) * 0.043478262))
+		nox_xxx_doorAttachWall_410360(unsafe.Pointer(v1), v4, v5)
 		*(*uint32)(unsafe.Add(v2, 16)) = uint32(v4)
 		*(*uint32)(unsafe.Add(v2, 20)) = uint32(v5)
 		*(*uint8)(unsafe.Add(v2, 1)) = uint8(int8(v8))
 	}
-	if *(*uint32)(unsafe.Add(v1, 136)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v7)), (*server.Object)(v1), int32(*(*uint32)(unsafe.Add(v1, 136))))
+	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
+		result = nox_xxx_xfer_4F3E30(uint16(int16(v7)), v1, int32(v1.Field34))
 		return result
 	}()) != 0 {
-		*(*uint32)(unsafe.Add(v1, 136)) = uint32(v10)
+		v1.Field34 = uint32(v10)
 		result = 1
 	}
 	return int(result)

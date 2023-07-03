@@ -136,7 +136,7 @@ func Nox_xxx_checkIsKillable_528190(a1 *server.Object) int {
 	return int(nox_xxx_checkIsKillable_528190(asObjectC(a1)))
 }
 func Nox_xxx_polygonIsPlayerInPolygon_4217B0(a1 unsafe.Pointer, a2 int) *Nox_player_polygon_check_data {
-	return (*Nox_player_polygon_check_data)(unsafe.Pointer(nox_xxx_polygonIsPlayerInPolygon_4217B0((*int2)(a1), int32(a2))))
+	return (*Nox_player_polygon_check_data)(unsafe.Pointer(nox_xxx_polygonIsPlayerInPolygon_4217B0((*Point32)(a1), int32(a2))))
 }
 func Nox_xxx_mobAction_50A910(a1 *server.Object) {
 	nox_xxx_mobAction_50A910(asObjectC(a1))

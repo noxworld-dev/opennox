@@ -197,7 +197,7 @@ func (s *serverTeams) create(id TeamID) *Team {
 	t.ColorInd = TeamColor(ind)
 	t.ind = byte(ind)
 	t.active = 1
-	t.Field44Val = 0
+	t.Field44Val = nil
 	t.Field48Val = 0
 	t.Field60Val = 0
 	t.field_68 = 0
@@ -239,7 +239,7 @@ func (s *serverTeams) ResetYyy() {
 }
 
 type ObjectTeam struct {
-	Field0 uint32
+	Field0 *ObjectTeam
 	ID     TeamID
 	_      [3]byte
 }
@@ -268,7 +268,7 @@ type TeamColor byte
 
 type Team struct {
 	NameBuf    [22]uint16     // 0, 0
-	Field44Val uint32         // 11, 44
+	Field44Val *ObjectTeam    // 11, 44
 	Field48Val uint32         // 12, 48
 	Lessons    int            // 13, 52
 	ColorInd   TeamColor      // 14, 56
@@ -284,7 +284,7 @@ type Team struct {
 
 func (t *Team) Reset() {
 	t.NameBuf[0] = 0
-	t.Field44Val = 0
+	t.Field44Val = nil
 	t.Field48Val = 0
 	t.active = 0
 	t.Field60Val = 0
