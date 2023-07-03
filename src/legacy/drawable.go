@@ -77,8 +77,8 @@ func nox_xxx_spriteToList_49BC80_drawable(dr *client.Drawable) {
 }
 
 // nox_xxx_spriteDelete_45A4B0
-func nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) int32 {
-	return int32(GetClient().Nox_xxx_spriteDelete_45A4B0(dr))
+func nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) {
+	GetClient().Nox_xxx_spriteDelete_45A4B0(dr)
 }
 
 // nox_new_drawable_for_thing

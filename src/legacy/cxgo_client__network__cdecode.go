@@ -2553,7 +2553,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			if nox_client_isConnected_43C700() == 0 {
 				return 4
 			}
-			sub_4C15D0(int32(uintptr(unsafe.Pointer(data))))
+			sub_4C15D0(unsafe.Pointer(data))
 			return 4
 		case 6:
 			if nox_client_isConnected_43C700() == 0 {

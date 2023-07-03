@@ -165,7 +165,7 @@ func Get_dword_5d4594_1064868() int {
 	return int(dword_5d4594_1064868)
 }
 func Get_dword_5d4594_1316972() *gui.Window {
-	return AsWindowP(dword_5d4594_1316972)
+	return dword_5d4594_1316972
 }
 func Get_dword_5d4594_1599588() unsafe.Pointer {
 	return dword_5d4594_1599588
@@ -362,7 +362,7 @@ func Set_dword_5d4594_1599476(v int) {
 func Set_dword_5d4594_1599540(v unsafe.Pointer) {
 	dword_5d4594_1599540 = v
 }
-func Set_dword_5d4594_1599532(v unsafe.Pointer) {
+func Set_dword_5d4594_1599532(v *wallListItem) {
 	dword_5d4594_1599532 = v
 }
 func Set_dword_5d4594_1599556(v unsafe.Pointer) {
@@ -651,7 +651,7 @@ func Get_nox_xxx_resetMapInit_1569652() int {
 	return int(nox_xxx_resetMapInit_1569652)
 }
 func Get_dword_5d4594_1123524() *gui.Window {
-	return AsWindowP(dword_5d4594_1123524)
+	return AsWindowP(unsafe.Pointer(dword_5d4594_1123524))
 }
 func Set_dword_5d4594_1123520(v int) {
 	dword_5d4594_1123520 = uint32(v)

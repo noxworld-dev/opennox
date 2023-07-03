@@ -41,7 +41,7 @@ type Client interface {
 	Nox_drawable_find(pt image.Point, r int) *client.Drawable
 	Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.Point) *client.Drawable
 	Sub_45A670(a1 uint32)
-	Nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) int
+	Nox_xxx_spriteDelete_45A4B0(dr *client.Drawable)
 	Nox_new_drawable_for_thing(i int) *client.Drawable
 	Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 	Nox_xxx_spriteDeleteAll_45A5E0(a1 int)

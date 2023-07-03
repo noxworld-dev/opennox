@@ -6014,7 +6014,7 @@ func nox_xxx_wall_4DF1E0(a1 int32) int32 {
 		j      int32
 		v5     int8
 	)
-	for i = (*int32)(nox_xxx_wallGetFirstBreakableCli_410870()); i != nil; i = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallGetNextBreakableCli_410880(i)))) {
+	for i = (*int32)(nox_xxx_wallGetFirstBreakableCli_410870()); i != nil; i = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallGetNextBreakableCli_410880(unsafe.Pointer(i))))) {
 		v2 = *(*int32)(unsafe.Add(unsafe.Pointer(i), 4*1))
 		if int32(*(*uint8)(unsafe.Add(v2, 4)))&0x20 != 0 {
 			nox_xxx_wallSendDestroyed_4DF0A0(v2, a1)

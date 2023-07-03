@@ -682,7 +682,7 @@ func nox_xxx_wallDestroyedByWallid_410520(a1 int16) *int32 {
 		if int32(*(*uint16)(unsafe.Add(v2, 10))) == int32(a1) {
 			break
 		}
-		result = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallGetNextBreakableCli_410880(result))))
+		result = (*int32)(unsafe.Pointer(uintptr(nox_xxx_wallGetNextBreakableCli_410880(unsafe.Pointer(result)))))
 		if result == nil {
 			return result
 		}
@@ -717,9 +717,9 @@ func Sub_410730() {
 	}
 	dword_5d4594_251560 = nil
 }
-func nox_xxx_wallSecretBlock_410760(a1 *uint32) {
-	*a1 = uint32(uintptr(dword_5d4594_251560))
-	dword_5d4594_251560 = unsafe.Pointer(a1)
+func nox_xxx_wallSecretBlock_410760(a1 unsafe.Pointer) {
+	*(*uint32)(a1) = uint32(uintptr(dword_5d4594_251560))
+	dword_5d4594_251560 = a1
 }
 func nox_xxx_wallSecretGetFirstWall_410780() unsafe.Pointer {
 	return dword_5d4594_251560
@@ -764,21 +764,18 @@ func nox_xxx_wallBreackableListClear_410810() {
 	}
 	dword_5d4594_251564 = nil
 }
-func nox_xxx_wallBreackableListAdd_410840(a1 int32) {
+func nox_xxx_wallBreackableListAdd_410840(a1 unsafe.Pointer) {
 	result := alloc.Calloc1(1, 8)
-	*(*uint32)(unsafe.Add(result, 4*1)) = uint32(a1)
+	*(*unsafe.Pointer)(unsafe.Add(result, 4*1)) = a1
 	*(*unsafe.Pointer)(result) = dword_5d4594_251564
 	dword_5d4594_251564 = result
 }
 func nox_xxx_wallGetFirstBreakableCli_410870() unsafe.Pointer { return dword_5d4594_251564 }
-func nox_xxx_wallGetNextBreakableCli_410880(a1 *int32) int32 {
-	var result int32
-	if a1 != nil {
-		result = *a1
-	} else {
-		result = 0
+func nox_xxx_wallGetNextBreakableCli_410880(a1 unsafe.Pointer) unsafe.Pointer {
+	if a1 == nil {
+		return nil
 	}
-	return result
+	return *(*unsafe.Pointer)(a1)
 }
 func nox_xxx_tileAlloc_410F60_init() int32 {
 	arr, _ := alloc.Make([]unsafe.Pointer{}, int(ptr_5D4594_2650668_cap))

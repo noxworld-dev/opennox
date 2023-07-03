@@ -5882,8 +5882,7 @@ func nox_xxx_spriteScanForShield_4B81E0(it *client.Drawable, a2 unsafe.Pointer) 
 		}
 	}
 }
-func nox_xxx_gameDeleteSpiningCrownSkull_4B8220() int32 {
-	var result int32
+func nox_xxx_gameDeleteSpiningCrownSkull_4B8220() {
 	if dword_5d4594_1313792 != 0 {
 		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(dword_5d4594_1313792)))
 	}
@@ -5891,13 +5890,11 @@ func nox_xxx_gameDeleteSpiningCrownSkull_4B8220() int32 {
 	if dword_5d4594_1313796 != nil {
 		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_1313796))
 	}
-	result = int32(uintptr(dword_5d4594_1313800))
 	if dword_5d4594_1313800 != nil {
-		result = nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_1313800))
+		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_1313800))
 	}
 	dword_5d4594_1313796 = nil
 	dword_5d4594_1313800 = nil
-	return result
 }
 func sub_4B8960(a1 *int32, dr *client.Drawable, a3 int32, a4 *uint32, a5 int32, a6 int32) {
 	var (

@@ -4673,16 +4673,11 @@ func nox_xxx_loadReflSheild_499360() int32 {
 		}
 	}
 }
-func sub_499450() int32 {
-	var (
-		v0     *uint8
-		result int32
-	)
-	v0 = (*uint8)(memmap.PtrOff(0x5D4594, 1217468))
+func sub_499450() {
+	v0 := (*uint8)(memmap.PtrOff(0x5D4594, 1217468))
 	for {
-		result = int32(*(*uint32)(unsafe.Pointer(v0)))
 		if *(*uint32)(unsafe.Pointer(v0)) != 0 {
-			result = nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v0)))))
+			nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v0)))))
 		}
 		*(*uint32)(unsafe.Pointer(v0)) = 0
 		v0 = (*uint8)(unsafe.Add(unsafe.Pointer(v0), 4))
@@ -4691,7 +4686,6 @@ func sub_499450() int32 {
 		}
 	}
 	*memmap.PtrUint32(0x5D4594, 1217504) = 0
-	return result
 }
 func nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) int32 {
 	var (

@@ -33,7 +33,7 @@ var dword_5d4594_1049504 *gui.Window
 var dword_5d4594_1046868 uint32
 var dword_5d4594_1193380 uint32
 var dword_5d4594_1316972 uint32
-var dword_5d4594_1123524 unsafe.Pointer
+var dword_5d4594_1123524 *gui.Window
 var dword_5d4594_1045604 *gui.Window
 var dword_5d4594_529316 unsafe.Pointer
 var dword_5d4594_1309820 uint32
@@ -264,7 +264,7 @@ var dword_5d4594_825744 *gui.Window
 var dword_5d4594_1217452 uint32
 var dword_5d4594_1319264 uint32
 var dword_5d4594_1046928 *ImageRef
-var dword_5d4594_1098580 uint32
+var dword_5d4594_1098580 *gui.Window
 var dword_5d4594_831224 uint32
 var nox_xxx_energyBoltTarget_5d4594_2487880 uint32
 var dword_5d4594_832504 unsafe.Pointer
@@ -414,7 +414,7 @@ var nox_alloc_magicEnt_1569668 unsafe.Pointer
 var dword_5d4594_814992 uint32
 var dword_587000_66116 int32 = 0x1D
 var dword_5d4594_2487564 uint32
-var dword_5d4594_3804684 uint32
+var dword_5d4594_3804684 int32
 var dword_5d4594_830972 unsafe.Pointer
 var dword_5d4594_1308120 uint32
 var dword_5d4594_2488608 unsafe.Pointer
@@ -434,7 +434,7 @@ var nox_alloc_pendingOwn_2386916 unsafe.Pointer
 var dword_5d4594_1313740 uint32
 var dword_587000_237036 uint32 = 0x1
 var dword_5d4594_1062492 *client.Drawable
-var dword_5d4594_1098604 uint32
+var dword_5d4594_1098604 *wchar2_t
 var nox_server_needInitNetCodeCache uint32 = 0x1
 var dword_5d4594_1308116 uint32
 var dword_5d4594_1319248 uint32
@@ -574,7 +574,7 @@ var dword_5d4594_2386164 uint32
 var nox_server_kickQuestPlayerMinVotes_229992 uint32 = 0x5
 var dword_5d4594_1523040 uint32
 var dword_5d4594_1096272 uint32
-var dword_5d4594_1096636 uint32
+var dword_5d4594_1096636 int32
 var dword_5d4594_1522956 uint32
 var dword_587000_183460 uint32 = 0x26
 var dword_5d4594_1303508 uint32

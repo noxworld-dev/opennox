@@ -23,7 +23,6 @@ var nox_cheat_charmall int32 = 0
 var dword_5d4594_1599480 uint32 = 0
 var dword_5d4594_1599476 uint32 = 0
 var dword_5d4594_1599540 unsafe.Pointer = nil
-var dword_5d4594_1599532 unsafe.Pointer = nil
 var dword_5d4594_1599556 unsafe.Pointer = nil
 var dword_5d4594_1599548 unsafe.Pointer = nil
 var dword_5d4594_1599588 unsafe.Pointer = nil
@@ -5980,106 +5979,96 @@ func nox_xxx_tileInit_504150(a1 int32, a2 int32) int32 {
 	nox_xxx_tileInitdataClear_4D3C50(unsafe.Pointer(&v8[0]))
 	return 1
 }
-func sub_504290(a1 int8, a2 int8) unsafe.Pointer {
-	v3 := alloc.Calloc1(1, 0xC)
-	if v3 == nil {
+
+type wallListItem struct {
+	Wall *server.Wall
+	Next *wallListItem
+	Prev *wallListItem
+}
+
+var dword_5d4594_1599532 *wallListItem
+
+func sub_504290(x, y int8) *wallListItem {
+	p, _ := alloc.New(wallListItem{})
+	if p == nil {
 		return nil
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = uint32(uintptr(dword_5d4594_1599532))
+	p.Prev = nil
+	p.Next = dword_5d4594_1599532
 	if dword_5d4594_1599532 != nil {
-		*(*uint32)(unsafe.Add(dword_5d4594_1599532, 8)) = uint32(uintptr(unsafe.Pointer(v3)))
+		dword_5d4594_1599532.Prev = p
 	}
-	dword_5d4594_1599532 = unsafe.Pointer(v3)
-	v4 := alloc.Calloc1(1, 0x24)
-	*v3 = uint32(uintptr(unsafe.Pointer(v4)))
-	*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 5)) = uint8(a1)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*v3)), 6)) = uint8(a2)
-	return v3
+	dword_5d4594_1599532 = p
+	wl, _ := alloc.New(server.Wall{})
+	p.Wall = wl
+	wl.X5 = uint8(x)
+	wl.Y6 = uint8(y)
+	return p
 }
-func nox_xxx_cliWallGet_5042F0(a1 int32, a2 int32) unsafe.Pointer {
-	result := dword_5d4594_1599532
+func nox_xxx_cliWallGet_5042F0(a1 int32, a2 int32) *wallListItem {
+	p := dword_5d4594_1599532
 	if dword_5d4594_1599532 == nil {
 		return nil
 	}
-	for int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(*result)), 5))) != a1 || int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(result), 6))) != a2 {
-		result = *(*unsafe.Pointer)(unsafe.Add(result, 4*1))
-		if result == nil {
+	for int32(p.Wall.X5) != a1 || int32(p.Wall.Y6) != a2 {
+		p = p.Next
+		if p == nil {
 			return nil
 		}
 	}
-	return result
+	return p
 }
 func sub_504330(a1 int32, a2 int32) int32 {
-	var (
-		v2  **uint8
-		v3  int32
-		v4  int32
-		v6  int32
-		v7  *uint8
-		v8  uint8
-		v9  uint8
-		v11 *uint32
-		v12 int32
-	)
-	v2 = (**uint8)(dword_5d4594_1599532)
-	if dword_5d4594_1599532 == nil {
-		return 1
-	}
-	for {
-		v3 = (a1 + int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 5)))*23) / 23
-		v4 = a2 + int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 6)))*23
-		v6 = v4 / 23
-		v7 = (*uint8)(nox_server_getWallAtGrid_410580(v3, v6))
+	for v2 := dword_5d4594_1599532; v2 == nil; v2 = v2.Next {
+		v3 := (a1 + int32(v2.Wall.X5)*23) / 23
+		v4 := a2 + int32(v2.Wall.Y6)*23
+		v6 := v4 / 23
+		v7 := nox_server_getWallAtGrid_410580(v3, v6)
 		if v7 != nil {
-			v8 = **v2
+			v8 := v2.Wall.Dir0
 			if dword_5d4594_3835368 != 0 {
-				*v7 = nox_xxx_wall_42A6C0(*v7, v8)
+				v7.Dir0 = nox_xxx_wall_42A6C0(v7.Dir0, v8)
 			} else {
-				*v7 = v8
+				v7.Dir0 = v8
 			}
-			goto LABEL_8
+		} else {
+			v7 = nox_xxx_wallCreateAt_410250(v3, v6)
+			if v7 == nil {
+				return 0
+			}
+			v7.Dir0 = v2.Wall.Dir0
 		}
-		v7 = (*uint8)(nox_xxx_wallCreateAt_410250(v3, v6))
-		if v7 == nil {
-			return 0
+		v7.Tile1 = v2.Wall.Tile1
+		v7.Field2 = v2.Wall.Field2
+		v7.Health7 = v2.Wall.Health7
+		if (int32(v2.Wall.Flags4) & 0x80) != 0 {
+			v7.Flags4 |= 0x80
 		}
-		*v7 = **v2
-	LABEL_8:
-		*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 1))
-		*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 2)) = *(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 2))
-		*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 7)) = *(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 7))
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 4))) & 0x80) != 0 {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)) |= 0x80
+		if int32(v7.Field2) >= int32(nox_xxx_mapWallMaxVariation_410DD0(int32(v7.Tile1), int32(v7.Dir0), 0)) {
+			v7.Field2 = 0
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 2))) >= int32(nox_xxx_mapWallMaxVariation_410DD0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 1))), int32(*v7), 0)) {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 2)) = 0
+		if int32(v7.Flags4)&4 != 0 {
+			sub_4107A0(v7.Data28)
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)))&4 != 0 {
-			sub_4107A0(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(unsafe.Pointer(nil))*7)))
-		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 4)))&4 != 0 {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)) |= 4
-			v11 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(*v2), 4*7)))))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*7)) = uint32(uintptr(unsafe.Pointer(v11)))
+		if int32(v2.Wall.Flags4)&4 != 0 {
+			v7.Flags4 |= 4
+			v11 := v2.Wall.Data28
+			v7.Data28 = v11
 			nox_xxx_wallSecretBlock_410760(v11)
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 4)))&8 != 0 {
-			v9 = *(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4))
+		if int32(v2.Wall.Flags4)&8 != 0 {
+			v9 := v7.Flags4
 			if (int32(v9) & 8) == 0 {
-				v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*7)))
-				*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)) = uint8(int8(int32(v9) | 8))
+				v12 := v7.Data28
+				v7.Flags4 = server.WallFlags(uint8(int8(int32(v9) | 8)))
 				nox_xxx_wallBreackableListAdd_410840(v12)
 			}
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(*v2), 4)))&0x40 != 0 {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 4)) |= 0x40
-		}
-		v2 = (**uint8)(unsafe.Pointer(*(**uint8)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof((*uint8)(nil))*1))))
-		if v2 == nil {
-			return 1
+		if int32(v2.Wall.Flags4)&0x40 != 0 {
+			v7.Flags4 |= 0x40
 		}
 	}
+	return 1
 }
 func sub_5044B0(a1 int32, a2 float32, a3 float32) *uint32 {
 	var (

@@ -161,9 +161,9 @@ func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) {
 	}
 	sub_46AEE0(int32(uintptr(unsafe.Pointer(v3))), int32(uintptr(memmap.PtrOff(0x5D4594, 1097300))))
 	if libc.StrLen(a2) != 0 {
-		dword_5d4594_1098604 = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(a2, (**byte)(memmap.PtrOff(0x5D4594, 1098608)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1128))))
+		dword_5d4594_1098604 = nox_strman_loadString_40F1D0(a2, (**byte)(memmap.PtrOff(0x5D4594, 1098608)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1128)
 	} else {
-		dword_5d4594_1098604 = 0
+		dword_5d4594_1098604 = nil
 		*memmap.PtrUint32(0x5D4594, 1098608) = 0
 	}
 	nox_xxx_getShopPic_4790F0(a3)
@@ -171,7 +171,7 @@ func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) {
 		nox_xxx_playDialogFile_44D900((*byte)(*memmap.PtrPtr(0x5D4594, 1098608)), 100)
 	}
 	dword_5d4594_1107036 = 0
-	nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_1098580), 16394, uintptr(dword_5d4594_1098592), 0)
+	nox_window_call_field_94_fnc(dword_5d4594_1098580, 16394, uintptr(dword_5d4594_1098592), 0)
 }
 func sub_479520(a1 int32) {
 	var (

@@ -115,7 +115,7 @@ func sub_4C09D0() int32 {
 	*memmap.PtrPtr(0x5D4594, 1320184) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("TradeGold")))
 	return 1
 }
-func sub_4C15D0(a1 int32) int32 {
+func sub_4C15D0(a1 unsafe.Pointer) {
 	var (
 		result int32
 		v2     int32
@@ -134,7 +134,7 @@ func sub_4C15D0(a1 int32) int32 {
 	v2 = 0
 	v12 = nil
 	if dword_5d4594_1320964 == 0 {
-		return result
+		return
 	}
 	v3 = (*uint8)(memmap.PtrOff(0x5D4594, 1319284))
 	for {
@@ -191,8 +191,7 @@ LABEL_18:
 	result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) - 1)
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) = uint32(result)
 	if result == 0 {
-		result = nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v6)))))
+		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(unsafe.Pointer(*(**uint64)(unsafe.Pointer(v6)))))
 		*(*uint32)(unsafe.Pointer(v6)) = 0
 	}
-	return result
 }

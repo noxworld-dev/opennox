@@ -243,11 +243,10 @@ func (c *Client) nox_xxx_clientDeleteSprite_476F10_drawable(dr *client.Drawable)
 	}
 }
 
-func (c *Client) Nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) int {
+func (c *Client) Nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) {
 	c.sub_495B00(dr)
 	c.Objs.Alloc.FreeObjectFirst(dr)
 	c.Objs.Count--
-	return c.Objs.Count
 }
 
 func (c *Client) sub_495B00(dr *client.Drawable) {
