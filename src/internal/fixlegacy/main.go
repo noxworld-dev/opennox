@@ -398,25 +398,25 @@ func fieldForOff(pkg *packages.Package, nt *types.Named, st *types.Struct, x ast
 	if fld == nil {
 		return nil
 	}
-	obj := nt.Obj()
-	if fld.Exported() || obj.Pkg() == pkg.Types {
-		x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
-	} else {
-		switch obj.Pkg().Name() + "." + obj.Name() + "." + fld.Name() {
-		case "gui.Window.drawData":
-			x = &ast.CallExpr{Fun: &ast.SelectorExpr{X: x, Sel: ast.NewIdent("DrawData")}}
-		default:
-			return nil
+	if nt != nil {
+		obj := nt.Obj()
+		if fld.Exported() || obj.Pkg() == pkg.Types {
+			x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
+		} else {
+			switch obj.Pkg().Name() + "." + obj.Name() + "." + fld.Name() {
+			case "gui.Window.drawData":
+				x = &ast.CallExpr{Fun: &ast.SelectorExpr{X: x, Sel: ast.NewIdent("DrawData")}}
+			default:
+				return nil
+			}
 		}
 	}
-	nt2, ok := fld.Type().(*types.Named)
-	if !ok {
-		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
-			return x
-		}
-		return nil
+	ftyp := fld.Type()
+	nt2, ok := ftyp.(*types.Named)
+	if ok {
+		ftyp = nt2.Underlying()
 	}
-	st2, ok := nt2.Underlying().(*types.Struct)
+	st2, ok := ftyp.(*types.Struct)
 	if !ok {
 		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
 			return x
