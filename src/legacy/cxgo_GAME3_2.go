@@ -182,7 +182,7 @@ func nox_xxx_colorLightAlterIntensity_4CE610(a1 int32) {
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v1+136, v8)
 	}
 }
-func nox_xxx_colorLightAlterRadius_4CE760(a1 int32) int32 {
+func nox_xxx_colorLightAlterRadius_4CE760(a1 int32) {
 	var (
 		v1     int32
 		result int32
@@ -202,7 +202,7 @@ func nox_xxx_colorLightAlterRadius_4CE760(a1 int32) int32 {
 	v3 = int8(*(*uint8)(unsafe.Add(a1, 434)))
 	v11 = int8(*(*uint8)(unsafe.Add(a1, 434)))
 	if !(result == 0 && int32(*(*uint16)(unsafe.Add(v1, 262))) > 0 && int32(v3) > 1) {
-		return result
+		return
 	}
 	v4 = float64(gameFrame()) / float64(int32(*(*uint16)(unsafe.Add(v1, 262)))*int32(v3))
 	v5 = int64(v4)
@@ -232,8 +232,7 @@ func nox_xxx_colorLightAlterRadius_4CE760(a1 int32) int32 {
 		}
 	}
 	v12 = float32(float64(*(*uint16)(unsafe.Add(v1, 262))))
-	result = int32(nox_xxx_spriteChangeLightSize_484C30(v1+136, int32(int64(float64(uint8(int8(int64((v7-float64(int32(int64(v7))))*float64(v12)))))*(float64(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(v9)+v1)), 242)))-int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(int8(v8))+v1)), 242))))/float64(v12))+float64(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(int8(v8))+v1)), 242)))))))
-	return result
+	nox_xxx_spriteChangeLightSize_484C30(v1+136, int32(int64(float64(uint8(int8(int64((v7-float64(int32(int64(v7))))*float64(v12)))))*(float64(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(v9)+v1)), 242)))-int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(int8(v8))+v1)), 242))))/float64(v12))+float64(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(int32(int8(v8))+v1)), 242))))))
 }
 func sub_4CE8C0(a1 int32) {
 	var (
@@ -1415,11 +1414,11 @@ func nox_xxx_mapSwitchLevel_4D12E0(a1 int32) {
 	}
 	for j := int32(0); j < ptr_5D4594_2650668_cap*44; j += 44 {
 		for k := int32(0); k < ptr_5D4594_2650668_cap; k++ {
-			*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(k)))))) + uint32(j)))) = 0
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(k))))))+uint32(j))), 4)) = math.MaxUint8
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(k))))))+uint32(j))), 24)) = math.MaxUint8
-			nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(k)))))) + uint32(j) + 4))
-			nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(k)))))) + uint32(j) + 24))
+			*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[k]))) + uint32(j)))) = 0
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[k])))+uint32(j))), 4)) = math.MaxUint8
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[k])))+uint32(j))), 24)) = math.MaxUint8
+			nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[k]))) + uint32(j) + 4))
+			nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[k]))) + uint32(j) + 24))
 		}
 	}
 	nox_xxx_mapSwitchLevel_4D12E0_end()

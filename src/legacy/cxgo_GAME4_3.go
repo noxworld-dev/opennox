@@ -9754,21 +9754,21 @@ func sub_5437E0(a1 *int32, a2 unsafe.Pointer, a3 int32) int32 {
 		v11 = a3
 	} else if v8 <= v9 {
 		if a3-v8 <= v9 {
-			v15 = int32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v5))))))
+			v15 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v5])))
 			v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v15+v7*44)), 24)))
 			sub_51DD50(v5, v7, 2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v15+v7*44)), 24))))
 		} else {
 			v13 = v5 - 1
-			v14 = int32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v13))))))
+			v14 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v13])))
 			v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v14+v7*44)), 4)))
 			sub_51DD50(v13, v7, 1, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v14+v7*44)), 4))))
 		}
 	} else if a3-v8 <= v9 {
-		v12 = int32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v5))))))
+		v12 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v5])))
 		v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12+v7*44)), 4)))
 		sub_51DD50(v5, v7, 1, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v12+v7*44)), 4))))
 	} else {
-		v10 = int32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v5))))))
+		v10 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v5])))
 		v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v10 + v7*44 - 20))))
 		sub_51DD50(v5, v7-1, 2, int32(*(*uint32)(unsafe.Pointer(uintptr(v10 + v7*44 - 20)))))
 	}
@@ -9837,12 +9837,12 @@ func sub_543BC0(a1 int32, a2 int32, a3 int32, a4 int32, a5 unsafe.Pointer, a6 in
 			v7 = a3
 			if ((a3&1) == 0 || a2 != 1) && ((a3&2) == 0 || a1 != 1) {
 				if a3&2 != 0 {
-					if uint32(a4) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(a1))))))+uint32(a2*44))), 24)) {
+					if uint32(a4) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[a1])))+uint32(a2*44))), 24)) {
 						return
 					}
 					v7 = a3
 				}
-				if (a3&1) == 0 || uint32(a4) != *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(a1))))))+uint32(a2*44))), 4)) {
+				if (a3&1) == 0 || uint32(a4) != *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[a1])))+uint32(a2*44))), 4)) {
 					if a5 != nil {
 						*(*uint32)(unsafe.Add(a5, 28)) = uint32(a6)
 						sub_51DA70(a1, a2, a5, v7, 1)

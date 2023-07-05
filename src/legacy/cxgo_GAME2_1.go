@@ -20,7 +20,7 @@ import (
 var nox_win_unk5 *gui.Window
 var dword_5d4594_1062452 *gui.Window
 var nox_windows_arr_1093036 [7]nox_window_yyy
-var ptr_5D4594_2650668 **obj_5D4594_2650668_t
+var ptr_5D4594_2650668 []*obj_5D4594_2650668_t
 var ptr_5D4594_2650668_cap int32 = 128
 var nox_client_inventory_grid_1050020 [84]nox_inventory_cell_t
 
@@ -2690,11 +2690,11 @@ func nox_xxx_gameClearAll_467DF0(a1 int32) {
 		nox_xxx_wall_410160()
 		for i := int32(0); i < ptr_5D4594_2650668_cap*44; i += 44 {
 			for j := int32(0); j < ptr_5D4594_2650668_cap; j++ {
-				*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(j)))))) + uint32(i)))) = 0
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(j))))))+uint32(i))), 4)) = math.MaxUint8
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(j))))))+uint32(i))), 24)) = math.MaxUint8
-				nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(j)))), i+4))
-				nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(j)))), i+24))
+				*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[j]))) + uint32(i)))) = 0
+				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[j])))+uint32(i))), 4)) = math.MaxUint8
+				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[j])))+uint32(i))), 24)) = math.MaxUint8
+				nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[j]), i+4))
+				nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[j]), i+24))
 			}
 		}
 	}
@@ -5104,7 +5104,6 @@ func nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, data unsafe.Pointer) {
 		v49  int32
 		v50  int32
 		v51  noxrender.ImageHandle
-		v52  int32
 		v53  int32
 		v54  *uint8
 		v55x int32
@@ -5420,7 +5419,7 @@ LABEL_64:
 			v65 = a3
 			v64 = nox_win_height
 			v63 := v74
-			v52 = int32(uintptr(nox_xxx_getWallSprite_46A3B0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 1))), v84, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 2))), v73)))
+			v52 := nox_xxx_getWallSprite_46A3B0(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 1))), v84, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 2))), v73)
 			nox_xxx_edgeDraw_480EF0(v52, v46, v47, v32, (*int32)(v63), v64, v65, v66, 0, v69)
 			goto LABEL_106
 		}

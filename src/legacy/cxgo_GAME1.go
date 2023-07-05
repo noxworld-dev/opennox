@@ -778,15 +778,15 @@ func nox_xxx_wallGetNextBreakableCli_410880(a1 unsafe.Pointer) unsafe.Pointer {
 	return *(*unsafe.Pointer)(a1)
 }
 func nox_xxx_tileAlloc_410F60_init() int32 {
-	arr, _ := alloc.Make([]unsafe.Pointer{}, int(ptr_5D4594_2650668_cap))
-	ptr_5D4594_2650668 = (**obj_5D4594_2650668_t)(unsafe.Pointer(&arr[0]))
+	arr, _ := alloc.Make([]*obj_5D4594_2650668_t{}, int(ptr_5D4594_2650668_cap))
+	ptr_5D4594_2650668 = arr
 	if ptr_5D4594_2650668 == nil {
 		return 0
 	}
 	for i := int32(0); i < ptr_5D4594_2650668_cap; i++ {
 		arr2, _ := alloc.Make([]obj_5D4594_2650668_t{}, int(ptr_5D4594_2650668_cap))
-		*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i))) = &arr2[0]
-		if *(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i))) == nil {
+		ptr_5D4594_2650668[i] = &arr2[0]
+		if ptr_5D4594_2650668[i] == nil {
 			return 0
 		}
 	}
@@ -794,7 +794,7 @@ func nox_xxx_tileAlloc_410F60_init() int32 {
 }
 func nox_xxx_tileFree_410FC0_free() {
 	for i := int32(0); i < ptr_5D4594_2650668_cap; i++ {
-		var ptr *obj_5D4594_2650668_t = *(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i)))
+		var ptr *obj_5D4594_2650668_t = ptr_5D4594_2650668[i]
 		if ptr != nil {
 			alloc.Free(ptr)
 		}
@@ -818,7 +818,7 @@ func nox_xxx_tileNFromPoint_411160(a1 *types.Pointf) int32 {
 	var v16 [2]int32 = [2]int32{}
 	if v4 <= v5 {
 		if 46-v4 <= v5 {
-			var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j)))
+			var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[i]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j)))
 			result = obj.field_6
 			if obj.field_10 != nil {
 				v16[0] = v4
@@ -826,7 +826,7 @@ func nox_xxx_tileNFromPoint_411160(a1 *types.Pointf) int32 {
 				result = sub_411350((*int32)(obj.field_10), &v16[0], result)
 			}
 		} else {
-			var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i-1)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j)))
+			var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[i-1]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j)))
 			result = obj.field_1
 			if obj.field_5 != nil {
 				v16[1] = v5
@@ -835,7 +835,7 @@ func nox_xxx_tileNFromPoint_411160(a1 *types.Pointf) int32 {
 			}
 		}
 	} else if 46-v4 <= v5 {
-		var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j)))
+		var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[i]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j)))
 		result = obj.field_1
 		if obj.field_5 != nil {
 			v16[1] = v5
@@ -843,7 +843,7 @@ func nox_xxx_tileNFromPoint_411160(a1 *types.Pointf) int32 {
 			result = sub_411350((*int32)(obj.field_5), &v16[0], result)
 		}
 	} else {
-		var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j-1)))
+		var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[i]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(j-1)))
 		result = obj.field_6
 		if obj.field_10 != nil {
 			v16[0] = v4

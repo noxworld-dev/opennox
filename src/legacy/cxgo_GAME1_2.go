@@ -2823,11 +2823,11 @@ func nox_client_setMousePos_430B10(x int32, y int32) {
 }
 func sub_430B50(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	var result int32
-	dword_5d4594_3807140 = uint32(a1)
+	dword_5d4594_3807140 = a1
 	result = a4
-	dword_5d4594_3807136 = uint32(a2)
-	dword_5d4594_3807116 = uint32(a3)
-	dword_5d4594_3807152 = uint32(a4)
+	dword_5d4594_3807136 = a2
+	dword_5d4594_3807116 = a3
+	dword_5d4594_3807152 = a4
 	return result
 }
 func sub_431270() {

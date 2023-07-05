@@ -115,20 +115,20 @@ LABEL_19:
 				v19 = math.MaxUint8
 				v20 = 0
 			}
-			return nox_xxx_tile_543C50((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8))))))+uint32(v6*44))), 24)), v9, v10, v19, v20, a5)
+			return nox_xxx_tile_543C50((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8])))+uint32(v6*44))), 24)), v9, v10, v19, v20, a5)
 		}
 		v22 = v6 * 44
-		v23 = int32(uint32(v22) + uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))))
+		v23 = int32(uint32(v22) + uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))))
 		if *(*uint32)(unsafe.Add(v23, 24)) != uint32(v9) || *(*uint32)(unsafe.Add(v23, 28)) != uint32(v10) {
 			*(*uint32)(unsafe.Add(v23, 24)) = uint32(v9)
-			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8))))))+uint32(v22))), 28)) = uint32(v10)
+			*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8])))+uint32(v22))), 28)) = uint32(v10)
 			if v9 == math.MaxUint8 {
-				nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))) + uint32(v22) + 24))
+				nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))) + uint32(v22) + 24))
 			}
 			if v7 != nil {
-				*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))) + uint32(v22)))) |= 2
+				*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))) + uint32(v22)))) |= 2
 			} else {
-				*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))) + uint32(v22)))) = uint8(int8(int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(v22) + uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))))))) & 0xFD))
+				*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))) + uint32(v22)))) = uint8(int8(int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(v22) + uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))))))) & 0xFD))
 			}
 			return 1
 		}
@@ -145,22 +145,22 @@ LABEL_19:
 			v24 = math.MaxUint8
 			v25 = 0
 		}
-		return nox_xxx_tile_543C50((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8))))))+uint32(v6*44))), 4)), v9, v10, v24, v25, a5)
+		return nox_xxx_tile_543C50((*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8])))+uint32(v6*44))), 4)), v9, v10, v24, v25, a5)
 	}
 	v26 = v6 * 44
-	v27 = int32(uint32(v26) + uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))))
+	v27 = int32(uint32(v26) + uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))))
 	if *(*uint32)(unsafe.Add(v27, 4)) == uint32(v9) && *(*uint32)(unsafe.Add(v27, 8)) == uint32(v10) {
 		return 0
 	}
 	*(*uint32)(unsafe.Add(v27, 4)) = uint32(v9)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8))))))+uint32(v26))), 8)) = uint32(v10)
+	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8])))+uint32(v26))), 8)) = uint32(v10)
 	if v9 == math.MaxUint8 {
-		nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))) + uint32(v26) + 4))
+		nox_xxx_tileFreeTile_422200(int32(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))) + uint32(v26) + 4))
 	}
 	if v7 != nil {
-		*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))) + uint32(v26)))) |= 1
+		*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))) + uint32(v26)))) |= 1
 	} else {
-		*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))) + uint32(v26)))) = uint8(int8(int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(v26) + uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v8)))))))))) & 0xFE))
+		*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))) + uint32(v26)))) = uint8(int8(int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(v26) + uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v8]))))))) & 0xFE))
 	}
 	return 1
 }
@@ -177,8 +177,8 @@ func sub_51DD50(a1 int32, a2 int32, a3 int32, a4 int32) {
 			return a3 & 2
 		}()) != 0 && (func() bool {
 			v4 = a3
-			return uint32(a4) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(a1))))))+uint32(a2*44))), 24))
-		}()) || v4&1 != 0 && uint32(a4) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(a1))))))+uint32(a2*44))), 4)) {
+			return uint32(a4) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[a1])))+uint32(a2*44))), 24))
+		}()) || v4&1 != 0 && uint32(a4) == *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[a1])))+uint32(a2*44))), 4)) {
 			if ((v4&1) == 0 || a2 != 1) && ((a3&2) == 0 || a1 != 1) {
 				v5 = 0
 				if dword_5d4594_2487248 > 0 {
@@ -6976,7 +6976,7 @@ func sub_527450(a1 *uint32) int32 {
 				goto LABEL_70
 			}
 			if v14 < 128 {
-				v17 = int32(uint32(v14*44) + uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v16)))))))
+				v17 = int32(uint32(v14*44) + uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v16]))))
 				if *(*uint32)(unsafe.Add(v17, 24)) != math.MaxUint8 {
 					v15 = 8
 				}
@@ -6986,7 +6986,7 @@ func sub_527450(a1 *uint32) int32 {
 				if v14 > 0 && *(*uint32)(unsafe.Pointer(uintptr(v17 - 20))) != math.MaxUint8 {
 					v15 |= 4
 				}
-				if v16 > 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v16-1))))))+uint32(v14*44))), 4)) != math.MaxUint8 {
+				if v16 > 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v16-1])))+uint32(v14*44))), 4)) != math.MaxUint8 {
 					v15 |= 1
 				}
 				if *memmap.PtrUint32(0x587000, uintptr(v15*4)+255052) != math.MaxUint8 {
@@ -7035,12 +7035,12 @@ func sub_527450(a1 *uint32) int32 {
 		LABEL_45:
 			if v14 < 128 {
 				v39 = 0
-				if v14 > 0 && *(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v16)))))) + uint32(v14*44) - 20))) != math.MaxUint8 {
+				if v14 > 0 && *(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v16]))) + uint32(v14*44) - 20))) != math.MaxUint8 {
 					v39 = 2
 				}
 				if v16 > 0 {
 					v25 = v14 * 44
-					v26 = int32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v16-1))))))
+					v26 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v16-1])))
 					if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v26+v14*44)), 4)) != math.MaxUint8 {
 						v39 |= 8
 					}

@@ -3741,8 +3741,8 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 						if noxflags.HasGame(0x400000) {
 							v54 = (*uint8)(*nox_xxx_tileAllocTileInCoordList_5040A0(v56, v58, COERCE_FLOAT(1)))
 						} else {
-							(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v56)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v58)))).field_0 |= 0x1
-							v54 = (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v56)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v58)))).field_1))
+							(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v56]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v58)))).field_0 |= 0x1
+							v54 = (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v56]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v58)))).field_1))
 						}
 					} else {
 						v52 = v50 * 23 / 46
@@ -3750,9 +3750,9 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 						if noxflags.HasGame(0x400000) {
 							v54 = (*uint8)(*nox_xxx_tileAllocTileInCoordList_5040A0(v52, v51*23/46, COERCE_FLOAT(2)))
 						} else {
-							v55 = &(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v52)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v53)))).field_0
+							v55 = &(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v52]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v53)))).field_0
 							*v55 |= 0x2
-							v54 = (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v52)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v53)))).field_6))
+							v54 = (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v52]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v53)))).field_6))
 						}
 					}
 					nox_xxx_tileReadOne_422A40(v62, v54)
@@ -3768,7 +3768,7 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 		} else {
 			for i := int32(0); i < ptr_5D4594_2650668_cap; i++ {
 				for j := int32(0); j < ptr_5D4594_2650668_cap; j++ {
-					(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(j)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(i)))).field_0 = 0
+					(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[j]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(i)))).field_0 = 0
 				}
 			}
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v59)), 2)
@@ -3783,12 +3783,12 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 					*(*uint8)(unsafe.Pointer(&v47)) = uint8(int8(int32(v47) | 0x80))
 				}
 				if int32(v47) < 0 {
-					(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v48)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_0 |= 0x1
-					nox_xxx_tileReadOne_422A40(v62, (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v48)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_1)))
+					(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v48]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_0 |= 0x1
+					nox_xxx_tileReadOne_422A40(v62, (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v48]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_1)))
 				}
 				if int32(v47)&0x80 != 0 {
-					(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v48)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_0 |= 0x2
-					nox_xxx_tileReadOne_422A40(v62, (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v48)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_6)))
+					(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v48]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_0 |= 0x2
+					nox_xxx_tileReadOne_422A40(v62, (*uint8)(unsafe.Pointer(&(*(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v48]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v49)))).field_6)))
 				}
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v59)), 2)
 			}
@@ -3815,7 +3815,7 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 		}
 		v2 = 0
 		v65 = l
-		v6 = (*uint32)(unsafe.Pointer(ptr_5D4594_2650668))
+		v6 = (*uint32)(unsafe.Pointer(&ptr_5D4594_2650668[0]))
 		for int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(l) + *v6)))) == 0 {
 			v2++
 			v6 = (*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))
@@ -3839,7 +3839,7 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 		}
 		v10 = 0
 		v65 = m
-		v11 = (*uint32)(unsafe.Pointer(ptr_5D4594_2650668))
+		v11 = (*uint32)(unsafe.Pointer(&ptr_5D4594_2650668[0]))
 		for int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(m) + *v11)))) == 0 {
 			v10++
 			v11 = (*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
@@ -3854,7 +3854,7 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 	}
 	v12 = 0
 	v13 = 0
-	v14 = (**uint8)(unsafe.Pointer(ptr_5D4594_2650668))
+	v14 = (**uint8)(unsafe.Pointer(&ptr_5D4594_2650668[0]))
 	for {
 		if int32(v12) != 0 {
 			break
@@ -3877,7 +3877,7 @@ func nox_server_mapRWFloorMap_422230(a1p unsafe.Pointer) int32 {
 			break
 		}
 	}
-	v17 = (**uint8)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(ptr_5D4594_2650668_cap-1)))
+	v17 = (**uint8)(unsafe.Add(unsafe.Pointer(&ptr_5D4594_2650668[0]), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(ptr_5D4594_2650668_cap-1)))
 	v18 = v64
 	v19 = 0
 	for n = ptr_5D4594_2650668_cap - 1; n >= 0; n-- {
@@ -3922,7 +3922,7 @@ LABEL_43:
 				for {
 					if ((int32(uint8(int8(v33))) + int32(v35)) & 1) == 0 {
 						if v33&1 != 0 {
-							v39 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v36-34)/46)))))) + uint32(((v33+1)*23/46)*44))))
+							v39 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(&ptr_5D4594_2650668[0]), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v36-34)/46)))))) + uint32(((v33+1)*23/46)*44))))
 							if int32(*v39)&1 != 0 {
 								v38 = (*uint8)(unsafe.Add(unsafe.Pointer(v39), 4))
 								v69.X = v36
@@ -3938,7 +3938,7 @@ LABEL_43:
 								goto LABEL_73
 							}
 						} else {
-							v37 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v36-11)/46)))))) + uint32((v33*23/46)*44))))
+							v37 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(&ptr_5D4594_2650668[0]), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v36-11)/46)))))) + uint32((v33*23/46)*44))))
 							if int32(*v37)&2 != 0 {
 								v38 = (*uint8)(unsafe.Add(unsafe.Pointer(v37), 24))
 								v69.X = v36
@@ -3977,7 +3977,7 @@ LABEL_43:
 	}
 	v23 = v61
 	if v61 <= v63 {
-		v24 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668)))
+		v24 = int32(uintptr(unsafe.Pointer(&ptr_5D4594_2650668[0])))
 		v25 = v61 * 44
 		for {
 			for ii = v60; ii <= v18; ii++ {
@@ -3997,17 +3997,17 @@ LABEL_43:
 						a1 = v30
 					}
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
-					v24 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668)))
+					v24 = int32(uintptr(unsafe.Pointer(&ptr_5D4594_2650668[0])))
 				}
 				v31 = (*uint8)(unsafe.Pointer(uintptr(uint32(v25) + *(*uint32)(unsafe.Pointer(uintptr(v24 + ii*4))))))
 				if int32(*v31)&1 != 0 {
 					nox_xxx_tileReadOne_422A40(v62, (*uint8)(unsafe.Add(unsafe.Pointer(v31), 4)))
-					v24 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668)))
+					v24 = int32(uintptr(unsafe.Pointer(&ptr_5D4594_2650668[0])))
 				}
 				v32 = (*uint8)(unsafe.Pointer(uintptr(uint32(v25) + *(*uint32)(unsafe.Pointer(uintptr(v24 + ii*4))))))
 				if int32(*v32)&2 != 0 {
 					nox_xxx_tileReadOne_422A40(v62, (*uint8)(unsafe.Add(unsafe.Pointer(v32), 24)))
-					v24 = int32(uintptr(unsafe.Pointer(ptr_5D4594_2650668)))
+					v24 = int32(uintptr(unsafe.Pointer(&ptr_5D4594_2650668[0])))
 				}
 			}
 			v23++
@@ -4177,7 +4177,7 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 				}
 				v3 = 0
 				a1 = i
-				v7 = (*uint32)(unsafe.Pointer(ptr_5D4594_2650668))
+				v7 = (*uint32)(unsafe.Pointer(&ptr_5D4594_2650668[0]))
 				for int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(i) + *v7)))) == 0 {
 					v3++
 					v7 = (*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*1))
@@ -4201,7 +4201,7 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 				}
 				v11 = 0
 				a1 = j
-				v12 = (*uint32)(unsafe.Pointer(ptr_5D4594_2650668))
+				v12 = (*uint32)(unsafe.Pointer(&ptr_5D4594_2650668[0]))
 				for int32(*(*uint8)(unsafe.Pointer(uintptr(uint32(j) + *v12)))) == 0 {
 					v11++
 					v12 = (*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*1))
@@ -4216,7 +4216,7 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 			}
 			v13 = 0
 			v14 = 0
-			v15 = (**uint8)(unsafe.Pointer(ptr_5D4594_2650668))
+			v15 = (**uint8)(unsafe.Pointer(&ptr_5D4594_2650668[0]))
 			for {
 				if int32(v13) != 0 {
 					break
@@ -4239,7 +4239,7 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 					break
 				}
 			}
-			v18 = (**uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(ptr_5D4594_2650668_cap)), -int(unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*1)))
+			v18 = (**uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(&ptr_5D4594_2650668[0]), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(ptr_5D4594_2650668_cap)), -int(unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*1)))
 			v19 = v80
 			v20 = 0
 			for k = ptr_5D4594_2650668_cap - 1; k >= 0; k-- {
@@ -4281,7 +4281,7 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 				if v26 <= v27 {
 					for {
 						{
-							var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v26)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v28)))
+							var obj *obj_5D4594_2650668_t = (*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v26]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(v28)))
 							nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&obj.field_0, 1)
 							if int32(obj.field_0)&0x1 != 0 {
 								nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&obj.field_1)), 16)
@@ -4343,13 +4343,13 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 			if ((int32(uint8(int8(v35))) + int32(uint8(int8(v37)))) & 1) == 0 {
 				var v40 unsafe.Pointer
 				if v35&1 != 0 {
-					v41 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v38-34)/46)))))) + uint32(((v35+1)*23/46)*44))))
+					v41 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(&ptr_5D4594_2650668[0]), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v38-34)/46)))))) + uint32(((v35+1)*23/46)*44))))
 					if (int32(*v41) & 1) == 0 {
 						goto LABEL_75
 					}
 					v40 = unsafe.Add(unsafe.Pointer(v41), 4)
 				} else {
-					v39 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v38-11)/46)))))) + uint32((v35*23/46)*44))))
+					v39 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(&ptr_5D4594_2650668[0]), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr((v38-11)/46)))))) + uint32((v35*23/46)*44))))
 					if (int32(*v39) & 2) == 0 {
 						goto LABEL_75
 					}
@@ -4398,7 +4398,7 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 	if a2p == nil {
 		for ll := int32(0); ll < ptr_5D4594_2650668_cap; ll++ {
 			for mm := int32(0); mm < ptr_5D4594_2650668_cap; mm++ {
-				(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(mm)))), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(ll))).field_0 = 0
+				(*obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[mm]), unsafe.Sizeof(obj_5D4594_2650668_t{})*uintptr(ll))).field_0 = 0
 			}
 		}
 		v55 = v77
@@ -4414,14 +4414,14 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 			if v57 < v56+v57 {
 				for {
 					v59 = a2
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(uint32(a2)+uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v58))))))))), 1)
-					v60 = (*uint8)(unsafe.Pointer(uintptr(uint32(v59) + uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v58)))))))))
+					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(uint32(a2)+uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v58])))))), 1)
+					v60 = (*uint8)(unsafe.Pointer(uintptr(uint32(v59) + uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v58]))))))
 					if int32(*v60)&1 != 0 {
 						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v60), 4)), 0x10)
 						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v75)), 1)
 						if int32(uint8(int8(v75))) != 0 {
 							v61 = 0
-							v62 := unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v58)))), uint32(v59)+4)
+							v62 := unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v58]), uint32(v59)+4)
 							if int32(uint8(int8(v75))) != 0 {
 								for {
 									v63 := nox_xxx_tileListAddNewSubtile_422160(0, 0, 0, 0)
@@ -4435,16 +4435,16 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 								}
 							}
 						} else {
-							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v58))))))+uint32(a2))), 20)) = 0
+							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v58])))+uint32(a2))), 20)) = 0
 						}
 					}
-					v71 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v58)))))) + uint32(a2))))
+					v71 = (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v58]))) + uint32(a2))))
 					if int32(*v71)&2 != 0 {
 						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v71), 24)), 0x10)
 						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v75)), 1)
 						if int32(uint8(int8(v75))) != 0 {
 							v72 = 0
-							v73 := unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v58)))), uint32(a2)+24)
+							v73 := unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v58]), uint32(a2)+24)
 							if int32(uint8(int8(v75))) != 0 {
 								for {
 									v74 := nox_xxx_tileListAddNewSubtile_422160(0, 0, 0, 0)
@@ -4458,7 +4458,7 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 								}
 							}
 						} else {
-							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v58))))))+uint32(a2))), 40)) = 0
+							*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v58])))+uint32(a2))), 40)) = 0
 						}
 					}
 					v56 = v78
@@ -4507,8 +4507,8 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 						if noxflags.HasGame(0x400000) {
 							v52 = *nox_xxx_tileAllocTileInCoordList_5040A0(v64, v66, COERCE_FLOAT(1))
 						} else {
-							*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v64)))))) + uint32(v66*44)))) |= 1
-							v52 = unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v64)))), uint32(v66*44)+4)
+							*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v64]))) + uint32(v66*44)))) |= 1
+							v52 = unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v64]), uint32(v66*44)+4)
 						}
 					} else {
 						v49 = v48 / 46
@@ -4516,8 +4516,8 @@ func nox_xxx_tile_422C10(a1 int32, a2p unsafe.Pointer) int32 {
 						if noxflags.HasGame(0x400000) {
 							v52 = *nox_xxx_tileAllocTileInCoordList_5040A0(v49, v51, COERCE_FLOAT(2))
 						} else {
-							*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v49)))))) + uint32(v51*44)))) |= 2
-							v52 = unsafe.Add(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v49)))), uint32(v51*44)+24)
+							*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[v49]))) + uint32(v51*44)))) |= 2
+							v52 = unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[v49]), uint32(v51*44)+24)
 						}
 					}
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(v52), 0x10)

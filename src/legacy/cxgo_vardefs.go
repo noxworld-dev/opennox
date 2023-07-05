@@ -130,7 +130,7 @@ var dword_5d4594_1193384 uint32
 var dword_5d4594_1045536 *gui.Window
 var nox_wol_servers_sorting_166704 uint32 = 0x6
 var dword_5d4594_371692 uint32
-var dword_5d4594_3798832 uint32
+var dword_5d4594_3798832 int32
 var dword_5d4594_1197320 uint32
 var nox_alloc_pixelSpan_1301844 unsafe.Pointer
 var dword_5d4594_3798808 int32
@@ -138,7 +138,7 @@ var dword_5d4594_1062524 *gui.Window
 var dword_5d4594_3835396 uint32
 var dword_5d4594_1062528 *gui.Window
 var dword_5d4594_1522604 uint32
-var dword_5d4594_3798816 uint32
+var dword_5d4594_3798816 int32
 var dword_5d4594_1045532 *gui.Window
 var dword_5d4594_528256 uint32
 var dword_5d4594_1568024 uint32
@@ -403,7 +403,7 @@ var dword_5d4594_1062496 uint32
 var nox_alloc_vote_1599652 unsafe.Pointer
 var dword_5d4594_1049804 uint32
 var dword_5d4594_1090112 uint32
-var dword_5d4594_3807140 uint32
+var dword_5d4594_3807140 int32
 var dword_5d4594_2487676 uint32
 var dword_5d4594_1049696 unsafe.Pointer
 var dword_5d4594_1316476 uint32
@@ -438,7 +438,7 @@ var dword_5d4594_1098604 *wchar2_t
 var nox_server_needInitNetCodeCache uint32 = 0x1
 var dword_5d4594_1308116 uint32
 var dword_5d4594_1319248 uint32
-var dword_5d4594_3807136 uint32
+var dword_5d4594_3807136 int32
 var dword_5d4594_1046944 *gui.Window
 var dword_5d4594_2487584 uint32
 var dword_5d4594_251712 uint32
@@ -448,7 +448,7 @@ var nox_alloc_healthChange_1301772 unsafe.Pointer
 var dword_5d4594_1522596 uint32
 var dword_5d4594_1049536 uint32
 var dword_5d4594_1098616 uint32
-var dword_5d4594_3807152 uint32
+var dword_5d4594_3807152 int32
 var dword_5d4594_1049996 noxrender.ImageHandle
 var dword_5d4594_1305788 uint32
 var dword_5d4594_1098600 uint32
@@ -562,7 +562,7 @@ var dword_5d4594_1098620 uint32
 var dword_5d4594_1200776 uint32
 var dword_5d4594_1045548 *gui.Window
 var dword_5d4594_1316412 uint32
-var dword_5d4594_3807116 uint32
+var dword_5d4594_3807116 int32
 var dword_5d4594_815100 uint32
 var dword_5d4594_1321036 uint32
 var dword_5d4594_1049808 uint32

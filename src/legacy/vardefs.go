@@ -498,7 +498,7 @@ func Set_dword_5d4594_3798800(v int) {
 	dword_5d4594_3798800 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798816(v int) {
-	dword_5d4594_3798816 = uint32(v)
+	dword_5d4594_3798816 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798808(v int) {
 	dword_5d4594_3798808 = int32(uint32(v))
@@ -516,7 +516,7 @@ func Set_dword_5d4594_3798828(v int) {
 	dword_5d4594_3798828 = uint32(v)
 }
 func Set_dword_5d4594_3798832(v int) {
-	dword_5d4594_3798832 = uint32(v)
+	dword_5d4594_3798832 = int32(uint32(v))
 }
 func Set_dword_5d4594_3798836(v int) {
 	dword_5d4594_3798836 = int32(uint32(v))
