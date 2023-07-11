@@ -18,8 +18,8 @@ type DrawableFX struct {
 	Field48 uint32      // 12, 48
 	Field52 uint32      // 13, 52
 	Field56 uint32      // 14, 56
-	Field60 uint32      // 15, 60
-	Field64 uint32      // 16, 64
+	Field60 *Drawable   // 15, 60
+	Field64 *DrawableFX // 16, 64
 	Field68 uint32      // 17, 68
 	Field72 uint32      // 18, 72
 	Field76 uint32      // 19, 76

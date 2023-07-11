@@ -140,9 +140,6 @@ func Sub_473960() {
 func Sub_48D800() {
 	sub_48D800()
 }
-func Sub_49A8C0() {
-	sub_49A8C0()
-}
 func Sub_4E4DE0() {
 	sub_4E4DE0()
 }
@@ -157,9 +154,6 @@ func Nox_xxx_spriteLoadError_4356E0() {
 }
 func Sub_499450() {
 	sub_499450()
-}
-func Sub_4959D0() {
-	sub_4959D0()
 }
 func Sub_496120() {
 	sub_496120()

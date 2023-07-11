@@ -1448,8 +1448,8 @@ func nox_xxx_servResetPlayers_4D23C0() int32 {
 	}
 	sub_51A100()
 	nox_common_gameFlags_unset_40A540(0x20000)
-	nox_xxx_netGameSettings_4DEF00()
-	nox_server_gameUnsetMapLoad_40A690()
+	Nox_xxx_netGameSettings_4DEF00()
+	Nox_server_gameUnsetMapLoad_40A690()
 	return 1
 }
 func nox_xxx_netReportAllLatency_4D3050() *byte {
@@ -5893,7 +5893,7 @@ func nox_xxx_playerForceDisconnect_4DE7C0(ind int32) {
 		}
 	}
 }
-func nox_xxx_netGameSettings_4DEF00() int32 {
+func Nox_xxx_netGameSettings_4DEF00() int32 {
 	var (
 		v0 *byte
 		v2 [20]byte

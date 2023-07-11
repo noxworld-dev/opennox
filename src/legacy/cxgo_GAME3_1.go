@@ -15,6 +15,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var dword_5d4594_1522616 *gui.Window = nil
@@ -3806,7 +3807,7 @@ func sub_4C4100(a1 uint32) int32 {
 	dword_5d4594_1321252 = 0
 	return 1
 }
-func sub_4C4220() int32 {
+func Sub_4C4220() int32 {
 	var result int32
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1321228)))
 	nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1321232)))
@@ -4344,9 +4345,8 @@ func sub_4C51D0(a1 *Point32, a2 *Point32) int32 {
 	}
 	return nox_client_drawLineFromPoints_49E4B0()
 }
-func nox_xxx_sprite_4CA540(a1 *uint32, a2 int32) int32 {
+func nox_xxx_sprite_4CA540(a1 *noxrender.Viewport, a2 *client.Drawable) int {
 	var (
-		v2  *uint32
 		v3  float64
 		v4  float64
 		v5  float64
@@ -4359,16 +4359,16 @@ func nox_xxx_sprite_4CA540(a1 *uint32, a2 int32) int32 {
 		v13 float32
 		v14 float32
 	)
-	v2 = (*uint32)(a2)
+	v2 := a2
 	v3 = 0.0
-	v4 = float64(*(*float32)(unsafe.Add(a2, 468)))
-	v5 = float64(*(*float32)(unsafe.Add(a2, 472)))
+	v4 = float64(a2.Field_117)
+	v5 = float64(a2.Field_118)
 	v6 = 0.0
-	v7 = int32(gameFrame() - *(*uint32)(unsafe.Add(a2, 316)) + 1)
+	v7 = int32(gameFrame() - a2.Field_79 + 1)
 	for {
 		v7--
-		v13 = float32(-(v5 * float64(*(*float32)(unsafe.Add(a2, 476)))))
-		v4 = v4 - v4*float64(*(*float32)(unsafe.Add(a2, 476)))
+		v13 = float32(-(v5 * float64(a2.Field_119)))
+		v4 = v4 - v4*float64(a2.Field_119)
 		v5 = v5 + float64(v13)
 		v3 = v3 + v4
 		v6 = v6 + v5
@@ -4377,17 +4377,17 @@ func nox_xxx_sprite_4CA540(a1 *uint32, a2 int32) int32 {
 		}
 	}
 	v14 = float32(v6)
-	v11 = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*81)))) + v3)
+	v11 = float32(float64(int32(v2.Field_81)) + v3)
 	v8 = int32(v11)
-	v12 = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*82)))) + float64(v14))
+	v12 = float32(float64(int32(v2.Field_82)) + float64(v14))
 	v9 = int32(v12)
 	if v8 > 0 && v9 > 0 && v8 < 5888 && v9 < 5888 {
-		nox_xxx_updateSpritePosition_49AA90((*client.Drawable)(unsafe.Pointer(v2)), v8, v9)
-		if sub_4992B0(int32(*a1+*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))-*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))) != 0 {
+		nox_xxx_updateSpritePosition_49AA90(v2, v8, v9)
+		if sub_4992B0(int32(*(*uint32)(a1.C())+v2.PosVec.X-a1.World.Min.X), int32(v2.PosVec.Y+a1.Screen.Min.Y-a1.World.Min.Y)) != 0 {
 			return 1
 		}
 	}
-	nox_xxx_spriteDeleteStatic_45A4E0_drawable((*client.Drawable)(unsafe.Pointer(v2)))
+	nox_xxx_spriteDeleteStatic_45A4E0_drawable(v2)
 	return 0
 }
 func sub_4CA650(vp *noxrender.Viewport, dr *client.Drawable) int {
@@ -4699,13 +4699,12 @@ func sub_4CAC30(a1 *Point32, a2 *float4, a3 *types.Pointf, a4 int32, a5 int32) {
 		}
 	}
 }
-func sub_4CADD0() int32 {
+func sub_4CADD0() unsafe.Pointer {
 	var (
-		result int32
-		v1     int32
-		v2     *uint32
+		v1 int32
+		v2 *uint32
 	)
-	result = int32(*memmap.PtrUint32(0x5D4594, 1522584))
+	result := *memmap.PtrPtr(0x5D4594, 1522584)
 	if *memmap.PtrUint32(0x5D4594, 1522584) == 0 {
 		v1 = 0
 		for {
@@ -4723,50 +4722,37 @@ func sub_4CADD0() int32 {
 			}
 		}
 		*memmap.PtrUint32(0x5D4594, 1522588) += 10
-		result = int32(*memmap.PtrUint32(0x5D4594, 1522584))
+		result = *memmap.PtrPtr(0x5D4594, 1522584)
 	}
 	*memmap.PtrUint32(0x5D4594, 1522584) = *(*uint32)(unsafe.Add(result, 16))
 	return result
 }
-func sub_4CAE40(a1 int32) int32 {
-	var result int32
-	result = a1
+func sub_4CAE40(a1 unsafe.Pointer) {
 	*(*uint32)(unsafe.Add(a1, 16)) = *memmap.PtrUint32(0x5D4594, 1522584)
-	*memmap.PtrUint32(0x5D4594, 1522584) = uint32(a1)
-	return result
+	*memmap.PtrPtr(0x5D4594, 1522584) = a1
 }
-func sub_4CAE60() int32 {
-	var (
-		result int32
-		v1     int32
-	)
-	result = int32(*memmap.PtrUint32(0x5D4594, 1522592))
-	v1 = 0
-	for *memmap.PtrUint32(0x5D4594, 1522584) = 0; result != 0; result = int32(*(*uint32)(unsafe.Add(result, 8))) {
-		*(*uint32)(unsafe.Add(result, 16)) = uint32(v1)
+func sub_4CAE60() {
+	result := *memmap.PtrPtr(0x5D4594, 1522592)
+	var v1 unsafe.Pointer
+	for *memmap.PtrUint32(0x5D4594, 1522584) = 0; result != nil; result = *(*unsafe.Pointer)(unsafe.Add(result, 8)) {
+		*(*unsafe.Pointer)(unsafe.Add(result, 16)) = v1
 		v1 = result
-		*memmap.PtrUint32(0x5D4594, 1522584) = uint32(result)
+		*memmap.PtrPtr(0x5D4594, 1522584) = result
+	}
+}
+func sub_4CAE90(a1 unsafe.Pointer) {
+	*(*unsafe.Pointer)(unsafe.Add(a1, 12)) = dword_5d4594_1522596
+	dword_5d4594_1522596 = a1
+}
+func sub_4CAEB0() unsafe.Pointer {
+	result := dword_5d4594_1522596
+	if dword_5d4594_1522596 != nil {
+		dword_5d4594_1522596 = *(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1522596, 12))
 	}
 	return result
 }
-func sub_4CAE90(a1 int32) int32 {
-	var result int32
-	result = a1
-	*(*uint32)(unsafe.Add(a1, 12)) = dword_5d4594_1522596
-	dword_5d4594_1522596 = uint32(a1)
-	return result
-}
-func sub_4CAEB0() int32 {
-	var result int32
-	result = int32(dword_5d4594_1522596)
-	if dword_5d4594_1522596 != 0 {
-		dword_5d4594_1522596 = *(*uint32)(unsafe.Add(dword_5d4594_1522596, 12))
-	}
-	return result
-}
-func sub_4CAED0(a1 int32) int32 {
-	var result int32
-	result = sub_4CADD0()
+func sub_4CAED0(a1 unsafe.Pointer) unsafe.Pointer {
+	result := sub_4CADD0()
 	*(*uint32)(unsafe.Add(result, 24)) = *(*uint32)(unsafe.Add(a1, 24))
 	*(*uint32)(unsafe.Add(result, 28)) = *(*uint32)(unsafe.Add(a1, 28))
 	*(*uint32)(unsafe.Add(result, 32)) = *(*uint32)(unsafe.Add(a1, 32))

@@ -44,7 +44,7 @@ func sub_44D090(a1 int32) int32 {
 	}
 	return bool2int32((*(*uint32)(unsafe.Add(result, 32)) & 0x20400000) != 0)
 }
-func sub_44D3A0() {
+func Sub_44D3A0() {
 	if dword_5d4594_831076 == 0 {
 		return
 	}
@@ -115,7 +115,7 @@ func sub_44D8C0() {
 	if dword_5d4594_831076 != 0 {
 		sub_44D8F0()
 		sub_44D640()
-		sub_44D3A0()
+		Sub_44D3A0()
 		dword_5d4594_831076 = 0
 	}
 }
@@ -641,7 +641,7 @@ func sub_451970() {
 	}
 	dword_5d4594_1045432 = 0
 }
-func sub_4519C0() {
+func Sub_4519C0() {
 	var (
 		v3  int32
 		v5  *uint8
@@ -3727,17 +3727,17 @@ func nox_xxx_cliNextMinimapObj_459EC0(a1 *client.Drawable) *client.Drawable {
 func sub_45A010(dr *client.Drawable) *client.Drawable {
 	return dr.Field_104
 }
-func sub_45A040(a1 unsafe.Pointer) int32 {
+func sub_45A040(a1 *client.Drawable) *client.Drawable {
 	if a1 == nil {
-		return 0
+		return nil
 	}
-	return *(*int32)(unsafe.Add(a1, 360))
+	return a1.Field_90
 }
 func nox_drawable_next_45A070(a1 *client.Drawable) *client.Drawable {
 	if a1 == nil {
 		return nil
 	}
-	return (*client.Drawable)(unsafe.Add(unsafe.Pointer(a1), 368))
+	return a1.NextPtr
 }
 func sub_45A0A0(a1 unsafe.Pointer) unsafe.Pointer {
 	if a1 == nil {
@@ -5739,7 +5739,7 @@ func sub_4602F0() {
 		nox_xxx_updateSpellIcons_45DDF0(nox_xxx_aClosewoodengat_587000_133480)
 	}
 }
-func sub_460380() {
+func Sub_460380() {
 	var v0 *uint8
 	v0 = (*uint8)(memmap.PtrOff(0x5D4594, 1047764+24*1+16))
 	for {

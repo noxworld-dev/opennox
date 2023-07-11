@@ -6,7 +6,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
-func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
+func nox_client_handlePacketInform_4C9BF0(a1 unsafe.Pointer) int32 {
 	var (
 		result int32
 		v2     *wchar2_t

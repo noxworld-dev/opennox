@@ -1940,14 +1940,14 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		switch uint8(int8(v376)) {
 		case 1, 2, 3, 4, 5, 6, 7:
 			if nox_client_isConnected_43C700() != 0 {
-				nox_xxx_clientAddRayEffect_49C160(int32(uintptr(unsafe.Pointer(data))))
+				nox_xxx_clientAddRayEffect_49C160(unsafe.Pointer(data))
 			}
 			return 7
 		case 8, 9, 0xA, 0xB, 0xC, 0xD, 0xE:
 			if nox_client_isConnected_43C700() == 0 {
 				return 7
 			}
-			nox_xxx_clientRemoveRayEffect_49C450(int32(uintptr(unsafe.Pointer(data))))
+			nox_xxx_clientRemoveRayEffect_49C450(unsafe.Pointer(data))
 			return 7
 		default:
 			return -1
@@ -2114,12 +2114,12 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				if v206 != nil {
 					if nox_xxx_playerCanTalkMB_57A160(int32(uintptr(unsafe.Pointer(v206)))) == 0 {
 						nox_gui_console_Printf_450C00(NOX_CONSOLE_YELLOW, (*wchar2_t)(memmap.PtrOff(0x587000, 158984)), (*byte)(unsafe.Add(unsafe.Pointer(v207), 4704)), memmap.PtrOff(0x5D4594, 1197384))
-						nox_xxx_createTextBubble_48D880(int32(uintptr(unsafe.Pointer(data))), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)))
+						nox_xxx_createTextBubble_48D880(unsafe.Pointer(data), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)))
 						k = v202 * int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 8))))
 						return k + 11
 					}
 				} else {
-					nox_xxx_createTextBubble_48D880(int32(uintptr(unsafe.Pointer(data))), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)))
+					nox_xxx_createTextBubble_48D880(unsafe.Pointer(data), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1197384)))
 					if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1)))) != 0 {
 						*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_xxx_netSpriteByCodeStatic_45A720(uint32(v199)))))
 					} else {
@@ -2141,7 +2141,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		k = v202 * int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 8))))
 		return k + 11
 	case 169:
-		return nox_client_handlePacketInform_4C9BF0(int32(uintptr(unsafe.Pointer(data))))
+		return nox_client_handlePacketInform_4C9BF0(unsafe.Pointer(data))
 	case 171:
 		if nox_client_isConnected_43C700() != 0 {
 			nox_net_importantACK_4E55A0(a1, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(data), 1))))
@@ -2624,7 +2624,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		return 1
 	case 0xCC:
 		if nox_client_isConnected_43C700() != 0 {
-			sub_48D5A0(int32(uintptr(unsafe.Pointer(data))))
+			sub_48D5A0(unsafe.Pointer(data))
 		}
 		k = int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
 		return k + 4
@@ -2992,14 +2992,14 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		case 0:
 			if nox_client_isConnected_43C700() == 1 {
 				if noxflags.HasGame(1) {
-					sub_460380()
+					Sub_460380()
 					nox_xxx_cliPrepareGameplay1_460E60()
 					sub_41CC00((*byte)(memmap.PtrOff(0x85B3FC, 10984)))
 					nox_xxx_plrLoad_41A480((*byte)(memmap.PtrOff(0x85B3FC, 10984)))
 				}
 				nox_xxx_cliShowHideTubes_470AA0(1)
 				sub_48D4A0()
-				nox_xxx_cliPrepareGameplay2_4721D0()
+				Nox_xxx_cliPrepareGameplay2_4721D0()
 				sub_4705B0()
 			}
 			return 2

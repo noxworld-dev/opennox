@@ -19,7 +19,7 @@ var dword_5d4594_1045516 *gui.Window
 var dword_5d4594_1045684 *gui.Window
 var dword_5d4594_1307784 uint32
 var dword_5d4594_2650652 unsafe.Pointer
-var dword_5d4594_1217448 uint32
+var dword_5d4594_1217448 int32
 var dword_5d4594_1320940 uint32
 var dword_5d4594_815004 *gui.Window
 var nox_wol_wnd_gameList_815012 *gui.Window
@@ -40,7 +40,7 @@ var dword_5d4594_1309820 uint32
 var dword_5d4594_1062508 *gui.Window
 var dword_5d4594_1049864 uint32
 var dword_5d4594_1062512 int32
-var dword_5d4594_1217464 uint32
+var dword_5d4594_1217464 int32
 var dword_5d4594_1599656 uint32
 var dword_5d4594_1049500 *gui.Window
 var dword_5d4594_3798840 int32
@@ -78,11 +78,11 @@ var dword_5d4594_1046496 *gui.Window
 var dword_5d4594_1523028 uint32
 var dword_5d4594_1316708 *gui.Window
 var dword_5d4594_251572 int32
-var dword_5d4594_1303452 uint32
+var dword_5d4594_1303452 *gui.Window
 var dword_5d4594_2386224 uint32
 var dword_5d4594_815016 *gui.Window
 var dword_5d4594_2386152 uint32
-var dword_5d4594_1197312 uint32
+var dword_5d4594_1197312 *gui.Window
 var dword_5d4594_831236 *gui.Window
 var dword_5d4594_1047540 int32
 var dword_5d4594_814984 unsafe.Pointer
@@ -95,7 +95,7 @@ var nox_xxx_lightningTarget_5d4594_2487908 uint32
 var dword_5d4594_1107036 uint32
 var dword_5d4594_3798836 int32
 var dword_5d4594_815028 *gui.Window
-var dword_5d4594_1301848 uint32
+var dword_5d4594_1301848 unsafe.Pointer
 var dword_5d4594_1316712 unsafe.Pointer
 var dword_5d4594_1313800 unsafe.Pointer
 var dword_5d4594_1321232 uint32
@@ -114,11 +114,11 @@ var dword_5d4594_1045484 *gui.Window
 var dword_5d4594_1049856 uint32
 var dword_5d4594_1064856 *gui.Window
 var nox_xxx_aNox_cfg_0_587000_132132 uint32 = 0x1
-var dword_5d4594_1217456 uint32
+var dword_5d4594_1217456 unsafe.Pointer
 var dword_5d4594_1193348 unsafe.Pointer
 var dword_5d4594_1047520 uint32
 var dword_5d4594_534808 unsafe.Pointer
-var dword_5d4594_1197324 uint32
+var dword_5d4594_1197324 int32
 var dword_5d4594_1599576 uint32
 var dword_5d4594_1599596 uint32
 var dword_5d4594_1045480 *gui.Window
@@ -131,8 +131,8 @@ var dword_5d4594_1045536 *gui.Window
 var nox_wol_servers_sorting_166704 uint32 = 0x6
 var dword_5d4594_371692 uint32
 var dword_5d4594_3798832 int32
-var dword_5d4594_1197320 uint32
-var nox_alloc_pixelSpan_1301844 unsafe.Pointer
+var dword_5d4594_1197320 *gui.Window
+var nox_alloc_pixelSpan_1301844 *nox_alloc_class
 var dword_5d4594_3798808 int32
 var dword_5d4594_1062524 *gui.Window
 var dword_5d4594_3835396 uint32
@@ -153,7 +153,7 @@ var nox_alloc_visitNode_2386184 unsafe.Pointer
 var nox_wol_server_result_cnt_815088 uint32
 var dword_5d4594_1046924 *ImageRef
 var nox_xxx_polygonNextAngle_587000_60356 uint32 = 0x1
-var dword_5d4594_1217460 uint32
+var dword_5d4594_1217460 int32
 var dword_5d4594_1307716 uint32
 var dword_587000_93156 uint32 = 0x1
 var dword_5d4594_2523780 unsafe.Pointer
@@ -180,7 +180,7 @@ var dword_5d4594_1049496 uint32
 var dword_587000_93164 unsafe.Pointer
 var dword_5d4594_1098624 uint32
 var dword_5d4594_1569672 uint32
-var dword_5d4594_1197316 uint32
+var dword_5d4594_1197316 *gui.Window
 var dword_5d4594_2386576 uint32
 var dword_5d4594_1569756 uint32
 var dword_5d4594_1320968 uint32
@@ -213,7 +213,7 @@ var nox_alloc_screenParticles_806044 unsafe.Pointer
 var dword_5d4594_528252 uint32
 var dword_5d4594_1309828 uint32
 var dword_587000_122852 unsafe.Pointer
-var dword_5d4594_1301776 uint32
+var dword_5d4594_1301776 unsafe.Pointer
 var dword_5d4594_251564 unsafe.Pointer
 var nox_xxx_screenWidth_587000_184452 uint32 = 0x32
 var dword_5d4594_1550916 uint32
@@ -247,7 +247,7 @@ var dword_5d4594_1049484 uint32
 var dword_5d4594_1599712 uint32
 var dword_5d4594_1321216 uint32
 var dword_5d4594_2386160 uint32
-var dword_5d4594_1193712 uint32
+var dword_5d4594_1193712 *gui.Window
 var dword_5d4594_1319232 uint32
 var dword_5d4594_1046656 int32
 var dword_5d4594_832532 unsafe.Pointer
@@ -268,7 +268,7 @@ var dword_5d4594_1098580 *gui.Window
 var dword_5d4594_831224 uint32
 var nox_xxx_energyBoltTarget_5d4594_2487880 uint32
 var dword_5d4594_832504 unsafe.Pointer
-var dword_5d4594_1203864 uint32
+var dword_5d4594_1203864 unsafe.Pointer
 var dword_5d4594_832508 unsafe.Pointer
 var dword_5d4594_1090100 unsafe.Pointer
 var dword_5d4594_3835356 uint32
@@ -317,21 +317,21 @@ var dword_5d4594_741332 uint32
 var dword_5d4594_1565616 uint32
 var dword_5d4594_816356 uint32
 var dword_5d4594_1203836 uint32
-var dword_5d4594_1301780 uint32
+var dword_5d4594_1301780 unsafe.Pointer
 var dword_5d4594_1064864 unsafe.Pointer
 var dword_5d4594_1096252 uint32
 var dword_5d4594_741356 int32
-var dword_5d4594_1197356 uint32
+var dword_5d4594_1197356 unsafe.Pointer
 var dword_5d4594_1045436 unsafe.Pointer
 var dword_5d4594_1321800 uint32
 var dword_5d4594_1197336 uint32
-var dword_5d4594_1197352 uint32
+var dword_5d4594_1197352 unsafe.Pointer
 var dword_5d4594_826036 unsafe.Pointer
 var dword_5d4594_1064860 *gui.Window
 var dword_5d4594_1046536 *gui.Window
 var dword_5d4594_1062468 *gui.Window
 var dword_5d4594_1523036 uint32
-var dword_5d4594_1197328 uint32
+var dword_5d4594_1197328 int32
 var dword_5d4594_1090044 uint32
 var dword_5d4594_1305748 uint32
 var nox_alloc_respawn_1568020 unsafe.Pointer
@@ -394,7 +394,7 @@ var dword_5d4594_10984 uint32
 var dword_587000_145668 uint32 = 0x6
 var dword_587000_180480 uint32 = 0x0
 var dword_587000_230092 uint32 = 0x6
-var dword_5d4594_1197372 uint32
+var dword_5d4594_1197372 unsafe.Pointer
 var dword_5d4594_251716 uint32
 var dword_5d4594_251708 uint32
 var dword_5d4594_1063120 uint32
@@ -444,8 +444,8 @@ var dword_5d4594_2487584 uint32
 var dword_5d4594_251712 uint32
 var dword_5d4594_531652 uint32
 var dword_5d4594_2487948 uint32
-var nox_alloc_healthChange_1301772 unsafe.Pointer
-var dword_5d4594_1522596 uint32
+var nox_alloc_healthChange_1301772 *nox_alloc_class
+var dword_5d4594_1522596 unsafe.Pointer
 var dword_5d4594_1049536 uint32
 var dword_5d4594_1098616 uint32
 var dword_5d4594_3807152 int32
@@ -577,7 +577,7 @@ var dword_5d4594_1096272 uint32
 var dword_5d4594_1096636 int32
 var dword_5d4594_1522956 uint32
 var dword_587000_183460 uint32 = 0x26
-var dword_5d4594_1303508 uint32
+var dword_5d4594_1303508 unsafe.Pointer
 var dword_5d4594_1568288 uint32
 var dword_5d4594_2491704 uint32
 var dword_5d4594_1320948 uint32

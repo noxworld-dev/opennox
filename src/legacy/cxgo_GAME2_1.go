@@ -3007,7 +3007,7 @@ func sub_46DC30(a1 *gui.Window, a2 uint8, a3 *wchar2_t, _rest ...interface{}) in
 	nox_vswprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1089000)), a3, va)
 	return sub_46DC00(a1, a2, int32(uintptr(memmap.PtrOff(0x5D4594, 1089000))))
 }
-func sub_46DCC0() {
+func Sub_46DCC0() {
 	var (
 		v1  int32
 		v4  int32
@@ -4268,7 +4268,7 @@ func sub_4721A0(a1 int32) int32 {
 		return nox_window_set_hidden(dword_5d4594_1090276, 1)
 	}
 }
-func nox_xxx_cliPrepareGameplay2_4721D0() int32 {
+func Nox_xxx_cliPrepareGameplay2_4721D0() int32 {
 	nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1090276)
 	nox_xxx_windowDestroyMB_46C4E0(nox_windows_arr_1093036[2].Win)
 	if nox_windows_arr_1093036[3].Win != nil {

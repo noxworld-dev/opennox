@@ -475,6 +475,3 @@ func Nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) {
 func Sub_474B40(dr *client.Drawable) int {
 	return int(sub_474B40(dr))
 }
-func Sub_495BB0(dr *client.Drawable, vp *noxrender.Viewport) {
-	sub_495BB0(dr, vp)
-}

@@ -326,7 +326,7 @@ func nox_server_gameSettingsUpdated_40A670() {
 func nox_server_gameDoSwitchMap_40A680() int32 {
 	return nox_server_gameSettingsUpdated
 }
-func nox_server_gameUnsetMapLoad_40A690() {
+func Nox_server_gameUnsetMapLoad_40A690() {
 	nox_server_gameSettingsUpdated = 0
 }
 func sub_40A6A0(a1 int32) int32 {
@@ -1376,15 +1376,14 @@ func sub_413F60(a1 unsafe.Pointer, a2 unsafe.Pointer) int32 {
 	return int32(*(*uint32)(unsafe.Add(a1, 4*20)) - *(*uint32)(unsafe.Add(a2, 4*20)))
 }
 func sub_414BD0(a1 int32) int32 {
-	var v1 int32
-	v1 = a1
+	v1 := a1
 	if a1 < 0 {
 		v1 = a1 + ((25735-a1)/0x6488)*25736
 	}
 	if v1 >= 25736 {
 		v1 %= 0x6488
 	}
-	return int32(*memmap.PtrUint32(0x85B3FC, uintptr(((v1<<12)/25736)*4+12260)))
+	return memmap.Int32(0x85B3FC, uintptr(((v1<<12)/25736)*4+12260))
 }
 func sub_414C50(a1 int32) int32 {
 	var (

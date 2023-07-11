@@ -4764,7 +4764,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 *gui.Window, a2, a3, a4 uintptr) uintpt
 	}
 	return uintptr(result)
 }
-func sub_4AE3B0() int32 {
+func Sub_4AE3B0() int32 {
 	var result int32
 	result = nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(dword_5d4594_1309820)))
 	dword_5d4594_1309820 = 0

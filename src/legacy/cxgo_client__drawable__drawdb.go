@@ -104,13 +104,13 @@ func nox_parse_thing_pretty_image(obj *client.ObjectType, f *binfile.MemFile, da
 		known_idx uint32 = nox_memfile_read_u32(f)
 	)
 	if known_idx != math.MaxUint32 {
-		obj.PrettyImage = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(int32(known_idx), 0, &v10[0]))))
+		obj.PrettyImage = nox_xxx_readImgMB_42FAA0(int32(known_idx), 0, &v10[0])
 		return true
 	}
 	var v8 int32 = int32(nox_memfile_read_u8(f))
 	var n int32 = int32(nox_memfile_read_u8(f))
 	nox_memfile_read(unsafe.Pointer(&v10[0]), 1, n, f)
-	obj.PrettyImage = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(int32(known_idx), int8(v8), &v10[0]))))
+	obj.PrettyImage = nox_xxx_readImgMB_42FAA0(int32(known_idx), int8(v8), &v10[0])
 	return true
 }
 func nox_free_tile_defs() int32 {

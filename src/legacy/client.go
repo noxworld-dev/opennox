@@ -90,19 +90,3 @@ type Render2 interface {
 var (
 	GetClient func() Client
 )
-
-func Sub_4519C0() {
-	sub_4519C0()
-}
-
-func Sub_495430() {
-	sub_495430()
-}
-
-func Sub_44D3A0() {
-	sub_44D3A0()
-}
-
-func Sub_43D440() {
-	sub_43D440()
-}

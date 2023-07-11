@@ -170,9 +170,6 @@ func Sub_495B50(fx *client.DrawableFX) {
 func Sub_4523D0(p unsafe.Pointer) {
 	sub_4523D0(p)
 }
-func Sub_495FC0(p *client.DrawableFX, dr *client.Drawable) {
-	sub_495FC0(p.C(), dr)
-}
 func Sub_49C520(dr *client.Drawable) int {
 	return int(sub_49C520(dr))
 }

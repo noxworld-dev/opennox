@@ -383,32 +383,11 @@ func Sub_4960B0() int {
 func Nox_xxx_allocClassListFriends_495980() int {
 	return int(nox_xxx_allocClassListFriends_495980())
 }
-func Sub_4958F0() {
-	sub_4958F0()
-}
-func Sub_460380() {
-	sub_460380()
-}
 func Nox_xxx_cliPrepareGameplay1_460E60() int {
 	return int(nox_xxx_cliPrepareGameplay1_460E60())
 }
-func Nox_xxx_cliPrepareGameplay2_4721D0() {
-	nox_xxx_cliPrepareGameplay2_4721D0()
-}
-func Sub_4951C0() {
-	sub_4951C0()
-}
-func Nox_xxx_netGameSettings_4DEF00() {
-	nox_xxx_netGameSettings_4DEF00()
-}
-func Nox_server_gameUnsetMapLoad_40A690() {
-	nox_server_gameUnsetMapLoad_40A690()
-}
 func Sub_416650() int {
 	return int(sub_416650())
-}
-func Sub_46DCC0() {
-	sub_46DCC0()
 }
 func Sub_409B80() string {
 	return GoString(sub_409B80())
@@ -532,15 +511,6 @@ func Sub_40A970() {
 }
 func Nox_gui_itemAmount_free_4C03E0() {
 	nox_gui_itemAmount_free_4C03E0()
-}
-func Sub_4AE3B0() {
-	sub_4AE3B0()
-}
-func Sub_48D450() {
-	sub_48D450()
-}
-func Sub_4C4220() {
-	sub_4C4220()
 }
 func Nox_xxx_closeP2PTradeWnd_4C12A0() {
 	nox_xxx_closeP2PTradeWnd_4C12A0()

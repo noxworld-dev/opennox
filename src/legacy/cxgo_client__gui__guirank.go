@@ -322,7 +322,7 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 		dword_587000_145672 = math.MaxUint32
 		v33 = 0
 		sub_46DB80()
-		sub_46DCC0()
+		Sub_46DCC0()
 		dword_587000_145664 = 0
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 		if v7 != nil {

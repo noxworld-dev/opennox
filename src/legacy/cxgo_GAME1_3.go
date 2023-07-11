@@ -199,7 +199,7 @@ func sub_43D3C0(a1 ail.Stream, a2 int32) {
 		AIL_set_stream_volume(a1, int32((v2>>14)*math.MaxInt8)/100)
 	}
 }
-func sub_43D440() {
+func Sub_43D440() {
 	v0 := mem_getI32Ptr(0x5D4594, *memmap.PtrUint32(0x5D4594, 816352)*20+816108)
 	if dword_5d4594_816340 == 0 {
 		return
@@ -387,7 +387,7 @@ func sub_43DBA0() {
 }
 func sub_43DBD0() int32 {
 	dword_5d4594_816356++
-	sub_43D440()
+	Sub_43D440()
 	return 0
 }
 func sub_43DBE0() int32 {
@@ -398,7 +398,7 @@ func sub_43DBE0() int32 {
 	}() < 0 {
 		dword_5d4594_816356 = 0
 	}
-	sub_43D440()
+	Sub_43D440()
 	return 0
 }
 func sub_43DC00() {

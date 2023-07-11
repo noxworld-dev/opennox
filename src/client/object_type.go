@@ -184,7 +184,7 @@ type ObjectType struct {
 	ClientUpdate   ccall.Func[ObjectUpdateFunc] // 25, 0x64, 100
 	AudioLoop      uint32                       // 26, 0x68, 104
 	ObjNext        *ObjectType                  // 27, 0x6c, 108
-	PrettyImage    uint32                       // 28, 0x70, 112
+	PrettyImage    noxrender.ImageHandle        // 28, 0x70, 112
 	MenuIcon       int32                        // 29, 0x74, 116
 	Lifetime       int32                        // 30, 0x78, 120
 	Health         uint16                       // 31, 0x7c, 124

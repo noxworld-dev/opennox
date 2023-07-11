@@ -188,9 +188,6 @@ func Sub_49C7A0() {
 func Sub_467CA0() {
 	sub_467CA0()
 }
-func Sub_48D660() {
-	sub_48D660()
-}
 func Sub_40A220() int {
 	return int(sub_40A220())
 }
