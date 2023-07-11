@@ -1481,11 +1481,11 @@ func nox_thing_read_FLOR_414DB0(f *binfile.MemFile) int32 {
 		v14 uint8
 		v15 uint8
 	)
-	v2 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(f.Cur, 4))))
+	v2 = (*byte)(unsafe.Add(f.Cur, 4))
 	f.Cur = unsafe.Pointer(v2)
 	v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), int32(*v2)+13))
 	f.Cur = unsafe.Pointer(v3)
-	v4 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(f.Cur, 1))))
+	v4 = (*byte)(unsafe.Add(f.Cur, 1))
 	v14 = *v3
 	f.Cur = unsafe.Pointer(v4)
 	v15 = *v4

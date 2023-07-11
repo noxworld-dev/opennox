@@ -3774,12 +3774,12 @@ func nox_thing_read_floor_485B30(f *binfile.MemFile, a2 *byte) int32 {
 	)
 	v2 := f
 	v16 := f
-	v3 = (*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(f.C(), 8)), 4))
-	*(*uint32)(unsafe.Add(f.C(), 8)) = uint32(uintptr(unsafe.Pointer(v3)))
+	v3 = (*uint8)(unsafe.Add(f.Cur, 4))
+	f.Cur = unsafe.Pointer(v3)
 	var a1 int32
 	*(*uint8)(unsafe.Pointer(&a1)) = *v3
-	*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(v3), 1)))
-	nox_memfile_read(unsafe.Pointer(&v22[0]), 1, int32(uint8(int8(a1))), (*binfile.MemFile)(v16))
+	v2.Cur = unsafe.Add(unsafe.Pointer(v3), 1)
+	nox_memfile_read(unsafe.Pointer(&v22[0]), 1, int32(uint8(int8(a1))), v16)
 	v22[uint8(int8(a1))] = 0
 	var v7 int32 = a1
 	if nox_tile_def_cnt > 0 {
@@ -3795,35 +3795,35 @@ func nox_thing_read_floor_485B30(f *binfile.MemFile, a2 *byte) int32 {
 			return 0
 		}
 	}
-	v9 = (*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 8)), 12))
-	*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Pointer(v9)))
+	v9 = (*uint8)(unsafe.Add(v2.Cur, 12))
+	v2.Cur = unsafe.Pointer(v9)
 	*(*uint8)(unsafe.Pointer(&v21)) = *v9
-	*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(v9), 1)))
+	v2.Cur = unsafe.Add(unsafe.Pointer(v9), 1)
 	v19 = *(*uint8)(unsafe.Add(unsafe.Pointer(v9), 1))
-	*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(v9), 2)))
+	v2.Cur = unsafe.Add(unsafe.Pointer(v9), 2)
 	v17 = *(*uint8)(unsafe.Add(unsafe.Pointer(v9), 2))
-	*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(v9), 4)))
+	v2.Cur = unsafe.Add(unsafe.Pointer(v9), 4)
 	v10 = int32(uint8(uintptr(unsafe.Pointer(v21)))) * int32(v19) * int32(v17)
 	nox_tile_defs_arr[v7].data_32 = (*noxrender.ImageHandle)(alloc.Calloc1(int(v10), 4))
 	var v11 int32 = 0
 	for i = 0; v11 < v10; {
-		v12 = *(**int32)(unsafe.Add(v2, 8))
+		v12 = (*int32)(v2.Cur)
 		v13 = *v12
-		*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(v12), 4*1)))
+		v2.Cur = unsafe.Add(unsafe.Pointer(v12), 4*1)
 		*a2 = *memmap.PtrUint8(0x5D4594, 1193192)
 		if v13 == -1 {
-			v14 = *(**byte)(unsafe.Add(v2, 8))
+			v14 = (*byte)(v2.Cur)
 			v15 = int8(*func() *byte {
 				p := &v14
 				x := *p
 				*p = (*byte)(unsafe.Add(unsafe.Pointer(*p), 1))
 				return x
 			}())
-			*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Pointer(v14)))
+			v2.Cur = unsafe.Pointer(v14)
 			*(*uint8)(unsafe.Pointer(&v21)) = uint8(v15)
 			v23 = *v14
-			*(*uint32)(unsafe.Add(v2, 8)) = uint32(uintptr(unsafe.Add(unsafe.Pointer(v14), 1)))
-			nox_memfile_read(unsafe.Pointer(a2), 1, int32(v23), (*binfile.MemFile)(v2))
+			v2.Cur = unsafe.Add(unsafe.Pointer(v14), 1)
+			nox_memfile_read(unsafe.Pointer(a2), 1, int32(v23), v2)
 			v13 = -1
 			*(*byte)(unsafe.Add(unsafe.Pointer(a2), v23)) = 0
 			v11 = i
