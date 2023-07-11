@@ -9,8 +9,6 @@ import (
 	"go/types"
 	"strconv"
 	"strings"
-
-	"golang.org/x/tools/go/packages"
 )
 
 func Is[T any](v any) bool {
@@ -125,11 +123,11 @@ func maybeParen(x ast.Expr) ast.Expr {
 	return x
 }
 
-func astType(pkg *packages.Package, t types.Type) ast.Expr {
+func (proc *Processor) astType(t types.Type) ast.Expr {
 	switch t := t.(type) {
 	case *types.Named:
 		obj := t.Obj()
-		if obj.Pkg() == pkg.Types {
+		if obj.Pkg() == proc.pkg.Types {
 			return ast.NewIdent(obj.Name())
 		}
 		return &ast.SelectorExpr{X: ast.NewIdent(obj.Pkg().Name()), Sel: ast.NewIdent(obj.Name())}
@@ -139,20 +137,20 @@ func astType(pkg *packages.Package, t types.Type) ast.Expr {
 		}
 		return ast.NewIdent(t.Name())
 	case *types.Pointer:
-		return &ast.StarExpr{X: astType(pkg, t.Elem())}
+		return &ast.StarExpr{X: proc.astType(t.Elem())}
 	case *types.Slice:
-		return &ast.ArrayType{Elt: astType(pkg, t.Elem())}
+		return &ast.ArrayType{Elt: proc.astType(t.Elem())}
 	case *types.Array:
-		return &ast.ArrayType{Len: int64lit(t.Len()), Elt: astType(pkg, t.Elem())}
+		return &ast.ArrayType{Len: int64lit(t.Len()), Elt: proc.astType(t.Elem())}
 	}
 	s := types.TypeString(t, func(p *types.Package) string {
-		if p == pkg.Types {
+		if p == proc.pkg.Types {
 			return ""
 		}
 		return p.Name()
 	})
 	s = strings.ReplaceAll(s, "\n\t", " ")
-	x, err := parser.ParseExprFrom(pkg.Fset, "", s, 0)
+	x, err := parser.ParseExprFrom(proc.pkg.Fset, "", s, 0)
 	if err != nil {
 		panic(fmt.Errorf("cannot parse: %q, %w", s, err))
 	}
@@ -202,8 +200,8 @@ func stmtCount(root ast.Node) int {
 	return cnt
 }
 
-func evalInt(pkg *packages.Package, x ast.Expr) (int64, bool) {
-	offv := pkg.TypesInfo.Types[x].Value
+func (proc *Processor) evalInt(x ast.Expr) (int64, bool) {
+	offv := proc.pkg.TypesInfo.Types[x].Value
 	if offv == nil || offv.Kind() != constant.Int {
 		return 0, false
 	}

@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	fDir = flag.String("dir", "./legacy", "source directory")
+	fDir = flag.String("dir", ".", "source directory")
 )
 
 func main() {
@@ -54,20 +54,32 @@ func runOnce() (bool, error) {
 		Dir:  *fDir,
 		Env:  append(os.Environ(), "GOARCH=386"),
 		Fset: fs,
-	}, ".")
+	}, "./legacy")
 	if err != nil {
 		return false, err
 	} else if len(pkgs) != 1 {
 		return false, fmt.Errorf("unexpected packages")
 	}
-	pkg := pkgs[0]
-	if len(pkg.CompiledGoFiles) != len(pkg.Syntax) {
-		return false, fmt.Errorf("unexpected list of files")
+	var legacy *packages.Package
+	for _, pkg := range pkgs {
+		if pkg.Name == "legacy" {
+			legacy = pkg
+			continue
+		}
+		for _, e := range pkg.Errors {
+			log.Println(e)
+		}
 	}
+	if len(legacy.CompiledGoFiles) != len(legacy.Syntax) {
+		return false, fmt.Errorf("unexpected list of files")
+	} else if legacy.Name != "legacy" {
+		return false, fmt.Errorf("unexpected package: %q", legacy.Name)
+	}
+	proc := &Processor{pkg: legacy}
 	anyChanged := false
-	for i, f := range pkg.Syntax {
-		fname := pkg.CompiledGoFiles[i]
-		changed, err := processFile(pkg, fname, f)
+	for i, f := range legacy.Syntax {
+		fname := legacy.CompiledGoFiles[i]
+		changed, err := proc.processFile(fname, f)
 		if err != nil {
 			return false, err
 		}
@@ -76,52 +88,61 @@ func runOnce() (bool, error) {
 	return anyChanged, nil
 }
 
-func processFile(pkg *packages.Package, fname string, f *ast.File) (bool, error) {
+type Processor struct {
+	pkg     *packages.Package
+	curFile string
+}
+
+func (proc *Processor) processFile(fname string, f *ast.File) (bool, error) {
+	proc.curFile = filepath.Base(fname)
+	defer func() {
+		proc.curFile = ""
+	}()
 	changed := false
 	ast.Inspect(f, func(n ast.Node) bool {
 		switch n := n.(type) {
 		case *ast.ParenExpr:
-			simplifyExpr(pkg, &n.X, &changed)
+			proc.simplifyExpr(&n.X, &changed)
 		case *ast.StarExpr:
-			simplifyExpr(pkg, &n.X, &changed)
+			proc.simplifyExpr(&n.X, &changed)
 		case *ast.UnaryExpr:
-			simplifyExpr(pkg, &n.X, &changed)
+			proc.simplifyExpr(&n.X, &changed)
 		case *ast.BinaryExpr:
-			simplifyExpr(pkg, &n.X, &changed)
-			simplifyExpr(pkg, &n.Y, &changed)
-			fixBinExprConv(pkg, n, &changed)
+			proc.simplifyExpr(&n.X, &changed)
+			proc.simplifyExpr(&n.Y, &changed)
+			proc.fixBinExprConv(n, &changed)
 		case *ast.IncDecStmt:
-			simplifyExpr(pkg, &n.X, &changed)
+			proc.simplifyExpr(&n.X, &changed)
 		case *ast.CallExpr:
 			if len(n.Args) == 1 {
-				changed = fixUnsafeAdd(pkg, n) || changed
+				changed = proc.fixUnsafeAdd(n) || changed
 			}
 			for i := range n.Args {
-				simplifyExpr(pkg, &n.Args[i], &changed)
+				proc.simplifyExpr(&n.Args[i], &changed)
 			}
-			if ft, ok := pkg.TypesInfo.TypeOf(n.Fun).(*types.Signature); ok && len(n.Args) == ft.Params().Len() {
+			if ft, ok := proc.pkg.TypesInfo.TypeOf(n.Fun).(*types.Signature); ok && len(n.Args) == ft.Params().Len() {
 				for i := range n.Args {
-					expectType(pkg, ft.Params().At(i).Type(), &n.Args[i], &changed)
+					proc.expectType(ft.Params().At(i).Type(), &n.Args[i], &changed)
 				}
 			}
 		case *ast.AssignStmt:
 			if len(n.Lhs) == len(n.Rhs) {
 				for i := range n.Lhs {
-					simplifyExpr(pkg, &n.Lhs[i], &changed)
-					simplifyExpr(pkg, &n.Rhs[i], &changed)
+					proc.simplifyExpr(&n.Lhs[i], &changed)
+					proc.simplifyExpr(&n.Rhs[i], &changed)
 				}
 				if n.Tok != token.DEFINE {
 					for i := range n.Lhs {
-						t := pkg.TypesInfo.TypeOf(n.Lhs[i])
+						t := proc.pkg.TypesInfo.TypeOf(n.Lhs[i])
 						if t == nil {
 							continue
 						}
-						expectType(pkg, t, &n.Rhs[i], &changed)
+						proc.expectType(t, &n.Rhs[i], &changed)
 					}
 				}
 			}
 		case *ast.BlockStmt:
-			optimizeBlock(pkg, n, &changed)
+			proc.optimizeBlock(n, &changed)
 		}
 		return true
 	})
@@ -133,22 +154,22 @@ func processFile(pkg *packages.Package, fname string, f *ast.File) (bool, error)
 		return false, err
 	}
 	defer w.Close()
-	err = format.Node(w, pkg.Fset, f)
+	err = format.Node(w, proc.pkg.Fset, f)
 	log.Println(filepath.Base(fname))
 	return err == nil, err
 }
 
-func fixUnsafeAdd(pkg *packages.Package, c1 *ast.CallExpr) bool {
+func (proc *Processor) fixUnsafeAdd(c1 *ast.CallExpr) bool {
 	if len(c1.Args) != 1 {
 		return false
 	}
-	if t, ok := pkg.TypesInfo.TypeOf(c1.Fun).(*types.Basic); !ok || t.Kind() != types.UnsafePointer {
+	if t, ok := proc.pkg.TypesInfo.TypeOf(c1.Fun).(*types.Basic); !ok || t.Kind() != types.UnsafePointer {
 		return false
 	}
 	c2, ok := unwrapParen(c1.Args[0]).(*ast.CallExpr)
 	if !ok || len(c2.Args) != 1 {
 		return false
-	} else if t, ok := pkg.TypesInfo.TypeOf(c2.Fun).(*types.Basic); !ok || t.Kind() != types.Uintptr {
+	} else if t, ok := proc.pkg.TypesInfo.TypeOf(c2.Fun).(*types.Basic); !ok || t.Kind() != types.Uintptr {
 		return false
 	}
 	add, ok := c2.Args[0].(*ast.BinaryExpr)
@@ -169,7 +190,7 @@ func fixUnsafeAdd(pkg *packages.Package, c1 *ast.CallExpr) bool {
 	return true
 }
 
-func simplifyExpr(pkg *packages.Package, p *ast.Expr, changed *bool) {
+func (proc *Processor) simplifyExpr(p *ast.Expr, changed *bool) {
 	switch x := (*p).(type) {
 	case *ast.StarExpr:
 		if y, ok := x.X.(*ast.UnaryExpr); ok && y.Op == token.AND {
@@ -177,10 +198,10 @@ func simplifyExpr(pkg *packages.Package, p *ast.Expr, changed *bool) {
 			*changed = true
 		}
 	}
-	fixUnsafeFieldAccess(pkg, p, changed)
+	proc.fixUnsafeFieldAccess(p, changed)
 }
 
-func expectType(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool) {
+func (proc *Processor) expectType(t types.Type, p *ast.Expr, changed *bool) {
 	if !isValidType(t) {
 		return
 	}
@@ -214,9 +235,9 @@ func expectType(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool)
 	case *ast.CallExpr:
 		if len(x.Args) == 1 {
 			// unconvert
-			switch pkg.TypesInfo.TypeOf(x.Fun).(type) {
+			switch proc.pkg.TypesInfo.TypeOf(x.Fun).(type) {
 			case *types.Basic, *types.Pointer:
-				t2 := pkg.TypesInfo.TypeOf(x.Args[0])
+				t2 := proc.pkg.TypesInfo.TypeOf(x.Args[0])
 				if t2 != nil && types.Identical(t, t2) {
 					*p = x.Args[0]
 					*changed = true
@@ -225,14 +246,14 @@ func expectType(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool)
 			}
 		}
 	}
-	fixSameTypeConv2(pkg, t, *p, p, changed)
-	fixTypeConv(pkg, t, p, changed)
+	proc.fixSameTypeConv2(t, *p, p, changed)
+	proc.fixTypeConv(t, p, changed)
 }
 
-func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Expr, changed *bool) {
+func (proc *Processor) fixSameTypeConv2(t types.Type, x ast.Expr, p *ast.Expr, changed *bool) {
 	root := x == *p
 	x = unwrapParen(x)
-	if t2 := pkg.TypesInfo.TypeOf(x); !isValidType(t2) {
+	if t2 := proc.pkg.TypesInfo.TypeOf(x); !isValidType(t2) {
 		return
 	} else if types.Identical(t, t2) && !root {
 		*p = x
@@ -243,23 +264,23 @@ func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Ex
 	case *ast.CallExpr:
 		if len(x.Args) == 0 {
 			if dot, ok := x.Fun.(*ast.SelectorExpr); ok && (dot.Sel.Name == "C" || dot.Sel.Name == "CObj") {
-				ct := pkg.TypesInfo.TypeOf(dot.X)
+				ct := proc.pkg.TypesInfo.TypeOf(dot.X)
 				if types.Identical(t, ct) {
 					*p = dot.X
 					*changed = true
 					return
 				}
-				if pkg.TypesSizes.Sizeof(ct) != pkg.TypesSizes.Sizeof(t) {
+				if proc.pkg.TypesSizes.Sizeof(ct) != proc.pkg.TypesSizes.Sizeof(t) {
 					return // incompatible value sizes - stop
 				}
-				fixSameTypeConv2(pkg, t, dot.X, p, changed)
+				proc.fixSameTypeConv2(t, dot.X, p, changed)
 			}
 			return
 		}
 		if len(x.Args) != 1 {
 			return
 		}
-		ct := pkg.TypesInfo.TypeOf(x.Fun)
+		ct := proc.pkg.TypesInfo.TypeOf(x.Fun)
 		if _, ok := ct.(*types.Signature); ok {
 			return // real call, not a conversion
 		}
@@ -268,16 +289,16 @@ func fixSameTypeConv2(pkg *packages.Package, t types.Type, x ast.Expr, p *ast.Ex
 			*changed = true
 			return
 		}
-		if pkg.TypesSizes.Sizeof(ct) != pkg.TypesSizes.Sizeof(t) {
+		if proc.pkg.TypesSizes.Sizeof(ct) != proc.pkg.TypesSizes.Sizeof(t) {
 			return // incompatible value sizes - stop
 		}
-		fixSameTypeConv2(pkg, t, x.Args[0], p, changed)
+		proc.fixSameTypeConv2(t, x.Args[0], p, changed)
 	}
 }
 
-func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool) {
+func (proc *Processor) fixTypeConv(t types.Type, p *ast.Expr, changed *bool) {
 	x := unwrapParen(*p)
-	xt := pkg.TypesInfo.TypeOf(x)
+	xt := proc.pkg.TypesInfo.TypeOf(x)
 	if !isValidType(xt) {
 		return
 	}
@@ -294,7 +315,7 @@ func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool
 	case *types.Basic:
 		if xt.Info()&types.IsUntyped != 0 {
 			if isPointer(t) {
-				if v, ok := evalInt(pkg, x); ok && v == 0 {
+				if v, ok := proc.evalInt(x); ok && v == 0 {
 					*p = ast.NewIdent("nil")
 					*changed = true
 					return
@@ -304,13 +325,13 @@ func fixTypeConv(pkg *packages.Package, t types.Type, p *ast.Expr, changed *bool
 		}
 	}
 	if types.ConvertibleTo(xt, t) {
-		*p = &ast.CallExpr{Fun: maybeParen(astType(pkg, t)), Args: []ast.Expr{x}}
+		*p = &ast.CallExpr{Fun: maybeParen(proc.astType(t)), Args: []ast.Expr{x}}
 		*changed = true
 		return
 	}
 }
 
-func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
+func (proc *Processor) fixUnsafeFieldAccess(p *ast.Expr, changed *bool) {
 	x := unwrapParen(*p)
 	star, ok := x.(*ast.StarExpr)
 	if !ok {
@@ -320,7 +341,7 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	if !ok || len(conv.Args) != 1 {
 		return
 	}
-	cpt, ok := pkg.TypesInfo.TypeOf(conv.Fun).(*types.Pointer)
+	cpt, ok := proc.pkg.TypesInfo.TypeOf(conv.Fun).(*types.Pointer)
 	if !ok {
 		return
 	}
@@ -334,7 +355,7 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 		return
 	}
 	ptr, offx := unwrapParen(add.Args[0]), unwrapParen(add.Args[1])
-	offv := pkg.TypesInfo.Types[offx].Value
+	offv := proc.pkg.TypesInfo.Types[offx].Value
 	if offv == nil || offv.Kind() != constant.Int {
 		return
 	}
@@ -354,7 +375,7 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 			}
 		}
 	}
-	t := pkg.TypesInfo.TypeOf(ptr)
+	t := proc.pkg.TypesInfo.TypeOf(ptr)
 	if !isValidType(t) {
 		return
 	}
@@ -370,21 +391,21 @@ func fixUnsafeFieldAccess(pkg *packages.Package, p *ast.Expr, changed *bool) {
 	if !ok {
 		return
 	}
-	if x := fieldForOff(pkg, nt, st, ptr, off, pkg.TypesSizes.Sizeof(ct)); x != nil {
+	if x := proc.fieldForOff(nt, st, ptr, off, proc.pkg.TypesSizes.Sizeof(ct)); x != nil {
 		*p = x
 		*changed = true
 	}
 }
 
-func fieldForOff(pkg *packages.Package, nt *types.Named, st *types.Struct, x ast.Expr, off, sz int64) ast.Expr {
-	if pkg.TypesSizes.Sizeof(st) <= off {
+func (proc *Processor) fieldForOff(nt *types.Named, st *types.Struct, x ast.Expr, off, sz int64) ast.Expr {
+	if proc.pkg.TypesSizes.Sizeof(st) <= off {
 		return nil
 	}
 	fields := make([]*types.Var, 0, st.NumFields())
 	for i := 0; i < st.NumFields(); i++ {
 		fields = append(fields, st.Field(i))
 	}
-	foffs := pkg.TypesSizes.Offsetsof(fields)
+	foffs := proc.pkg.TypesSizes.Offsetsof(fields)
 	var (
 		fld  *types.Var
 		doff int64
@@ -400,7 +421,7 @@ func fieldForOff(pkg *packages.Package, nt *types.Named, st *types.Struct, x ast
 	}
 	if nt != nil {
 		obj := nt.Obj()
-		if fld.Exported() || obj.Pkg() == pkg.Types {
+		if fld.Exported() || obj.Pkg() == proc.pkg.Types {
 			x = &ast.SelectorExpr{X: x, Sel: ast.NewIdent(fld.Name())}
 		} else {
 			switch obj.Pkg().Name() + "." + obj.Name() + "." + fld.Name() {
@@ -418,27 +439,27 @@ func fieldForOff(pkg *packages.Package, nt *types.Named, st *types.Struct, x ast
 	}
 	st2, ok := ftyp.(*types.Struct)
 	if !ok {
-		if doff == 0 && pkg.TypesSizes.Sizeof(fld.Type()) == sz {
+		if doff == 0 && proc.pkg.TypesSizes.Sizeof(fld.Type()) == sz {
 			return x
 		}
 		return nil
 	}
-	return fieldForOff(pkg, nt2, st2, x, doff, sz)
+	return proc.fieldForOff(nt2, st2, x, doff, sz)
 }
 
-func fixBinExprConv(pkg *packages.Package, b *ast.BinaryExpr, changed *bool) {
+func (proc *Processor) fixBinExprConv(b *ast.BinaryExpr, changed *bool) {
 	switch b.Op {
 	case token.SHL, token.SHR:
 		return
 	}
-	tx := pkg.TypesInfo.TypeOf(b.X)
-	ty := pkg.TypesInfo.TypeOf(b.Y)
+	tx := proc.pkg.TypesInfo.TypeOf(b.X)
+	ty := proc.pkg.TypesInfo.TypeOf(b.Y)
 	best := bestBinExprType(tx, ty)
 	if best == nil {
 		return
 	}
-	expectType(pkg, best, &b.X, changed)
-	expectType(pkg, best, &b.Y, changed)
+	proc.expectType(best, &b.X, changed)
+	proc.expectType(best, &b.Y, changed)
 }
 
 func bestBinExprType(x, y types.Type) types.Type {
@@ -466,7 +487,7 @@ func bestBinExprType(x, y types.Type) types.Type {
 	return nil
 }
 
-func optimizeBlock(pkg *packages.Package, b *ast.BlockStmt, changed *bool) {
+func (proc *Processor) optimizeBlock(b *ast.BlockStmt, changed *bool) {
 	n := len(b.List)
 	if n >= 2 {
 		ret, ok1 := b.List[n-1].(*ast.ReturnStmt)
