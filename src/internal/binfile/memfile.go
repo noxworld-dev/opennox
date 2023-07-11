@@ -1,6 +1,5 @@
 package binfile
 
-import "C"
 import (
 	"encoding/binary"
 	"io"
