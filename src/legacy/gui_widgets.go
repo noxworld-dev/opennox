@@ -25,7 +25,7 @@ func Nox_gui_newScrollListBox_4A4310(par *gui.Window, status gui.StatusFlags, px
 }
 
 func Nox_gui_newEntryField_488500(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.EntryFieldData) *gui.Window {
-	return nox_gui_newEntryField_488500(par, nox_window_flags(status), px, py, w, h, int32(uintptr(draw.C())), (*uint16)(unsafe.Pointer(tdata)))
+	return nox_gui_newEntryField_488500(par, nox_window_flags(status), px, py, w, h, draw.C(), (*uint16)(unsafe.Pointer(tdata)))
 }
 
 func Nox_gui_newSlider_4B4EE0(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.SliderData) *gui.Window {

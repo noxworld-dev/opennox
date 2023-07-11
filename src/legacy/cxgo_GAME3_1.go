@@ -478,7 +478,7 @@ func sub_4BD470(a1 unsafe.Pointer, a2 int32) unsafe.Pointer {
 		sub_425900((*uint32)(unsafe.Add(a1, unsafe.Sizeof((*uint32)(nil))*3)), (*uint32)(v3))
 		return v3
 	}
-	if sub_486B60(int32(uintptr(*(*unsafe.Pointer)(a1))), a2) == 0 {
+	if sub_486B60(*(*unsafe.Pointer)(a1), a2) == 0 {
 		return nil
 	}
 	v5 = (*uint32)(sub_4BD2E0(unsafe.Pointer(*(**uint32)(unsafe.Add(a1, unsafe.Sizeof((*uint32)(nil))*2)))))
@@ -486,7 +486,7 @@ func sub_4BD470(a1 unsafe.Pointer, a2 int32) unsafe.Pointer {
 		sub_4BD600(int32(uintptr(a1)))
 		v5 = (*uint32)(sub_4BD2E0(unsafe.Pointer(*(**uint32)(unsafe.Add(a1, unsafe.Sizeof((*uint32)(nil))*2)))))
 		if v5 == nil {
-			sub_486E00(int32(uintptr(*(*unsafe.Pointer)(a1))))
+			sub_486E00(*(*unsafe.Pointer)(a1))
 			return nil
 		}
 	}
@@ -503,7 +503,7 @@ func sub_4BD470(a1 unsafe.Pointer, a2 int32) unsafe.Pointer {
 		sub_486AA0(*(*unsafe.Pointer)(a1), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*4))), (*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*14)))
 		sub_425900((*uint32)(unsafe.Add(a1, unsafe.Sizeof((*uint32)(nil))*3)), v5)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*5)) = 1
-		sub_486E00(int32(uintptr(*(*unsafe.Pointer)(a1))))
+		sub_486E00(*(*unsafe.Pointer)(a1))
 		return v5
 	}
 	for {
@@ -524,8 +524,8 @@ func sub_4BD470(a1 unsafe.Pointer, a2 int32) unsafe.Pointer {
 		}
 	LABEL_17:
 		sub_487D30((*uint32)(unsafe.Pointer(v8)), int32(uintptr(unsafe.Add(unsafe.Pointer(v8), 24))), int32(uintptr(unsafe.Pointer(v7))))
-		sub_487C50(int32(uintptr(unsafe.Add(unsafe.Pointer(v5), 4*6))), (*uint32)(unsafe.Pointer(v8)))
-		v9 := sub_486DB0(int32(uintptr(*(*unsafe.Pointer)(a1))), (*byte)(unsafe.Add(unsafe.Pointer(v8), 24)), int32(uintptr(unsafe.Pointer(v7))))
+		sub_487C50(unsafe.Add(unsafe.Pointer(v5), 4*6), (*uint32)(unsafe.Pointer(v8)))
+		v9 := sub_486DB0(*(*unsafe.Pointer)(a1), (*byte)(unsafe.Add(unsafe.Pointer(v8), 24)), int32(uintptr(unsafe.Pointer(v7))))
 		if v9 != v7 {
 			sub_4BD690(int32(uintptr(unsafe.Pointer(v5))))
 			return nil
@@ -581,7 +581,7 @@ func sub_4BD690(a1 int32) int32 {
 	}
 	for i = (**uint32)(unsafe.Pointer(nox_common_list_getNext_425940((*nox_list_item_t)(unsafe.Add(a1, 32))))); i != nil; i = (**uint32)(unsafe.Pointer(nox_common_list_getNext_425940((*nox_list_item_t)(unsafe.Add(a1, 32))))) {
 		nox_common_list_remove_425920(unsafe.Pointer(i))
-		sub_487D60(int32(uintptr(unsafe.Pointer(i))))
+		sub_487D60(unsafe.Pointer(i))
 		sub_4BD300(*(**uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 52)), 4)), unsafe.Pointer(i))
 	}
 	nullsub_9(uint32(a1 + 24))
@@ -590,7 +590,7 @@ func sub_4BD690(a1 int32) int32 {
 func sub_4BD710(a1 int32) int32 {
 	return a1 + 24
 }
-func sub_4BD720(a1 int32) *uint32 {
+func sub_4BD720(a1 unsafe.Pointer) *uint32 {
 	var v1 *uint32
 	v1 = (*uint32)(alloc.Calloc1(1, 0x138))
 	libc.MemSet(unsafe.Pointer(v1), 0, 0x138)
@@ -719,7 +719,7 @@ func sub_4BD9B0(a2p unsafe.Pointer) int32 {
 }
 func sub_4BDA60(p unsafe.Pointer) {
 	sub_4BDA80(p)
-	sub_486E90(int32(uintptr(p)))
+	sub_486E90(p)
 	sub_4BD7A0(p)
 }
 func sub_4BDA80(a1 unsafe.Pointer) int32 {

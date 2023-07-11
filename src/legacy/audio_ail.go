@@ -347,10 +347,6 @@ func Sub_4866A0(a1 int) int {
 	return int(sub_4866A0(int32(a1)))
 }
 
-func Sub_486FA0(a1 int) {
-	sub_486FA0(int32(a1))
-}
-
 func Sub_487D00(a1 unsafe.Pointer) {
 	sub_487D00((*uint32)(a1))
 }
@@ -360,5 +356,5 @@ func Sub_487150(a1 int, a2 unsafe.Pointer) unsafe.Pointer {
 }
 
 func Sub_487790(a1 unsafe.Pointer, a2 int) int {
-	return int(sub_487790(int32(uintptr(a1)), int32(a2)))
+	return int(sub_487790(a1, int32(a2)))
 }

@@ -2838,7 +2838,7 @@ func sub_431270() {
 }
 func sub_431290() {
 	if dword_5d4594_805984 != nil {
-		sub_487970(int32(uintptr(dword_5d4594_805984)), -1)
+		sub_487970(dword_5d4594_805984, -1)
 	}
 }
 func sub_431370() int32 {
