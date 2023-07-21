@@ -157,6 +157,35 @@ func (proc *Processor) astType(t types.Type) ast.Expr {
 	return x
 }
 
+func (proc *Processor) unwrapConv(x ast.Expr) (ast.Expr, bool) {
+	switch x := x.(type) {
+	case *ast.ParenExpr:
+		v, _ := proc.unwrapConv(x.X)
+		return v, true
+	case *ast.CallExpr:
+		if len(x.Args) != 1 {
+			return x, false
+		}
+		t := proc.pkg.TypesInfo.TypeOf(x.Fun)
+		if !isValidType(t) {
+			return x, false
+		}
+		for {
+			nt, ok := t.(*types.Named)
+			if !ok {
+				break
+			}
+			t = nt.Underlying()
+		}
+		if _, ok := t.(*types.Signature); ok {
+			return x, false
+		}
+		return x.Args[0], true
+	default:
+		return x, false
+	}
+}
+
 func not(x ast.Expr) ast.Expr {
 	switch x := x.(type) {
 	case *ast.ParenExpr:

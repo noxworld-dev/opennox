@@ -205,12 +205,29 @@ func (proc *Processor) fixUnsafeAdd(c1 *ast.CallExpr) bool {
 	return true
 }
 
+func (proc *Processor) shouldUnwrapCasts(x ast.Expr) bool {
+	if call, ok := x.(*ast.CallExpr); ok {
+		switch fullNameOf(call.Fun) {
+		case "nox_new_window_from_file", "nox_xxx_wndGetChildByID_46B0C0":
+			return true
+		}
+	}
+	return false
+}
+
 func (proc *Processor) simplifyExpr(p *ast.Expr, changed *bool) {
 	switch x := (*p).(type) {
 	case *ast.StarExpr:
 		if y, ok := x.X.(*ast.UnaryExpr); ok && y.Op == token.AND {
 			*p = y.X
 			*changed = true
+		}
+	case *ast.CallExpr:
+		if y, ok := proc.unwrapConv(x); ok {
+			if proc.shouldUnwrapCasts(y) {
+				*p = y
+				*changed = true
+			}
 		}
 	}
 	proc.fixUnsafeFieldAccess(p, changed)
@@ -224,6 +241,9 @@ func (proc *Processor) expectType(t types.Type, p *ast.Expr, changed *bool) {
 		return
 	}
 	if hasKind[*types.Signature](t) {
+		return
+	}
+	if proc.shouldUnwrapCasts(*p) {
 		return
 	}
 	switch x := (*p).(type) {
