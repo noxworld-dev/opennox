@@ -1870,7 +1870,7 @@ func sub_4A6DC0(win *gui.Window, draw *gui.WindowData) int {
 		v10 = int32(uint16(uintptr(dword_5d4594_1308108.WidgetData) >> 16))
 		v11 = v10 + int32(*(*uint16)(unsafe.Add(dword_5d4594_1308108.C(), 32)))*32
 		v9 := *memmap.PtrUint8(0x5D4594, uintptr(v11*3)+1307797)
-		v12 = int32(nox_color_rgb_4344A0(int32(*memmap.PtrUint8(0x5D4594, uintptr(v11*3)+1307796)), int32(v9), int32(*memmap.PtrUint8(0x5D4594, uintptr((v10+int32(*(*uint16)(unsafe.Add(dword_5d4594_1308108, 32)))*32)*3)+1307798))))
+		v12 = int32(nox_color_rgb_4344A0(int32(*memmap.PtrUint8(0x5D4594, uintptr(v11*3)+1307796)), int32(v9), int32(*memmap.PtrUint8(0x5D4594, uintptr((v10+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(dword_5d4594_1308108), 32)))*32)*3)+1307798))))
 		nox_draw_setMaterial_4341D0(2, v12)
 	} else {
 		nox_draw_setMaterial_4341D0(2, v4)
@@ -2423,7 +2423,7 @@ func nox_xxx_wndButtonDrawNoImg_4A81D0(win *gui.Window, draw *gui.WindowData) in
 	v3 = int32(a2.EnColorVal)
 	v4 = int32(a2.BgColorVal)
 	nox_client_wndGetPosition_46AA60(a1, &xLeft, &yTop)
-	if int32(*(*uint8)(unsafe.Add(a1, 4)))&8 != 0 {
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 4)))&8 != 0 {
 		if *(*uint32)(v2)&4 != 0 {
 			v4 = int32(*(*uint32)(unsafe.Add(v2, 52)))
 		} else if *(*uint32)(v2)&2 != 0 {
@@ -2459,7 +2459,7 @@ func nox_xxx_wndButtonDrawNoImg_4A81D0(win *gui.Window, draw *gui.WindowData) in
 	return 1
 }
 func nox_xxx_wndButtonInit_4A8340(a1 *gui.Window) {
-	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
+	if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 4)))) >= 0 {
 		nox_window_set_all_funcs(a1, nox_xxx_wndButtonProc_4A7F50, nox_xxx_wndButtonDrawNoImg_4A81D0, nil)
 	} else {
 		nox_window_set_all_funcs(a1, nox_xxx_wndButtonProc_4A7F50, nox_xxx_wndButtonDraw_4A8380, nil)
@@ -5048,7 +5048,7 @@ func sub_4B51A0(a1 *gui.Window) {
 	if a1 == nil {
 		return
 	}
-	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
+	if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 4)))) >= 0 {
 		nox_window_set_all_funcs(a1, sub_4B4860, sub_4B51E0, nil)
 	} else {
 		nox_window_set_all_funcs(a1, sub_4B4860, sub_4B52C0, nil)
@@ -5202,7 +5202,7 @@ func nox_xxx_wndScrollBoxSetAllFn_4B5500(win *gui.Window, draw *gui.WindowData) 
 	if win == nil {
 		return
 	}
-	if int32(int8(*(*uint8)(unsafe.Add(win, 4)))) >= 0 {
+	if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(win), 4)))) >= 0 {
 		nox_window_set_all_funcs(win, nox_xxx_wndScrollBoxDraw_4B4BA0, nox_xxx_wndScrollBoxDraw_4B5540, nil)
 	} else {
 		nox_window_set_all_funcs(win, nox_xxx_wndScrollBoxDraw_4B4BA0, nox_xxx_wndScrollBoxDraw_4B5620, nil)

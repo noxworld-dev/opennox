@@ -4792,7 +4792,7 @@ func sub_4CAFB0(a1 *gui.Window) {
 	if a1 == nil {
 		return
 	}
-	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
+	if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 4)))) >= 0 {
 		nox_window_set_all_funcs(a1, nil, sub_4CAFF0, nil)
 	} else {
 		nox_window_set_all_funcs(a1, nil, sub_4CB1A0, nil)

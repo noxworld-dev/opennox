@@ -732,7 +732,7 @@ func sub_459880(a1 int32) int32 {
 			v2 = nox_strman_loadString_40F1D0(internCStr("Servopts.wnd:KillLimit"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1926)
 		}
 	}
-	nox_wcscpy((*wchar2_t)(unsafe.Add(dword_5d4594_1046516, 108)), v2)
+	nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer(dword_5d4594_1046516), 108)), v2)
 	sub_4580E0(a1)
 	sub_459A40((*byte)(unsafe.Add(a1, 9)))
 	if noxflags.HasGame(1) && !noxflags.HasGame(49152) {
