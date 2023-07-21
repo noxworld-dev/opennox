@@ -208,7 +208,9 @@ func (proc *Processor) fixUnsafeAdd(c1 *ast.CallExpr) bool {
 func (proc *Processor) shouldUnwrapCasts(x ast.Expr) bool {
 	if call, ok := x.(*ast.CallExpr); ok {
 		switch fullNameOf(call.Fun) {
-		case "nox_new_window_from_file", "nox_xxx_wndGetChildByID_46B0C0":
+		case "nox_new_window_from_file",
+			"nox_xxx_wndGetChildByID_46B0C0",
+			"nox_xxx_gLoadImg_42F970":
 			return true
 		}
 	}
