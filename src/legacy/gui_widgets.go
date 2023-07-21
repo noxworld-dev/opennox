@@ -41,11 +41,11 @@ func Nox_xxx_wndButtonInit_4A8340(btn *gui.Window) {
 }
 
 func Nox_xxx_wndCheckBoxInit_4A8E60(btn *gui.Window) {
-	nox_xxx_wndCheckBoxInit_4A8E60(int32(uintptr(btn.C())))
+	nox_xxx_wndCheckBoxInit_4A8E60(btn)
 }
 
 func Nox_xxx_wndRadioButtonSetAllFn_4A87E0(win *gui.Window) {
-	nox_xxx_wndRadioButtonSetAllFn_4A87E0(int32(uintptr(win.C())))
+	nox_xxx_wndRadioButtonSetAllFn_4A87E0(win)
 }
 
 var (

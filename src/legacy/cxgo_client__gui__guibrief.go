@@ -603,7 +603,6 @@ func nox_xxx_clientQuestWinScreen_450770(a1 int32) int32 {
 		v1 uint32
 		v2 *uint8
 		v3 *uint16
-		v4 *uint32
 		v5 *uint16
 		v6 *uint16
 		v7 *uint16
@@ -637,24 +636,24 @@ func nox_xxx_clientQuestWinScreen_450770(a1 int32) int32 {
 	if dword_5d4594_832476 != 0 {
 		return nox_client_lockScreenBriefing_450160(254, 1, 1)
 	}
-	v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_briefing_831232, 1010)))
+	v4 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_briefing_831232, 1010)
 	v5 = nox_strman_loadString_40F1D0(internCStr("GUIBrief.c:GeneratorsDestroyed"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1656)
-	nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*59)), v5, &a1, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(v4.DrawData().FontPtr, v5, &a1, nil, 0)
 	if a1 > dword_5d4594_832476 {
 		dword_5d4594_832476 = uint32(a1)
 	}
 	v6 = nox_strman_loadString_40F1D0(internCStr("GUIBrief.c:Kills"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1660)
-	nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*59)), v6, &a1, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(v4.DrawData().FontPtr, v6, &a1, nil, 0)
 	if a1 > dword_5d4594_832476 {
 		dword_5d4594_832476 = uint32(a1)
 	}
 	v7 = nox_strman_loadString_40F1D0(internCStr("GUIBrief.c:numSecretsFound"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1664)
-	nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*59)), v7, &a1, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(v4.DrawData().FontPtr, v7, &a1, nil, 0)
 	if a1 > dword_5d4594_832476 {
 		dword_5d4594_832476 = uint32(a1)
 	}
 	v8 = nox_strman_loadString_40F1D0(internCStr("GUIBrief.c:TotalScore"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1668)
-	nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*59)), v8, &a1, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(v4.DrawData().FontPtr, v8, &a1, nil, 0)
 	v9 = int32(dword_5d4594_832476)
 	if a1 > dword_5d4594_832476 {
 		v9 = a1

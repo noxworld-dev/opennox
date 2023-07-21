@@ -3,7 +3,6 @@ package legacy
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -12,12 +11,6 @@ func sub_49B4B0(a1 *uint16) int32 {
 		v1     *wchar2_t
 		v2     *wchar2_t
 		v3     *wchar2_t
-		v4     *uint32
-		v5     *uint32
-		v6     *uint32
-		v7     *uint32
-		v8     *uint32
-		v9     *uint32
 		result int32
 		v11    int32
 		v12    int32
@@ -40,37 +33,33 @@ func sub_49B4B0(a1 *uint16) int32 {
 	v3 = nox_strman_loadString_40F1D0(internCStr("GGOver.wnd:Kills"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c"), 183)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1302428)), v3, v13)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1303196)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1303460)))
-	v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10710)))
-	sub_46AEE0(int32(uintptr(unsafe.Pointer(v4))), int32(uintptr(memmap.PtrOff(0x5D4594, 1302172))))
-	v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10705)))
-	sub_46AEE0(int32(uintptr(unsafe.Pointer(v5))), int32(uintptr(memmap.PtrOff(0x5D4594, 1302940))))
-	v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10706)))
-	sub_46AEE0(int32(uintptr(unsafe.Pointer(v6))), int32(uintptr(memmap.PtrOff(0x5D4594, 1302684))))
-	v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10707)))
-	sub_46AEE0(int32(uintptr(unsafe.Pointer(v7))), int32(uintptr(memmap.PtrOff(0x5D4594, 1301916))))
-	v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10708)))
-	sub_46AEE0(int32(uintptr(unsafe.Pointer(v8))), int32(uintptr(memmap.PtrOff(0x5D4594, 1302428))))
-	v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10711)))
-	sub_46AEE0(int32(uintptr(unsafe.Pointer(v9))), int32(uintptr(memmap.PtrOff(0x5D4594, 1303196))))
+	v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10710)
+	sub_46AEE0(v4, int32(uintptr(memmap.PtrOff(0x5D4594, 1302172))))
+	v5 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10705)
+	sub_46AEE0(v5, int32(uintptr(memmap.PtrOff(0x5D4594, 1302940))))
+	v6 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10706)
+	sub_46AEE0(v6, int32(uintptr(memmap.PtrOff(0x5D4594, 1302684))))
+	v7 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10707)
+	sub_46AEE0(v7, int32(uintptr(memmap.PtrOff(0x5D4594, 1301916))))
+	v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10708)
+	sub_46AEE0(v8, int32(uintptr(memmap.PtrOff(0x5D4594, 1302428))))
+	v9 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10711)
+	sub_46AEE0(v9, int32(uintptr(memmap.PtrOff(0x5D4594, 1303196))))
 	result = int32(gameFrame())
 	*memmap.PtrUint32(0x5D4594, 1303456) = gameFrame()
 	return result
 }
 func sub_49B6E0() int32 {
 	var (
-		result int32
-		v1     int32
-		v2     *wchar2_t
-		v3     *uint32
-		v4     int32
+		v1 int32
+		v2 *wchar2_t
+		v4 int32
 	)
-	result = int32(dword_5d4594_1303452)
 	if dword_5d4594_1303452 == nil {
-		return result
+		return 0
 	}
-	result = wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1303452)
-	if result != 0 {
-		return result
+	if wndIsShown_nox_xxx_wndIsShown_46ACC0(dword_5d4594_1303452) != 0 {
+		return 1
 	}
 	v1 = int32(*memmap.PtrUint32(0x5D4594, 1303456) + gameFPS()*30 - gameFrame())
 	if v1 < 0 {
@@ -83,7 +72,6 @@ func sub_49B6E0() int32 {
 		v2 = nox_strman_loadString_40F1D0(internCStr("Rules.c:Time"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c"), 265)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1301852)), internWStr("%s - %d"), v2, v4)
 	}
-	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10712)))
-	result = sub_46AEE0(int32(uintptr(unsafe.Pointer(v3))), int32(uintptr(memmap.PtrOff(0x5D4594, 1301852))))
-	return result
+	v3 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1303452, 10712)
+	return sub_46AEE0(v3, int32(uintptr(memmap.PtrOff(0x5D4594, 1301852))))
 }

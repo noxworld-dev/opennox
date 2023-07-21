@@ -30,7 +30,6 @@ func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintpt
 		v16    int32
 		v17    int32
 		v18    int32
-		v19    *uint32
 		v20    int32
 		v21    int32
 		v22    *wchar2_t
@@ -74,8 +73,8 @@ func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			result = 0
 			break
 		}
-		v19 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(a1)), v3)))
-		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v19)), 0)
+		v19 := nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(a1)), v3)
+		nox_xxx_wnd_46ABB0(v19, 0)
 		v20 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 		*((*uint8)(unsafe.Pointer(&v20))) = uint8(int8(v20 & 0xFD))
 		*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9)) = v20
@@ -167,27 +166,6 @@ func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintpt
 func sub_445C40() {
 	var (
 		result int32
-		v1     *uint32
-		v2     *uint32
-		v3     *uint32
-		v4     *uint32
-		v5     *uint32
-		v6     *uint32
-		v7     *uint32
-		v8     *uint32
-		v9     *uint32
-		v10    *uint32
-		v11    *uint32
-		v12    *uint32
-		v13    *uint32
-		v14    *uint32
-		v15    *uint32
-		v16    *uint32
-		v17    *uint32
-		v18    *uint32
-		v19    *uint32
-		v20    *wchar2_t
-		v21    *wchar2_t
 	)
 	if nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760)&0x10 != 0 {
 		if *memmap.PtrUint32(0x852978, 8) == 0 || !noxflags.HasGame(2048) || (func() bool {
@@ -201,60 +179,60 @@ func sub_445C40() {
 					nox_wnd_quitMenu_825760.Flags |= 8
 					nox_xxx_wndSetCaptureMain_46ADC0(nox_wnd_quitMenu_825760)
 					if noxflags.HasGame(2048) {
-						v20 = nox_strman_loadString_40F1D0(internCStr("SoloSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 396)
-						v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
+						v20 := nox_strman_loadString_40F1D0(internCStr("SoloSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 396)
+						v1 := (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
 						sub_46AEE0(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v20))))
-						v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v2)), 0)
-						v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9002)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v3)), 0)
-						v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v4)), 1)
-						v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9008)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v5)), 1)
-						v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v6)), 1)
-						v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004)))
-						nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(v7)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*5))))
+						v2 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001)
+						nox_window_set_hidden(v2, 0)
+						v3 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9002)
+						nox_window_set_hidden(v3, 0)
+						v4 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)
+						nox_window_set_hidden(v4, 1)
+						v5 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9008)
+						nox_window_set_hidden(v5, 1)
+						v6 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009)
+						nox_window_set_hidden(v6, 1)
+						v7 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004)
+						nox_window_setPos_46A9B0(v7, int32(v6.Off.X), int32(v6.Off.Y))
 						sub_413A00(1)
 						sub_46AB20(nox_wnd_quitMenu_825760, 220, 285)
 					} else {
-						v21 = nox_strman_loadString_40F1D0(internCStr("MultiplayerSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 427)
-						v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
-						sub_46AEE0(int32(uintptr(unsafe.Pointer(v8))), int32(uintptr(unsafe.Pointer(v21))))
-						v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v9)), 1)
-						v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9002)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v10)), 1)
-						v11 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v11)), 0)
-						nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v11)), 1)
-						v12 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9008)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v12)), 0)
-						v13 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009)))
-						nox_window_set_hidden((*gui.Window)(unsafe.Pointer(v13)), 0)
-						sub_46AEE0(int32(uintptr(unsafe.Pointer(v13))), int32(uintptr(memmap.PtrOff(0x5D4594, 825772))))
+						v21 := nox_strman_loadString_40F1D0(internCStr("MultiplayerSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 427)
+						v8 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)
+						sub_46AEE0(v8, int32(uintptr(unsafe.Pointer(v21))))
+						v9 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001)
+						nox_window_set_hidden(v9, 1)
+						v10 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9002)
+						nox_window_set_hidden(v10, 1)
+						v11 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)
+						nox_window_set_hidden(v11, 0)
+						nox_xxx_wnd_46ABB0(v11, 1)
+						v12 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9008)
+						nox_window_set_hidden(v12, 0)
+						v13 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009)
+						nox_window_set_hidden(v13, 0)
+						sub_46AEE0(v13, int32(uintptr(memmap.PtrOff(0x5D4594, 825772))))
 						if noxflags.HasGame(49152) || int32(nox_xxx_getTeamCounter_417DD0()) == 0 {
-							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v13)), 0)
+							nox_xxx_wnd_46ABB0(v13, 0)
 						} else {
-							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v13)), 1)
+							nox_xxx_wnd_46ABB0(v13, 1)
 						}
-						v14 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004)))
-						nox_window_setPos_46A9B0((*gui.Window)(unsafe.Pointer(v14)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*5))+45))
+						v14 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004)
+						nox_window_setPos_46A9B0(v14, int32(v13.Off.X), int32(v13.Off.Y+45))
 						sub_46AB20(nox_wnd_quitMenu_825760, 220, 330)
 						if noxflags.HasGame(4096) {
-							v15 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)))
-							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v15)), 0)
-							v16 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
-							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v16)), 0)
+							v15 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)
+							nox_xxx_wnd_46ABB0(v15, 0)
+							v16 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)
+							nox_xxx_wnd_46ABB0(v16, 0)
 						}
 						if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-							v17 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)))
-							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v17)), 0)
-							v18 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9005)))
-							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v18)), 0)
-							v19 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
-							nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v19)), 0)
+							v17 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007)
+							nox_xxx_wnd_46ABB0(v17, 0)
+							v18 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9005)
+							nox_xxx_wnd_46ABB0(v18, 0)
+							v19 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)
+							nox_xxx_wnd_46ABB0(v19, 0)
 						}
 					}
 				}

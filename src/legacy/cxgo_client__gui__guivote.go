@@ -3,7 +3,6 @@ package legacy
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -13,17 +12,14 @@ func sub_48CB10(a1 int32) *uint32 {
 	var (
 		result *uint32
 		v2     *wchar2_t
-		v3     *uint32
 		v4     *wchar2_t
 		v5     *wchar2_t
 		v6     *wchar2_t
 		v7     *wchar2_t
 		v8     *wchar2_t
-		v9     *uint32
 		v10    *wchar2_t
 		v11    *wchar2_t
 		v12    *wchar2_t
-		v13    *uint32
 		v14    *wchar2_t
 		v15    *uint32
 		v16    *byte
@@ -54,9 +50,9 @@ func sub_48CB10(a1 int32) *uint32 {
 		}
 		nox_window_set_hidden(dword_5d4594_1197316, 1)
 		nox_window_set_hidden(dword_5d4594_1197320, 0)
-		v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1197312, 4301)))
+		v3 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1197312, 4301)
 		v4 = nox_strman_loadString_40F1D0(internCStr("SelectVoteTopic"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 465)
-		sub_46AEE0(int32(uintptr(unsafe.Pointer(v3))), int32(uintptr(unsafe.Pointer(v4))))
+		sub_46AEE0(v3, int32(uintptr(unsafe.Pointer(v4))))
 		v5 = nox_strman_loadString_40F1D0(internCStr("VoteTopicLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 468)
 		nox_wcscpy(&v27[0], v5)
 		nox_wcscat(&v27[0], internWStr(" "))
@@ -73,9 +69,9 @@ func sub_48CB10(a1 int32) *uint32 {
 	case 2:
 		nox_window_set_hidden(dword_5d4594_1197316, 1)
 		nox_window_set_hidden(dword_5d4594_1197320, 0)
-		v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1197312, 4301)))
+		v9 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1197312, 4301)
 		v10 = nox_strman_loadString_40F1D0(internCStr("Vote:ResetQuest"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 491)
-		sub_46AEE0(int32(uintptr(unsafe.Pointer(v9))), int32(uintptr(unsafe.Pointer(v10))))
+		sub_46AEE0(v9, int32(uintptr(unsafe.Pointer(v10))))
 		v11 = nox_strman_loadString_40F1D0(internCStr("WindowDir:Yes"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 495)
 		nox_window_call_field_94_fnc(dword_5d4594_1197320, 16397, uintptr(unsafe.Pointer(v11)), 4)
 		v12 = nox_strman_loadString_40F1D0(internCStr("WindowDir:No"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 498)
@@ -89,9 +85,9 @@ func sub_48CB10(a1 int32) *uint32 {
 	case 0, 1, 3:
 		nox_window_set_hidden(dword_5d4594_1197316, 0)
 		nox_window_set_hidden(dword_5d4594_1197320, 1)
-		v13 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1197312, 4301)))
+		v13 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1197312, 4301)
 		v14 = nox_strman_loadString_40F1D0(internCStr("VoteKickPlayer"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIVote.c"), 520)
-		sub_46AEE0(int32(uintptr(unsafe.Pointer(v13))), int32(uintptr(unsafe.Pointer(v14))))
+		sub_46AEE0(v13, int32(uintptr(unsafe.Pointer(v14))))
 		if int32(nox_xxx_getTeamCounter_417DD0()) != 0 {
 			v15 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 			v16 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v15), 4)))))))

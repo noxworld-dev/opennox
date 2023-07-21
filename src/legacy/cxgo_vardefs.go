@@ -20,7 +20,7 @@ var dword_5d4594_1045684 *gui.Window
 var dword_5d4594_1307784 unsafe.Pointer
 var dword_5d4594_2650652 unsafe.Pointer
 var dword_5d4594_1217448 int32
-var dword_5d4594_1320940 uint32
+var dword_5d4594_1320940 *gui.Window
 var dword_5d4594_815004 *gui.Window
 var nox_wol_wnd_gameList_815012 *gui.Window
 var dword_5d4594_1062480 *nox_inventory_cell_t
@@ -63,7 +63,7 @@ var dword_5d4594_3798804 int32
 var dword_5d4594_832476 uint32
 var dword_5d4594_1570272 uint32
 var dword_5d4594_1305684 *gui.Window
-var dword_5d4594_1321228 uint32
+var dword_5d4594_1321228 *gui.Window
 var nox_game_createOrJoin_815048 uint32
 var dword_5d4594_1063636 unsafe.Pointer
 var nox_xxx_polygonNextIdx_587000_60352 uint32 = 0x1
@@ -88,7 +88,7 @@ var dword_5d4594_1047540 int32
 var dword_5d4594_814984 unsafe.Pointer
 var dword_5d4594_1320964 uint32
 var dword_5d4594_1049800_inventory_click_row_index int32
-var dword_5d4594_1309720 unsafe.Pointer
+var dword_5d4594_1309720 *gui.Window
 var dword_5d4594_1569752 unsafe.Pointer
 var dword_5d4594_1046936 int32
 var nox_xxx_lightningTarget_5d4594_2487908 uint32
@@ -98,7 +98,7 @@ var dword_5d4594_815028 *gui.Window
 var dword_5d4594_1301848 unsafe.Pointer
 var dword_5d4594_1316712 unsafe.Pointer
 var dword_5d4594_1313800 unsafe.Pointer
-var dword_5d4594_1321232 uint32
+var dword_5d4594_1321232 *gui.Window
 var dword_5d4594_815024 *gui.Window
 var nox_client_highResFrontWalls_80820 uint32 = 0x1
 var dword_5d4594_1045528 *gui.Window
@@ -196,7 +196,7 @@ var qword_581450_10176 float64 = 0.10000000149011612
 var dword_5d4594_1316408 uint32
 var dword_587000_292492 uint32 = 0x42C80000
 var nox_client_translucentFrontWalls_805844 uint32
-var dword_5d4594_1309732 uint32
+var dword_5d4594_1309732 *gui.Window
 var dword_5d4594_1321204 uint32
 var dword_5d4594_2386500 uint32
 var dword_5d4594_2649712 uint32
@@ -364,7 +364,7 @@ var dword_5d4594_1309832 uint32
 var dword_5d4594_2487576 uint32
 var dword_5d4594_1309756 uint32
 var dword_5d4594_831084 uint32
-var dword_5d4594_1309736 uint32
+var dword_5d4594_1309736 *gui.Window
 var nox_client_gui_flag_1556112 uint32
 var dword_5d4594_1301812 uint32
 var nox_alloc_friendList_1203860 unsafe.Pointer
@@ -451,7 +451,7 @@ var dword_5d4594_1098616 uint32
 var dword_5d4594_3807152 int32
 var dword_5d4594_1049996 noxrender.ImageHandle
 var dword_5d4594_1305788 uint32
-var dword_5d4594_1098600 uint32
+var dword_5d4594_1098600 *wchar2_t
 var dword_5d4594_2523760 uint32
 var dword_5d4594_1064868 uint32
 var dword_5d4594_1320988 uint32
@@ -480,7 +480,7 @@ var dword_5d4594_1090280 uint32
 var dword_5d4594_1200796 uint32
 var dword_5d4594_1313536 uint32
 var dword_5d4594_1308152 *gui.Window
-var dword_5d4594_1098596 uint32
+var dword_5d4594_1098596 *wchar2_t
 var dword_5d4594_1047524 uint32
 var dword_5d4594_1563096 uint32
 var dword_5d4594_1062564 int32

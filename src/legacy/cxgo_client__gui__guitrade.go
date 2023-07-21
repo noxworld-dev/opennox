@@ -12,17 +12,10 @@ func sub_4C09D0() int32 {
 	var (
 		v0  *uint32
 		v2  *wchar2_t
-		v3  *wchar2_t
 		v4  *wchar2_t
-		v5  *wchar2_t
 		v6  *wchar2_t
-		v7  *uint32
-		v8  *uint32
-		v9  *wchar2_t
 		v10 *wchar2_t
-		v11 *wchar2_t
 		v12 *wchar2_t
-		v13 *wchar2_t
 		v14 *wchar2_t
 		v15 *uint8
 		v16 *uint8
@@ -39,28 +32,28 @@ func sub_4C09D0() int32 {
 	}
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v0)), sub_4C0630, sub_4C0D00, nil)
 	v2 = nox_strman_loadString_40F1D0(internCStr("TradeMain"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 692)
-	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(dword_5d4594_1320940, 36)), v2)
-	v3 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1320940)), 3702)))
+	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(dword_5d4594_1320940), 36)), v2)
+	v3 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3702)
 	v4 = nox_strman_loadString_40F1D0(internCStr("TradePlayerName"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 695)
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(wchar2_t(0))*18)), v4)
-	v5 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1320940)), 3703)))
+	v5 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3703)
 	v6 = nox_strman_loadString_40F1D0(internCStr("TradeVendorName"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 698)
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(wchar2_t(0))*18)), v6)
-	v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1320940)), 3704)))
-	nox_gui_winSetFunc96_46B070((*gui.Window)(unsafe.Pointer(v7)), sub_4C1120)
-	v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1320940)), 3705)))
-	nox_gui_winSetFunc96_46B070((*gui.Window)(unsafe.Pointer(v8)), sub_4C1120)
-	v9 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1320940)), 3708)))
+	v7 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3704)
+	nox_gui_winSetFunc96_46B070(v7, sub_4C1120)
+	v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3705)
+	nox_gui_winSetFunc96_46B070(v8, sub_4C1120)
+	v9 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3708)
 	v10 = nox_strman_loadString_40F1D0(internCStr("TradePlayerAccept"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 709)
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(wchar2_t(0))*18)), v10)
-	v11 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1320940)), 3709)))
+	v11 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3709)
 	v12 = nox_strman_loadString_40F1D0(internCStr("TradeVendorAccept"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 712)
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v11), unsafe.Sizeof(wchar2_t(0))*18)), v12)
-	v13 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1320940)), 3710)))
+	v13 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3710)
 	v14 = nox_strman_loadString_40F1D0(internCStr("TradeCancel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 715)
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(wchar2_t(0))*18)), v14)
-	nox_window_set_hidden((*gui.Window)(dword_5d4594_1320940), 1)
-	nox_xxx_wnd_46ABB0((*gui.Window)(dword_5d4594_1320940), 0)
+	nox_window_set_hidden(dword_5d4594_1320940, 1)
+	nox_xxx_wnd_46ABB0(dword_5d4594_1320940, 0)
 	v15 = (*uint8)(memmap.PtrOff(0x5D4594, 1319288))
 	for {
 		v16 = v15

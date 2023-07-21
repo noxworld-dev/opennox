@@ -10,7 +10,6 @@ import (
 
 func sub_49C820() int32 {
 	var (
-		v0 *uint32
 		v1 **byte
 		v2 *wchar2_t
 	)
@@ -23,36 +22,33 @@ func sub_49C820() int32 {
 	nox_window_setPos_46A9B0(dword_5d4594_1305684, int32(int(nox_win_width/2)-dword_5d4594_1305684.SizeVal.X/2), int32(int(nox_win_height/2)-dword_5d4594_1305684.SizeVal.Y/2))
 	nox_xxx_guiServerOptsLoad_457500()
 	sub_459D80(1)
-	v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)))
+	v0 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)
 	v1 = (**byte)(memmap.PtrOff(0x587000, 164928))
 	for {
 		v2 = nox_strman_loadString_40F1D0(*v1, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\conntype.c"), 158)
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v0)), 16397, uintptr(unsafe.Pointer(v2)), math.MaxUint32)
+		nox_window_call_field_94_fnc(v0, 16397, uintptr(unsafe.Pointer(v2)), math.MaxUint32)
 		v1 = (**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*1))
 		if int32(uintptr(unsafe.Pointer(v1))) >= int32(uintptr(memmap.PtrOff(0x587000, 164944))) {
 			break
 		}
 	}
-	return int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v0)), 16403, 0, 0))
+	return int32(nox_window_call_field_94_fnc(v0, 16403, 0, 0))
 }
-func sub_49C910() *uint32 {
+func sub_49C910() {
 	var (
-		v0     *uint16
-		v1     *uint16
-		v2     **byte
-		v3     int32
-		v4     int32
-		v5     *uint16
-		v6     int32
-		v7     int32
-		result *uint32
-		v9     int32
-		v10    int32
-		v11    int32
-		v12    int32
+		v2  **byte
+		v3  int32
+		v4  int32
+		v5  *uint16
+		v6  int32
+		v7  int32
+		v9  int32
+		v10 int32
+		v11 int32
+		v12 int32
 	)
-	v0 = (*uint16)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)))
-	v1 = v0
+	v0 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)
+	v1 := v0
 	v2 = (**byte)(memmap.PtrOff(0x587000, 164928))
 	v3 = (nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*59)))))) + 1) * 5
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5))) + uint32(v3) + 2
@@ -83,12 +79,11 @@ func sub_49C910() *uint32 {
 	dword_5d4594_1305684.EndPos.Y = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 40)
 	dword_5d4594_1305684.SizeVal.X = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2))) + 80)
 	dword_5d4594_1305684.SizeVal.Y = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3))) + 80)
-	result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10353)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 10
-	v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)))
-	v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*4)) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) - uint32(v9)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*7)) = uint32(v10) + *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*3))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*6)) = uint32(v9) + *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*4))
-	return result
+	result := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10353)
+	result.Off.Y = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 10)
+	v9 = int32(result.SizeVal.X)
+	v10 = int32(result.Off.Y)
+	result.Off.X = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) - uint32(v9))
+	result.EndPos.Y = uint32(v10) + result.SizeVal.Y
+	result.EndPos.X = uint32(v9) + result.Off.X
 }

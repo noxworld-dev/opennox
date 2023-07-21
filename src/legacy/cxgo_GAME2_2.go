@@ -965,8 +965,8 @@ func sub_478F80() int32 {
 	dword_5d4594_1098576 = nil
 	dword_5d4594_1098624 = 0
 	dword_5d4594_1098628 = 1
-	dword_5d4594_1098596 = 0
-	dword_5d4594_1098600 = 0
+	dword_5d4594_1098596 = nil
+	dword_5d4594_1098600 = nil
 	dword_5d4594_1098604 = nil
 	*memmap.PtrUint32(0x5D4594, 1098608) = 0
 	dword_5d4594_1098616 = 0
