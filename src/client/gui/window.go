@@ -52,9 +52,9 @@ type Window struct {
 	WidgetData     unsafe.Pointer                // 8, 32; different types
 	drawData       WindowData                    // 9, 36
 	Field92Val     uintptr                       // 92, 368
-	field93        ccall.Func[WindowFuncLegacy]  // 93
-	field94        ccall.Func[WindowFuncLegacy]  // 94, 376
-	drawFunc       ccall.Func[WindowDrawFunc]    // 95, 380, second arg is &field_9
+	Field93Ptr     ccall.Func[WindowFuncLegacy]  // 93, 372
+	Field94Ptr     ccall.Func[WindowFuncLegacy]  // 94, 376
+	DrawFuncPtr    ccall.Func[WindowDrawFunc]    // 95, 380, second arg is &field_9
 	TooltipFuncPtr ccall.Func[WindowTooltipFunc] // 96, 384
 	PrevPtr        *Window                       // 97, 388
 	NextPtr        *Window                       // 98, 392
@@ -367,12 +367,12 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func93 != nil {
 		return ext.Func93(win, e)
 	}
-	if ptr := win.field93.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
+	if ptr := win.Field93Ptr.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
 		return nil
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := win.field93.Get()(win, uintptr(ev), a1, a2)
+	r := win.Field93Ptr.Get()(win, uintptr(ev), a1, a2)
 	if r == 0 {
 		return nil
 	}
@@ -380,7 +380,7 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 }
 
 func (win *Window) GetFunc94() WindowFuncLegacy {
-	return win.field94.Get()
+	return win.Field94Ptr.Get()
 }
 
 func (win *Window) Func94(e WindowEvent) WindowEventResp {
@@ -390,12 +390,12 @@ func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func94 != nil {
 		return ext.Func94(win, e)
 	}
-	if ptr := win.field94.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
+	if ptr := win.Field94Ptr.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
 		return nil
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := win.field94.Get()(win, uintptr(ev), a1, a2)
+	r := win.Field94Ptr.Get()(win, uintptr(ev), a1, a2)
 	if r == 0 {
 		return nil
 	}
@@ -410,10 +410,10 @@ func (win *Window) Draw() {
 		ext.Draw(win, win.DrawData())
 		return
 	}
-	if ptr := win.drawFunc.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
+	if ptr := win.DrawFuncPtr.Ptr(); ptr == nil || uintptr(ptr) == deadWord {
 		return
 	}
-	win.drawFunc.Get()(win, win.DrawData())
+	win.DrawFuncPtr.Get()(win, win.DrawData())
 }
 
 func (win *Window) TooltipFunc(a1 uintptr) {
