@@ -42,7 +42,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 		return nil
 	}
 	v8 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(a1), a2, a3, a4, a5, a6, nox_xxx_wndListboxProcPre_4A30D0)))
-	nox_xxx_wndListboxInit_4A3C00((*gui.Window)(unsafe.Pointer(v8)), int32(uintptr(unsafe.Pointer(opts))))
+	nox_xxx_wndListboxInit_4A3C00((*gui.Window)(unsafe.Pointer(v8)), unsafe.Pointer(opts))
 	if v8 == nil {
 		return nil
 	}

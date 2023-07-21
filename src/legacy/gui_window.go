@@ -50,46 +50,40 @@ func nox_xxx_wndSetID_46B080(win *gui.Window, id int32) int32 {
 	return 0
 }
 
-func nox_window_set_all_funcs(win *gui.Window, proc gui.WindowFuncLegacy, draw gui.WindowDrawFunc, tooltip gui.WindowTooltipFunc) int32 {
+func nox_window_set_all_funcs(win *gui.Window, proc gui.WindowFuncLegacy, draw gui.WindowDrawFunc, tooltip gui.WindowTooltipFunc) {
 	if win == nil {
-		return -2
+		return
 	}
 	win.SetFunc93(gui.WrapFunc(proc))
 	win.SetDraw(draw)
 	win.SetTooltipFunc(tooltip)
-	return 0
 }
 
-func nox_xxx_wndSetWindowProc_46B300(win *gui.Window, fnc gui.WindowFuncLegacy) int32 {
+func nox_xxx_wndSetWindowProc_46B300(win *gui.Window, fnc gui.WindowFuncLegacy) {
 	if win == nil {
-		return -2
+		return
 	}
 	win.SetFunc93(gui.WrapFunc(fnc))
-	return 0
 }
 
-func nox_xxx_wndSetProc_46B2C0(win *gui.Window, fnc gui.WindowFuncLegacy) int32 {
+func nox_xxx_wndSetProc_46B2C0(win *gui.Window, fnc gui.WindowFuncLegacy) {
 	if win == nil {
-		return -2
+		return
 	}
 	win.SetFunc94(gui.WrapFunc(fnc))
-	return 0
 }
 
-func nox_xxx_wndSetDrawFn_46B340(win *gui.Window, fnc gui.WindowDrawFunc) int32 {
+func nox_xxx_wndSetDrawFn_46B340(win *gui.Window, fnc gui.WindowDrawFunc) {
 	if win == nil {
-		return -2
+		return
 	}
 	win.SetDraw(fnc)
-	return 0
 }
 
-// nox_gui_winSetFunc96_46B070
 func nox_gui_winSetFunc96_46B070(win *gui.Window, fnc gui.WindowTooltipFunc) {
 	win.SetTooltipFunc(fnc)
 }
 
-// nox_xxx_wndSetRectColor2MB_46AFE0
 func nox_xxx_wndSetRectColor2MB_46AFE0(win *gui.Window, a2 int32) int32 {
 	if win == nil {
 		return -2
@@ -99,7 +93,6 @@ func nox_xxx_wndSetRectColor2MB_46AFE0(win *gui.Window, a2 int32) int32 {
 	return 0
 }
 
-// nox_window_call_field_94_fnc
 func nox_window_call_field_94_fnc(p *gui.Window, a2, a3, a4 uintptr) uintptr {
 	if p == nil {
 		return 0
@@ -114,7 +107,6 @@ func nox_window_call_field_94_fnc(p *gui.Window, a2, a3, a4 uintptr) uintptr {
 	return r.EventRespC()
 }
 
-// nox_window_call_field_93
 func nox_window_call_field_93(p *gui.Window, a2, a3, a4 int32) int32 {
 	if p == nil {
 		return 0
@@ -126,22 +118,14 @@ func nox_window_call_field_93(p *gui.Window, a2, a3, a4 int32) int32 {
 	return int32(r.EventRespC())
 }
 
-// nox_xxx_wndGetChildByID_46B0C0
 func nox_xxx_wndGetChildByID_46B0C0(root *gui.Window, id int32) *gui.Window {
 	return root.ChildByID(uint(id))
 }
 
-// nox_xxx_windowDestroyMB_46C4E0
-func nox_xxx_windowDestroyMB_46C4E0(a1 *gui.Window) int32 {
-	win := a1
-	if win == nil {
-		return -2
-	}
+func nox_xxx_windowDestroyMB_46C4E0(win *gui.Window) {
 	win.Destroy()
-	return 0
 }
 
-// nox_window_set_hidden
 func nox_window_set_hidden(p *gui.Window, hidden int32) int32 {
 	if p == nil {
 		return -2
@@ -155,12 +139,10 @@ func nox_window_set_hidden(p *gui.Window, hidden int32) int32 {
 	return 0
 }
 
-// nox_xxx_wndShowModalMB_46A8C0
 func nox_xxx_wndShowModalMB_46A8C0(p *gui.Window) int32 {
 	return int32(p.ShowModal())
 }
 
-// nox_window_setPos_46A9B0
 func nox_window_setPos_46A9B0(p *gui.Window, x, y int32) int32 {
 	win := p
 	if win == nil {
@@ -170,7 +152,6 @@ func nox_window_setPos_46A9B0(p *gui.Window, x, y int32) int32 {
 	return 0
 }
 
-// wndIsShown_nox_xxx_wndIsShown_46ACC0
 func wndIsShown_nox_xxx_wndIsShown_46ACC0(p *gui.Window) int32 {
 	if p == nil {
 		return 1
@@ -180,12 +161,10 @@ func wndIsShown_nox_xxx_wndIsShown_46ACC0(p *gui.Window) int32 {
 	return bool2int32(is)
 }
 
-// nox_xxx_wnd_46C6E0
 func nox_xxx_wnd_46C6E0(p *gui.Window) int32 {
 	return int32(p.StackPop())
 }
 
-// sub_46C690
 func sub_46C690(p *gui.Window) int32 {
 	return int32(p.StackPush())
 }

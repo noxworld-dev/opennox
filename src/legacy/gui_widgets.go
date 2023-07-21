@@ -37,7 +37,7 @@ func Nox_gui_newProgressBar_4CAF10(par *gui.Window, status gui.StatusFlags, px, 
 }
 
 func Nox_xxx_wndButtonInit_4A8340(btn *gui.Window) {
-	nox_xxx_wndButtonInit_4A8340(int32(uintptr(btn.C())))
+	nox_xxx_wndButtonInit_4A8340(btn)
 }
 
 func Nox_xxx_wndCheckBoxInit_4A8E60(btn *gui.Window) {

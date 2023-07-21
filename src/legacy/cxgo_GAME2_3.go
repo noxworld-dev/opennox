@@ -2583,7 +2583,7 @@ LABEL_32:
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v41)))
 				a3.field_C = float32(float64(dword_5d4594_1217448 + sub_414BD0(v41)))
 				if sub_497180((*float4)(unsafe.Pointer(&a3.field_0)), (*float4)(unsafe.Pointer(&v83.field_0)), (*types.Pointf)(unsafe.Pointer(&a4.X))) == 0 {
-					a4 = v83
+					a4 = types.Ptf(v83.field_0, v83.field_4)
 				}
 				v42 = int32(uint32(*(*int32)(unsafe.Add(v19, 44))*25736) / 75000)
 				a3.field_8 = float32(float64(*memmap.PtrInt32(0x5D4594, 1217444) + sub_414BD0(6434-v42)))
@@ -2875,7 +2875,7 @@ func sub_497260(a1 *noxrender.Viewport) {
 							if float64(v3.World.Min.Y+v3.Size.Y) > float64(v12) {
 								v18 = float32(v8 + float64(v2.Shape.Circle.R))
 								if float64(v3.World.Min.Y) < float64(v18) {
-									sub_497650(float32(v2))
+									sub_497650(v2)
 								}
 							}
 						}
@@ -3005,9 +3005,8 @@ func sub_4974B0(a1 unsafe.Pointer) {
 		sub_4CAE90(v2)
 	}
 }
-func sub_497650(a1 float32) {
+func sub_497650(a1 *client.Drawable) {
 	var (
-		v2  float32
 		v4  int32
 		v5  float64
 		v6  int32
@@ -3029,13 +3028,13 @@ func sub_497650(a1 float32) {
 		v24 float32
 	)
 	v1 := sub_4CADD0()
-	v2 = a1
+	v2 := a1
 	v3 := v1
 	*(*uint8)(unsafe.Add(v1, 48)) = 1
 	*(*uint8)(unsafe.Add(v1, 56)) = 7
-	*(*float32)(unsafe.Add(v1, 20)) = a1
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0))))), 16)))
-	v24 = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0))))), 12)) - *memmap.PtrUint32(0x5D4594, 1217444))))
+	*(**client.Drawable)(unsafe.Add(v1, 20)) = a1
+	v4 = int32(a1.PosVec.Y)
+	v24 = float32(float64(int32(a1.PosVec.X - int(*memmap.PtrUint32(0x5D4594, 1217444)))))
 	v5 = float64(int32(int32(v4) - dword_5d4594_1217448))
 	v23 = float32(v5)
 	v21 = float32(v5*float64(v23) + float64(v24*v24))
@@ -3045,7 +3044,7 @@ func sub_497650(a1 float32) {
 	v22 = int32(v24)
 	v8 = int32(v23)
 	v9 = sub_4CA8B0(v8, v22)
-	v10 = int32(*(*float32)(unsafe.Add(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer(&v2), 4*0))))), 48)))
+	v10 = int32(v2.Shape.Circle.R)
 	v11 = sub_4CA8B0(v10, v7)
 	*(*uint32)(unsafe.Add(v3, 4*10)) = uint32(v11 + v9)
 	if v11+v9 < 0 {
@@ -4722,14 +4721,13 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 	return npc
 }
 func nox_xxx_allocArrayHealthChanges_49A5F0() int32 {
-	var result int32
-	result = int32(uintptr(unsafe.Pointer(nox_new_alloc_class(internCStr("HealthChange"), 20, 32))))
+	result := nox_new_alloc_class(internCStr("HealthChange"), 20, 32)
 	nox_alloc_healthChange_1301772 = result
-	if result != 0 {
-		dword_5d4594_1301780 = nox_xxx_guiFontPtrByName_43F360(internCStr("numbers"))
-		result = 1
+	if result == nil {
+		return 0
 	}
-	return result
+	dword_5d4594_1301780 = nox_xxx_guiFontPtrByName_43F360(internCStr("numbers"))
+	return 1
 }
 func sub_49A630() {
 	nox_alloc_class_free_all(nox_alloc_healthChange_1301772)
@@ -4896,11 +4894,9 @@ func sub_49B420(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	}
 	return 0
 }
-func sub_49B490() int32 {
-	var result int32
-	result = nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1303452)
+func sub_49B490() {
+	nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1303452)
 	dword_5d4594_1303452 = nil
-	return result
 }
 func sub_49B6B0() int32 {
 	nox_window_set_hidden(dword_5d4594_1303452, 1)
@@ -5075,7 +5071,7 @@ func nox_xxx_clientAddRayEffect_49C160(a1 unsafe.Pointer) {
 		return nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v5))
 	}().C())
 	if !(v7 != nil && result != nil) {
-		return result
+		return
 	}
 	v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*3)))
 	v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)))

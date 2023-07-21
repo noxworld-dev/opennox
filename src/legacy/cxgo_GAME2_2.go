@@ -5148,7 +5148,7 @@ func nox_gui_newEntryField_488500(a1p *gui.Window, a2 nox_window_flags, a3, a4, 
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262)) = unsafe.Pointer(v12)
 	if v12 != nil {
 		nox_xxx_wndClearFlag_46AD80(v12, 128)
-		nox_xxx_wndListboxInit_4A3C00(*(**gui.Window)(unsafe.Add(unsafe.Pointer(v10), 4*262)), int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262)), 32))))
+		nox_xxx_wndListboxInit_4A3C00(*(**gui.Window)(unsafe.Add(unsafe.Pointer(v10), 4*262)), *(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262)), 32)))
 		v13 = int32(nox_color_rgb_4344A0(0, 0, 0))
 		nox_xxx_wndSetRectColor2MB_46AFE0((*gui.Window)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262))), v13)
 		return v8

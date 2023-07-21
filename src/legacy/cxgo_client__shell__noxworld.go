@@ -592,10 +592,8 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 		v26 *byte
 		v27 int32
 		v28 uint16
-		v30 int32
-		v31 int32
+		v30 Point32
 	)
-	_ = v31
 	var buf [4]byte
 	var v33 [10]wchar2_t
 	var v34 [36]byte
@@ -645,10 +643,10 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 	}
 	if v5 >= 10070 {
 		var mpos Point32 = nox_client_getMousePos_4309F0()
-		v30 = mpos.X - 216
-		v31 = mpos.Y - 27
+		v30.X = mpos.X - 216
+		v30.Y = mpos.Y - 27
 		v6 = (*int32)(unsafe.Pointer(sub_4A0020()))
-		if sub_4A25C0((*uint32)(unsafe.Pointer(&v30)), v6) >= 2 {
+		if sub_4A25C0(&v30, unsafe.Pointer(v6)) >= 2 {
 			v7 = (*int32)(unsafe.Pointer(sub_4A0020()))
 			*memmap.PtrUint32(0x5D4594, 815036) = uint32(sub_4A2610(nox_wol_wnd_world_814980, (*uint32)(unsafe.Pointer(&v30)), v7))
 		} else {

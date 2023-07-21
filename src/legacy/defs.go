@@ -135,9 +135,9 @@ type nox_scrollListBox_data struct {
 	field_4     uint32
 	field_5     uint32
 	items       *nox_scrollListBox_item
-	field_7     unsafe.Pointer
-	field_8     unsafe.Pointer
-	field_9     unsafe.Pointer
+	field_7     *gui.Window
+	field_8     *gui.Window
+	field_9     *gui.Window
 	field_10    uint32
 	field_11_0  uint16
 	field_11_1  uint16

@@ -27,13 +27,12 @@ var nox_client_inventory_grid_1050020 [84]nox_inventory_cell_t
 func sub_460D40() int32 {
 	return bool2int32(dword_5d4594_1049508 != nil)
 }
-func sub_460D50() int32 {
+func sub_460D50() {
 	var (
-		v0     *uint8
-		v1     **uint32
-		v2     int32
-		v3     *uint8
-		result int32
+		v0 *uint8
+		v1 **uint32
+		v2 int32
+		v3 *uint8
 	)
 	nox_xxx_windowDestroyMB_46C4E0(dword_5d4594_1049500)
 	dword_5d4594_1049500 = nil
@@ -73,7 +72,7 @@ func sub_460D50() int32 {
 	*memmap.PtrUint32(0x5D4594, 1048148) = 0
 	v3 = (*uint8)(memmap.PtrOff(0x5D4594, 1048152))
 	for {
-		result = nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(v3)))))
+		nox_xxx_windowDestroyMB_46C4E0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(v3)))))
 		*(*uint32)(unsafe.Pointer(v3)) = 0
 		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 4))
 		if int32(uintptr(unsafe.Pointer(v3))) >= int32(uintptr(memmap.PtrOff(0x5D4594, 1048164))) {
@@ -83,7 +82,6 @@ func sub_460D50() int32 {
 	dword_5d4594_1049532 = nil
 	*memmap.PtrUint32(0x5D4594, 1047928) = 0
 	dword_5d4594_1047932 = 0
-	return result
 }
 func nox_xxx_cliPrepareGameplay1_460E60() int32 {
 	var result int32
