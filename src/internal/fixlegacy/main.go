@@ -125,6 +125,21 @@ func (proc *Processor) processFile(fname string, f *ast.File) (bool, error) {
 					proc.expectType(ft.Params().At(i).Type(), &n.Args[i], &changed)
 				}
 			}
+			if len(n.Args) == 2 {
+				if fullNameOf(n.Fun) == "unsafe.Add" {
+					t2 := proc.pkg.TypesInfo.TypeOf(n.Args[0])
+					if isValidType(t2) {
+						if pt, ok := t2.(*types.Pointer); ok {
+							if nt, ok := pt.Elem().(*types.Named); ok {
+								if _, ok := nt.Underlying().(*types.Struct); ok {
+									n.Args[0] = newCall("unsafe.Pointer", n.Args[0])
+									changed = true
+								}
+							}
+						}
+					}
+				}
+			}
 		case *ast.AssignStmt:
 			if len(n.Lhs) == len(n.Rhs) {
 				for i := range n.Lhs {
