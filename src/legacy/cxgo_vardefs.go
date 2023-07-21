@@ -197,7 +197,7 @@ var dword_5d4594_1316408 uint32
 var dword_587000_292492 uint32 = 0x42C80000
 var nox_client_translucentFrontWalls_805844 uint32
 var dword_5d4594_1309732 *gui.Window
-var dword_5d4594_1321204 uint32
+var dword_5d4594_1321204 unsafe.Pointer
 var dword_5d4594_2386500 uint32
 var dword_5d4594_2649712 uint32
 var dword_5d4594_1046532 *gui.Window
@@ -255,7 +255,7 @@ var dword_5d4594_2650680 uint32
 var dword_5d4594_588120 unsafe.Pointer
 var dword_5d4594_1047512 int32
 var dword_5d4594_588084 unsafe.Pointer
-var dword_5d4594_1321044 uint32
+var dword_5d4594_1321044 *gui.Window
 var dword_5d4594_816372 uint32
 var dword_5d4594_832492 unsafe.Pointer
 var dword_5d4594_1046504 *gui.Window
@@ -323,7 +323,7 @@ var dword_5d4594_1096252 uint32
 var dword_5d4594_741356 int32
 var dword_5d4594_1197356 unsafe.Pointer
 var dword_5d4594_1045436 unsafe.Pointer
-var dword_5d4594_1321800 uint32
+var dword_5d4594_1321800 int32
 var dword_5d4594_1197336 uint32
 var dword_5d4594_1197352 unsafe.Pointer
 var dword_5d4594_826036 unsafe.Pointer

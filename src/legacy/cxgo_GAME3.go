@@ -5737,7 +5737,7 @@ func sub_4B8960(a1 *noxrender.Viewport, dr *client.Drawable, a3 int32, a4 *uint3
 					} else {
 						sub_4B8CA0(a4, 2)
 					}
-					nox_xxx_drawObject_4C4770_draw(a1, v6, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4))))))
+					nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
 					v8 = a3
 					v30 = 1
 				}
@@ -5766,7 +5766,7 @@ LABEL_22:
 						} else {
 							sub_4B8CA0(a4, 1<<v13)
 						}
-						nox_xxx_drawObject_4C4770_draw(a1, v6, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v17+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4))))))
+						nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v17+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
 						if v15 != 0 {
 							v31 = 1
 						}
@@ -5802,7 +5802,7 @@ LABEL_22:
 			} else {
 				sub_4B8CA0(a4, 2)
 			}
-			nox_xxx_drawObject_4C4770_draw(a1, v6, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v20+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4))))))
+			nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v20+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
 			v8 = a3
 		}
 	}
@@ -5834,7 +5834,7 @@ LABEL_55:
 			} else {
 				sub_4B8CA0(a4, uint32(v22))
 			}
-			nox_xxx_drawObject_4C4770_draw(a1, v6, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v24+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4))))))
+			nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v24+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
 		}
 	}
 }
@@ -5939,7 +5939,7 @@ func sub_4B8D40(a1 *noxrender.Viewport, dr *client.Drawable, a3 int32, a4 *uint3
 				} else {
 					sub_4B8E10(a4, (*byte)(unsafe.Pointer(uintptr(1<<v7))))
 				}
-				nox_xxx_drawObject_4C4770_draw(a1, v6, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4))))))
+				nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
 			}
 		}
 		v7++

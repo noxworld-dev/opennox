@@ -68,8 +68,8 @@ func Nox_client_trapSetSelect_4604B0(ind int) {
 	nox_client_trapSetSelect_4604B0(int32(ind))
 }
 
-func Nox_client_orderCreature(a1, a2 int) {
-	nox_client_orderCreature(int32(a1), int32(a2))
+func Nox_client_orderCreature(a1 unsafe.Pointer, a2 int) {
+	nox_client_orderCreature(a1, int32(a2))
 }
 
 func Get_nox_gui_itemAmount_dialog_1319228() *gui.Window {

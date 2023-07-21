@@ -33,7 +33,7 @@ func Nox_gui_newSlider_4B4EE0(par *gui.Window, status gui.StatusFlags, px, py, w
 }
 
 func Nox_gui_newProgressBar_4CAF10(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData) *gui.Window {
-	return nox_gui_newProgressBar_4CAF10(int32(uintptr(par.C())), nox_window_flags(status), px, py, w, h, (*uint32)(draw.C()))
+	return nox_gui_newProgressBar_4CAF10(par, nox_window_flags(status), px, py, w, h, (*uint32)(draw.C()))
 }
 
 func Nox_xxx_wndButtonInit_4A8340(btn *gui.Window) {

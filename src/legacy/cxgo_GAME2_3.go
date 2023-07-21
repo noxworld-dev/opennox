@@ -4366,11 +4366,11 @@ func sub_4991E0(a1 *uint32) {
 		}
 	}
 }
-func sub_499290(a1 int32) uint64 {
-	var result int64
-	*(*uint32)(unsafe.Add(unsafe.Pointer(&result), 4*0)) = *memmap.PtrUint32(0x5D4594, uintptr(a1*8)+1212068)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(&result), 4*1)) = *memmap.PtrUint32(0x5D4594, uintptr(a1*8)+1212072)
-	return uint64(result)
+func sub_499290(a1 int32) Point32 {
+	var result Point32
+	result.X = memmap.Int32(0x5D4594, uintptr(a1*8)+1212068)
+	result.Y = memmap.Int32(0x5D4594, uintptr(a1*8)+1212072)
+	return result
 }
 func sub_4992B0(a1 int32, a2 int32) int32 {
 	var (

@@ -62,8 +62,8 @@ func nox_xxx_guiSummonCreatureLoad_4C1D80() int32 {
 		}
 	}
 	sub_4C2BF0()
-	dword_5d4594_1321044 = 0
-	dword_5d4594_1321204 = 0
+	dword_5d4594_1321044 = nil
+	dword_5d4594_1321204 = nil
 	dword_5d4594_1321196 = 0
 	return 1
 }
@@ -126,12 +126,12 @@ LABEL_11:
 	}
 LABEL_16:
 	dword_5d4594_1321044 = nox_window_new(nil, 40, int(v5), int(v7), int(nox_xxx_screenWidth_587000_184452), int(v3*5+12), nil)
-	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(dword_5d4594_1321044)), nil, sub_4C26F0, nil)
-	nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(dword_5d4594_1321044))
+	nox_window_set_all_funcs(dword_5d4594_1321044, nil, sub_4C26F0, nil)
+	nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_1321044)
 	v8 = 0
 	for i = 0; i < 6; i++ {
 		if i != 2 {
-			v10 = nox_window_new((*gui.Window)(dword_5d4594_1321044), 8, 0, int(v8), int(nox_xxx_screenWidth_587000_184452), int(v3+1), nil)
+			v10 = nox_window_new(dword_5d4594_1321044, 8, 0, int(v8), int(nox_xxx_screenWidth_587000_184452), int(v3+1), nil)
 			nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v10)), nox_xxx_clientOrderCreature_4C2A60, sub_4C27F0, nil)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*8)) = uint32(i)
 			v8 += v3 + 2
@@ -157,7 +157,7 @@ func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 	if dword_5d4594_1321208 == 0 {
 		dword_5d4594_1321208 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("CarnivorousPlant")))
 	}
-	if dword_5d4594_1321204 != 0 || (func() bool {
+	if dword_5d4594_1321204 != nil || (func() bool {
 		result = 1
 		return *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)) != 1
 	}()) {
@@ -176,8 +176,8 @@ func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 			}
 			return 1
 		}
-		if dword_5d4594_1321204 != 0 {
-			if sub_4C2DD0(int32(dword_5d4594_1321204)) != 0 {
+		if dword_5d4594_1321204 != nil {
+			if sub_4C2DD0(dword_5d4594_1321204) != 0 {
 				sub_4C2A00(v11+v4, v10+3, int32(nox_color_white_2523948), int32(nox_color_black_2650656), (*int16)(unsafe.Pointer(v2)))
 				return 1
 			}
