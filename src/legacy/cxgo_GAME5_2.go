@@ -2707,8 +2707,6 @@ func nullsub_35(a1 unsafe.Pointer, a2 uint32) {
 }
 func nullsub_31(a1 uint32) {
 }
-func nullsub_9(a1 uint32) {
-}
 func nox_xxx_j_allocHitArray_511840() {
 	nox_xxx_allocHitArray_5486D0()
 }

@@ -41,7 +41,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 	if (int32(*(*uint8)(unsafe.Add(a7, 8))) & 0x20) == 0 {
 		return nil
 	}
-	v8 = (*uint32)(unsafe.Pointer(nox_window_new((*gui.Window)(a1), a2, a3, a4, a5, a6, nox_xxx_wndListboxProcPre_4A30D0)))
+	v8 = nox_window_new((*gui.Window)(a1), a2, a3, a4, a5, a6, nox_xxx_wndListboxProcPre_4A30D0)
 	nox_xxx_wndListboxInit_4A3C00((*gui.Window)(unsafe.Pointer(v8)), unsafe.Pointer(opts))
 	if v8 == nil {
 		return nil
@@ -104,10 +104,10 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v25[72])), v16)
 			v23 = 10
 		} else {
-			*(*uint32)(unsafe.Pointer(&v25[24])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButton")))))
-			*(*uint32)(unsafe.Pointer(&v25[40])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButtonLit")))))
-			*(*uint32)(unsafe.Pointer(&v25[48])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButtonDis")))))
-			*(*uint32)(unsafe.Pointer(&v25[56])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButtonLit")))))
+			*(*uint32)(unsafe.Pointer(&v25[24])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButton"))
+			*(*uint32)(unsafe.Pointer(&v25[40])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButtonLit"))
+			*(*uint32)(unsafe.Pointer(&v25[48])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButtonDis"))
+			*(*uint32)(unsafe.Pointer(&v25[56])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBUpButtonLit"))
 			*(*uint32)(unsafe.Pointer(&v25[32])) = 0
 			v23 = 13
 		}
@@ -126,10 +126,10 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 			v18 = nox_strman_loadString_40F1D0(internCStr("WindowDir:Down"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c"), 1519)
 			nox_wcscpy((*wchar2_t)(unsafe.Pointer(&v25[72])), v18)
 		} else {
-			*(*uint32)(unsafe.Pointer(&v25[24])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButton")))))
-			*(*uint32)(unsafe.Pointer(&v25[40])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButtonLit")))))
-			*(*uint32)(unsafe.Pointer(&v25[48])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButtonDis")))))
-			*(*uint32)(unsafe.Pointer(&v25[56])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButtonLit")))))
+			*(*uint32)(unsafe.Pointer(&v25[24])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButton"))
+			*(*uint32)(unsafe.Pointer(&v25[40])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButtonLit"))
+			*(*uint32)(unsafe.Pointer(&v25[48])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButtonDis"))
+			*(*uint32)(unsafe.Pointer(&v25[56])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultLBDownButtonLit"))
 			*(*uint32)(unsafe.Pointer(&v25[32])) = 0
 		}
 		*(*uint32)(unsafe.Pointer(&v25[8])) = 1
@@ -144,10 +144,10 @@ func nox_gui_newScrollListBox_4A4310(a1p *gui.Window, a2 nox_window_flags, a3, a
 			*(*uint32)(unsafe.Pointer(&v25[52])) = nox_color_orange_2614256
 			v19 = 10
 		} else {
-			*(*uint32)(unsafe.Pointer(&v25[24])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumb")))))
-			*(*uint32)(unsafe.Pointer(&v25[40])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumbLit")))))
-			*(*uint32)(unsafe.Pointer(&v25[48])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumbDis")))))
-			*(*uint32)(unsafe.Pointer(&v25[56])) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumbLit")))))
+			*(*uint32)(unsafe.Pointer(&v25[24])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumb"))
+			*(*uint32)(unsafe.Pointer(&v25[40])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumbLit"))
+			*(*uint32)(unsafe.Pointer(&v25[48])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumbDis"))
+			*(*uint32)(unsafe.Pointer(&v25[56])) = nox_xxx_gLoadImg_42F970(internCStr("DefaultSliderThumbLit"))
 			*(*uint32)(unsafe.Pointer(&v25[32])) = 0
 			v19 = 9
 		}

@@ -104,10 +104,8 @@ func sub_478B10(a1 *Point32) {
 	result := dword_5d4594_1098596
 	if dword_5d4594_1098596 != nil || (func() bool {
 		result = nox_strman_loadString_40F1D0(internCStr("SellInstructions"), (**byte)(unsafe.Pointer(dword_5d4594_1098596)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 597)
-		return (func() uint32 {
-			dword_5d4594_1098596 = result
-			return dword_5d4594_1098596
-		}()) != 0
+		dword_5d4594_1098596 = result
+		return dword_5d4594_1098596 != nil
 	}()) {
 		nox_xxx_drawStringWrap_43FAF0(nil, result, v5+8, v6+8, v4-16, v3-16)
 	}
@@ -127,10 +125,8 @@ func sub_478BC0(a1 *int32) {
 	result := dword_5d4594_1098600
 	if dword_5d4594_1098600 != nil || (func() bool {
 		result = nox_strman_loadString_40F1D0(internCStr("RepairInstructions"), (**byte)(unsafe.Pointer(dword_5d4594_1098600)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 628)
-		return (func() uint32 {
-			dword_5d4594_1098600 = result
-			return dword_5d4594_1098600
-		}()) != 0
+		dword_5d4594_1098600 = result
+		return dword_5d4594_1098600 != nil
 	}()) {
 		nox_xxx_drawStringWrap_43FAF0(nil, result, v5+8, v6+8, v4-16, v3-16)
 	}
@@ -175,24 +171,21 @@ func sub_479520(a1 int32) {
 func sub_479680(a1 unsafe.Pointer, a2 int32, a3 uint32, a4 int32, a5 uint32) {
 	dword_5d4594_1098616 = 0
 }
-func sub_4795E0(a1 int32, a2 int32) int32 {
+func sub_4795E0(a1 int32, a2 int32) {
 	var (
-		v2     unsafe.Pointer
-		result int32
-		v5     int32
-		v9     int32
-		v10    int32
+		v2  unsafe.Pointer
+		v9  int32
+		v10 int32
 	)
 	v2 = nil
-	var mpos Point32 = nox_client_getMousePos_4309F0()
-	result = int32(dword_5d4594_1098616)
+	mpos := nox_client_getMousePos_4309F0()
 	if dword_5d4594_1098616 == 1 {
-		return result
+		return
 	}
-	result = sub_4676D0(a1)
-	v5 = result
-	if result == 0 {
-		return result
+	result := sub_4676D0(a1)
+	v5 := result
+	if result == nil {
+		return
 	}
 	if *(*uint32)(unsafe.Add(result, 112))&0x13001000 != 0 {
 		v2 = unsafe.Add(result, 432)
@@ -200,16 +193,13 @@ func sub_4795E0(a1 int32, a2 int32) int32 {
 	sub_4C05F0(1, a2)
 	v10 = sub_467700(a1)
 	v9 = int32(*(*uint32)(unsafe.Add(v5, 108)))
-	var str *wchar2_t = nox_strman_loadString_40F1D0(internCStr("SellLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1504)
-	result = nox_gui_itemAmountDialog_4C0430(str, mpos.X, mpos.Y, a1, v9, v2, v10, 0, sub_479690, sub_479680)
+	str := nox_strman_loadString_40F1D0(internCStr("SellLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1504)
+	nox_gui_itemAmountDialog_4C0430(str, mpos.X, mpos.Y, a1, v9, v2, v10, 0, sub_479690, sub_479680)
 	dword_5d4594_1098616 = 1
-	return result
 }
 func sub_479740(a1 int32, a2 uint32) {
 	var (
 		v2  unsafe.Pointer
-		v4  int32
-		v5  int32
 		v6  *wchar2_t
 		v7  int32
 		v8  int32
@@ -217,12 +207,12 @@ func sub_479740(a1 int32, a2 uint32) {
 		v10 uint32
 	)
 	v2 = nil
-	var mpos Point32 = nox_client_getMousePos_4309F0()
+	mpos := nox_client_getMousePos_4309F0()
 	v10 = uint32(sub_4674A0())
 	if dword_5d4594_1098620 != 1 {
-		v4 = sub_4676D0(a1)
-		v5 = v4
-		if v4 != 0 {
+		v4 := sub_4676D0(a1)
+		v5 := v4
+		if v4 != nil {
 			if *(*uint32)(unsafe.Add(v4, 112))&0x13001000 != 0 {
 				v2 = unsafe.Add(v4, 432)
 			}

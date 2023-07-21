@@ -183,12 +183,12 @@ LABEL_24:
 		v36[8] = nox_win_width
 		v36[9] = nox_win_height
 		if dword_5d4594_1313796 == nil {
-			dword_5d4594_1313796 = unsafe.Pointer(nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))))
-			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 120)) |= 0x1000000
+			dword_5d4594_1313796 = nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull")))
+			dword_5d4594_1313796.Flags30Val |= 0x1000000
 		}
-		*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-		*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - 50)
-		ccall.AsFunc[func(*int32, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313796, 300)))(&v36[0], dword_5d4594_1313796)
+		dword_5d4594_1313796.PosVec.X = int(uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
+		dword_5d4594_1313796.PosVec.Y = int(uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - 50))
+		ccall.AsFunc[func(*int32, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_1313796), 300)))(&v36[0], unsafe.Pointer(dword_5d4594_1313796))
 	}
 	if nox_xxx_unitSpriteCheckAlly_4951F0(int32(*(*uint32)(unsafe.Add(v2, 128)))) != 0 {
 		v22 = 0

@@ -270,47 +270,38 @@ func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	return int(result)
 }
 func Nox_thing_red_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, int32(dword_5d4594_1313532), *memmap.PtrInt32(0x5D4594, 1313528))
+	return sub_4B6970(vp, dr, int32(dword_5d4594_1313532), *memmap.PtrInt32(0x5D4594, 1313528))
 }
 func Nox_thing_blue_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, int32(dword_5d4594_1313540), int32(dword_5d4594_1313536))
+	return sub_4B6970(vp, dr, int32(dword_5d4594_1313540), int32(dword_5d4594_1313536))
 }
 func Nox_thing_cyan_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313548), *memmap.PtrInt32(0x5D4594, 1313544))
+	return sub_4B6970(vp, dr, *memmap.PtrInt32(0x5D4594, 1313548), *memmap.PtrInt32(0x5D4594, 1313544))
 }
 func Nox_thing_green_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313584), *memmap.PtrInt32(0x5D4594, 1313580))
+	return sub_4B6970(vp, dr, *memmap.PtrInt32(0x5D4594, 1313584), *memmap.PtrInt32(0x5D4594, 1313580))
 }
 func Nox_thing_yellow_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, int32(dword_5d4594_1313532), *memmap.PtrInt32(0x5D4594, 1313576))
+	return sub_4B6970(vp, dr, int32(dword_5d4594_1313532), *memmap.PtrInt32(0x5D4594, 1313576))
 }
 func nox_thing_violet_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313556), *memmap.PtrInt32(0x5D4594, 1313552))
+	return sub_4B6970(vp, dr, *memmap.PtrInt32(0x5D4594, 1313556), *memmap.PtrInt32(0x5D4594, 1313552))
 }
 func nox_thing_death_ball_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, *memmap.PtrInt32(0x5D4594, 1313572), *memmap.PtrInt32(0x5D4594, 1313568))
+	return sub_4B6970(vp, dr, *memmap.PtrInt32(0x5D4594, 1313572), *memmap.PtrInt32(0x5D4594, 1313568))
 }
 func nox_thing_white_spark_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	return sub_4B6970(a1, dr, int32(nox_color_white_2523948), int32(dword_5d4594_1313540))
+	return sub_4B6970(vp, dr, int32(nox_color_white_2523948), int32(dword_5d4594_1313540))
 }
 func nox_thing_particle_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	var (
 		v2 *uint32
-		v3 func(*uint32)
-		a2 *uint32 = (*uint32)(unsafe.Pointer(dr))
+		a2 = dr
 	)
 	v2 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*108)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*20)) >> 16
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*21)) >> 16
-	v3 = ccall.AsFunc[func(*uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*31)))
+	a2.PosVec.X = int(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*20)) >> 16)
+	a2.PosVec.Y = int(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*21)) >> 16)
+	v3 := ccall.AsFunc[func(*uint32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*31)))
 	if v3 != nil {
 		v3(v2)
 	}

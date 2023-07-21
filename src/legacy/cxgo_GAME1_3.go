@@ -794,21 +794,16 @@ func sub_445C20() {
 		sub_445C40()
 	}
 }
-func sub_445FF0() *uint32 {
-	var (
-		i      int32
-		result *uint32
-	)
+func sub_445FF0() {
 	if nox_wnd_quitMenu_825760 != nil {
 		nox_wnd_quitMenu_825760.DrawData().SetBackgroundColor(noxcolor.RGBA5551(nox_color_black_2650656))
 	}
-	for i = 9001; i <= 9006; i++ {
-		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, i)))
+	for i := 9001; i <= 9006; i++ {
+		result := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, int32(i))
 		if result != nil {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*26)) = nox_color_orange_2614256
+			result.DrawData().TextColorVal = nox_color_orange_2614256
 		}
 	}
-	return result
 }
 func nox_gui_xxx_check_446360() uint32 {
 	if nox_wnd_quitMenu_825760 == nil {
@@ -857,7 +852,7 @@ func nox_xxx_guiMotdLoad_4465C0() *gui.Window {
 	v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_826028, 4206)
 	v4.Field100Ptr.SizeVal.X = 16
 	v4.Field100Ptr.SizeVal.Y = 10
-	sub_4B5700(v4, 0, 0, unsafe.Pointer(v7), unsafe.Pointer(v3), unsafe.Pointer(v3))
+	sub_4B5700(v4, nil, nil, v7, v3, v3)
 	nox_xxx_wnd_46B280(v4, dword_5d4594_826032)
 	nox_xxx_wnd_46B280(v5, dword_5d4594_826032)
 	nox_xxx_wnd_46B280(v8, dword_5d4594_826032)
@@ -941,9 +936,7 @@ func sub_446780() int32 {
 func nox_xxx_motd_4467F0() {
 	var (
 		result uint32
-		v1     *uint32
 		v2     *byte
-		v3     *uint32
 		v4     [256]byte
 	)
 	result = nox_gui_xxx_check_446360()
@@ -963,9 +956,9 @@ func nox_xxx_motd_4467F0() {
 							result = uint32(sub_49CB40())
 							if result == 0 {
 								nox_xxx_wndShowModalMB_46A8C0(dword_5d4594_826028)
-								v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nil, 4100)))
+								v1 := nox_xxx_wndGetChildByID_46B0C0(nil, 4100)
 								if v1 != nil {
-									nox_xxx_wndShowModalMB_46A8C0((*gui.Window)(unsafe.Pointer(v1)))
+									nox_xxx_wndShowModalMB_46A8C0(v1)
 								}
 								dword_5d4594_826028.Flags |= 8
 								dword_5d4594_826032.Flags |= 8
@@ -985,8 +978,8 @@ func nox_xxx_motd_4467F0() {
 										nox_xxx_motdAddSomeTextMB_446730(&v4[0])
 									}
 								}
-								v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_826028, 4202)))
-								nox_xxx_windowFocus_46B500((*gui.Window)(unsafe.Pointer(v3)))
+								v3 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_826028, 4202)
+								nox_xxx_windowFocus_46B500(v3)
 							}
 						}
 					}

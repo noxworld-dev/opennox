@@ -10,7 +10,6 @@ import (
 
 func sub_4C09D0() int32 {
 	var (
-		v0  *uint32
 		v2  *wchar2_t
 		v4  *wchar2_t
 		v6  *wchar2_t
@@ -25,12 +24,12 @@ func sub_4C09D0() int32 {
 		v20 int32
 		v21 *wchar2_t
 	)
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("Trade.wnd"), sub_4C0C90)))
-	dword_5d4594_1320940 = uint32(uintptr(unsafe.Pointer(v0)))
+	v0 := nox_new_window_from_file(internCStr("Trade.wnd"), sub_4C0C90)
+	dword_5d4594_1320940 = v0
 	if v0 == nil {
 		return 0
 	}
-	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v0)), sub_4C0630, sub_4C0D00, nil)
+	nox_window_set_all_funcs(v0, sub_4C0630, sub_4C0D00, nil)
 	v2 = nox_strman_loadString_40F1D0(internCStr("TradeMain"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 692)
 	nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(unsafe.Pointer(dword_5d4594_1320940), 36)), v2)
 	v3 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1320940, 3702)
@@ -100,12 +99,12 @@ func sub_4C09D0() int32 {
 	*memmap.PtrUint32(0x5D4594, 1320224) = uint32(nox_win_height)
 	*memmap.PtrUint32(0x5D4594, 1320204) = 0
 	*memmap.PtrUint32(0x5D4594, 1320208) = 0
-	*memmap.PtrPtr(0x5D4594, 1320164) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("TradeBase")))
-	*memmap.PtrPtr(0x5D4594, 1320168) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("TradeLeftAcceptPushed")))
-	*memmap.PtrPtr(0x5D4594, 1320172) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("TradeLeftAcceptLit")))
-	*memmap.PtrPtr(0x5D4594, 1320176) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("TradeRightAcceptLit")))
-	*memmap.PtrPtr(0x5D4594, 1320180) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("TradeCancelLit")))
-	*memmap.PtrPtr(0x5D4594, 1320184) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("TradeGold")))
+	*memmap.PtrPtr(0x5D4594, 1320164) = nox_xxx_gLoadImg_42F970(internCStr("TradeBase"))
+	*memmap.PtrPtr(0x5D4594, 1320168) = nox_xxx_gLoadImg_42F970(internCStr("TradeLeftAcceptPushed"))
+	*memmap.PtrPtr(0x5D4594, 1320172) = nox_xxx_gLoadImg_42F970(internCStr("TradeLeftAcceptLit"))
+	*memmap.PtrPtr(0x5D4594, 1320176) = nox_xxx_gLoadImg_42F970(internCStr("TradeRightAcceptLit"))
+	*memmap.PtrPtr(0x5D4594, 1320180) = nox_xxx_gLoadImg_42F970(internCStr("TradeCancelLit"))
+	*memmap.PtrPtr(0x5D4594, 1320184) = nox_xxx_gLoadImg_42F970(internCStr("TradeGold"))
 	return 1
 }
 func sub_4C15D0(a1 unsafe.Pointer) {
@@ -180,7 +179,7 @@ LABEL_17:
 	v6 = v12
 LABEL_18:
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) -= *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34))) / *((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)))
-	sub_4C1710(int32(uintptr(unsafe.Pointer(v6))), int32(*(*uint16)(unsafe.Add(a1, 2))))
+	sub_4C1710(unsafe.Pointer(v6), int32(*(*uint16)(unsafe.Add(a1, 2))))
 	result = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) - 1)
 	*((*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))) = uint32(result)
 	if result == 0 {

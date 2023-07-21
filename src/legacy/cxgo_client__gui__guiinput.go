@@ -159,7 +159,7 @@ func sub_4C3CD0(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 				return nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(a1), a2, a3, a4)
 			}
 		}
-		if unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1321228, 921)) || unsafe.Pointer(a3) == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1321228, 922)) {
+		if unsafe.Pointer(a3) == nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1321228, 921) || unsafe.Pointer(a3) == nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1321228, 922) {
 			nox_window_call_field_94_fnc(dword_5d4594_1321240, a2, a3, 0)
 			nox_window_call_field_94_fnc(dword_5d4594_1321244, a2, a3, 0)
 			nox_window_call_field_94_fnc(dword_5d4594_1321248, a2, a3, 0)

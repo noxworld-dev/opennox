@@ -1710,12 +1710,12 @@ func Nox_xxx_wndCreateInventoryMB_465E00() *gui.Window {
 	*memmap.PtrUint32(0x5D4594, 1049752) = 0
 	dword_5d4594_1062452 = nox_window_new(nil, 552, 0, 0, 563, 264, nil)
 	nox_window_set_all_funcs(dword_5d4594_1062452, nil, nox_xxx_movEax1Sub_4661C0, nil)
-	v0 := (*uint32)(unsafe.Pointer(nox_window_new(dword_5d4594_1062452, 8, 0, 224, int(nox_win_width), 40, nil)))
-	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v0)), nox_xxx_XorEaxEaxSub_464BA0, nox_xxx_movEax1Sub_4661C0, nox_xxx_inventroryOnHovewerSub_4667E0)
+	v0 := nox_window_new(dword_5d4594_1062452, 8, 0, 224, int(nox_win_width), 40, nil)
+	nox_window_set_all_funcs(v0, nox_xxx_XorEaxEaxSub_464BA0, nox_xxx_movEax1Sub_4661C0, nox_xxx_inventroryOnHovewerSub_4667E0)
 	dword_5d4594_1062456 = nox_window_new(dword_5d4594_1062452, 40, 0, 0, 563, 224, sub_466220)
 	nox_window_set_all_funcs(dword_5d4594_1062456, sub_464BD0, nox_xxx_inventoryDrawAllMB_463430, sub_466620)
 	dword_5d4594_1062456.DrawData().Style |= 0x100
-	*memmap.PtrPtr(0x5D4594, 1062472) = unsafe.Pointer(nox_window_new(dword_5d4594_1062452, 40, 0, 0, 1, 1, nil))
+	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1062472) = nox_window_new(dword_5d4594_1062452, 40, 0, 0, 1, 1, nil)
 	nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, 1062472)))), sub_464BD0, nox_xxx_movEax1Sub_4661C0, nil)
 	dword_5d4594_1062468 = nox_window_new(dword_5d4594_1062456, 40, 173, 174, 50, 50, nil)
 	nox_window_set_all_funcs(dword_5d4594_1062468, sub_464770, sub_4625D0, sub_4661D0)
@@ -1982,7 +1982,7 @@ func sub_466950(a1 *gui.Window) int32 {
 	dword_5d4594_1062508.Field100().SizeVal.X = 16
 	dword_5d4594_1062508.Field100().SizeVal.Y = 16
 	nox_xxx_wndSetOffsetMB_46AE40(dword_5d4594_1062508.Field100(), 0, -15)
-	sub_4B5700(dword_5d4594_1062508, 0, 0, *memmap.PtrPtr(0x5D4594, 1049956), *memmap.PtrPtr(0x5D4594, 1049960), *memmap.PtrPtr(0x5D4594, 1049960))
+	sub_4B5700(dword_5d4594_1062508, nil, nil, noxrender.ImageHandle(*memmap.PtrPtr(0x5D4594, 1049956)), noxrender.ImageHandle(*memmap.PtrPtr(0x5D4594, 1049960)), noxrender.ImageHandle(*memmap.PtrPtr(0x5D4594, 1049960)))
 	return 1
 }
 func sub_466BA0(win *gui.Window, p2, p3, p4 uintptr) uintptr {
@@ -2135,31 +2135,31 @@ func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 	return 1
 }
 func nox_xxx_inventoryLoadImages_467050() {
-	*memmap.PtrPtr(0x5D4594, 1049908) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryBase")))
-	*memmap.PtrPtr(0x5D4594, 1049912) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryIdentifyBase")))
-	*memmap.PtrPtr(0x5D4594, 1049916) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray1")))
-	*memmap.PtrPtr(0x5D4594, 1049920) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray2")))
-	*memmap.PtrPtr(0x5D4594, 1049924) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTray3")))
-	*memmap.PtrPtr(0x5D4594, 1049928) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTraySpecial")))
-	*memmap.PtrPtr(0x5D4594, 1049932) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayIdentifyLit")))
-	*memmap.PtrPtr(0x5D4594, 1049936) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayMapLit")))
-	*memmap.PtrPtr(0x5D4594, 1049940) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButton")))
-	*memmap.PtrPtr(0x5D4594, 1049944) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButtonLit")))
-	*memmap.PtrPtr(0x5D4594, 1049948) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButton")))
-	*memmap.PtrPtr(0x5D4594, 1049952) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButtonLit")))
-	*memmap.PtrPtr(0x5D4594, 1049956) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButton")))
-	*memmap.PtrPtr(0x5D4594, 1049960) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButtonLit")))
-	*memmap.PtrPtr(0x5D4594, 1049964) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryEquipRing")))
-	*memmap.PtrPtr(0x5D4594, 1049968) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryQuickItemRing")))
-	*memmap.PtrPtr(0x5D4594, 1049972) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryCloseButtonLit")))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049908) = nox_xxx_gLoadImg_42F970(internCStr("InventoryBase"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049912) = nox_xxx_gLoadImg_42F970(internCStr("InventoryIdentifyBase"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049916) = nox_xxx_gLoadImg_42F970(internCStr("InventoryTray1"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049920) = nox_xxx_gLoadImg_42F970(internCStr("InventoryTray2"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049924) = nox_xxx_gLoadImg_42F970(internCStr("InventoryTray3"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049928) = nox_xxx_gLoadImg_42F970(internCStr("InventoryTraySpecial"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049932) = nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayIdentifyLit"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049936) = nox_xxx_gLoadImg_42F970(internCStr("InventoryTrayMapLit"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049940) = nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButton"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049944) = nox_xxx_gLoadImg_42F970(internCStr("InventoryUpButtonLit"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049948) = nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButton"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049952) = nox_xxx_gLoadImg_42F970(internCStr("InventoryDownButtonLit"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049956) = nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButton"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049960) = nox_xxx_gLoadImg_42F970(internCStr("InventorySliderButtonLit"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049964) = nox_xxx_gLoadImg_42F970(internCStr("InventoryEquipRing"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049968) = nox_xxx_gLoadImg_42F970(internCStr("InventoryQuickItemRing"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049972) = nox_xxx_gLoadImg_42F970(internCStr("InventoryCloseButtonLit"))
 	dword_5d4594_1049976 = nox_xxx_gLoadImg_42F970(internCStr("InventoryJournalButtonLit"))
-	*memmap.PtrPtr(0x5D4594, 1049980) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButton")))
-	*memmap.PtrPtr(0x5D4594, 1049984) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButtonLit")))
-	*memmap.PtrPtr(0x5D4594, 1049988) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("InventoryDollButtonLit")))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049980) = nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButton"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049984) = nox_xxx_gLoadImg_42F970(internCStr("InventoryInventoryButtonLit"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1049988) = nox_xxx_gLoadImg_42F970(internCStr("InventoryDollButtonLit"))
 	dword_5d4594_1049992 = nox_xxx_gLoadImg_42F970(internCStr("InventoryStatsButton"))
 	dword_5d4594_1049996 = nox_xxx_gLoadImg_42F970(internCStr("InventoryStatsButtonLit"))
-	*memmap.PtrPtr(0x5D4594, 1050000) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("GUIFist")))
-	*memmap.PtrPtr(0x5D4594, 1050004) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("SharedKeyMode")))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1050000) = nox_xxx_gLoadImg_42F970(internCStr("GUIFist"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1050004) = nox_xxx_gLoadImg_42F970(internCStr("SharedKeyMode"))
 	dword_5d4594_1050008 = nox_xxx_gLoadAnim_42FA20(internCStr("ExtraLives"))
 }
 func nox_client_invAlterWeapon_4672C0() {
@@ -2349,14 +2349,14 @@ func sub_467680() {
 func nox_xxx_wndGetHandle_4676A0() *gui.Window {
 	return dword_5d4594_1062452
 }
-func sub_4676D0(a1 int32) int32 {
+func sub_4676D0(a1 int32) unsafe.Pointer {
 	v1 := sub_461EF0(a1)
 	if v1 != nil {
-		return int32(**(**uint32)(unsafe.Pointer(v1)))
+		return **(**unsafe.Pointer)(unsafe.Pointer(v1))
 	}
-	result := int32(*memmap.PtrUint32(0x5D4594, 1049848))
+	result := *memmap.PtrPtr(0x5D4594, 1049848)
 	if *memmap.PtrUint32(0x5D4594, 1049848) == 0 || *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, 1049848), 128)) != uint32(a1) {
-		result = 0
+		result = nil
 	}
 	return result
 }

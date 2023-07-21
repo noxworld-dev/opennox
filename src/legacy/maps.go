@@ -150,10 +150,6 @@ func Nox_xxx_servMapLoadPlaceObj_4F3F50(obj *server.Object, a2 int, a3 unsafe.Po
 	return int(nox_xxx_servMapLoadPlaceObj_4F3F50(asObjectC(obj), int32(a2), a3))
 }
 
-func Nox_xxx_prepareLightningEffects_4BAB30() {
-	nox_xxx_prepareLightningEffects_4BAB30()
-}
-
 func Sub_4B64C0() {
 	sub_4B64C0()
 }

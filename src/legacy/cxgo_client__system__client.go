@@ -13,7 +13,7 @@ func nox_xxx_clientDrawAll_436100_draw_A() {
 		nox_common_setEngineFlag(NOX_ENGINE_FLAG_9)
 	}
 	if *memmap.PtrUint32(0x5D4594, 814540) == 0 {
-		*memmap.PtrPtr(0x5D4594, 814540) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MenuSystemBG")))
+		*memmap.PtrPtr(0x5D4594, 814540) = nox_xxx_gLoadImg_42F970(internCStr("MenuSystemBG"))
 	}
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_9) {
 		var v10 unsafe.Pointer = nox_xxx_guiFontPtrByName_43F360(internCStr("large"))
@@ -35,7 +35,7 @@ func nox_xxx_clientDrawAll_436100_draw_B() {
 	var v16 int32 = (nox_win_height - 200) / 2
 	var v15 *int32 = mem_getI32Ptr(0x5D4594, *memmap.PtrUint32(0x5D4594, 811060)*4+811888)
 	if *v15 == 0 {
-		*v15 = int32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(*memmap.PtrUint32(0x5D4594, 811060))*4+85712))))))
+		*v15 = nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(*memmap.PtrUint32(0x5D4594, 811060))*4+85712)))
 	}
 	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(*v15))), v14, v16)
 	var v22 int32 = 0

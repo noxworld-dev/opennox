@@ -12,15 +12,14 @@ import (
 )
 
 func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
+	a1 := vp
 	var (
-		v2 int32
 		v3 int32
 		v4 int32
 		v6 int32
 		v7 int32
 	)
-	v2 = int32(uintptr(dr.Field_76))
+	v2 := dr.Field_76
 	switch *(*uint32)(unsafe.Add(v2, 12)) {
 	case 0:
 		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
@@ -77,22 +76,17 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	default:
 		return 1
 	}
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 4)) + uint32(v3*4))))))
+	nox_xxx_drawObject_4C4770_draw(a1, dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 4)) + uint32(v3*4))))))
 	if *(*uint32)(unsafe.Add(v2, 12)) == 3 {
 		nox_client_drawEnableAlpha_434560(0)
 	}
 	return 1
 }
 func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*uint32)(vp.C())
-	var (
-		v2 int32
-		v3 int32
-		v4 int32
-		v5 int32
-	)
-	v2 = int32(dr.Flags70())
-	v3 = int32(uintptr(dr.Field_76))
+	a1 := vp
+	var v4 int32
+	v2 := dr.Flags70()
+	v3 := dr.Field_76
 	if v2&2 != 0 {
 		dr.Field_79 = gameFrame()
 		v4 = 0
@@ -101,12 +95,12 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 	} else {
 		v4 = (int32(uint8(int8(v2))) >> 2) & 2
 	}
-	v5 = v4*48 + v3 + 4
+	v5 := unsafe.Add(v3, v4*48+4)
 	if *(*uint32)(unsafe.Add(v5, 44)) == 2 {
 		dr.Field_79 = gameFrame()
 	}
 	if int32(*(*uint16)(unsafe.Add(v5, 40))) != 0 {
-		return sub_4BC6B0((*int32)(unsafe.Pointer(a1)), dr, v5)
+		return sub_4BC6B0(a1, dr, v5)
 	} else {
 		return 1
 	}
@@ -176,49 +170,47 @@ func nox_things_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFile, a
 	obj.DrawFunc.Set(nox_thing_animate_draw)
 	return true
 }
-func sub_44BE90(a1 int32, f *binfile.MemFile) int32 {
+func sub_44BE90(a1 unsafe.Pointer, f *binfile.MemFile) int32 {
 	var (
-		v2     int32
-		result int32
-		v4     int32
-		v6     int32
-		v8     int8
-		v10    int32
-		v11    *byte
-		v12    [128]byte
+		v4  int32
+		v6  int32
+		v8  int8
+		v10 int32
+		v11 *byte
+		v12 [128]byte
 	)
-	v2 = a1
-	result = int32(uintptr(alloc.Calloc1(int(*(*int16)(unsafe.Add(a1, 40))), 4)))
-	*(*uint32)(unsafe.Add(a1, 4)) = uint32(result)
-	if result == 0 {
-		return result
+	v2 := a1
+	result := alloc.Calloc1(int(*(*int16)(unsafe.Add(a1, 40))), 4)
+	*(*unsafe.Pointer)(unsafe.Add(a1, 4)) = result
+	if result == nil {
+		return 0
 	}
 	v4 = 0
-	if int32(*(*uint16)(unsafe.Add(a1, 40))) > 0 {
-		for {
-			v6 = nox_memfile_read_i32(f)
-			v12[0] = *memmap.PtrUint8(0x5D4594, 830848)
-			if v6 == -1 {
-				v8 = int8(nox_memfile_read_u8(f))
-				*((*uint8)(unsafe.Pointer(&v11))) = uint8(v8)
-				v10 = int32(nox_memfile_read_u8(f))
-				nox_memfile_read(unsafe.Pointer(&v12[0]), 1, v10, f)
-				v12[v10] = 0
-				v2 = a1
-			}
-			*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 4)) + uint32(func() int32 {
-				p := &v4
-				x := *p
-				*p++
-				return x
-			}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v6, int8(uintptr(unsafe.Pointer(v11))), &v12[0]))))
-			if v4 >= int32(*(*int16)(unsafe.Add(v2, 40))) {
-				break
-			}
+	if int32(*(*uint16)(unsafe.Add(a1, 40))) <= 0 {
+		return 1
+	}
+	for {
+		v6 = nox_memfile_read_i32(f)
+		v12[0] = *memmap.PtrUint8(0x5D4594, 830848)
+		if v6 == -1 {
+			v8 = int8(nox_memfile_read_u8(f))
+			*((*uint8)(unsafe.Pointer(&v11))) = uint8(v8)
+			v10 = int32(nox_memfile_read_u8(f))
+			nox_memfile_read(unsafe.Pointer(&v12[0]), 1, v10, f)
+			v12[v10] = 0
+			v2 = a1
+		}
+		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v2, 4)) + uint32(func() int32 {
+			p := &v4
+			x := *p
+			*p++
+			return x
+		}()*4)))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v6, int8(uintptr(unsafe.Pointer(v11))), &v12[0]))))
+		if v4 >= int32(*(*int16)(unsafe.Add(v2, 40))) {
+			break
 		}
 	}
-	result = 1
-	return result
+	return 1
 }
 func nox_things_animate_state_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	var (
@@ -248,7 +240,7 @@ func nox_things_animate_state_draw_parse(obj *client.ObjectType, f *binfile.MemF
 		} else if params&8 != 0 {
 			offset_idx = 2
 		}
-		var v9 int32 = int32(uintptr(unsafe.Add(unsafe.Pointer(draw_cb_data), 4*uintptr(int32(offset_idx)*12+1))))
+		v9 := unsafe.Add(unsafe.Pointer(draw_cb_data), 4*uintptr(int32(offset_idx)*12+1))
 		if nox_xxx_loadVectorAnimated_44B8B0(v9, f) == 0 {
 			return false
 		}

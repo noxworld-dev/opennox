@@ -5231,15 +5231,13 @@ func sub_49C810() int32 {
 }
 func sub_49CA60(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 	var (
-		v3 int32
-		v4 *uint32
 		v5 int32
 		v6 int32
 	)
 	if a2 != 16391 {
 		return 1
 	}
-	v3 = nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3)))
+	v3 := nox_xxx_wndGetID_46B0A0((*gui.Window)(unsafe.Pointer(a3)))
 	nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 	if v3 != 10353 {
 		return 1
@@ -5251,8 +5249,8 @@ func sub_49CA60(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 	} else {
 		sub_459D80(0)
 	}
-	v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)))
-	v5 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v4)), 16404, 0, 0))
+	v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)
+	v5 = int32(nox_window_call_field_94_fnc(v4, 16404, 0, 0))
 	nox_server_connectionType_3596 = uint32(v5 + 1)
 	v6 = sub_40A710(v5 + 1)
 	nox_xxx_rateUpdate_40A6D0(v6)

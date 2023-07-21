@@ -1215,7 +1215,7 @@ func sub_413420(a1 int8) noxrender.ImageHandle {
 	if *memmap.PtrUint32(0x5D4594, 251624) == 0 {
 		v1 = (*uint8)(memmap.PtrOff(0x587000, 27340))
 		for {
-			*(*uint32)(unsafe.Pointer(v1)) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(unsafe.Add(unsafe.Pointer(v1), -int(unsafe.Sizeof((*byte)(nil))*1)))))))
+			*(*noxrender.ImageHandle)(unsafe.Pointer(v1)) = nox_xxx_gLoadImg_42F970(*(**byte)(unsafe.Add(unsafe.Pointer(v1), -int(unsafe.Sizeof((*byte)(nil))*1))))
 			v1 = (*uint8)(unsafe.Add(unsafe.Pointer(v1), 20))
 			if int32(uintptr(unsafe.Pointer(v1))) >= int32(uintptr(memmap.PtrOff(0x587000, 27460))) {
 				break
@@ -3504,24 +3504,24 @@ func sub_4183C0() {
 }
 func sub_4184D0(a1p *server.Team) {
 	var (
-		a1 *wchar2_t = (*wchar2_t)(unsafe.Pointer(a1p))
+		a1 = a1p
 		v1 int32
 		v2 *uint32
 		v3 [18]byte
 	)
 	if a1 != nil {
 		sub_457230(a1)
-		*(*uint32)(unsafe.Pointer(&v3[6])) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*15))
-		*(*uint32)(unsafe.Pointer(&v3[2])) = uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 57)))
+		*(*uint32)(unsafe.Pointer(&v3[6])) = a1.Field60Val
+		*(*uint32)(unsafe.Pointer(&v3[2])) = uint32(a1.IDVal)
 		*(*uint16)(unsafe.Pointer(&v3[0])) = 196
-		*(*uint32)(unsafe.Pointer(&v3[10])) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))
+		*(*uint32)(unsafe.Pointer(&v3[10])) = uint32(a1.Lessons)
 		v3[14] = 0
-		v3[16] = *(*uint8)(unsafe.Add(unsafe.Pointer(a1), 56))
+		v3[16] = byte(a1.ColorInd)
 		v3[17] = *(*uint8)(unsafe.Add(unsafe.Pointer(a1), 68))
 		if noxflags.HasGame(512) {
 			v3[14] = 1
 		}
-		v3[15] = byte(nox_wcslen(a1))
+		v3[15] = byte(nox_wcslen(&a1.NameBuf[0]))
 		v1 = int32(v3[15]) * 2
 		v2 = (*uint32)(alloc.Calloc1(1, uintptr(v1+18)))
 		*(*uint64)(unsafe.Pointer(v2)) = *(*uint64)(unsafe.Pointer(&v3[0]))

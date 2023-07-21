@@ -419,9 +419,6 @@ func Nox_xxx_guiHealthManaInit_4714E0() int {
 func Nox_xxx_bookInit_45B9D0() int {
 	return int(nox_xxx_bookInit_45B9D0())
 }
-func Sub_476E20() unsafe.Pointer {
-	return unsafe.Pointer(sub_476E20())
-}
 func Sub_4BFAD0() int {
 	return int(sub_4BFAD0())
 }
@@ -455,8 +452,8 @@ func Sub_4799A0() int {
 func Sub_46A730() unsafe.Pointer {
 	return unsafe.Pointer(sub_46A730())
 }
-func Sub_4C3500() int {
-	return int(sub_4C3500())
+func Sub_4C3500() *gui.Window {
+	return sub_4C3500()
 }
 func Nox_xxx_guiDrawRank_46E870() uint32 {
 	return uint32(nox_xxx_guiDrawRank_46E870())

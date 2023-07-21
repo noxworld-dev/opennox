@@ -3397,7 +3397,7 @@ func sub_439050(win *gui.Window, p2, p3, p4 uintptr) uintptr {
 		case 0x17:
 			return 1
 		case 0x4000:
-			if a3 == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_gameList_815012, 10043)) || a3 == unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_gameList_815012, 10044)) {
+			if (*gui.Window)(a3) == nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_gameList_815012, 10043) || (*gui.Window)(a3) == nox_xxx_wndGetChildByID_46B0C0(nox_wol_wnd_gameList_815012, 10044) {
 				nox_window_call_field_94_fnc(dword_5d4594_815016, 0x4000, uintptr(a3), 0)
 				nox_window_call_field_94_fnc(dword_5d4594_815020, 0x4000, uintptr(a3), 0)
 				nox_window_call_field_94_fnc(dword_5d4594_815024, 0x4000, uintptr(a3), 0)

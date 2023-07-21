@@ -9,28 +9,28 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func sub_4BC5D0(dr *client.Drawable, a2 int32) int32 {
+func sub_4BC5D0(dr *client.Drawable, a2 unsafe.Pointer) int32 {
 	var (
-		a1     *uint32 = (*uint32)(unsafe.Pointer(dr))
+		a1     = dr
 		result int32
 		v3     int32
 		v4     int32
 	)
 	switch *(*uint32)(unsafe.Add(a2, 44)) {
 	case 0:
-		result = int32((gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*79))) / uint32(int32(*(*int16)(unsafe.Add(a2, 42)))+1))
+		result = int32((gameFrame() - a1.Field_79) / uint32(int32(*(*int16)(unsafe.Add(a2, 42)))+1))
 		v4 = int32(*(*int16)(unsafe.Add(a2, 40)))
 		if result >= v4 {
 			result = v4 - 1
 		}
 	case 1:
-		result = int32((gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*79))) / uint32(int32(*(*int16)(unsafe.Add(a2, 42)))+1))
+		result = int32((gameFrame() - a1.Field_79) / uint32(int32(*(*int16)(unsafe.Add(a2, 42)))+1))
 		if result >= int32(*(*int16)(unsafe.Add(a2, 40))) {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			result = -1
 		}
 	case 2:
-		result = int32((gameFrame() + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*32))) / uint32(int32(*(*int16)(unsafe.Add(a2, 42)))+1))
+		result = int32((gameFrame() + a1.Field_32) / uint32(int32(*(*int16)(unsafe.Add(a2, 42)))+1))
 		v3 = int32(*(*int16)(unsafe.Add(a2, 40)))
 		if result >= v3 {
 			result %= v3
@@ -38,7 +38,7 @@ func sub_4BC5D0(dr *client.Drawable, a2 int32) int32 {
 	case 4:
 		result = nox_common_randomIntMinMax_415FF0(0, int32(*(*int16)(unsafe.Add(a2, 40)))-1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c"), 19)
 	case 5:
-		result = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*77)))
+		result = int32(a1.Field_77)
 	default:
 		result = 0
 	}

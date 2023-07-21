@@ -248,10 +248,9 @@ func sub_476D70(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 uint32) {
 func nox_client_setPhonemeFrame_476E00(a1 int32) {
 	*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+1096596) = gameFrame()
 }
-func sub_476E20() *uint32 {
+func Sub_476E20() *gui.Window {
 	var (
 		v0 int32
-		v2 *uint32
 	)
 	v0 = 0
 	for {
@@ -262,8 +261,8 @@ func sub_476E20() *uint32 {
 		}
 		v0 += 4
 		if v0 >= 32 {
-			v2 = (*uint32)(unsafe.Pointer(nox_window_new(nil, 64, int(nox_win_width-100)/2, int(nox_win_height-100)/2, 1, 1, nil)))
-			nox_window_set_all_funcs((*gui.Window)(unsafe.Pointer(v2)), nil, sub_476E90, nil)
+			v2 := nox_window_new(nil, 64, int(nox_win_width-100)/2, int(nox_win_height-100)/2, 1, 1, nil)
+			nox_window_set_all_funcs(v2, nil, sub_476E90, nil)
 			return v2
 		}
 	}
@@ -579,7 +578,6 @@ func sub_478110() int32 {
 		v3 *uint8
 		v4 *uint8
 		v5 int32
-		v6 *uint32
 		v7 int32
 		v8 int32
 	)
@@ -621,39 +619,39 @@ func sub_478110() int32 {
 	nox_window_setPos_46A9B0(dword_5d4594_1098576, nox_win_width-v8, nox_win_height-v7)
 	nox_window_set_hidden(dword_5d4594_1098576, 1)
 	nox_xxx_wnd_46ABB0(dword_5d4594_1098576, 0)
-	*memmap.PtrPtr(0x5D4594, 1098400) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopBase")))
-	*memmap.PtrPtr(0x5D4594, 1098404) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopTradeMode")))
-	*memmap.PtrPtr(0x5D4594, 1098408) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopIdentifyMode")))
-	*memmap.PtrPtr(0x5D4594, 1098412) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopRepairMode")))
-	*memmap.PtrPtr(0x5D4594, 1098416) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopRepairMode")))
-	*memmap.PtrPtr(0x5D4594, 1098420) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopExitMode")))
-	*memmap.PtrPtr(0x5D4594, 1098424) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryBar1")))
-	*memmap.PtrPtr(0x5D4594, 1098428) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryBar2")))
-	*memmap.PtrPtr(0x5D4594, 1098432) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventorySlider")))
-	*memmap.PtrPtr(0x5D4594, 1098436) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventorySliderSelected")))
-	*memmap.PtrPtr(0x5D4594, 1098448) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryUp")))
-	*memmap.PtrPtr(0x5D4594, 1098452) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryUpSelected")))
-	*memmap.PtrPtr(0x5D4594, 1098440) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventorydown")))
-	*memmap.PtrPtr(0x5D4594, 1098444) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopInventorydownSelected")))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098400) = nox_xxx_gLoadImg_42F970(internCStr("ShopBase"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098404) = nox_xxx_gLoadImg_42F970(internCStr("ShopTradeMode"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098408) = nox_xxx_gLoadImg_42F970(internCStr("ShopIdentifyMode"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098412) = nox_xxx_gLoadImg_42F970(internCStr("ShopRepairMode"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098416) = nox_xxx_gLoadImg_42F970(internCStr("ShopRepairMode"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098420) = nox_xxx_gLoadImg_42F970(internCStr("ShopExitMode"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098424) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryBar1"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098428) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryBar2"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098432) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventorySlider"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098436) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventorySliderSelected"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098448) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryUp"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098452) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventoryUpSelected"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098440) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventorydown"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098444) = nox_xxx_gLoadImg_42F970(internCStr("ShopInventorydownSelected"))
 	dword_5d4594_1098456 = nox_xxx_gLoadImg_42F970(internCStr("ShopTextBorder"))
-	*memmap.PtrPtr(0x5D4594, 1098460) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperPic")))
-	*memmap.PtrPtr(0x5D4594, 1098464) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperWarriorPic")))
-	*memmap.PtrPtr(0x5D4594, 1098468) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperConjurerPic")))
-	*memmap.PtrPtr(0x5D4594, 1098472) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperWizardPic")))
-	*memmap.PtrPtr(0x5D4594, 1098476) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperLandOfTheDeadPic")))
-	*memmap.PtrPtr(0x5D4594, 1098480) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperMagicShopPic")))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098460) = nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperPic"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098464) = nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperWarriorPic"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098468) = nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperConjurerPic"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098472) = nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperWizardPic"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098476) = nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperLandOfTheDeadPic"))
+	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1098480) = nox_xxx_gLoadImg_42F970(internCStr("ShopkeeperMagicShopPic"))
 	dword_5d4594_1098580 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3807)
-	*memmap.PtrPtr(0x5D4594, 1098584) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3808))
-	*memmap.PtrPtr(0x5D4594, 1098588) = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3809))
-	v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3806)))
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(v6)), (*int32)(memmap.PtrOff(0x5D4594, 1098380)), (*int32)(memmap.PtrOff(0x5D4594, 1098384)))
-	nox_window_get_size((*gui.Window)(unsafe.Pointer(v6)), (*int32)(memmap.PtrOff(0x5D4594, 1098388)), (*int32)(memmap.PtrOff(0x5D4594, 1098392)))
+	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1098584) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3808)
+	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1098588) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3809)
+	v6 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3806)
+	nox_client_wndGetPosition_46AA60(v6, (*int32)(memmap.PtrOff(0x5D4594, 1098380)), (*int32)(memmap.PtrOff(0x5D4594, 1098384)))
+	nox_window_get_size(v6, (*int32)(memmap.PtrOff(0x5D4594, 1098388)), (*int32)(memmap.PtrOff(0x5D4594, 1098392)))
 	*memmap.PtrUint32(0x5D4594, 1098388) += *memmap.PtrUint32(0x5D4594, 1098380)
 	*memmap.PtrUint32(0x5D4594, 1098392) += *memmap.PtrUint32(0x5D4594, 1098384)
 	dword_5d4594_1098580.Field100Ptr.SizeVal.X = 16
 	dword_5d4594_1098580.Field100Ptr.SizeVal.Y = 12
 	nox_xxx_wndSetOffsetMB_46AE40(dword_5d4594_1098580.Field100Ptr, 0, -15)
-	sub_4B5700(dword_5d4594_1098580, 0, 0, *memmap.PtrPtr(0x5D4594, 1098432), *memmap.PtrPtr(0x5D4594, 1098436), *memmap.PtrPtr(0x5D4594, 1098436))
+	sub_4B5700(dword_5d4594_1098580, nil, nil, noxrender.ImageHandle(*memmap.PtrPtr(0x5D4594, 1098432)), noxrender.ImageHandle(*memmap.PtrPtr(0x5D4594, 1098436)), noxrender.ImageHandle(*memmap.PtrPtr(0x5D4594, 1098436)))
 	dword_5d4594_1098592 = *(*uint32)(unsafe.Add(dword_5d4594_1098580.WidgetData, 4))
 	return 1
 }
@@ -972,12 +970,8 @@ func sub_478F80() int32 {
 	dword_5d4594_1098616 = 0
 	return result
 }
-func nox_xxx_getShopPic_4790F0(a1 int32) *byte {
-	var (
-		v1     *uint32
-		result *byte
-	)
-	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3805)))
+func nox_xxx_getShopPic_4790F0(a1 int32) {
+	v1 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1098576, 3805)
 	if *memmap.PtrUint32(0x5D4594, 1107040) == 0 {
 		*memmap.PtrUint32(0x5D4594, 1098396) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Shopkeeper")))
 		*memmap.PtrUint32(0x5D4594, 1098560) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ShopkeeperWarriorsRealm")))
@@ -990,35 +984,35 @@ func nox_xxx_getShopPic_4790F0(a1 int32) *byte {
 		*memmap.PtrUint32(0x5D4594, 1107040) = 1
 	}
 	if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1098396) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperPic"))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
+		result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperPic"))
+		v1.DrawData().BgImageHnd = result
 	} else if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1098560) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperWarriorPic"))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
+		result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperWarriorPic"))
+		v1.DrawData().BgImageHnd = result
 	} else if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1098556) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperConjurerPic"))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
+		result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperConjurerPic"))
+		v1.DrawData().BgImageHnd = result
 	} else if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1098564) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperWizardPic"))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
+		result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperWizardPic"))
+		v1.DrawData().BgImageHnd = result
 	} else if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1098572) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperLandOfTheDeadPic"))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
+		result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperLandOfTheDeadPic"))
+		v1.DrawData().BgImageHnd = result
 	} else if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1098568) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperMagicShopPic"))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
+		result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperMagicShopPic"))
+		v1.DrawData().BgImageHnd = result
 	} else if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1098484) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperPurplePic"))))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
+		result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperPurplePic"))
+		v1.DrawData().BgImageHnd = result
 	} else {
 		if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1097292) {
-			result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperBrownPic"))))
+			result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperBrownPic"))
+			v1.DrawData().BgImageHnd = result
 		} else {
-			result = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperPic"))))
+			result := nox_xxx_gLoadImg_42F970(internCStr("ShopKeeperPic"))
+			v1.DrawData().BgImageHnd = result
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*15)) = uint32(uintptr(unsafe.Pointer(result)))
 	}
-	return result
 }
 func sub_479280() {
 	if dword_5d4594_1098624 != 0 {
@@ -1302,7 +1296,7 @@ func sub_4799A0() int32 {
 	v9 := nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))
 	v8 := nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))
 	v6 := nox_xxx_gLoadImg_42F970(internCStr("UISlider"))
-	sub_4B5700(v1, 0, 0, unsafe.Pointer(v6), unsafe.Pointer(v8), unsafe.Pointer(v9))
+	sub_4B5700(v1, nil, nil, v6, v8, v9)
 	nox_xxx_wnd_46B280(v1, v4)
 	nox_xxx_wnd_46B280(v2, v4)
 	nox_xxx_wnd_46B280(v10, v4)
@@ -4265,12 +4259,12 @@ func sub_486DB0(a1 unsafe.Pointer, a2 *byte, a3 int32) int32 {
 	return result
 }
 func sub_486E00(a1 unsafe.Pointer) {
-	result := *(**FILE)(unsafe.Add(a1, 272))
+	f := *(**FILE)(unsafe.Add(a1, 272))
 	*(*uint32)(unsafe.Add(a1, 280)) = 0
-	if result == nil {
+	if f == nil {
 		return
 	}
-	nox_fs_close(result)
+	nox_fs_close(f)
 	*(*uint32)(unsafe.Add(a1, 272)) = 0
 }
 func sub_486E30(a1 unsafe.Pointer, a2 *uint32) int32 {
@@ -4756,7 +4750,7 @@ func sub_487910(a1 unsafe.Pointer, a2 int32) int32 {
 	}
 	return 0
 }
-func sub_487970(a1 unsafe.Pointer, a2 int32) *int32 {
+func sub_487970(a1 unsafe.Pointer, a2 int32) {
 	var (
 		result *int32
 		v3     *int32
@@ -4766,21 +4760,20 @@ func sub_487970(a1 unsafe.Pointer, a2 int32) *int32 {
 	result = (*int32)(sub_4877D0(a1, &a1))
 	v3 = result
 	if result == nil {
-		return result
+		return
 	}
 	v4 = a2
 	for {
 		result = (*int32)(sub_4877F0(&a1))
 		v5 = result
 		if v4 == -1 || *(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) == v4 {
-			result = (*int32)(unsafe.Pointer(uintptr(sub_4BDA80(unsafe.Pointer(v3)))))
+			sub_4BDA80(unsafe.Pointer(v3))
 		}
 		v3 = v5
 		if v5 == nil {
 			break
 		}
 	}
-	return result
 }
 func sub_487C30(a1 *uint32) {
 	*a1 = 0
@@ -5387,9 +5380,7 @@ func sub_489870() int32 {
 	var (
 		v0 int32
 		v1 *uint8
-		v2 *uint32
 		v3 *wchar2_t
-		v4 uint32
 		v5 int32
 		v6 int8
 		v7 int32
@@ -5400,11 +5391,11 @@ func sub_489870() int32 {
 		return nox_window_set_hidden(dword_5d4594_1193380, 1)
 	}
 	*(*uint32)(unsafe.Pointer(v1)) = (nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193380, 10028).DrawData().Field0 >> 2) & 1
-	v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193380, 10031)))
-	v3 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v2)), 16413, 0, 0)))
+	v2 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193380, 10031)
+	v3 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(v2, 16413, 0, 0)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4)) = uint32(libc.WStrtol(v3, nil, 10))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) = (nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193380, 10029).DrawData().Field0 >> 2) & 1
-	v4 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193380, 10030).DrawData().Field0
+	v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193380, 10030).DrawData().Field0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2)) = (v4 >> 2) & 1
 	if nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193380, 10015).DrawData().Field0&4 != 0 {
@@ -5598,17 +5589,13 @@ func sub_489B80(a1 *gui.Window) *gui.Window {
 	return dword_5d4594_1193380
 }
 func sub_489DC0() {
-	var (
-		v0 *uint32
-		v1 *uint32
-	)
 	nox_window_set_hidden(dword_5d4594_1193384, 0)
 	if nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193384, 10028).DrawData().Field0&4 != 0 {
-		v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193384, 10031)))
-		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v0)), 1)
+		v0 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193384, 10031)
+		nox_xxx_wnd_46ABB0(v0, 1)
 	} else {
-		v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193384, 10031)))
-		nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v1)), 0)
+		v1 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193384, 10031)
+		nox_xxx_wnd_46ABB0(v1, 0)
 	}
 	if nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1193384, 10015).DrawData().Field0&4 != 0 {
 		sub_46AD20(dword_5d4594_1193384, 10016, 10017, 1)

@@ -71,7 +71,7 @@ func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 int32, f *binfile.MemFile) in
 	}
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f)
 }
-func nox_xxx_loadVectorAnimated_44B8B0(a1 int32, f *binfile.MemFile) int32 {
+func nox_xxx_loadVectorAnimated_44B8B0(a1 unsafe.Pointer, f *binfile.MemFile) int32 {
 	*(*uint16)(unsafe.Add(a1, 40)) = uint16(nox_memfile_read_u8(f))
 	*(*uint16)(unsafe.Add(a1, 42)) = uint16(nox_memfile_read_u8(f))
 	var anim_kind_length uint8 = nox_memfile_read_u8(f)

@@ -36,7 +36,7 @@ func sub_455C30() int32 {
 		result = dword_5d4594_1045604
 	}
 	sub_455A00(0)
-	*memmap.PtrPtr(0x5D4594, 1045632) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder")))
+	*memmap.PtrPtr(0x5D4594, 1045632) = nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder"))
 	return 1
 }
 func sub_455D80(a1 uint8, a2 int8) {

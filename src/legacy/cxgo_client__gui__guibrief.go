@@ -42,12 +42,12 @@ func sub_44E410() *wchar2_t {
 			}
 			nox_sprintf(&v8[0], internCStr("Briefing:%sChapterBegin%d"), *memmap.PtrUint32(0x587000, uintptr(v1*4)+122944), i)
 			v4 = (v1 + v0 + v1*10) * 32
-			*memmap.PtrPtr(0x5D4594, uintptr(v4)+831300) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v8[9]))
+			*memmap.PtrPtr(0x5D4594, uintptr(v4)+831300) = nox_xxx_gLoadImg_42F970(&v8[9])
 			*memmap.PtrPtr(0x5D4594, uintptr(v4)+831304) = unsafe.Pointer(nox_strman_loadString_40F1D0(&v8[0], (**byte)(memmap.PtrOff(0x5D4594, uintptr(v4)+831308)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1221))
 			v6 = int32(*memmap.PtrUint32(0x587000, uintptr(v1*4)+122944))
 			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831312) = uint32(v3)
 			nox_sprintf(&v8[0], internCStr("Briefing:%sChapterLoss%d"), v6, i)
-			*memmap.PtrPtr(0x5D4594, uintptr(v4)+831316) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v8[9]))
+			*memmap.PtrPtr(0x5D4594, uintptr(v4)+831316) = nox_xxx_gLoadImg_42F970(&v8[9])
 			v1++
 			*memmap.PtrPtr(0x5D4594, uintptr(v4)+831320) = unsafe.Pointer(nox_strman_loadString_40F1D0(&v8[0], (**byte)(memmap.PtrOff(0x5D4594, uintptr(v4)+831324)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1227))
 			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831328) = uint32(v3)
@@ -63,7 +63,7 @@ func sub_44E410() *wchar2_t {
 		v0 = i
 		v1 = 0
 	}
-	*memmap.PtrPtr(0x5D4594, 831264) = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("CreditsImage")))
+	*memmap.PtrPtr(0x5D4594, 831264) = nox_xxx_gLoadImg_42F970(internCStr("CreditsImage"))
 	result = nox_strman_loadString_40F1D0(internCStr("Nox:Credits"), (**byte)(memmap.PtrOff(0x5D4594, 831272)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1233)
 	*memmap.PtrPtr(0x5D4594, 831268) = unsafe.Pointer(result)
 	return result
@@ -674,8 +674,8 @@ func nox_client_showQuestBriefing2_450980(a1 int32, a2 int32) int32 {
 	nox_client_resetScreenParticles_431510()
 	nox_xxx_bookHideMB_45ACA0(1)
 	sub_446780()
-	v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970((*byte)(unsafe.Add(a1, 5)))))
-	sub_450AD0(v2)
+	v2 = nox_xxx_gLoadImg_42F970((*byte)(unsafe.Add(a1, 5)))
+	sub_450AD0(noxrender.ImageHandle(v2))
 	if libc.StrLen((*byte)(unsafe.Add(a1, 37))) != 0 {
 		v3 = nox_strman_loadString_40F1D0((*byte)(unsafe.Add(a1, 37)), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1714)
 		sub_450AF0(int32(uintptr(unsafe.Pointer(v3))))
@@ -702,8 +702,8 @@ func nox_client_showQuestBriefing_450A30(a1 int32, a2 int32) int32 {
 	nox_client_resetScreenParticles_431510()
 	nox_xxx_bookHideMB_45ACA0(1)
 	sub_446780()
-	v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970((*byte)(unsafe.Add(a1, 5)))))
-	sub_450AD0(v2)
+	v2 = nox_xxx_gLoadImg_42F970((*byte)(unsafe.Add(a1, 5)))
+	sub_450AD0(noxrender.ImageHandle(v2))
 	if libc.StrLen((*byte)(unsafe.Add(a1, 37))) != 0 {
 		v3 = nox_strman_loadString_40F1D0((*byte)(unsafe.Add(a1, 37)), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1756)
 		sub_450AF0(int32(uintptr(unsafe.Pointer(v3))))

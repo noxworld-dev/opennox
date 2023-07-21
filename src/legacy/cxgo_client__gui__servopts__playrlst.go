@@ -37,7 +37,7 @@ func nox_xxx_guiServerPlayersLoad_456270(a1 *gui.Window) *gui.Window {
 	v11 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10516)
 	v6.Field100Ptr.SizeVal.X = 16
 	v6.Field100Ptr.SizeVal.Y = 10
-	sub_4B5700(v6, 0, 0, unsafe.Pointer(v13), unsafe.Pointer(v5), unsafe.Pointer(v5))
+	sub_4B5700(v6, nil, nil, v13, v5, v5)
 	nox_xxx_wnd_46B280(v6, v3)
 	nox_xxx_wnd_46B280(v15, v3)
 	nox_xxx_wnd_46B280(v11, v3)
@@ -50,7 +50,7 @@ func nox_xxx_guiServerPlayersLoad_456270(a1 *gui.Window) *gui.Window {
 	v12 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10519)
 	v8.Field100Ptr.SizeVal.X = 16
 	v8.Field100Ptr.SizeVal.Y = 10
-	sub_4B5700(v8, 0, 0, unsafe.Pointer(v13), unsafe.Pointer(v5), unsafe.Pointer(v5))
+	sub_4B5700(v8, nil, nil, v13, v5, v5)
 	nox_xxx_wnd_46B280(v8, v4)
 	nox_xxx_wnd_46B280(v16, v4)
 	nox_xxx_wnd_46B280(v12, v4)
@@ -58,10 +58,10 @@ func nox_xxx_guiServerPlayersLoad_456270(a1 *gui.Window) *gui.Window {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*7)) = uint32(uintptr(unsafe.Pointer(v16)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*8)) = uint32(uintptr(unsafe.Pointer(v12)))
 	sub_456500()
-	v9 := (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10504)))
+	v9 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10504)
 	if noxflags.HasGame(128) {
 		v10 := nox_strman_loadString_40F1D0(internCStr("Title1"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\playrlst.c"), 631)
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v9)), 16385, uintptr(unsafe.Pointer(v10)), math.MaxUint32)
+		nox_window_call_field_94_fnc(v9, 16385, uintptr(unsafe.Pointer(v10)), math.MaxUint32)
 	}
 	return dword_5d4594_1045684
 }
@@ -131,7 +131,7 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		return 0
 	}
 	if v4 == 10507 {
-		v24 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)))
+		v24 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)
 		v25 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v24)), 16404, 0, 0))
 		sub_456D00(v25, &v30[0])
 		v26 = sub_418A40(&v30[0])
@@ -142,7 +142,7 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		return 0
 	}
 	if v4 == 4001 {
-		v20 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)))
+		v20 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)
 		v21 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v20)), 16404, 0, 0))
 		sub_456D00(v21, &v30[0])
 		v22 = sub_418A40(&v30[0])
@@ -159,7 +159,7 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 	if v4 != 10503 {
 		return 0
 	}
-	v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)))
+	v5 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)
 	v6 = int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v5)), 16404, 0, 0))
 	if v6 >= 0 {
 		sub_456D00(v6, &v30[0])
@@ -190,9 +190,9 @@ func sub_4567C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			}
 		}
 	}
-	v17 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)))
+	v17 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v17)), 16403, math.MaxUint32, 0)
-	v18 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10501)))
+	v18 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10501)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v18)), 16403, math.MaxUint32, 0)
 	return 0
 }
@@ -201,8 +201,8 @@ func sub_457010(a1 unsafe.Pointer, a2 *wchar2_t) {
 	defer free9()
 	v2 := sub_4165B0()
 	if dword_5d4594_1045684 != nil {
-		v4 := (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)))
-		v5 := int32(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v4)), 16404, 0, 0))
+		v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045684, 10502)
+		v5 := int32(nox_window_call_field_94_fnc(v4, 16404, 0, 0))
 		nox_wcscpy(&v9[0], a2)
 		if noxflags.HasGame(96) || *(*byte)(unsafe.Add(unsafe.Pointer(v2), 52))&0x60 != 0 {
 			v6 := *(*uint8)(unsafe.Add(a1, 57))
@@ -216,14 +216,14 @@ func sub_457010(a1 unsafe.Pointer, a2 *wchar2_t) {
 				nox_wcscat(&v9[0], v8)
 			}
 		}
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v4)), 16398, uintptr(v5), 0)
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v4)), 16402, uintptr(v5), 0)
+		nox_window_call_field_94_fnc(v4, 16398, uintptr(v5), 0)
+		nox_window_call_field_94_fnc(v4, 16402, uintptr(v5), 0)
 		v7 := sub_457120(a1)
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v4)), 16397, uintptr(unsafe.Pointer(&v9[0])), uintptr(v7))
-		nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v4)), 16403, uintptr(v5), 0)
+		nox_window_call_field_94_fnc(v4, 16397, uintptr(unsafe.Pointer(&v9[0])), uintptr(v7))
+		nox_window_call_field_94_fnc(v4, 16403, uintptr(v5), 0)
 	}
 }
-func sub_457230(a1 *wchar2_t) {
+func sub_457230(a1 *server.Team) {
 	v8, free8 := alloc.Make([]wchar2_t{}, 56)
 	defer free8()
 	v1 := sub_4165B0()

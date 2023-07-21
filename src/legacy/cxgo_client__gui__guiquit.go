@@ -180,8 +180,8 @@ func sub_445C40() {
 					nox_xxx_wndSetCaptureMain_46ADC0(nox_wnd_quitMenu_825760)
 					if noxflags.HasGame(2048) {
 						v20 := nox_strman_loadString_40F1D0(internCStr("SoloSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 396)
-						v1 := (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)))
-						sub_46AEE0(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(v20))))
+						v1 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9003)
+						sub_46AEE0(v1, int32(uintptr(unsafe.Pointer(v20))))
 						v2 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9001)
 						nox_window_set_hidden(v2, 0)
 						v3 := nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9002)

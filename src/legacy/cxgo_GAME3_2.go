@@ -299,25 +299,25 @@ func sub_4CEBA0(a1 unsafe.Pointer, a2 *byte) unsafe.Pointer {
 		v8 *uint32
 		v9 *byte
 	)
-	dword_5d4594_1523024 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("rulelist.wnd"), sub_4CF060))))
-	dword_5d4594_1523028 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10170))))
-	dword_5d4594_1523032 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10171))))
-	dword_5d4594_1523036 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10172))))
-	dword_5d4594_1523040 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10173))))
-	dword_5d4594_1523044 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10174))))
-	dword_5d4594_1523048 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10175))))
-	v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10176)))
+	dword_5d4594_1523024 = nox_new_window_from_file(internCStr("rulelist.wnd"), sub_4CF060)
+	dword_5d4594_1523028 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10170)
+	dword_5d4594_1523032 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10171)
+	dword_5d4594_1523036 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10172)
+	dword_5d4594_1523040 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10173)
+	dword_5d4594_1523044 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10174)
+	dword_5d4594_1523048 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10175)
+	v2 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10176)
 	nox_xxx_wndSetDrawFn_46B340((*gui.Window)(unsafe.Pointer(v2)), sub_4CEED0)
 	sub_46B120((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), (*gui.Window)(a1))
 	v3 = *(**uint32)(unsafe.Add(dword_5d4594_1523028, 32))
-	v9 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISlider"))))
-	v4 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))))
-	v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10179)))
-	v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10177)))
-	v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10178)))
+	v9 = nox_xxx_gLoadImg_42F970(internCStr("UISlider"))
+	v4 = nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))
+	v5 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10179)
+	v6 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10177)
+	v8 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), 10178)
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*100)), 8)) = 16
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*100)), 12)) = 10
-	sub_4B5700(int32(uintptr(unsafe.Pointer(v5))), 0, 0, unsafe.Pointer(v9), unsafe.Pointer(v4), unsafe.Pointer(v4))
+	sub_4B5700(int32(uintptr(unsafe.Pointer(v5))), nil, nil, noxrender.ImageHandle(unsafe.Pointer(v9)), noxrender.ImageHandle(unsafe.Pointer(v4)), noxrender.ImageHandle(unsafe.Pointer(v4)))
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v5))), dword_5d4594_1523028)
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v6))), dword_5d4594_1523028)
 	nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v8))), dword_5d4594_1523028)
@@ -452,7 +452,7 @@ func sub_4CF060(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		if !(a2 != 23 && a2 == 16387) {
 			return 1
 		}
-		v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), int32(a4))))
+		v4 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(dword_5d4594_1523024)), int32(a4))
 		if v4 == nil {
 			return 0
 		}

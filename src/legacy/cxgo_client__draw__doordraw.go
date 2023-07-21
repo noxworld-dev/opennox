@@ -32,10 +32,10 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		return 1
 	}
 	if dr.Field_109 == nil {
-		dr.Field_110 = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSW")))
-		dr.Field_109 = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSE")))
-		dr.Field_111 = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSW")))
-		dr.Field_112 = unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSE")))
+		dr.Field_110 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSW"))
+		dr.Field_109 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSE"))
+		dr.Field_111 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSW"))
+		dr.Field_112 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSE"))
 	}
 	sub_4739E0(a1, (*Point32)(unsafe.Pointer(&dr.PosVec)), &a3)
 	a3.X -= 64

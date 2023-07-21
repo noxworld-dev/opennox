@@ -8,6 +8,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -4969,11 +4970,11 @@ func nox_common_list_getNext_425940(list *nox_list_item_t) *nox_list_item_t {
 	}
 	return it
 }
-func sub_425960(a1 unsafe.Pointer) int32 {
+func sub_425960(a1 unsafe.Pointer) unsafe.Pointer {
 	if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 4)), 8)) != *(*uint32)(unsafe.Add(a1, 4)) {
-		return int32(*(*uint32)(unsafe.Add(a1, 4)))
+		return *(*unsafe.Pointer)(unsafe.Add(a1, 4))
 	}
-	return 0
+	return nil
 }
 func sub_4259C0() {
 	if *memmap.PtrUint32(0x5D4594, 599472) == 0 {
@@ -5508,14 +5509,12 @@ func nox_xxx_bookGetCreatureImg_427400(a1 int32) int32 {
 	}
 	return result
 }
-func sub_427430(a1 int32) int32 {
-	var result int32
+func sub_427430(a1 int32) noxrender.ImageHandle {
 	if a1 <= 0 || a1 >= 41 {
-		result = 0
+		return nil
 	} else {
-		result = int32(*memmap.PtrUint32(0x5D4594, uintptr(a1*28)+740088))
+		return *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, uintptr(a1*28)+740088)
 	}
-	return result
 }
 func nox_xxx_guideGetUnitSize_427460(a1 int32) uint8 {
 	return *memmap.PtrUint8(0x5D4594, uintptr(a1*28)+740100)

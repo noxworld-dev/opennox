@@ -47,7 +47,7 @@ func nox_xxx_loadGuides_427070() int32 {
 		libc.StrCpy(&v13[8], internCStr("Cage"))
 		*(*uint32)(unsafe.Pointer(&v13[4])) = uint32(v5)
 		libc.StrCat(&v13[0], v6)
-		v7 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v13[0])))
+		v7 = nox_xxx_gLoadImg_42F970(&v13[0])
 		v8 = int32(*memmap.PtrUint32(0x587000, 71264))
 		v9 = int32(*memmap.PtrUint32(0x587000, 71268))
 		v10 = *v0
@@ -56,7 +56,7 @@ func nox_xxx_loadGuides_427070() int32 {
 		libc.StrCpy(&v13[8], internCStr("k"))
 		*(*uint32)(unsafe.Pointer(&v13[4])) = uint32(v9)
 		libc.StrCat(&v13[0], v10)
-		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*3))) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v13[0]))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*3))) = nox_xxx_gLoadImg_42F970(&v13[0])
 		*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*4))) = 0
 		v11 = int32(*(*uint32)(unsafe.Add(v2, 36)))
 		if v11&1 != 0 {

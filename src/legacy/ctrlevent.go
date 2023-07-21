@@ -73,7 +73,7 @@ func Nox_client_orderCreature(a1, a2 int) {
 }
 
 func Get_nox_gui_itemAmount_dialog_1319228() *gui.Window {
-	return AsWindowP(nox_gui_itemAmount_dialog_1319228)
+	return AsWindowP(unsafe.Pointer(nox_gui_itemAmount_dialog_1319228))
 }
 
 func Sub_4C01C0(a1 unsafe.Pointer, a2 int, a3 unsafe.Pointer, a4 int) {

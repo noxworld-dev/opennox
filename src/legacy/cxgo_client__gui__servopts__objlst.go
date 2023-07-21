@@ -72,9 +72,9 @@ func nox_xxx_guiObjlistLoad_4530C0(a1 unsafe.Pointer, a2 int32) unsafe.Pointer {
 		}
 	}
 	nox_window_call_field_94_fnc(dword_5d4594_1045464, 16385, uintptr(unsafe.Pointer(&v14[0])), 0)
-	v11 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, 1513)))
+	v11 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, 1513)
 	nox_window_call_field_94_fnc(dword_5d4594_1045464, 16408, uintptr(unsafe.Pointer(v11)), 0)
-	v12 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, 1514)))
+	v12 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, 1514)
 	nox_window_call_field_94_fnc(dword_5d4594_1045464, 16409, uintptr(unsafe.Pointer(v12)), 0)
 	*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1045460)*4+1045472) = uint32(v2)
 	sub_453750()

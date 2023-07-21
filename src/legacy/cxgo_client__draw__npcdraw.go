@@ -144,26 +144,26 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 				if nox_client_drawable_testBuff_4356C0((*client.Drawable)(v4), 16) {
 					if dword_5d4594_1313796 == nil {
 						v23 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))
-						dword_5d4594_1313796 = unsafe.Pointer(nox_new_drawable_for_thing(v23))
-						*(*uint32)(unsafe.Add(dword_5d4594_1313796, 120)) |= 0x1000000
+						dword_5d4594_1313796 = nox_new_drawable_for_thing(v23)
+						dword_5d4594_1313796.Flags30Val |= 0x1000000
 					}
-					*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(*v21) + *(*uint32)(unsafe.Add(v4, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
-					*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Add(v4, 16)) - 50
+					dword_5d4594_1313796.PosVec.X = uint32(*v21) + *(*uint32)(unsafe.Add(v4, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
+					dword_5d4594_1313796.PosVec.Y = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Add(v4, 16)) - 50
 					v31 = int32(uintptr(dword_5d4594_1313796))
-					v24 := ccall.AsFunc[func(*byte, int32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313796, 300)))
+					v24 := ccall.AsFunc[func(*byte, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_1313796), 300)))
 					v25 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
 					v24(v25, v31)
 				}
 				if nox_client_drawable_testBuff_4356C0((*client.Drawable)(v4), 30) {
 					if dword_5d4594_1313800 == nil {
 						v26 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningCrown"))
-						dword_5d4594_1313800 = unsafe.Pointer(nox_new_drawable_for_thing(v26))
-						*(*uint32)(unsafe.Add(dword_5d4594_1313800, 120)) |= 0x1000000
+						dword_5d4594_1313800 = nox_new_drawable_for_thing(v26)
+						dword_5d4594_1313800.Flags30Val |= 0x1000000
 					}
-					*(*uint32)(unsafe.Add(dword_5d4594_1313800, 12)) = uint32(*v21) + *(*uint32)(unsafe.Add(v4, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
-					*(*uint32)(unsafe.Add(dword_5d4594_1313800, 16)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Add(v4, 16)) - 50
+					dword_5d4594_1313800.PosVec.X = uint32(*v21) + *(*uint32)(unsafe.Add(v4, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
+					dword_5d4594_1313800.PosVec.Y = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Add(v4, 16)) - 50
 					v32 = int32(uintptr(dword_5d4594_1313800))
-					v27 := ccall.AsFunc[func(*byte, int32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_1313800, 300)))
+					v27 := ccall.AsFunc[func(*byte, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_1313800), 300)))
 					v28 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
 					v27(v28, v32)
 				}

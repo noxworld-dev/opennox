@@ -1837,7 +1837,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		return 6
 	case 0x95:
 		if nox_client_isConnected_43C700() != 0 {
-			sub_4C5020(int32(uintptr(unsafe.Pointer(data))))
+			sub_4C5020(unsafe.Pointer(data))
 			if nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4987) < 25 {
 				if *memmap.PtrUint32(0x852978, 8) != 0 {
 					v225 = int32(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 5))) - *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 12)))
@@ -2541,12 +2541,12 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 2
 		case 3:
 			if nox_client_isConnected_43C700() != 0 {
-				sub_4C1BC0(int32(uintptr(unsafe.Pointer(data))))
+				sub_4C1BC0(unsafe.Pointer(data))
 			}
 			return 3
 		case 4:
 			if nox_client_isConnected_43C700() != 0 {
-				nox_xxx_tradeClientAddItem_4C1790(int32(uintptr(unsafe.Pointer(data))))
+				nox_xxx_tradeClientAddItem_4C1790(unsafe.Pointer(data))
 			}
 			return 15
 		case 5:
@@ -2559,7 +2559,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			if nox_client_isConnected_43C700() == 0 {
 				return 14
 			}
-			sub_4C1B50(int32(uintptr(unsafe.Pointer(data))))
+			sub_4C1B50(unsafe.Pointer(data))
 			return 14
 		case 7:
 			if nox_client_isConnected_43C700() != 0 {
@@ -2579,7 +2579,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 4
 		case 0xC:
 			if nox_client_isConnected_43C700() != 0 {
-				nox_xxx_netP2PStartTrade_4C1320(int32(uintptr(unsafe.Pointer(data))))
+				nox_xxx_netP2PStartTrade_4C1320(unsafe.Pointer(data))
 			}
 			return 52
 		case 0xD:
