@@ -50,13 +50,13 @@ func sub_49C910() {
 	v0 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10352)
 	v1 := v0
 	v2 = (**byte)(memmap.PtrOff(0x587000, 164928))
-	v3 = (nox_xxx_guiFontHeightMB_43F320(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*59)))))) + 1) * 5
-	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) = *((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5))) + uint32(v3) + 2
-	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3))) = uint32(v3 + 2)
+	v3 = (nox_xxx_guiFontHeightMB_43F320(v0.DrawData().FontPtr) + 1) * 5
+	v1.EndPos.Y = v1.Off.Y + int(uint32(v3)) + 2
+	v1.SizeVal.Y = int(uint32(v3 + 2))
 	v4 = 0
 	for {
 		v5 = nox_strman_loadString_40F1D0(*v2, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\conntype.c"), 53)
-		nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59))))), v5, &v11, nil, 0)
+		nox_xxx_drawGetStringSize_43F840(v1.DrawData().FontPtr, v5, &v11, nil, 0)
 		if v11 > v4 {
 			v4 = v11
 		}
@@ -66,24 +66,24 @@ func sub_49C910() {
 		}
 	}
 	v6 = v4 + 7
-	nox_xxx_drawGetStringSize_43F840(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*59))))), (*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*54)), &v12, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(v1.DrawData().FontPtr, (*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*54)), &v12, nil, 0)
 	if v6 <= v12 {
 		v6 = v12
 	}
-	v7 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4))))
-	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2))) = uint32(v6)
-	*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) = uint32(v7 + v6)
+	v7 = int32(v1.Off.X)
+	v1.SizeVal.X = int(uint32(v6))
+	v1.EndPos.X = int(uint32(v7 + v6))
 	dword_5d4594_1305684.Off.X = int(uint32(v7 - 40))
-	dword_5d4594_1305684.Off.Y = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*5))) - 40)
-	dword_5d4594_1305684.EndPos.X = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) + 40)
-	dword_5d4594_1305684.EndPos.Y = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 40)
-	dword_5d4594_1305684.SizeVal.X = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2))) + 80)
-	dword_5d4594_1305684.SizeVal.Y = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3))) + 80)
+	dword_5d4594_1305684.Off.Y = v1.Off.Y - 40
+	dword_5d4594_1305684.EndPos.X = v1.EndPos.X + 40
+	dword_5d4594_1305684.EndPos.Y = v1.EndPos.Y + 40
+	dword_5d4594_1305684.SizeVal.X = v1.SizeVal.X + 80
+	dword_5d4594_1305684.SizeVal.Y = v1.SizeVal.Y + 80
 	result := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1305684, 10353)
-	result.Off.Y = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*7))) + 10)
+	result.Off.Y = v1.EndPos.Y + 10
 	v9 = int32(result.SizeVal.X)
 	v10 = int32(result.Off.Y)
-	result.Off.X = int(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6))) - uint32(v9))
+	result.Off.X = v1.EndPos.X - int(uint32(v9))
 	result.EndPos.Y = uint32(v10) + result.SizeVal.Y
 	result.EndPos.X = uint32(v9) + result.Off.X
 }

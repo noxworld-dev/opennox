@@ -4822,7 +4822,7 @@ func nox_xxx_creatureIsMonitored_500CC0(a1p *server.Object, a2p *server.Object) 
 	if (int32(*(*uint8)(unsafe.Add(a2, 8)))&2 != 0 && (func() bool {
 		v2 = int32(*(*uint32)(unsafe.Add(a2, 16)))
 		return (v2 & 0x8000) == 0
-	}()) || nox_xxx_unitIsZombie_534A40(a2) != 0) && (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a2, 748)), 1440)))&0x80) != 0 {
+	}()) || nox_xxx_unitIsZombie_534A40((*server.Object)(a2)) != 0) && (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a2, 748)), 1440)))&0x80) != 0 {
 		result = nox_xxx_unitHasThatParent_4EC4F0((*server.Object)(a2), (*server.Object)(a1))
 	} else {
 		result = 0

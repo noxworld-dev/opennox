@@ -221,8 +221,8 @@ func sub_462040(a1 int32) {
 	v6.Field_32 = uint32(v1)
 	v6.Flags30Val = uint32(v8) | 0x40000000
 	alloc.Memcpy(unsafe.Add(unsafe.Pointer(v6), 4*108), v4, 0x18)
-	*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*146))) = uint16(v18)
-	*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*147))) = uint16(v19)
+	v6.Field_73_1 = uint16(v18)
+	v6.Field_73_2 = uint16(v19)
 	sub_4623E0(v6, v20)
 	v9 = 0
 	if v2 != nil {

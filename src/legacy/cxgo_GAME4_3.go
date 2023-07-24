@@ -2464,7 +2464,7 @@ func nox_xxx_mobActionToAnimation_533790(obj *server.Object) int32 {
 		}
 		return int32(v3)
 	}
-	if nox_xxx_unitIsZombie_534A40(obj.CObj()) == 0 {
+	if nox_xxx_unitIsZombie_534A40(obj) == 0 {
 		return int32(v3)
 	}
 	if v3 != 9 {
@@ -2517,7 +2517,7 @@ func nox_xxx_enactUnitOrder_5339A0(source unsafe.Pointer, unit unsafe.Pointer, o
 	)
 	v3 = *(**uint32)(unsafe.Add(unit, 748))
 	if source != nil && int32(*(*uint8)(unsafe.Add(unit, 8)))&2 != 0 {
-		if nox_xxx_unitIsZombie_534A40(unit) != 0 && orderId == 0 || (func() bool {
+		if nox_xxx_unitIsZombie_534A40((*server.Object)(unit)) != 0 && orderId == 0 || (func() bool {
 			v4 = int32(*(*uint32)(unsafe.Add(unit, 16)))
 			return (v4 & 0x8000) == 0
 		}()) {
@@ -3070,13 +3070,13 @@ func nox_xxx_unitIsPlant_534A10(a1 unsafe.Pointer) int32 {
 	}
 	return bool2int32(int32(*(*uint16)(unsafe.Add(a1, 4))) == v1)
 }
-func nox_xxx_unitIsZombie_534A40(a1 unsafe.Pointer) int32 {
+func nox_xxx_unitIsZombie_534A40(a1 *server.Object) int32 {
 	var v1 int32
 	if *memmap.PtrUint32(0x5D4594, 2488532) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2488532) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Zombie")))
 		*memmap.PtrUint32(0x5D4594, 2488536) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("VileZombie")))
 	}
-	v1 = int32(*(*uint16)(unsafe.Add(a1, 4)))
+	v1 = int32(a1.TypeInd)
 	return bool2int32(uint32(uint16(int16(v1))) == *memmap.PtrUint32(0x5D4594, 2488532) || uint32(v1) == *memmap.PtrUint32(0x5D4594, 2488536))
 }
 func nox_xxx_mobActionGetUp_534A90(obj *server.Object) {
@@ -3088,7 +3088,7 @@ func nox_xxx_mobActionGetUp_534A90(obj *server.Object) {
 func nox_xxx_mobRaiseZombie_534AB0(obj *server.Object) {
 	a1 := obj.CObj()
 	var result uint32
-	result = uint32(nox_xxx_unitIsZombie_534A40(a1))
+	result = uint32(nox_xxx_unitIsZombie_534A40((*server.Object)(a1)))
 	if result != 0 {
 		result = uint32(nox_xxx_mobActionGet_50A020(obj))
 		if result == 31 {
@@ -10396,7 +10396,7 @@ func nox_xxx_zombieBurnDeleteCheck_544CA0(obj *server.Object) {
 	a1 := obj.CObj()
 	var v1 int32
 	v1 = int32(*(*uint32)(unsafe.Add(a1, 4*187)))
-	if nox_xxx_unitIsZombie_534A40(a1) != 0 {
+	if nox_xxx_unitIsZombie_534A40((*server.Object)(a1)) != 0 {
 		if *(*uint32)(unsafe.Add(v1, 1440))&0x80000 != 0 {
 			nox_xxx_zombieBurnDelete_544CE0((*uint32)(a1))
 		}
@@ -10417,7 +10417,7 @@ func nox_xxx_zombieBurnDelete_544CE0(a1 *uint32) {
 		nox_xxx_netFxShield_0_4D9200(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), int32(uintptr(unsafe.Pointer(a1))))
 		nox_xxx_netUnmarkMinimapObj_417300(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), (*server.Object)(unsafe.Pointer(a1)), 1)
 	}
-	nox_xxx_soloMonsterKillReward_4EE500_obj_health(unsafe.Pointer(a1))
+	nox_xxx_soloMonsterKillReward_4EE500_obj_health((*server.Object)(unsafe.Pointer(a1)))
 	nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(unsafe.Pointer(a1), 4*14)), 1)
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(a1)))
 }
@@ -10453,7 +10453,7 @@ func nox_xxx_mobActionDead1_544D80(obj *server.Object) {
 	if v2 != nil {
 		v2(a1)
 	}
-	if nox_xxx_unitIsZombie_534A40(unsafe.Pointer(a1)) != 0 {
+	if nox_xxx_unitIsZombie_534A40((*server.Object)(unsafe.Pointer(a1))) != 0 {
 		v8 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ZombieDeadDuration"), 0))
 		v3 = int32(v8)
 		v9 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ZombieDeadDuration"), 1))
@@ -10463,7 +10463,7 @@ func nox_xxx_mobActionDead1_544D80(obj *server.Object) {
 		*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 0x10))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) = uint32(v5)
 	} else {
-		v6 = nox_xxx_unitIsZombie_534A40(unsafe.Pointer(a1)) == 0
+		v6 = nox_xxx_unitIsZombie_534A40((*server.Object)(unsafe.Pointer(a1))) == 0
 		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 		if v6 {
 			*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 0x18))
@@ -10501,7 +10501,7 @@ func nox_xxx_mobActionDead2_544EC0(obj *server.Object) {
 		v2 int32
 	)
 	v1 = *(**uint32)(unsafe.Add(a1, 748))
-	if nox_xxx_unitIsZombie_534A40(a1) != 0 {
+	if nox_xxx_unitIsZombie_534A40((*server.Object)(a1)) != 0 {
 		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*360)))
 		if uint32(v2)&0x80000 != 0 {
 			nox_xxx_netSparkExplosionFx_5231B0((*float32)(unsafe.Add(a1, 56)), 100)

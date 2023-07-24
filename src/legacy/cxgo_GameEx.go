@@ -40,7 +40,7 @@ func playerInfoStructParser_0(a1p unsafe.Pointer) int8 {
 			return 0
 		}
 	}
-	*(*byte)(unsafe.Add(unsafe.Pointer(a1), 1)) = *((*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_objGetTeamByNetCode_418C80(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*515))))), 4)))
+	*(*byte)(unsafe.Add(unsafe.Pointer(a1), 1)) = byte(nox_xxx_objGetTeamByNetCode_418C80(*((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*515)))).ID)
 	*a1 = *(*byte)(unsafe.Add(unsafe.Pointer(v1), 2251))
 	return 1
 }

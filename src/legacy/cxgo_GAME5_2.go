@@ -1043,36 +1043,33 @@ func sub_579A30() *byte {
 	}
 	return result
 }
-func sub_579AD0(a1 float32, a2 float32) *float32 {
+func sub_579AD0(a1 float32, a2 float32) *server.Waypoint {
 	var (
-		v2 int32
-		v3 int32
 		v4 float64
 		v5 float64
 		v6 float64
 		i  float32
 	)
-	v2 = int32(uintptr(unsafe.Pointer(nox_xxx_waypointsHead_2523752)))
-	v3 = 0
-	for i = 100.0; v2 != 0; v2 = int32(*(*uint32)(unsafe.Add(v2, 484))) {
-		v4 = float64(*(*float32)(unsafe.Add(v2, 8)) - a1)
-		v5 = float64(*(*float32)(unsafe.Add(v2, 12)) - a2)
+	v2 := nox_xxx_waypointsHead_2523752
+	var v3 *server.Waypoint
+	for i = 100.0; v2 != nil; v2 = v2.WpNext {
+		v4 = float64(v2.PosVec.X - a1)
+		v5 = float64(v2.PosVec.Y - a2)
 		v6 = v5*v5 + v4*v4
 		if v6 < float64(i) {
 			i = float32(v6)
 			v3 = v2
 		}
 	}
-	return (*float32)(v3)
+	return v3
 }
-func sub_579C80(a1 int32) *uint32 {
-	var result *uint32
-	result = (*uint32)(dword_5d4594_2523756)
+func sub_579C80(a1 int32) *server.Waypoint {
+	result := dword_5d4594_2523756
 	if dword_5d4594_2523756 == nil {
 		return nil
 	}
-	for *result != uint32(a1) {
-		result = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*121)))
+	for result.Index != uint32(a1) {
+		result = result.WpNext
 		if result == nil {
 			return nil
 		}
@@ -1080,50 +1077,42 @@ func sub_579C80(a1 int32) *uint32 {
 	return result
 }
 func sub_579CA0() int32 {
-	var (
-		v0 *uint32
-		v1 *uint32
-		v2 int32
-		v3 *int32
-		v4 *int32
-		v5 int32
-	)
-	v0 = (*uint32)(dword_5d4594_2523756)
+	v0 := dword_5d4594_2523756
 	if dword_5d4594_2523756 != nil {
 		for {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*1)) = *v0
-			v0 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*121)))
+			v0.Field1 = v0.Index
+			v0 = v0.WpNext
 			if v0 == nil {
 				break
 			}
 		}
-		v0 = (*uint32)(dword_5d4594_2523756)
+		v0 = dword_5d4594_2523756
 	}
-	v1 = v0
+	v1 := v0
 	if v0 == nil {
 		return 1
 	}
 	for {
-		v2 = 0
-		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v1), 476)))) != 0 {
-			v3 = (*int32)(unsafe.Add(unsafe.Pointer(v1), 4*23))
-			v4 = (*int32)(unsafe.Add(unsafe.Pointer(v1), 4*87))
+		var v2 int32
+		if int32(v1.PointsCnt) != 0 {
+			v3 := &v1.Points[0]
+			v4 := (*int32)(unsafe.Add(unsafe.Pointer(v1), 4*87))
 			for {
-				v5 = int32(uintptr(unsafe.Pointer(sub_579C60(uint32(*v4)))))
-				*v3 = v5
-				if v5 == 0 {
+				v5 := sub_579C60(uint32(*v4))
+				v3.Waypoint = v5
+				if v5 == nil {
 					return 0
 				}
 				v2++
 				v4 = (*int32)(unsafe.Add(unsafe.Pointer(v4), 4*1))
-				v3 = (*int32)(unsafe.Add(unsafe.Pointer(v3), 4*2))
-				if v2 >= int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v1), 476)))) {
+				v3 = (*server.WaypointSub)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(server.WaypointSub{})))
+				if v2 >= int32(v1.PointsCnt) {
 					goto LABEL_9
 				}
 			}
 		}
 	LABEL_9:
-		v1 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*121)))
+		v1 = v1.WpNext
 		if v1 == nil {
 			return 1
 		}
@@ -2691,8 +2680,6 @@ func nox_alloc_npcs_2() {
 	nox_alloc_npcs()
 }
 func Nullsub_8(a1 *Point32, a2 unsafe.Pointer) {
-}
-func nullsub_28(a1 uint32) {
 }
 func nullsub_30(a1 unsafe.Pointer) {
 }

@@ -122,7 +122,7 @@ var dword_5d4594_1197324 int32
 var dword_5d4594_1599576 uint32
 var dword_5d4594_1599596 uint32
 var dword_5d4594_1045480 *gui.Window
-var dword_5d4594_2487556 uint32
+var dword_5d4594_2487556 unsafe.Pointer
 var dword_5d4594_1523024 *gui.Window
 var dword_5d4594_2516344 uint32
 var dword_5d4594_1046508 *gui.Window
@@ -216,7 +216,7 @@ var dword_587000_122852 unsafe.Pointer
 var dword_5d4594_1301776 unsafe.Pointer
 var dword_5d4594_251564 unsafe.Pointer
 var nox_xxx_screenWidth_587000_184452 uint32 = 0x32
-var dword_5d4594_1550916 uint32
+var dword_5d4594_1550916 *mapgenRoom
 var dword_5d4594_2487540 int32
 var dword_587000_81128 unsafe.Pointer
 var dword_5d4594_3798800 int32
@@ -225,7 +225,7 @@ var dword_5d4594_1046952 *gui.Window
 var dword_5d4594_832536 unsafe.Pointer
 var dword_587000_87408 uint32 = 0x1
 var dword_5d4594_814988 uint32
-var dword_5d4594_2487560 uint32
+var dword_5d4594_2487560 *mapgenRoom
 var dword_5d4594_1062516 int32
 var dword_5d4594_1316492 uint32
 var dword_5d4594_2491616 uint32
@@ -342,7 +342,7 @@ var dword_5d4594_1307720 int32
 var dword_5d4594_2386920 uint32
 var dword_5d4594_2386564 uint32
 var nox_alloc_magicWall_1569748 unsafe.Pointer
-var dword_5d4594_1550912 uint32
+var dword_5d4594_1550912 *mapgenRoom
 var dword_5d4594_1062488 uint32
 var dword_5d4594_2516356 uint32
 var dword_5d4594_1047936 int32
@@ -475,7 +475,7 @@ var nox_xxx_lightningOwner_5d4594_2487900 uint32
 var dword_5d4594_1096256 uint32
 var dword_5d4594_1046524 uint32
 var dword_5d4594_2523764 uint32
-var dword_5d4594_2487244 uint32
+var dword_5d4594_2487244 *server.Waypoint
 var dword_5d4594_1090280 uint32
 var dword_5d4594_1200796 uint32
 var dword_5d4594_1313536 uint32
@@ -640,7 +640,7 @@ var dword_5d4594_1313788 uint32
 var dword_5d4594_1304328 uint32
 var dword_5d4594_1047536 int32
 var dword_5d4594_2516352 uint32
-var dword_5d4594_1549844 uint32
+var dword_5d4594_1549844 int32
 var dword_5d4594_1313804 uint32
 var nox_xxx_respawnAllow_587000_205200 uint32 = 0x1
 var dword_5d4594_2386172 uint32

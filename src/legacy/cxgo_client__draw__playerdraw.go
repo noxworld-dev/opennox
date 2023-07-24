@@ -60,7 +60,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if nox_player_netCode_85319C == dr.Field_32 {
 		v4 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 		if v4 != nil {
-			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)))))))
+			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v4.ID))))
 			v29 = v5
 		}
 	} else {
@@ -75,7 +75,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 				if nox_xxx_servCompareTeams_419150(v6, v7) != 0 {
 					v31 = 1
 				}
-				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v8), 4)))))))
+				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v8.ID))))
 				v29 = v5
 			}
 		}
