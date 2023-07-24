@@ -375,7 +375,7 @@ func (proc *Processor) fixUnsafeFieldAccess(p *ast.Expr, changed *bool) {
 	if !ok {
 		return
 	}
-	conv, ok := star.X.(*ast.CallExpr)
+	conv, ok := unwrapParen(star.X).(*ast.CallExpr)
 	if !ok || len(conv.Args) != 1 {
 		return
 	}
