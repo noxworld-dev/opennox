@@ -11,7 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func sub_4CCEA0(a1 *uint32, a2 int32) {
+func sub_4CCEA0(a1 *client.Drawable, a2 int32) {
 	var (
 		v2  *uint32
 		v3  int32
@@ -33,9 +33,9 @@ func sub_4CCEA0(a1 *uint32, a2 int32) {
 		*memmap.PtrUint32(0x5D4594, 1522964) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Spark")))
 	}
 	v2 = a1
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+	v3 = int32(a1.PosVec.Y - int(a1.Field_9))
+	v4 = int32(a1.PosVec.X - int(a1.Field_8))
+	v5 = int32(a1.PosVec.Y - int(a1.Field_9))
 	v18 = v4
 	v15 = v3
 	v6 = int32(cmath.Abs(int64(v4)) + cmath.Abs(int64(v5)))

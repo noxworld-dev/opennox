@@ -621,7 +621,6 @@ func sub_4417E0(a1 *wchar2_t, a2 *byte) {
 		v2 uint8
 		v3 *byte
 	)
-	_ = v3
 	var v4 [64]byte
 	var v5 [64]wchar2_t
 	if a2 != nil {

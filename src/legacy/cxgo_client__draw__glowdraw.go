@@ -14,14 +14,13 @@ import (
 
 func sub_4B6770(a1 *int32, dr *client.Drawable, a3 int32, a4 int32) int {
 	var (
-		a2     int32 = int32(uintptr(unsafe.Pointer(dr)))
+		a2     = dr
 		v4     int32
 		v5     int32
 		v6     int32
 		v7     int32
 		result int32
 	)
-	_ = result
 	var v9 int32
 	var v10 int32
 	var v11 int32
@@ -33,10 +32,10 @@ func sub_4B6770(a1 *int32, dr *client.Drawable, a3 int32, a4 int32) int {
 	var xLeft Point32
 	var v18 int32
 	v4 = a2
-	v5 = int32(*(*uint32)(unsafe.Add(a2, 444)))
-	v6 = int32(*(*uint32)(unsafe.Add(a2, 448)) - uint32(v5))
-	v7 = int32(*(*uint32)(unsafe.Add(a2, 448)) - gameFrame())
-	v16 = int32(*(*uint32)(unsafe.Add(a2, 448)) - uint32(v5))
+	v5 = int32(a2.Field_111)
+	v6 = int32(a2.Field_112 - uint32(v5))
+	v7 = int32(a2.Field_112 - gameFrame())
+	v16 = int32(a2.Field_112 - uint32(v5))
 	v18 = v7
 	if v7 == v6 {
 		v18 = func() int32 {

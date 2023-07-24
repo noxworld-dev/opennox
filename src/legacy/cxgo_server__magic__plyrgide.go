@@ -26,7 +26,6 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 unsafe.Pointer, a2 int32, 
 		v6 int32
 		v7 *uint32
 	)
-	_ = v7
 	var v8 *uint8
 	var v9 *uint32
 	var v10 int32

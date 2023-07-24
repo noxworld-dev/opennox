@@ -10,9 +10,7 @@ import (
 
 func sub_42EBB0(a1 uint32, fnc unsafe.Pointer, field_4 int32, name *byte) {
 	var v6 *wchar2_t
-	_ = v6
 	var v8 *wchar2_t
-	_ = v8
 	if a1 == 1 {
 		var arr *obj_5D4594_754088_t = (*obj_5D4594_754088_t)(alloc.Realloc(unsafe.Pointer(ptr_5D4594_754088), uintptr((ptr_5D4594_754088_cnt+1)*int32(unsafe.Sizeof(obj_5D4594_754088_t{})))))
 		ptr_5D4594_754088 = arr

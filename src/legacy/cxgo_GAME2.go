@@ -2227,27 +2227,22 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 		result int32
 		v6     *byte
 	)
-	_ = v6
 	var v7 int32
 	var v8 *byte
 	var v9 *wchar2_t
 	var v10 *byte
 	var v11 *wchar2_t
 	var v12 *byte
-	_ = v12
 	var v13 *wchar2_t
 	var v14 *byte
-	_ = v14
 	var v15 *wchar2_t
 	var v16 *byte
 	var v17 int8
 	var v21 *byte
-	_ = v21
 	var v22 *wchar2_t
 	var v23 int32
 	var v24 int32
 	var v25 *byte
-	_ = v25
 	var v26 *int32
 	var v27 *int32
 	var v28 int32

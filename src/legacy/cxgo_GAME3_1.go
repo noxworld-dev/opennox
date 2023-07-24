@@ -54,7 +54,7 @@ func sub_4B94E0(dr *client.Drawable) int32 {
 	if dr.Flags28Val&0x10000000 == 0 {
 		return 0
 	}
-	return sub_4B9470(dr.Field_109)
+	return sub_4B9470(unsafe.Pointer(dr.Field_109))
 }
 func sub_4B95D0(dr *client.Drawable) *uint32 {
 	var (
@@ -782,7 +782,7 @@ func sub_4BDD10() {
 	case 0:
 		v2 := sub_4165B0()
 		v1 := sub_4CEBA0(dword_5d4594_1316708.C(), v2)
-		dword_5d4594_1316712 = v1
+		dword_5d4594_1316712 = unsafe.Pointer(v1)
 	case 1:
 		dword_5d4594_1316712 = nox_xxx_guiSpelllistLoad_453850(dword_5d4594_1316708.C())
 		nox_xxx_windowFocus_46B500((*gui.Window)(dword_5d4594_1316712))
@@ -4843,17 +4843,17 @@ func sub_4CCD00(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a2 := dr
 	var i uint32
 	for i = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 432)); i < gameFrame(); i++ {
-		if float64(a2.Field_109) > 0.0 {
-			a2.Field_109 = a2.Field_110 + a2.Field_109
-			a2.Field_110 = float32(float64(a2.Field_110) - 1.0)
+		if *(*float32)(unsafe.Pointer(&a2.Field_109)) > 0.0 {
+			*(*float32)(unsafe.Pointer(&a2.Field_109)) = *(*float32)(unsafe.Pointer(&a2.Field_110)) + *(*float32)(unsafe.Pointer(&a2.Field_109))
+			*(*float32)(unsafe.Pointer(&a2.Field_110)) = *(*float32)(unsafe.Pointer(&a2.Field_110)) - 1.0
 		}
-		if float64(a2.Field_109) <= 0.0 {
-			a2.Field_109 = nil
-			a2.Field_110 = nil
+		if *(*float32)(unsafe.Pointer(&a2.Field_109)) <= 0.0 {
+			a2.Field_109 = 0
+			a2.Field_110 = 0
 		}
 	}
-	a2.ZVal = uint16(int16(int64(a2.Field_109)))
-	a2.VelZ = uint8(int8(int64(a2.Field_110)))
+	a2.ZVal = uint16(int16(*(*float32)(unsafe.Pointer(&a2.Field_109))))
+	a2.VelZ = int8(*(*float32)(unsafe.Pointer(&a2.Field_110)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 432)) = gameFrame()
 	return 1
 }
@@ -4866,71 +4866,63 @@ func nox_xxx_updDrawFist_4CCDB0(vp *noxrender.Viewport, dr *client.Drawable) int
 		v5 float64
 	)
 	for i = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 432)); i < gameFrame(); i++ {
-		v3 = float64(a2.Field_109 + a2.Field_110)
-		a2.Field_109 = float32(v3)
+		v3 = float64(*(*float32)(unsafe.Pointer(&a2.Field_109)) + *(*float32)(unsafe.Pointer(&a2.Field_110)))
+		*(*float32)(unsafe.Pointer(&a2.Field_109)) = float32(v3)
 		if v3 >= 0.0 {
-			a2.Field_110 = float32(float64(a2.Field_110) - 0.5)
+			*(*float32)(unsafe.Pointer(&a2.Field_110)) = *(*float32)(unsafe.Pointer(&a2.Field_110)) - 0.5
 		} else {
-			v4 = float64(-a2.Field_110 * a2.Field_111)
-			a2.Field_109 = nil
+			v4 = float64(-*(*float32)(unsafe.Pointer(&a2.Field_110)) * *(*float32)(unsafe.Pointer(&a2.Field_111)))
+			*(*float32)(unsafe.Pointer(&a2.Field_109)) = 0
 			v5 = v4 * 0.1
-			a2.Field_110 = float32(v5)
+			*(*float32)(unsafe.Pointer(&a2.Field_110)) = float32(v5)
 			if v5 < 2.0 {
-				a2.Field_109 = nil
-				a2.Field_110 = nil
+				*(*float32)(unsafe.Pointer(&a2.Field_109)) = 0
+				*(*float32)(unsafe.Pointer(&a2.Field_110)) = 0
 			}
 		}
 	}
-	a2.ZVal = uint16(int16(int64(a2.Field_109)))
-	a2.VelZ = uint8(int8(int64(a2.Field_110)))
+	a2.ZVal = uint16(int16(*(*float32)(unsafe.Pointer(&a2.Field_109))))
+	a2.VelZ = int8(*(*float32)(unsafe.Pointer(&a2.Field_110)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 432)) = gameFrame()
 	return 1
 }
 func sub_4CCE70(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a2 := dr
-	if a2.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
-		sub_4CCEA0(a2, 5)
+	if dr.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
+		sub_4CCEA0(dr, 5)
 	}
 	return 1
 }
 func sub_4CD090(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a2 := dr
-	if a2.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
-		sub_4CCEA0(a2, 4)
+	if dr.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
+		sub_4CCEA0(dr, 4)
 	}
 	return 1
 }
 func sub_4CD0C0(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a2 := dr
-	if a2.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
-		sub_4CCEA0(a2, 3)
+	if dr.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
+		sub_4CCEA0(dr, 3)
 	}
 	return 1
 }
 func sub_4CD0F0(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a2 := dr
-	if a2.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
-		sub_4CCEA0(a2, 2)
+	if dr.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
+		sub_4CCEA0(dr, 2)
 	}
 	return 1
 }
 func sub_4CD120(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a2 := dr
-	if a2.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
-		sub_4CCEA0(a2, 1)
+	if dr.Field_120 == 0 && nox_xxx_checkGameFlagPause_413A50() == 0 {
+		sub_4CCEA0(dr, 1)
 	}
 	return 1
 }
 func sub_4CD400(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := vp
-	a2 := dr
-	var v2 int32
-	v2 = int32(dword_5d4594_1522968)
+	v2 := dword_5d4594_1522968
 	if dword_5d4594_1522968 == 0 {
 		v2 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("CharmOrb"))
-		dword_5d4594_1522968 = uint32(v2)
+		dword_5d4594_1522968 = v2
 	}
-	sub_4CD150(v2, a1, a2, 1)
-	sub_4CD150(int32(dword_5d4594_1522968), a1, a2, 0)
+	sub_4CD150(v2, vp, dr, 1)
+	sub_4CD150(dword_5d4594_1522968, vp, dr, 0)
 	return 1
 }

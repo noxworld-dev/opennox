@@ -40,7 +40,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		v32 int32
 		v33 int32
 	)
-	_ = v33
 	var v34 uint32
 	var v35 *byte
 	var j *byte
@@ -50,9 +49,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v40 uint32
 	var v41 *wchar2_t
 	var v42 int32
-	_ = v42
 	var v43 *byte
-	_ = v43
 	var v44 int32
 	var v45 int32
 	var v46 int32
@@ -216,21 +213,13 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v207 *byte
 	var v208 int32
 	var v213 *wchar2_t
-	_ = v213
 	var v214 int32
-	_ = v214
 	var v215 int32
-	_ = v215
 	var v216 *byte
-	_ = v216
 	var v217 *wchar2_t
-	_ = v217
 	var v218 *uint32
-	_ = v218
 	var v219 int32
-	_ = v219
 	var v220 *wchar2_t
-	_ = v220
 	var v221 uint32
 	var v222 int32
 	var v223 int32
@@ -247,29 +236,18 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v234 int32
 	var v235 int32
 	var v236 int32
-	_ = v236
 	var v237 int32
-	_ = v237
 	var v239 int32
 	var v240 int32
 	var v241 int32
-	_ = v241
 	var v242 int32
-	_ = v242
 	var v243 int32
-	_ = v243
 	var v244 int32
-	_ = v244
 	var v245 int32
-	_ = v245
 	var v246 *uint32
-	_ = v246
 	var v247 int8
-	_ = v247
 	var v248 int16
-	_ = v248
 	var v249 int32
-	_ = v249
 	var v250 bool
 	var v251 int32
 	var v252 uint32
@@ -284,21 +262,13 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v261 int32
 	var v262 int32
 	var v263 int32
-	_ = v263
 	var v264 int32
-	_ = v264
 	var v265 int32
-	_ = v265
 	var v266 int32
-	_ = v266
 	var v267 int32
-	_ = v267
 	var v268 int32
-	_ = v268
 	var v269 int32
-	_ = v269
 	var v270 int32
-	_ = v270
 	var v271 *wchar2_t
 	var v272 *byte
 	var v273 *uint32
@@ -343,25 +313,18 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v312 *wchar2_t
 	var v314 *wchar2_t
 	var v315 int8
-	_ = v315
 	var v316 uint8
-	_ = v316
 	var v317 int32
 	var v318 int32
 	var v319 uint16
-	_ = v319
 	var v320 int32
 	var v321 int32
 	var v322 int32
 	var v323 int8
 	var v324 uint32
-	_ = v324
 	var v325 int8
-	_ = v325
 	var v326 int8
-	_ = v326
 	var v327 int32
-	_ = v327
 	var v328 float32
 	var v329 int32
 	var v330 int32
@@ -376,17 +339,11 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v340 float32
 	var v341 int32
 	var v342 int8
-	_ = v342
 	var v343 *byte
-	_ = v343
 	var v344 uint32
-	_ = v344
 	var v345 int32
-	_ = v345
 	var v346 int8
-	_ = v346
 	var v347 int8
-	_ = v347
 	var v348 int32
 	var v349 int32
 	var v350 int32
@@ -396,7 +353,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v354 *wchar2_t
 	var v355 int32
 	var v356 uint32
-	_ = v356
 	var v357 int32
 	var v358 *int32
 	var v359 int8
@@ -405,15 +361,12 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v362 int32
 	var v363 int32
 	var v365 [6]byte
-	_ = v365
 	var v367 int32
 	var v368 int32
 	var v370 int32
 	var v371 int32
-	_ = v371
 	var v372 int32 = 0
 	var v374 int32
-	_ = v374
 	var v376 int32
 	var v377 Point32
 	var v378 Point32
@@ -421,7 +374,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v380 Point32
 	var v381 [20]uint8
 	var v382 [8]int32
-	_ = v382
 	var v383 [5]int32
 	var v384 [2]int32
 	var v385 [20]byte
@@ -437,7 +389,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	var v395 [64]wchar2_t
 	var v396 [64]wchar2_t
 	var v397 [100]wchar2_t
-	_ = v397
 	var v398 [128]wchar2_t
 	var v400 [256]wchar2_t
 	var v401 [128]wchar2_t

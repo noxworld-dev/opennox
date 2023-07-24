@@ -441,7 +441,6 @@ func sub_4E4170() {
 }
 func sub_4E76C0() int32 {
 	var v0 int32
-	_ = v0
 	var result int32
 	var i int32
 	v0 = 0
@@ -464,7 +463,6 @@ func sub_4EC720() {
 		v7 int16
 		v8 *uint8
 	)
-	_ = v8
 	var v9 int32
 	var v10 int32
 	var v11 float64
@@ -472,7 +470,6 @@ func sub_4EC720() {
 	var v13 int32
 	var v14 int32
 	var v15 *uint8
-	_ = v15
 	var v16 int32
 	var v17 int32
 	var v18 int32

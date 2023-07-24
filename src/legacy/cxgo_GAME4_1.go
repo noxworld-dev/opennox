@@ -76,7 +76,7 @@ func sub_5098A0() {
 		return
 	}
 	if v11 != nil {
-		nox_xxx_netSendDMWinner_4D8B90(v11, 1)
+		nox_xxx_netSendDMWinner_4D8B90((*server.Object)(v11), 1)
 		return
 	}
 	if v0 != 0 {
@@ -156,7 +156,7 @@ func nox_server_checkVictory_509A60() {
 		if v6 != nil {
 			nox_xxx_netSendDMTeamWinner_4D8BF0(int32(uintptr(unsafe.Pointer(v6))), 0)
 		} else if v9 != nil {
-			nox_xxx_netSendDMWinner_4D8B90(v9, 0)
+			nox_xxx_netSendDMWinner_4D8B90((*server.Object)(v9), 0)
 		} else {
 			nox_xxx_netSendDMWinner_4D8B90(nil, 0)
 		}
@@ -182,7 +182,7 @@ func nox_server_checkVictory_509A60() {
 		var v5 int32 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 748)), 276)))
 		if (int32(*(*uint8)(unsafe.Add(v5, 3680)))&1) == 0 && *(*int32)(unsafe.Add(v5, 2136)) >= v2 {
 			nox_xxx_setGameFlags_40A4D0(8)
-			nox_xxx_netSendDMWinner_4D8B90(v4, 0)
+			nox_xxx_netSendDMWinner_4D8B90((*server.Object)(v4), 0)
 			break
 		}
 	}
@@ -2945,7 +2945,6 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 		v10 *uint32
 		v12 *uint32
 	)
-	_ = v12
 	var v13 int32
 	var v14 uint32
 	var v15 *uint32
@@ -5553,8 +5552,8 @@ func nox_xxx_netSpriteUpdate_518AE0(a1 int32, a2 int32, a3 *uint32) int32 {
 }
 func nox_xxx_netPlayerObjSend_518C30(a1p *server.Object, a2p *server.Object, a3 int32, a4 int32) int32 {
 	var (
-		a1     = unsafe.Pointer(a1p)
-		a2     = (*uint32)(unsafe.Pointer(a2p))
+		a1     = a1p
+		a2     = a2p
 		v5     *uint32
 		v6     int32
 		v7     int32
@@ -5577,24 +5576,24 @@ func nox_xxx_netPlayerObjSend_518C30(a1p *server.Object, a2p *server.Object, a3 
 	)
 	v4 := a1
 	v5 = a2
-	v23 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*187)))
+	v23 = int32(a1.UpdateData)
+	v6 = int32(a2.UpdateData)
 	v7 = int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v23, 276)), 2064)))
 	if a4 != 0 {
-		v8 = (*int16)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*139)))
+		v8 = (*int16)(a2.HealthData)
 		if v8 != nil {
-			if (gameFrame() - *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*134))) > 2 {
+			if (gameFrame() - a2.Frame134) > 2 {
 				v9 = *v8
 				v10 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v6+v7*2)), 12)))
 				if int32(v9) != int32(v10) {
-					nox_xxx_netReportHealthDelta_4D8760(v7, int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*9)))), int16(int32(v9)-int32(v10)))
+					nox_xxx_netReportHealthDelta_4D8760(v7, int16(uint16(a2.NetCode)), int16(int32(v9)-int32(v10)))
 					*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v6+v7*2)), 12)) = *(*uint16)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 4*139)))
 				}
 			}
 		}
 	}
 	if (*uint32)(v4) == v5 {
-		nox_xxx_playerReportAnything_4D9900(v4)
+		nox_xxx_playerReportAnything_4D9900(unsafe.Pointer(v4))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v23, 276))+uint32(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v6, 276)), 2064)))*4))), 4452)) = gameFrame()
 	v11 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*2)))
@@ -6265,19 +6264,12 @@ func sub_51D8F0(a1 *types.Pointf) int32 {
 		v8     int32
 		v9     int32
 	)
-	_ = v9
 	var v10 int32
-	_ = v10
 	var v11 int32
-	_ = v11
 	var v12 int32
-	_ = v12
 	var v13 int8
-	_ = v13
 	var v14 int32
-	_ = v14
 	var v15 int32
-	_ = v15
 	var v16 float32
 	v9 = int32(dword_5d4594_3835348)
 	v1 = float64(a1.X) + 11.5

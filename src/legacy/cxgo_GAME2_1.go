@@ -2780,7 +2780,6 @@ func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 		v2 int32
 		v3 bool
 	)
-	_ = v3
 	var v5 int32
 	var v6 int32
 	v5 = 0
@@ -3607,7 +3606,6 @@ func sub_46FFD0() uint8 {
 		v23    int32
 		v24    int32
 	)
-	_ = v24
 	var v25 float32
 	var v26 int32
 	var v27 int32
@@ -4748,7 +4746,7 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 		if uint32(v53)&0x10000000 != 0 {
 			if k.Flags30Val&0x1000000 != 0 {
 				nox_client_drawSetColor_434460(int32(nox_color_white_2523948))
-				v54 = sub_4B9470(k.Field_109)
+				v54 = sub_4B9470(unsafe.Pointer(k.Field_109))
 				v55 := nox_xxx_getTeamByID_418AB0(v54)
 				if v55 != nil {
 					v58 = int32(nox_xxx_materialGetTeamColor_418D50(v55))

@@ -9,7 +9,7 @@ import (
 )
 
 func nox_thing_vortex_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := (*int32)(vp.C())
+	a1 := vp
 	var (
 		v2     int32
 		v3     int32
@@ -21,7 +21,6 @@ func nox_thing_vortex_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v9     int32
 		result int32
 	)
-	_ = result
 	var v11 float32
 	var xLeft Point32
 	var a2a Point32
@@ -39,7 +38,7 @@ func nox_thing_vortex_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	v4 = xLeft.Y - int32(*(*int16)(unsafe.Add(a2, 104)))
 	v5 = xLeft.X <= *a1
 	xLeft.Y -= int32(*(*int16)(unsafe.Add(a2, 104)))
-	if v5 || xLeft.X >= *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) || v4 <= *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) || v4 >= *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) {
+	if v5 || xLeft.X >= a1.Screen.Max.X || v4 <= a1.Screen.Min.Y || v4 >= a1.Screen.Max.Y {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		return 0
 	}

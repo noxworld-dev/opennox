@@ -79,7 +79,6 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 		v49    [332]byte
 		v50    [16]wchar2_t
 	)
-	_ = v50
 	dword_587000_145668 = 6
 	sub_46F030()
 	v0 = nox_xxx_guiFontHeightMB_43F320(nil)

@@ -408,7 +408,6 @@ func nox_script_HasSubclass_5162D0() int32 {
 		v0     int32
 		result int32
 	)
-	_ = result
 	var v2 *uint8
 	var v3 int32
 	var v4 *byte

@@ -506,10 +506,10 @@ type Drawable struct {
 	Field_108_0        uint8                                                // 108, 432 // TODO: union? size = 20?
 	Field_108_1        uint8                                                // 108, 433 // TODO: union?
 	Field_108_2        uint16                                               // 108, 434 // TODO: union?
-	Field_109          unsafe.Pointer                                       // 109, 436, SE?
-	Field_110          unsafe.Pointer                                       // 110, 440, SW?
-	Field_111          unsafe.Pointer                                       // 111, 444, SW?
-	Field_112          unsafe.Pointer                                       // 112, 448
+	Field_109          uintptr                                              // 109, 436, // TODO: union? SE?
+	Field_110          uintptr                                              // 110, 440, // TODO: union? SW?
+	Field_111          uintptr                                              // 111, 444, // TODO: union? SW?
+	Field_112          uintptr                                              // 112, 448 // TODO: union?
 	Field_113          uint32                                               // 113, 452
 	Field_114          *DrawableFX                                          // 114, 456
 	Field_115          ccall.Func[func(*noxrender.Viewport, *Drawable) int] // 115, 460
@@ -757,9 +757,9 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 		s.Field_108_0 = 0
 		s.Field_108_1 = 0
 		s.Field_108_2 = 0
-		s.Field_109 = nil
-		s.Field_110 = nil
-		s.Field_111 = nil
-		s.Field_112 = unsafe.Pointer(uintptr(math.MaxUint32)) // FIXME: this doesn't look right!
+		s.Field_109 = 0
+		s.Field_110 = 0
+		s.Field_111 = 0
+		s.Field_112 = math.MaxUint32
 	}
 }

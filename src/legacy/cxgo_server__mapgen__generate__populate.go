@@ -146,7 +146,6 @@ func nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(a1 int32) {
 		v8 float32
 		v9 float32
 	)
-	_ = v9
 	nox_xxx_mapGenSetFlags_5235F0(-99)
 	if nox_xxx_mapGenMakeExit_522A40(a1) == 0 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("NoExit"), nil, internCStr("C:\\NoxPost\\src\\Server\\MapGen\\Generate\\populate.c"), 848)

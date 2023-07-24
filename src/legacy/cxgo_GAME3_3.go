@@ -2729,7 +2729,7 @@ func nox_xxx_unitBecomePet_4E7B00(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 			v3 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 			*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 | 0x80))
 			*(*uint32)(unsafe.Add(a2, 12)) = uint32(v2)
-			nox_xxx_netMonitorCreature_4D9250(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), a2)
+			nox_xxx_netMonitorCreature_4D9250(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), (*server.Object)(a2))
 			nox_xxx_netMarkMinimapObject_417190(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), (*server.Object)(a2), 1)
 			nox_xxx_unitSetOwner_4EC290((*server.Object)(a1), (*server.Object)(a2))
 		}
@@ -5288,23 +5288,22 @@ func nox_xxx_collideBearTrap_4EB890(obj *server.Object, obj2 *server.Object, pos
 	}
 }
 func nox_xxx_collidePoisonGasTrap_4EB910(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
-	a1 := (*int32)(obj.CObj())
-	a2 := int32(uintptr(obj2.CObj()))
+	a1 := obj
+	a2 := obj2
 	var (
 		v2 *uint32
 		v3 *uint32
 	)
-	_ = v3
 	var v4 float32
-	if a2 != 0 && sub_4E9A30((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(a2)) != 0 {
+	if a2 != nil && sub_4E9A30(a1, a2) != 0 {
 		v2 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("ToxicCloud"))))
 		if v2 != nil {
-			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v2)), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*math.MaxInt8))), *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*14)), *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*15)))
+			nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v2)), a1.ObjOwner, a1.PosVec.X, a1.PosVec.Y)
 			v3 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*187)))
 			v4 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ToxicCloudLifetime")) * float64(int32(gameFPS())))
 			*v3 = uint32(int32(v4))
-			nox_xxx_aud_501960(847, (*server.Object)(unsafe.Pointer(a1)), 0, 0)
-			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(a1)))
+			nox_xxx_aud_501960(847, a1, 0, 0)
+			nox_xxx_delayedDeleteObject_4E5CC0(a1)
 		}
 	}
 }
@@ -6515,7 +6514,7 @@ func nox_xxx_dropTreasure_4ED710(obj, obj2 *server.Object, pos *types.Pointf) in
 	v3 = int32(*(*uint32)(unsafe.Add(a1, 748)))
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2152))--
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2156)) = uint32(nox_xxx_scavengerTreasureMax_4D1600())
-	nox_xxx_scavengerHuntReport_4D8CD0(a1)
+	nox_xxx_scavengerHuntReport_4D8CD0((*server.Object)(a1))
 	nox_xxx_aud_501960(308, (*server.Object)(a1), 0, 0)
 	return 1
 }
@@ -6543,7 +6542,6 @@ func nox_xxx_drop_4ED810(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 *float32) int3
 		v8     float64
 		result int32
 	)
-	_ = result
 	var v10 int32
 	var v11 float4
 	var v12 float32
@@ -7856,7 +7854,7 @@ func nox_xxx_playerMakeDefItems_4EF7D0(a1 unsafe.Pointer, a2 int32, a3 int32) in
 		return int8(v7)
 	}
 	nox_xxx_netReportTotalHealth_4D85C0(int32(*(*uint8)(unsafe.Add(v7, 2064))), (*uint32)(v3))
-	nox_xxx_netReportTotalMana_4D88C0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), v3)
+	nox_xxx_netReportTotalMana_4D88C0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), (*server.Object)(v3))
 	if a3 != 0 {
 		*(*uint8)(unsafe.Pointer(&v7)) = uint8(int8(nox_xxx_netSendPlayerRespawn_4EFC30(v3, 0)))
 	} else {
@@ -8009,7 +8007,7 @@ func sub_4EFF10(a1 unsafe.Pointer) int32 {
 	nox_xxx_removePoison_4EE9D0(a1)
 	sub_4F7950(a1)
 	nox_xxx_netReportTotalHealth_4D85C0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 276)), 2064))), (*uint32)(a1))
-	nox_xxx_netReportTotalMana_4D88C0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 276)), 2064))), a1)
+	nox_xxx_netReportTotalMana_4D88C0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 276)), 2064))), (*server.Object)(a1))
 	*(*uint32)(unsafe.Add(a1, 520)) = 0
 	result = -559023410
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 276)), 3664)) = 3735943886
@@ -8024,16 +8022,15 @@ func nox_xxx_unitSparkInit_4F0390(a1p *server.Object) {
 	*result = 32
 }
 func nox_xxx_initFrog_4F03B0(a1p *server.Object) {
-	a1 := int32(uintptr(a1p.CObj()))
+	a1 := a1p
 	var v1 *uint8
-	_ = v1
 	var result int32
-	v1 = *(**uint8)(unsafe.Add(a1, 748))
+	v1 = (*uint8)(a1.UpdateData)
 	*v1 = uint8(int8(nox_common_randomInt_415FA0(55, 60)))
 	*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 1)) = 1
 	*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 2)) = 0
 	result = nox_common_randomInt_415FA0(0, math.MaxUint8)
-	*(*uint16)(unsafe.Add(a1, 126)) = uint16(int16(result))
+	a1.Direction2 = server.Dir16(uint16(int16(result)))
 }
 func nox_xxx_initChest_4F0400(a1p *server.Object) {
 	a1 := int32(uintptr(a1p.CObj()))
@@ -8390,7 +8387,6 @@ func nox_server_rewardGen_pickRandomSlots_4F0B60(a1 uint32) int32 {
 		v7 float64
 		v8 int32
 	)
-	_ = v8
 	var v9 [5]float32
 	var v10 float32
 	v9[0] = 0.0
@@ -9554,7 +9550,6 @@ func nox_xxx_rewardMakePotion_4F1C40(a1 unsafe.Pointer, a2 uint32) *uint32 {
 		v5     int32
 		result *uint32
 	)
-	_ = result
 	var v7 int32
 	var v8 int32
 	var v9 int32
@@ -9618,7 +9613,6 @@ func nox_xxx_createGem_4F1D30(a1 unsafe.Pointer, a2 uint32) *uint32 {
 		v5     *uint32
 		v6     *int32
 	)
-	_ = v6
 	v2 = uint32(nox_server_rewardGen_pickRandomSlots_4F0B60(a2))
 	if v2 < 4 || nox_common_randomInt_415FA0(1, 100) <= 90 {
 		if nox_common_randomInt_415FA0(1, 2) == 1 {
@@ -10449,7 +10443,7 @@ func nox_xxx_playerTryEquip_4F2F70(a1 *server.Object, item *server.Object) int32
 	}
 	return result
 }
-func nox_xxx_playerTryDequip_4F2FB0(a1 *uint32, object *server.Object) int32 {
+func nox_xxx_playerTryDequip_4F2FB0(a1 *server.Object, object *server.Object) int32 {
 	var result int32
 	if nox_xxx_playerDequipWeapon_53A140(a1, object, 1, 1) != 0 || (func() int32 {
 		result = sub_53E430(a1, object, 1, 1)
@@ -10739,7 +10733,7 @@ func nox_xxx_pickupTreasure_4F3580(obj *server.Object, obj2 *server.Object, a3 i
 	nox_xxx_aud_501960(307, (*server.Object)(a1), 0, 0)
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2152))++
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2156)) = uint32(nox_xxx_scavengerTreasureMax_4D1600())
-	nox_xxx_scavengerHuntReport_4D8CD0(a1)
+	nox_xxx_scavengerHuntReport_4D8CD0((*server.Object)(a1))
 	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a1, 48))) == 0 {
 		if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2152)) != uint32(nox_xxx_scavengerTreasureMax_4D1600()) {
 			return 1

@@ -3103,8 +3103,6 @@ func sub_436550() int32 {
 	return 1
 }
 func sub_437100() {
-	var result int32
-	_ = result
 	var flag int32 = nox_client_getRenderGUI()
 	if *memmap.PtrUint32(0x5D4594, 811064) != uint32(flag) && !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 		*memmap.PtrUint32(0x5D4594, 811064) = uint32(flag)

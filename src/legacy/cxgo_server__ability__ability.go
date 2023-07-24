@@ -31,7 +31,6 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 unsafe.Pointer, a2 int32, a3 in
 		v5 int32
 		v6 *uint32
 	)
-	_ = v6
 	var v7 *uint32
 	var result int32
 	var v10 *wchar2_t

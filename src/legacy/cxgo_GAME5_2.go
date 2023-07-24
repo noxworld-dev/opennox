@@ -1344,14 +1344,10 @@ func sub_57A1E0(a1 *int32, a2 *byte, a3 *int32, a4 int8, a5 int16) int8 {
 		v6 int32
 		v7 uint8
 	)
-	_ = v7
 	var v8 *byte
-	_ = v8
 	var v9 int32
-	_ = v9
 	var v10 int32
 	var v12 uint8
-	_ = v12
 	var result int8
 	var v14 [256]byte
 	var v15 [256]byte

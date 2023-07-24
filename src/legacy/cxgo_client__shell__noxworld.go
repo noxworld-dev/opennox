@@ -24,9 +24,7 @@ func Nox_game_showGameSel_4379F0() int {
 		v5 *wchar2_t
 		v6 *uint32
 	)
-	_ = v6
 	var v7 *wchar2_t
-	_ = v7
 	var v8 *uint32
 	var v9 *uint32
 	var v10 *uint32
@@ -233,11 +231,6 @@ func Nox_game_showGameSel_4379F0() int {
 	return 1
 }
 func sub_4383A0() int32 {
-	var (
-		v0     *wchar2_t
-		result int32
-	)
-	_ = result
 	if wndIsShown_nox_xxx_wndIsShown_46ACC0((*gui.Window)(dword_5d4594_814992)) == 0 {
 		nox_window_set_hidden((*gui.Window)(dword_5d4594_814992), 1)
 		sub_489870()
@@ -247,7 +240,7 @@ func sub_4383A0() int32 {
 	nox_window_set_hidden((*gui.Window)(dword_5d4594_814988), 1)
 	sub_46AD20(nox_wol_wnd_world_814980, 10006, 10007, 1)
 	sub_46ACE0(nox_wol_wnd_world_814980, 10047, 10051, 0)
-	v0 = nox_strman_loadString_40F1D0(internCStr("ListJoinServer"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 418)
+	v0 := nox_strman_loadString_40F1D0(internCStr("ListJoinServer"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 418)
 	nox_window_call_field_94_fnc((*gui.Window)(dword_5d4594_814996), 16385, uintptr(unsafe.Pointer(v0)), 0)
 	dword_587000_87408 = 1
 	return 0
@@ -597,7 +590,6 @@ func nox_xxx_windowMultiplayerSub_439E70(win *gui.Window, a2, a3, a4 uintptr) ui
 	var buf [4]byte
 	var v33 [10]wchar2_t
 	var v34 [36]byte
-	_ = v34
 	var v35 [72]byte
 	if a2 > 0x4010 {
 		if !(a2 == 16403 || a2 == 16412) {
@@ -1037,7 +1029,6 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 		nox_xxx_wndWddSetTooltip_46B000((*gui.WindowData)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 28)), 36)), &wbuf[0])
 		nox_xxx_wndSetProc_46B2C0(*(**gui.Window)(unsafe.Add(a1, 28)), nox_xxx_windowMultiplayerSub_439E70)
 		var result *uint32 = *(**uint32)(unsafe.Add(a1, 28))
-		_ = result
 		*result = *(*uint32)(unsafe.Add(a1, 36)) + 10070
 	}
 }

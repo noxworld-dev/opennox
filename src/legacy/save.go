@@ -106,7 +106,7 @@ func Sub_41AC30(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerI
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if sub_41AC30(u.CObj(), pinfo.C()) == 0 {
+	if sub_41AC30(unsafe.Pointer(u), pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil

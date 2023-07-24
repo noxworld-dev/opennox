@@ -1703,7 +1703,6 @@ func sub_548360(a1 int32, a2 int32) int32 {
 		v9     int16
 		result int32
 	)
-	_ = result
 	var v11 int32
 	var v12 int32
 	var v13 int32
@@ -2870,7 +2869,6 @@ func nox_xxx_monsterDeadTroll_54A270(a1 int32) int32 {
 		v2 *uint32
 		v3 *uint32
 	)
-	_ = v3
 	var v5 float32
 	v1 = int32(*memmap.PtrUint32(0x5D4594, 2491584))
 	if *memmap.PtrUint32(0x5D4594, 2491584) == 0 {
@@ -3865,7 +3863,6 @@ func sub_54BA60(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		v8     *uint8
 		result int32
 	)
-	_ = result
 	var v10 int32
 	var v11 *unsafe.Pointer
 	v4 = int32(*memmap.PtrUint32(0x5D4594, 2491608))
@@ -4198,7 +4195,6 @@ func nox_xxx_createWeapon_54C710(a1p *server.Object) {
 		v9  int32
 		v10 *uint8
 	)
-	_ = v10
 	var v11 float64
 	var v12 int8
 	var result int32
@@ -4349,13 +4345,12 @@ func nox_xxx_dieImpEgg_54CAE0(obj *server.Object) {
 	*(*uint32)(unsafe.Add(a1, 16)) = uint32(result)
 }
 func nox_xxx_diePolyp_54CB10(obj *server.Object) {
-	a1 := int32(uintptr(obj.CObj()))
+	a1 := obj
 	var (
 		v1 int32
 		v2 *uint32
 		v3 *uint32
 	)
-	_ = v3
 	var v4 float32
 	v1 = int32(*memmap.PtrUint32(0x5D4594, 2491672))
 	if *memmap.PtrUint32(0x5D4594, 2491672) == 0 {
@@ -4365,7 +4360,7 @@ func nox_xxx_diePolyp_54CB10(obj *server.Object) {
 	v2 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(v1)))
 	if v2 != nil {
 		v3 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*187)))
-		nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v2)), nil, *(*float32)(unsafe.Add(a1, 56)), *(*float32)(unsafe.Add(a1, 60)))
+		nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v2)), nil, a1.PosVec.X, a1.PosVec.Y)
 		v4 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ToxicCloudLifetime")) * float64(int32(gameFPS())))
 		*v3 = uint32(int32(v4))
 	}
@@ -5515,7 +5510,6 @@ func sub_54E730(a1 int32, a2 int32) int32 {
 		v3     int32
 		result int32
 	)
-	_ = result
 	var v5 int32
 	if int32(*(*uint8)(unsafe.Add(a2, 8)))&1 != 0 {
 		return 0
@@ -6321,7 +6315,6 @@ func nox_xxx_createSpark_54FD80(a1 float32, a2 float32, a3 int32, a4 int32, a5 f
 		v8 *float32
 		v9 *uint32
 	)
-	_ = v9
 	var v10 *int32
 	var v11 int32
 	var v12 int32
@@ -6936,11 +6929,8 @@ func sub_550CB0(a1 *types.Pointf, a2 *types.Pointf) int8 {
 		v3 int8 = 0
 		v4 bool
 	)
-	_ = v4
 	var v5 int8
-	_ = v5
 	var v6 bool
-	_ = v6
 	var v7 int8
 	var v8 bool
 	var v9 bool

@@ -60,7 +60,6 @@ func Nox_xxx_onFrameLightning_52F8A0(sp *server.DurSpell) int32 {
 		lightningSearchTime float32
 		range5              float32
 	)
-	_ = range5
 	var lightningRange float32
 	var damage float32
 	source = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(&a1), 4*0)))
@@ -794,7 +793,6 @@ func Sub_530880(sp *server.DurSpell) int32 {
 		v8 *uint32
 		v9 int32
 	)
-	_ = v9
 	var v10 int32
 	var v11 int32
 	var v12 int8
@@ -2196,7 +2194,6 @@ func nox_xxx_soundPlayerDamageSound_5328B0(obj, obj2 *server.Object) int {
 }
 func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 	var result int32
-	_ = result
 	result = int32(a2)
 	if int32(a2) <= 32 {
 		if int32(a2) == 32 {
@@ -4314,12 +4311,10 @@ func nox_xxx_playerAttack_538960(a1p *server.Object) int32 {
 		v62 float64
 		v63 *uint32
 	)
-	_ = v63
 	var v64 int32
 	var v65 int8
 	var v66 uint8
 	var v67 *uint32
-	_ = v67
 	var v68 int32
 	var v69 bool
 	var v70 int32
@@ -5348,7 +5343,7 @@ func nox_xxx_playerEquipWeapon_53A420(a1 *uint32, item *server.Object, a3 int32,
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&v11), 1)) |= 1
 	item.ObjFlags = uint32(v11)
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v8, 276)), 4)) |= uint32(v4)
-	nox_xxx_netReportEquip_4D8540(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v8, 276)), 2064))), (*uint32)(unsafe.Pointer(item)), a3)
+	nox_xxx_netReportEquip_4D8540(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v8, 276)), 2064))), item, a3)
 	if v4 != 2 {
 		*(*uint32)(unsafe.Add(v8, 104)) = uint32(uintptr(unsafe.Pointer(item)))
 	}
@@ -5934,7 +5929,6 @@ func nox_xxx_fnElevatorShaft_53B410(it *server.Object, data unsafe.Pointer) {
 }
 func nox_xxx_elevatorAud_53B490(a1 int32, a2 int32) {
 	var result *uint32
-	_ = result
 	var v3 int32
 	var v4 int32
 	var v5 int32
@@ -6095,7 +6089,6 @@ func nox_xxx_updatePhantomPlayer_53B860(obj *server.Object) {
 		v5 int16
 		v6 bool
 	)
-	_ = v6
 	var v7 float32
 	v1 = *(**float32)(unsafe.Add(a1, 748))
 	v2 = float64(*(*float32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v1)), 56)) - *(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1)))
@@ -6369,7 +6362,6 @@ func nox_xxx_updateTeleportPentagram_53BEF0(obj *server.Object) {
 		v5     int32
 		v6     *uint8
 	)
-	_ = v6
 	var a1a float4
 	v1 = *(**uint8)(unsafe.Add(a1, 748))
 	if int32(*v1) != 0 {
@@ -7800,7 +7792,6 @@ func sub_53E430(a1 *server.Object, object *server.Object, a3 int32, a4 int32) in
 		v8 int32
 		v9 *uint32
 	)
-	_ = v9
 	var v10 int8
 	if (object.ObjClass & 0x2000000) == 0 {
 		return 0
@@ -7911,7 +7902,7 @@ func sub_53E600(a1 *uint32) {
 }
 func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *server.Object, a3 int32, a4 int32) int32 {
 	var (
-		a2  = unsafe.Pointer(item)
+		a2  = item
 		v4  int32
 		v5  int32
 		v7  int32
@@ -7920,7 +7911,6 @@ func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *server.Object, a3 int32, 
 		v10 int32
 		v11 *uint32
 	)
-	_ = v11
 	if (item.ObjClass & 0x2000000) == 0 {
 		return 0
 	}
@@ -7936,7 +7926,7 @@ func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *server.Object, a3 int32, 
 		return 0
 	}
 	v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
-	v8 = nox_xxx_armorHaveSameSubclass_53E7B0(unsafe.Pointer(a1), a2)
+	v8 = nox_xxx_armorHaveSameSubclass_53E7B0(unsafe.Pointer(a1), unsafe.Pointer(a2))
 	if nox_xxx_playerClassCanUseItem_57B3D0(item, int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v7, 276)), 2251)))) == 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(a1)), internCStr("armor.c:ArmorEquipClassFail"), 0)
 		if a4 != 0 {
@@ -7960,8 +7950,8 @@ func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *server.Object, a3 int32, 
 	item.ObjFlags = uint32(v10)
 	v11 = *(**uint32)(unsafe.Add(v7, 276))
 	*v11 |= uint32(nox_xxx_unitArmorInventoryEquipFlags_415C70(item))
-	nox_xxx_netReportEquip_4D8540(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v7, 276)), 2064))), (*uint32)(a2), a3)
-	if sub_53E2D0(a2) == 0 {
+	nox_xxx_netReportEquip_4D8540(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v7, 276)), 2064))), a2, a3)
+	if sub_53E2D0(unsafe.Pointer(a2)) == 0 {
 		item.ObjFlags |= 0x10000000
 	}
 	nox_xxx_recalculateArmorVal_53E300(a1)
@@ -9859,7 +9849,6 @@ func nox_xxx_tile_543C50(a1 *uint32, a2 int32, a3 int32, a4 int32, a5 int32, a6 
 		v8     **uint32
 		result int32
 	)
-	_ = result
 	var v10 **uint32
 	var v11 int32
 	var v12 int32

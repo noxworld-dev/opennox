@@ -1304,7 +1304,6 @@ func nox_xxx_gameLoopMemDump_413E30() {
 		v0 int32
 		v1 int32
 	)
-	_ = v1
 	var v2 *uint8
 	var v4 int32
 	var v5 *byte

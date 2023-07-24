@@ -5,11 +5,12 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func sub_4CE200(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_4CE200(a1 *noxrender.Viewport, a2 *client.Drawable, a3 int32, a4 int32) int32 {
 	var (
 		result int32
 		v5     int32
@@ -33,8 +34,8 @@ func sub_4CE200(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	for {
 		v5 = nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c"), 40)
 		v6 = nox_common_randomIntMinMax_415FF0(0, a4, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c"), 41)
-		v7 = int32(*(*uint32)(unsafe.Add(a2, 12)) + uint32(v6**memmap.PtrInt32(0x587000, uintptr(v5*8)+192088)/16))
-		v8 = int32(*(*uint32)(unsafe.Add(a2, 16)) + uint32(v6**memmap.PtrInt32(0x587000, uintptr(v5*8)+192092)/16))
+		v7 = int32(a2.PosVec.X + int(uint32(v6**memmap.PtrInt32(0x587000, uintptr(v5*8)+192088)/16)))
+		v8 = int32(a2.PosVec.Y + int(uint32(v6**memmap.PtrInt32(0x587000, uintptr(v5*8)+192092)/16)))
 		v9 = nox_common_randomIntMinMax_415FF0(0, 10, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c"), 46) < 3
 		v10 = int32(*memmap.PtrUint32(0x5D4594, 1523020))
 		if !v9 {

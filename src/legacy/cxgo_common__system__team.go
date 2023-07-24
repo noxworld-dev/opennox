@@ -48,7 +48,6 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 		v21    [3]int32
 		v22    int16
 	)
-	_ = v22
 	var v23 *byte
 	var v24 [128]wchar2_t
 	result = dword_5d4594_527660
