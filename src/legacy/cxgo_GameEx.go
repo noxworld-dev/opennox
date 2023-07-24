@@ -26,7 +26,7 @@ func playerInfoStructParser_0(a1p unsafe.Pointer) int8 {
 	if uintptr(unsafe.Pointer(a1)) == uintptr(4294967294) {
 		return 0
 	}
-	v1 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
+	v1 = nox_common_playerInfoGetFirst_416EA0()
 	if v1 == nil {
 		return 0
 	}
@@ -35,7 +35,7 @@ func playerInfoStructParser_0(a1p unsafe.Pointer) int8 {
 		if libc.StrCmp((*byte)(unsafe.Pointer(&pDst)), (*byte)(unsafe.Add(unsafe.Pointer(a1), 2))) == 0 {
 			break
 		}
-		v1 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v1)))))
+		v1 = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v1)))
 		if v1 == nil {
 			return 0
 		}
@@ -55,7 +55,7 @@ func playerInfoStructParser_1(a1p unsafe.Pointer, a3 *int32) int8 {
 	if a1 == -2 {
 		return 0
 	}
-	v3 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
+	v3 = nox_common_playerInfoGetFirst_416EA0()
 	var a2 int32 = int32(uintptr(unsafe.Pointer(v3)))
 	if v3 == nil {
 		return 0
@@ -65,7 +65,7 @@ func playerInfoStructParser_1(a1p unsafe.Pointer, a3 *int32) int8 {
 		if libc.StrCmp((*byte)(unsafe.Pointer(&pDst)), (*byte)(unsafe.Add(a1, 2))) == 0 {
 			break
 		}
-		v4 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(a2))))
+		v4 = nox_common_playerInfoGetNext_416EE0((*server.Player)(a2))
 		a2 = int32(uintptr(unsafe.Pointer(v4)))
 		if v4 == nil {
 			return 0

@@ -132,7 +132,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 			if v15 != 0 {
 				nox_xxx_netSendRewardNotify_4FAD50(v5, 0, v5, int8(v6))
 				if sub_419E60((*server.Object)(v5)) == 0 {
-					for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
+					for i = nox_common_playerInfoGetFirst_416EA0(); i != nil; i = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))) {
 						v17 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*514))))
 						if v17 != v5 && v17 != 0 {
 							nox_xxx_netSendRewardNotify_4FAD50(v17, 0, v5, int8(v6))

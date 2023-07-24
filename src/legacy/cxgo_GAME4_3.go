@@ -1243,12 +1243,12 @@ func Nox_xxx_spellTurnUndeadDelete_531420(sp *server.DurSpell) int32 {
 	if *memmap.PtrUint32(0x5D4594, 2487928) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2487928) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("UndeadKiller")))
 	}
-	result = int32(uintptr(unsafe.Pointer(nox_server_getFirstObject_4DA790())))
+	result = nox_server_getFirstObject_4DA790()
 	for i = result; result != 0; i = result {
 		if uint32(*(*uint16)(unsafe.Add(i, 4))) == *memmap.PtrUint32(0x5D4594, 2487928) && **(**uint32)(unsafe.Add(i, 700)) == uint32(a1) {
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(i))
 		}
-		result = int32(uintptr(unsafe.Pointer(nox_server_getNextObject_4DA7A0((*server.Object)(i)))))
+		result = nox_server_getNextObject_4DA7A0((*server.Object)(i))
 	}
 	return result
 }
@@ -3633,7 +3633,7 @@ func nox_xxx_traceRay_5374B0(a1 *float4) int32 {
 func sub_537540(a1 int32) {
 	var i *uint32
 	if a1 != 0 {
-		for i = (*uint32)(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())); i != nil; i = (*uint32)(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(i))))) {
+		for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = (*uint32)(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(i))))) {
 			if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*187)), 132)) == uint32(a1) {
 				nox_xxx_harpoonBreakForPlr_537520((*server.Object)(unsafe.Pointer(i)))
 			}
@@ -6703,26 +6703,26 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 	v23 = 1
 	v2 = *(**int32)(unsafe.Add(a1, 748))
 	v24 = *(**int32)(unsafe.Add(a1, 748))
-	v3 := unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())
+	v3 := nox_xxx_getFirstPlayerUnit_4DA7C0()
 	v21 := v3
 	if v3 == nil {
 		goto LABEL_50
 	}
 	for {
-		v4 = int32(*(*uint32)(unsafe.Add(v3, 16)))
+		v4 = int32(v3.ObjFlags)
 		if (v4 & 0x8000) != 0 {
 			goto LABEL_47
 		}
-		v5 = int32(*(*uint32)(unsafe.Add(v3, 748)))
+		v5 = int32(v3.UpdateData)
 		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v1, 48))) != 0 {
-			if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v1, 48)), (*server.ObjectTeam)(unsafe.Add(v3, 48))) == 0 {
+			if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(v1, 48)), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 48))) == 0 {
 				goto LABEL_47
 			}
 		}
-		v6 = float64(*(*float32)(unsafe.Add(v1, 56)) - *(*float32)(unsafe.Add(v3, 56)))
-		v7 = float64(*(*float32)(unsafe.Add(v1, 60)) - *(*float32)(unsafe.Add(v3, 60)))
+		v6 = float64(*(*float32)(unsafe.Add(v1, 56)) - v3.PosVec.X)
+		v7 = float64(*(*float32)(unsafe.Add(v1, 60)) - v3.PosVec.Y)
 		v22 = 0
-		if v7*v7+v6*v6 >= 2500.0 || nox_xxx_mapCheck_537110((*server.Object)(v1), (*server.Object)(v3)) == 0 {
+		if v7*v7+v6*v6 >= 2500.0 || nox_xxx_mapCheck_537110((*server.Object)(v1), v3) == 0 {
 			goto LABEL_47
 		}
 		v23 = 0
@@ -6816,7 +6816,7 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 			*(*uint32)(unsafe.Add(v1, 136)) = gameFrame()
 		}
 	LABEL_47:
-		v21 = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v3)))
+		v21 = nox_xxx_getNextPlayerUnit_4DA7F0(v3)
 		if v21 == nil {
 			break
 		}

@@ -2140,7 +2140,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 					sub_455F60()
 				}
 				if v363 == 1 && !noxflags.HasGame(4096) {
-					for j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); j != nil; j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(j))))) {
+					for j = nox_common_playerInfoGetFirst_416EA0(); j != nil; j = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(j))) {
 						nox_xxx_cliPlayerRespawn_417680(unsafe.Pointer(j), -1)
 					}
 				}

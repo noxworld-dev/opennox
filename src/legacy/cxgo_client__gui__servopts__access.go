@@ -124,7 +124,7 @@ func sub_454740() {
 	}
 	nox_itow(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v0), 104))), &WideCharStr[0], 10)
 	nox_window_call_field_94_fnc((*gui.Window)(*memmap.PtrPtr(0x5D4594, 1045592)), 16414, uintptr(unsafe.Pointer(&WideCharStr[0])), 0)
-	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
+	for i = nox_common_playerInfoGetFirst_416EA0(); i != nil; i = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))) {
 		if *(*byte)(unsafe.Add(unsafe.Pointer(i), 2064)) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
 			sub_455920((*wchar2_t)(unsafe.Add(unsafe.Pointer(i), 4704)))
 		}

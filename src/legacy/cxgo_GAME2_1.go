@@ -433,10 +433,10 @@ func nox_xxx_playerInitColors_461460(pl *server.Player) {
 	*(*uint32)(unsafe.Add(a1, 2312)) = nox_color_white_2523948
 }
 func sub_461520() {
-	result := unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())
+	result := nox_common_playerInfoGetFirst_416EA0()
 	for i := result; result != nil; i = result {
-		nox_xxx_playerInitColors_461460((*server.Player)(i))
-		result = unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(i)))
+		nox_xxx_playerInitColors_461460(i)
+		result = nox_common_playerInfoGetNext_416EE0(i)
 	}
 }
 func nox_xxx_clientSetAltWeapon_461550(a1 *nox_inventory_cell_t) {

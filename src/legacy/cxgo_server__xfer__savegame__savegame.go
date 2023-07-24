@@ -22,10 +22,10 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 		if *memmap.PtrUint32(0x5D4594, 1563124) == 0 {
 			*memmap.PtrUint32(0x5D4594, 1563124) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("SaveGameLocation")))
 		}
-		v2 = int32(uintptr(unsafe.Pointer(nox_server_getFirstObject_4DA790())))
+		v2 = nox_server_getFirstObject_4DA790()
 		if v2 != 0 {
 			for uint32(*(*uint16)(unsafe.Add(v2, 4))) != *memmap.PtrUint32(0x5D4594, 1563124) {
-				v2 = int32(uintptr(unsafe.Pointer(nox_server_getNextObject_4DA7A0((*server.Object)(v2)))))
+				v2 = nox_server_getNextObject_4DA7A0((*server.Object)(v2))
 				if v2 == 0 {
 					return
 				}

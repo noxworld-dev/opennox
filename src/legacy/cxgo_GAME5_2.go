@@ -71,7 +71,7 @@ func sub_554290() uint32 {
 	)
 	v0 = math.MaxUint32
 	v1 = 0
-	v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
+	v2 = nox_common_playerInfoGetFirst_416EA0()
 	if v2 == nil {
 		return 0
 	}
@@ -83,7 +83,7 @@ func sub_554290() uint32 {
 			}
 			v1++
 		}
-		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v2)))))
+		v2 = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v2)))
 		if v2 == nil {
 			break
 		}
@@ -102,7 +102,7 @@ func sub_554300() int32 {
 	)
 	v0 = 0
 	v1 = 0
-	v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
+	v2 = nox_common_playerInfoGetFirst_416EA0()
 	if v2 == nil {
 		return 0
 	}
@@ -111,7 +111,7 @@ func sub_554300() int32 {
 			v0 += sub_554240(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064))))
 			v1++
 		}
-		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v2)))))
+		v2 = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v2)))
 		if v2 == nil {
 			break
 		}
@@ -1237,15 +1237,15 @@ func nox_xxx_waypoint_579F00(a1 *uint32, a2 unsafe.Pointer) int32 {
 	v2 = nil
 	if noxflags.HasGame(32) {
 		if a2 != nil {
-			v3 := unsafe.Pointer(nox_server_getFirstObject_4DA790())
+			v3 := nox_server_getFirstObject_4DA790()
 			if v3 != nil {
-				for (*(*uint32)(unsafe.Add(v3, 8))&0x10000000) == 0 || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(a2, 48)), (*server.ObjectTeam)(unsafe.Add(v3, 48))) != 0 {
-					v3 = unsafe.Pointer(nox_server_getNextObject_4DA7A0((*server.Object)(v3)))
+				for (v3.ObjClass&0x10000000) == 0 || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(a2, 48)), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 48))) != 0 {
+					v3 = nox_server_getNextObject_4DA7A0(v3)
 					if v3 == nil {
 						goto LABEL_9
 					}
 				}
-				v2 = v3
+				v2 = unsafe.Pointer(v3)
 			}
 		}
 	}

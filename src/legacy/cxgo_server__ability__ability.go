@@ -60,9 +60,9 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 unsafe.Pointer, a2 int32, a3 in
 		if noxflags.HasGame(4096) {
 			nox_xxx_netSendRewardNotify_4FAD50(a1, 2, a1, int8(a2))
 			if sub_419E60((*server.Object)(a1)) == 0 {
-				for i := unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
+				for i := nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = nox_xxx_getNextPlayerUnit_4DA7F0(i) {
 					if i != a1 {
-						nox_xxx_netSendRewardNotify_4FAD50(i, 2, a1, int8(a2))
+						nox_xxx_netSendRewardNotify_4FAD50(unsafe.Pointer(i), 2, a1, int8(a2))
 					}
 				}
 			}

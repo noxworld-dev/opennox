@@ -86,7 +86,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 unsafe.Pointer, a2 int32, 
 		}
 	}
 	if a3 != 0 {
-		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))))) {
+		for i = nox_common_playerInfoGetFirst_416EA0(); i != nil; i = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))) {
 			v14 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*514))
 			if v14 != v3 {
 				if v14 != nil {

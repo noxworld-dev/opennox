@@ -109,12 +109,12 @@ func nox_server_scriptMoveTo_5123C0(a1 int32, a2 int32) *int32 {
 	} else if uint32(*(*uint16)(unsafe.Add(a1, 4))) == dword_5d4594_2386836 {
 		result = (*int32)(unsafe.Pointer(uintptr(nox_xxx_moverGoTo_5124C0((*uint32)(a1), (*uint32)(a2)))))
 	} else {
-		result = (*int32)(unsafe.Pointer(nox_server_getFirstObject_4DA790()))
+		result = nox_server_getFirstObject_4DA790()
 		for i = result; result != nil; i = result {
 			if uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof(uint16(0))*2)))) == dword_5d4594_2386836 && *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*187)), 32)) == *(*uint32)(unsafe.Add(a1, 40)) {
 				nox_xxx_moverGoTo_5124C0((*uint32)(unsafe.Pointer(i)), (*uint32)(a2))
 			}
-			result = (*int32)(unsafe.Pointer(nox_server_getNextObject_4DA7A0((*server.Object)(unsafe.Pointer(i)))))
+			result = nox_server_getNextObject_4DA7A0((*server.Object)(unsafe.Pointer(i)))
 		}
 	}
 	return result
@@ -446,7 +446,7 @@ func nox_script_HasSubclass_5162D0() int32 {
 }
 func nox_script_StartupScreen_516600_A() {
 	var i unsafe.Pointer
-	for i = unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
+	for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
 		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 748)), 276)), 2064))) == 31 {
 			break
 		}

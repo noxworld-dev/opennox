@@ -350,7 +350,7 @@ func sub_4285C0(a1 *int16) *byte {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*142)) = uint32(uintptr(alloc.Calloc1(1, uintptr(v14))))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*143)) = uint32(uintptr(alloc.Calloc1(int(*a1), 4)))
 		v20 = 0
-		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
+		result = nox_common_playerInfoGetFirst_416EA0()
 		v12 = result
 		if result != nil {
 			for {
@@ -373,7 +373,7 @@ func sub_4285C0(a1 *int16) *byte {
 						return x
 					}()*4)))) = sub_4D6540(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v12), 2064))))
 				}
-				v12 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v12)))))
+				v12 = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(v12)))
 				if v12 == nil {
 					break
 				}

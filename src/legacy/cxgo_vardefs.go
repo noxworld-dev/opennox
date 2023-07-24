@@ -141,7 +141,7 @@ var dword_5d4594_1522604 *gui.Window
 var dword_5d4594_3798816 int32
 var dword_5d4594_1045532 *gui.Window
 var dword_5d4594_528256 uint32
-var dword_5d4594_1568024 uint32
+var dword_5d4594_1568024 unsafe.Pointer
 var dword_5d4594_1308088 *gui.Window
 var dword_5d4594_826028 *gui.Window
 var dword_5d4594_2487524 uint32
@@ -334,7 +334,7 @@ var dword_5d4594_1523036 *gui.Window
 var dword_5d4594_1197328 int32
 var dword_5d4594_1090044 uint32
 var dword_5d4594_1305748 uint32
-var nox_alloc_respawn_1568020 unsafe.Pointer
+var nox_alloc_respawn_1568020 *nox_alloc_class
 var nox_alloc_monsterList_2386220 unsafe.Pointer
 var nox_xxx_lightningClosestTargetDistance_5d4594_2487912 uint32
 var dword_5d4594_1567928 uint32

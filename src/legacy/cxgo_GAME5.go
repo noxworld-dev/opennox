@@ -971,11 +971,11 @@ func nox_xxx_monsterGetObjEscortName_546600(a1 int32) int32 {
 	v1 = (*byte)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 1364))
 	if libc.StrCmp(v1, internCStr("**PLAYER**")) == 0 {
 		v2 = 0
-		for i = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()))); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))))) {
+		for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))))) {
 			v2++
 		}
 		v4 = nox_common_randomInt_415FA0(0, v2-1)
-		result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
+		result = nox_xxx_getFirstPlayerUnit_4DA7C0()
 		if result != 0 {
 			for {
 				v6 = func() int32 {
@@ -5716,7 +5716,7 @@ func nox_xxx_mobGeneratorPick_54EBA0(a1 *uint32, a2 *types.Pointf, a4 unsafe.Poi
 	)
 	v13 = 0
 	v16 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
-	v3 = (*float32)(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0()))
+	v3 = nox_xxx_getFirstPlayerUnit_4DA7C0()
 	if v3 == nil {
 		return 0
 	}
