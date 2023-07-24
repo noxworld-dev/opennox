@@ -7844,7 +7844,7 @@ func nox_xxx_playerMakeDefItems_4EF7D0(a1 unsafe.Pointer, a2 int32, a3 int32) in
 	*(*uint32)(unsafe.Add(v4, 136)) = 0
 	*(*uint32)(unsafe.Add(v4, 132)) = 0
 	*(*uint32)(unsafe.Add(v4, 268)) = 0
-	sub_4F7950(v3)
+	sub_4F7950((*server.Object)(v3))
 	*(*uint32)(unsafe.Add(v3, 520)) = 0
 	if noxflags.HasGame(0x2000) {
 		sub_4DE4D0(int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))))
@@ -8005,7 +8005,7 @@ func sub_4EFF10(a1 unsafe.Pointer) int32 {
 	nox_xxx_unitClearBuffs_4FF580((*server.Object)(a1))
 	nox_xxx_playerCancelSpells_4FEAE0((*server.Object)(a1))
 	nox_xxx_removePoison_4EE9D0(a1)
-	sub_4F7950(a1)
+	sub_4F7950((*server.Object)(a1))
 	nox_xxx_netReportTotalHealth_4D85C0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 276)), 2064))), (*uint32)(a1))
 	nox_xxx_netReportTotalMana_4D88C0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v1, 276)), 2064))), (*server.Object)(a1))
 	*(*uint32)(unsafe.Add(a1, 520)) = 0

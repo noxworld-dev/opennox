@@ -2287,20 +2287,13 @@ func nox_xxx_mapGenRoundFloatToPtr_520DF0(a1 *types.Pointf, a2 *uint32) int64 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1)) = uint32(int32(result))
 	return result
 }
-func sub_520E60(a1 *Point32) int32 {
-	var (
-		v1     int32
-		v2     int32
-		result int32
-	)
-	v1 = int32(dword_5d4594_2487536 + uint32(a1.X))
-	v2 = int32(dword_5d4594_2487536 + uint32(a1.Y))
+func sub_520E60(a1 *Point32) unsafe.Pointer {
+	v1 := int32(dword_5d4594_2487536 + int32(a1.X))
+	v2 := int32(dword_5d4594_2487536 + int32(a1.Y))
 	if v1 < 0 || v1 >= dword_5d4594_2487540 || v2 < 0 || v2 >= dword_5d4594_2487540 {
-		result = 0
-	} else {
-		result = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v1*4)))) + uint32(v2*20))
+		return nil
 	}
-	return result
+	return unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_2487532, uint32(v1*4))), uint32(v2*20))
 }
 func sub_520EA0(a1 int32) int32 {
 	var (
@@ -2311,21 +2304,21 @@ func sub_520EA0(a1 int32) int32 {
 		v6 int32
 		v7 int32
 	)
-	dword_5d4594_2487540 = *(*uint32)(unsafe.Add(a1, 68))*2 + 1
-	dword_5d4594_2487536 = *(*uint32)(unsafe.Add(a1, 68))
-	dword_5d4594_2487532 = uint32(uintptr(alloc.Calloc1(int(dword_5d4594_2487540), 4)))
-	if dword_5d4594_2487532 == 0 {
+	dword_5d4594_2487540 = *(*int32)(unsafe.Add(a1, 68))*2 + 1
+	dword_5d4594_2487536 = *(*int32)(unsafe.Add(a1, 68))
+	dword_5d4594_2487532 = alloc.Calloc1(int(dword_5d4594_2487540), 4)
+	if dword_5d4594_2487532 == nil {
 		return 0
 	}
-	v2 = int32(dword_5d4594_2487540)
+	v2 = dword_5d4594_2487540
 	v3 = 0
 	if dword_5d4594_2487540 > 0 {
 		for {
-			*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v3*4)))) = uint32(uintptr(alloc.Calloc1(int(v2), 20)))
-			if *(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v3*4)))) == 0 {
+			*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_2487532, uint32(v3*4))) = alloc.Calloc1(int(v2), 20)
+			if *(*unsafe.Pointer)(unsafe.Add(dword_5d4594_2487532, uint32(v3*4))) == nil {
 				return 0
 			}
-			v2 = int32(dword_5d4594_2487540)
+			v2 = dword_5d4594_2487540
 			if func() int32 {
 				p := &v3
 				*p++
@@ -2344,16 +2337,16 @@ func sub_520EA0(a1 int32) int32 {
 		v6 = 0
 		if v2 > 0 {
 			for {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v6*4))))+uint32(v5))), 4)) = uint32(v6) - dword_5d4594_2487536
-				v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(func() int32 {
+				*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dword_5d4594_2487532, uint32(v6*4)))+uint32(v5))), 4)) = int32(v6) - dword_5d4594_2487536
+				v7 = int32(*(*uint32)(unsafe.Add(dword_5d4594_2487532, uint32(func() int32 {
 					p := &v6
 					x := *p
 					*p++
 					return x
-				}()*4)))))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v7+v5)), 8)) = uint32(v4) - dword_5d4594_2487536
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v6*4) - 4)))+uint32(v5))), 16)) = 0
-				v2 = int32(dword_5d4594_2487540)
+				}()*4))))
+				*(*int32)(unsafe.Add(unsafe.Pointer(uintptr(v7+v5)), 8)) = int32(v4) - dword_5d4594_2487536
+				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dword_5d4594_2487532, +uint32(v6*4)-4))+uint32(v5))), 16)) = 0
+				v2 = dword_5d4594_2487540
 				if v6 >= dword_5d4594_2487540 {
 					break
 				}
@@ -2368,18 +2361,16 @@ func sub_520EA0(a1 int32) int32 {
 	return 1
 }
 func sub_520F80() {
-	var i int32
-	for i = 0; i < dword_5d4594_2487540; i++ {
-		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(i*4)))))
+	for i := 0; i < int(dword_5d4594_2487540); i++ {
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_2487532, uint32(i*4))))
 	}
 	alloc.FreePtr(dword_5d4594_2487532)
 }
-func sub_521100(a1 int32) int32 {
+func sub_521100(a1 unsafe.Pointer) int32 {
 	var (
 		result int32
 		v2     int32
 		v3     int32
-		v4     int32
 		v5     int32
 		a1a    Point32
 		a2     Point32
@@ -2392,9 +2383,9 @@ func sub_521100(a1 int32) int32 {
 		a1a.X = a2.X
 		if *(*uint32)(unsafe.Add(a1, 12)) > 0 {
 			for {
-				v4 = sub_520E60(&a1a)
-				if v4 != 0 {
-					*(*uint32)(unsafe.Add(v4, 16)) = uint32(a1)
+				v4 := sub_520E60(&a1a)
+				if v4 != nil {
+					*(*unsafe.Pointer)(unsafe.Add(v4, 16)) = a1
 				}
 				v5 = int32(*(*uint32)(unsafe.Add(a1, 12)))
 				v3++
@@ -2490,20 +2481,14 @@ func sub_521200(a1 int32) int32 {
 		}
 	}
 }
-func sub_521290(a1 *Point32) int32 {
-	var (
-		v1     int32
-		result int32
-	)
-	v1 = sub_520E60(a1)
-	if v1 != 0 {
-		result = int32(*(*uint32)(unsafe.Add(v1, 16)))
-	} else {
-		result = 0
+func sub_521290(a1 *Point32) unsafe.Pointer {
+	v1 := sub_520E60(a1)
+	if v1 == nil {
+		return nil
 	}
-	return result
+	return *(*unsafe.Pointer)(unsafe.Add(v1, 16))
 }
-func sub_5212B0(a1 int32, a2 *uint32) int32 {
+func sub_5212B0(a1 unsafe.Pointer, a2 *uint32) int32 {
 	var (
 		v2  *uint32
 		v3  int32
@@ -2607,7 +2592,7 @@ func nox_xxx_mapGenAddNewRoom_521730(a1 *uint32) int32 {
 		*(*uint32)(unsafe.Add(dword_5d4594_2487560, 60)) = uint32(uintptr(unsafe.Pointer(a1)))
 	}
 	dword_5d4594_2487560 = uint32(uintptr(unsafe.Pointer(a1)))
-	return sub_521100(int32(uintptr(unsafe.Pointer(a1))))
+	return sub_521100(unsafe.Pointer(a1))
 }
 func sub_521760(a1 int32) int32 {
 	var (
@@ -2716,30 +2701,127 @@ func sub_5218B0(a1 int32, a2 int32) int32 {
 	}
 	return 1
 }
-func sub_521900(a1 int32, a2 int32, a3 int32) int32 {
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3)), 216))) >= 8 {
+func sub_521900(a1 unsafe.Pointer, a2 int32, a3 int32) int32 {
+	if int32(*(*uint8)(unsafe.Add(a1, a3+216))) >= 8 {
 		return 0
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+(int32(func() uint8 {
-		p := (*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1+a3)), 216))
+	*(*uint32)(unsafe.Add(a1, uintptr((int32(func() uint8 {
+		p := (*uint8)(unsafe.Add(a1, a3+216))
 		x := *p
 		*p++
 		return x
-	}())+a3*8)*4)), 88)) = uint32(a2)
+	}())+a3*8)*4)+88)) = uint32(a2)
 	return 1
 }
-func nox_xxx_mapGenMakeRoomStruct_521940(a1 int32, a2 int32) *float32 {
-	var result *float32
-	result = (*float32)(alloc.Calloc1(1, 0x178))
-	if result == nil {
-		return result
+
+type mapgenRoom struct {
+	Field0   uint32 // 0, 0
+	Field4   uint32 // 1, 4
+	Field8   uint32 // 2, 8
+	Field12  uint32 // 3, 12
+	Field16  uint32 // 4, 16
+	Field20  uint32 // 5, 20
+	Field24  uint32 // 6, 24
+	Field28  uint32 // 7, 28
+	Field32  uint32 // 8, 32
+	Field36  uint32 // 9, 36
+	Field40  uint32 // 10, 40
+	Field44  uint32 // 11, 44
+	Field48  uint32 // 12, 48
+	Field52  uint32 // 13, 52
+	Field56  uint32 // 14, 56
+	Field60  uint32 // 15, 60
+	Field64  uint32 // 16, 64
+	Field68  uint32 // 17, 68
+	Field72  uint32 // 18, 72
+	Field76  uint32 // 19, 76
+	Field80  uint32 // 20, 80
+	Field84  uint32 // 21, 84
+	Field88  uint32 // 22, 88
+	Field92  uint32 // 23, 92
+	Field96  uint32 // 24, 96
+	Field100 uint32 // 25, 100
+	Field104 uint32 // 26, 104
+	Field108 uint32 // 27, 108
+	Field112 uint32 // 28, 112
+	Field116 uint32 // 29, 116
+	Field120 uint32 // 30, 120
+	Field124 uint32 // 31, 124
+	Field128 uint32 // 32, 128
+	Field132 uint32 // 33, 132
+	Field136 uint32 // 34, 136
+	Field140 uint32 // 35, 140
+	Field144 uint32 // 36, 144
+	Field148 uint32 // 37, 148
+	Field152 uint32 // 38, 152
+	Field156 uint32 // 39, 156
+	Field160 uint32 // 40, 160
+	Field164 uint32 // 41, 164
+	Field168 uint32 // 42, 168
+	Field172 uint32 // 43, 172
+	Field176 uint32 // 44, 176
+	Field180 uint32 // 45, 180
+	Field184 uint32 // 46, 184
+	Field188 uint32 // 47, 188
+	Field192 uint32 // 48, 192
+	Field196 uint32 // 49, 196
+	Field200 uint32 // 50, 200
+	Field204 uint32 // 51, 204
+	Field208 uint32 // 52, 208
+	Field212 uint32 // 53, 212
+	Field216 uint32 // 54, 216
+	Field220 uint32 // 55, 220
+	Field224 uint32 // 56, 224
+	Field228 uint32 // 57, 228
+	Field232 uint32 // 58, 232
+	Field236 uint32 // 59, 236
+	Field240 uint32 // 60, 240
+	Field244 uint32 // 61, 244
+	Field248 uint32 // 62, 248
+	Field252 uint32 // 63, 252
+	Field256 uint32 // 64, 256
+	Field260 uint32 // 65, 260
+	Field264 uint32 // 66, 264
+	Field268 uint32 // 67, 268
+	Field272 uint32 // 68, 272
+	Field276 uint32 // 69, 276
+	Field280 uint32 // 70, 280
+	Field284 uint32 // 71, 284
+	Field288 uint32 // 72, 288
+	Field292 uint32 // 73, 292
+	Field296 uint32 // 74, 296
+	Field300 uint32 // 75, 300
+	Field304 uint32 // 76, 304
+	Field308 uint32 // 77, 308
+	Field312 uint32 // 78, 312
+	Field316 uint32 // 79, 316
+	Field320 uint32 // 80, 320
+	Field324 uint32 // 81, 324
+	Field328 uint32 // 82, 328
+	Field332 uint32 // 83, 332
+	Field336 uint32 // 84, 336
+	Field340 uint32 // 85, 340
+	Field344 uint32 // 86, 344
+	Field348 uint32 // 87, 348
+	Field352 uint32 // 88, 352
+	Field356 uint32 // 89, 356
+	Field360 uint32 // 90, 360
+	Field364 uint32 // 91, 364
+	Field368 uint32 // 92, 368
+	Field372 uint32 // 93, 372
+}
+
+func nox_xxx_mapGenMakeRoomStruct_521940(a1 int32, a2 int32) *mapgenRoom {
+	p, _ := alloc.New(mapgenRoom{})
+	if p == nil {
+		return p
 	}
-	*(*uint32)(unsafe.Pointer(result)) = 1
-	*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*3))) = uint32(a1)
-	*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*4))) = uint32(a2)
-	*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*7)) = float32(float64(a1) * 32.526913)
-	*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*8)) = float32(float64(a2) * 32.526913)
-	return result
+	*(*uint32)(unsafe.Pointer(p)) = 1
+	*((*uint32)(unsafe.Add(unsafe.Pointer(p), 4*3))) = uint32(a1)
+	*((*uint32)(unsafe.Add(unsafe.Pointer(p), 4*4))) = uint32(a2)
+	*(*float32)(unsafe.Add(unsafe.Pointer(p), unsafe.Sizeof(float32(0))*7)) = float32(float64(a1) * 32.526913)
+	*(*float32)(unsafe.Add(unsafe.Pointer(p), unsafe.Sizeof(float32(0))*8)) = float32(float64(a2) * 32.526913)
+	return p
 }
 func nox_xxx_mapGenPrepareRoom_521990(a1 int32) *float32 {
 	var (
@@ -5892,11 +5974,9 @@ func sub_525C90() *float32 {
 	}
 	return result
 }
-func nox_xxx_mapGen_InPrefab1_525D20(a1 int32) int32 {
+func nox_xxx_mapGen_InPrefab1_525D20(a1 unsafe.Pointer) int32 {
 	var (
 		v1 int32
-		i  *uint32
-		j  *uint32
 	)
 	v1 = 0
 	if dword_5d4594_2487656 == 0 {
@@ -5906,21 +5986,21 @@ func nox_xxx_mapGen_InPrefab1_525D20(a1 int32) int32 {
 		*memmap.PtrUint32(0x5D4594, 2487668) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("ExitWestMarker")))
 	}
 	sub_525DF0(float32(a1))
-	for i = *(**uint32)(unsafe.Add(a1, 80)); i != nil; i = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*39))) {
+	for i := *(**uint32)(unsafe.Add(a1, 80)); i != nil; i = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*39))) {
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*18)) != 0 {
-			if v1 == 5 || nox_xxx_mapGenPrefabMkRoom_526100(a1, int32(uintptr(unsafe.Pointer(i)))) == 0 {
+			if v1 == 5 || nox_xxx_mapGenPrefabMkRoom_526100(a1, unsafe.Pointer(i)) == 0 {
 				return 0
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*19)) = 1
 			v1++
 		}
 	}
-	for j = *(**uint32)(unsafe.Add(a1, 80)); j != nil; j = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(j), 4*39))) {
+	for j := *(**uint32)(unsafe.Add(a1, 80)); j != nil; j = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(j), 4*39))) {
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*18)) == 0 {
 			if v1 == 5 {
 				return 1
 			}
-			if nox_xxx_mapGenPrefabMkRoom_526100(a1, int32(uintptr(unsafe.Pointer(j)))) == 0 {
+			if nox_xxx_mapGenPrefabMkRoom_526100(a1, unsafe.Pointer(j)) == 0 {
 				return 0
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*19)) = 1
@@ -6077,7 +6157,7 @@ LABEL_10:
 		return
 	}
 }
-func nox_xxx_mapGenPrefabMkRoom_526100(a1 int32, a2 int32) int32 {
+func nox_xxx_mapGenPrefabMkRoom_526100(a1 unsafe.Pointer, a2 unsafe.Pointer) int32 {
 	var (
 		result int32
 		v3     *float32
@@ -6098,7 +6178,7 @@ func nox_xxx_mapGenPrefabMkRoom_526100(a1 int32, a2 int32) int32 {
 	nox_xxx_mapGenSetRoomPos_521880(*(**uint32)(unsafe.Add(a2, 148)), &v9)
 	v4 = 1
 	v5 = (*uint32)(unsafe.Pointer(uintptr(sub_521200(int32(*(*uint32)(unsafe.Add(a2, 148)))))))
-	if v5 != nil && sub_5212B0(int32(*(*uint32)(unsafe.Add(a2, 148))), v5) == 0 {
+	if v5 != nil && sub_5212B0(*(*unsafe.Pointer)(unsafe.Add(a2, 148)), v5) == 0 {
 		v4 = 0
 	}
 	if sub_5217A0(a1, int32(*(*uint32)(unsafe.Add(a2, 148)))) != 0 && v4 != 0 {

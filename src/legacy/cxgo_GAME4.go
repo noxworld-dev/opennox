@@ -1192,13 +1192,13 @@ func nox_xxx_equipedItemByCode_4F7920(a1 unsafe.Pointer, a2 int32) unsafe.Pointe
 	}
 	return result
 }
-func sub_4F7950(a1 unsafe.Pointer) {
+func sub_4F7950(a1 *server.Object) {
 	var (
 		v1 int32
 		v2 int32
 		v3 *int32
 	)
-	v1 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	v1 = int32(a1.UpdateData)
 	v2 = 3
 	v3 = (*int32)(unsafe.Add(v1, 168))
 	for {

@@ -2266,20 +2266,18 @@ func sub_41D670(a1 *byte) int32 {
 	}
 	v1 = sub_4200E0()
 	panic("abort")
+	_ = v1
 	return 0
 }
 func sub_41D6C0() int32 {
 	var (
 		v0 int32
 		v1 *byte
-		v2 int32
 	)
 	var v3 int32
 	var v4 *byte
-	var v5 int32
 	var result int32
 	var v7 *byte
-	var v8 int32
 	var v9 int16
 	var v10 *byte
 	var v11 int32
@@ -2315,8 +2313,9 @@ func sub_41D6C0() int32 {
 			v1 = v10
 		}
 		if v0 == 0 {
-			v2 = sub_4200E0()
+			v2 := sub_4200E0()
 			panic("abort")
+			_ = v2
 		}
 		v3 = 1
 		if v10 == nil {
@@ -2343,8 +2342,9 @@ func sub_41D6C0() int32 {
 			}
 		}
 		if v3 == 0 {
-			v5 = sub_4200E0()
+			v5 := sub_4200E0()
 			panic("abort")
+			_ = v5
 		} else {
 			result = v12
 		}
@@ -2369,10 +2369,12 @@ func sub_41D6C0() int32 {
 			break
 		}
 	}
-	if v0 == 0 {
-		v8 = sub_4200E0()
-		panic("abort")
+	if v0 != 0 {
+		return v11
 	}
+	v8 := sub_4200E0()
+	panic("abort")
+	_ = v8
 	return v11
 }
 func sub_41DA10(a1 int32) int32 {

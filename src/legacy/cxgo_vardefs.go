@@ -56,7 +56,7 @@ var dword_5d4594_1049796_inventory_click_column_index int32
 var dword_5d4594_1098576 *gui.Window
 var dword_5d4594_1321040 *gui.Window
 var dword_587000_87412 int32 = -1
-var dword_5d4594_1548476 uint32
+var dword_5d4594_1548476 int32
 var dword_5d4594_2660652 uint32
 var dword_5d4594_1045636 *gui.Window
 var dword_5d4594_3798804 int32
@@ -217,7 +217,7 @@ var dword_5d4594_1301776 unsafe.Pointer
 var dword_5d4594_251564 unsafe.Pointer
 var nox_xxx_screenWidth_587000_184452 uint32 = 0x32
 var dword_5d4594_1550916 uint32
-var dword_5d4594_2487540 uint32
+var dword_5d4594_2487540 int32
 var dword_587000_81128 unsafe.Pointer
 var dword_5d4594_3798800 int32
 var dword_5d4594_3798812 uint32
@@ -239,7 +239,7 @@ var nox_xxx_conjurerMaxHealth_587000_312800 float32 = 1.0
 var nox_xxx_conjurerMaxMana_587000_312804 float32 = 1.0
 var nox_xxx_wizardMaxHealth_587000_312816 float32 = 1.0
 var nox_xxx_wizardMaximumMana_587000_312820 float32 = 1.0
-var dword_5d4594_2487532 uint32
+var dword_5d4594_2487532 unsafe.Pointer
 var nox_server_connectionType_3596 uint32
 var dword_5d4594_830872 unsafe.Pointer
 var dword_5d4594_1200804 uint32
@@ -312,7 +312,7 @@ var dword_5d4594_1203840 uint32
 var dword_5d4594_826032 *gui.Window
 var dword_5d4594_2487708 uint32
 var nox_xxx_waypointCounterMB_587000_154948 uint32 = math.MaxUint32
-var dword_5d4594_1548700 uint32
+var dword_5d4594_1548700 *server.Player
 var dword_5d4594_741332 uint32
 var dword_5d4594_1565616 uint32
 var dword_5d4594_816356 uint32
@@ -519,7 +519,7 @@ var dword_5d4594_1045544 *gui.Window
 var dword_5d4594_1548480 uint32
 var nox_xxx_lightningSteps_587000_178216 uint32 = 0x8
 var dword_5d4594_1045428 unsafe.Pointer
-var dword_5d4594_2487536 uint32
+var dword_5d4594_2487536 int32
 var dword_5d4594_2523804 uint32
 var dword_587000_126996 uint32 = 0x1
 var dword_5d4594_2487568 uint32

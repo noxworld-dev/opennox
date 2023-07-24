@@ -2778,7 +2778,6 @@ func nox_xxx_cmdSayDo_46A4B0(a1 *wchar2_t, a2 int32) uint32 {
 func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 	var (
 		v2 int32
-		v3 bool
 	)
 	var v5 int32
 	var v6 int32
@@ -2788,7 +2787,6 @@ func sub_46A5D0(win *gui.Window, draw *gui.WindowData) int {
 	nox_xxx_windowFocus_46B500(dword_5d4594_1064860)
 	nox_xxx_drawGetStringSize_43F840(nil, (*uint16)(dword_5d4594_1064864), &v5, nil, 0)
 	nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Add(dword_5d4594_1064864, 512)), &v6, nil, 0)
-	v3 = v5+v6-90 < 0
 	v5 += v6 + 10
 	v2 = v5
 	if v5 < 100 {
@@ -3604,7 +3602,6 @@ func sub_46FFD0() uint8 {
 		v21    int32
 		v22    int32
 		v23    int32
-		v24    int32
 	)
 	var v25 float32
 	var v26 int32
@@ -3643,10 +3640,8 @@ func sub_46FFD0() uint8 {
 				*(*uint8)(unsafe.Pointer(&v22)) = 4
 				if uint32(v7) == nox_player_netCode_85319C {
 					v9 = sub_470CD0()
-					v24 = v9
 					v25 = float32(float64(v9))
 					v10 = sub_470CC0()
-					v24 = v10
 					v16 = float32(float64(v10) / float64(v25) * 100.0)
 					v8 = int32(v16)
 				}

@@ -114,7 +114,7 @@ func sub_4D10F0(a1 *byte) {
 					return
 				}
 			}
-			v3 = int32(dword_5d4594_1548476)
+			v3 = dword_5d4594_1548476
 			v4 = v1 * 32
 			v5 = int32(dword_5d4594_1548480)
 			*memmap.PtrUint32(0x587000, 191880) = uint32(v1)
