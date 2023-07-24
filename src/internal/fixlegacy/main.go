@@ -158,6 +158,16 @@ func (proc *Processor) processFile(fname string, f *ast.File) (bool, error) {
 			}
 		case *ast.BlockStmt:
 			proc.optimizeBlock(n, &changed)
+		case *ast.IfStmt:
+			proc.simplifyExpr(&n.Cond, &changed)
+		case *ast.ForStmt:
+			if n.Cond != nil {
+				proc.simplifyExpr(&n.Cond, &changed)
+			}
+		case *ast.SwitchStmt:
+			if n.Tag != nil {
+				proc.simplifyExpr(&n.Tag, &changed)
+			}
 		}
 		return true
 	})
