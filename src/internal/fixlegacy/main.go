@@ -221,7 +221,14 @@ func (proc *Processor) shouldUnwrapCasts(x ast.Expr) bool {
 		case "nox_new_window_from_file",
 			"nox_window_new",
 			"nox_xxx_wndGetChildByID_46B0C0",
-			"nox_xxx_gLoadImg_42F970":
+			"nox_xxx_gLoadImg_42F970",
+			"nox_xxx_getFirstPlayerUnit_4DA7C0",
+			"nox_common_playerInfoGetFirst_416EA0",
+			"nox_common_playerInfoGetNext_416EE0",
+			"nox_server_getFirstObject_4DA790",
+			"nox_server_getNextObject_4DA7A0",
+			"nox_server_teamByXxx_418AE0",
+			"nox_server_teamFirst_418B10":
 			return true
 		}
 	}
