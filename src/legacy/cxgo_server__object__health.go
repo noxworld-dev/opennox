@@ -44,8 +44,8 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 *server.Object) {
 		return
 	}
 	v3 = 1
-	v4 := unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580(a1.Obj130))
-	if (int32(*(*uint8)(unsafe.Add(v4, 8))) & 4) == 0 {
+	v4 := nox_xxx_findParentChainPlayer_4EC580(a1.Obj130)
+	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8))) & 4) == 0 {
 		return
 	}
 	v5 = 0
@@ -55,7 +55,7 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 *server.Object) {
 				break
 			}
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)))&2 != 0 {
-				v3 = nox_xxx_creatureIsMonitored_500CC0((*server.Object)(v4), v2)
+				v3 = nox_xxx_creatureIsMonitored_500CC0(v4, v2)
 				v5 = 1
 			}
 			v2 = v2.ObjOwner
@@ -65,10 +65,10 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 *server.Object) {
 		}
 		v1 = a1
 	}
-	v6 = nox_xxx_unitGiveXP_4EF270(v4, v1.Experience)
+	v6 = nox_xxx_unitGiveXP_4EF270(unsafe.Pointer(v4), v1.Experience)
 	if v6 > 0.0 {
 		v7 = nox_strman_loadString_40F1D0(internCStr("gainpoints"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\health.c"), 172)
-		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(v4), v7, uint32(int32(int64(v6))))
+		nox_xxx_netSendLineMessage_4D9EB0(v4, v7, uint32(int32(int64(v6))))
 	}
 	return
 }

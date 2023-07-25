@@ -9,7 +9,7 @@ import (
 
 func nox_xxx_clientPickup_46C140(a1p *client.Drawable) {
 	var (
-		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
+		a1 = a1p
 		v2 int32
 		v3 *wchar2_t
 		v4 int32
@@ -19,8 +19,8 @@ func nox_xxx_clientPickup_46C140(a1p *client.Drawable) {
 		*memmap.PtrUint32(0x5D4594, 1064932) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldPile")))
 		*memmap.PtrUint32(0x5D4594, 1064936) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldChest")))
 	}
-	if a1 != 0 {
-		v2 = int32(*(*uint32)(unsafe.Add(a1, 108)))
+	if a1 != nil {
+		v2 = int32(a1.Field_27)
 		if uint32(v2) == *memmap.PtrUint32(0x5D4594, 1064928) || uint32(v2) == *memmap.PtrUint32(0x5D4594, 1064932) || uint32(v2) == *memmap.PtrUint32(0x5D4594, 1064936) || sub_467B00(v2, 1) != 0 {
 			*((*uint8)(unsafe.Pointer(&v4))) = 115
 			*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), 1)) = uint16(nox_xxx_netGetUnitCodeCli_578B00(a1))

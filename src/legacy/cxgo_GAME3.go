@@ -3468,7 +3468,7 @@ func sub_4AB390(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		return 0
 	}
 	sub_446380()
-	if dword_5d4594_2650652 != nil && sub_41E2F0() == 9 {
+	if dword_5d4594_2650652 != 0 && sub_41E2F0() == 9 {
 		sub_41F4B0()
 		sub_41EC30()
 		sub_446490(0)

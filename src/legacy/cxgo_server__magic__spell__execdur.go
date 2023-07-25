@@ -10,7 +10,7 @@ import (
 )
 
 func Sub_530A30_spell_execdur(sp *server.DurSpell) int32 {
-	a1 := int32(uintptr(sp.C()))
+	a1 := sp
 	var (
 		v1     int32
 		v2     int32
@@ -27,8 +27,8 @@ func Sub_530A30_spell_execdur(sp *server.DurSpell) int32 {
 	)
 	v1 = a1
 	v2 = 0
-	if *(*uint32)(unsafe.Add(a1, 48)) == 0 {
-		*(*uint32)(unsafe.Add(a1, 48)) = *(*uint32)(unsafe.Add(a1, 16))
+	if a1.Obj48 == nil {
+		a1.Obj48 = a1.Obj16
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(v1, 16)))
 	if int32(*(*uint8)(unsafe.Add(v3, 8)))&4 != 0 {

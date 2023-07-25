@@ -663,7 +663,7 @@ func sub_4F1F20() {
 						nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v7)), nil, v0.PosVec.X, v0.PosVec.Y)
 						if *(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*2))&0x1000000 != 0 {
 							if *(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*3))&0xC != 0 {
-								v8 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("Quiver"))))
+								v8 = nox_xxx_newObjectByTypeID_4E3810(internCStr("Quiver"))
 								if v8 != nil {
 									a3 = *((*types.Pointf)(unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(types.Pointf{})*7)))
 									sub_4ED970(30.0, (*types.Pointf)(unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(types.Pointf{})*7)), &a3)
@@ -688,7 +688,7 @@ func sub_4F1F20() {
 								nox_xxx_inventoryPutImpl_4F3070(v0, (*server.Object)(unsafe.Pointer(v5)), 0)
 								if *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2))&0x1000000 != 0 {
 									if *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3))&0xC != 0 {
-										v6 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("Quiver"))))
+										v6 = nox_xxx_newObjectByTypeID_4E3810(internCStr("Quiver"))
 										if v6 != nil {
 											nox_xxx_inventoryPutImpl_4F3070(v0, (*server.Object)(unsafe.Pointer(v6)), 0)
 										}
@@ -712,7 +712,7 @@ func sub_4F1F20() {
 }
 func nox_xxx_playerSomeWallsUpdate_5003B0(obj *server.Object) int32 {
 	var (
-		a1     int32 = int32(uintptr(unsafe.Pointer(obj)))
+		a1     = obj
 		v1     int32
 		result int32
 		v3     int32

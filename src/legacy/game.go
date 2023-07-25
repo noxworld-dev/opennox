@@ -299,7 +299,7 @@ func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), rad, int32(dmg), int32(dtyp), who.CObj())
+	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), rad, int32(dmg), int32(dtyp), obj)
 }
 
 func Nox_xxx_getSomeMapName_4D0CF0() string {

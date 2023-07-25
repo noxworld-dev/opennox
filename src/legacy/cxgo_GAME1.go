@@ -3143,8 +3143,6 @@ func sub_417F50(a1 unsafe.Pointer) int32 {
 	var (
 		v1  int32
 		v3  int32
-		v6  *uint32
-		v7  *uint32
 		v10 float32
 	)
 	if dword_5d4594_527656 == 0 {
@@ -3184,33 +3182,33 @@ func sub_417F50(a1 unsafe.Pointer) int32 {
 			return 0
 		}
 	}
-	v6 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("GameBall"))))
-	v7 = v6
+	v6 := nox_xxx_newObjectByTypeID_4E3810(internCStr("GameBall"))
+	v7 := v6
 	if v6 == nil {
 		return 0
 	}
-	v8 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v6), 4*187))
+	v8 := v6.UpdateData
 	*(*uint64)(unsafe.Add(v8, 8)) = uint64(nox_platform_get_ticks())
 	v10 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("FlagballPossDuration")))
 	*(*uint32)(unsafe.Add(v8, 20)) = uint32(int32(v10))
 	*(*float32)(unsafe.Add(v8, 24)) = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("FlagballResetVel")))
-	nox_xxx_netMarkMinimapForAll_4174B0((*server.Object)(unsafe.Pointer(v7)), 1)
-	nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v7)), nil, 0.0, 0.0)
-	nox_xxx_unitClearOwner_4EC300((*server.Object)(unsafe.Pointer(v7)))
+	nox_xxx_netMarkMinimapForAll_4174B0(v7, 1)
+	nox_xxx_createAt_4DAA50(v7, nil, 0.0, 0.0)
+	nox_xxx_unitClearOwner_4EC300(v7)
 	sub_4EB9B0(unsafe.Pointer(v7), nil)
 	sub_4E8290(0, 0)
-	nox_xxx_unitMove_4E7010((*server.Object)(unsafe.Pointer(v7)), (*types.Pointf)(unsafe.Add(unsafe.Pointer(v4), 56)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*20)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*21)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*22)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*25)) = 0
+	nox_xxx_unitMove_4E7010(v7, (*types.Pointf)(unsafe.Add(unsafe.Pointer(v4), 56)))
+	v7.VelVec.X = 0
+	v7.VelVec.Y = 0
+	v7.ForceVec.X = 0
+	v7.Pos24.Y = 0
 	if a1 == nil {
 		return 1
 	}
 	for i := nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = nox_xxx_getNextPlayerUnit_4DA7F0(i) {
 		if *(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i.UpdateData, 276)), 3628)) == a1 {
 			nox_xxx_playerCameraUnlock_4E6040(i)
-			nox_xxx_playerCameraFollow_4E6060(i, (*server.Object)(unsafe.Pointer(v7)))
+			nox_xxx_playerCameraFollow_4E6060(i, v7)
 		}
 	}
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(a1))

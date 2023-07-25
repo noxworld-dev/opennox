@@ -35,7 +35,7 @@ func nox_xxx_abilGetError_4FB0B0_magic_plyrspel(a1 int32) {
 }
 func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	var (
-		a1  int32 = int32(uintptr(unsafe.Pointer(a1p)))
+		a1  = a1p
 		v5  int32
 		v6  int32
 		v7  int32
@@ -52,7 +52,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 		v18 *uint32
 	)
 	v5 = a1
-	if (int32(*(*uint8)(unsafe.Add(a1, 8))) & 4) == 0 {
+	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8))) & 4) == 0 {
 		return 0
 	}
 	v6 = a2
@@ -61,7 +61,7 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *server.Object, a2 int32, a3 int32, a
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(a1), v8)
 		return 0
 	}
-	v7 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	v7 = int32(a1.UpdateData)
 	if noxflags.HasGame(6144) && *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v7, 276))+uint32(a2*4))), 3696)) == 3 || *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v7, 276))+uint32(a2*4))), 3696)) == 5 {
 		v8 = nox_strman_loadString_40F1D0(internCStr("MaxSpellLevel"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 351)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(a1), v8)

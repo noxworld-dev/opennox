@@ -9,7 +9,7 @@ import (
 )
 
 func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
-	a1 := int32(uintptr(obj.CObj()))
+	a1 := obj
 	var (
 		v1  int32
 		v2  int32
@@ -25,7 +25,7 @@ func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
 	v1 = a1
 	v2 = 0
 	if nox_strman_get_lang_code() == 0 || nox_strman_get_lang_code() == 1 {
-		v3 = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint16)(unsafe.Add(a1, 4)))))
+		v3 = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(int32(a1.TypeInd)))
 		if v3 != nil {
 			v4 = int16(*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) + nox_wcslen((*wchar2_t)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*2))))*2 - 2))))
 			if int32(v4) == 83 || int32(v4) == 115 {
@@ -33,11 +33,11 @@ func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
 			}
 		}
 	}
-	v5 = int32(*(*uint32)(unsafe.Add(a1, 492)))
+	v5 = int32(a1.InvHolder)
 	if v5 != 0 {
 		v10 = (*types.Pointf)(unsafe.Add(v5, 56))
 	} else {
-		v10 = (*types.Pointf)(unsafe.Add(a1, 56))
+		v10 = (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56))
 	}
 	v6 = int16(*(*uint16)(unsafe.Add(v1, 24)))
 	if int32(v6)&0x10 != 0 {
@@ -78,7 +78,7 @@ func nox_xxx_dieArmor_54E170_obj_die(obj *server.Object) {
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v1))
 }
 func nox_xxx_dieWeapon_54E370_obj_die(obj *server.Object) {
-	a1 := int32(uintptr(obj.CObj()))
+	a1 := obj
 	var (
 		v1 int32
 		v2 *types.Pointf
@@ -90,18 +90,18 @@ func nox_xxx_dieWeapon_54E370_obj_die(obj *server.Object) {
 		v8 *wchar2_t
 		v9 *wchar2_t
 	)
-	v1 = int32(*(*uint32)(unsafe.Add(a1, 492)))
+	v1 = int32(a1.InvHolder)
 	v2 = (*types.Pointf)(unsafe.Add(v1, 56))
 	if v1 == 0 {
-		v2 = (*types.Pointf)(unsafe.Add(a1, 56))
+		v2 = (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56))
 	}
-	v3 = int16(*(*uint16)(unsafe.Add(a1, 24)))
+	v3 = int16(a1.Material)
 	if int32(v3)&0x10 != 0 {
 		v7 = nox_xxx_itemGetName_4E77E0_obj_util(a1)
 		v4 = nox_strman_loadString_40F1D0(internCStr("WeaponDieMetal"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\die\\Die.c"), 1626)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(v1), v4, v7)
 		nox_xxx_audCreate_501A30(818, v2, 0, 0)
-		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(a1))
+		nox_xxx_delayedDeleteObject_4E5CC0(a1)
 	} else {
 		if int32(v3)&8 != 0 {
 			v8 = nox_xxx_itemGetName_4E77E0_obj_util(a1)
@@ -113,6 +113,6 @@ func nox_xxx_dieWeapon_54E370_obj_die(obj *server.Object) {
 			v6 = nox_strman_loadString_40F1D0(internCStr("WeaponDieGeneric"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\die\\Die.c"), 1640)
 			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(v1), v6, v9)
 		}
-		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(a1))
+		nox_xxx_delayedDeleteObject_4E5CC0(a1)
 	}
 }

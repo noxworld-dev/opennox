@@ -604,17 +604,16 @@ func sub_56FA40(a1 int32, a2 float32) *uint32 {
 	result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_protectData_56F5C0())))
 	return result
 }
-func nox_xxx_protectionStringCRC_56FAC0(a1 *int32, a2 uint32) int32 {
+func nox_xxx_protectionStringCRC_56FAC0(a1 *byte, a2 uint32) int32 {
 	var (
-		v2     *int32
 		result int32
 		i      uint32
 		v5     int32
 	)
-	v2 = a1
+	v2 := a1
 	result = 0
 	for i = a2 >> 2; i != 0; i-- {
-		v5 = *v2
+		v5 = *(*int32)(unsafe.Pointer(v2))
 		v2 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1))
 		result ^= v5
 	}
@@ -648,7 +647,6 @@ func sub_56FB60(item *server.Object) int32 {
 		v4     int32
 		v5     *int32
 		v6     int32
-		v7     *int32
 	)
 	result = 0
 	if item == nil {
@@ -662,10 +660,10 @@ func sub_56FB60(item *server.Object) int32 {
 	if v5 != nil && v6 > 0 {
 		v4 ^= nox_xxx_protectionStringCRC_56FAC0(v5, uint32(v6))
 	}
-	v7 = (*int32)(unsafe.Pointer(uintptr(sub_4E4C80(item))))
+	v7 := sub_4E4C80(item)
 	if v7 != nil {
-		if libc.StrLen((*byte)(unsafe.Pointer(v7))) != 0 {
-			v4 ^= nox_xxx_protectionStringCRC_56FAC0(v7, uint32(libc.StrLen((*byte)(unsafe.Pointer(v7)))))
+		if libc.StrLen(v7) != 0 {
+			v4 ^= nox_xxx_protectionStringCRC_56FAC0(v7, uint32(libc.StrLen(v7)))
 		}
 	}
 	result = v4

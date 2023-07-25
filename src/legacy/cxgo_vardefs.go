@@ -18,7 +18,7 @@ var nox_wol_wnd_world_814980 *gui.Window
 var dword_5d4594_1045516 *gui.Window
 var dword_5d4594_1045684 *gui.Window
 var dword_5d4594_1307784 unsafe.Pointer
-var dword_5d4594_2650652 unsafe.Pointer
+var dword_5d4594_2650652 uint32
 var dword_5d4594_1217448 int32
 var dword_5d4594_1320940 *gui.Window
 var dword_5d4594_815004 *gui.Window

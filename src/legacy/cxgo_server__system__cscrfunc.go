@@ -8,7 +8,7 @@ import (
 
 func nox_xxx_netSendChat_528AC0(a1p *server.Object, a2 *wchar2_t, a3 wchar2_t) int32 {
 	var (
-		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
+		a1     = a1p
 		v3     int8
 		v4     int16
 		v5     float64
@@ -27,11 +27,11 @@ func nox_xxx_netSendChat_528AC0(a1p *server.Object, a2 *wchar2_t, a3 wchar2_t) i
 		v3 = int8(v11[3] | 4)
 	}
 	v11[3] = byte(v3)
-	v4 = int16(uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(a1))))
-	v5 = float64(*(*float32)(unsafe.Add(a1, 56)))
+	v4 = int16(uint16(nox_xxx_netGetUnitCodeServ_578AC0(a1)))
+	v5 = float64(a1.PosVec.X)
 	*(*uint16)(unsafe.Pointer(&v11[1])) = uint16(v4)
 	v6 = int64(v5)
-	v7 = float64(*(*float32)(unsafe.Add(a1, 60)))
+	v7 = float64(a1.PosVec.Y)
 	*(*uint16)(unsafe.Pointer(&v11[4])) = uint16(int16(v6))
 	*(*uint16)(unsafe.Pointer(&v11[6])) = uint16(int16(int64(v7)))
 	*(*uint16)(unsafe.Pointer(&v11[9])) = a3
