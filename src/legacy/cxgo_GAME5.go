@@ -971,7 +971,7 @@ func nox_xxx_monsterGetObjEscortName_546600(a1 int32) int32 {
 	v1 = (*byte)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 1364))
 	if libc.StrCmp(v1, internCStr("**PLAYER**")) == 0 {
 		v2 = 0
-		for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))))) {
+		for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != 0; i = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i)) {
 			v2++
 		}
 		v4 = nox_common_randomInt_415FA0(0, v2-1)
@@ -987,7 +987,7 @@ func nox_xxx_monsterGetObjEscortName_546600(a1 int32) int32 {
 				if v6 == 0 {
 					break
 				}
-				result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(result)))))
+				result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(result))
 				if result == 0 {
 					*v1 = 0
 					return result
@@ -4799,7 +4799,7 @@ func nox_xxx_diePlayer_54D2B0(obj *server.Object) {
 	}
 	v4 = *(**uint32)(unsafe.Add(v3, 276))
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*900)) != 0 && gameFrame()-*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*902)) < (gameFPS()*10) {
-		v5 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*901))))))
+		v5 = nox_common_playerInfoFromNum_417090(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*901))))
 		v6 = int32(uintptr(unsafe.Pointer(v5)))
 		v22 = v5
 		if v5 != nil {
@@ -5477,7 +5477,7 @@ func nox_xxx_dieMonsterGen_54E630(obj *server.Object) {
 		v3 *uint32
 	)
 	v1 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	sub_4D71E0(int32(gameFrame()))
+	sub_4D71E0(gameFrame())
 	sub_4D7520(0)
 	nox_xxx_scriptCallByEventBlock_502490(unsafe.Add(v1, 56), *(*unsafe.Pointer)(unsafe.Add(a1, 520)), a1, 3)
 	nox_xxx_aud_501960(1000, (*server.Object)(a1), 0, 0)
@@ -5753,7 +5753,7 @@ func nox_xxx_mobGeneratorPick_54EBA0(a1 *uint32, a2 *types.Pointf, a4 unsafe.Poi
 				}
 			}
 		}
-		v3 = (*float32)(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(v3)))))
+		v3 = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(v3)))
 		if v3 == nil {
 			break
 		}
@@ -5762,7 +5762,7 @@ func nox_xxx_mobGeneratorPick_54EBA0(a1 *uint32, a2 *types.Pointf, a4 unsafe.Poi
 		return 0
 	}
 	v10 = nox_common_randomInt_415FA0(0, v13-1)
-	v11 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(v18[v10])))
+	v11 = nox_common_playerInfoFromNum_417090(v18[v10])
 	return nox_xxx_mgenSetCreaturePos_54ED50(int32(uintptr(unsafe.Pointer(a1))), a2, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*514)))), a4)
 }
 func nox_xxx_mgenSetCreaturePos_54ED50(a1 int32, a2 *types.Pointf, a3 int32, a4 unsafe.Pointer) int32 {

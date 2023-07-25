@@ -86,7 +86,7 @@ func Sub_41A590(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerI
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if sub_41A590(u.CObj(), pinfo.C()) == 0 {
+	if sub_41A590(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil
@@ -96,7 +96,7 @@ func Sub_41AA30(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerI
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if sub_41AA30(u.CObj(), pinfo.C()) == 0 {
+	if sub_41AA30(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil
@@ -106,7 +106,7 @@ func Sub_41AC30(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerI
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if sub_41AC30(unsafe.Pointer(u), pinfo.C()) == 0 {
+	if sub_41AC30(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil
@@ -116,7 +116,7 @@ func Nox_xxx_guiFieldbook_41B420(cf *cryptfile.CryptFile, u *server.Object, pinf
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if nox_xxx_guiFieldbook_41B420(u.CObj(), pinfo.C()) == 0 {
+	if nox_xxx_guiFieldbook_41B420(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil
@@ -126,7 +126,7 @@ func Nox_xxx_guiSpellbook_41B660(cf *cryptfile.CryptFile, u *server.Object, pinf
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if nox_xxx_guiSpellbook_41B660(u.CObj(), pinfo.C()) == 0 {
+	if nox_xxx_guiSpellbook_41B660(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil
@@ -136,7 +136,7 @@ func Nox_xxx_guiEnchantment_41B9C0(cf *cryptfile.CryptFile, u *server.Object, pi
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if nox_xxx_guiEnchantment_41B9C0(u.CObj(), pinfo.C()) == 0 {
+	if nox_xxx_guiEnchantment_41B9C0(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil
@@ -146,7 +146,7 @@ func Sub_41BEC0(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerI
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if sub_41BEC0(u.CObj(), pinfo.C()) == 0 {
+	if sub_41BEC0(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil
@@ -156,7 +156,7 @@ func Sub_41C080(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerI
 	old := cryptfile.Global()
 	cryptfile.SetGlobal(cf)
 	defer cryptfile.SetGlobal(old)
-	if sub_41C080(u.CObj(), pinfo.C()) == 0 {
+	if sub_41C080(u, pinfo.C()) == 0 {
 		return errors.New("failed")
 	}
 	return nil

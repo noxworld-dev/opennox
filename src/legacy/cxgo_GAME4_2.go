@@ -2913,10 +2913,10 @@ func sub_521BC0(a1 *mapgenRoom, a2 *types.Pointf, a3 float32, a4 float32) {
 		return
 	}
 	*(*float32)(result) = 0.0
-	*(*types.Pointf)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*1)) = *a2
-	*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*3)) = a3 + a2.X
-	*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*4)) = a4 + a2.Y
-	*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*6)) = a1.Field368
+	*(*types.Pointf)(unsafe.Add(result, unsafe.Sizeof(float32(0))*1)) = *a2
+	*(*float32)(unsafe.Add(result, unsafe.Sizeof(float32(0))*3)) = a3 + a2.X
+	*(*float32)(unsafe.Add(result, unsafe.Sizeof(float32(0))*4)) = a4 + a2.Y
+	*(*float32)(unsafe.Add(result, unsafe.Sizeof(float32(0))*6)) = float32(a1.Field368)
 	a1.Field368 = uint32(uintptr(unsafe.Pointer(result)))
 }
 func sub_521C10(a1 int32) *uint32 {
@@ -3760,7 +3760,7 @@ func nox_xxx_netSendFxAllCli_523030(a1 *types.Pointf, a2 unsafe.Pointer, a3 int3
 				}
 			}
 		}
-		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i)))))
+		result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))
 	}
 	return result
 }
@@ -3919,7 +3919,7 @@ func nox_xxx_servCode_523340(a1 *int32, a2 unsafe.Pointer, a3 int32) int32 {
 		if (int32(uint8(v16))&int32(uint8(v10))) == 0 && float64(v19) <= v11 && float64(v21) >= float64(v23) && float64(v20) <= float64(v25) && float64(v22) >= float64(v24) {
 			nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(v5, 2064))), 1, (*uint8)(a2), a3)
 		}
-		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i)))))
+		result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))
 	}
 	return result
 }
@@ -3963,7 +3963,7 @@ func nox_xxx_netClientPredictLinear_523530(a1 int32) int32 {
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0()
 	for i = result; result != 0; i = result {
 		nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 748)), 276)), 2064))), 1, &v14[0], 14)
-		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i)))))
+		result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))
 	}
 	return result
 }
@@ -7237,12 +7237,12 @@ func sub_527E00(a1 *server.Object) *int32 {
 }
 func nox_xxx_netUpdateObjectSpecial_527E50(a1p *server.Object, a2p *server.Object) int32 {
 	var (
-		a1 int32   = int32(uintptr(unsafe.Pointer(a1p)))
-		a2 *uint32 = (*uint32)(unsafe.Pointer(a2p))
+		a1 = a1p
+		a2 = a2p
 		v2 uint32
 		v3 int32
 	)
-	v2 = uint32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 276)), 2064)))
+	v2 = uint32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2064)))
 	if !(a2 != nil && v2 < 0x20) {
 		return 1
 	}
@@ -7255,7 +7255,7 @@ func nox_xxx_netUpdateObjectSpecial_527E50(a1p *server.Object, a2p *server.Objec
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFFEFFFF
 	}
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x20000) == 0x20000 {
-		if nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(a1), (*server.Object)(unsafe.Pointer(a2))) == 0 {
+		if nox_xxx_unitIsEnemyTo_5330C0(a1, a2) == 0 {
 			nox_xxx_netReportUnitCurrentHP_4D8620(int32(v2), a2)
 		}
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFFDFFFF
@@ -7269,7 +7269,7 @@ func nox_xxx_netUpdateObjectSpecial_527E50(a1p *server.Object, a2p *server.Objec
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFF7FFFF
 	}
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x400000) == 0x400000 {
-		nox_xxx_netReportUnitHeight_4D9020(int32(v2), (*server.Object)(unsafe.Pointer(a2)))
+		nox_xxx_netReportUnitHeight_4D9020(int32(v2), a2)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFBFFFFF
 	}
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x800000) == 0x800000 {
@@ -7277,11 +7277,11 @@ func nox_xxx_netUpdateObjectSpecial_527E50(a1p *server.Object, a2p *server.Objec
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFF7FFFFF
 	}
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x2000000) == 0x2000000 {
-		nox_xxx_netReportTeamBase_4D92D0(int32(v2), int32(uintptr(unsafe.Pointer(a2))))
+		nox_xxx_netReportTeamBase_4D92D0(int32(v2), a2)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFDFFFFFF
 	}
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x4000000) == 0x4000000 {
-		nox_xxx_netSendReportNPC_4D93A0(int32(v2), int32(uintptr(unsafe.Pointer(a2))))
+		nox_xxx_netSendReportNPC_4D93A0(int32(v2), a2)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFBFFFFFF
 	}
 	return 1
@@ -7814,7 +7814,7 @@ func nox_xxx_destroyEveryChatMB_528D60() int32 {
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0()
 	for i = result; result != 0; i = result {
 		nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 748)), 276)), 2064))), 1, &v2[0], 3)
-		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i)))))
+		result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))
 	}
 	return result
 }

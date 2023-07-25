@@ -3633,7 +3633,7 @@ func nox_xxx_traceRay_5374B0(a1 *float4) int32 {
 func sub_537540(a1 int32) {
 	var i *uint32
 	if a1 != 0 {
-		for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = (*uint32)(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(i))))) {
+		for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(i))) {
 			if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*187)), 132)) == uint32(a1) {
 				nox_xxx_harpoonBreakForPlr_537520((*server.Object)(unsafe.Pointer(i)))
 			}

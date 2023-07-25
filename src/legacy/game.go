@@ -283,7 +283,7 @@ func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
 	defer pfree()
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
-	nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Pointer(&cpos[0])), int32(a2))
+	nox_xxx_sMakeScorch_537AF0(&cpos[0], int32(a2))
 }
 
 func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *server.Object) {
@@ -320,7 +320,7 @@ func Nox_server_testTwoPointsAndDirection_4E6E50(p1 types.Pointf, dir int16, p2 
 	cp2, free2 := alloc.New(types.Pointf{})
 	defer free2()
 	*cp1, *cp2 = p1, p2
-	return int(nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Pointer(cp1)), int32(dir), (*types.Pointf)(unsafe.Pointer(cp2))))
+	return int(nox_server_testTwoPointsAndDirection_4E6E50(cp1, int32(dir), cp2))
 }
 
 func Nox_xxx_mapLoadOrSaveMB_4DCC70(v int) {
@@ -650,7 +650,7 @@ func Sub_4E81D0(a1 *server.Object) {
 	sub_4E81D0(asObjectC(a1))
 }
 func Sub_4D71E0(a1 int) {
-	sub_4D71E0(int32(a1))
+	sub_4D71E0(uint32(int32(a1)))
 }
 func Sub_4D7280(a1 int, a2 int8) {
 	sub_4D7280(int32(a1), a2)

@@ -2248,14 +2248,10 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 	var v28 int32
 	var v29 *wchar2_t
 	var v30 *wchar2_t
-	var v31 *byte
-	var v32 *byte
 	var v33 *int32
 	var v34 *int32
 	var v35 int32
 	var v36 *wchar2_t
-	var v37 *byte
-	var v38 *byte
 	var v39 *byte
 	var v40 *wchar2_t
 	var v41 *wchar2_t
@@ -2450,13 +2446,13 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			}
 			for {
 				v36 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1045536, 16406, uintptr(v35), 0)))
-				v37 = nox_xxx_playerByName_4170D0(v36)
-				v38 = v37
-				if v37 != nil && *(*byte)(unsafe.Add(unsafe.Pointer(v37), 2064)) != 31 {
+				v37 := nox_xxx_playerByName_4170D0(v36)
+				v38 := v37
+				if v37 != nil && v37.PlayerInd != 31 {
 					if noxflags.HasGame(4096) {
-						sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v38), 4*514))))))
+						sub_4DCFB0(v38.PlayerUnit)
 					} else {
-						nox_xxx_playerCallDisconnect_4DEAB0(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v38), 2064))), 4)
+						nox_xxx_playerCallDisconnect_4DEAB0(int32(v38.PlayerInd), 4)
 					}
 				}
 				v35 = *(*int32)(unsafe.Add(unsafe.Pointer(v34), 4*1))
@@ -2476,13 +2472,13 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			for {
 				v29 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1045536, 16406, uintptr(v28), 0)))
 				v30 = v29
-				v31 = nox_xxx_playerByName_4170D0(v29)
-				v32 = v31
-				if v31 != nil && *(*byte)(unsafe.Add(unsafe.Pointer(v31), 2064)) != 31 {
+				v31 := nox_xxx_playerByName_4170D0(v29)
+				v32 := v31
+				if v31 != nil && v31.PlayerInd != 31 {
 					if noxflags.HasGame(4096) {
-						sub_4DCFB0((*server.Object)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v32), 4*514))))))
+						sub_4DCFB0(v32.PlayerUnit)
 					} else {
-						nox_xxx_playerDisconnByPlrID_4DEB00(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v32), 2064))))
+						nox_xxx_playerDisconnByPlrID_4DEB00(int32(v32.PlayerInd))
 					}
 					sub_416770(0, v30, (*byte)(unsafe.Add(unsafe.Pointer(v32), 2112)))
 				}
@@ -2596,7 +2592,6 @@ func sub_455770() int32 {
 		v1 *int32
 		v2 int32
 		v3 *wchar2_t
-		v4 *byte
 	)
 	v0 = (*int32)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1045536, 16404, 0, 0)))
 	v1 = v0
@@ -2606,9 +2601,9 @@ func sub_455770() int32 {
 	}
 	for {
 		v3 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1045536, 16406, uintptr(v2), 0)))
-		v4 = nox_xxx_playerByName_4170D0(v3)
+		v4 := nox_xxx_playerByName_4170D0(v3)
 		if v4 != nil {
-			if *(*byte)(unsafe.Add(unsafe.Pointer(v4), 2064)) != 31 {
+			if v4.PlayerInd != 31 {
 				break
 			}
 		}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 // nox_crypt_IsReadOnly
@@ -83,6 +84,6 @@ func nox_xxx_crypt_426D40() {
 }
 
 // sub_41C200
-func sub_41C200(a1 unsafe.Pointer, a2 unsafe.Pointer) int32 {
+func sub_41C200(a1 *server.Object, a2 unsafe.Pointer) int32 {
 	return int32(cryptfile.Global().ReadWriteAlign())
 }

@@ -57,7 +57,7 @@ func sub_426060() {
 		for i = nox_common_playerInfoGetFirst_416EA0(); i != nil; i = nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(i))) {
 			*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*1162))) = math.MaxUint32
 		}
-		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+		v2 = nox_common_playerInfoFromNum_417090(31)
 		if v2 != nil {
 			sub_425F10((*server.Player)(unsafe.Pointer(v2)))
 		}
@@ -252,7 +252,7 @@ func sub_4DBA30(a1 int32) {
 		v25    int32
 		v26    int32
 	)
-	result = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	result = nox_common_playerInfoFromNum_417090(31)
 	v2 = result
 	v3 = nil
 	v24 = result
@@ -607,7 +607,7 @@ func sub_4EDD70() int32 {
 				}
 			}
 		}
-		result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i)))))
+		result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))
 	}
 	return result
 }

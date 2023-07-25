@@ -204,7 +204,7 @@ LABEL_24:
 	if !noxflags.HasGame(1) {
 		v15 = int32(*memmap.PtrUint32(0x852978, 8) + 24)
 	} else {
-		v13 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+		v13 = nox_common_playerInfoFromNum_417090(31)
 		if v13 == nil {
 			nox_client_drawEnableAlpha_434560(0)
 			return int(v23)

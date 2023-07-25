@@ -446,7 +446,7 @@ func nox_script_HasSubclass_5162D0() int32 {
 }
 func nox_script_StartupScreen_516600_A() {
 	var i unsafe.Pointer
-	for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))) {
+	for i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i)) {
 		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 748)), 276)), 2064))) == 31 {
 			break
 		}
@@ -472,7 +472,7 @@ func nox_script_IsTalking_5166A0() int32 {
 		v0 *byte
 		v1 int32
 	)
-	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	v0 = nox_common_playerInfoFromNum_417090(31)
 	v1 = 0
 	if v0 != nil && *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))))), 748)), 284)) != 0 {
 		v1 = 1
@@ -485,7 +485,7 @@ func nox_script_PlayerIsTrading_5166E0() int32 {
 		v0 *byte
 		v1 int32
 	)
-	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	v0 = nox_common_playerInfoFromNum_417090(31)
 	v1 = 0
 	if v0 != nil && *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))))), 748)), 280)) != 0 {
 		v1 = 1
@@ -501,7 +501,7 @@ func nox_script_MakeFriendly_516720() int32 {
 		v3 int32
 		v4 int32
 	)
-	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	v0 = nox_common_playerInfoFromNum_417090(31)
 	v1 = nox_script_pop()
 	v2 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))))
 	if v2 == 0 {
@@ -548,15 +548,15 @@ func nox_script_builtin_516790() int32 {
 	return 0
 }
 func nox_script_BecomePet_5167D0() int32 {
-	v0 := (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	v0 := nox_common_playerInfoFromNum_417090(31)
 	v1 := nox_script_pop()
 	v2 := unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))
 	if v2 == nil {
 		return 0
 	}
-	v3 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 4*514))
+	v3 := v0.PlayerUnit
 	if v3 != nil {
-		nox_xxx_unitBecomePet_4E7B00(v3, v2)
+		nox_xxx_unitBecomePet_4E7B00(unsafe.Pointer(v3), v2)
 	}
 	return 0
 }
@@ -567,7 +567,7 @@ func nox_script_BecomeEnemy_516810() int32 {
 		v2 *uint32
 		v3 int32
 	)
-	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	v0 = nox_common_playerInfoFromNum_417090(31)
 	v1 = nox_script_pop()
 	v2 = (*uint32)(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1)))
 	if v2 == nil {

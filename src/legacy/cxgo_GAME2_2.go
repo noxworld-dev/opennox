@@ -1743,7 +1743,7 @@ func nox_xxx_edgeDraw_480EF0(a1p noxrender.ImageHandle, a2 int32, a3 int32, a4 *
 			}
 		} else {
 			if v31 != nil && v30 != 0 {
-				alloc.Memcpy(unsafe.Pointer(v52), v31, uintptr(v30))
+				alloc.Memcpy(v52, v31, uintptr(v30))
 			}
 			for j = v43; j > 0; j -= int32(v58) {
 				v34 = int8(*v16)
@@ -1791,24 +1791,24 @@ func Nox_xxx_tileDraw_4815E0(a1 *Point32, a2 noxrender.ImageHandle, _ int32) {
 		v7 := *memmap.PtrUint32(0x973CE0, uintptr(i+192)) << uint32(*memmap.PtrUint8(0x973F18, 7696))
 		v8 := *memmap.PtrUint32(0x973CE0, uintptr(i+384)) << uint32(*memmap.PtrUint8(0x973F18, 7696))
 		if uintptr(v2)+uintptr(v7+v8) < uintptr(nox_video_tileBuf_end_3798844) {
-			alloc.Memcpy(unsafe.Add(v2, v7), unsafe.Pointer(v4), uintptr((v8>>2)*4))
+			alloc.Memcpy(unsafe.Add(v2, v7), v4, uintptr((v8>>2)*4))
 			v11 = (*byte)(unsafe.Add(v4, (v8>>2)*4))
 			v10 := unsafe.Add(v2, uint32(v7)+(v8>>2)*4)
 			v12 = int8(uint8(v8))
-			alloc.Memcpy(unsafe.Pointer(v10), unsafe.Pointer(v11), uintptr(int32(v12)&3))
+			alloc.Memcpy(v10, unsafe.Pointer(v11), uintptr(int32(v12)&3))
 		} else {
 			v9 := int32(int64(uintptr(v2))-int64(uintptr(nox_video_tileBuf_end_3798844))) - int32(v7)
 			if v9 > 0 {
-				alloc.Memcpy(unsafe.Add(v2, v7), unsafe.Pointer(v4), uintptr(v9))
+				alloc.Memcpy(unsafe.Add(v2, v7), v4, uintptr(v9))
 				alloc.Memcpy(nox_video_tileBuf_ptr_3798796, unsafe.Add(v14, v9), uintptr(v8-uint32(v9)))
 				v2 = unsafe.Add(v2, int64(uintptr(nox_video_tileBuf_ptr_3798796))-int64(uintptr(nox_video_tileBuf_end_3798844)))
 			} else {
 				v2 = unsafe.Add(v2, int64(uintptr(nox_video_tileBuf_ptr_3798796))-int64(uintptr(nox_video_tileBuf_end_3798844)))
-				alloc.Memcpy(unsafe.Add(v2, v7), unsafe.Pointer(v4), uintptr((v8>>2)*4))
+				alloc.Memcpy(unsafe.Add(v2, v7), v4, uintptr((v8>>2)*4))
 				v11 = (*byte)(unsafe.Add(v4, (v8>>2)*4))
 				v10 := unsafe.Add(v2, uint32(v7)+(v8>>2)*4)
 				v12 = int8(uint8(v8))
-				alloc.Memcpy(unsafe.Pointer(v10), unsafe.Pointer(v11), uintptr(int32(v12)&3))
+				alloc.Memcpy(v10, unsafe.Pointer(v11), uintptr(int32(v12)&3))
 			}
 		}
 		v2 = unsafe.Add(v2, dword_5d4594_3798804)
@@ -1946,21 +1946,21 @@ func Nox_xxx_drawTexEdgesProbably_481900(a1 *Point32, a2 unsafe.Pointer) {
 						v18 = int32(v29) << int32(*memmap.PtrUint8(0x973F18, 7696))
 						v17 = v15
 					} else {
-						alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v33), uintptr(v12)-uintptr(v15))
+						alloc.Memcpy(v15, unsafe.Pointer(v33), uintptr(v12)-uintptr(v15))
 						v17 = nox_video_tileBuf_ptr_3798796
 						v18 = int32(v16) - int32(int64(uintptr(v12))-int64(uintptr(v15)))
 						v19 = (*byte)(unsafe.Add(unsafe.Pointer(v33), int32(int64(uintptr(v12))-int64(uintptr(v15)))))
 					}
-					alloc.Memcpy(unsafe.Pointer(v17), unsafe.Pointer(v19), uintptr(v18))
+					alloc.Memcpy(v17, unsafe.Pointer(v19), uintptr(v18))
 					v12 = nox_video_tileBuf_end_3798844
 					v13 = v31
 					v33 = (*byte)(unsafe.Add(unsafe.Pointer(v33), v16))
 				case 3:
 					if uintptr(unsafe.Add(v15, v16)) < uintptr(v12) {
-						alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v14), uintptr(v16))
+						alloc.Memcpy(v15, v14, uintptr(v16))
 					} else {
 						v20 := int32(int64(uintptr(v12)) - int64(uintptr(v15)))
-						alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v14), uintptr(v20))
+						alloc.Memcpy(v15, v14, uintptr(v20))
 						v14 = v26
 						alloc.Memcpy(nox_video_tileBuf_ptr_3798796, unsafe.Add(v26, v20), uintptr(v16-v20))
 					}
@@ -5317,7 +5317,7 @@ func nox_xxx_wndEditDrawWithImage_488870(win *gui.Window, draw *gui.WindowData) 
 func sub_488B60() int32 {
 	v0 := alloc.Calloc1(1, 4)
 	if v0 != nil {
-		dword_5d4594_1193348 = unsafe.Pointer(v0)
+		dword_5d4594_1193348 = v0
 	} else {
 		dword_5d4594_1193348 = nil
 	}

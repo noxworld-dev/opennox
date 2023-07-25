@@ -16,7 +16,7 @@ func nox_xxx_monstersAllBelongToHost_4DB6A0() {
 		v4 int32
 		v5 int32
 	)
-	v0 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)))
+	v0 = nox_common_playerInfoFromNum_417090(31)
 	v1 = v0
 	if v0 != nil && *((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*514))) != 0 {
 		if *memmap.PtrUint32(0x5D4594, 1563124) == 0 {

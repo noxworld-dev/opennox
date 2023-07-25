@@ -135,7 +135,7 @@ func nox_xxx_createAtImpl_4191D0(a1 uint8, a2p unsafe.Pointer, a3 int32, a4 int3
 		return
 	}
 	for *((*uint32)(unsafe.Add(unsafe.Pointer(v18), 4*9))) != uint32(a4) {
-		result = (*byte)(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(v18)))))
+		result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(v18)))
 		v18 = result
 		if result == nil {
 			return

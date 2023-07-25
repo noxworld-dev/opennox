@@ -2165,7 +2165,7 @@ func sub_50D8D0() {
 				if *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 4792)) == 1 && *(*uint32)(unsafe.Add(v4, 312)) == 0 && nox_xxx_calcDistance_4E6C00((*server.Object)(v3), (*server.Object)(unsafe.Pointer(uintptr(*v0)))) < 700.0 {
 					v2 = 0
 				}
-				v3 = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v3)))))
+				v3 = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v3))
 			}
 			if v2 == 1 {
 				nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(*v0))))
@@ -2277,7 +2277,7 @@ func sub_50D960() int32 {
 				}
 			}
 		}
-		v0 = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v0)))))
+		v0 = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v0))
 		if v0 == 0 {
 			break
 		}
@@ -2484,7 +2484,7 @@ func sub_50DE80(a1 int32, a2 *float32) int32 {
 				}
 			}
 		}
-		v3 = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v3)))))
+		v3 = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v3))
 		if v3 == 0 {
 			return 1
 		}
@@ -4119,7 +4119,7 @@ func sub_511100(a1 int32) {
 		v13 float32
 	)
 	v1 = a1
-	v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoFromNum_417090(a1)))
+	v2 = nox_common_playerInfoFromNum_417090(a1)
 	v3 = int32(dword_5d4594_2386564)
 	v4 = float64(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*5)))
 	v9 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(float32(0))*908))) - v4)
@@ -4969,7 +4969,7 @@ func sub_516570() int32 {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 2064))) == 31 {
 				break
 			}
-			v1 = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v1)))))
+			v1 = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(v1))
 			if v1 == 0 {
 				break
 			}
