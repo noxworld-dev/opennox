@@ -339,7 +339,7 @@ func Sub_527E00(a1 *server.Object) {
 	sub_527E00(asObjectC(a1))
 }
 func Nox_xxx_action_4DA9F0(a1 *server.Object) {
-	nox_xxx_action_4DA9F0(asObjectC(a1))
+	nox_xxx_action_4DA9F0(a1)
 }
 func Nox_xxx_unitPostCreateNotify_4E7F10(a1 *server.Object) {
 	nox_xxx_unitPostCreateNotify_4E7F10(asObjectC(a1))

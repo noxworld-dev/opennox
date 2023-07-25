@@ -275,7 +275,9 @@ type Player struct {
 	Field2156           uint32 // 539, 2156
 	field2160           uint32 // 540, 2160
 	GoldVal             uint32 // 541, 2164
-	_                   [17]byte
+	Field2168           uint32 // 542, 2168
+	Field2172           byte   // 543, 2172
+	_                   [12]byte
 	info                [97]byte    // 2185
 	field2282           uint16      // 2282
 	CursorVec           image.Point // 2284

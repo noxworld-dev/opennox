@@ -902,7 +902,7 @@ func nox_server_mapRWDestructableWalls_429530(a1 unsafe.Pointer) int32 {
 			*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*5)) = *memmap.PtrUint16(0x5D4594, 741344)
 			*memmap.PtrUint32(0x5D4594, 741344)++
 			if !noxflags.HasGame(0x400000) {
-				nox_xxx_wallBreackableListAdd_410840(unsafe.Pointer(v2))
+				nox_xxx_wallBreackableListAdd_410840(v2)
 			}
 		}
 	}

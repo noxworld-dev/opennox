@@ -121,11 +121,11 @@ func Nox_client_getServerAddr_43B300() netip.Addr {
 	return int2ip(nox_client_getServerAddr_43B300())
 }
 
-func Nox_xxx_netSendLineMessage_4D9EB0(u *server.Object, s string) bool {
+func Nox_xxx_netSendLineMessage_4D9EB0(u *server.Object, s string) {
 	_ = noxnet.MSG_TEXT_MESSAGE
 	cstr, free := CWString(s)
 	defer free()
-	return nox_xxx_netSendLineMessage_4D9EB0(asObjectC(u), cstr) != 0
+	nox_xxx_netSendLineMessage_4D9EB0(asObjectC(u), cstr)
 }
 
 func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {

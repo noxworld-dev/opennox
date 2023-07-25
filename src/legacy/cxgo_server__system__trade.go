@@ -604,11 +604,11 @@ func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
 				sub_50E7A0(a2, v6)
 			}
 			nox_xxx_playerSubGold_4FA5D0(v3, v8)
-			sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v18, 276)), 2064))), v3)
+			sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v18, 276)), 2064))), (*server.Object)(v3))
 		}
 	}
 }
-func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float32) *float32 {
+func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float32) {
 	var (
 		result *float32
 		v6     *uint32
@@ -635,27 +635,28 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 	result = a4
 	v18 = 0
 	if a4 == nil {
-		return result
+		return
 	}
 	for {
 		v6 = (*uint32)(a2)
 		result = *(**float32)(unsafe.Add(a2, 20))
 		if result == nil {
-			return result
+			return
 		}
 		for int32(*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(result)), 4))) != a3 {
 			result = (*float32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2))))))
 			if result == nil {
-				return result
+				return
 			}
 		}
 		v7 = int32(*(*uint32)(unsafe.Pointer(result)))
 		if *(*uint32)(unsafe.Pointer(result)) == 0 {
-			return result
+			return
 		}
 		v8 = uint32(nox_xxx_shopGetItemCost_50E3D0(1, a2, *result))
 		if v8 > v19 {
-			return (*float32)(unsafe.Pointer(uintptr(sub_5104F0(v4, int16(uint16(v8-v19))))))
+			sub_5104F0(v4, int16(uint16(v8-v19)))
+			return
 		}
 		if int32(*(*uint8)(unsafe.Add(v7, 8)))&0x10 != 0 {
 			v9 = nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Add(v7, 4))))
@@ -666,7 +667,8 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 				return 3
 			}()) {
 				v14 = nox_strman_loadString_40F1D0(internCStr("pickup.c:MaxSameItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3108)
-				return (*float32)(unsafe.Pointer(uintptr(nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(v4), v14))))
+				nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(v4), v14)
+				return
 			}
 			v6 = (*uint32)(a2)
 		}
@@ -706,20 +708,19 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 			sub_50E7A0(v6, v7)
 		}
 		nox_xxx_playerSubGold_4FA5D0(v4, v8)
-		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v20, 276)), 2064))), v4)
+		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v20, 276)), 2064))), (*server.Object)(v4))
 		result = (*float32)(unsafe.Pointer(uintptr(func() uint32 {
 			p := &v18
 			*p++
 			return *p
 		}())))
 		if v18 >= uint32(uintptr(unsafe.Pointer(a4))) {
-			return result
+			return
 		}
 	}
 	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v4), internCStr("pickup.c:MaxTradableAnkhsReached"), 0)
 LABEL_36:
 	nox_xxx_aud_501960(925, (*server.Object)(v4), 0, 0)
-	return result
 }
 func sub_5109C0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 	var (
@@ -800,7 +801,7 @@ func sub_510BE0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v5))
 		v8 = nox_xxx_shopGetItemCost_50E3D0(0, a2, v5)
 		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), v8)
-		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), unsafe.Pointer(a1))
+		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), (*server.Object)(unsafe.Pointer(a1)))
 		nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 	}
 	return result

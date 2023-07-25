@@ -181,7 +181,7 @@ var dword_587000_93164 unsafe.Pointer
 var dword_5d4594_1098624 uint32
 var dword_5d4594_1569672 uint32
 var dword_5d4594_1197316 *gui.Window
-var dword_5d4594_2386576 uint32
+var dword_5d4594_2386576 *server.Object
 var dword_5d4594_1569756 uint32
 var dword_5d4594_1320968 *client.Drawable
 var dword_5d4594_2488604 unsafe.Pointer
@@ -214,7 +214,7 @@ var dword_5d4594_528252 uint32
 var dword_5d4594_1309828 *gui.Window
 var dword_587000_122852 unsafe.Pointer
 var dword_5d4594_1301776 unsafe.Pointer
-var dword_5d4594_251564 unsafe.Pointer
+var dword_5d4594_251564 *breakableWall
 var nox_xxx_screenWidth_587000_184452 uint32 = 0x32
 var dword_5d4594_1550916 *mapgenRoom
 var dword_5d4594_2487540 int32
@@ -525,7 +525,7 @@ var dword_587000_126996 uint32 = 0x1
 var dword_5d4594_2487568 uint32
 var dword_5d4594_1045540 *gui.Window
 var dword_5d4594_2487580 uint32
-var dword_5d4594_1556856 uint32
+var dword_5d4594_1556856 *server.Object
 var dword_5d4594_1046360 noxrender.ImageHandle
 var dword_5d4594_1049976 noxrender.ImageHandle
 var dword_5d4594_1193188 uint32

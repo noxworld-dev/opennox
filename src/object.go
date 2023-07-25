@@ -395,7 +395,7 @@ func (obj *Object) field(dp uintptr) unsafe.Pointer {
 }
 
 func (obj *Object) ID() string {
-	return alloc.GoString((*byte)(obj.IDPtr))
+	return alloc.GoString(obj.IDPtr)
 }
 
 func (obj *Object) Ind() int { // aka "extent"

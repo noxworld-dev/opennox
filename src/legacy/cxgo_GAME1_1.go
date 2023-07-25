@@ -679,7 +679,7 @@ func nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path *byte, pind int32) int32 {
 	}
 	*memmap.PtrUint16(0x5D4594, 527696) = uint16(nox_xxx_unitGetHP_4EE780(v3))
 	*memmap.PtrUint32(0x5D4594, 527696) = uint32(*memmap.PtrUint16(0x5D4594, 527696))
-	*memmap.PtrUint16(0x5D4594, 527700) = uint16(nox_xxx_unitGetOldMana_4EEC80(unsafe.Pointer(v3)))
+	*memmap.PtrUint16(0x5D4594, 527700) = uint16(nox_xxx_unitGetOldMana_4EEC80(v3))
 	*memmap.PtrUint32(0x5D4594, 527700) = uint32(*memmap.PtrUint16(0x5D4594, 527700))
 	sub_4EFF10(unsafe.Pointer(v3))
 	sub_419E10(unsafe.Pointer(v3), 1)
@@ -688,10 +688,10 @@ func nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path *byte, pind int32) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2b)), 4)
 		if a2b == 0 {
 			nox_xxx_cryptClose_4269F0()
-			sub_4EF140(unsafe.Pointer(v3))
-			var v10 uint16 = uint16(nox_xxx_unitGetMaxHP_4EE7A0(unsafe.Pointer(v3)))
+			sub_4EF140(v3)
+			var v10 uint16 = uint16(nox_xxx_unitGetMaxHP_4EE7A0(v3))
 			nox_xxx_unitDamageClear_4EE5E0(v3, int32(uint32(v10)-*memmap.PtrUint32(0x5D4594, 527696)))
-			var v11 uint16 = uint16(nox_xxx_playerGetMaxMana_4EECB0(unsafe.Pointer(v3)))
+			var v11 uint16 = uint16(nox_xxx_playerGetMaxMana_4EECB0(v3))
 			nox_xxx_playerManaSub_4EEBF0(unsafe.Pointer(v3), int32(uint32(v11)-*memmap.PtrUint32(0x5D4594, 527700)))
 			nox_xxx_playerHP_4EE730(unsafe.Pointer(v3))
 			sub_419E10(unsafe.Pointer(v3), 0)
@@ -963,18 +963,18 @@ func sub_41AA30(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		if result == nil {
 			return int32(uintptr(unsafe.Pointer(result)))
 		}
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_unitGetMaxHP_4EE7A0(unsafe.Pointer(v1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_unitGetMaxHP_4EE7A0(v1))
 		v6 = v4
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 2)
 		if nox_crypt_IsReadOnly() == 1 {
-			nox_xxx_unitSetMaxHP_4EE7C0(unsafe.Pointer(v1), int16(v6))
+			nox_xxx_unitSetMaxHP_4EE7C0(v1, int16(v6))
 			nox_xxx_unitSetHP_4E4560(v1, uint16(int16(v6)))
 		}
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_playerGetMaxMana_4EECB0(unsafe.Pointer(v1)))
+		*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*0)) = uint16(nox_xxx_playerGetMaxMana_4EECB0(v1))
 		v6 = v5
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 2)
 		if nox_crypt_IsReadOnly() == 1 {
-			nox_xxx_playerSetMaxMana_4EECD0(unsafe.Pointer(v1), int16(v6))
+			nox_xxx_playerSetMaxMana_4EECD0(v1, int16(v6))
 			nox_xxx_playerManaRefresh_4EECF0(unsafe.Pointer(v1))
 		}
 		*memmap.PtrUint32(0x5D4594, 527696) = uint32(v1.HealthData.Cur)
@@ -984,7 +984,7 @@ func sub_41AA30(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		*(*uint8)(unsafe.Pointer(&v8)) = v1.Field540
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 1)
 		if nox_crypt_IsReadOnly() == 1 {
-			nox_xxx_setSomePoisonData_4EEA90(unsafe.Pointer(v1), int32(uint8(int8(v8))))
+			nox_xxx_setSomePoisonData_4EEA90(v1, int32(uint8(int8(v8))))
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 541)), 1)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 542)), 2)
@@ -1049,7 +1049,7 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 		*memmap.PtrUint32(0x5D4594, 527704) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Glyph")))
 	}
 	if nox_crypt_IsReadOnly() == 1 {
-		sub_4EF140(unsafe.Pointer(a1))
+		sub_4EF140(a1)
 	}
 	v42 = 3
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v42)), 2)
@@ -1244,17 +1244,17 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 					if v8 > 0 {
 						v11 = (*int32)(unsafe.Pointer(v9))
 						for {
-							v12 := nox_xxx_equipedItemByCode_4F7920(unsafe.Pointer(a1), *v11)
+							v12 := nox_xxx_equipedItemByCode_4F7920(a1, *v11)
 							v13 := v12
 							if v12 == nil {
 								return 0
 							}
-							*(*uint8)(unsafe.Pointer(&v39)) = uint8(int8(libc.StrLen(nox_xxx_getUnitName_4E39D0((*server.Object)(v12)))))
+							*(*uint8)(unsafe.Pointer(&v39)) = uint8(int8(libc.StrLen(nox_xxx_getUnitName_4E39D0(v12))))
 							nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v39)), 1)
 							v33 = uint32(uint8(int8(v39)))
-							v14 = nox_xxx_getUnitName_4E39D0((*server.Object)(v13))
+							v14 = nox_xxx_getUnitName_4E39D0(v13)
 							nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v14, v33)
-							v13p := AsObjectP(v13)
+							v13p := AsObjectP(unsafe.Pointer(v13))
 							if v13p.Xfer.Get()(v13p, nil) == 0 {
 								return 0
 							}

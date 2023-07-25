@@ -470,7 +470,7 @@ type ScriptCallback struct {
 }
 
 type Object struct {
-	IDPtr         unsafe.Pointer                    // 0, 0
+	IDPtr         *byte                             // 0, 0
 	TypeInd       uint16                            // 1, 4
 	Field1_2      uint16                            // 1, 6
 	ObjClass      uint32                            // 2, 8
@@ -527,8 +527,8 @@ type Object struct {
 	DeletedAt     uint32                            // 114, 456
 	Field115      uint32                            // 115, 460
 	Field116      uint32                            // 116, 464
-	Field117      uint32                            // 117, 468
-	Field118      uint32                            // 118, 472
+	Field117      *Object                           // 117, 468
+	Field118      *Object                           // 118, 472
 	UpdatableNext *Object                           // 119, 476
 	UpdatablePrev *Object                           // 120, 480
 	IsUpdatable   uint32                            // 121, 484
@@ -625,7 +625,7 @@ func (obj *Object) ID() string {
 	if obj == nil {
 		return ""
 	}
-	return alloc.GoString((*byte)(obj.IDPtr))
+	return alloc.GoString(obj.IDPtr)
 }
 
 func (obj *Object) EqualID(id2 string) bool {

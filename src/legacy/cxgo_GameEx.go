@@ -157,20 +157,20 @@ func playerDropATrap(playerObj unsafe.Pointer) int8 {
 	}
 	for i := *(*unsafe.Pointer)(unsafe.Add(playerObj, 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(i, 0x1F0)) {
 		if int32(*(*uint8)(unsafe.Add(i, 0xA))) == int32(v7) {
-			nox_xxx_drop_4ED810(playerObj, i, &pos[0])
+			nox_xxx_drop_4ED810((*server.Object)(playerObj), i, &pos[0])
 			return 1
 		}
 	}
 	return v8
 }
-func OnLibraryNotice_420(arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer, arg4 uint32) {
+func OnLibraryNotice_420(arg1 *server.Object, arg2 uint32, arg3 unsafe.Pointer, arg4 uint32) {
 	var (
 		v23         = arg1
-		v19 int32   = int32(arg2)
-		v16 *uint32 = (*uint32)(unsafe.Pointer(uintptr(getPlayerClassFromObjPtr(arg1))))
+		v19         = arg2
+		v16 *uint32 = (*uint32)(unsafe.Pointer(uintptr(getPlayerClassFromObjPtr(unsafe.Pointer(arg1)))))
 	)
 	if int32(*(*uint8)(unsafe.Add(v19, 0xA))) != 17 {
-		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(v23), (*server.Object)(v19), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0(v23, (*server.Object)(v19), 1, 1)
 		return
 	}
 	var v17 int8 = int8(*(*uint8)(unsafe.Add(v19, 4)))
@@ -178,16 +178,16 @@ func OnLibraryNotice_420(arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer, 
 		if (int32(v17) == 0x6B || int32(v17) == 0x6D) && int32(uint8(uintptr(unsafe.Pointer(v16)))) != 0 {
 			goto ifIsWarrior
 		}
-		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(v23), (*server.Object)(v19), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0(v23, (*server.Object)(v19), 1, 1)
 		return
 	}
 	if int32(uint8(uintptr(unsafe.Pointer(v16)))) == 1 {
-		nox_xxx_inventoryServPlace_4F36F0((*server.Object)(v23), (*server.Object)(v19), 1, 1)
+		nox_xxx_inventoryServPlace_4F36F0(v23, (*server.Object)(v19), 1, 1)
 		return
 	}
 ifIsWarrior:
-	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v23), (*byte)(memmap.PtrOff(0x587000, 215732)), 0)
-	nox_xxx_aud_501960(925, (*server.Object)(v23), 2, int32(*(*uint32)(unsafe.Add(v23, 36))))
+	nox_xxx_netPriMsgToPlayer_4DA2C0(v23, (*byte)(memmap.PtrOff(0x587000, 215732)), 0)
+	nox_xxx_aud_501960(925, v23, 2, int32(v23.NetCode))
 }
 func getFlagValueFromFlagIndex(a1 int32) int32 {
 	var (

@@ -2454,7 +2454,7 @@ func sub_549690(a1 int32, a2 unsafe.Pointer) int32 {
 	if nox_common_randomInt_415FA0(1, 100) > *(*int32)(unsafe.Add(v2, 136)) {
 		return result
 	}
-	if nox_xxx_activatePoison_4EE7E0(a2, int32(*(*uint32)(unsafe.Add(v3, 140))), int32(*(*uint32)(unsafe.Add(v3, 144)))) != 0 {
+	if nox_xxx_activatePoison_4EE7E0((*server.Object)(a2), int32(*(*uint32)(unsafe.Add(v3, 140))), int32(*(*uint32)(unsafe.Add(v3, 144)))) != 0 {
 		result = 1
 	}
 	return result
@@ -4902,11 +4902,11 @@ LABEL_38:
 	v16 = nox_xxx_gamePlayIsAnyPlayers_40A8A0()
 	if v16 != 0 {
 		if noxflags.HasGame(256) {
-			nox_xxx_playerUpdateScore_54D980(unsafe.Pointer(v1), unsafe.Pointer(v24), v2, v6)
+			nox_xxx_playerUpdateScore_54D980(v1, v24, v2, v6)
 		} else if noxflags.HasGame(16) {
-			nox_xxx_playerHandleKotrDeath_54DC40(unsafe.Pointer(v1), unsafe.Pointer(v24))
+			nox_xxx_playerHandleKotrDeath_54DC40(v1, v24)
 		} else if noxflags.HasGame(1024) {
-			nox_xxx_playerHandleElimDeath_54D7A0(unsafe.Pointer(v1), unsafe.Pointer(v24))
+			nox_xxx_playerHandleElimDeath_54D7A0(v1, v24)
 		}
 	}
 	if noxflags.HasGame(1024) && int32(nox_xxx_servGamedataGet_40A020(1024)) != 0 && *(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2140)) >= uint32(int32(uint16(nox_xxx_servGamedataGet_40A020(1024)))) {
@@ -4955,7 +4955,7 @@ LABEL_38:
 		}
 	}
 }
-func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
+func nox_xxx_playerHandleElimDeath_54D7A0(a1 *server.Object, a2 *server.Object) {
 	var (
 		v3 int32
 		v4 *byte
@@ -4968,21 +4968,21 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 	v3 = 0
 	v4 = nil
 	v8 = nil
-	v6 := unsafe.Add(a1, 48)
-	v9 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	v6 := unsafe.Add(unsafe.Pointer(a1), 48)
+	v9 = int32(a1.UpdateData)
 	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(v6)) != 0 {
-		v8 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(v2, 52))))))
+		v8 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v2.TeamVal.ID))))
 	}
 	if a2 != nil {
-		v3 = int32(*(*uint32)(unsafe.Add(a2, 748)))
-		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))) != 0 {
-			v4 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a2, 52))))))
+		v3 = int32(a2.UpdateData)
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a2), 48))) != 0 {
+			v4 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(a2.TeamVal.ID))))
 		}
 	}
 	if a2 == v2 {
 		nox_xxx_playerSubLessons_4D8EC0(v2, 1)
-		nox_xxx_playerIncrementElimDeath_4D8D40(v2)
-		nox_xxx_netReportLesson_4D8EF0((*server.Object)(v2))
+		nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v2))
+		nox_xxx_netReportLesson_4D8EF0(v2)
 		if v8 != nil {
 			nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v8), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*13)))+1))
 		}
@@ -4994,11 +4994,11 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 		return
 	}
 	if a2 != nil {
-		if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
 			if v4 != nil {
 				if v4 == v8 {
 					nox_xxx_playerSubLessons_4D8EC0(a2, 1)
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+					nox_xxx_netReportLesson_4D8EF0(a2)
 					if dword_5d4594_2650652 != nil && v3 != 0 {
 						sub_425CA0(int32(*(*uint32)(unsafe.Add(v3, 276))), int32(*(*uint32)(unsafe.Add(v3, 276))))
 					}
@@ -5006,14 +5006,14 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 				}
 			} else if v8 == nil {
 				nox_xxx_changeScore_4D8E90(a2, 1)
-				nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+				nox_xxx_netReportLesson_4D8EF0(a2)
 				if dword_5d4594_2650652 != nil && v3 != 0 && v9 != 0 {
 					sub_425CA0(int32(*(*uint32)(unsafe.Add(v3, 276))), int32(*(*uint32)(unsafe.Add(v9, 276))))
 				}
 				goto LABEL_32
 			}
 			nox_xxx_changeScore_4D8E90(a2, 1)
-			nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+			nox_xxx_netReportLesson_4D8EF0(a2)
 			if dword_5d4594_2650652 != nil {
 				if v3 != 0 && v9 != 0 {
 					v5 = int32(*(*uint32)(unsafe.Add(v3, 276)))
@@ -5029,13 +5029,13 @@ func nox_xxx_playerHandleElimDeath_54D7A0(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 		sub_425CA0(v5, v7)
 	}
 LABEL_32:
-	nox_xxx_playerIncrementElimDeath_4D8D40(v2)
-	nox_xxx_netReportLesson_4D8EF0((*server.Object)(v2))
+	nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v2))
+	nox_xxx_netReportLesson_4D8EF0(v2)
 	if v8 != nil {
 		nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v8), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*13)))+1))
 	}
 }
-func nox_xxx_playerUpdateScore_54D980(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 unsafe.Pointer, a4 int32) {
+func nox_xxx_playerUpdateScore_54D980(a1 *server.Object, a2 *server.Object, a3 unsafe.Pointer, a4 int32) {
 	var (
 		v5  *byte
 		v6  int32
@@ -5051,19 +5051,19 @@ func nox_xxx_playerUpdateScore_54D980(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 u
 	)
 	v4 := a1
 	v5 = nil
-	v12 := unsafe.Add(a1, 48)
+	v12 := unsafe.Add(unsafe.Pointer(a1), 48)
 	v14 = nil
 	v15 = nil
-	v17 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	v17 = int32(a1.UpdateData)
 	v6 = 0
 	v16 = nil
 	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(v12)) != 0 {
-		v14 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(v4, 52))))))
+		v14 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v4.TeamVal.ID))))
 	}
 	if a2 != nil {
-		v6 = int32(*(*uint32)(unsafe.Add(a2, 748)))
-		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))) != 0 {
-			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a2, 52))))))
+		v6 = int32(a2.UpdateData)
+		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a2), 48))) != 0 {
+			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(a2.TeamVal.ID))))
 		}
 	}
 	if a4 != 0 {
@@ -5078,68 +5078,68 @@ func nox_xxx_playerUpdateScore_54D980(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 u
 		goto LABEL_31
 	}
 	if a2 != nil {
-		if (int32(*(*uint8)(unsafe.Add(a2, 8))) & 4) == 0 {
-			nox_xxx_playerIncrementElimDeath_4D8D40(v4)
-			result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8))) & 4) == 0 {
+			nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v4))
+			result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0(v4))))
 			v9 = v14
 			goto LABEL_36
 		}
 		if v5 != nil {
 			if v5 == v14 {
 				nox_xxx_playerSubLessons_4D8EC0(a2, 1)
-				nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+				nox_xxx_netReportLesson_4D8EF0(a2)
 				nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v5), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*13)))-1))
 				if dword_5d4594_2650652 == nil || v6 == 0 {
-					nox_xxx_playerIncrementElimDeath_4D8D40(v4)
-					result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
+					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v4))
+					result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0(v4))))
 					v9 = v14
 					goto LABEL_36
 				}
 				v7 = int32(*(*uint32)(unsafe.Add(v6, 276)))
 				v13 = int32(*(*uint32)(unsafe.Add(v6, 276)))
 				sub_425CA0(v7, v13)
-				nox_xxx_playerIncrementElimDeath_4D8D40(v4)
-				result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
+				nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v4))
+				result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0(v4))))
 				v9 = v14
 				goto LABEL_36
 			}
 		} else if v14 == nil {
 			nox_xxx_changeScore_4D8E90(a2, 1)
-			nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+			nox_xxx_netReportLesson_4D8EF0(a2)
 			if dword_5d4594_2650652 == nil || v6 == 0 || v17 == 0 {
-				nox_xxx_playerIncrementElimDeath_4D8D40(v4)
-				result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
+				nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v4))
+				result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0(v4))))
 				v9 = v14
 				goto LABEL_36
 			}
 			v7 = int32(*(*uint32)(unsafe.Add(v6, 276)))
 			v13 = int32(*(*uint32)(unsafe.Add(v17, 276)))
 			sub_425CA0(v7, v13)
-			nox_xxx_playerIncrementElimDeath_4D8D40(v4)
-			result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
+			nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v4))
+			result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0(v4))))
 			v9 = v14
 			goto LABEL_36
 		}
 		nox_xxx_changeScore_4D8E90(a2, 1)
-		nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+		nox_xxx_netReportLesson_4D8EF0(a2)
 		nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v5), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*13)))+1))
 		if dword_5d4594_2650652 != nil && v6 != 0 && v17 != 0 {
 			sub_425CA0(int32(*(*uint32)(unsafe.Add(v6, 276))), int32(*(*uint32)(unsafe.Add(v17, 276))))
 		}
-		nox_xxx_playerIncrementElimDeath_4D8D40(v4)
-		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
+		nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v4))
+		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0(v4))))
 		v9 = v14
 		goto LABEL_36
 	}
 	if a3 != nil {
-		nox_xxx_playerIncrementElimDeath_4D8D40(v4)
-		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4)))))
+		nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(v4))
+		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_netReportLesson_4D8EF0(v4))))
 		v9 = v14
 		goto LABEL_36
 	}
 LABEL_31:
 	nox_xxx_playerSubLessons_4D8EC0(v4, 1)
-	nox_xxx_netReportLesson_4D8EF0((*server.Object)(v4))
+	nox_xxx_netReportLesson_4D8EF0(v4)
 	v9 = v14
 	if v14 != nil {
 		nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v14), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*13)))-1))
@@ -5168,7 +5168,7 @@ LABEL_36:
 		}
 	}
 	if v10 != nil {
-		nox_xxx_changeScore_4D8E90(a3, 1)
+		nox_xxx_changeScore_4D8E90((*server.Object)(a3), 1)
 		nox_xxx_netReportLesson_4D8EF0((*server.Object)(a3))
 		if v10 != nil {
 			nox_xxx_netChangeTeamID_419090(v10, int32(*(*uint32)(unsafe.Add(v10, 52))+1))
@@ -5187,7 +5187,7 @@ LABEL_36:
 		return
 	}
 LABEL_44:
-	nox_xxx_changeScore_4D8E90(a3, 1)
+	nox_xxx_changeScore_4D8E90((*server.Object)(a3), 1)
 	nox_xxx_netReportLesson_4D8EF0((*server.Object)(a3))
 	if dword_5d4594_2650652 != nil {
 		result := v16
@@ -5200,7 +5200,7 @@ LABEL_44:
 		}
 	}
 }
-func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) {
+func nox_xxx_playerHandleKotrDeath_54DC40(a1 *server.Object, a2 *server.Object) {
 	var (
 		v2     *byte
 		v3     *byte
@@ -5220,42 +5220,42 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 	)
 	v2 = nil
 	v3 = nil
-	v16 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a1, 48))))))
+	v16 = int32(a1.UpdateData)
+	result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a1), 48))))))
 	if result != nil {
-		result = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a1, 52))))))
+		result = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(a1.TeamVal.ID))))
 		v3 = result
 	}
 	if a2 != nil {
-		v5 = int32(*(*uint32)(unsafe.Add(a2, 748)))
-		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a2, 48))))))
+		v5 = int32(a2.UpdateData)
+		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a2), 48))))))
 		if result != nil {
-			result = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a2, 52))))))
+			result = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(a2.TeamVal.ID))))
 			v2 = result
 		}
-		if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
 			if a2 == a1 || v3 == v2 && v3 != nil {
-				if nox_xxx_unitIsCrown_4E7BE0(a2) == 0 {
-					nox_xxx_playerIncrementElimDeath_4D8D40(a1)
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))
+				if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) == 0 {
+					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))
+					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
 				}
 				nox_xxx_playerSubLessons_4D8EC0(a2, 1)
-				nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+				nox_xxx_netReportLesson_4D8EF0(a2)
 				if v2 != nil {
 					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v2), int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13)))-1))
 				}
 				if dword_5d4594_2650652 == nil || v5 == 0 {
-					nox_xxx_playerIncrementElimDeath_4D8D40(a1)
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))
+					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))
+					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
 				}
 				v9 = int32(*(*uint32)(unsafe.Add(v5, 276)))
 				v14 = int32(*(*uint32)(unsafe.Add(v5, 276)))
 			} else {
 				if v2 == nil || v2 == v3 {
-					if nox_xxx_unitIsCrown_4E7BE0(a2) != 0 || nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
-						if nox_xxx_unitIsCrown_4E7BE0(a2) != 0 {
+					if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) != 0 || nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) != 0 {
+						if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) != 0 {
 							v10 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRKingKillsPawnPoints"))
 						} else {
 							v10 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRPawnKillsKingPoints"))
@@ -5263,20 +5263,20 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 						v15 = float32(v10)
 						v11 = int32(v15)
 						nox_xxx_changeScore_4D8E90(a2, v11)
-						nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+						nox_xxx_netReportLesson_4D8EF0(a2)
 						if dword_5d4594_2650652 != nil && v5 != 0 && v16 != 0 {
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(v5, 276))), int32(*(*uint32)(unsafe.Add(v16, 276))))
 						}
-						if !nox_xxx_CheckGameplayFlags_417DA0(4) && nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
-							sub_4ED050(a1, a2)
+						if !nox_xxx_CheckGameplayFlags_417DA0(4) && nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) != 0 {
+							sub_4ED050(unsafe.Pointer(a1), unsafe.Pointer(a2))
 						}
 					}
-					nox_xxx_playerIncrementElimDeath_4D8D40(a1)
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))
+					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))
+					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
 				}
-				if nox_xxx_unitIsCrown_4E7BE0(a2) != 0 {
-					if nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
+				if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) != 0 {
+					if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) != 0 {
 						v6 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRKingKillsKingPoints"))
 					} else {
 						v6 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRKingKillsPawnPoints"))
@@ -5285,34 +5285,34 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 unsafe.Pointer, a2 unsafe.Pointer) 
 					v7 = int32(v12)
 					nox_xxx_changeScore_4D8E90(a2, v7)
 					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v2), int32(uint32(v7)+*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13)))))
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+					nox_xxx_netReportLesson_4D8EF0(a2)
 					if dword_5d4594_2650652 != nil && v5 != 0 {
 						if v16 != 0 {
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(v5, 276))), int32(*(*uint32)(unsafe.Add(v16, 276))))
 						}
 					}
-					nox_xxx_playerIncrementElimDeath_4D8D40(a1)
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))
+					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))
+					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
 				}
-				if nox_xxx_unitIsCrown_4E7BE0(a1) == 0 || (func() bool {
+				if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) == 0 || (func() bool {
 					v13 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("KotRPawnKillsKingPoints")))
 					v8 = int32(v13)
 					nox_xxx_changeScore_4D8E90(a2, v8)
 					nox_xxx_netChangeTeamID_419090(unsafe.Pointer(v2), int32(uint32(v8)+*((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*13)))))
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a2))
+					nox_xxx_netReportLesson_4D8EF0(a2)
 					return dword_5d4594_2650652 == nil
 				}()) || v5 == 0 || v16 == 0 {
-					nox_xxx_playerIncrementElimDeath_4D8D40(a1)
-					nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))
+					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))
+					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
 				}
 				v9 = int32(*(*uint32)(unsafe.Add(v5, 276)))
 				v14 = int32(*(*uint32)(unsafe.Add(v16, 276)))
 			}
 			sub_425CA0(v9, v14)
-			nox_xxx_playerIncrementElimDeath_4D8D40(a1)
-			nox_xxx_netReportLesson_4D8EF0((*server.Object)(a1))
+			nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))
+			nox_xxx_netReportLesson_4D8EF0(a1)
 			return
 		}
 	}
