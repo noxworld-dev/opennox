@@ -227,8 +227,10 @@ func (proc *Processor) shouldUnwrapCasts(x ast.Expr) bool {
 			"nox_common_playerInfoGetFirst_416EA0",
 			"nox_common_playerInfoGetNext_416EE0",
 			"nox_common_playerInfoFromNum_417090",
+			"nox_xxx_findParentChainPlayer_4EC580",
 			"nox_server_getFirstObject_4DA790",
 			"nox_server_getNextObject_4DA7A0",
+			"nox_xxx_newObjectByTypeID_4E3810",
 			"nox_server_teamByXxx_418AE0",
 			"nox_server_teamFirst_418B10":
 			return true
