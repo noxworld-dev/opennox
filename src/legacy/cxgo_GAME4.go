@@ -5042,7 +5042,7 @@ func Nox_xxx_summonCancel_5011C0(sp *server.DurSpell) int32 {
 	return 0
 }
 func Nox_xxx_charmCreature1_5011F0(sp *server.DurSpell) int32 {
-	a1 := (*int32)(sp.C())
+	a1 := sp
 	var (
 		v1  int16
 		v3  int32
@@ -5060,69 +5060,69 @@ func Nox_xxx_charmCreature1_5011F0(sp *server.DurSpell) int32 {
 		v15 int32
 		v16 float32
 	)
-	if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) != 0 {
+	if a1.Flag20 != 0 {
 		v14 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ConfuseEnchantDuration")))
 		v1 = int16(int32(v14))
-		nox_xxx_buffApplyTo_4FF380((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))), 3, v1, int8(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2))))
-		sub_4E7540((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
+		nox_xxx_buffApplyTo_4FF380(a1.Obj48, 3, v1, int8(a1.Level))
+		sub_4E7540(a1.Obj16, a1.Obj48)
 		return 1
 	}
-	v15 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
-	v3 = int32(nox_xxx_spellFlags_424A70(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))))
-	v4 = int32(uintptr(unsafe.Pointer(nox_xxx_spellFlySearchTarget_540610((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 4*13)), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), v3, 300.0, 0, (*server.Object)(v15)))))
-	*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)) = v4
+	v15 = a1.Obj16
+	v3 = int32(nox_xxx_spellFlags_424A70(int32(a1.Spell)))
+	v4 = int32(uintptr(unsafe.Pointer(nox_xxx_spellFlySearchTarget_540610((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 4*13)), a1.Obj16, v3, 300.0, 0, (*server.Object)(v15)))))
+	a1.Obj48 = v4
 	if v4 == 0 {
-		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), internCStr("Summon.c:CharmNoCreatureCloseEnough"), 0)
-		nox_xxx_aud_501960(16, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), 0, 0)
+		nox_xxx_netPriMsgToPlayer_4DA2C0(a1.Obj16, internCStr("Summon.c:CharmNoCreatureCloseEnough"), 0)
+		nox_xxx_aud_501960(16, a1.Obj16, 0, 0)
 		return 1
 	}
-	if int32(*(*uint8)(unsafe.Add(v4, 8)))&2 != 0 && nox_xxx_creatureIsMonitored_500CC0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), (*server.Object)(v4)) == 0 {
-		v5 = nox_xxx_creatureIsCharmableByTT_4272B0(int32(*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 4))))
-		v6 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
+	if int32(*(*uint8)(unsafe.Add(v4, 8)))&2 != 0 && nox_xxx_creatureIsMonitored_500CC0(a1.Obj16, (*server.Object)(v4)) == 0 {
+		v5 = nox_xxx_creatureIsCharmableByTT_4272B0(int32(a1.Obj48.TypeInd))
+		v6 = a1.Obj16
 		if int32(*(*uint8)(unsafe.Add(v6, 8)))&4 != 0 && nox_cheat_charmall == 0 {
 			if v5 == 0 {
 				nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v6), internCStr("Summon.c:CreatureNotCharmable"), 0)
-				v12 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
-				*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)) = 0
+				v12 = a1.Obj16
+				a1.Obj48 = nil
 				nox_xxx_aud_501960(16, (*server.Object)(v12), 0, 0)
 				return 1
 			}
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v6, 748)), 276))+uint32(v5*4))), 4244)) == 0 {
-				*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)) = 0
+				a1.Obj48 = nil
 				nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v6), internCStr("Summon.c:NeedGuideToCharm"), 0)
-				nox_xxx_aud_501960(16, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), 0, 0)
+				nox_xxx_aud_501960(16, a1.Obj16, 0, 0)
 				return 1
 			}
 		}
 		v7 = int32(nox_xxx_guideGetUnitSize_427460(v5)) - 1
 		if v7 <= 0 {
-			v9 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("CharmSmallDuration"), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2))-1)
+			v9 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("CharmSmallDuration"), int32(a1.Level-1))
 		} else if v7 == 1 {
-			v9 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("CharmMediumDuration"), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2))-1)
+			v9 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("CharmMediumDuration"), int32(a1.Level-1))
 		} else {
 			v8 = v7 - 1
 			if v8 != 2 {
 				v10 = a1
 				goto LABEL_20
 			}
-			v9 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("CharmLargeDuration"), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2))-1)
+			v9 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("CharmLargeDuration"), int32(a1.Level-1))
 		}
 		v16 = float32(v9)
 		v10 = (*int32)(unsafe.Pointer(uintptr(int32(v16))))
 	LABEL_20:
-		v11 = *(**server.Object)(unsafe.Add(unsafe.Pointer(a1), 4*12))
-		*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = int32(uint32(int32(uintptr(unsafe.Pointer(v10)))) + gameFrame())
+		v11 = a1.Obj48
+		a1.Frame68 = uint32(int32(uintptr(unsafe.Pointer(v10)))) + gameFrame()
 		nox_xxx_buffApplyTo_4FF380(v11, 28, int16(int32(uint16(uintptr(unsafe.Pointer(v10))))+1), 5)
 		nox_xxx_netStartDurationRaySpell_4FF130(unsafe.Pointer(a1))
 		return 0
 	}
-	v13 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
-	*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)) = 0
+	v13 = a1.Obj16
+	a1.Obj48 = nil
 	nox_xxx_aud_501960(16, (*server.Object)(v13), 0, 0)
 	return 1
 }
 func Nox_xxx_charmCreatureFinish_5013E0(sp *server.DurSpell) int32 {
-	a1 := (*int32)(sp.C())
+	a1 := sp
 	var (
 		v1  int32
 		v2  int32
@@ -5147,96 +5147,96 @@ func Nox_xxx_charmCreatureFinish_5013E0(sp *server.DurSpell) int32 {
 		v22 int32
 		v23 int32
 	)
-	v1 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
+	v1 = a1.Obj48
 	if v1 == 0 || *(*uint32)(unsafe.Add(v1, 16))&0x8020 != 0 {
-		nox_xxx_aud_501960(16, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), 0, 0)
+		nox_xxx_aud_501960(16, a1.Obj16, 0, 0)
 		return 1
 	}
-	if nox_xxx_calcDistance_4E6C00((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)))) > 300.0 {
-		v2 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
+	if nox_xxx_calcDistance_4E6C00(a1.Obj16, a1.Obj48) > 300.0 {
+		v2 = a1.Obj16
 		if int32(*(*uint8)(unsafe.Add(v2, 8)))&4 != 0 {
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v2), internCStr("Summon.c:CharmBrokenDistance"), 0)
 		}
-		nox_xxx_aud_501960(16, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), 0, 0)
+		nox_xxx_aud_501960(16, a1.Obj16, 0, 0)
 		return 1
 	}
-	if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*17))-1) != gameFrame() {
+	if uint32(a1.Frame68-1) != gameFrame() {
 		return 0
 	}
-	v4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
+	v4 = a1.Obj48
 	v5 = int32(*(*uint32)(unsafe.Add(v4, 12)))
 	if nox_cheat_charmall == 0 {
 		if v5&0x2000 != 0 {
-			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), internCStr("Summon.c:CreatureControlImpossible"), 0)
-			nox_xxx_aud_501960(16, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), 0, 0)
+			nox_xxx_netPriMsgToPlayer_4DA2C0(a1.Obj16, internCStr("Summon.c:CreatureControlImpossible"), 0)
+			nox_xxx_aud_501960(16, a1.Obj16, 0, 0)
 			return 1
 		}
-		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4)), 8)))&4 != 0 {
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1.Obj16), 8)))&4 != 0 {
 			v6 = nox_xxx_creatureIsCharmableByTT_4272B0(int32(*(*uint16)(unsafe.Add(v4, 4))))
-			v7 = uint8(int8(bool2int32(nox_xxx_checkSummonedCreaturesLimit_500D70((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), v6))))
+			v7 = uint8(int8(bool2int32(nox_xxx_checkSummonedCreaturesLimit_500D70(a1.Obj16, v6))))
 			if int32(v7) == 0 {
-				nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), internCStr("Summon.c:CreatureControlFailed"), 0)
-				nox_xxx_aud_501960(16, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), 0, 0)
+				nox_xxx_netPriMsgToPlayer_4DA2C0(a1.Obj16, internCStr("Summon.c:CreatureControlFailed"), 0)
+				nox_xxx_aud_501960(16, a1.Obj16, 0, 0)
 				return 1
 			}
 		}
 	}
-	nox_xxx_spellBuffOff_4FF5B0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))), 28)
-	v8 = nox_xxx_findParentChainPlayer_4EC580((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
-	v9 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
+	nox_xxx_spellBuffOff_4FF5B0(a1.Obj48, 28)
+	v8 = nox_xxx_findParentChainPlayer_4EC580(a1.Obj48)
+	v9 = a1.Obj16
 	if v8 == v9 {
 		if int32(*(*uint8)(unsafe.Add(v9, 8)))&4 != 0 {
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v9), internCStr("Summon.c:CreatureAlreadyOwned"), 0)
 		}
-		nox_xxx_aud_501960(16, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), 0, 0)
+		nox_xxx_aud_501960(16, a1.Obj16, 0, 0)
 		return 1
 	}
-	nox_xxx_unitClearOwner_4EC300((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
-	nox_xxx_unitSetOwner_4EC290((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
-	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 48))) != 0 {
-		nox_xxx_netChangeTeamMb_419570(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 48), int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 36))))
+	nox_xxx_unitClearOwner_4EC300(a1.Obj48)
+	nox_xxx_unitSetOwner_4EC290(a1.Obj16, a1.Obj48)
+	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a1.Obj48), 48))) != 0 {
+		nox_xxx_netChangeTeamMb_419570(unsafe.Add(unsafe.Pointer(a1.Obj48), 48), int32(a1.Obj48.NetCode))
 	}
-	v10 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 748)))
+	v10 = int32(a1.Obj48.UpdateData)
 	v11 = int32(*(*uint32)(unsafe.Add(v10, 1440)))
 	*(*uint8)(unsafe.Pointer(&v11)) = uint8(int8(v11 | 0x80))
 	*(*uint32)(unsafe.Add(v10, 1440)) = uint32(v11)
 	if noxflags.HasGame(4096) {
-		v12 = int32(uintptr(nox_xxx_objectTypeByIndHealthData(int32(*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 4))))))
-		v13 = uint16(nox_xxx_unitGetHP_4EE780((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)))))
+		v12 = int32(uintptr(nox_xxx_objectTypeByIndHealthData(int32(a1.Obj48.TypeInd))))
+		v13 = uint16(nox_xxx_unitGetHP_4EE780(a1.Obj48))
 		v14 = int32(*(*uint32)(unsafe.Add(v10, 484)))
 		if v14 != 0 {
 			v15 = *(*uint16)(unsafe.Add(v14, 72))
 		} else {
 			v15 = *(*uint16)(unsafe.Add(v12, 4))
 		}
-		*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)), 556)), 4)) = v15
+		a1.Obj48.HealthData.Max = v15
 		if int32(v13) > int32(v15) {
-			nox_xxx_unitSetHP_4E4560((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))), v15)
+			nox_xxx_unitSetHP_4E4560(a1.Obj48, v15)
 		}
 	}
-	v16 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
+	v16 = a1.Obj16
 	if int32(*(*uint8)(unsafe.Add(v16, 8)))&4 != 0 {
 		v17 = int32(*(*uint32)(unsafe.Add(v16, 748)))
-		nox_xxx_orderUnit_533900((*server.Object)(v16), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))), int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 3648))))
-		v18 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
+		nox_xxx_orderUnit_533900((*server.Object)(v16), a1.Obj48, int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 3648))))
+		v18 = a1.Obj48
 		v19 = int32(*(*uint32)(unsafe.Add(v18, 12)))
 		*(*uint8)(unsafe.Pointer(&v19)) = uint8(int8(v19 | 0x80))
 		*(*uint32)(unsafe.Add(v18, 12)) = uint32(v19)
-		v20 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
+		v20 = a1.Obj48
 		v21 = int32(*(*uint32)(unsafe.Add(v20, 12)))
 		*(*uint8)(unsafe.Add(unsafe.Pointer(&v21), 1)) |= 1
 		*(*uint32)(unsafe.Add(v20, 12)) = uint32(v21)
-		nox_xxx_netReportAcquireCreature_4D91A0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 2064))), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
-		nox_xxx_netMarkMinimapObject_417190(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 2064))), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))), 1)
-		nox_xxx_netSendSimpleObject2_4DF360(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 2064))), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))))
+		nox_xxx_netReportAcquireCreature_4D91A0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 2064))), a1.Obj48)
+		nox_xxx_netMarkMinimapObject_417190(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 2064))), a1.Obj48, 1)
+		nox_xxx_netSendSimpleObject2_4DF360(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v17, 276)), 2064))), a1.Obj48)
 		if noxflags.HasGame(4096) {
-			sub_50E140(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12)))
+			sub_50E140(unsafe.Pointer(a1.Obj48))
 		}
 	} else {
-		nox_xxx_orderUnit_533900((*server.Object)(v16), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))), 4)
+		nox_xxx_orderUnit_533900((*server.Object)(v16), a1.Obj48, 4)
 	}
-	v23 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
-	v22 = nox_xxx_spellGetAud44_424800(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)), 1)
+	v23 = a1.Obj16
+	v22 = nox_xxx_spellGetAud44_424800(int32(a1.Spell), 1)
 	nox_xxx_aud_501960(v22, (*server.Object)(v23), 0, 0)
 	return 1
 }

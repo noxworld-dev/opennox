@@ -222,7 +222,7 @@ var dword_587000_81128 unsafe.Pointer
 var dword_5d4594_3798800 int32
 var dword_5d4594_3798812 uint32
 var dword_5d4594_1046952 *gui.Window
-var dword_5d4594_832536 unsafe.Pointer
+var dword_5d4594_832536 *client.Drawable
 var dword_587000_87408 uint32 = 0x1
 var dword_5d4594_814988 uint32
 var dword_5d4594_2487560 *mapgenRoom
@@ -250,14 +250,14 @@ var dword_5d4594_2386160 uint32
 var dword_5d4594_1193712 *gui.Window
 var dword_5d4594_1319232 *gui.Window
 var dword_5d4594_1046656 int32
-var dword_5d4594_832532 unsafe.Pointer
+var dword_5d4594_832532 *client.Drawable
 var dword_5d4594_2650680 uint32
 var dword_5d4594_588120 unsafe.Pointer
 var dword_5d4594_1047512 int32
 var dword_5d4594_588084 unsafe.Pointer
 var dword_5d4594_1321044 *gui.Window
 var dword_5d4594_816372 uint32
-var dword_5d4594_832492 unsafe.Pointer
+var dword_5d4594_832492 *client.Drawable
 var dword_5d4594_1046504 *gui.Window
 var dword_5d4594_1045508 *gui.Window
 var dword_5d4594_825744 *gui.Window
@@ -267,9 +267,9 @@ var dword_5d4594_1046928 *ImageRef
 var dword_5d4594_1098580 *gui.Window
 var dword_5d4594_831224 uint32
 var nox_xxx_energyBoltTarget_5d4594_2487880 uint32
-var dword_5d4594_832504 unsafe.Pointer
+var dword_5d4594_832504 *client.Drawable
 var dword_5d4594_1203864 unsafe.Pointer
-var dword_5d4594_832508 unsafe.Pointer
+var dword_5d4594_832508 *client.Drawable
 var dword_5d4594_1090100 unsafe.Pointer
 var dword_5d4594_3835356 uint32
 var nox_client_renderBubbles_80844 uint32 = 0x1
@@ -277,16 +277,16 @@ var dword_5d4594_814996 unsafe.Pointer
 var dword_5d4594_1049532 *gui.Window
 var nox_alloc_chat_1197364 unsafe.Pointer
 var dword_5d4594_1046520 *gui.Window
-var dword_5d4594_832516 unsafe.Pointer
+var dword_5d4594_832516 *client.Drawable
 var nox_xxx_aNox_cfg_0_587000_132136 int32 = -1
-var dword_5d4594_832496 unsafe.Pointer
-var dword_5d4594_832512 unsafe.Pointer
-var dword_5d4594_832524 unsafe.Pointer
+var dword_5d4594_832496 *client.Drawable
+var dword_5d4594_832512 *client.Drawable
+var dword_5d4594_832524 *client.Drawable
 var dword_5d4594_823776 uint32
 var dword_5d4594_1045688 *gui.Window
-var dword_5d4594_832528 unsafe.Pointer
-var dword_5d4594_832500 unsafe.Pointer
-var dword_5d4594_832520 unsafe.Pointer
+var dword_5d4594_832528 *client.Drawable
+var dword_5d4594_832500 *client.Drawable
+var dword_5d4594_832520 *client.Drawable
 var dword_5d4594_1046636 int32
 var dword_5d4594_1046500 uint32
 var dword_587000_136184 uint32 = 0xFFFFFF1F

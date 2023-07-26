@@ -851,9 +851,10 @@ func sub_478C80() int32 {
 			v4 = 6
 			for {
 				if *(*uint32)(unsafe.Pointer(v2)) != 0 {
-					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1))))), 12)) = uint32(v3 + 20)
-					*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1))))), 16)) = uint32(v1 + 25)
-					ccall.AsFunc[client.ObjectDrawFunc](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1))))), 300)))((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1098492)), *(**client.Drawable)(unsafe.Add(unsafe.Pointer(v2), -int(4*1))))
+					dr := *(**client.Drawable)(unsafe.Add(unsafe.Pointer(v2), -int(4*1)))
+					dr.PosVec.X = int(uint32(v3 + 20))
+					dr.PosVec.Y = int(uint32(v1 + 25))
+					dr.DrawFunc.Get()((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1098492)), dr)
 					if v8 < *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*33)) {
 						nox_client_drawRectFilledAlpha_49CF10(v3-5, v1, 50, 50)
 					}

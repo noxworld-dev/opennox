@@ -6269,7 +6269,7 @@ func nox_xxx_unitIsAttackReachable_54FC50(it *server.Object, data unsafe.Pointer
 }
 func nox_xxx_collideTrigger_54FCD0(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
 	a1 := obj
-	a2 := obj2.CObj()
+	a2 := obj2
 	var (
 		v2 *int32
 		v3 int32
@@ -6283,17 +6283,17 @@ func nox_xxx_collideTrigger_54FCD0(obj *server.Object, obj2 *server.Object, pos 
 	if a1.ObjFlags&0x1000000 != 0 {
 		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)))) != 5 {
 			if a2 != nil {
-				if nox_xxx_objectGetMass_4E4A70((*server.Object)(a2)) > 0.0 {
+				if nox_xxx_objectGetMass_4E4A70(a2) > 0.0 {
 					v4 = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*11))
-					if v4 == 0 || uint32(v4)&*(*uint32)(unsafe.Add(a2, 8)) != 0 {
+					if v4 == 0 || uint32(v4)&a2.ObjClass != 0 {
 						v5 = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*12))
-						if v5 == 0 || (uint32(v5)&*(*uint32)(unsafe.Add(a2, 8))) == 0 {
+						if v5 == 0 || (uint32(v5)&a2.ObjClass) == 0 {
 							v6 = int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v2), 52))))
-							if int32(v6) == 0 || int32(*(*uint8)(unsafe.Add(a2, 52))) == int32(v6) {
+							if int32(v6) == 0 || int32(a2.TeamVal.ID) == int32(v6) {
 								v7 = int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v2), 53))))
-								if (int32(v7) == 0 || *(*byte)(unsafe.Add(a2, 52)) != byte(v7)) && (*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*4)) == -1 || *(*uint32)(nox_xxx_scriptCallByEventBlock_502490(unsafe.Add(unsafe.Pointer(v2), 4*3), a2, unsafe.Pointer(a1), 1)) != 0) {
+								if (int32(v7) == 0 || a2.TeamVal.ID != byte(v7)) && (*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*4)) == -1 || *(*uint32)(nox_xxx_scriptCallByEventBlock_502490(unsafe.Add(unsafe.Pointer(v2), 4*3), unsafe.Pointer(a2), unsafe.Pointer(a1), 1)) != 0) {
 									v8 = *v2
-									*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*1)) = a2
+									*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*1)) = unsafe.Pointer(a2)
 									*((*uint8)(unsafe.Pointer(&v8))) = uint8(int8(v8 | 1))
 									*v2 = v8
 								}

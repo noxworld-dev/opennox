@@ -847,7 +847,7 @@ func sub_50AEA0(a1 int32, a2 *types.Pointf, a3 *uint32) int32 {
 	*a3 = *(*uint32)(unsafe.Add(dword_5d4594_2386152, 36))
 	return 1
 }
-func nox_xxx_aiTestUnitDangerous_50B2C0(a1 int32) int32 {
+func nox_xxx_aiTestUnitDangerous_50B2C0(a1 int32) {
 	var (
 		v1     int32
 		result int32
@@ -955,38 +955,28 @@ func nox_xxx_aiTestUnitDangerous_50B2C0(a1 int32) int32 {
 	result = int32(*(*uint32)(unsafe.Add(v1, 8)))
 	if uint32(result)&0x10000 != 0 {
 		alloc.Memcpy(unsafe.Add(v1, 172), unsafe.Pointer(&v25[0]), 0x3C)
-		result = nox_xxx_objectUnkUpdateCoords_4E7290((*server.Object)(v1))
+		nox_xxx_objectUnkUpdateCoords_4E7290((*server.Object)(v1))
 	}
-	return result
 }
 func sub_50B500() {
 	dword_5d4594_2386168 = 0
 }
-func sub_50B510() int32 {
-	var result int32
-	result = 0
+func sub_50B510() {
 	dword_5d4594_2386168 = 0
 	dword_5d4594_2386172 = 0
-	return result
 }
-func sub_50B520() int32 {
-	var (
-		result int32
-		i      int32
-	)
-	result = int32(gameFrame())
+func sub_50B520() {
 	if (gameFrame() - dword_5d4594_2386172) < 0xF {
-		return result
+		return
 	}
 	dword_5d4594_2386172 = gameFrame()
 	dword_5d4594_2386164++
-	result = nox_server_getFirstObject_4DA790()
-	for i = result; result != 0; i = result {
+	result := nox_server_getFirstObject_4DA790()
+	for i := result; result != nil; i = result {
 		nox_xxx_aiTestUnitDangerous_50B2C0(i)
-		result = nox_server_getNextObject_4DA7A0((*server.Object)(i))
+		result = nox_server_getNextObject_4DA7A0(i)
 	}
 	dword_5d4594_2386168 = 1
-	return result
 }
 func sub_50B810(a1 unsafe.Pointer, a2 *float32) int32 {
 	var (

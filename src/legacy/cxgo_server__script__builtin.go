@@ -556,7 +556,7 @@ func nox_script_BecomePet_5167D0() int32 {
 	}
 	v3 := v0.PlayerUnit
 	if v3 != nil {
-		nox_xxx_unitBecomePet_4E7B00(unsafe.Pointer(v3), v2)
+		nox_xxx_unitBecomePet_4E7B00(v3, (*server.Object)(v2))
 	}
 	return 0
 }

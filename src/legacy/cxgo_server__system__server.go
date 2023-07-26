@@ -16,8 +16,6 @@ import (
 var nox_xxx_resetMapInit_1569652 uint32 = 0
 var nox_server_xxx_1599716 [65536]nox_server_xxx = [65536]nox_server_xxx{}
 
-func nullsub_25(a1 uint32) {
-}
 func sub_426060() {
 	var (
 		v0     *byte
@@ -439,18 +437,13 @@ func sub_4E4170() {
 		}
 	}
 }
-func sub_4E76C0() int32 {
+func sub_4E76C0() {
 	var v0 int32
-	var result int32
-	var i int32
-	v0 = 0
-	result = nox_server_getFirstObject_4DA790()
-	for i = result; result != 0; i = result {
-		nullsub_25(uint32(i))
+	result := nox_server_getFirstObject_4DA790()
+	for i := result; result != nil; i = result {
 		v0 ^= sub_4E7700(i)
-		result = nox_server_getNextObject_4DA7A0((*server.Object)(i))
+		result = nox_server_getNextObject_4DA7A0(i)
 	}
-	return result
 }
 func sub_4EC720() {
 	var (

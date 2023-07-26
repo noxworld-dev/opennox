@@ -6,8 +6,8 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_44E410() *wchar2_t {
@@ -331,8 +331,7 @@ func sub_44F0F0(a1 int32, a2p *gui.WindowData) int32 {
 }
 func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	var (
-		a2     = int32(uintptr(a2p.C()))
-		v2     *byte
+		a2     = a2p
 		v3     int32
 		v4     int32
 		v5     *uint16
@@ -366,7 +365,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 		v33    *uint16
 		v34    Point32
 	)
-	v2 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
+	v2 := nox_draw_getViewport_437250()
 	sub_44E110()
 	nox_client_resetScreenParticles_431510()
 	nox_xxx_bookHideMB_45ACA0(1)
@@ -374,23 +373,23 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v3 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2
 	v4 = (nox_win_height - NOX_DEFAULT_HEIGHT) / 2
 	v5 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash1"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 765)
-	nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v5, &v31, nil, 0)
+	nox_xxx_drawGetStringSize_43F840(a2.FontPtr, v5, &v31, nil, 0)
 	v29 = (*uint16)(unsafe.Add(unsafe.Pointer(uintptr(v3-v31/2)), 320))
 	v30 = (*uint16)(unsafe.Add(v4, 20))
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_black_2650656))
-	v26 = int32(*(*uint32)(unsafe.Add(a2, 200)))
+	v26 = int32(a2.FontPtr)
 	v32 = (*uint16)(unsafe.Add(unsafe.Pointer(v29), -1))
 	nox_xxx_drawString_43F6E0(v26, v5, int32(uintptr(unsafe.Pointer(v29)))-1, v4+19)
 	v33 = (*uint16)(unsafe.Add(unsafe.Pointer(v29), 1))
-	nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v5, int32(uintptr(unsafe.Pointer(v29)))+1, v4+19)
-	nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v5, int32(uintptr(unsafe.Pointer(v32))), v4+21)
-	nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v5, int32(uintptr(unsafe.Pointer(v33))), v4+21)
+	nox_xxx_drawString_43F6E0(a2.FontPtr, v5, int32(uintptr(unsafe.Pointer(v29)))+1, v4+19)
+	nox_xxx_drawString_43F6E0(a2.FontPtr, v5, int32(uintptr(unsafe.Pointer(v32))), v4+21)
+	nox_xxx_drawString_43F6E0(a2.FontPtr, v5, int32(uintptr(unsafe.Pointer(v33))), v4+21)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_orange_2614256))
-	nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v5, int32(uintptr(unsafe.Pointer(v29))), v4+20)
+	nox_xxx_drawString_43F6E0(a2.FontPtr, v5, int32(uintptr(unsafe.Pointer(v29))), v4+20)
 	v34.X = v3 + 73
 	v34.Y = v4 + 123
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832492, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832492, 300)))(v2, dword_5d4594_832492)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832492), 12)))
+	dword_5d4594_832492.DrawFunc.Get()(v2, dword_5d4594_832492)
 	v34.X = v3 + 109
 	v34.Y = v4 + 76
 	v6 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash2a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 792)))
@@ -403,8 +402,8 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v7, v34.X, v34.Y, v3-v34.X+520, 0)
 	v34.X = v3 + 565
 	v34.Y = v4 + 117
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832496, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832496, 300)))(v2, dword_5d4594_832496)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832496), 12)))
+	dword_5d4594_832496.DrawFunc.Get()(v2, dword_5d4594_832496)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash3a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 809)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v29, &v27, nil, 0)
 	v30 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash3b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 811)
@@ -430,8 +429,8 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	}
 	v34.X = v3 + 133
 	v34.Y = v4 + 192
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832504, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832504, 300)))(v2, dword_5d4594_832504)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832504), 12)))
+	dword_5d4594_832504.DrawFunc.Get()(v2, dword_5d4594_832504)
 	v34.X = v3 + 157
 	v34.Y = v4 + 156
 	v9 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash4a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 862)))
@@ -444,8 +443,8 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v10, v34.X, v34.Y, v4-v34.X+630, 0)
 	v34.X = v3 + 525
 	v34.Y = v4 + 222
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832500, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832500, 300)))(v2, dword_5d4594_832500)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832500), 12)))
+	dword_5d4594_832500.DrawFunc.Get()(v2, dword_5d4594_832500)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash7a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 879)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v29, &v27, nil, 0)
 	v30 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash7b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 881)
@@ -471,16 +470,16 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	}
 	v34.X = v3 + 182
 	v34.Y = v4 + 262
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832528, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832528, 300)))(v2, dword_5d4594_832528)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832528), 12)))
+	dword_5d4594_832528.DrawFunc.Get()(v2, dword_5d4594_832528)
 	v34.X = v3 + 201
 	v34.Y = v4 + 251
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832536, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832536, 300)))(v2, dword_5d4594_832536)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832536), 12)))
+	dword_5d4594_832536.DrawFunc.Get()(v2, dword_5d4594_832536)
 	v34.X = v3 + 185
 	v34.Y = v4 + 234
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832532, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832532, 300)))(v2, dword_5d4594_832532)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832532), 12)))
+	dword_5d4594_832532.DrawFunc.Get()(v2, dword_5d4594_832532)
 	v34.X = v3 + 221
 	v34.Y = v4 + 240
 	v12 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash5a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 942)))
@@ -493,12 +492,12 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v13, v34.X, v34.Y, v3-v34.X+470, 0)
 	v34.X = v3 + 484
 	v34.Y = v4 + 278
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832516, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832516, 300)))(v2, dword_5d4594_832516)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832516), 12)))
+	dword_5d4594_832516.DrawFunc.Get()(v2, dword_5d4594_832516)
 	v34.X = v3 + 503
 	v34.Y = v4 + 303
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832520, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832520, 300)))(v2, dword_5d4594_832520)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832520), 12)))
+	dword_5d4594_832520.DrawFunc.Get()(v2, dword_5d4594_832520)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash6a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 964)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v29, &v27, nil, 0)
 	v30 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash6b"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 966)
@@ -524,16 +523,16 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	}
 	v34.X = v3 + 186
 	v34.Y = v4 + 333
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832512, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832512, 300)))(v2, dword_5d4594_832512)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832512), 12)))
+	dword_5d4594_832512.DrawFunc.Get()(v2, dword_5d4594_832512)
 	v34.X = v3 + 219
 	v34.Y = v4 + 345
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832508, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832508, 300)))(v2, dword_5d4594_832508)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832508), 12)))
+	dword_5d4594_832508.DrawFunc.Get()(v2, dword_5d4594_832508)
 	v34.X = v3 + 220
 	v34.Y = v4 + 322
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(dword_5d4594_832524, 12)))
-	ccall.AsFunc[func(*byte, uint32)](*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_832524, 300)))(v2, dword_5d4594_832524)
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832524), 12)))
+	dword_5d4594_832524.DrawFunc.Get()(v2, dword_5d4594_832524)
 	v34.X = v3 + 241
 	v34.Y = v4 + 330
 	v15 = (*int16)(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash8a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1027)))
@@ -596,7 +595,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	v34.Y = v4 + 450
 	v34.X = v3 - v27/2 + 320
 	nox_xxx_drawSetTextColor_434390(v24)
-	return nox_xxx_drawString_43F6E0(*(*unsafe.Pointer)(unsafe.Add(a2, 200)), v25, v34.X, v34.Y)
+	return nox_xxx_drawString_43F6E0(a2.FontPtr, v25, v34.X, v34.Y)
 }
 func nox_xxx_clientQuestWinScreen_450770(a1 int32) int32 {
 	var (

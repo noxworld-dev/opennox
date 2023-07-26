@@ -1264,7 +1264,6 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 		v4          *uint8
 		v5          int32
 		v6          int32
-		v7          unsafe.Pointer
 		v8          float64
 		v9          float64
 		v10         int32
@@ -1314,13 +1313,13 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 			v22 = 4
 			for {
 				if int32(*v4) != 0 {
-					v7 = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), -int(4*35)))
+					v7 := *(**client.Drawable)(unsafe.Add(unsafe.Pointer(v4), -int(4*35)))
 					if v7 != nil {
 						v21 = 0
 						nox_client_drawEnableAlpha_434560(1)
 						nox_client_drawSetAlpha_434580(0x40)
-						v8 = float64(*(*uint16)(unsafe.Add(v7, 292)))
-						v25 = int32(*(*uint16)(unsafe.Add(v7, 294)))
+						v8 = float64(v7.Field_73_1)
+						v25 = int32(v7.Field_73_2)
 						v9 = float64(v25)
 						if v8 >= v9**mem_getDoublePtr(0x581450, 9608) {
 							if v8 >= v9*qword_581450_9544 {
@@ -1362,22 +1361,22 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 						nox_client_drawImageAt_47D2C0(v11, v18, v19)
 					LABEL_27:
 						nox_client_drawEnableAlpha_434560(0)
-						*(*uint32)(unsafe.Add(v7, 16)) = uint32(v5 + 25)
-						*(*uint32)(unsafe.Add(v7, 12)) = uint32(v6 + 25)
-						ccall.AsFunc[client.ObjectDrawFunc](*(*unsafe.Pointer)(unsafe.Add(v7, 300)))((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1049732)), AsDrawableP(v7))
+						v7.PosVec.Y = int(uint32(v5 + 25))
+						v7.PosVec.X = int(uint32(v6 + 25))
+						v7.DrawFunc.Get()((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1049732)), v7)
 						if dword_5d4594_1049864 == 6 {
-							if *(*uint32)(unsafe.Add(v7, 112))&0x13001000 != 0 {
-								if (*(*uint32)(unsafe.Add(v7, 112)) & 0x1000) == 4096 {
-									v13 = int16(*(*uint16)(unsafe.Add(v7, 450)))
-									if int32(*(*uint16)(unsafe.Add(v7, 448))) < int32(v13) {
+							if v7.Flags28Val&0x13001000 != 0 {
+								if (v7.Flags28Val & 0x1000) == 4096 {
+									v13 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v7), 450)))
+									if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v7), 448))) < int32(v13) {
 										if int32(v13) != 0 {
 											v21 = 1
 										}
 									}
 								}
 							}
-							v14 = int16(*(*uint16)(unsafe.Add(v7, 294)))
-							if (int32(*(*uint16)(unsafe.Add(v7, 292))) == int32(v14) || int32(v14) == 0) && v21 == 0 {
+							v14 = int16(v7.Field_73_2)
+							if (int32(v7.Field_73_1) == int32(v14) || int32(v14) == 0) && v21 == 0 {
 								nox_client_drawRectFilledAlpha_49CF10(v6, v5, 50, 50)
 							}
 						}
@@ -1386,8 +1385,8 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 							nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 							nox_xxx_drawString_43F6E0(dword_5d4594_1063636, &WideCharStr[0], v6+6, v5+6)
 						}
-						if *(*uint32)(unsafe.Add(v7, 112))&0x13001000 != 0 {
-							v15 = int16(*(*uint16)(unsafe.Add(v7, 448)))
+						if v7.Flags28Val&0x13001000 != 0 {
+							v15 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v7), 448)))
 							if int32(v15) >= 0 {
 								nox_swprintf(&WideCharStr[0], internWStr("%d"), v15)
 								nox_xxx_drawSetTextColor_434390(int32(nox_color_blue_2650684))

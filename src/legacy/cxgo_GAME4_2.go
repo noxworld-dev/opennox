@@ -11563,7 +11563,7 @@ func Sub_52F1D0(sp *server.DurSpell) int32 {
 	return result
 }
 func Sub_52F220(sp *server.DurSpell) int32 {
-	a1 := (*int32)(sp.C())
+	a1 := sp
 	var (
 		v1     int32
 		result int32
@@ -11573,12 +11573,12 @@ func Sub_52F220(sp *server.DurSpell) int32 {
 		v6     int32
 		v7     int32
 	)
-	v1 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))
-	if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) == 0 {
+	v1 = int32(a1.Flag20)
+	if a1.Obj16 == nil {
 		if v1 == 0 {
 			return 1
 		}
-		v3 = int32(nox_xxx_spellFlags_424A70(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))))
+		v3 = int32(nox_xxx_spellFlags_424A70(int32(a1.Spell)))
 		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_spellFlySearchTarget_540610((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 4*13)), nil, v3, 400.0, 1, nil))))
 		if v4 != 0 {
 			nox_xxx_unitAdjustHP_4EE460((*server.Object)(v4), 20)
@@ -11586,25 +11586,25 @@ func Sub_52F220(sp *server.DurSpell) int32 {
 		return 1
 	}
 	if v1 != 0 {
-		v3 = int32(nox_xxx_spellFlags_424A70(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))))
+		v3 = int32(nox_xxx_spellFlags_424A70(int32(a1.Spell)))
 		v4 = int32(uintptr(unsafe.Pointer(nox_xxx_spellFlySearchTarget_540610((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 4*13)), nil, v3, 400.0, 1, nil))))
 		if v4 != 0 {
 			nox_xxx_unitAdjustHP_4EE460((*server.Object)(v4), 20)
 		}
 		return 1
 	}
-	v7 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))
-	v5 = int32(nox_xxx_spellFlags_424A70(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))))
-	v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spellFlySearchTarget_540610((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 4*13)), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), v5, 400.0, 1, (*server.Object)(v7)))))
-	*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)) = v6
+	v7 = a1.Obj16
+	v5 = int32(nox_xxx_spellFlags_424A70(int32(a1.Spell)))
+	v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spellFlySearchTarget_540610((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 4*13)), a1.Obj16, v5, 400.0, 1, (*server.Object)(v7)))))
+	a1.Obj48 = v6
 	if v6 != 0 {
-		result = nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), (*server.Object)(v6))
+		result = nox_xxx_unitIsEnemyTo_5330C0(a1.Obj16, (*server.Object)(v6))
 		if result == 0 {
 			nox_xxx_netStartDurationRaySpell_4FF130(unsafe.Pointer(a1))
 			result = 0
 		}
 	} else {
-		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*4))), internCStr("ExecDur.c:GreaterHealNoTarget"), 0)
+		nox_xxx_netPriMsgToPlayer_4DA2C0(a1.Obj16, internCStr("ExecDur.c:GreaterHealNoTarget"), 0)
 		result = 1
 	}
 	return result
@@ -11728,7 +11728,7 @@ func Sub_52F460(sp *server.DurSpell) int32 {
 	return result
 }
 func Nox_xxx_castShield1_52F5A0(sp *server.DurSpell) int32 {
-	a1 := (*uint32)(sp.C())
+	a1 := sp
 	var (
 		v1 int32
 		v3 int32
@@ -11736,7 +11736,7 @@ func Nox_xxx_castShield1_52F5A0(sp *server.DurSpell) int32 {
 		v5 float32
 		v6 float32
 	)
-	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*12)))
+	v1 = int32(a1.Obj48)
 	if v1 == 0 {
 		return 1
 	}
@@ -11749,13 +11749,13 @@ func Nox_xxx_castShield1_52F5A0(sp *server.DurSpell) int32 {
 	if (*(*uint32)(unsafe.Add(v1, 8))&4) == 0 && (*(*uint32)(unsafe.Add(v1, 8))&2) == 0 {
 		return 1
 	}
-	v5 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShieldDuration"), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))-1)))
+	v5 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShieldDuration"), int32(a1.Level-1)))
 	v3 = int32(v5)
-	nox_xxx_buffApplyTo_4FF380((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*12))), 26, int16(v3), int8(uint8(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))))
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) - 1)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = uint32(v3) + gameFrame()
+	nox_xxx_buffApplyTo_4FF380(a1.Obj48, 26, int16(v3), int8(uint8(a1.Level)))
+	v4 = int32(a1.Level - 1)
+	a1.Frame68 = uint32(v3) + gameFrame()
 	v6 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShieldHealth"), v4))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*18)) = uint32(int32(v6))
+	a1.Field72 = int32(v6)
 	return 0
 }
 func Sub_52F650(sp *server.DurSpell) int32 {

@@ -165,87 +165,87 @@ func sub_44E110() {
 	v0 := dword_5d4594_832496
 	if dword_5d4594_832496 == nil {
 		v1 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("GauntletExitB"))
-		v0 = nox_new_drawable_for_thing(v1).C()
+		v0 = nox_new_drawable_for_thing(v1)
 		dword_5d4594_832496 = v0
 	}
-	*(*uint32)(unsafe.Add(v0, 4*30)) |= 0x1000000
+	v0.Flags30Val |= 0x1000000
 	v2 := dword_5d4594_832492
 	if dword_5d4594_832492 == nil {
 		v3 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("BeholderGenerator"))
-		v2 = nox_new_drawable_for_thing(v3).C()
+		v2 = nox_new_drawable_for_thing(v3)
 		dword_5d4594_832492 = v2
 	}
-	*(*uint32)(unsafe.Add(v2, 4*30)) |= 0x1000000
+	v2.Flags30Val |= 0x1000000
 	v4 := dword_5d4594_832500
 	if dword_5d4594_832500 == nil {
 		v5 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Ankh"))
-		v4 = nox_new_drawable_for_thing(v5).C()
+		v4 = nox_new_drawable_for_thing(v5)
 		dword_5d4594_832500 = v4
 	}
-	*(*uint32)(unsafe.Add(v4, 4*30)) |= 0x1000000
+	v4.Flags30Val |= 0x1000000
 	v6 := dword_5d4594_832504
 	if dword_5d4594_832504 == nil {
 		v7 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SoulGate"))
-		v6 = nox_new_drawable_for_thing(v7).C()
+		v6 = nox_new_drawable_for_thing(v7)
 		dword_5d4594_832504 = v6
 	}
-	*(*uint32)(unsafe.Add(v6, 4*30)) |= 0x1000000
+	v6.Flags30Val |= 0x1000000
 	v8 := dword_5d4594_832508
 	if dword_5d4594_832508 == nil {
 		v9 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SilverKey"))
-		v8 = nox_new_drawable_for_thing(v9).C()
+		v8 = nox_new_drawable_for_thing(v9)
 		dword_5d4594_832508 = v8
 	}
-	*(*uint32)(unsafe.Add(v8, 4*30)) |= 0x1000000
+	v8.Flags30Val |= 0x1000000
 	v10 := dword_5d4594_832512
 	if dword_5d4594_832512 == nil {
 		v11 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("GoldKey"))
-		v10 = nox_new_drawable_for_thing(v11).C()
+		v10 = nox_new_drawable_for_thing(v11)
 		dword_5d4594_832512 = v10
 	}
-	*(*uint32)(unsafe.Add(v10, 4*30)) |= 0x1000000
+	v10.Flags30Val |= 0x1000000
 	v12 := dword_5d4594_832516
 	if dword_5d4594_832516 == nil {
 		v13 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldChest"))
-		v12 = nox_new_drawable_for_thing(v13).C()
+		v12 = nox_new_drawable_for_thing(v13)
 		dword_5d4594_832516 = v12
 	}
-	*(*uint32)(unsafe.Add(v12, 4*30)) |= 0x1000000
+	v12.Flags30Val |= 0x1000000
 	v14 := dword_5d4594_832520
 	if dword_5d4594_832520 == nil {
 		v15 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldPile"))
-		v14 = nox_new_drawable_for_thing(v15).C()
+		v14 = nox_new_drawable_for_thing(v15)
 		dword_5d4594_832520 = v14
 	}
-	*(*uint32)(unsafe.Add(v14, 4*30)) |= 0x1000000
+	v14.Flags30Val |= 0x1000000
 	v16 := dword_5d4594_832524
 	if dword_5d4594_832524 == nil {
 		v17 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("DunMirChest4"))
-		v16 = nox_new_drawable_for_thing(v17).C()
+		v16 = nox_new_drawable_for_thing(v17)
 		dword_5d4594_832524 = v16
 	}
-	*(*uint32)(unsafe.Add(v16, 4*30)) |= 0x1000000
+	v16.Flags30Val |= 0x1000000
 	v18 := dword_5d4594_832528
 	if dword_5d4594_832528 == nil {
 		v19 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("WarHammer"))
-		v18 = nox_new_drawable_for_thing(v19).C()
+		v18 = nox_new_drawable_for_thing(v19)
 		dword_5d4594_832528 = v18
 	}
-	*(*uint32)(unsafe.Add(v18, 4*30)) |= 0x1000000
+	v18.Flags30Val |= 0x1000000
 	v20 := dword_5d4594_832532
 	if dword_5d4594_832532 == nil {
 		v21 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("HastePotion"))
-		v20 = nox_new_drawable_for_thing(v21).C()
+		v20 = nox_new_drawable_for_thing(v21)
 		dword_5d4594_832532 = v20
 	}
-	*(*uint32)(unsafe.Add(v20, 4*30)) |= 0x1000000
+	v20.Flags30Val |= 0x1000000
 	result := dword_5d4594_832536
 	if dword_5d4594_832536 == nil {
 		v23 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ConjurerSpellBook"))
-		result = nox_new_drawable_for_thing(v23).C()
+		result = nox_new_drawable_for_thing(v23)
 		dword_5d4594_832536 = result
 	}
-	*(*uint32)(unsafe.Add(result, 4*30)) |= 0x1000000
+	result.Flags30Val |= 0x1000000
 }
 func nox_xxx_playGMCAPsmth_44E3E0() {
 	*memmap.PtrUint32(0x5D4594, 831248) = 1
@@ -481,51 +481,51 @@ func sub_4505E0() {
 	dword_5d4594_831260 = 0
 	dword_5d4594_832484 = 0
 	if dword_5d4594_832504 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832504))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832504)
 	}
 	dword_5d4594_832504 = nil
 	if dword_5d4594_832492 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832492))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832492)
 	}
 	dword_5d4594_832492 = nil
 	if dword_5d4594_832500 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832500))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832500)
 	}
 	dword_5d4594_832500 = nil
 	if dword_5d4594_832496 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832496))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832496)
 	}
 	dword_5d4594_832496 = nil
 	if dword_5d4594_832508 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832508))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832508)
 	}
 	dword_5d4594_832508 = nil
 	if dword_5d4594_832512 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832512))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832512)
 	}
 	dword_5d4594_832512 = nil
 	if dword_5d4594_832516 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832516))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832516)
 	}
 	dword_5d4594_832516 = nil
 	if dword_5d4594_832520 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832520))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832520)
 	}
 	dword_5d4594_832520 = nil
 	if dword_5d4594_832524 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832524))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832524)
 	}
 	dword_5d4594_832524 = nil
 	if dword_5d4594_832528 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832528))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832528)
 	}
 	dword_5d4594_832528 = nil
 	if dword_5d4594_832532 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832532))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832532)
 	}
 	dword_5d4594_832532 = nil
 	if dword_5d4594_832536 != nil {
-		nox_xxx_spriteDelete_45A4B0((*client.Drawable)(dword_5d4594_832536))
+		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832536)
 	}
 	dword_5d4594_832536 = nil
 }

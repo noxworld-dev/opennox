@@ -10,7 +10,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -188,7 +187,7 @@ LABEL_24:
 		}
 		dword_5d4594_1313796.PosVec.X = int(uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
 		dword_5d4594_1313796.PosVec.Y = int(uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - 50))
-		ccall.AsFunc[func(*int32, unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_1313796), 300)))(&v36[0], unsafe.Pointer(dword_5d4594_1313796))
+		dword_5d4594_1313796.DrawFunc.Get()(&v36[0], unsafe.Pointer(dword_5d4594_1313796))
 	}
 	if nox_xxx_unitSpriteCheckAlly_4951F0(int32(*(*uint32)(unsafe.Add(v2, 128)))) != 0 {
 		v22 = 0

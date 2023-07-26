@@ -8,7 +8,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
@@ -150,7 +149,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 					dword_5d4594_1313796.PosVec.X = uint32(*v21) + *(*uint32)(unsafe.Add(v4, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
 					dword_5d4594_1313796.PosVec.Y = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Add(v4, 16)) - 50
 					v31 = int32(uintptr(dword_5d4594_1313796))
-					v24 := ccall.AsFunc[func(*byte, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_1313796), 300)))
+					v24 := dword_5d4594_1313796.DrawFunc.Get()
 					v25 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
 					v24(v25, v31)
 				}
@@ -163,7 +162,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 					dword_5d4594_1313800.PosVec.X = uint32(*v21) + *(*uint32)(unsafe.Add(v4, 12)) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
 					dword_5d4594_1313800.PosVec.Y = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Add(v4, 16)) - 50
 					v32 = int32(uintptr(dword_5d4594_1313800))
-					v27 := ccall.AsFunc[func(*byte, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(dword_5d4594_1313800), 300)))
+					v27 := dword_5d4594_1313800.DrawFunc.Get()
 					v28 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
 					v27(v28, v32)
 				}
