@@ -96,7 +96,6 @@ extern uint32_t dword_5d4594_1045692;
 extern uint32_t dword_5d4594_831084;
 extern uint32_t dword_5d4594_1046956;
 extern uint32_t dword_5d4594_1047936;
-extern uint32_t dword_5d4594_1046576;
 extern float2 obj_5d4594_1046620;
 extern uint32_t dword_5d4594_1046536;
 extern uint32_t dword_5d4594_1045436;
@@ -1381,7 +1380,8 @@ uint32_t* nox_xxx_draw_452300(uint32_t* a1) {
 }
 
 //----- (004523D0) --------------------------------------------------------
-int sub_4523D0(uint32_t* a1) {
+int sub_4523D0(void* a1p) {
+	uint32_t* a1 = a1p;
 	int result = 0; // eax
 
 	if (!(a1[6] & 1)) {
@@ -1929,7 +1929,8 @@ int sub_452E90(uint32_t* a1, int a2) {
 }
 
 //----- (00452EB0) --------------------------------------------------------
-int sub_452EB0(int* a1) {
+void* sub_452EB0(void* a1p) {
+	int* a1 = a1p;
 	int result; // eax
 
 	result = *a1;
@@ -4324,49 +4325,6 @@ int sub_459DB0(nox_drawable* dr) {
 	return *(uint32_t*)(a1 + 112) & 0x400000 && *(uint8_t*)(a1 + 116) & 8;
 }
 
-//----- (00459F40) --------------------------------------------------------
-int sub_459F40_drawable(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 424) = dword_5d4594_1046576;
-	*(uint32_t*)(a1 + 428) = 0;
-	if (dword_5d4594_1046576) {
-		*(uint32_t*)(dword_5d4594_1046576 + 428) = a1;
-	}
-	dword_5d4594_1046576 = a1;
-	return result;
-}
-
-//----- (00459F70) --------------------------------------------------------
-uint32_t* sub_459F70(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result = 0; // eax
-	int v2;               // ecx
-	int v3;               // ecx
-
-	result = a1;
-	v2 = a1[106];
-	if (v2) {
-		*(uint32_t*)(v2 + 428) = a1[107];
-	} else if (!a1[107] && *(uint32_t**)&dword_5d4594_1046576 != a1) {
-		return result;
-	}
-	v3 = a1[107];
-	if (v3) {
-		*(uint32_t*)(v3 + 424) = a1[106];
-	} else {
-		dword_5d4594_1046576 = a1[106];
-	}
-	a1[106] = 0;
-	a1[107] = 0;
-	result = (uint32_t*)sub_452EB0(a1 + 124);
-	if (result) {
-		result = (uint32_t*)sub_4523D0(result);
-	}
-	return result;
-}
-
 //----- (0045A010) --------------------------------------------------------
 nox_drawable* sub_45A010(nox_drawable* dr) { return dr->field_104; }
 
@@ -4396,9 +4354,6 @@ nox_drawable* sub_45A070(nox_drawable* a1) {
 	}
 	return result;
 }
-
-//----- (0045A090) --------------------------------------------------------
-int sub_45A090() { return dword_5d4594_1046576; }
 
 //----- (0045A0A0) --------------------------------------------------------
 int sub_45A0A0(int a1) {

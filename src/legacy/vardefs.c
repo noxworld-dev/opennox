@@ -349,7 +349,6 @@ uint32_t nox_xxx_lightningClosestTargetDistance_5d4594_2487912 = 0;
 uint32_t dword_5d4594_1567928 = 0;
 uint32_t dword_5d4594_1307720 = 0;
 uint32_t dword_5d4594_2386920 = 0;
-uint32_t dword_5d4594_1046576 = 0;
 uint32_t dword_5d4594_2386564 = 0;
 void* nox_alloc_magicWall_1569748 = 0;
 uint32_t dword_5d4594_1550912 = 0;
