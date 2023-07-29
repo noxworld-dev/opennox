@@ -135,6 +135,24 @@ func sub_459F00(dr *client.Drawable) {
 	}
 }
 
+func nox_xxx_netSpriteByCodeStatic_45A720(id int) *client.Drawable {
+	for dr := legacy.Sub_45A060(); dr != nil; dr = dr.NextPtr {
+		if dr.Flags28()&0x20400000 != 0 && dr.Field_32 == uint32(id) {
+			return dr
+		}
+	}
+	return nil
+}
+
+func nox_xxx_netSpriteByCodeDynamic_45A6F0(id int) *client.Drawable {
+	for dr := legacy.Sub_45A060(); dr != nil; dr = dr.NextPtr {
+		if dr.Flags28()&0x20400000 == 0 && dr.Field_32 == uint32(id) {
+			return dr
+		}
+	}
+	return nil
+}
+
 func nox_xxx_spriteFromCache_45A330_drawable() *client.Drawable {
 	if nox_drawable_head_unk4 == nil {
 		return nil

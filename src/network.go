@@ -1015,9 +1015,9 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		if nox_client_isConnected() {
 			var dr *client.Drawable
 			if nox_xxx_netTestHighBit_578B70(binary.LittleEndian.Uint16(data[8:])) {
-				dr = legacy.Nox_xxx_netSpriteByCodeStatic_45A720(int(drID))
+				dr = nox_xxx_netSpriteByCodeStatic_45A720(int(drID))
 			} else {
-				dr = legacy.Nox_xxx_netSpriteByCodeDynamic_45A6F0(int(drID))
+				dr = nox_xxx_netSpriteByCodeDynamic_45A6F0(int(drID))
 			}
 			c.r.partfx.onParticleFx(data[1], dr, int(binary.LittleEndian.Uint16(data[2:])), binary.LittleEndian.Uint16(data[4:]) != 0, int(binary.LittleEndian.Uint16(data[6:])))
 		}

@@ -13,7 +13,6 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -88,9 +87,6 @@ func Sub_459CD0() {
 }
 func Sub_456FA0() {
 	C.sub_456FA0()
-}
-func Nox_xxx_netSpriteByCodeDynamic_45A6F0(a1 int) *client.Drawable {
-	return asDrawable(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(a1)))
 }
 func Sub_418F20(a1 unsafe.Pointer, a2 int) {
 	C.sub_418F20((*nox_team_t)(a1), C.int(a2))
