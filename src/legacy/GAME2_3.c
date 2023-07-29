@@ -54,7 +54,6 @@ extern uint32_t dword_5d4594_1197328;
 extern uint32_t dword_5d4594_1197352;
 extern uint32_t dword_5d4594_1197336;
 extern uint32_t dword_5d4594_1197356;
-extern uint32_t dword_5d4594_1303468;
 extern uint32_t dword_5d4594_1301780;
 extern uint32_t dword_5d4594_1203836;
 extern uint32_t dword_5d4594_1203840;
@@ -5465,96 +5464,6 @@ void nox_xxx_consoleEsc_49B7A0() {
 }
 // 49B874: variable 'v1' is possibly undefined
 // 49B881: variable 'v2' is possibly undefined
-
-//----- (0049B950) --------------------------------------------------------
-uint32_t* nox_xxx_spriteTransparentDecay_49B950(nox_drawable* a1p, int a2) {
-	uint32_t* a1 = a1p;
-	unsigned int v2;  // edx
-	uint32_t* result; // eax
-	uint32_t* v4;     // ecx
-	int v5;           // ecx
-
-	if (a1[89]) {
-		nox_xxx_sprite_49BA10(a1);
-	}
-	v2 = gameFrame() + a2;
-	a1[89] = gameFrame() + a2;
-	result = *(uint32_t**)&dword_5d4594_1303468;
-	if (dword_5d4594_1303468) {
-		v4 = 0;
-		while (result[89] < v2) {
-			v4 = result;
-			result = (uint32_t*)result[87];
-			if (!result) {
-				goto LABEL_10;
-			}
-		}
-		if (!result) {
-		LABEL_10:
-			v4[87] = a1;
-			a1[87] = 0;
-			a1[88] = v4;
-			return result;
-		}
-		a1[87] = result;
-		a1[88] = result[88];
-		v5 = result[88];
-		if (v5) {
-			*(uint32_t*)(v5 + 348) = a1;
-		} else {
-			dword_5d4594_1303468 = a1;
-		}
-		result[88] = a1;
-	} else {
-		a1[87] = dword_5d4594_1303468;
-		a1[88] = result;
-		dword_5d4594_1303468 = a1;
-	}
-	return result;
-}
-
-//----- (0049BA10) --------------------------------------------------------
-uint32_t* nox_xxx_sprite_49BA10(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result; // eax
-	int v2;           // ecx
-	int v3;           // ecx
-
-	result = a1;
-	if (a1[89]) {
-		v2 = a1[88];
-		if (v2) {
-			*(uint32_t*)(v2 + 348) = a1[87];
-		} else {
-			dword_5d4594_1303468 = a1[87];
-		}
-		v3 = a1[87];
-		if (v3) {
-			*(uint32_t*)(v3 + 352) = a1[88];
-		}
-		a1[89] = 0;
-	}
-	return result;
-}
-
-//----- (0049BA70) --------------------------------------------------------
-int sub_49BA70() {
-	int result; // eax
-	int v1;     // esi
-
-	result = dword_5d4594_1303468;
-	if (dword_5d4594_1303468) {
-		do {
-			v1 = *(uint32_t*)(result + 348);
-			if (*(uint32_t*)(result + 356) > gameFrame()) {
-				break;
-			}
-			nox_xxx_spriteDeleteStatic_45A4E0_drawable(result);
-			result = v1;
-		} while (v1);
-	}
-	return result;
-}
 
 //----- (0049BB80) --------------------------------------------------------
 void* sub_49BB80(char a1) {

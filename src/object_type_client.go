@@ -41,7 +41,7 @@ func nox_drawable_link_thing(dr *client.Drawable, i int) int {
 	}
 	dr.LinkType(i, typ)
 	if typ.Lifetime != 0 {
-		legacy.Nox_xxx_spriteTransparentDecay_49B950(dr, int(typ.Lifetime))
+		nox_xxx_spriteTransparentDecay_49B950(dr, int(typ.Lifetime))
 	}
 	return 1
 }

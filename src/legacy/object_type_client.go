@@ -101,10 +101,6 @@ func nox_drawable_link_thing(a1c *nox_drawable, i int) int {
 	return Nox_drawable_link_thing(asDrawable(a1c), i)
 }
 
-func Nox_xxx_spriteTransparentDecay_49B950(dr *client.Drawable, lifetime int) {
-	C.nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(dr.C()), C.int(lifetime))
-}
-
 func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
 	return func(typ *client.ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 		StrNCopyBytes(buf, str)
