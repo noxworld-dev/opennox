@@ -25,23 +25,25 @@ import (
 )
 
 var (
-	Nox_xxx_sprite_49AA00_drawable       func(dr *client.Drawable)
-	Nox_xxx_forEachSprite                func(rect image.Rectangle, fnc func(dr *client.Drawable))
-	Nox_drawable_find                    func(pt image.Point, r int) *client.Drawable
-	Nox_xxx_sprite_45A110_drawable       func(dr *client.Drawable)
-	Nox_xxx_cliRemoveHealthbar_459E30    func(dr *client.Drawable, a2 uint8)
-	Sub_459DD0                           func(dr *client.Drawable, a2 uint8)
-	Nox_xxx_spriteToList_49BC80_drawable func(dr *client.Drawable)
-	Nox_xxx_spriteDelete_45A4B0          func(dr *client.Drawable) int
-	Nox_new_drawable_for_thing           func(i int) *client.Drawable
-	Nox_xxx_cliFirstMinimapObj_459EB0    func() *client.Drawable
-	Nox_xxx_cliNextMinimapObj_459EC0     func(dr *client.Drawable) *client.Drawable
-	Nox_xxx_cliGetSpritePlayer_45A000    func() *client.Drawable
-	Nox_xxx_getSomeSprite_49BD40         func() *client.Drawable
-	Sub_49BCD0                           func(dr *client.Drawable)
-	Sub_45A160_drawable                  func(dr *client.Drawable)
-	Sub_459ED0_drawable                  func(dr *client.Drawable)
-	Sub_459F00                           func(dr *client.Drawable)
+	Nox_xxx_sprite_49AA00_drawable                   func(dr *client.Drawable)
+	Nox_xxx_forEachSprite                            func(rect image.Rectangle, fnc func(dr *client.Drawable))
+	Nox_drawable_find                                func(pt image.Point, r int) *client.Drawable
+	Nox_xxx_sprite_45A110_drawable                   func(dr *client.Drawable)
+	Nox_xxx_cliRemoveHealthbar_459E30                func(dr *client.Drawable, a2 uint8)
+	Sub_459DD0                                       func(dr *client.Drawable, a2 uint8)
+	Nox_xxx_spriteToList_49BC80_drawable             func(dr *client.Drawable)
+	Nox_xxx_spriteDelete_45A4B0                      func(dr *client.Drawable) int
+	Nox_new_drawable_for_thing                       func(i int) *client.Drawable
+	Nox_xxx_spriteToSightDestroyList_49BAB0_drawable func(dr *client.Drawable)
+	Nox_xxx_cliFirstMinimapObj_459EB0                func() *client.Drawable
+	Nox_xxx_cliNextMinimapObj_459EC0                 func(dr *client.Drawable) *client.Drawable
+	Nox_xxx_cliGetSpritePlayer_45A000                func() *client.Drawable
+	Nox_xxx_getSomeSprite_49BD40                     func() *client.Drawable
+	Sub_49BCD0                                       func(dr *client.Drawable)
+	Sub_45A160_drawable                              func(dr *client.Drawable)
+	Sub_459ED0_drawable                              func(dr *client.Drawable)
+	Sub_459F00                                       func(dr *client.Drawable)
+	Sub_49BAF0                                       func(dr *client.Drawable)
 )
 
 func asDrawable(p *nox_drawable) *client.Drawable {
@@ -112,6 +114,11 @@ func nox_new_drawable_for_thing(i int) *nox_drawable {
 	return (*nox_drawable)(Nox_new_drawable_for_thing(i).C())
 }
 
+//export nox_xxx_spriteToSightDestroyList_49BAB0_drawable
+func nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr *nox_drawable) {
+	Nox_xxx_spriteToSightDestroyList_49BAB0_drawable(asDrawable(dr))
+}
+
 //export nox_xxx_cliFirstMinimapObj_459EB0
 func nox_xxx_cliFirstMinimapObj_459EB0() *nox_drawable {
 	return (*nox_drawable)(Nox_xxx_cliFirstMinimapObj_459EB0().C())
@@ -145,6 +152,11 @@ func sub_459ED0_drawable(dr *nox_drawable) {
 //export sub_459F00
 func sub_459F00(dr *nox_drawable) {
 	Sub_459F00(asDrawable(dr))
+}
+
+//export sub_49BAF0
+func sub_49BAF0(dr *nox_drawable) {
+	Sub_49BAF0(asDrawable(dr))
 }
 
 //export sub_45A160_drawable

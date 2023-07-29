@@ -80,10 +80,6 @@ func Nox_xxx_cliToggleObsWindow_4357A0() {
 	C.nox_xxx_cliToggleObsWindow_4357A0()
 }
 
-func Sub_49BB40() {
-	C.sub_49BB40()
-}
-
 func Sub_49BA70() {
 	C.sub_49BA70()
 }
