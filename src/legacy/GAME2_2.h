@@ -13,7 +13,6 @@ short sub_476D70(uint32_t* a1, int* a2, unsigned int a3);
 int nox_client_setPhonemeFrame_476E00(int a1);
 uint32_t* sub_476E20();
 int sub_476E90();
-int nox_xxx_clientDeleteSprite_476F10_drawable(nox_drawable* dr);
 unsigned int nox_xxx_packetGetMarshall_476F40();
 void nox_xxx_clientEnumHover_476FA0();
 void nox_xxx_clientOnCursorHover_477050(int arg0, int a2);

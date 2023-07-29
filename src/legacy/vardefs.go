@@ -630,7 +630,6 @@ extern uint32_t dword_5d4594_2489436;
 extern uint32_t dword_5d4594_1320944;
 extern uint32_t nox_xxx_normalWndBits_587000_172880;
 extern uint32_t dword_5d4594_2491588;
-extern uint32_t dword_5d4594_1046604;
 extern uint32_t dword_5d4594_1316448;
 extern uint32_t dword_5d4594_2523888;
 extern uint32_t dword_5d4594_1313880;

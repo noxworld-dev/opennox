@@ -399,21 +399,6 @@ int sub_476E90() {
 	return 1;
 }
 
-//----- (00476F10) --------------------------------------------------------
-int nox_xxx_clientDeleteSprite_476F10_drawable(nox_drawable* dr) {
-	int a1 = dr;
-	int result; // eax
-
-	result = a1;
-	if (dword_5d4594_1096640 == a1) {
-		dword_5d4594_1096640 = 0;
-	}
-	if (nox_client_spriteUnderCursorXxx_1096644 == a1) {
-		nox_client_spriteUnderCursorXxx_1096644 = 0;
-	}
-	return result;
-}
-
 //----- (00476F40) --------------------------------------------------------
 unsigned int nox_xxx_packetGetMarshall_476F40() {
 	unsigned int result; // eax

@@ -465,7 +465,7 @@ LOOP:
 			dr.Field_85 = c.srv.Frame()
 		}
 		if legacy.Sub_459DB0(dr) != 0 {
-			legacy.Sub_459DD0(dr, 1)
+			sub_459DD0(dr, 1)
 		}
 		if dr.Flags28()&0x20006 != 0 {
 			legacy.Sub_49A6A0(vp, dr)

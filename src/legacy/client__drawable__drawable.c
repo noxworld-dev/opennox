@@ -44,19 +44,6 @@
 
 uint32_t* sub_495B50(uint32_t* a1);
 
-
-nox_drawable* nox_drawable_head_unk1 = 0;
-nox_drawable* nox_drawable_head_unk2 = 0;
-
-//----- (0045A030) --------------------------------------------------------
-int nox_xxx_sprite_45A030() { return nox_drawable_head_unk2; }
-
-//----- (0045A200) --------------------------------------------------------
-void nox_drawable_free_lists() {
-	nox_drawable_head_unk2 = 0;
-	nox_drawable_head_unk1 = 0;
-}
-
 //----- (00495B00) --------------------------------------------------------
 void sub_495B00(nox_drawable* dr) {
 	int a1 = dr;

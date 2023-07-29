@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const (
@@ -19,6 +20,8 @@ const (
 var (
 	nox_drawable_2d_index          [][]*client.Drawable
 	nox_drawable_2d_index_size     int
+	nox_drawable_head_unk1         *client.Drawable
+	nox_drawable_head_unk2         *client.Drawable
 	nox_drawable_head_unk3         *client.Drawable
 	nox_drawable_head_unk4         *client.Drawable
 	dword_5d4594_1303536           *client.Drawable
@@ -27,6 +30,7 @@ var (
 	dword_5d4594_1303472           *client.Drawable
 	dword_5d4594_1303468           *client.Drawable
 	dword_5d4594_1046576           *client.Drawable
+	dword_5d4594_1046604           int
 	nox_drawable_count             int
 	nox_alloc_drawable             alloc.ClassT[client.Drawable]
 )
@@ -75,6 +79,14 @@ func nox_xxx_spriteSetFrameMB_45AB80(dr *client.Drawable, a2 int) {
 	}
 }
 
+func sub_45A060() *client.Drawable {
+	return nox_drawable_head_unk1
+}
+
+func nox_xxx_sprite_45A030() *client.Drawable {
+	return nox_drawable_head_unk2
+}
+
 func nox_xxx_getSomeSprite_49BD40() *client.Drawable {
 	return dword_5d4594_1303536
 }
@@ -111,6 +123,55 @@ func sub_49BCD0(dr *client.Drawable) {
 	}
 }
 
+func nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.Point) *client.Drawable {
+	c := noxClient
+	dr := nox_new_drawable_for_thing(thingInd)
+	if dr == nil {
+		return nil
+	}
+	dr.Buffs = 0
+	dr.Field_32 = 0
+	if dr.Field_116 != 0 {
+		nox_xxx_spriteToList_49BC80_drawable(dr)
+	}
+	if dr.Flags30()&0x200000 != 0 {
+		nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr)
+	}
+	if dr.Field_123 != 0 {
+		sub_459F40_drawable(dr)
+	}
+	dr.PosVec.X = pos.X
+	dr.Field_8 = uint32(pos.X)
+	dr.PosVec.Y = pos.Y
+	dr.Field_9 = uint32(pos.Y)
+	dr.Field_80 = c.srv.Frame()
+	dr.NextPtr = nox_drawable_head_unk1
+	dr.Field_93 = nil
+	if nox_drawable_head_unk1 != nil {
+		nox_drawable_head_unk1.Field_93 = dr
+	}
+	nox_drawable_head_unk1 = dr
+	nox_xxx_sprite_49AA00_drawable(dr)
+	if dr.Flags30()&0x10000 != 0 {
+		v6 := nox_drawable_head_unk2
+		dr.Field_91 = nil
+		dr.Field_90 = v6
+		if v6 != nil {
+			v6.Field_91 = dr
+		}
+		nox_drawable_head_unk2 = dr
+	}
+	if dr.Flags28()&0x4 != 0 {
+		sub_459ED0_drawable(dr)
+	}
+	dr.Flags30Val |= 0x1000000
+	nox_xxx_spriteSetActiveMB_45A990_drawable(dr)
+	dr.Field_120 = 0
+	dr.Field_121 = 0
+	legacy.Nox_xxx_sprite_45A480_drawable(dr)
+	return dr
+}
+
 func nox_xxx_cliGetSpritePlayer_45A000() *client.Drawable {
 	return nox_xxx_drawablePlayer_1046600
 }
@@ -135,12 +196,16 @@ func sub_459F00(dr *client.Drawable) {
 	}
 }
 
+func nox_xxx_spriteSetActiveMB_45A990_drawable(dr *client.Drawable) {
+	dr.Flags30Val |= 0x4
+}
+
 func nox_xxx_spriteDeleteAll_45A5E0(a1 int) {
 	var next *client.Drawable
-	for dr := legacy.Sub_45A060(); dr != nil; dr = next {
+	for dr := nox_drawable_head_unk1; dr != nil; dr = next {
 		next = dr.NextPtr
 		if dr.Flags28()&0x4 == 0 || a1 == 0 || !nox_xxx_spriteIsPlayerSprite_45A630(dr) {
-			legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		}
 	}
 }
@@ -156,7 +221,7 @@ func nox_xxx_spriteIsPlayerSprite_45A630(dr *client.Drawable) bool {
 }
 
 func nox_xxx_netSpriteByCodeStatic_45A720(id int) *client.Drawable {
-	for dr := legacy.Sub_45A060(); dr != nil; dr = dr.NextPtr {
+	for dr := nox_drawable_head_unk1; dr != nil; dr = dr.NextPtr {
 		if dr.Flags28()&0x20400000 != 0 && dr.Field_32 == uint32(id) {
 			return dr
 		}
@@ -165,7 +230,7 @@ func nox_xxx_netSpriteByCodeStatic_45A720(id int) *client.Drawable {
 }
 
 func nox_xxx_netSpriteByCodeDynamic_45A6F0(id int) *client.Drawable {
-	for dr := legacy.Sub_45A060(); dr != nil; dr = dr.NextPtr {
+	for dr := nox_drawable_head_unk1; dr != nil; dr = dr.NextPtr {
 		if dr.Flags28()&0x20400000 == 0 && dr.Field_32 == uint32(id) {
 			return dr
 		}
@@ -177,8 +242,44 @@ func nox_xxx_spriteFromCache_45A330_drawable() *client.Drawable {
 	if nox_drawable_head_unk4 == nil {
 		return nil
 	}
-	legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable_head_unk4)
+	nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable_head_unk4)
 	return nox_alloc_drawable.NewObject()
+}
+
+func nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable) {
+	if dr.Field_93 != nil {
+		dr.Field_93.NextPtr = dr.NextPtr
+	} else {
+		nox_drawable_head_unk1 = dr.NextPtr
+	}
+	if dr.NextPtr != nil {
+		dr.NextPtr.Field_93 = dr.Field_93
+	}
+	client.Nox_xxx_sprite_2d_remove(dr, dr.Ext())
+	nox_xxx_clientDeleteSprite_476F10_drawable(dr)
+	if dr.Flags30()&0x10000 != 0 {
+		if dr.Field_91 != nil {
+			dr.Field_91.Field_90 = dr.Field_90
+		} else {
+			nox_drawable_head_unk2 = dr.Field_90
+		}
+		if dr.Field_90 != nil {
+			dr.Field_90.Field_91 = dr.Field_91
+		}
+	}
+	sub_45A160_drawable(dr)
+	sub_49BCD0(dr)
+	sub_49BAF0(dr)
+	nox_xxx_sprite_49BA10(dr)
+	nox_xxx_cliRemoveHealthbar_459E30(dr, 3)
+	sub_459F70(dr)
+	if dr.Flags28()&0x4 != 0 {
+		sub_459F00(dr)
+	}
+	if server.Nox_xxx_servObjectHasTeam_419130(dr.TeamPtr()) {
+		legacy.Nox_xxx_netChangeTeamMb_419570(dr.TeamPtr(), dr.Field_32)
+	}
+	nox_xxx_spriteDelete_45A4B0(dr)
 }
 
 func sub_459F40_drawable(dr *client.Drawable) {
@@ -288,7 +389,7 @@ func sub_49BA70() {
 		if dr.Deadline > c.srv.Frame() {
 			break
 		}
-		legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 	}
 }
 
@@ -349,7 +450,7 @@ func sub_49BB40() {
 	for dr := dword_5d4594_1303472; dr != nil; dr = next {
 		next = dr.Field_83
 		if dr.Field_85 < sub_435590() {
-			legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		}
 	}
 }
@@ -362,6 +463,15 @@ func nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr *client.Drawable) {
 	}
 	dword_5d4594_1303472 = dr
 	dr.Flags30Val |= 0x200000
+}
+
+func nox_xxx_clientDeleteSprite_476F10_drawable(dr *client.Drawable) {
+	if legacy.Get_dword_5d4594_1096640() == dr {
+		legacy.Set_dword_5d4594_1096640(nil)
+	}
+	if legacy.Get_nox_client_spriteUnderCursorXxx_1096644() == dr {
+		legacy.Set_nox_client_spriteUnderCursorXxx_1096644(nil)
+	}
 }
 
 func nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) int {
@@ -389,7 +499,8 @@ func sub_495B00(dr *client.Drawable) {
 
 func nox_drawable_free() {
 	nox_alloc_drawable.Free()
-	legacy.Nox_drawable_free_lists()
+	nox_drawable_head_unk2 = nil
+	nox_drawable_head_unk1 = nil
 	nox_drawable_head_unk3 = nil
 	nox_drawable_head_unk4 = nil
 	nox_drawable_count = 0
@@ -422,6 +533,24 @@ func sub_45A160_drawable(dr *client.Drawable) {
 		nox_drawable_head_unk4 = dr.Field_98
 	}
 	dr.Flags30Val &= 0xFFBFFFFF
+}
+
+func sub_45A670(a1 uint32) {
+	c := noxClient
+	if dword_5d4594_1046604 == 0 {
+		dword_5d4594_1046604 = c.Things.TypeByID("SummonEffect").Index()
+	}
+	var next *client.Drawable
+	for dr := nox_drawable_head_unk1; dr != nil; dr = next {
+		next = dr.NextPtr
+		if dr.Flags28()&0x20400006 == 0 {
+			if legacy.Sub_49C520(dr) == 0 {
+				if int(dr.Field_27) != dword_5d4594_1046604 && dr.Field_80 < a1 {
+					nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+				}
+			}
+		}
+	}
 }
 
 func sub_49A8E0_init() {

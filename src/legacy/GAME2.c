@@ -60,7 +60,6 @@ extern uint32_t dword_5d4594_1047536;
 extern uint32_t dword_5d4594_1045420;
 extern uint32_t dword_5d4594_1045556;
 extern uint32_t dword_5d4594_831240;
-extern uint32_t dword_5d4594_1046604;
 extern uint32_t dword_5d4594_1045580;
 extern uint32_t dword_5d4594_1045548;
 extern uint32_t dword_5d4594_1045640;
@@ -178,9 +177,6 @@ extern int nox_win_height;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_black_2650656;
-
-extern nox_drawable* nox_drawable_head_unk1;
-extern nox_drawable* nox_drawable_head_unk2;
 
 nox_window* nox_win_unk1 = 0;
 nox_window* dword_5d4594_1046512 = 0;
@@ -4340,9 +4336,6 @@ int sub_45A040(int a1) {
 	return result;
 }
 
-//----- (0045A060) --------------------------------------------------------
-nox_drawable* sub_45A060() { return nox_drawable_head_unk1; }
-
 //----- (0045A070) --------------------------------------------------------
 nox_drawable* sub_45A070(nox_drawable* a1) {
 	int result; // eax
@@ -4367,57 +4360,9 @@ int sub_45A0A0(int a1) {
 	return result;
 }
 
-//----- (0045A360) --------------------------------------------------------
-nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3) {
-	nox_drawable* dr = nox_new_drawable_for_thing(thingInd);
-	if (!dr) {
-		return 0;
-	}
-	dr->buffs = 0;
-	dr->field_32 = 0;
-	if (dr->field_116) {
-		nox_xxx_spriteToList_49BC80_drawable(dr);
-	}
-	if (dr->flags30 & 0x200000) {
-		nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr);
-	}
-	if (dr->field_123) {
-		sub_459F40_drawable(dr);
-	}
-	dr->pos.x = a2;
-	dr->field_8 = a2;
-	dr->pos.y = a3;
-	dr->field_9 = a3;
-	dr->field_80 = gameFrame();
-	dr->field_92 = nox_drawable_head_unk1;
-	dr->field_93 = 0;
-	if (nox_drawable_head_unk1) {
-		nox_drawable_head_unk1->field_93 = dr;
-	}
-	nox_drawable_head_unk1 = dr;
-	nox_xxx_sprite_49AA00_drawable(dr);
-	if (dr->flags30 & 0x10000) {
-		nox_drawable* v6 = nox_drawable_head_unk2;
-		dr->field_91 = 0;
-		dr->field_90 = v6;
-		if (v6) {
-			v6->field_91 = dr;
-		}
-		nox_drawable_head_unk2 = dr;
-	}
-	if (*(uint8_t*)((char*)dr + 112) & 4) {
-		sub_459ED0_drawable(dr);
-	}
-	dr->flags30 |= 0x1000000u;
-	nox_xxx_spriteSetActiveMB_45A990_drawable(dr);
-	dr->field_120 = 0;
-	dr->field_121 = 0;
-	nox_xxx_sprite_45A480_drawable(dr);
-	return dr;
-}
-
 //----- (0045A480) --------------------------------------------------------
-void nox_xxx_sprite_45A480_drawable(int a1) {
+void nox_xxx_sprite_45A480_drawable(nox_drawable* a1p) {
+	int a1 = a1p;
 	int v1; // ecx
 
 	if (*(uint32_t*)(a1 + 112) & 0x1000000 && *(uint8_t*)(a1 + 116) & 0xC0) {
@@ -4426,80 +4371,6 @@ void nox_xxx_sprite_45A480_drawable(int a1) {
 			sub_495F70(a1);
 		}
 	}
-}
-
-//----- (0045A4E0) --------------------------------------------------------
-void nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr) {
-	if (dr->field_93) {
-		dr->field_93->field_92 = dr->field_92;
-	} else {
-		nox_drawable_head_unk1 = dr->field_92;
-	}
-
-	if (dr->field_92) {
-		dr->field_92->field_93 = dr->field_93;
-	}
-
-	nox_xxx_sprite_49A9B0_drawable(dr);
-	nox_xxx_clientDeleteSprite_476F10_drawable(dr);
-
-	if (dr->flags30 & 0x10000) {
-		if (dr->field_91) {
-			dr->field_91->field_90 = dr->field_90;
-		} else {
-			nox_drawable_head_unk2 = dr->field_90;
-		}
-
-		if (dr->field_90) {
-			dr->field_90->field_91 = dr->field_91;
-		}
-	}
-
-	sub_45A160_drawable(dr);
-	sub_49BCD0(dr);
-	sub_49BAF0(dr);
-	nox_xxx_sprite_49BA10(dr);
-	nox_xxx_cliRemoveHealthbar_459E30(dr, 3);
-	sub_459F70(dr);
-
-	if (*(uint8_t*)(&dr->flags28) & 0x4) {
-		sub_459F00(dr);
-	}
-
-	if (nox_xxx_servObjectHasTeam_419130(&dr->field_6)) {
-		nox_xxx_netChangeTeamMb_419570(&dr->field_6, dr->field_32);
-	}
-
-	nox_xxx_spriteDelete_45A4B0(dr);
-}
-
-//----- (0045A670) --------------------------------------------------------
-void sub_45A670(unsigned int a1) {
-	int result;   // eax
-	uint32_t* v2; // esi
-	uint32_t* v3; // edi
-
-	result = dword_5d4594_1046604;
-	if (!dword_5d4594_1046604) {
-		result = nox_xxx_getTTByNameSpriteMB_44CFC0("SummonEffect");
-		dword_5d4594_1046604 = result;
-	}
-	v2 = nox_drawable_head_unk1;
-	if (!v2) {
-		return;
-	}
-	do {
-		int result = v2[28];
-		v3 = (uint32_t*)v2[92];
-		if (!(result & 0x20400006)) {
-			if (!sub_49C520((int)v2)) {
-				if (v2[27] != dword_5d4594_1046604 && v2[80] < a1) {
-					nox_xxx_spriteDeleteStatic_45A4E0_drawable((int)v2);
-				}
-			}
-		}
-		v2 = v3;
-	} while (v3);
 }
 
 //----- (0045A990) --------------------------------------------------------
