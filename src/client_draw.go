@@ -105,7 +105,7 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	}
 	legacy.Sub_430B50(vp.Screen.Min.X, vp.Screen.Min.Y, vp.Screen.Max.X, vp.Screen.Max.Y)
 	if id := legacy.ClientPlayerNetCode(); id != 0 {
-		*memmap.PtrPtr(0x852978, 8) = legacy.Nox_xxx_netSpriteByCodeDynamic_45A6F0(id).C()
+		*memmap.PtrPtr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(id).C()
 	}
 	if noxflags.HasEngine(noxflags.EngineNoRendering) {
 		legacy.Nox_xxx_clientDrawAll_436100_draw_A()
