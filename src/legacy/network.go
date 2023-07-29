@@ -313,8 +313,8 @@ func Sub_456DF0(a1 int) {
 func Sub_455950(a1 *uint16) {
 	C.sub_455950((*C.ushort)(unsafe.Pointer(a1)))
 }
-func Nox_xxx_netChangeTeamMb_419570(a1 unsafe.Pointer, a2 uint32) {
-	C.nox_xxx_netChangeTeamMb_419570(a1, C.int(a2))
+func Nox_xxx_netChangeTeamMb_419570(a1 *server.ObjectTeam, a2 uint32) {
+	C.nox_xxx_netChangeTeamMb_419570(a1.C(), C.int(a2))
 }
 func Sub_49BB80(a1 byte) {
 	C.sub_49BB80(C.char(a1))
