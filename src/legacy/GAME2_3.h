@@ -69,7 +69,6 @@ int sub_495A80(int a1);
 int nox_xxx_allocArrayDrawableFX_495AB0();
 int sub_495AE0();
 void sub_495B00(nox_drawable* dr);
-uint32_t* sub_495B50(uint32_t* a1);
 uint32_t* sub_495BB0(nox_drawable* dr, nox_draw_viewport_t* vp);
 int sub_495BF0(int a1, int a2, int a3);
 int sub_495D00(uint32_t* a1, int a2, uint32_t* a3);

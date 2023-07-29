@@ -26,6 +26,7 @@ void nox_xxx_clientDrawAll_436100_draw_B();
 void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
+int nox_thing_static_random_draw(uint32_t* a1, nox_drawable* dr);
 int sub_436F50();
 */
 import "C"
@@ -176,4 +177,22 @@ func Sub_4989A0() {
 }
 func Nox_xxx_tileCheckRedrawMB_482570(vp *noxrender.Viewport) int {
 	return int(C.nox_xxx_tileCheckRedrawMB_482570((*nox_draw_viewport_t)(vp.C())))
+}
+func Get_nox_thing_static_random_draw() unsafe.Pointer {
+	return C.nox_thing_static_random_draw
+}
+func Get_nox_thing_red_spark_draw() unsafe.Pointer {
+	return C.nox_thing_red_spark_draw
+}
+func Get_nox_thing_blue_spark_draw() unsafe.Pointer {
+	return C.nox_thing_blue_spark_draw
+}
+func Get_nox_thing_yellow_spark_draw() unsafe.Pointer {
+	return C.nox_thing_yellow_spark_draw
+}
+func Get_nox_thing_green_spark_draw() unsafe.Pointer {
+	return C.nox_thing_green_spark_draw
+}
+func Get_nox_thing_cyan_spark_draw() unsafe.Pointer {
+	return C.nox_thing_cyan_spark_draw
 }
