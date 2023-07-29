@@ -135,6 +135,26 @@ func sub_459F00(dr *client.Drawable) {
 	}
 }
 
+func nox_xxx_spriteDeleteAll_45A5E0(a1 int) {
+	var next *client.Drawable
+	for dr := legacy.Sub_45A060(); dr != nil; dr = next {
+		next = dr.NextPtr
+		if dr.Flags28()&0x4 == 0 || a1 == 0 || !nox_xxx_spriteIsPlayerSprite_45A630(dr) {
+			legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+		}
+	}
+}
+
+func nox_xxx_spriteIsPlayerSprite_45A630(dr *client.Drawable) bool {
+	c := noxClient
+	for pl := c.srv.PlayerFirst(); pl != nil; pl = c.srv.PlayerNext(pl) {
+		if dr.Field_32 == pl.NetCodeVal {
+			return true
+		}
+	}
+	return false
+}
+
 func nox_xxx_netSpriteByCodeStatic_45A720(id int) *client.Drawable {
 	for dr := legacy.Sub_45A060(); dr != nil; dr = dr.NextPtr {
 		if dr.Flags28()&0x20400000 != 0 && dr.Field_32 == uint32(id) {

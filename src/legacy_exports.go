@@ -200,6 +200,7 @@ func init() {
 	legacy.Sub_45A090 = sub_45A090
 	legacy.Nox_xxx_sprite_49BA10 = nox_xxx_sprite_49BA10
 	legacy.Sub_49BCD0 = sub_49BCD0
+	legacy.Nox_xxx_spriteDeleteAll_45A5E0 = nox_xxx_spriteDeleteAll_45A5E0
 	legacy.Sub_45A160_drawable = sub_45A160_drawable
 	legacy.Sub_459ED0_drawable = sub_459ED0_drawable
 	legacy.Sub_459F00 = sub_459F00
