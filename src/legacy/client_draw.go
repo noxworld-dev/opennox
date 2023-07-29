@@ -140,9 +140,6 @@ func Sub_476080(a1 unsafe.Pointer) int {
 func Sub_459DB0(dr *client.Drawable) int {
 	return int(C.sub_459DB0((*nox_drawable)(dr.C())))
 }
-func Sub_459DD0(dr *client.Drawable, a2 int) {
-	C.sub_459DD0((*nox_drawable)(dr.C()), C.char(a2))
-}
 func Sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 	C.sub_49A6A0((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 }

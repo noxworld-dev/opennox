@@ -23,6 +23,7 @@ var (
 	nox_drawable_head_unk4         *client.Drawable
 	dword_5d4594_1303536           *client.Drawable
 	nox_xxx_drawablePlayer_1046600 *client.Drawable
+	dword_5d4594_1046596           *client.Drawable
 	nox_drawable_count             int
 	nox_alloc_drawable             alloc.ClassT[client.Drawable]
 )
@@ -137,6 +138,60 @@ func nox_xxx_spriteFromCache_45A330_drawable() *client.Drawable {
 	}
 	legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable_head_unk4)
 	return nox_alloc_drawable.NewObject()
+}
+
+func nox_xxx_cliRemoveHealthbar_459E30(dr *client.Drawable, a2 uint8) {
+	if dr.Flags30()&0x80000000 != 0 {
+		set := (^a2 & dr.Field_71_0) == 0
+		dr.Field_71_0 &= ^a2
+		if set {
+			if v4 := dr.Field_102; v4 != nil {
+				v4.Field_103 = dr.Field_103
+			}
+			if v5 := dr.Field_103; v5 != nil {
+				v5.Field_102 = dr.Field_102
+			} else {
+				dword_5d4594_1046596 = dr.Field_102
+			}
+			dr.Flags30Val &^= 0x80000000
+		}
+	}
+}
+
+func nox_xxx_cliFirstMinimapObj_459EB0() *client.Drawable {
+	return dword_5d4594_1046596
+}
+
+func sub_459DD0(dr *client.Drawable, a2 uint8) {
+	if dr == nil {
+		return
+	}
+	dr.Field_71_0 |= a2
+	if dr.Flags30()&0x80000000 != 0 {
+		return
+	}
+	for it := nox_xxx_cliFirstMinimapObj_459EB0(); it != nil; it = nox_xxx_cliNextMinimapObj_459EC0(it) {
+		// TODO: this happens when hosting a Solo map in Arena game mode and leads to an infinite loop, so we prevent it
+		if dr == it {
+			return
+		}
+	}
+	v4 := dword_5d4594_1046596
+	dr.Field_103 = nil
+	dr.Field_102 = v4
+	if dword_5d4594_1046596 != nil {
+		dword_5d4594_1046596.Field_103 = dr
+	}
+	dword_5d4594_1046596 = dr
+	dr.Flags30Val |= 0x80000000
+}
+
+func nox_xxx_cliNextMinimapObj_459EC0(dr *client.Drawable) *client.Drawable {
+	next := dr.Field_102
+	if dr != nil && dr == next {
+		panic("infinite loop!")
+	}
+	return next
 }
 
 func nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) int {
