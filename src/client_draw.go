@@ -64,7 +64,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		legacy.Nox_xxx_cliToggleObsWindow_4357A0()
 	}
 	c.nox_xxx_clientDrawAll_436100_draw()
-	legacy.Sub_49BB40()
+	sub_49BB40()
 	legacy.Sub_49BA70()
 	c.maybeScreenshot()
 	if memmap.Uint32(0x5D4594, 826068) != 0 {

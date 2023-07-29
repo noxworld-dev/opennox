@@ -189,6 +189,7 @@ func init() {
 	legacy.Nox_xxx_spriteToList_49BC80_drawable = nox_xxx_spriteToList_49BC80_drawable
 	legacy.Nox_xxx_spriteDelete_45A4B0 = nox_xxx_spriteDelete_45A4B0
 	legacy.Nox_new_drawable_for_thing = nox_new_drawable_for_thing
+	legacy.Nox_xxx_spriteToSightDestroyList_49BAB0_drawable = nox_xxx_spriteToSightDestroyList_49BAB0_drawable
 	legacy.Nox_xxx_cliFirstMinimapObj_459EB0 = nox_xxx_cliFirstMinimapObj_459EB0
 	legacy.Nox_xxx_cliNextMinimapObj_459EC0 = nox_xxx_cliNextMinimapObj_459EC0
 	legacy.Nox_xxx_cliGetSpritePlayer_45A000 = nox_xxx_cliGetSpritePlayer_45A000
@@ -197,6 +198,7 @@ func init() {
 	legacy.Sub_45A160_drawable = sub_45A160_drawable
 	legacy.Sub_459ED0_drawable = sub_459ED0_drawable
 	legacy.Sub_459F00 = sub_459F00
+	legacy.Sub_49BAF0 = sub_49BAF0
 	legacy.Nox_xxx_xfer_saveObj51DF90 = nox_xxx_xfer_saveObj51DF90
 	legacy.Nox_xxx_XFerDefault4F49A0 = nox_xxx_XFerDefault4F49A0
 	legacy.Nox_xxx_XFer_ReadShopItem_52A840 = nox_xxx_XFer_ReadShopItem_52A840
