@@ -184,9 +184,12 @@ func init() {
 	legacy.Nox_xxx_forEachSprite = nox_xxx_forEachSprite
 	legacy.Nox_drawable_find = nox_drawable_find
 	legacy.Nox_xxx_sprite_45A110_drawable = nox_xxx_sprite_45A110_drawable
+	legacy.Nox_xxx_spriteToList_49BC80_drawable = nox_xxx_spriteToList_49BC80_drawable
 	legacy.Nox_xxx_spriteDelete_45A4B0 = nox_xxx_spriteDelete_45A4B0
 	legacy.Nox_new_drawable_for_thing = nox_new_drawable_for_thing
 	legacy.Nox_xxx_cliGetSpritePlayer_45A000 = nox_xxx_cliGetSpritePlayer_45A000
+	legacy.Nox_xxx_getSomeSprite_49BD40 = nox_xxx_getSomeSprite_49BD40
+	legacy.Sub_49BCD0 = sub_49BCD0
 	legacy.Sub_45A160_drawable = sub_45A160_drawable
 	legacy.Sub_459ED0_drawable = sub_459ED0_drawable
 	legacy.Sub_459F00 = sub_459F00
