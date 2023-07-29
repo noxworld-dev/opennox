@@ -185,6 +185,7 @@ func init() {
 	legacy.Nox_drawable_find = nox_drawable_find
 	legacy.Nox_xxx_sprite_45A110_drawable = nox_xxx_sprite_45A110_drawable
 	legacy.Nox_xxx_cliRemoveHealthbar_459E30 = nox_xxx_cliRemoveHealthbar_459E30
+	legacy.Nox_xxx_spriteTransparentDecay_49B950 = nox_xxx_spriteTransparentDecay_49B950
 	legacy.Sub_459DD0 = sub_459DD0
 	legacy.Nox_xxx_spriteToList_49BC80_drawable = nox_xxx_spriteToList_49BC80_drawable
 	legacy.Nox_xxx_spriteDelete_45A4B0 = nox_xxx_spriteDelete_45A4B0
@@ -195,6 +196,7 @@ func init() {
 	legacy.Nox_xxx_cliGetSpritePlayer_45A000 = nox_xxx_cliGetSpritePlayer_45A000
 	legacy.Nox_xxx_getSomeSprite_49BD40 = nox_xxx_getSomeSprite_49BD40
 	legacy.Sub_45A090 = sub_45A090
+	legacy.Nox_xxx_sprite_49BA10 = nox_xxx_sprite_49BA10
 	legacy.Sub_49BCD0 = sub_49BCD0
 	legacy.Sub_45A160_drawable = sub_45A160_drawable
 	legacy.Sub_459ED0_drawable = sub_459ED0_drawable
