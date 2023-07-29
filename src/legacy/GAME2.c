@@ -91,7 +91,6 @@ extern uint32_t dword_5d4594_1046540;
 extern uint32_t dword_5d4594_1045588;
 extern uint32_t dword_5d4594_831276;
 extern uint32_t dword_5d4594_1046648;
-extern uint32_t dword_5d4594_1046596;
 extern uint32_t dword_5d4594_1046640;
 extern uint32_t dword_5d4594_1045692;
 extern uint32_t dword_5d4594_831084;
@@ -4323,76 +4322,6 @@ int sub_459DA0() { return dword_5d4594_1046492 != 0; }
 int sub_459DB0(nox_drawable* dr) {
 	int a1 = dr;
 	return *(uint32_t*)(a1 + 112) & 0x400000 && *(uint8_t*)(a1 + 116) & 8;
-}
-
-//----- (00459DD0) --------------------------------------------------------
-void sub_459DD0(nox_drawable* dr, char a2) {
-	int a1 = dr;
-	if (!a1) {
-		return;
-	}
-	int v3 = *(uint32_t*)(a1 + 120);
-	*(uint8_t*)(a1 + 284) |= a2;
-	if (v3 < 0) {
-		return;
-	}
-	for (int it = nox_xxx_cliFirstMinimapObj_459EB0(); it; it = nox_xxx_cliNextMinimapObj_459EC0(it)) {
-		// TODO: this happens when hosting a Solo map in Arena game mode and leads to an infinite loop, so we prevent it
-		if (a1 == it) {
-			return;
-		}
-	}
-	int v4 = dword_5d4594_1046596;
-	*(uint32_t*)(a1 + 412) = 0;
-	*(uint32_t*)(a1 + 408) = v4;
-	if (dword_5d4594_1046596) {
-		*(uint32_t*)(dword_5d4594_1046596 + 412) = a1;
-	}
-	dword_5d4594_1046596 = a1;
-	*(uint32_t*)(a1 + 120) |= 0x80000000;
-}
-
-//----- (00459E30) --------------------------------------------------------
-int nox_xxx_cliRemoveHealthbar_459E30(nox_drawable* dr, char a2) {
-	int a1 = dr;
-	int result; // eax
-	bool v3;    // zf
-	int v4;     // ecx
-	int v5;     // ecx
-
-	result = a1;
-	if (*(int*)(a1 + 120) < 0) {
-		v3 = ((unsigned char)~a2 & *(uint8_t*)(a1 + 284)) == 0;
-		*(uint8_t*)(a1 + 284) &= ~a2;
-		if (v3) {
-			v4 = *(uint32_t*)(a1 + 408);
-			if (v4) {
-				*(uint32_t*)(v4 + 412) = *(uint32_t*)(a1 + 412);
-			}
-			v5 = *(uint32_t*)(a1 + 412);
-			if (v5) {
-				*(uint32_t*)(v5 + 408) = *(uint32_t*)(a1 + 408);
-			} else {
-				dword_5d4594_1046596 = *(uint32_t*)(a1 + 408);
-			}
-			*(uint32_t*)(a1 + 120) &= 0x7FFFFFFFu;
-		}
-	}
-	return result;
-}
-
-//----- (00459EB0) --------------------------------------------------------
-int nox_xxx_cliFirstMinimapObj_459EB0() { return dword_5d4594_1046596; }
-
-//----- (00459EC0) --------------------------------------------------------
-int nox_xxx_cliNextMinimapObj_459EC0(int a1) {
-	int next = *(uint32_t*)(a1 + 408);
-	if (a1 && a1 == next) {
-		printf("nox_xxx_cliNextMinimapObj_459EC0: infinite loop!\n");
-		abort();
-		return 0;
-	}
-	return next;
 }
 
 //----- (00459F40) --------------------------------------------------------
