@@ -2,9 +2,13 @@ package opennox
 
 import (
 	"image"
+	"math"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 const (
@@ -15,7 +19,123 @@ const (
 var (
 	nox_drawable_2d_index      [][]*client.Drawable
 	nox_drawable_2d_index_size int
+	nox_drawable_head_unk3     *client.Drawable
+	nox_drawable_head_unk4     *client.Drawable
+	nox_drawable_count         int
+	nox_alloc_drawable         alloc.ClassT[client.Drawable]
 )
+
+func nox_alloc_drawable_init(cnt int) bool {
+	nox_alloc_drawable = alloc.NewClassT("drawableClass", client.Drawable{}, cnt)
+	return nox_alloc_drawable.Class != nil
+}
+
+func nox_new_drawable_for_thing(i int) *client.Drawable {
+	c := noxClient
+	dr := nox_alloc_drawable.NewObject()
+	if dr == nil {
+		dr = nox_xxx_spriteFromCache_45A330_drawable()
+	}
+	if dr == nil {
+		return nil
+	}
+	if nox_drawable_link_thing(dr, i) == 0 {
+		return nil
+	}
+	draw := dr.DrawFuncPtr
+	if draw == legacy.Get_nox_thing_static_random_draw() {
+		v4 := randomIntMinMax(0, int(*(*uint8)(unsafe.Add(dr.Field_76, 8)))-1)
+		nox_xxx_spriteSetFrameMB_45AB80(dr, v4)
+	} else if draw == legacy.Get_nox_thing_red_spark_draw() || draw == legacy.Get_nox_thing_blue_spark_draw() ||
+		draw == legacy.Get_nox_thing_yellow_spark_draw() || draw == legacy.Get_nox_thing_green_spark_draw() ||
+		draw == legacy.Get_nox_thing_cyan_spark_draw() {
+		dr.Field_26_1 = 35
+		dr.VelZ = 2
+	} else {
+		nox_xxx_spriteSetFrameMB_45AB80(dr, 0)
+	}
+	dr.Field_79 = c.srv.Frame()
+	dr.Field_85 = c.srv.Frame()
+	nox_drawable_count++
+	dr.Field_120 = 0
+	dr.Field_121 = 0
+	return dr
+}
+
+func nox_xxx_spriteSetFrameMB_45AB80(dr *client.Drawable, a2 int) {
+	if dr.Flags28()&0x2 == 0 || dr.Flags29()&0x40000 == 0 || dr.Field_69 != 8 {
+		dr.Field_78 = dr.Field_77
+		dr.Field_77 = uint32(a2)
+	}
+}
+
+func nox_xxx_spriteFromCache_45A330_drawable() *client.Drawable {
+	if nox_drawable_head_unk4 == nil {
+		return nil
+	}
+	legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable_head_unk4)
+	return nox_alloc_drawable.NewObject()
+}
+
+func nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) int {
+	sub_495B00(dr)
+	nox_alloc_drawable.FreeObjectFirst(dr)
+	nox_drawable_count--
+	return nox_drawable_count
+}
+
+func sub_495B00(dr *client.Drawable) {
+	var next *client.DrawableFX
+	aclass := alloc.AsClassT[client.DrawableFX](*memmap.PtrPtr(0x5D4594, 1203868))
+	for p := dr.Field_114; p != nil; p = next {
+		next = p.Next
+		if uintptr(next.C()) < math.MaxUint16 {
+			// FIXME: Sometimes this pointer contains garbage.
+			//        Equip throwable like shuriken or chakram and fire it. Once it hits, this will eventually trigger.
+			next = nil
+		}
+		legacy.Sub_495B50(p)
+		aclass.FreeObjectFirst(p)
+	}
+	dr.Field_114 = nil
+}
+
+func nox_drawable_free() {
+	nox_alloc_drawable.Free()
+	legacy.Nox_drawable_free_lists()
+	nox_drawable_head_unk3 = nil
+	nox_drawable_head_unk4 = nil
+	nox_drawable_count = 0
+}
+
+func nox_xxx_sprite_45A110_drawable(dr *client.Drawable) {
+	dr.Field_98 = nil
+	dr.Field_97 = nox_drawable_head_unk3
+	if nox_drawable_head_unk3 != nil {
+		nox_drawable_head_unk3.Field_98 = dr
+	} else {
+		nox_drawable_head_unk4 = dr
+	}
+	nox_drawable_head_unk3 = dr
+	dr.Flags30Val |= 0x400000
+}
+
+func sub_45A160_drawable(dr *client.Drawable) {
+	if (dr.Flags30() & 0x400000) == 0 {
+		return
+	}
+	if dr2 := dr.Field_98; dr2 != nil {
+		dr2.Field_97 = dr.Field_97
+	} else {
+		nox_drawable_head_unk3 = dr.Field_97
+	}
+	if dr2 := dr.Field_97; dr2 != nil {
+		dr2.Field_98 = dr.Field_98
+	} else {
+		nox_drawable_head_unk4 = dr.Field_98
+	}
+	dr.Flags30Val &= 0xFFBFFFFF
+}
 
 func sub_49A8E0_init() {
 	nox_drawable_2d_index_size = nox_drawable_2d_index_cap

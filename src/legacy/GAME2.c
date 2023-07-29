@@ -183,8 +183,6 @@ extern uint32_t nox_color_black_2650656;
 
 extern nox_drawable* nox_drawable_head_unk1;
 extern nox_drawable* nox_drawable_head_unk2;
-extern nox_drawable* nox_drawable_head_unk3;
-extern nox_drawable* nox_drawable_head_unk4;
 
 nox_window* nox_win_unk1 = 0;
 nox_window* dword_5d4594_1046512 = 0;
@@ -4520,42 +4518,6 @@ int sub_45A0A0(int a1) {
 		result = 0;
 	}
 	return result;
-}
-
-//----- (0045A110) --------------------------------------------------------
-void nox_xxx_sprite_45A110_drawable(nox_drawable* a1) {
-	a1->field_98 = 0;
-	a1->field_97 = nox_drawable_head_unk3;
-	if (nox_drawable_head_unk3) {
-		nox_drawable_head_unk3->field_98 = a1;
-	} else {
-		nox_drawable_head_unk4 = a1;
-	}
-	nox_drawable_head_unk3 = a1;
-	a1->flags30 |= 0x400000u;
-}
-
-//----- (0045A160) --------------------------------------------------------
-void sub_45A160_drawable(nox_drawable* a1) {
-	if (!(a1->flags30 & 0x400000)) {
-		return;
-	}
-
-	nox_drawable* v2 = a1->field_98;
-	if (v2) {
-		v2->field_97 = a1->field_97;
-	} else {
-		nox_drawable_head_unk3 = a1->field_97;
-	}
-
-	nox_drawable* v3 = a1->field_97;
-	if (v3) {
-		v3->field_98 = a1->field_98;
-	} else {
-		nox_drawable_head_unk4 = a1->field_98;
-	}
-
-	a1->flags30 &= 0xFFBFFFFF;
 }
 
 //----- (0045A360) --------------------------------------------------------

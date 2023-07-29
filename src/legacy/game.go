@@ -634,9 +634,6 @@ func Nox_xxx_servGamedataGet_40A020(a1 int16) int {
 func Sub_41D1A0(a1 int) {
 	C.sub_41D1A0(C.int(a1))
 }
-func Nox_alloc_drawable_init(a1 int) int {
-	return int(C.nox_alloc_drawable_init(C.int(a1)))
-}
 func Nox_xxx_netPlayerIncomingServ_4DDF60(a1 int) {
 	C.nox_xxx_netPlayerIncomingServ_4DDF60(C.int(a1))
 }
