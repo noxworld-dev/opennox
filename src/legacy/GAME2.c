@@ -4473,40 +4473,6 @@ void nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr) {
 	nox_xxx_spriteDelete_45A4B0(dr);
 }
 
-//----- (0045A5E0) --------------------------------------------------------
-void nox_xxx_spriteDeleteAll_45A5E0(int a1) {
-	int v1; // esi
-	int v2; // edi
-
-	v1 = nox_drawable_head_unk1;
-	if (v1) {
-		do {
-			v2 = *(uint32_t*)(v1 + 368);
-			if (!(*(uint8_t*)(v1 + 112) & 4) || !a1 || !nox_xxx_spriteIsPlayerSprite_45A630(v1)) {
-				nox_xxx_spriteDeleteStatic_45A4E0_drawable(v1);
-			}
-			v1 = v2;
-		} while (v2);
-	}
-}
-
-//----- (0045A630) --------------------------------------------------------
-int nox_xxx_spriteIsPlayerSprite_45A630(int a1) {
-	char* v1; // eax
-
-	v1 = nox_common_playerInfoGetFirst_416EA0();
-	if (!v1) {
-		return 0;
-	}
-	while (*(uint32_t*)(a1 + 128) != *((uint32_t*)v1 + 515)) {
-		v1 = nox_common_playerInfoGetNext_416EE0((int)v1);
-		if (!v1) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
 //----- (0045A670) --------------------------------------------------------
 void sub_45A670(unsigned int a1) {
 	int result;   // eax
