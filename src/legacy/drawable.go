@@ -31,6 +31,8 @@ var (
 	Nox_xxx_forEachSprite                            func(rect image.Rectangle, fnc func(dr *client.Drawable))
 	Nox_drawable_find                                func(pt image.Point, r int) *client.Drawable
 	Nox_xxx_sprite_45A110_drawable                   func(dr *client.Drawable)
+	Nox_xxx_netSpriteByCodeStatic_45A720             func(id int) *client.Drawable
+	Nox_xxx_netSpriteByCodeDynamic_45A6F0            func(id int) *client.Drawable
 	Nox_xxx_cliRemoveHealthbar_459E30                func(dr *client.Drawable, a2 uint8)
 	Nox_xxx_spriteTransparentDecay_49B950            func(dr *client.Drawable, lifetime int)
 	Sub_459DD0                                       func(dr *client.Drawable, a2 uint8)
@@ -94,6 +96,16 @@ func nox_drawable_find_49ABF0(pt *C.nox_point, r int) *nox_drawable {
 //export nox_xxx_sprite_45A110_drawable
 func nox_xxx_sprite_45A110_drawable(dr *nox_drawable) {
 	Nox_xxx_sprite_45A110_drawable(asDrawable(dr))
+}
+
+//export nox_xxx_netSpriteByCodeStatic_45A720
+func nox_xxx_netSpriteByCodeStatic_45A720(id int) *nox_drawable {
+	return (*nox_drawable)(Nox_xxx_netSpriteByCodeStatic_45A720(id).C())
+}
+
+//export nox_xxx_netSpriteByCodeDynamic_45A6F0
+func nox_xxx_netSpriteByCodeDynamic_45A6F0(id int) *nox_drawable {
+	return (*nox_drawable)(Nox_xxx_netSpriteByCodeDynamic_45A6F0(id).C())
 }
 
 //export nox_xxx_cliRemoveHealthbar_459E30

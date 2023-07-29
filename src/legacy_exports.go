@@ -184,6 +184,8 @@ func init() {
 	legacy.Nox_xxx_forEachSprite = nox_xxx_forEachSprite
 	legacy.Nox_drawable_find = nox_drawable_find
 	legacy.Nox_xxx_sprite_45A110_drawable = nox_xxx_sprite_45A110_drawable
+	legacy.Nox_xxx_netSpriteByCodeStatic_45A720 = nox_xxx_netSpriteByCodeStatic_45A720
+	legacy.Nox_xxx_netSpriteByCodeDynamic_45A6F0 = nox_xxx_netSpriteByCodeDynamic_45A6F0
 	legacy.Nox_xxx_cliRemoveHealthbar_459E30 = nox_xxx_cliRemoveHealthbar_459E30
 	legacy.Nox_xxx_spriteTransparentDecay_49B950 = nox_xxx_spriteTransparentDecay_49B950
 	legacy.Sub_459DD0 = sub_459DD0

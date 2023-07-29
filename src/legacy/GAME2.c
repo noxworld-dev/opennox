@@ -4536,40 +4536,6 @@ void sub_45A670(unsigned int a1) {
 	} while (v3);
 }
 
-//----- (0045A6F0) --------------------------------------------------------
-nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1) {
-	uint32_t* result; // eax
-
-	result = nox_drawable_head_unk1;
-	if (!result) {
-		return 0;
-	}
-	while (result[28] & 0x20400000 || result[32] != a1) {
-		result = (uint32_t*)result[92];
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
-//----- (0045A720) --------------------------------------------------------
-nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1) {
-	uint32_t* result; // eax
-
-	result = nox_drawable_head_unk1;
-	if (!result) {
-		return 0;
-	}
-	while (!(result[28] & 0x20400000) || result[32] != a1) {
-		result = (uint32_t*)result[92];
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (0045A990) --------------------------------------------------------
 int nox_xxx_spriteSetActiveMB_45A990_drawable(int a1) {
 	int result; // eax
