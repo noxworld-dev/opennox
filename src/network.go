@@ -979,7 +979,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			pl.Active = 0
 			tobj := nox_xxx_objGetTeamByNetCode_418C80(int(playerID))
 			if tobj != nil && server.Nox_xxx_servObjectHasTeam_419130(tobj) {
-				legacy.Nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(tobj), uint32(playerID))
+				legacy.Nox_xxx_netChangeTeamMb_419570(tobj, uint32(playerID))
 			}
 		} else {
 			msg = c.Strings().GetStringInFile("UnknownLeft", "cdecode.c")
@@ -1435,7 +1435,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *O
 	case noxnet.MSG_REQUEST_MAP:
 		pl.GoObserver(true, true)
 		if u != nil {
-			legacy.Nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(u.TeamPtr()), uint32(pl.NetCode()))
+			legacy.Nox_xxx_netChangeTeamMb_419570(u.TeamPtr(), uint32(pl.NetCode()))
 		}
 		legacy.Nox_xxx_netMapSend_519D20(pl.Index())
 		return 1, true
