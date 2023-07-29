@@ -16,7 +16,6 @@ package legacy
 #include "client__draw__glowdraw.h"
 #include "client__draw__selectdw.h"
 #include "client__gui__guiggovr.h"
-extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
 void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
@@ -36,10 +35,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
-
-func Nox_xxx_cliGetSpritePlayer_45A000() *client.Drawable {
-	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
-}
 
 func Nox_xxx_clientDrawAll_436100_draw_A() {
 	C.nox_xxx_clientDrawAll_436100_draw_A()
