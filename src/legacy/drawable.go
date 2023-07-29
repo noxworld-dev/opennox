@@ -2,11 +2,12 @@ package legacy
 
 /*
 #include "defs.h"
-extern int nox_drawable_count;
 extern void* dword_5d4594_1096640;
 extern void* nox_client_spriteUnderCursorXxx_1096644;
 int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
+void sub_495B50(void* a1);
 nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
+void nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	return dr->draw_func(vp, dr);
 }
@@ -27,6 +28,10 @@ var (
 	Nox_xxx_sprite_49AA00_drawable func(dr *client.Drawable)
 	Nox_xxx_forEachSprite          func(rect image.Rectangle, fnc func(dr *client.Drawable))
 	Nox_drawable_find              func(pt image.Point, r int) *client.Drawable
+	Nox_xxx_sprite_45A110_drawable func(dr *client.Drawable)
+	Nox_xxx_spriteDelete_45A4B0    func(dr *client.Drawable) int
+	Nox_new_drawable_for_thing     func(i int) *client.Drawable
+	Sub_45A160_drawable            func(dr *client.Drawable)
 )
 
 func asDrawable(p *nox_drawable) *client.Drawable {
@@ -67,8 +72,24 @@ func nox_drawable_find_49ABF0(pt *C.nox_point, r int) *nox_drawable {
 	return (*nox_drawable)(Nox_drawable_find(image.Point{X: int(pt.x), Y: int(pt.y)}, r).C())
 }
 
-func DrawableCount() int {
-	return int(C.nox_drawable_count)
+//export nox_xxx_sprite_45A110_drawable
+func nox_xxx_sprite_45A110_drawable(dr *nox_drawable) {
+	Nox_xxx_sprite_45A110_drawable(asDrawable(dr))
+}
+
+//export nox_xxx_spriteDelete_45A4B0
+func nox_xxx_spriteDelete_45A4B0(dr *nox_drawable) int {
+	return Nox_xxx_spriteDelete_45A4B0(asDrawable(dr))
+}
+
+//export nox_new_drawable_for_thing
+func nox_new_drawable_for_thing(i int) *nox_drawable {
+	return (*nox_drawable)(Nox_new_drawable_for_thing(i).C())
+}
+
+//export sub_45A160_drawable
+func sub_45A160_drawable(dr *nox_drawable) {
+	Sub_45A160_drawable(asDrawable(dr))
 }
 
 func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {
@@ -89,4 +110,10 @@ func Nox_xxx_spriteGetMB_476F80() *client.Drawable {
 
 func Nox_xxx_clientGetSpriteAtCursor_476F90() *client.Drawable {
 	return asDrawable((*nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
+}
+func Sub_495B50(fx *client.DrawableFX) {
+	C.sub_495B50(fx.C())
+}
+func Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable) {
+	C.nox_xxx_spriteDeleteStatic_45A4E0_drawable((*nox_drawable)(dr.C()))
 }
