@@ -5694,7 +5694,8 @@ void nox_xxx_sprite_49C4F0() {
 }
 
 //----- (0049C520) --------------------------------------------------------
-int sub_49C520(int a1) {
+int sub_49C520(nox_drawable* a1p) {
+	int a1 = a1p;
 	unsigned char* v1; // eax
 	int v2;            // eax
 	unsigned char* i;  // ecx

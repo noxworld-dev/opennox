@@ -193,9 +193,6 @@ func Sub_4959D0() {
 func Sub_496120() {
 	C.sub_496120()
 }
-func Nox_drawable_free_lists() {
-	C.nox_drawable_free_lists()
-}
 func Sub_49AEA0() {
 	C.sub_49AEA0()
 }
