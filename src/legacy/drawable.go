@@ -32,6 +32,7 @@ var (
 	Nox_drawable_find                                func(pt image.Point, r int) *client.Drawable
 	Nox_xxx_sprite_45A110_drawable                   func(dr *client.Drawable)
 	Nox_xxx_cliRemoveHealthbar_459E30                func(dr *client.Drawable, a2 uint8)
+	Nox_xxx_spriteTransparentDecay_49B950            func(dr *client.Drawable, lifetime int)
 	Sub_459DD0                                       func(dr *client.Drawable, a2 uint8)
 	Nox_xxx_spriteToList_49BC80_drawable             func(dr *client.Drawable)
 	Nox_xxx_spriteDelete_45A4B0                      func(dr *client.Drawable) int
@@ -42,6 +43,7 @@ var (
 	Nox_xxx_cliGetSpritePlayer_45A000                func() *client.Drawable
 	Nox_xxx_getSomeSprite_49BD40                     func() *client.Drawable
 	Sub_45A090                                       func() *client.Drawable
+	Nox_xxx_sprite_49BA10                            func(dr *client.Drawable)
 	Sub_49BCD0                                       func(dr *client.Drawable)
 	Sub_45A160_drawable                              func(dr *client.Drawable)
 	Sub_459ED0_drawable                              func(dr *client.Drawable)
@@ -99,6 +101,11 @@ func nox_xxx_cliRemoveHealthbar_459E30(dr *nox_drawable, v uint8) {
 	Nox_xxx_cliRemoveHealthbar_459E30(asDrawable(dr), v)
 }
 
+//export nox_xxx_spriteTransparentDecay_49B950
+func nox_xxx_spriteTransparentDecay_49B950(dr *nox_drawable, a2 int) {
+	Nox_xxx_spriteTransparentDecay_49B950(asDrawable(dr), a2)
+}
+
 //export sub_459DD0
 func sub_459DD0(dr *nox_drawable, a2 uint8) {
 	Sub_459DD0(asDrawable(dr), a2)
@@ -147,6 +154,11 @@ func nox_xxx_getSomeSprite_49BD40() *nox_drawable {
 //export sub_45A090
 func sub_45A090() *nox_drawable {
 	return (*nox_drawable)(Sub_45A090().C())
+}
+
+//export nox_xxx_sprite_49BA10
+func nox_xxx_sprite_49BA10(dr *nox_drawable) {
+	Nox_xxx_sprite_49BA10(asDrawable(dr))
 }
 
 //export sub_49BCD0

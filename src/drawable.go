@@ -25,6 +25,7 @@ var (
 	nox_xxx_drawablePlayer_1046600 *client.Drawable
 	dword_5d4594_1046596           *client.Drawable
 	dword_5d4594_1303472           *client.Drawable
+	dword_5d4594_1303468           *client.Drawable
 	dword_5d4594_1046576           *client.Drawable
 	nox_drawable_count             int
 	nox_alloc_drawable             alloc.ClassT[client.Drawable]
@@ -225,6 +226,66 @@ func nox_xxx_cliNextMinimapObj_459EC0(dr *client.Drawable) *client.Drawable {
 		panic("infinite loop!")
 	}
 	return next
+}
+
+func nox_xxx_sprite_49BA10(dr *client.Drawable) {
+	if dr.Deadline != 0 {
+		if v2 := dr.Field_88; v2 != nil {
+			v2.Field_87 = dr.Field_87
+		} else {
+			dword_5d4594_1303468 = dr.Field_87
+		}
+		if v3 := dr.Field_87; v3 != nil {
+			v3.Field_88 = dr.Field_88
+		}
+		dr.Deadline = 0
+	}
+}
+
+func sub_49BA70() {
+	c := noxClient
+	var next *client.Drawable
+	for dr := dword_5d4594_1303468; dr != nil; dr = next {
+		next = dr.Field_87
+		if dr.Deadline > c.srv.Frame() {
+			break
+		}
+		legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+	}
+}
+
+func nox_xxx_spriteTransparentDecay_49B950(dr *client.Drawable, lifetime int) {
+	c := noxClient
+	if dr.Deadline != 0 {
+		nox_xxx_sprite_49BA10(dr)
+	}
+	v2 := c.srv.Frame() + uint32(lifetime)
+	dr.Deadline = v2
+	if dword_5d4594_1303468 == nil {
+		dr.Field_87 = nil
+		dr.Field_88 = nil
+		dword_5d4594_1303468 = dr
+		return
+	}
+
+	var last *client.Drawable
+	for it := dword_5d4594_1303468; it != nil; it = it.Field_87 {
+		if it.Deadline >= v2 {
+			dr.Field_87 = it
+			dr.Field_88 = it.Field_88
+			if v5 := it.Field_88; v5 != nil {
+				v5.Field_87 = dr
+			} else {
+				dword_5d4594_1303468 = dr
+			}
+			it.Field_88 = dr
+			return
+		}
+		last = it
+	}
+	last.Field_87 = dr
+	dr.Field_87 = nil
+	dr.Field_88 = last
 }
 
 func sub_49BAF0(dr *client.Drawable) {

@@ -382,7 +382,7 @@ func (p *particleFx) loadParticle(typ string) {
 	if dr != nil {
 		p.drawable12 = dr
 		dr.Field_27 = uint32(uintptr(p.C())) // TODO: unused?
-		legacy.Nox_xxx_spriteTransparentDecay_49B950(dr, p.ticksTotal)
+		nox_xxx_spriteTransparentDecay_49B950(dr, p.ticksTotal)
 		legacy.Nox_xxx_sprite_45A110_drawable(dr)
 	}
 	p.flags |= 8
