@@ -186,7 +186,10 @@ func init() {
 	legacy.Nox_xxx_sprite_45A110_drawable = nox_xxx_sprite_45A110_drawable
 	legacy.Nox_xxx_spriteDelete_45A4B0 = nox_xxx_spriteDelete_45A4B0
 	legacy.Nox_new_drawable_for_thing = nox_new_drawable_for_thing
+	legacy.Nox_xxx_cliGetSpritePlayer_45A000 = nox_xxx_cliGetSpritePlayer_45A000
 	legacy.Sub_45A160_drawable = sub_45A160_drawable
+	legacy.Sub_459ED0_drawable = sub_459ED0_drawable
+	legacy.Sub_459F00 = sub_459F00
 	legacy.Nox_xxx_xfer_saveObj51DF90 = nox_xxx_xfer_saveObj51DF90
 	legacy.Nox_xxx_XFerDefault4F49A0 = nox_xxx_XFerDefault4F49A0
 	legacy.Nox_xxx_XFer_ReadShopItem_52A840 = nox_xxx_XFer_ReadShopItem_52A840

@@ -431,7 +431,7 @@ LOOP:
 			sy = math.MaxInt32
 		}
 		if dr.Field_27 == memmap.Uint32(0x5D4594, 1096448) && noxServer.Teams.First() != nil {
-			for v25 := legacy.Nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
+			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
 				if v25.HasEnchant(server.ENCHANT_CROWN) {
 					continue LOOP
 				}

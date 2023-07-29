@@ -187,8 +187,6 @@ extern nox_drawable* nox_drawable_head_unk2;
 nox_window* nox_win_unk1 = 0;
 nox_window* dword_5d4594_1046512 = 0;
 
-nox_drawable* nox_xxx_drawablePlayer_1046600 = 0;
-
 uint32_t dword_587000_122856 = 0x1;
 uint32_t dword_5d4594_831088 = 0;
 uint32_t dword_5d4594_831092 = 0;
@@ -4397,38 +4395,6 @@ int nox_xxx_cliNextMinimapObj_459EC0(int a1) {
 	return next;
 }
 
-//----- (00459ED0) --------------------------------------------------------
-void sub_459ED0_drawable(nox_drawable* dr) {
-	dr->field_104 = nox_xxx_drawablePlayer_1046600;
-	dr->field_105 = 0;
-	if (nox_xxx_drawablePlayer_1046600) {
-		nox_xxx_drawablePlayer_1046600->field_105 = dr;
-	}
-	nox_xxx_drawablePlayer_1046600 = dr;
-}
-
-//----- (00459F00) --------------------------------------------------------
-int sub_459F00(nox_drawable* dr) {
-	int a1 = dr;
-	int result; // eax
-	int v2;     // ecx
-	int v3;     // ecx
-
-	result = a1;
-	v2 = *(uint32_t*)(a1 + 416);
-	if (v2) {
-		*(uint32_t*)(v2 + 420) = *(uint32_t*)(a1 + 420);
-	}
-	v3 = *(uint32_t*)(a1 + 420);
-	if (v3) {
-		result = *(uint32_t*)(a1 + 416);
-		*(uint32_t*)(v3 + 416) = result;
-	} else {
-		nox_xxx_drawablePlayer_1046600 = *(uint32_t*)(a1 + 416);
-	}
-	return result;
-}
-
 //----- (00459F40) --------------------------------------------------------
 int sub_459F40_drawable(int a1) {
 	int result; // eax
@@ -4471,9 +4437,6 @@ uint32_t* sub_459F70(nox_drawable* dr) {
 	}
 	return result;
 }
-
-//----- (0045A000) --------------------------------------------------------
-nox_drawable* nox_xxx_cliGetSpritePlayer_45A000() { return nox_xxx_drawablePlayer_1046600; }
 
 //----- (0045A010) --------------------------------------------------------
 nox_drawable* sub_45A010(nox_drawable* dr) { return dr->field_104; }

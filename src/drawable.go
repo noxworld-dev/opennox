@@ -17,12 +17,13 @@ const (
 )
 
 var (
-	nox_drawable_2d_index      [][]*client.Drawable
-	nox_drawable_2d_index_size int
-	nox_drawable_head_unk3     *client.Drawable
-	nox_drawable_head_unk4     *client.Drawable
-	nox_drawable_count         int
-	nox_alloc_drawable         alloc.ClassT[client.Drawable]
+	nox_drawable_2d_index          [][]*client.Drawable
+	nox_drawable_2d_index_size     int
+	nox_drawable_head_unk3         *client.Drawable
+	nox_drawable_head_unk4         *client.Drawable
+	nox_xxx_drawablePlayer_1046600 *client.Drawable
+	nox_drawable_count             int
+	nox_alloc_drawable             alloc.ClassT[client.Drawable]
 )
 
 func nox_alloc_drawable_init(cnt int) bool {
@@ -66,6 +67,30 @@ func nox_xxx_spriteSetFrameMB_45AB80(dr *client.Drawable, a2 int) {
 	if dr.Flags28()&0x2 == 0 || dr.Flags29()&0x40000 == 0 || dr.Field_69 != 8 {
 		dr.Field_78 = dr.Field_77
 		dr.Field_77 = uint32(a2)
+	}
+}
+
+func nox_xxx_cliGetSpritePlayer_45A000() *client.Drawable {
+	return nox_xxx_drawablePlayer_1046600
+}
+
+func sub_459ED0_drawable(dr *client.Drawable) {
+	dr.Field_104 = nox_xxx_drawablePlayer_1046600
+	dr.Field_105 = nil
+	if nox_xxx_drawablePlayer_1046600 != nil {
+		nox_xxx_drawablePlayer_1046600.Field_105 = dr
+	}
+	nox_xxx_drawablePlayer_1046600 = dr
+}
+
+func sub_459F00(dr *client.Drawable) {
+	if v2 := dr.Field_104; v2 != nil {
+		v2.Field_105 = dr.Field_105
+	}
+	if v3 := dr.Field_105; v3 != nil {
+		v3.Field_104 = dr.Field_104
+	} else {
+		nox_xxx_drawablePlayer_1046600 = dr.Field_104
 	}
 }
 
