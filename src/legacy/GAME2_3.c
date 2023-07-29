@@ -51,7 +51,6 @@ extern uint32_t dword_5d4594_1197372;
 extern void* nox_alloc_friendList_1203860;
 extern uint32_t dword_5d4594_1305748;
 extern uint32_t dword_5d4594_1197328;
-extern uint32_t dword_5d4594_1303472;
 extern uint32_t dword_5d4594_1197352;
 extern uint32_t dword_5d4594_1197336;
 extern uint32_t dword_5d4594_1197356;
@@ -4977,7 +4976,7 @@ uint32_t* nox_xxx_fxDrawTurnUndead_499880(short* a1) {
 			v3[82] = a1[1];
 			v3[115] = nox_xxx_sprite_4CA540;
 			nox_xxx_spriteToList_49BC80_drawable(v3);
-			result = nox_xxx_spriteToSightDestroyList_49BAB0_drawable(v3);
+			nox_xxx_spriteToSightDestroyList_49BAB0_drawable(v3);
 		}
 	}
 	return result;
@@ -5555,62 +5554,6 @@ int sub_49BA70() {
 		} while (v1);
 	}
 	return result;
-}
-
-//----- (0049BAB0) --------------------------------------------------------
-uint32_t* nox_xxx_spriteToSightDestroyList_49BAB0_drawable(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
-	a1[84] = 0;
-	a1[83] = dword_5d4594_1303472;
-	if (dword_5d4594_1303472) {
-		*(uint32_t*)(dword_5d4594_1303472 + 336) = a1;
-	}
-	dword_5d4594_1303472 = a1;
-	a1[30] |= 0x200000u;
-	return result;
-}
-
-//----- (0049BAF0) --------------------------------------------------------
-uint32_t* sub_49BAF0(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result; // eax
-	int v2;           // ecx
-	int v3;           // ecx
-
-	result = a1;
-	if (a1[30] & 0x200000) {
-		v2 = a1[84];
-		if (v2) {
-			*(uint32_t*)(v2 + 332) = a1[83];
-		} else {
-			dword_5d4594_1303472 = a1[83];
-		}
-		v3 = a1[83];
-		if (v3) {
-			*(uint32_t*)(v3 + 336) = a1[84];
-		}
-		a1[30] &= 0xFFDFFFFF;
-	}
-	return result;
-}
-
-//----- (0049BB40) --------------------------------------------------------
-void sub_49BB40() {
-	int v0; // esi
-	int v1; // edi
-
-	v0 = dword_5d4594_1303472;
-	if (dword_5d4594_1303472) {
-		do {
-			v1 = *(uint32_t*)(v0 + 332);
-			if (*(uint32_t*)(v0 + 340) < (unsigned int)sub_435590()) {
-				nox_xxx_spriteDeleteStatic_45A4E0_drawable(v0);
-			}
-			v0 = v1;
-		} while (v1);
-	}
 }
 
 //----- (0049BB80) --------------------------------------------------------

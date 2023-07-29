@@ -24,6 +24,7 @@ var (
 	dword_5d4594_1303536           *client.Drawable
 	nox_xxx_drawablePlayer_1046600 *client.Drawable
 	dword_5d4594_1046596           *client.Drawable
+	dword_5d4594_1303472           *client.Drawable
 	nox_drawable_count             int
 	nox_alloc_drawable             alloc.ClassT[client.Drawable]
 )
@@ -192,6 +193,44 @@ func nox_xxx_cliNextMinimapObj_459EC0(dr *client.Drawable) *client.Drawable {
 		panic("infinite loop!")
 	}
 	return next
+}
+
+func sub_49BAF0(dr *client.Drawable) {
+	if dr.Flags30()&0x200000 != 0 {
+		if v2 := dr.Field_84; v2 != nil {
+			v2.Field_83 = dr.Field_83
+		} else {
+			dword_5d4594_1303472 = dr.Field_83
+		}
+		if v3 := dr.Field_83; v3 != nil {
+			v3.Field_84 = dr.Field_84
+		}
+		dr.Flags30Val &= 0xFFDFFFFF
+	}
+}
+
+func sub_435590() uint32 {
+	return memmap.Uint32(0x5D4594, 811916)
+}
+
+func sub_49BB40() {
+	var next *client.Drawable
+	for dr := dword_5d4594_1303472; dr != nil; dr = next {
+		next = dr.Field_83
+		if dr.Field_85 < sub_435590() {
+			legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+		}
+	}
+}
+
+func nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr *client.Drawable) {
+	dr.Field_84 = nil
+	dr.Field_83 = dword_5d4594_1303472
+	if dword_5d4594_1303472 != nil {
+		dword_5d4594_1303472.Field_84 = dr
+	}
+	dword_5d4594_1303472 = dr
+	dr.Flags30Val |= 0x200000
 }
 
 func nox_xxx_spriteDelete_45A4B0(dr *client.Drawable) int {
