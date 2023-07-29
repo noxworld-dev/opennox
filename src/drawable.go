@@ -25,6 +25,7 @@ var (
 	nox_xxx_drawablePlayer_1046600 *client.Drawable
 	dword_5d4594_1046596           *client.Drawable
 	dword_5d4594_1303472           *client.Drawable
+	dword_5d4594_1046576           *client.Drawable
 	nox_drawable_count             int
 	nox_alloc_drawable             alloc.ClassT[client.Drawable]
 )
@@ -139,6 +140,37 @@ func nox_xxx_spriteFromCache_45A330_drawable() *client.Drawable {
 	}
 	legacy.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable_head_unk4)
 	return nox_alloc_drawable.NewObject()
+}
+
+func sub_459F40_drawable(dr *client.Drawable) {
+	dr.Field_106 = dword_5d4594_1046576
+	dr.Field_107 = nil
+	if dword_5d4594_1046576 != nil {
+		dword_5d4594_1046576.Field_107 = dr
+	}
+	dword_5d4594_1046576 = dr
+}
+
+func sub_45A090() *client.Drawable {
+	return dword_5d4594_1046576
+}
+
+func sub_459F70(dr *client.Drawable) {
+	if v2 := dr.Field_106; v2 != nil {
+		v2.Field_107 = dr.Field_107
+	} else if dr.Field_107 == nil && dword_5d4594_1046576 != dr {
+		return
+	}
+	if v3 := dr.Field_107; v3 != nil {
+		v3.Field_106 = dr.Field_106
+	} else {
+		dword_5d4594_1046576 = dr.Field_106
+	}
+	dr.Field_106 = nil
+	dr.Field_107 = nil
+	if p := legacy.Sub_452EB0(&dr.Field_124); p != nil {
+		legacy.Sub_4523D0(p)
+	}
 }
 
 func nox_xxx_cliRemoveHealthbar_459E30(dr *client.Drawable, a2 uint8) {

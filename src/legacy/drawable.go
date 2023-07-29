@@ -6,8 +6,10 @@ extern void* dword_5d4594_1096640;
 extern void* nox_client_spriteUnderCursorXxx_1096644;
 int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
 void sub_495B50(void* a1);
+int sub_4523D0(void* a1);
 nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
 void nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr);
+void* sub_452EB0(void* a1);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	return dr->draw_func(vp, dr);
 }
@@ -39,11 +41,14 @@ var (
 	Nox_xxx_cliNextMinimapObj_459EC0                 func(dr *client.Drawable) *client.Drawable
 	Nox_xxx_cliGetSpritePlayer_45A000                func() *client.Drawable
 	Nox_xxx_getSomeSprite_49BD40                     func() *client.Drawable
+	Sub_45A090                                       func() *client.Drawable
 	Sub_49BCD0                                       func(dr *client.Drawable)
 	Sub_45A160_drawable                              func(dr *client.Drawable)
 	Sub_459ED0_drawable                              func(dr *client.Drawable)
 	Sub_459F00                                       func(dr *client.Drawable)
 	Sub_49BAF0                                       func(dr *client.Drawable)
+	Sub_459F40_drawable                              func(dr *client.Drawable)
+	Sub_459F70                                       func(dr *client.Drawable)
 )
 
 func asDrawable(p *nox_drawable) *client.Drawable {
@@ -139,6 +144,11 @@ func nox_xxx_getSomeSprite_49BD40() *nox_drawable {
 	return (*nox_drawable)(Nox_xxx_getSomeSprite_49BD40().C())
 }
 
+//export sub_45A090
+func sub_45A090() *nox_drawable {
+	return (*nox_drawable)(Sub_45A090().C())
+}
+
 //export sub_49BCD0
 func sub_49BCD0(dr *nox_drawable) {
 	Sub_49BCD0(asDrawable(dr))
@@ -164,6 +174,16 @@ func sub_45A160_drawable(dr *nox_drawable) {
 	Sub_45A160_drawable(asDrawable(dr))
 }
 
+//export sub_459F40_drawable
+func sub_459F40_drawable(dr *nox_drawable) {
+	Sub_459F40_drawable(asDrawable(dr))
+}
+
+//export sub_459F70
+func sub_459F70(dr *nox_drawable) {
+	Sub_459F70(asDrawable(dr))
+}
+
 func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {
 	return int(C.go_nox_drawable_call_draw_func((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(s.C())))
 }
@@ -183,9 +203,15 @@ func Nox_xxx_spriteGetMB_476F80() *client.Drawable {
 func Nox_xxx_clientGetSpriteAtCursor_476F90() *client.Drawable {
 	return asDrawable((*nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
 }
+func Sub_4523D0(p unsafe.Pointer) {
+	C.sub_4523D0(p)
+}
 func Sub_495B50(fx *client.DrawableFX) {
 	C.sub_495B50(fx.C())
 }
 func Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable) {
 	C.nox_xxx_spriteDeleteStatic_45A4E0_drawable((*nox_drawable)(dr.C()))
+}
+func Sub_452EB0(p *unsafe.Pointer) unsafe.Pointer {
+	return C.sub_452EB0(unsafe.Pointer(p))
 }
