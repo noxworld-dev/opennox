@@ -47,6 +47,7 @@ var (
 	Sub_45A090                                       func() *client.Drawable
 	Nox_xxx_sprite_49BA10                            func(dr *client.Drawable)
 	Sub_49BCD0                                       func(dr *client.Drawable)
+	Nox_xxx_spriteDeleteAll_45A5E0                   func(a1 int)
 	Sub_45A160_drawable                              func(dr *client.Drawable)
 	Sub_459ED0_drawable                              func(dr *client.Drawable)
 	Sub_459F00                                       func(dr *client.Drawable)
@@ -176,6 +177,11 @@ func nox_xxx_sprite_49BA10(dr *nox_drawable) {
 //export sub_49BCD0
 func sub_49BCD0(dr *nox_drawable) {
 	Sub_49BCD0(asDrawable(dr))
+}
+
+//export nox_xxx_spriteDeleteAll_45A5E0
+func nox_xxx_spriteDeleteAll_45A5E0(a1 int) {
+	Nox_xxx_spriteDeleteAll_45A5E0(a1)
 }
 
 //export sub_459ED0_drawable
