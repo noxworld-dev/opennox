@@ -21,6 +21,7 @@ var (
 	nox_drawable_2d_index_size     int
 	nox_drawable_head_unk3         *client.Drawable
 	nox_drawable_head_unk4         *client.Drawable
+	dword_5d4594_1303536           *client.Drawable
 	nox_xxx_drawablePlayer_1046600 *client.Drawable
 	nox_drawable_count             int
 	nox_alloc_drawable             alloc.ClassT[client.Drawable]
@@ -67,6 +68,42 @@ func nox_xxx_spriteSetFrameMB_45AB80(dr *client.Drawable, a2 int) {
 	if dr.Flags28()&0x2 == 0 || dr.Flags29()&0x40000 == 0 || dr.Field_69 != 8 {
 		dr.Field_78 = dr.Field_77
 		dr.Field_77 = uint32(a2)
+	}
+}
+
+func nox_xxx_getSomeSprite_49BD40() *client.Drawable {
+	return dword_5d4594_1303536
+}
+
+func nox_xxx_spriteToList_49BC80_drawable(dr *client.Drawable) {
+	if dr.Field_96 == 0 {
+		dr.Field_95 = nil
+		dr.Field_94 = dword_5d4594_1303536
+		if dword_5d4594_1303536 != nil {
+			dword_5d4594_1303536.Field_95 = dr
+		}
+		dword_5d4594_1303536 = dr
+		dr.Field_96 = 1
+	}
+}
+
+func sub_49BCD0(dr *client.Drawable) {
+	if dr.Field_96 != 0 {
+		v2 := dr.Field_95
+		if v2 != nil {
+			v2.Field_94 = dr.Field_94
+			if v3 := dr.Field_94; v3 != nil {
+				v3.Field_95 = dr.Field_95
+				dr.Field_96 = 0
+				return
+			}
+		} else {
+			dword_5d4594_1303536 = dr.Field_94
+			if v4 := dr.Field_94; v4 != nil {
+				v4.Field_95 = nil
+			}
+		}
+		dr.Field_96 = 0
 	}
 }
 
