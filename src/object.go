@@ -96,7 +96,7 @@ func (s *Server) DelayedDelete(obj *server.Object) {
 	s.Objs.DeletedList = obj.SObj()
 	obj.DeletedAt = s.Frame()
 	if server.Nox_xxx_servObjectHasTeam_419130(obj.TeamPtr()) {
-		legacy.Nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.TeamPtr()), obj.NetCode)
+		legacy.Nox_xxx_netChangeTeamMb_419570(obj.TeamPtr(), obj.NetCode)
 	}
 }
 
