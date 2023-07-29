@@ -46,7 +46,6 @@ extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1305788;
 extern void* nox_alloc_healthChange_1301772;
 extern uint32_t nox_server_sanctuaryHelp_54276;
-extern uint32_t dword_5d4594_1303536;
 extern uint32_t dword_5d4594_1197308;
 extern uint32_t dword_5d4594_1197372;
 extern void* nox_alloc_friendList_1203860;
@@ -5649,57 +5648,6 @@ void sub_49BBC0() {
 		}
 	}
 }
-
-//----- (0049BC80) --------------------------------------------------------
-uint32_t* nox_xxx_spriteToList_49BC80_drawable(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
-	if (!a1[96]) {
-		a1[95] = 0;
-		a1[94] = dword_5d4594_1303536;
-		if (dword_5d4594_1303536) {
-			*(uint32_t*)(dword_5d4594_1303536 + 380) = a1;
-		}
-		dword_5d4594_1303536 = a1;
-		a1[96] = 1;
-	}
-	return result;
-}
-
-//----- (0049BCD0) --------------------------------------------------------
-uint32_t* sub_49BCD0(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result; // eax
-	int v2;           // ecx
-	int v3;           // ecx
-	int v4;           // ecx
-
-	result = a1;
-	if (a1[96]) {
-		v2 = a1[95];
-		if (v2) {
-			*(uint32_t*)(v2 + 376) = a1[94];
-			v3 = a1[94];
-			if (v3) {
-				*(uint32_t*)(v3 + 380) = a1[95];
-				a1[96] = 0;
-				return result;
-			}
-		} else {
-			dword_5d4594_1303536 = a1[94];
-			v4 = a1[94];
-			if (v4) {
-				*(uint32_t*)(v4 + 380) = 0;
-			}
-		}
-		a1[96] = 0;
-	}
-	return result;
-}
-
-//----- (0049BD40) --------------------------------------------------------
-int nox_xxx_getSomeSprite_49BD40() { return dword_5d4594_1303536; }
 
 //----- (0049BD50) --------------------------------------------------------
 int nox_xxx_getSprite178_49BD50(int a1) {
