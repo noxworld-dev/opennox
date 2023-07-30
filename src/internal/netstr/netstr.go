@@ -130,6 +130,22 @@ func (g *Streams) Reset() {
 	}
 }
 
+func (g *Streams) ByPlayer(p ntype.Player) Handle {
+	return g.ByPlayerInd(p.PlayerIndex())
+}
+
+func (g *Streams) ByPlayerInd(pind ntype.PlayerInd) Handle {
+	return Handle{g, int(pind) + 1}
+}
+
+func (g *Streams) ByIndexRaw(ind int) Handle {
+	return Handle{g, ind}
+}
+
+func (g *Streams) First() Handle {
+	return Handle{g, 0}
+}
+
 func (h Handle) addTransferStats(n int) {
 	h.g.transfer[h.i] += uint32(n)
 }
@@ -287,22 +303,6 @@ func (h Handle) Close() {
 		_ = ns.Close()
 		h.g.streams[h.i] = nil
 	}
-}
-
-func (g *Streams) Player(p ntype.Player) Handle {
-	return g.PlayerInd(p.PlayerIndex())
-}
-
-func (g *Streams) PlayerInd(pind ntype.PlayerInd) Handle {
-	return Handle{g, int(pind) + 1}
-}
-
-func (g *Streams) IndexRaw(ind int) Handle {
-	return Handle{g, ind}
-}
-
-func (g *Streams) First() Handle {
-	return Handle{g, 0}
 }
 
 func (g *Streams) NewClient(narg *Options) (Handle, error) {
@@ -1087,7 +1087,7 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *conn, p1 byt
 		a4a = true
 	}
 	if n := check(out, packet, a4a, func(pl ntype.Player) bool {
-		pid := g.Player(pl)
+		pid := g.ByPlayer(pl)
 		if _, ok := g.playerIDs[pid]; ok {
 			return false
 		}
