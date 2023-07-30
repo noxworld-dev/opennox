@@ -263,7 +263,7 @@ func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
 		Check14: nox_xxx_netBigSwitch_553210_op_14_check,
 		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
-	nox_xxx_allocNetGQueue_5520B0()
+	s.SetUpdateFunc2(s.checkPingLimits)
 	netstr.Global.Reset()
 	conn, err := netInitServer(narg)
 	if err != nil {
@@ -748,14 +748,19 @@ func sub_43CC80() {
 	legacy.Set_dword_5d4594_2649712(0)
 }
 
-func sub_5521A0() bool {
+func (s *Server) checkPingLimits() bool {
 	v13 := sub_416640()
-	netstr.Global.ProcessStats(int(*(*int16)(unsafe.Pointer(&v13[105]))), int(*(*int16)(unsafe.Pointer(&v13[107]))))
+	min := int(*(*int16)(unsafe.Pointer(&v13[105])))
+	max := int(*(*int16)(unsafe.Pointer(&v13[107])))
+	var tmin, tmax time.Duration = -1, -1
+	if min >= 0 {
+		tmin = time.Millisecond * time.Duration(min)
+	}
+	if max >= 0 {
+		tmax = time.Millisecond * time.Duration(max)
+	}
+	netstr.Global.ProcessStats(tmin, tmax)
 	return true
-}
-
-func nox_xxx_allocNetGQueue_5520B0() {
-	noxClient.SetUpdateFunc2(sub_5521A0)
 }
 
 func nox_xxx_net_getIP_554200(a1 netstr.Handle) uint32 {

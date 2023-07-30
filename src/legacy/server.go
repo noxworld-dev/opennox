@@ -77,6 +77,7 @@ var (
 
 type Server interface {
 	S() *server.Server
+	SetUpdateFunc2(fnc func() bool)
 	ServerPort() int
 	ServStartCountdown(dt int, text strman.ID)
 	TickRate() uint32
