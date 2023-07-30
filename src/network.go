@@ -284,7 +284,7 @@ func getOwnIP() string {
 
 func netInitServer(narg *netstr.Options) (ind netstr.Handle, _ error) {
 	ownIPStr = ""
-	conn, err := netstr.Global.NewServer(narg)
+	conn, err := netstr.Global.Listen(narg)
 	netServerPort = uint16(narg.Port)
 	if err != nil {
 		return conn, err

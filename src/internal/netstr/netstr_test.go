@@ -28,7 +28,7 @@ func TestNetstr(t *testing.T) {
 			return 10
 		}
 		s.Xor = false
-		conn, err := s.NewServer(&Options{
+		conn, err := s.Listen(&Options{
 			Port:       18501,
 			Max:        10,
 			BufferSize: 2048,
