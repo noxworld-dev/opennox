@@ -470,7 +470,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if vers := getVersionCode(); vers != NOX_CLIENT_VERS_CODE {
 		err := fmt.Errorf("invalid client version: %x", int(vers))
 		log.Println(err)
-		return netstr.NewConnectFailErr(-20, err)
+		return netstr.NewConnectErr(-20, err)
 	}
 	gameSetPlayState(2)
 	if !noxflags.HasGame(noxflags.GameHost) {
