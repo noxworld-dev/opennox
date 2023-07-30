@@ -305,7 +305,7 @@ func (s *Server) nox_server_netClose_5546A0(i netstr.Handle) {
 }
 
 func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) int {
-	return netstr.Global.ReadPackets(netstr.Global.PlayerInd(ind))
+	return netstr.Global.ReadPackets(netstr.Global.ByPlayerInd(ind))
 }
 
 func nox_xxx_netSendClientReady_43C9F0() int {
@@ -1241,7 +1241,7 @@ func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 			if len(data) == 0 {
 				return
 			}
-			netstr.Global.PlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
+			netstr.Global.ByPlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
 		})
 	}
 }
@@ -1302,7 +1302,7 @@ func (s *Server) sendSettings(u *Object) {
 		buf[32] = 0
 		binary.LittleEndian.PutUint32(buf[33:], nox_xxx_mapCrcGetMB_409B00())
 		binary.LittleEndian.PutUint32(buf[37:], s.Frame())
-		netstr.Global.Player(pl).Send(buf[:41], netstr.SendQueue|netstr.SendFlush)
+		netstr.Global.ByPlayer(pl).Send(buf[:41], netstr.SendQueue|netstr.SendFlush)
 		legacy.Sub_4DDE10(pl.Index(), pl.S())
 	}
 }
@@ -1324,7 +1324,7 @@ func nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != common.MaxPlayers-1 {
 			buf := netlist.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
-				netstr.Global.Player(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
+				netstr.Global.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
 			}
 		}
 	}
@@ -1351,7 +1351,7 @@ func (s *Server) onPacketRaw(pli ntype.PlayerInd, data []byte) bool {
 	switch op {
 	case 0x20:
 		if s.newPlayerFromPacket(pli, data[1:]) == 0 {
-			netstr.Global.ReadPackets(netstr.Global.PlayerInd(pli))
+			netstr.Global.ReadPackets(netstr.Global.ByPlayerInd(pli))
 		}
 		return true
 	case 0x22:
@@ -1463,7 +1463,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
 				} else {
-					conn := netstr.Global.Player(it)
+					conn := netstr.Global.ByPlayer(it)
 					conn.Send(data[:msz], 0)
 					conn.SendReadPacket(true)
 				}
@@ -1489,7 +1489,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == legacy.ClientPlayerNetCode() {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(it.PlayerIndex(), data[:msz])
 				} else {
-					conn := netstr.Global.Player(it)
+					conn := netstr.Global.ByPlayer(it)
 					conn.Send(data[:msz], 0)
 					conn.SendReadPacket(true)
 				}
@@ -1647,7 +1647,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			a3 := binary.LittleEndian.Uint32(data[4:])
 			styp := alloc.GoStringS(data[8:136])
 			a4 := data[136]
-			sub_40B5D0(netstr.Global.Player(pl), a2, styp, a3, a4)
+			sub_40B5D0(netstr.Global.ByPlayer(pl), a2, styp, a3, a4)
 			return 140, true
 		case 1:
 			if len(data) < 4 {
@@ -1655,7 +1655,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40BFF0(netstr.Global.Player(pl), a2, a3)
+			sub_40BFF0(netstr.Global.ByPlayer(pl), a2, a3)
 			return 4, true
 		case 2:
 			if len(data) < 8 {
@@ -1672,8 +1672,8 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			buf[1] = 3
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
-			netstr.Global.Player(pl).Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
-			sub_40B250(netstr.Global.Player(pl), a2, a3, data[8:8+sz])
+			netstr.Global.ByPlayer(pl).Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
+			sub_40B250(netstr.Global.ByPlayer(pl), a2, a3, data[8:8+sz])
 			return 8 + sz, true
 		case 3:
 			if len(data) < 6 {
@@ -1681,14 +1681,14 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := binary.LittleEndian.Uint16(data[4:])
-			sub_40BF60(netstr.Global.Player(pl), a2, a3)
+			sub_40BF60(netstr.Global.ByPlayer(pl), a2, a3)
 			return 6, true
 		case 4:
 			if len(data) < 3 {
 				return 0, false
 			}
 			a2 := data[2]
-			sub_40C030(netstr.Global.Player(pl), a2)
+			sub_40C030(netstr.Global.ByPlayer(pl), a2)
 			return 3, true
 		case 5:
 			if len(data) < 4 {
@@ -1704,7 +1704,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40C070(netstr.Global.Player(pl), a3, a2)
+			sub_40C070(netstr.Global.ByPlayer(pl), a3, a2)
 			return 4, true
 		}
 		return 0, false
@@ -1976,7 +1976,7 @@ func sub_40BC60(pli ntype.PlayerInd, a2 byte, typ string, data []byte, flag bool
 			sub_40B810(a2, data)
 			return true
 		}
-		nind = netstr.Global.PlayerInd(pli)
+		nind = netstr.Global.ByPlayerInd(pli)
 	}
 	xferDataActive++
 	left := data
