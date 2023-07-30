@@ -26,6 +26,21 @@ func GetAddr(addr net.Addr) netip.AddrPort {
 	return netip.AddrPort{}
 }
 
+func listenOnFreePort(log *log.Logger, port int) (net.PacketConn, int, error) {
+	if port < 1024 || port > 0x10000 {
+		return nil, 0, NewConnectErr(-15, errors.New("invalid port"))
+	}
+	for {
+		pc, err := listen(log, netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(port)))
+		if err == nil {
+			return pc, port, nil
+		} else if !ErrIsInUse(err) {
+			return nil, 0, NewConnectErr(-1, err)
+		}
+		port++
+	}
+}
+
 func Listen(addr netip.AddrPort) (net.PacketConn, error) {
 	return listen(Log, addr)
 }
