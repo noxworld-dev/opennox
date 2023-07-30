@@ -31,14 +31,14 @@ func TestNetstr(t *testing.T) {
 		s.Xor = false
 		s.Init()
 		conn, err := s.NewServer(&Options{
-			Port:     18501,
-			Max:      10,
-			DataSize: 2048,
+			Port:       18501,
+			Max:        10,
+			BufferSize: 2048,
 			Func1: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
 				t.Logf("SRV: func1: %v, [%d], %p", id.i, len(buf), a3)
 				return len(buf)
 			},
-			Func2: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
+			OnReceive: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
 				t.Logf("SRV: func2: %v, [%d], %p", id.i, len(buf), a3)
 				return len(buf)
 			},
@@ -58,7 +58,7 @@ func TestNetstr(t *testing.T) {
 
 		for {
 			s.Update()
-			conn.ServeInitialPackets(ServeCanRead)
+			conn.RecvLoop(ServeCanRead)
 			frame++
 		}
 	}()
@@ -73,13 +73,13 @@ func TestNetstr(t *testing.T) {
 	s.Init()
 
 	conn, err := s.NewClient(&Options{
-		Max:      10,
-		DataSize: 2048,
+		Max:        10,
+		BufferSize: 2048,
 		Func1: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
 			t.Logf("CLI: func1: %v, [%d], %p", id.i, len(buf), a3)
 			return len(buf)
 		},
-		Func2: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
+		OnReceive: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
 			op := noxnet.Op(buf[0])
 			switch op {
 			case noxnet.MSG_XXX_STOP:
