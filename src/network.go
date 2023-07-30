@@ -736,9 +736,9 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 	return 0
 }
 
-func sub_554240(a1 int) int {
-	if a1 != 31 {
-		return netstr.Global.GetTimingByInd1(a1)
+func sub_554240(pli ntype.PlayerInd) int {
+	if pli != common.MaxPlayers-1 {
+		return netstr.Global.GetTimingByInd1(pli)
 	}
 	return int(nox_ctrlevent_add_ticks_42E630())
 }
