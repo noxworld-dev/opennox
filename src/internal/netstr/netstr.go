@@ -330,11 +330,11 @@ func (h Handle) get() *conn {
 
 func (g *Streams) NewClient(narg *Options) (Handle, error) {
 	if narg == nil {
-		return Handle{nil, -2}, NewConnectFailErr(-2, errors.New("empty options"))
+		return Handle{nil, -2}, NewConnectErr(-2, errors.New("empty options"))
 	}
 	ind, ok := g.getFreeIndex()
 	if !ok {
-		return Handle{nil, -8}, NewConnectFailErr(-8, errors.New("no more slots for net structs"))
+		return Handle{nil, -8}, NewConnectErr(-8, errors.New("no more slots for net structs"))
 	}
 	ns := g.newStruct(narg)
 	g.streams[ind.i] = ns
@@ -347,13 +347,13 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	}
 	ns := h.get()
 	if ns == nil {
-		return NewConnectFailErr(-3, errors.New("no net struct"))
+		return NewConnectErr(-3, errors.New("no net struct"))
 	}
 	if len(host) == 0 {
-		return NewConnectFailErr(-4, errors.New("empty hostname"))
+		return NewConnectErr(-4, errors.New("empty hostname"))
 	}
 	if port < 1024 || port > 0x10000 {
-		return NewConnectFailErr(-15, errors.New("invalid port"))
+		return NewConnectErr(-15, errors.New("invalid port"))
 	}
 	var ip netip.Addr
 	if host[0] < '0' || host[0] > '9' {
@@ -361,7 +361,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		if err != nil || len(list) == 0 {
 			log.Printf("error: cannot find ip for a host %q: %v", host, err)
 
-			return NewConnectFailErr(-4, err)
+			return NewConnectErr(-4, err)
 		}
 		ip, _ = netip.AddrFromSlice(list[0].To4())
 	} else {
@@ -369,7 +369,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		ip, err = netip.ParseAddr(host)
 		if err != nil {
 			log.Printf("error: cannot parse host %q: %v", host, err)
-			return NewConnectFailErr(-4, err)
+			return NewConnectErr(-4, err)
 		}
 	}
 	addr := netip.AddrPortFrom(ip, uint16(port))
@@ -381,7 +381,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 			ns.pc = sock
 			break
 		} else if !ErrIsInUse(err) {
-			return NewConnectFailErr(-1, err)
+			return NewConnectErr(-1, err)
 		}
 		cport++
 	}
@@ -396,12 +396,12 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	for {
 		ns := h.get()
 		if ns == nil {
-			return NewConnectFailErr(-23, errors.New("no net struct"))
+			return NewConnectErr(-23, errors.New("no net struct"))
 		}
 		//counter = 0 // TODO: is this correct?
 		counter++
 		if counter > 20*retries {
-			return NewConnectFailErr(-23, errors.New("timeout"))
+			return NewConnectErr(-23, errors.New("timeout"))
 		}
 		h.RecvLoop(RecvCanRead | RecvNoHooks | RecvJustOne)
 		h.g.MaybeSendQueues()
@@ -429,7 +429,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	}
 
 	if !ns.ID().Valid() {
-		return NewConnectFailErr(-1, errors.New("invalid net struct id"))
+		return NewConnectErr(-1, errors.New("invalid net struct id"))
 	}
 	return nil
 }
@@ -442,7 +442,7 @@ func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) 
 	for {
 		now := h.g.Now()
 		if timeout >= 0 && now >= deadline {
-			return NewConnectFailErr(-19, errors.New("timeout 2"))
+			return NewConnectErr(-19, errors.New("timeout 2"))
 		}
 		h.RecvLoop(RecvCanRead)
 		send()
