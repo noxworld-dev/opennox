@@ -155,11 +155,15 @@ type timingStruct struct {
 }
 
 type queueItem struct {
-	next   *queueItem
-	ticks  time.Duration
-	active bool
-	size   uint32
-	data   [1024]byte
+	next    *queueItem
+	retryAt time.Duration
+	active  bool
+	size    uint32
+	data    [1024]byte
+}
+
+func (q *queueItem) Data() []byte {
+	return q.data[:q.size]
 }
 
 type stream2 struct {
@@ -233,7 +237,7 @@ type Options struct {
 	BufferSize int
 	OnSend     Handler
 	OnReceive  Handler
-	Check14    JoinCheck
+	OnJoin     JoinCheck
 	Check17    Check17
 }
 
@@ -257,7 +261,7 @@ func (g *Streams) newStruct(opt *Options) *conn {
 	ns.seqRecv = -1
 	ns.xorKey = 0
 
-	ns.onJoin = opt.Check14
+	ns.onJoin = opt.OnJoin
 	ns.check17 = opt.Check17
 	return ns
 }
@@ -298,34 +302,6 @@ func (g *Streams) IndexRaw(ind int) Handle {
 
 func (g *Streams) First() Handle {
 	return Handle{g, 0}
-}
-
-type Handle struct {
-	g *Streams
-	i int // hiding it in a struct helps prevent direct casts
-}
-
-func (h Handle) Raw() int {
-	return h.i
-}
-
-func (h Handle) Valid() bool {
-	return h.g != nil && h.i >= 0 && h.i < maxStructs
-}
-
-func (h Handle) IsFirst() bool {
-	return h.i == 0
-}
-
-func (h Handle) Player() ntype.PlayerInd {
-	return ntype.PlayerInd(h.i - 1)
-}
-
-func (h Handle) get() *conn {
-	if !h.Valid() {
-		return nil
-	}
-	return h.g.streams[h.i]
 }
 
 func (g *Streams) NewClient(narg *Options) (Handle, error) {
@@ -490,6 +466,13 @@ func (ns *conn) reset() {
 	}
 	ns.recv.Reset()
 	*ns = conn{g: ns.g}
+}
+
+func (ns *conn) String() string {
+	if ns == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("Conn(id: %d, addr: %s)", ns.id.i, ns.addr.String())
 }
 
 func (ns *conn) Addr() netip.AddrPort {
@@ -660,7 +643,7 @@ func (ns *conn) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 			if it.data[1] == hdrByte {
 				sz := int(it.size)
 				it.active = false
-				it.ticks = ns.g.ticks2 + 2*time.Second
+				it.retryAt = ns.g.ticks2 + 2*time.Second
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
 					ns.g.Log.Println(err)
 					return 0
@@ -670,7 +653,7 @@ func (ns *conn) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 			if it.active {
 				sz := int(it.size)
 				it.active = false
-				it.ticks = ns.g.ticks2 + 2*time.Second
+				it.retryAt = ns.g.ticks2 + 2*time.Second
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
 					ns.g.Log.Println(err)
 					return 0
@@ -692,7 +675,7 @@ func (ns *conn) setActiveInQueue(hdrByte byte, checkHdr bool) int {
 				continue
 			}
 		} else {
-			if it.ticks <= ns.g.ticks2 {
+			if it.retryAt <= ns.g.ticks2 {
 				it.active = true
 				continue
 			}
@@ -894,8 +877,7 @@ func (g *Streams) GetTimingByInd1(ind int) int {
 	return int(g.timing[1+ind].field28)
 }
 
-func (h Handle) IP() netip.Addr {
-	ns := h.get()
+func (ns *conn) IP() netip.Addr {
 	if ns == nil {
 		return netip.Addr{}
 	}
@@ -947,7 +929,7 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 	}
 	ns2 := g.newStruct(&Options{
 		BufferSize: len(ns1.sendBuf),
-		Check14:    ns1.onJoin,
+		OnJoin:     ns1.onJoin,
 		Check17:    ns1.check17,
 	})
 	g.streams[pid.i] = ns2
@@ -1122,7 +1104,7 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *conn, p1 byt
 	return copy(out, nx.nextPingPacket(t))
 }
 
-func (g *Streams) Sub552E70(ind Handle) int {
+func (g *Streams) SendCode6(ind Handle) int {
 	var buf [5]byte
 
 	ns := ind.get()
@@ -1424,7 +1406,7 @@ func (h Handle) RecvLoop(flags int) int {
 		hdr := ns.recv.Bytes()[:3]
 		a0 := hdr[0]
 		h2 := Handle{h.g, int(a0 & maskID)}
-		a1 := hdr[1]
+		seq := hdr[1]
 		op := noxnet.Op(hdr[2])
 		if h.g.Debug {
 			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
@@ -1460,13 +1442,13 @@ func (h Handle) RecvLoop(flags int) int {
 				if dst == nil {
 					goto continueX
 				}
-				if a1 != byte(dst.seqRecv) {
+				if seq != byte(dst.seqRecv) {
 					ns9 := h2.get()
-					ns9.setActiveInQueue(a1, true)
-					ns9.maybeFreeQueue(a1, 1)
-					dst.seqRecv = int8(a1)
+					ns9.setActiveInQueue(seq, true)
+					ns9.maybeFreeQueue(seq, 1)
+					dst.seqRecv = int8(seq)
 					v20 := false
-					if h.g.readXxx(h, h2, a1, ns.recv.Bytes()) {
+					if h.g.readXxx(h, h2, seq, ns.recv.Bytes()) {
 						v20 = false
 					} else {
 						v20 = true
@@ -1494,11 +1476,11 @@ func (h Handle) RecvLoop(flags int) int {
 					goto continueX
 				}
 				hdr2 := dst.Data2hdr()
-				if hdr2[1] != a1 {
+				if hdr2[1] != seq {
 					goto continueX
 				}
 				hdr2[1]++
-				if h.g.readXxx(h, h2, a1, ns.recv.Bytes()) {
+				if h.g.readXxx(h, h2, seq, ns.recv.Bytes()) {
 					goto continueX
 				}
 			}
@@ -1639,23 +1621,23 @@ func (h Handle) CountInQueue(ops ...noxnet.Op) int {
 	return cnt
 }
 
-func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
+func (h Handle) WaitServerResponse(seq int, try int, flags int) int {
 	if h.g.Debug {
-		h.g.Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h.i, a2, a3, flags)
+		h.g.Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h.i, seq, try, flags)
 	}
 	ns := h.get()
 	if ns == nil {
 		return -3
 	}
 
-	if int(ns.seqRecv) >= a2 {
+	if int(ns.seqRecv) >= seq {
 		return 0
 	}
-	for v6 := 0; v6 <= 20*a3; v6++ {
+	for i := 0; i <= 20*try; i++ {
 		h.g.Sleep(50 * time.Millisecond)
 		h.RecvLoop(flags | RecvCanRead)
 		h.g.MaybeSendQueues()
-		if int(ns.seqRecv) >= a2 {
+		if int(ns.seqRecv) >= seq {
 			return 0
 		}
 		// FIXME(awesie)
