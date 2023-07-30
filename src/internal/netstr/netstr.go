@@ -72,6 +72,7 @@ func init() {
 func NewStreams() *Streams {
 	s := &Streams{
 		playerIDs: make(map[Handle]struct{}),
+		initIndex: -1,
 		KeyRand: func(min, max int) int {
 			return min + rand.Intn(max-min)
 		},
@@ -93,7 +94,7 @@ type Streams struct {
 	lastQueueSend  time.Duration
 	ticks2         time.Duration
 	cntX           int
-	initIndex      Handle
+	initIndex      int
 	streams        [maxStructs]*conn
 	streams2       [maxStructs]stream2
 	timing         [maxStructs]timingStruct
@@ -175,13 +176,13 @@ type stream2 struct {
 	ticks   time.Duration
 }
 
-func (g *Streams) getFreeIndex() (Handle, bool) {
+func (g *Streams) getFreeIndex() (int, bool) {
 	for i := range g.streams {
 		if g.streams[i] == nil {
-			return Handle{g, i}, true
+			return i, true
 		}
 	}
-	return Handle{nil, -1}, false
+	return -1, false
 }
 
 func (g *Streams) getFreeNetStruct2Ind() int {
@@ -313,8 +314,8 @@ func (g *Streams) NewClient(narg *Options) (Handle, error) {
 		return Handle{nil, -8}, NewConnectErr(-8, errors.New("no more slots for net structs"))
 	}
 	ns := g.newStruct(narg)
-	g.streams[ind.i] = ns
-	return ind, nil
+	g.streams[ind] = ns
+	return Handle{g, ind}, nil
 }
 
 func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarshaler) error {
@@ -691,7 +692,10 @@ func (ns *conn) setActiveInQueue(hdrByte byte, checkHdr bool) int {
 }
 
 func (g *Streams) GetInitInd() Handle {
-	return g.initIndex
+	if g.initIndex < 0 {
+		return Handle{}
+	}
+	return Handle{g, g.initIndex}
 }
 
 func (g *Streams) NewServer(narg *Options) (Handle, error) {
@@ -706,8 +710,8 @@ func (g *Streams) NewServer(narg *Options) (Handle, error) {
 		return Handle{nil, -8}, errors.New("no more slots for net structs")
 	}
 	ns := g.newStruct(narg)
-	g.streams[ind.i] = ns
-	ns.Data2hdr()[0] = byte(ind.i)
+	g.streams[ind] = ns
+	ns.Data2hdr()[0] = byte(ind)
 	ns.id = Handle{g, -1}
 
 	if narg.Port < 1024 || narg.Port > 0x10000 {
@@ -725,7 +729,7 @@ func (g *Streams) NewServer(narg *Options) (Handle, error) {
 		narg.Port++
 	}
 	g.initIndex = ind
-	return ind, nil
+	return Handle{g, ind}, nil
 }
 
 func (h Handle) SendReadPacket(noHooks bool) int {
@@ -1533,14 +1537,14 @@ func (nx *stream2) nextPingPacket(t time.Duration) []byte {
 }
 
 func (g *Streams) sendTime(ind2 int) (int, error) {
-	ns := g.streams[g.initIndex.i]
+	ns := g.streams[g.initIndex]
 	ns2 := &g.streams2[ind2]
 	buf := ns2.nextPingPacket(g.Now())
 	return ns.WriteTo(buf, ns2.addr)
 }
 
 func (g *Streams) sendCode20(ind2 int) (int, error) {
-	ns := g.streams[g.initIndex.i]
+	ns := g.streams[g.initIndex]
 	var buf [3]byte
 	buf[0] = 0
 	buf[1] = 0
@@ -1553,7 +1557,7 @@ func (g *Streams) sendCode20(ind2 int) (int, error) {
 }
 
 func (g *Streams) sendCode19(code byte, ind2 int) (int, error) {
-	ns := g.streams[g.initIndex.i]
+	ns := g.streams[g.initIndex]
 	var buf [4]byte
 	buf[0] = 0
 	buf[1] = 0
