@@ -25,7 +25,6 @@ type Client interface {
 	Viewport() *noxrender.Viewport
 	R2() Render2
 	SetDrawFunc(fnc func() bool)
-	SetUpdateFunc2(fnc func() bool)
 	Nox_client_setCursorType(c gui.Cursor)
 	DrawGeneral(v bool) error
 	Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32
