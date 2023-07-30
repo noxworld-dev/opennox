@@ -781,9 +781,9 @@ func (h Handle) SendReadPacket(noHooks bool) int {
 	return 0
 }
 
-func (ns *conn) maybeFreeQueue(a2 byte, a3 int) int {
+func (ns *conn) maybeFreeQueue(seq byte, act int) {
 	if ns == nil {
-		return -3
+		return
 	}
 	var (
 		next *queueItem
@@ -791,24 +791,27 @@ func (ns *conn) maybeFreeQueue(a2 byte, a3 int) int {
 	)
 	for it := ns.queue; it.next != nil; it = next {
 		next = it.next
-		if a3 == 0 {
-			if it.data[1] != a2 {
+		switch act {
+		case 0:
+			if it.data[1] != seq {
 				prev = it
 				continue
 			}
-		} else if a3 == 1 {
-			if a2 < 0x20 || a2 > 0xE0 {
-				if it.data[1] >= a2 {
+		case 1:
+			if seq < 0x20 || seq > 0xE0 {
+				if it.data[1] >= seq {
 					prev = it
 					continue
 				}
 			} else {
-				if it.data[1] >= a2 {
+				if it.data[1] >= seq {
 					prev = it
 					continue
 				}
 			}
-		} else if a3 != 2 {
+		case 2:
+			// nop
+		default:
 			prev = it
 			continue
 		}
@@ -821,7 +824,6 @@ func (ns *conn) maybeFreeQueue(a2 byte, a3 int) int {
 		it.next = nil
 		*it = queueItem{}
 	}
-	return 0
 }
 
 func (g *Streams) ReadPackets(ind Handle) int {
