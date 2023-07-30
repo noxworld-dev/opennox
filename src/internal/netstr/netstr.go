@@ -894,8 +894,8 @@ func (g *Streams) MaybeSendQueues() {
 	g.lastQueueSend = now
 }
 
-func (g *Streams) GetTimingByInd1(ind int) int {
-	return int(g.timing[1+ind].field28)
+func (g *Streams) GetTimingByInd1(ind ntype.PlayerInd) int {
+	return int(g.timing[int(ind)+1].field28)
 }
 
 func (ns *conn) IP() netip.Addr {
