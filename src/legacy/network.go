@@ -142,7 +142,7 @@ func sub_554240(a1 int) int { return Sub_554240(a1) }
 
 //export nox_xxx_net_getIP_554200
 func nox_xxx_net_getIP_554200(a1 int) uint32 {
-	return Nox_xxx_net_getIP_554200(netstr.Global.IndexRaw(a1))
+	return Nox_xxx_net_getIP_554200(netstr.Global.ByIndexRaw(a1))
 }
 
 //export nox_xxx_netOnPacketRecvCli_48EA70
