@@ -1405,7 +1405,6 @@ func (h Handle) RecvLoop(flags int) int {
 	if ns == nil {
 		return -3
 	}
-	dst := ns
 
 	argp := 1
 	var err error
@@ -1445,6 +1444,7 @@ func (h Handle) RecvLoop(flags int) int {
 		if h.g.Debug {
 			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
 		}
+		dst := ns
 		if op == codeDiscover {
 			// Discover packets are not a part of the protocol, they are filtered out
 			// and handled separately. Responses are written directly to underlying conn.
