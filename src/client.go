@@ -128,9 +128,9 @@ func (c *Client) Update() bool {
 		}
 		c.inDraw1 = false
 	}
-	if c.UpdateFunc2 != nil && !c.UpdateFunc2() {
+	if !c.srv.Update2() {
 		if debugMainloop {
-			gameLog.Println("call_func_5D4594_816392 exit")
+			gameLog.Println("server.Update2 exit")
 		}
 		return false
 	}
