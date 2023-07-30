@@ -414,6 +414,7 @@ func (sh *rcShell) recall() {
 	sh.line = []rune(old)
 	sh.printPrompt()
 	sh.print(0, old, false)
+	sh.cursor = len(old)
 }
 
 func (sh *rcShell) addRune(r rune) bool {
