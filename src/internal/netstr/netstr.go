@@ -870,10 +870,11 @@ func (g *Streams) ReadPackets(ind Handle) int {
 func (g *Streams) maybeReadPackets() {
 	g.ticks2 = g.Now()
 	for i, ns := range g.streams {
-		if ns != nil && ns.field38 == 1 {
-			if ns.frame40+300 < g.GameFrame() {
-				g.ReadPackets(Handle{g, i})
-			}
+		if ns == nil {
+			continue
+		}
+		if ns.field38 == 1 && ns.frame40+300 < g.GameFrame() {
+			g.ReadPackets(Handle{g, i})
 		}
 	}
 }
