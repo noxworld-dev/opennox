@@ -738,10 +738,16 @@ func (obj *Object) Force() types.Pointf {
 }
 
 func (obj *Object) Class() object.Class {
+	if obj == nil {
+		return 0
+	}
 	return object.Class(obj.ObjClass)
 }
 
 func (obj *Object) SubClass() object.SubClass {
+	if obj == nil {
+		return 0
+	}
 	return object.SubClass(obj.ObjSubClass)
 }
 
@@ -753,7 +759,23 @@ func (obj *Object) ArmorClass() object.ArmorClass {
 }
 
 func (obj *Object) Flags() object.Flags {
+	if obj == nil {
+		return 0
+	}
 	return object.Flags(obj.ObjFlags)
+}
+
+func (obj *Object) SetFlags(v object.Flags) {
+	// TODO: do we need to update any cheksums?
+	obj.ObjFlags = uint32(v)
+}
+
+func (obj *Object) FlagsEnable(v object.Flags) {
+	obj.SetFlags(obj.Flags() | v)
+}
+
+func (obj *Object) FlagsDisable(v object.Flags) {
+	obj.SetFlags(obj.Flags() &^ v)
 }
 
 func (obj *Object) IsEnabled() bool {
@@ -899,6 +921,68 @@ func (obj *Object) Mana() (cur, max int) {
 	cur = int(p.ManaCur)
 	max = int(p.ManaMax)
 	return
+}
+
+func (obj *Object) CurrentSpeed() float32 {
+	if obj == nil {
+		return 0
+	}
+	return obj.SpeedCur
+}
+
+func (obj *Object) BaseSpeed() float32 {
+	if obj == nil {
+		return 0
+	}
+	return obj.SpeedBase
+}
+
+func (obj *Object) SetBaseSpeed(v float32) {
+	// TODO: do we need to update any cheksums?
+	obj.SpeedBase = v
+}
+
+func (obj *Object) Strength() int {
+	if obj == nil {
+		return 0
+	}
+	cl := obj.Class()
+	switch {
+	case cl.Has(object.ClassPlayer):
+		ud := obj.UpdateDataPlayer()
+		pl := ud.Player
+		return int(*(*uint32)(unsafe.Add(pl.C(), 2239)))
+	case cl.Has(object.ClassMonster):
+		ud := obj.UpdateDataMonster()
+		sub := obj.SubClass().AsMonster()
+		switch {
+		case sub.Has(object.MonsterNPC):
+			return int(uint8(ud.Field331))
+		default:
+			return 30
+		}
+	default:
+		return 0
+	}
+}
+
+func (obj *Object) SetStrength(v int) {
+	cl := obj.Class()
+	switch {
+	case cl.Has(object.ClassPlayer):
+		ud := obj.UpdateDataPlayer()
+		pl := ud.Player
+		// TODO: do we need to update any cheksums?
+		*(*uint32)(unsafe.Add(pl.C(), 2239)) = uint32(v)
+	case cl.Has(object.ClassMonster):
+		ud := obj.UpdateDataMonster()
+		sub := obj.SubClass().AsMonster()
+		switch {
+		case sub.Has(object.MonsterNPC):
+			// TODO: do we need to update any cheksums?
+			ud.Field331 = uint32(uint8(v))
+		}
+	}
 }
 
 func (obj *Object) HasEnchant(v EnchantID) bool { // nox_xxx_testUnitBuffs_4FF350

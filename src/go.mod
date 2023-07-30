@@ -7,7 +7,7 @@ require (
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
 	github.com/noxworld-dev/noxscript/ns v1.0.2
-	github.com/noxworld-dev/noxscript/ns/v4 v4.6.0
+	github.com/noxworld-dev/noxscript/ns/v4 v4.7.0
 	github.com/noxworld-dev/opennox-lib v0.0.0-20230430153341-b69258b2c481
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
@@ -20,6 +20,7 @@ require (
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/youpy/go-wav v0.3.2
 	golang.org/x/crypto v0.1.0
+	golang.org/x/exp v0.0.0-20230111222715-75897c7a292a
 	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69
 	golang.org/x/mod v0.8.0
 	golang.org/x/sync v0.1.0
@@ -63,7 +64,6 @@ require (
 	github.com/youpy/go-riff v0.1.0 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20220504180219-658193537a64 // indirect
 	github.com/zaf/g711 v0.0.0-20190814101024-76a4a538f52b // indirect
-	golang.org/x/exp v0.0.0-20230111222715-75897c7a292a // indirect
 	golang.org/x/text v0.6.0 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
