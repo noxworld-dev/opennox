@@ -751,12 +751,24 @@ func sub_4F9ED0(u *Object) {
 		return
 	}
 	if h != nil && (s.Frame()-u.Frame134) > s.TickRate() {
-		if h.Cur < h.Max && h.Max != 0 && (s.Frame()%(300*s.TickRate()/uint32(h.Max))) == 0 {
-			legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
+		if h.Cur < h.Max && h.Max != 0 {
+			div := 300 * s.TickRate() / uint32(h.Max)
+			if div == 0 {
+				div = 1
+			}
+			if s.Frame()%div == 0 {
+				legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
+			}
 		}
 	}
-	if ud.ManaCur < ud.ManaMax && (s.Frame()%(300*s.TickRate()/uint32(ud.ManaMax))) == 0 {
-		legacy.Nox_xxx_playerManaAdd_4EEB80(u.SObj(), 1)
+	if ud.ManaCur < ud.ManaMax && ud.ManaMax != 0 {
+		div := 300 * s.TickRate() / uint32(ud.ManaMax)
+		if div == 0 {
+			div = 1
+		}
+		if s.Frame()%div == 0 {
+			legacy.Nox_xxx_playerManaAdd_4EEB80(u.SObj(), 1)
+		}
 	}
 }
 
