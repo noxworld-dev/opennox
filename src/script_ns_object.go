@@ -253,6 +253,10 @@ func (typ nsObjType) HasSubclass(subclass subclass.SubClass) bool {
 	panic("implement me")
 }
 
+func (typ nsObjType) Flags() object.Flags {
+	return typ.t.Flags()
+}
+
 var _ server.Obj = nsObj{}
 
 type nsObj struct {
