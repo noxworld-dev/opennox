@@ -85,6 +85,9 @@ func WriteTo(pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
 }
 
 func CanReadConn(pc net.PacketConn) (int, error) {
+	if pc == nil {
+		return 0, errors.New("nil conn")
+	}
 	sc, ok := pc.(syscall.Conn)
 	if !ok {
 		panic(fmt.Errorf("unexpected type: %T", pc))
