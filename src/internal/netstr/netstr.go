@@ -1452,17 +1452,7 @@ func (h Handle) RecvLoop(flags int) int {
 			if n > 0 {
 				n, _ = ns.WriteToRaw(tmp[:n], src)
 			}
-			ns.recv.Reset()
-			if flags&ServeCanRead == 0 || flags&ServeJustOne != 0 {
-				return n
-			}
-			argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
-			if err != nil {
-				return -1
-			} else if argp == 0 {
-				return n
-			}
-			continue
+			goto continueX
 		}
 		if op >= code14 && op <= codeOK {
 			v26 = true
