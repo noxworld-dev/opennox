@@ -66,10 +66,6 @@ func listen(log *log.Logger, addr netip.AddrPort) (net.PacketConn, error) {
 	return l, nil
 }
 
-func ReadFrom(pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
-	return readFrom(DebugSockets, Log, pc, buf)
-}
-
 func readFrom(debug bool, log *log.Logger, pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
 	n, src, err := pc.ReadFrom(buf)
 	ap := GetAddr(src)
@@ -97,10 +93,6 @@ func writeTo(debug bool, log *log.Logger, pc net.PacketConn, buf []byte, addr ne
 		return 0, err
 	}
 	return n, nil
-}
-
-func CanReadConn(pc net.PacketConn) (int, error) {
-	return canReadConn(DebugSockets, Log, pc)
 }
 
 func canReadConn(debug bool, log *log.Logger, pc net.PacketConn) (int, error) {
