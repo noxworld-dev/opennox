@@ -463,6 +463,18 @@ func (obj *Object) Flags() object.Flags {
 	return obj.SObj().Flags()
 }
 
+func (obj *Object) SetFlags(v object.Flags) {
+	obj.SObj().SetFlags(v)
+}
+
+func (obj *Object) FlagsEnable(v object.Flags) {
+	obj.SObj().FlagsEnable(v)
+}
+
+func (obj *Object) FlagsDisable(v object.Flags) {
+	obj.SObj().FlagsDisable(v)
+}
+
 func (obj *Object) Health() (cur, max int) {
 	return obj.SObj().Health()
 }
@@ -545,6 +557,26 @@ func (obj *Object) SetMaxMana(v int) {
 	}
 	p.ManaMax = uint16(v)
 	obj.SetMana(v)
+}
+
+func (obj *Object) CurrentSpeed() float32 {
+	return obj.SObj().CurrentSpeed()
+}
+
+func (obj *Object) BaseSpeed() float32 {
+	return obj.SObj().BaseSpeed()
+}
+
+func (obj *Object) SetBaseSpeed(v float32) {
+	obj.SObj().SetBaseSpeed(v)
+}
+
+func (obj *Object) Strength() int {
+	return obj.SObj().Strength()
+}
+
+func (obj *Object) SetStrength(v int) {
+	obj.SObj().SetStrength(v)
 }
 
 func (obj *Object) IsMovable() bool {
