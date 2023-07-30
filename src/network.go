@@ -311,28 +311,28 @@ func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) int {
 func nox_xxx_netSendClientReady_43C9F0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CLIENT_READY)
-	netstrClientConn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
 	return 1
 }
 
 func nox_xxx_netKeepAliveSocket_43CA20() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
-	netstrClientConn.Send(data[:], netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendFlush)
 	return 1
 }
 
 func nox_xxx_netRequestMap_43CA50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_REQUEST_MAP)
-	netstrClientConn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
 	return 1
 }
 
 func nox_xxx_netMapReceived_43CA80() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
-	netstrClientConn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
 	return 1
 }
 
@@ -340,8 +340,8 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
-	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHooks|netstr.ServeJustOne) != 0 {
+	v0, _ := conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -352,8 +352,8 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
-	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHooks|netstr.ServeJustOne) != 0 {
+	v0, _ := conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -373,11 +373,11 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
-	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHooks|netstr.ServeJustOne) != 0 {
+	v0, _ := conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
-	conn.RecvLoop(netstr.ServeCanRead | netstr.ServeNoHooks)
+	conn.RecvLoop(netstr.RecvCanRead | netstr.RecvNoHooks)
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
@@ -865,7 +865,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 	case noxnet.MSG_SERVER_QUIT:
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_SERVER_QUIT_ACK)
-		netstrGetClientIndex().Send(buf[:1], netstr.SendFlagFlush)
+		netstrGetClientIndex().Send(buf[:1], netstr.SendFlush)
 		sub_446380()
 		return 1
 	case noxnet.MSG_USE_MAP:
@@ -1125,7 +1125,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			buf[1] = 3
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
-			netstrGetClientIndex().Send(buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstrGetClientIndex().Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
 			sub_40B250(netstrGetClientIndex(), a2, a3, data[8:8+sz])
 			return 8 + sz
 		case 3:
@@ -1241,7 +1241,7 @@ func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 			if len(data) == 0 {
 				return
 			}
-			netstr.Global.PlayerInd(ind).Send(data, netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Global.PlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
 		})
 	}
 }
@@ -1302,7 +1302,7 @@ func (s *Server) sendSettings(u *Object) {
 		buf[32] = 0
 		binary.LittleEndian.PutUint32(buf[33:], nox_xxx_mapCrcGetMB_409B00())
 		binary.LittleEndian.PutUint32(buf[37:], s.Frame())
-		netstr.Global.Player(pl).Send(buf[:41], netstr.SendNoLock|netstr.SendFlagFlush)
+		netstr.Global.Player(pl).Send(buf[:41], netstr.SendQueue|netstr.SendFlush)
 		legacy.Sub_4DDE10(pl.Index(), pl.S())
 	}
 }
@@ -1324,7 +1324,7 @@ func nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != common.MaxPlayers-1 {
 			buf := netlist.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
-				netstr.Global.Player(pl).Send(buf, netstr.SendNoLock|netstr.SendFlagFlush)
+				netstr.Global.Player(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
 			}
 		}
 	}
@@ -1672,7 +1672,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			buf[1] = 3
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
-			netstr.Global.Player(pl).Send(buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Global.Player(pl).Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
 			sub_40B250(netstr.Global.Player(pl), a2, a3, data[8:8+sz])
 			return 8 + sz, true
 		case 3:
@@ -1941,7 +1941,7 @@ func sub_40BB20(conn netstr.Handle, a2 byte, a3 byte) *xferData {
 	buf[1] = 5
 	buf[2] = a2
 	buf[3] = a3
-	conn.Send(buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
 	sub_40BBC0(p.NetInd0, p.Field22)
 	if xferDataActive != 0 {
 		xferDataActive--
@@ -2029,7 +2029,7 @@ func nox_xxx_netXferMsg_40BE80(conn netstr.Handle, a2 byte, typ string, sz int, 
 	n := copy(buf[8:136], typ)
 	buf[8+n] = 0
 	buf[136] = a5
-	conn.Send(buf[:140], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:140], netstr.SendQueue|netstr.SendFlush)
 }
 
 func sub_40C030(ind netstr.Handle, a2 byte) {
@@ -2137,7 +2137,7 @@ func nox_xxx_neXfer_40B590(conn netstr.Handle, a2 byte, a3 byte) {
 	buf[1] = 6
 	buf[2] = a2
 	buf[3] = a3
-	conn.Send(buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
 }
 
 func sub_40B170(cnt int) {
@@ -2239,7 +2239,7 @@ func nox_xxx_netXfer_40B4B0(conn netstr.Handle, a2 byte) {
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
 	buf[1] = 4
 	buf[2] = a2
-	conn.Send(buf[:3], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:3], netstr.SendQueue|netstr.SendFlush)
 }
 
 func sub_40B740() {
@@ -2265,7 +2265,7 @@ func sub_40B690(conn netstr.Handle, a2 byte, a3 byte) {
 	buf[1] = 1
 	buf[2] = a2
 	buf[3] = a3
-	conn.Send(buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
 }
 
 func sub_40B720(a1 byte, a2 byte) {

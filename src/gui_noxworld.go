@@ -106,7 +106,7 @@ func nox_client_refreshServerList_4378B0() {
 
 	ctx := context.Background()
 	winNewDialogID(legacy.Get_nox_wol_wnd_world_814980(), "Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-	netstr.Global.Flag1 = false
+	netstr.Global.Responded = false
 	go discoverAndPingServers(ctx)
 	legacy.Set_dword_5d4594_815104(0)
 	legacy.Set_qword_5d4594_815068(
@@ -242,7 +242,7 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 }
 
 func clientWaitForLobbyResults() bool {
-	waitForLobbyResults(lobbyBroadcast, netstr.ServeCanRead)
+	waitForLobbyResults(lobbyBroadcast, netstr.RecvCanRead)
 	return true
 }
 
@@ -263,7 +263,7 @@ func waitForLobbyResults(conn net.PacketConn, flag byte) (int, error) {
 				legacy.Sub_43AF90(5)
 			}
 		},
-		OnCode16: func(addr netip.AddrPort, buf []byte) {
+		OnPing: func(addr netip.AddrPort, buf []byte) {
 			if legacy.Sub_43B6D0() != 0 {
 				legacy.Sub_43AF90(4)
 				buf[2] = 18
