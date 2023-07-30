@@ -5,7 +5,7 @@
     <b>OpenNox</b> is an open-source community collaboration project extending the Nox engine. 
 </p>
 <p align="center">
-    <a href="https://github.com/noxworld-dev/opennox/actions"><img alt="OpenNox Workflow Status (dev)" src="https://img.shields.io/github/workflow/status/noxworld-dev/opennox/build-and-release?style=flat"></a>
+    <a href="https://github.com/noxworld-dev/opennox/actions"><img alt="OpenNox Build Status (dev)" src="https://github.com/noxworld-dev/opennox/actions/workflows/build-and-release.yml/badge.svg"></a>
     <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img alt="OpenNox license" src="https://img.shields.io/github/license/noxworld-dev/opennox?style=flat"></a>
     <br>
     <a href="https://www.patreon.com/opennox"><img alt="OpenNox on Patreon" src="https://img.shields.io/badge/patreon-Support%20us-blue?logo=patreon&logoColor=white&style=flat"></a>
