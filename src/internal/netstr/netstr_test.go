@@ -40,7 +40,7 @@ func TestNetstr(t *testing.T) {
 				t.Logf("SRV: func2: %v, [%d]", id.i, len(buf))
 				return len(buf)
 			},
-			Check14: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
+			OnJoin: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
 				t.Logf("SRV: check14: [%d], %v: %x", len(packet), a4a, packet)
 				out[2] = 20 // OK
 				return 3
@@ -85,7 +85,7 @@ func TestNetstr(t *testing.T) {
 			t.Logf("CLI: func2: %v, [%d]", id.i, len(buf))
 			return len(buf)
 		},
-		Check14: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
+		OnJoin: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
 			t.Logf("CLI: check14: [%d], %v: %x", len(packet), a4a, packet)
 			out[2] = 20 // OK
 			return 3
