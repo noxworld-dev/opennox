@@ -260,7 +260,7 @@ func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
 			return 1
 		},
 		OnSend:  s.onSend,
-		Check14: nox_xxx_netBigSwitch_553210_op_14_check,
+		OnJoin:  nox_xxx_netBigSwitch_553210_op_14_check,
 		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	s.SetUpdateFunc2(s.checkPingLimits)
