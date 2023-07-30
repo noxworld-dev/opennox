@@ -264,6 +264,7 @@ func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
 		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	nox_xxx_allocNetGQueue_5520B0()
+	netstr.Global.Reset()
 	conn, err := netInitServer(narg)
 	if err != nil {
 		return conn, 0, err
@@ -755,7 +756,6 @@ func sub_5521A0() bool {
 
 func nox_xxx_allocNetGQueue_5520B0() {
 	noxClient.SetUpdateFunc2(sub_5521A0)
-	netstr.Global.Init()
 }
 
 func nox_xxx_net_getIP_554200(a1 netstr.Handle) uint32 {

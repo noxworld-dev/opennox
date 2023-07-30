@@ -441,6 +441,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	dword_5d4594_815704 = false
 	dword_5d4594_815708 = false
 	nox_xxx_allocNetGQueue_5520B0()
+	netstr.Global.Reset()
 	conn, err := netstr.Global.NewClient(narg)
 	if err != nil {
 		return err
