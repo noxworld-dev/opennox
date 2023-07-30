@@ -530,11 +530,17 @@ func (ns *conn) callOnReceive(id Handle, buf []byte) int {
 }
 
 const (
-	SendQueue = 0x1
-	SendFlush = 0x2
+	SendQueue = SendFlags(0x1)
+	SendFlush = SendFlags(0x2)
 )
 
-func (h Handle) Send(buf []byte, flags int) (int, error) {
+type SendFlags int
+
+func (v SendFlags) Has(v2 SendFlags) bool {
+	return v&v2 != 0
+}
+
+func (h Handle) Send(buf []byte, flags SendFlags) (int, error) {
 	ns := h.get()
 	if ns == nil {
 		return -3, errors.New("no net struct")
@@ -555,7 +561,7 @@ func (h Handle) Send(buf []byte, flags int) (int, error) {
 		ei = Handle{h.g, h.i + 1}
 		idd = ns.ID()
 	}
-	if flags&SendQueue != 0 {
+	if flags.Has(SendQueue) {
 		n := len(buf)
 		for i := si.i; i < ei.i; i++ {
 			ns2 := Handle{h.g, i}.get()
@@ -565,7 +571,7 @@ func (h Handle) Send(buf []byte, flags int) (int, error) {
 					return -1, err
 				}
 				n = seq
-				if flags&SendFlush != 0 {
+				if flags.Has(SendFlush) {
 					ns2.maybeSendQueue(byte(seq), true)
 				}
 			}
@@ -585,7 +591,7 @@ func (h Handle) Send(buf []byte, flags int) (int, error) {
 		if n+1 > len(d2x) {
 			return -7, errors.New("buffer too short")
 		}
-		if flags&SendFlush != 0 {
+		if flags.Has(SendFlush) {
 			copy(d2x[:2], ns2.Data2hdr()[:2])
 			copy(d2x[2:2+n], buf)
 			n2, err := ns2.WriteTo(d2x[:n+2], ns2.addr)
@@ -1362,12 +1368,18 @@ func (g *Streams) processPong(out []byte, packet []byte, from netip.AddrPort) in
 }
 
 const (
-	RecvCanRead = 0x1
-	RecvNoHooks = 0x2
-	RecvJustOne = 0x4
+	RecvCanRead = RecvFlags(0x1)
+	RecvNoHooks = RecvFlags(0x2)
+	RecvJustOne = RecvFlags(0x4)
 )
 
-func (h Handle) RecvLoop(flags int) int {
+type RecvFlags int
+
+func (v RecvFlags) Has(v2 RecvFlags) bool {
+	return v&v2 != 0
+}
+
+func (h Handle) RecvLoop(flags RecvFlags) int {
 	ns := h.get()
 	if ns == nil {
 		return -3
@@ -1375,7 +1387,7 @@ func (h Handle) RecvLoop(flags int) int {
 
 	argp := 1
 	var err error
-	if flags&RecvCanRead != 0 {
+	if flags.Has(RecvCanRead) {
 		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
 		if err != nil || argp == 0 {
 			return -1
@@ -1392,7 +1404,7 @@ func (h Handle) RecvLoop(flags int) int {
 		}
 		if n <= 2 { // empty payload
 			ns.recv.Reset()
-			if flags&RecvCanRead == 0 || flags&RecvJustOne != 0 {
+			if !flags.Has(RecvCanRead) || flags.Has(RecvJustOne) {
 				return n
 			}
 			argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
@@ -1491,13 +1503,13 @@ func (h Handle) RecvLoop(flags int) int {
 				n, _ = ns.WriteTo(tmp[:n], src)
 			}
 		} else {
-			if dst != nil && flags&RecvNoHooks == 0 {
+			if dst != nil && !flags.Has(RecvNoHooks) {
 				ns.callOnReceive(h2, ns.recv.Bytes()[2:n])
 			}
 		}
 	continueX:
 		ns.recv.Reset()
-		if flags&RecvCanRead == 0 || flags&RecvJustOne != 0 {
+		if !flags.Has(RecvCanRead) || flags.Has(RecvJustOne) {
 			return n
 		}
 		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
@@ -1621,7 +1633,7 @@ func (h Handle) CountInQueue(ops ...noxnet.Op) int {
 	return cnt
 }
 
-func (h Handle) WaitServerResponse(seq int, try int, flags int) int {
+func (h Handle) WaitServerResponse(seq int, try int, flags RecvFlags) int {
 	if h.g.Debug {
 		h.g.Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h.i, seq, try, flags)
 	}
@@ -1700,9 +1712,9 @@ type LobbyWaitOptions struct {
 	OnCode21 func()
 }
 
-func WaitForLobbyResults(conn net.PacketConn, srvAddr netip.Addr, flag byte, opts LobbyWaitOptions) (int, error) {
+func WaitForLobbyResults(conn net.PacketConn, srvAddr netip.Addr, flag RecvFlags, opts LobbyWaitOptions) (int, error) {
 	argp := 0
-	if flag&RecvCanRead != 0 {
+	if flag.Has(RecvCanRead) {
 		var err error
 		argp, err = canReadConn(DebugSockets, Log, conn)
 		if err != nil {
