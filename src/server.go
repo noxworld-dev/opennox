@@ -415,7 +415,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
-		netstr.Global.GetInitInd().RecvLoop(netstr.ServeCanRead)
+		netstr.Global.GetInitInd().RecvLoop(netstr.RecvCanRead)
 	}
 }
 
@@ -469,7 +469,7 @@ func (s *Server) updateRemotePlayers() error {
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
-			netstr.Global.Player(pl).Send(buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Global.Player(pl).Send(buf[:], netstr.SendQueue|netstr.SendFlush)
 			pl.Disconnect(3)
 		}
 		if pl.Field3680&0x80 != 0 {
