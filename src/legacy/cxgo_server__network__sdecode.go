@@ -49,8 +49,8 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 				v23 := int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(v22)))))
 				if v23 != 0 {
 					v24 := int32(0)
-					for i := nox_xxx_inventoryGetFirst_4E7980(unsafe.Pointer(unit)); i != nil; i = nox_xxx_inventoryGetNext_4E7990(i) {
-						v24 += int32(*(*uint8)(unsafe.Add(i, 488)))
+					for i := nox_xxx_inventoryGetFirst_4E7980(unit); i != nil; i = nox_xxx_inventoryGetNext_4E7990(i) {
+						v24 += int32(i.Weight)
 					}
 					if v24+int32(*(*uint8)(unsafe.Add(v23, 488))) <= int32(unit.CarryCapacity) {
 						OnLibraryNotice_420(unit, uint32(v23), unsafe.Pointer(unit), uint32(v23))

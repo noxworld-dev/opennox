@@ -3195,7 +3195,7 @@ func sub_417F50(a1 unsafe.Pointer) int32 {
 	nox_xxx_netMarkMinimapForAll_4174B0(v7, 1)
 	nox_xxx_createAt_4DAA50(v7, nil, 0.0, 0.0)
 	nox_xxx_unitClearOwner_4EC300(v7)
-	sub_4EB9B0(unsafe.Pointer(v7), nil)
+	sub_4EB9B0(v7, nil)
 	sub_4E8290(0, 0)
 	nox_xxx_unitMove_4E7010(v7, (*types.Pointf)(unsafe.Add(unsafe.Pointer(v4), 56)))
 	v7.VelVec.X = 0

@@ -4560,9 +4560,9 @@ func nox_xxx_playerReportAnything_4D9900(a1 *server.Object) {
 					*memmap.PtrUint32(0x5D4594, 1556324) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("SilverKey")))
 				}
 				if nox_common_playerInfoFromNum_417090(j) != nil {
-					v10 := nox_xxx_inventoryGetFirst_4E7980(unsafe.Pointer(v1))
+					v10 := nox_xxx_inventoryGetFirst_4E7980(v1)
 					if v10 != nil {
-						for uint32(*(*uint16)(unsafe.Add(v10, 4))) != *memmap.PtrUint32(0x5D4594, 1556324) {
+						for uint32(v10.TypeInd) != *memmap.PtrUint32(0x5D4594, 1556324) {
 							v10 = nox_xxx_inventoryGetNext_4E7990(v10)
 							if v10 == nil {
 								goto LABEL_25
@@ -4583,9 +4583,9 @@ func nox_xxx_playerReportAnything_4D9900(a1 *server.Object) {
 					*memmap.PtrUint32(0x5D4594, 1556328) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("GoldKey")))
 				}
 				if nox_common_playerInfoFromNum_417090(k) != nil {
-					v13 := nox_xxx_inventoryGetFirst_4E7980(unsafe.Pointer(v1))
+					v13 := nox_xxx_inventoryGetFirst_4E7980(v1)
 					if v13 != nil {
-						for uint32(*(*uint16)(unsafe.Add(v13, 4))) != *memmap.PtrUint32(0x5D4594, 1556328) {
+						for uint32(v13.TypeInd) != *memmap.PtrUint32(0x5D4594, 1556328) {
 							v13 = nox_xxx_inventoryGetNext_4E7990(v13)
 							if v13 == nil {
 								goto LABEL_37
@@ -6766,7 +6766,7 @@ func nox_xxx_gameballOnPlayerDamage_4E1230(a1 unsafe.Pointer, a2 unsafe.Pointer,
 			*(*uint32)(unsafe.Add(v4, 16)) &= 0xFFFFFFBF
 			nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Add(a2, 56)), (*server.Object)(v4), 30.0)
 			nox_xxx_unitClearOwner_4EC300((*server.Object)(v4))
-			sub_4EB9B0(v4, a2)
+			sub_4EB9B0((*server.Object)(v4), (*server.Object)(a2))
 			if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(v4, 48))) != 0 {
 				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a1, 52))))))
 				if v5 != nil {

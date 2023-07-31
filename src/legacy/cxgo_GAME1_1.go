@@ -1027,7 +1027,6 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 	var v25 *uint32
 	var v26 int32
 	var v27 int32
-	var j *uint32
 	var v32 *uint8
 	var v33 uint32
 	var v34 uint32
@@ -1190,9 +1189,9 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 			}
 		}
 		if noxflags.HasGame(4096) {
-			for j = (*uint32)(nox_xxx_inventoryGetFirst_4E7980(unsafe.Pointer(a1))); j != nil; j = (*uint32)(nox_xxx_inventoryGetNext_4E7990(unsafe.Pointer(j))) {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*11)) = nox_server_NextObjectScriptID()
-				*(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*10)) = *(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*9))
+			for j := nox_xxx_inventoryGetFirst_4E7980(a1); j != nil; j = nox_xxx_inventoryGetNext_4E7990(j) {
+				j.ScriptIDVal = int(nox_server_NextObjectScriptID())
+				j.Extent = j.NetCode
 			}
 		}
 		goto LABEL_109

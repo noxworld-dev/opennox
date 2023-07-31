@@ -45,12 +45,12 @@ func nox_xxx_playerCanCarryItem_513B00(a1p *server.Object, a2p *server.Object) {
 	if sub_467B00(int32(*(*uint16)(unsafe.Add(a2, 4))), 1)-dword_5d4594_2386848 <= 0 {
 		v2 = nil
 		v3 = 999999
-		v4 := nox_xxx_inventoryGetFirst_4E7980(a1)
+		v4 := nox_xxx_inventoryGetFirst_4E7980((*server.Object)(a1))
 		if v4 != nil {
 			for {
-				if (int32(*(*uint8)(unsafe.Add(v4, 8))) & 0x10) == 0 {
-					v5 = int32(*(*uint32)(unsafe.Add(v4, 16)))
-					if (v5&0x100) == 0 && uint32(*(*uint16)(unsafe.Add(v4, 4))) != *memmap.PtrUint32(0x5D4594, 2386856) && nox_xxx_ItemIsDroppable_53EBF0(v4) == 0 {
+				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8))) & 0x10) == 0 {
+					v5 = int32(v4.ObjFlags)
+					if (v5&0x100) == 0 && uint32(v4.TypeInd) != *memmap.PtrUint32(0x5D4594, 2386856) && nox_xxx_ItemIsDroppable_53EBF0(unsafe.Pointer(v4)) == 0 {
 						v6 = nox_xxx_shopGetItemCost_50E3D0(1, nil, v4)
 						if v6 < v3 {
 							v3 = v6
@@ -452,12 +452,12 @@ func nox_script_StartupScreen_516600_A() {
 		}
 	}
 	sub_4277B0((*server.Object)(i), 0xE)
-	v1 := nox_xxx_inventoryGetFirst_4E7980(i)
+	v1 := nox_xxx_inventoryGetFirst_4E7980((*server.Object)(i))
 	if v1 != nil {
 		for {
 			v2 := nox_xxx_inventoryGetNext_4E7990(v1)
-			if int32(*(*uint8)(unsafe.Add(v1, 8)))&0x40 != 0 {
-				nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v1))
+			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 8)))&0x40 != 0 {
+				nox_xxx_delayedDeleteObject_4E5CC0(v1)
 			}
 			v1 = v2
 			if v2 == nil {

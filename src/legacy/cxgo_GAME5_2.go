@@ -1373,7 +1373,7 @@ func sub_57A1E0(a1 *int32, a2 *byte, a3 *int32, a4 int8, a5 int16) int8 {
 			sub_57A3F0(&v14[0], int32(uintptr(unsafe.Pointer(a1))), int32(uintptr(unsafe.Pointer(v5))), v6)
 		}
 	}
-	if dword_5d4594_2650652 != nil && int32(a4)&4 != 0 {
+	if dword_5d4594_2650652 != 0 && int32(a4)&4 != 0 {
 		sub_57A3F0(internCStr("internet.rul"), int32(uintptr(unsafe.Pointer(a1))), int32(uintptr(unsafe.Pointer(v5))), v6)
 	}
 	result = int8(a5)
@@ -1662,7 +1662,7 @@ func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 	if v3 == nil {
 		return int8(uintptr(unsafe.Pointer(v3)))
 	}
-	if dword_5d4594_2650652 != nil {
+	if dword_5d4594_2650652 != 0 {
 		libc.StrCpy(&v21[0], a2)
 		libc.StrCpy(&v19[0], a2)
 		sub_57A1E0((*int32)(unsafe.Pointer(&v21[0])), nil, nil, 4, int16(*((*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*26)))))
@@ -2058,19 +2058,11 @@ func sub_57B770(a1 *types.Pointf, a2 *types.Pointf) *types.Pointf {
 	a1.Y = float32(float64(v11*v9)/v4 - float64(v8))
 	return result
 }
-func nox_xxx_collideReflect_57B810(a1 *float32, a2 unsafe.Pointer) {
-	var (
-		v3 float64
-		v4 int32
-	)
-	v3 = float64(*(*float32)(a2))
-	if float64(*(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1))**a1) <= 0.0 {
-		v4 = int32(*(*uint32)(unsafe.Add(a2, 4)))
-		*(*float32)(unsafe.Add(a2, 4)) = *(*float32)(a2)
-		*(*uint32)(a2) = uint32(v4)
+func nox_xxx_collideReflect_57B810(a1 *types.Pointf, a2 *types.Pointf) {
+	if a1.Y*a1.X <= 0.0 {
+		a2.X, a2.Y = a2.Y, a2.X
 	} else {
-		*(*float32)(a2) = -*(*float32)(unsafe.Add(a2, 4))
-		*(*float32)(unsafe.Add(a2, 4)) = float32(-v3)
+		a2.X, a2.Y = -a2.Y, -a2.X
 	}
 }
 func nox_xxx_map_57B850(a1 *types.Pointf, a2 *float32, a3 *types.Pointf) int32 {

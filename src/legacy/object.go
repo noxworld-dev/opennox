@@ -372,7 +372,7 @@ func Nox_xxx_drop_4ED790(a1 *server.Object, a2 *server.Object, pos types.Pointf)
 	return int(nox_xxx_drop_4ED790(asObjectC(a1), asObjectC(a2), cpos))
 }
 func Nox_xxx_dropAllItems_4EDA40(a1 *server.Object) {
-	nox_xxx_dropAllItems_4EDA40((*uint32)(a1.CObj()))
+	nox_xxx_dropAllItems_4EDA40(a1)
 }
 
 func Nox_object_getGold_4FA6D0(obj *server.Object) int {

@@ -8299,7 +8299,7 @@ LABEL_171:
 				if v31&0x2000 != 0 {
 					v32 = 0
 					v33 = 0
-					for j = nox_xxx_inventoryGetFirst_4E7980(a1); j != nil; j = nox_xxx_inventoryGetNext_4E7990(j) {
+					for j = unsafe.Pointer(nox_xxx_inventoryGetFirst_4E7980((*server.Object)(a1))); j != nil; j = unsafe.Pointer(nox_xxx_inventoryGetNext_4E7990((*server.Object)(j))) {
 						if uint32(*(*uint16)(unsafe.Add(j, 4))) == *memmap.PtrUint32(0x5D4594, 2487692) {
 							v32 = 1
 						}
@@ -9683,7 +9683,7 @@ func nox_xxx_castFumble_52C060(a1 int32, a2, a3, a4 *server.Object, a5 *server.S
 				if v9&0x100 != 0 {
 					v11 = int32(*(*uint32)(unsafe.Add(v8, 8)))
 					if uint32(v11)&0x1001000 != 0 || uint32(v11)&0x2000000 != 0 && int32(*(*uint8)(unsafe.Add(v8, 12)))&2 != 0 {
-						nox_xxx_invForceDropItem_4ED930(*(*unsafe.Pointer)(unsafe.Pointer(a5)), (*uint32)(v8))
+						nox_xxx_invForceDropItem_4ED930((*server.Object)(*(*unsafe.Pointer)(unsafe.Pointer(a5))), (*uint32)(v8))
 					}
 				}
 				v8 = v10

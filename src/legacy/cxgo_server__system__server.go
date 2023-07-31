@@ -360,12 +360,12 @@ func sub_4DBA30(a1 int32) {
 								if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v16), 8)))&2 != 0 {
 									v17 = int32(v16.ObjSubClass)
 									if v17&0x2000 != 0 {
-										v18 := nox_xxx_inventoryGetFirst_4E7980(unsafe.Pointer(v16))
+										v18 := nox_xxx_inventoryGetFirst_4E7980(v16)
 										if v18 != nil {
 											for {
 												v19 := nox_xxx_inventoryGetNext_4E7990(v18)
-												if uint32(*(*uint16)(unsafe.Add(v18, 4))) == *memmap.PtrUint32(0x5D4594, 1563132) {
-													nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v18))
+												if uint32(v18.TypeInd) == *memmap.PtrUint32(0x5D4594, 1563132) {
+													nox_xxx_delayedDeleteObject_4E5CC0(v18)
 												}
 												v18 = v19
 												if v19 == nil {
@@ -668,15 +668,15 @@ func sub_4F1F20() {
 				}
 				nox_xxx_delayedDeleteObject_4E5CC0(v0)
 			} else if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v0), 688)) == ccall.FuncAddr(nox_xxx_initChest_4F0400) {
-				v2 := nox_xxx_inventoryGetFirst_4E7980(unsafe.Pointer(v0))
+				v2 := nox_xxx_inventoryGetFirst_4E7980(v0)
 				if v2 != nil {
 					for {
 						v3 := nox_xxx_inventoryGetNext_4E7990(v2)
-						v4 = int32(*(*uint16)(unsafe.Add(v2, 4)))
+						v4 = int32(v2.TypeInd)
 						if uint32(uint16(int16(v4))) == dword_5d4594_1568300 || uint32(v4) == *memmap.PtrUint32(0x5D4594, 1568304) {
-							v5 = nox_server_rewardgen_activateMarker_4F0720(v2, uint32(v9+1))
-							sub_4ED0C0(v0, (*server.Object)(v2))
-							nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v2))
+							v5 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v2), uint32(v9+1))
+							sub_4ED0C0(v0, v2)
+							nox_xxx_delayedDeleteObject_4E5CC0(v2)
 							if v5 != nil {
 								nox_xxx_inventoryPutImpl_4F3070(v0, (*server.Object)(unsafe.Pointer(v5)), 0)
 								if *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2))&0x1000000 != 0 {

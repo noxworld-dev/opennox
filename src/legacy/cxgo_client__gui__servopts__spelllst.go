@@ -135,7 +135,7 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 				}
 			}
 		}
-		if dword_5d4594_2650652 != nil {
+		if dword_5d4594_2650652 != 0 {
 			sub_57A1E0(&v19[0], nil, nil, 4, 6128)
 			for i = 0; i < 5; i++ {
 				*memmap.PtrUint32(0x5D4594, uintptr(i*4)+1045488) &= uint32(v19[i+6])
@@ -159,7 +159,7 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 			nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 			return 0
 		}
-		if dword_5d4594_2650652 == nil || (func() int32 {
+		if dword_5d4594_2650652 == 0 || (func() int32 {
 			sub_57A1E0(&v19[0], nil, nil, 4, 6128)
 			return sub_454000(unsafe.Pointer(&v19[6]), v13)
 		}()) != 0 {
