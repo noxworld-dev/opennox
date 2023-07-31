@@ -179,7 +179,7 @@ var dword_5d4594_1090276 *gui.Window
 var dword_5d4594_1049496 uint32
 var dword_587000_93164 unsafe.Pointer
 var dword_5d4594_1098624 uint32
-var dword_5d4594_1569672 uint32
+var dword_5d4594_1569672 unsafe.Pointer
 var dword_5d4594_1197316 *gui.Window
 var dword_5d4594_2386576 *server.Object
 var dword_5d4594_1569756 uint32
@@ -410,7 +410,7 @@ var dword_5d4594_1316476 uint32
 var dword_5d4594_2488652 uint32
 var nox_alloc_spawn_2386216 unsafe.Pointer
 var dword_5d4594_2487672 uint32
-var nox_alloc_magicEnt_1569668 unsafe.Pointer
+var nox_alloc_magicEnt_1569668 *nox_alloc_class
 var dword_5d4594_814992 uint32
 var dword_587000_66116 int32 = 0x1D
 var dword_5d4594_2487564 uint32

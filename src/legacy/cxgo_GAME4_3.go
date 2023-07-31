@@ -3737,11 +3737,11 @@ func sub_537750(a1 unsafe.Pointer) unsafe.Pointer {
 	}
 	return result
 }
-func sub_537760() uint32 {
+func sub_537760() unsafe.Pointer {
 	if dword_5d4594_2488620 != 0 {
-		return uint32(uintptr(memmap.PtrOff(0x5D4594, 2488612)))
+		return memmap.PtrOff(0x5D4594, 2488612)
 	}
-	return 0
+	return nil
 }
 func sub_537770(a1p *server.Object) {
 	var (
@@ -5401,7 +5401,7 @@ func sub_53A720(obj *server.Object, item *server.Object, a3 int, a4 int) int {
 			if item.ObjSubClass&0x200000 != 0 {
 				v12 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 				v6 = int32(v12)
-				if nox_xxx_inventoryCountObjects_4E7D30(unsafe.Pointer(a1), int32(item.ObjFlags)) >= v6 {
+				if nox_xxx_inventoryCountObjects_4E7D30(a1, int32(item.ObjFlags)) >= v6 {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("pickup.c:MaxSameItem"), 0)
 					nox_xxx_aud_501960(925, a1, 0, 0)
 					return 0
@@ -5410,7 +5410,7 @@ func sub_53A720(obj *server.Object, item *server.Object, a3 int, a4 int) int {
 		}
 	}
 	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && sub_409F40(2) != 0 {
-		if (item.ObjSubClass&0x82) == 0 && sub_4E7EC0(unsafe.Pointer(a1), item) != 0 {
+		if (item.ObjSubClass&0x82) == 0 && sub_4E7EC0(a1, item) != 0 {
 			v5 = 1
 		}
 		if item.ObjSubClass&0x40 != 0 {
@@ -7985,7 +7985,7 @@ func nox_xxx_pickupArmor_53E7F0(obj *server.Object, obj2 *server.Object, a3 int,
 		dword_5d4594_2488720 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("WoodenShield")))
 		dword_5d4594_2488724 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("SteelShield")))
 	}
-	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && sub_409F40(2) != 0 && sub_4E7EC0(unsafe.Pointer(a1), a2) != 0 {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && sub_409F40(2) != 0 && sub_4E7EC0(a1, a2) != 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("armor.c:CannotPickupDuplicateArmor"), 0)
 		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 		return 0
@@ -8246,7 +8246,7 @@ func nox_xxx_useCast_53ED90(obj, obj2 *server.Object) int {
 		v6[1] = int32(a1.PosVec.X)
 		v6[2] = v4
 	}
-	nox_xxx_spellAccept_4FD400(*v2, (*server.Object)(unsafe.Pointer(a2)), (*server.Object)(unsafe.Pointer(a2)), (*server.Object)(unsafe.Pointer(a2)), unsafe.Pointer(&v6[0]), 4)
+	nox_xxx_spellAccept_4FD400(*v2, (*server.Object)(unsafe.Pointer(a2)), (*server.Object)(unsafe.Pointer(a2)), (*server.Object)(unsafe.Pointer(a2)), (*server.SpellAcceptArg)(unsafe.Pointer(&v6[0])), 4)
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(a2)))
 	return 1
 }
@@ -8431,7 +8431,7 @@ LABEL_27:
 		*(*unsafe.Pointer)(unsafe.Pointer(&v26[0])) = unsafe.Pointer(a1)
 		v26[1] = v16
 		v26[2] = v17
-		nox_xxx_spellAccept_4FD400(51, a1, a1, a1, unsafe.Pointer(&v26[0]), v3)
+		nox_xxx_spellAccept_4FD400(51, a1, a1, a1, (*server.SpellAcceptArg)(unsafe.Pointer(&v26[0])), v3)
 		result = 1
 	}
 	v18 = int32(v2.ObjSubClass)
@@ -8604,7 +8604,7 @@ func nox_xxx_useWandCastSpell_53F4F0(obj, obj2 *server.Object) int {
 LABEL_13:
 	v7 = int32(*(*uint32)(unsafe.Add(v2, 92)))
 	*(*uint32)(unsafe.Add(v2, 96)) |= 4
-	if nox_xxx_spellAccept_4FD400(v7, a1, a1, a1, unsafe.Pointer(&v11[0]), 4) == 0 {
+	if nox_xxx_spellAccept_4FD400(v7, a1, a1, a1, (*server.SpellAcceptArg)(unsafe.Pointer(&v11[0])), 4) == 0 {
 		return 1
 	}
 	*(*uint32)(unsafe.Add(v2, 104)) = gameFrame()
@@ -9403,7 +9403,7 @@ func nox_xxx_mobCast_541300(a1 int32, obj *server.Object, a3 unsafe.Pointer) {
 		nox_xxx_mobMorphToPlayer_4FAAF0(obj)
 	}
 	nox_xxx_mobCalcDir_533CC0(unsafe.Pointer(obj), (*float32)(unsafe.Add(a3, 4)))
-	nox_xxx_castSpellByUser_4FDD20(a1, obj, a3)
+	nox_xxx_castSpellByUser_4FDD20(a1, obj, (*server.SpellAcceptArg)(a3))
 	if ud.StatusFlags.Has(object.MonStatusBot) {
 		nox_xxx_mobMorphFromPlayer_4FAAC0(obj)
 	}

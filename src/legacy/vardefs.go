@@ -621,7 +621,7 @@ func Set_dword_5d4594_1200832(v int) {
 	dword_5d4594_1200832 = uint32(v)
 }
 func Set_nox_alloc_magicEnt_1569668(v unsafe.Pointer) {
-	nox_alloc_magicEnt_1569668 = v
+	nox_alloc_magicEnt_1569668 = (*[0]byte)(v)
 }
 func Set_dword_5d4594_1569672(v int) {
 	dword_5d4594_1569672 = uint32(v)

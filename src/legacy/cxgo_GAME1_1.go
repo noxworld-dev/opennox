@@ -1716,7 +1716,7 @@ func nox_xxx_guiEnchantment_41B9C0(a1 *server.Object, a2 unsafe.Pointer) int32 {
 					*(**server.Object)(unsafe.Pointer(&v24[0])) = a1
 					v24[2] = v7
 					v8 = nox_xxx_getEnchantSpell_424920(v6)
-					nox_xxx_spellAccept_4FD400(v8, a1, a1, a1, unsafe.Pointer(&v24[0]), v13)
+					nox_xxx_spellAccept_4FD400(v8, a1, a1, a1, (*server.SpellAcceptArg)(unsafe.Pointer(&v24[0])), v13)
 					v9 = int16(v17)
 					if int32(uint16(int16(v17))) == 0 {
 						v9 = int16(uint16(gameFPS()))

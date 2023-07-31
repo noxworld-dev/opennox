@@ -33,7 +33,7 @@ var (
 	Nox_xxx_spellCanUseInTrap_424BF0  func(ind int) bool
 	Nox_xxx_spellPrice_424C40         func(ind int) int
 	Nox_xxx_spellEnableAll_424BD0     func()
-	Nox_xxx_castSpellByUser_4FDD20    func(a1 int, a2 *server.Object, a3 unsafe.Pointer) int
+	Nox_xxx_castSpellByUser_4FDD20    func(a1 int, a2 *server.Object, a3 *server.SpellAcceptArg) int
 )
 
 // nox_xxx_spellGetDefArrayPtr_424820
@@ -187,15 +187,15 @@ func nox_xxx_spellPrice_424C40(ind int32) int32 { return int32(Nox_xxx_spellPric
 func nox_xxx_spellEnableAll_424BD0() { Nox_xxx_spellEnableAll_424BD0() }
 
 // nox_xxx_spellAccept_4FD400
-func nox_xxx_spellAccept_4FD400(ispellID int32, a2, a3p, a4p *server.Object, a5p unsafe.Pointer, lvli int32) int {
-	if GetServer().Nox_xxx_spellAccept4FD400(spell.ID(ispellID), asObjectS(a2), asObjectS(a3p), asObjectS(a4p), (*server.SpellAcceptArg)(a5p), int(lvli)) {
+func nox_xxx_spellAccept_4FD400(ispellID int32, a2, a3p, a4p *server.Object, a5p *server.SpellAcceptArg, lvli int32) int {
+	if GetServer().Nox_xxx_spellAccept4FD400(spell.ID(ispellID), asObjectS(a2), asObjectS(a3p), asObjectS(a4p), a5p, int(lvli)) {
 		return 1
 	}
 	return 0
 }
 
 // nox_xxx_castSpellByUser_4FDD20
-func nox_xxx_castSpellByUser_4FDD20(a1 int32, a2 *server.Object, a3 unsafe.Pointer) int32 {
+func nox_xxx_castSpellByUser_4FDD20(a1 int32, a2 *server.Object, a3 *server.SpellAcceptArg) int32 {
 	return int32(Nox_xxx_castSpellByUser_4FDD20(int(a1), asObjectS(a2), a3))
 }
 func Nox_xxx_spellCastByBook_4FCB80() {

@@ -3185,12 +3185,12 @@ func nox_game_sendQuestStage_4D6960(a1 int32) int32 {
 	libc.StrCpy(&v2[37], sub_4D6950())
 	return nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v2[0]), 69, nil, 1)
 }
-func sub_4D6A20(a1 int32, a2 unsafe.Pointer) int32 {
+func sub_4D6A20(a1 int32, a2 *server.Object) int32 {
 	var (
 		v3 int16
 		v5 int32
 	)
-	v3 = int16(*(*uint16)(unsafe.Add(a2, 40)))
+	v3 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), 40)))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*0)) = 4080
 	*(*uint16)(unsafe.Add(unsafe.Pointer(&v5), unsafe.Sizeof(uint16(0))*1)) = uint16(v3)
 	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v5), 4, nil, 1)
@@ -5638,7 +5638,7 @@ func nox_xxx_wall_4DF1E0(a1 int32) {
 	}
 	for j := nox_server_getFirstObject_4DA790(); j != nil; j = nox_server_getNextObject_4DA7A0(j) {
 		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(j), 8)))&0x80) != 0 && int32(*(*uint8)(unsafe.Add(j.UpdateData, 48))) != 0 {
-			sub_4D6A20(a1, unsafe.Pointer(j))
+			sub_4D6A20(a1, j)
 		}
 	}
 	if sub_4D72C0() == 1 {
@@ -6711,7 +6711,7 @@ LABEL_87:
 		}
 	}
 	if noxflags.HasGame(6144) {
-		sub_4FB050(unsafe.Pointer(v10), unsafe.Pointer(a1), &a4)
+		sub_4FB050(v10, a1, &a4)
 	}
 	if v10 == nil {
 		goto LABEL_137

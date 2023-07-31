@@ -5235,7 +5235,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 *server.Object, a2 *server.Object) 
 		}
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
 			if a2 == a1 || v3 == v2 && v3 != nil {
-				if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) == 0 {
+				if nox_xxx_unitIsCrown_4E7BE0(a2) == 0 {
 					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))
 					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
@@ -5254,8 +5254,8 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 *server.Object, a2 *server.Object) 
 				v14 = int32(*(*uint32)(unsafe.Add(v5, 276)))
 			} else {
 				if v2 == nil || v2 == v3 {
-					if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) != 0 || nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) != 0 {
-						if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) != 0 {
+					if nox_xxx_unitIsCrown_4E7BE0(a2) != 0 || nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
+						if nox_xxx_unitIsCrown_4E7BE0(a2) != 0 {
 							v10 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRKingKillsPawnPoints"))
 						} else {
 							v10 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRPawnKillsKingPoints"))
@@ -5267,7 +5267,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 *server.Object, a2 *server.Object) 
 						if dword_5d4594_2650652 != nil && v5 != 0 && v16 != 0 {
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(v5, 276))), int32(*(*uint32)(unsafe.Add(v16, 276))))
 						}
-						if !nox_xxx_CheckGameplayFlags_417DA0(4) && nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) != 0 {
+						if !nox_xxx_CheckGameplayFlags_417DA0(4) && nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
 							sub_4ED050(unsafe.Pointer(a1), unsafe.Pointer(a2))
 						}
 					}
@@ -5275,8 +5275,8 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 *server.Object, a2 *server.Object) 
 					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
 				}
-				if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a2)) != 0 {
-					if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) != 0 {
+				if nox_xxx_unitIsCrown_4E7BE0(a2) != 0 {
+					if nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
 						v6 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRKingKillsKingPoints"))
 					} else {
 						v6 = nox_xxx_gamedataGetFloat_419D40(internCStr("KotRKingKillsPawnPoints"))
@@ -5295,7 +5295,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 *server.Object, a2 *server.Object) 
 					nox_xxx_netReportLesson_4D8EF0(a1)
 					return
 				}
-				if nox_xxx_unitIsCrown_4E7BE0(unsafe.Pointer(a1)) == 0 || (func() bool {
+				if nox_xxx_unitIsCrown_4E7BE0(a1) == 0 || (func() bool {
 					v13 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("KotRPawnKillsKingPoints")))
 					v8 = int32(v13)
 					nox_xxx_changeScore_4D8E90(a2, v8)

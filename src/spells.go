@@ -826,8 +826,8 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 	return found.SObj()
 }
 
-func nox_xxx_castSpellByUser_4FDD20(a1 int, a2 *server.Object, a3 unsafe.Pointer) int {
-	if noxServer.nox_xxx_castSpellByUser4FDD20(spell.ID(a1), -1, a2, (*server.SpellAcceptArg)(a3)) {
+func nox_xxx_castSpellByUser_4FDD20(a1 int, a2 *server.Object, a3 *server.SpellAcceptArg) int {
+	if noxServer.nox_xxx_castSpellByUser4FDD20(spell.ID(a1), -1, a2, a3) {
 		return 1
 	}
 	return 0

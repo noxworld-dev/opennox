@@ -160,12 +160,6 @@ func Nox_xxx_playerInputAttack_4F9C70(a1 *server.Object) {
 func Nox_xxx_playerSubStamina_4F7D30(a1 *server.Object, a2 int) int {
 	return int(nox_xxx_playerSubStamina_4F7D30(asObjectC(a1), int32(a2)))
 }
-func Nox_xxx_playerDoSchedSpell_4FB0E0(a1 *server.Object, a2 *server.Object) {
-	nox_xxx_playerDoSchedSpell_4FB0E0(asObjectC(a1), asObjectC(a2))
-}
-func Nox_xxx_playerDoSchedSpellQueue_4FB1D0(a1 *server.Object, a2 *server.Object) {
-	nox_xxx_playerDoSchedSpellQueue_4FB1D0(asObjectC(a1), asObjectC(a2))
-}
 func Sub_4E7540(a1 *server.Object, a2 *server.Object) {
 	sub_4E7540(asObjectC(a1), asObjectC(a2))
 }
