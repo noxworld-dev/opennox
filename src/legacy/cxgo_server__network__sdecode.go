@@ -34,7 +34,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 				var v94 types.Pointf
 				v94.X = float32(float64(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 3))))
 				v94.Y = float32(float64(v21))
-				nox_xxx_drop_4ED810(unit, unsafe.Pointer(v20), &v94.X)
+				nox_xxx_drop_4ED810(unit, unsafe.Pointer(v20), &v94)
 			}
 		}
 		return 7

@@ -693,7 +693,7 @@ func nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path *byte, pind int32) int32 {
 			nox_xxx_unitDamageClear_4EE5E0(v3, int32(uint32(v10)-*memmap.PtrUint32(0x5D4594, 527696)))
 			var v11 uint16 = uint16(nox_xxx_playerGetMaxMana_4EECB0(v3))
 			nox_xxx_playerManaSub_4EEBF0(unsafe.Pointer(v3), int32(uint32(v11)-*memmap.PtrUint32(0x5D4594, 527700)))
-			nox_xxx_playerHP_4EE730(unsafe.Pointer(v3))
+			nox_xxx_playerHP_4EE730(v3)
 			sub_419E10(unsafe.Pointer(v3), 0)
 			return 1
 		}
@@ -975,7 +975,7 @@ func sub_41AA30(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 2)
 		if nox_crypt_IsReadOnly() == 1 {
 			nox_xxx_playerSetMaxMana_4EECD0(v1, int16(v6))
-			nox_xxx_playerManaRefresh_4EECF0(unsafe.Pointer(v1))
+			nox_xxx_playerManaRefresh_4EECF0(v1)
 		}
 		*memmap.PtrUint32(0x5D4594, 527696) = uint32(v1.HealthData.Cur)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 527696)), 2)

@@ -9612,7 +9612,7 @@ func sub_52BEB0(a1 int32, a2, a3, a4 *server.Object, a5 *server.SpellAcceptArg, 
 }
 func nox_xxx_castSpellWinkORrestoreHealth_52BF20(a1 int32, a2, a3, a4 *server.Object, a5 *server.SpellAcceptArg, a6 int) int32 {
 	if p := *(*unsafe.Pointer)(unsafe.Pointer(a5)); p != nil {
-		nox_xxx_unitHPsetOnMax_4EE6F0(p)
+		nox_xxx_unitHPsetOnMax_4EE6F0((*server.Object)(p))
 		nox_xxx_aud_501960(754, (*server.Object)(p), 0, 0)
 		return 1
 	}
@@ -10127,7 +10127,7 @@ func nox_xxx_castCurePoison_52CDB0(a1 int32, a2, a3, a4 *server.Object, a5 *serv
 			nox_xxx_updatePoison_4EE8F0((*server.Object)(result), a6)
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(*a5))), internCStr("ExecSpel.c:PoisonCure"), 0)
 		} else {
-			nox_xxx_removePoison_4EE9D0(*(*unsafe.Pointer)(unsafe.Pointer(a5)))
+			nox_xxx_removePoison_4EE9D0((*server.Object)(*(*unsafe.Pointer)(unsafe.Pointer(a5))))
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(*a5))), internCStr("ExecSpel.c:PoisonClean"), 0)
 		}
 		v9 = *a5

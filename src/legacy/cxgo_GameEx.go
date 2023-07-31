@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -142,7 +143,7 @@ func playerDropATrap(playerObj unsafe.Pointer) int8 {
 		v2  int32
 		v7  int8
 		v8  int8
-		pos [2]float32
+		pos types.Pointf
 	)
 	v7 = 17
 	if playerObj == nil {
@@ -150,14 +151,14 @@ func playerDropATrap(playerObj unsafe.Pointer) int8 {
 	}
 	v8 = 0
 	v2 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)))
-	pos[0] = *(*float32)(unsafe.Add(v2, 0xE30))
-	pos[1] = *(*float32)(unsafe.Add(v2, 0xE34))
+	pos.X = *(*float32)(unsafe.Add(v2, 0xE30))
+	pos.Y = *(*float32)(unsafe.Add(v2, 0xE34))
 	if !((int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)), 0xE60)))&3) == 0 && int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x58))) != 1) {
 		return v8
 	}
 	for i := *(*unsafe.Pointer)(unsafe.Add(playerObj, 0x1F8)); i != nil; i = *(*unsafe.Pointer)(unsafe.Add(i, 0x1F0)) {
 		if int32(*(*uint8)(unsafe.Add(i, 0xA))) == int32(v7) {
-			nox_xxx_drop_4ED810((*server.Object)(playerObj), i, &pos[0])
+			nox_xxx_drop_4ED810((*server.Object)(playerObj), i, &pos)
 			return 1
 		}
 	}

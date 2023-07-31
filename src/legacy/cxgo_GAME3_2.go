@@ -580,7 +580,7 @@ func nox_xxx_mapFindCrown_4CFC30() {
 			v1 := nox_server_getNextObject_4DA7A0(v0)
 			if uint32(v0.TypeInd) == *memmap.PtrUint32(0x5D4594, 1523076) {
 				nox_xxx_delayedDeleteObject_4E5CC0(v0)
-				sub_4EC6A0(unsafe.Pointer(v0))
+				sub_4EC6A0(v0)
 			}
 			v0 = v1
 			if v1 == nil {
@@ -6021,7 +6021,7 @@ func nox_xxx_checkElectrProtect_4DFF40(a1 *server.Object) float64 {
 	}
 	return result
 }
-func nox_xxx_getPoisonDmg_4E0040(a1 *uint32) float64 {
+func nox_xxx_getPoisonDmg_4E0040(a1 *server.Object) float64 {
 	var (
 		v1     float64
 		result float64
@@ -6036,12 +6036,12 @@ func nox_xxx_getPoisonDmg_4E0040(a1 *uint32) float64 {
 	if a1 == nil {
 		return 0.0
 	}
-	v3 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*126))
+	v3 := a1.InvFirstItem
 	if v3 != nil {
 		for {
-			v4 = int32(*(*uint32)(unsafe.Add(v3, 4*4)))
-			if v4&0x100 != 0 && *(*uint32)(unsafe.Add(v3, 4*2))&0x13001000 != 0 {
-				v5 := *(*unsafe.Pointer)(unsafe.Add(v3, 4*173))
+			v4 = int32(v3.ObjFlags)
+			if v4&0x100 != 0 && v3.ObjClass&0x13001000 != 0 {
+				v5 := v3.InitData
 				v6 = 4
 				for {
 					v7 := *(*unsafe.Pointer)(v5)
@@ -6055,15 +6055,15 @@ func nox_xxx_getPoisonDmg_4E0040(a1 *uint32) float64 {
 					}
 				}
 			}
-			v3 = *(*unsafe.Pointer)(unsafe.Add(v3, 4*124))
+			v3 = v3.InvNextItem
 			if v3 == nil {
 				break
 			}
 		}
 		v12 = float32(v1)
 	}
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))&0x13001000 != 0 {
-		v8 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*173))
+	if a1.ObjClass&0x13001000 != 0 {
+		v8 := a1.InitData
 		v9 = 4
 		for {
 			v10 := *(*unsafe.Pointer)(v8)
@@ -6081,8 +6081,8 @@ func nox_xxx_getPoisonDmg_4E0040(a1 *uint32) float64 {
 	if v1 > 0.69999999 {
 		v12 = 0.69999999
 	}
-	if nox_xxx_testUnitBuffs_4FF350((*server.Object)(unsafe.Pointer(a1)), 18) != 0 {
-		v11 = uint8(nox_xxx_buffGetPower_4FF570((*server.Object)(unsafe.Pointer(a1)), 18))
+	if nox_xxx_testUnitBuffs_4FF350(a1, 18) != 0 {
+		v11 = uint8(nox_xxx_buffGetPower_4FF570(a1, 18))
 		result = nox_xxx_gamedataGetFloatTable_419D70(internCStr("PoisonSpellProtection"), int32(uint32(v11)-1)) + float64(v12)
 	} else {
 		result = float64(v12)

@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -141,7 +142,7 @@ var dword_5d4594_1522604 *gui.Window
 var dword_5d4594_3798816 int32
 var dword_5d4594_1045532 *gui.Window
 var dword_5d4594_528256 uint32
-var dword_5d4594_1568024 unsafe.Pointer
+var dword_5d4594_1568024 *respawnStruct
 var dword_5d4594_1308088 *gui.Window
 var dword_5d4594_826028 *gui.Window
 var dword_5d4594_2487524 uint32
@@ -334,10 +335,10 @@ var dword_5d4594_1523036 *gui.Window
 var dword_5d4594_1197328 int32
 var dword_5d4594_1090044 uint32
 var dword_5d4594_1305748 uint32
-var nox_alloc_respawn_1568020 *nox_alloc_class
+var nox_alloc_respawn_1568020 alloc.ClassT[respawnStruct]
 var nox_alloc_monsterList_2386220 unsafe.Pointer
 var nox_xxx_lightningClosestTargetDistance_5d4594_2487912 uint32
-var dword_5d4594_1567928 uint32
+var dword_5d4594_1567928 *server.Object
 var dword_5d4594_1307720 int32
 var dword_5d4594_2386920 uint32
 var dword_5d4594_2386564 uint32

@@ -242,7 +242,7 @@ var (
 	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.field2282)]
 	_ = [1]struct{}{}[3596-unsafe.Offsetof(Player{}.Frame3596)]
 	_ = [1]struct{}{}[4580-unsafe.Offsetof(Player{}.Field4580)]
-	_ = [1]struct{}{}[4800-unsafe.Offsetof(Player{}.data4800)]
+	_ = [1]struct{}{}[4796-unsafe.Offsetof(Player{}.data4796)]
 )
 
 var _ Obj = (*Player)(nil) // proxies Unit
@@ -356,8 +356,7 @@ type Player struct {
 	field4784           uint32         // 1196, 4784
 	field4788           uint32         // 1197, 4788
 	Field4792           uint32         // 1198, 4792
-	field4796           uint32         // 1199, 4796
-	data4800            [7]uint32
+	data4796            [8]uint32      // 1199, 4796
 }
 
 func (p *Player) C() unsafe.Pointer {

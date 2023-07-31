@@ -3219,7 +3219,6 @@ func nox_xxx_mapInfoSetKotr_4180D0() int32 {
 		v3 int32
 		v6 bool
 		v7 int8
-		v8 *byte
 	)
 	if *memmap.PtrUint32(0x5D4594, 527652) == 0 {
 		*memmap.PtrUint32(0x5D4594, 527652) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Crown")))
@@ -3258,7 +3257,7 @@ func nox_xxx_mapInfoSetKotr_4180D0() int32 {
 		if v6 {
 			if int32(v7) != 0 {
 				nox_xxx_delayedDeleteObject_4E5CC0(v4)
-				sub_4EC6A0(unsafe.Pointer(v4))
+				sub_4EC6A0(v4)
 				v4 = v5
 				continue
 			}
@@ -3268,11 +3267,11 @@ func nox_xxx_mapInfoSetKotr_4180D0() int32 {
 		}
 		if int32(v7) == 0 {
 			nox_xxx_delayedDeleteObject_4E5CC0(v4)
-			sub_4EC6A0(unsafe.Pointer(v4))
+			sub_4EC6A0(v4)
 			v4 = v5
 			continue
 		}
-		v8 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v4.TeamVal.ID))))
+		v8 := nox_xxx_getTeamByID_418AB0(int32(v4.TeamVal.ID))
 		if v8 != nil {
 			*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*19)) = unsafe.Pointer(v4)
 			nox_xxx_netMarkMinimapForAll_4174B0(v4, 1)

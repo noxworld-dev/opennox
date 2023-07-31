@@ -5268,7 +5268,7 @@ func nox_xxx_playerHandleKotrDeath_54DC40(a1 *server.Object, a2 *server.Object) 
 							sub_425CA0(int32(*(*uint32)(unsafe.Add(v5, 276))), int32(*(*uint32)(unsafe.Add(v16, 276))))
 						}
 						if !nox_xxx_CheckGameplayFlags_417DA0(4) && nox_xxx_unitIsCrown_4E7BE0(a1) != 0 {
-							sub_4ED050(unsafe.Pointer(a1), unsafe.Pointer(a2))
+							sub_4ED050(a1, a2)
 						}
 					}
 					nox_xxx_playerIncrementElimDeath_4D8D40(unsafe.Pointer(a1))

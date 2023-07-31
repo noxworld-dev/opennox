@@ -3082,7 +3082,7 @@ func nox_xxx_mobRaiseZombie_534AB0(obj *server.Object) {
 			nox_xxx_monsterPushAction_50A260_impl(obj, 61)
 			nox_xxx_monsterPushAction_50A260_impl(obj, 35)
 			nox_xxx_aud_501960(469, obj, 0, 0)
-			nox_xxx_unitHPsetOnMax_4EE6F0(unsafe.Pointer(a1))
+			nox_xxx_unitHPsetOnMax_4EE6F0(a1)
 			result = a1.ObjFlags & 0xFFFF7FA7
 			a1.ObjFlags &= 0xFFFF7FA7
 		}
@@ -8199,7 +8199,7 @@ func nox_xxx_useMushroom_53ECE0(obj, obj2 *server.Object) int {
 	a2 := obj2
 	var v2 int32
 	if int32(a1.Field540) != 0 {
-		nox_xxx_removePoison_4EE9D0(unsafe.Pointer(a1))
+		nox_xxx_removePoison_4EE9D0(a1)
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("Use.c:MushroomClean"), 0)
 		v2 = nox_xxx_spellGetAud44_424800(14, 1)
 		nox_xxx_aud_501960(v2, a1, 0, 0)
@@ -8400,7 +8400,7 @@ LABEL_26:
 	result = 1
 LABEL_27:
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 12)))&0x40 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && int32(a1.Field540) != 0 {
-		nox_xxx_removePoison_4EE9D0(unsafe.Pointer(a1))
+		nox_xxx_removePoison_4EE9D0(a1)
 		v12 = nox_xxx_spellGetAud44_424800(14, 1)
 		nox_xxx_aud_501960(v12, a1, 0, 0)
 		result = 1

@@ -8,7 +8,7 @@ type PlayerUpdateData struct {
 	ManaPrev         uint16             // 1, 6
 	ManaMax          uint16             // 2, 8
 	Field2_1         uint16             // 2, 10
-	Field3           uint32             // 3, 12
+	Field3           uint32             // 3, 12 // TODO: [32]uint16 ?
 	Field4           uint32             // 4, 16
 	Field5           uint32             // 5, 20
 	Field6           uint32             // 6, 24
