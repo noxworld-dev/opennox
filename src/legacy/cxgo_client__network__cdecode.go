@@ -2519,7 +2519,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 2
 		case 8:
 			if nox_client_isConnected_43C700() != 0 {
-				sub_479300(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 2))), int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(data), 6))), int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(data), 10)))), int32(uintptr(unsafe.Add(unsafe.Pointer(data), 14))))
+				sub_479300(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 2))), int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(data), 6))), int16(uint16(*(*uint32)(unsafe.Add(unsafe.Pointer(data), 10)))), unsafe.Add(unsafe.Pointer(data), 14))
 			}
 			return 18
 		case 9:

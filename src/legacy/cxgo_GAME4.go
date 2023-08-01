@@ -1963,13 +1963,13 @@ func nox_xxx_playerAddGold_4FA590(a1 unsafe.Pointer, a2 int32) *uint32 {
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 2164)) += uint32(a2)
 	return sub_56F920(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 4588))), a2)
 }
-func nox_xxx_playerSubGold_4FA5D0(a1 unsafe.Pointer, a2 uint32) *uint32 {
+func nox_xxx_playerSubGold_4FA5D0(a1 *server.Object, a2 uint32) *uint32 {
 	var (
 		v2 int32
 		v3 int32
 		v4 uint32
 	)
-	v2 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	v2 = int32(a1.UpdateData)
 	v3 = int32(*(*uint32)(unsafe.Add(v2, 276)))
 	v4 = *(*uint32)(unsafe.Add(v3, 2164))
 	if v4 >= a2 {
@@ -1999,8 +1999,8 @@ func nox_object_setGold_4FA620(a1p *server.Object, a2 int32) {
 		}
 	}
 }
-func nox_xxx_playerGetGold_4FA6B0(a1 unsafe.Pointer) int32 {
-	return int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 276)), 2164)))
+func nox_xxx_playerGetGold_4FA6B0(a1 *server.Object) int32 {
+	return int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2164)))
 }
 func nox_object_getGold_4FA6D0(a1p *server.Object) int32 {
 	var (

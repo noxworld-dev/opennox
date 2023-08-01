@@ -4377,8 +4377,8 @@ func sub_54CBD0(a1 unsafe.Pointer) {
 		v2 uint32
 	)
 	v1 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	v2 = uint32(nox_xxx_playerGetGold_4FA6B0(a1))
-	nox_xxx_playerSubGold_4FA5D0(a1, v2>>1)
+	v2 = uint32(nox_xxx_playerGetGold_4FA6B0((*server.Object)(a1)))
+	nox_xxx_playerSubGold_4FA5D0((*server.Object)(a1), v2>>1)
 	sub_54D080(a1)
 	sub_54CC40(a1)
 	sub_54CD30(a1)

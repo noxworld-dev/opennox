@@ -14,52 +14,46 @@ import (
 )
 
 func sub_50E7A0(a1 *uint32, a2 int32) int32 {
-	var (
-		v2 *int32
-		v4 int32
-		v5 int32
-		v6 int32
-	)
-	v2 = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
+	v2 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*5))
 	if v2 == nil {
 		return 0
 	}
 	for *v2 != a2 {
-		v2 = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*2)))
+		v2 = *(*unsafe.Pointer)(unsafe.Add(v2, 4*2))
 		if v2 == nil {
 			return 0
 		}
 	}
-	v4 = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*2))
+	v4 := *(*int32)(unsafe.Add(v2, 4*2))
 	if v4 != 0 {
-		*(*uint32)(unsafe.Add(v4, 12)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
+		*(*uint32)(unsafe.Add(v4, 12)) = uint32(*(*int32)(unsafe.Add(v2, 4*3)))
 	}
-	v5 = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*3))
+	v5 := *(*int32)(unsafe.Add(v2, 4*3))
 	if v5 != 0 {
-		*(*uint32)(unsafe.Add(v5, 8)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))
+		*(*uint32)(unsafe.Add(v5, 8)) = uint32(*(*int32)(unsafe.Add(v2, 4*2)))
 	}
 	if v2 == (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*5))) {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) = uint32(*(*int32)(unsafe.Add(v2, 4*2)))
 	}
-	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))
+	v6 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))
 	if (int32(*(*uint8)(unsafe.Add(v6, 8))) & 4) == 0 {
 		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)))
 	}
 	sub_50E820(v6, *v2)
-	nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_tradeItems_2386496), unsafe.Pointer(v2))
+	nox_alloc_tradeItems_2386496.FreeObjectFirst((*server.TradeItem)(v2))
 	return 1
 }
-func nox_xxx_createPlayerShopSession_50E8F0(a1 unsafe.Pointer, a2 unsafe.Pointer) *uint32 {
+func nox_xxx_createPlayerShopSession_50E8F0(a1 *server.Object, a2 *server.Object) *server.TradeSession {
 	var (
 		v2     int32
 		v3     int32
-		v4     *uint32
-		result *uint32
+		v4     *server.TradeSession
+		result *server.TradeSession
 	)
 	v2 = 0
-	if noxflags.HasGame(4096) && (func() *uint32 {
-		v3 = int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 276)), 2064)))
-		v4 = *(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v3*4)+2386364))
+	if noxflags.HasGame(4096) && (func() *server.TradeSession {
+		v3 = int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2064)))
+		v4 = *(**server.TradeSession)(memmap.PtrOff(0x5D4594, uintptr(v3*4)+2386364))
 		*memmap.PtrUint32(0x5D4594, uintptr(v3*4)+2386364) = 0
 		return v4
 	}()) != nil {
@@ -68,14 +62,14 @@ func nox_xxx_createPlayerShopSession_50E8F0(a1 unsafe.Pointer, a2 unsafe.Pointer
 		result = nox_xxx_createShopStruct_50E870()
 		v4 = result
 		if result == nil {
-			return result
+			return nil
 		}
 	}
-	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = a1
-	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*3)) = a2
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*4)) = 1
+	v4.Field8 = a1
+	v4.Field12 = a2
+	v4.Field16 = 1
 	if v2 == 0 {
-		nox_xxx_loadShopItems_50E970(unsafe.Pointer(v4))
+		nox_xxx_loadShopItems_50E970(v4)
 	}
 	return v4
 }
@@ -140,16 +134,13 @@ func nox_xxx_servSendShopItems_50F280(a1 int32, a2 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_tradeSetPlayer_50F370(a1 *uint32, a2 unsafe.Pointer) *uint32 {
-	var result *uint32
-	result = a1
-	*a1 = 1
-	if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a2, 748)), 280)) = uint32(uintptr(unsafe.Pointer(a1)))
+func nox_xxx_tradeSetPlayer_50F370(a1 *server.TradeSession, a2 *server.Object) {
+	a1.Field0 = 1
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
+		a2.UpdateDataPlayer().Trade70 = a1
 	}
-	return result
 }
-func sub_50FAE0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 unsafe.Pointer, a4 int32, a5 int32) int32 {
+func sub_50FAE0(a1 *server.Object, a2 unsafe.Pointer, a3 *server.TradeSession, a4 *server.Object, a5 int32) int32 {
 	var (
 		v5  int32
 		v6  int16
@@ -158,17 +149,17 @@ func sub_50FAE0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 unsafe.Pointer, a4 int3
 		i   int32
 		v11 [15]byte
 	)
-	v5 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	v5 = int32(a1.UpdateData)
 	v11[0] = 201
 	v11[2] = byte(int8(bool2int32(a1 == a2)))
 	v11[1] = 4
-	v6 = int16(*(*uint16)(unsafe.Add(a4, 36)))
-	*(*uint16)(unsafe.Pointer(&v11[3])) = *(*uint16)(unsafe.Add(a4, 4))
+	v6 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(a4), 36)))
+	*(*uint16)(unsafe.Pointer(&v11[3])) = a4.TypeInd
 	*(*uint32)(unsafe.Pointer(&v11[7])) = uint32(a5)
-	v7 = int32(*(*uint32)(unsafe.Add(a4, 8)))
+	v7 = int32(a4.ObjClass)
 	*(*uint16)(unsafe.Pointer(&v11[5])) = uint16(v6)
 	if uint32(v7)&0x13001000 != 0 {
-		v8 = int32(*(*uint32)(unsafe.Add(a4, 692)))
+		v8 = int32(a4.InitData)
 		for i = 0; i < 4; i++ {
 			if *(*uint32)(v8) != 0 {
 				v11[i+11] = *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(v8), 4))
@@ -323,7 +314,7 @@ func sub_5105D0(a1 int32) int32 {
 	v1 = int32(*(*uint16)(unsafe.Add(a1, 4)))
 	return bool2int32(uint32(uint16(int16(v1))) == *memmap.PtrUint32(0x5D4594, 2386536) || uint32(v1) == *memmap.PtrUint32(0x5D4594, 2386540) || uint32(v1) == *memmap.PtrUint32(0x5D4594, 2386544))
 }
-func nox_xxx_servShopStart_50EF10_trade(a1 unsafe.Pointer, a2 unsafe.Pointer) *uint32 {
+func nox_xxx_servShopStart_50EF10_trade(a1 *server.Object, a2 *server.Object) {
 	var (
 		v2  int32
 		v3  int32
@@ -331,36 +322,36 @@ func nox_xxx_servShopStart_50EF10_trade(a1 unsafe.Pointer, a2 unsafe.Pointer) *u
 		v6  int32
 		v7  int32
 		v8  *wchar2_t
-		v9  *uint32
+		v9  *server.TradeSession
 		v10 int8
 		v11 int32
 		v12 int32
 		v13 int32
 		v14 [128]wchar2_t
 	)
-	v2 = int32(*(*uint32)(unsafe.Add(a1, 8)) & 4)
+	v2 = int32(a1.ObjClass & 4)
 	if v2 != 0 {
-		v3 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 280)))
+		v3 = int32(*(*uint32)(unsafe.Add(a1.UpdateData, 280)))
 		if v3 != 0 {
 			if *(*unsafe.Pointer)(unsafe.Add(v3, 12)) != a2 {
 				v4 = nox_strman_loadString_40F1D0(internCStr("StarterAlreadyTrading"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 1836)
 				nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(a1), v4)
 			}
-			return nil
+			return
 		}
 	}
-	v6 = int32(*(*uint32)(unsafe.Add(a2, 8)) & 4)
+	v6 = int32(a2.ObjClass & 4)
 	if v6 != 0 {
-		v7 = int32(*(*uint32)(unsafe.Add(a2, 748)))
+		v7 = int32(a2.UpdateData)
 		if *(*uint32)(unsafe.Add(v7, 280)) != 0 {
 			if v2 == 0 {
-				return nil
+				return
 			}
 			v13 = int32(*(*uint32)(unsafe.Add(v7, 276)) + 4704)
 			v8 = nox_strman_loadString_40F1D0(internCStr("OtherAlreadyTrading"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 1878)
 			nox_swprintf(&v14[0], v8, v13)
 			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(a1), &v14[0])
-			return nil
+			return
 		}
 	}
 	if v2 != 0 {
@@ -377,140 +368,127 @@ func nox_xxx_servShopStart_50EF10_trade(a1 unsafe.Pointer, a2 unsafe.Pointer) *u
 	}
 LABEL_17:
 	v9 = nox_xxx_createShopStruct_50E870()
-	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v9), 4*2)) = a1
-	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v9), 4*3)) = a2
+	v9.Field8 = a1
+	v9.Field12 = a2
 LABEL_18:
 	if v9 == nil {
-		return nil
+		return
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = gameFrame()
+	v9.Field4 = gameFrame()
 	nox_xxx_tradeSetPlayer_50F370(v9, a1)
 	nox_xxx_tradeSetPlayer_50F370(v9, a2)
-	v10 = int8(*(*uint8)(unsafe.Add(a1, 8)))
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*4)) != 0 {
+	v10 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))
+	if v9.Field16 != 0 {
 		if int32(v10)&4 != 0 {
-			sub_50F0F0(a1, int32(uintptr(unsafe.Pointer(v9))))
+			sub_50F0F0(unsafe.Pointer(a1), int32(uintptr(unsafe.Pointer(v9))))
 		}
-		if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
-			sub_50F0F0(a2, int32(uintptr(unsafe.Pointer(v9))))
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
+			sub_50F0F0(unsafe.Pointer(a2), int32(uintptr(unsafe.Pointer(v9))))
 		}
 	} else {
 		if int32(v10)&4 != 0 {
-			sub_50F1A0(a1, int32(uintptr(unsafe.Pointer(v9))))
+			sub_50F1A0(unsafe.Pointer(a1), int32(uintptr(unsafe.Pointer(v9))))
 		}
-		if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
-			sub_50F1A0(a2, int32(uintptr(unsafe.Pointer(v9))))
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
+			sub_50F1A0(unsafe.Pointer(a2), int32(uintptr(unsafe.Pointer(v9))))
 		}
 	}
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*4)) == 0 {
-		return v9
+	if v9.Field16 == 0 {
+		return
 	}
-	v11 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2)))
+	v11 = int32(v9.Field8)
 	if int32(*(*uint8)(unsafe.Add(v11, 8)))&4 != 0 {
 		nox_xxx_servSendShopItems_50F280(v11, int32(uintptr(unsafe.Pointer(v9))))
 	} else {
-		nox_xxx_servSendShopItems_50F280(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*3))), int32(uintptr(unsafe.Pointer(v9))))
+		nox_xxx_servSendShopItems_50F280(int32(v9.Field12), int32(uintptr(unsafe.Pointer(v9))))
 	}
-	if !(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*4)) != 0 && noxflags.HasGame(2048)) {
-		return v9
+	if !(v9.Field16 != 0 && noxflags.HasGame(2048)) {
+		return
 	}
-	v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2)))
+	v12 = int32(v9.Field8)
 	if (int32(*(*uint8)(unsafe.Add(v12, 8))) & 4) == 0 {
-		v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*3)))
+		v12 = int32(v9.Field12)
 	}
 	nox_xxx_unitFreeze_4E79C0((*server.Object)(v12), 0)
-	return v9
 }
-func nox_xxx_tradeP2PAddOffer2_50F820_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 float32) int32 {
-	var (
-		v3     float32
-		result int32
-		v5     *int32
-		v6     *int32
-		v7     *wchar2_t
-		v8     *wchar2_t
-		v9     int32
-		v10    int32
-		v11    int32
-		v12    int32
-	)
+func nox_xxx_tradeP2PAddOffer2_50F820_trade(a1 *server.TradeSession, a2 *server.Object, a3p *server.Object) int32 {
 	if *memmap.PtrUint32(0x5D4594, 2386516) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2386516) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Gold")))
 	}
-	if *(*unsafe.Pointer)(unsafe.Add(a1, 8)) == a2 {
-		v3 = a3
-		if sub_50FD60(*(**uint32)(unsafe.Add(a1, 32)), *(*int32)(unsafe.Add(unsafe.Pointer(&a3), 4*0))) == 0 {
+	v3 := a3p
+	var a3 int32
+	if a1.Field8 == a2 {
+		if sub_50FD60(a1.Field32, *(*int32)(unsafe.Add(unsafe.Pointer(&a3), 4*0))) == 0 {
 			return 0
 		}
 	} else {
-		if *(*unsafe.Pointer)(unsafe.Add(a1, 12)) != a2 {
+		if a1.Field12 != a2 {
 			return 0
 		}
-		v3 = a3
-		if sub_50FD60(*(**uint32)(unsafe.Add(a1, 36)), *(*int32)(unsafe.Add(unsafe.Pointer(&a3), 4*0))) == 0 {
+		if sub_50FD60(a1.Field36, *(*int32)(unsafe.Add(unsafe.Pointer(&a3), 4*0))) == 0 {
 			return 0
 		}
 	}
-	v5 = (*int32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_tradeItems_2386496)))
-	v6 = v5
+	v5 := nox_alloc_tradeItems_2386496.NewObject()
+	v6 := v5
 	if v5 != nil {
-		*(*float32)(unsafe.Pointer(v5)) = v3
-		*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*2)) = 0
-		*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) = 0
-		*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) = nox_xxx_shopGetItemCost_50E3D0(1, a1, v3)
-		if *(*unsafe.Pointer)(unsafe.Add(a1, 8)) == a2 {
-			*(*int32)(unsafe.Add(unsafe.Pointer(v6), 4*2)) = int32(*(*uint32)(unsafe.Add(a1, 32)))
-			v9 = int32(*(*uint32)(unsafe.Add(a1, 32)))
-			if v9 != 0 {
-				*(*uint32)(unsafe.Add(v9, 12)) = uint32(uintptr(unsafe.Pointer(v6)))
+		v5.Item0 = v3
+		v5.Field8 = nil
+		v5.Field12 = nil
+		v5.Cost4 = uint32(nox_xxx_shopGetItemCost_50E3D0(1, a1, v3))
+		if a1.Field8 == a2 {
+			v6.Field8 = a1.Field32
+			v9 := a1.Field32
+			if v9 != nil {
+				v9.Field12 = v6
 			}
-			*(*uint32)(unsafe.Add(a1, 32)) = uint32(uintptr(unsafe.Pointer(v6)))
+			a1.Field32 = v6
 		} else {
-			*(*int32)(unsafe.Add(unsafe.Pointer(v6), 4*2)) = int32(*(*uint32)(unsafe.Add(a1, 36)))
-			v10 = int32(*(*uint32)(unsafe.Add(a1, 36)))
-			if v10 != 0 {
-				*(*uint32)(unsafe.Add(v10, 12)) = uint32(uintptr(unsafe.Pointer(v6)))
+			v6.Field8 = a1.Field36
+			v10 := a1.Field36
+			if v10 != nil {
+				v10.Field12 = v6
 			}
-			*(*uint32)(unsafe.Add(a1, 36)) = uint32(uintptr(unsafe.Pointer(v6)))
+			a1.Field36 = v6
 		}
-		sub_50FB90((*uint32)(a1))
-		v11 = int32(*(*uint32)(unsafe.Add(a1, 8)))
-		*(*uint32)(unsafe.Add(a1, 24)) = 0
-		*(*uint32)(unsafe.Add(a1, 28)) = 0
-		if int32(*(*uint8)(unsafe.Add(v11, 8)))&4 != 0 {
-			if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 12)), 8)))&4) == 0 && *(*uint32)(unsafe.Add(a1, 44)) <= uint32(*(*int32)(unsafe.Add(a1, 40))) {
-				*(*uint32)(unsafe.Add(a1, 28)) = 1
+		sub_50FB90(a1)
+		v11 := a1.Field8
+		a1.Field24 = 0
+		a1.Field28 = 0
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v11), 8)))&4 != 0 {
+			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1.Field12), 8)))&4) == 0 && a1.Field44 <= uint32(a1.Field40) {
+				a1.Field28 = 1
 			}
-		} else if *(*uint32)(unsafe.Add(a1, 40)) <= uint32(*(*int32)(unsafe.Add(a1, 44))) {
-			*(*uint32)(unsafe.Add(a1, 24)) = 1
+		} else if a1.Field40 <= uint32(a1.Field44) {
+			a1.Field24 = 1
 		}
-		if int32(*(*uint8)(unsafe.Add(v11, 8)))&4 != 0 {
-			nox_xxx_tradeP2PUpdStuff_50FA00(v11, (*uint32)(a1))
-			sub_50FAE0(*(*unsafe.Pointer)(unsafe.Add(a1, 8)), a2, a1, *v6, *(*int32)(unsafe.Add(unsafe.Pointer(v6), 4*1)))
-			sub_50F720(*(*unsafe.Pointer)(unsafe.Add(a1, 8)), (*uint32)(a1))
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v11), 8)))&4 != 0 {
+			nox_xxx_tradeP2PUpdStuff_50FA00(v11, a1)
+			sub_50FAE0(a1.Field8, unsafe.Pointer(a2), a1, v6.Item0, int32(v6.Cost4))
+			sub_50F720(a1.Field8, a1)
 		}
-		v12 = int32(*(*uint32)(unsafe.Add(a1, 12)))
-		if int32(*(*uint8)(unsafe.Add(v12, 8)))&4 != 0 {
-			nox_xxx_tradeP2PUpdStuff_50FA00(v12, (*uint32)(a1))
-			sub_50FAE0(*(*unsafe.Pointer)(unsafe.Add(a1, 12)), a2, a1, *v6, *(*int32)(unsafe.Add(unsafe.Pointer(v6), 4*1)))
-			sub_50F720(*(*unsafe.Pointer)(unsafe.Add(a1, 12)), (*uint32)(a1))
+		v12 := a1.Field12
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v12), 8)))&4 == 0 {
+			return 1
 		}
-		result = 1
+		nox_xxx_tradeP2PUpdStuff_50FA00(v12, a1)
+		sub_50FAE0(a1.Field12, unsafe.Pointer(a2), a1, v6.Item0, int32(v6.Cost4))
+		sub_50F720(a1.Field12, a1)
+		return 1
 	} else {
-		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 8)), 8)))&4 != 0 {
-			v7 = nox_strman_loadString_40F1D0(internCStr("TradeMaxObjectsReached"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 2487)
-			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(a1, 8))), v7)
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1.Field8), 8)))&4 != 0 {
+			v7 := nox_strman_loadString_40F1D0(internCStr("TradeMaxObjectsReached"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 2487)
+			nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(a1.Field8), v7)
 		}
-		if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 12)), 8))) & 4) == 0 {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1.Field12), 8))) & 4) == 0 {
 			return 0
 		}
-		v8 = nox_strman_loadString_40F1D0(internCStr("TradeMaxObjectsReached"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 2490)
-		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(a1, 12))), v8)
-		result = 0
+		v8 := nox_strman_loadString_40F1D0(internCStr("TradeMaxObjectsReached"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 2490)
+		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(a1.Field12), v8)
+		return 0
 	}
-	return result
 }
-func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
+func sub_5100C0_trade(a1 *server.Object, a2 *uint32, a3 int32) {
 	var (
 		v4     uint32
 		result *float32
@@ -528,7 +506,7 @@ func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
 	)
 	v3 := a1
 	v15 := a1
-	v18 = int32(*(*uint32)(unsafe.Add(a1, 748)))
+	v18 = int32(a1.UpdateData)
 	v4 = uint32(nox_xxx_playerGetGold_4FA6B0(v15))
 	if dword_5d4594_2386548 == 0 {
 		dword_5d4594_2386548 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("AnkhTradable")))
@@ -543,14 +521,14 @@ func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
 		}
 		v6 = int32(*(*uint32)(unsafe.Pointer(result)))
 		if *(*uint32)(unsafe.Pointer(result)) != 0 {
-			v7 = uint32(nox_xxx_shopGetItemCost_50E3D0(1, unsafe.Pointer(a2), *result))
+			v7 = uint32(nox_xxx_shopGetItemCost_50E3D0(1, (*server.TradeSession)(unsafe.Pointer(a2)), *result))
 			v8 = v7
 			if v7 > v4 {
-				sub_5104F0(v3, int16(uint16(v7-v4)))
+				sub_5104F0(unsafe.Pointer(v3), int16(uint16(v7-v4)))
 				return
 			}
 			if int32(*(*uint8)(unsafe.Add(v6, 8)))&0x10 != 0 {
-				v9 = nox_xxx_inventoryCountObjects_4E7D30((*server.Object)(v3), int32(*(*uint16)(unsafe.Add(v6, 4))))
+				v9 = nox_xxx_inventoryCountObjects_4E7D30(v3, int32(*(*uint16)(unsafe.Add(v6, 4))))
 				if v9 >= (func() int32 {
 					if noxflags.HasGame(6144) {
 						return 9
@@ -565,8 +543,8 @@ func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
 			if uint32(*(*uint16)(unsafe.Add(v6, 4))) == dword_5d4594_2386548 {
 				v16 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("MaxExtraLives")))
 				if *(*uint32)(unsafe.Add(v18, 320)) >= uint32(int32(v16)) {
-					nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v3), internCStr("pickup.c:MaxTradableAnkhsReached"), 0)
-					nox_xxx_aud_501960(925, (*server.Object)(v3), 0, 0)
+					nox_xxx_netPriMsgToPlayer_4DA2C0(v3, internCStr("pickup.c:MaxTradableAnkhsReached"), 0)
+					nox_xxx_aud_501960(925, v3, 0, 0)
 					return
 				}
 			}
@@ -576,9 +554,9 @@ func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
 					if *(*uint32)(unsafe.Add(v6, 12))&0x200000 != 0 {
 						v17 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 						v12 = int32(v17)
-						if nox_xxx_inventoryCountObjects_4E7D30((*server.Object)(v3), int32(*(*uint16)(unsafe.Add(v6, 4)))) >= v12 {
-							nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v3), internCStr("pickup.c:MaxSameItem"), 0)
-							nox_xxx_aud_501960(925, (*server.Object)(v3), 0, 0)
+						if nox_xxx_inventoryCountObjects_4E7D30(v3, int32(*(*uint16)(unsafe.Add(v6, 4)))) >= v12 {
+							nox_xxx_netPriMsgToPlayer_4DA2C0(v3, internCStr("pickup.c:MaxSameItem"), 0)
+							nox_xxx_aud_501960(925, v3, 0, 0)
 							return
 						}
 					}
@@ -594,17 +572,17 @@ func sub_5100C0_trade(a1 unsafe.Pointer, a2 *uint32, a3 int32) {
 				v14 = ccall.AsFunc[server.ObjectPickupFunc](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v13), 4*177)))
 				return v14 == nil
 			}()) {
-				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(v3), (*server.Object)(unsafe.Pointer(v13)), 1)
-				nox_xxx_aud_501960(307, (*server.Object)(v3), 2, int32(*(*uint32)(unsafe.Add(v3, 36))))
+				nox_xxx_inventoryPutImpl_4F3070(v3, (*server.Object)(unsafe.Pointer(v13)), 1)
+				nox_xxx_aud_501960(307, v3, 2, int32(v3.NetCode))
 			} else {
-				v14(AsObjectP(v3), AsObjectP(unsafe.Pointer(v13)), 1, 1)
+				v14(AsObjectP(unsafe.Pointer(v3)), AsObjectP(unsafe.Pointer(v13)), 1, 1)
 			}
 			sub_510320(v6, int32(uintptr(unsafe.Pointer(a2))))
 			if sub_510540(v6) != 0 {
 				sub_50E7A0(a2, v6)
 			}
 			nox_xxx_playerSubGold_4FA5D0(v3, v8)
-			sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v18, 276)), 2064))), (*server.Object)(v3))
+			sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v18, 276)), 2064))), v3)
 		}
 	}
 }
@@ -628,7 +606,7 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 	v4 := a1
 	v15 := a1
 	v20 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	v19 = uint32(nox_xxx_playerGetGold_4FA6B0(v15))
+	v19 = uint32(nox_xxx_playerGetGold_4FA6B0((*server.Object)(v15)))
 	if dword_5d4594_2386552 == 0 {
 		dword_5d4594_2386552 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("AnkhTradable")))
 	}
@@ -653,7 +631,7 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 		if *(*uint32)(unsafe.Pointer(result)) == 0 {
 			return
 		}
-		v8 = uint32(nox_xxx_shopGetItemCost_50E3D0(1, a2, *result))
+		v8 = uint32(nox_xxx_shopGetItemCost_50E3D0(1, (*server.TradeSession)(a2), *result))
 		if v8 > v19 {
 			sub_5104F0(v4, int16(uint16(v8-v19)))
 			return
@@ -707,7 +685,7 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 		if sub_510540(v7) != 0 {
 			sub_50E7A0(v6, v7)
 		}
-		nox_xxx_playerSubGold_4FA5D0(v4, v8)
+		nox_xxx_playerSubGold_4FA5D0((*server.Object)(v4), v8)
 		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v20, 276)), 2064))), (*server.Object)(v4))
 		result = (*float32)(unsafe.Pointer(uintptr(func() uint32 {
 			p := &v18
@@ -757,7 +735,7 @@ func sub_5109C0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v7)
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 	} else {
-		*(*uint32)(unsafe.Pointer(&v8[4])) = uint32(nox_xxx_shopGetItemCost_50E3D0(0, a2, v4))
+		*(*uint32)(unsafe.Pointer(&v8[4])) = uint32(nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), (*server.Object)(v4)))
 		result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), unsafe.Pointer(&v8[0]), 8, nil, 1))))
 	}
 	return result
@@ -770,7 +748,7 @@ func sub_510BE0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 		v7     *wchar2_t
 		v8     int32
 	)
-	nox_xxx_playerGetGold_4FA6B0(unsafe.Pointer(a1))
+	nox_xxx_playerGetGold_4FA6B0((*server.Object)(unsafe.Pointer(a1)))
 	result = dword_5d4594_2386560
 	v4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*187))
 	if dword_5d4594_2386560 == 0 {
@@ -799,7 +777,7 @@ func sub_510BE0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 	} else {
 		sub_4ED0C0((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(v5))
 		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v5))
-		v8 = nox_xxx_shopGetItemCost_50E3D0(0, a2, v5)
+		v8 = nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), (*server.Object)(v5))
 		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), v8)
 		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), (*server.Object)(unsafe.Pointer(a1)))
 		nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))

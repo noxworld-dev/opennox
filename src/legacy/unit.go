@@ -54,7 +54,7 @@ func Nox_xxx_unitHunt_5157A0(a1 *server.Object) {
 	nox_xxx_unitHunt_5157A0(asObjectC(a1))
 }
 func Nox_xxx_playerSubGold_4FA5D0(a1 *server.Object, a2 int) {
-	nox_xxx_playerSubGold_4FA5D0(a1.CObj(), uint32(a2))
+	nox_xxx_playerSubGold_4FA5D0(a1, uint32(a2))
 }
 func Nox_xxx_playerAddGold_4FA590(a1 *server.Object, a2 int) {
 	nox_xxx_playerAddGold_4FA590(a1.CObj(), int32(a2))

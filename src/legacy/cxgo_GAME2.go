@@ -4010,7 +4010,7 @@ func nox_xxx_book_45B210(win *gui.Window, a2, p3, p4 uintptr) uintptr {
 }
 func nox_xxx_bookChildWndProcMB_45B360(win *gui.Window, p2, p3, p4 uintptr) uintptr {
 	var (
-		a1 = (*uint32)(win.C())
+		a1 = win
 		v2 int32
 	)
 	v2 = 0
@@ -4023,7 +4023,7 @@ func nox_xxx_bookChildWndProcMB_45B360(win *gui.Window, p2, p3, p4 uintptr) uint
 		}
 		return 1
 	}
-	if *a1 == 1310 {
+	if a1.ID() == 1310 {
 		if dword_5d4594_1046872 != 0 {
 			dword_5d4594_1046868 = 0
 			dword_5d4594_1046872 = 0
@@ -4051,7 +4051,7 @@ func nox_xxx_bookChildWndProcMB_45B360(win *gui.Window, p2, p3, p4 uintptr) uint
 		nox_xxx_bookSpellDnDclear_477660()
 		return 1
 	}
-	if *a1 != 1320 {
+	if a1.ID() != 1320 {
 		return 1
 	}
 	if dword_5d4594_1046872 != 1 {

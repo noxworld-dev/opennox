@@ -14,7 +14,7 @@ var nox_wnd_quitMenu_825760 *gui.Window
 
 func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	var (
-		a1     = (*uint32)(win.C())
+		a1     = win
 		v3     int32
 		v4     int32
 		result int32
@@ -73,7 +73,7 @@ func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			result = 0
 			break
 		}
-		v19 := nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(a1)), v3)
+		v19 := nox_xxx_wndGetChildByID_46B0C0(a1, v3)
 		nox_xxx_wnd_46ABB0(v19, 0)
 		v20 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 		*((*uint8)(unsafe.Pointer(&v20))) = uint8(int8(v20 & 0xFD))

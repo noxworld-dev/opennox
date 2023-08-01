@@ -166,7 +166,7 @@ var dword_5d4594_1045432 uint32
 var dword_5d4594_815044 uint32
 var nox_wnd_briefing_831232 *gui.Window
 var dword_5d4594_2487712 uint32
-var nox_alloc_tradeItems_2386496 unsafe.Pointer
+var nox_alloc_tradeItems_2386496 alloc.ClassT[server.TradeItem]
 var dword_5d4594_2386180 uint32
 var dword_5d4594_2386212 uint32
 var dword_5d4594_1319060 *gui.Window
@@ -199,7 +199,7 @@ var dword_587000_292492 uint32 = 0x42C80000
 var nox_client_translucentFrontWalls_805844 uint32
 var dword_5d4594_1309732 *gui.Window
 var dword_5d4594_1321204 unsafe.Pointer
-var dword_5d4594_2386500 uint32
+var dword_5d4594_2386500 *server.TradeSession
 var dword_5d4594_2649712 uint32
 var dword_5d4594_1046532 *gui.Window
 var dword_5d4594_3798828 uint32
@@ -351,7 +351,7 @@ var dword_5d4594_1321208 uint32
 var dword_5d4594_2487620 uint32
 var dword_5d4594_1309824 *gui.Window
 var dword_5d4594_531656 uint32
-var nox_alloc_tradeSession_2386492 unsafe.Pointer
+var nox_alloc_tradeSession_2386492 alloc.ClassT[server.TradeSession]
 var dword_5d4594_1096288 unsafe.Pointer
 var dword_5d4594_3835352 uint32
 var dword_5d4594_1046956 *gui.Window
@@ -540,7 +540,7 @@ var dword_5d4594_2488720 uint32
 var dword_5d4594_1567988 uint32
 var dword_5d4594_1308112 *gui.Window
 var dword_5d4594_832480 uint32
-var dword_5d4594_1568308 uint32
+var dword_5d4594_1568308 *server.ModifierEff
 var dword_587000_129656 uint32 = 0x1
 var dword_5d4594_1091364 uint32
 var dword_5d4594_599496 uint32

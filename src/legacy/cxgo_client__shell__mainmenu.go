@@ -11,7 +11,7 @@ import (
 func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 	var (
 		a1    = int32(uintptr(win.C()))
-		a2    = (*int32)(draw.C())
+		a2    = draw
 		v2    int32
 		v3    int32
 		v4    *uint8
@@ -28,8 +28,8 @@ func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 	nox_xxx_bookGet_430B40_get_mouse_prev_seq()
 	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), &xLeft, &yTop)
 	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
-		if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*5))) != 0x80000000 {
-			nox_client_drawSetColor_434460(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*5)))
+		if uint32(a2.BgColorVal) != 0x80000000 {
+			nox_client_drawSetColor_434460(int32(a2.BgColorVal))
 			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, int32(*(*uint32)(unsafe.Add(a1, 8))), int32(*(*uint32)(unsafe.Add(a1, 12))))
 		}
 	} else {
@@ -39,9 +39,9 @@ func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 		*((*uint8)(unsafe.Pointer(&v2))) = *(*uint8)(unsafe.Add(a1, 36))
 		yTop = v3
 		if v2&2 != 0 {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*10))), xLeft, v3)
+			nox_client_drawImageAt_47D2C0(a2.HlImageHnd, xLeft, v3)
 		} else {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*6))), xLeft, v3)
+			nox_client_drawImageAt_47D2C0(a2.BgImageHnd, xLeft, v3)
 		}
 	}
 	if *memmap.PtrUint32(0x587000, 168836) != 0 {

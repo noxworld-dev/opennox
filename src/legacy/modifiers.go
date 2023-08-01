@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	Nox_xxx_modifGetDescById_413330      func(a1 int32) unsafe.Pointer
-	Nox_xxx_equipClothFindDefByTT_413270 func(a1 int32) unsafe.Pointer
+	Nox_xxx_modifGetDescById_413330      func(a1 int32) *server.ModifierEff
+	Nox_xxx_equipClothFindDefByTT_413270 func(a1 int32) *server.Modifier
 	Sub_4A5E90_A                         func()
 	Nox_xxx_fireEffect_4E0550            server.ModifierDamageFunc
 	Nox_xxx_fireRingEffect_4E05B0        server.ModifierDamageFunc
@@ -71,7 +71,7 @@ func nox_xxx_modifGetModifListByType_4133B0(a1 int) unsafe.Pointer {
 }
 
 // nox_xxx_modifGetDescById_413330
-func nox_xxx_modifGetDescById_413330(a1 int32) unsafe.Pointer {
+func nox_xxx_modifGetDescById_413330(a1 int32) *server.ModifierEff {
 	return Nox_xxx_modifGetDescById_413330(a1)
 }
 
@@ -81,12 +81,12 @@ func nox_xxx_modifGetIdByName_413290(name *byte) int32 {
 }
 
 // nox_xxx_getProjectileClassById_413250
-func nox_xxx_getProjectileClassById_413250(a1 int32) unsafe.Pointer {
-	return GetServer().S().Modif.Nox_xxx_getProjectileClassById413250(a1).C()
+func nox_xxx_getProjectileClassById_413250(a1 int32) *server.Modifier {
+	return GetServer().S().Modif.Nox_xxx_getProjectileClassById413250(a1)
 }
 
 // nox_xxx_equipClothFindDefByTT_413270
-func nox_xxx_equipClothFindDefByTT_413270(a1 int32) unsafe.Pointer {
+func nox_xxx_equipClothFindDefByTT_413270(a1 int32) *server.Modifier {
 	return Nox_xxx_equipClothFindDefByTT_413270(a1)
 }
 

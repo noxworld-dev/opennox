@@ -141,7 +141,7 @@ LABEL_16:
 }
 func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1     = (*uint32)(win.C())
+		a1     = win
 		result int32
 		v2     *uint16
 		v4     int32
@@ -159,18 +159,18 @@ func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 	}
 	if dword_5d4594_1321204 != nil || (func() bool {
 		result = 1
-		return *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)) != 1
+		return a1.WidgetData != 1
 	}()) {
-		v2 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))*4+184344)), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guisumn.c"), 446)
-		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), &v11, &v10)
+		v2 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(a1.WidgetData)*4+184344)), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guisumn.c"), 446)
+		nox_client_wndGetPosition_46AA60(a1, &v11, &v10)
 		nox_xxx_drawGetStringSize_43F840(nil, v2, &v12, nil, 0)
 		var mpos Point32 = nox_client_getMousePos_4309F0()
 		nox_xxx_guiFontHeightMB_43F320(nil)
 		v4 = int32((nox_xxx_screenWidth_587000_184452-uint32(v12))/2 + 1)
 		if nox_xxx_wndPointInWnd_46AAB0(a1, mpos.X, mpos.Y) {
 			sub_4C2A00(v11+v4, v10+3, int32(nox_color_yellow_2589772), int32(nox_color_black_2650656), (*int16)(unsafe.Pointer(v2)))
-			if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)) != *memmap.PtrUint32(0x587000, 184552) {
-				*memmap.PtrUint32(0x587000, 184552) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8))
+			if a1.WidgetData != *memmap.PtrUint32(0x587000, 184552) {
+				*memmap.PtrUint32(0x587000, 184552) = a1.WidgetData
 				nox_xxx_clientPlaySoundSpecial_452D80(920, 100)
 				return 1
 			}
@@ -181,7 +181,7 @@ func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 				sub_4C2A00(v11+v4, v10+3, int32(nox_color_white_2523948), int32(nox_color_black_2650656), (*int16)(unsafe.Pointer(v2)))
 				return 1
 			}
-			v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))
+			v5 = int32(a1.WidgetData)
 			if v5 != 4 && v5 != 5 {
 				sub_4C2A00(v11+v4, v10+3, int32(nox_color_white_2523948), int32(nox_color_black_2650656), (*int16)(unsafe.Pointer(v2)))
 				return 1
@@ -190,7 +190,7 @@ func sub_4C27F0(win *gui.Window, draw *gui.WindowData) int {
 			v9 = (*int16)(unsafe.Pointer(v2))
 			v8 = int32(nox_color_black_2650656)
 		} else {
-			v7 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))
+			v7 = int32(a1.WidgetData)
 			if v7 != 4 && v7 != 5 {
 				sub_4C2A00(v11+v4, v10+3, int32(nox_color_blue_2650684), int32(nox_color_black_2650656), (*int16)(unsafe.Pointer(v2)))
 				return 1

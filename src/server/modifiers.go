@@ -102,24 +102,24 @@ type ModColor struct {
 }
 
 type Modifier struct {
-	name0                *byte       // 0, 0
+	Name0                *byte       // 0, 0
 	Ind4                 uint32      // 1, 4
-	desc8                *uint16     // 2, 8
+	Desc8                *uint16     // 2, 8
 	colors12             [8]ModColor // 3, 12
-	effectiveness36      int32       // 9, 36
-	material40           int32       // 10, 40
-	prienchant44         int32       // 11, 44
-	secenchant48         int32       // 12, 48
-	durability52         uint32      // 13, 52
-	field56              uint32      // 14, 56
-	reqstrength60        uint16      // 15, 60
-	classes62            byte        // 15, 62
-	field63              byte        // 15, 63
-	damageCoeffOrArmor64 float32     // 16, 64
-	range68              float32     // 17, 68
-	damageMin72          uint16      // 18, 72
-	field74              uint16      // 18, 74
-	damageType76         uint32      // 19, 76
+	Effectiveness36      int32       // 9, 36
+	Material40           int32       // 10, 40
+	PriEnchant44         int32       // 11, 44
+	SecEnchant48         int32       // 12, 48
+	Durability52         uint32      // 13, 52
+	Field56              uint32      // 14, 56
+	ReqStrength60        uint16      // 15, 60
+	Classes62            byte        // 15, 62
+	Field63              byte        // 15, 63
+	DamageCoeffOrArmor64 float32     // 16, 64
+	Range68              float32     // 17, 68
+	DamageMin72          uint16      // 18, 72
+	Field74              uint16      // 18, 74
+	DamageType76         uint32      // 19, 76
 	Next80               *Modifier   // 20, 80
 	Prev84               *Modifier   // 21, 84
 }
@@ -129,7 +129,7 @@ func (p *Modifier) C() unsafe.Pointer {
 }
 
 func (p *Modifier) Name() string {
-	return alloc.GoString(p.name0)
+	return alloc.GoString(p.Name0)
 }
 
 func (p *Modifier) Index() int {
@@ -137,7 +137,7 @@ func (p *Modifier) Index() int {
 }
 
 func (p *Modifier) Desc() string {
-	return alloc.GoString16(p.desc8)
+	return alloc.GoString16(p.Desc8)
 }
 
 type ModifierEffFnc[T any] struct {
@@ -240,9 +240,9 @@ func (s *serverModifiers) nox_xxx_parseWeaponOrArmorDef412D40(head **Modifier, a
 			(*head).Prev84 = p
 		}
 		*head = p
-		p.name0, _ = alloc.CString(w.Name)
+		p.Name0, _ = alloc.CString(w.Name)
 		if w.Desc != "" {
-			p.desc8, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(w.Desc), "Modifier.c"))
+			p.Desc8, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(w.Desc), "Modifier.c"))
 		}
 		for i := range p.colors12 {
 			p.colors12[i] = ModColor{R: 0xff, G: 0xff, B: 0xff}
@@ -252,41 +252,41 @@ func (s *serverModifiers) nox_xxx_parseWeaponOrArmorDef412D40(head **Modifier, a
 			p.colors12[i+1] = ModColor{R: byte(cl.R), G: byte(cl.G), B: byte(cl.B)}
 		}
 		if w.Effectiveness >= 0 {
-			p.effectiveness36 = int32(w.Effectiveness) + 1
+			p.Effectiveness36 = int32(w.Effectiveness) + 1
 		} else {
-			p.effectiveness36 = -1
+			p.Effectiveness36 = -1
 		}
 		if w.Material >= 0 {
-			p.material40 = int32(w.Material) + 1
+			p.Material40 = int32(w.Material) + 1
 		} else {
-			p.material40 = -1
+			p.Material40 = -1
 		}
 		if w.PriEnchant >= 0 {
-			p.prienchant44 = int32(w.PriEnchant) + 1
+			p.PriEnchant44 = int32(w.PriEnchant) + 1
 		} else {
-			p.prienchant44 = -1
+			p.PriEnchant44 = -1
 		}
 		if w.SecondEnchant >= 0 {
-			p.secenchant48 = int32(w.SecondEnchant) + 1
+			p.SecEnchant48 = int32(w.SecondEnchant) + 1
 		} else {
-			p.secenchant48 = -1
+			p.SecEnchant48 = -1
 		}
 		var err error
 		cl, err := modParseBitList([]string{"Warrior", "Wizard", "Conjurer"}, w.Class)
 		if err != nil {
 			return err
 		}
-		p.classes62 = byte(cl)
-		p.durability52 = uint32(w.Durability)
-		p.reqstrength60 = uint16(w.ReqStrength)
-		p.damageMin72 = uint16(w.DamageMin)
+		p.Classes62 = byte(cl)
+		p.Durability52 = uint32(w.Durability)
+		p.ReqStrength60 = uint16(w.ReqStrength)
+		p.DamageMin72 = uint16(w.DamageMin)
 		d, _ := object.ParseDamageType(w.DamageType)
-		p.damageType76 = uint32(d)
-		p.range68 = float32(w.Range)
+		p.DamageType76 = uint32(d)
+		p.Range68 = float32(w.Range)
 		if w.DamageCoeff != 0 {
-			p.damageCoeffOrArmor64 = float32(w.DamageCoeff)
+			p.DamageCoeffOrArmor64 = float32(w.DamageCoeff)
 		} else {
-			p.damageCoeffOrArmor64 = float32(w.Armor)
+			p.DamageCoeffOrArmor64 = float32(w.Armor)
 		}
 	}
 	return nil
@@ -464,13 +464,13 @@ func sub_4130C0(head *Modifier) {
 	var next *Modifier
 	for it := head; it != nil; it = next {
 		next = it.Next80
-		if it.name0 != nil {
-			alloc.Free(it.name0)
-			it.name0 = nil
+		if it.Name0 != nil {
+			alloc.Free(it.Name0)
+			it.Name0 = nil
 		}
-		if it.desc8 != nil {
-			alloc.Free(it.desc8)
-			it.desc8 = nil
+		if it.Desc8 != nil {
+			alloc.Free(it.Desc8)
+			it.Desc8 = nil
 		}
 		alloc.Free(it)
 	}
@@ -480,13 +480,13 @@ func sub_413100(head *Modifier) {
 	var next *Modifier
 	for it := head; it != nil; it = next {
 		next = it.Next80
-		if it.name0 != nil {
-			alloc.Free(it.name0)
-			it.name0 = nil
+		if it.Name0 != nil {
+			alloc.Free(it.Name0)
+			it.Name0 = nil
 		}
-		if it.desc8 != nil {
-			alloc.Free(it.desc8)
-			it.desc8 = nil
+		if it.Desc8 != nil {
+			alloc.Free(it.Desc8)
+			it.Desc8 = nil
 		}
 		alloc.Free(it)
 	}

@@ -1005,42 +1005,40 @@ func sub_41AA30(a1p *server.Object, a2 unsafe.Pointer) int32 {
 }
 func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 	var (
-		a1 = a1p
+		a1     = a1p
+		result int32
+		v3     int32
+		v4     unsafe.Pointer
+		v5     int32
+		v6     int32
+		v7     int32
+		v8     int32
+		v9     *byte
+		v10    int32
+		v11    *int32
+		v14    *uint8
+		v16    *uint8
+		m      unsafe.Pointer
+		v19    int32
+		v20    int32
+		v23    int32
+		v26    int32
+		v27    int32
+		v32    *uint8
+		v33    uint32
+		v34    uint32
+		l      int8
+		v36    int8
+		v37    int32
+		k      int32
+		v39    int32
+		v41    int32
+		v42    int32
+		v43    int32
+		v44    int32
+		v45    int32
+		v46    [256]byte
 	)
-	var result int32
-	var v3 int32
-	var v4 unsafe.Pointer
-	var v5 int32
-	var v6 int32
-	var v7 int32
-	var v8 int32
-	var v9 *byte
-	var v10 int32
-	var v11 *int32
-	var v14 *uint8
-	var v16 *uint8
-	var m unsafe.Pointer
-	var v19 int32
-	var v20 int32
-	var v23 int32
-	var v24 *uint32
-	var v25 *uint32
-	var v26 int32
-	var v27 int32
-	var v32 *uint8
-	var v33 uint32
-	var v34 uint32
-	var l int8
-	var v36 int8
-	var v37 int32
-	var k int32
-	var v39 int32
-	var v41 int32
-	var v42 int32
-	var v43 int32
-	var v44 int32
-	var v45 int32
-	var v46 [256]byte
 	v1 := a1
 	v36 = 1
 	v40 := a1.UpdateData
@@ -1071,8 +1069,8 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 	v44 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v40, 276)), 2164)))
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v44)), 4)
 	if nox_crypt_IsReadOnly() == 1 {
-		v3 = nox_xxx_playerGetGold_4FA6B0(unsafe.Pointer(a1))
-		nox_xxx_playerSubGold_4FA5D0(unsafe.Pointer(a1), uint32(v3))
+		v3 = nox_xxx_playerGetGold_4FA6B0(a1)
+		nox_xxx_playerSubGold_4FA5D0(a1, uint32(v3))
 		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), v44)
 	}
 	if nox_crypt_IsReadOnly() != 0 {
@@ -1098,32 +1096,32 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v46[0], uint32(uint8(int8(v39))))
 				v46[uint8(int8(v39))] = 0
 				v24p := nox_xxx_newObjectByTypeID_4E3810(&v46[0])
-				v24 = (*uint32)(unsafe.Pointer(v24p))
-				v25 = v24
+				v24 := v24p
+				v25 := v24
 				if v24p == nil {
 					return 0
 				}
 				if v24p.Xfer.Get()(v24p, nil) == 0 {
 					return 0
 				}
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v25), 4*14)) = 1161297920
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v25), 4*15)) = 1161297920
+				v25.PosVec.X = 1161297920
+				v25.PosVec.Y = 1161297920
 				if noxflags.HasGame(4096) {
-					if sub_4F2590(int32(uintptr(unsafe.Pointer(v25)))) == 0 {
+					if sub_4F2590(v25) == 0 {
 						return 0
 					}
 				}
-				nox_xxx_servMapLoadPlaceObj_4F3F50((*server.Object)(unsafe.Pointer(v25)), int32(uintptr(unsafe.Pointer(a1))), nil)
+				nox_xxx_servMapLoadPlaceObj_4F3F50(v25, int32(uintptr(unsafe.Pointer(a1))), nil)
 				nox_xxx_unitsNewAddToList_4DAC00()
-				if nox_xxx_inventoryServPlace_4F36F0(a1, (*server.Object)(unsafe.Pointer(v25)), 1, 1) == 0 {
+				if nox_xxx_inventoryServPlace_4F36F0(a1, v25, 1, 1) == 0 {
 					if !noxflags.HasGame(4096) {
 						return 0
 					}
-					nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(v25)))
+					nox_xxx_delayedDeleteObject_4E5CC0(v25)
 				}
-				v26 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v25), 4*4)))
+				v26 = int32(v25.ObjFlags)
 				if (v26&0x20) == 0 && v26&0x100 != 0 {
-					nox_xxx_playerTryDequip_4F2FB0(a1, (*server.Object)(unsafe.Pointer(v25)))
+					nox_xxx_playerTryDequip_4F2FB0(a1, v25)
 				}
 				if func() int32 {
 					p := &v23

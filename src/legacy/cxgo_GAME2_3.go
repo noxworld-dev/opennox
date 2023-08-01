@@ -4661,21 +4661,16 @@ func nox_npc_set_328(id int32, a2 int32) *nox_npc {
 	}
 	return p
 }
-func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) *byte {
+func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) {
 	var (
-		npc *byte
 		k   *uint32
 		v7  *byte
-		v8  **byte
-		l   int32
 		i   *uint32
 		v12 *byte
-		v13 **byte
-		j   int32
 	)
-	npc = (*byte)(unsafe.Pointer(nox_npc_by_id(a2)))
+	npc := nox_npc_by_id(a2)
 	if npc == nil {
-		return nil
+		return
 	}
 	if int32(a1) == 81 || int32(a1) == 80 {
 		var v10 int32 = 0
@@ -4685,17 +4680,16 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 				*p++
 				return *p
 			}() >= 27 {
-				return npc
+				return
 			}
 		}
 		v12 = (*byte)(unsafe.Add(unsafe.Pointer(npc), v10*24))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*8)) = uint32(a3)
-		v13 = (**byte)(unsafe.Add(unsafe.Pointer(v12), 36))
+		v13 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(v12), 36))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(npc), 4*326)) |= uint32(a3)
-		for j = 0; j < 4; j++ {
-			npc = (*byte)(nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, j)))))
-			*v13 = npc
-			v13 = (**byte)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof((*byte)(nil))*1))
+		for j := 0; j < 4; j++ {
+			mod := nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, j))))
+			v13[j] = mod
 		}
 	} else {
 		var v5 int32 = 0
@@ -4705,20 +4699,18 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 				*p++
 				return *p
 			}() >= 26 {
-				return npc
+				return
 			}
 		}
 		v7 = (*byte)(unsafe.Add(unsafe.Pointer(npc), v5*24))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*170)) = uint32(a3)
-		v8 = (**byte)(unsafe.Add(unsafe.Pointer(v7), 684))
+		v8 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(v7), 684))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(npc), 4*327)) |= uint32(a3)
-		for l = 0; l < 4; l++ {
-			npc = (*byte)(nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, l)))))
-			*v8 = npc
-			v8 = (**byte)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof((*byte)(nil))*1))
+		for l := 0; l < 4; l++ {
+			mod := nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, l))))
+			v8[l] = mod
 		}
 	}
-	return npc
 }
 func nox_xxx_allocArrayHealthChanges_49A5F0() int32 {
 	result := nox_new_alloc_class(internCStr("HealthChange"), 20, 32)

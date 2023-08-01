@@ -16,6 +16,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_pixbuffer_rows_3798784 **uint8
@@ -1031,45 +1032,36 @@ func sub_479280() {
 		}
 	}
 }
-func sub_479300(a1 int32, a2 int32, a3 int32, a4 int16, a5 int32) *uint32 {
-	var (
-		result *uint32
-		v6     *uint32
-		v7     *int32
-		i      int32
-	)
-	result = (*uint32)(unsafe.Pointer(sub_4793C0(a1)))
-	v6 = result
-	if result == nil {
-		return result
+func sub_479300(a1 int32, a2 int32, a3 int32, a4 int16, a5 unsafe.Pointer) {
+	v6 := unsafe.Pointer(sub_4793C0(a1))
+	if v6 == nil {
+		return
 	}
-	if *result == 0 {
-		result = (*uint32)(nox_new_drawable_for_thing(a1).C())
-		*v6 = uint32(uintptr(unsafe.Pointer(result)))
-		if result == nil {
-			return result
+	if *(**client.Drawable)(v6) == nil {
+		r2 := nox_new_drawable_for_thing(a1)
+		*(**client.Drawable)(v6) = r2
+		if r2 == nil {
+			return
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*30)) |= 0x40000000
-		*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(*v6)), 294)) = uint16(a4)
-		*(*uint16)(unsafe.Add(unsafe.Pointer(uintptr(*v6)), 292)) = uint16(a4)
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*v6)), 112))&0x13001000 != 0 {
-			v7 = (*int32)(unsafe.Add(unsafe.Pointer(uintptr(*v6)), 432))
-			for i = 0; i < 4; i++ {
-				if *(*byte)(unsafe.Pointer(uintptr(i + a5))) == math.MaxUint8 {
-					*v7 = 0
+		r2.Flags30Val |= 0x40000000
+		r2.Field_73_2 = uint16(a4)
+		r2.Field_73_1 = uint16(a4)
+		if r2.Flags28Val&0x13001000 != 0 {
+			v7 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(r2), 432))
+			for i := 0; i < 4; i++ {
+				if *(*byte)(unsafe.Add(a5, i)) == math.MaxUint8 {
+					v7[i] = nil
 				} else {
-					*v7 = int32(uintptr(nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Pointer(uintptr(i + a5)))))))
+					v7[i] = nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a5, i))))
 				}
-				v7 = (*int32)(unsafe.Add(unsafe.Pointer(v7), 4*1))
 			}
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)) = 0
+		*(*uint32)(unsafe.Add(v6, 4*1)) = 0
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))+2))) = uint32(a2)
-	result = (*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v6), 4*1)), 1))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*34)) = uint32(a3)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)) = uint32(uintptr(unsafe.Pointer(result)))
-	return result
+	*(*uint32)(unsafe.Add(v6, 4*uintptr(*(*uint32)(unsafe.Add(v6, 4*1))+2))) = uint32(a2)
+	r3 := (*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v6, 4*1)), 1))
+	*(*uint32)(unsafe.Add(v6, 4*34)) = uint32(a3)
+	*(*uint32)(unsafe.Add(v6, 4*1)) = uint32(uintptr(unsafe.Pointer(r3)))
 }
 func sub_4793C0(a1 int32) *byte {
 	var (
@@ -1359,15 +1351,15 @@ func sub_479BE0(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 }
 func sub_479C40(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1    = (*uint32)(win.C())
+		a1    = win
 		v2    int8
 		yTop  int32
 		xLeft int32
 	)
 	v2 = int8(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
 	if sub_44D930() == 0 && (int32(v2)&math.MaxInt8) < 0x1E && int32(v2)&8 != 0 {
-		nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), &xLeft, &yTop)
-		sub_49CD30(xLeft, yTop, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3))-2), *memmap.PtrInt32(0x5D4594, 1107052), 4)
+		nox_client_wndGetPosition_46AA60(a1, &xLeft, &yTop)
+		sub_49CD30(xLeft, yTop, int32(a1.SizeVal.X), int32(a1.SizeVal.Y-2), *memmap.PtrInt32(0x5D4594, 1107052), 4)
 	}
 	return nox_xxx_wndButtonDrawNoImg_4A81D0(win, draw)
 }

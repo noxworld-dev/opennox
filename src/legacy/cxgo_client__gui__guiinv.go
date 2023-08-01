@@ -1505,7 +1505,7 @@ func nox_xxx_inventroryOnHovewerSub_4667E0(win *gui.Window, draw *gui.WindowData
 	}
 }
 func sub_466E20(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
-	a1 := (*uint32)(win.C())
+	a1 := win
 	var v1 *wchar2_t
 	switch *a1 {
 	case 0x2391:

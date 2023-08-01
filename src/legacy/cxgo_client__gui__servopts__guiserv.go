@@ -233,7 +233,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 	return 1
 }
 func nox_xxx_options_457AA0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
-	a2 := (*uint32)(draw.C())
+	a2 := draw
 	var v2 *wchar2_t
 	if int32(*a2)&4 != 0 {
 		v2 = nox_strman_loadString_40F1D0(internCStr("AutoAssignOnTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 446)

@@ -111,9 +111,9 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		}
 		if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v85, 276)), 3680))) & 1) == 0 {
 			if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))) != 0 {
-				v32 := int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(v31)))))
-				if v32 != 0 {
-					nox_xxx_orderUnit_533900(unit, (*server.Object)(v32), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
+				v32 := nox_server_getObjectFromNetCode_4ECCB0(uint32(v31))
+				if v32 != nil {
+					nox_xxx_orderUnit_533900(unit, v32, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
 				}
 			} else {
 				nox_xxx_orderUnit_533900(unit, nil, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))
@@ -263,12 +263,12 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG) {
 				nox_xxx_netTestHighBit_578B70(uint32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
-			v68 := (*int32)(nox_xxx_equipedItemByCode_4F7920(unit, v67))
+			v68 := nox_xxx_equipedItemByCode_4F7920(unit, v67)
 			if v68 != nil {
 				v69 := *(*unsafe.Pointer)(unsafe.Add(v85, 280))
 				if v69 != nil {
-					if nox_xxx_tradeP2PAddOffer2_50F820_trade(v69, unsafe.Pointer(unit), v68) == 1 {
-						sub_4ED0C0(unit, (*server.Object)(unsafe.Pointer(v68)))
+					if nox_xxx_tradeP2PAddOffer2_50F820_trade((*server.TradeSession)(v69), unit, v68) == 1 {
+						sub_4ED0C0(unit, v68)
 					}
 				}
 			}
@@ -286,7 +286,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		case 0x11:
 			v66 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*70))
 			if v66 != nil {
-				nox_xxx_tradeAccept_50F5A0(v66, unsafe.Pointer(unit))
+				nox_xxx_tradeAccept_50F5A0((*server.TradeSession)(v66), unsafe.Pointer(unit))
 			}
 			return 2
 		case 0x12:
@@ -297,10 +297,10 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		case 0x15:
 			if nox_xxx_gameGet_4DB1B0() == 0 && (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*69)), 3680)))&3) == 0 {
 				v64 := nox_xxx_packetDynamicUnitCode_578B40(int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
-				v65 := unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(v64)))
+				v65 := nox_server_getObjectFromNetCode_4ECCB0(uint32(v64))
 				if v65 != nil {
-					if int32(*(*uint8)(unsafe.Add(v65, 12)))&8 != 0 {
-						nox_xxx_servShopStart_50EF10_trade(unsafe.Pointer(unit), v65)
+					if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v65), 12)))&8 != 0 {
+						nox_xxx_servShopStart_50EF10_trade(unit, v65)
 					}
 				}
 			}
@@ -308,7 +308,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		case 0x16:
 			v72 := (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*70)))
 			if v72 != nil {
-				sub_5100C0_trade(unsafe.Pointer(unit), v72, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
+				sub_5100C0_trade(unit, v72, int32(*((*uint16)(unsafe.Add(unsafe.Pointer(data), unsafe.Sizeof(uint16(0))*1)))))
 			}
 			return 4
 		case 0x17:

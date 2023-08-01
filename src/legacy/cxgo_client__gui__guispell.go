@@ -485,7 +485,7 @@ func sub_45F480(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 }
 func sub_45F9B0(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1  = (*uint32)(win.C())
+		a1  = win
 		v1  *uint32
 		v2  *wchar2_t
 		v3  *byte
@@ -501,7 +501,7 @@ func sub_45F9B0(win *gui.Window, draw *gui.WindowData) int {
 		return 1
 	}
 	v1 = a1
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), &v6, (*uint32)(unsafe.Pointer(&a1)))
+	nox_client_wndGetPosition_46AA60(a1, &v6, (*uint32)(unsafe.Pointer(&a1)))
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v7, &v9)
 	v5 = int32(*(*uint8)(unsafe.Add(nox_xxx_aClosewoodengat_587000_133480, 200))) + 1
 	v2 = nox_strman_loadString_40F1D0(internCStr("SpellSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1276)
@@ -517,7 +517,7 @@ func sub_45F9B0(win *gui.Window, draw *gui.WindowData) int {
 }
 func nox_xxx_quickbarDraw_45FAC0(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1 = (*uint32)(win.C())
+		a1 = win
 		v1 *uint32
 		v2 *wchar2_t
 		v4 int32
@@ -528,7 +528,7 @@ func nox_xxx_quickbarDraw_45FAC0(win *gui.Window, draw *gui.WindowData) int {
 		v9 [32]wchar2_t
 	)
 	v1 = a1
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&a1)), &v7)
+	nox_client_wndGetPosition_46AA60(a1, (*uint32)(unsafe.Pointer(&a1)), &v7)
 	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v5, &v8)
 	v4 = int32(*memmap.PtrUint8(0x5D4594, 1048140)) + 1
 	v2 = nox_strman_loadString_40F1D0(internCStr("TrapSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1299)

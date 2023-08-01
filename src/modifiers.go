@@ -19,16 +19,16 @@ var (
 	modLog = log.New("modifiers")
 )
 
-func nox_xxx_modifGetDescById_413330(a1 int32) unsafe.Pointer {
-	return noxServer.Modif.Nox_xxx_modifGetDescById413330(a1).C()
+func nox_xxx_modifGetDescById_413330(a1 int32) *server.ModifierEff {
+	return noxServer.Modif.Nox_xxx_modifGetDescById413330(a1)
 }
 
-func nox_xxx_getProjectileClassById_413250(a1 int32) unsafe.Pointer {
-	return noxServer.Modif.Nox_xxx_getProjectileClassById413250(a1).C()
+func nox_xxx_getProjectileClassById_413250(a1 int32) *server.Modifier {
+	return noxServer.Modif.Nox_xxx_getProjectileClassById413250(a1)
 }
 
-func nox_xxx_equipClothFindDefByTT_413270(a1 int32) unsafe.Pointer {
-	return noxServer.Modif.Nox_xxx_equipClothFindDefByTT413270(a1).C()
+func nox_xxx_equipClothFindDefByTT_413270(a1 int32) *server.Modifier {
+	return noxServer.Modif.Nox_xxx_equipClothFindDefByTT413270(a1)
 }
 
 func sub_4A5E90_A() {

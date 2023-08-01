@@ -1885,20 +1885,19 @@ func sub_466550(win *gui.Window, a2, p3, p4 uintptr) uintptr {
 }
 func nox_xxx_inventoryDrawProc_466580(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		v1 *uint32
 		v3 *int16
 		v6 int32
 		v7 int32
 	)
-	v1 = (*uint32)(win.C())
+	v1 := win
 	var a1b, v5 int32
 	nox_client_wndGetPosition_46AA60(win, &v5, &a1b)
-	nox_window_get_size((*gui.Window)(unsafe.Pointer(v1)), &v7, &v6)
+	nox_window_get_size(v1, &v7, &v6)
 	var v2 noxrender.ImageHandle
 	if int32(*memmap.PtrUint8(0x5D4594, 1049868)) != 0 {
-		v2 = *(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(v1), 4*19))
+		v2 = v1.DrawData().HlImageHnd
 	} else {
-		v2 = *(*noxrender.ImageHandle)(unsafe.Add(unsafe.Pointer(v1), 4*15))
+		v2 = v1.DrawData().BgImageHnd
 	}
 	nox_client_drawImageAt_47D2C0(v2, v5, a1b)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
@@ -2068,10 +2067,9 @@ func sub_466ED0(a1 *gui.Window) int32 {
 }
 func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1  = (*uint32)(win.C())
-		a2  = (*int32)(draw.C())
+		a1  = win
+		a2  = draw
 		v3  int32
-		v6  *uint32
 		v8  int32
 		v10 *uint8
 		v11 *int32
@@ -2083,13 +2081,13 @@ func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(dword_5d4594_1063116, 112)))
 	if uint32(v3)&0x13001000 != 0 {
-		v4 := (*uint32)(func() unsafe.Pointer {
+		v4 := func() *server.Modifier {
 			if uint32(v3)&0x11001000 != 0 {
 				return nox_xxx_getProjectileClassById_413250(int32(*(*uint32)(unsafe.Add(dword_5d4594_1063116, 108))))
 			}
 			return nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint32)(unsafe.Add(dword_5d4594_1063116, 108))))
-		}())
-		v6 = v4
+		}()
+		v6 := v4
 		if v4 != nil {
 			v8 = 1
 			v9 := unsafe.Add(dword_5d4594_1063116, 432)
@@ -2109,7 +2107,7 @@ func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 					break
 				}
 			}
-			v11 = (*int32)(unsafe.Add(unsafe.Pointer(v6), 4*9))
+			v11 = &v6.Effectiveness36
 			v12 = (**uint8)(v9)
 			v13 = 4
 			for {
@@ -2130,8 +2128,8 @@ func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 		}
 	}
 	var v15, v16 int32
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), &v15, &v16)
-	nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*6))), *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*15))+v15, *(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*16))+v16)
+	nox_client_wndGetPosition_46AA60(a1, &v15, &v16)
+	nox_client_drawImageAt_47D2C0(a2.BgImageHnd, int32(a2.ImgPtVal.X+int(v15)), int32(a2.ImgPtVal.Y+int(v16)))
 	return 1
 }
 func nox_xxx_inventoryLoadImages_467050() {
@@ -4006,7 +4004,7 @@ func sub_470F40_draw(win *gui.Window, draw *gui.WindowData) int {
 }
 func sub_471250(win *gui.Window, draw *gui.WindowData) int {
 	var (
-		a1  = (*uint32)(win.C())
+		a1  = win
 		v1  *uint8
 		v2  int32
 		v3  *uint8
@@ -4029,9 +4027,9 @@ func sub_471250(win *gui.Window, draw *gui.WindowData) int {
 		v21 float32
 		v22 float32
 	)
-	v20 = (*uint8)(unsafe.Pointer(&nox_windows_arr_1093036[*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8))]))
+	v20 = (*uint8)(unsafe.Pointer(&nox_windows_arr_1093036[uintptr(a1.WidgetData)]))
 	v1 = v20
-	nox_client_wndGetPosition_46AA60((*gui.Window)(unsafe.Pointer(a1)), &v18, &v17)
+	nox_client_wndGetPosition_46AA60(a1, &v18, &v17)
 	v2 = 1
 	if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*2)) >= 1 {
 		v15 = 1
