@@ -2895,25 +2895,25 @@ func nox_xxx_cliPlayerRespawn_417680(a1p unsafe.Pointer, a2 int8) {
 	var a1b uint32
 	if int32(*(*uint8)(unsafe.Add(v2, 2251))) != 0 || noxflags.HasGame(2048) {
 		*(*uint8)(unsafe.Pointer(&a1b)) = math.MaxUint8
-		v11 := nox_xxx_modifGetDescById_413330(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4)) + uint32(*(*uint8)(unsafe.Add(v2, 2269)))))
+		v11 := nox_xxx_modifGetDescById_413330(int32(v10.Ind4 + uint32(*(*uint8)(unsafe.Add(v2, 2269)))))
 		v12 = int32(*(*uint8)(unsafe.Add(v2, 2270)))
 		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer(v11), 4))
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 2)) = *(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4))+uint32(v12)))), 4))
+		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 2)) = *(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(v10.Ind4+uint32(v12)))), 4))
 		*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 4-1)) = math.MaxUint8
 		if int32(a2)&1 != 0 {
 			nox_xxx_clientEquipWeaponArmor_417AA0(82, int32(*(*uint32)(unsafe.Add(v2, 2060))), 1024, unsafe.Pointer(&a1b))
 		}
 	}
 	*(*uint8)(unsafe.Pointer(&a1b)) = math.MaxUint8
-	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4))+uint32(*(*uint8)(unsafe.Add(v2, 2268)))))), 4))
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(v10.Ind4+uint32(*(*uint8)(unsafe.Add(v2, 2268)))))), 4))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(&a1b), unsafe.Sizeof(uint16(0))*1)) = math.MaxUint16
 	if int32(a2)&2 != 0 {
 		nox_xxx_clientEquipWeaponArmor_417AA0(82, int32(*(*uint32)(unsafe.Add(v2, 2060))), 4, unsafe.Pointer(&a1b))
 	}
-	v13 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4))+uint32(*(*uint8)(unsafe.Add(v2, 2272)))))), 4)))
+	v13 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(v10.Ind4+uint32(*(*uint8)(unsafe.Add(v2, 2272)))))), 4)))
 	v14 = int32(*(*uint8)(unsafe.Add(v2, 2271)))
 	*(*uint8)(unsafe.Pointer(&a1b)) = uint8(v13)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4))+uint32(v14)))), 4))
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1b), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer(nox_xxx_modifGetDescById_413330(int32(v10.Ind4+uint32(v14)))), 4))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(&a1b), unsafe.Sizeof(uint16(0))*1)) = math.MaxUint16
 	if int32(a2)&4 != 0 {
 		nox_xxx_clientEquipWeaponArmor_417AA0(82, int32(*(*uint32)(unsafe.Add(v2, 2060))), 1, unsafe.Pointer(&a1b))

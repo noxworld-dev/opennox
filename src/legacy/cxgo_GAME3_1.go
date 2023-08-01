@@ -4535,10 +4535,10 @@ func sub_4CAFF0(win *gui.Window, draw *gui.WindowData) int {
 		v14   int32
 		v15   [64]wchar2_t
 	)
-	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*17)))
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*9)))
-	v14 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*7)))
-	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*5)))
+	v2 = int32(a2.TextColorVal)
+	v3 = int32(a2.HlColorVal)
+	v14 = int32(a2.EnColorVal)
+	v4 = int32(a2.BgColorVal)
 	v11 = v2
 	nox_client_wndGetPosition_46AA60(a1, &xLeft, &yTop)
 	if uint32(v4) != 0x80000000 {
@@ -4555,11 +4555,11 @@ func sub_4CAFF0(win *gui.Window, draw *gui.WindowData) int {
 			nox_draw_enableTextSmoothing_43F670(1)
 		}
 		nox_swprintf(&v15[0], internWStr("%i%%"), a1.WidgetData)
-		nox_xxx_drawGetStringSize_43F840(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*50)), &v15[0], &v13, &v12, 64)
+		nox_xxx_drawGetStringSize_43F840(a2.FontPtr, &v15[0], &v13, &v12, 64)
 		v6 = int32(uint32(xLeft) + uint32(a1.SizeVal.X)/2 - uint32(v13/2))
 		v7 = int32(a1.SizeVal.Y/2 - int(uint32(v12/2)) + int(uint32(yTop)) + 1)
 		nox_xxx_drawSetTextColor_434390(v11)
-		nox_xxx_drawStringWrap_43FAF0(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*50)), &v15[0], v6, v7, int32(a1.SizeVal.X), 0)
+		nox_xxx_drawStringWrap_43FAF0(a2.FontPtr, &v15[0], v6, v7, int32(a1.SizeVal.X), 0)
 		nox_draw_enableTextSmoothing_43F670(0)
 	}
 	if uint32(v14) != 0x80000000 {

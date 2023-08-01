@@ -8,7 +8,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
-func nox_xxx_xferReadScriptHandler_4F5580(a1 int32, a2 *byte) int32 {
+func nox_xxx_xferReadScriptHandler_4F5580(a1 unsafe.Pointer, a2 *byte) int32 {
 	var (
 		v3 bool
 		v4 int32

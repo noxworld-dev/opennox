@@ -147,17 +147,17 @@ type ModifierEffFnc[T any] struct {
 }
 
 type ModifierEff struct { // obj_412ae0_t
-	name0             *byte                                          // 0, 0
-	ind4              uint32                                         // 1, 4
-	desc8             *uint16                                        // 2, 8
-	secdesc12         *uint16                                        // 3, 12
-	identdesc16       *uint16                                        // 4, 16
-	price20           int32                                          // 5, 20
+	Name0             *byte                                          // 0, 0
+	Ind4              uint32                                         // 1, 4
+	Desc8             *uint16                                        // 2, 8
+	SecDesc12         *uint16                                        // 3, 12
+	IdentDesc16       *uint16                                        // 4, 16
+	Price20           int32                                          // 5, 20
 	color24           ModColor                                       // 6, 24
 	_                 byte                                           // 6, 27
-	allowWeapons28    uint32                                         // 7, 28
-	allowArmor32      uint32                                         // 8, 32
-	allowPos36        uint32                                         // 9, 36
+	AllowWeapons28    uint32                                         // 7, 28
+	AllowArmor32      uint32                                         // 8, 32
+	AllowPos36        uint32                                         // 9, 36
 	Attack40          ModifierEffFnc[ccall.Func[ModifierDamageFunc]] // 10, 40-44-48
 	AttackPreHit52    ModifierEffFnc[ccall.Func[ModifierDamageFunc]] // 13, 52-56-60
 	AttackPreDmg64    ModifierEffFnc[ccall.Func[ModifierDamageFunc]] // 16, 64-68-72
@@ -170,8 +170,8 @@ type ModifierEff struct { // obj_412ae0_t
 	EngageInt124      int32                                          // 31, 124
 	DisengageFloat128 float32                                        // 32, 128
 	DisengageInt132   int32                                          // 33, 132
-	next136           *ModifierEff                                   // 34, 136
-	prev140           *ModifierEff                                   // 35, 140
+	Next136           *ModifierEff                                   // 34, 136
+	Prev140           *ModifierEff                                   // 35, 140
 }
 
 func (p *ModifierEff) C() unsafe.Pointer {
@@ -179,15 +179,15 @@ func (p *ModifierEff) C() unsafe.Pointer {
 }
 
 func (p *ModifierEff) Name() string {
-	return alloc.GoString(p.name0)
+	return alloc.GoString(p.Name0)
 }
 
 func (p *ModifierEff) Index() int {
-	return int(p.ind4)
+	return int(p.Ind4)
 }
 
 func (p *ModifierEff) Desc() string {
-	return alloc.GoString16(p.desc8)
+	return alloc.GoString16(p.Desc8)
 }
 
 func modParseBitList(table []string, arr []string) (uint32, error) {
@@ -295,29 +295,29 @@ func (s *serverModifiers) nox_xxx_parseWeaponOrArmorDef412D40(head **Modifier, a
 func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers.Effect) error {
 	for _, v := range arr {
 		p, _ := alloc.New(ModifierEff{})
-		p.ind4 = s.byte_5D4594_251596
+		p.Ind4 = s.byte_5D4594_251596
 		s.byte_5D4594_251596++
 
-		p.prev140 = nil
-		p.next136 = s.byte_5D4594_251584[typ]
+		p.Prev140 = nil
+		p.Next136 = s.byte_5D4594_251584[typ]
 		if s.byte_5D4594_251584[typ] != nil {
-			s.byte_5D4594_251584[typ].prev140 = p
+			s.byte_5D4594_251584[typ].Prev140 = p
 		}
 		s.byte_5D4594_251584[typ] = p
 
-		p.name0, _ = alloc.CString(v.Name)
+		p.Name0, _ = alloc.CString(v.Name)
 		if v.Desc != "" {
-			p.desc8, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.Desc), "Modifier.c"))
+			p.Desc8, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.Desc), "Modifier.c"))
 		} else if v.PriDesc != "" {
-			p.desc8, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.PriDesc), "Modifier.c"))
+			p.Desc8, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.PriDesc), "Modifier.c"))
 		}
 		if v.SecondDesc != "" {
-			p.secdesc12, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.SecondDesc), "Modifier.c"))
+			p.SecDesc12, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.SecondDesc), "Modifier.c"))
 		}
 		if v.IdentifyDesc != "" {
-			p.identdesc16, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.IdentifyDesc), "Modifier.c"))
+			p.IdentDesc16, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.IdentifyDesc), "Modifier.c"))
 		}
-		p.price20 = int32(v.Price)
+		p.Price20 = int32(v.Price)
 		p.color24 = ModColor{R: byte(v.Color.R), G: byte(v.Color.G), B: byte(v.Color.B)}
 		for _, d := range []struct {
 			dst *ModifierEffFnc[ccall.Func[ModifierDamageFunc]]
@@ -359,15 +359,15 @@ func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers
 			}
 		}
 		var err error
-		p.allowWeapons28, err = modParseAllowed(modAllowList, v.AllowWeapons)
+		p.AllowWeapons28, err = modParseAllowed(modAllowList, v.AllowWeapons)
 		if err != nil {
 			return err
 		}
-		p.allowArmor32, err = modParseAllowed(modAllowList, v.AllowArmor)
+		p.AllowArmor32, err = modParseAllowed(modAllowList, v.AllowArmor)
 		if err != nil {
 			return err
 		}
-		p.allowPos36, err = modParseBitList([]string{"PRIMARY", "SECONDARY"}, v.AllowPos)
+		p.AllowPos36, err = modParseBitList([]string{"PRIMARY", "SECONDARY"}, v.AllowPos)
 		if err != nil {
 			return err
 		}
@@ -403,7 +403,7 @@ func (s *serverModifiers) Nox_xxx_parseModifierBin_412930(fname string) error {
 	}
 	cnt := 0
 	for k := 0; k < 3; k++ {
-		for l := s.byte_5D4594_251584[k]; l != nil; l = l.next136 {
+		for l := s.byte_5D4594_251584[k]; l != nil; l = l.Next136 {
 			cnt++
 		}
 	}
@@ -419,8 +419,8 @@ func (s *serverModifiers) Nox_xxx_modifGetDescById413330(a1 int32) *ModifierEff 
 		return nil
 	}
 	for _, head := range s.byte_5D4594_251584 {
-		for it := head; it != nil; it = it.next136 {
-			if it.ind4 == uint32(a1) {
+		for it := head; it != nil; it = it.Next136 {
+			if it.Ind4 == uint32(a1) {
 				return it
 			}
 		}
@@ -433,9 +433,9 @@ func (s *serverModifiers) Nox_xxx_modifGetIdByName413290(name string) int32 {
 		return math.MaxUint8
 	}
 	for _, head := range s.byte_5D4594_251584 {
-		for it := head; it != nil; it = it.next136 {
-			if alloc.GoString(it.name0) == name {
-				return int32(it.ind4)
+		for it := head; it != nil; it = it.Next136 {
+			if alloc.GoString(it.Name0) == name {
+				return int32(it.Ind4)
 			}
 		}
 	}
@@ -495,18 +495,18 @@ func sub_413100(head *Modifier) {
 func nox_xxx_modifFreeOne_413140(head *ModifierEff) {
 	var next *ModifierEff
 	for it := head; it != nil; it = next {
-		next = it.next136
-		if it.name0 != nil {
-			alloc.Free(it.name0)
-			it.name0 = nil
+		next = it.Next136
+		if it.Name0 != nil {
+			alloc.Free(it.Name0)
+			it.Name0 = nil
 		}
-		if it.desc8 != nil {
-			alloc.Free(it.desc8)
-			it.desc8 = nil
+		if it.Desc8 != nil {
+			alloc.Free(it.Desc8)
+			it.Desc8 = nil
 		}
-		if it.secdesc12 != nil {
-			alloc.Free(it.secdesc12)
-			it.secdesc12 = nil
+		if it.SecDesc12 != nil {
+			alloc.Free(it.SecDesc12)
+			it.SecDesc12 = nil
 		}
 		alloc.Free(it)
 	}

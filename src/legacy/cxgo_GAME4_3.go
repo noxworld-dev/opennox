@@ -5302,7 +5302,7 @@ func nox_xxx_playerEquipWeapon_53A420(a1 *server.Object, item *server.Object, a3
 		nox_xxx_playerSetState_4FA020(a1, 13)
 	}
 	if v4 == 2 {
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud.Player), 4)))&0xC) == 0 && sub_53A680(int32(uintptr(unsafe.Pointer(a1)))) == 0 {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud.Player), 4)))&0xC) == 0 && sub_53A680(a1) == 0 {
 			nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("weapon.c:BowNotFound"), 0)
 			if a4 != 0 {
 				nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
@@ -5339,9 +5339,9 @@ func nox_xxx_playerEquipWeapon_53A420(a1 *server.Object, item *server.Object, a3
 	}
 	return 1
 }
-func sub_53A680(a1 int32) int32 {
+func sub_53A680(a1 *server.Object) int32 {
 	var item *server.Object
-	item = *(**server.Object)(unsafe.Add(a1, 504))
+	item = a1.InvFirstItem
 	if item == nil {
 		return 0
 	}
@@ -5351,23 +5351,23 @@ func sub_53A680(a1 int32) int32 {
 			return 0
 		}
 	}
-	return nox_xxx_playerEquipWeapon_53A420((*uint32)(a1), item, 1, 1)
+	return nox_xxx_playerEquipWeapon_53A420(a1, item, 1, 1)
 }
-func sub_53A6C0(a1 int32, item *server.Object) {
+func sub_53A6C0(a1 *server.Object, item *server.Object) {
 	var (
 		v2 int32
 		v3 int16
 	)
-	if a1 != 0 && item != nil {
+	if a1 != nil && item != nil {
 		v2 = int32(item.ObjClass)
 		if v2&0x1000 != 0 {
-			nox_xxx_aud_501960(830, (*server.Object)(a1), 0, 0)
+			nox_xxx_aud_501960(830, a1, 0, 0)
 		} else {
 			v3 = int16(item.Material)
 			if int32(v3)&0x10 != 0 {
-				nox_xxx_aud_501960(842, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(842, a1, 0, 0)
 			} else if int32(v3)&8 != 0 {
-				nox_xxx_aud_501960(844, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(844, a1, 0, 0)
 			}
 		}
 	}

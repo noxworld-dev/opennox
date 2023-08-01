@@ -658,13 +658,13 @@ func nox_server_mapRWPolygons_428CD0(a1 int32) int32 {
 				}
 				if int32(int16(v26)) >= 2 {
 					v22 = *(**byte)(unsafe.Pointer(v10))
-					nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v10), 112))), *(**byte)(unsafe.Pointer(v10)))
+					nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v10), 112), *(**byte)(unsafe.Pointer(v10)))
 					if v22 != nil {
 						v23 = (*byte)(unsafe.Add(unsafe.Pointer(v22), 128))
 					} else {
 						v23 = nil
 					}
-					nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v10), 120))), v23)
+					nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v10), 120), v23)
 				}
 				if int32(int16(v26)) >= 4 {
 					v24 = (*uint8)(unsafe.Add(unsafe.Pointer(v10), 132))
@@ -720,13 +720,13 @@ func nox_server_mapRWPolygons_428CD0(a1 int32) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v6), 130)), 1)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v6), 128)), 2)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*(**uint8)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof((*uint8)(nil))*27)), uint32(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*64)))*4))
-		nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v6), 112))), v7)
+		nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v6), 112), v7)
 		if v7 != nil {
 			v8 = (*byte)(unsafe.Add(unsafe.Pointer(v7), 128))
 		} else {
 			v8 = nil
 		}
-		nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v6), 120))), v8)
+		nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v6), 120), v8)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v6), 132)), 4)
 		v6 = sub_4210E0(unsafe.Pointer(v6))
 		v28++

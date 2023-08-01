@@ -842,25 +842,25 @@ func nox_xxx_XFerMonsterGen_4F7130(a1p *server.Object, data unsafe.Pointer) int 
 	} else {
 		v6 = nil
 	}
-	nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v1), 48))), v6)
+	nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v1), 48), v6)
 	if v3 != 0 {
 		v7 = (*byte)(unsafe.Add(v3, 2048))
 	} else {
 		v7 = nil
 	}
-	nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v1), 56))), v7)
+	nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v1), 56), v7)
 	if v3 != 0 {
 		v8 = (*byte)(unsafe.Add(v3, 2176))
 	} else {
 		v8 = nil
 	}
-	nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v1), 72))), v8)
+	nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v1), 72), v8)
 	if v3 != 0 {
 		v9 = (*byte)(unsafe.Add(v3, 2304))
 	} else {
 		v9 = nil
 	}
-	nox_xxx_xferReadScriptHandler_4F5580(int32(uintptr(unsafe.Add(unsafe.Pointer(v1), 64))), v9)
+	nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v1), 64), v9)
 	if nox_crypt_IsReadOnly() != 0 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v27)), 1)
 		v16 = 0
@@ -5702,7 +5702,7 @@ func nox_xxx_mapgenSaveMap_503830(a1 int32) int32 {
 				sub_502DF0()
 				return 0
 			}
-			nox_xxx_servMapLoadPlaceObj_4F3F50((*server.Object)(v3), 0, unsafe.Pointer(&v25.field_0))
+			nox_xxx_servMapLoadPlaceObj_4F3F50((*server.Object)(v3), nil, unsafe.Pointer(&v25))
 		}
 	}
 	nox_xxx_cryptSetTypeMB_426A50(0)
@@ -6096,31 +6096,29 @@ func sub_504560(a1 int32, a2 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_unitAddToList_5048A0(a1 int32) *uint32 {
+func nox_xxx_unitAddToList_5048A0(a1 *server.Object) {
 	var (
-		result *uint32
-		v2     *uint32
+		v2 *uint32
 	)
-	result = (*uint32)(alloc.Calloc1(1, 0xC))
+	result := alloc.Calloc1(1, 0xC)
 	if result == nil {
-		return nil
+		return
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = 0
-	*result = uint32(a1)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(uintptr(dword_5d4594_1599540))
+	*(*uint32)(unsafe.Add(result, 4*2)) = 0
+	*(**server.Object)(result) = a1
+	*(*uint32)(unsafe.Add(result, 4*1)) = uint32(uintptr(dword_5d4594_1599540))
 	if dword_5d4594_1599540 != nil {
 		*(*uint32)(unsafe.Add(dword_5d4594_1599540, 8)) = uint32(uintptr(unsafe.Pointer(result)))
 	}
-	dword_5d4594_1599540 = unsafe.Pointer(result)
+	dword_5d4594_1599540 = result
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*result)), 448)) = 0
-	v2 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*1)))
+	v2 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(result, 4*1)))
 	if v2 != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*result)), 444)) = *v2
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*1))), 448)) = *result
+		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(*(*unsafe.Pointer)(unsafe.Add(result, 4*1))), 448)) = *(*uint32)(result)
 	} else {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*result)), 444)) = 0
 	}
-	return result
 }
 func sub_504910(a1 int32, a2 int32) int32 {
 	var (

@@ -1111,7 +1111,7 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 						return 0
 					}
 				}
-				nox_xxx_servMapLoadPlaceObj_4F3F50(v25, int32(uintptr(unsafe.Pointer(a1))), nil)
+				nox_xxx_servMapLoadPlaceObj_4F3F50(v25, a1, nil)
 				nox_xxx_unitsNewAddToList_4DAC00()
 				if nox_xxx_inventoryServPlace_4F36F0(a1, v25, 1, 1) == 0 {
 					if !noxflags.HasGame(4096) {
