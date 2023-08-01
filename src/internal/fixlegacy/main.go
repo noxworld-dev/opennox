@@ -15,24 +15,21 @@ import (
 	"golang.org/x/tools/go/packages"
 )
 
-var (
-	fDir = flag.String("dir", ".", "source directory")
-)
-
 func main() {
+	fDir := flag.String("dir", ".", "source directory")
 	flag.Parse()
-	if err := run(); err != nil {
+	if err := run(*fDir); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }
 
-func run() error {
+func run(dir string) error {
 	for i := 0; i < 25; i++ {
 		if i > 0 {
 			log.Printf("iteration: %d", i+1)
 		}
-		changed, err := runOnce()
+		changed, err := runOnce(dir, "./legacy")
 		if err != nil {
 			return err
 		} else if !changed {
@@ -42,7 +39,7 @@ func run() error {
 	return nil
 }
 
-func runOnce() (bool, error) {
+func runOnce(dir, pattern string) (bool, error) {
 	fs := token.NewFileSet()
 	pkgs, err := packages.Load(&packages.Config{
 		Mode: packages.NeedName |
@@ -51,10 +48,10 @@ func runOnce() (bool, error) {
 			packages.NeedTypesInfo |
 			packages.NeedTypesSizes |
 			packages.NeedSyntax,
-		Dir:  *fDir,
+		Dir:  dir,
 		Env:  append(os.Environ(), "GOARCH=386"),
 		Fset: fs,
-	}, "./legacy")
+	}, pattern)
 	if err != nil {
 		return false, err
 	} else if len(pkgs) != 1 {
@@ -69,6 +66,9 @@ func runOnce() (bool, error) {
 		for _, e := range pkg.Errors {
 			log.Println(e)
 		}
+	}
+	if legacy == nil {
+		return false, fmt.Errorf("no legacy package")
 	}
 	if len(legacy.CompiledGoFiles) != len(legacy.Syntax) {
 		return false, fmt.Errorf("unexpected list of files")
@@ -392,11 +392,17 @@ func (proc *Processor) fixTypeConv(t types.Type, p *ast.Expr, changed *bool) {
 
 func (proc *Processor) fixUnsafeFieldAccess(p *ast.Expr, changed *bool) {
 	x := unwrapParen(*p)
-	star, ok := x.(*ast.StarExpr)
-	if !ok {
-		return
+	var (
+		callX ast.Expr
+		isPtr = false
+	)
+	if star, ok := x.(*ast.StarExpr); ok {
+		callX = star.X
+	} else {
+		callX = x
+		isPtr = true
 	}
-	conv, ok := unwrapParen(star.X).(*ast.CallExpr)
+	conv, ok := unwrapParen(callX).(*ast.CallExpr)
 	if !ok || len(conv.Args) != 1 {
 		return
 	}
@@ -451,7 +457,11 @@ func (proc *Processor) fixUnsafeFieldAccess(p *ast.Expr, changed *bool) {
 		return
 	}
 	if x := proc.fieldForOff(nt, st, ptr, off, proc.pkg.TypesSizes.Sizeof(ct)); x != nil {
-		*p = x
+		if isPtr {
+			*p = &ast.UnaryExpr{Op: token.AND, X: x}
+		} else {
+			*p = x
+		}
 		*changed = true
 	}
 }
