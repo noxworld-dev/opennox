@@ -3710,81 +3710,77 @@ func nox_xxx_mapGenTryNextRoom_522F40(a1 *uint32) *uint8 {
 	}
 	return result
 }
-func nox_xxx_netSendPointFx_522FF0(a1 int8, a2 *types.Pointf) int32 {
+func nox_xxx_netSendPointFx_522FF0(a1 int8, a2 *types.Pointf) {
 	var buf [5]byte
 	buf[0] = byte(a1)
 	*(*uint16)(unsafe.Pointer(&buf[1])) = uint16(int16(int32(a2.X)))
 	*(*uint16)(unsafe.Pointer(&buf[3])) = uint16(int16(int32(a2.Y)))
-	return nox_xxx_netSendFxAllCli_523030(a2, unsafe.Pointer(&buf[0]), 5)
+	nox_xxx_netSendFxAllCli_523030(a2, unsafe.Pointer(&buf[0]), 5)
 }
-func nox_xxx_netSendFxAllCli_523030(a1 *types.Pointf, a2 unsafe.Pointer, a3 int32) int32 {
+func nox_xxx_netSendFxAllCli_523030(a1 *types.Pointf, a2 unsafe.Pointer, a3 int32) {
 	var (
-		result int32
-		i      int32
-		v5     int32
-		v6     int32
-		v7     float32
-		v8     float32
-		v9     float64
-		v10    float64
-		v11    float64
-		v12    float32
-		v13    float32
-		v14    float32
-		v15    float32
+		v6  *server.Object
+		v7  float32
+		v8  float32
+		v9  float64
+		v10 float64
+		v11 float64
+		v12 float32
+		v13 float32
+		v14 float32
+		v15 float32
 	)
-	result = nox_xxx_getFirstPlayerUnit_4DA7C0()
-	for i = result; result != 0; i = result {
-		v5 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 748)), 276)))
-		if int32(*(*uint8)(unsafe.Add(v5, 3680)))&3 != 0 && (func() int32 {
-			v6 = int32(*(*uint32)(unsafe.Add(v5, 3628)))
+	result := nox_xxx_getFirstPlayerUnit_4DA7C0()
+	for i := result; result != nil; i = result {
+		v5 := i.UpdateDataPlayer().Player
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 3680)))&3 != 0 && (func() *server.Object {
+			v6 = v5.CameraFollowObj
 			return v6
-		}()) != 0 {
-			v7 = *(*float32)(unsafe.Add(v6, 56))
-			v8 = *(*float32)(unsafe.Add(v6, 60))
+		}()) != nil {
+			v7 = v6.PosVec.X
+			v8 = v6.PosVec.Y
 			v12 = v7
 		} else {
-			v8 = *(*float32)(unsafe.Add(i, 60))
-			v12 = *(*float32)(unsafe.Add(i, 56))
+			v8 = i.PosVec.Y
+			v12 = i.PosVec.X
 		}
-		v9 = float64(*(*uint16)(unsafe.Add(v5, 10)))
+		v9 = float64(v5.Field10)
 		v13 = float32(float64(v12) - v9 - 50.0)
 		v10 = v9 + float64(v12) + 50.0
-		v11 = float64(*(*uint16)(unsafe.Add(v5, 12)))
+		v11 = float64(v5.Field12)
 		if float64(a1.X) > float64(v13) && v10 > float64(a1.X) {
 			v14 = float32(float64(v8) - v11 - 50.0)
 			if float64(a1.Y) > float64(v14) {
 				v15 = float32(v11 + float64(v8) + 50.0)
 				if float64(a1.Y) < float64(v15) {
-					nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Add(v5, 2064))), 1, (*uint8)(a2), a3)
+					nox_netlist_addToMsgListCli_40EBC0(int32(v5.PlayerInd), 1, (*uint8)(a2), a3)
 				}
 			}
 		}
-		result = nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(i))
+		result = nox_xxx_getNextPlayerUnit_4DA7F0(i)
 	}
-	return result
 }
-func sub_523150(a1 int8, a2 int8, a3 *float32) int32 {
+func sub_523150(a1 int8, a2 int8, a3 *types.Pointf) {
 	var v4 [6]byte
 	v4[0] = byte(a1)
 	v4[1] = byte(a2)
-	*(*uint16)(unsafe.Pointer(&v4[2])) = uint16(int16(int32(*a3)))
-	*(*uint16)(unsafe.Pointer(&v4[4])) = uint16(int16(int32(*(*float32)(unsafe.Add(unsafe.Pointer(a3), unsafe.Sizeof(float32(0))*1)))))
-	return nox_xxx_netSendFxAllCli_523030((*types.Pointf)(unsafe.Pointer(a3)), unsafe.Pointer(&v4[0]), 6)
+	*(*uint16)(unsafe.Pointer(&v4[2])) = uint16(int16(int32(a3.X)))
+	*(*uint16)(unsafe.Pointer(&v4[4])) = uint16(int16(int32(a3.Y)))
+	nox_xxx_netSendFxAllCli_523030(a3, unsafe.Pointer(&v4[0]), 6)
 }
-func nox_xxx_netSparkExplosionFx_5231B0(a1 *float32, a2 int8) int32 {
+func nox_xxx_netSparkExplosionFx_5231B0(a1 *types.Pointf, a2 int8) {
 	var (
 		v2 int16
 		v3 float32
 		v5 [6]byte
 	)
 	v5[0] = 147
-	v2 = int16(int32(*a1))
-	v3 = *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1))
+	v2 = int16(int32(a1.X))
+	v3 = a1.Y
 	*(*uint16)(unsafe.Pointer(&v5[1])) = uint16(v2)
 	*(*uint16)(unsafe.Pointer(&v5[3])) = uint16(int16(int32(v3)))
 	v5[5] = byte(a2)
-	return nox_xxx_netSendFxAllCli_523030((*types.Pointf)(unsafe.Pointer(a1)), unsafe.Pointer(&v5[0]), 6)
+	nox_xxx_netSendFxAllCli_523030(a1, unsafe.Pointer(&v5[0]), 6)
 }
 func nox_xxx_sendGeneratorBreakFX_523200(a1 *float32, a2 int8) {
 	var (
@@ -3801,7 +3797,7 @@ func nox_xxx_sendGeneratorBreakFX_523200(a1 *float32, a2 int8) {
 	v5[6] = byte(a2)
 	nox_xxx_netSendFxAllCli_523030((*types.Pointf)(unsafe.Pointer(a1)), unsafe.Pointer(&v5[0]), 7)
 }
-func nox_xxx_netSendVampFx_523270(a1 int8, a2 *int16, a3 int16) int32 {
+func nox_xxx_netSendVampFx_523270(a1 int8, a2 *int16, a3 int16) {
 	var (
 		v3  int16
 		v4  uint16
@@ -3820,7 +3816,7 @@ func nox_xxx_netSendVampFx_523270(a1 int8, a2 *int16, a3 int16) int32 {
 	a1a.X = float32(float64(v4))
 	*(*uint16)(unsafe.Pointer(&a2a[9])) = uint16(a3)
 	a1a.Y = float32(float64(v5))
-	return nox_xxx_netSendFxAllCli_523030(&a1a, unsafe.Pointer(&a2a[0]), 11)
+	nox_xxx_netSendFxAllCli_523030(&a1a, unsafe.Pointer(&a2a[0]), 11)
 }
 func nox_xxx_servCode_523340(a1 *int32, a2 unsafe.Pointer, a3 int32) int32 {
 	var (
@@ -3984,7 +3980,7 @@ func nox_xxx_mapGenSetFlags_5235F0(a1 int8) {
 		}
 	}
 }
-func nox_xxx_netSendShieldFx_523670(a1 *server.Object, a2 *float32) int32 {
+func nox_xxx_netSendShieldFx_523670(a1 *server.Object, a2 *float32) {
 	var (
 		v2 int8
 		v3 int32
@@ -4002,7 +3998,7 @@ func nox_xxx_netSendShieldFx_523670(a1 *server.Object, a2 *float32) int32 {
 		v2 = int8(nox_xxx_math_509EA0(int32(a1.Direction1)))
 	}
 	v5[3] = byte(v2)
-	return nox_xxx_netSendFxAllCli_523030((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), unsafe.Pointer(&v5[0]), 4)
+	nox_xxx_netSendFxAllCli_523030((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), unsafe.Pointer(&v5[0]), 4)
 }
 func nox_xxx_sendSummonStartFX_5236F0(a1 int16, a2 *float32, a3 int8, a4 int16, a5 int16) int32 {
 	var (
@@ -4029,7 +4025,7 @@ func nox_xxx_sendSummonCancelFX_523760(a1 int16) int32 {
 	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(a1)
 	return nox_xxx_netSendPacket0_4E5420(math.MaxUint8, unsafe.Pointer(&v3[0]), 3, nil, 1)
 }
-func nox_xxx_netSendFxGreenBolt_523790(a1 *int4, a2 int16) int32 {
+func nox_xxx_netSendFxGreenBolt_523790(a1 *int4, a2 int16) {
 	var (
 		v2  *int4
 		v3  int32
@@ -4054,7 +4050,7 @@ func nox_xxx_netSendFxGreenBolt_523790(a1 *int4, a2 int16) int32 {
 	*(*uint16)(unsafe.Pointer(&a2a[9])) = uint16(a2)
 	a1a.X = float32(v4*0.5 + float64(v7))
 	a1a.Y = float32(float64(int32(uintptr(unsafe.Pointer(v10))))*0.5 + float64(v3))
-	return nox_xxx_netSendFxAllCli_523030(&a1a, unsafe.Pointer(&a2a[0]), 11)
+	nox_xxx_netSendFxAllCli_523030(&a1a, unsafe.Pointer(&a2a[0]), 11)
 }
 func nox_xxx_sendGeneratorSpawnFX_523830(a1 *int4, a2 int16) {
 	var (

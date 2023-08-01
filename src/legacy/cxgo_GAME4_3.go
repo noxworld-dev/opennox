@@ -3911,7 +3911,7 @@ func nox_xxx_projectileTraceHit_537850(a1 int32, a2 *int32, a3 *types.Pointf) in
 	}
 	return 0
 }
-func nox_xxx_sMakeScorch_537AF0(a1 *float32, a2 int32) {
+func nox_xxx_sMakeScorch_537AF0(a1 *types.Pointf, a2 int32) {
 	var (
 		result *uint32
 		v3     *uint32
@@ -3941,7 +3941,7 @@ func nox_xxx_sMakeScorch_537AF0(a1 *float32, a2 int32) {
 	}
 	v3 = result
 	if result != nil {
-		nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(result)), nil, *a1, *((*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1))))
+		nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(result)), nil, a1.X, a1.Y)
 		if noxflags.HasGame(4096) {
 			v4 = nox_common_randomInt_415FA0(5, 8)
 		} else {
@@ -5488,7 +5488,7 @@ func nox_xxx_sendMsgOblivionPickup_53A9C0(obj *server.Object, item *server.Objec
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("weapon.c:PickupOrbOblivion"), 0)
 		nox_xxx_aud_501960(917, a1, 0, 0)
 	}
-	sub_57AF30(unsafe.Pointer(a1), 1)
+	sub_57AF30(a1, 1)
 	nox_xxx_playerTryEquip_4F2F70(a1, item)
 	return int(v4)
 }

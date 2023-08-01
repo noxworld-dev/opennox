@@ -25,7 +25,7 @@ var dword_5d4594_1320940 *gui.Window
 var dword_5d4594_815004 *gui.Window
 var nox_wol_wnd_gameList_815012 *gui.Window
 var dword_5d4594_1062480 *nox_inventory_cell_t
-var dword_5d4594_832484 uint32
+var dword_5d4594_832484 unsafe.Pointer
 var dword_5d4594_2516348 uint32
 var dword_5d4594_1063116 unsafe.Pointer
 var dword_5d4594_1090120 uint32
@@ -157,7 +157,7 @@ var nox_xxx_polygonNextAngle_587000_60356 uint32 = 0x1
 var dword_5d4594_1217460 int32
 var dword_5d4594_1307716 *gui.Window
 var dword_587000_93156 uint32 = 0x1
-var dword_5d4594_2523780 unsafe.Pointer
+var dword_5d4594_2523780 *server.Object
 var dword_5d4594_2650676 uint32
 var dword_5d4594_1321252 *gui.Window
 var dword_5d4594_1522632 *gui.Window

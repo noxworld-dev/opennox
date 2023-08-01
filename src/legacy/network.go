@@ -132,12 +132,12 @@ func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
 	nox_xxx_earthquakeSend_4D9110(&pos, int32(a2))
 }
 
-func Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
+func Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) {
 	cdata, dfree := alloc.Make([]byte{}, len(data))
 	defer dfree()
 	copy(cdata, data)
 
-	return nox_xxx_netSendFxAllCli_523030(&pos, unsafe.Pointer(&cdata[0]), int32(len(data))) != 0
+	nox_xxx_netSendFxAllCli_523030(&pos, unsafe.Pointer(&cdata[0]), int32(len(data)))
 }
 
 func Nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {

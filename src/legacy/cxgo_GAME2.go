@@ -159,8 +159,8 @@ func sub_44D990() int32 {
 	return int32(dword_587000_122848)
 }
 func sub_44E110() {
-	if dword_5d4594_832484 == 0 {
-		dword_5d4594_832484 = uint32(uintptr(nox_xxx_guiFontPtrByName_43F360(internCStr("default"))))
+	if dword_5d4594_832484 == nil {
+		dword_5d4594_832484 = nox_xxx_guiFontPtrByName_43F360(internCStr("default"))
 	}
 	v0 := dword_5d4594_832496
 	if dword_5d4594_832496 == nil {
@@ -479,7 +479,7 @@ func sub_4505E0() {
 		nox_wnd_briefing_831232 = nil
 	}
 	dword_5d4594_831260 = 0
-	dword_5d4594_832484 = 0
+	dword_5d4594_832484 = nil
 	if dword_5d4594_832504 != nil {
 		nox_xxx_spriteDelete_45A4B0(dword_5d4594_832504)
 	}

@@ -578,7 +578,7 @@ func Sub_4E79B0(a1 int) {
 	sub_4E79B0(int32(a1))
 }
 func Nox_xxx_playerMakeDefItems_4EF7D0(a1 *server.Object, a2 int, a3 int) {
-	nox_xxx_playerMakeDefItems_4EF7D0(a1.CObj(), int32(a2), int32(a3))
+	nox_xxx_playerMakeDefItems_4EF7D0(a1, int32(a2), int32(a3))
 }
 func Nox_xxx_cliGamedataGet_416590(a1 int) unsafe.Pointer {
 	return unsafe.Pointer(nox_xxx_cliGamedataGet_416590(int32(a1)))

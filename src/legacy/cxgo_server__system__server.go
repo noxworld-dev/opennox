@@ -651,7 +651,7 @@ func sub_4F1F20() {
 			v1 = int32(v0.TypeInd)
 			if uint32(uint16(int16(v1))) == dword_5d4594_1568300 || uint32(v1) == *memmap.PtrUint32(0x5D4594, 1568304) {
 				if int32(*(*uint8)(unsafe.Add(v0.InitData, 216)))&0x80 != 0 {
-					v7 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v0), uint32(v9))
+					v7 = nox_server_rewardgen_activateMarker_4F0720(v0, uint32(v9))
 					if v7 != nil {
 						nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v7)), nil, v0.PosVec.X, v0.PosVec.Y)
 						if *(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*2))&0x1000000 != 0 {
@@ -674,7 +674,7 @@ func sub_4F1F20() {
 						v3 := nox_xxx_inventoryGetNext_4E7990(v2)
 						v4 = int32(v2.TypeInd)
 						if uint32(uint16(int16(v4))) == dword_5d4594_1568300 || uint32(v4) == *memmap.PtrUint32(0x5D4594, 1568304) {
-							v5 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v2), uint32(v9+1))
+							v5 = nox_server_rewardgen_activateMarker_4F0720(v2, uint32(v9+1))
 							sub_4ED0C0(v0, v2)
 							nox_xxx_delayedDeleteObject_4E5CC0(v2)
 							if v5 != nil {

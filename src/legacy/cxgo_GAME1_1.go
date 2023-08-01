@@ -510,9 +510,9 @@ func nox_float2int16(a1 float32) int16 {
 func nox_float2int16_abs(a1 float32) int16 {
 	return int16(int32(math.Abs(float64(a1))))
 }
-func sub_419E10(a1 unsafe.Pointer, a2 int32) {
-	if a1 != nil && (int32(*(*uint8)(unsafe.Add(a1, 16)))&0x20) == 0 {
-		result := 1 << int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 276)), 2064)))
+func sub_419E10(a1 *server.Object, a2 int32) {
+	if a1 != nil && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16)))&0x20) == 0 {
+		result := 1 << int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2064)))
 		if a2 != 0 {
 			dword_5d4594_527712 |= uint32(result)
 		} else {
@@ -523,11 +523,11 @@ func sub_419E10(a1 unsafe.Pointer, a2 int32) {
 }
 func sub_419E60(a1p *server.Object) int32 {
 	var (
-		a1     = unsafe.Pointer(a1p)
+		a1     = a1p
 		result int32
 	)
-	if a1 != nil && int32(*(*uint8)(unsafe.Add(a1, 8)))&4 != 0 {
-		result = bool2int32((dword_5d4594_527712 & uint32(1<<int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 276)), 2064))))) != 0)
+	if a1 != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
+		result = bool2int32((dword_5d4594_527712 & uint32(1<<int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2064))))) != 0)
 	} else {
 		result = 0
 	}
@@ -681,8 +681,8 @@ func nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path *byte, pind int32) int32 {
 	*memmap.PtrUint32(0x5D4594, 527696) = uint32(*memmap.PtrUint16(0x5D4594, 527696))
 	*memmap.PtrUint16(0x5D4594, 527700) = uint16(nox_xxx_unitGetOldMana_4EEC80(v3))
 	*memmap.PtrUint32(0x5D4594, 527700) = uint32(*memmap.PtrUint16(0x5D4594, 527700))
-	sub_4EFF10(unsafe.Pointer(v3))
-	sub_419E10(unsafe.Pointer(v3), 1)
+	sub_4EFF10(v3)
+	sub_419E10(v3, 1)
 	for {
 		var a2b int32 = 0
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2b)), 4)
@@ -694,14 +694,14 @@ func nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path *byte, pind int32) int32 {
 			var v11 uint16 = uint16(nox_xxx_playerGetMaxMana_4EECB0(v3))
 			nox_xxx_playerManaSub_4EEBF0(unsafe.Pointer(v3), int32(uint32(v11)-*memmap.PtrUint32(0x5D4594, 527700)))
 			nox_xxx_playerHP_4EE730(v3)
-			sub_419E10(unsafe.Pointer(v3), 0)
+			sub_419E10(v3, 0)
 			return 1
 		}
 		var a1b int32 = 0
 		nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&a1b)), 4)
 		var csec *table_55816_t = nil
 		for i := int32(0); i < table_55816_cnt; i++ {
-			var sec *table_55816_t = &table_55816[i]
+			sec := &table_55816[i]
 			if uint32(a2b) == sec.ind {
 				csec = sec
 				break
@@ -724,7 +724,7 @@ func nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path *byte, pind int32) int32 {
 					}
 				}
 			}
-			sub_419E10(unsafe.Pointer(v3), 0)
+			sub_419E10(v3, 0)
 			nox_xxx_cryptClose_4269F0()
 			return 0
 		}
@@ -991,7 +991,7 @@ func sub_41AA30(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 28)), 4)
 		if nox_crypt_IsReadOnly() == 1 {
 			sub_56F8C0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 4604))), v1.Experience)
-			sub_4D81A0(unsafe.Pointer(v1))
+			sub_4D81A0(v1)
 		}
 		if int32(int16(v7)) >= 2 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 124)), 2)

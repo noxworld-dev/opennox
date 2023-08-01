@@ -410,12 +410,12 @@ func nox_xxx_netReportSpellStat_4D9630(a1 int, a2 spell.ID, a3 byte) bool {
 	return noxServer.nox_xxx_netSendPacket0_4E5420(a1, buf[:], 1) != 0
 }
 
-func nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) bool {
+func nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) {
 	var buf [5]byte
 	buf[0] = byte(fx)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(int(pos.X)))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(int(pos.Y)))
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:5])
+	legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:5])
 }
 
 func nox_xxx_netSendRayFx_5232F0(fx noxnet.Op, p1, p2 image.Point) bool {
@@ -428,16 +428,16 @@ func nox_xxx_netSendRayFx_5232F0(fx noxnet.Op, p1, p2 image.Point) bool {
 	return legacy.Nox_xxx_servCode_523340(p1, p2, buf[:9])
 }
 
-func nox_xxx_netSparkExplosionFx_5231B0(pos types.Pointf, a2 byte) bool {
+func nox_xxx_netSparkExplosionFx_5231B0(pos types.Pointf, a2 byte) {
 	var buf [6]byte
 	buf[0] = byte(noxnet.MSG_FX_SPARK_EXPLOSION)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(pos.X))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(pos.Y))
 	buf[5] = a2
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:6])
+	legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:6])
 }
 
-func nox_xxx_netSendFxGreenBolt_523790(p1, p2 image.Point, a2 int) bool {
+func nox_xxx_netSendFxGreenBolt_523790(p1, p2 image.Point, a2 int) {
 	var buf [11]byte
 	buf[0] = byte(noxnet.MSG_FX_GREEN_BOLT)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
@@ -449,10 +449,10 @@ func nox_xxx_netSendFxGreenBolt_523790(p1, p2 image.Point, a2 int) bool {
 		X: float32(p1.X) + float32(p2.X-p1.X)*0.5,
 		Y: float32(p1.Y) + float32(p2.Y-p1.Y)*0.5,
 	}
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
+	legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
 }
 
-func nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) bool {
+func nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) {
 	var buf [11]byte
 	buf[0] = byte(fx)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
@@ -464,7 +464,7 @@ func nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) bool
 		X: float32(p2.X),
 		Y: float32(p2.Y),
 	}
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
+	legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
 }
 
 func nox_xxx_netReportLesson_4D8EF0(u *Object) {

@@ -2922,46 +2922,41 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 		v2  int32
 		v3  int32
 		v4  uint32
-		v5  *uint32
 		v6  **byte
 		v7  *uint8
-		v8  *uint32
 		v9  int32
-		v10 *uint32
 		v12 *uint32
+		v15 *uint32
+		v16 *uint32
+		v17 *uint32
+		v18 *uint32
+		v19 *uint32
+		v20 *uint32
+		v21 *uint32
+		v22 *uint32
+		v23 *uint32
+		v24 *uint32
+		v25 *uint32
+		v26 *uint32
+		v27 *uint32
+		v28 *uint32
+		v29 *uint32
+		v30 *uint32
+		v31 *uint32
+		v32 *uint32
+		v33 *uint8
+		v34 *uint8
+		v35 *uint32
+		v36 int32
+		v37 int32
+		v38 int32
+		v39 int32
+		v40 float32
+		v41 int32
+		v42 int32
+		v43 *uint8
+		v44 [20]uint8
 	)
-	var v13 int32
-	var v14 uint32
-	var v15 *uint32
-	var v16 *uint32
-	var v17 *uint32
-	var v18 *uint32
-	var v19 *uint32
-	var v20 *uint32
-	var v21 *uint32
-	var v22 *uint32
-	var v23 *uint32
-	var v24 *uint32
-	var v25 *uint32
-	var v26 *uint32
-	var v27 *uint32
-	var v28 *uint32
-	var v29 *uint32
-	var v30 *uint32
-	var v31 *uint32
-	var v32 *uint32
-	var v33 *uint8
-	var v34 *uint8
-	var v35 *uint32
-	var v36 int32
-	var v37 int32
-	var v38 int32
-	var v39 int32
-	var v40 float32
-	var v41 int32
-	var v42 int32
-	var v43 *uint8
-	var v44 [20]uint8
 	v1 := a1
 	v2 = int32(*(*uint32)(unsafe.Add(a1, 8)))
 	if v2 != 0 && int32(*(*uint8)(unsafe.Add(v2, 8)))&2 != 0 && int32(*(*uint8)(unsafe.Add(v2, 12)))&8 != 0 || (func() int32 {
@@ -2973,7 +2968,7 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 			v40 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ShopAnkhCutoffStage")))
 			v4 = uint32(int32(v40))
 			if uint32(nox_game_getQuestStage_4E3CC0()) < v4 {
-				v5 = nox_xxx_newObjectByTypeID_4E3810(internCStr("AnkhTradable"))
+				v5 := nox_xxx_newObjectByTypeID_4E3810(internCStr("AnkhTradable"))
 				if v5 != nil {
 					nox_xxx_addItemToShopSession_50EE00(a1, v5)
 				}
@@ -2982,7 +2977,7 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 				v6 = (**byte)(memmap.PtrOff(0x587000, 234816))
 				v7 = (*uint8)(memmap.PtrOff(0x587000, 234816))
 				for {
-					v8 = nox_xxx_newObjectByTypeID_4E3810(*v6)
+					v8 := nox_xxx_newObjectByTypeID_4E3810(*v6)
 					if v8 != nil {
 						nox_xxx_addItemToShopSession_50EE00(a1, v8)
 					}
@@ -2994,13 +2989,13 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 					}
 				}
 			}
-			v10 = nox_xxx_newObjectByTypeID_4E3810(internCStr("RewardMarker"))
-			v11 := unsafe.Pointer(v10)
+			v10 := nox_xxx_newObjectByTypeID_4E3810(internCStr("RewardMarker"))
+			v11 := v10
 			if v10 != nil {
-				v12 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*173)))
-				v13 = nox_game_getQuestStage_4E3CC0()
+				v12 = (*uint32)(v10.InitData)
+				v13 := nox_game_getQuestStage_4E3CC0()
 				*v12 = 8
-				v14 = uint32(v13 + 2)
+				v14 := uint32(v13 + 2)
 				v15 = nox_server_rewardgen_activateMarker_4F0720(v11, uint32(v13+2))
 				if v15 != nil {
 					nox_xxx_addItemToShopSession_50EE00(a1, v15)
@@ -3092,7 +3087,7 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 						nox_xxx_addItemToShopSession_50EE00(a1, v32)
 					}
 				}
-				nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v11))
+				nox_xxx_delayedDeleteObject_4E5CC0(v11)
 			}
 		} else {
 			v33 = *(**uint8)(unsafe.Add(v3, 692))
@@ -3153,27 +3148,25 @@ func nox_xxx_loadShopItems_50E970(a1 unsafe.Pointer) {
 		}
 	}
 }
-func nox_xxx_addItemToShopSession_50EE00(a1 unsafe.Pointer, a2 float32) *float32 {
+func nox_xxx_addItemToShopSession_50EE00(a1 unsafe.Pointer, a2 *server.Object) unsafe.Pointer {
 	var (
-		result *float32
-		v3     *float32
-		v4     uint32
-		v5     int32
-		i      *uint32
-		v7     int32
+		v4 uint32
+		v5 int32
+		i  *uint32
+		v7 int32
 	)
-	result = (*float32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_tradeItems_2386496)))
-	v3 = result
+	result := nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_tradeItems_2386496))
+	v3 := result
 	if result == nil {
 		return result
 	}
-	*result = a2
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(nox_xxx_shopGetItemCost_50E3D0(1, a1, a2))
+	*(**server.Object)(result) = a2
+	*(*uint32)(unsafe.Add(result, 4*1)) = uint32(nox_xxx_shopGetItemCost_50E3D0(1, a1, a2))
 	v4 = uint32(sub_50EEC0((*uint32)(unsafe.Pointer(v3))))
 	if *(*uint32)(unsafe.Add(a1, 20)) != 0 {
 		if v4 <= uint32(sub_50EEC0(*(**uint32)(unsafe.Add(a1, 20)))) {
-			*(*float32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(float32(0))*3)) = 0.0
-			*(*float32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(float32(0))*2)) = *(*float32)(unsafe.Add(a1, 20))
+			*(*float32)(unsafe.Add(v3, unsafe.Sizeof(float32(0))*3)) = 0.0
+			*(*float32)(unsafe.Add(v3, unsafe.Sizeof(float32(0))*2)) = *(*float32)(unsafe.Add(a1, 20))
 			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 20)), 12)) = uint32(uintptr(unsafe.Pointer(v3)))
 			*(*uint32)(unsafe.Add(a1, 20)) = uint32(uintptr(unsafe.Pointer(v3)))
 			result = v3
@@ -3185,18 +3178,18 @@ func nox_xxx_addItemToShopSession_50EE00(a1 unsafe.Pointer, a2 float32) *float32
 				}
 				v5 = int32(*(*uint32)(unsafe.Add(v5, 8)))
 			}
-			*(*float32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(float32(0))*2)) = *(*float32)(unsafe.Add(v5, 8))
+			*(*float32)(unsafe.Add(v3, unsafe.Sizeof(float32(0))*2)) = *(*float32)(unsafe.Add(v5, 8))
 			v7 = int32(*(*uint32)(unsafe.Add(v5, 8)))
 			if v7 != 0 {
 				*(*uint32)(unsafe.Add(v7, 12)) = uint32(uintptr(unsafe.Pointer(v3)))
 			}
 			*(*uint32)(unsafe.Add(v5, 8)) = uint32(uintptr(unsafe.Pointer(v3)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) = uint32(v5)
+			*(*uint32)(unsafe.Add(v3, 4*3)) = uint32(v5)
 			result = v3
 		}
 	} else {
-		*(*float32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(float32(0))*2)) = 0.0
-		*(*float32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(float32(0))*3)) = 0.0
+		*(*float32)(unsafe.Add(v3, unsafe.Sizeof(float32(0))*2)) = 0.0
+		*(*float32)(unsafe.Add(v3, unsafe.Sizeof(float32(0))*3)) = 0.0
 		*(*uint32)(unsafe.Add(a1, 20)) = uint32(uintptr(unsafe.Pointer(v3)))
 		result = v3
 	}
@@ -3448,7 +3441,7 @@ func sub_50F790(a1 unsafe.Pointer, a2 int32, a3 *int32) {
 		if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
 			nox_xxx_inventoryPutImpl_4F3070((*server.Object)(a2), (*server.Object)(unsafe.Pointer(uintptr(*i))), 1)
 		} else {
-			v4 = nox_xxx_addItemToShopSession_50EE00(a1, *(*float32)(unsafe.Pointer(i)))
+			v4 = (*float32)(nox_xxx_addItemToShopSession_50EE00(a1, *(*float32)(unsafe.Pointer(i))))
 			if v4 != nil {
 				v5 = int32(*(*uint32)(unsafe.Add(a1, 8)))
 				if int32(*(*uint8)(unsafe.Add(v5, 8)))&4 != 0 {
@@ -3625,7 +3618,7 @@ func nox_xxx_tradeP2PAddOfferMB_50FE20(a1 unsafe.Pointer, a2 int32) int32 {
 	if int32(*(*uint8)(unsafe.Add(v3, 8)))&4 != 0 {
 		nox_xxx_inventoryPutImpl_4F3070((*server.Object)(v3), (*server.Object)(unsafe.Pointer(uintptr(*v2))), 1)
 	} else {
-		v5 = nox_xxx_addItemToShopSession_50EE00(a1, *(*float32)(unsafe.Pointer(v2)))
+		v5 = (*float32)(nox_xxx_addItemToShopSession_50EE00(a1, *(*float32)(unsafe.Pointer(v2))))
 		if v5 != nil {
 			v6 = int32(*(*uint32)(unsafe.Add(a1, 8)))
 			if (int32(*(*uint8)(unsafe.Add(v6, 8))) & 4) == 0 {
@@ -5789,13 +5782,11 @@ func sub_51A550() *byte {
 }
 func nox_xxx_spawnHecubahQuest_51A5A0(a1 *int32) {
 	var (
-		v1  *uint32
 		v2  *uint32
 		v3  int32
 		v4  int32
 		v5  float64
 		v6  int32
-		v7  *uint32
 		v8  int32
 		v9  *uint32
 		v10 int32
@@ -5807,27 +5798,27 @@ func nox_xxx_spawnHecubahQuest_51A5A0(a1 *int32) {
 		v16 float32
 		v17 float32
 	)
-	v1 = nox_xxx_newObjectByTypeID_4E3810(internCStr("Hecubah"))
+	v1 := nox_xxx_newObjectByTypeID_4E3810(internCStr("Hecubah"))
 	v16 = float32(sub_4E40F0())
 	if v1 != nil {
-		v2 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*187)))
+		v2 = (*uint32)(v1.UpdateData)
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*121)))
 		if v3 != 0 {
 			v4 = int32(*(*uint32)(unsafe.Add(v3, 72)))
 		} else {
-			v4 = int32(*(*uint16)(unsafe.Add(nox_xxx_objectTypeByIndHealthData(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*2)))), 4)))
+			v4 = int32(*(*uint16)(unsafe.Add(nox_xxx_objectTypeByIndHealthData(int32(v1.TypeInd)), 4)))
 		}
 		if float64(v16) < 1.0 {
 			v16 = 1.0
 		}
 		v5 = float64(v4) * float64(v16)
 		v17 = float32(v5)
-		nox_xxx_unitSetHP_4E4560((*server.Object)(unsafe.Pointer(v1)), uint16(int16(int64(v5))))
-		*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*139)), 4)) = uint16(int16(int32(v17)))
-		if int32(*(*uint16)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*139)))) == 0 {
-			nox_xxx_unitSetHP_4E4560((*server.Object)(unsafe.Pointer(v1)), 1)
+		nox_xxx_unitSetHP_4E4560(v1, uint16(int16(int64(v5))))
+		v1.HealthData.Max = uint16(int16(int32(v17)))
+		if int32(*(*uint16)(v1.HealthData)) == 0 {
+			nox_xxx_unitSetHP_4E4560(v1, 1)
 		}
-		v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*139)))
+		v6 = int32(v1.HealthData)
 		if int32(*(*uint16)(unsafe.Add(v6, 4))) == 0 {
 			*(*uint16)(unsafe.Add(v6, 4)) = 1
 		}
@@ -5842,30 +5833,30 @@ func nox_xxx_spawnHecubahQuest_51A5A0(a1 *int32) {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*415)) = 0x40000000
 		nox_xxx_gamedataGetFloat_419D40(internCStr("HecubahQuestSkill"))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*330)) = 1062836634
-		nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v1)), nil, *(*float32)(unsafe.Pointer(a1)), *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1)))
-		v7 = nox_xxx_newObjectByTypeID_4E3810(internCStr("RewardMarker"))
+		nox_xxx_createAt_4DAA50(v1, nil, *(*float32)(unsafe.Pointer(a1)), *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1)))
+		v7 := nox_xxx_newObjectByTypeID_4E3810(internCStr("RewardMarker"))
 		if v7 != nil {
 			v8 = nox_game_getQuestStage_4E3CC0()
-			v9 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v7), uint32(v8+2))
+			v9 = nox_server_rewardgen_activateMarker_4F0720(v7, uint32(v8+2))
 			if v9 != nil {
-				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(v1)), (*server.Object)(unsafe.Pointer(v9)), 0)
+				nox_xxx_inventoryPutImpl_4F3070(v1, (*server.Object)(unsafe.Pointer(v9)), 0)
 			}
 			v10 = nox_game_getQuestStage_4E3CC0()
-			v11 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v7), uint32(v10+2))
+			v11 = nox_server_rewardgen_activateMarker_4F0720(v7, uint32(v10+2))
 			if v11 != nil {
-				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(v1)), (*server.Object)(unsafe.Pointer(v11)), 0)
+				nox_xxx_inventoryPutImpl_4F3070(v1, (*server.Object)(unsafe.Pointer(v11)), 0)
 			}
 			v12 = nox_game_getQuestStage_4E3CC0()
-			v13 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v7), uint32(v12+2))
+			v13 = nox_server_rewardgen_activateMarker_4F0720(v7, uint32(v12+2))
 			if v13 != nil {
-				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(v1)), (*server.Object)(unsafe.Pointer(v13)), 0)
+				nox_xxx_inventoryPutImpl_4F3070(v1, (*server.Object)(unsafe.Pointer(v13)), 0)
 			}
 			v14 = nox_game_getQuestStage_4E3CC0()
-			v15 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v7), uint32(v14+2))
+			v15 = nox_server_rewardgen_activateMarker_4F0720(v7, uint32(v14+2))
 			if v15 != nil {
-				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(v1)), (*server.Object)(unsafe.Pointer(v15)), 0)
+				nox_xxx_inventoryPutImpl_4F3070(v1, (*server.Object)(unsafe.Pointer(v15)), 0)
 			}
-			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(v7)))
+			nox_xxx_objectFreeMem_4E38A0(v7)
 		}
 	}
 }
@@ -5919,7 +5910,7 @@ func nox_xxx_spawnNecroQuest_51A7A0(a1 *int32) {
 		v7 = nox_xxx_newObjectByTypeID_4E3810(internCStr("RewardMarker"))
 		if v7 != nil {
 			v8 = nox_game_getQuestStage_4E3CC0()
-			v9 = nox_server_rewardgen_activateMarker_4F0720(unsafe.Pointer(v7), uint32(v8+2))
+			v9 = nox_server_rewardgen_activateMarker_4F0720((*server.Object)(unsafe.Pointer(v7)), uint32(v8+2))
 			if v9 != nil {
 				nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(v1)), (*server.Object)(unsafe.Pointer(v9)), 0)
 			}

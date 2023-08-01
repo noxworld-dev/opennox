@@ -1484,11 +1484,11 @@ func nox_xxx_playerRespawn_4F7EF0(a1p *server.Object) int16 {
 		*(*uint32)(unsafe.Add(v4, 4700)) = 0
 	}
 	if noxflags.HasGame(4096) {
-		nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 1)
+		nox_xxx_playerMakeDefItems_4EF7D0((*server.Object)(a1), 1, 1)
 		*(*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(v3), *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*69)), 2064))), 452)) = 250
 		nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(a1), internCStr("GeneralPrint:Respawn"), 0)
 	} else {
-		nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 0)
+		nox_xxx_playerMakeDefItems_4EF7D0((*server.Object)(a1), 1, 0)
 	}
 	if noxflags.HasGame(4096) {
 		nox_xxx_aud_501960(1006, (*server.Object)(a1), 0, 0)
@@ -2205,7 +2205,7 @@ func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) bool {
 		return true
 	}
 	nox_xxx_playerBotCreate_4FA700(obj)
-	nox_xxx_playerMakeDefItems_4EF7D0(unsafe.Pointer(a1), 1, 0)
+	nox_xxx_playerMakeDefItems_4EF7D0(a1, 1, 0)
 	if dword_5d4594_2650652 == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 58)) != 0 {
 		nox_xxx_respawnPlayerImpl_53FBC0(&a1.PosVec, int32(a1.Direction1))
 	}

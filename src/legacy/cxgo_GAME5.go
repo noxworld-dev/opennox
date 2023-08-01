@@ -4182,7 +4182,7 @@ func nox_xxx_monsterAutoSpells_54C0C0(a1p *server.Object) int16 {
 	return int16(v2)
 }
 func nox_xxx_createWeapon_54C710(a1p *server.Object) {
-	a1 := int32(uintptr(a1p.CObj()))
+	a1 := a1p
 	var (
 		v1  int32
 		v2  int32
@@ -4207,18 +4207,18 @@ func nox_xxx_createWeapon_54C710(a1p *server.Object) {
 	var v20 float32
 	var v21 float32
 	v1 = a1
-	v2 = int32(*(*uint32)(unsafe.Add(a1, 692)))
-	v3 = (*uint32)(nox_xxx_getProjectileClassById_413250(int32(*(*uint16)(unsafe.Add(a1, 4)))))
+	v2 = int32(a1.InitData)
+	v3 = (*uint32)(nox_xxx_getProjectileClassById_413250(int32(a1.TypeInd)))
 	if *memmap.PtrUint32(0x5D4594, 2491660) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2491660) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("OblivionHeart")))
 		*memmap.PtrUint32(0x5D4594, 2491664) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("OblivionWierdling")))
 		*memmap.PtrUint32(0x5D4594, 2491668) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("OblivionOrb")))
 	}
 	if v3 != nil {
-		v4 = *(**uint16)(unsafe.Add(a1, 556))
+		v4 = a1.HealthData
 		if v4 != nil {
 			*v4 = *((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*26)))
-			*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 556)), 4)) = *((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*26)))
+			a1.HealthData.Max = *((*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*26)))
 			if noxflags.HasGame(4096) {
 				v20 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("QuestDurabilityMultiplier")))
 				v15 = float32(float64(**(**uint16)(unsafe.Add(v1, 556))) * float64(v20))
@@ -4276,7 +4276,7 @@ func nox_xxx_createWeapon_54C710(a1p *server.Object) {
 	}
 }
 func sub_54C950(a1p *server.Object) {
-	a1 := int32(uintptr(a1p.CObj()))
+	a1 := a1p
 	var (
 		v1     int32
 		result *uint32
@@ -4286,12 +4286,12 @@ func sub_54C950(a1p *server.Object) {
 		v6     float32
 	)
 	v1 = a1
-	result = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint16)(unsafe.Add(a1, 4)))))
+	result = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(int32(a1.TypeInd)))
 	if result != nil {
-		v3 = *(**uint16)(unsafe.Add(a1, 556))
+		v3 = a1.HealthData
 		if v3 != nil {
 			*v3 = *((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*26)))
-			*(*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 556)), 4)) = *((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*26)))
+			a1.HealthData.Max = *((*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*26)))
 			result = (*uint32)(unsafe.Pointer(uintptr(bool2int32(noxflags.HasGame(4096)))))
 			if result != nil {
 				v6 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("QuestDurabilityMultiplier")))
@@ -4331,10 +4331,10 @@ func nox_xxx_createMonsterGen_54CA90(a1p *server.Object) {
 	*(*uint32)(unsafe.Add(p, 4*17)) = math.MaxUint32
 }
 func nox_xxx_createRewardMarker_54CAC0(a1p *server.Object) {
-	a1 := int32(uintptr(a1p.CObj()))
-	result := *(**uint32)(unsafe.Add(a1, 692))
+	a1 := a1p
+	result := a1.InitData
 	*result = math.MaxUint8
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*53)) = 0
+	*(*uint32)(unsafe.Add(result, 4*53)) = 0
 }
 func nox_xxx_dieImpEgg_54CAE0(obj *server.Object) {
 	a1 := obj

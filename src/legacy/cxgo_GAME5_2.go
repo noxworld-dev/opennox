@@ -1806,7 +1806,7 @@ func sub_57B0A0() {
 	}
 	v1 = (*uint32)(dword_5d4594_2523780)
 	if dword_5d4594_2523780 != nil && (*memmap.PtrUint32(0x5D4594, 2523772) == 0 || *memmap.PtrUint32(0x5D4594, 2523772) == 1) {
-		nox_xxx_netSendPointFx_522FF0(-102, (*types.Pointf)(unsafe.Add(dword_5d4594_2523780, 56)))
+		nox_xxx_netSendPointFx_522FF0(-102, (*types.Pointf)(unsafe.Add(unsafe.Pointer(dword_5d4594_2523780), 56)))
 		v1 = (*uint32)(dword_5d4594_2523780)
 	}
 	if dword_5d4594_2523776 != nil {
@@ -2069,13 +2069,13 @@ func nox_xxx_map_57B850(a1 *types.Pointf, a2 *server.Shape, a3 *types.Pointf) in
 		v6 float32
 		v7 float32
 	)
-	v4 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*5)) + a1.X
-	v5 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*6)) + a1.Y
-	if !(float64(v5-v4+a3.X-a3.Y)*0.70709997 < 0.0 && float64(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*8))+a1.Y-(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*7))+a1.X)+a3.X-a3.Y)*0.70709997 > 0.0) {
+	v4 = a2.Box.LeftTop + a1.X
+	v5 = a2.Box.LeftBottom + a1.Y
+	if !(float64(v5-v4+a3.X-a3.Y)*0.70709997 < 0.0 && float64(a2.Box.LeftTop2+a1.Y-(a2.Box.LeftBottom2+a1.X)+a3.X-a3.Y)*0.70709997 > 0.0) {
 		return 0
 	}
-	v6 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*9)) + a1.X
-	v7 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*10)) + a1.Y
+	v6 = a2.Box.RightTop + a1.X
+	v7 = a2.Box.RightBottom + a1.Y
 	if float64(v7+v6-a3.X-a3.Y)*0.70709997 > 0.0 && float64(v5+v4-a3.X-a3.Y)*0.70709997 < 0.0 {
 		return 1
 	}

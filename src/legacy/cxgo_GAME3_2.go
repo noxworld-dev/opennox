@@ -1384,7 +1384,7 @@ func nox_xxx_servResetPlayers_4D23C0() int32 {
 			dword_5d4594_2649712 &= uint32(int32(^(1 << i.PlayerInd)))
 			v2 := i.PlayerUnit
 			i.Field3676 = 2
-			nox_xxx_playerMakeDefItems_4EF7D0(unsafe.Pointer(v2), 1, 0)
+			nox_xxx_playerMakeDefItems_4EF7D0(v2, 1, 0)
 			i.Field2140 = 0
 			i.Lessons = 0
 		}
@@ -3632,15 +3632,15 @@ func nox_xxx_netReportObjectPoison_4D7F40(a1p *server.Object, a2 *server.Object,
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(a3)
 	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), unsafe.Pointer(&a1), 4, nil, 1)
 }
-func sub_4D81A0(a1 unsafe.Pointer) {
+func sub_4D81A0(a1 *server.Object) {
 	var (
 		v1 float64
 		v3 [5]byte
 	)
-	if int32(*(*uint8)(unsafe.Add(a1, 8)))&4 != 0 {
-		v1 = float64(*(*float32)(unsafe.Add(a1, 28)))
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
+		v1 = float64(a1.Experience)
 		v3[0] = 110
-		v2 := *(*unsafe.Pointer)(unsafe.Add(a1, 748))
+		v2 := a1.UpdateData
 		*(*uint32)(unsafe.Pointer(&v3[1])) = uint32(int32(int64(v1)))
 		nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 2064))), unsafe.Pointer(&v3[0]), 5, nil, 1)
 	}
