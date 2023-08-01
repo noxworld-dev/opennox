@@ -669,27 +669,31 @@ func sub_50AB50(a1 int32, a2 int32) int16 {
 	}
 	return int16(nox_server_xxx_1599716[a2+(a1<<8)].field_8)
 }
+
+type visitNode struct {
+	Field0  uint32 // 0, 0
+	Field4  uint32 // 1, 4
+	Field8  uint32 // 2, 8
+	Field12 uint32 // 3, 12
+}
+
 func nox_xxx_allocVisitNodesArray_50AB90() int32 {
-	var result int32
-	result = int32(uintptr(unsafe.Pointer(nox_new_alloc_class(internCStr("VisitNodes"), 16, 1024))))
-	nox_alloc_visitNode_2386184 = result
-	if result == 0 {
-		return result
+	nox_alloc_visitNode_2386184 = alloc.NewClassT("VisitNodes", visitNode{}, 1024)
+	if nox_alloc_visitNode_2386184.Class == nil {
+		return 0
 	}
 	dword_5d4594_2386176 = alloc.Calloc1(1, 0x2000)
 	if dword_5d4594_2386176 != nil {
 		dword_5d4594_2386172 = 0
-		result = 1
+		return 1
 	} else {
-		nox_free_alloc_class((*nox_alloc_class)(nox_alloc_visitNode_2386184))
-		result = 0
+		nox_alloc_visitNode_2386184.Free()
+		return 0
 	}
-	return result
 }
 func sub_50ABF0() {
 	alloc.FreePtr(dword_5d4594_2386176)
-	nox_free_alloc_class((*nox_alloc_class)(nox_alloc_visitNode_2386184))
-	nox_alloc_visitNode_2386184 = nil
+	nox_alloc_visitNode_2386184.Free()
 }
 func sub_50AC20(a3 int32, a2 *uint16) int32 {
 	var (
@@ -1059,11 +1063,8 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 unsafe.Pointer, a3 *float32, a4 *float
 		v7  float64
 		v8  int32
 		v9  float64
-		v11 *uint16
 		v12 uint16
 		v13 uint16
-		v14 *uint16
-		v15 *uint16
 		v16 int32
 		v17 int32
 		v18 int32
@@ -1158,24 +1159,24 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 unsafe.Pointer, a3 *float32, a4 *float
 	v73 = v8
 	v54 = float32(v9)
 	v74 = int32(v54)
-	if nox_alloc_visitNode_2386184 == nil {
+	if nox_alloc_visitNode_2386184.Class == nil {
 		dword_5d4594_2386180 = 0
 		dword_5d4594_1599712 = 2
 		return
 	}
-	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_visitNode_2386184))
-	v11 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
-	*v11 = uint16(int16(a2a.X))
+	nox_alloc_visitNode_2386184.FreeAllObjects()
+	v11 := nox_alloc_visitNode_2386184.NewObject()
+	*(*uint16)(v11) = uint16(int16(a2a.X))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(v11), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(a2a.Y))
-	v12 = *v11
+	v12 = *(*uint16)(v11)
 	v13 = *(*uint16)(unsafe.Add(unsafe.Pointer(v11), unsafe.Sizeof(uint16(0))*1))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*2)) = 0
-	v14 = v11
+	v14 := v11
 	v66 = 0
 	nox_server_xxx_1599716[int32(v13)+(int32(v12)<<8)].field_0 = dword_5d4594_2386160
 	for {
-		v15 = v14
+		v15 := v14
 		v14 = nil
 		v77 = nil
 		if v15 == nil {
@@ -1334,7 +1335,7 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 unsafe.Pointer, a3 *float32, a4 *float
 					}
 				}
 			LABEL_32:
-				v31 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
+				v31 = nox_alloc_visitNode_2386184.NewObject()
 				if v31 == nil {
 					v55 = int32(*(*uint32)(unsafe.Add(v30, 36)))
 					v47 = int32(uintptr(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*server.Object)(v30)))))
@@ -1351,7 +1352,7 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 unsafe.Pointer, a3 *float32, a4 *float
 			}
 			if sub_50AC20(int32(uintptr(unsafe.Pointer(v15))), (*uint16)(unsafe.Pointer(&v68[0]))) != 0 {
 				*(*uint8)(unsafe.Add(unsafe.Pointer(v15), 12)) |= 2
-				v32 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
+				v32 = nox_alloc_visitNode_2386184.NewObject()
 				if v32 == nil {
 					v30 = a2
 					v56 = int32(*(*uint32)(unsafe.Add(a2, 36)))
@@ -1788,8 +1789,8 @@ func sub_50CB20(a1 unsafe.Pointer, a2 *float32) unsafe.Pointer {
 	v15 = float32(v3)
 	a2a.Y = int32(v15)
 	nox_xxx_pathfind_preCheckWalls_50C8D0(a1, &a2a)
-	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_visitNode_2386184))
-	v4 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
+	nox_alloc_visitNode_2386184.FreeAllObjects()
+	v4 = nox_alloc_visitNode_2386184.NewObject()
 	*v4 = uint16(int16(a2a.X))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(a2a.Y))
 	v5 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*1))) + (int32(*v4) << 8)
@@ -1819,7 +1820,7 @@ func sub_50CB20(a1 unsafe.Pointer, a2 *float32) unsafe.Pointer {
 					nox_server_xxx_1599716[v11+(v10<<8)].field_0 = dword_5d4594_2386160
 					if sub_50B870(a1, v10, v16) == 0 {
 						if sub_50C830(a1, v10, v11) != 0 {
-							v12 = (*uint16)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_visitNode_2386184)))
+							v12 = nox_alloc_visitNode_2386184.NewObject()
 							if v12 != nil {
 								*v12 = uint16(int16(v10))
 								*(*uint16)(unsafe.Add(unsafe.Pointer(v12), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(v11))

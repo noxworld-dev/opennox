@@ -4712,32 +4712,40 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 		}
 	}
 }
+
+type healthChange struct {
+	Field0  uint32        // 0, 0
+	Field4  uint32        // 1, 4
+	Field8  uint32        // 2, 8
+	Field12 *healthChange // 3, 12
+	Field16 *healthChange // 4, 16
+}
+
 func nox_xxx_allocArrayHealthChanges_49A5F0() int32 {
-	result := nox_new_alloc_class(internCStr("HealthChange"), 20, 32)
-	nox_alloc_healthChange_1301772 = result
-	if result == nil {
+	nox_alloc_healthChange_1301772 = alloc.NewClassT("HealthChange", healthChange{}, 32)
+	if nox_alloc_healthChange_1301772.Class == nil {
 		return 0
 	}
 	dword_5d4594_1301780 = nox_xxx_guiFontPtrByName_43F360(internCStr("numbers"))
 	return 1
 }
 func sub_49A630() {
-	nox_alloc_class_free_all(nox_alloc_healthChange_1301772)
+	nox_alloc_healthChange_1301772.FreeAllObjects()
 	dword_5d4594_1301776 = nil
 }
 func nox_xxx_cliAddHealthChange_49A650(a1 int32, a2 int16) {
-	result := nox_alloc_class_new_obj_zero(nox_alloc_healthChange_1301772)
+	result := nox_alloc_healthChange_1301772.NewObject()
 	v3 := result
 	if result == nil {
 		return
 	}
-	*(*uint32)(unsafe.Pointer(result)) = uint32(a1)
-	*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2)) = uint16(a2)
-	*(*uint32)(unsafe.Add(result, 4*2)) = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
-	*(*unsafe.Pointer)(unsafe.Add(v3, 4*3)) = dword_5d4594_1301776
-	*(*uint32)(unsafe.Add(v3, 4*4)) = 0
+	result.Field0 = uint32(a1)
+	*(*uint16)(unsafe.Pointer(&result.Field4)) = uint16(a2)
+	result.Field8 = uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())
+	v3.Field12 = dword_5d4594_1301776
+	v3.Field16 = nil
 	if dword_5d4594_1301776 != nil {
-		*(*uint32)(unsafe.Add(dword_5d4594_1301776, 16)) = uint32(uintptr(unsafe.Pointer(v3)))
+		dword_5d4594_1301776.Field16 = v3
 	}
 	dword_5d4594_1301776 = v3
 }
@@ -4799,22 +4807,21 @@ func sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 		}
 	}
 }
-func sub_49A880(a1 unsafe.Pointer) {
-	v1 := *(*unsafe.Pointer)(unsafe.Add(a1, 16))
+func sub_49A880(a1 *healthChange) {
+	v1 := a1.Field16
 	if v1 != nil {
-		*(*uint32)(unsafe.Add(v1, 12)) = *(*uint32)(unsafe.Add(a1, 12))
+		v1.Field12 = a1.Field12
 	} else {
-		dword_5d4594_1301776 = *(*unsafe.Pointer)(unsafe.Add(a1, 12))
+		dword_5d4594_1301776 = a1.Field12
 	}
-	v2 := *(*unsafe.Pointer)(unsafe.Add(a1, 12))
+	v2 := a1.Field12
 	if v2 != nil {
-		*(*uint32)(unsafe.Add(v2, 16)) = *(*uint32)(unsafe.Add(a1, 16))
+		v2.Field16 = a1.Field16
 	}
-	nox_alloc_class_free_obj_first(nox_alloc_healthChange_1301772, a1)
+	nox_alloc_healthChange_1301772.FreeObjectFirst(a1)
 }
 func Sub_49A8C0() {
-	nox_free_alloc_class(nox_alloc_healthChange_1301772)
-	nox_alloc_healthChange_1301772 = nil
+	nox_alloc_healthChange_1301772.Free()
 	dword_5d4594_1301776 = nil
 	dword_5d4594_1301780 = nil
 }

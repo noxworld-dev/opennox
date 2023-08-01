@@ -90,7 +90,7 @@ var dword_5d4594_814984 unsafe.Pointer
 var dword_5d4594_1320964 uint32
 var dword_5d4594_1049800_inventory_click_row_index int32
 var dword_5d4594_1309720 *gui.Window
-var dword_5d4594_1569752 unsafe.Pointer
+var dword_5d4594_1569752 *magicWall
 var dword_5d4594_1046936 int32
 var nox_xxx_lightningTarget_5d4594_2487908 uint32
 var dword_5d4594_1107036 uint32
@@ -150,7 +150,7 @@ var dword_5d4594_1522612 *gui.Window
 var dword_5d4594_1045468 *gui.Window
 var nox_xxx_lightningTargetArrayIndex_5d4594_2487904 uint32
 var dword_587000_127004 unsafe.Pointer
-var nox_alloc_visitNode_2386184 unsafe.Pointer
+var nox_alloc_visitNode_2386184 alloc.ClassT[visitNode]
 var nox_wol_server_result_cnt_815088 uint32
 var dword_5d4594_1046924 *ImageRef
 var nox_xxx_polygonNextAngle_587000_60356 uint32 = 0x1
@@ -214,7 +214,7 @@ var nox_alloc_screenParticles_806044 unsafe.Pointer
 var dword_5d4594_528252 uint32
 var dword_5d4594_1309828 *gui.Window
 var dword_587000_122852 unsafe.Pointer
-var dword_5d4594_1301776 unsafe.Pointer
+var dword_5d4594_1301776 *healthChange
 var dword_5d4594_251564 *breakableWall
 var nox_xxx_screenWidth_587000_184452 uint32 = 0x32
 var dword_5d4594_1550916 *mapgenRoom
@@ -342,7 +342,7 @@ var dword_5d4594_1567928 *server.Object
 var dword_5d4594_1307720 int32
 var dword_5d4594_2386920 uint32
 var dword_5d4594_2386564 uint32
-var nox_alloc_magicWall_1569748 unsafe.Pointer
+var nox_alloc_magicWall_1569748 alloc.ClassT[magicWall]
 var dword_5d4594_1550912 *mapgenRoom
 var dword_5d4594_1062488 uint32
 var dword_5d4594_2516356 uint32
@@ -445,7 +445,7 @@ var dword_5d4594_2487584 uint32
 var dword_5d4594_251712 uint32
 var dword_5d4594_531652 uint32
 var dword_5d4594_2487948 uint32
-var nox_alloc_healthChange_1301772 *nox_alloc_class
+var nox_alloc_healthChange_1301772 alloc.ClassT[healthChange]
 var dword_5d4594_1522596 unsafe.Pointer
 var dword_5d4594_1049536 uint32
 var dword_5d4594_1098616 uint32

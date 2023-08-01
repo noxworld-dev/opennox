@@ -3794,22 +3794,34 @@ func nox_xxx_updateUnitBuffs_4FF620(a1p *server.Object) {
 		}
 	}
 }
+
+type magicWall struct {
+	Field0  uint32       // 0, 0
+	Field4  uint32       // 1, 4
+	Field8  *server.Wall // 2, 8
+	Field12 byte         // 3, 12
+	Field13 byte         // 3, 13
+	Field14 byte         // 3, 14
+	Field15 byte         // 3, 15
+	Field16 uint32       // 4, 16
+	Field20 uint32       // 5, 20
+	Field24 *magicWall   // 6, 24
+	Field28 *magicWall   // 7, 28
+}
+
 func nox_xxx_allocMagicWallArray_4FF730() int32 {
 	dword_5d4594_1569756 = 0
-	nox_alloc_magicWall_1569748 = unsafe.Pointer(nox_new_alloc_class(internCStr("MagicWall"), 32, int32((*memmap.PtrUint32(0x587000, 217844)<<6)+32)))
-	return bool2int32(nox_alloc_magicWall_1569748 != nil)
+	nox_alloc_magicWall_1569748 = alloc.NewClassT("MagicWall", magicWall{}, int(int32((*memmap.PtrUint32(0x587000, 217844)<<6)+32)))
+	return bool2int32(nox_alloc_magicWall_1569748.Class != nil)
 }
 func sub_4FF770() int32 {
-	var result int32
-	nox_free_alloc_class((*nox_alloc_class)(nox_alloc_magicWall_1569748))
-	result = 0
-	nox_alloc_magicWall_1569748 = nil
+	nox_alloc_magicWall_1569748.Free()
 	dword_5d4594_1569752 = nil
 	dword_5d4594_1569756 = 0
-	return result
+	return 0
 }
 func nox_xxx_mapWall_4FF790() {
-	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_magicWall_1569748))
+	nox_alloc_magicWall_1569748.FreeAllObjects()
 	dword_5d4594_1569752 = nil
 }
 func sub_4FF7B0(a1p *server.Player) {
@@ -3871,70 +3883,59 @@ func nox_xxx_wallDestroyMagicwallSysuse_4FF840(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_wallDestroy_4FF870(a1 int32) {
-	var (
-		v1 *uint8
-		v2 int32
-		v3 int32
-	)
+func nox_xxx_wallDestroy_4FF870(a1 *magicWall) {
 	sub_4FF900(a1)
 	if noxflags.HasGame(1) {
-		v1 = *(**uint8)(unsafe.Add(a1, 8))
-		if *(*uint32)(a1) != 0 {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 1)) = *(*uint8)(unsafe.Add(a1, 12))
-			**(**uint8)(unsafe.Add(a1, 8)) = *(*uint8)(unsafe.Add(a1, 13))
-			*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 8)), 2)) = *(*uint8)(unsafe.Add(a1, 14))
+		v1 := a1.Field8
+		if a1.Field0 != 0 {
+			v1.Tile1 = a1.Field12
+			a1.Field8.Dir0 = a1.Field13
+			a1.Field8.Field2 = a1.Field14
 		} else {
-			nox_xxx_mapDelWallAtPt_410430(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 5))), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 6))))
+			nox_xxx_mapDelWallAtPt_410430(int32(v1.X5), int32(v1.Y6))
 		}
 	}
-	v2 = int32(*(*uint32)(unsafe.Add(a1, 28)))
-	if v2 != 0 {
-		*(*uint32)(unsafe.Add(v2, 24)) = *(*uint32)(unsafe.Add(a1, 24))
+	v2 := a1.Field28
+	if v2 != nil {
+		v2.Field24 = a1.Field24
 	} else {
-		dword_5d4594_1569752 = *(*uint32)(unsafe.Add(a1, 24))
+		dword_5d4594_1569752 = a1.Field24
 	}
-	v3 = int32(*(*uint32)(unsafe.Add(a1, 24)))
-	if v3 != 0 {
-		*(*uint32)(unsafe.Add(v3, 28)) = *(*uint32)(unsafe.Add(a1, 28))
+	v3 := a1.Field24
+	if v3 != nil {
+		v3.Field28 = a1.Field28
 	}
-	nox_alloc_class_free_obj_first((*nox_alloc_class)(nox_alloc_magicWall_1569748), a1)
+	nox_alloc_magicWall_1569748.FreeObjectFirst(a1)
 }
-func sub_4FF900(a1 int32) int32 {
+func sub_4FF900(a1 *magicWall) {
 	var (
-		v1     int32
-		i      uint32
-		result int32
-		v4     int8
-		v5     int8
-		v6     int32
-		v7     int32
-		v8     [6]byte
+		i  uint32
+		v4 int8
+		v5 int8
+		v8 [6]byte
 	)
-	v1 = a1
+	v1 := a1
 	for i = 0; i < 0x20; i++ {
-		result = 1 << i
-		if (1<<i)&*(*uint32)(unsafe.Add(v1, 16)) != 0 {
-			if *(*uint32)(v1) != 0 {
-				v4 = int8(*(*uint8)(unsafe.Add(v1, 12)))
-				v5 = int8(*(*uint8)(unsafe.Add(v1, 13)))
-				v8[3] = *(*uint8)(unsafe.Add(v1, 14))
-				v6 = int32(*(*uint32)(unsafe.Add(v1, 8)))
+		if (1<<i)&v1.Field16 != 0 {
+			if v1.Field0 != 0 {
+				v4 = int8(v1.Field12)
+				v5 = int8(v1.Field13)
+				v8[3] = v1.Field14
+				v6 := v1.Field8
 				v8[0] = 61
 				v8[1] = byte(v4)
 				v8[2] = byte(v5)
-				v8[4] = *(*uint8)(unsafe.Add(v6, 5))
-				v8[5] = *(*uint8)(unsafe.Add(v6, 6))
-				result = nox_xxx_netSendPacket0_4E5420(int32(i), unsafe.Pointer(&v8[0]), 6, nil, 1)
+				v8[4] = v6.X5
+				v8[5] = v6.Y6
+				nox_xxx_netSendPacket0_4E5420(int32(i), unsafe.Pointer(&v8[0]), 6, nil, 1)
 			} else {
-				v7 = int32(*(*uint32)(unsafe.Add(v1, 8)))
+				v7 := v1.Field8
 				*(*uint8)(unsafe.Pointer(&a1)) = 62
-				*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), 1)) = *(*uint16)(unsafe.Add(v7, 5))
-				result = nox_xxx_netSendPacket0_4E5420(int32(i), unsafe.Pointer(&a1), 3, nil, 1)
+				*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), 1)) = *(*uint16)(unsafe.Add(unsafe.Pointer(v7), 5))
+				nox_xxx_netSendPacket0_4E5420(int32(i), unsafe.Pointer(&a1), 3, nil, 1)
 			}
 		}
 	}
-	return result
 }
 func sub_4FF990(a1 int32) int32 {
 	var result int32
@@ -4071,8 +4072,6 @@ func Nox_xxx_spellWallCreate_4FFA90(sp *server.DurSpell) int32 {
 func sub_4FFD00(a1 int32, a2 int32, a3 int32, a4 uint8) int32 {
 	var (
 		v4  int32
-		v5  int32
-		v6  *uint8
 		v7  int8
 		v9  *uint8
 		v10 int32
@@ -4089,23 +4088,23 @@ func sub_4FFD00(a1 int32, a2 int32, a3 int32, a4 uint8) int32 {
 		*memmap.PtrUint8(0x5D4594, 1570005) = uint8(int8(nox_xxx_wallTileByName_410D60(internCStr("InvisibleWallSet"))))
 		*memmap.PtrUint8(0x5D4594, 1570006) = uint8(int8(nox_xxx_wallTileByName_410D60(internCStr("InvisibleBlockingWallSet"))))
 	}
-	v5 = int32(uintptr(nox_server_getWallAtGrid_410580(a2, a3)))
-	v6 = (*uint8)(v5)
-	if v5 != 0 {
-		v7 = int8(*(*uint8)(unsafe.Add(v5, 1)))
+	v5 := nox_server_getWallAtGrid_410580(a2, a3)
+	v6 := v5
+	if v5 != nil {
+		v7 = int8(v5.Tile1)
 		if int32(v7) == int32(*memmap.PtrUint8(0x5D4594, 1570004)) {
 			return 0
 		}
 		if int32(v7) == int32(*memmap.PtrUint8(0x5D4594, 1570005)) || int32(v7) == int32(*memmap.PtrUint8(0x5D4594, 1570006)) {
 			return 0
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v6), 4)))&0x1C != 0 {
+		if int32(v6.Flags4)&0x1C != 0 {
 			return 0
 		}
-		v13 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v6), 1)))
+		v13 = int8(v6.Tile1)
 		v4 = 1
 		v12 = int8(*v6)
-		v11 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v6), 2)))
+		v11 = int8(v6.Field2)
 		*v6 = nox_xxx_wall_42A6C0(*v6, a4)
 	} else {
 		v9 = (*uint8)(nox_xxx_wallCreateAt_410250(a2, a3))
@@ -4120,39 +4119,38 @@ func sub_4FFD00(a1 int32, a2 int32, a3 int32, a4 uint8) int32 {
 			goto LABEL_12
 		}
 	}
-	*(*uint8)(unsafe.Add(unsafe.Pointer(v6), 2)) = 0
+	v6.Field2 = 0
 	if v4 != 0 {
 		nox_xxx_netWallCreate_4FFE80(a1, v6, v4, v13, v12, v11)
 		return bool2int32(v4 == 0)
 	}
 LABEL_12:
-	v10 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v6), 1)))
-	*(*uint8)(unsafe.Add(unsafe.Pointer(v6), 4)) |= 8
-	*(*uint8)(unsafe.Add(unsafe.Pointer(v6), 7)) = nox_xxx_mapWallGetHpByTile_410E20(v10)
+	v10 = int32(v6.Tile1)
+	v6.Flags4 |= 8
+	v6.Health7 = nox_xxx_mapWallGetHpByTile_410E20(v10)
 	nox_xxx_netWallCreate_4FFE80(a1, v6, v4, v13, v12, v11)
 	return bool2int32(v4 == 0)
 }
-func nox_xxx_netWallCreate_4FFE80(a1 int32, a2 *uint8, a3 int32, a4 int8, a5 int8, a6 int8) *uint32 {
-	var result *uint32
-	result = (*uint32)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_magicWall_1569748)))
-	if result == nil {
-		return result
+func nox_xxx_netWallCreate_4FFE80(a1 int32, a2 *server.Wall, a3 int32, a4 int8, a5 int8, a6 int8) *magicWall {
+	p := nox_alloc_magicWall_1569748.NewObject()
+	if p == nil {
+		return nil
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = uint32(uintptr(unsafe.Pointer(a2)))
-	*result = uint32(a3)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 4)) = *a2
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 12)) = uint8(a4)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 13)) = uint8(a5)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 14)) = uint8(a6)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*5)) = uint32(a1)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*4)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*7)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*6)) = dword_5d4594_1569752
+	p.Field8 = a2
+	p.Field0 = uint32(a3)
+	*(*uint8)(unsafe.Pointer(&p.Field4)) = a2.Dir0
+	p.Field12 = uint8(a4)
+	p.Field13 = uint8(a5)
+	p.Field14 = uint8(a6)
+	p.Field20 = uint32(a1)
+	p.Field16 = 0
+	p.Field28 = nil
+	p.Field24 = dword_5d4594_1569752
 	if dword_5d4594_1569752 != nil {
-		*(*uint32)(unsafe.Add(dword_5d4594_1569752, 28)) = uint32(uintptr(unsafe.Pointer(result)))
+		dword_5d4594_1569752.Field28 = p
 	}
-	dword_5d4594_1569752 = unsafe.Pointer(result)
-	return result
+	dword_5d4594_1569752 = p
+	return p
 }
 func nox_xxx_spellWallCreateCalcXMB_4FFEF0(a1 int32, a2 int32, a3 int32, a4 int8) int8 {
 	var v5 int8
@@ -4324,7 +4322,7 @@ func sub_5000B0(a1 unsafe.Pointer) int32 {
 		return 0
 	}
 	v1 := dword_5d4594_1569752
-	for *(*uint8)(unsafe.Pointer(&v5)) = 0; v1 != nil; v1 = *(*unsafe.Pointer)(unsafe.Add(v1, 24)) {
+	for *(*uint8)(unsafe.Pointer(&v5)) = 0; v1 != nil; v1 = v1.Field24 {
 		*(*uint8)(unsafe.Pointer(&v5)) = uint8(int8(v5 + 1))
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 1)
@@ -4363,16 +4361,16 @@ func sub_5000B0(a1 unsafe.Pointer) int32 {
 	}
 	for {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(v2), 4)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 8)), 5)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 8)), 6)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 12)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 13)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 14)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 8)), 1)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 8)), 2)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*(**uint8)(unsafe.Add(v2, 8)), 1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 8)), 7)), 1)
-		v2 = *(*unsafe.Pointer)(unsafe.Add(v2, 24))
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field8.X5, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field8.Y6, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field12, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field13, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field14, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field8.Tile1, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field8.Field2, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2.Field8, 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v2.Field8.Health7, 1)
+		v2 = v2.Field24
 		if v2 == nil {
 			break
 		}

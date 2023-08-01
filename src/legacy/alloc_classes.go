@@ -15,11 +15,6 @@ func nox_new_alloc_class(name *byte, size, cnt int32) *nox_alloc_class {
 	return (*nox_alloc_class)(alloc.NewClass(GoString(name), uintptr(size), int(cnt)).UPtr())
 }
 
-// nox_new_alloc_class_dynamic
-func nox_new_alloc_class_dynamic(name *byte, size, cnt int32) *nox_alloc_class {
-	return (*nox_alloc_class)(alloc.NewDynamicClass(GoString(name), uintptr(size), int(cnt)).UPtr())
-}
-
 // nox_free_alloc_class
 func nox_free_alloc_class(p *nox_alloc_class) {
 	alloc.AsClass(unsafe.Pointer(p)).Free()
