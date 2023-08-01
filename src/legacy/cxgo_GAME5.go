@@ -5481,7 +5481,7 @@ func nox_xxx_dieMonsterGen_54E630(obj *server.Object) {
 	sub_4D7520(0)
 	nox_xxx_scriptCallByEventBlock_502490(unsafe.Add(v1, 56), unsafe.Pointer(a1.Obj130), unsafe.Pointer(a1), 3)
 	nox_xxx_aud_501960(1000, a1, 0, 0)
-	nox_xxx_sendGeneratorBreakFX_523200((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), -56)
+	nox_xxx_sendGeneratorBreakFX_523200(&a1.PosVec, -56)
 	if noxflags.HasGame(4096) {
 		if a1.Obj130 != nil {
 			v2 = nox_xxx_findParentChainPlayer_4EC580(a1.Obj130)
@@ -6169,9 +6169,9 @@ func nox_xxx_updateShootingTrap_54F9A0(obj *server.Object) {
 			nox_xxx_createArrowTrapProjectile_54FA80(a1, *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
 			v4 = int32(a1.TypeInd)
 			if uint32(uint16(int16(v4))) == *memmap.PtrUint32(0x5D4594, 2491780) {
-				nox_xxx_sendArrowTrapFX_5238A0((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), 1)
+				nox_xxx_sendArrowTrapFX_5238A0(&a1.PosVec, 1)
 			} else if uint32(v4) == *memmap.PtrUint32(0x5D4594, 2491784) {
-				nox_xxx_sendArrowTrapFX_5238A0((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), 2)
+				nox_xxx_sendArrowTrapFX_5238A0(&a1.PosVec, 2)
 			}
 			*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) = 30
 		}

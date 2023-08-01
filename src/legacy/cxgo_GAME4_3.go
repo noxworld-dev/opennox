@@ -599,7 +599,7 @@ func Nox_xxx_spellBlink1_530380(sp *server.DurSpell) int32 {
 	} else if nox_xxx_waypoint_579F00((*uint32)(unsafe.Pointer(&v13)), unsafe.Pointer(a1.Obj48)) == 0 {
 		nox_xxx_mapFindPlayerStart_4F7AB0(&v13, a1.Obj48)
 	}
-	nox_xxx_spellTeleportCreateWake_530560(a1.Obj48, (*int32)(unsafe.Add(unsafe.Pointer(a1.Obj48), 56)), (*uint32)(unsafe.Pointer(&v13)))
+	nox_xxx_spellTeleportCreateWake_530560(a1.Obj48, &a1.Obj48.PosVec, (*uint32)(unsafe.Pointer(&v13)))
 	nox_xxx_netSendPointFx_522FF0(-119, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1.Obj48), 56)))
 	v9 = a1.Obj48
 	v5 = nox_xxx_spellGetAud44_424800(int32(a1.Spell), 0)
@@ -843,7 +843,7 @@ func Sub_530880(sp *server.DurSpell) int32 {
 				break
 			}
 		}
-		nox_xxx_spellTeleportCreateWake_530560(a1.Obj48, (*int32)(unsafe.Add(unsafe.Pointer(a1.Obj48), 56)), (*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v5+v10*4)), 116)), 56)))
+		nox_xxx_spellTeleportCreateWake_530560(a1.Obj48, &a1.Obj48.PosVec, (*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v5+v10*4)), 116)), 56)))
 		nox_xxx_teleportToMB_4E7190(a1.Obj48, (*float32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v5+v10*4)), 116)), 56)))
 		if nox_xxx_testUnitBuffs_4FF350(a1.Obj48, 0) == 0 {
 			nox_xxx_netSendPointFx_522FF0(-119, &v14)
@@ -895,8 +895,8 @@ func Nox_xxx_castTTT_530B70(sp *server.DurSpell) int32 {
 	v7 = a1.Obj48
 	v4 = nox_xxx_spellGetAud44_424800(int32(a1.Spell), 0)
 	nox_xxx_aud_501960(v4, (*server.Object)(v7), 0, 0)
-	nox_xxx_spellTeleportCreateWake_530560(a1.Obj48, (*int32)(unsafe.Add(unsafe.Pointer(a1.Obj48), 56)), (*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13)))
-	nox_xxx_teleportToMB_4E7190(a1.Obj48, (*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*13)))
+	nox_xxx_spellTeleportCreateWake_530560(a1.Obj48, &a1.Obj48.PosVec, &a1.Pos2)
+	nox_xxx_teleportToMB_4E7190(a1.Obj48, &a1.Pos2)
 	if nox_xxx_testUnitBuffs_4FF350(a1.Obj48, 0) != 0 {
 		v6 = a1.Obj48
 		if (int32(*(*uint8)(unsafe.Add(v6, 8))) & 4) == 0 {
@@ -6996,7 +6996,7 @@ func nox_xxx_updateDeathBall_53D080(obj *server.Object) {
 		v4 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCancelRange")))
 		nox_xxx_getMissilesInCircle_518170((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), v4, sub_53D170, a1)
 		if *memmap.PtrUint32(0x5D4594, 2488700) == 1 {
-			nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), 1)
+			nox_xxx_sMakeScorch_537AF0(&a1.PosVec, 1)
 			nox_xxx_delayedDeleteObject_4E5CC0(a1)
 		}
 	}
@@ -7039,7 +7039,7 @@ func sub_53D170(it *server.Object, data unsafe.Pointer) {
 			a1a.field_8 = v4
 			a1a.field_C = int32(v5)
 			nox_xxx_netSendFxGreenBolt_523790(&a1a, 10)
-			nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), 1)
+			nox_xxx_sMakeScorch_537AF0(&a1.PosVec, 1)
 			nox_xxx_delayedDeleteObject_4E5CC0(a1)
 		}
 	}
@@ -7118,7 +7118,7 @@ func nox_xxx_updateFist_53D400(obj *server.Object) {
 	)
 	if float64(a1.ZVal) <= 0.0 && int32(a1.ObjFlags) >= 0 {
 		nox_xxx_aud_501960(48, a1, 0, 0)
-		nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), 2)
+		nox_xxx_sMakeScorch_537AF0(&a1.PosVec, 2)
 		v1 = float64(a1.Shape.Circle + a1.PosVec.X)
 		a1.ObjFlags |= 0x80000000
 		a2.Y = a1.PosVec.Y
@@ -7225,8 +7225,8 @@ func nox_xxx_meteorExplode_53D6E0(obj *server.Object) {
 	if float64(a6.ZVal) <= 0.0 {
 		v1 = (*int32)(a6.UpdateData)
 		nox_xxx_aud_501960(87, a6, 0, 0)
-		v2 = (*float32)(unsafe.Add(unsafe.Pointer(a6), 56))
-		nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(unsafe.Pointer(a6), 56)), 2)
+		v2 = &a6.PosVec
+		nox_xxx_sMakeScorch_537AF0(&a6.PosVec, 2)
 		nox_xxx_earthquakeSend_4D9110((*types.Pointf)(unsafe.Add(unsafe.Pointer(a6), 56)), 10)
 		v3 = nox_xxx_newObjectByTypeID_4E3810(internCStr("MeteorExplode"))
 		if v3 != nil {
@@ -10478,7 +10478,7 @@ func nox_xxx_mobActionDead2_544EC0(obj *server.Object) {
 	if nox_xxx_unitIsZombie_534A40(a1) != 0 {
 		v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*360)))
 		if uint32(v2)&0x80000 != 0 {
-			nox_xxx_netSparkExplosionFx_5231B0((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), 100)
+			nox_xxx_netSparkExplosionFx_5231B0(&a1.PosVec, 100)
 			nox_xxx_zombieBurnDelete_544CE0((*uint32)(a1))
 		} else if (gameFrame()-*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*137))) > *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*123)) && (uint32(v2)&0x100000) == 0 {
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*299)) != 0 {

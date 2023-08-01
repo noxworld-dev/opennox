@@ -410,9 +410,9 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 		a1.Y = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(&a3.X), 4*0))))
 		a3.X = float32(float64(*(*int32)(a2)))
 		a3.Y = float32(float64(*(*int32)(unsafe.Add(a2, 4))))
-		if nox_xxx_map_57B850(&a1, (*float32)(unsafe.Add(v2.C(), 44)), &a3) != 0 || (func() int32 {
+		if nox_xxx_map_57B850(&a1, &v2.Shape, &a3) != 0 || (func() int32 {
 			a1.Y = float32(float64(v29))
-			return nox_xxx_map_57B850(&a1, (*float32)(unsafe.Add(v2.C(), 44)), &a3)
+			return nox_xxx_map_57B850(&a1, &v2.Shape, &a3)
 		}()) != 0 || (func() bool {
 			v9 = int32(v2.PosVec.X + int(uint32(int32(v2.Shape.Box.LeftBottom2))))
 			v10 = v29 + int32(v2.Shape.Box.LeftTop2)

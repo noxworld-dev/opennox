@@ -2072,7 +2072,7 @@ func sub_495BF0(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 			return result
 		}
 	} else {
-		v5 = (*uint32)(unsafe.Add(a2.C(), 8))
+		v5 = &a2.Field8
 		for {
 			if *v5 != *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2)) && *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) != *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) {
 				break
@@ -2094,7 +2094,7 @@ func sub_495BF0(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 	v14 = int32(a1.PosVec.X)
 	v15 = int32(a1.PosVec.Y)
 	if result > 0 {
-		v9 = (*uint32)(unsafe.Add(a2.C(), 8))
+		v9 = &a2.Field8
 		for {
 			v13 -= 42
 			nox_client_drawEnableAlpha_434560(1)
@@ -2179,7 +2179,7 @@ func sub_495D00(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 			}
 		}
 	} else {
-		v5 = (*uint32)(unsafe.Add(a2.C(), 8))
+		v5 = &a2.Field8
 		for {
 			if *v5 != *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2)) && *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) != *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) {
 				v6 = a1
@@ -2213,7 +2213,7 @@ func sub_495D00(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 	v31 = int32(v23) + v30
 	v12 := a2
 	if int32(*(*uint8)(unsafe.Add(a2.C(), 56))) != 0 {
-		v32 = (*uint32)(unsafe.Add(a2.C(), 12))
+		v32 = &a2.Field12
 		for {
 			v26 -= 63
 			nox_client_drawEnableAlpha_434560(1)

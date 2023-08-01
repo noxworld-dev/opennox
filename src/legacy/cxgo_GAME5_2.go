@@ -279,13 +279,10 @@ func nox_xxx_protectionCreateStructForFloat_56F480(a1 int32, val float32) int32 
 	dword_5d4594_2516328 ^= uint32(v4)
 	return sub_56F2F0(v2)
 }
-func sub_56F4F0(a1 *int32) int32 {
-	var result int32
-	result = sub_56F510(*a1)
-	if result != 0 {
+func sub_56F4F0(a1 *uint32) {
+	if sub_56F510(int32(*a1)) != 0 {
 		*a1 = 0
 	}
-	return result
 }
 func sub_56F510(a1 int32) int32 {
 	var (
@@ -2065,26 +2062,24 @@ func nox_xxx_collideReflect_57B810(a1 *types.Pointf, a2 *types.Pointf) {
 		a2.X, a2.Y = -a2.Y, -a2.X
 	}
 }
-func nox_xxx_map_57B850(a1 *types.Pointf, a2 *float32, a3 *types.Pointf) int32 {
+func nox_xxx_map_57B850(a1 *types.Pointf, a2 *server.Shape, a3 *types.Pointf) int32 {
 	var (
-		result int32
-		v4     float32
-		v5     float32
-		v6     float32
-		v7     float32
+		v4 float32
+		v5 float32
+		v6 float32
+		v7 float32
 	)
 	v4 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*5)) + a1.X
 	v5 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*6)) + a1.Y
-	result = 0
 	if !(float64(v5-v4+a3.X-a3.Y)*0.70709997 < 0.0 && float64(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*8))+a1.Y-(*(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*7))+a1.X)+a3.X-a3.Y)*0.70709997 > 0.0) {
-		return result
+		return 0
 	}
 	v6 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*9)) + a1.X
 	v7 = *(*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*10)) + a1.Y
 	if float64(v7+v6-a3.X-a3.Y)*0.70709997 > 0.0 && float64(v5+v4-a3.X-a3.Y)*0.70709997 < 0.0 {
-		result = 1
+		return 1
 	}
-	return result
+	return 0
 }
 func sub_57B920(a1 unsafe.Pointer) int32 {
 	var result int32

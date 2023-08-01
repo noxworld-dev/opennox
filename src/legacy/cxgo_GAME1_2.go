@@ -1210,10 +1210,10 @@ func nox_server_mapRWWallMap_429B20(a1p unsafe.Pointer) int32 {
 			if int32(v16) != 0 {
 				v17.Flags4 |= 0x80
 			}
-			v20 = (*uint8)(unsafe.Add(unsafe.Pointer(v17), 1))
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v17), 1)), 1)
-			v21 = (*uint8)(unsafe.Add(unsafe.Pointer(v17), 2))
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v17), 2)), 1)
+			v20 = &v17.Tile1
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v17.Tile1, 1)
+			v21 = &v17.Field2
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v17.Field2, 1)
 			if v31&1 != 0 && int32(*v21) >= int32(nox_xxx_mapWallMaxVariation_410DD0(int32(*v20), int32(v17.Dir0), 0)) {
 				*v21 = 0
 			}
@@ -1253,16 +1253,16 @@ func nox_server_mapRWWallMap_429B20(a1p unsafe.Pointer) int32 {
 								v32.Y = int32(v10.Y6) * 23
 								return nox_xxx_wallMath_427F30(&v32, (*int32)(unsafe.Pointer(v2)))
 							}()) != 0 {
-								nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v11), 5)), 1)
-								nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v11), 6)), 1)
+								nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v11.X5, 1)
+								nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v11.Y6, 1)
 								if int32(v11.Flags4) >= 0 {
 									*(*uint8)(unsafe.Pointer(&v24)) = v11.Dir0
 								} else {
 									*(*uint8)(unsafe.Pointer(&v24)) = v11.Dir0 | 0x80
 								}
 								nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v24)), 1)
-								nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v11), 1)), 1)
-								nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v11), 2)), 1)
+								nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v11.Tile1, 1)
+								nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v11.Field2, 1)
 								v32.X = int32(v11.X5)*23 + 11
 								v32.Y = int32(v11.Y6)*23 + 11
 								v12 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v32, 0)
@@ -1424,8 +1424,8 @@ func sub_42A150(a1 int16, a2 *uint32) int32 {
 			LABEL_19:
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v27)), 1)
 				if int32(uint8(int8(v27))) != math.MaxUint8 {
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v13), 1)), 1)
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v13), 2)), 1)
+					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v13.Tile1, 1)
+					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v13.Field2, 1)
 					v32.X = int32(v13.X5)*23 + 11
 					v32.Y = int32(v13.Y6)*23 + 11
 					v14 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v32, 0)
@@ -1507,10 +1507,10 @@ func sub_42A150(a1 int16, a2 *uint32) int32 {
 						v21.Health7 = nox_xxx_mapWallGetHpByTile_410E20(0)
 						*(*uint8)(unsafe.Add(unsafe.Pointer(v21), 8)) = 1
 					} else {
-						v25 = (*uint8)(unsafe.Add(unsafe.Pointer(v21), 1))
-						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v21), 1)), 1)
+						v25 = &v21.Tile1
+						nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v21.Tile1, 1)
 						if int32(v24) >= 3 {
-							nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v21), 2)), 1)
+							nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v21.Field2, 1)
 						} else {
 							sub_42A650(v21)
 						}

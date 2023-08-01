@@ -1,6 +1,7 @@
 package legacy
 
 import (
+	"image"
 	"math"
 	"unsafe"
 
@@ -4127,7 +4128,7 @@ func sub_471450(win *gui.Window, draw *gui.WindowData) int {
 		WideCharStr [4]wchar2_t
 	)
 	v1 := a1p
-	nox_itow(int32(nox_windows_arr_1093036[*(*uint32)(unsafe.Add(unsafe.Pointer(a1p), 4*8))].Field4), &WideCharStr[0], 10)
+	nox_itow(int32(nox_windows_arr_1093036[uintptr(a1p.WidgetData)].Field4), &WideCharStr[0], 10)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_1096288, &WideCharStr[0], &v3, nil, 0)
 	var v4, a1 int32
@@ -5034,12 +5035,9 @@ func sub_4739E0(a1 *uint32, a2 *Point32, a3 *Point32) int32 {
 	a3.Y = int32(uint32(result) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
 	return result
 }
-func sub_473A10(a1 *uint32, a2 *Point32, a3 *uint32) int32 {
-	var result int32
-	*a3 = uint32(a2.X) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) - *a1
-	result = a2.Y
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a3), 4*1)) = uint32(result) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
-	return result
+func sub_473A10(a1 *uint32, a2 *Point32, a3 *image.Point) {
+	a3.X = int(uint32(a2.X) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) - *a1)
+	a3.Y = int(uint32(a2.Y) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
 }
 func nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, data unsafe.Pointer) {
 	var (

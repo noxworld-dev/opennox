@@ -6126,7 +6126,7 @@ func sub_51D300(a1 *server.Waypoint, a2 *server.Waypoint, a3 int8) int32 {
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1+v5*8)), 92)) = uint32(a2)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(uintptr(a1+int32(func() uint8 {
-		p := (*uint8)(unsafe.Add(unsafe.Pointer(a1), 476))
+		p := &a1.PointsCnt
 		x := *p
 		*p++
 		return x

@@ -388,7 +388,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawString_43F6E0(a2.FontPtr, v5, int32(uintptr(unsafe.Pointer(v29))), v4+20)
 	v34.X = v3 + 73
 	v34.Y = v4 + 123
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832492), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832492.PosVec)
 	dword_5d4594_832492.DrawFunc.Get()(v2, dword_5d4594_832492)
 	v34.X = v3 + 109
 	v34.Y = v4 + 76
@@ -402,7 +402,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v7, v34.X, v34.Y, v3-v34.X+520, 0)
 	v34.X = v3 + 565
 	v34.Y = v4 + 117
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832496), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832496.PosVec)
 	dword_5d4594_832496.DrawFunc.Get()(v2, dword_5d4594_832496)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash3a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 809)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v29, &v27, nil, 0)
@@ -429,7 +429,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	}
 	v34.X = v3 + 133
 	v34.Y = v4 + 192
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832504), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832504.PosVec)
 	dword_5d4594_832504.DrawFunc.Get()(v2, dword_5d4594_832504)
 	v34.X = v3 + 157
 	v34.Y = v4 + 156
@@ -443,7 +443,7 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v10, v34.X, v34.Y, v4-v34.X+630, 0)
 	v34.X = v3 + 525
 	v34.Y = v4 + 222
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832500), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832500.PosVec)
 	dword_5d4594_832500.DrawFunc.Get()(v2, dword_5d4594_832500)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash7a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 879)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v29, &v27, nil, 0)
@@ -470,15 +470,15 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	}
 	v34.X = v3 + 182
 	v34.Y = v4 + 262
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832528), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832528.PosVec)
 	dword_5d4594_832528.DrawFunc.Get()(v2, dword_5d4594_832528)
 	v34.X = v3 + 201
 	v34.Y = v4 + 251
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832536), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832536.PosVec)
 	dword_5d4594_832536.DrawFunc.Get()(v2, dword_5d4594_832536)
 	v34.X = v3 + 185
 	v34.Y = v4 + 234
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832532), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832532.PosVec)
 	dword_5d4594_832532.DrawFunc.Get()(v2, dword_5d4594_832532)
 	v34.X = v3 + 221
 	v34.Y = v4 + 240
@@ -492,11 +492,11 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	nox_xxx_drawStringWrap_43FAF0(dword_5d4594_832484, v13, v34.X, v34.Y, v3-v34.X+470, 0)
 	v34.X = v3 + 484
 	v34.Y = v4 + 278
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832516), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832516.PosVec)
 	dword_5d4594_832516.DrawFunc.Get()(v2, dword_5d4594_832516)
 	v34.X = v3 + 503
 	v34.Y = v4 + 303
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832520), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832520.PosVec)
 	dword_5d4594_832520.DrawFunc.Get()(v2, dword_5d4594_832520)
 	v29 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:QuestSplash6a"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 964)
 	nox_xxx_drawGetStringSize_43F840(dword_5d4594_832484, v29, &v27, nil, 0)
@@ -523,15 +523,15 @@ func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	}
 	v34.X = v3 + 186
 	v34.Y = v4 + 333
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832512), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832512.PosVec)
 	dword_5d4594_832512.DrawFunc.Get()(v2, dword_5d4594_832512)
 	v34.X = v3 + 219
 	v34.Y = v4 + 345
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832508), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832508.PosVec)
 	dword_5d4594_832508.DrawFunc.Get()(v2, dword_5d4594_832508)
 	v34.X = v3 + 220
 	v34.Y = v4 + 322
-	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, (*uint32)(unsafe.Add(unsafe.Pointer(dword_5d4594_832524), 12)))
+	sub_473A10((*uint32)(unsafe.Pointer(v2)), &v34, &dword_5d4594_832524.PosVec)
 	dword_5d4594_832524.DrawFunc.Get()(v2, dword_5d4594_832524)
 	v34.X = v3 + 241
 	v34.Y = v4 + 330

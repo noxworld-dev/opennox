@@ -986,7 +986,7 @@ func sub_41AA30(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		if nox_crypt_IsReadOnly() == 1 {
 			nox_xxx_setSomePoisonData_4EEA90(v1, int32(uint8(int8(v8))))
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 541)), 1)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v1.Field541, 1)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 542)), 2)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 28)), 4)
 		if nox_crypt_IsReadOnly() == 1 {
@@ -3460,7 +3460,7 @@ LABEL_12:
 				nox_xxx_aud_501960(904, a1, 0, 0)
 				for i := nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = nox_xxx_getNextPlayerUnit_4DA7F0(i) {
 					if i != a1 {
-						nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i.UpdateData, 276)), 2064))), 20, (*int32)(unsafe.Add(unsafe.Pointer(a1), 36)))
+						nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i.UpdateData, 276)), 2064))), 20, (*int32)(unsafe.Pointer(&a1.NetCode)))
 					}
 				}
 				v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*33)))

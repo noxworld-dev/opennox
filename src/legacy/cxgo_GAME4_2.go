@@ -2672,7 +2672,7 @@ func nox_xxx_mapGenUpdateRoomRect_521850(a1 int32) int32 {
 }
 func nox_xxx_mapGenSetRoomPos_521880(a1 *mapgenRoom, a2 *types.Pointf) int32 {
 	*(*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 4*5)) = *a2
-	nox_xxx_mapGenRoundFloatToPtr_520DF0(a2, (*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
+	nox_xxx_mapGenRoundFloatToPtr_520DF0(a2, &a1.Field4)
 	return nox_xxx_mapGenUpdateRoomRect_521850(int32(uintptr(unsafe.Pointer(a1))))
 }
 func sub_5218B0(a1 *mapgenRoom, a2 int32) int32 {
@@ -3565,7 +3565,7 @@ func sub_522CA0(a1 *mapgenRoom, a2 *types.Pointf) {
 	}
 	v3 = 0
 	if int32(uint8(int8(v2))) != 0 {
-		v4 = (*float32)(unsafe.Add(unsafe.Pointer(a1), 228))
+		v4 = (*float32)(unsafe.Pointer(&a1.Field228))
 		for {
 			if sub_524660(*((*float32)(unsafe.Add(unsafe.Pointer(v4), -int(unsafe.Sizeof(float32(0))*1)))), a2.X) != 0 {
 				v2 = sub_524660(*v4, a2.Y)
@@ -9714,7 +9714,7 @@ func nox_xxx_castFumble_52C060(a1 int32, a2, a3, a4 *server.Object, a5 *server.S
 		return (v7 & 0x2000) == 0
 	}()) {
 		nox_xxx_dropAllItems_4EDA40((*uint32)(result))
-		nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Add(unsafe.Pointer(a4), 56)), (*server.Object)(unsafe.Pointer(uintptr(*a5))), 50.0)
+		nox_xxx_objectApplyForce_52DF80(&a4.PosVec, (*server.Object)(unsafe.Pointer(uintptr(*a5))), 50.0)
 	}
 LABEL_22:
 	v15 = *a5
@@ -9817,7 +9817,7 @@ func nox_xxx_castBurn_52C3E0(a1 int32, a2, a3, a4 *server.Object, a5 *server.Spe
 		nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v11, 276)), 2064))), 0, &a5)
 		return 0
 	}
-	v7 = (*float32)(unsafe.Add(unsafe.Pointer(a4), 56))
+	v7 = &a4.PosVec
 LABEL_12:
 	v13 = int32(*memmap.PtrUint32(0x5D4594, 2487732))
 	if *memmap.PtrUint32(0x5D4594, 2487732) == 0 {
@@ -10897,7 +10897,7 @@ func Nox_xxx_spellDrainMana_52E210(sp *server.DurSpell) int32 {
 	if sub_4E6BD0(v10) != 0 || float64(v19.X) >= 5.0 || float64(v19.Y) >= 5.0 {
 		return 1
 	}
-	v13 := sub_52E610((*int32)(unsafe.Add(unsafe.Pointer(a1p.Obj16), 56)), int32(a1p.Obj16))
+	v13 := sub_52E610(&a1p.Obj16.PosVec, int32(a1p.Obj16))
 	a1p.Obj48 = (*server.Object)(v13)
 	if v13 == nil {
 		if a1p.Field36 != 0 {

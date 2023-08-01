@@ -1421,7 +1421,7 @@ func nox_xxx_checkWinkFlags_4F7DF0(a1p *server.Object) int32 {
 	v4 = int32(v2.ObjFlags)
 	*(*uint8)(unsafe.Pointer(&v4)) = uint8(int8(v4 & 0xBF))
 	v2.ObjFlags = uint32(v4)
-	nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), v2, 100.0)
+	nox_xxx_objectApplyForce_52DF80(&a1.PosVec, v2, 100.0)
 	v2.Obj130 = nil
 	nox_xxx_unitClearOwner_4EC300(v2)
 	nox_xxx_aud_501960(926, a1, 0, 0)
@@ -2207,7 +2207,7 @@ func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) bool {
 	nox_xxx_playerBotCreate_4FA700(obj)
 	nox_xxx_playerMakeDefItems_4EF7D0(unsafe.Pointer(a1), 1, 0)
 	if dword_5d4594_2650652 == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 58)) != 0 {
-		nox_xxx_respawnPlayerImpl_53FBC0((*float32)(unsafe.Add(unsafe.Pointer(a1), 56)), int32(a1.Direction1))
+		nox_xxx_respawnPlayerImpl_53FBC0(&a1.PosVec, int32(a1.Direction1))
 	}
 	nox_xxx_mapFindPlayerStart_4F7AB0(&v4, obj)
 	nox_xxx_unitMove_4E7010(obj, &v4)

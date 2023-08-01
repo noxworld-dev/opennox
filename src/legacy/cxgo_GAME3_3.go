@@ -629,7 +629,7 @@ func nox_xxx_damageMonsterGen_4E27D0(obj, who, obj3 *server.Object, dmg int, typ
 			a1a.Y = float32(float64(a1a.Y)*22.0 + float64(a1.PosVec.Y))
 			sub_523150(-16, 26, &a1a.X)
 		} else {
-			sub_523150(-16, 26, (*float32)(unsafe.Add(unsafe.Pointer(a1), 56)))
+			sub_523150(-16, 26, &a1.PosVec)
 		}
 		nox_xxx_aud_501960(1001, a1, 0, 0)
 	}
@@ -3600,7 +3600,7 @@ func nox_xxx_collideExit_4E9090(obj *server.Object, obj2 *server.Object, pos *ty
 		nox_xxx_playerGoObserver_4E6860(*(**server.Player)(unsafe.Add(v5, 276)), 0, 0)
 		for j := nox_xxx_getFirstPlayerUnit_4DA7C0(); j != nil; j = nox_xxx_getNextPlayerUnit_4DA7F0(j) {
 			if j != v4 {
-				nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(j.UpdateData, 276)), 2064))), 19, (*int32)(unsafe.Add(unsafe.Pointer(v4), 36)))
+				nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(j.UpdateData, 276)), 2064))), 19, (*int32)(unsafe.Pointer(&v4.NetCode)))
 			}
 		}
 		nox_xxx_netPriMsgToPlayer_4DA2C0(v4, internCStr("objcoll.c:PlayerEntersWarp"), 0)
@@ -3802,7 +3802,7 @@ func nox_xxx_collideBoom_4E9770(obj *server.Object, obj2 *server.Object, pos *ty
 			v9 = int32(*memmap.PtrUint32(0x5D4594, 1567968))
 			v8 = nox_xxx_findParentChainPlayer_4EC580(a1)
 			obj2.Damage.Get()(obj2, v8, obj, int(v9), 7)
-			nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(unsafe.Pointer(a2), 56)), 0)
+			nox_xxx_sMakeScorch_537AF0(&a2.PosVec, 0)
 		} else if a3 != nil {
 			nox_xxx_collideReflect_57B810(a3, &a1.VelVec)
 			v4 = a1.VelVec.Y
@@ -3918,9 +3918,9 @@ func nox_xxx_fireballCollide_4E9AC0(obj *server.Object, obj2 *server.Object, pos
 			}
 			v8 = float32(float64(int32(v14)) * 0.33333334)
 			nox_xxx_mapDamageUnitsAround_4E25B0(&obj.PosVec, v8, float32(v9), v10, 1, (*server.Object)(v12), (*server.Object)(v13))
-			nox_xxx_netSparkExplosionFx_5231B0((*float32)(unsafe.Add(unsafe.Pointer(v2), 56)), int8(*(*byte)(v3)))
+			nox_xxx_netSparkExplosionFx_5231B0(&v2.PosVec, int8(*(*byte)(v3)))
 			nox_xxx_aud_501960(42, v2, 0, 0)
-			nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Add(unsafe.Pointer(v2), 56)), 2)
+			nox_xxx_sMakeScorch_537AF0(&v2.PosVec, 2)
 			nox_xxx_delayedDeleteObject_4E5CC0(obj)
 		}
 	}
@@ -4564,7 +4564,7 @@ func nox_xxx_collideTrapDoor_4EAB60(obj *server.Object, obj2 *server.Object, pos
 					if float64(a1.Shape.Box.W) < float64(a2.Shape.Box.W) || float64(a1.Shape.Box.H) < float64(a2.Shape.Box.H) {
 						return
 					}
-					if nox_xxx_map_57B850((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), (*float32)(unsafe.Add(unsafe.Pointer(a1), 172)), (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56))) != 0 {
+					if nox_xxx_map_57B850((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), &a1.Shape, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56))) != 0 {
 						a2.ObjFlags |= 0x60000
 						a2.Field41 = uint32(float32(float64(*(*int32)(unsafe.Add(v2, 8)))))
 						a2.Field42 = uint32(float32(float64(*(*int32)(unsafe.Add(v2, 12)))))
@@ -4574,7 +4574,7 @@ func nox_xxx_collideTrapDoor_4EAB60(obj *server.Object, obj2 *server.Object, pos
 					return
 				}
 				if v4 != 2 {
-					if nox_xxx_map_57B850((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), (*float32)(unsafe.Add(unsafe.Pointer(a1), 172)), (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56))) != 0 {
+					if nox_xxx_map_57B850((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), &a1.Shape, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56))) != 0 {
 						a2.ObjFlags |= 0x60000
 						a2.Field41 = uint32(float32(float64(*(*int32)(unsafe.Add(v2, 8)))))
 						a2.Field42 = uint32(float32(float64(*(*int32)(unsafe.Add(v2, 12)))))
@@ -4585,7 +4585,7 @@ func nox_xxx_collideTrapDoor_4EAB60(obj *server.Object, obj2 *server.Object, pos
 				}
 				v5 = float64(a2.Shape.Circle.R + a2.Shape.Circle.R)
 				if v5 <= float64(a1.Shape.Box.W) && v5 <= float64(a1.Shape.Box.H) {
-					if nox_xxx_map_57B850((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), (*float32)(unsafe.Add(unsafe.Pointer(a1), 172)), (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56))) != 0 {
+					if nox_xxx_map_57B850((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), &a1.Shape, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56))) != 0 {
 						a2.ObjFlags |= 0x60000
 						a2.Field41 = uint32(float32(float64(*(*int32)(unsafe.Add(v2, 8)))))
 						a2.Field42 = uint32(float32(float64(*(*int32)(unsafe.Add(v2, 12)))))
@@ -4614,7 +4614,7 @@ func sub_4EACA0(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
 			nox_xxx_aud_501960(147, a2, 0, 0)
 			a2.Field41 = uint32(float32(float64(*(*int32)(v3))))
 			a2.Field42 = uint32(float32(float64(*(*int32)(unsafe.Add(v3, 4*1)))))
-			nox_xxx_teleportToMB_4E7190(a2, (*float32)(unsafe.Add(unsafe.Pointer(a2), 164)))
+			nox_xxx_teleportToMB_4E7190(a2, (*float32)(unsafe.Pointer(&a2.Field41)))
 			nox_xxx_netSendPointFx_522FF0(-119, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56)))
 			nox_xxx_aud_501960(147, a2, 0, 0)
 		}
@@ -4868,7 +4868,6 @@ func sub_4EB3E0(a1 *server.Object) {
 	var v8 *types.Pointf
 	var v9 float32
 	v1 := a1
-	v2 := (*float32)(unsafe.Add(unsafe.Pointer(a1), 80))
 	v8 = (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 80))
 	v9 = float32(math.Sqrt(float64(a1.VelVec.X*a1.VelVec.X + a1.VelVec.Y*a1.VelVec.Y)))
 	v3 = nox_xxx_math_509ED0(v8)
@@ -4880,7 +4879,7 @@ func sub_4EB3E0(a1 *server.Object) {
 		v4 += int32((uint32(v4) >> 8) * 4294967040)
 	}
 	v5 = int32(v1.PrevPos.Y)
-	*v2 = v9 * *mem_getFloatPtr(0x587000, uint32(v4*8)+194136)
+	a1.VelVec.X = v9 * *mem_getFloatPtr(0x587000, uint32(v4*8)+194136)
 	v6 = float64(v9 * *mem_getFloatPtr(0x587000, uint32(v4*8)+194140))
 	v7 = int32(v1.PrevPos.X)
 	v1.NewPos.Y = float32(uint32(v5))

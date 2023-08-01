@@ -124,7 +124,7 @@ func nox_xxx_colorLightAlterB0ArrayColor_4CE440(a1 *client.Drawable) {
 		v10 = float64(uint8(int8(int64((v6 - float64(int32(int64(v6)))) * float64(v13)))))
 		v11 := unsafe.Add(v1.C(), int32(v15)*2+int32(v15))
 		v14 = int32(*(*uint8)(unsafe.Add(v1.C(), int32(v15)+int32(v15)*2+120+60)))
-		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Add(unsafe.Pointer(v1), 136)), int32(int64(float64(int32(*(*uint8)(unsafe.Add(v1.C(), v9+v9*2+178)))-int32(*(*uint8)(unsafe.Add(v11, 178))))/float64(v13)*v10+float64(*(*uint8)(unsafe.Add(v11, 178))))), int32(int64(float64(int32(*(*uint8)(unsafe.Add(v1.C(), v9+v9*2+179)))-int32(*(*uint8)(unsafe.Add(v11, 179))))/float64(v13)*v10+float64(*(*uint8)(unsafe.Add(v11, 179))))), int32(int64(float64(int32(*(*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(v1), v9+v9*2+120), 60)))-v14)/float64(v13)*v10+float64(v14))))
+		nox_xxx_spriteChangeLightColor_484BE0(&v1.LightFlags, int32(int64(float64(int32(*(*uint8)(unsafe.Add(v1.C(), v9+v9*2+178)))-int32(*(*uint8)(unsafe.Add(v11, 178))))/float64(v13)*v10+float64(*(*uint8)(unsafe.Add(v11, 178))))), int32(int64(float64(int32(*(*uint8)(unsafe.Add(v1.C(), v9+v9*2+179)))-int32(*(*uint8)(unsafe.Add(v11, 179))))/float64(v13)*v10+float64(*(*uint8)(unsafe.Add(v11, 179))))), int32(int64(float64(int32(*(*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(v1), v9+v9*2+120), 60)))-v14)/float64(v13)*v10+float64(v14))))
 	}
 }
 func nox_xxx_colorLightAlterIntensity_4CE610(a1 *client.Drawable) {
@@ -5448,22 +5448,22 @@ func nox_xxx_playerForceDisconnect_4DE7C0(ind int32) {
 		plr.Active = 0
 	}
 	pl := plr
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1146)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1148)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1149)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1150)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1151)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1152)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1153)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1154)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1155)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1156)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1157)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1158)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1159)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1147)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1160)))
-	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer(pl), 4*1161)))
+	sub_56F4F0(&pl.ProtUnitHPCur)
+	sub_56F4F0(&pl.ProtUnitHPMax)
+	sub_56F4F0(&pl.ProtUnitManaCur)
+	sub_56F4F0(&pl.ProtUnitManaMax)
+	sub_56F4F0(&pl.ProtUnitExperience)
+	sub_56F4F0(&pl.ProtUnitMass)
+	sub_56F4F0(&pl.ProtUnitBuffs)
+	sub_56F4F0(&pl.ProtPlayerClass)
+	sub_56F4F0(&pl.ProtPlayerField2235)
+	sub_56F4F0(&pl.ProtPlayerField2239)
+	sub_56F4F0(&pl.ProtPlayerOrigName)
+	sub_56F4F0(&pl.Prot4632)
+	sub_56F4F0(&pl.Prot4636)
+	sub_56F4F0(&pl.ProtPlayerGold)
+	sub_56F4F0(&pl.Prot4640)
+	sub_56F4F0(&pl.ProtPlayerLevel)
 	var buf [3]byte
 	buf[0] = 46
 	*(*uint16)(unsafe.Pointer(&buf[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(plr.PlayerUnit))
