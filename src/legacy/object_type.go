@@ -35,10 +35,10 @@ func init() {
 	server.RegisterObjectInit("BoulderInit", nox_xxx_unitBoulderInit_4F0420, 0)
 	server.RegisterObjectInit("BreakInit", nox_xxx_breakInit_4F0570, 0)
 	server.RegisterObjectInit("MonsterGeneratorInit", nox_xxx_unitInitGenerator_4F0590, 0)
-	server.RegisterObjectInit("ShopkeeperInit", nox_xxx_unitMonsterInit_4F0040, 1724)
-	server.RegisterObjectInit("SkullInit", sub_4F0450, 8)
-	server.RegisterObjectInit("DirectionInit", sub_4F0490, 8)
-	server.RegisterObjectInit("GoldInit", nox_xxx_unitInitGold_4F04B0, 4)
+	server.RegisterObjectInit("ShopkeeperInit", nox_xxx_unitMonsterInit_4F0040, unsafe.Sizeof(server.ShopkeeperInitData{}))
+	server.RegisterObjectInit("SkullInit", sub_4F0450, unsafe.Sizeof(server.SkullInitData{}))
+	server.RegisterObjectInit("DirectionInit", sub_4F0490, unsafe.Sizeof(server.DirectionInitData{}))
+	server.RegisterObjectInit("GoldInit", nox_xxx_unitInitGold_4F04B0, unsafe.Sizeof(server.GoldInitData{}))
 }
 
 // nox_xxx_unitDefGetCount_4E3AC0

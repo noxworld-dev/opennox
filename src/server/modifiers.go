@@ -16,6 +16,11 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
+type ModifierInitData struct {
+	Modifiers [4]*ModifierEff // 0, 0
+	Field16   uint32          // 4, 16
+}
+
 var (
 	modDamageEffects = make(map[string]modFuncs[ccall.Func[ModifierDamageFunc]])
 	modDefendEffects = make(map[string]modFuncs[ccall.Func[ModifierDefendFunc]])

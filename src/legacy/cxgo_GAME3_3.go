@@ -445,7 +445,7 @@ func nox_xxx_playerDamageItems_4E2180(a1p *server.Object, a2 unsafe.Pointer, a3 
 			v9 = int32(v7.ObjFlags)
 			if v9&0x100 != 0 {
 				v11 = float32(nox_xxx_itemApplyDefendEffect_415C00(it) / float64(v10) * float64(a4))
-				nox_xxx_equipDamage_4E16D0(v7, v5, a2, a3, v11, v8)
+				nox_xxx_equipDamage_4E16D0(v7, (*server.Object)(v5), (*server.Object)(a2), (*server.Object)(a3), v11, v8)
 			}
 		}
 	}
@@ -521,7 +521,7 @@ func sub_4E2330(a1, a2, a3 unsafe.Pointer, a4 int32, a5 float32, a6 int32) int32
 	if a3 == nil {
 		v7 = a2
 	}
-	nox_xxx_equipDamage_4E16D0((*server.Object)(unsafe.Pointer(i)), a1, a2, v7, a5, a6)
+	nox_xxx_equipDamage_4E16D0((*server.Object)(unsafe.Pointer(i)), (*server.Object)(a1), (*server.Object)(a2), (*server.Object)(v7), a5, a6)
 	if i == nil {
 		return 0
 	}
@@ -1382,14 +1382,12 @@ func sub_4E4C10(item *server.Object) int32 {
 	}
 	return result
 }
-func nox_object_getInitData_4E4C30(item *server.Object) int32 {
-	var result int32
+func nox_object_getInitData_4E4C30(item *server.Object) unsafe.Pointer {
 	if item != nil {
-		result = int32(uintptr(item.InitData))
+		return item.InitData
 	} else {
-		result = 0
+		return nil
 	}
-	return result
 }
 func sub_4E4C80(item *server.Object) *byte {
 	var (
@@ -6101,7 +6099,7 @@ func nox_GlyphDrop_4ED500(obj, obj2 *server.Object, pos *types.Pointf) int {
 	if nox_xxx_dropTrap_4ED580(obj, obj2, pos) == 0 {
 		return 0
 	}
-	*(*types.Pointf)(unsafe.Add(a2.InitData, 28)) = *a3
+	a2.InitDataGlyph().SpellArg.Pos = *a3
 	v5.X = a1.PosVec.X - a3.X
 	v5.Y = a1.PosVec.Y - a3.Y
 	v3 = int16(nox_xxx_math_509ED0(&v5))
@@ -7239,7 +7237,7 @@ func nox_xxx_plrReadVals_4EEDC0(a1p *server.Object, a2 int32) {
 	v13 := v3.Player
 	v21 = int32(v13.ProtPlayerOrigName)
 	v14 = nox_wcslen((*wchar2_t)(unsafe.Add(unsafe.Pointer(v13), 2185)))
-	sub_56FB00((*int32)(unsafe.Add(unsafe.Pointer(v3.Player), 2185)), v14*2, v21)
+	sub_56FB00((*byte)(unsafe.Add(unsafe.Pointer(v3.Player), 2185)), v14*2, v21)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 2184)) = 1
 }
 func sub_4EF140(a1 *server.Object) {
@@ -10065,16 +10063,16 @@ func nox_xxx_inventoryPutImpl_4F3070(a1p *server.Object, item *server.Object, a3
 	}
 }
 func nox_xxx_playerCheckStrength_4F3180(a1p *server.Object, item *server.Object) bool {
-	a1 := unsafe.Pointer(a1p)
+	a1 := a1p
 	if nox_cheat_allowall != 0 {
 		return true
 	}
 	var v2 int32
 	var v3 *server.Modifier
 	var result bool
-	if int32(*(*uint8)(unsafe.Add(a1, 8)))&4 != 0 && (func() *server.Modifier {
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && (func() *server.Modifier {
 		if func() bool {
-			v2 = nox_xxx_unitGetStrength_4F9FD0((*server.Object)(a1))
+			v2 = nox_xxx_unitGetStrength_4F9FD0(a1)
 			return (item.ObjClass & 0x2000000) == 0
 		}() {
 			v3 = nox_xxx_getProjectileClassById_413250(int32(item.TypeInd))

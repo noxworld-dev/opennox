@@ -6,6 +6,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -84,8 +85,8 @@ func init() {
 func nox_xxx_updatePlayer_4F8100(up *server.Object) { Nox_xxx_updatePlayer_4F8100(asObjectS(up)) }
 
 // nox_xxx_objectApplyForce_52DF80
-func nox_xxx_objectApplyForce_52DF80(vec *float32, obj *server.Object, force float32) {
-	GetServer().ApplyForce(asObjectS(obj), AsPointf(unsafe.Pointer(vec)), float64(force))
+func nox_xxx_objectApplyForce_52DF80(vec *types.Pointf, obj *server.Object, force float32) {
+	GetServer().ApplyForce(asObjectS(obj), *vec, float64(force))
 }
 
 // nox_xxx_teleportAllPixies_4FD090
@@ -132,9 +133,6 @@ func Nox_xxx_playerConfusedGetDirection_4F7A40(a1 *server.Object) server.Dir16 {
 }
 func Nox_xxx_playerAttack_538960(a1 *server.Object) int {
 	return int(nox_xxx_playerAttack_538960(asObjectC(a1)))
-}
-func Nox_xxx_playerRespawn_4F7EF0(a1 *server.Object) {
-	nox_xxx_playerRespawn_4F7EF0(asObjectC(a1))
 }
 func Sub_4F9E10(a1 *server.Object) int {
 	return int(sub_4F9E10(asObjectC(a1)))

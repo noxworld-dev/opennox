@@ -1176,14 +1176,14 @@ func nox_xxx_modifNext_4133C0(a1 *obj_412ae0_t) *obj_412ae0_t {
 }
 func sub_4133D0(a1 *server.Object) int32 {
 	v1 := *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 251620)
-	v2 := a1.InitData
+	v2 := a1.InitDataModifier()
 	if *memmap.PtrUint32(0x5D4594, 251620) != 0 {
-		return bool2int32(a1.ObjClass&0x13001000 != 0 && *(**server.ModifierEff)(unsafe.Add(v2, 4)) == v1)
+		return bool2int32(a1.ObjClass&0x13001000 != 0 && v2.Modifiers[1] == v1)
 	}
 	v3 := nox_xxx_modifGetIdByName_413290(internCStr("Material7"))
 	v1b := nox_xxx_modifGetDescById_413330(v3)
 	*memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 251620) = v1b
-	return bool2int32(a1.ObjClass&0x13001000 != 0 && *(**server.ModifierEff)(unsafe.Add(v2, 4)) == v1b)
+	return bool2int32(a1.ObjClass&0x13001000 != 0 && v2.Modifiers[1] == v1b)
 }
 func sub_413420(a1 int8) noxrender.ImageHandle {
 	var (
@@ -2057,13 +2057,13 @@ func nox_xxx_itemApplyDefendEffect_415C00(a1p *server.Object) float64 {
 	if (a1.ObjClass & 0x2000000) == 0 {
 		return 0
 	}
-	idata := a1p.InitData
+	idata := a1p.InitDataModifier()
 	v2 := nox_xxx_equipClothFindDefByTT_413270(int32(a1.TypeInd))
 	if v2 == nil {
 		return 0
 	}
 	v6 := v2.DamageCoeffOrArmor64
-	if m := *(**server.ModifierEff)(idata); m != nil {
+	if m := idata.Modifiers[0]; m != nil {
 		if fnc := m.Defend76.Fnc.Get(); fnc != nil {
 			fnc(m, a1p, nil, a1p, nil, unsafe.Pointer(&v6))
 		}

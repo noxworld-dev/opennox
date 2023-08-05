@@ -4754,12 +4754,10 @@ func sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 		a1  = vp
 		a2  = dr
 		v3  int32
-		v4  *uint32
 		v5  int32
 		v6  int32
 		v7  int32
 		v9  int32
-		v11 *uint32
 		v12 int32
 		v13 [80]wchar2_t
 	)
@@ -4769,15 +4767,15 @@ func sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 	} else {
 		v9 = int32(nox_color_yellow_2589772)
 	}
-	v2 := (*uint32)(dword_5d4594_1301776)
-	v8 := (*uint32)(dword_5d4594_1301776)
+	v2 := dword_5d4594_1301776
+	v8 := dword_5d4594_1301776
 	if dword_5d4594_1301776 != nil {
 		for {
-			v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))
-			v4 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
-			v11 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*3)))
+			v3 = int32(v2.Field8)
+			v4 := v2.Field12
+			v11 := v2.Field12
 			if uint32(v10-v3) <= 0x1E {
-				if *v2 == a2.Field_32 {
+				if v2.Field0 == a2.Field_32 {
 					v5 = int32(a1.Screen.Min.X + a2.PosVec.X - a1.World.Min.X)
 					v6 = int32(uint32(uint64(a2.PosVec.Y+a1.Screen.Min.Y+int(uint32((v3-v10)*2))-int(uint32(a2.ZVal))) - uint64(int64(a2.Field_25)) - uint64(a1.World.Min.Y)))
 					nox_swprintf(&v13[0], internWStr("%d"), cmath.Abs(int64(*(*int16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(int16(0))*2)))))
@@ -4797,7 +4795,7 @@ func sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 					v4 = v11
 				}
 			} else {
-				sub_49A880(unsafe.Pointer(v2))
+				sub_49A880(v2)
 			}
 			v8 = v4
 			if v4 == nil {

@@ -359,7 +359,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 				v7 := int32(*(*uint32)(unsafe.Add(v81, 16)))
 				if (v7 & 0x8000) != 0 {
 					*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*137)) = 0
-					nox_xxx_playerRespawn_4F7EF0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(v80, 2056))))
+					Nox_xxx_playerRespawn_4F7EF0((*server.Object)(*(*unsafe.Pointer)(unsafe.Add(v80, 2056))))
 				}
 			}
 		} else {

@@ -167,7 +167,7 @@ var dword_5d4594_815044 uint32
 var nox_wnd_briefing_831232 *gui.Window
 var dword_5d4594_2487712 uint32
 var nox_alloc_tradeItems_2386496 alloc.ClassT[server.TradeItem]
-var dword_5d4594_2386180 uint32
+var dword_5d4594_2386180 int32
 var dword_5d4594_2386212 uint32
 var dword_5d4594_1319060 *gui.Window
 var dword_5d4594_1047548 uint32
@@ -626,7 +626,6 @@ var dword_5d4594_1308136 *gui.Window
 var dword_5d4594_1569656 uint32
 var dword_5d4594_831240 *byte
 var dword_5d4594_1301808 uint32
-var dword_5d4594_1599708 uint32
 var dword_587000_292488 uint32 = 0x42200000
 var dword_5d4594_1321196 uint32
 var dword_5d4594_815748 uint32

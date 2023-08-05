@@ -100,9 +100,9 @@ func init() {
 	RegisterObjectInit("SkeletonInit", nil, 0)
 	RegisterObjectInit("TowerInit", nil, 0)
 	RegisterObjectInit("GlyphInit", nil, unsafe.Sizeof(GlyphInitData{}))
-	RegisterObjectInit("ModifierInit", nil, 20)
-	RegisterObjectInit("RewardMarkerInit", nil, 220)
-	RegisterObjectInit("AnkhInit", nil, 5124)
+	RegisterObjectInit("ModifierInit", nil, unsafe.Sizeof(ModifierInitData{}))
+	RegisterObjectInit("RewardMarkerInit", nil, unsafe.Sizeof(RewardMarkerInitData{}))
+	RegisterObjectInit("AnkhInit", nil, unsafe.Sizeof(AnkhInitData{}))
 
 	RegisterObjectUpdate("NoUpdate", nil, 0)
 	RegisterObjectUpdate("HomingProjectileUpdate", nil, 4)
@@ -1298,4 +1298,14 @@ var playerAnimTypes = []player.AnimType{
 	player.AnimRecoil,
 	player.AnimSneak,
 	player.AnimHarpoonThrow,
+}
+
+type SkullInitData struct {
+	Field0 uint32 // 0, 0
+	Field4 uint32 // 1, 4
+}
+
+type DirectionInitData struct {
+	Field0 uint32 // 0, 0
+	Field4 uint32 // 1, 4
 }

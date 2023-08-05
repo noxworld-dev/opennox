@@ -814,6 +814,22 @@ func (obj *Object) InitDataGlyph() *GlyphInitData {
 	return (*GlyphInitData)(obj.InitData)
 }
 
+func (obj *Object) InitDataShopkeeper() *ShopkeeperInitData {
+	if alloc.IsDead(obj.UpdateData) {
+		panic("object already deleted")
+	}
+	// TODO: verify this conversion by checking ObjectType
+	return (*ShopkeeperInitData)(obj.InitData)
+}
+
+func (obj *Object) InitDataModifier() *ModifierInitData {
+	if alloc.IsDead(obj.UpdateData) {
+		panic("object already deleted")
+	}
+	// TODO: verify this conversion by checking ObjectType
+	return (*ModifierInitData)(obj.InitData)
+}
+
 func (obj *Object) UpdateDataPlayer() *PlayerUpdateData {
 	if !obj.Class().Has(object.ClassPlayer) {
 		panic(obj.Class().String())

@@ -843,7 +843,7 @@ LABEL_20:
 	}
 	if nox_crypt_IsReadOnly() == 1 && v3 != nil {
 		v6 = nox_wcslen((*wchar2_t)(v2))
-		v7 = nox_xxx_protectionStringCRCLen_56FAE0((*int32)(v2), v6*2)
+		v7 = nox_xxx_protectionStringCRCLen_56FAE0((*byte)(v2), v6*2)
 		nox_xxx_playerResetProtectionCRC_56F7D0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 4628))), v7)
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 50)), 4)

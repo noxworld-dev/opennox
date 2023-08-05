@@ -50,7 +50,7 @@ type PlayerUpdateData struct {
 	Field40_0        uint16             // 40, 160
 	Field40_1        uint16             // 40, 162
 	Field41          uint32             // 41, 164
-	Field42          uint32             // 42, 168
+	Field42          uint32             // 42, 168, TODO: [?]*Object ?
 	Field43          uint32             // 43, 172
 	Field44          uint32             // 44, 176
 	Field45          uint32             // 45, 180
