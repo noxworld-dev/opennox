@@ -109,18 +109,9 @@ nox_gui_animation* nox_wnd_xxx_1307732 = 0;
 nox_gui_animation* nox_wnd_xxx_1308092 = 0;
 nox_gui_animation* nox_wnd_xxx_1309740 = 0;
 
-void* dword_5d4594_1307292 = 0;
 void* dword_5d4594_1308156 = 0;
 void* dword_5d4594_1308160 = 0;
 void* dword_5d4594_1308164 = 0;
-
-//----- (004A1A40) --------------------------------------------------------
-int sub_4A1A40(int a1) {
-	uint32_t* v1; // eax
-
-	v1 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1307292, 151);
-	return nox_xxx_wnd_46ABB0((int)v1, a1);
-}
 
 //----- (004A2560) --------------------------------------------------------
 int sub_4A2560(uint32_t* a1, int a2) {
