@@ -392,6 +392,7 @@ func sub_4373A0() {
 		} else {
 			c.nox_game_checkStateSwitch_43C1E0()
 			legacy.Sub_49FF20()
+			sub_4A1BE0(1)
 			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 		}
 	} else if legacy.Get_nox_game_createOrJoin_815048() == 1 {
