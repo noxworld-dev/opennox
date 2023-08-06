@@ -348,7 +348,7 @@ func (c *clientDrawables) PlayerListDelete(dr *Drawable) {
 func (c *clientDrawables) Index2DRemove(dr *Drawable, ext *DrawableExt) {
 	if v := dr.Field_101; v != nil {
 		v.Field_100 = dr.Field_100
-	} else {
+	} else if ext.Field99 != nil {
 		*ext.Field99 = dr.Field100()
 	}
 	if v := dr.Field_100; v != nil {
