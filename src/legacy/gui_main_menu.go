@@ -13,7 +13,6 @@ package legacy
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__shell__mainmenu.h"
-extern void* dword_5d4594_1307292;
 extern void* dword_5d4594_831236;
 extern unsigned int dword_5d4594_831220;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;

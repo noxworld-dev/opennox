@@ -49,7 +49,7 @@ func init() {
 	legacy.Sub_554D10 = sub_554D10
 	legacy.Nox_gui_menu_proc_ext = nox_gui_menu_proc_ext
 	legacy.Nox_video_setMenuOptions = nox_video_setMenuOptions
-	legacy.Sub_4A19F0 = sub4A19F0
+	legacy.Sub_4A19F0 = guiSetBackButtonText
 	legacy.Sub_4C3A90 = sub_4C3A90
 	legacy.Sub_4CBE70 = sub_4CBE70
 	legacy.Sub_4AAA10 = sub_4AAA10
@@ -321,4 +321,5 @@ func init() {
 	legacy.Sub_526CA0 = sub_526CA0
 	legacy.Nox_xxx_monsterCreateFn_54C480 = nox_xxx_monsterCreateFn_54C480
 	legacy.Nox_xxx_monsterClearActionStack_50A3A0 = nox_xxx_monsterClearActionStack_50A3A0
+	legacy.Sub_4A1A40 = sub_4A1A40
 }

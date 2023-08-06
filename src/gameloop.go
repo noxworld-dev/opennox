@@ -929,7 +929,8 @@ func nox_client_guiXxxDestroy_4A24A0() int {
 }
 
 func sub_4A1BD0() {
-	legacy.Get_dword_5d4594_1307292().Destroy()
+	guiOptsBack.Destroy()
+	guiOptsBack = nil
 }
 
 func nox_client_quit_4460C0() {

@@ -39,6 +39,7 @@ var (
 		X: noxDefaultWidth,
 		Y: noxDefaultHeight,
 	}
+	guiOptsBack *gui.Window
 )
 
 func getResolutionOptions() []image.Point {
@@ -168,11 +169,16 @@ func guiEnhanceOptions(root *gui.Window) {
 		Func94(gui.AsWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.GetSensitivity()))+1.0)*50), 0))
 }
 
-func sub4A19F0(name strman.ID) {
-	win := legacy.Get_dword_5d4594_1307292()
-	v1 := win.ChildByID(152)
-	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-	v1.Func94(&gui.StaticTextSetText{Str: v2, Val: -1})
+func sub_4A1A40(a1 int) {
+	v1 := guiOptsBack.ChildByID(151)
+	legacy.Nox_xxx_wnd_46ABB0(v1, a1)
+}
+
+func guiSetBackButtonText(name strman.ID) {
+	win := guiOptsBack
+	backBtn := win.ChildByID(152)
+	str := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
+	backBtn.Func94(&gui.StaticTextSetText{Str: str, Val: -1})
 }
 
 func sub_4AAA10() int {
@@ -180,7 +186,7 @@ func sub_4AAA10() int {
 	v0 := *v0p // copy before deletion
 	v0p.Free()
 	legacy.Get_dword_5d4594_1309720().Destroy()
-	legacy.Sub_4A1A40(1)
+	sub_4A1A40(1)
 	v0.Func13()
 	return 1
 }
