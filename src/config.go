@@ -17,7 +17,6 @@ func init() {
 		wd = "."
 	}
 	viper.SetConfigName(configName)
-	viper.SetConfigType(configExt)
 	viper.AddConfigPath(wd)
 	if sdir := env.AppUserDir(); sdir != "" {
 		viper.AddConfigPath(sdir)
@@ -28,14 +27,14 @@ func init() {
 	viper.AddConfigPath(filepath.Dir(os.Args[0]))
 	if runtime.GOOS != "windows" {
 		if dir := os.Getenv("XDG_CONFIG_HOME"); dir != "" {
-			viper.AddConfigPath(filepath.Join(dir, "opennox", configName+"."+configExt))
+			viper.AddConfigPath(filepath.Join(dir, "opennox"))
 		}
 		if home, err := os.UserHomeDir(); err == nil {
 			// Linux Snapcraft installation replaces HOME variable
 			if rhome := os.Getenv("SNAP_REAL_HOME"); rhome != "" {
 				home = rhome
 			}
-			viper.AddConfigPath(filepath.Join(home, ".config/opennox", configName+"."+configExt))
+			viper.AddConfigPath(filepath.Join(home, ".config/opennox"))
 		}
 	}
 }
