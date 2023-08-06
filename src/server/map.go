@@ -106,10 +106,10 @@ func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object) bool) {
 	defer func() {
 		s.eachInRectStackInd--
 	}()
-	sx := RoundCoord(rect.Left)
-	sy := RoundCoord(rect.Top)
-	ex := RoundCoord(rect.Right)
-	ey := RoundCoord(rect.Bottom)
+	sx := RoundCoord(rect.Min.X)
+	sy := RoundCoord(rect.Min.Y)
+	ex := RoundCoord(rect.Max.X)
+	ey := RoundCoord(rect.Max.Y)
 	if sx < 0 {
 		sx = 0
 	}
@@ -133,8 +133,8 @@ func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object) bool) {
 					continue
 				}
 				*tok1 = tok2
-				if obj.CollideP1.X < rect.Right && obj.CollideP2.X > rect.Left &&
-					obj.CollideP1.Y < rect.Bottom && obj.CollideP2.Y > rect.Top {
+				if obj.CollideP1.X < rect.Max.X && obj.CollideP2.X > rect.Min.X &&
+					obj.CollideP1.Y < rect.Max.Y && obj.CollideP2.Y > rect.Min.Y {
 					if !fnc(obj) {
 						return
 					}
@@ -262,10 +262,10 @@ func (s *serverMap) eachMissileInRect(rect types.Rectf, fnc func(it *Object) boo
 	if fnc == nil {
 		return
 	}
-	sx := RoundCoord(rect.Left)
-	sy := RoundCoord(rect.Top)
-	ex := RoundCoord(rect.Right)
-	ey := RoundCoord(rect.Bottom)
+	sx := RoundCoord(rect.Min.X)
+	sy := RoundCoord(rect.Min.Y)
+	ex := RoundCoord(rect.Max.X)
+	ey := RoundCoord(rect.Max.Y)
 	if sx < 0 {
 		sx = 0
 	}
@@ -337,10 +337,8 @@ func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(i
 
 func (s *serverMap) EachObjInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
 	rect := types.Rectf{
-		Left:   pos.X - r,
-		Top:    pos.Y - r,
-		Right:  pos.X + r,
-		Bottom: pos.Y + r,
+		Min: pos.Sub(types.Ptf(r, r)),
+		Max: pos.Add(types.Ptf(r, r)),
 	}
 	r2 := r * r
 	s.EachObjInRect(rect, func(obj *Object) bool {
