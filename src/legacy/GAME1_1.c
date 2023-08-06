@@ -6104,31 +6104,6 @@ int sub_4277B0(nox_object_t* a1p, unsigned short a2) {
 	return result;
 }
 
-//----- (004278B0) --------------------------------------------------------
-int sub_4278B0(float* a1, float* a2, float* a3) {
-	double v3; // st7
-	double v4; // st7
-
-	*(float*)&dword_5d4594_741244 = a1[2] - *a1;
-	*(float*)&dword_5d4594_741248 = a1[3] - a1[1];
-	*(float*)&dword_5d4594_741252 = a2[2] - *a2;
-	*(float*)&dword_5d4594_741256 = a2[3] - a2[1];
-	*(float*)&dword_5d4594_741260 = *a2 - *a1;
-	v3 = a2[1] - a1[1];
-	*getMemFloatPtr(0x5D4594, 741264) = v3;
-	*(float*)&dword_5d4594_741292 =
-		v3 * *(float*)&dword_5d4594_741244 - *(float*)&dword_5d4594_741260 * *(float*)&dword_5d4594_741248;
-	v4 = *(float*)&dword_5d4594_741252 * *(float*)&dword_5d4594_741248 -
-		 *(float*)&dword_5d4594_741256 * *(float*)&dword_5d4594_741244;
-	*(float*)&dword_5d4594_741284 = v4;
-	if (v4 == 0.0) {
-		return 0;
-	}
-	*a3 = *(float*)&dword_5d4594_741292 * *(float*)&dword_5d4594_741252 / *(float*)&dword_5d4594_741284 + *a2;
-	a3[1] = *(float*)&dword_5d4594_741292 * *(float*)&dword_5d4594_741256 / *(float*)&dword_5d4594_741284 + a2[1];
-	return 1;
-}
-
 //----- (00427980) --------------------------------------------------------
 int sub_427980(float4* a1, float4* a2) {
 	double v2;  // st7

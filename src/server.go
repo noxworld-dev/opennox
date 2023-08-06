@@ -1190,3 +1190,29 @@ func (s *Server) CanInteract(obj, targ *server.Object, flags int) bool {
 	}
 	return ok
 }
+
+func sub_497180(r1, r2 types.Rectf) (types.Pointf, bool) {
+	r1c := r1.Canon()
+	r2c := r2.Canon()
+	if r2c.Min.X > r1c.Max.X || r2c.Max.X < r1c.Min.X || r2c.Min.Y > r1c.Min.Y || r2c.Max.Y < r1c.Max.Y {
+		return types.Pointf{}, false
+	}
+	return sub_4278B0(r1, r2)
+}
+
+func sub_4278B0(r1, r2 types.Rectf) (out types.Pointf, _ bool) {
+	r1w := r1.Max.X - r1.Min.X
+	r1h := r1.Max.Y - r1.Min.Y
+	r2w := r2.Max.X - r2.Min.X
+	r2h := r2.Max.Y - r2.Min.Y
+	dx := r2.Min.X - r1.Min.X
+	dy := r2.Min.Y - r1.Min.Y
+	dd := r2w*r1h - r2h*r1w
+	dd2 := dy*r1w - dx*r1h
+	if dd == 0.0 {
+		return out, false
+	}
+	out.X = dd2*r2w/dd + r2.Min.X
+	out.Y = dd2*r2h/dd + r2.Min.Y
+	return out, true
+}

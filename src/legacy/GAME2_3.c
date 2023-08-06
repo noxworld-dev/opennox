@@ -3097,56 +3097,6 @@ LABEL_32:
 	}
 }
 
-//----- (00497180) --------------------------------------------------------
-int sub_497180(float* a1, float* a2, float* a3) {
-	double v3;  // st7
-	double v4;  // st6
-	float v5;   // ecx
-	double v6;  // st5
-	float v7;   // eax
-	float v8;   // eax
-	int result; // eax
-	float v10;  // [esp+4h] [ebp-1Ch]
-	float v11;  // [esp+8h] [ebp-18h]
-	float v12;  // [esp+14h] [ebp-Ch]
-
-	if (*a1 >= (double)a1[2]) {
-		v3 = a1[2];
-		v4 = *a1;
-	} else {
-		v3 = *a1;
-		v4 = a1[2];
-	}
-	if (a1[1] >= (double)a1[3]) {
-		v5 = a1[1];
-		v12 = a1[3];
-	} else {
-		v5 = a1[3];
-		v12 = a1[1];
-	}
-	if (*a2 >= (double)a2[2]) {
-		v6 = a2[2];
-		v7 = *a2;
-	} else {
-		v6 = *a2;
-		v7 = a2[2];
-	}
-	v11 = v7;
-	if (a2[1] >= (double)a2[3]) {
-		v10 = a2[3];
-		v8 = a2[1];
-	} else {
-		v10 = a2[1];
-		v8 = a2[3];
-	}
-	if (v6 > v4 || v11 < v3 || v10 > (double)v5 || v8 < (double)v12) {
-		result = 0;
-	} else {
-		result = sub_4278B0(a1, a2, a3);
-	}
-	return result;
-}
-
 //----- (00497260) --------------------------------------------------------
 int sub_497260(int* a1) {
 	int result; // eax
