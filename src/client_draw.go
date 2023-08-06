@@ -760,120 +760,117 @@ func (c *Client) Sub4C5630(a1 int, a2 int, a3 int) int {
 	return 0
 }
 
-func (c *Client) sub_4C5430(a1 int, a2 int) {
-	v2 := c.tiles.nox_arr_956A00[a2]
+func (c *Client) sub_4C5430(px int, py int) {
+	v2 := c.tiles.nox_arr_956A00[py]
 	if v2 >= 32 {
 		return
 	}
 	v3 := 0
 	if v2 > 0 {
-		cur := &c.tiles.nox_arr_957820[a2]
+		cur := &c.tiles.nox_arr_957820[py]
 		for ; v3 < v2; v3++ {
-			if a1 < cur.arr[v3] {
+			if px < cur.arr[v3] {
 				break
 			}
 		}
 	}
 	if v3 != v2 && v2-1 >= v3 {
 		for v5 := v2 - v3; v5 != 0; v5-- {
-			c.tiles.nox_arr_957820[a2].arr[v5+v3] = c.tiles.nox_arr_957820[a2].arr[v5+v3-1]
+			c.tiles.nox_arr_957820[py].arr[v5+v3] = c.tiles.nox_arr_957820[py].arr[v5+v3-1]
 		}
 	}
-	c.tiles.nox_arr_956A00[a2] = v2 + 1
-	c.tiles.nox_arr_957820[a2].arr[v3] = a1
-	if a2 < c.tiles.dword_5d4594_3679320 {
-		c.tiles.dword_5d4594_3679320 = a2
+	c.tiles.nox_arr_956A00[py] = v2 + 1
+	c.tiles.nox_arr_957820[py].arr[v3] = px
+	if py < c.tiles.dword_5d4594_3679320 {
+		c.tiles.dword_5d4594_3679320 = py
 	}
-	if a2 > c.tiles.dword_5d4594_3798156 {
-		c.tiles.dword_5d4594_3798156 = a2
+	if py > c.tiles.dword_5d4594_3798156 {
+		c.tiles.dword_5d4594_3798156 = py
 	}
 }
 
 func (c *Client) nox_xxx_drawBlack_496150_B() {
 	legacy.Sub_4989A0()
-	c.sub_4C52E0(memmap.PtrInt32(0x5D4594, 1203876), int(legacy.Get_dword_5d4594_1217464()))
-}
-
-func (c *Client) sub_4C52E0(a1 *int32, sz int) {
-	arr := unsafe.Slice(a1, 2*sz)
-	c.tiles.nox_arr_956A00 = [noxMaxHeight + 150]int{}
-	c.tiles.dword_5d4594_3679320 = nox_win_height
-	c.tiles.dword_5d4594_3798156 = 0
+	ptr := memmap.PtrOff(0x5D4594, 1203876)
+	sz := int(legacy.Get_dword_5d4594_1217464())
 	if sz <= 0 {
 		return
 	}
-	for i := 0; i < sz; i++ {
-		v7 := int(arr[2*i+0])
-		var (
-			v8  int
-			v9  int
-			v10 int
-		)
-		if i == sz-1 {
-			v8 = int(arr[0])
-			v9 = int(arr[2*i+1])
-			v10 = int(arr[1])
+	arr := unsafe.Slice((*image.Point)(ptr), sz)
+	c.sub_4C52E0(arr)
+}
+
+func (c *Client) sub_4C52E0(points []image.Point) {
+	c.tiles.nox_arr_956A00 = [noxMaxHeight + 150]int{}
+	c.tiles.dword_5d4594_3679320 = nox_win_height
+	c.tiles.dword_5d4594_3798156 = 0
+	for i := range points {
+		p1x := points[i].X
+		p1y := points[i].Y
+		var p2x, p2y int
+		if i == len(points)-1 {
+			p2x = points[0].X
+			p2y = points[0].Y
 		} else {
-			v8 = int(arr[2*(i+1)+0])
-			v9 = int(arr[2*i+1])
-			v10 = int(arr[2*(i+1)+1])
+			p2x = points[i+1].X
+			p2y = points[i+1].Y
 		}
-		if v9 == v10 {
+		if p1y == p2y {
 			continue
 		}
-		if v7 == v8 {
-			if v10 < v9 {
-				for ; v10 < v9; v10++ {
-					c.sub_4C5430(v7, v10)
+		if p1x == p2x {
+			if p2y < p1y {
+				for ; p2y < p1y; p2y++ {
+					c.sub_4C5430(p1x, p2y)
 				}
-			} else if v10 > v9 {
-				for ; v9 < v10; v9++ {
-					c.sub_4C5430(v7, v9)
+			} else if p2y > p1y {
+				for ; p1y < p2y; p1y++ {
+					c.sub_4C5430(p1x, p1y)
 				}
 			}
 			continue
 		}
 		var (
-			v17 int
-			v11 int
-			v18 int
-			v12 int
+			x1  int
+			y1  int
+			y2  int
+			dir int
 		)
-		if v9 <= v10 {
-			v17 = int(arr[2*i+0])
-			v11 = v9
-			v18 = v10
-			if v8 <= v7 {
-				v12 = -1
+		if p1y <= p2y {
+			x1 = p1x
+			y1 = p1y
+			y2 = p2y
+			if p2x <= p1x {
+				dir = -1
 			} else {
-				v12 = 1
+				dir = 1
 			}
 		} else {
-			v17 = v8
-			v11 = v10
-			v18 = v9
-			if v8 <= v7 {
-				v12 = 1
+			x1 = p2x
+			y1 = p2y
+			y2 = p1y
+			if p2x <= p1x {
+				dir = 1
 			} else {
-				v12 = -1
+				dir = -1
 			}
 		}
-		if v11 >= v18 {
+		if y1 >= y2 {
 			continue
 		}
-		v15 := 0
-		v14 := v18 - v11
-		var v13 int
-		if v8-v7 >= 0 {
-			v13 = v8 - v7
+		val := 0
+		dy := y2 - y1
+		var dx int
+		if p2x-p1x >= 0 {
+			dx = p2x - p1x
 		} else {
-			v13 = v7 - v8
+			dx = p1x - p2x
 		}
-		for ; v11 < v18; v11++ {
-			c.sub_4C5430(v17, v11)
-			v15 += v13
-			for ; v15 >= v14; v17 += v12 {
-				v15 -= v14
+		for ; y1 < y2; y1++ {
+			c.sub_4C5430(x1, y1)
+			val += dx
+			for ; val >= dy; x1 += dir {
+				val -= dy
 			}
 		}
 	}
