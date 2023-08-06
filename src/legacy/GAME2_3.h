@@ -90,7 +90,6 @@ int sub_4982E0(int a1);
 int sub_498330(int a1);
 void sub_498380(int a1, int a2);
 int nox_xxx_client_4984B0_drawable(nox_drawable* dr);
-void sub_4989A0();
 void sub_498AE0();
 int sub_498B50(int a1, int a2, int a3, int a4);
 int sub_498C20(int2* a1, int2* a2, int a3);
