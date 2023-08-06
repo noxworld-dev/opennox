@@ -61,7 +61,7 @@ func sub_446190() {
 			noxClient.nox_game_checkStateMenu_43C2F0()
 		}
 		legacy.Sub_4D70B0()
-		sub_4D6F40(0)
+		sub4D6F40(false)
 		sub_4D6F90(0)
 	}
 	if dword_5d4594_825768 == 0 {
