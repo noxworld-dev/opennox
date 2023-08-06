@@ -50,7 +50,7 @@ var (
 )
 
 func sub_4A1BE0(a1 int) int {
-	return legacy.Nox_xxx_wnd_46ABB0(legacy.Get_dword_5d4594_1307292(), a1)
+	return legacy.Nox_xxx_wnd_46ABB0(guiOptsBack, a1)
 }
 
 func sub_41E300(a1 int) int {
@@ -314,7 +314,7 @@ func nox_game_showSelChar4A4DB0() bool {
 		sub_46AEE0(wblank, v4)
 	}
 	nox_xxx_findAutosaves_4A5150()
-	sub4A19F0("OptsBack.wnd:Back")
+	guiSetBackButtonText("OptsBack.wnd:Back")
 	if noxflags.HasGame(noxflags.GameOnline) {
 		noxflags.SetEngine(noxflags.EngineAdmin)
 	} else {

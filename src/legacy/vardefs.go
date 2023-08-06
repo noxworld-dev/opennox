@@ -692,7 +692,6 @@ extern void* nox_alloc_chat_1197364;
 extern uint32_t dword_5d4594_1090120;
 extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;
-extern void* dword_5d4594_1307292;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1193188;
@@ -731,7 +730,6 @@ extern unsigned int dword_5d4594_815052;
 extern unsigned int dword_5d4594_1049508;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 
-extern void* dword_5d4594_1307292;
 extern uint32_t dword_5d4594_10984;
 extern unsigned int dword_5d4594_527988;
 extern uint32_t dword_5d4594_528256;
@@ -1390,9 +1388,6 @@ func Set_dword_5d4594_2489460(v int) {
 }
 func Set_dword_5d4594_1548532(v unsafe.Pointer) {
 	C.dword_5d4594_1548532 = v
-}
-func Set_dword_5d4594_1307292(v *gui.Window) {
-	C.dword_5d4594_1307292 = v.C()
 }
 func Set_dword_5d4594_831260(v int) {
 	C.dword_5d4594_831260 = C.uint(v)
