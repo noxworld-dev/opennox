@@ -774,10 +774,8 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 	dist2 := dist * dist
 	owner := msl.FindOwnerChainPlayer()
 	rect := types.Rectf{
-		Left:   center.X - dist,
-		Top:    center.Y - dist,
-		Right:  center.X + dist,
-		Bottom: center.Y + dist,
+		Min: center.Sub(types.Ptf(dist, dist)),
+		Max: center.Add(types.Ptf(dist, dist)),
 	}
 	var (
 		minDist float32 = 1e+08
