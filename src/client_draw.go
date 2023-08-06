@@ -790,7 +790,7 @@ func (c *Client) sub_4C5430(px int, py int) {
 }
 
 func (c *Client) nox_xxx_drawBlack_496150_B() {
-	legacy.Sub_4989A0()
+	sub_4989A0()
 	ptr := memmap.PtrOff(0x5D4594, 1203876)
 	sz := int(legacy.Get_dword_5d4594_1217464())
 	if sz <= 0 {
