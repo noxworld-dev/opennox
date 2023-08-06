@@ -386,10 +386,6 @@ func sub4D6F30() bool { // sub_4D6F30
 	return questFlag_1556156
 }
 
-func sub_4D6F40(a1 int) {
-	sub4D6F40(a1 != 0)
-}
-
 func sub4D6F40(a1 bool) {
 	questFlag_1556156 = a1
 }

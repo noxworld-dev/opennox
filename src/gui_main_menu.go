@@ -188,22 +188,18 @@ func nox_game_showMainMenu_4A1C00() int {
 	return 0
 }
 func nox_game_showMainMenu4A1C00() bool {
-	//uint32_t* v1; // esi
-	//uint32_t* v2; // esi
-	//uint32_t* v3; // eax
-
-	sub_4D6F40(0)
+	sub4D6F40(false)
 	sub_4D6F90(0)
-	noxClient.GameAddStateCode(100)
-	win := newWindowFromFile(noxClient.GUI, "MainMenu.wnd", nox_xxx_windowMainMenuProc_4A1DC0)
-	if win == nil {
+	noxClient.GameAddStateCode(client.StateMainMenu)
+	menuWin := newWindowFromFile(noxClient.GUI, "MainMenu.wnd", nox_xxx_windowMainMenuProc_4A1DC0)
+	if menuWin == nil {
 		return false
 	}
-	winMainMenu = win
-	win.SetFunc93(sub4A18E0)
-	v1 := win.ChildByID(110)
-	v1.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
-	winMainMenuAnimTop = nox_gui_makeAnimation(v1, 0, 0, 0, -270, 0, 20, 0, -40)
+	winMainMenu = menuWin
+	menuWin.SetFunc93(sub4A18E0)
+	topMenu := menuWin.ChildByID(110)
+	topMenu.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
+	winMainMenuAnimTop = nox_gui_makeAnimation(topMenu, 0, 0, 0, -270, 0, 20, 0, -40)
 	if winMainMenuAnimTop == nil {
 		return false
 	}
@@ -212,9 +208,9 @@ func nox_game_showMainMenu4A1C00() bool {
 	winMainMenuAnimTop.Func12Ptr = legacy.Get_winMainMenuAnimOutStartFnc()
 	_ = winMainMenuAnimOutDoneFnc
 	winMainMenuAnimTop.FncDoneOutPtr = legacy.Get_winMainMenuAnimOutDoneFnc()
-	v2 := win.ChildByID(120)
-	v2.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
-	winMainMenuAnimBottom = nox_gui_makeAnimation(v2, 0, 270, 0, 510, 0, -20, 0, 40)
+	bottomMenu := menuWin.ChildByID(120)
+	bottomMenu.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
+	winMainMenuAnimBottom = nox_gui_makeAnimation(bottomMenu, 0, 270, 0, 510, 0, -20, 0, 40)
 	if winMainMenuAnimBottom == nil {
 		return false
 	}
@@ -223,8 +219,8 @@ func nox_game_showMainMenu4A1C00() bool {
 	sub_578CD0()
 	legacy.Sub_43D9B0(25, 100)
 	if noxflags.HasGame(noxflags.GameFlag26) {
-		v3 := win.ChildByID(112)
-		win.Func94(&WindowEvent0x4007{Win: v3})
+		mpBtn := menuWin.ChildByID(112)
+		menuWin.Func94(&WindowEvent0x4007{Win: mpBtn})
 	}
 	return true
 }
@@ -311,7 +307,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				noxflags.UnsetGame(noxflags.GameNotQuest)
 				noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(0)
 				noxflags.UnsetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
-				sub_4D6F40(0)
+				sub4D6F40(false)
 				sub_4D6F90(0)
 				noxServer.nox_xxx_setQuest_4D6F60(0)
 				legacy.Sub_4D6F80(0)
@@ -352,7 +348,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			noxflags.SetGame(noxflags.GameNotQuest)
 			noxflags.UnsetGame(noxflags.GameModeCoop)
 			legacy.Sub_461440(0)
-			sub_4D6F40(0)
+			sub4D6F40(false)
 			sub_4D6F90(0)
 			noxServer.nox_xxx_setQuest_4D6F60(0)
 			legacy.Sub_4D6F80(0)
@@ -398,7 +394,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			noxflags.SetGame(noxflags.GameOnline)
 			noxflags.SetGame(noxflags.GameNotQuest)
 			noxflags.UnsetGame(noxflags.GameModeCoop)
-			sub_4D6F40(1)
+			sub4D6F40(true)
 			sub_4D6F90(1)
 			noxServer.nox_game_setQuestStage_4E3CD0(0)
 			legacy.Sub_4D7440(0)
