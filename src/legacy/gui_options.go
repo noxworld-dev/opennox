@@ -6,7 +6,6 @@ package legacy
 #include "GAME3.h"
 #include "GAME3_1.h"
 #include "client__shell__inputcfg__inputcfg.h"
-extern void* dword_5d4594_1307292;
 extern void* dword_5d4594_1309720;
 extern nox_gui_animation* nox_wnd_xxx_1309740;
 void sub_42CD90();
@@ -27,6 +26,7 @@ var (
 	Sub_4AAA10               func() int
 	Sub_4C3A90               func(a1, a2 int, a3 unsafe.Pointer, a4 int) int
 	Sub_4CBE70               func(a1, a2 int, a3 unsafe.Pointer, a4 int) int
+	Sub_4A1A40               func(a1 int)
 )
 
 //export nox_video_setMenuOptions
@@ -47,6 +47,11 @@ func sub_4C3A90(a1, a2 int, a3 *C.int, a4 int) int { return Sub_4C3A90(a1, a2, u
 //export sub_4CBE70
 func sub_4CBE70(a1, a2 int, a3 *C.int, a4 int) int { return Sub_4CBE70(a1, a2, unsafe.Pointer(a3), a4) }
 
+//export sub_4A1A40
+func sub_4A1A40(a1 int) {
+	Sub_4A1A40(a1)
+}
+
 func Sub_42CD90() {
 	C.sub_42CD90()
 }
@@ -55,20 +60,12 @@ func Sub_4CBD30() {
 	C.sub_4CBD30()
 }
 
-func Get_dword_5d4594_1307292() *gui.Window {
-	return AsWindowP(C.dword_5d4594_1307292)
-}
-
 func Sub_430AA0(v int) {
 	C.sub_430AA0(C.int(v))
 }
 
 func Sub_4C35B0(v int) {
 	C.sub_4C35B0(C.int(v))
-}
-
-func Sub_4A1A40(v int) {
-	C.sub_4A1A40(C.int(v))
 }
 
 func Get_nox_wnd_xxx_1309740() *gui.Anim {

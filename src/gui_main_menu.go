@@ -29,16 +29,16 @@ func sub_4A2490(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 }
 
 func sub_4A1A60() bool {
-	v0 := newWindowFromFile(noxClient.GUI, "OptsBack.wnd", sub_4A1AA0)
-	legacy.Set_dword_5d4594_1307292(v0)
-	if v0 == nil {
+	win := newWindowFromFile(noxClient.GUI, "OptsBack.wnd", guiOptsBackProc)
+	guiOptsBack = win
+	if win == nil {
 		return false
 	}
-	v0.SetFunc93(sub4A18E0)
+	win.SetFunc93(sub4A18E0)
 	return true
 }
 
-func sub_4A1AA0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
+func guiOptsBackProc(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
@@ -51,7 +51,7 @@ func sub_4A1AA0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 					if noxClient.GameGetStateCode() == client.StateMainMenu {
 						v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 						v4 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-						NewDialogWindow(legacy.Get_dword_5d4594_1307292(), v4, v6, 56, sub_4A19D0, nil)
+						NewDialogWindow(guiOptsBack, v4, v6, 56, sub_4A19D0, nil)
 					} else {
 						if sub4D6F30() {
 							sub_4D6F90(2)
@@ -218,7 +218,7 @@ func nox_game_showMainMenu4A1C00() bool {
 	if winMainMenuAnimBottom == nil {
 		return false
 	}
-	sub4A19F0("OptsBack.wnd:Quit")
+	guiSetBackButtonText("OptsBack.wnd:Quit")
 	nox_xxx_unknown_libname_11_4D1650()
 	sub_578CD0()
 	legacy.Sub_43D9B0(25, 100)
@@ -271,7 +271,7 @@ func sub4A18E0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 			} else if noxClient.GameGetStateCode() == client.StateMainMenu {
 				v6 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitMessage", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 				v5 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-				NewDialogWindow(legacy.Get_dword_5d4594_1307292(), v5, v6, 56, sub_4A19D0, nil)
+				NewDialogWindow(guiOptsBack, v5, v6, 56, sub_4A19D0, nil)
 			} else {
 				if noxClient.GameGetStateCode() == client.StateColorSelect {
 					legacy.Sub_4A7A60(1)
