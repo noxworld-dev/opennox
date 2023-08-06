@@ -644,12 +644,39 @@ func (obj nsObj) GetPreviousItem() ns4.Obj {
 	return nsObj{obj.s, it}
 }
 
-func (obj nsObj) Items() []ns4.Obj {
+func matchesAll(v ns4.Obj, conditions []ns4.ObjCond) bool {
+	for _, c := range conditions {
+		if !c.Matches(v) {
+			return false
+		}
+	}
+	return true
+}
+
+func (obj nsObj) Items(conditions ...ns4.ObjCond) []ns4.Obj {
 	var out []ns4.Obj
 	for it := obj.FirstItem(); it != nil; it = it.NextItem() {
-		out = append(out, nsObj{obj.s, it})
+		v := nsObj{obj.s, it}
+		if matchesAll(v, conditions) {
+			out = append(out, v)
+		}
 	}
 	return out
+}
+
+func (obj nsObj) FindItems(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond) int {
+	cnt := 0
+	for it := obj.FirstItem(); it != nil; it = it.NextItem() {
+		v := nsObj{obj.s, it}
+		if !matchesAll(v, conditions) {
+			continue
+		}
+		cnt++
+		if fnc != nil && !fnc(v) {
+			break
+		}
+	}
+	return cnt
 }
 
 func (obj nsObj) GetHolder() ns4.Obj {

@@ -7,7 +7,7 @@ require (
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
 	github.com/noxworld-dev/noxscript/ns v1.0.2
-	github.com/noxworld-dev/noxscript/ns/v4 v4.7.0
+	github.com/noxworld-dev/noxscript/ns/v4 v4.8.0
 	github.com/noxworld-dev/opennox-lib v0.0.0-20230430153341-b69258b2c481
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
