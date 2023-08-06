@@ -942,6 +942,9 @@ func Get_dword_5d4594_1193188() int {
 func Get_dword_5d4594_1217464() int {
 	return int(C.dword_5d4594_1217464)
 }
+func Set_dword_5d4594_1217464(v int) {
+	C.dword_5d4594_1217464 = C.uint(v)
+}
 func Get_dword_5d4594_3798840() int {
 	return int(C.dword_5d4594_3798840)
 }

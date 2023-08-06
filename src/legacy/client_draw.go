@@ -156,9 +156,6 @@ func Nox_xxx_tileDrawMB_481C20_A(vp *noxrender.Viewport, a2 int) {
 func Nox_xxx_tileDrawMB_481C20_B(vp *noxrender.Viewport, a2 int) {
 	C.nox_xxx_tileDrawMB_481C20_B((*nox_draw_viewport_t)(vp.C()), C.int(a2))
 }
-func Sub_4989A0() {
-	C.sub_4989A0()
-}
 func Nox_xxx_tileCheckRedrawMB_482570(vp *noxrender.Viewport) int {
 	return int(C.nox_xxx_tileCheckRedrawMB_482570((*nox_draw_viewport_t)(vp.C())))
 }
