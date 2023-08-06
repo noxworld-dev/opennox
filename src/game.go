@@ -1416,10 +1416,8 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		rr = r2
 	}
 	rect := types.Rectf{
-		Left:   pos.X - rr,
-		Top:    pos.Y - rr,
-		Right:  pos.X + rr,
-		Bottom: pos.Y + rr,
+		Min: pos.Sub(types.Ptf(rr, rr)),
+		Max: pos.Add(types.Ptf(rr, rr)),
 	}
 	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		u := asObjectS(it)
@@ -1447,10 +1445,10 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		return false
 	})
 	wrect := image.Rect(
-		int(rect.Left)/common.GridStep,
-		int(rect.Top)/common.GridStep,
-		int(rect.Right)/common.GridStep,
-		int(rect.Bottom)/common.GridStep,
+		int(rect.Min.X)/common.GridStep,
+		int(rect.Min.Y)/common.GridStep,
+		int(rect.Max.X)/common.GridStep,
+		int(rect.Max.Y)/common.GridStep,
 	)
 	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, dtyp, asObjectS(who))
 	doDamageWalls = true
