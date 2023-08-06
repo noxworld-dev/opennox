@@ -40,7 +40,7 @@ func sub_4CBE70(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	return uintptr(Sub_4CBE70(int(uintptr(win.C())), int(a2), unsafe.Pointer(a3), int(a4)))
 }
 
-//export sub_4A1A40
+// sub_4A1A40
 func sub_4A1A40(a1 int) {
 	Sub_4A1A40(a1)
 }

@@ -1,5 +1,6 @@
 package legacy
 
+import "C"
 import (
 	"unsafe"
 
@@ -116,7 +117,7 @@ func Get_dword_5d4594_1217464() int {
 	return int(dword_5d4594_1217464)
 }
 func Set_dword_5d4594_1217464(v int) {
-	C.dword_5d4594_1217464 = C.uint(v)
+	dword_5d4594_1217464 = uint32(v)
 }
 func Get_dword_5d4594_3798840() int {
 	return int(dword_5d4594_3798840)

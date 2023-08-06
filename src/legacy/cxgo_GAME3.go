@@ -24,11 +24,6 @@ var dword_5d4594_1308156 unsafe.Pointer = nil
 var dword_5d4594_1308160 unsafe.Pointer = nil
 var dword_5d4594_1308164 unsafe.Pointer = nil
 
-func sub_4A1A40(a1 int32) int32 {
-	var v1 *uint32
-	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(dword_5d4594_1307292), 151)))
-	return nox_xxx_wnd_46ABB0((*gui.Window)(unsafe.Pointer(v1)), a1)
-}
 func sub_4A2560(a1 *uint32, a2 int32) int32 {
 	var (
 		v2 float64
