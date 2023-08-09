@@ -166,8 +166,8 @@ jobs:
           docker tag $DOCKER_IMAGE_NAME:dev $DOCKER_IMAGE_NAME:latest
           docker push $DOCKER_IMAGE_NAME:latest
 
-  release_repackage_linux:
-    name: Repackage Linux release
+  release_repackage_linux_gzip:
+    name: Repackage Linux release (tar.gz)
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/ci_tests')
     needs: [linux_docker]
@@ -212,9 +212,34 @@ jobs:
       - name: Upload the archive
         uses: actions/upload-artifact@v3
         with:
-          name: opennox-release-linux
+          name: opennox-release-linux-tgz
           path: /tmp/opennox-linux-release/OpenNox-linux-*.tar.gz
           if-no-files-found: error
+
+  release_repackage_linux_appimage:
+    name: Repackage Linux release (AppImage)
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/appimage-workflow-test') || (github.ref == 'refs/heads/ci_tests')
+    needs: [linux_docker]
+    steps:
+      - uses: actions/download-artifact@v3
+        name: Retrieving compiled OpenNox
+        with:
+          name: opennox-linux
+          path: build
+
+      - uses: docker://ghcr.io/xandrosdarkstorm/docker-build:latest-linux-packaging-appimage
+        name: Using docker build - latest-linux-packaging-appimage
+
+      - uses: actions/upload-artifact@v3
+        name: Upload the AppImage
+        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/appimage-workflow-test') || (github.ref == 'refs/heads/ci_tests')
+        with:
+          name: opennox-release-linux-appimage
+          path: |
+            build/opennox-bundle-i386.AppImage
+          if-no-files-found: error
+          retention-days: 1
 
   release_repackage_win:
       name: Repackage Windows release
@@ -277,7 +302,7 @@ jobs:
     name: Github release
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [release_repackage_linux, release_repackage_win]
+    needs: [release_repackage_linux_appimage, release_repackage_linux_gzip, release_repackage_win]
     steps:
       - name: Cleanup
         run: |
@@ -285,16 +310,24 @@ jobs:
           mkdir -p /tmp/release-tmp
 
       - uses: actions/download-artifact@v3
+        name: Preparing Linux (tar.gz) file for release.
         with:
-          name: opennox-release-linux
+          name: opennox-release-linux-tgz
           path: /tmp/release-tmp/
 
       - uses: actions/download-artifact@v3
+        name: Preparing Linux (AppImage) file for release.
+        with:
+          name: opennox-release-linux-appimage
+          path: /tmp/release-tmp/
+
+      - uses: actions/download-artifact@v3
+        name: Preparing Windows (NSIS installer, Zip archive) files for release.
         with:
           name: opennox-release-win
           path: /tmp/release-tmp/
 
-      - name: Release
+      - name: Releasing prepared files.
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -303,6 +336,7 @@ jobs:
           draft: true
           fail_on_unmatched_files: true
           files: |
+            /tmp/release-tmp/opennox-bundle-i386.AppImage
             /tmp/release-tmp/OpenNox-linux-*.tar.gz
             /tmp/release-tmp/OpenNox-*.zip
             /tmp/release-tmp/OpenNox-*.exe
