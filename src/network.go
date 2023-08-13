@@ -1,8 +1,11 @@
 package opennox
 
 import (
+	"bytes"
 	"context"
 	"encoding/binary"
+	"encoding/hex"
+	"errors"
 	"fmt"
 	"image"
 	"math"
@@ -1171,6 +1174,8 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 }
 
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind ntype.PlayerInd, data []byte) int {
+	orig := data
+	var iters [][]byte
 	sub_470A80()
 	var (
 		v364 uint32
@@ -1187,6 +1192,22 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind ntype.PlayerInd, data []by
 		if n == 0 { // safeguard
 			n = 1
 		}
+		if n > len(data) {
+			var buf bytes.Buffer
+			fmt.Fprintf(&buf, "overflow when handling net packet: [%d:%d]\n", n, len(data))
+			fmt.Fprintf(&buf, "PACKET: (%d bytes)\n", len(orig))
+			buf.WriteString(hex.EncodeToString(orig))
+			buf.WriteString("\n")
+			buf.WriteString("SPLIT:\n")
+			for _, b := range iters {
+				buf.WriteString(hex.EncodeToString(b))
+				buf.WriteString("\n")
+			}
+			buf.WriteString(hex.EncodeToString(data))
+			buf.WriteString("\n")
+			panic(errors.New(buf.String()))
+		}
+		iters = append(iters, data[:n])
 		noxOnCliPacketDebug(op, data[:n])
 		data = data[n:]
 	}
