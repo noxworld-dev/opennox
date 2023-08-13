@@ -1,6 +1,8 @@
 package opennox
 
 import (
+	"os"
+
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/maps"
 )
@@ -10,10 +12,12 @@ var mapsend struct {
 }
 
 func init() {
-	registerOnDataPathSet(func() {
-		mapsend.srv = maps.NewServer(datapath.Maps())
-		mapsend.srv.RegisterOnMux(noxServer.HTTP())
-	})
+	if os.Getenv("NOX_MAPS_HTTP") != "false" {
+		registerOnDataPathSet(func() {
+			mapsend.srv = maps.NewServer(datapath.Maps())
+			mapsend.srv.RegisterOnMux(noxServer.HTTP())
+		})
+	}
 }
 
 func clientGetServerMap() string {
