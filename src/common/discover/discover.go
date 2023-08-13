@@ -262,7 +262,9 @@ func listServersWith(ctx context.Context, pc net.PacketConn) ([]Server, error) {
 	}
 	var (
 		start = time.Now()
-		seen  = make(map[serverKey]*Server)
+
+		seenMu sync.RWMutex
+		seen   = make(map[serverKey]*Server)
 
 		pingIn   = make(chan Server)
 		pingResp = make(map[serverKey]*Server)
@@ -279,7 +281,10 @@ func listServersWith(ctx context.Context, pc net.PacketConn) ([]Server, error) {
 		procPing := func(g *lobby.Game) {
 			remaining--
 			key := serverKey{Addr: g.Address, Port: g.Port}
-			if s := seen[key]; s != nil {
+			seenMu.RLock()
+			s := seen[key]
+			seenMu.RUnlock()
+			if s != nil {
 				pingResp[key] = &Server{
 					Game:   *g,
 					Ping:   time.Since(start),
@@ -323,14 +328,20 @@ func listServersWith(ctx context.Context, pc net.PacketConn) ([]Server, error) {
 	}()
 	err := EachServer(ctx, func(s Server) error {
 		key := s.key()
-		if s2, ok := seen[key]; !ok {
+
+		seenMu.Lock()
+		s2, ok := seen[key]
+		if !ok {
 			seen[key] = &s
+		} else if s.Priority < s2.Priority {
+			*s2 = s
+		}
+		seenMu.Unlock()
+		if !ok {
 			select {
 			case <-ctx.Done():
 			case pingIn <- s:
 			}
-		} else if s.Priority < s2.Priority {
-			*s2 = s
 		}
 		return nil
 	})
