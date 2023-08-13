@@ -337,9 +337,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	if !mainloopContinue {
 		return false
 	}
-	if s.Frame()%2 == 0 {
-		s.mapSend.Update()
-	}
+	s.mapSend.Update()
 	sub_40B970()
 	sub_40B790()
 	if !noxflags.HasGame(noxflags.GamePause) {
