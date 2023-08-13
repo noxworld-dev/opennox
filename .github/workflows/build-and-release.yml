@@ -228,7 +228,7 @@ jobs:
           name: opennox-linux
           path: build
 
-      - uses: docker://ghcr.io/xandrosdarkstorm/docker-build:latest-linux-packaging-appimage
+      - uses: docker://ghcr.io/noxworld-dev/docker-build:latest-linux-packaging-appimage
         name: Using docker build - latest-linux-packaging-appimage
 
       - uses: actions/upload-artifact@v3
