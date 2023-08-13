@@ -75,6 +75,9 @@ func (c *clientMapDownload) startNative(name string, sz uint) error {
 	} else if sz <= 0 {
 		return errors.New("invalid size")
 	}
+	if !strings.HasSuffix(name, maps.Ext) {
+		name += maps.Ext
+	}
 	c.ndl.Reset()
 	var (
 		fpath string

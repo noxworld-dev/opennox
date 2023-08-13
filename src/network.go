@@ -1042,7 +1042,8 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return -1
 		}
 		sz := binary.LittleEndian.Uint32(data[4:])
-		c.mapsend.onMapDownloadStart(alloc.GoStringS(data[8:88]), uint(sz))
+		name := alloc.GoStringS(data[8:88])
+		c.mapsend.onMapDownloadStart(name, uint(sz))
 		return 88
 	case noxnet.MSG_MAP_SEND_PACKET:
 		if len(data) < 6 {
