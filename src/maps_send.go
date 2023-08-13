@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 	"time"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -103,6 +104,7 @@ func (s *serverMapSend) SendMore(p *playerMapSend) {
 	if p.SentSize == 0 {
 		if pl := s.s.Players.ByInd(p.PlayerInd); pl != nil {
 			format := strMan.GetStringInFile("Downloadingmap", "mapsend.c")
+			format = strings.ReplaceAll(format, "%S", "%s")
 			noxConsole.Print(console.ColorRed, fmt.Sprintf(format, s.mapName, pl.Name()))
 		}
 		var buf [88]byte
@@ -142,7 +144,7 @@ func (s *serverMapSend) SendMore(p *playerMapSend) {
 	}
 	if pl := s.s.Players.ByInd(p.PlayerInd); pl != nil {
 		format := strMan.GetStringInFile("downloaddone", "mapsend.c")
-		noxConsole.Print(console.ColorRed, fmt.Sprintf(format, p.SentSize, p.Sequence-1, speed, sec, pl.Name()))
+		noxConsole.Print(console.ColorRed, fmt.Sprintf(format, p.SentSize, p.Sequence-1, speed, int(sec), pl.Name()))
 	}
 	if s.activeCnt != 0 {
 		s.activeCnt--
