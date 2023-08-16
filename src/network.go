@@ -834,7 +834,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		fr := binary.LittleEndian.Uint16(data[1:])
 		*v373 = fr
 		if p := getCurPlayer(); p != nil && p.Field3680&0x40 != 0 {
-			return 1
+			return 3
 		}
 		v9 := 1
 		prevFrame := c.srv.Frame()
@@ -862,7 +862,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if !noxflags.HasGame(noxflags.GameHost) && v9 == 0 {
 			noxPerfmon.latePackets--
 			*memmap.PtrUint32(0x85B3FC, 120)++
-			return 1
+			return 3
 		}
 		if c.srv.Frame() > prevFrame+1 {
 			noxPerfmon.latePackets += int(c.srv.Frame() - prevFrame)
