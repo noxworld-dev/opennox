@@ -457,12 +457,12 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	legacy.Nox_xxx_set3512_40A340(0)
-	nox_xxx_setMapCRC_40A360(0)
+	noxSetUseMapFrame(0)
 
 	if err := conn.DialWait(10*time.Second, func() {
 		nox_xxx_netSendBySock_40EE10(conn, common.MaxPlayers-1, netlist.Kind0)
 	}, func() bool {
-		return nox_xxx_getMapCRC_40A370() != 0
+		return noxGetUseMapFrame() != 0
 	}); err != nil {
 		return err
 	}
@@ -721,7 +721,7 @@ func sub_4703F0() {
 
 func (s *Server) nox_xxx_mapLoad_40A380() {
 	legacy.Nox_xxx_set3512_40A340(0)
-	nox_xxx_setMapCRC_40A360(0)
+	noxSetUseMapFrame(0)
 	name := memmap.String(0x5D4594, 3608)
 	s.nox_xxx_gameSetMapPath_409D70(name)
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)

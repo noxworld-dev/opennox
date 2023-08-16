@@ -75,8 +75,8 @@ var (
 )
 
 var (
-	noxMapCRC     = 0
-	noxServerHost = "localhost"
+	noxUseMapFrame = 0
+	noxServerHost  = "localhost"
 )
 
 func networkLogPrint(str string) {
@@ -110,15 +110,15 @@ func nox_xxx_setClientNetPort_40A410(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 3528) = uint32(a1)
 }
 
-func nox_xxx_getMapCRC_40A370() int {
-	return noxMapCRC
+func noxGetUseMapFrame() int {
+	return noxUseMapFrame
 }
 
-func nox_xxx_setMapCRC_40A360(crc int) {
+func noxSetUseMapFrame(frame int) {
 	if netstr.Global.Debug {
-		netstr.Log.Printf("map crc set: %d", crc)
+		netstr.Log.Printf("use map frame: %d", frame)
 	}
-	noxMapCRC = crc
+	noxUseMapFrame = frame
 }
 
 func noxOnCliPacketDebug(op noxnet.Op, buf []byte) {
@@ -879,8 +879,8 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if len(data) < 41 {
 			return -1
 		}
-		if v1 := binary.LittleEndian.Uint32(data[37:]); v1 > uint32(legacy.Get_dword_5d4594_1200804()) {
-			nox_xxx_setMapCRC_40A360(int(v1))
+		if mframe := binary.LittleEndian.Uint32(data[37:]); mframe > uint32(legacy.Get_dword_5d4594_1200804()) {
+			noxSetUseMapFrame(int(mframe))
 			legacy.Nox_xxx_gameClearAll_467DF0(1)
 			c.srv.nox_xxx_gameSetMapPath_409D70(alloc.GoStringS(data[1:33]))
 			nox_xxx_mapSetCrcMB_409B10(binary.LittleEndian.Uint32(data[33:]))
