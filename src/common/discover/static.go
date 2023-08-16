@@ -57,22 +57,24 @@ func staticIPs(path string) ([]Server, error) {
 		if strings.HasPrefix(line, "#") {
 			continue
 		}
-		// TODO: support server ports
-		const port = common.GamePort
-		ip, err := netip.ParseAddr(line)
+		addr, err := netip.ParseAddrPort(line)
 		if err != nil {
-			last = fmt.Errorf("cannot parse server IP in %s: %q: %v", name, line, err)
-			Log.Println(last)
-			continue
+			ip, err := netip.ParseAddr(line)
+			if err != nil {
+				last = fmt.Errorf("cannot parse server IP in %s: %q: %v", name, line, err)
+				Log.Println(last)
+				continue
+			}
+			addr = netip.AddrPortFrom(ip, common.GamePort)
 		}
-		Log.Printf("%s: %v", name, ip)
+		Log.Printf("%s: %v", name, addr)
 		out = append(out, Server{
 			Source:   name,
 			Priority: priorityStatic,
-			IP:       ip,
+			IP:       addr.Addr(),
 			Game: lobby.Game{
-				Address: ip.String(),
-				Port:    port,
+				Address: addr.Addr().String(),
+				Port:    int(addr.Port()),
 			},
 		})
 	}
