@@ -3132,7 +3132,7 @@ size_t nox_xxx_cmdSayDo_46A4B0(wchar2_t* a1, int a2) {
 	result = nox_wcslen(a1);
 	if (v3 != result) {
 		v5 = &a1[v3];
-		v8[0] = -88;
+		v8[0] = -88; // MSG_TEXT_MESSAGE
 		*(uint16_t*)&v8[9] = 0;
 		*(uint16_t*)&v8[1] = nox_player_netCode_85319C;
 		v8[3] = 0;

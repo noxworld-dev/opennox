@@ -16,7 +16,7 @@ int nox_xxx_netSendChat_528AC0(nox_object_t* a1p, wchar2_t* a2, wchar2_t a3) {
 	int i;         // esi
 	char v11[520]; // [esp+8h] [ebp-208h]
 
-	v11[0] = -88;
+	v11[0] = -88; // MSG_TEXT_MESSAGE
 	v11[3] = 0;
 	if (nox_xxx_cliCanTalkMB_4100F0((short*)a2)) {
 		v3 = v11[3] | 2;

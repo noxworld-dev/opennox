@@ -7815,7 +7815,7 @@ int nox_xxx_monsterCmdSend_528BD0(int unit, int source, const char* command, sho
 	int i;         // esi
 	char v10[520]; // [esp+Ch] [ebp-208h]
 
-	v10[0] = -88;
+	v10[0] = -88; // MSG_TEXT_MESSAGE
 	v10[3] = 8;
 	v4 = nox_xxx_netGetUnitCodeServ_578AC0((uint32_t*)unit);
 	v5 = *(float*)(unit + 56);

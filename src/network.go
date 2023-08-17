@@ -1479,12 +1479,19 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			rtext = rtext[:sz]
 			text = alloc.GoString16B(rtext)
 		}
-		_ = text
 		msz := 11 + sz
 		if pl != nil && (pl.Field3680>>2)&0x1 != 0 {
 			return msz, true
 		}
+		orig := text
 		if flags&0x1 == 0 { // global chat
+			text = s.callOnChat(nil, pl.S(), pl.UnitC().SObj(), text)
+			if text == "" {
+				return msz, true // mute
+			}
+			if text != orig {
+				// FIXME: rebuild the packet and replace the message
+			}
 			for it := s.PlayerFirst(); it != nil; it = s.PlayerNext(it) {
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
@@ -1505,6 +1512,13 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		tcl := s.Teams.ByID(tm.ID)
 		if tcl == nil {
 			return msz, true
+		}
+		text = s.callOnChat(tcl, pl.S(), pl.UnitC().SObj(), text)
+		if text == "" {
+			return msz, true // mute
+		}
+		if text != orig {
+			// FIXME: rebuild the packet and replace the message
 		}
 		for it := s.PlayerFirst(); it != nil; it = s.PlayerNext(it) {
 			uit := it.UnitC()
