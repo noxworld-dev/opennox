@@ -5237,7 +5237,7 @@ int nox_xxx_netSendLineMessage_4D9EB0(int a1, wchar2_t* a2, ...) {
 	if (a1 && *(uint8_t*)(a1 + 8) & 4) {
 		v3 = *(uint32_t*)(a1 + 748);
 		nox_vswprintf(&v6[260], a2, va);
-		LOBYTE(v6[0]) = -88;
+		LOBYTE(v6[0]) = -88; // MSG_TEXT_MESSAGE
 		*(wchar2_t*)((char*)v6 + 1) = 0;
 		HIBYTE(v6[1]) = 0;
 		if (nox_xxx_cliCanTalkMB_4100F0((short*)&v6[260])) {
@@ -5274,7 +5274,7 @@ int nox_xxx_printToAll_4D9FD0(char a1, wchar2_t* a2, ...) {
 
 	va_start(va, a2);
 	nox_vswprintf(&v6[260], a2, va);
-	LOBYTE(v6[0]) = -88;
+	LOBYTE(v6[0]) = -88; // MSG_TEXT_MESSAGE
 	*(wchar2_t*)((char*)v6 + 1) = 0;
 	HIBYTE(v6[1]) = a1;
 	if (nox_xxx_cliCanTalkMB_4100F0((short*)&v6[260])) {
