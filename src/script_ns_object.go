@@ -121,17 +121,19 @@ func (s noxScriptNS) FindObjects(iter func(obj ns4.Obj) bool, conditions ...ns4.
 		}
 	}
 	// Finally start the actual iteration.
+	filter := ns4.AND(conditions)
 	cnt := 0
 	search(func(obj *server.Object) bool {
 		nobj := nsObj{s.s, asObjectS(obj)}
-		for _, c := range conditions {
-			if !c.Matches(nobj) {
-				return true // find next match
-			}
+		if !filter.Matches(nobj) {
+			return true // find next match
 		}
 		// Found, pass to user-defined handler func.
 		cnt++
-		return iter(nobj)
+		if iter != nil && !iter(nobj) {
+			return false
+		}
+		return true
 	})
 	return cnt
 }
@@ -274,6 +276,37 @@ func (obj nsObj) ObjScriptID() int {
 
 func (obj nsObj) Type() ns4.ObjType {
 	return nsObjType{obj.s, obj.Object.ObjectTypeC()}
+}
+
+func (obj nsObj) Team() ns4.Team {
+	t := obj.Object.Team()
+	if t == nil {
+		return nil
+	}
+	return nsTeam{obj.s, t}
+}
+
+func (obj nsObj) HasTeam(t ns4.Team) bool {
+	if t == nil {
+		return !obj.Object.HasTeam()
+	}
+	tm, ok := t.(nsTeam)
+	if !ok {
+		return false
+	}
+	return legacy.Nox_xxx_teamCompare2_419180(obj.Object.TeamPtr(), tm.t.ID()) != 0
+}
+
+func (obj nsObj) SetTeam(t ns4.Team) {
+	if t == nil {
+		return // TODO: support clearing the team
+	}
+	tm, ok := t.(nsTeam)
+	if !ok {
+		return
+	}
+	// TODO: check arg3 and arg5
+	legacy.Nox_xxx_createAtImpl_4191D0(tm.t.ID(), obj.Object.TeamPtr(), 1, obj.Object.NetCode, 0)
 }
 
 func (obj nsObj) IsLocked() bool {
@@ -644,31 +677,28 @@ func (obj nsObj) GetPreviousItem() ns4.Obj {
 	return nsObj{obj.s, it}
 }
 
-func matchesAll(v ns4.Obj, conditions []ns4.ObjCond) bool {
-	for _, c := range conditions {
-		if !c.Matches(v) {
-			return false
-		}
-	}
-	return true
-}
-
 func (obj nsObj) Items(conditions ...ns4.ObjCond) []ns4.Obj {
+	filter := ns4.AND(conditions)
 	var out []ns4.Obj
 	for it := obj.FirstItem(); it != nil; it = it.NextItem() {
 		v := nsObj{obj.s, it}
-		if matchesAll(v, conditions) {
+		if filter.Matches(v) {
 			out = append(out, v)
 		}
 	}
 	return out
 }
 
-func (obj nsObj) FindItems(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond) int {
+type nsObjInItems struct {
+	obj nsObj
+}
+
+func (s nsObjInItems) FindObjects(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond) int {
+	filter := ns4.AND(conditions)
 	cnt := 0
-	for it := obj.FirstItem(); it != nil; it = it.NextItem() {
-		v := nsObj{obj.s, it}
-		if !matchesAll(v, conditions) {
+	for it := s.obj.FirstItem(); it != nil; it = it.NextItem() {
+		v := nsObj{s.obj.s, it}
+		if !filter.Matches(v) {
 			continue
 		}
 		cnt++
@@ -677,6 +707,14 @@ func (obj nsObj) FindItems(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond)
 		}
 	}
 	return cnt
+}
+
+func (obj nsObj) InItems() ns4.ObjSearcher {
+	return nsObjInItems{obj}
+}
+
+func (obj nsObj) FindItems(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond) int {
+	return obj.InItems().FindObjects(fnc, conditions...)
 }
 
 func (obj nsObj) GetHolder() ns4.Obj {
@@ -1099,4 +1137,29 @@ func (g nsObjGroup) EachObject(recursive bool, fnc func(obj ns4.Obj) bool) {
 	} else {
 		eachObjectNS(g.s, g.g, fnc)
 	}
+}
+
+func (g nsObjGroup) AllObjects() ns4.Objects {
+	var out ns4.Objects
+	g.EachObject(true, func(obj ns4.Obj) bool {
+		out = append(out, obj)
+		return true
+	})
+	return out
+}
+
+func (g nsObjGroup) FindObjects(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond) int {
+	filter := ns4.AND(conditions)
+	cnt := 0
+	g.EachObject(true, func(obj ns4.Obj) bool {
+		if !filter.Matches(obj) {
+			return true // continue
+		}
+		cnt++
+		if fnc != nil && !fnc(obj) {
+			return false // break
+		}
+		return true
+	})
+	return cnt
 }

@@ -2,18 +2,25 @@ package opennox
 
 import (
 	"github.com/noxworld-dev/opennox-lib/script"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
+
+type OnChatFunc func(t *server.Team, p *server.Player, obj *server.Object, msg string) string
 
 type scriptEvents struct {
 	byObject      map[uintptr]*objectHandlers
 	onPlayerJoin  []func(p script.Player)
 	onPlayerLeave []func(p script.Player)
+	onChat        []OnChatFunc
 }
 
 func (s *Server) clearScriptTriggers() {
+	scriptLog.Printf("reset all hooks")
 	s.scriptEvents.byObject = nil
 	s.scriptEvents.onPlayerJoin = nil
 	s.scriptEvents.onPlayerLeave = nil
+	s.scriptEvents.onChat = nil
 }
 
 func (s *Server) OnPlayerJoin(fnc func(p script.Player)) {
@@ -22,6 +29,10 @@ func (s *Server) OnPlayerJoin(fnc func(p script.Player)) {
 
 func (s *Server) OnPlayerLeave(fnc func(p script.Player)) {
 	s.scriptEvents.onPlayerLeave = append(s.scriptEvents.onPlayerLeave, fnc)
+}
+
+func (s *Server) OnChat(fnc OnChatFunc) {
+	s.scriptEvents.onChat = append(s.scriptEvents.onChat, fnc)
 }
 
 func (s *Server) callOnPlayerJoin(p *Player) {
@@ -36,6 +47,16 @@ func (s *Server) callOnPlayerLeave(p *Player) {
 	for _, fnc := range s.scriptEvents.onPlayerLeave {
 		fnc(p)
 	}
+}
+
+func (s *Server) callOnChat(t *server.Team, p *server.Player, obj *server.Object, msg string) string {
+	for _, fnc := range s.scriptEvents.onChat {
+		msg = fnc(t, p, obj, msg)
+		if msg == "" {
+			break
+		}
+	}
+	return msg
 }
 
 func (obj *Object) getHandlers() *objectHandlers {
