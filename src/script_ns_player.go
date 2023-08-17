@@ -146,6 +146,24 @@ func (p nsPlayer) Unit() ns.Obj {
 	return nsObj{p.s, u}
 }
 
+func (p nsPlayer) Team() ns.Team {
+	// TODO: any other way?
+	u := p.Unit()
+	if u == nil {
+		return nil
+	}
+	return u.Team()
+}
+
+func (p nsPlayer) HasTeam(t ns.Team) bool {
+	// TODO: any other way?
+	u := p.Unit()
+	if u == nil {
+		return false
+	}
+	return u.HasTeam(t)
+}
+
 func (p nsPlayer) GetScore() int {
 	return int(p.p.Lessons)
 }
