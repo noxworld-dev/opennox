@@ -164,7 +164,14 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 		s.vmsMaybeInitMap()
 	}
 	for _, vm := range s.vms.vms {
-		vm.OnEvent(event)
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					scriptLog.Printf("panic in event: %q: %v", event, r)
+				}
+			}()
+			vm.OnEvent(event)
+		}()
 	}
 
 	switch event {
