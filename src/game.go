@@ -20,6 +20,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -823,7 +824,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 	savedone := false
 	dead := u.Flags().Has(object.FlagDead)
 	if !dead {
-		s.scriptOnEvent("MapShutdown")
+		s.scriptOnEvent(script.EventMapShutdown)
 		noxflags.SetGame(noxflags.GameFlag28)
 		savedone = saveCoopGame(saveName1557900)
 		noxflags.UnsetGame(noxflags.GameFlag28)
@@ -1024,7 +1025,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	}
 	legacy.Sub_4D22B0()
 	s.nox_xxx_netMsgFadeBegin_4D9800(false, true)
-	s.scriptOnEvent("MapExit")
+	s.scriptOnEvent(script.EventMapExit)
 	v2 := s.getServerMap()
 	legacy.Sub_500510(v2)
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0(1)
