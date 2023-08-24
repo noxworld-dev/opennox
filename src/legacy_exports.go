@@ -322,4 +322,5 @@ func init() {
 	legacy.Nox_xxx_monsterCreateFn_54C480 = nox_xxx_monsterCreateFn_54C480
 	legacy.Nox_xxx_monsterClearActionStack_50A3A0 = nox_xxx_monsterClearActionStack_50A3A0
 	legacy.Sub_4A1A40 = sub_4A1A40
+	legacy.Nox_client_getChatMap_49FF40 = nox_client_getChatMap_49FF40
 }
