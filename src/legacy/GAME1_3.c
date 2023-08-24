@@ -73,6 +73,7 @@ uint32_t dword_5d4594_816092 = 0;
 
 //----- (0043B510) --------------------------------------------------------
 void nox_client_gui_set_flag_815132(int v);
+char* nox_client_getChatMap_49FF40(short* a1);
 void nox_client_xxx_switchChatMap_43B510() {
 	short v0;     // ax
 	char* result; // eax

@@ -90,6 +90,7 @@ var (
 	GetDoDamageWalls                    func() bool
 	Sub_41CC00                          func(s string)
 	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
+	Nox_client_getChatMap_49FF40        func() string
 )
 
 func init() {
@@ -339,6 +340,11 @@ func sub_497180(r1, r2 *C.float4, outp *C.float2) int {
 //export sub_427980
 func sub_427980(r1, r2 *C.float4) int {
 	return bool2int(server.LineTraceXxx(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2))))
+}
+
+//export nox_client_getChatMap_49FF40
+func nox_client_getChatMap_49FF40(pt *C.short) *C.char {
+	return internCStr(Nox_client_getChatMap_49FF40())
 }
 
 func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
