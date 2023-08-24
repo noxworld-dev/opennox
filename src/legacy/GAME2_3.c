@@ -5912,25 +5912,6 @@ uint32_t* sub_49FF20() {
 	return result;
 }
 
-//----- (0049FF40) --------------------------------------------------------
-char* nox_client_getChatMap_49FF40(short* a1) {
-	int v1;                            // edx
-	nox_player_polygon_check_data* v2; // eax
-	char* result;                      // eax
-	int2 v4;                           // [esp+0h] [ebp-8h]
-
-	v1 = a1[1] + 10;
-	v4.field_0 = *a1 + 10;
-	v4.field_4 = v1;
-	v2 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v4, 0);
-	if (v2 || (v2 = (nox_player_polygon_check_data*)sub_421990(&v4, 100.0, 0)) != 0) {
-		result = (char*)&v2->field_0[1];
-	} else {
-		result = *(char**)getMemAt(0x587000, 165756);
-	}
-	return result;
-}
-
 //----- (0049FFA0) --------------------------------------------------------
 int* sub_49FFA0(int a1) {
 	int* result; // eax
