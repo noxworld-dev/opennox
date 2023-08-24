@@ -48,10 +48,12 @@ var (
 	dword_5d4594_2516476      byte
 	gameIsNotMultiplayer      bool
 	gameIsSwitchToSolo        bool
+	defaultChatMap            string
 )
 
 func init() {
 	configBoolPtr("network.xwis.register", "NOX_XWIS", true, &useXWIS)
+	configStrPtr("server.maps.default_chat", "NOX_CHAT_MAP", "so_lod", &defaultChatMap)
 	gui.RegisterState(client.StateMovies, "Movies", nox_game_rollLogoAndStart_4AB1F0)
 	gui.RegisterState(client.StateMainMenu, "MainMenu", nox_game_showMainMenu4A1C00)
 	gui.RegisterState(client.StateCharSelect, "CharSelect", func() bool {
@@ -682,6 +684,10 @@ func (s *Server) nox_server_currentMapGetFilename_409B30() string {
 
 func nox_xxx_mapFilenameGetSolo_4DB260() string {
 	return dword_5d4594_1559960
+}
+
+func nox_client_getChatMap_49FF40() string {
+	return defaultChatMap
 }
 
 func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
