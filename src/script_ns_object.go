@@ -1,6 +1,7 @@
 package opennox
 
 import (
+	"fmt"
 	"image/color"
 	"unsafe"
 
@@ -877,7 +878,7 @@ func (obj nsObj) OnEvent(ev ns4.ObjectEvent, fnc ns4.Func) {
 	if !obj.Class().Has(object.ClassMonster) {
 		return
 	}
-	ind := int32(obj.s.noxScript.AsFuncIndex(fnc))
+	ind := int32(obj.s.noxScript.AsFuncIndex(fmt.Sprintf("OnEvent_%d", int(ev)), fnc))
 	ud := obj.UpdateDataMonster()
 	switch ev {
 	case ns4.EventEnemySighted: // Enemy sighted

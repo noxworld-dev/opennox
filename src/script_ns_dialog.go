@@ -25,8 +25,8 @@ func (s noxScriptNS) SetDialog(cobj ns.Obj, typ ns.DialogType, start, end ns.Fun
 	}
 	flags := server.ParseDialogFlags(string(typ))
 	obj := cobj.(nsObj)
-	starti := s.s.noxScript.AsFuncIndex(start)
-	endi := s.s.noxScript.AsFuncIndex(end)
+	starti := s.s.noxScript.AsFuncIndex("DialogStart", start)
+	endi := s.s.noxScript.AsFuncIndex("DialogEnd", end)
 	nox_xxx_scriptSetDialog_548C80(obj.SObj(), flags, starti, endi)
 }
 
