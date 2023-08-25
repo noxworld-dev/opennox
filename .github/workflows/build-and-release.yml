@@ -196,13 +196,6 @@ jobs:
           cp /tmp/linux-tmp/* /tmp/opennox-linux
           cp ./CHANGELOG.md /tmp/opennox-linux
 
-          mkdir /tmp/opennox-linux/docs
-          cp ./docs/game-*.md /tmp/opennox-linux/docs/
-          cp ./docs/server-*.md /tmp/opennox-linux/docs/
-          cp ./docs/mod-*.md /tmp/opennox-linux/docs/
-          cp ./docs/maps-*.md /tmp/opennox-linux/docs/
-          cp ./docs/*-sample.yml /tmp/opennox-linux/docs/
-
           export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
           cd /tmp/opennox-linux
           rm -rf /tmp/opennox-linux-release
@@ -273,13 +266,6 @@ jobs:
             cp /tmp/win-tmp/*.exe /tmp/opennox-win/
             cp /tmp/win-tmp/*.dll /tmp/opennox-win/
             cp ./CHANGELOG.md /tmp/opennox-win/
-
-            mkdir /tmp/opennox-win/docs
-            cp ./docs/game-*.md /tmp/opennox-win/docs/
-            cp ./docs/server-*.md /tmp/opennox-win/docs/
-            cp ./docs/mod-*.md /tmp/opennox-win/docs/
-            cp ./docs/maps-*.md /tmp/opennox-win/docs/
-            cp ./docs/*-sample.yml /tmp/opennox-win/docs/
 
             rm -rf /tmp/opennox-win-release
             mkdir -p /tmp/opennox-win-release
