@@ -42,7 +42,7 @@ func (s noxScriptNS) NewTimer(dt ns4.Duration, fnc ns4.Func, args ...any) ns4.Ti
 	case 1:
 		arg = s.s.noxScript.AsValue(args[0])
 	}
-	id := s.s.NewTimer(s.s.AsFrames(dt), s.s.noxScript.AsFuncIndex(fnc), arg)
+	id := s.s.NewTimer(s.s.AsFrames(dt), s.s.noxScript.AsFuncIndex("Timer", fnc), arg)
 	return nsTimer{s: s.s, id: id}
 }
 

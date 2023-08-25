@@ -346,7 +346,7 @@ func (s *noxScript) AsValue(val any) uint32 {
 	panic(fmt.Errorf("unsupported type: %T", val))
 }
 
-func (s *noxScript) AsFuncIndex(fnc ns4.Func) int {
+func (s *noxScript) AsFuncIndex(defname string, fnc ns4.Func) int {
 	switch fnc := fnc.(type) {
 	case nil:
 		return -1
@@ -358,13 +358,13 @@ func (s *noxScript) AsFuncIndex(fnc ns4.Func) int {
 	case string:
 		return s.scriptIndexByName(fnc)
 	case func():
-		return s.addVirtual("", func() (gerr error) {
+		return s.addVirtual(defname, func() (gerr error) {
 			defer func() {
 				if r := recover(); r != nil {
 					if e, ok := r.(error); ok {
 						gerr = e
 					} else {
-						gerr = fmt.Errorf("panic: %v", r)
+						gerr = fmt.Errorf("panic in %s: %v", defname, r)
 					}
 				}
 			}()
