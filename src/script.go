@@ -90,7 +90,14 @@ type scriptVMs struct {
 
 func (s *Server) scriptTick() {
 	for _, vm := range s.vms.vms {
-		vm.OnFrame()
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					scriptLog.Printf("panic in OnFrame: %v", r)
+				}
+			}()
+			vm.OnFrame()
+		}()
 	}
 }
 
