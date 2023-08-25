@@ -358,7 +358,16 @@ func (s *noxScript) AsFuncIndex(fnc ns4.Func) int {
 	case string:
 		return s.scriptIndexByName(fnc)
 	case func():
-		return s.addVirtual("", func() error {
+		return s.addVirtual("", func() (gerr error) {
+			defer func() {
+				if r := recover(); r != nil {
+					if e, ok := r.(error); ok {
+						gerr = e
+					} else {
+						gerr = fmt.Errorf("panic: %v", r)
+					}
+				}
+			}()
 			fnc()
 			return nil
 		})
