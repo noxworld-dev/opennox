@@ -38,8 +38,26 @@ func (s noxScriptNS) Players() []ns.Player {
 }
 
 func (s noxScriptNS) GetCharacterData(field int) int {
-	//TODO implement me
-	panic("implement me")
+	p := legacy.Nox_xxx_getHostInfoPtr_431770()
+	switch field {
+	case 0:
+		return int(p.Field2235())
+	case 1:
+		return int(p.Field2239())
+	case 2:
+		return int(p.Field2243())
+	case 3:
+		return int(p.Field2247())
+	case 4:
+		return int(p.PlayerClass())
+	case 5:
+		if p.IsFemale() {
+			return 1
+		}
+		return 0
+	default:
+		return 0
+	}
 }
 
 func (s noxScriptNS) Print(message ns.StringID) {

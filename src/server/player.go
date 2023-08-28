@@ -618,6 +618,14 @@ func (p *PlayerInfo) Field2239() uint32 {
 	return *(*uint32)(unsafe.Pointer(&p.field2239))
 }
 
+func (p *PlayerInfo) Field2243() uint32 {
+	return *(*uint32)(unsafe.Pointer(&p.field2243))
+}
+
+func (p *PlayerInfo) Field2247() uint32 {
+	return *(*uint32)(unsafe.Pointer(&p.field2247))
+}
+
 func (p *PlayerInfo) Field2253() uint16 {
 	return *(*uint16)(unsafe.Pointer(&p.field2253))
 }

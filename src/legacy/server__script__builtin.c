@@ -214,47 +214,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 	}
 }
 
-//----- (00513FA0) --------------------------------------------------------
-int nox_script_GetHostInfo_513FA0() {
-	int v0;     // esi
-	char* v1;   // eax
-	int result; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_xxx_getHostInfoPtr_431770();
-	switch (v0) {
-	case 0:
-		nox_script_push(*(uint32_t*)(v1 + 50));
-		result = 0;
-		break;
-	case 1:
-		nox_script_push(*(uint32_t*)(v1 + 54));
-		result = 0;
-		break;
-	case 2:
-		nox_script_push(*(uint32_t*)(v1 + 58));
-		result = 0;
-		break;
-	case 3:
-		nox_script_push(*(uint32_t*)(v1 + 62));
-		result = 0;
-		break;
-	case 4:
-		nox_script_push((unsigned char)v1[66]);
-		result = 0;
-		break;
-	case 5:
-		nox_script_push((unsigned char)v1[67]);
-		result = 0;
-		break;
-	default:
-		nox_script_push(0);
-		result = 0;
-		break;
-	}
-	return result;
-}
-
 //----- (00514BE0) --------------------------------------------------------
 int nox_script_SetQuestInt_514BE0() {
 	int v0; // esi

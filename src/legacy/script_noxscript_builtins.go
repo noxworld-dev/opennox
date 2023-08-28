@@ -3,7 +3,6 @@ package legacy
 /*
 #include "defs.h"
 int nox_script_Fn5E_513F70();
-int nox_script_GetHostInfo_513FA0();
 int nox_script_SetQuestInt_514BE0();
 int nox_script_SetQuestFloat_514C10();
 int nox_script_GetQuestInt_514C40();
@@ -79,7 +78,6 @@ func Nox_script_StartupScreen_516600_A() {
 
 var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinUnused5e:            wrapScriptC(C.nox_script_Fn5E_513F70),
-	asm.BuiltinGetCharacterData:    wrapScriptC(C.nox_script_GetHostInfo_513FA0),
 	asm.BuiltinSetQuestStatus:      wrapScriptC(C.nox_script_SetQuestInt_514BE0),
 	asm.BuiltinSetQuestStatusFloat: wrapScriptC(C.nox_script_SetQuestFloat_514C10),
 	asm.BuiltinGetQuestStatus:      wrapScriptC(C.nox_script_GetQuestInt_514C40),
