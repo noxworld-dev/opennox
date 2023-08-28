@@ -338,8 +338,11 @@ func (obj nsObj) HasClass(class class.Class) bool {
 }
 
 func (obj nsObj) HasSubclass(subclass subclass.SubClass) bool {
-	//TODO implement me
-	panic("implement me")
+	cls, err := object.ParseSubClass(string(subclass))
+	if err != nil {
+		return false
+	}
+	return obj.SubClass().Has(cls)
 }
 
 func (obj nsObj) HasEnchant(enc enchant.Enchant) bool {
