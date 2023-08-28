@@ -102,7 +102,7 @@ func (c *Client) ToggleFiltering() {
 	if c == nil {
 		return
 	}
-	val := !c.Client.ToggleFiltering()
+	val := c.Client.ToggleFiltering()
 	viper.Set(configVideoFiltering, val)
 	writeConfigLater()
 }
