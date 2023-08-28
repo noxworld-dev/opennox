@@ -350,42 +350,6 @@ int nox_script_JournalEdit_5155A0() {
 	return 0;
 }
 
-//----- (005159E0) --------------------------------------------------------
-int nox_script_HitLocation_5159E0() {
-	int v0;   // eax
-	int v1;   // eax
-	float v3; // [esp+0h] [ebp-10h]
-	float v4; // [esp+4h] [ebp-Ch]
-	float2 v5;
-
-	v4 = nox_script_popf();
-	v3 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v5.field_0 = v3;
-		v5.field_4 = v4;
-		nox_xxx_monsterActionMelee_515A30(v1, (float2*)&v5);
-	}
-	return 0;
-}
-
-//----- (00515AE0) --------------------------------------------------------
-int nox_script_HitLocationGroup_515AE0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-	float2 v3;         // [esp+0h] [ebp-10h]
-	float2 v4;         // [esp+8h] [ebp-8h]
-
-	LODWORD(v3.field_4) = nox_script_pop();
-	LODWORD(v3.field_0) = nox_script_pop();
-	v0 = nox_script_pop();
-	v4 = v3;
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_monsterActionMelee_515A30, (int)&v4);
-	return 0;
-}
-
 //----- (00515B30) --------------------------------------------------------
 int nox_script_HitFarLocation_515B30() {
 	int v0;    // eax

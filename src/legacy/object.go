@@ -15,6 +15,7 @@ void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
 wchar2_t* sub_4E39F0_obj_db(nox_object_t* a1);
 void nox_xxx_scriptDialog_548D30(nox_object_t* a1, char a2);
 void nox_server_scriptFleeFrom_515F70(nox_object_t* a1, void* a2);
+void nox_xxx_monsterActionMelee_515A30(nox_object_t* a1, float2* a2);
 */
 import "C"
 import (
@@ -452,6 +453,12 @@ func Nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dis
 	p.P2 = p2
 	p.Dist = dist
 	C.nox_xxx_monsterGoPatrol_515680(asObjectC(obj), unsafe.Pointer(p))
+}
+func Nox_xxx_monsterActionMelee_515A30(obj *server.Object, pos types.Pointf) {
+	cp, free := alloc.New(types.Pointf{})
+	defer free()
+	*cp = pos
+	C.nox_xxx_monsterActionMelee_515A30(asObjectC(obj), (*C.float2)(unsafe.Pointer(cp)))
 }
 
 func Sub_516090(obj *server.Object, df int) {
