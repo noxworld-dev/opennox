@@ -652,6 +652,9 @@ func (obj nsObj) HitRanged(pos types.Pointf) {
 
 func (obj nsObj) Flee(target ns4.Positioner, dt ns4.Duration) {
 	var targ *server.Object
+	if t, ok := target.(server.Obj); ok {
+		targ = t.SObj()
+	}
 	nox_server_scriptFleeFrom_515F70(obj.SObj(), targ, obj.s.AsFrames(dt))
 }
 
