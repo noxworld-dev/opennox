@@ -4928,7 +4928,8 @@ void nox_xxx_monsterActionMelee_515A30(nox_object_t* a1p, float2* a2) {
 }
 
 //----- (00515B80) --------------------------------------------------------
-void nox_xxx_monsterMissileAttack_515B80(int a1, uint32_t* a2) {
+void nox_xxx_monsterMissileAttack_515B80(nox_object_t* a1p, float2* a2) {
+	int a1 = a1p;
 	int v2;  // eax
 	int* v3; // eax
 	int* v4; // eax
@@ -4946,8 +4947,8 @@ void nox_xxx_monsterMissileAttack_515B80(int a1, uint32_t* a2) {
 						}
 						v4 = nox_xxx_monsterPushAction_50A260(a1, 17);
 						if (v4) {
-							v4[1] = *a2;
-							v4[2] = a2[1];
+							v4[1] = *(uint32_t*)(&a2[0]);
+							v4[2] = *(uint32_t*)(&a2[1]);
 							v4[3] = 0;
 						}
 					}

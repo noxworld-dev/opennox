@@ -16,6 +16,7 @@ wchar2_t* sub_4E39F0_obj_db(nox_object_t* a1);
 void nox_xxx_scriptDialog_548D30(nox_object_t* a1, char a2);
 void nox_server_scriptFleeFrom_515F70(nox_object_t* a1, void* a2);
 void nox_xxx_monsterActionMelee_515A30(nox_object_t* a1, float2* a2);
+void nox_xxx_monsterMissileAttack_515B80(nox_object_t* a1p, float2* a2);
 */
 import "C"
 import (
@@ -459,6 +460,12 @@ func Nox_xxx_monsterActionMelee_515A30(obj *server.Object, pos types.Pointf) {
 	defer free()
 	*cp = pos
 	C.nox_xxx_monsterActionMelee_515A30(asObjectC(obj), (*C.float2)(unsafe.Pointer(cp)))
+}
+func Nox_xxx_monsterMissileAttack_515B80(obj *server.Object, pos types.Pointf) {
+	cp, free := alloc.New(types.Pointf{})
+	defer free()
+	*cp = pos
+	C.nox_xxx_monsterMissileAttack_515B80(asObjectC(obj), (*C.float2)(unsafe.Pointer(cp)))
 }
 
 func Sub_516090(obj *server.Object, df int) {
