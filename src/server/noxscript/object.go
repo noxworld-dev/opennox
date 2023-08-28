@@ -91,6 +91,7 @@ func init() {
 	Register(asm.BuiltinCreatureGuard, nsGuard)
 	Register(asm.BuiltinPauseObject, nsPause)
 	Register(asm.BuiltinSetCallback, nsSetCallback)
+	Register(asm.BuiltinHitLocation, nsHitLocation)
 }
 
 func nsGetTrigger(vm VM) int {
@@ -809,6 +810,15 @@ func nsSetCallback(vm VM) int {
 	obj := vm.PopObjectNS()
 	if obj != nil {
 		obj.OnEvent(ev, int(fnc))
+	}
+	return 0
+}
+
+func nsHitLocation(vm VM) int {
+	pos := vm.PopPointf()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.HitMelee(pos)
 	}
 	return 0
 }

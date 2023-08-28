@@ -1228,6 +1228,10 @@ func nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dis
 	legacy.Nox_xxx_monsterGoPatrol_515680(obj, p1, p2, dist)
 }
 
+func nox_xxx_monsterActionMelee_515A30(obj *server.Object, pos types.Pointf) {
+	legacy.Nox_xxx_monsterActionMelee_515A30(obj, pos)
+}
+
 func sub_516090(obj *server.Object, df int) {
 	legacy.Sub_516090(obj, df)
 }
