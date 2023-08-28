@@ -719,22 +719,6 @@ int nox_script_SetShopkeeperGreet_516BE0() {
 	return 0;
 }
 
-//----- (00516C30) --------------------------------------------------------
-int nox_script_IsSummoned_516C30() {
-	int v0; // eax
-	int v1; // esi
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = 0;
-	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2 && *(uint8_t*)(v2 + 8) & 2) {
-		v1 = (*(uint32_t*)(*(uint32_t*)(v2 + 748) + 1440) >> 7) & 1;
-	}
-	nox_script_push(v1);
-	return 0;
-}
-
 //----- (00513F70) --------------------------------------------------------
 int nox_script_Fn5E_513F70() {
 	int v0;      // eax
