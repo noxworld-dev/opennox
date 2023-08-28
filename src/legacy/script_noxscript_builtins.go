@@ -33,7 +33,6 @@ int nox_script_builtin_516850();
 int nox_script_OblivionGive_516890();
 int nox_script_PlayerIsTrading_5166E0();
 int nox_script_SetShopkeeperGreet_516BE0();
-int nox_script_IsSummoned_516C30();
 void nox_script_StartupScreen_516600_A();
 */
 import "C"
@@ -111,5 +110,4 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinSetHalberd:          wrapScriptC(C.nox_script_OblivionGive_516890),
 	asm.BuiltinIsTrading:           wrapScriptC(C.nox_script_PlayerIsTrading_5166E0),
 	asm.BuiltinSetShopkeeperText:   wrapScriptC(C.nox_script_SetShopkeeperGreet_516BE0),
-	asm.BuiltinIsSummoned:          wrapScriptC(C.nox_script_IsSummoned_516C30),
 }
