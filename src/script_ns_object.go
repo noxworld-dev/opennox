@@ -186,8 +186,10 @@ func (s noxScriptNS) IsCrown(obj ns4.Obj) bool {
 }
 
 func (s noxScriptNS) IsSummoned(obj ns4.Obj) bool {
-	//TODO implement me
-	panic("implement me")
+	if obj == nil {
+		return false
+	}
+	return (obj.MonsterStatus()>>7)&0x1 != 0
 }
 
 func (s noxScriptNS) DestroyEveryChat() {
