@@ -1232,6 +1232,10 @@ func nox_xxx_monsterActionMelee_515A30(obj *server.Object, pos types.Pointf) {
 	legacy.Nox_xxx_monsterActionMelee_515A30(obj, pos)
 }
 
+func nox_xxx_monsterMissileAttack_515B80(obj *server.Object, pos types.Pointf) {
+	legacy.Nox_xxx_monsterMissileAttack_515B80(obj, pos)
+}
+
 func sub_516090(obj *server.Object, df int) {
 	legacy.Sub_516090(obj, df)
 }

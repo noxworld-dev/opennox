@@ -92,6 +92,7 @@ func init() {
 	Register(asm.BuiltinPauseObject, nsPause)
 	Register(asm.BuiltinSetCallback, nsSetCallback)
 	Register(asm.BuiltinHitLocation, nsHitLocation)
+	Register(asm.BuiltinHitFarLocation, nsHitFarLocation)
 }
 
 func nsGetTrigger(vm VM) int {
@@ -819,6 +820,15 @@ func nsHitLocation(vm VM) int {
 	obj := vm.PopObjectNS()
 	if obj != nil {
 		obj.HitMelee(pos)
+	}
+	return 0
+}
+
+func nsHitFarLocation(vm VM) int {
+	pos := vm.PopPointf()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.HitRanged(pos)
 	}
 	return 0
 }

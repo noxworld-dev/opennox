@@ -39,6 +39,7 @@ func init() {
 	Register(asm.BuiltinCreatureGroupGuard, nsGroupGuard)
 	Register(asm.BuiltinGroupPauseObject, nsGroupPause)
 	Register(asm.BuiltinGroupHitLocation, nsGroupHitLocation)
+	Register(asm.BuiltinGroupHitFarLocation, nsGroupHitFarLocation)
 }
 
 func nsGetObjectGroup(s VM) int {
@@ -306,6 +307,15 @@ func nsGroupHitLocation(vm VM) int {
 	g := vm.PopObjGroupNS()
 	if g != nil {
 		g.HitMelee(pos)
+	}
+	return 0
+}
+
+func nsGroupHitFarLocation(vm VM) int {
+	pos := vm.PopPointf()
+	g := vm.PopObjGroupNS()
+	if g != nil {
+		g.HitRanged(pos)
 	}
 	return 0
 }
