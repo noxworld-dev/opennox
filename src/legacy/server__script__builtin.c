@@ -350,40 +350,6 @@ int nox_script_JournalEdit_5155A0() {
 	return 0;
 }
 
-//----- (00515B30) --------------------------------------------------------
-int nox_script_HitFarLocation_515B30() {
-	int v0;    // eax
-	int v1;    // eax
-	int v3[2]; // [esp+0h] [ebp-10h]
-	int v4[2]; // [esp+8h] [ebp-8h]
-
-	v3[1] = nox_script_pop();
-	v3[0] = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		*(uint64_t*)v4 = *(uint64_t*)v3;
-		nox_xxx_monsterMissileAttack_515B80(v1, v4);
-	}
-	return 0;
-}
-
-//----- (00515BF0) --------------------------------------------------------
-int nox_script_HitFarLocationGroup_515BF0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-	int v3[2];         // [esp+0h] [ebp-10h]
-	int v4[2];         // [esp+8h] [ebp-8h]
-
-	v3[1] = nox_script_pop();
-	v3[0] = nox_script_pop();
-	v0 = nox_script_pop();
-	*(uint64_t*)v4 = *(uint64_t*)v3;
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_monsterMissileAttack_515B80, (int)v4);
-	return 0;
-}
-
 //----- (00515C40) --------------------------------------------------------
 int nox_script_SetRoamFlag_515C40(int a1) {
 	char v1; // bl
