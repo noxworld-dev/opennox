@@ -18,7 +18,6 @@ int nox_script_RetreatLevelGroup_515E50();
 int nox_script_SetResumeLevel_515E80();
 int nox_script_SetResumeLevelGroup_515EE0();
 int nox_script_GiveExp_516190();
-int nox_script_HasSubclass_5162D0();
 int nox_script_IsTalking_5166A0();
 int nox_script_MakeFriendly_516720();
 int nox_script_MakeEnemy_516760();
@@ -91,7 +90,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinJournalDelete:       wrapScriptC(C.nox_script_JournalDelete_515550),
 	asm.BuiltinJournalEdit:         wrapScriptC(C.nox_script_JournalEdit_5155A0),
 	asm.BuiltinGiveXp:              wrapScriptC(C.nox_script_GiveExp_516190),
-	asm.BuiltinHasSubclass:         wrapScriptC(C.nox_script_HasSubclass_5162D0),
 	asm.BuiltinIsTalking:           wrapScriptC(C.nox_script_IsTalking_5166A0),
 	asm.BuiltinMakeFriendly:        wrapScriptC(C.nox_script_MakeFriendly_516720),
 	asm.BuiltinMakeEnemy:           wrapScriptC(C.nox_script_MakeEnemy_516760),
