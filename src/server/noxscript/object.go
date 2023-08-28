@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/noxscript/ns/v4/audio"
 	"github.com/noxworld-dev/noxscript/ns/v4/class"
 	"github.com/noxworld-dev/noxscript/ns/v4/damage"
+	"github.com/noxworld-dev/noxscript/ns/v4/subclass"
 )
 
 func init() {
@@ -25,6 +26,7 @@ func init() {
 	Register(asm.BuiltinObjectOff, nsObjectOff)
 	Register(asm.BuiltinObjectToggle, nsObjectToggle)
 	Register(asm.BuiltinHasClass, nsHasClass)
+	Register(asm.BuiltinHasSubclass, nsHasSubclass)
 	Register(asm.BuiltinCurrentHealth, nsCurrentHealth)
 	Register(asm.BuiltinMaxHealth, nsMaxHealth)
 	Register(asm.BuiltinRestoreHealth, nsRestoreHealth)
@@ -225,6 +227,13 @@ func nsHasClass(s VM) int {
 	name := class.Class(s.PopString())
 	obj := s.PopObjectNS()
 	s.PushBool(obj != nil && obj.HasClass(name))
+	return 0
+}
+
+func nsHasSubclass(s VM) int {
+	name := subclass.SubClass(s.PopString())
+	obj := s.PopObjectNS()
+	s.PushBool(obj != nil && obj.HasSubclass(name))
 	return 0
 }
 
