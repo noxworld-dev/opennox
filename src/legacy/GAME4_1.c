@@ -4891,7 +4891,8 @@ void nox_xxx_unitSetFollow_5158C0(nox_object_t* obj1, nox_object_t* obj2) {
 }
 
 //----- (00515A30) --------------------------------------------------------
-void nox_xxx_monsterActionMelee_515A30(int a1, float2* a2) {
+void nox_xxx_monsterActionMelee_515A30(nox_object_t* a1p, float2* a2) {
+	int a1 = a1p;
 	int v2;    // eax
 	int* v3;   // eax
 	float* v4; // edi
