@@ -646,9 +646,8 @@ func (obj nsObj) HitMelee(pos types.Pointf) {
 	nox_xxx_monsterActionMelee_515A30(obj.SObj(), pos)
 }
 
-func (obj nsObj) HitRanged(p types.Pointf) {
-	//TODO implement me
-	panic("implement me")
+func (obj nsObj) HitRanged(pos types.Pointf) {
+	nox_xxx_monsterMissileAttack_515B80(obj.SObj(), pos)
 }
 
 func (obj nsObj) Flee(target ns4.Positioner, dt ns4.Duration) {
@@ -1066,9 +1065,11 @@ func (g nsObjGroup) HitMelee(pos types.Pointf) {
 	})
 }
 
-func (g nsObjGroup) HitRanged(p types.Pointf) {
-	//TODO implement me
-	panic("implement me")
+func (g nsObjGroup) HitRanged(pos types.Pointf) {
+	eachObjectRecursiveNS(g.s, g.g, func(obj ns4.Obj) bool {
+		obj.HitRanged(pos)
+		return true
+	})
 }
 
 func (g nsObjGroup) Attack(targ ns4.Positioner) {
