@@ -18,7 +18,7 @@
 OpenNox supports all vanilla Nox features. You should be able to complete the campaign and play online with OpenNox.
 If something doesn't work, please [open an issue](https://github.com/noxworld-dev/opennox/issues/new/choose).
 
-For a list of new features see [this page](docs/game-features.md).
+For a list of new features see [this page](https://noxworld-dev.github.io/opennox-docs/opennox/features/index.html).
 
 ## Download OpenNox
 
