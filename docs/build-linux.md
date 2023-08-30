@@ -4,7 +4,7 @@ This is the main build procedure for Linux version.
 
 ## Installing Go compiler
 
-Your Go installation must be at least version 1.19.
+Your Go installation must be at least version 1.20.
 
 If you have the supported version in your repository, you can install Go from there (`golang` package).
 
