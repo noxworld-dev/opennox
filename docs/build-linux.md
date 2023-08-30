@@ -17,7 +17,7 @@ See [official docs](https://golang.org/doc/install).
 ## Installing C compiler
 
 ```bash
-sudo apt install gcc
+sudo apt install gcc-multilib
 ```
 
 ## Installing other dependencies
