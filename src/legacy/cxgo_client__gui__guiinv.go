@@ -1461,7 +1461,7 @@ func nox_xxx_inventroryOnHovewerSub_4667E0(win *gui.Window, draw *gui.WindowData
 		}
 	}
 	if v5 != 32 {
-		v6 = nox_xxx_getEnchantSpell_424920(v5)
+		v6 = nox_xxx_getEnchantSpell_424920(server.EnchantID(v5))
 		v7 = nox_xxx_spellTitle_424930(v6)
 		nox_xxx_cursorSetTooltip_4776B0(v7)
 		return 1

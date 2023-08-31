@@ -2641,7 +2641,7 @@ func nox_xxx_netMarkMinimapObject_417190(a1 int32, a2p *server.Object, a3 int32)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*3)) = uint32(uintptr(unsafe.Pointer(v8)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*2)) = uint32(uintptr(unsafe.Pointer(v8)))
 	}
-	nox_xxx_unitSetXStatus_4E4800(a2, int32(uintptr(1)))
+	nox_xxx_unitSetXStatus_4E4800(a2, uint32(int32(uintptr(1))))
 	v3 = 1
 	return v3
 }

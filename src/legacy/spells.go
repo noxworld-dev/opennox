@@ -41,9 +41,8 @@ func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
 	return GetPhonemeTree()
 }
 
-// nox_xxx_getEnchantSpell_424920
-func nox_xxx_getEnchantSpell_424920(enc int32) int32 {
-	return int32(server.EnchantID(enc).Spell())
+func nox_xxx_getEnchantSpell_424920(enc server.EnchantID) int32 {
+	return int32(enc.Spell())
 }
 
 // nox_xxx_getEnchantName_4248F0
@@ -202,7 +201,7 @@ func Nox_xxx_spellCastByBook_4FCB80() {
 	nox_xxx_spellCastByBook_4FCB80()
 }
 func Nox_xxx_playerResetProtectionCRC_56F7D0(a1 uintptr, a2 int) {
-	nox_xxx_playerResetProtectionCRC_56F7D0(int32(a1), int32(a2))
+	nox_xxx_playerResetProtectionCRC_56F7D0(int32(a1), uint32(int32(a2)))
 }
 func Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(a1 uintptr, a2 int, a3 int) {
 	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(a1), int32(a2), int32(a3))

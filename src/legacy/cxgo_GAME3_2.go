@@ -6232,10 +6232,10 @@ func nox_xxx_drainMEffect_4E0740(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object
 		v6 = uint16(nox_xxx_unitGetOldMana_4EEC80(a4))
 		v7 = int16(v6)
 		if int32(v6) < v5 {
-			nox_xxx_playerManaSub_4EEBF0(unsafe.Pointer(a4), int32(v6))
+			nox_xxx_playerManaSub_4EEBF0(a4, int32(v6))
 			nox_xxx_playerManaAdd_4EEB80(a3, v7)
 		} else {
-			nox_xxx_playerManaSub_4EEBF0(unsafe.Pointer(a4), v5)
+			nox_xxx_playerManaSub_4EEBF0(a4, v5)
 			nox_xxx_playerManaAdd_4EEB80(a3, int16(v5))
 		}
 	}

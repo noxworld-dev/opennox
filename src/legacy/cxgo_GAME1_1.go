@@ -692,7 +692,7 @@ func nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path *byte, pind int32) int32 {
 			var v10 uint16 = uint16(nox_xxx_unitGetMaxHP_4EE7A0(v3))
 			nox_xxx_unitDamageClear_4EE5E0(v3, int32(uint32(v10)-*memmap.PtrUint32(0x5D4594, 527696)))
 			var v11 uint16 = uint16(nox_xxx_playerGetMaxMana_4EECB0(v3))
-			nox_xxx_playerManaSub_4EEBF0(unsafe.Pointer(v3), int32(uint32(v11)-*memmap.PtrUint32(0x5D4594, 527700)))
+			nox_xxx_playerManaSub_4EEBF0(v3, int32(uint32(v11)-*memmap.PtrUint32(0x5D4594, 527700)))
 			nox_xxx_playerHP_4EE730(v3)
 			sub_419E10(v3, 0)
 			return 1
@@ -844,7 +844,7 @@ LABEL_20:
 	if nox_crypt_IsReadOnly() == 1 && v3 != nil {
 		v6 = nox_wcslen((*wchar2_t)(v2))
 		v7 = nox_xxx_protectionStringCRCLen_56FAE0((*byte)(v2), v6*2)
-		nox_xxx_playerResetProtectionCRC_56F7D0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 4628))), v7)
+		nox_xxx_playerResetProtectionCRC_56F7D0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 4628))), uint32(v7))
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 50)), 4)
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 54)), 4)
@@ -1712,7 +1712,7 @@ func nox_xxx_guiEnchantment_41B9C0(a1 *server.Object, a2 unsafe.Pointer) int32 {
 					v13 = int32(uint8(int8(v21)))
 					*(**server.Object)(unsafe.Pointer(&v24[0])) = a1
 					v24[2] = v7
-					v8 = nox_xxx_getEnchantSpell_424920(v6)
+					v8 = nox_xxx_getEnchantSpell_424920(server.EnchantID(v6))
 					nox_xxx_spellAccept_4FD400(v8, a1, a1, a1, (*server.SpellAcceptArg)(unsafe.Pointer(&v24[0])), v13)
 					v9 = int16(v17)
 					if int32(uint16(int16(v17))) == 0 {
@@ -1722,9 +1722,9 @@ func nox_xxx_guiEnchantment_41B9C0(a1 *server.Object, a2 unsafe.Pointer) int32 {
 					*(*uint16)(unsafe.Add(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(uint16(0))*uintptr(v6)), unsafe.Sizeof(uint16(0))*172)) = uint16(v9)
 					if v6 == 26 && int32(int16(v18)) >= 3 {
 						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v23)), 4)
-						v10 := sub_4FF2D0(51, unsafe.Pointer(a1))
+						v10 := sub_4FF2D0(51, a1)
 						if v10 != nil {
-							*(*uint32)(unsafe.Add(v10, 72)) = uint32(v23)
+							v10.Field72 = v23
 						}
 					}
 					v5++
@@ -1746,9 +1746,9 @@ func nox_xxx_guiEnchantment_41B9C0(a1 *server.Object, a2 unsafe.Pointer) int32 {
 					*(*uint8)(unsafe.Pointer(&v21)) = uint8(nox_xxx_buffGetPower_4FF570(a1, server.EnchantID(i)))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 1)
 					if i == 26 {
-						v4 := sub_4FF2D0(51, unsafe.Pointer(a1))
+						v4 := sub_4FF2D0(51, a1)
 						if v4 != nil {
-							v17 = int32(*(*uint32)(unsafe.Add(v4, 72)))
+							v17 = v4.Field72
 						} else {
 							v17 = 100
 						}

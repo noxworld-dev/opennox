@@ -304,9 +304,6 @@ func Sub_4D7B40() {
 func Sub_41E4B0(a1 int) {
 	sub_41E4B0(int32(a1))
 }
-func Sub_56F1C0() {
-	sub_56F1C0()
-}
 func Sub_4E4ED0() {
 	sub_4E4ED0()
 }
@@ -378,9 +375,6 @@ func Nox_xxx_deleteShopInventories_50E300() {
 }
 func Sub_416950() {
 	sub_416950()
-}
-func Sub_56F3B0() {
-	sub_56F3B0()
 }
 func Sub_51D0E0() {
 	sub_51D0E0()

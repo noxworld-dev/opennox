@@ -26,10 +26,8 @@ var dword_5d4594_815004 *gui.Window
 var nox_wol_wnd_gameList_815012 *gui.Window
 var dword_5d4594_1062480 *nox_inventory_cell_t
 var dword_5d4594_832484 unsafe.Pointer
-var dword_5d4594_2516348 uint32
 var dword_5d4594_1063116 unsafe.Pointer
 var dword_5d4594_1090120 uint32
-var dword_5d4594_2516328 uint32
 var dword_5d4594_1049504 *gui.Window
 var dword_5d4594_1046868 uint32
 var dword_5d4594_1193380 *gui.Window
@@ -125,7 +123,6 @@ var dword_5d4594_1599596 uint32
 var dword_5d4594_1045480 *gui.Window
 var dword_5d4594_2487556 unsafe.Pointer
 var dword_5d4594_1523024 *gui.Window
-var dword_5d4594_2516344 uint32
 var dword_5d4594_1046508 *gui.Window
 var dword_5d4594_1193384 *gui.Window
 var dword_5d4594_1045536 *gui.Window
@@ -267,7 +264,7 @@ var dword_5d4594_1319264 uint32
 var dword_5d4594_1046928 *ImageRef
 var dword_5d4594_1098580 *gui.Window
 var dword_5d4594_831224 uint32
-var nox_xxx_energyBoltTarget_5d4594_2487880 uint32
+var nox_xxx_energyBoltTarget_5d4594_2487880 *server.Object
 var dword_5d4594_832504 *client.Drawable
 var dword_5d4594_1203864 unsafe.Pointer
 var dword_5d4594_832508 *client.Drawable
@@ -639,7 +636,6 @@ var dword_5d4594_3835364 uint32
 var dword_5d4594_1313788 uint32
 var dword_5d4594_1304328 uint32
 var dword_5d4594_1047536 int32
-var dword_5d4594_2516352 uint32
 var dword_5d4594_1549844 int32
 var dword_5d4594_1313804 uint32
 var nox_xxx_respawnAllow_587000_205200 uint32 = 0x1

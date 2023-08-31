@@ -997,8 +997,8 @@ func sub_4E43F0(a1 *byte) *FILE {
 	result = (*FILE)(unsafe.Pointer(uintptr(1)))
 	return result
 }
-func nox_xxx_unitNeedSync_4E44F0(a1 *server.Object) {
-	a1.Field38 = math.MaxUint32
+func nox_xxx_unitNeedSync_4E44F0(obj *server.Object) {
+	obj.Field38 = math.MaxUint32
 }
 func sub_4E4500(a1p *server.Object, a2 int32, a3 int32, a4 int32) *int32 {
 	var (
@@ -1030,234 +1030,122 @@ func sub_4E4500(a1p *server.Object, a2 int32, a3 int32, a4 int32) *int32 {
 	return result
 }
 func nox_xxx_unitSetHP_4E4560(obj *server.Object, amount uint16) {
-	var (
-		unit      = obj
-		unitFlags int32
-		v5        *int32
-		counter   int32
-		v7        int32
-		v8        int32
-	)
-	healthData := unit.HealthData
-	if healthData == nil {
+	hp := obj.HealthData
+	if hp == nil {
 		return
 	}
-	nox_xxx_unitNeedSync_4E44F0(unit)
-	otherHealthData := unit.InvHolder
-	if otherHealthData != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(otherHealthData), 8)))&4 != 0 {
-		nox_xxx_protect_56FC50(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(otherHealthData.UpdateData, 276)), 4632))), unit)
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	if holder := obj.InvHolder; holder != nil && holder.Class().Has(object.ClassPlayer) {
+		nox_xxx_protect_56FC50(int32(holder.UpdateDataPlayer().Player.Prot4632), obj)
 	}
-	unit.HealthData.Cur = amount
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(unit), 8)))&4 != 0 {
-		nox_xxx_protectPlayerHPMana_56F870(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unit.UpdateData, 276)), 4584))), amount)
+	obj.HealthData.Cur = amount
+	if obj.Class().Has(object.ClassPlayer) {
+		nox_xxx_protectPlayerHPMana_56F870(int32(obj.UpdateDataPlayer().Player.ProtUnitHPCur), amount)
 	}
-	unitFlags = int32(unit.ObjClass)
-	if unitFlags&2 != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(unit), 12)))&0x80) != 0 {
-		if uint32(unitFlags)&0x20400004 != 0 {
-			v5 = (*int32)(unsafe.Add(unsafe.Pointer(unit), 560))
-			counter = 32
-			for {
-				v7 = *v5
-				v5 = (*int32)(unsafe.Add(unsafe.Pointer(v5), 4*1))
-				counter--
-				*(*int32)(unsafe.Add(unsafe.Pointer(v5), -int(4*1))) = int32(uint32(v7)&0xFFFFF000 | 0x20000)
-				if counter == 0 {
-					break
-				}
+	if obj.Class().Has(object.ClassMonster) && obj.SubClass().AsMonster().Has(object.MonsterMonitor) {
+		if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+			for i := 0; i < 32; i++ {
+				obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x20000
 			}
 		} else {
-			v8 = sub_4E4C90(unit, 2)
-			sub_4E4500(unit, 0x20000, 2, v8)
+			v8 := sub_4E4C90(obj, 2)
+			sub_4E4500(obj, 0x20000, 2, v8)
 		}
 	}
-	healthData2 := unit.InvHolder
-	if healthData2 == nil {
-		return
-	}
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(healthData2), 8)))&4 != 0 {
-		nox_xxx_protect_56FBF0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(healthData2.UpdateData, 276)), 4632))), unit)
+	if holder := obj.InvHolder; holder != nil && holder.Class().Has(object.ClassPlayer) {
+		nox_xxx_protect_56FBF0(int32(holder.UpdateDataPlayer().Player.Prot4632), obj)
 	}
 }
-func nox_xxx_unitSetOnOff_4E4670(a1 *server.Object, a2 int32) {
-	var (
-		v2 int32
-		v3 uint32
-		v5 int32
-		v6 int32
-		v7 int32
-	)
-	nox_xxx_unitNeedSync_4E44F0(a1)
-	v2 = int32(a1.ObjFlags)
-	if a2 != 0 {
-		v3 = uint32(v2) | 0x1000000
+func nox_xxx_unitSetOnOff_4E4670(obj *server.Object, enable int32) {
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	if enable != 0 {
+		obj.ObjFlags |= uint32(object.FlagEnabled)
 	} else {
-		v3 = uint32(v2) & 0xFEFFFFFF
+		obj.ObjFlags &^= uint32(object.FlagEnabled)
 	}
-	a1.ObjFlags = v3
-	if a1.ObjClass&0x20400004 != 0 {
-		result := (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-		v5 = 32
-		for {
-			v6 = *result
-			result = (*int32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-			v5--
-			*(*int32)(unsafe.Add(unsafe.Pointer(result), -int(4*1))) = int32(uint32(v6)&0xFFFFF000 | 0x40000)
-			if v5 == 0 {
-				break
-			}
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := 0; i < 32; i++ {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x40000
 		}
 	} else {
-		v7 = sub_4E4C90(a1, 4)
-		sub_4E4500(a1, 0x40000, 4, v7)
+		v7 := sub_4E4C90(obj, 0x4)
+		sub_4E4500(obj, 0x40000, 0x4, v7)
 	}
 }
-func nox_xxx_unitRaise_4E46F0(obj *server.Object, a2 float32) {
-	var (
-		a1 = obj
-		v2 *int32
-		v3 int32
-		v4 int32
-		v5 int32
-	)
-	if a1.ZVal != a2 {
-		nox_xxx_unitNeedSync_4E44F0(a1)
-		a1.ZVal = a2
-		if a1.ObjClass&0x20400004 != 0 {
-			v2 = (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-			v3 = 32
-			for {
-				v4 = *v2
-				v2 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1))
-				v3--
-				*(*int32)(unsafe.Add(unsafe.Pointer(v2), -int(4*1))) = int32(uint32(v4)&0xFFFFF000 | 0x400000)
-				if v3 == 0 {
-					break
-				}
-			}
-		} else {
-			v5 = sub_4E4C90(a1, 0x40)
-			sub_4E4500(a1, 0x400000, 64, v5)
-		}
-	}
-}
-func nox_xxx_unitUnsetXStatus_4E4780(a1p *server.Object, a2 int32) {
-	var (
-		a1 = a1p
-		v3 int32
-		v4 int32
-		v5 int32
-	)
-	r1 := a1.Field5
-	if r1&uint32(a2) == 0 {
+func nox_xxx_unitRaise_4E46F0(obj *server.Object, z float32) {
+	if obj.ZVal == z {
 		return
 	}
-	a1.Field5 = r1 & uint32(^a2)
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	obj.ZVal = z
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := 0; i < 32; i++ {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x400000
+		}
+	} else {
+		v5 := sub_4E4C90(obj, 0x40)
+		sub_4E4500(obj, 0x400000, 0x40, v5)
+	}
+}
+func nox_xxx_unitUnsetXStatus_4E4780(obj *server.Object, a2 uint32) {
+	if obj.Field5&a2 == 0 {
+		return
+	}
+	obj.Field5 = obj.Field5 &^ a2
 	if a2 == 1 {
 		return
 	}
-	nox_xxx_unitNeedSync_4E44F0(a1)
-	if a1.ObjClass&0x20400004 != 0 {
-		r2 := (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-		v3 = 32
-		for {
-			v4 = *r2
-			r2 = (*int32)(unsafe.Add(unsafe.Pointer(r2), 4*1))
-			v3--
-			*(*int32)(unsafe.Add(unsafe.Pointer(r2), -int(4*1))) = int32(uint32(v4)&0xFFFFF000 | 0x80000)
-			if v3 == 0 {
-				break
-			}
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := 0; i < 32; i++ {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x80000
 		}
 	} else {
-		v5 = sub_4E4C90(a1, 8)
-		sub_4E4500(a1, 0x80000, 8, v5)
+		v5 := sub_4E4C90(obj, 0x8)
+		sub_4E4500(obj, 0x80000, 0x8, v5)
 	}
 }
-func nox_xxx_unitSetXStatus_4E4800(a1p *server.Object, a2 int32) {
-	var (
-		a1 = a1p
-		v3 int32
-		v4 int32
-		v5 int32
-	)
-	a1.Field5 |= uint32(a2)
+func nox_xxx_unitSetXStatus_4E4800(obj *server.Object, a2 uint32) {
+	obj.Field5 |= a2
 	if a2 == 1 {
 		return
 	}
-	nox_xxx_unitNeedSync_4E44F0(a1)
-	if a1.ObjClass&0x20400004 != 0 {
-		r2 := (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-		v3 = 32
-		for {
-			v4 = *r2
-			r2 = (*int32)(unsafe.Add(unsafe.Pointer(r2), 4*1))
-			v3--
-			*(*int32)(unsafe.Add(unsafe.Pointer(r2), -int(4*1))) = int32(uint32(v4)&0xFFFFF000 | 0x80000)
-			if v3 == 0 {
-				break
-			}
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := 0; i < 32; i++ {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x80000
 		}
 	} else {
-		v5 = sub_4E4C90(a1, 8)
-		sub_4E4500(a1, 0x80000, 8, v5)
+		v5 := sub_4E4C90(obj, 0x8)
+		sub_4E4500(obj, 0x80000, 0x8, v5)
 	}
 }
-func nox_xxx_servMarkObjAnimFrame_4E4880(a1 *server.Object, a2 int32) {
-	var (
-		v3 int32
-		v4 int32
-		v5 int32
-	)
-	nox_xxx_unitNeedSync_4E44F0(a1)
-	a1.Field33 = uint32(a2)
-	if a1.ObjClass&0x20400004 != 0 {
-		result := (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-		v3 = 32
-		for {
-			v4 = *result
-			result = (*int32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-			v3--
-			*(*int32)(unsafe.Add(unsafe.Pointer(result), -int(4*1))) = int32(uint32(v4)&0xFFFFF000 | 0x10000)
-			if v3 == 0 {
-				break
-			}
+func nox_xxx_servMarkObjAnimFrame_4E4880(obj *server.Object, a2 uint32) {
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	obj.Field33 = a2
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := 0; i < 32; i++ {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x10000
 		}
 	} else {
-		v5 = sub_4E4C90(a1, 1)
-		sub_4E4500(a1, 0x10000, 1, v5)
+		v5 := sub_4E4C90(obj, 0x1)
+		sub_4E4500(obj, 0x10000, 0x1, v5)
 	}
 }
-func nox_xxx_setUnitBuffFlags_4E48F0(a1 unsafe.Pointer, a2 int32) *int32 {
-	var (
-		v2     int8
-		result *int32
-		v4     int32
-		v5     int32
-		v6     int32
-	)
-	nox_xxx_unitNeedSync_4E44F0((*server.Object)(a1))
-	v2 = int8(*(*uint8)(unsafe.Add(a1, 8)))
-	*(*uint32)(unsafe.Add(a1, 340)) = uint32(a2)
-	if int32(v2)&4 != 0 {
-		nox_xxx_playerResetProtectionCRC_56F7D0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 276)), 4612))), a2)
+func nox_xxx_setUnitBuffFlags_4E48F0(obj *server.Object, buffs uint32) {
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	obj.Buffs = buffs
+	if obj.Class().Has(object.ClassPlayer) {
+		nox_xxx_playerResetProtectionCRC_56F7D0(int32(obj.UpdateDataPlayer().Player.ProtUnitBuffs), buffs)
 	}
-	if *(*uint32)(unsafe.Add(a1, 8))&0x20400004 != 0 {
-		result = (*int32)(unsafe.Add(a1, 560))
-		v4 = 32
-		for {
-			v5 = *result
-			result = (*int32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-			v4--
-			*(*int32)(unsafe.Add(unsafe.Pointer(result), -int(4*1))) = int32(uint32(v5)&0xFFFFF000 | 0x800000)
-			if v4 == 0 {
-				break
-			}
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := 0; i < 32; i++ {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x800000
 		}
 	} else {
-		v6 = sub_4E4C90((*server.Object)(a1), 0x80)
-		result = sub_4E4500((*server.Object)(a1), 0x800000, 128, v6)
+		v6 := sub_4E4C90(obj, 0x80)
+		sub_4E4500(obj, 0x800000, 0x80, v6)
 	}
-	return result
 }
 func nox_xxx_modifSetItemAttrs_4E4990(a1p *server.Object, a2 *int32) *int32 {
 	var (
@@ -2663,12 +2551,6 @@ func nox_xxx_monsterRemoveMonitors_4E7B60(a1p *server.Object, a2p *server.Object
 		}
 	}
 }
-func sub_4E7BC0(a1 *server.Object) int32 {
-	if a1 == nil {
-		return 0
-	}
-	return int32((a1.ObjClass >> 2) & 1)
-}
 func nox_xxx_unitIsCrown_4E7BE0(a1 *server.Object) int32 {
 	v1 := int32(*memmap.PtrUint32(0x5D4594, 1567716))
 	if *memmap.PtrUint32(0x5D4594, 1567716) == 0 {
@@ -3649,7 +3531,7 @@ func nox_xxx_collideManadrain_4E9490(obj *server.Object, obj2 *server.Object, po
 	a1 := obj
 	a2 := obj2
 	if a2 != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 && int32(*(*uint16)(unsafe.Add(a2.UpdateData, 4))) != 0 {
-		nox_xxx_playerManaSub_4EEBF0(unsafe.Pointer(a2), int32(*(*byte)(a1.CollideData)))
+		nox_xxx_playerManaSub_4EEBF0(a2, int32(*(*byte)(a1.CollideData)))
 		r2 := gameFrame() - uint32(a1.Field542)
 		if r2 > uint32(int32(gameFPS())>>1) {
 			nox_xxx_aud_501960(228, a1, 0, 0)
@@ -4391,10 +4273,10 @@ func nox_xxx_pickupFlagCtf_4EA490(a1 *server.Object, a2p *server.Object) {
 func sub_4EA7A0(a1 *server.Object) {
 	for i := int32(0); i < 32; i++ {
 		if nox_xxx_testUnitBuffs_4FF350(a1, server.EnchantID(i)) != 0 {
-			if nox_xxx_getEnchantSpell_424920(i) != 0 {
-				v3 := nox_xxx_getEnchantSpell_424920(i)
+			if nox_xxx_getEnchantSpell_424920(server.EnchantID(i)) != 0 {
+				v3 := nox_xxx_getEnchantSpell_424920(server.EnchantID(i))
 				if nox_xxx_spellHasFlags_424A50(v3, 0x80000) {
-					nox_xxx_spellBuffOff_4FF5B0(a1, i)
+					nox_xxx_spellBuffOff_4FF5B0(a1, server.EnchantID(i))
 				}
 			}
 		}
@@ -7056,28 +6938,28 @@ func nox_xxx_playerManaAdd_4EEB80(unitp *server.Object, amount int16) {
 		}
 	}
 }
-func nox_xxx_playerManaSub_4EEBF0(unit unsafe.Pointer, amount int32) {
+func nox_xxx_playerManaSub_4EEBF0(unit *server.Object, amount int32) {
 	if unit == nil {
 		return
 	}
-	if int32(*(*uint8)(unsafe.Add(unit, 8)))&4 == 0 {
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(unit), 8)))&4 == 0 {
 		return
 	}
-	result := *(**uint32)(unsafe.Add(unit, 748))
+	result := unit.UpdateData
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE) {
 		return
 	}
-	currentMana := *(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*2))
-	*(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*3)) = currentMana
+	currentMana := *(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2))
+	*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*3)) = currentMana
 	if int32(currentMana) > amount {
-		*(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*2)) = uint16(int16(int32(currentMana) - amount))
+		*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2)) = uint16(int16(int32(currentMana) - amount))
 	} else {
-		*(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*2)) = 0
+		*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2)) = 0
 	}
-	if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*2))) > amount {
-		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*69)), 4596))), int16(int32(-int16(amount))))
+	if int32(*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2))) > amount {
+		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), 4596))), int16(int32(-int16(amount))))
 	} else {
-		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*69)), 4596))), int16(-*(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*2))))
+		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), 4596))), int16(-*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2))))
 	}
 }
 func nox_xxx_unitGetOldMana_4EEC80(unit *server.Object) int16 {
@@ -10808,7 +10690,7 @@ func nox_xxx_readObjectOldVer_4F4170(a1p *server.Object, a2 int32, a3 int32) int
 	v21 = int32(uint32(v3.Field5) & 0x5E)
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
 	nox_xxx_unitUnsetXStatus_4E4780(v3, 94)
-	nox_xxx_unitSetXStatus_4E4800(v3, v21)
+	nox_xxx_unitSetXStatus_4E4800(v3, uint32(v21))
 	return 1
 }
 func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
@@ -10951,7 +10833,7 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
 	v21 = int32(v2.Field5 & 0x5E)
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
 	nox_xxx_unitUnsetXStatus_4E4780(v2, 94)
-	nox_xxx_unitSetXStatus_4E4800(v2, v21)
+	nox_xxx_unitSetXStatus_4E4800(v2, uint32(v21))
 	var result int32
 	if int32(int16(v18)) < 63 || (func() int32 {
 		result = nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v2), 4*191), (*byte)(v2.Field189))
@@ -11255,7 +11137,7 @@ func nox_xxx_unitTriggerXfer_4F4E50(a1p *server.Object, data unsafe.Pointer) int
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 9)), 1)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 132)), 4)
 		if nox_crypt_IsReadOnly() == 1 {
-			nox_xxx_servMarkObjAnimFrame_4E4880(v1, int32(v1.Field33))
+			nox_xxx_servMarkObjAnimFrame_4E4880(v1, v1.Field33)
 		}
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {

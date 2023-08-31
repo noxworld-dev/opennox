@@ -348,7 +348,7 @@ func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, a3 int, 
 	nox_xxx_buffApplyTo_4FF380(asObjectC(a1), a2, int16(a3), int8(a4))
 }
 func Nox_xxx_spellBuffOff_4FF5B0(a1 *server.Object, a2 server.EnchantID) {
-	nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), int32(a2))
+	nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), a2)
 }
 func Nox_xxx_unitClearOwner_4EC300(a1 *server.Object) {
 	nox_xxx_unitClearOwner_4EC300(asObjectC(a1))
@@ -382,10 +382,10 @@ func Nox_object_setGold_4FA620(obj *server.Object, v int) {
 	nox_object_setGold_4FA620(asObjectC(obj), int32(v))
 }
 func Nox_xxx_unitSetXStatus_4E4800(obj *server.Object, a2 int) {
-	nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), int32(a2))
+	nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), uint32(int32(a2)))
 }
 func Nox_xxx_unitUnsetXStatus_4E4780(obj *server.Object, a2 int) {
-	nox_xxx_unitUnsetXStatus_4E4780(asObjectC(obj), int32(a2))
+	nox_xxx_unitUnsetXStatus_4E4780(asObjectC(obj), uint32(int32(a2)))
 }
 func Nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	nox_xxx_script_forcedialog_548CD0(asObjectC(obj), asObjectC(obj2))

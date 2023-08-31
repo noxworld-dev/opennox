@@ -1,8 +1,6 @@
 package opennox
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
@@ -18,32 +16,32 @@ var (
 	nox_alloc_spellDur_1569724 alloc.ClassT[server.DurSpell]
 )
 
-func nox_xxx_spellCastedFirst_4FE930() unsafe.Pointer {
-	return noxServer.spells.duration.list.C()
+func nox_xxx_spellCastedFirst_4FE930() *server.DurSpell {
+	return noxServer.spells.duration.list
 }
 
-func nox_xxx_spellCastedNext_4FE940(a1 unsafe.Pointer) unsafe.Pointer {
-	return (*server.DurSpell)(a1).Next.C()
+func nox_xxx_spellCastedNext_4FE940(a1 *server.DurSpell) *server.DurSpell {
+	return a1.Next
 }
 
 func sub_4FE8A0(a1 int) {
 	noxServer.spells.duration.sub4FE8A0(a1)
 }
 
-func sub_4FE900(a1 unsafe.Pointer) {
-	noxServer.spells.duration.unlink((*server.DurSpell)(a1))
+func sub_4FE900(a1 *server.DurSpell) {
+	noxServer.spells.duration.unlink(a1)
 }
 
 func nox_xxx_spellCastByPlayer_4FEEF0() {
 	noxServer.spells.duration.spellCastByPlayer()
 }
 
-func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *server.Object) {
-	noxServer.spells.duration.CancelFor(spell.ID(a1), a2)
+func nox_xxx_spellCancelDurSpell_4FEB10(a1 spell.ID, a2 *server.Object) {
+	noxServer.spells.duration.CancelFor(a1, a2)
 }
 
-func sub_4FE980(a1 unsafe.Pointer) {
-	noxServer.spells.duration.freeRecursive((*server.DurSpell)(a1))
+func sub_4FE980(a1 *server.DurSpell) {
+	noxServer.spells.duration.freeRecursive(a1)
 }
 
 func sub_4FF310(a1 *server.Object) {
@@ -83,8 +81,8 @@ func (sp *spellsDuration) sub4FE8A0(a1 int) {
 		u := it.Obj48
 		next = it.Next
 		if u == nil || !u.Class().Has(object.ClassPlayer) {
-			sub_4FE900(it.C())
-			sub_4FE980(it.C())
+			sub_4FE900(it)
+			sub_4FE980(it)
 		}
 	}
 }

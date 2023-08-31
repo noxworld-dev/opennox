@@ -208,8 +208,8 @@ func nox_xxx_gameSetWallsDamage_4E25A0(v int32) {
 	Nox_xxx_gameSetWallsDamage_4E25A0(int(v))
 }
 
-func nox_xxx_mapDamageUnitsAround_4E25B0(pos *types.Pointf, a2, a3 float32, a4, a5 int32, a6, a7 *server.Object) {
-	GetServer().Nox_xxx_mapDamageUnitsAround(*pos, a2, a3, int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
+func nox_xxx_mapDamageUnitsAround_4E25B0(pos *types.Pointf, a2, a3 float32, dmg int32, typ object.DamageType, a6, a7 *server.Object) {
+	GetServer().Nox_xxx_mapDamageUnitsAround(*pos, a2, a3, int(dmg), typ, asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
 }
 
 func nox_game_addStateCode_43BDD0(code gui.StateID) {

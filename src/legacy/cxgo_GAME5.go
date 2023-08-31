@@ -4921,7 +4921,7 @@ LABEL_38:
 	v17 = int32(*(*uint32)(unsafe.Add(v3, 276)))
 	*(*uint16)(unsafe.Add(v3, 4)) = 0
 	nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(v17, 4596))), 0)
-	nox_xxx_setUnitBuffFlags_4E48F0(unsafe.Pointer(v1), 0)
+	nox_xxx_setUnitBuffFlags_4E48F0(v1, 0)
 	nox_xxx_playerCancelAbils_4FC180(v1)
 	*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 3600)) = 0
 	nox_xxx_playerCancelSpells_4FEAE0(v1)

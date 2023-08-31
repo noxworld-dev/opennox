@@ -1144,7 +1144,7 @@ func nox_xxx_inventoryDrawAllMB_463430(win *gui.Window, draw *gui.WindowData) in
 	v4 = v16.Y + 234
 	for {
 		if uint32(1<<v2)&*memmap.PtrUint32(0x5D4594, 1062540) != 0 && v2 != 31 && v2 != 30 {
-			v5 := nox_xxx_getEnchantSpell_424920(v2)
+			v5 := nox_xxx_getEnchantSpell_424920(server.EnchantID(v2))
 			v6 := nox_xxx_spellIcon_424A90(v5)
 			nox_client_drawImageAt_47D2C0(v6, v3, v4)
 			v3 += 35

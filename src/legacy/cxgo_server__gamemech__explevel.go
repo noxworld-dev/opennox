@@ -7,25 +7,19 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func sub_56F980(a1 int32, a2 uint8) *uint32 {
-	var (
-		result *uint32
-		v3     int32
-	)
-	result = (*uint32)(a1)
+func sub_56F980(a1 int32, a2 uint8) {
 	if uint32(a1) < 657757279 {
-		return result
+		return
 	}
-	result = sub_56F590(a1)
-	if result == nil {
-		return result
+	p := sub_56F590(a1)
+	if p == nil {
+		return
 	}
-	dword_5d4594_2516328 ^= *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-	v3 = int32(dword_5d4594_2516348 ^ (uint32(a2) + (dword_5d4594_2516348 ^ *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)))))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(v3)
+	dword_5d4594_2516328 ^= p.Field4
+	v3 := int32(dword_5d4594_2516348 ^ (uint32(a2) + (dword_5d4594_2516348 ^ p.Field4)))
+	p.Field4 = uint32(v3)
 	dword_5d4594_2516328 ^= uint32(v3)
-	result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_protectData_56F5C0())))
-	return result
+	nox_xxx_protectData_56F5C0()
 }
 func sub_4EF2E0_exp_level(a1 unsafe.Pointer) {
 	var (
