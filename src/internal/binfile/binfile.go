@@ -199,7 +199,7 @@ func (f *Binfile) ReadAligned(buf []byte) (int, error) {
 }
 func (f *Binfile) FileFlush() (int64, error) {
 	var flusher interface {
-		WriteEmpty() error
+		WriteEmpty() (int64, error)
 		Flush() error
 	}
 	if f.write != nil {
@@ -213,7 +213,7 @@ func (f *Binfile) FileFlush() (int64, error) {
 		f.File.Err = err
 		return res, err
 	}
-	err = flusher.WriteEmpty()
+	_, err = flusher.WriteEmpty()
 	if err != nil {
 		f.File.Err = err
 	}
