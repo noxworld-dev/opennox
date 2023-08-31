@@ -2616,8 +2616,7 @@ func Nullsub_8(a1 *Point32, a2 unsafe.Pointer) {
 }
 func nullsub_30(a1 unsafe.Pointer) {
 }
-func Nullsub_29(sp *server.DurSpell) int32 {
-	return 0
+func Nullsub_29(sp *server.DurSpell) {
 }
 func nullsub_35(a1 unsafe.Pointer, a2 uint32) {
 }

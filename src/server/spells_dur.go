@@ -10,7 +10,7 @@ import (
 
 type DurSpellCreateFunc func(sp *DurSpell) int32
 type DurSpellUpdateFunc func(sp *DurSpell) int32
-type DurSpellDestroyFunc func(sp *DurSpell) int32
+type DurSpellDestroyFunc func(sp *DurSpell)
 
 type DurSpell struct {
 	ID      uint16                          // 0, 0
@@ -31,7 +31,7 @@ type DurSpell struct {
 	Frame64 uint32                          // 16, 64
 	Frame68 uint32                          // 17, 68
 	Field72 int32                           // 18, 72
-	Field76 uint32                          // 19, 76
+	Field76 uintptr                         // 19, 76
 	Field80 uint32                          // 20, 80
 	Field84 uint32                          // 21, 84
 	Flags88 uint32                          // 22, 88

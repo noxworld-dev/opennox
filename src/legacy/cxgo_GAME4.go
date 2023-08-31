@@ -4205,7 +4205,7 @@ func nox_xxx_spellWallCreateCalcYMB_4FFFB0(a1 int32, a2 int32, a3 int32, a4 int8
 func Nox_xxx_spellWallUpdate_500070(sp *server.DurSpell) int32 {
 	return 0
 }
-func Nox_xxx_spellWallDestroy_500080(sp *server.DurSpell) int32 {
+func Nox_xxx_spellWallDestroy_500080(sp *server.DurSpell) {
 	a1 := sp
 	var (
 		result int32
@@ -4213,7 +4213,7 @@ func Nox_xxx_spellWallDestroy_500080(sp *server.DurSpell) int32 {
 	)
 	result = int32(dword_5d4594_1569752)
 	if dword_5d4594_1569752 == nil {
-		return result
+		return
 	}
 	for {
 		v2 = int32(*(*uint32)(unsafe.Add(result, 24)))
@@ -4225,7 +4225,6 @@ func Nox_xxx_spellWallDestroy_500080(sp *server.DurSpell) int32 {
 			break
 		}
 	}
-	return result
 }
 func sub_5000B0(a1 unsafe.Pointer) int32 {
 	var (
@@ -4774,7 +4773,7 @@ func Nox_xxx_summonStart_500DA0(sp *server.DurSpell) int32 {
 	v17[13] = 0
 	a1.Field72 = int32(*(*uint32)(unsafe.Pointer(&v17[0])))
 	v8 = int32(*(*uint32)(unsafe.Pointer(&v17[8])))
-	a1.Field76 = uint32(v7)
+	a1.Field76 = uintptr(uint32(v7))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(&v7), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Pointer(&v17[12]))
 	a1.Field80 = uint32(v8)
 	*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 84)) = uint16(int16(v7))
@@ -4925,13 +4924,12 @@ LABEL_17:
 	*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 85)) = 1
 	return 1
 }
-func Nox_xxx_summonCancel_5011C0(sp *server.DurSpell) int32 {
+func Nox_xxx_summonCancel_5011C0(sp *server.DurSpell) {
 	a1 := sp
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 85))) == 0 {
 		nox_xxx_sendSummonCancelFX_523760(int16(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 83))))
 		nox_xxx_audCreate_501A30(900, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 74)), 0, 0)
 	}
-	return 0
 }
 func Nox_xxx_charmCreature1_5011F0(sp *server.DurSpell) int32 {
 	a1 := sp
@@ -5132,18 +5130,17 @@ func Nox_xxx_charmCreatureFinish_5013E0(sp *server.DurSpell) int32 {
 	nox_xxx_aud_501960(v22, (*server.Object)(v23), 0, 0)
 	return 1
 }
-func Nox_xxx_charmCreature2_501690(sp *server.DurSpell) int32 {
+func Nox_xxx_charmCreature2_501690(sp *server.DurSpell) {
 	a1 := sp
 	var result int32
 	result = int32(a1.Obj48)
 	if result == 0 {
-		return result
+		return
 	}
 	if (*(*uint32)(unsafe.Add(result, 16)) & 0x8020) == 0 {
 		nox_xxx_spellBuffOff_4FF5B0((*server.Object)(result), 5)
-		result = nox_xxx_spellBuffOff_4FF5B0(a1.Obj48, 28)
+		nox_xxx_spellBuffOff_4FF5B0(a1.Obj48, 28)
 	}
-	return result
 }
 func nox_xxx_banishUnit_5017F0(unit unsafe.Pointer) {
 	var (
