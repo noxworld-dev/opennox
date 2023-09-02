@@ -72,3 +72,5 @@ require (
 )
 
 replace github.com/timshannon/go-openal => github.com/noxworld-dev/go-openal v0.0.0-20220410091615-164a70f24e7c
+
+replace github.com/traefik/yaegi => github.com/dennwc/yaegi v0.14.4-0.20230902105020-22e112bbf6e8
