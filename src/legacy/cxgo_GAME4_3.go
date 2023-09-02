@@ -3591,7 +3591,7 @@ func sub_5375A0(a1 unsafe.Pointer) {
 		v3 int8
 	)
 	if int32(*(*uint8)(unsafe.Add(a1, 464)))&1 != 0 {
-		v1 = dword_5d4594_2488604
+		v1 = unsafe.Pointer(dword_5d4594_2488604)
 		v2 = nil
 		if dword_5d4594_2488604 != nil {
 			for v1 != a1 {
@@ -3605,10 +3605,10 @@ func sub_5375A0(a1 unsafe.Pointer) {
 				if v2 != nil {
 					*(*uint32)(unsafe.Add(v2, 460)) = *(*uint32)(unsafe.Add(a1, 460))
 				} else {
-					dword_5d4594_2488604 = *(*unsafe.Pointer)(unsafe.Add(a1, 460))
+					dword_5d4594_2488604 = (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(a1, 460)))
 				}
 				if a1 == dword_5d4594_2488608 {
-					dword_5d4594_2488608 = v2
+					dword_5d4594_2488608 = (*server.Object)(v2)
 				}
 				v3 = int8(*(*uint8)(unsafe.Add(a1, 464)))
 				*(*uint32)(unsafe.Add(a1, 460)) = math.MaxUint32
@@ -3617,81 +3617,75 @@ func sub_5375A0(a1 unsafe.Pointer) {
 		}
 	}
 }
-func nox_xxx_unitHasCollideOrUpdateFn_537610(a1p *server.Object) int8 {
+func nox_xxx_unitHasCollideOrUpdateFn_537610(a1 *server.Object) int8 {
 	var (
-		a1 = unsafe.Pointer(a1p)
 		v1 int32
 		v2 int32
 		v3 int32
-		v4 unsafe.Pointer
 		v5 int32
 	)
-	v1 = int32(*(*uint32)(unsafe.Add(a1, 744)))
+	v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 744)))
 	if !(v1 != 0 || (func() int32 {
-		v1 = int32(*(*uint32)(unsafe.Add(a1, 696)))
+		v1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 696)))
 		return v1
-	}()) != 0 && (int32(*(*uint8)(unsafe.Add(a1, 16)))&0x40) == 0) {
+	}()) != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16)))&0x40) == 0) {
 		return int8(v1)
 	}
 	if !((func() bool {
-		v2 = int32(*(*uint32)(unsafe.Add(a1, 8)))
+		v2 = int32(a1.ObjClass)
 		return (uint32(v2) & 0x400000) == 0
-	}()) && (int32(*(*uint8)(unsafe.Add(a1, 16)))&8) == 0 || (func() int32 {
+	}()) && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16)))&8) == 0 || (func() int32 {
 		v3 = nox_xxx_getNameId_4E3AA0(internCStr("Spike"))
 		v1 = nox_xxx_getNameId_4E3AA0(internCStr("PeriodicSpike"))
-		v2 = int32(*(*uint32)(unsafe.Add(a1, 8)))
+		v2 = int32(a1.ObjClass)
 		return v2 & 0xE080
-	}()) != 0 || (func() bool {
-		v4 = *(*unsafe.Pointer)(unsafe.Add(a1, 696))
-		return v4 == ccall.FuncAddr(nox_xxx_collideFist_4EADF0)
-	}()) || v4 == ccall.FuncAddr(nox_xxx_collideUndeadKiller_4EBD40) || (func() bool {
-		v5 = int32(*(*uint16)(unsafe.Add(a1, 4)))
+	}()) != 0 || a1.Collide.Equals(nox_xxx_collideFist_4EADF0) || a1.Collide.Equals(nox_xxx_collideUndeadKiller_4EBD40) || (func() bool {
+		v5 = int32(a1.TypeInd)
 		return int32(uint16(int16(v5))) == v3
 	}()) || v5 == v1) {
 		return int8(v1)
 	}
-	if int32(*(*uint8)(unsafe.Add(a1, 16)))&4 == 0 {
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16)))&4 == 0 {
 		return int8(v1)
 	}
 	if v2&0x2008 != 0 {
 		sub_50B500()
 	}
-	nullsub_30(a1)
-	*((*uint8)(unsafe.Pointer(&v1))) = *(*uint8)(unsafe.Add(a1, 464))
+	nullsub_30(unsafe.Pointer(a1))
+	*((*uint8)(unsafe.Pointer(&v1))) = *(*uint8)(unsafe.Add(unsafe.Pointer(a1), 464))
 	if (v1 & 1) != 0 {
 		return int8(v1)
 	}
 	if dword_5d4594_2488608 != nil {
-		*(*unsafe.Pointer)(unsafe.Add(dword_5d4594_2488608, 460)) = a1
+		dword_5d4594_2488608.Field115 = uintptr(unsafe.Pointer(a1))
 	} else {
 		dword_5d4594_2488604 = a1
 	}
 	dword_5d4594_2488608 = a1
-	*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8(int32(*(*uint8)(unsafe.Add(a1, 464))) | 1))
-	*(*uint32)(unsafe.Add(a1, 460)) = 0
-	*(*uint8)(unsafe.Add(a1, 464)) = uint8(int8(v1))
+	*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 464))) | 1))
+	a1.Field115 = 0
+	*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 464)) = uint8(int8(v1))
 	return int8(v1)
 }
 func sub_537700() *server.Object {
 	result := dword_5d4594_2488604
-	v1 := (*uint32)(unsafe.Add(dword_5d4594_2488604, 460))
-	dword_5d4594_2488604 = *(*unsafe.Pointer)(unsafe.Add(dword_5d4594_2488604, 460))
+	v1 := &dword_5d4594_2488604.Field115
+	dword_5d4594_2488604 = dword_5d4594_2488604.Field115
 	if dword_5d4594_2488604 == nil {
 		dword_5d4594_2488608 = nil
 	}
 	*v1 = math.MaxUint32
-	*(*uint8)(unsafe.Add(result, 464)) &= 0xFE
+	*(*uint8)(unsafe.Add(unsafe.Pointer(result), 464)) &= 0xFE
 	return (*server.Object)(result)
 }
-func sub_537740() unsafe.Pointer {
+func sub_537740() *server.Object {
 	return dword_5d4594_2488604
 }
-func sub_537750(a1 unsafe.Pointer) unsafe.Pointer {
-	result := a1
-	if a1 != nil {
-		result = *(*unsafe.Pointer)(unsafe.Add(a1, 460))
+func sub_537750(a1 *server.Object) *server.Object {
+	if a1 == nil {
+		return nil
 	}
-	return result
+	return (*server.Object)(unsafe.Pointer(a1.Field115))
 }
 func sub_537760() unsafe.Pointer {
 	if dword_5d4594_2488620 != 0 {

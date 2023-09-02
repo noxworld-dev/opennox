@@ -4261,52 +4261,52 @@ func nox_xxx_updateObjectsVelocity_5118A0(step float32) {
 	nox_xxx_updateSprings_5113A0()
 	result := sub_537740()
 	for j := result; result != nil; j = result {
-		if int32(*(*uint8)(unsafe.Add(j, 16)))&2 != 0 || int32(*(*uint8)(unsafe.Add(j, 8)))&2 != 0 && nox_xxx_checkMobAction_50A0D0((*server.Object)(j), 67) != 0 {
-			*(*uint32)(unsafe.Add(j, 100)) = 0
-			*(*uint32)(unsafe.Add(j, 96)) = 0
-			*(*uint32)(unsafe.Add(j, 84)) = 0
-			*(*uint32)(unsafe.Add(j, 80)) = 0
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(j), 16)))&2 != 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(j), 8)))&2 != 0 && nox_xxx_checkMobAction_50A0D0(j, 67) != 0 {
+			j.Pos24.Y = 0
+			j.Pos24.X = 0
+			j.VelVec.Y = 0
+			j.VelVec.X = 0
 		} else {
-			if nox_xxx_testUnitBuffs_4FF350((*server.Object)(j), 5) != 0 || nox_xxx_testUnitBuffs_4FF350((*server.Object)(j), 25) != 0 || nox_xxx_testUnitBuffs_4FF350((*server.Object)(j), 28) != 0 {
-				v4 = float64(*(*float32)(unsafe.Add(j, 96)))
-				v13 = *(*float32)(unsafe.Add(j, 100))
+			if nox_xxx_testUnitBuffs_4FF350(j, 5) != 0 || nox_xxx_testUnitBuffs_4FF350(j, 25) != 0 || nox_xxx_testUnitBuffs_4FF350(j, 28) != 0 {
+				v4 = float64(j.Pos24.X)
+				v13 = j.Pos24.Y
 			} else {
-				v4 = float64(*(*float32)(unsafe.Add(j, 96)) + *(*float32)(unsafe.Add(j, 88)))
-				v13 = *(*float32)(unsafe.Add(j, 100)) + *(*float32)(unsafe.Add(j, 92))
+				v4 = float64(j.Pos24.X + j.ForceVec.X)
+				v13 = j.Pos24.Y + j.ForceVec.Y
 			}
-			v5 = *(*float32)(unsafe.Add(j, 64))
-			v6 = (*float32)(unsafe.Add(j, 64))
-			*(*float32)(unsafe.Add(j, 80)) += float32((v4 - float64(*(*float32)(unsafe.Add(j, 80))**(*float32)(unsafe.Add(j, 112)))) * float64(step))
-			*(*float32)(unsafe.Add(j, 84)) += (v13 - *(*float32)(unsafe.Add(j, 84))**(*float32)(unsafe.Add(j, 112))) * step
+			v5 = j.NewPos.X
+			v6 = &j.NewPos.X
+			j.VelVec.X += float32((v4 - float64(j.VelVec.X*j.Float28)) * float64(step))
+			j.VelVec.Y += (v13 - j.VelVec.Y*j.Float28) * step
 			v16.field_0 = v5
-			v16.field_4 = *(*float32)(unsafe.Add(j, 68))
+			v16.field_4 = j.NewPos.Y
 			v7 = (*uint8)(memmap.PtrOff(0x5D4594, 2386580))
-			v16.field_8 = step**(*float32)(unsafe.Add(j, 80)) + *(*float32)(unsafe.Add(j, 64))
-			v16.field_C = step**(*float32)(unsafe.Add(j, 84)) + *(*float32)(unsafe.Add(j, 68))
-			v8 = int8(uint8((*(*uint32)(unsafe.Add(j, 16))>>12)&4 | 1))
-			for uint32(*(*uint16)(unsafe.Add(j, 4))) != *(*uint32)(unsafe.Pointer(v7)) {
+			v16.field_8 = step*j.VelVec.X + j.NewPos.X
+			v16.field_C = step*j.VelVec.Y + j.NewPos.Y
+			v8 = int8(uint8((j.ObjFlags>>12)&4 | 1))
+			for uint32(j.TypeInd) != *(*uint32)(unsafe.Pointer(v7)) {
 				v7 = (*uint8)(unsafe.Add(unsafe.Pointer(v7), 4))
 				if int32(uintptr(unsafe.Pointer(v7))) >= int32(uintptr(memmap.PtrOff(0x5D4594, 2386620))) {
 					goto LABEL_20
 				}
 			}
-			v8 = int8(uint8((*(*uint32)(unsafe.Add(j, 16))>>12)&4 | 0x41))
+			v8 = int8(uint8((j.ObjFlags>>12)&4 | 0x41))
 		LABEL_20:
 			if nox_xxx_mapTraceRay_535250(&v16, nil, nil, v8) != 0 {
-				*(*float32)(unsafe.Add(j, 64)) = v16.field_8
-				*(*float32)(unsafe.Add(j, 68)) = v16.field_C
+				j.NewPos.X = v16.field_8
+				j.NewPos.Y = v16.field_C
 			}
-			v9 = int32(*(*uint32)(unsafe.Add(j, 16)))
-			if (v9&0x4000) == 0 && *(*uint32)(unsafe.Add(j, 556)) != 0 && nox_xxx_tileNFromPoint_411160((*types.Pointf)(unsafe.Add(j, 64))) == 6 {
+			v9 = int32(j.ObjFlags)
+			if (v9&0x4000) == 0 && j.HealthData != nil && nox_xxx_tileNFromPoint_411160((*types.Pointf)(unsafe.Add(unsafe.Pointer(j), 64))) == 6 {
 				v15.X = 0.0
 				v15.Y = 0.0
 				nox_xxx_collSysAddCollision_548630(j, unsafe.Pointer(uintptr(6)), &v15)
 			}
-			v10 = float64(*v6 - *(*float32)(unsafe.Add(j, 56)))
+			v10 = float64(*v6 - j.PosVec.X)
 			if v10 < 0.0 {
 				v10 = -v10
 			}
-			v11 = float64(*(*float32)(unsafe.Add(j, 68)) - *(*float32)(unsafe.Add(j, 60)))
+			v11 = float64(j.NewPos.Y - j.PosVec.Y)
 			if v11 < 0.0 {
 				v11 = -v11
 			}
@@ -4314,9 +4314,9 @@ func nox_xxx_updateObjectsVelocity_5118A0(step float32) {
 				v12 = float32(v11)
 				return float64(v12) > 0.0099999998
 			}()) {
-				nox_xxx_unitNeedSync_4E44F0((*server.Object)(j))
-				nox_xxx_objectUnkUpdateCoords_4E7290((*server.Object)(j))
-				nox_xxx_moveUpdateSpecial_517970((*server.Object)(j))
+				nox_xxx_unitNeedSync_4E44F0(j)
+				nox_xxx_objectUnkUpdateCoords_4E7290(j)
+				nox_xxx_moveUpdateSpecial_517970(j)
 			}
 		}
 		result = sub_537750(j)

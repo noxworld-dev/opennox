@@ -182,7 +182,7 @@ var dword_5d4594_1197316 *gui.Window
 var dword_5d4594_2386576 *server.Object
 var dword_5d4594_1569756 uint32
 var dword_5d4594_1320968 *client.Drawable
-var dword_5d4594_2488604 unsafe.Pointer
+var dword_5d4594_2488604 *server.Object
 var qword_581450_9544 float64 = 0.5
 var qword_5d4594_1567940 uint64 = 0
 var qword_581450_10256 float64 = 0.01
@@ -415,7 +415,7 @@ var dword_5d4594_2487564 uint32
 var dword_5d4594_3804684 int32
 var dword_5d4594_830972 unsafe.Pointer
 var dword_5d4594_1308120 *gui.Window
-var dword_5d4594_2488608 unsafe.Pointer
+var dword_5d4594_2488608 *server.Object
 var dword_5d4594_1568868 uint32
 var dword_5d4594_1090108 uint32
 var dword_5d4594_1308108 *gui.Window
@@ -467,7 +467,7 @@ var dword_5d4594_3799452 uint32
 var dword_5d4594_1096280 uint32
 var dword_5d4594_1316472 uint32
 var dword_5d4594_1062560 int32
-var dword_5d4594_2491544 uint32
+var dword_5d4594_2491544 *collisionHit
 var dword_587000_183456 int32 = 0x67
 var nox_xxx_lightningOwner_5d4594_2487900 uint32
 var dword_5d4594_1096256 uint32
@@ -650,7 +650,7 @@ var dword_5d4594_811904 uint32
 var dword_5d4594_2491580 uint32
 var dword_5d4594_1200832 uint32
 var dword_5d4594_1319260 uint32
-var nox_alloc_hit_2491548 unsafe.Pointer
+var nox_alloc_hit_2491548 alloc.ClassT[collisionHit]
 var dword_5d4594_2488656 uint32
 var dword_5d4594_2386552 uint32
 var dword_5d4594_3835368 uint32

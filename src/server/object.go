@@ -525,7 +525,7 @@ type Object struct {
 	ObjPrev       *Object                           // 112, 448
 	DeletedNext   *Object                           // 113, 452
 	DeletedAt     uint32                            // 114, 456
-	Field115      uint32                            // 115, 460
+	Field115      uintptr                           // 115, 460
 	Field116      uint32                            // 116, 464
 	Field117      *Object                           // 117, 468
 	Field118      *Object                           // 118, 472
