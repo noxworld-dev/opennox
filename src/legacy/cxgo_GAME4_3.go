@@ -6606,11 +6606,9 @@ func nox_xxx_rechargeItem_53C520(a1 int32, a2 int32) int32 {
 	return 1
 }
 func nox_xxx_updateObelisk_53C580(obj *server.Object) {
-	a1 := obj
 	var (
-		v2     *int32
+		ud     *int32
 		v4     int32
-		v5     int32
 		v6     float64
 		v7     float64
 		v8     int32
@@ -6628,46 +6626,45 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 		v20    float32
 		v22    int32
 		v23    int32
-		v24    *int32
+		ud2    *int32
 	)
-	v1 := a1
+	v1 := obj
 	v23 = 1
-	v2 = (*int32)(a1.UpdateData)
-	v24 = (*int32)(a1.UpdateData)
-	v3 := nox_xxx_getFirstPlayerUnit_4DA7C0()
-	v21 := v3
-	if v3 == nil {
+	ud = (*int32)(obj.UpdateData)
+	ud2 = (*int32)(obj.UpdateData)
+
+	pl := nox_xxx_getFirstPlayerUnit_4DA7C0()
+	if pl == nil {
 		goto LABEL_50
 	}
-	for {
-		v4 = int32(v3.ObjFlags)
+	for ; pl != nil; pl = nox_xxx_getNextPlayerUnit_4DA7F0(pl) {
+		v4 = int32(pl.ObjFlags)
 		if (v4 & 0x8000) != 0 {
-			goto LABEL_47
+			continue
 		}
-		v5 = int32(v3.UpdateData)
+		v5 := pl.UpdateDataPlayer()
 		if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v1), 48))) != 0 {
-			if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v1), 48)), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 48))) == 0 {
-				goto LABEL_47
+			if nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v1), 48)), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(pl), 48))) == 0 {
+				continue
 			}
 		}
-		v6 = float64(v1.PosVec.X - v3.PosVec.X)
-		v7 = float64(v1.PosVec.Y - v3.PosVec.Y)
+		v6 = float64(v1.PosVec.X - pl.PosVec.X)
+		v7 = float64(v1.PosVec.Y - pl.PosVec.Y)
 		v22 = 0
-		if v7*v7+v6*v6 >= 2500.0 || nox_xxx_mapCheck_537110(v1, v3) == 0 {
-			goto LABEL_47
+		if v7*v7+v6*v6 >= 2500.0 || nox_xxx_mapCheck_537110(v1, pl) == 0 {
+			continue
 		}
 		v23 = 0
-		if *v24 >= 1 {
-			v8 = nox_xxx_getRechargeRate_53C940(*(**uint32)(unsafe.Add(v5, 104)))
+		if *ud2 >= 1 {
+			v8 = nox_xxx_getRechargeRate_53C940(v5.Field26)
 			if !noxflags.HasGame(0x2000) || noxflags.HasGame(4096) {
 				if v8 == 0 {
-					v3 = v21
 					goto LABEL_25
 				}
 			} else {
 				v8 = 1
 			}
-			v9 = *(**uint32)(unsafe.Add(v5, 104))
+			v9 = v5.Field26
 			if v9 != nil {
 				v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2)))
 				if v10&0x1000 != 0 {
@@ -6680,28 +6677,27 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 								}
 							} else {
 								v22 = 1
-								*v24--
+								*ud2--
 							}
-							if nox_xxx_rechargeItem_53C520(int32(*(*uint32)(unsafe.Add(v5, 104))), v8) != 0 {
-								nox_xxx_netReportCharges_4D82B0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 276)), 2064))), (*server.Object)(unsafe.Pointer(*(**uint32)(unsafe.Add(v5, 104)))), int8(*(*uint8)(unsafe.Add(v11, 108))), int8(*(*uint8)(unsafe.Add(v11, 109))))
+							if nox_xxx_rechargeItem_53C520(int32(v5.Field26), v8) != 0 {
+								nox_xxx_netReportCharges_4D82B0(int32(v5.Player.PlayerInd), v5.Field26, int8(*(*uint8)(unsafe.Add(v11, 108))), int8(*(*uint8)(unsafe.Add(v11, 109))))
 							}
 						}
 					}
 				}
 			}
-			v3 = v21
 			goto LABEL_25
 		}
 	LABEL_25:
-		if *v24 < 1 || int32(*(*uint16)(unsafe.Add(v5, 4))) >= int32(*(*uint16)(unsafe.Add(v5, 8))) || *v24 <= 0 {
+		if *ud2 < 1 || int32(v5.ManaCur) >= int32(v5.ManaMax) || *ud2 <= 0 {
 			if v22 == 0 {
-				goto LABEL_47
+				continue
 			}
 			goto LABEL_43
 		}
 		v12 = 1
 		if noxflags.HasGame(4096) {
-			v13 = int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 276)), 2251)))
+			v13 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v5.Player), 2251)))
 			if int32(v13) != 0 {
 				if int32(v13) == 1 {
 					v14 = int16(int32(nox_xxx_wizardMaximumMana_587000_312820))
@@ -6717,13 +6713,13 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 			v12 = v14
 		}
 	LABEL_36:
-		v15 = int32(*(*uint32)(unsafe.Add(v5, 276)))
-		*(*uint16)(unsafe.Add(v5, 4)) += uint16(v12)
+		v15 = int32(v5.Player)
+		v5.ManaCur += uint16(v12)
 		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(v15, 4596))), v12)
-		v16 = *(*uint16)(unsafe.Add(v5, 8))
-		if int32(*(*uint16)(unsafe.Add(v5, 4))) > int32(v16) {
-			v17 = int32(*(*uint32)(unsafe.Add(v5, 276)))
-			*(*uint16)(unsafe.Add(v5, 4)) = v16
+		v16 = v5.ManaMax
+		if int32(v5.ManaCur) > int32(v16) {
+			v17 = int32(v5.Player)
+			v5.ManaCur = v16
 			nox_xxx_protectPlayerHPMana_56F870(int32(*(*uint32)(unsafe.Add(v17, 4596))), v16)
 		}
 		if noxflags.HasGame(4096) {
@@ -6731,14 +6727,14 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 				nox_xxx_aud_501960(230, v1, 0, 0)
 			}
 			if v22 == 0 {
-				goto LABEL_47
+				continue
 			}
 			goto LABEL_43
 		}
-		*v24--
+		*ud2--
 	LABEL_43:
-		if (*v24 % 8) == 0 {
-			v19 = float32(float64(*v24 * 80 / 50))
+		if (*ud2 % 8) == 0 {
+			v19 = float32(float64(*ud2 * 80 / 50))
 			nullsub_35(unsafe.Pointer(v1), *(*uint32)(unsafe.Add(unsafe.Pointer(&v19), 4*0)))
 			nox_xxx_unitNeedSync_4E44F0(v1)
 		}
@@ -6746,29 +6742,23 @@ func nox_xxx_updateObelisk_53C580(obj *server.Object) {
 			nox_xxx_aud_501960(230, v1, 0, 0)
 			v1.Field34 = gameFrame()
 		}
-	LABEL_47:
-		v21 = nox_xxx_getNextPlayerUnit_4DA7F0(v3)
-		if v21 == nil {
-			break
-		}
-		v3 = v21
 	}
 	result = v23
 	if v23 == 0 {
 		return
 	}
-	v2 = v24
+	ud = ud2
 LABEL_50:
 	result = int32(gameFrame() / (gameFPS() >> 1))
 	if (gameFrame() % (gameFPS() >> 1)) == 0 {
-		result = *v2
-		if *v2 < 50 {
+		result = *ud
+		if *ud < 50 {
 			if (result % 8) == 0 {
 				v20 = float32(float64(result * 80 / 50))
 				nullsub_35(unsafe.Pointer(v1), *(*uint32)(unsafe.Add(unsafe.Pointer(&v20), 4*0)))
 				nox_xxx_unitNeedSync_4E44F0(v1)
 			}
-			*v2++
+			*ud++
 		}
 	}
 }
