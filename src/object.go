@@ -544,11 +544,11 @@ func (obj *Object) SetMana(v int) {
 		pt := asPlayerS(p.Player)
 		legacy.Nox_xxx_protectMana_56F9E0(int(pt.ProtUnitManaCur), int16(v-cur))
 	} else if obj.Class().Has(object.ClassImmobile) && obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk|object.OtherInvisibleObelisk) {
-		ud := obj.UpdateData
+		ud := obj.UpdateDataObelisk()
 		if ud == nil {
 			return
 		}
-		*(*int32)(ud) = int32(v)
+		ud.Mana = int32(v)
 		obj.NeedSync()
 	}
 }
@@ -568,11 +568,11 @@ func (obj *Object) SetMaxMana(v int) {
 		p.ManaMax = uint16(v)
 	} else if obj.Class().Has(object.ClassImmobile) && obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk|object.OtherInvisibleObelisk) {
 		// TODO: looks like max mana for obelisks is hardcoded; set regular mana instead
-		ud := obj.UpdateData
+		ud := obj.UpdateDataObelisk()
 		if ud == nil {
 			return
 		}
-		*(*int32)(ud) = int32(v)
+		ud.Mana = int32(v)
 		obj.NeedSync()
 	}
 	obj.SetMana(v)
@@ -872,6 +872,10 @@ func (obj *Object) UpdateDataPlayer() *server.PlayerUpdateData {
 
 func (obj *Object) UpdateDataMonster() *server.MonsterUpdateData {
 	return obj.SObj().UpdateDataMonster()
+}
+
+func (obj *Object) UpdateDataObelisk() *server.ObeliskUpdateData {
+	return obj.SObj().UpdateDataObelisk()
 }
 
 func (obj *Object) ControllingPlayer() *Player {

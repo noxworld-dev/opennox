@@ -814,15 +814,19 @@ func (obj *Object) InitDataGlyph() *GlyphInitData {
 	return (*GlyphInitData)(obj.InitData)
 }
 
-func (obj *Object) UpdateDataPlayer() *PlayerUpdateData {
-	if !obj.Class().Has(object.ClassPlayer) {
-		panic(obj.Class().String())
-	}
+func updateDataAs[T any](obj *Object) *T {
 	if alloc.IsDead(obj.UpdateData) {
 		panic("object already deleted")
 	}
 	// TODO: verify this conversion by checking ObjectType
-	return (*PlayerUpdateData)(obj.UpdateData)
+	return (*T)(obj.UpdateData)
+}
+
+func (obj *Object) UpdateDataPlayer() *PlayerUpdateData {
+	if !obj.Class().Has(object.ClassPlayer) {
+		panic(obj.Class().String())
+	}
+	return updateDataAs[PlayerUpdateData](obj)
 }
 
 func (obj *Object) ControllingPlayer() *Player {
@@ -837,11 +841,17 @@ func (obj *Object) UpdateDataMonster() *MonsterUpdateData {
 	if !obj.Class().Has(object.ClassMonster) {
 		panic(obj.Class().String())
 	}
-	if alloc.IsDead(obj.UpdateData) {
-		panic("object already deleted")
+	return updateDataAs[MonsterUpdateData](obj)
+}
+
+func (obj *Object) UpdateDataObelisk() *ObeliskUpdateData {
+	if !obj.Class().Has(object.ClassImmobile) {
+		panic(obj.Class().String())
 	}
-	// TODO: verify this conversion by checking ObjectType
-	return (*MonsterUpdateData)(obj.UpdateData)
+	if !obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk | object.OtherInvisibleObelisk) {
+		panic(obj.SubClass().AsOther().String())
+	}
+	return updateDataAs[ObeliskUpdateData](obj)
 }
 
 func (obj *Object) TeamPtr() *ObjectTeam {
@@ -923,12 +933,12 @@ func (obj *Object) Mana() (cur, max int) {
 		max = int(p.ManaMax)
 		return
 	} else if obj.Class().Has(object.ClassImmobile) && obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk|object.OtherInvisibleObelisk) {
-		ud := obj.UpdateData
+		ud := obj.UpdateDataObelisk()
 		if ud == nil {
 			return
 		}
 		// TODO: looks like max mana for obelisks is hardcoded; so set max to max(50, cur)
-		cur, max = int(*(*int32)(ud)), 50
+		cur, max = int(ud.Mana), 50
 		if cur > max {
 			max = cur
 		}
