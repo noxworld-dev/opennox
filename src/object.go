@@ -455,8 +455,20 @@ func (obj *Object) SubClass() object.SubClass {
 	return obj.SObj().SubClass()
 }
 
+func (obj *Object) MonsterClass() object.MonsterClass {
+	return obj.SObj().MonsterClass()
+}
+
 func (obj *Object) ArmorClass() object.ArmorClass {
 	return obj.SObj().ArmorClass()
+}
+
+func (obj *Object) WeaponClass() object.WeaponClass {
+	return obj.SObj().WeaponClass()
+}
+
+func (obj *Object) OtherClass() object.OtherClass {
+	return obj.SObj().OtherClass()
 }
 
 func (obj *Object) Flags() object.Flags {
@@ -653,6 +665,16 @@ func (obj *Object) Inventory() []*Object {
 	var out []*Object
 	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
 		out = append(out, p)
+	}
+	return out
+}
+
+func (obj *Object) Equipment() []*Object {
+	var out []*Object
+	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
+		if p.Flags().Has(object.FlagEquipped) {
+			out = append(out, p)
+		}
 	}
 	return out
 }
