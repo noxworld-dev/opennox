@@ -3353,13 +3353,15 @@ func nox_xxx_playerCancelSpells_4FEAE0(a1p *server.Object) int32 {
 	}
 	return result
 }
-func sub_4FEB60(a1 *server.Object, a2 *server.Object) {
-	if a2.ObjClass&0x1000 != 0 {
-		if a2.ObjSubClass&0x40000 != 0 {
-			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_CHAIN_LIGHTNING, a1)
+
+// sub_4FEB60 cancels channeling spells associated with a wand weapon.
+func sub_4FEB60(obj *server.Object, item *server.Object) {
+	if item.Class().Has(object.ClassWand) {
+		if item.SubClass().AsWeapon().Has(object.WeaponStaffLightning) {
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_CHAIN_LIGHTNING, obj)
 		}
-		if a2.ObjSubClass&0x4000000 != 0 {
-			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_PLASMA, a1)
+		if item.SubClass().AsWeapon().Has(object.WeaponStaffOblivionOrb) {
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_PLASMA, obj)
 		}
 	}
 }

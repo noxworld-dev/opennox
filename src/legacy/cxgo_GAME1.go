@@ -1907,7 +1907,7 @@ func nox_thing_read_audio_415660(a1p *binfile.MemFile, a2 *byte) int32 {
 	}
 	return 0
 }
-func nox_xxx_weaponInventoryEquipFlags_415820(item *server.Object) int32 {
+func nox_xxx_weaponInventoryEquipFlags_415820(item *server.Object) uint32 {
 	if item == nil {
 		return 0
 	}
@@ -1932,7 +1932,7 @@ func sub_415840(a1 uint32) int32 {
 	}
 	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+33068)))
 }
-func nox_xxx_ammoCheck_415880(typ_ind uint16) int32 {
+func nox_xxx_ammoCheck_415880(typ_ind uint16) uint32 {
 	var (
 		v1 int32
 		i  *uint8
@@ -2070,18 +2070,12 @@ func nox_xxx_itemApplyDefendEffect_415C00(a1p *server.Object) float64 {
 	}
 	return float64(v6)
 }
-func nox_xxx_unitArmorInventoryEquipFlags_415C70(item *server.Object) int32 {
-	var (
-		v1     int32
-		result int32
-	)
-	v1 = sub_415C90(item)
+func nox_xxx_unitArmorInventoryEquipFlags_415C70(item *server.Object) uint32 {
+	v1 := sub_415C90(item)
 	if v1 < 0 {
-		result = 0
-	} else {
-		result = int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34860)))
+		return 0
 	}
-	return result
+	return *memmap.PtrUint32(0x587000, uintptr(v1)*24+34860)
 }
 func sub_415C90(item *server.Object) int32 {
 	var (

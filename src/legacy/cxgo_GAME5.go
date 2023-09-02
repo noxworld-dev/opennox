@@ -6000,7 +6000,7 @@ func nox_xxx_unitCreatureCopyUC_54F2B0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 					if v3.ObjFlags&0x100 != 0 {
 						v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2)))
 						if uint32(v6)&0x1001000 != 0 {
-							nox_xxx_NPCEquipWeapon_53A2C0(a2, (*server.Object)(unsafe.Pointer(v5)))
+							nox_xxx_NPCEquipWeapon_53A2C0((*server.Object)(a2), (*server.Object)(unsafe.Pointer(v5)))
 						} else if uint32(v6)&0x2000000 != 0 {
 							nox_xxx_NPCEquipArmor_53E520(a2, v5)
 						}

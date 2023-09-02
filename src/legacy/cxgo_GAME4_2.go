@@ -9360,7 +9360,7 @@ LABEL_156:
 						v42 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(k), 4*2)))
 						*(*uint32)(unsafe.Add(unsafe.Pointer(k), 4*4)) &= 0xFFFFFEFF
 						if uint32(v42)&0x1001000 != 0 {
-							nox_xxx_NPCEquipWeapon_53A2C0(v35, (*server.Object)(unsafe.Pointer(k)))
+							nox_xxx_NPCEquipWeapon_53A2C0((*server.Object)(v35), (*server.Object)(unsafe.Pointer(k)))
 						} else {
 							nox_xxx_NPCEquipArmor_53E520(v35, k)
 						}

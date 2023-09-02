@@ -107,7 +107,7 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 			if next == 0 {
 				break
 			}
-			weapFlags = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(next))
+			weapFlags = int32(nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(next)))
 			if weapFlags != 0 && weapFlags != 2 {
 				if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(next), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 748)), 276)), 2251)))) != 0 {
 					v11 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(playerObj), (*server.Object)(next)))
@@ -122,7 +122,7 @@ func mix_MouseKeyboardWeaponRoll(playerObjP *server.Object, a2 int8) int8 {
 		}
 	} else {
 		for i = int32(*(*uint32)(unsafe.Add(playerObj, 504))); i != 0; i = int32(*(*uint32)(unsafe.Add(i, 496))) {
-			v6 = nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(i))
+			v6 = int32(nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(i)))
 			if v6 != 0 && v6 != 2 {
 				if nox_xxx_playerClassCanUseItem_57B3D0((*server.Object)(i), int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(playerObj, 0x2EC)), 0x114)), 0x8CB)))) != 0 {
 					v8 = bool2int32(nox_xxx_playerCheckStrength_4F3180((*server.Object)(playerObj), (*server.Object)(i)))

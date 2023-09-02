@@ -1375,7 +1375,7 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 			if v8 < 0 {
 				return 0
 			}
-			v9 = nox_xxx_ammoCheck_415880(uint16(int16(v8)))
+			v9 = int32(nox_xxx_ammoCheck_415880(uint16(int16(v8))))
 			v10 = v9
 			if v9 == 0 {
 				return 0

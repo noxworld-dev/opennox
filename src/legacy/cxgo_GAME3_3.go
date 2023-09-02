@@ -1000,34 +1000,20 @@ func sub_4E43F0(a1 *byte) *FILE {
 func nox_xxx_unitNeedSync_4E44F0(obj *server.Object) {
 	obj.Field38 = math.MaxUint32
 }
-func sub_4E4500(a1p *server.Object, a2 int32, a3 int32, a4 int32) *int32 {
-	var (
-		a1     = a1p
-		v4     int32
-		result *int32
-		v6     int32
-	)
-	v4 = 0
-	result = (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-	for {
+func sub_4E4500(a1 *server.Object, a2 uint32, a3 uint32, a4 int32) {
+	for i := 0; i < 32; i++ {
+		p := &a1.Field140[i]
 		if a4 != 0 {
-			*result |= a3
+			*p |= a3
 		} else {
-			*result &= ^a3
+			*p &^= a3
 		}
-		v6 = *result
-		if uint32(1<<v4)&a1.Field37 != 0 {
-			*result = a2 | v6
-		} else if (v6 & a3) == 0 {
-			*result = v6 & ^a2
-		}
-		v4++
-		result = (*int32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-		if v4 >= 32 {
-			break
+		if uint32(1<<i)&a1.Field37 != 0 {
+			*p |= a2
+		} else if (*p & a3) == 0 {
+			*p &^= a2
 		}
 	}
-	return result
 }
 func nox_xxx_unitSetHP_4E4560(obj *server.Object, amount uint16) {
 	hp := obj.HealthData
@@ -1147,7 +1133,7 @@ func nox_xxx_setUnitBuffFlags_4E48F0(obj *server.Object, buffs uint32) {
 		sub_4E4500(obj, 0x800000, 0x80, v6)
 	}
 }
-func nox_xxx_modifSetItemAttrs_4E4990(a1p *server.Object, a2 *int32) *int32 {
+func nox_xxx_modifSetItemAttrs_4E4990(a1p *server.Object, a2 *int32) {
 	var (
 		a1     = a1p
 		v2     int32
@@ -1176,7 +1162,7 @@ func nox_xxx_modifSetItemAttrs_4E4990(a1p *server.Object, a2 *int32) *int32 {
 		}
 	}
 	if v3 == 0 {
-		return result
+		return
 	}
 LABEL_19:
 	result = *(**int32)(memmap.PtrOff(0x5D4594, 1564960))
@@ -1185,7 +1171,7 @@ LABEL_19:
 		*memmap.PtrPtr(0x5D4594, 1564960) = unsafe.Pointer(result)
 	}
 	if !(a1.ObjClass&0x13001000 != 0 || (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4))) == result) {
-		return result
+		return
 	}
 	nox_xxx_unitNeedSync_4E44F0(a1)
 	alloc.Memcpy(a1.InitData, unsafe.Pointer(a2), 0x14)
@@ -1203,54 +1189,33 @@ LABEL_19:
 		}
 	} else {
 		v8 = sub_4E4C90(a1, 0x200)
-		result = sub_4E4500(a1, 0x2000000, 512, v8)
+		sub_4E4500(a1, 0x2000000, 512, v8)
 	}
-	return result
 }
 func nox_xxx_objectGetMass_4E4A70(a1 *server.Object) float64 {
 	return float64(a1.Mass)
 }
-func nox_xxx_npcSetItemEquipFlags_4E4B20(a1 *server.Object, item *server.Object, a3 int32) *int32 {
-	var (
-		v4     int32
-		v5     int32
-		result *int32
-		v7     int32
-		v8     int32
-	)
-	v3 := a1.UpdateData
-	nox_xxx_unitNeedSync_4E44F0(a1)
-	v4 = int32(item.ObjClass)
-	if a3 == 1 {
-		if uint32(v4)&0x1001000 != 0 {
-			*(*uint32)(unsafe.Add(v3, 2056)) |= uint32(nox_xxx_weaponInventoryEquipFlags_415820(item))
-			goto LABEL_9
-		}
-		v5 = int32(uint32(nox_xxx_unitArmorInventoryEquipFlags_415C70(item)) | *(*uint32)(unsafe.Add(v3, 2060)))
+func nox_xxx_npcSetItemEquipFlags_4E4B20(obj *server.Object, item *server.Object, a3 int32) {
+	ud := obj.UpdateDataMonster()
+	nox_xxx_unitNeedSync_4E44F0(obj)
+	var mask uint32
+	if item.Class().HasAny(object.ClassWand | object.ClassWeapon) {
+		mask = nox_xxx_weaponInventoryEquipFlags_415820(item)
 	} else {
-		if uint32(v4)&0x1001000 != 0 {
-			*(*uint32)(unsafe.Add(v3, 2056)) &= uint32(^nox_xxx_weaponInventoryEquipFlags_415820(item))
-			goto LABEL_9
-		}
-		v5 = int32(uint32(^nox_xxx_unitArmorInventoryEquipFlags_415C70(item)) & *(*uint32)(unsafe.Add(v3, 2060)))
+		mask = nox_xxx_unitArmorInventoryEquipFlags_415C70(item)
 	}
-	*(*uint32)(unsafe.Add(v3, 2060)) = uint32(v5)
-LABEL_9:
-	if (a1.ObjClass & 0x20400004) == 0 {
-		return sub_4E4500(a1, 0x4000000, 1024, 1)
+	if a3 == 1 {
+		ud.Field515 |= mask
+	} else {
+		ud.Field515 &^= mask
 	}
-	result = (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-	v7 = 32
-	for {
-		v8 = *result
-		result = (*int32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-		v7--
-		*(*int32)(unsafe.Add(unsafe.Pointer(result), -int(4*1))) = int32(uint32(v8)&0xFFFFF000 | 0x4000000)
-		if v7 == 0 {
-			break
-		}
+	if !obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		sub_4E4500(obj, 0x4000000, 1024, 1)
+		return
 	}
-	return result
+	for i := 0; i < 32; i++ {
+		obj.Field140[i] = (obj.Field140[i] & 0xFFFFF000) | 0x4000000
+	}
 }
 func sub_4E4C00(item *server.Object) int32 {
 	var result int32
@@ -8612,7 +8577,7 @@ func nox_xxx_rewardMakeWeapon_4F14E0(a1 *server.Object, a2 uint32) *server.Objec
 	if v12 == 0 {
 		return nil
 	}
-	v73 = nox_xxx_ammoCheck_415880(uint16(v12))
+	v73 = int32(nox_xxx_ammoCheck_415880(uint16(v12)))
 	v13 := nox_xxx_newObjectWithTypeInd_4E3450(int32(v12))
 	v14 := v13
 	v75 := v13
@@ -9484,9 +9449,9 @@ func sub_4F27E0(a1 *server.Object) int32 {
 		return 1
 	}
 	if a1.ObjClass&0x1000000 != 0 {
-		v2 = nox_xxx_weaponInventoryEquipFlags_415820(a1)
+		v2 = int32(nox_xxx_weaponInventoryEquipFlags_415820(a1))
 	} else {
-		v2 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a1)
+		v2 = int32(nox_xxx_unitArmorInventoryEquipFlags_415C70(a1))
 	}
 	v3 = int32(a1.ObjClass & 0x1000000)
 	var v8 unsafe.Pointer
@@ -9541,9 +9506,9 @@ func sub_4F28C0(a1 *server.Object) int32 {
 		return 1
 	}
 	if a1.ObjClass&0x1000000 != 0 {
-		v2 = nox_xxx_weaponInventoryEquipFlags_415820(a1)
+		v2 = int32(nox_xxx_weaponInventoryEquipFlags_415820(a1))
 	} else {
-		v2 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a1)
+		v2 = int32(nox_xxx_unitArmorInventoryEquipFlags_415C70(a1))
 	}
 	v3 = 0
 	if *memmap.PtrUint32(0x587000, 211000) == 0 {
@@ -9597,9 +9562,9 @@ func sub_4F2960(a1 *server.Object) int32 {
 		*memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568320) = nox_xxx_modifGetDescById_413330(v4)
 	}
 	if a1.ObjClass&0x1000000 != 0 {
-		v5 = nox_xxx_weaponInventoryEquipFlags_415820(a1)
+		v5 = int32(nox_xxx_weaponInventoryEquipFlags_415820(a1))
 	} else {
-		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a1)
+		v5 = int32(nox_xxx_unitArmorInventoryEquipFlags_415C70(a1))
 	}
 	v6 = 2
 	for {
@@ -10339,7 +10304,7 @@ func nox_xxx_pickupAmmo_4F3B00(obj *server.Object, item *server.Object, a3 int, 
 		v19 *uint8
 		v20 *uint32
 	)
-	v5 = nox_xxx_weaponInventoryEquipFlags_415820(item)
+	v5 = int32(nox_xxx_weaponInventoryEquipFlags_415820(item))
 	v18 = v5
 	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8))) & 4) == 0 {
 		return sub_53A720(obj, item, a3, a4)

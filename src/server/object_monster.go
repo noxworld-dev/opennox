@@ -402,7 +402,7 @@ type MonsterUpdateData struct {
 	Field513              uint32               // 513, 2052
 	Field514              uint32               // 514, 2056, TODO: weapon damage type?
 	Field515              uint32               // 515, 2060
-	Field516              uint32               // 516, 2064
+	Weapon516             *Object              // 516, 2064
 	Field517              uint32               // 517, 2068
 	Field518              uint32               // 518, 2072
 	Color                 [6]Color3            // 519, 2076

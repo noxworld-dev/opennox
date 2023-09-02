@@ -3711,7 +3711,7 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v8), 8)))&4 != 0 {
 				v19[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = uint32(nox_xxx_weaponInventoryEquipFlags_415820(a2))
+			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_weaponInventoryEquipFlags_415820(a2)
 			v9 = 0
 			v10 := v5
 			for {
@@ -3734,7 +3734,7 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v11), 8)))&4 != 0 {
 				v19[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = uint32(nox_xxx_weaponInventoryEquipFlags_415820(a2))
+			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_weaponInventoryEquipFlags_415820(a2)
 			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v19[0]), 7, nil, 0)
 		}
 	} else if uint32(v3)&0x2000000 != 0 {
@@ -3758,7 +3758,7 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v15), 8)))&4 != 0 {
 				v19[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = uint32(nox_xxx_unitArmorInventoryEquipFlags_415C70(a2))
+			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
 			v16 = 0
 			v17 := v12
 			for {
@@ -3781,7 +3781,7 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v18), 8)))&4 != 0 {
 				v19[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = uint32(nox_xxx_unitArmorInventoryEquipFlags_415C70(a2))
+			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
 			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v19[0]), 7, nil, 0)
 		}
 	}
@@ -3797,7 +3797,7 @@ func nox_xxx_netReportDequip_4D84C0(a1 int32, object *server.Object) {
 		v4 := object.InvHolder
 		v7[0] = 84
 		*(*uint16)(unsafe.Pointer(&v7[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v4), 36))
-		v5 = nox_xxx_weaponInventoryEquipFlags_415820(object)
+		v5 = int32(nox_xxx_weaponInventoryEquipFlags_415820(object))
 	} else {
 		if (uint32(v3) & 0x2000000) == 0 {
 			return
@@ -3805,7 +3805,7 @@ func nox_xxx_netReportDequip_4D84C0(a1 int32, object *server.Object) {
 		v6 := object.InvHolder
 		v7[0] = 83
 		*(*uint16)(unsafe.Pointer(&v7[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v6), 36))
-		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(object)
+		v5 = int32(nox_xxx_unitArmorInventoryEquipFlags_415C70(object))
 	}
 	*(*uint32)(unsafe.Pointer(&v7[3])) = uint32(v5)
 	nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v7[0]), 7, nil, 0)
@@ -6070,7 +6070,7 @@ func nox_xxx_effectRegeneration_4E01D0(a1 unsafe.Pointer, a2 *server.Object) {
 					if int32(uint16(nox_xxx_unitGetHP_4EE780(v2))) < int32(v3) {
 						v4 = *(*uint32)(unsafe.Add(a1, 108))
 						if a2.ObjClass&0x2000000 != 0 {
-							v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
+							v5 = int32(nox_xxx_unitArmorInventoryEquipFlags_415C70(a2))
 							if v5&0x4000 != 0 {
 								v4 /= 3
 							}
