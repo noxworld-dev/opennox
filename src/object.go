@@ -530,18 +530,27 @@ func (obj *Object) SetMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := obj.UpdateDataPlayer()
-	if p == nil {
-		return
-	}
 	if _, max := obj.Mana(); v > max {
 		v = max
 	}
-	cur := int(p.ManaCur)
-	p.ManaPrev = uint16(cur)
-	p.ManaCur = uint16(v)
-	pt := asPlayerS(p.Player)
-	legacy.Nox_xxx_protectMana_56F9E0(int(pt.ProtUnitManaCur), int16(v-cur))
+	if obj.Class().Has(object.ClassPlayer) {
+		p := obj.UpdateDataPlayer()
+		if p == nil {
+			return
+		}
+		cur := int(p.ManaCur)
+		p.ManaPrev = uint16(cur)
+		p.ManaCur = uint16(v)
+		pt := asPlayerS(p.Player)
+		legacy.Nox_xxx_protectMana_56F9E0(int(pt.ProtUnitManaCur), int16(v-cur))
+	} else if obj.Class().Has(object.ClassImmobile) && obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk|object.OtherInvisibleObelisk) {
+		ud := obj.UpdateData
+		if ud == nil {
+			return
+		}
+		*(*int32)(ud) = int32(v)
+		obj.NeedSync()
+	}
 }
 
 func (obj *Object) SetMaxMana(v int) {
@@ -551,11 +560,21 @@ func (obj *Object) SetMaxMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := obj.UpdateDataPlayer()
-	if p == nil {
-		return
+	if obj.Class().Has(object.ClassPlayer) {
+		p := obj.UpdateDataPlayer()
+		if p == nil {
+			return
+		}
+		p.ManaMax = uint16(v)
+	} else if obj.Class().Has(object.ClassImmobile) && obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk|object.OtherInvisibleObelisk) {
+		// TODO: looks like max mana for obelisks is hardcoded; set regular mana instead
+		ud := obj.UpdateData
+		if ud == nil {
+			return
+		}
+		*(*int32)(ud) = int32(v)
+		obj.NeedSync()
 	}
-	p.ManaMax = uint16(v)
 	obj.SetMana(v)
 }
 

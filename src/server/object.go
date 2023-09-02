@@ -914,13 +914,28 @@ func (obj *Object) Mana() (cur, max int) {
 	if obj == nil {
 		return
 	}
-	p := obj.UpdateDataPlayer()
-	if p == nil {
+	if obj.Class().Has(object.ClassPlayer) {
+		p := obj.UpdateDataPlayer()
+		if p == nil {
+			return
+		}
+		cur = int(p.ManaCur)
+		max = int(p.ManaMax)
+		return
+	} else if obj.Class().Has(object.ClassImmobile) && obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk|object.OtherInvisibleObelisk) {
+		ud := obj.UpdateData
+		if ud == nil {
+			return
+		}
+		// TODO: looks like max mana for obelisks is hardcoded; so set max to max(50, cur)
+		cur, max = int(*(*int32)(ud)), 50
+		if cur > max {
+			max = cur
+		}
+		return
+	} else {
 		return
 	}
-	cur = int(p.ManaCur)
-	max = int(p.ManaMax)
-	return
 }
 
 func (obj *Object) CurrentSpeed() float32 {
