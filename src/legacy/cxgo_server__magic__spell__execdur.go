@@ -27,8 +27,8 @@ func Sub_530A30_spell_execdur(sp *server.DurSpell) int32 {
 	)
 	v1 = a1
 	v2 = 0
-	if a1.Obj48 == nil {
-		a1.Obj48 = a1.Obj16
+	if a1.Target48 == nil {
+		a1.Target48 = a1.Caster16
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(v1, 16)))
 	if int32(*(*uint8)(unsafe.Add(v3, 8)))&4 != 0 {

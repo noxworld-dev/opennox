@@ -78,7 +78,7 @@ func (sp *spellsDuration) sub4FE8A0(a1 int) {
 	}
 	var next *server.DurSpell
 	for it := sp.list; it != nil; it = next {
-		u := it.Obj48
+		u := it.Target48
 		next = it.Next
 		if u == nil || !u.Class().Has(object.ClassPlayer) {
 			sub_4FE900(it)
@@ -140,7 +140,7 @@ func (sp *spellsDuration) CancelFor(sid spell.ID, obj server.Obj) {
 	for it := sp.list; it != nil; it = next {
 		sid2 := spell.ID(it.Spell)
 		next = it.Next
-		if sid2 == sid && it.Obj16 == toObjectS(obj) || spellIsSummon(sid) && spellIsSummon(sid2) && it.Obj16 == toObjectS(obj) {
+		if sid2 == sid && it.Caster16 == toObjectS(obj) || spellIsSummon(sid) && spellIsSummon(sid2) && it.Caster16 == toObjectS(obj) {
 			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
@@ -148,7 +148,7 @@ func (sp *spellsDuration) CancelFor(sid spell.ID, obj server.Obj) {
 
 func (sp *spellsDuration) sub4FEE50(a1 spell.ID, a2 *server.Object) bool {
 	for it := sp.list; it != nil; it = it.Next {
-		if it.Flag20 == 0 && spell.ID(it.Spell) == a1 && it.Obj16 == a2.SObj() && it.Flags88&0x1 == 0 {
+		if it.Flag20 == 0 && spell.ID(it.Spell) == a1 && it.Caster16 == a2.SObj() && it.Flags88&0x1 == 0 {
 			return true
 		}
 	}
@@ -159,7 +159,7 @@ func (sp *spellsDuration) nox_spell_cancelOffensiveFor_4FF310(u *server.Object) 
 	var next *server.DurSpell
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
-		if it.Obj16 == u.SObj() && sp.s.SpellFlags(spell.ID(it.Spell)).Has(things.SpellOffensive) {
+		if it.Caster16 == u.SObj() && sp.s.SpellFlags(spell.ID(it.Spell)).Has(things.SpellOffensive) {
 			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
@@ -173,14 +173,14 @@ func (sp *spellsDuration) spellCastByPlayer() {
 			legacy.Nox_xxx_plrCastSmth_4FEDA0(it)
 			continue
 		}
-		if obj16 := it.Obj16; obj16 != nil && obj16.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
-			it.Obj16 = nil
+		if obj16 := it.Caster16; obj16 != nil && obj16.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+			it.Caster16 = nil
 		}
 
 		if obj12 := it.Obj12; obj12 != nil && obj12.Flags().Has(object.FlagDestroyed) {
 			it.Obj12 = nil
 		}
-		if it.Obj16 == nil && it.Flag20 == 0 {
+		if it.Caster16 == nil && it.Flag20 == 0 {
 			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 			continue
 		}
@@ -212,7 +212,7 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	p.Spell = uint32(spellID)
 	p.Level = uint32(lvl)
 	p.Obj12 = u1.SObj()
-	p.Obj16 = u2.SObj()
+	p.Caster16 = u2.SObj()
 	p.Sub104 = nil
 	p.Sub108 = nil
 	if u3 != nil && int(u3.TypeInd) == glyphID {
@@ -225,7 +225,7 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 		p.Pos = u2.Pos()
 	}
 	p.Field36 = 0
-	p.Obj48 = sa.Obj
+	p.Target48 = sa.Obj
 	p.Pos2 = sa.Pos
 	p.Frame60 = sp.s.Frame()
 	p.Frame64 = sp.s.Frame()

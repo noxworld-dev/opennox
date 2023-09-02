@@ -14,8 +14,8 @@ func nox_xxx_lightningSpellDuration_52FFD0(a1 unsafe.Pointer, from, to *server.O
 		return
 	}
 	src := (*server.DurSpell)(a1)
-	p.Obj48 = to
-	p.Obj16 = from
+	p.Target48 = to
+	p.Caster16 = from
 	p.Spell = uint32(spell.SPELL_CHAIN_LIGHTNING_BOLT)
 	p.Sub108 = nil
 	p.Sub104 = nil
