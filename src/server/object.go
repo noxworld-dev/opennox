@@ -751,11 +751,32 @@ func (obj *Object) SubClass() object.SubClass {
 	return object.SubClass(obj.ObjSubClass)
 }
 
+func (obj *Object) MonsterClass() object.MonsterClass {
+	if !obj.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	return obj.SubClass().AsMonster()
+}
+
 func (obj *Object) ArmorClass() object.ArmorClass {
 	if !obj.Class().Has(object.ClassArmor) {
 		return 0
 	}
-	return object.ArmorClass(obj.SubClass())
+	return obj.SubClass().AsArmor()
+}
+
+func (obj *Object) WeaponClass() object.WeaponClass {
+	if !obj.Class().Has(object.ClassWeapon) {
+		return 0
+	}
+	return obj.SubClass().AsWeapon()
+}
+
+func (obj *Object) OtherClass() object.OtherClass {
+	if !obj.Class().HasAny(object.ClassMonster | object.ClassArmor | object.ClassWeapon) {
+		return 0
+	}
+	return obj.SubClass().AsOther()
 }
 
 func (obj *Object) Flags() object.Flags {
