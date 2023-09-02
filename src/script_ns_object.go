@@ -668,6 +668,13 @@ func (obj nsObj) HasItem(item ns4.Obj) bool {
 	return obj.Object.HasItem(toObject(item.(server.Obj)))
 }
 
+func (obj nsObj) HasEquipment(item ns4.Obj) bool {
+	if !obj.HasItem(item) {
+		return false
+	}
+	return item.Flags().Has(object.FlagEquipped)
+}
+
 func (obj nsObj) GetLastItem() ns4.Obj {
 	it := obj.FirstItem()
 	if it == nil {
@@ -696,12 +703,19 @@ func (obj nsObj) Items(conditions ...ns4.ObjCond) []ns4.Obj {
 	return out
 }
 
+func (obj nsObj) Equipment(conditions ...ns4.ObjCond) []ns4.Obj {
+	conditions = append(conditions, ns4.HasObjFlags(object.FlagEquipped))
+	return obj.Items(conditions...)
+}
+
 type nsObjInItems struct {
-	obj nsObj
+	obj     nsObj
+	filters []ns4.ObjCond
 }
 
 func (s nsObjInItems) FindObjects(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond) int {
 	filter := ns4.AND(conditions)
+	filter = append(filter, s.filters...)
 	cnt := 0
 	for it := s.obj.FirstItem(); it != nil; it = it.NextItem() {
 		v := nsObj{s.obj.s, it}
@@ -717,7 +731,13 @@ func (s nsObjInItems) FindObjects(fnc func(it ns4.Obj) bool, conditions ...ns4.O
 }
 
 func (obj nsObj) InItems() ns4.ObjSearcher {
-	return nsObjInItems{obj}
+	return nsObjInItems{obj: obj}
+}
+
+func (obj nsObj) InEquipment() ns4.ObjSearcher {
+	return nsObjInItems{obj: obj, filters: []ns4.ObjCond{
+		ns4.HasObjFlags(object.FlagEquipped),
+	}}
 }
 
 func (obj nsObj) FindItems(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond) int {
@@ -785,7 +805,18 @@ func (obj nsObj) Equip(item ns4.Obj) bool {
 			return false
 		}
 	}
-	return legacy.Nox_xxx_playerTryEquip_4F2F70(obj.SObj(), item.(nsObj).SObj())
+	return legacy.Nox_xxx_playerTryEquip_4F2F70(obj.SObj(), it.SObj())
+}
+
+func (obj nsObj) Unequip(item ns4.Obj) bool {
+	if item == nil {
+		return false
+	}
+	if !obj.HasEquipment(item) {
+		return false
+	}
+	it := toObject(item.(server.Obj))
+	return legacy.Nox_xxx_playerTryDequip_4F2FB0(obj.SObj(), it.SObj())
 }
 
 func (obj nsObj) SetColor(ind int, cl color.Color) {
