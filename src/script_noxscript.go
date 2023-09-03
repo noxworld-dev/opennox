@@ -982,7 +982,17 @@ func (s *noxScript) ScriptCallback(b *server.ScriptCallback, caller, trigger *se
 	return memmap.PtrOff(0x5D4594, 1599076)
 }
 
-func (s *noxScript) CallByIndex(index int, caller, trigger *server.Object) error {
+func (s *noxScript) CallByIndex(index int, caller, trigger *server.Object) (gerr error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if e, ok := r.(error); ok {
+				gerr = e
+			} else {
+				gerr = fmt.Errorf("panic: %v", r)
+			}
+			scriptLog.Println("ERROR:", gerr)
+		}
+	}()
 	if cb, ok := s.virtual.funcs[index]; ok && cb.Fnc != nil {
 		s.vm.caller = caller
 		s.vm.trigger = trigger
