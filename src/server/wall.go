@@ -16,16 +16,19 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-const WallGridSize = 256
+const (
+	WallGridSize   = 256
+	wallsPerBucket = WallGridSize
+)
 
 type serverWalls struct {
 	defs    [80]WallDef
 	defsCnt int
 
 	head     *Wall
-	freeList *Wall
+	freeList *Wall   // TODO: just allocate dynamically
 	byPos    []*Wall // index is wallArrayInd
-	indexY   []*Wall
+	indexY   []*Wall // TODO: replace the maps index with map[[2]int]*Wall when we can prove no access to NextByY24 is made
 }
 
 func (s *serverWalls) ResetDefs() {
@@ -118,7 +121,7 @@ func (s *serverWalls) ResetSprites() {
 }
 
 func (s *serverWalls) Init() int {
-	s.byPos, _ = alloc.Make([]*Wall{}, 32*WallGridSize)
+	s.byPos, _ = alloc.Make([]*Wall{}, wallsPerBucket*WallGridSize)
 	if s.byPos == nil {
 		return 0
 	}
@@ -128,7 +131,7 @@ func (s *serverWalls) Init() int {
 		return 0
 	}
 	s.head = nil
-	for i := 0; i < 32*WallGridSize; i++ {
+	for i := 0; i < wallsPerBucket*WallGridSize; i++ {
 		ptr, _ := alloc.New(Wall{})
 		if ptr == nil {
 			return 0
@@ -141,7 +144,7 @@ func (s *serverWalls) Init() int {
 }
 
 func (s *serverWalls) Reset() {
-	for i := 0; i < 32*WallGridSize; i++ {
+	for i := 0; i < wallsPerBucket*WallGridSize; i++ {
 		ptr := s.byPos[i]
 		if ptr == nil {
 			s.byPos[i] = nil
@@ -165,7 +168,7 @@ func (s *serverWalls) Reset() {
 }
 
 func (s *serverWalls) Free() {
-	for i := 0; i < 32*WallGridSize; i++ {
+	for i := 0; i < wallsPerBucket*WallGridSize; i++ {
 		var next *Wall
 		for ptr := s.byPos[i]; ptr != nil; ptr = next {
 			next = ptr.NextByPos16
