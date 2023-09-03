@@ -339,7 +339,7 @@ int nox_xxx_xferIndexedDirection_509E20(int a1, int2* a2) {
 }
 
 //----- (00509E90) --------------------------------------------------------
-int nox_xxx_mathDirection4ToAngle_509E90(int a1) { return *getMemU32Ptr(0x587000, 230056 + 4 * a1); }
+int nox_xxx_mathDirection4ToAngle_509E90(int a1) { return *getMemU32Ptr(0x587000, 230056 + 4 * (a1%9)); }
 
 //----- (00509EA0) --------------------------------------------------------
 int nox_xxx_math_509EA0(int a1) {
