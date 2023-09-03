@@ -281,6 +281,15 @@ func (obj nsObj) Type() ns4.ObjType {
 	return nsObjType{obj.s, obj.Object.ObjectTypeC()}
 }
 
+func (obj nsObj) Mass() float32 {
+	return obj.Object.Mass
+}
+
+func (obj nsObj) SetMass(v float32) {
+	obj.Object.Mass = v
+	obj.Object.NeedSync()
+}
+
 func (obj nsObj) Team() ns4.Team {
 	t := obj.Object.Team()
 	if t == nil {
