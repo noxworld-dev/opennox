@@ -778,7 +778,7 @@ func sub_510BE0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 		sub_4ED0C0((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(v5))
 		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v5))
 		v8 = nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), (*server.Object)(v5))
-		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), v8)
+		nox_xxx_playerAddGold_4FA590((*server.Object)(unsafe.Pointer(a1)), v8)
 		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), (*server.Object)(unsafe.Pointer(a1)))
 		nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 	}

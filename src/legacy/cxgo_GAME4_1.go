@@ -3226,12 +3226,12 @@ func sub_50F3A0(a1 *server.TradeSession) {
 	for i = (*int32)(a1.Field32); i != nil; i = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(i), 4*2))) {
 		nox_xxx_inventoryPutImpl_4F3070(a1.Field8, (*server.Object)(unsafe.Pointer(uintptr(*i))), 1)
 	}
-	nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1.Field8), int32(*a1.Field48.InitData))
+	nox_xxx_playerAddGold_4FA590(a1.Field8, int32(*a1.Field48.InitData))
 	sub_50F450(int32(a1.Field8))
 	for j = (*int32)(a1.Field36); j != nil; j = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(j), 4*2))) {
 		nox_xxx_inventoryPutImpl_4F3070(a1.Field12, (*server.Object)(unsafe.Pointer(uintptr(*j))), 1)
 	}
-	nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1.Field12), int32(*a1.Field52.InitData))
+	nox_xxx_playerAddGold_4FA590(a1.Field12, int32(*a1.Field52.InitData))
 	sub_50F450(int32(a1.Field12))
 	sub_50F490(a1, int32(a1.Field8))
 	sub_50F490(a1, int32(a1.Field12))
@@ -3409,7 +3409,7 @@ func sub_50F790(a1 *server.TradeSession, a2 *server.Object, a3 *server.TradeItem
 }
 func sub_50F7F0(a1 *server.Object, a2 int32) {
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
-		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), int32(**(**uint32)(unsafe.Add(a2, 692))))
+		nox_xxx_playerAddGold_4FA590(a1, int32(**(**uint32)(unsafe.Add(a2, 692))))
 	}
 }
 func nox_xxx_tradeP2PUpdStuff_50FA00(a1 *server.Object, a2 *server.TradeSession) int32 {
@@ -3457,13 +3457,13 @@ func sub_50FB90(a1 *server.TradeSession) {
 	}
 	v3 = (*int32)(a1.Field48.InitData)
 	if r1 != 0 {
-		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(v1), *v3)
+		nox_xxx_playerAddGold_4FA590(v1, *v3)
 	}
 	*v3 = 0
 	v4 := a1.Field12
 	v5 = (*int32)(a1.Field52.InitData)
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))&4 != 0 {
-		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(v4), *v5)
+		nox_xxx_playerAddGold_4FA590(v4, *v5)
 	}
 	*v5 = 0
 	v6 = sub_50FD20(a1, a1.Field8)
@@ -3857,7 +3857,7 @@ func sub_510D10(a1 *int32, a2 unsafe.Pointer, a3 int32, a4 uint32) {
 			sub_4ED0C0((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(v7))
 			nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v7))
 			v8 = nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), float32(v7))
-			nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), v8)
+			nox_xxx_playerAddGold_4FA590((*server.Object)(unsafe.Pointer(a1)), v8)
 			sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 276)), 2064))), (*server.Object)(unsafe.Pointer(a1)))
 			result = uint16(a4)
 			if uint32(func() int32 {

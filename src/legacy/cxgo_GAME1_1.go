@@ -1071,7 +1071,7 @@ func sub_41AC30(a1p *server.Object, a2p unsafe.Pointer) int32 {
 	if nox_crypt_IsReadOnly() == 1 {
 		v3 = nox_xxx_playerGetGold_4FA6B0(a1)
 		nox_xxx_playerSubGold_4FA5D0(a1, uint32(v3))
-		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), v44)
+		nox_xxx_playerAddGold_4FA590(a1, v44)
 	}
 	if nox_crypt_IsReadOnly() != 0 {
 		v21 := a1.InvFirstItem

@@ -18,7 +18,7 @@ func nox_xxx_pickupGold_4F3A60_obj_pickup(obj *server.Object, obj2 *server.Objec
 	)
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
 		v3 = (*int32)(a2.InitData)
-		nox_xxx_playerAddGold_4FA590(unsafe.Pointer(a1), *v3)
+		nox_xxx_playerAddGold_4FA590(a1, *v3)
 		nox_xxx_delayedDeleteObject_4E5CC0(a2)
 		v7 = *v3
 		v4 = nox_strman_loadString_40F1D0(internCStr("GoldPickup"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\pickdrop\\pickup.c"), 709)

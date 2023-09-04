@@ -1865,7 +1865,7 @@ func nox_xxx_collide_548740() {
 			iobj := i.Obj8
 			iobj.Collide.Get()(iobj, AsObjectP(i.Src12), (*types.Pointf)(unsafe.Add(unsafe.Pointer(i), 16)))
 			if i.Src12 != nil {
-				nox_xxx_collide_4FDF90(int32(i.Obj8), int32(i.Src12))
+				nox_xxx_collide_4FDF90(i.Obj8, int32(i.Src12))
 			}
 		}
 		if i.Src12 == CollideLava {
@@ -1877,7 +1877,7 @@ func nox_xxx_collide_548740() {
 			v3.Y = -i.Pos16.Y
 			iobj := AsObjectP(i.Src12)
 			iobj.Collide.Get()(iobj, i.Obj8, &v3)
-			nox_xxx_collide_4FDF90(int32(i.Src12), int32(i.Obj8))
+			nox_xxx_collide_4FDF90(int32(i.Src12), i.Obj8)
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(i.Obj8), 16)))&8 != 0 {
 				nox_xxx_unitHasCollideOrUpdateFn_537610((*server.Object)(i.Src12))
 			} else if int32(*(*uint8)(unsafe.Add(i.Src12, 16)))&8 != 0 {
@@ -4721,7 +4721,7 @@ func sub_54D080(a1 unsafe.Pointer) {
 				if int32(v1)&1 != 0 {
 					v10 = nox_xxx_shopGetItemCost_50E3D0(1, nil, v8)
 					nox_xxx_delayedDeleteObject_4E5CC0(v8)
-					nox_xxx_playerAddGold_4FA590(v2, v10/2)
+					nox_xxx_playerAddGold_4FA590((*server.Object)(v2), v10/2)
 					v1 &= -0x2
 				} else if v7 > 0 {
 					nox_xxx_delayedDeleteObject_4E5CC0(v8)
@@ -4731,7 +4731,7 @@ func sub_54D080(a1 unsafe.Pointer) {
 				if int32(v1)&2 != 0 {
 					v11 = nox_xxx_shopGetItemCost_50E3D0(1, nil, v8)
 					nox_xxx_delayedDeleteObject_4E5CC0(v8)
-					nox_xxx_playerAddGold_4FA590(v2, v11/2)
+					nox_xxx_playerAddGold_4FA590((*server.Object)(v2), v11/2)
 					v1 &= -0x3
 				} else if v14 > 0 {
 					nox_xxx_delayedDeleteObject_4E5CC0(v8)
@@ -4741,7 +4741,7 @@ func sub_54D080(a1 unsafe.Pointer) {
 				if int32(v1)&4 != 0 {
 					v12 = nox_xxx_shopGetItemCost_50E3D0(1, nil, v8)
 					nox_xxx_delayedDeleteObject_4E5CC0(v8)
-					nox_xxx_playerAddGold_4FA590(v2, v12/2)
+					nox_xxx_playerAddGold_4FA590((*server.Object)(v2), v12/2)
 					v1 &= -0x5
 				} else if v16 > 0 {
 					nox_xxx_delayedDeleteObject_4E5CC0(v8)
