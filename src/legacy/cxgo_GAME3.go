@@ -27,7 +27,7 @@ var dword_5d4594_1308164 unsafe.Pointer = nil
 func sub_4A2560(a1 *Point32, a2 unsafe.Pointer) int32 {
 	v2 := float64(int32(*(*int16)(unsafe.Add(a2, 44))) - a1.X)
 	v3 := float64(int32(*(*int16)(unsafe.Add(a2, 46))) - a1.Y)
-	return bool2int32(math.Sqrt(v3*v3+v2*v2) <= *mem_getDoublePtr(0x581450, 9720))
+	return bool2int32(math.Sqrt(v3*v3+v2*v2) <= *memmap.PtrFloat64(0x581450, 9720))
 }
 func sub_4A25C0(a1 *Point32, a2 unsafe.Pointer) int32 {
 	var (
@@ -1899,7 +1899,7 @@ func sub_4A6DC0(win *gui.Window, draw *gui.WindowData) int {
 	v21 = 0
 	v22 = int32(*(*uint8)(unsafe.Add(dword_5d4594_1307784, 67)))
 	v23 = v22 * 3
-	v24 = mem_getI32Ptr(0x973A20, uint32(v22*104+32))
+	v24 = memmap.PtrInt32(0x973A20, uint32(v22*104+32))
 	for {
 		v25 = v21
 		v26 = 1 << v21
@@ -3960,7 +3960,7 @@ func nox_xxx_colorLightClientLoad_4AC980(a1 int32) int32 {
 		if nox_crypt_IsReadOnly() != 1 {
 			goto LABEL_24
 		}
-		if float64(*(*float32)(unsafe.Add(v2, 140))) <= 63.0 && float64(*(*int32)(unsafe.Add(v2, 148)))**mem_getDoublePtr(0x581450, 9752) <= *mem_getDoublePtr(0x581450, 9744) {
+		if float64(*(*float32)(unsafe.Add(v2, 140))) <= 63.0 && float64(*(*int32)(unsafe.Add(v2, 148)))**memmap.PtrFloat64(0x581450, 9752) <= *memmap.PtrFloat64(0x581450, 9744) {
 			goto LABEL_13
 		}
 		sub_484CE0(unsafe.Add(v2, 136), 63.0)
@@ -3993,7 +3993,7 @@ LABEL_13:
 		}
 	}
 	a1 = int32(*v4)
-	*(*uint16)(unsafe.Add(v2, 268)) = uint16(int16(int64(float64(a1) * *mem_getDoublePtr(0x581450, 9752) * *mem_getDoublePtr(0x581450, 9736))))
+	*(*uint16)(unsafe.Add(v2, 268)) = uint16(int16(int64(float64(a1) * *memmap.PtrFloat64(0x581450, 9752) * *memmap.PtrFloat64(0x581450, 9736))))
 LABEL_24:
 	*(*uint32)(unsafe.Add(v2, 288)) = 0
 	nox_xxx_spriteSetActiveMB_45A990_drawable(v2)
@@ -4351,7 +4351,7 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	dword_5d4594_1309824 = nox_window_new(nil, 32, 0, 0, 1, 1, nil)
 	v20 = int32(*memmap.PtrUint32(0x587000, 174072))
 	if *memmap.PtrInt32(0x587000, 174072) != -1 {
-		v21 = mem_getI32Ptr(0x587000, 174080)
+		v21 = memmap.PtrInt32(0x587000, 174080)
 		for {
 			v22 := nox_window_new(dword_5d4594_1309824, 0, int(v20), int(*(*int32)(unsafe.Add(unsafe.Pointer(v21), -int(4*1)))), int(*v21), int(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))), nil)
 			nox_xxx_wndSetDrawFn_46B340(v22, sub_4ADEF0)
@@ -4596,7 +4596,7 @@ func sub_4AEE30() int64 {
 	v0 = 0
 	v1 = (*uint8)(memmap.PtrOff(0x5D4594, 1309840))
 	for {
-		result = int64(math.Sin(float64(v0+192)**mem_getDoublePtr(0x581450, 9768)**mem_getDoublePtr(0x581450, 9760)) * qword_581450_9552)
+		result = int64(math.Sin(float64(v0+192)**memmap.PtrFloat64(0x581450, 9768)**memmap.PtrFloat64(0x581450, 9760)) * qword_581450_9552)
 		*(*uint32)(unsafe.Pointer(v1)) = uint32(int32(result))
 		v1 = (*uint8)(unsafe.Add(unsafe.Pointer(v1), 4))
 		v0++

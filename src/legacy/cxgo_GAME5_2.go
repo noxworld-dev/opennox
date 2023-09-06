@@ -645,11 +645,11 @@ func nox_xxx_unkDoubleSmth_56FE30() float64 {
 	*memmap.PtrUint64(0x5D4594, 2516404) = *memmap.PtrUint64(0x5D4594, 2516396)
 	*memmap.PtrUint32(0x5D4594, 2516396) = *memmap.PtrUint32(0x5D4594, 2516388)
 	*memmap.PtrUint32(0x5D4594, 2516400) = *memmap.PtrUint32(0x5D4594, 2516392)
-	v0 = *mem_getDoublePtr(0x5D4594, 2516388)**mem_getDoublePtr(0x581450, 11376) + *mem_getDoublePtr(0x5D4594, 2516404)**mem_getDoublePtr(0x581450, 11368) + *mem_getDoublePtr(0x5D4594, 2516412)**mem_getDoublePtr(0x581450, 11360) + *mem_getDoublePtr(0x5D4594, 2516412)**mem_getDoublePtr(0x581450, 11352) + *mem_getDoublePtr(0x5D4594, 2516420)
+	v0 = *memmap.PtrFloat64(0x5D4594, 2516388)**memmap.PtrFloat64(0x581450, 11376) + *memmap.PtrFloat64(0x5D4594, 2516404)**memmap.PtrFloat64(0x581450, 11368) + *memmap.PtrFloat64(0x5D4594, 2516412)**memmap.PtrFloat64(0x581450, 11360) + *memmap.PtrFloat64(0x5D4594, 2516412)**memmap.PtrFloat64(0x581450, 11352) + *memmap.PtrFloat64(0x5D4594, 2516420)
 	math.Floor(v0)
-	*mem_getDoublePtr(0x5D4594, 2516388) = v0 - v0
-	*mem_getDoublePtr(0x5D4594, 2516420) = v0 * *mem_getDoublePtr(0x581450, 11344)
-	return *mem_getDoublePtr(0x5D4594, 2516388)
+	*memmap.PtrFloat64(0x5D4594, 2516388) = v0 - v0
+	*memmap.PtrFloat64(0x5D4594, 2516420) = v0 * *memmap.PtrFloat64(0x581450, 11344)
+	return *memmap.PtrFloat64(0x5D4594, 2516388)
 }
 func sub_56FF00(a1 int32) {
 	var (
@@ -667,7 +667,7 @@ func sub_56FF00(a1 int32) {
 		v2 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), 8))
 		v3 = ((uint32(v1<<13) ^ uint32(v1)) >> 17) ^ uint32(v1<<13) ^ uint32(v1)
 		v1 = int32((v3 * 32) ^ v3)
-		*((*float64)(unsafe.Add(unsafe.Pointer(v2), -int(unsafe.Sizeof(float64(0))*1)))) = float64(uint32(v1)) * *mem_getDoublePtr(0x581450, 11344)
+		*((*float64)(unsafe.Add(unsafe.Pointer(v2), -int(unsafe.Sizeof(float64(0))*1)))) = float64(uint32(v1)) * *memmap.PtrFloat64(0x581450, 11344)
 		if int32(uintptr(unsafe.Pointer(v2))) >= int32(uintptr(memmap.PtrOff(0x5D4594, 2516428))) {
 			break
 		}
@@ -1666,16 +1666,16 @@ func sub_57B190(a1 uint16, a2 uint16) int32 {
 		return 1
 	}
 	result = 2
-	if v3 < v4**mem_getDoublePtr(0x581450, 9608) {
+	if v3 < v4**memmap.PtrFloat64(0x581450, 9608) {
 		result = 3
 	}
 	return result
 }
 func sub_57B350() *float32 {
-	return mem_getFloatPtr(0x5D4594, 2523812)
+	return memmap.PtrFloat32(0x5D4594, 2523812)
 }
 func nox_xxx_plrGetMaxVarsPtr_57B360(a1 int32) *float32 {
-	return mem_getFloatPtr(0x5D4594, uint32(a1*16)+2523828)
+	return memmap.PtrFloat32(0x5D4594, uint32(a1*16)+2523828)
 }
 func sub_57B370(a1 int32, a2 uint8, a3 int32) int8 {
 	var (

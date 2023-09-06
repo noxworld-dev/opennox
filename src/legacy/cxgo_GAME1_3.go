@@ -200,7 +200,7 @@ func sub_43D3C0(a1 ail.Stream, a2 int32) {
 	}
 }
 func Sub_43D440() {
-	v0 := mem_getI32Ptr(0x5D4594, *memmap.PtrUint32(0x5D4594, 816352)*20+816108)
+	v0 := memmap.PtrInt32(0x5D4594, *memmap.PtrUint32(0x5D4594, 816352)*20+816108)
 	if dword_5d4594_816340 == 0 {
 		return
 	}
@@ -323,7 +323,7 @@ func sub_43D9E0(a1 *int4) {
 func sub_43DA80() int32 {
 	var result int32
 	if dword_5d4594_816368 < 6 {
-		sub_43DD10(mem_getI32Ptr(0x5D4594, (dword_5d4594_816368+dword_5d4594_816372*6)*16+815772))
+		sub_43DD10(memmap.PtrInt32(0x5D4594, (dword_5d4594_816368+dword_5d4594_816372*6)*16+815772))
 		dword_5d4594_816368++
 		result = 1
 	} else {
@@ -447,7 +447,7 @@ func sub_43DD10(a1 *int32) int32 {
 	return result
 }
 func sub_43DD70(a1 int32, a2 int32) {
-	sub_43DD10(mem_getI32Ptr(0x5D4594, 816060))
+	sub_43DD10(memmap.PtrInt32(0x5D4594, 816060))
 	sub_43D9B0(a1, a2)
 	*memmap.PtrUint32(0x5D4594, 816344) = 1
 }
@@ -722,7 +722,7 @@ func nox_xxx_drawMessageLines_445530() int32 {
 			break
 		}
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_black_2650656))
-		v6 = mem_getU16Ptr(0x5D4594, uint32(v5)+823804)
+		v6 = memmap.PtrUint16(0x5D4594, uint32(v5)+823804)
 		nox_xxx_drawGetStringSize_43F840(nil, v6, &v14, nil, 0)
 		v7 = nox_win_width - v14
 		v8 = (*uint8)(memmap.PtrOff(0x587000, 107848))
@@ -823,7 +823,7 @@ func nox_motd_4463E0(a1 int32) {
 			v3 = dword_5d4594_826036
 		}
 		*(*byte)(unsafe.Add(v3, func() uint32 {
-			p := mem_getU32Ptr(0x5D4594, uint32(a1*4)+826040)
+			p := memmap.PtrUint32(0x5D4594, uint32(a1*4)+826040)
 			x := *p
 			*p++
 			return x

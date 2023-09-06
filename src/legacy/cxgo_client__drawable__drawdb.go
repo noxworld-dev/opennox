@@ -81,7 +81,7 @@ func nox_parse_thing_light_dir(obj *client.ObjectType, f *binfile.MemFile, data 
 	if deg < 0 || deg >= 360 {
 		return false
 	}
-	obj.LightDir = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)*qword_581450_9552 + qword_581450_9544)))
+	obj.LightDir = uint16(int16(int64(float64(deg)**memmap.PtrFloat64(0x581450, 9560)*qword_581450_9552 + qword_581450_9544)))
 	obj.Field_10 = 0
 	return true
 }
@@ -94,7 +94,7 @@ func nox_parse_thing_light_penumbra(obj *client.ObjectType, f *binfile.MemFile, 
 	if deg < 0 || deg >= 180 {
 		return false
 	}
-	obj.LightPenumbra = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)*qword_581450_9552 + qword_581450_9544)))
+	obj.LightPenumbra = uint16(int16(int64(float64(deg)**memmap.PtrFloat64(0x581450, 9560)*qword_581450_9552 + qword_581450_9544)))
 	return true
 }
 

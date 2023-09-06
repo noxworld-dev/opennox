@@ -1394,7 +1394,7 @@ func nox_xxx_initSinCosTables_414C90() int8 {
 	v4 = 0
 	v1 = (*uint8)(memmap.PtrOff(0x85B3FC, 12260))
 	for {
-		*(*uint32)(unsafe.Pointer(v1)) = uint32(int32(int64(math.Sin(float64(v4)*0.0015339808) * *mem_getDoublePtr(0x581450, 7200))))
+		*(*uint32)(unsafe.Pointer(v1)) = uint32(int32(int64(math.Sin(float64(v4)*0.0015339808) * *memmap.PtrFloat64(0x581450, 7200))))
 		v1 = (*uint8)(unsafe.Add(unsafe.Pointer(v1), 4))
 		v4++
 		if int32(uintptr(unsafe.Pointer(v1))) >= int32(uintptr(memmap.PtrOff(0x85B3FC, 28644))) {
@@ -1404,7 +1404,7 @@ func nox_xxx_initSinCosTables_414C90() int8 {
 	v5 = 0
 	v2 = (*uint8)(memmap.PtrOff(0x5D4594, 338472))
 	for {
-		v0 = int64(math.Acos(float64(v5)*0.00024414062-1.0) * *mem_getDoublePtr(0x581450, 7184))
+		v0 = int64(math.Acos(float64(v5)*0.00024414062-1.0) * *memmap.PtrFloat64(0x581450, 7184))
 		*(*uint32)(unsafe.Pointer(v2)) = uint32(int32(v0))
 		v2 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), 4))
 		v5++
@@ -2500,13 +2500,13 @@ func sub_4168A0(a1 *wchar2_t) {
 	sub_455800()
 }
 func sub_4168E0() unsafe.Pointer {
-	return unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(mem_getI32Ptr(0x5D4594, 371364)))))
+	return unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(memmap.PtrInt32(0x5D4594, 371364)))))
 }
 func sub_4168F0(a1 unsafe.Pointer) unsafe.Pointer {
 	return unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(a1)))
 }
 func sub_416900() unsafe.Pointer {
-	return unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(mem_getI32Ptr(0x5D4594, 371500)))))
+	return unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(memmap.PtrInt32(0x5D4594, 371500)))))
 }
 func sub_416910(a1 unsafe.Pointer) unsafe.Pointer {
 	return unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(a1)))

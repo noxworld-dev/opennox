@@ -483,7 +483,7 @@ LABEL_14:
 		v23 = int32(*memmap.PtrUint32(0x8531A0, 2576))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v68), 4*0)) = dword_5d4594_1063116 + 432
 		v69 = 1.0
-		v70 = *mem_getFloatPtr(0x8531A0, 2576)
+		v70 = *memmap.PtrFloat32(0x8531A0, 2576)
 		if *memmap.PtrUint32(0x5D4594, 1063644) == 0 {
 			*memmap.PtrUint32(0x5D4594, 1063644) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ArcherArrow")))
 			v24 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ArcherBolt"))
@@ -787,7 +787,7 @@ func nox_client_makePlayerStatsDlg_463880(a1 *int32) {
 	nox_client_drawSetColor_434460(int32(nox_color_yellow_2589772))
 	nox_client_drawRectFilledOpaque_49CE30(v10+60, v25, v67, v1)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
-	v69 = float32(float64(*mem_getFloatPtr(0x5D4594, 1063100)) / (float64(*(*float32)(unsafe.Add(unsafe.Pointer(v71), unsafe.Sizeof(float32(0))*2))) * 1e-06))
+	v69 = float32(float64(*memmap.PtrFloat32(0x5D4594, 1063100)) / (float64(*(*float32)(unsafe.Add(unsafe.Pointer(v71), unsafe.Sizeof(float32(0))*2))) * 1e-06))
 	if int32(*memmap.PtrUint8(0x5D4594, 1062541))&2 != 0 {
 		v69 = float32((float64(v67)+float64(v69))*1.25 - float64(v67))
 	}
@@ -838,7 +838,7 @@ func nox_client_makePlayerStatsDlg_463880(a1 *int32) {
 	var v75 int32 = 0
 	nox_xxx_drawGetStringSize_43F840(nil, &v77[0], &v75, nil, 0)
 	nox_xxx_drawStringWrap_43FAF0(nil, &v77[0], v10, v30, 0, 0)
-	var v49 float32 = float32(float64(*mem_getFloatPtr(0x5D4594, 1062548))*1000.0 + 0.5)
+	var v49 float32 = float32(float64(*memmap.PtrFloat32(0x5D4594, 1062548))*1000.0 + 0.5)
 	var v50 int32 = int32(v49)
 	var v32 *wchar2_t = nox_strman_loadString_40F1D0(internCStr("MinMaxFormat"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2076)
 	nox_swprintf(&v77[0], v32, v50, 1000)

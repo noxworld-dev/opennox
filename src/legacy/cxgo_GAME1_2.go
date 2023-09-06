@@ -373,8 +373,8 @@ func sub_4285C0(a1 *int16) {
 }
 func sub_428810(a1 unsafe.Pointer, a2 int32) int32 {
 	var v6 [72]byte
-	v2 := sub_42ADA0(a1, a2, *memmap.PtrInt16(0x5D4594, 741308), mem_getU32Ptr(0x5D4594, 741312))
-	v3 := sub_42A8B0((*uint8)(v2), mem_getI32Ptr(0x5D4594, 741312))
+	v2 := sub_42ADA0(a1, a2, *memmap.PtrInt16(0x5D4594, 741308), memmap.PtrUint32(0x5D4594, 741312))
+	v3 := sub_42A8B0((*uint8)(v2), memmap.PtrInt32(0x5D4594, 741312))
 	alloc.FreePtr(v2)
 	if sub_420360(&v6[0], (*uint16)(unsafe.Pointer(&a2))) != 0 {
 		panic("abort")
@@ -384,8 +384,8 @@ func sub_428810(a1 unsafe.Pointer, a2 int32) int32 {
 }
 func sub_428890(a1 unsafe.Pointer) int32 {
 	var v5 [72]byte
-	v1 := sub_42B810(a1, mem_getU32Ptr(0x5D4594, 741300))
-	v2 := sub_42A8B0((*uint8)(v1), mem_getI32Ptr(0x5D4594, 741300))
+	v1 := sub_42B810(a1, memmap.PtrUint32(0x5D4594, 741300))
+	v2 := sub_42A8B0((*uint8)(v1), memmap.PtrInt32(0x5D4594, 741300))
 	alloc.FreePtr(v1)
 	if sub_420360(&v5[0], (*uint16)(unsafe.Pointer(&a1))) != 0 {
 		panic("abort")
@@ -1848,7 +1848,7 @@ func sub_42AAA0(a1 *int32) float64 {
 		v13 = v11
 	}
 	*memmap.PtrUint32(0x5D4594, uintptr(v9*4)+741384) = uint32(v11)
-	return float64(v13) * *mem_getDoublePtr(0x581450, 8368)
+	return float64(v13) * *memmap.PtrFloat64(0x581450, 8368)
 }
 func sub_42ABF0(a1 int32, a2 int32, a3 int32) {
 	var (

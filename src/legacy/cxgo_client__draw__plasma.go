@@ -159,14 +159,14 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 				a1a.X = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), -int(4*3)))))
 				a1a.Y = v19
 				v37 = float32(float64(v36))
-				v28 = v37 * *mem_getFloatPtr(0x587000, uint32(v18*8)+194136)
+				v28 = v37 * *memmap.PtrFloat32(0x587000, uint32(v18*8)+194136)
 				v20 = int32(v28)
 				v21 = int32(*(*uint32)(unsafe.Pointer(v17)))
 				a3a.X = v20
-				v29 = v37 * *mem_getFloatPtr(0x587000, uint32(v21*8)+194140)
+				v29 = v37 * *memmap.PtrFloat32(0x587000, uint32(v21*8)+194140)
 				v22 = int32(v29)
 				v23 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*4))))
-				v24 = float64(v37 * *mem_getFloatPtr(0x587000, *((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*7)))*8+194136))
+				v24 = float64(v37 * *memmap.PtrFloat32(0x587000, *((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*7)))*8+194136))
 				a3a.Y = v22
 				v25 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*5))))
 				a2a.X = v23
@@ -175,7 +175,7 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 				v26 = int32(v30)
 				v27 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v17), 4*7))))
 				a4a.X = v26
-				v31 = v37 * *mem_getFloatPtr(0x587000, uint32(v27*8)+194140)
+				v31 = v37 * *memmap.PtrFloat32(0x587000, uint32(v27*8)+194140)
 				a4a.Y = int32(v31)
 				sub_4BE800(int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313828)))
 				sub_4BE810(1, int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313828)), int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313844)), int8(*memmap.PtrUint8(0x5D4594, uintptr(j)+1313840)))

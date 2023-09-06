@@ -23,7 +23,7 @@ func nox_xxx_spellPutInBox_45DEB0(a1 *int32, a2 int32, a3 int32, a4 int32) int32
 	if v4 < 0 {
 		return 0
 	}
-	if a1 != mem_getI32Ptr(0x5D4594, 1047940) {
+	if a1 != memmap.PtrInt32(0x5D4594, 1047940) {
 		nox_xxx_spellKeyPackSetSpell_45DC40(unsafe.Pointer(a1), a2, v4)
 		return 1
 	}
@@ -385,7 +385,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v48 = int32(v64) << 8
 		v49 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v48)+1048404))
 		v71 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v48)+1048196))
-		v50 = mem_getI32Ptr(0x5D4594, uint32(v48)+1048428)
+		v50 = memmap.PtrInt32(0x5D4594, uint32(v48)+1048428)
 		v51 = int32(*(*uint32)(unsafe.Add(v49, 16)) + 10)
 		v52 = int32(*(*uint32)(unsafe.Add(v49, 20)) + 5)
 		v67 = v51

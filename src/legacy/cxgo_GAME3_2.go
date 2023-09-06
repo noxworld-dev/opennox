@@ -1201,7 +1201,7 @@ func sub_4D11D0() {
 		v1     *int32
 		v2     *int32
 	)
-	result = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(mem_getI32Ptr(0x5D4594, 1548492))))))
+	result = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(memmap.PtrInt32(0x5D4594, 1548492))))))
 	v1 = result
 	if result != nil {
 		for {
@@ -1231,7 +1231,7 @@ func sub_4D1250(a1 int32) *int32 {
 		result *int32
 		v2     *int32
 	)
-	result = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(mem_getI32Ptr(0x5D4594, 1548492))))))
+	result = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(memmap.PtrInt32(0x5D4594, 1548492))))))
 	v2 = result
 	if result == nil {
 		return result
@@ -1249,7 +1249,7 @@ func sub_4D1250(a1 int32) *int32 {
 }
 func sub_4D12A0(a1 int32) int32 {
 	var v1 *int32
-	v1 = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(mem_getI32Ptr(0x5D4594, 1548492))))))
+	v1 = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(memmap.PtrInt32(0x5D4594, 1548492))))))
 	if v1 == nil {
 		return 0
 	}
@@ -1799,11 +1799,11 @@ func nox_xxx_mapGenStep_4D44E0() int32 {
 	sub_57C490_2(internCStr("theme"))
 	sub_526C40(0)
 	sub_51D100(0)
-	result = nox_xxx_mapGenReadTheme_51E260(mem_getI32Ptr(0x5D4594, 1549796), int32(uintptr(memmap.PtrOff(0x587000, 197860))))
+	result = nox_xxx_mapGenReadTheme_51E260(memmap.PtrInt32(0x5D4594, 1549796), int32(uintptr(memmap.PtrOff(0x587000, 197860))))
 	if result == 0 {
 		return 0
 	}
-	*memmap.PtrUint32(0x5D4594, 1549864) = uint32(int32(int64(float64(*mem_getFloatPtr(0x5D4594, 1549860)) * 0.030743772)))
+	*memmap.PtrUint32(0x5D4594, 1549864) = uint32(int32(int64(float64(*memmap.PtrFloat32(0x5D4594, 1549860)) * 0.030743772)))
 	nox_xxx_mapGenSetRngSeed_526AB0(*memmap.PtrUint32(0x5D4594, 1549872))
 	sub_526950()
 	result = nox_xxx_mapgenAllocBuffer_5213E0()
@@ -1825,7 +1825,7 @@ func nox_xxx_mapGenStep_4D44E0() int32 {
 			sub_5259F0(dword_5d4594_1550916, nil, 0.0)
 			sub_525AF0(dword_5d4594_1550916)
 			if *memmap.PtrUint32(0x5D4594, 1549980) != 0 {
-				v3 = int32(int64(float64(*mem_getFloatPtr(0x5D4594, 1549860)) * 0.030743772))
+				v3 = int32(int64(float64(*memmap.PtrFloat32(0x5D4594, 1549860)) * 0.030743772))
 				v4 := nox_xxx_mapGenMakeRoomStruct_521940(v3*2+1, v3*2+1)
 				v5 = float64(-v3) * 32.526913
 				a2.X = float32(v5)
@@ -2249,7 +2249,7 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) {
 		v24 = 0
 		v22.X = 0.0
 		v22.Y = 0.0
-		v25 = mem_getI32Ptr(0x587000, 197924)
+		v25 = memmap.PtrInt32(0x587000, 197924)
 	LABEL_5:
 		v4 = 0
 		v5 = &v30[v24]
@@ -3530,7 +3530,7 @@ func sub_4D7C60() int32 {
 		v2     float32
 	)
 	dword_5d4594_1556316 = 0
-	*mem_getFloatPtr(0x5D4594, 1556308) = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperRadiusSq")))
+	*memmap.PtrFloat32(0x5D4594, 1556308) = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperRadiusSq")))
 	v1 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperStartTime")))
 	*memmap.PtrUint32(0x5D4594, 1556312) = uint32(int32(v1))
 	v2 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperFadeTime")))
@@ -3555,7 +3555,7 @@ func sub_4D7CC0() {
 				if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 3680))) & 1) == 0 {
 					v3 = float64(i.PosVec.Y - *(*float32)(unsafe.Add(v2, 252)))
 					v4 = float64(i.PosVec.X - *(*float32)(unsafe.Add(v2, 248)))
-					if v4*v4+v3*v3 < float64(*mem_getFloatPtr(0x5D4594, 1556308)) {
+					if v4*v4+v3*v3 < float64(*memmap.PtrFloat32(0x5D4594, 1556308)) {
 						*(*uint32)(unsafe.Add(v2, 256)) = gameFrame()
 					}
 					*(*int32)(unsafe.Add(v2, 248)) = int32(i.PosVec.X)

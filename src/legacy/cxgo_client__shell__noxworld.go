@@ -888,7 +888,7 @@ func sub_43A810() {
 	if false {
 		sub_46ACE0((*gui.Window)(dword_5d4594_814984), 10600, 10611, 1)
 		v0 = 0
-		v1 = mem_getI32Ptr(0x587000, 87560)
+		v1 = memmap.PtrInt32(0x587000, 87560)
 		for {
 			sub_46ACE0((*gui.Window)(dword_5d4594_814984), *v1, *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*1)), bool2int32(uint32(v0) != dword_587000_87412))
 			v1 = (*int32)(unsafe.Add(unsafe.Pointer(v1), 4*2))

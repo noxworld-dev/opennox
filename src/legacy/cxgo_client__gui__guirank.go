@@ -108,7 +108,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	v35 = nox_win_width
 	v6 = nox_strman_loadString_40F1D0(internCStr("Ping"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1657)
 	nox_xxx_drawGetStringSize_43F840(nil, v6, &v41, &v44, v35)
-	nox_xxx_drawGetStringSize_43F840(nil, mem_getU16Ptr(0x587000, 145972), &v42, &v43, nox_win_width)
+	nox_xxx_drawGetStringSize_43F840(nil, memmap.PtrUint16(0x587000, 145972), &v42, &v43, nox_win_width)
 	v7 = v41
 	if v42 > v41 {
 		v7 = v42

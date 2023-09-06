@@ -887,7 +887,7 @@ func sub_50AFA0() {
 							if v12 <= v39 {
 								v16 = (*uint8)(unsafe.Pointer(&nox_server_xxx_1599716[v15+(v12<<8)].field_8))
 								for {
-									v17 = mem_getFloatPtr(0x587000, 234108)
+									v17 = memmap.PtrFloat32(0x587000, 234108)
 									for {
 										v41 = float32(float64(v38) * 23.0)
 										a2.X = v41 + *((*float32)(unsafe.Add(unsafe.Pointer(v17), -int(unsafe.Sizeof(float32(0))*1))))

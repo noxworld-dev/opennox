@@ -175,8 +175,8 @@ func nox_server_gotoHome(obj *server.Object) {
 			}
 			v6 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(v2, 25))
 			if v6 != nil {
-				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*1))) = float32(float64(*mem_getFloatPtr(0x587000, *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194136))*10.0 + float64(v2.PosVec.X))
-				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*2))) = float32(float64(*mem_getFloatPtr(0x587000, *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194140))*10.0 + float64(v2.PosVec.Y))
+				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*1))) = float32(float64(*memmap.PtrFloat32(0x587000, *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194136))*10.0 + float64(v2.PosVec.X))
+				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*2))) = float32(float64(*memmap.PtrFloat32(0x587000, *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194140))*10.0 + float64(v2.PosVec.Y))
 			}
 			v7 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(v2, 37))
 			if v7 != nil {

@@ -5063,7 +5063,7 @@ func nox_xxx_wndEditDrawNoImage_488160(win *gui.Window, draw *gui.WindowData) in
 		v16 = v4 + v22 + v24 + 5
 		if v2 == nox_xxx_wndGetFocus_46B4F0() {
 			v17 = (int32(func() uint8 {
-				p := mem_getU8Ptr(0x5D4594, 1193344)
+				p := memmap.PtrUint8(0x5D4594, 1193344)
 				x := *p
 				*p++
 				return x
@@ -5293,7 +5293,7 @@ func nox_xxx_wndEditDrawWithImage_488870(win *gui.Window, draw *gui.WindowData) 
 		xLeft += v17 + v19 + 5
 		if v2 == nox_xxx_wndGetFocus_46B4F0() {
 			v13 = (int32(func() uint8 {
-				p := mem_getU8Ptr(0x5D4594, 1193344)
+				p := memmap.PtrUint8(0x5D4594, 1193344)
 				x := *p
 				*p++
 				return x

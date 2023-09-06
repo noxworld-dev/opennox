@@ -1529,8 +1529,8 @@ func sub_4F9AB0(a1p *server.Object) int32 {
 			a1.Direction2 = server.Dir16(uint16(int16(nox_xxx_playerConfusedGetDirection_4F7A40(a1))))
 		}
 		v5 = int32(a1.Direction2) * 8
-		a1.ForceVec.X = *mem_getFloatPtr(0x587000, uint32(v5)+194136)*a1.SpeedCur + a1.ForceVec.X
-		v6 = float64(*mem_getFloatPtr(0x587000, uint32(v5)+194140) * a1.SpeedCur)
+		a1.ForceVec.X = *memmap.PtrFloat32(0x587000, uint32(v5)+194136)*a1.SpeedCur + a1.ForceVec.X
+		v6 = float64(*memmap.PtrFloat32(0x587000, uint32(v5)+194140) * a1.SpeedCur)
 		result = 1
 		a1.ForceVec.Y = float32(v6 + float64(a1.ForceVec.Y))
 	} else {
@@ -2831,10 +2831,10 @@ func nox_xxx_createSpellFly_4FDDA0(a1 *server.Object, a2 *server.Object, a3 int3
 	}
 	v6 = int32(v3.Direction1) * 8
 	v7 = v3.PosVec.Y
-	v8 = float64(a2a * *mem_getFloatPtr(0x587000, uint32(v6)+194136))
+	v8 = float64(a2a * *memmap.PtrFloat32(0x587000, uint32(v6)+194136))
 	v22.field_0 = v3.PosVec.X
 	v9 = v8 + float64(v3.PosVec.X)
-	v10 = float64(a2a * *mem_getFloatPtr(0x587000, uint32(v6)+194140))
+	v10 = float64(a2a * *memmap.PtrFloat32(0x587000, uint32(v6)+194140))
 	v22.field_4 = v7
 	v22.field_C = float32(v10 + float64(v3.PosVec.Y))
 	v22.field_8 = float32(v9 + float64(v3.VelVec.X))
@@ -2858,8 +2858,8 @@ func nox_xxx_createSpellFly_4FDDA0(a1 *server.Object, a2 *server.Object, a3 int3
 	*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*3)) = a3
 	nox_xxx_xferIndexedDirection_509E20(int32(v3.Direction1), &v21)
 	v15 = int32(v12.Direction1)
-	v12.VelVec.X = *mem_getFloatPtr(0x587000, uint32(v15*8)+194136) * v12.SpeedCur
-	v12.VelVec.Y = *mem_getFloatPtr(0x587000, uint32(v15*8)+194140) * v12.SpeedCur
+	v12.VelVec.X = *memmap.PtrFloat32(0x587000, uint32(v15*8)+194136) * v12.SpeedCur
+	v12.VelVec.Y = *memmap.PtrFloat32(0x587000, uint32(v15*8)+194140) * v12.SpeedCur
 	v12.VelVec.X = v12.VelVec.X + v3.VelVec.X
 	v12.VelVec.Y = v12.VelVec.Y + v3.VelVec.Y
 	if nox_xxx_testUnitBuffs_4FF350(v3, 21) != 0 {
@@ -4659,7 +4659,7 @@ func Nox_xxx_summonStart_500DA0(sp *server.DurSpell) int32 {
 	v6 = nox_xxx_guideNameByN_427230(v2)
 	*(*uint16)(unsafe.Pointer(&v17[0])) = uint16(int16(nox_xxx_getNameId_4E3AA0(v6)))
 	*(*uint16)(unsafe.Pointer(&v17[11])) = func() uint16 {
-		p := mem_getU16Ptr(0x5D4594, 1570276)
+		p := memmap.PtrUint16(0x5D4594, 1570276)
 		x := *p
 		*p++
 		return x
@@ -5587,8 +5587,8 @@ func sub_503B30(a1 *types.Pointf) int32 {
 	v7 = int32(*(*uint32)(unsafe.Pointer(v5)))
 	*memmap.PtrUint32(0x5D4594, 1599484) = uint32(v7)
 	*memmap.PtrUint32(0x5D4594, 1599488) = *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))
-	*mem_getFloatPtr(0x5D4594, 1599492) = float32(float64(v7 * 23))
-	*mem_getFloatPtr(0x5D4594, 1599496) = float32(float64(int32(*memmap.PtrUint32(0x5D4594, 1599488) * 23)))
+	*memmap.PtrFloat32(0x5D4594, 1599492) = float32(float64(v7 * 23))
+	*memmap.PtrFloat32(0x5D4594, 1599496) = float32(float64(int32(*memmap.PtrUint32(0x5D4594, 1599488) * 23)))
 	v8 = int32(int64(float64(a2.X) - float64(*memmap.PtrInt32(0x5D4594, 1599508))))
 	v9 = int32(int64(float64(a2.Y) - float64(*memmap.PtrInt32(0x5D4594, 1599512))))
 	result = nox_xxx_tileInit_504150(v8, v9)

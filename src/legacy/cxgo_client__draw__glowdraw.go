@@ -250,9 +250,9 @@ func nox_thing_rain_orb_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v7 = nox_xxx_math_509ED0(&v24)
 		v23[2] = int16(v4)
 		v23[3] = v6
-		v20 = float32(float64(*mem_getFloatPtr(0x587000, uint32(v7*8)+194136))*150.0 + float64(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*108))))
+		v20 = float32(float64(*memmap.PtrFloat32(0x587000, uint32(v7*8)+194136))*150.0 + float64(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*108))))
 		v8 = int16(int32(v20))
-		v9 = float64(*mem_getFloatPtr(0x587000, uint32(v7*8)+194140)) * 150.0
+		v9 = float64(*memmap.PtrFloat32(0x587000, uint32(v7*8)+194140)) * 150.0
 		v23[0] = v8
 		v21 = float32(v9 + float64(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*109))))
 		v10 = int16(int32(v21))

@@ -160,7 +160,7 @@ func sub_4610D0(a1 uint8) *byte {
 	if int32(a1) != 6 {
 		return sub_461090(int32(*memmap.PtrUint32(0x5D4594, uintptr(int32(a1)*24)+1047764)), 1)
 	}
-	v1 = mem_getI32Ptr(0x5D4594, 1047764+24*1)
+	v1 = memmap.PtrInt32(0x5D4594, 1047764+24*1)
 	for {
 		result = sub_461090(*v1, 1)
 		v1 = (*int32)(unsafe.Add(unsafe.Pointer(v1), 4*6))
@@ -1322,7 +1322,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 						v8 = float64(v7.Field_73_1)
 						v25 = int32(v7.Field_73_2)
 						v9 = float64(v25)
-						if v8 >= v9**mem_getDoublePtr(0x581450, 9608) {
+						if v8 >= v9**memmap.PtrFloat64(0x581450, 9608) {
 							if v8 >= v9*qword_581450_9544 {
 								goto LABEL_16
 							}
@@ -2250,7 +2250,7 @@ func sub_467450(a1 int32) int32 {
 func sub_467470(a1 int32, a2 float32) int32 {
 	var result int32
 	result = int32(uint8(int8(a1)))
-	*mem_getFloatPtr(0x5D4594, uint32(int32(uint8(int8(a1)))*4)+1063100) = a2
+	*memmap.PtrFloat32(0x5D4594, uint32(int32(uint8(int8(a1)))*4)+1063100) = a2
 	return result
 }
 func sub_467490(a1 int32) {
@@ -3978,7 +3978,7 @@ func sub_470F40_draw(win *gui.Window, draw *gui.WindowData) int {
 		if v7 != nil {
 			v8 = float64(*(*uint16)(unsafe.Add(v7, 292)))
 			v9 = float64(*(*uint16)(unsafe.Add(v7, 294)))
-			if v8 < v9**mem_getDoublePtr(0x581450, 9608) {
+			if v8 < v9**memmap.PtrFloat64(0x581450, 9608) {
 				v3.Color2 = *memmap.PtrUint32(0x85B3FC, 940)
 				v12 = 1
 			} else if v8 < v9*qword_581450_9544 {
@@ -4159,7 +4159,7 @@ func nox_xxx_guiBottleSlotDrawFn_471A80(win *gui.Window, draw *gui.WindowData) i
 		v4 = nox_xxx_guiFontHeightMB_43F320(dword_5d4594_1096288)
 		nox_xxx_drawString_43F6E0(dword_5d4594_1096288, &v9[0], v8-2, a1-v4+10)
 	}
-	v5 = mem_getI16Ptr(0x5D4594, uint32(v2)+1090300)
+	v5 = memmap.PtrInt16(0x5D4594, uint32(v2)+1090300)
 	if v5 != nil {
 		v6 = nox_xxx_guiFontHeightMB_43F320(dword_5d4594_1096288)
 		nox_xxx_drawString_43F6E0(dword_5d4594_1096288, (*wchar2_t)(unsafe.Pointer(v5)), v8-2, a1-v6+33)

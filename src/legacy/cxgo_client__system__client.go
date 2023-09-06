@@ -33,7 +33,7 @@ func nox_xxx_clientDrawAll_436100_draw_B() {
 	nox_wcscpy(&v25[0], (*wchar2_t)(memmap.PtrOff(0x5D4594, 811376)))
 	var v14 int32 = (nox_win_width - 310) / 2
 	var v16 int32 = (nox_win_height - 200) / 2
-	var v15 *int32 = mem_getI32Ptr(0x5D4594, *memmap.PtrUint32(0x5D4594, 811060)*4+811888)
+	var v15 *int32 = memmap.PtrInt32(0x5D4594, *memmap.PtrUint32(0x5D4594, 811060)*4+811888)
 	if *v15 == 0 {
 		*v15 = nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(*memmap.PtrUint32(0x5D4594, 811060))*4+85712)))
 	}
@@ -70,7 +70,7 @@ func sub_436F50() int32 {
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v4 = nox_server_currentMapGetFilename_409B30()
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("%S"), v4)
-	nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v3)
+	nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(memmap.PtrInt16(0x5D4594, 811120))), v2, v3)
 	result = int32(*memmap.PtrUint32(0x852978, 8))
 	v6 = v0 + v3
 	if *memmap.PtrUint32(0x852978, 8) == 0 {
@@ -80,12 +80,12 @@ func sub_436F50() int32 {
 		return result
 	}
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), internWStr("X:%d\tY:%d"), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 12)), *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 16)))
-	nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v6)
+	nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(memmap.PtrInt16(0x5D4594, 811120))), v2, v6)
 	v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))*4+29456))), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1357)
 	v8 = int32(*(*byte)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3684)))
 	v7 = nox_strman_loadString_40F1D0(internCStr("PlayerInfo"), nil, internCStr("C:\\NoxPost\\src\\client\\System\\client.c"), 1355)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), v7, v8, v9)
-	result = nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(mem_getI16Ptr(0x5D4594, 811120))), v2, v0+v6)
+	result = nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(memmap.PtrInt16(0x5D4594, 811120))), v2, v0+v6)
 	return result
 }
 func nox_xxx_getRandomName_4358A0() *byte {

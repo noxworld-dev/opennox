@@ -13,7 +13,7 @@ func sub_4AA650() {
 	)
 	if sub_44D930() == 0 {
 		v2 = *(**byte)(memmap.PtrOff(0x587000, uintptr(func() uint32 {
-			p := mem_getU32Ptr(0x5D4594, 1309744)
+			p := memmap.PtrUint32(0x5D4594, 1309744)
 			x := *p
 			*p++
 			return x

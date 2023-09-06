@@ -47,7 +47,7 @@ func nox_xxx_mapGenClientText_4A9D00(a1 *uint8) int16 {
 	nox_xxx_drawSetColor_4343E0(*memmap.PtrInt32(0x852978, 4))
 	nox_draw_drawStringHL_43F730(nil, (*wchar2_t)(unsafe.Pointer(*(**int16)(memmap.PtrOff(0x5D4594, 1309660)))), v6/2, v7)
 	if func() uint32 {
-		p := mem_getU32Ptr(0x5D4594, 1309672)
+		p := memmap.PtrUint32(0x5D4594, 1309672)
 		*p++
 		return *p
 	}() >= 32 {
