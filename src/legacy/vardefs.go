@@ -173,19 +173,19 @@ func Get_dword_5d4594_1599588() unsafe.Pointer {
 func Get_dword_5d4594_1599592() unsafe.Pointer {
 	return dword_5d4594_1599592
 }
-func Get_dword_5d4594_1599540() unsafe.Pointer {
+func Get_dword_5d4594_1599540() *UnitListXxx {
 	return dword_5d4594_1599540
 }
 func Get_dword_5d4594_1599476() int {
 	return int(dword_5d4594_1599476)
 }
-func Get_dword_5d4594_1599548() unsafe.Pointer {
+func Get_dword_5d4594_1599548() *WaypointListXxx {
 	return dword_5d4594_1599548
 }
-func Get_dword_5d4594_1599556() unsafe.Pointer {
+func Get_dword_5d4594_1599556() *TileXxx {
 	return dword_5d4594_1599556
 }
-func Get_dword_5d4594_1599532() unsafe.Pointer {
+func Get_dword_5d4594_1599532() *WallListItem {
 	return dword_5d4594_1599532
 }
 func Get_dword_5d4594_1200804() int {
@@ -320,9 +320,6 @@ func Get_dword_5d4594_1548524() int {
 func Get_dword_587000_155144() unsafe.Pointer {
 	return dword_587000_155144
 }
-func Get_nox_alloc_magicEnt_1569668() unsafe.Pointer {
-	return nox_alloc_magicEnt_1569668
-}
 func Get_nox_client_gui_flag_1556112() int {
 	return int(nox_client_gui_flag_1556112)
 }
@@ -362,7 +359,7 @@ func Set_dword_5d4594_1599476(v int) {
 func Set_dword_5d4594_1599540(v unsafe.Pointer) {
 	dword_5d4594_1599540 = v
 }
-func Set_dword_5d4594_1599532(v *wallListItem) {
+func Set_dword_5d4594_1599532(v *WallListItem) {
 	dword_5d4594_1599532 = v
 }
 func Set_dword_5d4594_1599556(v unsafe.Pointer) {
@@ -619,12 +616,6 @@ func Set_nox_player_netCode_85319C(v uint32) {
 }
 func Set_dword_5d4594_1200832(v int) {
 	dword_5d4594_1200832 = uint32(v)
-}
-func Set_nox_alloc_magicEnt_1569668(v unsafe.Pointer) {
-	nox_alloc_magicEnt_1569668 = (*[0]byte)(v)
-}
-func Set_dword_5d4594_1569672(v int) {
-	dword_5d4594_1569672 = uint32(v)
 }
 func Inc_nox_xxx_waypointCounterMB_587000_154948() {
 	nox_xxx_waypointCounterMB_587000_154948++

@@ -40,7 +40,7 @@ var dword_5d4594_1062508 *gui.Window
 var dword_5d4594_1049864 uint32
 var dword_5d4594_1062512 int32
 var dword_5d4594_1217464 int32
-var dword_5d4594_1599656 uint32
+var dword_5d4594_1599656 *Vote
 var dword_5d4594_1049500 *gui.Window
 var dword_5d4594_3798840 int32
 var dword_5d4594_1309812 *gui.Window
@@ -60,7 +60,7 @@ var dword_5d4594_2660652 uint32
 var dword_5d4594_1045636 *gui.Window
 var dword_5d4594_3798804 int32
 var dword_5d4594_832476 uint32
-var dword_5d4594_1570272 uint32
+var dword_5d4594_1570272 *Journal
 var dword_5d4594_1305684 *gui.Window
 var dword_5d4594_1321228 *gui.Window
 var nox_game_createOrJoin_815048 uint32
@@ -118,8 +118,8 @@ var dword_5d4594_1193348 unsafe.Pointer
 var dword_5d4594_1047520 uint32
 var dword_5d4594_534808 unsafe.Pointer
 var dword_5d4594_1197324 int32
-var dword_5d4594_1599576 uint32
-var dword_5d4594_1599596 uint32
+var dword_5d4594_1599576 unsafe.Pointer
+var dword_5d4594_1599596 int32
 var dword_5d4594_1045480 *gui.Window
 var dword_5d4594_2487556 unsafe.Pointer
 var dword_5d4594_1523024 *gui.Window
@@ -133,7 +133,7 @@ var dword_5d4594_1197320 *gui.Window
 var nox_alloc_pixelSpan_1301844 *nox_alloc_class
 var dword_5d4594_3798808 int32
 var dword_5d4594_1062524 *gui.Window
-var dword_5d4594_3835396 uint32
+var dword_5d4594_3835396 int32
 var dword_5d4594_1062528 *gui.Window
 var dword_5d4594_1522604 *gui.Window
 var dword_5d4594_3798816 int32
@@ -177,10 +177,10 @@ var dword_5d4594_1090276 *gui.Window
 var dword_5d4594_1049496 uint32
 var dword_587000_93164 unsafe.Pointer
 var dword_5d4594_1098624 uint32
-var dword_5d4594_1569672 unsafe.Pointer
+var Dword_5d4594_1569672 *MagicEntityClass
 var dword_5d4594_1197316 *gui.Window
 var dword_5d4594_2386576 *server.Object
-var dword_5d4594_1569756 uint32
+var dword_5d4594_1569756 int32
 var dword_5d4594_1320968 *client.Drawable
 var dword_5d4594_2488604 *server.Object
 var qword_581450_9544 float64 = 0.5
@@ -252,7 +252,7 @@ var dword_5d4594_832532 *client.Drawable
 var dword_5d4594_2650680 uint32
 var dword_5d4594_588120 unsafe.Pointer
 var dword_5d4594_1047512 int32
-var dword_5d4594_588084 unsafe.Pointer
+var dword_5d4594_588084 *TileZzz
 var dword_5d4594_1321044 *gui.Window
 var dword_5d4594_816372 uint32
 var dword_5d4594_832492 *client.Drawable
@@ -383,7 +383,7 @@ var dword_5d4594_831276 float32
 var dword_5d4594_1301816 uint32
 var dword_5d4594_2491552 uint32
 var dword_5d4594_1045588 *gui.Window
-var dword_5d4594_1599616 uint32
+var dword_5d4594_1599616 unsafe.Pointer
 var dword_5d4594_1319236 *gui.Window
 var dword_5d4594_815056 uint32
 var dword_5d4594_1308128 *gui.Window
@@ -398,7 +398,7 @@ var dword_5d4594_251708 uint32
 var dword_5d4594_1063120 uint32
 var dword_5d4594_1046540 *gui.Window
 var dword_5d4594_1062496 uint32
-var nox_alloc_vote_1599652 unsafe.Pointer
+var nox_alloc_vote_1599652 alloc.ClassT[Vote]
 var dword_5d4594_1049804 uint32
 var dword_5d4594_1090112 uint32
 var dword_5d4594_3807140 int32
@@ -408,7 +408,7 @@ var dword_5d4594_1316476 uint32
 var dword_5d4594_2488652 uint32
 var nox_alloc_spawn_2386216 unsafe.Pointer
 var dword_5d4594_2487672 uint32
-var nox_alloc_magicEnt_1569668 *nox_alloc_class
+var Nox_alloc_magicEnt_1569668 alloc.ClassT[MagicEntityClass]
 var dword_5d4594_814992 uint32
 var dword_587000_66116 int32 = 0x1D
 var dword_5d4594_2487564 uint32
@@ -575,7 +575,7 @@ var dword_5d4594_1096272 uint32
 var dword_5d4594_1096636 int32
 var dword_5d4594_1522956 uint32
 var dword_587000_183460 int32 = 0x26
-var dword_5d4594_1303508 unsafe.Pointer
+var dword_5d4594_1303508 *server.PhonemeLeaf
 var dword_5d4594_1568288 uint32
 var dword_5d4594_2491704 uint32
 var dword_5d4594_1320948 uint32

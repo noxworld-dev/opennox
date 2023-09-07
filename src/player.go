@@ -28,8 +28,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer {
-	return unsafe.Pointer((*phonemeLeaf)(p).Next(spell.Phoneme(ph)))
+func nox_xxx_updateSpellRelated_424830(p *server.PhonemeLeaf, ph int) *server.PhonemeLeaf {
+	return p.Next(spell.Phoneme(ph))
 }
 
 func nox_xxx_playerDisconnByPlrID_4DEB00(id ntype.PlayerInd) {
@@ -743,7 +743,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 	if u != nil {
 		a1 = 1
 	}
-	if leaf := (*phonemeLeaf)(ud.SpellPhonemeLeaf); leaf == getPhonemeTree() {
+	if leaf := (*server.PhonemeLeaf)(ud.SpellPhonemeLeaf); leaf == getPhonemeTree() {
 		ok2 = false
 	} else if leaf != nil && leaf.Ind != 0 {
 		spellInd := spell.ID(leaf.Ind)
@@ -797,10 +797,10 @@ func (s *Server) PlayerSpell(su *server.Object) {
 		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")
 		legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), v13)
 	} else if a1 != 0 {
-		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
+		v4 := (*server.PhonemeLeaf)(ud.SpellPhonemeLeaf)
 		nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
 	} else {
-		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
+		v4 := (*server.PhonemeLeaf)(ud.SpellPhonemeLeaf)
 		if !s.SpellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
 			nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
 		}

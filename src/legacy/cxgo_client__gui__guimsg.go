@@ -20,7 +20,7 @@ func nox_xxx_printCentered_445490(a1 *wchar2_t) {
 			v1 = 0
 			dword_5d4594_825736 = 0
 		}
-		nox_wcscpy(memmap.PtrUint16(0x5D4594, uint32(v1*644)+823804), a1)
+		nox_wcscpy(memmap.PtrUint16(0x5D4594, uintptr(uint32(v1*644)+823804)), a1)
 		v2 = int32(dword_5d4594_825736 * 644)
 		*memmap.PtrUint32(0x5D4594, uintptr(v2)+824440) = gameFrame() + gameFPS()*4 + gameFPS()
 		*memmap.PtrUint8(0x5D4594, uintptr(v2)+824444) = 0

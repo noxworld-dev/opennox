@@ -26,7 +26,7 @@ import (
 )
 
 var (
-	spellPhonemeTree *phonemeLeaf
+	spellPhonemeTree *server.PhonemeLeaf
 )
 
 type serverSpells struct {
@@ -46,23 +46,11 @@ func (sp *serverSpells) Free() {
 	sp.duration.Free()
 }
 
-var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
+var _ = [1]struct{}{}[40-unsafe.Sizeof(server.PhonemeLeaf{})]
 
-type phonemeLeaf struct {
-	Ind int32
-	Pho [spell.PhonMax]*phonemeLeaf
-}
-
-func (p *phonemeLeaf) Next(ph spell.Phoneme) *phonemeLeaf { // nox_xxx_updateSpellRelated_424830
-	if p == nil || !ph.Valid() {
-		return nil
-	}
-	return p.Pho[ph]
-}
-
-func getPhonemeTree() *phonemeLeaf {
+func getPhonemeTree() *server.PhonemeLeaf {
 	if spellPhonemeTree == nil {
-		spellPhonemeTree, _ = alloc.New(phonemeLeaf{})
+		spellPhonemeTree, _ = alloc.New(server.PhonemeLeaf{})
 	}
 	return spellPhonemeTree
 }
@@ -255,7 +243,7 @@ func (s *Server) spellEnableAll() {
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 	s := noxServer
 	nox_alloc_spellDur_1569724 = alloc.NewClassT("spellDuration", server.DurSpell{}, 512)
-	legacy.Set_nox_alloc_magicEnt_1569668(alloc.NewClass("magicEntityClass", 60, 64).UPtr())
+	legacy.Nox_alloc_magicEnt_1569668 = alloc.NewClassT("magicEntityClass", legacy.MagicEntityClass{}, 64)
 	nox_xxx_imagCasterUnit_1569664 = asObjectS(s.NewObjectByTypeID("ImaginaryCaster"))
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return errors.New("cannot find ImaginaryCaster object type")
@@ -274,8 +262,8 @@ func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 
 func nox_xxx_freeSpellRelated_4FCA80() {
 	nox_alloc_spellDur_1569724.Free()
-	alloc.AsClass(legacy.Get_nox_alloc_magicEnt_1569668()).Free()
-	legacy.Set_dword_5d4594_1569672(0)
+	legacy.Nox_alloc_magicEnt_1569668.Free()
+	legacy.Dword_5d4594_1569672 = nil
 	nox_xxx_imagCasterUnit_1569664.Delete()
 	nox_xxx_imagCasterUnit_1569664 = nil
 }
@@ -362,7 +350,7 @@ func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
 		for _, ph := range sp.Def.Phonemes {
 			next := leaf.Pho[ph]
 			if next == nil {
-				next, _ = alloc.New(phonemeLeaf{})
+				next, _ = alloc.New(server.PhonemeLeaf{})
 				leaf.Pho[ph] = next
 			}
 			leaf = next

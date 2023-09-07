@@ -1771,8 +1771,8 @@ func Sub_495430() int32 {
 		if dword_5d4594_1203832 > uint32(i) {
 			break
 		}
-		if (gameFrame() - *memmap.PtrUint32(0x5D4594, uintptr(v0*24)+1201448)) <= 0x5A {
-			sub_495500(memmap.PtrInt32(0x5D4594, uint32(v1*24)+1201428))
+		if (gameFrame() - *memmap.PtrUint32(0x5D4594, uintptr(v0)*24+1201448)) <= 0x5A {
+			sub_495500(memmap.PtrInt32(0x5D4594, uintptr(v1)*24+1201428))
 			v0 = int32(dword_5d4594_1203840)
 			dword_5d4594_1203832++
 		} else {
@@ -2204,11 +2204,11 @@ func sub_495D00(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 	v9 = int32(v6.PosVec.X + int(a3.Screen.Min.X) - a3.World.Min.X)
 	v10 = int32(v6.Field_77 * 8)
 	v30 = int32(v6.PosVec.Y - int(uint32(v6.ZVal)) - int(uint32(v6.Field_26_1)) - a3.World.Min.Y + a3.Screen.Min.Y - 10)
-	v28 = memmap.PtrFloat32(0x587000, v6.Field_77*64+194136)
-	v22 = float32(float64(*memmap.PtrFloat32(0x587000, v6.Field_77*64+194136)) * (-12.0))
+	v28 = memmap.PtrFloat32(0x587000, uintptr(v6.Field_77)*64+194136)
+	v22 = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(v6.Field_77)*64+194136)) * (-12.0))
 	v11 = int32(v22) + v9
-	v29 = memmap.PtrFloat32(0x587000, uint32(v10*8)+194140)
-	v23 = float32(float64(*memmap.PtrFloat32(0x587000, uint32(v10*8)+194140)) * (-12.0))
+	v29 = memmap.PtrFloat32(0x587000, uintptr(v10)*8+194140)
+	v23 = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(v10)*8+194140)) * (-12.0))
 	v27 = 0
 	v31 = int32(v23) + v30
 	v12 := a2
@@ -4515,8 +4515,8 @@ func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) {
 		if v3 != nil {
 			v4 := int32(int16(i)) * 8
 			*(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*254)) = uint16(int16(i))
-			v3.Field_117 = uint32(float32(float64(*memmap.PtrFloat32(0x587000, uint32(v4)+194136)) * 4.0))
-			v5 := float64(*memmap.PtrFloat32(0x587000, uint32(v4)+194140)) * 4.0
+			v3.Field_117 = uint32(float32(float64(*memmap.PtrFloat32(0x587000, uintptr(v4)+194136)) * 4.0))
+			v5 := float64(*memmap.PtrFloat32(0x587000, uintptr(v4)+194140)) * 4.0
 			v3.Field_119 = 0
 			v3.Field_118 = uint32(float32(v5))
 			v3.Field_79 = gameFrame()
@@ -4990,7 +4990,7 @@ func sub_49BBC0() {
 			dword_5d4594_1303508 = nox_xxx_updateSpellRelated_424830(dword_5d4594_1303508, int32(v1))
 			*memmap.PtrUint8(0x5D4594, 1303512)++
 		}
-		if *(*uint32)(unsafe.Add(dword_5d4594_1303508, 0)) == uint32(*memmap.PtrUint8(0x5D4594, 1303504)) {
+		if dword_5d4594_1303508.Ind == int32(*memmap.PtrUint8(0x5D4594, 1303504)) {
 			sub_49BBB0()
 		}
 	}
@@ -5442,7 +5442,7 @@ func sub_49FDB0(a1 int32) {
 				for {
 					for i = 0; i < int32(int8(*v4)); i++ {
 						v6 = (a1*12 + int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), i+1))))) * 8
-						sub_420DA0(*memmap.PtrFloat32(0x587000, uint32(v6)+165360), *memmap.PtrFloat32(0x587000, uint32(v6)+165364))
+						sub_420DA0(*memmap.PtrFloat32(0x587000, uintptr(v6)+165360), *memmap.PtrFloat32(0x587000, uintptr(v6)+165364))
 					}
 					libc.StrCpy(&v8[4], *(**byte)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof((*byte)(nil))*3)))
 					sub_4211D0(unsafe.Pointer(&v8[0]))
@@ -5459,7 +5459,7 @@ func sub_49FDB0(a1 int32) {
 			for {
 				for j = 0; j < int32(int8(*v1)); j++ {
 					v3 = int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), j+1)))) * 8
-					sub_420DA0(*memmap.PtrFloat32(0x587000, uint32(v3)+165104), *memmap.PtrFloat32(0x587000, uint32(v3)+165108))
+					sub_420DA0(*memmap.PtrFloat32(0x587000, uintptr(v3)+165104), *memmap.PtrFloat32(0x587000, uintptr(v3)+165108))
 				}
 				libc.StrCpy(&v8[4], *(**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*3)))
 				sub_4211D0(unsafe.Pointer(&v8[0]))

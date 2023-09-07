@@ -1949,7 +1949,7 @@ func nox_xxx_ammoCheck_415880(typ_ind uint16) uint32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+33072)))
+	return memmap.Uint32(0x587000, uintptr(v1)*12+33072)
 }
 func sub_415910(a1 *byte) int32 {
 	var (

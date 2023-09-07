@@ -1,9 +1,8 @@
 package opennox
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func init() {
@@ -66,8 +65,8 @@ func init() {
 	legacy.Sub_40A1A0 = sub_40A1A0
 	legacy.PlatformTicks = platformTicks
 	legacy.Nox_ticks_reset_416D40 = nox_ticks_reset_416D40
-	legacy.GetPhonemeTree = func() unsafe.Pointer {
-		return unsafe.Pointer(getPhonemeTree())
+	legacy.GetPhonemeTree = func() *server.PhonemeLeaf {
+		return getPhonemeTree()
 	}
 	legacy.Nox_xxx_spellAwardAll1_4EFD80 = nox_xxx_spellAwardAll1_4EFD80
 	legacy.Nox_xxx_spellAwardAll2_4EFC80 = nox_xxx_spellAwardAll2_4EFC80

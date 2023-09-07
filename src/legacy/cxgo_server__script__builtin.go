@@ -175,8 +175,8 @@ func nox_server_gotoHome(obj *server.Object) {
 			}
 			v6 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(v2, 25))
 			if v6 != nil {
-				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*1))) = float32(float64(*memmap.PtrFloat32(0x587000, *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194136))*10.0 + float64(v2.PosVec.X))
-				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*2))) = float32(float64(*memmap.PtrFloat32(0x587000, *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194140))*10.0 + float64(v2.PosVec.Y))
+				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*1))) = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194136)))*10.0 + float64(v2.PosVec.X))
+				*((*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*2))) = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*94))*8+194140)))*10.0 + float64(v2.PosVec.Y))
 			}
 			v7 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(v2, 37))
 			if v7 != nil {
@@ -323,7 +323,6 @@ func nox_script_HitLocation_5159E0() int32 {
 func nox_script_HitLocationGroup_515AE0() int32 {
 	var (
 		v0 int32
-		v1 *uint8
 		v3 types.Pointf
 		v4 types.Pointf
 	)
@@ -331,7 +330,7 @@ func nox_script_HitLocationGroup_515AE0() int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(&v3.X), 4*0)) = uint32(nox_script_pop())
 	v0 = nox_script_pop()
 	v4 = v3
-	v1 = (*uint8)(nox_server_scriptGetGroup_57C0A0(v0))
+	v1 := nox_server_scriptGetGroup_57C0A0(v0)
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, func(arg1 unsafe.Pointer, arg2 unsafe.Pointer) {
 		nox_xxx_monsterActionMelee_515A30(arg1, (*types.Pointf)(arg2))
 	}, unsafe.Pointer(&v4))

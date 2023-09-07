@@ -224,8 +224,8 @@ func sub_4BA670(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) {
 		dword_5d4594_1316408 = 28
 	}
 	a1a.X = a2
-	v9 = float64(*memmap.PtrFloat32(0x587000, uint32(a1*8)+194136))
-	v10 = float64(*memmap.PtrFloat32(0x587000, uint32(a1*8)+194140))
+	v9 = float64(*memmap.PtrFloat32(0x587000, uintptr(a1)*8+194136))
+	v10 = float64(*memmap.PtrFloat32(0x587000, uintptr(a1)*8+194140))
 	v11 = float64(a4 - a2)
 	v12 = float64(v7)
 	a1a.Y = a3
@@ -252,12 +252,12 @@ func sub_4BA670(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) {
 	a5 = 0
 	for {
 		if v17 != 0 {
-			*memmap.PtrFloat32(0x5D4594, uint32(v17*4)+1313856) = float32(float64(*memmap.PtrFloat32(0x5D4594, uint32(v17*4)+1313856)) + 0.25)
+			*memmap.PtrFloat32(0x5D4594, uintptr(v17)*4+1313856) = float32(float64(*memmap.PtrFloat32(0x5D4594, uintptr(v17)*4+1313856)) + 0.25)
 		} else {
 			*memmap.PtrFloat32(0x5D4594, 1313856) = float32(float64(*memmap.PtrFloat32(0x5D4594, 1313856)) + 0.2)
 		}
 		v18 = int32(dword_5d4594_1316408)
-		if float64(*memmap.PtrFloat32(0x5D4594, uint32(v17*4)+1313856)) >= 1.0 {
+		if float64(*memmap.PtrFloat32(0x5D4594, uintptr(v17)*4+1313856)) >= 1.0 {
 			v19 = int32(dword_5d4594_1316408 + 1)
 			if dword_5d4594_1316408+1 > 0 {
 				v20 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v19+v17*30)*28)+1313872))
@@ -274,10 +274,10 @@ func sub_4BA670(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) {
 					}
 				}
 			}
-			*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1313856) = 0
-			*memmap.PtrUint32(0x5D4594, uintptr(v17*840)+1313908) = 0
+			*memmap.PtrUint32(0x5D4594, uintptr(v17)*4+1313856) = 0
+			*memmap.PtrUint32(0x5D4594, uintptr(v17)*840+1313908) = 0
 		}
-		v21 = *memmap.PtrFloat32(0x5D4594, uint32(v17*4)+1313856)
+		v21 = *memmap.PtrFloat32(0x5D4594, uintptr(v17)*4+1313856)
 		dword_5d4594_1316412 = 0
 		sub_4BEDE0(&a1a, &a2a, &a3a, &a4a, v18, v21, sub_4BA8B0, unsafe.Pointer(&a5))
 		v17 = func() int32 {

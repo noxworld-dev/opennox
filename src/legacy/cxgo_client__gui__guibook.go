@@ -469,13 +469,13 @@ func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 		sub_45D810()
 		goto LABEL_27
 	}
-	if float64(dword_5d4594_1046636) > float64(*memmap.PtrFloat32(0x5D4594, *memmap.PtrUint32(0x5D4594, 1046628)*8+1046692)) {
+	if float64(dword_5d4594_1046636) > float64(*memmap.PtrFloat32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 1046628)*8+1046692))) {
 		v10 = int32(*memmap.PtrUint32(0x5D4594, 1046628) + 1)
 		*memmap.PtrUint32(0x5D4594, 1046628) = uint32(v10)
 		if v10 < *memmap.PtrInt32(0x5D4594, 1046680) {
 			if v10 <= *memmap.PtrInt32(0x5D4594, 1046680)-1 {
-				obj_5d4594_1046620.X = *memmap.PtrFloat32(0x5D4594, uint32(v10*8)+1046692) - *memmap.PtrFloat32(0x5D4594, uint32(v10*8)+1046684)
-				obj_5d4594_1046620.Y = *memmap.PtrFloat32(0x5D4594, uint32(v10*8)+1046696) - *memmap.PtrFloat32(0x5D4594, uint32(v10*8)+1046688)
+				obj_5d4594_1046620.X = *memmap.PtrFloat32(0x5D4594, uintptr(uint32(v10*8)+1046692)) - *memmap.PtrFloat32(0x5D4594, uintptr(uint32(v10*8)+1046684))
+				obj_5d4594_1046620.Y = *memmap.PtrFloat32(0x5D4594, uintptr(uint32(v10*8)+1046696)) - *memmap.PtrFloat32(0x5D4594, uintptr(uint32(v10*8)+1046688))
 				nox_xxx_utilNormalizeVector_509F20(&obj_5d4594_1046620)
 				if nox_win_width < 1000 {
 					if nox_win_width < 750 {

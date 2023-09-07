@@ -516,51 +516,51 @@ func (s *Server) Nox_xxx_mapReset5028E0() {
 
 func (s *Server) Nox_xxx_free503F40() {
 	{
-		var next unsafe.Pointer
-		for v0 := legacy.Get_dword_5d4594_1599540(); v0 != nil; v0 = next {
-			next = *(*unsafe.Pointer)(unsafe.Add(v0, 4))
+		var next *legacy.UnitListXxx
+		for it := legacy.Get_dword_5d4594_1599540(); it != nil; it = next {
+			next = it.Field4
 			if legacy.Get_dword_5d4594_1599476() == 0 {
-				s.Objs.FreeObject(asObject(*(*unsafe.Pointer)(unsafe.Add(v0, 0))).SObj())
+				s.Objs.FreeObject(it.Field0)
 			}
-			alloc.FreePtr(v0)
+			alloc.Free(it)
 		}
 	}
 
 	{
-		var next unsafe.Pointer
+		var next *legacy.WaypointListXxx
 		for it := legacy.Get_dword_5d4594_1599548(); it != nil; it = next {
-			next = *(*unsafe.Pointer)(unsafe.Add(it, 4))
+			next = it.Field4
 			if legacy.Get_dword_5d4594_1599476() == 0 {
-				*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
+				it.Field0 = nil
 			}
-			alloc.FreePtr(it)
+			alloc.Free(it)
 		}
 	}
 
 	{
-		var next unsafe.Pointer
+		var next *legacy.TileXxx
 		for it := legacy.Get_dword_5d4594_1599556(); it != nil; it = next {
-			next = *(*unsafe.Pointer)(unsafe.Add(it, 16))
+			next = it.Field16
 
-			var next2 unsafe.Pointer
-			for it2 := *(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 16)); it2 != nil; it2 = next2 {
-				next2 = *(*unsafe.Pointer)(unsafe.Add(it2, 16))
+			var next2 *legacy.TileYyy
+			for it2 := it.Field0.Field16; it2 != nil; it2 = next2 {
+				next2 = it2.Field16
 				legacy.Nox_xxx_tileFreeTileOne_4221E0(it2)
 			}
-			*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
-			alloc.FreePtr(it)
+			it.Field0 = nil
+			alloc.Free(it)
 		}
 	}
 
 	{
-		var next unsafe.Pointer
+		var next *legacy.WallListItem
 		for it := legacy.Get_dword_5d4594_1599532(); it != nil; it = next {
-			next = *(*unsafe.Pointer)(unsafe.Add(it, 4))
-			if legacy.Get_dword_5d4594_1599476() == 0 && *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 4))&0x4 != 0 {
-				*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 4*7)) = nil
+			next = it.Next
+			if legacy.Get_dword_5d4594_1599476() == 0 && it.Wall.Flags4&0x4 != 0 {
+				it.Wall.Data28 = nil
 			}
-			*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
-			alloc.FreePtr(it)
+			it.Wall = nil
+			alloc.Free(it)
 		}
 	}
 

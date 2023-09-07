@@ -765,9 +765,9 @@ func sub_4E3DD0() {
 				if int32(uint16(int16(v0g))) != 0 {
 					if int32(uint16(int16(v0g))) == int32(v4) {
 						v5 := nox_xxx_objectTypeByIndHealthData(int32(v1.TypeInd))
-						v15 = float32(sub_4E40F0() * float64(*(*uint16)(unsafe.Add(v5, 4))))
+						v15 = float32(sub_4E40F0() * float64(v5.Max))
 						v6 = uint16(nox_float2int16_abs(v15))
-						v16 = float32(sub_4E40F0() * float64(*(*uint16)(v5)))
+						v16 = float32(sub_4E40F0() * float64(v5.Cur))
 						v7 = uint16(nox_float2int16_abs(v16))
 						if int32(v7) == 0 {
 							v7 = 1
@@ -801,7 +801,7 @@ func sub_4E3DD0() {
 							if v10 != nil {
 								*(*uint16)(unsafe.Add(unsafe.Pointer(&v0e), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v10, 72))
 							} else {
-								*(*uint16)(unsafe.Add(unsafe.Pointer(&v0e), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(v0a, 4))
+								*(*uint16)(unsafe.Add(unsafe.Pointer(&v0e), unsafe.Sizeof(uint16(0))*0)) = v0a.Max
 							}
 							if int32(int8(*(*uint8)(unsafe.Add(v9, 1440)))) >= 0 {
 								v22 = float32(float64(uint16(int16(v0e))))
@@ -1464,7 +1464,7 @@ func Nox_xxx_netSendPacket_4E5030(a1 int, data []byte, a4 unsafe.Pointer, a5 int
 			}
 		} else if (a1 & 0x80) == 0 {
 			p.Field186[a1] = func() uint16 {
-				p := memmap.PtrUint16(0x5D4594, uint32(a1*2)+1565524)
+				p := memmap.PtrUint16(0x5D4594, uintptr(a1)*2+1565524)
 				x := *p
 				*p++
 				return x
@@ -4722,8 +4722,8 @@ func sub_4EB3E0(a1 *server.Object) {
 		v4 += int32((uint32(v4) >> 8) * 4294967040)
 	}
 	v5 = int32(v1.PrevPos.Y)
-	a1.VelVec.X = v9 * *memmap.PtrFloat32(0x587000, uint32(v4*8)+194136)
-	v6 = float64(v9 * *memmap.PtrFloat32(0x587000, uint32(v4*8)+194140))
+	a1.VelVec.X = v9 * *memmap.PtrFloat32(0x587000, uintptr(v4)*8+194136)
+	v6 = float64(v9 * *memmap.PtrFloat32(0x587000, uintptr(v4)*8+194140))
 	v7 = int32(v1.PrevPos.X)
 	v1.NewPos.Y = float32(uint32(v5))
 	v1.NewPos.X = float32(uint32(v7))
@@ -10058,7 +10058,7 @@ func sub_4F3400(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
 func nox_xxx_pickupUse_4F34D0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
 	a1 := obj
 	a2 := obj2
-	nox_xxx_useByNetCode_53F8E0(unsafe.Pointer(a1), unsafe.Pointer(a2))
+	nox_xxx_useByNetCode_53F8E0(a1, a2)
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 16)))&0x20 != 0 {
 		return 1
 	} else {
@@ -10321,7 +10321,7 @@ func nox_xxx_pickupAmmo_4F3B00(obj *server.Object, item *server.Object, a3 int, 
 		return sub_53A720(obj, item, a3, a4)
 	}
 	for {
-		if int32(v7.TypeInd) != int32(item.TypeInd) || (v7.ObjClass&0x1000000) == 0 || (nox_xxx_weaponInventoryEquipFlags_415820(v7)&v18) == 0 {
+		if int32(v7.TypeInd) != int32(item.TypeInd) || (v7.ObjClass&0x1000000) == 0 || (nox_xxx_weaponInventoryEquipFlags_415820(v7)&uint32(v18)) == 0 {
 			goto LABEL_15
 		}
 		v9 = (*byte)(v7.UseData)
@@ -10363,7 +10363,7 @@ func nox_xxx_pickupSpellbook_4F3C60(obj *server.Object, obj2 *server.Object, a3 
 	a1 := obj
 	a2 := obj2
 	if noxflags.HasGame(6144) {
-		nox_xxx_useByNetCode_53F8E0(unsafe.Pointer(a1), unsafe.Pointer(a2))
+		nox_xxx_useByNetCode_53F8E0(a1, a2)
 	}
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 16)))&0x20 != 0 {
 		return 1
@@ -10383,7 +10383,7 @@ func nox_xxx_pickupAbilitybook_4F3CE0(obj *server.Object, obj2 *server.Object, a
 	a1 := obj
 	a2 := obj2
 	if noxflags.HasGame(6144) {
-		nox_xxx_useByNetCode_53F8E0(unsafe.Pointer(a1), unsafe.Pointer(a2))
+		nox_xxx_useByNetCode_53F8E0(a1, a2)
 	}
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 16)))&0x20 != 0 {
 		return 1

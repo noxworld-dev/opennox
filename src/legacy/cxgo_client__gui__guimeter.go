@@ -257,7 +257,7 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(win *gui.Window, draw *gui.WindowData)
 		nox_client_drawLineFromPoints_49E4B0()
 		if v2 < 2 && nox_client_renderBubbles_80844 == 1 {
 			v19 = 64
-			v7 = memmap.PtrInt32(0x5D4594, uint32(v2*1536)+1093188)
+			v7 = memmap.PtrInt32(0x5D4594, uintptr(uint32(v2*1536)+1093188))
 			v21 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2*1536)+1093188))
 			for {
 				if *(*int32)(unsafe.Add(unsafe.Pointer(v7), 4*2)) != 0 {

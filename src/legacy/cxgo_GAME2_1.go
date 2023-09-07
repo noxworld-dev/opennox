@@ -2250,7 +2250,7 @@ func sub_467450(a1 int32) int32 {
 func sub_467470(a1 int32, a2 float32) int32 {
 	var result int32
 	result = int32(uint8(int8(a1)))
-	*memmap.PtrFloat32(0x5D4594, uint32(int32(uint8(int8(a1)))*4)+1063100) = a2
+	*memmap.PtrFloat32(0x5D4594, uintptr(a1)*4+1063100) = a2
 	return result
 }
 func sub_467490(a1 int32) {
@@ -4159,7 +4159,7 @@ func nox_xxx_guiBottleSlotDrawFn_471A80(win *gui.Window, draw *gui.WindowData) i
 		v4 = nox_xxx_guiFontHeightMB_43F320(dword_5d4594_1096288)
 		nox_xxx_drawString_43F6E0(dword_5d4594_1096288, &v9[0], v8-2, a1-v4+10)
 	}
-	v5 = memmap.PtrInt16(0x5D4594, uint32(v2)+1090300)
+	v5 = memmap.PtrInt16(0x5D4594, uintptr(v2)+1090300)
 	if v5 != nil {
 		v6 = nox_xxx_guiFontHeightMB_43F320(dword_5d4594_1096288)
 		nox_xxx_drawString_43F6E0(dword_5d4594_1096288, (*wchar2_t)(unsafe.Pointer(v5)), v8-2, a1-v6+33)
@@ -4403,7 +4403,7 @@ func sub_472540(a1 unsafe.Pointer) int32 {
 		v2 = int32(*memmap.PtrUint32(0x5D4594, 1096312))
 	}
 	if v2 != 0 {
-		result = int32(*(*byte)(unsafe.Add(unsafe.Pointer(nox_xxx_polygonGetByIdx_4214A0(v2)), 130)))
+		result = int32(*(*byte)(unsafe.Add(unsafe.Pointer(nox_xxx_polygonGetByIdx_4214A0(uint32(v2))), 130)))
 	} else {
 		result = 1
 	}

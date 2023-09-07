@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	GetPhonemeTree                    func() unsafe.Pointer
+	GetPhonemeTree                    func() *server.PhonemeLeaf
 	Nox_xxx_spellAwardAll1_4EFD80     func(p *server.Player)
 	Nox_xxx_spellAwardAll2_4EFC80     func(p *server.Player)
 	Nox_xxx_spellAwardAll3_4EFE10     func(p *server.Player)
@@ -37,7 +37,7 @@ var (
 )
 
 // nox_xxx_spellGetDefArrayPtr_424820
-func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
+func nox_xxx_spellGetDefArrayPtr_424820() *server.PhonemeLeaf {
 	return GetPhonemeTree()
 }
 

@@ -151,9 +151,6 @@ func Sub_4FF7B0(pl *server.Player) {
 func Sub_511100(a1 int) {
 	sub_511100(int32(a1))
 }
-func Nox_xxx_netUpdateRemotePlr_501CA0(a1 *server.Object) {
-	nox_xxx_netUpdateRemotePlr_501CA0(asObjectC(a1))
-}
 func Nox_xxx_netSendObjects2Plr_519410(a1 *server.Object, a2 *server.Object) {
 	nox_xxx_netSendObjects2Plr_519410(asObjectC(a1), asObjectC(a2))
 }

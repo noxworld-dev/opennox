@@ -586,7 +586,7 @@ func sub_5100C0_trade(a1 *server.Object, a2 *uint32, a3 int32) {
 		}
 	}
 }
-func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float32) {
+func sub_510640_trade(a1 *server.Object, a2 unsafe.Pointer, a3 int32, a4 *float32) {
 	var (
 		result *float32
 		v6     *uint32
@@ -605,8 +605,8 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 	)
 	v4 := a1
 	v15 := a1
-	v20 = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	v19 = uint32(nox_xxx_playerGetGold_4FA6B0((*server.Object)(v15)))
+	v20 = int32(a1.UpdateData)
+	v19 = uint32(nox_xxx_playerGetGold_4FA6B0(v15))
 	if dword_5d4594_2386552 == 0 {
 		dword_5d4594_2386552 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("AnkhTradable")))
 	}
@@ -633,11 +633,11 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 		}
 		v8 = uint32(nox_xxx_shopGetItemCost_50E3D0(1, (*server.TradeSession)(a2), *result))
 		if v8 > v19 {
-			sub_5104F0(v4, int16(uint16(v8-v19)))
+			sub_5104F0(unsafe.Pointer(v4), int16(uint16(v8-v19)))
 			return
 		}
 		if int32(*(*uint8)(unsafe.Add(v7, 8)))&0x10 != 0 {
-			v9 = nox_xxx_inventoryCountObjects_4E7D30((*server.Object)(v4), int32(*(*uint16)(unsafe.Add(v7, 4))))
+			v9 = nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Add(v7, 4))))
 			if v9 >= (func() int32 {
 				if noxflags.HasGame(6144) {
 					return 9
@@ -662,8 +662,8 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 				if *(*uint32)(unsafe.Add(v7, 12))&0x200000 != 0 {
 					v17 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 					v11 = int32(v17)
-					if nox_xxx_inventoryCountObjects_4E7D30((*server.Object)(v4), int32(*(*uint16)(unsafe.Add(v7, 4)))) >= v11 {
-						nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v4), internCStr("pickup.c:MaxSameItem"), 0)
+					if nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Add(v7, 4)))) >= v11 {
+						nox_xxx_netPriMsgToPlayer_4DA2C0(v4, internCStr("pickup.c:MaxSameItem"), 0)
 						goto LABEL_36
 					}
 					v6 = (*uint32)(a2)
@@ -677,16 +677,16 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 		}
 		v13 := ccall.AsFunc[func(unsafe.Pointer, *uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v12), 4*177)))
 		if v13 != nil {
-			v13(v4, v12, 1, 1)
+			v13(unsafe.Pointer(v4), v12, 1, 1)
 		} else {
-			nox_xxx_inventoryPutImpl_4F3070((*server.Object)(v4), (*server.Object)(unsafe.Pointer(v12)), 1)
+			nox_xxx_inventoryPutImpl_4F3070(v4, (*server.Object)(unsafe.Pointer(v12)), 1)
 		}
 		sub_510320(v7, int32(uintptr(unsafe.Pointer(v6))))
 		if sub_510540(v7) != 0 {
 			sub_50E7A0(v6, v7)
 		}
-		nox_xxx_playerSubGold_4FA5D0((*server.Object)(v4), v8)
-		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v20, 276)), 2064))), (*server.Object)(v4))
+		nox_xxx_playerSubGold_4FA5D0(v4, v8)
+		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v20, 276)), 2064))), v4)
 		result = (*float32)(unsafe.Pointer(uintptr(func() uint32 {
 			p := &v18
 			*p++
@@ -696,11 +696,11 @@ func sub_510640_trade(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 *float3
 			return
 		}
 	}
-	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(v4), internCStr("pickup.c:MaxTradableAnkhsReached"), 0)
+	nox_xxx_netPriMsgToPlayer_4DA2C0(v4, internCStr("pickup.c:MaxTradableAnkhsReached"), 0)
 LABEL_36:
-	nox_xxx_aud_501960(925, (*server.Object)(v4), 0, 0)
+	nox_xxx_aud_501960(925, v4, 0, 0)
 }
-func sub_5109C0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
+func sub_5109C0_trade(a1 *server.Object, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 	var (
 		v3     int32
 		result *uint32
@@ -708,11 +708,11 @@ func sub_5109C0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 		v7     *wchar2_t
 		v8     [8]byte
 	)
-	v3 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*187))
+	v3 = a1.UpdateData
 	if *memmap.PtrUint32(0x5D4594, 2386556) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2386556) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Glyph")))
 	}
-	v4 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*126))
+	v4 := a1.InvFirstItem
 	result = a3
 	v8[0] = 201
 	v8[1] = 29
@@ -720,27 +720,27 @@ func sub_5109C0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 	if v4 == nil {
 		return result
 	}
-	for *(**uint32)(unsafe.Add(v4, 36)) != a3 {
-		v4 = *(*unsafe.Pointer)(unsafe.Add(v4, 496))
+	for v4.NetCode != a3 {
+		v4 = v4.InvNextItem
 		if v4 == nil {
 			return result
 		}
 	}
-	if nox_xxx_ItemIsDroppable_53EBF0(v4) == 1 {
+	if nox_xxx_ItemIsDroppable_53EBF0(unsafe.Pointer(v4)) == 1 {
 		v6 = nox_strman_loadString_40F1D0(internCStr("CantSellQuestItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3298)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v6)
-		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
-	} else if uint32(*(*uint16)(unsafe.Add(v4, 4))) == *memmap.PtrUint32(0x5D4594, 2386556) {
+		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
+	} else if uint32(v4.TypeInd) == *memmap.PtrUint32(0x5D4594, 2386556) {
 		v7 = nox_strman_loadString_40F1D0(internCStr("CantSellItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3308)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v7)
-		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 	} else {
-		*(*uint32)(unsafe.Pointer(&v8[4])) = uint32(nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), (*server.Object)(v4)))
+		*(*uint32)(unsafe.Pointer(&v8[4])) = uint32(nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), v4))
 		result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), unsafe.Pointer(&v8[0]), 8, nil, 1))))
 	}
 	return result
 }
-func sub_510BE0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
+func sub_510BE0_trade(a1 *server.Object, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 	var (
 		result *uint32
 		v4     int32
@@ -748,39 +748,39 @@ func sub_510BE0_trade(a1 *int32, a2 unsafe.Pointer, a3 *uint32) *uint32 {
 		v7     *wchar2_t
 		v8     int32
 	)
-	nox_xxx_playerGetGold_4FA6B0((*server.Object)(unsafe.Pointer(a1)))
+	nox_xxx_playerGetGold_4FA6B0(a1)
 	result = dword_5d4594_2386560
-	v4 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*187))
+	v4 = a1.UpdateData
 	if dword_5d4594_2386560 == 0 {
 		result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_getNameId_4E3AA0(internCStr("Glyph")))))
 		dword_5d4594_2386560 = uint32(uintptr(unsafe.Pointer(result)))
 	}
-	v5 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), 4*126))
+	v5 := a1.InvFirstItem
 	if v5 == nil {
 		return result
 	}
 	result = a3
-	for *(**uint32)(unsafe.Add(v5, 36)) != a3 {
-		v5 = *(*unsafe.Pointer)(unsafe.Add(v5, 496))
+	for v5.NetCode != a3 {
+		v5 = v5.InvNextItem
 		if v5 == nil {
 			return result
 		}
 	}
-	if nox_xxx_ItemIsDroppable_53EBF0(v5) == 1 {
+	if nox_xxx_ItemIsDroppable_53EBF0(unsafe.Pointer(v5)) == 1 {
 		v6 = nox_strman_loadString_40F1D0(internCStr("CantSellQuestItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3413)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v6)
-		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
-	} else if uint32(*(*uint16)(unsafe.Add(v5, 4))) == dword_5d4594_2386560 {
+		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
+	} else if uint32(v5.TypeInd) == dword_5d4594_2386560 {
 		v7 = nox_strman_loadString_40F1D0(internCStr("CantSellItem"), nil, internCStr("C:\\NoxPost\\src\\Server\\System\\Trade.c"), 3423)
 		nox_xxx_netSendLineMessage_4D9EB0((*server.Object)(unsafe.Pointer(a1)), v7)
-		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 	} else {
-		sub_4ED0C0((*server.Object)(unsafe.Pointer(a1)), (*server.Object)(v5))
-		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v5))
-		v8 = nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), (*server.Object)(v5))
-		nox_xxx_playerAddGold_4FA590((*server.Object)(unsafe.Pointer(a1)), v8)
-		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), (*server.Object)(unsafe.Pointer(a1)))
-		nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(a1)), 2, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
+		sub_4ED0C0(a1, v5)
+		nox_xxx_delayedDeleteObject_4E5CC0(v5)
+		v8 = nox_xxx_shopGetItemCost_50E3D0(0, (*server.TradeSession)(a2), v5)
+		nox_xxx_playerAddGold_4FA590(a1, v8)
+		sub_4D8870(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), a1)
+		nox_xxx_aud_501960(307, a1, 2, int32(a1.NetCode))
 	}
 	return result
 }

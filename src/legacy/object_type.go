@@ -51,12 +51,12 @@ func nox_xxx_newObjectWithTypeInd_4E3450(ind int32) *server.Object {
 }
 
 // nox_xxx_objectTypeByIndHealthData
-func nox_xxx_objectTypeByIndHealthData(ind int32) unsafe.Pointer {
+func nox_xxx_objectTypeByIndHealthData(ind int32) *server.HealthData {
 	t := GetServer().S().Types.ByInd(int(ind))
 	if t == nil {
 		return nil
 	}
-	return t.Health().C()
+	return t.Health()
 }
 
 // sub_4E4C50

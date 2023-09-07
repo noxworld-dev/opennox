@@ -4870,12 +4870,12 @@ func sub_45D7D0(a1p, a2p *Point32, _ unsafe.Pointer) {
 	result = int32(*memmap.PtrUint32(0x5D4594, 1046680))
 	if *memmap.PtrInt32(0x5D4594, 1046680) < 20 {
 		result = int32(*memmap.PtrUint32(0x5D4594, 1046680) + 1)
-		*memmap.PtrFloat32(0x5D4594, uint32(result*8)+1046676) = float32(float64(*a1))
-		*memmap.PtrFloat32(0x5D4594, uint32(result*8)+1046680) = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))))
-		*memmap.PtrFloat32(0x5D4594, uint32(result*8)+1046684) = float32(float64(*a2))
+		*memmap.PtrFloat32(0x5D4594, uintptr(result)*8+1046676) = float32(float64(*a1))
+		*memmap.PtrFloat32(0x5D4594, uintptr(result)*8+1046680) = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))))
+		*memmap.PtrFloat32(0x5D4594, uintptr(result)*8+1046684) = float32(float64(*a2))
 		v3 = float64(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
 		*memmap.PtrUint32(0x5D4594, 1046680) = uint32(result)
-		*memmap.PtrFloat32(0x5D4594, uint32(result*8)+1046688) = float32(v3)
+		*memmap.PtrFloat32(0x5D4594, uintptr(result)*8+1046688) = float32(v3)
 	}
 }
 func sub_45D810() {
@@ -5030,7 +5030,7 @@ func nox_xxx_bookSpellDrop_45DCA0(a1 int32, a2 int8, a3 int32, a4 int32, a5 unsa
 	} else {
 		v6 = 4
 	}
-	v7 = memmap.PtrInt32(0x5D4594, uint32(v6*256)+1048196)
+	v7 = memmap.PtrInt32(0x5D4594, uintptr(v6)*256+1048196)
 	for {
 		v8 = nox_xxx_spellBoxPointToWnd_45DE60(unsafe.Pointer(v7), a3, a4)
 		v9 = v8

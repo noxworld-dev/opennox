@@ -33,7 +33,7 @@ func nox_xxx_clientDrawAll_436100_draw_B() {
 	nox_wcscpy(&v25[0], (*wchar2_t)(memmap.PtrOff(0x5D4594, 811376)))
 	var v14 int32 = (nox_win_width - 310) / 2
 	var v16 int32 = (nox_win_height - 200) / 2
-	var v15 *int32 = memmap.PtrInt32(0x5D4594, *memmap.PtrUint32(0x5D4594, 811060)*4+811888)
+	var v15 *int32 = memmap.PtrInt32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 811060)*4+811888))
 	if *v15 == 0 {
 		*v15 = nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(*memmap.PtrUint32(0x5D4594, 811060))*4+85712)))
 	}

@@ -164,7 +164,7 @@ func playerDropATrap(playerObj unsafe.Pointer) int8 {
 	}
 	return v8
 }
-func OnLibraryNotice_420(arg1 *server.Object, arg2 uint32, arg3 unsafe.Pointer, arg4 uint32) {
+func OnLibraryNotice_420(arg1 *server.Object, arg2 uint32, arg3 *server.Object, arg4 uint32) {
 	var (
 		v23         = arg1
 		v19         = arg2

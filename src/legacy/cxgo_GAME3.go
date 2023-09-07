@@ -1899,7 +1899,7 @@ func sub_4A6DC0(win *gui.Window, draw *gui.WindowData) int {
 	v21 = 0
 	v22 = int32(*(*uint8)(unsafe.Add(dword_5d4594_1307784, 67)))
 	v23 = v22 * 3
-	v24 = memmap.PtrInt32(0x973A20, uint32(v22*104+32))
+	v24 = memmap.PtrInt32(0x973A20, uintptr(v22)*104+32)
 	for {
 		v25 = v21
 		v26 = 1 << v21

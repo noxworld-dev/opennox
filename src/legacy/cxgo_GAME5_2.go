@@ -640,39 +640,27 @@ func nox_xxx_playerApplyProtectionCRC_56FD50(a1 int32, a2p unsafe.Pointer, a3 in
 	return 0
 }
 func nox_xxx_unkDoubleSmth_56FE30() float64 {
-	var v0 float64
-	*memmap.PtrUint64(0x5D4594, 2516412) = *memmap.PtrUint64(0x5D4594, 2516404)
-	*memmap.PtrUint64(0x5D4594, 2516404) = *memmap.PtrUint64(0x5D4594, 2516396)
-	*memmap.PtrUint32(0x5D4594, 2516396) = *memmap.PtrUint32(0x5D4594, 2516388)
-	*memmap.PtrUint32(0x5D4594, 2516400) = *memmap.PtrUint32(0x5D4594, 2516392)
-	v0 = *memmap.PtrFloat64(0x5D4594, 2516388)**memmap.PtrFloat64(0x581450, 11376) + *memmap.PtrFloat64(0x5D4594, 2516404)**memmap.PtrFloat64(0x581450, 11368) + *memmap.PtrFloat64(0x5D4594, 2516412)**memmap.PtrFloat64(0x581450, 11360) + *memmap.PtrFloat64(0x5D4594, 2516412)**memmap.PtrFloat64(0x581450, 11352) + *memmap.PtrFloat64(0x5D4594, 2516420)
-	math.Floor(v0)
+	*memmap.PtrFloat64(0x5D4594, 2516412) = memmap.Float64(0x5D4594, 2516404)
+	*memmap.PtrFloat64(0x5D4594, 2516404) = memmap.Float64(0x5D4594, 2516396)
+	*memmap.PtrFloat64(0x5D4594, 2516396) = memmap.Float64(0x5D4594, 2516388)
+	v0 := memmap.Float64(0x5D4594, 2516388)*memmap.Float64(0x581450, 11376) + memmap.Float64(0x5D4594, 2516404)*memmap.Float64(0x581450, 11368) + memmap.Float64(0x5D4594, 2516412)*memmap.Float64(0x581450, 11360) + memmap.Float64(0x5D4594, 2516412)*memmap.Float64(0x581450, 11352) + memmap.Float64(0x5D4594, 2516420)
+	// TODO: had _ = math.Floor(v0)
 	*memmap.PtrFloat64(0x5D4594, 2516388) = v0 - v0
 	*memmap.PtrFloat64(0x5D4594, 2516420) = v0 * *memmap.PtrFloat64(0x581450, 11344)
-	return *memmap.PtrFloat64(0x5D4594, 2516388)
+	return memmap.Float64(0x5D4594, 2516388)
 }
 func sub_56FF00(a1 int32) {
-	var (
-		v1 int32
-		v2 *uint8
-		v3 uint32
-		v4 int32
-	)
-	v1 = a1
+	v1 := a1
 	if a1 == 0 {
 		v1 = -1
 	}
-	v2 = (*uint8)(memmap.PtrOff(0x5D4594, 2516388))
-	for {
-		v2 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), 8))
-		v3 = ((uint32(v1<<13) ^ uint32(v1)) >> 17) ^ uint32(v1<<13) ^ uint32(v1)
+	v2 := memmap.PtrPtrT[[10]float64](0x5D4594, 2516388)
+	for i := 0; i < 10; i++ {
+		v3 := ((uint32(v1<<13) ^ uint32(v1)) >> 17) ^ uint32(v1<<13) ^ uint32(v1)
 		v1 = int32((v3 * 32) ^ v3)
-		*((*float64)(unsafe.Add(unsafe.Pointer(v2), -int(unsafe.Sizeof(float64(0))*1)))) = float64(uint32(v1)) * *memmap.PtrFloat64(0x581450, 11344)
-		if int32(uintptr(unsafe.Pointer(v2))) >= int32(uintptr(memmap.PtrOff(0x5D4594, 2516428))) {
-			break
-		}
+		v2[i] = float64(uint32(v1)) * memmap.Float64(0x581450, 11344)
 	}
-	v4 = 19
+	v4 := 19
 	for {
 		nox_xxx_unkDoubleSmth_56FE30()
 		v4--
@@ -704,12 +692,12 @@ func nox_xxx_netGetUnitCodeCli_578B00(a1 *client.Drawable) uint32 {
 		return 0
 	}
 	if a1.Flags28()&0x20400000 != 0 {
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&code), 1)) |= 0x80
+		code |= 0x8000
 	}
 	return code
 }
 func nox_xxx_netClearHighBit_578B30(a1 int16) int32 {
-	return int32(a1) & math.MaxInt16
+	return int32(a1 & 0x7FFF)
 }
 func nox_xxx_packetDynamicUnitCode_578B40(a1 int32) int32 {
 	var (
@@ -1675,7 +1663,7 @@ func sub_57B350() *float32 {
 	return memmap.PtrFloat32(0x5D4594, 2523812)
 }
 func nox_xxx_plrGetMaxVarsPtr_57B360(a1 int32) *float32 {
-	return memmap.PtrFloat32(0x5D4594, uint32(a1*16)+2523828)
+	return memmap.PtrFloat32(0x5D4594, uintptr(uint32(a1*16)+2523828))
 }
 func sub_57B370(a1 int32, a2 uint8, a3 int32) int8 {
 	var (
@@ -2040,14 +2028,8 @@ func sub_57BA30(a1 *Point32, a2 *Point32, a3 *int4) int32 {
 		}
 	}
 }
-func nox_server_getNextMapGroup_57C090(a1 int32) int32 {
-	var result int32
-	if a1 != 0 {
-		result = int32(*(*uint32)(unsafe.Add(a1, 88)))
-	} else {
-		result = 0
-	}
-	return result
+func nox_server_getNextMapGroup_57C090(a1 *server.MapGroup) *server.MapGroup {
+	return a1.Next()
 }
 func sub_57C790(a1 *float4, a2 *types.Pointf, a3 *types.Pointf, a4 float32) {
 	var (

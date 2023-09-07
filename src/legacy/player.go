@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	Nox_xxx_updateSpellRelated_424830   func(p unsafe.Pointer, ph int) unsafe.Pointer
+	Nox_xxx_updateSpellRelated_424830   func(p *server.PhonemeLeaf, ph int) *server.PhonemeLeaf
 	Nox_xxx_playerDisconnByPlrID_4DEB00 func(id ntype.PlayerInd)
 	Nox_xxx_playerCallDisconnect_4DEAB0 func(ind ntype.PlayerInd, v int8)
 	Nox_xxx_playerCameraUnlock_4E6040   func(cplayer *server.Object)
@@ -36,7 +36,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *server.Object) {
 }
 
 // nox_xxx_updateSpellRelated_424830
-func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int32) unsafe.Pointer {
+func nox_xxx_updateSpellRelated_424830(p *server.PhonemeLeaf, ph int32) *server.PhonemeLeaf {
 	return Nox_xxx_updateSpellRelated_424830(p, int(ph))
 }
 

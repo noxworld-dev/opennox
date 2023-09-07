@@ -48,8 +48,8 @@ func nox_xxx_mobActionRandomWalk_545020(obj *server.Object) {
 		v4 = float64(a1.SpeedCur)
 	}
 	v5 = int32(v2) * 8
-	a1.ForceVec.X = float32(v4 * float64(*memmap.PtrFloat32(0x587000, uint32(v5)+194136)))
-	a1.ForceVec.Y = float32(v4 * float64(*memmap.PtrFloat32(0x587000, uint32(v5)+194140)))
+	a1.ForceVec.X = float32(v4 * float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v5)+194136))))
+	a1.ForceVec.Y = float32(v4 * float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v5)+194140))))
 	nox_xxx_monsterMoveAudio_534030(a1)
 }
 func sub_545090(a1 unsafe.Pointer) int32 {
@@ -69,8 +69,8 @@ func sub_545090(a1 unsafe.Pointer) int32 {
 	if (v2 & 0x400) != 0 {
 		return v1
 	}
-	v4.X = float32(float64(*memmap.PtrFloat32(0x587000, uint32(v1*8)+194136))*30.0 + float64(*(*float32)(unsafe.Add(a1, 56))))
-	v4.Y = float32(float64(*memmap.PtrFloat32(0x587000, uint32(v1*8)+194140))*30.0 + float64(*(*float32)(unsafe.Add(a1, 60))))
+	v4.X = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v1*8)+194136)))*30.0 + float64(*(*float32)(unsafe.Add(a1, 56))))
+	v4.Y = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v1*8)+194140)))*30.0 + float64(*(*float32)(unsafe.Add(a1, 60))))
 	if nox_xxx_tileNFromPoint_411160(&v4) == 6 {
 		v1 += 64
 	}
@@ -102,8 +102,8 @@ func nox_xxx_mobActionConfuse_545140(obj *server.Object) {
 	}
 	v1 = (*int32)(nox_xxx_monsterPushAction_50A260_impl(a1, 17))
 	if v1 != nil {
-		*((*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1))) = float32(float64(*memmap.PtrFloat32(0x587000, uint32(int32(a1.Direction1)*8)+194136))*10.0 + float64(a1.PosVec.X))
-		v2 = float64(*memmap.PtrFloat32(0x587000, uint32(int32(a1.Direction1)*8)+194140))*10.0 + float64(a1.PosVec.Y)
+		*((*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1))) = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(int32(a1.Direction1)*8)+194136)))*10.0 + float64(a1.PosVec.X))
+		v2 = float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(int32(a1.Direction1)*8)+194140)))*10.0 + float64(a1.PosVec.Y)
 		*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) = 0
 		*((*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*2))) = float32(v2)
 	}
@@ -131,7 +131,7 @@ func sub_545240(a1 unsafe.Pointer, a2 *float32) {
 	v9.X = float32(v3 / float64(v11))
 	v6 = float64(v9.Y / v11)
 	v9.Y = float32(v6)
-	if v6*float64(*memmap.PtrFloat32(0x587000, uint32(v5*8)+194136))-float64(v9.X**memmap.PtrFloat32(0x587000, uint32(v5*8)+194140)) >= 0.0 {
+	if v6*float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v5*8)+194136)))-float64(v9.X**memmap.PtrFloat32(0x587000, uintptr(uint32(v5*8)+194140))) >= 0.0 {
 		*(*uint16)(unsafe.Add(v2, 126)) += 8
 	} else {
 		*(*uint16)(unsafe.Add(v2, 126)) -= 8
@@ -163,10 +163,10 @@ func sub_545340(obj *server.Object) {
 		v3 *types.Pointf
 		v4 int32
 	)
-	v1 = memmap.PtrFloat32(0x587000, uint32(int32(a1.Direction1)*8)+194136)
+	v1 = memmap.PtrFloat32(0x587000, uintptr(uint32(int32(a1.Direction1)*8)+194136))
 	v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1.UpdateData+uint32(*(*byte)(unsafe.Add(a1.UpdateData, 544))*24))), 556)))
 	v3 = (*types.Pointf)(memmap.PtrOff(0x587000, uintptr(v2*8)+194136))
-	if float64(*memmap.PtrFloat32(0x587000, uint32(v2*8)+194140)**v1-*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1))*v3.X) >= 0.0 {
+	if float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v2*8)+194140))**v1-*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1))*v3.X) >= 0.0 {
 		a1.Direction2 += 8
 	} else {
 		a1.Direction2 -= 8
@@ -1375,7 +1375,7 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 					nox_xxx_inventoryServPlace_4F36F0(u, (*server.Object)(unsafe.Pointer(v3)), 1, 1)
 					v3b := *(*uint8)(unsafe.Add(v36, 12))
 					if v3b&0x90 != 0 {
-						nox_xxx_useByNetCode_53F8E0(a1, v36)
+						nox_xxx_useByNetCode_53F8E0((*server.Object)(a1), (*server.Object)(v36))
 					}
 				}
 			}
@@ -1948,7 +1948,7 @@ func sub_5488B0(a1 *int32, a2 *float32, a3 int32) {
 	}
 	v26 = (*uint8)(memmap.PtrOff(0x587000, uintptr(v6*8)+192092))
 	v7 = a2
-	v25 = memmap.PtrInt32(0x587000, uint32(v6*8)+192088)
+	v25 = memmap.PtrInt32(0x587000, uintptr(uint32(v6*8)+192088))
 	v30 = *(*int32)(unsafe.Pointer(v26)) * 2
 	v8 = (*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*16))
 	a1a.field_8 = float32(float64(*memmap.PtrInt32(0x587000, uintptr(v6*8)+192088)*2) + float64(a1a.field_0))
@@ -3151,8 +3151,8 @@ LABEL_10:
 		v20 = v5.Y - *(*float32)(unsafe.Add(v4, 68))
 		if float64(v19) == 0.0 && float64(v20) == 0.0 {
 			v8 = nox_common_randomInt_415FA0(0, 3)
-			v19 = *memmap.PtrFloat32(0x587000, uint32(v8*8)+289928)
-			v20 = *memmap.PtrFloat32(0x587000, uint32(v8*8)+289932)
+			v19 = *memmap.PtrFloat32(0x587000, uintptr(uint32(v8*8)+289928))
+			v20 = *memmap.PtrFloat32(0x587000, uintptr(uint32(v8*8)+289932))
 		}
 		result = math.Sqrt(float64(v20*v20 + v19*v19))
 		if result == 0.0 {
@@ -6201,8 +6201,8 @@ func nox_xxx_createArrowTrapProjectile_54FA80(a1 int32, a2 int32) {
 	)
 	v2 = float64(*(*float32)(unsafe.Add(a1, 176))) + 4.0
 	v3 = int32(*(*int16)(unsafe.Add(a1, 124))) * 8
-	v10 = float32(v2*float64(*memmap.PtrFloat32(0x587000, uint32(v3)+194136)) + float64(*(*float32)(unsafe.Add(a1, 56))))
-	v11 = float32(v2*float64(*memmap.PtrFloat32(0x587000, uint32(v3)+194140)) + float64(*(*float32)(unsafe.Add(a1, 60))))
+	v10 = float32(v2*float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v3)+194136))) + float64(*(*float32)(unsafe.Add(a1, 56))))
+	v11 = float32(v2*float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v3)+194140))) + float64(*(*float32)(unsafe.Add(a1, 60))))
 	v4 = int32(uintptr(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(a2))))
 	v5 = v4
 	if v4 != 0 {
@@ -6983,8 +6983,8 @@ func nox_xxx_collisionCheckCircleCircle_550D00(a1 unsafe.Pointer, a2 unsafe.Poin
 	v18.Y = *(*float32)(unsafe.Add(a2, 68)) - *(*float32)(unsafe.Add(a1, 68))
 	if float64(v18.X) == 0.0 && float64(v18.Y) == 0.0 {
 		v4 = nox_common_randomInt_415FA0(0, 3)
-		v18.X = *memmap.PtrFloat32(0x587000, uint32(v4*8)+292784)
-		v18.Y = *memmap.PtrFloat32(0x587000, uint32(v4*8)+292788)
+		v18.X = *memmap.PtrFloat32(0x587000, uintptr(uint32(v4*8)+292784))
+		v18.Y = *memmap.PtrFloat32(0x587000, uintptr(uint32(v4*8)+292788))
 	}
 	v5 = math.Sqrt(float64(v18.Y*v18.Y + v18.X*v18.X))
 	v22 = float32(v5)
@@ -7220,8 +7220,8 @@ func sub_551250(a1 unsafe.Pointer, a2 *float32, a3 int32) {
 	if v9 >= 256 {
 		v9 = int32(*(*int16)(unsafe.Add(v5, 40))) - 128
 	}
-	a1a.field_8 = float32(float64(*memmap.PtrFloat32(0x587000, uint32(v9*8)+194136))*32.0 + v6)
-	a1a.field_C = float32(float64(*memmap.PtrFloat32(0x587000, uint32(v9*8)+194140))*32.0 + float64(v29.Y))
+	a1a.field_8 = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v9*8)+194136)))*32.0 + v6)
+	a1a.field_C = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v9*8)+194140)))*32.0 + float64(v29.Y))
 	if v6 >= float64(a1a.field_8) {
 		a2a.field_8 = float32(v6)
 		a2a.field_0 = a1a.field_8

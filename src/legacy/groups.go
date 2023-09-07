@@ -7,13 +7,13 @@ import (
 )
 
 // nox_server_getFirstMapGroup_57C080
-func nox_server_getFirstMapGroup_57C080() unsafe.Pointer {
-	return GetServer().S().MapGroups.GetFirstMapGroup().C()
+func nox_server_getFirstMapGroup_57C080() *server.MapGroup {
+	return GetServer().S().MapGroups.GetFirstMapGroup()
 }
 
 // nox_server_scriptGetGroup_57C0A0
-func nox_server_scriptGetGroup_57C0A0(a1 int32) unsafe.Pointer {
-	return GetServer().S().MapGroups.GroupByInd(int(a1)).C()
+func nox_server_scriptGetGroup_57C0A0(a1 int32) *server.MapGroup {
+	return GetServer().S().MapGroups.GroupByInd(int(a1))
 }
 
 // sub_504600

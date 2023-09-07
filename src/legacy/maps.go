@@ -209,10 +209,6 @@ func Nox_xxx_unitSetDecayTime_511660(obj *server.Object, a2 int) {
 	nox_xxx_unitSetDecayTime_511660(asObjectC(obj), int32(a2))
 }
 
-func Nox_xxx_tileFreeTileOne_4221E0(p unsafe.Pointer) {
-	nox_xxx_tileFreeTileOne_4221E0(p)
-}
-
 func Sub_4DE410(pli ntype.PlayerInd) {
 	sub_4DE410(int32(pli))
 }

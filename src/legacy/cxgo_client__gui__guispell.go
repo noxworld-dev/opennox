@@ -385,7 +385,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v48 = int32(v64) << 8
 		v49 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v48)+1048404))
 		v71 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v48)+1048196))
-		v50 = memmap.PtrInt32(0x5D4594, uint32(v48)+1048428)
+		v50 = memmap.PtrInt32(0x5D4594, uintptr(uint32(v48)+1048428))
 		v51 = int32(*(*uint32)(unsafe.Add(v49, 16)) + 10)
 		v52 = int32(*(*uint32)(unsafe.Add(v49, 20)) + 5)
 		v67 = v51

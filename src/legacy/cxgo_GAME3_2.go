@@ -1439,26 +1439,25 @@ func nox_xxx_netReportAllLatency_4D3050() {
 		r10 = nox_common_playerInfoGetNext_416EE0(i)
 	}
 }
-func sub_4D39F0(a3 *byte) int32 {
+func sub_4D39F0(a3 *byte) {
 	var (
-		v1     uint32
-		v2     int8
-		v3     *uint8
-		v4     *byte
-		v5     int32
-		v6     int32
-		v7     *uint8
-		v8     uint32
-		v9     *uint8
-		v10    *byte
-		v11    *uint8
-		v12    int32
-		v13    int32
-		v14    int32
-		v15    *byte
-		v16    uint8
-		result int32
-		v18    [2048]byte
+		v1  uint32
+		v2  int8
+		v3  *uint8
+		v4  *byte
+		v5  int32
+		v6  int32
+		v7  *uint8
+		v8  uint32
+		v9  *uint8
+		v10 *byte
+		v11 *uint8
+		v12 int32
+		v13 int32
+		v14 int32
+		v15 *byte
+		v16 uint8
+		v18 [2048]byte
 	)
 	*memmap.PtrUint64(0x5D4594, 1549772) = uint64(nox_platform_get_ticks())
 	libc.MemSet(memmap.PtrOff(0x973F18, 35912), 0, 0x48)
@@ -1476,7 +1475,7 @@ func sub_4D39F0(a3 *byte) int32 {
 	*memmap.PtrUint32(0x973F18, 35956) = 0
 	dword_5d4594_3835388 = 0
 	dword_5d4594_3835392 = 1
-	dword_5d4594_3835396 = math.MaxUint32
+	dword_5d4594_3835396 = -1
 	*memmap.PtrUint8(0x973F18, 35972) = 2
 	*memmap.PtrUint32(0x973F18, 35976) = 0
 	*memmap.PtrUint32(0x973F18, 35980) = 0
@@ -1537,11 +1536,10 @@ func sub_4D39F0(a3 *byte) int32 {
 	*(*byte)(unsafe.Add(unsafe.Pointer(v15), 12)) = v16
 	sub_502A50(&v18[0])
 	sub_502AB0(&v18[0])
-	result = sub_502B10()
+	sub_502B10()
 	dword_5d4594_3835312 = 0
 	*memmap.PtrUint32(0x973F18, 35880) = 0
 	*memmap.PtrUint32(0x5D4594, 1599580) = 0
-	return result
 }
 func nox_xxx_tileInitdataClear_4D3C50(a1 unsafe.Pointer) {
 	alloc.Memcpy(memmap.PtrOff(0x973F18, 35912), a1, 0x48)
@@ -4744,27 +4742,22 @@ func nox_xxx_printToAll_4D9FD0(a1 int8, a2 *wchar2_t, _rest ...interface{}) {
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i)
 	}
 }
-func nox_xxx_netInformTextMsg_4DA0F0(a1 int32, a2 int32, a3 *int32) int32 {
+func nox_xxx_netInformTextMsg_4DA0F0(a1 int32, a2 int32, a3 *int32) {
 	var (
-		result int32
-		v4     int32
-		v5     [6]byte
+		v4 int32
+		v5 [6]byte
 	)
-	result = a2
 	switch a2 {
 	case 0, 1, 2, 12, 13, 16, 20, 21:
 		v5[1] = byte(int8(a2))
 		v4 = *a3
 		v5[0] = 169
 		*(*uint32)(unsafe.Pointer(&v5[2])) = uint32(v4)
-		result = nox_netlist_addToMsgListCli_40EBC0(a1, 1, &v5[0], 6)
+		nox_netlist_addToMsgListCli_40EBC0(a1, 1, &v5[0], 6)
 	case 17:
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof(uint16(0))*0)) = 4521
-		result = nox_netlist_addToMsgListCli_40EBC0(a1, 1, (*uint8)(unsafe.Pointer(&a2)), 2)
-	default:
-		return result
+		nox_netlist_addToMsgListCli_40EBC0(a1, 1, (*uint8)(unsafe.Pointer(&a2)), 2)
 	}
-	return result
 }
 func nox_xxx_netInformTextMsg2_4DA180(a1 int32, a2 *uint8) {
 	var (
@@ -6776,10 +6769,10 @@ func nox_xxx_itemApplyDefendEffect2_4E1320(a1 unsafe.Pointer, a2 unsafe.Pointer,
 func nox_xxx_itemApplyPreDamageEffect_4E13B0(a1 *server.Object, a2 *server.Object, a3 *server.Object, a4 unsafe.Pointer) {
 	v4 := a3
 	v5 := v4.InitDataModifier()
-	for _, v6 := range v5.Modifiers {
-		if v6 != nil {
-			if fnc := v6.AttackPreDmg64.Fnc.Get(); fnc != nil {
-				fnc(v6, v4, a2, a1, a4, nil)
+	for _, m := range v5.Modifiers {
+		if m != nil {
+			if fnc := m.AttackPreDmg64.Fnc.Get(); fnc != nil {
+				fnc(m, v4, a2, a1, a4, nil)
 			}
 		}
 	}

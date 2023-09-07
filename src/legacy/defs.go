@@ -269,6 +269,45 @@ type nox_server_xxx struct {
 	field_8  uint16
 	field_10 uint16
 }
+type Journal struct {
+	Field0   [4]byte  // 0, 0, TODO: size
+	Field4   uint32   // 1, 4
+	Field8   uint32   // 2, 8
+	Field12  uint32   // 3, 12
+	Field16  uint32   // 4, 16
+	Field20  uint32   // 5, 20
+	Field24  uint32   // 6, 24
+	Field28  uint32   // 7, 28
+	Field32  uint32   // 8, 32
+	Field36  uint32   // 9, 36
+	Field40  uint32   // 10, 40
+	Field44  uint32   // 11, 44
+	Field48  uint32   // 12, 48
+	Field52  uint32   // 13, 52
+	Field56  uint32   // 14, 56
+	Field60  uint32   // 15, 60
+	Field64  uint32   // 16, 64
+	Field68  uint32   // 17, 68
+	Field72  uint32   // 18, 72
+	Field76  uint32   // 19, 76
+	Field80  uint32   // 20, 80
+	Field84  uint32   // 21, 84
+	Field88  uint32   // 22, 88
+	Field92  uint32   // 23, 92
+	Field96  uint32   // 24, 96
+	Field100 uint32   // 25, 100
+	Field104 uint32   // 26, 104
+	Field108 uint32   // 27, 108
+	Field112 uint32   // 28, 112
+	Field116 uint32   // 29, 116
+	Field120 uint32   // 30, 120
+	Field124 uint32   // 31, 124
+	Field128 uint32   // 32, 128
+	Field132 uint32   // 33, 132
+	Value136 uint32   // 34, 136
+	Field140 *Journal // 35, 140
+	Field144 *Journal // 36, 144
+}
 
 func nox_gui_console_Printf_450C00(cl byte, format *wchar2_t, args ...any) {
 	// since legacy code still calls it, we redirect into global printer instead of GUI printer

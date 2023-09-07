@@ -705,54 +705,51 @@ func sub_4F1F20() {
 }
 func nox_xxx_playerSomeWallsUpdate_5003B0(obj *server.Object) int32 {
 	var (
-		a1     = obj
-		v1     int32
-		result int32
-		v3     int32
-		v4     *uint8
-		v5     *uint8
+		a1  = obj
+		v1p unsafe.Pointer
 	)
 	if dword_5d4594_1569756 <= 0 {
-		v1 = a1
+		v1p = unsafe.Pointer(a1)
 	} else {
-		v1 = int32(uintptr(nox_xxx_spellCastedFirst_4FE930()))
-		if v1 == 0 {
+		sp := nox_xxx_spellCastedFirst_4FE930()
+		if sp == nil {
 			return 0
 		}
-		for *(*uint32)(unsafe.Add(v1, 4)) != 132 || *(*uint32)(unsafe.Add(v1, 16)) != uint32(a1) || int32(*(*uint8)(unsafe.Add(v1, 88)))&1 != 0 {
-			result = int32(uintptr(nox_xxx_spellCastedNext_4FE940(v1)))
-			v1 = result
-			if result == 0 {
-				return result
+		for sp.Spell != 132 || sp.Caster16 != a1 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(sp), 88)))&1 != 0 {
+			next := nox_xxx_spellCastedNext_4FE940(sp)
+			sp = next
+			if next == nil {
+				return 0
 			}
 		}
-		if v1 == 0 {
+		if sp == nil {
 			return 0
 		}
-		*(*uint32)(unsafe.Add(v1, 92)) = uint32(uintptr(ccall.FuncAddr(Nox_xxx_spellWallCreate_4FFA90)))
-		*(*uint32)(unsafe.Add(v1, 96)) = uint32(uintptr(ccall.FuncAddr(Nox_xxx_spellWallUpdate_500070)))
-		*(*uint32)(unsafe.Add(v1, 100)) = uint32(uintptr(ccall.FuncAddr(Nox_xxx_spellWallDestroy_500080)))
-		*(*uint32)(unsafe.Add(v1, 48)) = 0
+		sp.Create.Set(Nox_xxx_spellWallCreate_4FFA90)
+		sp.Update.Set(Nox_xxx_spellWallUpdate_500070)
+		sp.Destroy.Set(Nox_xxx_spellWallDestroy_500080)
+		sp.Target48 = nil
+		v1p = unsafe.Pointer(sp)
 	}
-	v3 = 0
+	v3 := int32(0)
 	if dword_5d4594_1569756 > 0 {
-		v4 = (*uint8)(memmap.PtrOff(0x5D4594, 1569764))
+		v4 := (*uint8)(memmap.PtrOff(0x5D4594, 1569764))
 		for {
-			v5 = (*uint8)(nox_server_getWallAtGrid_410580(int32(*v4), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 1)))))
-			if v5 != nil {
-				*v5 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 13))
+			wl := nox_server_getWallAtGrid_410580(int32(*v4), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 1))))
+			if wl != nil {
+				wl.Dir0 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 13))
 			} else {
-				v5 = (*uint8)(nox_xxx_wallCreateAt_410250(int32(*v4), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 1)))))
-				if v5 == nil {
+				wl = nox_xxx_wallCreateAt_410250(int32(*v4), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 1))))
+				if wl == nil {
 					return 0
 				}
-				*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 4)) |= 8
-				*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 11))
-				*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 2)) = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 12))
-				*v5 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 13))
-				*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 7)) = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 14))
+				wl.Flags4 |= 8
+				wl.Tile1 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 11))
+				wl.Field2 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 12))
+				wl.Dir0 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 13))
+				wl.Health7 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 14))
 			}
-			nox_xxx_netWallCreate_4FFE80(v1, v5, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 9))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 10))))
+			nox_xxx_netWallCreate_4FFE80(v1p, wl, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 9))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 10))))
 			v3++
 			v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 16))
 			if v3 >= dword_5d4594_1569756 {
@@ -774,7 +771,7 @@ func nox_xxx_voteUptate_506F30() {
 		v1     *uint32
 	)
 	result = dword_5d4594_1599656
-	if dword_5d4594_1599656 != 0 {
+	if dword_5d4594_1599656 != nil {
 		for {
 			v1 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*11)))
 			switch *result {
