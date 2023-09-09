@@ -1,6 +1,8 @@
 package opennox
 
 import (
+	"image/color"
+
 	"github.com/noxworld-dev/noxscript/ns/v4"
 
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -40,4 +42,8 @@ func (t nsTeam) GetScore() int {
 
 func (t nsTeam) ChangeScore(score int) {
 	t.s.teamChangeLessons(t.t, score+t.t.Lessons)
+}
+
+func (t nsTeam) Color() color.Color {
+	return t.s.Teams.GetTeamColor(t.t)
 }

@@ -128,6 +128,9 @@ func (s *Server) SetTickRate(v uint32) {
 }
 
 func (s *Server) AsFrames(dt ns4.Duration) int {
+	if dt.IsInfinite() {
+		return 0 // TODO: check
+	}
 	frames, ok := dt.Frames()
 	if ok {
 		return frames

@@ -33,6 +33,9 @@ func (s noxScriptNS) TimerByHandle(h ns4.TimerHandle) ns4.Timer {
 }
 
 func (s noxScriptNS) NewTimer(dt ns4.Duration, fnc ns4.Func, args ...any) ns4.Timer {
+	if dt.IsInfinite() {
+		panic("trying to create an infinite timer")
+	}
 	var arg uint32
 	switch len(args) {
 	default:
