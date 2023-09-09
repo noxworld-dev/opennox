@@ -77,24 +77,23 @@ type pixel8888 struct {
 	field_3 int8
 }
 type obj_5D4594_754088_t struct {
-	fnc     unsafe.Pointer
-	field_4 int32
-	name    [12]byte
+	Fnc     unsafe.Pointer
+	Field_4 int32
+	Name    [12]byte
+}
+type obj_5D4594_2650668_t2 struct {
+	Field0  int32
+	Field4  int32
+	Field8  int32
+	Field12 int32
+	Field16 unsafe.Pointer
 }
 type obj_5D4594_2650668_t struct {
-	field_0   uint8
-	field_0_1 uint8
-	field_0_2 uint16
-	field_1   int32
-	field_2   int32
-	field_3   int32
-	field_4   int32
-	field_5   unsafe.Pointer
-	field_6   int32
-	field_7   int32
-	field_8   int32
-	field_9   int32
-	field_10  unsafe.Pointer
+	Field0  uint8
+	Field1  uint8
+	Field2  uint16
+	Field4  obj_5D4594_2650668_t2
+	Field24 obj_5D4594_2650668_t2
 }
 type nox_parse_thing_draw_funcs_t struct {
 	name      string

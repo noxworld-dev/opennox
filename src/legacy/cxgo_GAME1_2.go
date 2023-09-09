@@ -20,9 +20,9 @@ import (
 
 var nox_win_width int32 = 0
 var nox_win_height int32 = 0
-var ptr_5D4594_754088 *obj_5D4594_754088_t = nil
+var ptr_5D4594_754088 []obj_5D4594_754088_t
 var ptr_5D4594_754088_cnt int32 = 0
-var ptr_5D4594_754092 *obj_5D4594_754088_t = nil
+var ptr_5D4594_754092 []obj_5D4594_754088_t
 var ptr_5D4594_754092_cnt int32 = 0
 var nox_screenParticles_head *Nox_screenParticle = nil
 var dword_5d4594_806052 *Nox_screenParticle = nil
@@ -2771,11 +2771,11 @@ func sub_42EBA0() int32 {
 }
 func sub_42EDC0() {
 	if ptr_5D4594_754088 != nil {
-		alloc.Free(ptr_5D4594_754088)
+		alloc.FreeSlice(ptr_5D4594_754088)
 		ptr_5D4594_754088 = nil
 	}
 	if ptr_5D4594_754092 != nil {
-		alloc.Free(ptr_5D4594_754092)
+		alloc.FreeSlice(ptr_5D4594_754092)
 		ptr_5D4594_754092 = nil
 	}
 }

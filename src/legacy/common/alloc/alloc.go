@@ -87,6 +87,16 @@ func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
 	return ptr
 }
 
+func ReallocT[T comparable, N number](src []T, n N) []T {
+	if n < 0 {
+		panic("negative size")
+	}
+	src = src[:1]
+	var elem T
+	dstp := Realloc(unsafe.Pointer(&src[0]), uintptr(n)*unsafe.Sizeof(elem))
+	return unsafe.Slice((*T)(dstp), n)
+}
+
 func Calloc(num int, size uintptr) (unsafe.Pointer, func()) {
 	ptr := Calloc1(num, size)
 	return ptr, func() {

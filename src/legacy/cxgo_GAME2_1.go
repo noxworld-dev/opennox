@@ -21,7 +21,7 @@ import (
 var nox_win_unk5 *gui.Window
 var dword_5d4594_1062452 *gui.Window
 var nox_windows_arr_1093036 [7]nox_window_yyy
-var ptr_5D4594_2650668 []*obj_5D4594_2650668_t
+var ptr_5D4594_2650668 [][]obj_5D4594_2650668_t
 var ptr_5D4594_2650668_cap int32 = 128
 var nox_client_inventory_grid_1050020 [84]nox_inventory_cell_t
 
