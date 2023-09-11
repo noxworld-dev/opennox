@@ -342,7 +342,6 @@ var dword_5d4594_2386564 uint32
 var nox_alloc_magicWall_1569748 alloc.ClassT[magicWall]
 var dword_5d4594_1550912 *mapgenRoom
 var dword_5d4594_1062488 uint32
-var dword_5d4594_2516356 uint32
 var dword_5d4594_1047936 int32
 var dword_5d4594_1321208 uint32
 var dword_5d4594_2487620 uint32
@@ -495,7 +494,6 @@ var dword_5d4594_1523048 *gui.Window
 var dword_5d4594_1308140 *gui.Window
 var dword_5d4594_1203832 uint32
 var dword_5d4594_831244 uint32
-var dword_5d4594_2516372 uint32
 var dword_5d4594_1565632 uint32
 var dword_5d4594_1045520 *gui.Window
 var dword_5d4594_1319268 uint32
@@ -541,7 +539,6 @@ var dword_5d4594_1568308 *server.ModifierEff
 var dword_587000_129656 uint32 = 0x1
 var dword_5d4594_1091364 uint32
 var dword_5d4594_599496 uint32
-var dword_5d4594_2516380 uint32
 var dword_5d4594_1599644 uint32
 var dword_5d4594_1563276 uint32
 var nox_server_resetQuestMinVotes_229988 uint32 = 0x6

@@ -137,8 +137,8 @@ func sub_49BCD0(dr *client.Drawable) {
 }
 
 // nox_xxx_spriteDeleteAll_45A5E0
-func nox_xxx_spriteDeleteAll_45A5E0(a1 int32) {
-	GetClient().Nox_xxx_spriteDeleteAll_45A5E0(int(a1))
+func nox_xxx_spriteDeleteAll_45A5E0(a1 bool) {
+	GetClient().Nox_xxx_spriteDeleteAll_45A5E0(a1)
 }
 
 func Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {

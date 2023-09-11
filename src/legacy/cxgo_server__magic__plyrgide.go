@@ -51,7 +51,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 unsafe.Pointer, a2 int32, 
 		return 0
 	}
 	*v7 = 1
-	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 4640))), a2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v4, 276))+uint32(a2*4))), 4244))))
+	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 4640)), a2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v4, 276))+uint32(a2*4))), 4244))))
 	if a3 != 0 {
 		nox_xxx_aud_501960(227, (*server.Object)(a1), 0, 0)
 		nox_xxx_netSendRewardNotify_4FAD50(a1, 1, a1, int8(a2))
@@ -67,7 +67,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 unsafe.Pointer, a2 int32, 
 				if v10 != 0 {
 					for {
 						*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v4, 276))+uint32(v10*4))), 4244)) = 1
-						nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 4640))), *v11, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v4, 276))+uint32(*v11*4))), 4244))))
+						nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 4640)), *v11, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v4, 276))+uint32(*v11*4))), 4244))))
 						v10 = *(*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
 						v11 = (*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
 						if v10 == 0 {

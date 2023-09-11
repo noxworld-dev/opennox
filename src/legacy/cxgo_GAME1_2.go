@@ -741,7 +741,7 @@ func nox_server_mapRWAmbientData_429200() int32 {
 		result int32
 		v1     *byte
 		v2     int32
-		v3     [3]int32
+		v3     [3]uint32
 	)
 	v2 = 1
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v2)), 2)
@@ -753,9 +753,9 @@ func nox_server_mapRWAmbientData_429200() int32 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v3[0])), 4)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v3[1])), 4)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v3[2])), 4)
-			sub_469B90(&v3[0])
+			sub_469B90(v3)
 			if noxflags.HasGame(2097154) {
-				sub_4349C0((*uint32)(unsafe.Pointer(&v3[0])))
+				sub_4349C0(v3)
 			}
 		}
 		result = 1

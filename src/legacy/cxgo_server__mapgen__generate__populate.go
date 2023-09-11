@@ -135,7 +135,7 @@ func sub_5259D0() float64 {
 func sub_526A90() {
 	alloc.FreePtr(dword_5d4594_2487672)
 }
-func nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(a1 int32) {
+func nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(a1 unsafe.Pointer) {
 	var (
 		v1 *wchar2_t
 		v2 *wchar2_t
@@ -177,6 +177,6 @@ func nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(a1 int32) {
 	v9 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*12))+*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*10))) * 0.5)
 	nox_xxx_mapGenGetObjID_527940(internCStr("PlayerStart"))
 	nox_xxx_mapGenPlaceObj_5279B0((*types.Pointf)(unsafe.Pointer(&v8)))
-	sub_469B90((*int32)(unsafe.Add(a1, 536)))
+	sub_469B90(*(*[3]uint32)(unsafe.Add(a1, 536)))
 	sub_526A90()
 }

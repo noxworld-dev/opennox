@@ -312,7 +312,7 @@ func Get_dword_5d4594_1062452() *gui.Window {
 	return dword_5d4594_1062452
 }
 func Get_dword_5d4594_2516356() int {
-	return int(dword_5d4594_2516356)
+	return int(protectValThree)
 }
 func Get_dword_5d4594_1548524() int {
 	return int(dword_5d4594_1548524)
@@ -621,7 +621,7 @@ func Inc_nox_xxx_waypointCounterMB_587000_154948() {
 	nox_xxx_waypointCounterMB_587000_154948++
 }
 func Inc_dword_5d4594_2516356() {
-	dword_5d4594_2516356++
+	protectValThree++
 }
 func Inc_dword_5d4594_2386848() {
 	dword_5d4594_2386848++

@@ -3233,8 +3233,8 @@ func sub_50F3A0(a1 *server.TradeSession) {
 	}
 	nox_xxx_playerAddGold_4FA590(a1.Field12, int32(*a1.Field52.InitData))
 	sub_50F450(int32(a1.Field12))
-	sub_50F490(a1, int32(a1.Field8))
-	sub_50F490(a1, int32(a1.Field12))
+	sub_50F490(a1, a1.Field8)
+	sub_50F490(a1, a1.Field12)
 	sub_510000(a1)
 }
 func sub_50F450(a1 int32) int32 {
@@ -3246,44 +3246,36 @@ func sub_50F450(a1 int32) int32 {
 	*(*uint16)(unsafe.Pointer(&v4[0])) = 457
 	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 2064))), unsafe.Pointer(&v4[0]), 2, nil, 1)
 }
-func sub_50F490(a1 *server.TradeSession, a2 int32) {
-	var result int32
-	result = a2
-	*a1 = 0
-	if int32(*(*uint8)(unsafe.Add(a2, 8)))&4 == 0 {
-		return result
+func sub_50F490(a1 *server.TradeSession, a2 *server.Object) {
+	a1.Field0 = 0
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 == 0 {
+		return
 	}
-	result = int32(*(*uint32)(unsafe.Add(a2, 748)))
+	result := a2.UpdateData
 	if *(**uint32)(unsafe.Add(result, 280)) == a1 {
 		*(*uint32)(unsafe.Add(result, 280)) = 0
 	}
 }
-func nox_xxx_shopExit_50F4C0(a1 *server.Object) {
-	var (
-		v1 int32
-		v2 int32
-		v3 int32
-	)
-	sub_50F490(a1, int32(a1.ObjClass))
-	sub_50F490(a1, int32(a1.ObjSubClass))
-	v1 = int32(a1.ObjClass)
-	if int32(*(*uint8)(unsafe.Add(v1, 8)))&4 != 0 {
-		nox_xxx_unitUnFreeze_4E7A60((*server.Object)(v1), 0)
+func nox_xxx_shopExit_50F4C0(a1 *server.TradeSession) {
+	sub_50F490(a1, a1.Field8)
+	sub_50F490(a1, a1.Field12)
+	if v1 := a1.Field8; int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 8)))&4 != 0 {
+		nox_xxx_unitUnFreeze_4E7A60(v1, 0)
 	} else {
-		nox_xxx_unitUnFreeze_4E7A60((*server.Object)(a1.ObjSubClass), 0)
+		nox_xxx_unitUnFreeze_4E7A60(a1.Field12, 0)
 	}
-	v2 = int32(a1.ObjClass)
-	if int32(*(*uint8)(unsafe.Add(v2, 8)))&4 != 0 {
+	var v3 *server.Object
+	if v2 := a1.Field8; int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)))&4 != 0 {
 		nox_xxx_sendEndTradeMsg_50F560(v2)
-		v3 = int32(a1.ObjClass)
+		v3 = a1.Field8
 	} else {
-		nox_xxx_sendEndTradeMsg_50F560(int32(a1.ObjSubClass))
-		v3 = int32(a1.ObjSubClass)
+		nox_xxx_sendEndTradeMsg_50F560(a1.Field12)
+		v3 = a1.Field12
 	}
 	if noxflags.HasGame(4096) {
-		*memmap.PtrPtr(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 748)), 276)), 2064)))*4)+2386364) = unsafe.Pointer(a1)
+		*memmap.PtrPtr(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3.UpdateData, 276)), 2064)))*4)+2386364) = unsafe.Pointer(a1)
 	} else {
-		sub_510000(int32(uintptr(unsafe.Pointer(a1))))
+		sub_510000(a1)
 	}
 }
 func nox_xxx_sendEndTradeMsg_50F560(a1 int32) int32 {
@@ -3319,10 +3311,10 @@ func nox_xxx_tradeAccept_50F5A0(a1 *server.TradeSession, a2 *server.Object) {
 		sub_50F790(a1, a1.Field8, a1.Field36)
 		sub_50F7F0(a1.Field12, int32(a1.Field48))
 		sub_50F7F0(a1.Field8, int32(a1.Field52))
-		sub_50F6B0(unsafe.Pointer(a1.Field32))
+		sub_50F6B0(a1.Field32)
 		v7 := a1.Field36
 		a1.Field32 = nil
-		sub_50F6B0(unsafe.Pointer(v7))
+		sub_50F6B0(v7)
 		v4 = int32(a1.Field48)
 		a1.Field36 = nil
 		**(**uint32)(unsafe.Add(v4, 692)) = 0
@@ -3342,12 +3334,12 @@ func nox_xxx_tradeAccept_50F5A0(a1 *server.TradeSession, a2 *server.Object) {
 		}
 	}
 }
-func sub_50F6B0(a1 unsafe.Pointer) {
+func sub_50F6B0(a1 *server.TradeItem) {
 	result := a1
 	if a1 != nil {
 		for {
-			v2 := *(*unsafe.Pointer)(unsafe.Add(result, 8))
-			nox_alloc_tradeItems_2386496.FreeObjectFirst((*server.TradeItem)(result))
+			v2 := result.Field8
+			nox_alloc_tradeItems_2386496.FreeObjectFirst(result)
 			result = v2
 			if v2 == nil {
 				break
@@ -3632,17 +3624,11 @@ func sub_50FFE0(a1 *uint32, a2 int32) *uint32 {
 	return result
 }
 func sub_510000(a1 *server.TradeSession) {
-	var (
-		v1 *int32
-		v2 *int32
-		v3 int32
-		v4 int32
-	)
-	v1 = a1.Field20
+	v1 := a1.Field20
 	if v1 != nil {
 		for {
-			v2 = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), 4*2)))
-			nox_xxx_objectFreeMem_4E38A0((*server.Object)(unsafe.Pointer(uintptr(*v1))))
+			v2 := v1.Field8
+			nox_xxx_objectFreeMem_4E38A0(v1.Item0)
 			nox_alloc_tradeItems_2386496.FreeObjectFirst(v1)
 			v1 = v2
 			if v2 == nil {
@@ -3652,17 +3638,17 @@ func sub_510000(a1 *server.TradeSession) {
 	}
 	nox_xxx_objectFreeMem_4E38A0(a1.Field48)
 	nox_xxx_objectFreeMem_4E38A0(a1.Field52)
-	sub_50F6B0(unsafe.Pointer(a1.Field32))
-	sub_50F6B0(unsafe.Pointer(a1.Field36))
-	v3 = int32(a1.Field56)
-	if v3 != 0 {
-		*(*uint32)(unsafe.Add(v3, 60)) = a1.Field60
+	sub_50F6B0(a1.Field32)
+	sub_50F6B0(a1.Field36)
+	v3 := a1.Field56
+	if v3 != nil {
+		v3.Field60 = a1.Field60
 	}
-	v4 = int32(a1.Field60)
-	if v4 != 0 {
-		*(*uint32)(unsafe.Add(v4, 56)) = a1.Field56
+	v4 := a1.Field60
+	if v4 != nil {
+		v4.Field56 = a1.Field56
 	}
-	if uint32(a1) == dword_5d4594_2386500 {
+	if a1 == dword_5d4594_2386500 {
 		dword_5d4594_2386500 = a1.Field56
 	}
 	nox_alloc_tradeSession_2386492.FreeObjectFirst(a1)
@@ -3871,8 +3857,8 @@ func sub_510D10(a1 *server.Object, a2 unsafe.Pointer, a3 int32, a4 uint32) {
 		}
 	}
 }
-func nox_xxx_shopCancelSession_510DC0(a1 *uint32) {
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) != 0 {
+func nox_xxx_shopCancelSession_510DC0(a1 *server.TradeSession) {
+	if a1.Field16 != 0 {
 		nox_xxx_shopExit_50F4C0(a1)
 	} else {
 		sub_50F3A0(a1)

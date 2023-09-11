@@ -128,11 +128,11 @@ func sub_495F70(dr *client.Drawable) {
 	}
 }
 
-func (c *Client) Nox_xxx_spriteDeleteAll_45A5E0(a1 int) {
+func (c *Client) Nox_xxx_spriteDeleteAll_45A5E0(a1 bool) {
 	var next *client.Drawable
 	for dr := c.Objs.List1; dr != nil; dr = next {
 		next = dr.NextPtr
-		if dr.Flags28()&0x4 == 0 || a1 == 0 || !c.Objs.IsPlayer(dr) {
+		if dr.Flags28()&0x4 == 0 || !a1 || !c.Objs.IsPlayer(dr) {
 			c.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		}
 	}

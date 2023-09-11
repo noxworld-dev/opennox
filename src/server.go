@@ -776,7 +776,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.Players.ResetAll()
 	legacy.Sub_446490(1)
 	legacy.Sub_4259F0()
-	legacy.Nox_xxx_mapSwitchLevel_4D12E0(0)
+	legacy.Nox_xxx_mapSwitchLevel_4D12E0(false)
 	s.nox_xxx_mapLoad_40A380()
 	legacy.Sub_4E4DE0()
 	s.Map.Debug.Reset()
@@ -832,7 +832,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		v12 := fmt.Sprintf("$%s.map", v13)
 		s.nox_xxx_gameSetMapPath_409D70(v12)
 		if legacy.Nox_xxx_mapGenStart_4D4320() == 0 {
-			legacy.Nox_xxx_mapSwitchLevel_4D12E0(1)
+			legacy.Nox_xxx_mapSwitchLevel_4D12E0(true)
 			return errors.New("nox_xxx_mapGenStart_4D4320 failed")
 		}
 		sub_4D3C30()

@@ -44,7 +44,7 @@ type Client interface {
 	Nox_xxx_spriteDelete_45A4B0(dr *client.Drawable)
 	Nox_new_drawable_for_thing(i int) *client.Drawable
 	Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
-	Nox_xxx_spriteDeleteAll_45A5E0(a1 int)
+	Nox_xxx_spriteDeleteAll_45A5E0(a1 bool)
 }
 
 type Render2 interface {

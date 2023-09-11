@@ -2651,14 +2651,7 @@ func sub_467CD0() int32 {
 	}
 	return v0
 }
-func nox_xxx_gameClearAll_467DF0(a1 int32) {
-	var (
-		result int32
-		v4     [3]int32
-	)
-	v4[0] = 25
-	v4[1] = 25
-	v4[2] = 25
+func Nox_xxx_gameClearAll_467DF0(a1 bool) {
 	sub_4460A0(0)
 	if sub_47A260() == 1 {
 		sub_47A1F0()
@@ -2670,9 +2663,12 @@ func nox_xxx_gameClearAll_467DF0(a1 int32) {
 	nox_xxx_gameDeleteSpiningCrownSkull_4B8220()
 	nox_alloc_npcs_2()
 	sub_4573B0()
+	acl := [3]uint32{
+		25, 25, 25,
+	}
 	if !noxflags.HasGame(1) {
-		sub_469B90(&v4[0])
-		sub_4349C0((*uint32)(unsafe.Pointer(&v4[0])))
+		sub_469B90(acl)
+		sub_4349C0(acl)
 		sub_421B10()
 	}
 	nox_xxx_spriteDeleteSomeList_49C4B0()
@@ -2681,27 +2677,15 @@ func nox_xxx_gameClearAll_467DF0(a1 int32) {
 	sub_49BBB0()
 	nox_client_resetScreenParticles_431510()
 	nox_xxx_spriteDeleteAll_45A5E0(a1)
-	result = bool2int32(noxflags.HasGame(1))
-	if result == 0 {
+	if !noxflags.HasGame(1) {
 		nox_xxx_wall_410160()
-		for i := int32(0); i < ptr_5D4594_2650668_cap*44; i += 44 {
-			for j := int32(0); j < ptr_5D4594_2650668_cap; j++ {
-				*(*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[j]))) + uint32(i)))) = 0
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[j])))+uint32(i))), 4)) = math.MaxUint8
-				*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(ptr_5D4594_2650668[j])))+uint32(i))), 24)) = math.MaxUint8
-				nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[j]), i+4))
-				nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[j]), i+24))
-			}
-		}
+		nox_xxx_mapSwitchLevel_4D12E0_tileFree()
 	}
 }
-func sub_469B90(a1 *int32) int32 {
-	var result int32
-	*memmap.PtrUint32(0x587000, 142296) = uint32(*a1)
-	*memmap.PtrUint32(0x587000, 142300) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
-	result = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2))
-	*memmap.PtrUint32(0x587000, 142304) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))
-	return result
+func sub_469B90(a1 [3]uint32) {
+	*memmap.PtrUint32(0x587000, 142296) = a1[0]
+	*memmap.PtrUint32(0x587000, 142300) = a1[1]
+	*memmap.PtrUint32(0x587000, 142304) = a1[2]
 }
 func nox_xxx_getAmbientColor_469BB0() *byte {
 	return (*byte)(memmap.PtrOff(0x587000, 142296))

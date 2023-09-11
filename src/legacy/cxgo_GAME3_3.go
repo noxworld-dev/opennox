@@ -1022,11 +1022,11 @@ func nox_xxx_unitSetHP_4E4560(obj *server.Object, amount uint16) {
 	}
 	nox_xxx_unitNeedSync_4E44F0(obj)
 	if holder := obj.InvHolder; holder != nil && holder.Class().Has(object.ClassPlayer) {
-		nox_xxx_protect_56FC50(int32(holder.UpdateDataPlayer().Player.Prot4632), obj)
+		nox_xxx_protect_56FC50(holder.UpdateDataPlayer().Player.Prot4632, obj)
 	}
 	obj.HealthData.Cur = amount
 	if obj.Class().Has(object.ClassPlayer) {
-		nox_xxx_protectPlayerHPMana_56F870(int32(obj.UpdateDataPlayer().Player.ProtUnitHPCur), amount)
+		nox_xxx_protectPlayerHPMana_56F870(obj.UpdateDataPlayer().Player.ProtUnitHPCur, amount)
 	}
 	if obj.Class().Has(object.ClassMonster) && obj.SubClass().AsMonster().Has(object.MonsterMonitor) {
 		if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
@@ -1039,7 +1039,7 @@ func nox_xxx_unitSetHP_4E4560(obj *server.Object, amount uint16) {
 		}
 	}
 	if holder := obj.InvHolder; holder != nil && holder.Class().Has(object.ClassPlayer) {
-		nox_xxx_protect_56FBF0(int32(holder.UpdateDataPlayer().Player.Prot4632), obj)
+		nox_xxx_protect_56FBF0(holder.UpdateDataPlayer().Player.Prot4632, obj)
 	}
 }
 func nox_xxx_unitSetOnOff_4E4670(obj *server.Object, enable int32) {
@@ -1122,7 +1122,7 @@ func nox_xxx_setUnitBuffFlags_4E48F0(obj *server.Object, buffs uint32) {
 	nox_xxx_unitNeedSync_4E44F0(obj)
 	obj.Buffs = buffs
 	if obj.Class().Has(object.ClassPlayer) {
-		nox_xxx_playerResetProtectionCRC_56F7D0(int32(obj.UpdateDataPlayer().Player.ProtUnitBuffs), buffs)
+		nox_xxx_playerResetProtectionCRC_56F7D0(obj.UpdateDataPlayer().Player.ProtUnitBuffs, buffs)
 	}
 	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
 		for i := 0; i < 32; i++ {
@@ -1877,7 +1877,7 @@ func sub_4E5B80(a1 *server.Object) int32 {
 	}
 	return 0
 }
-func sub_4E5BF0(a1 int32) {
+func sub_4E5BF0(a1 bool) {
 	var (
 		v3 *server.Object
 		v4 *server.Object
@@ -1889,7 +1889,7 @@ func sub_4E5BF0(a1 int32) {
 	if v1 != nil {
 		for {
 			v2 := nox_server_getNextObject_4DA7A0(v1)
-			if a1 == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 8)))&4) == 0 && ((func() *server.Object {
+			if !a1 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 8)))&4) == 0 && ((func() *server.Object {
 				v3 = v1.InvHolder
 				return v3
 			}()) == nil || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 8)))&4) == 0) && (uint32(v1.TypeInd) != *memmap.PtrUint32(0x5D4594, 1565596) || (func() *server.Object {
@@ -5815,7 +5815,7 @@ func sub_4ED0C0(a1 *server.Object, object *server.Object) {
 			sub_53E430(a1, object, 0, v2)
 			nox_xxx_playerDequipWeapon_53A140(a1, object, 0, v2)
 			nox_xxx_netReportDrop_4D8B50(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2064))), object)
-			nox_xxx_protect_56FC50(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 4632))), object)
+			nox_xxx_protect_56FC50(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 4632)), object)
 		} else if v3&2 != 0 {
 			if int32(a1.ObjSubClass)&0x10 != 0 && object.ObjClass&0x10000000 != 0 && noxflags.HasGame(32) {
 				nox_xxx_npcSetItemEquipFlags_4E4B20(a1, object, 0)
@@ -6896,10 +6896,10 @@ func nox_xxx_playerManaAdd_4EEB80(unitp *server.Object, amount int16) {
 		if int32(newAmount) > int32(maxMana) {
 			*(*uint16)(unsafe.Add(manaData, 4)) = maxMana
 		}
-		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(manaData, 276)), 4596))), amount)
+		nox_xxx_protectMana_56F9E0(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(manaData, 276)), 4596)), amount)
 		result := *(*uint16)(unsafe.Add(manaData, 8))
 		if int32(*(*uint16)(unsafe.Add(manaData, 4))) > int32(result) {
-			nox_xxx_protectPlayerHPMana_56F870(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(manaData, 276)), 4596))), result)
+			nox_xxx_protectPlayerHPMana_56F870(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(manaData, 276)), 4596)), result)
 		}
 	}
 }
@@ -6922,9 +6922,9 @@ func nox_xxx_playerManaSub_4EEBF0(unit *server.Object, amount int32) {
 		*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2)) = 0
 	}
 	if int32(*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2))) > amount {
-		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), 4596))), int16(int32(-int16(amount))))
+		nox_xxx_protectMana_56F9E0(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), 4596)), int16(int32(-int16(amount))))
 	} else {
-		nox_xxx_protectMana_56F9E0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), 4596))), int16(-*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2))))
+		nox_xxx_protectMana_56F9E0(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), 4596)), int16(-*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2))))
 	}
 }
 func nox_xxx_unitGetOldMana_4EEC80(unit *server.Object) int16 {
@@ -6969,7 +6969,7 @@ func nox_xxx_playerManaRefresh_4EECF0(unit *server.Object) {
 	ud.ManaPrev = ud.ManaCur
 	v4 := int16(ud.ManaMax)
 	ud.ManaCur = uint16(v4)
-	nox_xxx_protectMana_56F9E0(int32(v3.ProtUnitManaCur), v4)
+	nox_xxx_protectMana_56F9E0(v3.ProtUnitManaCur, v4)
 }
 func nox_xxx_abilGivePlayerAll_4EED40(a1 *server.Object, a2 int8, a3 int32) {
 	var (
@@ -7072,10 +7072,10 @@ func nox_xxx_plrReadVals_4EEDC0(a1p *server.Object, a2 int32) {
 	v2.Mass = float32(float64(*(*int32)(unsafe.Add(unsafe.Pointer(v4), 2239)))/float64(*(*float32)(unsafe.Add(unsafe.Pointer(v25), unsafe.Sizeof(float32(0))*3)))*20.0 + 10.0)
 	*(*uint16)(unsafe.Add(unsafe.Pointer(v3.Player), 3652)) = uint16(int16(int64((float64(*(*int32)(unsafe.Add(unsafe.Pointer(v4), 2239)))/float64(*(*float32)(unsafe.Add(unsafe.Pointer(v25), unsafe.Sizeof(float32(0))*3)))*1250.0 + 750.0) * *memmap.PtrFloat64(0x581450, 10216))))
 	v2.CarryCapacity = *(*uint16)(unsafe.Add(unsafe.Pointer(v3.Player), 3652))
-	sub_56F780(int32(v3.Player.ProtPlayerField2239), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 2239))))
-	sub_56F780(int32(v3.Player.ProtPlayerField2235), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 2235))))
-	nox_xxx_protectPlayerHPMana_56F870(int32(v3.Player.ProtUnitManaMax), v3.ManaMax)
-	nox_xxx_protectPlayerHPMana_56F870(int32(v3.Player.ProtUnitHPMax), v2.HealthData.Max)
+	sub_56F780(v3.Player.ProtPlayerField2239, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 2239))))
+	sub_56F780(v3.Player.ProtPlayerField2235, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 2235))))
+	nox_xxx_protectPlayerHPMana_56F870(v3.Player.ProtUnitManaMax, v3.ManaMax)
+	nox_xxx_protectPlayerHPMana_56F870(v3.Player.ProtUnitHPMax, v2.HealthData.Max)
 	for i := v2.InvFirstItem; i != nil; v23 += v12 {
 		v12 = int32(i.Weight)
 		i = i.InvNextItem
@@ -7084,7 +7084,7 @@ func nox_xxx_plrReadVals_4EEDC0(a1p *server.Object, a2 int32) {
 	v13 := v3.Player
 	v21 = int32(v13.ProtPlayerOrigName)
 	v14 = nox_wcslen((*wchar2_t)(unsafe.Add(unsafe.Pointer(v13), 2185)))
-	sub_56FB00((*byte)(unsafe.Add(unsafe.Pointer(v3.Player), 2185)), v14*2, v21)
+	sub_56FB00((*byte)(unsafe.Add(unsafe.Pointer(v3.Player), 2185)), v14*2, uint32(v21))
 	*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 2184)) = 1
 }
 func sub_4EF140(a1 *server.Object) {
@@ -7097,7 +7097,7 @@ func sub_4EF140(a1 *server.Object) {
 	if noxflags.HasGame(0x2000) {
 		v2 = int32(v1.ProtPlayerLevel)
 		v1.Level = NOX_PLAYER_MAX_LEVEL
-		sub_56F820(v2, 0xA)
+		sub_56F820(uint32(v2), 0xA)
 		nox_xxx_plrReadVals_4EEDC0(a1, 0)
 	} else {
 		for i = 0; i <= NOX_PLAYER_MAX_LEVEL; i++ {
@@ -7107,7 +7107,7 @@ func sub_4EF140(a1 *server.Object) {
 		}
 		v5 = int32(v1.ProtPlayerLevel)
 		v1.Level = uint8(int8(i - 1))
-		sub_56F820(v5, uint8(int8(i-1)))
+		sub_56F820(uint32(v5), uint8(int8(i-1)))
 		nox_xxx_plrReadVals_4EEDC0(a1, 0)
 	}
 }
@@ -7139,11 +7139,11 @@ func sub_4EF410(a1 *server.Object, a2 uint8) {
 	}
 	a1.Experience = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("XPTable"), int32(v2)))
 	v7 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("XPTable"), int32(v2)))
-	sub_56F8C0(int32(v3.ProtUnitExperience), v7)
+	sub_56F8C0(v3.ProtUnitExperience, v7)
 	sub_4D81A0(a1)
 	v6 = int32(v3.ProtPlayerLevel)
 	v3.Level = uint8(v2)
-	sub_56F820(v6, a2)
+	sub_56F820(uint32(v6), a2)
 	nox_xxx_plrReadVals_4EEDC0(a1, 0)
 	if noxflags.HasGame(2048) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 2251))) == 0 {
 		v4 = 1
@@ -7433,7 +7433,7 @@ func sub_4EFF10(a1 *server.Object) {
 	v3 := v1.Player
 	v1.ManaCur = v2
 	v1.ManaPrev = v2
-	nox_xxx_protectPlayerHPMana_56F870(int32(v3.ProtUnitManaCur), v2)
+	nox_xxx_protectPlayerHPMana_56F870(v3.ProtUnitManaCur, v2)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 192)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 196)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 200)) = 0
@@ -9897,7 +9897,7 @@ func nox_xxx_inventoryPutImpl_4F3070(a1p *server.Object, item *server.Object, a3
 			if a3 != 0 {
 				nox_xxx_netReportPickup_4D8A60(int32(v5.PlayerInd), item)
 			}
-			nox_xxx_protect_56FBF0(int32(v5.Prot4632), item)
+			nox_xxx_protect_56FBF0(v5.Prot4632, item)
 			for i := a1.InvFirstItem; i != nil; v3 += v7 {
 				v7 = int32(i.Weight)
 				i = i.InvNextItem

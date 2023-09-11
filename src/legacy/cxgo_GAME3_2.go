@@ -1261,88 +1261,64 @@ func sub_4D12A0(a1 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_mapSwitchLevel_4D12E0(a1 int32) {
-	var (
-		v1  int32
-		v4  *uint32
-		v11 [3]int32
-	)
-	v11[0] = 25
-	v11[1] = 25
-	v11[2] = 25
-	nox_xxx_setGameFlags_40A4D0(0x80000)
+func Nox_xxx_mapSwitchLevel_4D12E0(a1 bool) {
+	noxflags.SetGame(0x80000)
 	sub_516F30()
 	sub_421B10()
-	sub_469B90(&v11[0])
+	acl := [3]uint32{
+		25, 25, 25,
+	}
+	sub_469B90(acl)
 	if noxflags.HasGame(2) {
-		sub_4349C0((*uint32)(unsafe.Pointer(&v11[0])))
+		sub_4349C0(acl)
 	}
 	sub_511E60()
 	if noxflags.HasGame(2048) {
-		v1 = a1
 		sub_4FCEB0(a1)
 	} else {
-		sub_4FCEB0(0)
-		v1 = a1
+		sub_4FCEB0(false)
 	}
 	nox_xxx_mapWall_4FF790()
-
-	if v2 := nox_xxx_getFirstPlayerUnit_4DA7C0(); v2 != nil {
-		for {
-			v3 := v2.UpdateData
-			sub_4F7950(v2)
-			*(*uint32)(unsafe.Add(v3, 296)) = 0
-			nox_xxx_unitUnFreeze_4E7A60(v2, 1)
-			v4 = *(**uint32)(unsafe.Add(v3, 280))
-			*(*uint16)(unsafe.Add(v3, 160)) = 0
-			if v4 != nil {
-				nox_xxx_shopCancelSession_510DC0(v4)
-			}
-			*(*uint32)(unsafe.Add(v3, 280)) = 0
-			if v2.Update.Equals(Nox_xxx_updatePlayerMonsterBot_4FAB20) {
-				nox_xxx_playerBotCreate_4FA700(v2)
-			}
-			v2 = nox_xxx_getNextPlayerUnit_4DA7F0(v2)
-			if v2 == nil {
-				break
-			}
+	for pu := nox_xxx_getFirstPlayerUnit_4DA7C0(); pu != nil; pu = nox_xxx_getNextPlayerUnit_4DA7F0(pu) {
+		ud := pu.UpdateDataPlayer()
+		sub_4F7950(pu)
+		ud.Field74 = 0
+		nox_xxx_unitUnFreeze_4E7A60(pu, 1)
+		ud.Field40_0 = 0
+		if ud.Trade70 != nil {
+			nox_xxx_shopCancelSession_510DC0(ud.Trade70)
 		}
-		v1 = a1
+		ud.Trade70 = nil
+		if pu.Update.Equals(Nox_xxx_updatePlayerMonsterBot_4FAB20) {
+			nox_xxx_playerBotCreate_4FA700(pu)
+		}
 	}
 	for {
 		nox_xxx_unitsNewAddToList_4DAC00()
-		sub_4E5BF0(v1)
+		sub_4E5BF0(a1)
 		nox_xxx_spellCastByPlayer_4FEEF0()
 		nox_xxx_finalizeDeletingUnits_4E5EC0()
 		if nox_server_getFirstObjectUninited_4DA870() == nil {
 			break
 		}
 	}
-	v5 := nox_server_getFirstObject_4DA790()
-	if v5 != nil {
-		for {
-			v5.Obj130 = nil
-			if nox_xxx_isUnit_4E5B50(v5) != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 8)))&2 != 0 {
-				v6 := v5.UpdateData
-				*(*uint32)(unsafe.Add(v6, 4*309)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*307)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*317)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*311)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*313)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*315)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*319)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*321)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*323)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*325)) = math.MaxUint32
-				*(*uint32)(unsafe.Add(v6, 4*98)) = 0
-				*(*uint32)(unsafe.Add(v6, 4*101)) = 0
-			}
-			v5 = nox_server_getNextObject_4DA7A0(v5)
-			if v5 == nil {
-				break
-			}
+	for obj := nox_server_getFirstObject_4DA790(); obj != nil; obj = nox_server_getNextObject_4DA7A0(obj) {
+		obj.Obj130 = nil
+		if nox_xxx_isUnit_4E5B50(obj) != 0 && obj.Class().Has(object.ClassMonster) {
+			ud := obj.UpdateDataMonster()
+			ud.ScriptEnemySighted.Func = -1
+			ud.ScriptLookingForEnemy.Func = -1
+			ud.ScriptDeath.Func = -1
+			ud.ScriptChangeFocus.Func = -1
+			ud.ScriptIsHit.Func = -1
+			ud.ScriptRetreat.Func = -1
+			ud.ScriptCollision.Func = -1
+			ud.ScriptHearEnemy.Func = -1
+			ud.ScriptEndOfWaypoint.Func = -1
+			ud.ScriptLostEnemy.Func = -1
+			ud.Field98 = 0
+			ud.Field101 = 0
 		}
-		v1 = a1
 	}
 	sub_50D1C0()
 	for obj := nox_xxx_getFirstUpdatable2Object_4DA840(); obj != nil; obj = nox_xxx_getNextUpdatable2Object_4DA850(obj) {
@@ -1353,21 +1329,25 @@ func nox_xxx_mapSwitchLevel_4D12E0(a1 int32) {
 	sub_4ECFE0()
 	sub_511E20()
 	nox_xxx_wall_410160()
-	if v1 != 0 {
-		nox_xxx_Fn_4FCAC0(v1, 1)
+	if a1 {
+		nox_xxx_Fn_4FCAC0(a1, 1)
 	} else {
-		nox_xxx_Fn_4FCAC0(0, 0)
+		nox_xxx_Fn_4FCAC0(false, 0)
 	}
-	for j := int32(0); j < ptr_5D4594_2650668_cap*44; j += 44 {
+	nox_xxx_mapSwitchLevel_4D12E0_tileFree()
+	nox_xxx_mapSwitchLevel_4D12E0_end()
+}
+func nox_xxx_mapSwitchLevel_4D12E0_tileFree() {
+	for j := int32(0); j < ptr_5D4594_2650668_cap; j++ {
 		for k := int32(0); k < ptr_5D4594_2650668_cap; k++ {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[k]), uint32(j))) = 0
-			*(*uint32)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[k]), uint32(j)+4)) = math.MaxUint8
-			*(*uint32)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[k]), uint32(j)+24)) = math.MaxUint8
-			nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[k]), uint32(j)+4))
-			nox_xxx_tileFreeTile_422200(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668[k]), uint32(j)+24))
+			p := &ptr_5D4594_2650668[k][j]
+			p.Field0 = 0
+			p.Field4.Field0 = math.MaxUint8
+			p.Field24.Field0 = math.MaxUint8
+			nox_xxx_tileFreeTile_422200(&p.Field4)
+			nox_xxx_tileFreeTile_422200(&p.Field24)
 		}
 	}
-	nox_xxx_mapSwitchLevel_4D12E0_end()
 }
 func sub_4D15C0() {
 	*memmap.PtrUint32(0x5D4594, 1548508) = 0
@@ -1726,7 +1706,7 @@ func nox_xxx_mapGenStart_4D4320() int32 {
 		ExistingFileName [1024]byte
 	)
 	v0 = 100
-	nox_xxx_mapSwitchLevel_4D12E0(1)
+	Nox_xxx_mapSwitchLevel_4D12E0(true)
 	nox_xxx_setGameFlags_40A4D0(0x400000)
 	*memmap.PtrPtr(0x5D4594, 1550924) = unsafe.Pointer(nox_get_and_zero_server_objects_4DA3C0())
 	libc.MemSet(memmap.PtrOff(0x973F18, 2408), 0, 0x5B8)
@@ -1778,7 +1758,7 @@ func nox_xxx_mapGenStart_4D4320() int32 {
 	if nox_xxx_mapSaveMap_51E010(&PathName[0], 1) == 0 {
 		return 0
 	}
-	nox_xxx_mapSwitchLevel_4D12E0(1)
+	Nox_xxx_mapSwitchLevel_4D12E0(false)
 	nox_set_server_objects_4DA3E0((*server.Object)(*memmap.PtrPtr(0x5D4594, 1550924)))
 	*memmap.PtrUint32(0x5D4594, 1550924) = 0
 	nox_common_gameFlags_unset_40A540(0x400000)
@@ -1854,7 +1834,7 @@ func nox_xxx_mapGenStep_4D44E0() int32 {
 				nox_xxx_mapgen_Doors_4D4790()
 				nox_xxx_mapGenTryNextRoom_522F40((*uint32)(memmap.PtrOff(0x5D4594, 1549796)))
 				nox_xxx_mapGenGetTopRoom_521710()
-				nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int32(uintptr(memmap.PtrOff(0x5D4594, 1549796))))
+				nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(memmap.PtrOff(0x5D4594, 1549796))
 				v2 = 1
 				goto LABEL_25
 			}

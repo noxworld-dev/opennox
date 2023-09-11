@@ -618,9 +618,6 @@ func Nox_xxx_mapFindPlayerStart_4F7AB0(a2 *server.Object) types.Pointf {
 func Sub_500510(a1 string) {
 	sub_500510(internCStr(a1))
 }
-func Nox_xxx_mapSwitchLevel_4D12E0(a1 int) {
-	nox_xxx_mapSwitchLevel_4D12E0(int32(a1))
-}
 func Sub_57A1E0(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer, a4 int, a5 noxflags.GameFlag) {
 	sub_57A1E0((*int32)(a1), internCStr(a2), (*int32)(a3), int8(a4), int16(a5))
 }

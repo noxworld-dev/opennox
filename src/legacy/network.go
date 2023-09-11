@@ -206,9 +206,6 @@ func convSendToServerErr(n int, err error) int {
 func Nox_xxx_netClientSend2_4E53C0(a1 int, a2 unsafe.Pointer, a3 int, a5 int) {
 	nox_xxx_netClientSend2_4E53C0(int32(a1), a2, int32(a3), int32(a5))
 }
-func Nox_xxx_gameClearAll_467DF0(a1 int) {
-	nox_xxx_gameClearAll_467DF0(int32(a1))
-}
 func Sub_57B920(a1 unsafe.Pointer) {
 	sub_57B920(a1)
 }

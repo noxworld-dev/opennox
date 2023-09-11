@@ -55,7 +55,7 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 unsafe.Pointer, a2 int32, a3 in
 		if *v7 > 5 {
 			*v7 = 5
 		}
-		nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 4636))), a2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v3, 276))+uint32(a2*4))), 3696))))
+		nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 4636)), a2, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v3, 276))+uint32(a2*4))), 3696))))
 		nox_xxx_netAbilityReport_4D8060(a1, a2, a3)
 		if noxflags.HasGame(4096) {
 			nox_xxx_netSendRewardNotify_4FAD50(a1, 2, a1, int8(a2))

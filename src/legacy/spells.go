@@ -201,13 +201,13 @@ func Nox_xxx_spellCastByBook_4FCB80() {
 	nox_xxx_spellCastByBook_4FCB80()
 }
 func Nox_xxx_playerResetProtectionCRC_56F7D0(a1 uintptr, a2 int) {
-	nox_xxx_playerResetProtectionCRC_56F7D0(int32(a1), uint32(int32(a2)))
+	nox_xxx_playerResetProtectionCRC_56F7D0(uint32(int32(a1)), uint32(int32(a2)))
 }
 func Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(a1 uintptr, a2 int, a3 int) {
-	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(a1), int32(a2), int32(a3))
+	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(uint32(int32(a1)), int32(a2), int32(a3))
 }
 func Nox_xxx_playerApplyProtectionCRC_56FD50(a1 uintptr, a2 unsafe.Pointer, a3 int) {
-	nox_xxx_playerApplyProtectionCRC_56FD50(int32(a1), a2, int32(a3))
+	nox_xxx_playerApplyProtectionCRC_56FD50(uint32(int32(a1)), a2, int32(a3))
 }
 func Nox_xxx_spellGrantToPlayer_4FB550(a1 *server.Object, a2 spell.ID, a3 int, a4 int, a5 int) int {
 	return int(nox_xxx_spellGrantToPlayer_4FB550(asObjectC(a1), int32(a2), int32(a3), int32(a4), int32(a5)))

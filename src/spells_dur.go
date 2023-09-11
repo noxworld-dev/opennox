@@ -24,7 +24,7 @@ func nox_xxx_spellCastedNext_4FE940(a1 *server.DurSpell) *server.DurSpell {
 	return a1.Next
 }
 
-func sub_4FE8A0(a1 int) {
+func sub_4FE8A0(a1 bool) {
 	noxServer.spells.duration.sub4FE8A0(a1)
 }
 
@@ -70,8 +70,8 @@ func (sp *spellsDuration) newDur() *server.DurSpell {
 	return p
 }
 
-func (sp *spellsDuration) sub4FE8A0(a1 int) {
-	if a1 == 0 {
+func (sp *spellsDuration) sub4FE8A0(a1 bool) {
+	if !a1 {
 		nox_alloc_spellDur_1569724.FreeAllObjects()
 		sp.list = nil
 		return

@@ -130,13 +130,11 @@ func sub_434990(r, g, b int32) {
 	})
 }
 
-// sub_4349C0
-func sub_4349C0(a1 *uint32) {
-	arr := unsafe.Slice(a1, 3)
+func sub_4349C0(cl [3]uint32) {
 	GetClient().R2().Data().SetLightColor(noxrender.RGB{
-		R: int(arr[0]),
-		G: int(arr[1]),
-		B: int(arr[2]),
+		R: int(cl[0]),
+		G: int(cl[1]),
+		B: int(cl[2]),
 	})
 }
 

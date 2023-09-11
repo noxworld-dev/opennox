@@ -1894,7 +1894,7 @@ func nox_xxx_checkInversionEffect_4FA4F0(a1 *server.Object, a2 *server.Object) i
 func nox_xxx_playerAddGold_4FA590(a1 *server.Object, a2 int32) {
 	v2 := a1.UpdateDataPlayer()
 	v2.Player.GoldVal += uint32(a2)
-	sub_56F920(int32(v2.Player.ProtPlayerGold), a2)
+	sub_56F920(v2.Player.ProtPlayerGold, a2)
 }
 func nox_xxx_playerSubGold_4FA5D0(a1 *server.Object, a2 uint32) {
 	v2 := a1.UpdateDataPlayer()
@@ -1905,7 +1905,7 @@ func nox_xxx_playerSubGold_4FA5D0(a1 *server.Object, a2 uint32) {
 	} else {
 		v3.GoldVal = 0
 	}
-	sub_56F920(int32(v2.Player.ProtPlayerGold), int32(-a2))
+	sub_56F920(v2.Player.ProtPlayerGold, int32(-a2))
 }
 func nox_object_setGold_4FA620(obj *server.Object, a2 int32) {
 	var v4 *server.Player
@@ -1916,10 +1916,10 @@ func nox_object_setGold_4FA620(obj *server.Object, a2 int32) {
 			return v4.GoldVal >= uint32(-a2)
 		}()) {
 			v3.Player.GoldVal += uint32(a2)
-			sub_56F920(int32(v3.Player.ProtPlayerGold), a2)
+			sub_56F920(v3.Player.ProtPlayerGold, a2)
 		} else {
 			v4.GoldVal = 0
-			nox_xxx_playerResetProtectionCRC_56F7D0(int32(v3.Player.ProtPlayerGold), 0)
+			nox_xxx_playerResetProtectionCRC_56F7D0(v3.Player.ProtPlayerGold, 0)
 		}
 	}
 }
@@ -2292,7 +2292,7 @@ func sub_4FC960(a1 *server.Object, a2 int8) {
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i)
 	}
 }
-func nox_xxx_Fn_4FCAC0(a1 int32, a2 int32) int32 {
+func nox_xxx_Fn_4FCAC0(a1 bool, a2 int32) int32 {
 	sub_4FE8A0(a1)
 	Nox_alloc_magicEnt_1569668.FreeAllObjects()
 	Dword_5d4594_1569672 = nil
@@ -2482,7 +2482,7 @@ func nox_xxx_spellCastByBook_4FCB80() {
 		}
 	}
 }
-func sub_4FCEB0(a1 int32) {
+func sub_4FCEB0(a1 bool) {
 	var (
 		v3 *server.Object
 	)
@@ -2492,7 +2492,7 @@ func sub_4FCEB0(a1 int32) {
 	}
 	for {
 		v2 := result.Next
-		if a1 != 1 || (func() *server.Object {
+		if !a1 || (func() *server.Object {
 			v3 = result.Target48
 			return v3
 		}()) == nil || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 8)))&4) != 4 {
