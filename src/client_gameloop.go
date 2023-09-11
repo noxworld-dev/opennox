@@ -45,7 +45,7 @@ func (c *Client) drawAndPresent() {
 }
 
 func (c *Client) map_download_start() {
-	legacy.Nox_xxx_gameClearAll_467DF0(1)
+	c.nox_xxx_gameClearAll_467DF0(true)
 	c.ShowMapDownload()
 	c.mapsend.setDownloading(true)
 	c.mapsend.setDownloadOK(true)

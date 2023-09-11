@@ -6,6 +6,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -71,6 +72,31 @@ func (s *serverPlayers) Next(it *Player) *Player {
 		p := &s.list[i]
 		if p.IsActive() {
 			return p
+		}
+	}
+	return nil
+}
+
+func (s *serverPlayers) FirstUnit() *Object {
+	for pl := s.First(); pl != nil; pl = s.Next(pl) {
+		if pl.PlayerUnit != nil {
+			return pl.PlayerUnit
+		}
+	}
+	return nil
+}
+
+func (s *serverPlayers) NextUnit(it *Object) *Object {
+	if it == nil || !it.Class().Has(object.ClassPlayer) {
+		return nil
+	}
+	ud := it.UpdateDataPlayer()
+	if ud == nil {
+		return nil
+	}
+	for pl := s.Next(ud.Player); pl != nil; pl = s.Next(pl) {
+		if pl.PlayerUnit != nil {
+			return pl.PlayerUnit
 		}
 	}
 	return nil
@@ -160,6 +186,16 @@ func (s *serverPlayers) List() (out []*Player) {
 		p := &s.list[i]
 		if p.IsActive() {
 			out = append(out, p)
+		}
+	}
+	return out
+}
+
+func (s *serverPlayers) ListUnits() (out []*Object) {
+	for i := range s.list {
+		p := &s.list[i]
+		if p.IsActive() && p.PlayerUnit != nil {
+			out = append(out, p.PlayerUnit)
 		}
 	}
 	return out

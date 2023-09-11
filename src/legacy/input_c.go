@@ -183,6 +183,9 @@ func Sub_479590() int {
 func Sub_478030() int {
 	return int(C.sub_478030())
 }
+func Sub_47A260() int {
+	return int(C.sub_47A260())
+}
 func Nox_xxx_cursor_430B00() int {
 	return int(C.nox_xxx_cursor_430B00())
 }

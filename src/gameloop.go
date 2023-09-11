@@ -225,7 +225,7 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasEngine(noxflags.EngineFlag1) {
 		legacy.Sub_4D39F0(datapath.Data())
 		if legacy.Nox_xxx_mapGenStart_4D4320() == 0 {
-			legacy.Nox_xxx_mapSwitchLevel_4D12E0(0)
+			noxServer.nox_xxx_mapSwitchLevel_4D12E0(false)
 			return false, nil
 		}
 		sub_4D3C30()
@@ -780,7 +780,7 @@ func sub_435EB0() {
 		nox_xxx_cliSendOutgoingClient_43CB50()
 	}
 	legacy.Sub_499450()
-	legacy.Nox_xxx_gameClearAll_467DF0(0)
+	noxClient.nox_xxx_gameClearAll_467DF0(false)
 	sub_495AE0()
 	legacy.Sub_4959D0()
 	sub_473B30_free()

@@ -162,11 +162,6 @@ func sub_49BCD0(dr *nox_drawable) {
 	GetClient().Cli().Objs.List5Delete(asDrawable(dr))
 }
 
-//export nox_xxx_spriteDeleteAll_45A5E0
-func nox_xxx_spriteDeleteAll_45A5E0(a1 int) {
-	GetClient().Nox_xxx_spriteDeleteAll_45A5E0(a1)
-}
-
 func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {
 	return int(C.go_nox_drawable_call_draw_func((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(s.C())))
 }
