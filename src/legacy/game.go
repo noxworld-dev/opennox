@@ -739,9 +739,6 @@ func Sub_57AAA0(a1 string, a2 *byte, a3 unsafe.Pointer) {
 func Sub_4EF660(a1 *server.Object) {
 	C.sub_4EF660(asObjectC(a1))
 }
-func Nox_xxx_resetMapInit_4FC570(a1 int) {
-	C.nox_xxx_resetMapInit_4FC570(C.int(a1))
-}
 func Sub_4DBA30(a1 bool) {
 	C.sub_4DBA30(C.int(bool2int(a1)))
 }

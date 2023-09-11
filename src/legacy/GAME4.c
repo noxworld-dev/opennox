@@ -33,7 +33,6 @@ extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
 extern uint32_t nox_server_resetQuestMinVotes_229988;
 extern uint32_t dword_5d4594_1599644;
 extern uint32_t dword_5d4594_3835392;
-extern uint32_t nox_xxx_resetMapInit_1569652;
 extern uint32_t dword_5d4594_3835312;
 extern uint32_t dword_5d4594_1568868;
 extern void* nox_alloc_magicEnt_1569668;
@@ -2456,15 +2455,6 @@ int nox_xxx_playerDoSchedSpellQueue_4FB1D0(nox_object_t* a1p, nox_object_t* a2p)
 	}
 	--*(uint8_t*)(v3 + 212);
 	return 1;
-}
-
-//----- (004FC570) --------------------------------------------------------
-int nox_xxx_resetMapInit_4FC570(int a1) {
-	int result; // eax
-
-	result = a1;
-	nox_xxx_resetMapInit_1569652 = a1;
-	return result;
 }
 
 //----- (004FC960) --------------------------------------------------------
