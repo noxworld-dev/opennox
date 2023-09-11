@@ -621,7 +621,6 @@ uint32_t dword_5d4594_1316448 = 0;
 uint32_t dword_5d4594_1313880 = 0;
 uint32_t dword_5d4594_2491676 = 0;
 uint32_t dword_5d4594_1308136 = 0;
-uint32_t dword_5d4594_1569656 = 0;
 uint32_t dword_5d4594_831240 = 0;
 uint32_t dword_5d4594_1301808 = 0;
 uint32_t dword_5d4594_1599708 = 0;

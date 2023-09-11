@@ -615,7 +615,6 @@ extern uint32_t dword_5d4594_1316448;
 extern uint32_t dword_5d4594_1313880;
 extern uint32_t dword_5d4594_2491676;
 extern uint32_t dword_5d4594_1308136;
-extern uint32_t dword_5d4594_1569656;
 extern uint32_t dword_5d4594_831240;
 extern uint32_t dword_5d4594_1301808;
 extern uint32_t dword_5d4594_1599708;
@@ -881,9 +880,6 @@ func Get_dword_5d4594_528252() int {
 }
 func Get_dword_5d4594_528260() int {
 	return int(C.dword_5d4594_528260)
-}
-func Get_dword_5d4594_1569656() int {
-	return int(C.dword_5d4594_1569656)
 }
 func Get_dword_587000_122852() unsafe.Pointer {
 	return C.dword_587000_122852
