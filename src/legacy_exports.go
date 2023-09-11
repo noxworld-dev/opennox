@@ -192,14 +192,10 @@ func init() {
 	legacy.Nox_xxx_bookNextKnownAbil_425350 = nox_xxx_bookNextKnownAbil_425350
 	legacy.Sub_425450 = sub_425450
 	legacy.Nox_xxx_netAbilRepotState_4D8100 = nox_xxx_netAbilRepotState_4D8100
-	legacy.Nox_xxx_mapSwitchLevel_4D12E0_end = nox_xxx_mapSwitchLevel_4D12E0_end
 	legacy.Nox_script_indexByEvent = nox_script_indexByEvent
 	legacy.Nox_script_getString_512E40 = nox_script_getString_512E40
 	legacy.Nox_script_callbackName = nox_script_callbackName
 	legacy.Nox_script_objCallbackName_508CB0 = nox_script_objCallbackName_508CB0
-	legacy.Sub_511E60 = func() {
-		noxServer.sub_511E60()
-	}
 	legacy.Nox_setImaginaryCaster = nox_setImaginaryCaster
 	legacy.Nox_script_readWriteZzz_541670 = nox_script_readWriteZzz_541670
 	legacy.Sub_4C26F0 = sub_4C26F0
@@ -234,7 +230,6 @@ func init() {
 	legacy.Sub_4DCC90 = sub_4DCC90
 	legacy.Sub_4DB1C0 = sub_4DB1C0
 	legacy.Sub_4DCBF0 = sub_4DCBF0
-	legacy.Sub_4460A0 = sub_4460A0
 	legacy.Nox_xxx_serverIsClosing_446180 = nox_xxx_serverIsClosing_446180
 	legacy.Sub_4DCC10 = sub_4DCC10
 	legacy.Sub_4DCFB0 = sub_4DCFB0
@@ -262,7 +257,6 @@ func init() {
 	legacy.Nox_xxx_playerObserveMonster_4DDE80 = nox_xxx_playerObserveMonster_4DDE80
 	legacy.Nox_ai_debug_print = nox_ai_debug_print
 	legacy.Sub_545E60 = sub_545E60
-	legacy.Sub_50D1C0 = sub_50D1C0
 	legacy.Nox_xxx_gameSetAudioFadeoutMb_501AC0 = nox_xxx_gameSetAudioFadeoutMb_501AC0
 	legacy.Nox_xxx_monsterPopAction_50A160 = nox_xxx_monsterPopAction_50A160
 	legacy.Nox_xxx_monsterPushAction_50A260_impl = nox_xxx_monsterPushAction_50A260_impl
@@ -304,7 +298,6 @@ func init() {
 	legacy.Sub_43CF40 = sub_43CF40
 	legacy.Sub_43CF70 = sub_43CF70
 	legacy.Nox_objectDropAudEvent_4EE2F0 = nox_objectDropAudEvent_4EE2F0
-	legacy.Sub_47A1F0 = guiCloseNPCDialog
 	legacy.Nox_xxx_unitMonsterInit_4F0040 = objectMonsterInit
 	legacy.Nox_xxx_setNPCColor_4E4A90 = nox_xxx_setNPCColor_4E4A90
 	legacy.Nox_xxx_checkSummonedCreaturesLimit_500D70 = nox_xxx_checkSummonedCreaturesLimit_500D70
@@ -325,4 +318,7 @@ func init() {
 	legacy.Nox_xxx_monsterClearActionStack_50A3A0 = nox_xxx_monsterClearActionStack_50A3A0
 	legacy.Sub_4A1A40 = sub_4A1A40
 	legacy.Nox_client_getChatMap_49FF40 = nox_client_getChatMap_49FF40
+	legacy.Nox_xxx_mapSwitchLevel_4D12E0 = func(a1 bool) {
+		noxServer.nox_xxx_mapSwitchLevel_4D12E0(a1)
+	}
 }

@@ -4025,7 +4025,8 @@ void sub_510D10(int* a1, int a2, int a3, unsigned int a4) {
 }
 
 //----- (00510DC0) --------------------------------------------------------
-void nox_xxx_shopCancelSession_510DC0(uint32_t* a1) {
+void nox_xxx_shopCancelSession_510DC0(void* a1p) {
+	uint32_t* a1 = a1p;
 	if (a1[4]) {
 		nox_xxx_shopExit_50F4C0(a1);
 	} else {

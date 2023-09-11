@@ -56,6 +56,7 @@ int nox_xxx_loadGuides_427070();
 void sub_41CAC0(char* a1, void* a2);
 
 wchar2_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode);
+void nox_xxx_mapSwitchLevel_4D12E0_tileFree();
 */
 import "C"
 import (
@@ -91,6 +92,7 @@ var (
 	Sub_41CC00                          func(s string)
 	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
 	Nox_client_getChatMap_49FF40        func() string
+	Nox_xxx_mapSwitchLevel_4D12E0       func(a1 bool)
 )
 
 func init() {
@@ -294,11 +296,6 @@ func nox_game_switchStates_43C0A0() int {
 	return bool2int(GetClient().GameStateSwitch())
 }
 
-//export nox_xxx_wall_410160
-func nox_xxx_wall_410160() {
-	GetServer().S().Walls.Reset()
-}
-
 //export sub_4537F0
 func sub_4537F0() {
 	GetServer().Sub4537F0()
@@ -345,6 +342,11 @@ func sub_427980(r1, r2 *C.float4) int {
 //export nox_client_getChatMap_49FF40
 func nox_client_getChatMap_49FF40(pt *C.short) *C.char {
 	return internCStr(Nox_client_getChatMap_49FF40())
+}
+
+//export nox_xxx_mapSwitchLevel_4D12E0
+func nox_xxx_mapSwitchLevel_4D12E0(a1 int) {
+	Nox_xxx_mapSwitchLevel_4D12E0(a1 != 0)
 }
 
 func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
@@ -727,8 +729,8 @@ func Nox_xxx_mapFindPlayerStart_4F7AB0(a2 *server.Object) types.Pointf {
 func Sub_500510(a1 string) {
 	C.sub_500510(internCStr(a1))
 }
-func Nox_xxx_mapSwitchLevel_4D12E0(a1 int) {
-	C.nox_xxx_mapSwitchLevel_4D12E0(C.int(a1))
+func Nox_xxx_mapSwitchLevel_4D12E0_tileFree() {
+	C.nox_xxx_mapSwitchLevel_4D12E0_tileFree()
 }
 func Sub_57A1E0(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer, a4 int, a5 noxflags.GameFlag) {
 	C.sub_57A1E0((*C.int)(a1), internCStr(a2), (*C.int)(a3), C.char(a4), C.short(a5))

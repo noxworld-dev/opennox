@@ -24,7 +24,6 @@ import (
 var (
 	Nox_ai_debug_print                     func(str string)
 	Sub_545E60                             func(a1c *server.Object) int
-	Sub_50D1C0                             func()
 	Nox_xxx_gameSetAudioFadeoutMb_501AC0   func(v int)
 	Nox_xxx_monsterPopAction_50A160        func(a1 *server.Object) int
 	Nox_xxx_monsterPushAction_50A260_impl  func(u *server.Object, act int, file string, line int) unsafe.Pointer
@@ -110,9 +109,6 @@ func nox_ai_debug_print(str *C.char) { Nox_ai_debug_print(GoString(str)) }
 
 //export sub_545E60
 func sub_545E60(a1c *nox_object_t) int { return Sub_545E60(asObjectS(a1c)) }
-
-//export sub_50D1C0
-func sub_50D1C0() { Sub_50D1C0() }
 
 //export nox_xxx_gameSetAudioFadeoutMb_501AC0
 func nox_xxx_gameSetAudioFadeoutMb_501AC0(v int) { Nox_xxx_gameSetAudioFadeoutMb_501AC0(v) }

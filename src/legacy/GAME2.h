@@ -185,7 +185,6 @@ int sub_45A0A0(int a1);
 void nox_xxx_sprite_45A110_drawable(nox_drawable* a1);
 nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
 void nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr);
-void nox_xxx_spriteDeleteAll_45A5E0(int a1);
 void sub_45A670(unsigned int a1);
 nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
 nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1);

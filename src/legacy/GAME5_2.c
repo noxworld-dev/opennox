@@ -2737,8 +2737,6 @@ void nox_xxx_j_resetNPCRenderData_49A2E0(void) { nox_alloc_npcs(); }
 
 int nox_xxx_j_inventoryNameSignInit_467460(void) { return nox_xxx_inventoryNameSignInit_4671E0(); }
 
-void nox_alloc_npcs_2() { nox_alloc_npcs(); }
-
 int nullsub_8(int a1, int a2) { return 0; }
 void nullsub_28(uint32_t a1) {}
 void nullsub_30(uint32_t a1) {}

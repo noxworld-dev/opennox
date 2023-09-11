@@ -31,7 +31,6 @@ import (
 )
 
 var (
-	Sub_47A1F0                                 func()
 	Nox_xxx_unitMonsterInit_4F0040             func(obj *server.Object)
 	Nox_xxx_setNPCColor_4E4A90                 func(obj *server.Object, a2 byte, a3 *server.Color3)
 	Nox_xxx_checkSummonedCreaturesLimit_500D70 func(u *server.Object, ind int) bool
@@ -157,11 +156,6 @@ func nox_xxx_unitClearPendingMB_4DB030() {
 	GetServer().ObjectsClearPending()
 }
 
-//export nox_xxx_finalizeDeletingUnits_4E5EC0
-func nox_xxx_finalizeDeletingUnits_4E5EC0() {
-	GetServer().FinalizeDeletingObjects()
-}
-
 //export nox_xxx_getFirstUpdatableObject_4DA8A0
 func nox_xxx_getFirstUpdatableObject_4DA8A0() *nox_object_t {
 	return asObjectC(GetServer().S().Objs.UpdatableList)
@@ -237,11 +231,6 @@ func nox_get_and_zero_server_objects_4DA3C0() *nox_object_t {
 //export nox_set_server_objects_4DA3E0
 func nox_set_server_objects_4DA3E0(list *nox_object_t) {
 	GetServer().S().Objs.SetObjects(asObjectS(list))
-}
-
-//export sub_47A1F0
-func sub_47A1F0() {
-	Sub_47A1F0()
 }
 
 //export nox_xxx_unitMonsterInit_4F0040

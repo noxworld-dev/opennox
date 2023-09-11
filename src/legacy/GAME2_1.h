@@ -117,7 +117,6 @@ int sub_467C10();
 int nox_client_toggleInventory_467C60();
 int sub_467C80();
 int sub_467CD0();
-int nox_xxx_gameClearAll_467DF0(int a1);
 char* sub_469920(nox_point* a1);
 int sub_469B90(int* a1);
 char* nox_xxx_getAmbientColor_469BB0();

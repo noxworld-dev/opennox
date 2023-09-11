@@ -1143,7 +1143,8 @@ int nox_xxx_equipedItemByCode_4F7920(int a1, int a2) {
 }
 
 //----- (004F7950) --------------------------------------------------------
-void sub_4F7950(int a1) {
+void sub_4F7950(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;  // ebp
 	int v2;  // edi
 	int* v3; // esi
@@ -2023,7 +2024,8 @@ int nox_object_getGold_4FA6D0(nox_object_t* a1p) {
 }
 
 //----- (004FA700) --------------------------------------------------------
-int nox_xxx_playerBotCreate_4FA700(int a1) {
+int nox_xxx_playerBotCreate_4FA700(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result;       // eax
 	int v2;           // ebp
 	uint32_t* v3;     // esi

@@ -67,7 +67,6 @@ int sub_479C40(uint32_t* a1, int a2);
 int sub_479CB0(int a1, int a2);
 int sub_479D00();
 int sub_479D10();
-void sub_47A1F0();
 int sub_47A260();
 void nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y);
 void sub_47D370(int a1);

@@ -87,7 +87,6 @@ int nox_xxx_isUnit_4E5B50(nox_object_t* a1p);
 int sub_4E5B80(nox_object_t* a1p);
 void sub_4E5BF0(int a1);
 void nox_xxx_delayedDeleteObject_4E5CC0(nox_object_t* obj);
-void nox_xxx_finalizeDeletingUnits_4E5EC0();
 int sub_4E5F40(int a1);
 void sub_4E5FC0(int a1);
 void nox_xxx_playerCameraUnlock_4E6040(nox_object_t* player);

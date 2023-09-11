@@ -78,7 +78,7 @@ type PlayerUpdateData struct {
 	Field67          uint32         // 67, 268
 	Field68          uint32         // 68, 272
 	Player           *Player        // 69, 276
-	Field70          uint32         // 70, 280
+	Trade70          *TradeSession  // 70, 280
 	DialogWith       *Object        // 71, 284
 	CursorObj        *Object        // 72, 288
 	Field73          uint32         // 73, 292

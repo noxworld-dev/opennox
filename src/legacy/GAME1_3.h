@@ -101,7 +101,6 @@ int nox_xxx_quitDialogNo_445B30();
 void sub_445BA0();
 void sub_445C20();
 uint32_t* sub_445FF0();
-void sub_4460A0(int a1);
 void nox_client_quit_4460C0();
 int nox_xxx_serverIsClosing_446180();
 unsigned int nox_gui_xxx_check_446360();

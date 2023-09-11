@@ -881,7 +881,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		if mframe := binary.LittleEndian.Uint32(data[37:]); mframe > uint32(legacy.Get_dword_5d4594_1200804()) {
 			noxSetUseMapFrame(int(mframe))
-			legacy.Nox_xxx_gameClearAll_467DF0(1)
+			noxClient.nox_xxx_gameClearAll_467DF0(true)
 			c.srv.nox_xxx_gameSetMapPath_409D70(alloc.GoStringS(data[1:33]))
 			nox_xxx_mapSetCrcMB_409B10(binary.LittleEndian.Uint32(data[33:]))
 			if !noxflags.HasGame(noxflags.GameHost) {

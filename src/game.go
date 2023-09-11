@@ -1034,7 +1034,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	s.scriptOnEvent(script.EventMapExit)
 	v2 := s.getServerMap()
 	legacy.Sub_500510(v2)
-	legacy.Nox_xxx_mapSwitchLevel_4D12E0(1)
+	s.nox_xxx_mapSwitchLevel_4D12E0(true)
 	for _, obj := range s.GetObjects() {
 		obj.ObjFlags |= uint32(object.FlagMarked)
 	}

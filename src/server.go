@@ -774,7 +774,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.Players.ResetAll()
 	legacy.Sub_446490(1)
 	legacy.Sub_4259F0()
-	legacy.Nox_xxx_mapSwitchLevel_4D12E0(0)
+	s.nox_xxx_mapSwitchLevel_4D12E0(false)
 	s.nox_xxx_mapLoad_40A380()
 	legacy.Sub_4E4DE0()
 	s.Map.Debug.Reset()
@@ -830,7 +830,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		v12 := fmt.Sprintf("$%s.map", v13)
 		s.nox_xxx_gameSetMapPath_409D70(v12)
 		if legacy.Nox_xxx_mapGenStart_4D4320() == 0 {
-			legacy.Nox_xxx_mapSwitchLevel_4D12E0(1)
+			s.nox_xxx_mapSwitchLevel_4D12E0(true)
 			return errors.New("nox_xxx_mapGenStart_4D4320 failed")
 		}
 		sub_4D3C30()
@@ -1161,9 +1161,88 @@ func sub_4DB0A0() {
 	questPlayerSet = false
 }
 
-//export nox_xxx_mapSwitchLevel_4D12E0_end
-func nox_xxx_mapSwitchLevel_4D12E0_end() {
-	s := noxServer
+func sub_469B90(a1 [3]uint32) {
+	*memmap.PtrUint32(0x587000, 142296) = a1[0]
+	*memmap.PtrUint32(0x587000, 142300) = a1[1]
+	*memmap.PtrUint32(0x587000, 142304) = a1[2]
+}
+
+func (s *Server) nox_xxx_mapSwitchLevel_4D12E0(a1 bool) {
+	noxflags.SetGame(noxflags.GameFlag20)
+	defer noxflags.UnsetGame(noxflags.GameFlag20)
+
+	legacy.Sub_516F30()
+	legacy.Sub_421B10()
+	acl := [3]uint32{
+		25, 25, 25,
+	}
+	sub_469B90(acl)
+	if noxflags.HasGame(noxflags.GameClient) {
+		sub_4349C0(acl)
+	}
+	s.sub_511E60()
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		legacy.Sub_4FCEB0(a1)
+	} else {
+		legacy.Sub_4FCEB0(false)
+	}
+	legacy.Nox_xxx_mapWall_4FF790()
+	for _, pu := range s.Players.ListUnits() {
+		ud := pu.UpdateDataPlayer()
+		legacy.Sub_4F7950(pu)
+		ud.Field74 = 0
+		asObjectS(pu).Freeze(false)
+		ud.Field40_0 = 0
+		if ud.Trade70 != nil {
+			legacy.Nox_xxx_shopCancelSession_510DC0(ud.Trade70)
+		}
+		ud.Trade70 = nil
+		if pu.Update == legacy.Get_nox_xxx_updatePlayerMonsterBot_4FAB20() {
+			legacy.Nox_xxx_playerBotCreate_4FA700(pu)
+		}
+	}
+	for {
+		s.ObjectsAddPending()
+		legacy.Sub_4E5BF0(a1)
+		s.spells.duration.spellCastByPlayer()
+		s.FinalizeDeletingObjects()
+		if s.Objs.Pending == nil {
+			break
+		}
+	}
+	for obj := s.FirstServerObject(); obj != nil; obj = obj.Next() {
+		obj.Obj130 = nil
+		if legacy.Nox_xxx_isUnit_4E5B50(obj) != 0 && obj.Class().Has(object.ClassMonster) {
+			ud := obj.UpdateDataMonster()
+			ud.ScriptEnemySighted.Func = -1
+			ud.ScriptLookingForEnemy.Func = -1
+			ud.ScriptDeath.Func = -1
+			ud.ScriptChangeFocus.Func = -1
+			ud.ScriptIsHit.Func = -1
+			ud.ScriptRetreat.Func = -1
+			ud.ScriptCollision.Func = -1
+			ud.ScriptHearEnemy.Func = -1
+			ud.ScriptEndOfWaypoint.Func = -1
+			ud.ScriptLostEnemy.Func = -1
+			ud.Field98 = 0
+			ud.Field101 = 0
+		}
+	}
+	s.ai.Reset()
+	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
+		if legacy.Sub_4E5B80(obj) != 0 {
+			legacy.Sub_4E81D0(obj)
+		}
+	}
+	legacy.Sub_4ECFE0()
+	legacy.Sub_511E20()
+	s.Walls.Reset()
+	if a1 {
+		legacy.Nox_xxx_Fn_4FCAC0(a1, 1)
+	} else {
+		legacy.Nox_xxx_Fn_4FCAC0(false, 0)
+	}
+	legacy.Nox_xxx_mapSwitchLevel_4D12E0_tileFree()
 	legacy.Sub_410730()
 	legacy.Nox_xxx_wallBreackableListClear_410810()
 	legacy.Nox_xxx_waypointDeleteAll_579DD0()
@@ -1178,5 +1257,4 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 	legacy.Sub_50E360()
 	legacy.Sub_50D7E0()
 	legacy.Sub_4E4F80()
-	noxflags.UnsetGame(noxflags.GameFlag20)
 }

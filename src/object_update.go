@@ -42,7 +42,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 	if u.Flags().Has(object.FlagDestroyed) {
 		return
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field70 != 0 {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Trade70 != nil {
 		u.ForceVec = types.Pointf{}
 		u.VelVec = types.Pointf{}
 	}
@@ -517,7 +517,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 		switch it.Code {
 		case player.CCOrientation:
 			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
-				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
+				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Trade70 == nil) &&
 				!s.Abils.IsActive(u.SObj(), server.AbilityBerserk) {
 				u.Direction2 = server.Dir16(it.Uint16())
 			}
