@@ -99,6 +99,7 @@ func (s *Server) scriptTick() {
 			vm.OnFrame()
 		}()
 	}
+	s.callOnScriptFrame()
 }
 
 func (s *Server) vmsShutdown() {
@@ -180,6 +181,7 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 			vm.OnEvent(event)
 		}()
 	}
+	s.callOnMapEvent(event)
 
 	switch event {
 	case script.EventMapEntry:

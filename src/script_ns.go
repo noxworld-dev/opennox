@@ -1,6 +1,8 @@
 package opennox
 
 import (
+	"time"
+
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/common"
 
@@ -19,6 +21,20 @@ func (s noxScriptImpl) NoxScript() ns4.Implementation {
 
 type noxScriptNS struct {
 	s *Server
+}
+
+func (s noxScriptNS) Frame() int {
+	return int(s.s.Frame())
+}
+
+func (s noxScriptNS) FrameRate() int {
+	return int(s.s.TickRate())
+}
+
+func (s noxScriptNS) Time() time.Duration {
+	fps := s.s.TickRate()
+	frame := s.s.Frame()
+	return time.Duration(float64(frame) / float64(fps) * float64(time.Second))
 }
 
 func (s noxScriptNS) TimerByHandle(h ns4.TimerHandle) ns4.Timer {
