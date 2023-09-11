@@ -663,8 +663,8 @@ func (s *Server) nox_xxx_unitAroundPlayerFn_5193B0(it *Object, u *Object) {
 	}
 }
 
-func (s *Server) nox_xxx_servNewSession_4D1660() error {
-	gameLog.Println("nox_xxx_servNewSession_4D1660")
+func (s *Server) newSession() error {
+	gameLog.Println("new server session")
 	legacy.Sub_4D15C0()
 	legacy.Set_dword_5d4594_2649712(0x80000000)
 	s.Players.HostUnit = nil
