@@ -592,7 +592,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	case spell.SPELL_FIREBALL:
 		fnc = legacy.Nox_xxx_castFireball_52C790
 	case spell.SPELL_FIREWALK:
-		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, nil, legacy.Get_nox_xxx_firewalkTick_52ED40(), nil, 3*s.TickRate())
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, nil, legacy.Get_nox_xxx_firewalkTick_52ED40(), nil, s.SecToFrames(3))
 	case spell.SPELL_FIST:
 		fnc = legacy.Nox_xxx_castFist_52D3C0
 	case spell.SPELL_FORCE_OF_NATURE:

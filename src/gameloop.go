@@ -109,7 +109,7 @@ func mainloop_43E290(exitPath bool) {
 	mainloopStopError = false
 	mainloopContinue = true
 	continueMenuOrHost = true
-	*memmap.PtrUint32(0x5D4594, 816400) = 60 * noxServer.TickRate()
+	*memmap.PtrUint32(0x5D4594, 816400) = noxServer.SecToFrames(60)
 
 	// XXX
 	noxClient.mapsend.setDownloading(false)
@@ -605,7 +605,7 @@ func mainloopMaybeSwitchMapXXX() {
 	if noxServer.Frame() >= memmap.Uint32(0x5D4594, 816400) {
 		legacy.Sub_4161E0()
 		legacy.Sub_416690()
-		*memmap.PtrUint32(0x5D4594, 816400) = noxServer.Frame() + 60*noxServer.TickRate()
+		*memmap.PtrUint32(0x5D4594, 816400) = noxServer.Frame() + noxServer.SecToFrames(60)
 	}
 }
 

@@ -12,7 +12,7 @@ type spellBuffConf struct {
 	Dur            int    // static duration for the spell
 	DurOpt         string // load duration from this gamedata value
 	DurOptMulQuest string // use this multiplier in Quest mode
-	DurFPSMul      bool   // multiply base duration value by server FPS
+	DurInSec       bool   // base duration is in seconds, not frames
 	DurLevelMul    bool   // multiply base duration by spell level
 	Once           bool   // only allow this buff to be cast once per target
 	Defensive      bool
@@ -35,7 +35,7 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server
 	if opts.DurOptMulQuest != "" && noxflags.HasGame(noxflags.GameModeQuest) {
 		dur = int(float64(dur) * gamedataFloat(opts.DurOptMulQuest))
 	}
-	if opts.DurFPSMul {
+	if opts.DurInSec {
 		dur *= int(noxServer.TickRate())
 	}
 	if opts.DurLevelMul {

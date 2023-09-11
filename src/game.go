@@ -1262,7 +1262,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		sub_413980(30)
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		legacy.Sub_4D7140(s.Frame() + s.TickRate())
+		legacy.Sub_4D7140(s.Frame() + s.SecToFrames(1))
 	} else {
 		legacy.Sub_4D7140(0)
 	}
