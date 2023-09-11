@@ -417,7 +417,6 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 
 func (s *Server) maybeCallMapInit() {
 	if s.ShouldCallMapInit && s.Players.HasUnits() {
-		s.clearScriptTriggers()
 		s.scriptOnEvent(script.EventMapInitialize)
 		s.ShouldCallMapInit = false
 	}
@@ -875,6 +874,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		return err
 	}
 	s.noxScript.nox_xxx_scriptRunFirst_507290()
+	s.vmsInitMap()
 	cryptfile.Close()
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		s.nox_xxx_mapReadSetFlags_4CF990()
@@ -1180,7 +1180,7 @@ func (s *Server) nox_xxx_mapSwitchLevel_4D12E0(a1 bool) {
 	if noxflags.HasGame(noxflags.GameClient) {
 		sub_4349C0(acl)
 	}
-	s.sub_511E60()
+	s.scriptsReset()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		legacy.Sub_4FCEB0(a1)
 	} else {

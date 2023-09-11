@@ -252,8 +252,9 @@ func (s *noxScript) ReadScript(r io.Reader) error {
 	return nil
 }
 
-func (s *Server) sub_511E60() {
+func (s *Server) scriptsReset() {
 	s.vmsShutdown()
+	s.clearScriptTriggers()
 	if legacy.Get_dword_5d4594_2386836() == 0 {
 		legacy.Set_dword_5d4594_2386836(s.Types.IndByID("Mover"))
 	}

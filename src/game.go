@@ -1216,23 +1216,21 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	if sub_4DCC00() {
 		for _, m := range s.getPlayerUnits() {
 			for _, np := range m.GetOwned516() {
-				var np *Object = np
 				if legacy.Nox_xxx_isUnit_4E5B50(np.SObj()) != 0 {
-					n := np
-					ud := n.UpdateDataMonster()
+					ud := np.UpdateDataMonster()
 					v61 := s.RandomReachablePointAround(50.0, m.Pos())
-					n.SetPos(v61)
+					np.SetPos(v61)
 					ud.Field97 = 0
-					n.clearActionStack()
-					n.Obj130 = nil
+					np.clearActionStack()
+					np.Obj130 = nil
 					ud.CurrentEnemy = nil
 					ud.Field304 = 0
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
 					ud.Field0 = 0xDEADFACE
 					p := m.Pos()
-					n.monsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
-					if n.Class().Has(object.ClassMonster) && n.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC) {
-						nox_xxx_setNPCColor_4E4A90(n.SObj(), 0, &ud.Color[0])
+					np.monsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
+					if np.Class().Has(object.ClassMonster) && np.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC) {
+						nox_xxx_setNPCColor_4E4A90(np.SObj(), 0, &ud.Color[0])
 					}
 				} else if m.Class().Has(1) && legacy.Sub_4E5B80(m.SObj()) != 0 {
 					legacy.Sub_4E81D0(m.SObj())
