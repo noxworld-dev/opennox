@@ -822,8 +822,6 @@ extern uint32_t dword_5d4594_823776;
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
 
 extern unsigned int nox_xxx_wallSounds_2386840;
-
-extern unsigned int nox_xxx_resetMapInit_1569652;
 */
 import "C"
 import (
@@ -1474,9 +1472,6 @@ func Set_dword_5d4594_1599592(v unsafe.Pointer) {
 }
 func Get_dword_5d4594_1599592_ptr() *uint32 {
 	return (*uint32)(unsafe.Pointer(&C.dword_5d4594_2649712))
-}
-func Get_nox_xxx_resetMapInit_1569652() int {
-	return int(C.nox_xxx_resetMapInit_1569652)
 }
 func Get_dword_5d4594_1123524() *gui.Window {
 	return AsWindowP(C.dword_5d4594_1123524)
