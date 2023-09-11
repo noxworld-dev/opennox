@@ -90,7 +90,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.Cur == 0) && h.Max != 0 {
 				ok = false
 				ud.Field97 = 0
-				ud.Field101 = a.s.Frame() + a.s.TickRate()
+				ud.Field101 = a.s.Frame() + a.s.SecToFrames(1)
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if monsterIsInjured_5347A0(u) {
@@ -101,7 +101,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 					}
 				}
 			}
-			ok = a.s.Frame()-st.ArgU32(0) <= 10*a.s.TickRate()
+			ok = a.s.Frame()-st.ArgU32(0) <= a.s.SecToFrames(10)
 		case ai.DEPENDENCY_NOT_UNDER_ATTACK:
 			if !monsterIsInjured_5347A0(u) {
 				break
@@ -175,7 +175,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			}
 			ok = legacy.Nox_xxx_mobSearchEdible_544A00(u.SObj(), float32(r)) == 0
 		case ai.DEPENDENCY_NO_INTERESTING_SOUND:
-			if ud.Field97 != 0 && a.s.Frame()-ud.Field101 < 3*a.s.TickRate() {
+			if ud.Field97 != 0 && a.s.Frame()-ud.Field101 < a.s.SecToFrames(3) {
 				ok = false
 			}
 		case ai.DEPENDENCY_NO_NEW_ENEMY:
@@ -294,7 +294,7 @@ func sub_545E60(a1c *server.Object) int {
 
 	ud := u.UpdateDataMonster()
 	ts := u.Frame134
-	if ud.Field129 >= ts || s.Frame()-ts >= 10*s.TickRate() {
+	if ud.Field129 >= ts || s.Frame()-ts >= s.SecToFrames(10) {
 		return 0
 	}
 	ud.Field129 = ts
@@ -324,7 +324,7 @@ func sub_545E60(a1c *server.Object) int {
 		}
 	}
 	if !u.UpdateDataMonster().HasAction(ai.ACTION_ROAM) {
-		u.monsterPushAction(ai.DEPENDENCY_TIME, 5*s.TickRate())
+		u.monsterPushAction(ai.DEPENDENCY_TIME, s.SecToFrames(5))
 		u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
 		if nox_xxx_monsterCanAttackAtWill_534390(u) {
 			u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
@@ -675,7 +675,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 				ai.Log.Printf("%d: HP = %d/%d\n", s.Frame(), cur, max)
 			}
 		}
-		if v8 := ud.Field130; v8 != 0 && int(s.Frame()-v8) >= int(s.TickRate()) {
+		if v8 := ud.Field130; v8 != 0 && int(s.Frame()-v8) >= int(s.SecToFrames(1)) {
 			legacy.Nox_xxx_monsterPlayHurtSound_532800(u.SObj())
 			ud.Field130 = 0
 		}
@@ -683,7 +683,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	}
 
 	if h := u.HealthData; h != nil {
-		if !u.Flags().Has(object.FlagDead) && int(s.Frame()-u.Frame134) > int(s.TickRate()) {
+		if !u.Flags().Has(object.FlagDead) && int(s.Frame()-u.Frame134) > int(s.SecToFrames(1)) {
 			if h.Cur < h.Max && h.Max != 0 && s.Frame()%(180*s.TickRate()/uint32(h.Max)) == 0 {
 				legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
 			}
@@ -730,7 +730,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if s.IsMimic(u.SObj()) {
 		legacy.Nox_xxx_monsterMimicCheckMorph_534950(u.SObj())
 	}
-	if s.Frame()-u.Frame134 > 3*s.TickRate() {
+	if s.Frame()-u.Frame134 > s.SecToFrames(3) {
 		ud.StatusFlags &^= object.MonStatusOnFire
 	}
 }

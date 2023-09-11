@@ -139,6 +139,18 @@ func (s *Server) AsFrames(dt ns4.Duration) int {
 		return frames
 	}
 	dur, _ := dt.Time()
+	return s.DurToFrames(dur)
+}
+
+func (s *Server) SecToFrames(sec int) uint32 {
+	return s.TickRate() * uint32(sec)
+}
+
+func (s *Server) SecToFramesF(sec float64) uint32 {
+	return uint32(float64(s.TickRate()) * sec)
+}
+
+func (s *Server) DurToFrames(dur time.Duration) int {
 	return int(float64(s.TickRate()) * dur.Seconds())
 }
 

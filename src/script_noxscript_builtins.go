@@ -92,7 +92,7 @@ func nsSecondTimer(vm noxscript.VM) int {
 	s := vm.(*noxScript)
 	fnc := int(s.PopU32())
 	dt := s.PopU32()
-	s.PushU32(s.s.NewTimer(int(dt*s.s.TickRate()), fnc, 0))
+	s.PushU32(s.s.NewTimer(int(s.s.SecToFrames(int(dt))), fnc, 0))
 	return 0
 }
 
@@ -109,7 +109,7 @@ func nsSecondTimerArg(vm noxscript.VM) int {
 	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	dt := s.PopU32()
-	s.PushU32(s.s.NewTimer(int(dt*s.s.TickRate()), fnc, arg))
+	s.PushU32(s.s.NewTimer(int(s.s.SecToFrames(int(dt))), fnc, arg))
 	return 0
 }
 
