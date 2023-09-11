@@ -70,7 +70,6 @@ void sub_4FC300(nox_object_t* a1, int a2);
 int nox_xxx_probablyWarcryCheck_4FC3E0(nox_object_t* a1, int a2);
 void sub_4FC440(nox_object_t* a1, int a2);
 int nox_xxx_resetMapInit_4FC570(int a1);
-int sub_4FC580(int a1);
 void sub_4FC670(int a1);
 int sub_4FC960(int a1, char a2);
 int nox_xxx_Fn_4FCAC0(int a1, int a2);

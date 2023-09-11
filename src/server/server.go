@@ -76,6 +76,8 @@ type Server struct {
 	Teams      serverTeams
 	Abils      serverAbilities
 
+	ShouldCallMapEntry bool
+
 	port int
 	http httpService
 	nat  natService
