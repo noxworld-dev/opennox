@@ -416,10 +416,10 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 }
 
 func (s *Server) nox_xxx_mapInitialize_4FC590() {
-	if legacy.Get_nox_xxx_resetMapInit_1569652() != 0 && s.Players.HasUnits() {
+	if s.ShouldCallMapInit && s.Players.HasUnits() {
 		s.clearScriptTriggers()
 		s.scriptOnEvent(script.EventMapInitialize)
-		legacy.Nox_xxx_resetMapInit_4FC570(0)
+		s.ShouldCallMapInit = false
 	}
 }
 
@@ -894,7 +894,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 }
 
 func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
-	if legacy.Get_nox_xxx_resetMapInit_1569652() != 1 && !s.ShouldCallMapEntry {
+	if !s.ShouldCallMapInit && !s.ShouldCallMapEntry {
 		return
 	}
 	if len(s.getPlayerUnits()) == 0 {

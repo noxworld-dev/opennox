@@ -48,9 +48,6 @@ extern uint32_t dword_5d4594_1568024;
 extern uint32_t dword_5d4594_1548476;
 extern uint32_t dword_5d4594_1599656;
 
-
-uint32_t nox_xxx_resetMapInit_1569652 = 0;
-
 // monster AI?
 nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XXX_SIZE] = {0};
 

@@ -76,6 +76,7 @@ type Server struct {
 	Teams      serverTeams
 	Abils      serverAbilities
 
+	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool
 
 	port int
