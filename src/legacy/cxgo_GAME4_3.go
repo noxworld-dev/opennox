@@ -3025,149 +3025,113 @@ func nox_xxx_mobActionGetUp_534A90(obj *server.Object) {
 }
 func nox_xxx_mobRaiseZombie_534AB0(obj *server.Object) {
 	a1 := obj
-	var result uint32
-	result = uint32(nox_xxx_unitIsZombie_534A40(a1))
-	if result != 0 {
-		result = uint32(nox_xxx_mobActionGet_50A020(obj))
-		if result == 31 {
+	if nox_xxx_unitIsZombie_534A40(a1) != 0 {
+		if nox_xxx_mobActionGet_50A020(obj) == 31 {
 			nox_xxx_monsterPopAction_50A160(obj)
 			nox_xxx_monsterPushAction_50A260_impl(obj, 61)
 			nox_xxx_monsterPushAction_50A260_impl(obj, 35)
 			nox_xxx_aud_501960(469, obj, 0, 0)
 			nox_xxx_unitHPsetOnMax_4EE6F0(a1)
-			result = a1.ObjFlags & 0xFFFF7FA7
 			a1.ObjFlags &= 0xFFFF7FA7
 		}
 	}
 }
 func nox_xxx_damageToMap_534BC0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.Object) int32 {
 	var (
-		v5     *uint8
-		v6     uint8
-		v7     int32
-		v8     int32
-		result int32
-		v10    uint8
-		v11    int32
-		v12    int32
-		v13    int32
-		v14    *byte
-		v15    *uint32
-		v16    float32
-		v17    Point32
+		v6  uint8
+		v7  *server.Object
+		v8  int32
+		v10 uint8
+		v11 int32
+		v12 int32
+		v13 int32
+		v14 *byte
+		v16 float32
+		v17 Point32
 	)
-	v5 = (*uint8)(nox_server_getWallAtGrid_410580(a1, a2))
+	v5 := nox_server_getWallAtGrid_410580(a1, a2)
 	if *memmap.PtrUint32(0x5D4594, 2488556) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2488556) = uint32(nox_xxx_wallTileByName_410D60(internCStr("MagicWallSystemUseOnly")))
 	}
 	if v5 == nil {
 		return 0
 	}
-	v6 = *(*uint8)(unsafe.Add(unsafe.Pointer(v5), 4))
+	v6 = uint8(v5.Flags4)
 	if int32(v6)&0x20 != 0 {
 		return 0
 	}
 	if (int32(v6) & 8) == 0 {
-		sub_532FE0(nox_xxx_wallField36(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1)))), int32(uintptr(unsafe.Pointer(a5))))
+		sub_532FE0(nox_xxx_wallField36(int32(v5.Tile1)), int32(uintptr(unsafe.Pointer(a5))))
 		return 0
 	}
-	if !noxflags.HasGame(4096) || a5 == nil || uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1))) != *memmap.PtrUint32(0x5D4594, 2488556) || (func() int32 {
+	if !noxflags.HasGame(4096) || a5 == nil || uint32(v5.Tile1) != *memmap.PtrUint32(0x5D4594, 2488556) || (func() *server.Object {
 		v7 = nox_xxx_findParentChainPlayer_4EC580(a5)
 		return v7
-	}()) == 0 || (func() bool {
+	}()) == nil || (func() bool {
 		v8 = 99999999
-		return (int32(*(*uint8)(unsafe.Add(v7, 8))) & 4) == 0
+		return (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 8))) & 4) == 0
 	}()) {
 		v8 = a3
 	}
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 7)))-v8 > 0 {
-		v10 = uint8(int8(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 7))) - v8))
-		v11 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1)))
-		*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 7)) = v10
-		*(*float32)(unsafe.Pointer(&v17.X)) = float32(float64(a1)*23.0 + 11.5)
-		*(*float32)(unsafe.Pointer(&v17.Y)) = float32(float64(a2)*23.0 + 11.5)
-		v12 = int32(nox_xxx_wallGetBrickTypeMB_410E40(v11))
-		if v12 != 0 {
-			v13 = nox_common_randomInt_415FA0(0, v12-1)
-			v14 = nox_xxx_wallGetBrickObj_410E60(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1))), v13)
-			v15 = nox_xxx_newObjectByTypeID_4E3810(v14)
-			if v15 != nil {
-				nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v15)), nil, *(*float32)(unsafe.Pointer(&v17.X)), *(*float32)(unsafe.Pointer(&v17.Y)))
-				v16 = float32(nox_common_randomFloat_416030(10.0, 20.0))
-				nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Pointer(&v17)), (*server.Object)(unsafe.Pointer(v15)), v16)
-			}
-		}
-		sub_533010(nox_xxx_wallField36(int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v5), 1)))), int32(uintptr(unsafe.Pointer(a5))))
-		result = 0
-	} else {
+	if int32(v5.Health7)-v8 <= 0 {
 		v17.X = a1
 		v17.Y = a2
-		result = nox_xxx_wallPreDestroy_534DA0(&v17.X)
+		return nox_xxx_wallPreDestroy_534DA0(&v17)
 	}
-	return result
+	v10 = uint8(int8(int32(v5.Health7) - v8))
+	v11 = int32(v5.Tile1)
+	v5.Health7 = v10
+	*(*float32)(unsafe.Pointer(&v17.X)) = float32(float64(a1)*23.0 + 11.5)
+	*(*float32)(unsafe.Pointer(&v17.Y)) = float32(float64(a2)*23.0 + 11.5)
+	v12 = int32(nox_xxx_wallGetBrickTypeMB_410E40(v11))
+	if v12 != 0 {
+		v13 = nox_common_randomInt_415FA0(0, v12-1)
+		v14 = nox_xxx_wallGetBrickObj_410E60(int32(v5.Tile1), v13)
+		v15 := nox_xxx_newObjectByTypeID_4E3810(v14)
+		if v15 != nil {
+			nox_xxx_createAt_4DAA50(v15, nil, *(*float32)(unsafe.Pointer(&v17.X)), *(*float32)(unsafe.Pointer(&v17.Y)))
+			v16 = float32(nox_common_randomFloat_416030(10.0, 20.0))
+			nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Pointer(&v17)), v15, v16)
+		}
+	}
+	sub_533010(nox_xxx_wallField36(int32(v5.Tile1)), int32(uintptr(unsafe.Pointer(a5))))
+	return 0
 }
-func nox_xxx_wallPreDestroy_534DA0(a1 *int32) int32 {
-	var (
-		v2  int8
-		v3  float64
-		v4  *byte
-		v5  int32
-		v6  int32
-		v9  int32
-		v13 int32
-		v14 float32
-		v15 float32
-		v16 float32
-		v17 types.Pointf
-	)
-	v1 := nox_server_getWallAtGrid_410580(*a1, *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
+func nox_xxx_wallPreDestroy_534DA0(pt *Point32) int32 {
+	v1 := nox_server_getWallAtGrid_410580(pt.X, pt.Y)
 	if *memmap.PtrUint32(0x5D4594, 2488560) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2488560) = uint32(nox_xxx_wallTileByName_410D60(internCStr("MagicWallSystemUseOnly")))
 	}
 	if v1 == nil {
 		return 0
 	}
-	v2 = int8(v1.Flags4)
-	if (int32(v2)&8) == 0 || int32(v2)&0x20 != 0 {
+	if (v1.Flags4&0x8) == 0 || (v1.Flags4&0x20) != 0 {
 		return 0
 	}
-	v13 = int32(v1.Tile1)
-	v17.X = float32(float64(*a1)*23.0 + 11.5)
-	v3 = float64(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
 	v1.Health7 = 0
-	v17.Y = float32(v3*23.0 + 11.5)
-	v4 = nox_xxx_wallSoundByTile_410EA0(v13)
-	v5 = nox_xxx_utilFindSound_40AF50(v4)
-	nox_xxx_audCreate_501A30(v5, &v17, 0, 0)
-	nox_xxx_netSendPointFx_522FF0(-118, &v17)
-	if !noxflags.HasGame(4096) {
-		v6 = int32(nox_xxx_wallGetBrickTypeMB_410E40(int32(v1.Tile1)))
-		if v6 != 0 {
-			v7 := nox_common_randomInt_415FA0(0, v6-1)
-			v8 := nox_common_randomInt_415FA0(3, 6)
-			if v8 > 0 {
-				v9 = v8
-				for {
-					v10 := nox_xxx_wallGetBrickObj_410E60(int32(v1.Tile1), v7)
-					v11 := nox_xxx_newObjectByTypeID_4E3810(v10)
-					if v11 != nil {
-						v15 = float32(nox_common_randomFloat_416030(-2.0, 2.0) + float64(v17.Y))
-						v14 = float32(nox_common_randomFloat_416030(-2.0, 2.0) + float64(v17.X))
-						nox_xxx_createAt_4DAA50(v11, nil, v14, v15)
-						v16 = float32(nox_common_randomFloat_416030(4.0, 10.0))
-						nox_xxx_objectApplyForce_52DF80(&v17, v11, v16)
-					}
-					if func() int32 {
-						p := &v7
-						*p++
-						return *p
-					}() >= int32(nox_xxx_wallGetBrickTypeMB_410E40(int32(v1.Tile1))) {
-						v7 = 0
-					}
-					v9--
-					if v9 == 0 {
-						break
-					}
+	var pos types.Pointf
+	pos.X = float32(float64(pt.X)*23.0 + 11.5)
+	pos.Y = float32(float64(pt.Y)*23.0 + 11.5)
+	v4 := nox_xxx_wallSoundByTile_410EA0(int32(v1.Tile1))
+	v5 := nox_xxx_utilFindSound_40AF50(v4)
+	nox_xxx_audCreate_501A30(v5, &pos, 0, 0)
+	nox_xxx_netSendPointFx_522FF0(-118, &pos)
+	if !noxflags.HasGame(noxflags.GameModeQuest) {
+		if bricks := nox_xxx_wallGetBrickTypeMB_410E40(int32(v1.Tile1)); bricks != 0 {
+			brick := byte(nox_common_randomInt_415FA0(0, int32(bricks)-1))
+			cnt := int(nox_common_randomInt_415FA0(3, 6))
+			for i := 0; i < cnt; i++ {
+				typID := nox_xxx_wallGetBrickObj_410E60(int32(v1.Tile1), int32(brick))
+				if b := nox_xxx_newObjectByTypeID_4E3810(typID); b != nil {
+					y := float32(nox_common_randomFloat_416030(-2.0, 2.0) + float64(pos.Y))
+					x := float32(nox_common_randomFloat_416030(-2.0, 2.0) + float64(pos.X))
+					nox_xxx_createAt_4DAA50(b, nil, x, y)
+					force := float32(nox_common_randomFloat_416030(4.0, 10.0))
+					nox_xxx_objectApplyForce_52DF80(&pos, b, force)
+				}
+				brick++
+				if brick >= bricks {
+					brick = 0
 				}
 			}
 		}
@@ -3346,12 +3310,10 @@ func sub_536130(a1 *byte, a2 unsafe.Pointer) int {
 	*(*int32)(a2) = v3
 	if v3 == -1 {
 		return 0
-	} else {
-		v4 = libc.StrTok(nil, internCStr(" "))
-		*(*int32)(unsafe.Add(a2, 4*1)) = int32(libc.Atoi(libc.GoString(v4)))
-		return 1
 	}
-	return 0
+	v4 = libc.StrTok(nil, internCStr(" "))
+	*(*int32)(unsafe.Add(a2, 4*1)) = int32(libc.Atoi(libc.GoString(v4)))
+	return 1
 }
 func sub_536180(a1 *byte, a2 unsafe.Pointer) int {
 	result := libc.StrTok(a1, internCStr(" "))

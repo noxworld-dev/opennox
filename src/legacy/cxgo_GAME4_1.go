@@ -4461,109 +4461,81 @@ func sub_511E20() int32 {
 	}
 	return result
 }
-func nox_xxx_wallOpen_511F80(a1 int32) {
-	var (
-		v1 int32
-		v2 int32
-		v3 int8
-		v4 int32
-		v5 *byte
-		v6 int32
-		v7 types.Pointf
-		v8 int32
-	)
-	v1 = a1
-	if int32(*(*uint8)(unsafe.Add(a1, 4)))&4 != 0 {
-		v2 = int32(*(*uint32)(unsafe.Add(a1, 28)))
-		v3 = int8(*(*uint8)(unsafe.Add(v2, 21)))
+func Nox_xxx_wallOpen_511F80(a1 *server.Wall) {
+	v1 := a1
+	if int32(a1.Flags4)&4 != 0 {
+		v2 := a1.Data28
+		v3 := *(*uint8)(unsafe.Add(v2, 21))
 		if int32(v3) != 3 && int32(v3) != 4 {
-			v4 = int32(*(*uint32)(unsafe.Add(v2, 4)))
 			*(*uint8)(unsafe.Add(v2, 21)) = 4
-			v8 = int32(*(*uint32)(unsafe.Add(v2, 8)) * 23)
+			v4 := int32(*(*uint32)(unsafe.Add(v2, 4)))
+			v8 := int32(*(*uint32)(unsafe.Add(v2, 8)))
+			var v7 types.Pointf
 			v7.X = float32(float64(v4*23) + 11.5)
-			v7.Y = float32(float64(v8) + 11.5)
+			v7.Y = float32(float64(v8*23) + 11.5)
 			if nox_xxx_wallSounds_2386840 == 0 {
-				v5 = nox_xxx_wallFindOpenSound_410EE0(int32(*(*uint8)(unsafe.Add(v1, 1))))
-				v6 = nox_xxx_utilFindSound_40AF50(v5)
+				v5 := nox_xxx_wallFindOpenSound_410EE0(int32(v1.Tile1))
+				v6 := nox_xxx_utilFindSound_40AF50(v5)
 				nox_xxx_audCreate_501A30(v6, &v7, 0, 0)
 			}
 		}
 	}
 }
-func nox_xxx_wallClose_512070(a1 int32) {
-	var (
-		v1 int32
-		v2 int32
-		v3 int8
-		v4 int32
-		v5 *byte
-		v6 int32
-		v7 types.Pointf
-		v8 int32
-	)
-	v1 = a1
-	if int32(*(*uint8)(unsafe.Add(a1, 4)))&4 != 0 {
-		v2 = int32(*(*uint32)(unsafe.Add(a1, 28)))
-		v3 = int8(*(*uint8)(unsafe.Add(v2, 21)))
+func Nox_xxx_wallClose_512070(a1 *server.Wall) {
+	v1 := a1
+	if int32(a1.Flags4)&4 != 0 {
+		v2 := a1.Data28
+		v3 := *(*uint8)(unsafe.Add(v2, 21))
 		if int32(v3) != 1 && int32(v3) != 2 {
-			v4 = int32(*(*uint32)(unsafe.Add(v2, 4)))
 			*(*uint8)(unsafe.Add(v2, 21)) = 2
-			v8 = int32(*(*uint32)(unsafe.Add(v2, 8)) * 23)
+			v4 := int32(*(*uint32)(unsafe.Add(v2, 4)))
+			v8 := int32(*(*uint32)(unsafe.Add(v2, 8)))
+			var v7 types.Pointf
 			v7.X = float32(float64(v4*23) + 11.5)
-			v7.Y = float32(float64(v8) + 11.5)
+			v7.Y = float32(float64(v8*23) + 11.5)
 			if nox_xxx_wallSounds_2386840 == 0 {
-				v5 = nox_xxx_wallFindCloseSound_410F20(int32(*(*uint8)(unsafe.Add(v1, 1))))
-				v6 = nox_xxx_utilFindSound_40AF50(v5)
+				v5 := nox_xxx_wallFindCloseSound_410F20(int32(v1.Tile1))
+				v6 := nox_xxx_utilFindSound_40AF50(v5)
 				nox_xxx_audCreate_501A30(v6, &v7, 0, 0)
 			}
 		}
 	}
 }
-func nox_xxx_wallToggle_512160(a1 int32) {
-	var (
-		v1 int32
-		v2 int8
-		v3 int32
-		v4 *byte
-		v5 int32
-		v6 int32
-		v7 types.Pointf
-	)
-	if int32(*(*uint8)(unsafe.Add(a1, 4)))&4 != 0 {
-		v1 = int32(*(*uint32)(unsafe.Add(a1, 28)))
-		v2 = int8(*(*uint8)(unsafe.Add(v1, 21)))
-		if int32(v2) == 1 || int32(v2) == 2 {
-			v5 = int32(*(*uint32)(unsafe.Add(v1, 4)))
-			*(*uint8)(unsafe.Add(v1, 21)) = 4
-			v7.X = float32(float64(v5*23) + 11.5)
-			v7.Y = float32(float64(int32(*(*uint32)(unsafe.Add(v1, 8))*23)) + 11.5)
-			if nox_xxx_wallSounds_2386840 != 0 {
-				return
-			}
-			v4 = nox_xxx_wallFindOpenSound_410EE0(int32(*(*uint8)(unsafe.Add(a1, 1))))
-		} else {
-			v3 = int32(*(*uint32)(unsafe.Add(v1, 4)))
-			*(*uint8)(unsafe.Add(v1, 21)) = 2
-			v7.X = float32(float64(v3*23) + 11.5)
-			v7.Y = float32(float64(int32(*(*uint32)(unsafe.Add(v1, 8))*23)) + 11.5)
-			if nox_xxx_wallSounds_2386840 != 0 {
-				return
-			}
-			v4 = nox_xxx_wallFindCloseSound_410F20(int32(*(*uint8)(unsafe.Add(a1, 1))))
-		}
-		v6 = nox_xxx_utilFindSound_40AF50(v4)
-		nox_xxx_audCreate_501A30(v6, &v7, 0, 0)
+func Nox_xxx_wallToggle_512160(a1 *server.Wall) {
+	if int32(a1.Flags4)&4 == 0 {
+		return
 	}
-}
-func nox_xxx_wallPreDestroyByPtr_5122C0(a1 int32) int32 {
+	v1 := a1.Data28
+	v2 := *(*uint8)(unsafe.Add(v1, 21))
 	var (
-		v1 int32
-		v3 Point32
+		sndName *byte
+		pos     types.Pointf
 	)
-	v1 = int32(*(*uint8)(unsafe.Add(a1, 6)))
-	v3.X = int32(*(*uint8)(unsafe.Add(a1, 5)))
-	v3.Y = v1
-	return nox_xxx_wallPreDestroy_534DA0(&v3.X)
+	if v2 == 1 || v2 == 2 {
+		*(*uint8)(unsafe.Add(v1, 21)) = 4
+		pos.X = float32(float64(int32(*(*uint32)(unsafe.Add(v1, 4))*23)) + 11.5)
+		pos.Y = float32(float64(int32(*(*uint32)(unsafe.Add(v1, 8))*23)) + 11.5)
+		if nox_xxx_wallSounds_2386840 != 0 {
+			return
+		}
+		sndName = nox_xxx_wallFindOpenSound_410EE0(int32(a1.Tile1))
+	} else {
+		*(*uint8)(unsafe.Add(v1, 21)) = 2
+		pos.X = float32(float64(int32(*(*uint32)(unsafe.Add(v1, 4))*23)) + 11.5)
+		pos.Y = float32(float64(int32(*(*uint32)(unsafe.Add(v1, 8))*23)) + 11.5)
+		if nox_xxx_wallSounds_2386840 != 0 {
+			return
+		}
+		sndName = nox_xxx_wallFindCloseSound_410F20(int32(a1.Tile1))
+	}
+	v6 := nox_xxx_utilFindSound_40AF50(sndName)
+	nox_xxx_audCreate_501A30(v6, &pos, 0, 0)
+}
+func Nox_xxx_wallPreDestroyByPtr_5122C0(a1 *server.Wall) {
+	var v3 Point32
+	v3.X = int32(a1.X5)
+	v3.Y = int32(a1.Y6)
+	nox_xxx_wallPreDestroy_534DA0(&v3)
 }
 func nox_xxx_monsterLookAt_5125A0(obj *server.Object, a2 int32) *float32 {
 	var (

@@ -180,18 +180,18 @@ func (w *Wall) IsEnabled() bool {
 // Enable or disable (close or open) the wall.
 func (w *Wall) Enable(close bool) {
 	if close {
-		legacy.Nox_xxx_wallClose_512070(w.C())
+		legacy.Nox_xxx_wallClose_512070(w.S())
 	} else {
-		legacy.Nox_xxx_wallOpen_511F80(w.C())
+		legacy.Nox_xxx_wallOpen_511F80(w.S())
 	}
 }
 
 func (w *Wall) Toggle() bool {
-	legacy.Nox_xxx_wallToggle_512160(w.C())
+	legacy.Nox_xxx_wallToggle_512160(w.S())
 	return w.IsEnabled()
 }
 
 // Destroy (break) the wall.
 func (w *Wall) Destroy() {
-	legacy.Nox_xxx_wallPreDestroyByPtr_5122C0(w.C())
+	legacy.Nox_xxx_wallPreDestroyByPtr_5122C0(w.S())
 }

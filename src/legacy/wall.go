@@ -136,16 +136,3 @@ func nox_xxx_wallTileByName_410D60(name *byte) int32 {
 func sub_526CA0(a1 *byte) int {
 	return Sub_526CA0(GoString(a1))
 }
-
-func Nox_xxx_wallClose_512070(a1 unsafe.Pointer) {
-	nox_xxx_wallClose_512070(int32(uintptr(a1)))
-}
-func Nox_xxx_wallOpen_511F80(a1 unsafe.Pointer) {
-	nox_xxx_wallOpen_511F80(int32(uintptr(a1)))
-}
-func Nox_xxx_wallToggle_512160(a1 unsafe.Pointer) {
-	nox_xxx_wallToggle_512160(int32(uintptr(a1)))
-}
-func Nox_xxx_wallPreDestroyByPtr_5122C0(a1 unsafe.Pointer) {
-	nox_xxx_wallPreDestroyByPtr_5122C0(int32(uintptr(a1)))
-}
