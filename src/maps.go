@@ -107,7 +107,6 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 		}
 		return nil
 	}
-	s.vmsInitMap()
 	v10, _ := cf.ReadU16()
 	if int16(v10) < 1 {
 		return fmt.Errorf("unsupported version: %d", v10)
