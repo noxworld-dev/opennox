@@ -197,7 +197,9 @@ func init() {
 	legacy.Nox_script_getString_512E40 = nox_script_getString_512E40
 	legacy.Nox_script_callbackName = nox_script_callbackName
 	legacy.Nox_script_objCallbackName_508CB0 = nox_script_objCallbackName_508CB0
-	legacy.Sub_511E60 = sub_511E60
+	legacy.Sub_511E60 = func() {
+		noxServer.sub_511E60()
+	}
 	legacy.Nox_setImaginaryCaster = nox_setImaginaryCaster
 	legacy.Nox_script_readWriteZzz_541670 = nox_script_readWriteZzz_541670
 	legacy.Sub_4C26F0 = sub_4C26F0

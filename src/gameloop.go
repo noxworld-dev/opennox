@@ -215,7 +215,7 @@ func mainloopConnectOrHost() (again bool, _ error) {
 		return true, err
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		if err := noxServer.nox_xxx_servNewSession_4D1660(); err != nil {
+		if err := noxServer.newSession(); err != nil {
 			return false, err
 		}
 	}

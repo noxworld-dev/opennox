@@ -252,12 +252,13 @@ func (s *noxScript) ReadScript(r io.Reader) error {
 	return nil
 }
 
-func sub_511E60() {
+func (s *Server) sub_511E60() {
+	s.vmsShutdown()
 	if legacy.Get_dword_5d4594_2386836() == 0 {
-		legacy.Set_dword_5d4594_2386836(noxServer.Types.IndByID("Mover"))
+		legacy.Set_dword_5d4594_2386836(s.Types.IndByID("Mover"))
 	}
-	noxServer.noxScript.Reset()
-	noxServer.Activators.CancelAll()
+	s.noxScript.Reset()
+	s.Activators.CancelAll()
 	*memmap.PtrUint32(0x5D4594, 2386844) = 0
 	legacy.Set_dword_5d4594_2386848(0)
 	legacy.Set_dword_5d4594_2386852(0)
