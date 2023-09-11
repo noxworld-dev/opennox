@@ -745,9 +745,6 @@ func Nox_xxx_resetMapInit_4FC570(a1 int) {
 func Sub_4DBA30(a1 bool) {
 	C.sub_4DBA30(C.int(bool2int(a1)))
 }
-func Sub_4FC580(a1 int) {
-	C.sub_4FC580(C.int(a1))
-}
 func Nox_xxx_isUnit_4E5B50(a1 *server.Object) int {
 	return int(C.nox_xxx_isUnit_4E5B50(asObjectC(a1)))
 }

@@ -29,7 +29,6 @@
 #include "common__magic__speltree.h"
 
 extern uint32_t dword_5d4594_3835368;
-extern uint32_t dword_5d4594_1569656;
 extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
 extern uint32_t nox_server_resetQuestMinVotes_229988;
 extern uint32_t dword_5d4594_1599644;
@@ -2465,15 +2464,6 @@ int nox_xxx_resetMapInit_4FC570(int a1) {
 
 	result = a1;
 	nox_xxx_resetMapInit_1569652 = a1;
-	return result;
-}
-
-//----- (004FC580) --------------------------------------------------------
-int sub_4FC580(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1569656 = a1;
 	return result;
 }
 
