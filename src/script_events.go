@@ -10,6 +10,8 @@ type OnChatFunc func(t *server.Team, p *server.Player, obj *server.Object, msg s
 
 type scriptEvents struct {
 	byObject      map[uintptr]*objectHandlers
+	onFrame       []func()
+	onMapEvent    map[script.EventType][]func()
 	onPlayerJoin  []func(p script.Player)
 	onPlayerLeave []func(p script.Player)
 	onChat        []OnChatFunc
@@ -18,6 +20,8 @@ type scriptEvents struct {
 func (s *Server) clearScriptTriggers() {
 	scriptLog.Printf("reset all hooks")
 	s.scriptEvents.byObject = nil
+	s.scriptEvents.onFrame = nil
+	s.scriptEvents.onMapEvent = nil
 	s.scriptEvents.onPlayerJoin = nil
 	s.scriptEvents.onPlayerLeave = nil
 	s.scriptEvents.onChat = nil
@@ -33,6 +37,17 @@ func (s *Server) OnPlayerLeave(fnc func(p script.Player)) {
 
 func (s *Server) OnChat(fnc OnChatFunc) {
 	s.scriptEvents.onChat = append(s.scriptEvents.onChat, fnc)
+}
+
+func (s *Server) OnScriptFrame(fnc func()) {
+	s.scriptEvents.onFrame = append(s.scriptEvents.onFrame, fnc)
+}
+
+func (s *Server) OnMapEvent(typ script.EventType, fnc func()) {
+	if s.scriptEvents.onMapEvent == nil {
+		s.scriptEvents.onMapEvent = make(map[script.EventType][]func())
+	}
+	s.scriptEvents.onMapEvent[typ] = append(s.scriptEvents.onMapEvent[typ], fnc)
 }
 
 func (s *Server) callOnPlayerJoin(p *Player) {
@@ -57,6 +72,32 @@ func (s *Server) callOnChat(t *server.Team, p *server.Player, obj *server.Object
 		}
 	}
 	return msg
+}
+
+func (s *Server) callOnScriptFrame() {
+	for _, fnc := range s.scriptEvents.onFrame {
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					scriptLog.Printf("panic in OnFrame: %v", r)
+				}
+			}()
+			fnc()
+		}()
+	}
+}
+
+func (s *Server) callOnMapEvent(typ script.EventType) {
+	for _, fnc := range s.scriptEvents.onMapEvent[typ] {
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					scriptLog.Printf("panic in OnEvent(%s): %v", string(typ), r)
+				}
+			}()
+			fnc()
+		}()
+	}
 }
 
 func (obj *Object) getHandlers() *objectHandlers {
