@@ -29,6 +29,8 @@ type serverWalls struct {
 	freeList *Wall   // TODO: just allocate dynamically
 	byPos    []*Wall // index is wallArrayInd
 	indexY   []*Wall // TODO: replace the maps index with map[[2]int]*Wall when we can prove no access to NextByY24 is made
+
+	NoWallSounds bool
 }
 
 func (s *serverWalls) ResetDefs() {

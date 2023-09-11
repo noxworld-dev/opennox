@@ -62,7 +62,6 @@ extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XX
 extern uint32_t nox_tile_def_cnt;
 extern nox_tileDef_t nox_tile_defs_arr[176];
 
-uint32_t nox_xxx_wallSounds_2386840 = 0;
 void* dword_5d4594_2386176 = 0;
 void* nox_monsterBin_head_2386924 = 0;
 
@@ -4651,103 +4650,6 @@ int sub_511E20() {
 		}
 	}
 	return result;
-}
-
-//----- (00511F80) --------------------------------------------------------
-void nox_xxx_wallOpen_511F80(int a1) {
-	int v1;    // edx
-	int v2;    // ecx
-	char v3;   // al
-	int v4;    // eax
-	char* v5;  // eax
-	int v6;    // eax
-	float2 v7; // [esp+0h] [ebp-8h]
-	int v8;    // [esp+Ch] [ebp+4h]
-
-	v1 = a1;
-	if (*(uint8_t*)(a1 + 4) & 4) {
-		v2 = *(uint32_t*)(a1 + 28);
-		v3 = *(uint8_t*)(v2 + 21);
-		if (v3 != 3 && v3 != 4) {
-			v4 = *(uint32_t*)(v2 + 4);
-			*(uint8_t*)(v2 + 21) = 4;
-			v8 = 23 * *(uint32_t*)(v2 + 8);
-			v7.field_0 = (double)(23 * v4) + 11.5;
-			v7.field_4 = (double)v8 + 11.5;
-			if (!nox_xxx_wallSounds_2386840) {
-				v5 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned char*)(v1 + 1));
-				v6 = nox_xxx_utilFindSound_40AF50(v5);
-				nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
-			}
-		}
-	}
-}
-
-//----- (00512070) --------------------------------------------------------
-void nox_xxx_wallClose_512070(int a1) {
-	int v1;    // edx
-	int v2;    // ecx
-	char v3;   // al
-	int v4;    // eax
-	char* v5;  // eax
-	int v6;    // eax
-	float2 v7; // [esp+0h] [ebp-8h]
-	int v8;    // [esp+Ch] [ebp+4h]
-
-	v1 = a1;
-	if (*(uint8_t*)(a1 + 4) & 4) {
-		v2 = *(uint32_t*)(a1 + 28);
-		v3 = *(uint8_t*)(v2 + 21);
-		if (v3 != 1 && v3 != 2) {
-			v4 = *(uint32_t*)(v2 + 4);
-			*(uint8_t*)(v2 + 21) = 2;
-			v8 = 23 * *(uint32_t*)(v2 + 8);
-			v7.field_0 = (double)(23 * v4) + 11.5;
-			v7.field_4 = (double)v8 + 11.5;
-			if (!nox_xxx_wallSounds_2386840) {
-				v5 = nox_xxx_wallFindCloseSound_410F20(*(unsigned char*)(v1 + 1));
-				v6 = nox_xxx_utilFindSound_40AF50(v5);
-				nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
-			}
-		}
-	}
-}
-
-//----- (00512160) --------------------------------------------------------
-void nox_xxx_wallToggle_512160(int a1) {
-	int v1;    // eax
-	char v2;   // cl
-	int v3;    // ecx
-	char* v4;  // eax
-	int v5;    // ecx
-	int v6;    // eax
-	float2 v7; // [esp+4h] [ebp-8h]
-
-	if (*(uint8_t*)(a1 + 4) & 4) {
-		v1 = *(uint32_t*)(a1 + 28);
-		v2 = *(uint8_t*)(v1 + 21);
-		if (v2 == 1 || v2 == 2) {
-			v5 = *(uint32_t*)(v1 + 4);
-			*(uint8_t*)(v1 + 21) = 4;
-			v7.field_0 = (double)(23 * v5) + 11.5;
-			v7.field_4 = (double)(int)(23 * *(uint32_t*)(v1 + 8)) + 11.5;
-			if (nox_xxx_wallSounds_2386840) {
-				return;
-			}
-			v4 = nox_xxx_wallFindOpenSound_410EE0(*(unsigned char*)(a1 + 1));
-		} else {
-			v3 = *(uint32_t*)(v1 + 4);
-			*(uint8_t*)(v1 + 21) = 2;
-			v7.field_0 = (double)(23 * v3) + 11.5;
-			v7.field_4 = (double)(int)(23 * *(uint32_t*)(v1 + 8)) + 11.5;
-			if (nox_xxx_wallSounds_2386840) {
-				return;
-			}
-			v4 = nox_xxx_wallFindCloseSound_410F20(*(unsigned char*)(a1 + 1));
-		}
-		v6 = nox_xxx_utilFindSound_40AF50(v4);
-		nox_xxx_audCreate_501A30(v6, &v7, 0, 0);
-	}
 }
 
 //----- (005122C0) --------------------------------------------------------

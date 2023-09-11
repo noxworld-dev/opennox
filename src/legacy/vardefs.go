@@ -820,8 +820,6 @@ extern uint8_t** nox_pixbuffer_rows_3798784;
 extern uint32_t dword_5d4594_823776;
 
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
-
-extern unsigned int nox_xxx_wallSounds_2386840;
 */
 import "C"
 import (
@@ -1167,9 +1165,6 @@ func Nox_xxx_get_57AF20() int {
 	return int(C.dword_5d4594_2523804)
 }
 
-func Set_nox_xxx_wallSounds_2386840(v int) {
-	C.nox_xxx_wallSounds_2386840 = C.uint(v)
-}
 func Set_dword_5d4594_1599644(v int) {
 	C.dword_5d4594_1599644 = C.uint(v)
 }

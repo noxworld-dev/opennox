@@ -5,12 +5,11 @@ import (
 
 	"github.com/noxworld-dev/noxscript/ns/v4"
 
-	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func (s noxScriptNS) NoWallSound(noWallSound bool) {
-	legacy.Set_nox_xxx_wallSounds_2386840(bool2int(noWallSound))
+func (s noxScriptNS) NoWallSound(noSound bool) {
+	s.s.Walls.NoWallSounds = noSound
 }
 
 func (s noxScriptNS) WallByHandle(h ns.WallHandle) ns.WallObj {
