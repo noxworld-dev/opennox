@@ -46,7 +46,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 		u.ForceVec = types.Pointf{}
 		u.VelVec = types.Pointf{}
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && asPlayerS(ud.Player).Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > (30 * s.TickRate())) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && asPlayerS(ud.Player).Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > s.SecToFrames(30)) {
 		sub_4DCFB0(u.SObj())
 		return
 	}
@@ -778,7 +778,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	ud := unsafe.Slice((*uint32)(u.UpdateData), 7)
 	if memmap.Uint32(0x5D4594, 2488696) == 0 {
 		dt := gamedataFloat("PixieReturnTimeout")
-		*memmap.PtrUint32(0x5D4594, 2488696) = uint32(float64(s.TickRate()) * dt)
+		*memmap.PtrUint32(0x5D4594, 2488696) = s.SecToFramesF(dt)
 	}
 
 	if deadline := ud[5]; deadline != 0 && s.Frame() > deadline {

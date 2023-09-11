@@ -359,11 +359,11 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		return false
 	}
 	s.ObjectsAddPending()
-	if inputKeyCheckTimeoutLegacy(0x10, 10*s.TickRate()) {
+	if inputKeyCheckTimeoutLegacy(0x10, s.SecToFrames(10)) {
 		s.ProtectTypeCheck()
 		inputSetKeyTimeoutLegacy(16)
 	}
-	if noxflags.HasGame(noxflags.GameOnline) && false && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*s.TickRate()) {
+	if noxflags.HasGame(noxflags.GameOnline) && false && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, s.SecToFrames(60)) {
 		legacy.Nox_xxx_net_4263C0()
 		inputSetKeyTimeoutLegacy(15)
 	}
@@ -385,17 +385,17 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	if nox_xxx_serverIsClosing446180() {
 		sub_446190()
 	}
-	if sub_446030() && s.Frame() > 5*s.TickRate()+sub_446040() {
+	if sub_446030() && s.Frame() > s.SecToFrames(5)+sub_446040() {
 		sub_446380()
 	}
 	if !noxflags.HasGame(noxflags.GamePause) {
 		s.IncFrame()
 	}
 	legacy.Nox_xxx_protectData_56F5C0()
-	s.nox_server_xxxInitPlayerUnits_4FC6D0()
+	s.maybeInitPlayerUnits()
 	s.maybeRegisterGameOnline() // TODO: not exactly the right place
-	s.nox_xxx_mapInitialize_4FC590()
-	s.nox_xxx_mapEntry_4FC600()
+	s.maybeCallMapInit()
+	s.maybeCallMapEntry()
 	s.abilities.sub_4FC680()
 	if unit := s.GetPlayerByInd(common.MaxPlayers - 1).UnitC(); unit != nil {
 		legacy.Nox_xxx_playerSomeWallsUpdate_5003B0(unit.SObj())
@@ -415,7 +415,7 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 	}
 }
 
-func (s *Server) nox_xxx_mapInitialize_4FC590() {
+func (s *Server) maybeCallMapInit() {
 	if s.ShouldCallMapInit && s.Players.HasUnits() {
 		s.clearScriptTriggers()
 		s.scriptOnEvent(script.EventMapInitialize)
@@ -423,7 +423,7 @@ func (s *Server) nox_xxx_mapInitialize_4FC590() {
 	}
 }
 
-func (s *Server) nox_xxx_mapEntry_4FC600() {
+func (s *Server) maybeCallMapEntry() {
 	if s.ShouldCallMapEntry && s.Players.HasUnits() {
 		s.scriptOnEvent(script.EventMapEntry)
 		s.ShouldCallMapEntry = false
@@ -455,11 +455,11 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC() == nil {
 			continue
 		}
-		fr := 30
+		sec := 30
 		if pl.Field3680&0x10 != 0 {
-			fr = 90
+			sec = 90
 		}
-		if s.Frame()-uint32(pl.Frame3596) > uint32(fr)*s.TickRate() {
+		if s.Frame()-uint32(pl.Frame3596) > s.SecToFrames(sec) {
 			m := uint32(pl.NetCodeVal)
 			// TODO: passing Go pointer
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
@@ -509,7 +509,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 	pl := asPlayerS(ud.Player)
 	pind := pl.PlayerIndex()
 	netlist.InitByInd(pind)
-	if pind != common.MaxPlayers-1 && ((s.Frame()+uint32(pind))%(s.TickRate()*15)) == 0 {
+	if pind != common.MaxPlayers-1 && ((s.Frame()+uint32(pind))%s.SecToFrames(15)) == 0 {
 		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, u.SObj())
 	}
 	if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 || noxflags.HasGame(noxflags.GameFlag4) {
@@ -893,7 +893,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	return nil
 }
 
-func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
+func (s *Server) maybeInitPlayerUnits() {
 	if !s.ShouldCallMapInit && !s.ShouldCallMapEntry {
 		return
 	}
@@ -915,7 +915,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 				fname := datapath.Save("_temp_.dat")
 				for _, u := range s.getPlayerUnits() {
 					ud := u.UpdateDataPlayer()
-					plx := asPlayerS(ud.Player)
+					plx := ud.Player
 					pi := plx.PlayerIndex()
 					if plx.Field4792 == 1 && ud.Field138 == 0 && savePlayerData(fname, pi) {
 						v5 := sub_419EE0(pi)
