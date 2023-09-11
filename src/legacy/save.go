@@ -29,7 +29,6 @@ var (
 	Sub_4DCC90                           func() int
 	Sub_4DB1C0                           func() unsafe.Pointer
 	Sub_4DCBF0                           func(a1 int)
-	Sub_4460A0                           func(a1 int)
 	Nox_xxx_serverIsClosing_446180       func() int
 	Sub_4DCC10                           func(a1p *server.Object) int
 	Sub_4DCFB0                           func(a1p *server.Object)
@@ -65,9 +64,6 @@ func sub_4DB1C0() unsafe.Pointer { return Sub_4DB1C0() }
 
 //export sub_4DCBF0
 func sub_4DCBF0(a1 int) { Sub_4DCBF0(a1) }
-
-//export sub_4460A0
-func sub_4460A0(a1 int) { Sub_4460A0(a1) }
 
 //export nox_xxx_serverIsClosing_446180
 func nox_xxx_serverIsClosing_446180() int { return Nox_xxx_serverIsClosing_446180() }

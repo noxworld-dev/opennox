@@ -9,7 +9,6 @@ int nullsub_8(int a1, int a2);
 void nullsub_9(uint32_t a1);
 void nullsub_10(uint32_t a1);
 void nox_xxx_j_resetNPCRenderData_49A2E0(void);
-void nox_alloc_npcs_2();
 void nullsub_22();
 void nullsub_36();
 void nullsub_35(uint32_t a1, uint32_t a2);

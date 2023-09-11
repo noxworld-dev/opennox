@@ -344,10 +344,6 @@ type MonsterListen struct {
 	next  *MonsterListen // 5, 20
 }
 
-func sub_50D1C0() {
-	noxServer.ai.Reset()
-}
-
 func (a *aiData) Reset() {
 	a.allocListen.FreeAllObjects()
 	//allocMonsterListen.Class = nil

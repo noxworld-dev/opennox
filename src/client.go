@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
@@ -162,5 +163,45 @@ func (c *Client) sub4312C0() {
 		legacy.Sub_44D3A0()
 		legacy.Sub_43D440()
 		c.ticks805996 = ticks
+	}
+}
+
+func sub_4349C0(cl [3]uint32) {
+	noxClient.R2().Data().SetLightColor(noxrender.RGB{
+		R: int(cl[0]),
+		G: int(cl[1]),
+		B: int(cl[2]),
+	})
+}
+
+func (c *Client) nox_xxx_gameClearAll_467DF0(a1 bool) {
+	sub_4460A0(0)
+	if legacy.Sub_47A260() == 1 {
+		guiCloseNPCDialog()
+	}
+	if legacy.Sub_478030() == 1 {
+		legacy.Sub_479280()
+	}
+	legacy.Sub_45D810()
+	legacy.Nox_xxx_gameDeleteSpiningCrownSkull_4B8220()
+	legacy.Nox_alloc_npcs()
+	legacy.Sub_4573B0()
+	acl := [3]uint32{
+		25, 25, 25,
+	}
+	if !noxflags.HasGame(noxflags.GameHost) {
+		sub_469B90(acl)
+		sub_4349C0(acl)
+		legacy.Sub_421B10()
+	}
+	legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
+	legacy.Nox_xxx_sprite_49C4F0()
+	legacy.Sub_49A630()
+	legacy.Sub_49BBB0()
+	nox_client_resetScreenParticles_431510()
+	c.Nox_xxx_spriteDeleteAll_45A5E0(a1)
+	if !noxflags.HasGame(noxflags.GameHost) {
+		c.srv.Walls.Reset()
+		legacy.Nox_xxx_mapSwitchLevel_4D12E0_tileFree()
 	}
 }

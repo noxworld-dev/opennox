@@ -21,7 +21,6 @@ extern uint32_t dword_5d4594_1200804;
 extern uint32_t dword_5d4594_1200832;
 unsigned int nox_client_getServerAddr_43B300();
 void nox_xxx_playerInitColors_461460(nox_playerInfo* pl);
-int nox_xxx_gameClearAll_467DF0(int a1);
 int nox_client_getServerPort_43B320();
 int sub_419E60(nox_object_t* a1);
 int sub_457140(int a1, wchar2_t* a2);
@@ -274,9 +273,6 @@ func convSendToServerErr(n int, err error) int {
 }
 func Nox_xxx_netClientSend2_4E53C0(a1 int, a2 unsafe.Pointer, a3 int, a4 int, a5 int) {
 	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), a2, C.int(a3), C.int(a4), C.int(a5))
-}
-func Nox_xxx_gameClearAll_467DF0(a1 int) {
-	C.nox_xxx_gameClearAll_467DF0(C.int(a1))
 }
 func Sub_57B920(a1 unsafe.Pointer) {
 	C.sub_57B920(a1)

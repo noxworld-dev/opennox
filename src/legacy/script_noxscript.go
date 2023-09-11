@@ -24,7 +24,6 @@ var (
 	Nox_script_readWriteZzz_541670    func(cpath, cpath2, cdst *byte) int
 	Nox_script_callbackName           func(h int) string
 	Nox_script_objCallbackName_508CB0 func(obj *server.Object, event int) (string, bool)
-	Sub_511E60                        func()
 )
 
 type NoxScript interface {
@@ -117,11 +116,6 @@ func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int) *C.char {
 		return nil
 	}
 	return internCStr(s)
-}
-
-//export sub_511E60
-func sub_511E60() {
-	Sub_511E60()
 }
 
 func Sub_516570() {

@@ -3035,53 +3035,6 @@ int sub_467CD0() {
 	return v0;
 }
 
-//----- (00467DF0) --------------------------------------------------------
-int nox_xxx_gameClearAll_467DF0(int a1) {
-	int result; // eax
-	int v4[3];  // [esp+0h] [ebp-Ch]
-
-	v4[0] = 25;
-	v4[1] = 25;
-	v4[2] = 25;
-	sub_4460A0(0);
-	if (sub_47A260() == 1) {
-		sub_47A1F0();
-	}
-	if (sub_478030() == 1) {
-		sub_479280();
-	}
-	sub_45D810();
-	nox_xxx_gameDeleteSpiningCrownSkull_4B8220();
-	nox_alloc_npcs_2();
-	sub_4573B0();
-	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		sub_469B90(v4);
-		sub_4349C0(v4);
-		sub_421B10();
-	}
-	nox_xxx_spriteDeleteSomeList_49C4B0();
-	nox_xxx_sprite_49C4F0();
-	sub_49A630();
-	sub_49BBB0();
-	nox_client_resetScreenParticles_431510();
-	nox_xxx_spriteDeleteAll_45A5E0(a1);
-	result = nox_common_gameFlags_check_40A5C0(1);
-	if (!result) {
-		nox_xxx_wall_410160();
-		for (int i = 0; i < ptr_5D4594_2650668_cap * 44; i += 44) {
-			for (int j = 0; j < ptr_5D4594_2650668_cap; j++) {
-				*(uint8_t*)((uint32_t)(ptr_5D4594_2650668[j]) + i) = 0;
-				*(uint32_t*)((uint32_t)(ptr_5D4594_2650668[j]) + i + 4) = 255;
-				*(uint32_t*)((uint32_t)(ptr_5D4594_2650668[j]) + i + 24) = 255;
-				nox_xxx_tileFreeTile_422200((uint32_t)(ptr_5D4594_2650668[j]) + i + 4);
-				result = nox_xxx_tileFreeTile_422200((uint32_t)(ptr_5D4594_2650668[j]) + i + 24);
-			}
-		}
-	}
-	return result;
-}
-// 49A2F0: using guessed type int  nox_alloc_npcs_2(uint32_t, uint32_t, uint32_t);
-
 //----- (00469B90) --------------------------------------------------------
 int sub_469B90(int* a1) {
 	int result; // eax

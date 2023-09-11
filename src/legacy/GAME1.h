@@ -72,7 +72,6 @@ int nox_xxx_utilFindSound_40AF50(char* a1);
 char* nox_xxx_getSndName_40AF80(int a1);
 void sub_40E090();
 int nox_xxx_cliCanTalkMB_4100F0(short* a1);
-void nox_xxx_wall_410160();
 void* nox_xxx_wallCreateAt_410250(int a1, int a2);
 uint8_t* nox_xxx_doorAttachWall_410360(int a1, int a2, int a3);
 uint32_t* sub_410390(int a1, int a2, int a3);

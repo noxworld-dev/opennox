@@ -69,9 +69,8 @@ import (
 )
 
 var (
-	Nox_mapToGameFlags                func(v int) noxflags.GameFlag
-	Sub_40A1A0                        func() int
-	Nox_xxx_mapSwitchLevel_4D12E0_end func()
+	Nox_mapToGameFlags func(v int) noxflags.GameFlag
+	Sub_40A1A0         func() int
 )
 
 type Server interface {
@@ -519,10 +518,35 @@ func Sub_50D7E0() {
 func Sub_4E4F80() {
 	C.sub_4E4F80()
 }
-
-//export nox_xxx_mapSwitchLevel_4D12E0_end
-func nox_xxx_mapSwitchLevel_4D12E0_end() {
-	Nox_xxx_mapSwitchLevel_4D12E0_end()
+func Sub_4ECFE0() {
+	C.sub_4ECFE0()
+}
+func Sub_511E20() {
+	C.sub_511E20()
+}
+func Sub_516F30() {
+	C.sub_516F30()
+}
+func Nox_xxx_mapWall_4FF790() {
+	C.nox_xxx_mapWall_4FF790()
+}
+func Nox_xxx_playerBotCreate_4FA700(u *server.Object) {
+	C.nox_xxx_playerBotCreate_4FA700(asObjectC(u))
+}
+func Sub_4F7950(u *server.Object) {
+	C.sub_4F7950(asObjectC(u))
+}
+func Sub_4E5BF0(a1 bool) {
+	C.sub_4E5BF0(C.int(bool2int(a1)))
+}
+func Nox_xxx_Fn_4FCAC0(a1 bool, a2 int) {
+	C.nox_xxx_Fn_4FCAC0(C.int(bool2int(a1)), C.int(a2))
+}
+func Nox_xxx_shopCancelSession_510DC0(a1 *server.TradeSession) {
+	C.nox_xxx_shopCancelSession_510DC0(unsafe.Pointer(a1))
+}
+func Sub_4FCEB0(a1 bool) {
+	C.sub_4FCEB0(C.int(bool2int(a1)))
 }
 
 var _ = [1]struct{}{}[60-unsafe.Sizeof(server.TileDef{})]
