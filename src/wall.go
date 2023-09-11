@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -177,18 +178,82 @@ func (w *Wall) IsEnabled() bool {
 	return w.S().IsEnabled()
 }
 
+func (w *Wall) Server() *Server {
+	return noxServer // TODO
+}
+
+func (w *Wall) Def() *server.WallDef {
+	if w == nil {
+		return nil
+	}
+	return w.Server().Walls.DefByInd(int(w.Tile1))
+}
+
 // Enable or disable (close or open) the wall.
 func (w *Wall) Enable(close bool) {
 	if close {
-		legacy.Nox_xxx_wallClose_512070(w.C())
+		w.close()
 	} else {
-		legacy.Nox_xxx_wallOpen_511F80(w.C())
+		w.open()
 	}
 }
 
 func (w *Wall) Toggle() bool {
-	legacy.Nox_xxx_wallToggle_512160(w.C())
+	w.toggle()
 	return w.IsEnabled()
+}
+
+func (w *Wall) open() {
+	if w.Flags4&4 == 0 {
+		return
+	}
+	p := w.Data28
+	st := *(*uint8)(unsafe.Add(p, 21))
+	if st != 3 && st != 4 {
+		*(*uint8)(unsafe.Add(p, 21)) = 4
+		s := w.Server()
+		if s.Walls.NoWallSounds {
+			return
+		}
+		pos := types.Pointf{
+			X: float32(int32(*(*uint32)(unsafe.Add(p, 4)))*23) + 11.5,
+			Y: float32(int32(*(*uint32)(unsafe.Add(p, 8)))*23) + 11.5,
+		}
+		sndName := w.Def().OpenSound()
+		s.AudioEventPos(sound.ByName(sndName), pos, 0, 0)
+	}
+}
+
+func (w *Wall) close() {
+	if w.Flags4&4 == 0 {
+		return
+	}
+	p := w.Data28
+	st := *(*uint8)(unsafe.Add(p, 21))
+	if st != 1 && st != 2 {
+		*(*uint8)(unsafe.Add(p, 21)) = 2
+		s := w.Server()
+		if s.Walls.NoWallSounds {
+			return
+		}
+		pos := types.Pointf{
+			X: float32(int32(*(*uint32)(unsafe.Add(p, 4)))*23) + 11.5,
+			Y: float32(int32(*(*uint32)(unsafe.Add(p, 8)))*23) + 11.5,
+		}
+		sndName := w.Def().CloseSound()
+		s.AudioEventPos(sound.ByName(sndName), pos, 0, 0)
+	}
+}
+
+func (w *Wall) toggle() {
+	if w.Flags4&4 == 0 {
+		return
+	}
+	if w.IsEnabled() {
+		w.open()
+	} else {
+		w.close()
+	}
 }
 
 // Destroy (break) the wall.

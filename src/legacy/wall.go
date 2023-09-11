@@ -143,15 +143,6 @@ func sub_526CA0(a1 *C.char) int {
 	return Sub_526CA0(GoString(a1))
 }
 
-func Nox_xxx_wallClose_512070(a1 unsafe.Pointer) {
-	C.nox_xxx_wallClose_512070(C.int(uintptr(a1)))
-}
-func Nox_xxx_wallOpen_511F80(a1 unsafe.Pointer) {
-	C.nox_xxx_wallOpen_511F80(C.int(uintptr(a1)))
-}
-func Nox_xxx_wallToggle_512160(a1 unsafe.Pointer) {
-	C.nox_xxx_wallToggle_512160(C.int(uintptr(a1)))
-}
 func Nox_xxx_wallPreDestroyByPtr_5122C0(a1 unsafe.Pointer) {
 	C.nox_xxx_wallPreDestroyByPtr_5122C0(C.int(uintptr(a1)))
 }
