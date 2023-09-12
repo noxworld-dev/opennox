@@ -57,18 +57,18 @@ func nox_xxx_netWallCreate_4FFE80(a1 *server.DurSpell, a2 *server.Wall, a3 uint3
 	if p == nil {
 		return nil
 	}
-	p.Field8 = a2
+	p.Wall8 = a2
 	p.Field0 = a3
-	p.Field4 = a2.Dir0
-	p.Field12 = a4
-	p.Field13 = a5
-	p.Field14 = a6
-	p.Field20 = a1
-	p.Field16 = 0
-	p.Field28 = nil
-	p.Field24 = magicWallFirst
+	p.Dir4 = a2.Dir0
+	p.PrevTile12 = a4
+	p.PrevDir13 = a5
+	p.PrevField14 = a6
+	p.Spell20 = a1
+	p.PlayerBits16 = 0
+	p.Prev28 = nil
+	p.Next24 = magicWallFirst
 	if magicWallFirst != nil {
-		magicWallFirst.Field28 = p
+		magicWallFirst.Prev28 = p
 	}
 	magicWallFirst = p
 	return p
@@ -77,40 +77,40 @@ func nox_xxx_netWallCreate_4FFE80(a1 *server.DurSpell, a2 *server.Wall, a3 uint3
 func nox_xxx_wallDestroy_4FF870(mw *server.MagicWall) {
 	sub_4FF900(mw)
 	if noxflags.HasGame(1) {
-		if wl := mw.Field8; mw.Field0 != 0 {
-			wl.Tile1 = mw.Field12
-			mw.Field8.Dir0 = mw.Field13
-			mw.Field8.Field2 = mw.Field14
+		if wl := mw.Wall8; mw.Field0 != 0 {
+			wl.Tile1 = mw.PrevTile12
+			mw.Wall8.Dir0 = mw.PrevDir13
+			mw.Wall8.Field2 = mw.PrevField14
 		} else {
 			nox_xxx_mapDelWallAtPt_410430(int32(wl.X5), int32(wl.Y6))
 		}
 	}
-	if v2 := mw.Field28; v2 != nil {
-		v2.Field24 = mw.Field24
+	if v2 := mw.Prev28; v2 != nil {
+		v2.Next24 = mw.Next24
 	} else {
-		magicWallFirst = mw.Field24
+		magicWallFirst = mw.Next24
 	}
-	if v3 := mw.Field24; v3 != nil {
-		v3.Field28 = mw.Field28
+	if v3 := mw.Next24; v3 != nil {
+		v3.Prev28 = mw.Prev28
 	}
 	magicWallAlloc.FreeObjectFirst(mw)
 }
 
 func sub_4FF900(mw *server.MagicWall) {
 	for i := 0; i < 32; i++ {
-		if mw.Field16&(1<<i) != 0 {
+		if mw.PlayerBits16&(1<<i) != 0 {
 			if mw.Field0 != 0 {
-				wl := mw.Field8
+				wl := mw.Wall8
 				var buf [6]byte
 				buf[0] = byte(noxnet.MSG_CHANGE_OR_ADD_WALL_MAGIC)
-				buf[1] = mw.Field12
-				buf[2] = mw.Field13
-				buf[3] = mw.Field14
+				buf[1] = mw.PrevTile12
+				buf[2] = mw.PrevDir13
+				buf[3] = mw.PrevField14
 				buf[4] = wl.X5
 				buf[5] = wl.Y6
 				nox_xxx_netSendPacket0_4E5420(int32(i), unsafe.Pointer(&buf[0]), 6, nil, 1)
 			} else {
-				wl := mw.Field8
+				wl := mw.Wall8
 				var buf [3]byte
 				buf[0] = byte(noxnet.MSG_REMOVE_WALL_MAGIC)
 				buf[1] = wl.X5
@@ -122,24 +122,24 @@ func sub_4FF900(mw *server.MagicWall) {
 }
 
 func nox_xxx_mapSetWallInGlobalDir0pr1_5004D0() {
-	for it := magicWallFirst; it != nil; it = it.Field24 {
+	for it := magicWallFirst; it != nil; it = it.Next24 {
 		if it.Field0 == 1 {
-			it.Field8.Dir0 = it.Field13
+			it.Wall8.Dir0 = it.PrevDir13
 		}
 	}
 }
 
 func nox_xxx_map_5004F0() {
-	for it := magicWallFirst; it != nil; it = it.Field24 {
+	for it := magicWallFirst; it != nil; it = it.Next24 {
 		if it.Field0 == 1 {
-			it.Field8.Dir0 = it.Field4
+			it.Wall8.Dir0 = it.Dir4
 		}
 	}
 }
 
 func sub_4FF990(a1 int32) {
-	for it := magicWallFirst; it != nil; it = it.Field24 {
-		it.Field16 &= uint32(^a1)
+	for it := magicWallFirst; it != nil; it = it.Next24 {
+		it.PlayerBits16 &= uint32(^a1)
 	}
 }
 
@@ -149,8 +149,8 @@ func nox_xxx_wallDestroyMagicwallSysuse_4FF840(a1 *server.Wall) {
 		return
 	}
 	for {
-		next := it.Field24
-		if it.Field8 == a1 {
+		next := it.Next24
+		if it.Wall8 == a1 {
 			nox_xxx_wallDestroy_4FF870(it)
 		}
 		it = next
@@ -165,10 +165,10 @@ func sub_4FF7B0(pl *server.Player) {
 		return
 	}
 	bit := uint32(1) << pl.PlayerInd
-	for mw := magicWallFirst; mw != nil; mw = mw.Field24 {
+	for mw := magicWallFirst; mw != nil; mw = mw.Next24 {
 		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(pl), 3680)))&0x10 != 0 {
-			if mw.Field16&bit == 0 {
-				wl := mw.Field8
+			if mw.PlayerBits16&bit == 0 {
+				wl := mw.Wall8
 				var buf [6]byte
 				buf[0] = byte(noxnet.MSG_CHANGE_OR_ADD_WALL_MAGIC)
 				buf[1] = wl.Tile1
@@ -177,7 +177,7 @@ func sub_4FF7B0(pl *server.Player) {
 				buf[4] = wl.X5
 				buf[5] = wl.Y6
 				nox_xxx_netSendPacket0_4E5420(int32(pl.PlayerInd), unsafe.Pointer(&buf[0]), 6, nil, 1)
-				mw.Field16 |= bit
+				mw.PlayerBits16 |= bit
 			}
 		}
 	}
@@ -190,7 +190,7 @@ func sub_5000B0(a1p *server.Object) int32 {
 		return 0
 	}
 	cnt := byte(0)
-	for it := magicWallFirst; it != nil; it = it.Field24 {
+	for it := magicWallFirst; it != nil; it = it.Next24 {
 		cnt++
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&cnt, 1)
@@ -223,17 +223,17 @@ func sub_5000B0(a1p *server.Object) int32 {
 		}
 		return 1
 	} else {
-		for it := magicWallFirst; it != nil; it = it.Field24 {
+		for it := magicWallFirst; it != nil; it = it.Next24 {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&it.Field0)), 4)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field8.X5, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field8.Y6, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field12, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field13, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field14, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field8.Tile1, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field8.Field2, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field8.Dir0, 1)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Field8.Health7, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Wall8.X5, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Wall8.Y6, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.PrevTile12, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.PrevDir13, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.PrevField14, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Wall8.Tile1, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Wall8.Field2, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Wall8.Dir0, 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&it.Wall8.Health7, 1)
 		}
 		return 1
 	}
@@ -570,8 +570,8 @@ func Nox_xxx_spellWallUpdate_500070(sp *server.DurSpell) int32 {
 func Nox_xxx_spellWallDestroy_500080(sp *server.DurSpell) {
 	var next *server.MagicWall
 	for it := magicWallFirst; it != nil; it = next {
-		next = it.Field24
-		if it.Field20 == sp {
+		next = it.Next24
+		if it.Spell20 == sp {
 			nox_xxx_wallDestroy_4FF870(it)
 		}
 	}
