@@ -703,63 +703,6 @@ func sub_4F1F20() {
 		}
 	}
 }
-func nox_xxx_playerSomeWallsUpdate_5003B0(obj *server.Object) int32 {
-	var (
-		a1  = obj
-		v1p unsafe.Pointer
-	)
-	if dword_5d4594_1569756 <= 0 {
-		v1p = unsafe.Pointer(a1)
-	} else {
-		sp := nox_xxx_spellCastedFirst_4FE930()
-		if sp == nil {
-			return 0
-		}
-		for sp.Spell != 132 || sp.Caster16 != a1 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(sp), 88)))&1 != 0 {
-			next := nox_xxx_spellCastedNext_4FE940(sp)
-			sp = next
-			if next == nil {
-				return 0
-			}
-		}
-		if sp == nil {
-			return 0
-		}
-		sp.Create.Set(Nox_xxx_spellWallCreate_4FFA90)
-		sp.Update.Set(Nox_xxx_spellWallUpdate_500070)
-		sp.Destroy.Set(Nox_xxx_spellWallDestroy_500080)
-		sp.Target48 = nil
-		v1p = unsafe.Pointer(sp)
-	}
-	v3 := int32(0)
-	if dword_5d4594_1569756 > 0 {
-		v4 := (*uint8)(memmap.PtrOff(0x5D4594, 1569764))
-		for {
-			wl := nox_server_getWallAtGrid_410580(int32(*v4), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 1))))
-			if wl != nil {
-				wl.Dir0 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 13))
-			} else {
-				wl = nox_xxx_wallCreateAt_410250(int32(*v4), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 1))))
-				if wl == nil {
-					return 0
-				}
-				wl.Flags4 |= 8
-				wl.Tile1 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 11))
-				wl.Field2 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 12))
-				wl.Dir0 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 13))
-				wl.Health7 = *(*uint8)(unsafe.Add(unsafe.Pointer(v4), 14))
-			}
-			nox_xxx_netWallCreate_4FFE80(v1p, wl, int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 9))), int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 10))))
-			v3++
-			v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 16))
-			if v3 >= dword_5d4594_1569756 {
-				break
-			}
-		}
-	}
-	dword_5d4594_1569756 = 0
-	return 1
-}
 func sub_500510(a1 *byte) {
 	if a1 != nil {
 		libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, 1570008)), a1)

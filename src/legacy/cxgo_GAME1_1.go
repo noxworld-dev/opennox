@@ -1921,7 +1921,7 @@ func sub_41C080(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		return result
 	}
 	if int32(int16(a1)) < 3 || (func() int32 {
-		result = sub_5000B0(unsafe.Pointer(v1))
+		result = sub_5000B0(v1)
 		return result
 	}()) != 0 {
 		if int32(int16(a1)) >= 4 {

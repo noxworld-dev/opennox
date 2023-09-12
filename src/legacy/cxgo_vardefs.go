@@ -88,7 +88,6 @@ var dword_5d4594_814984 unsafe.Pointer
 var dword_5d4594_1320964 uint32
 var dword_5d4594_1049800_inventory_click_row_index int32
 var dword_5d4594_1309720 *gui.Window
-var dword_5d4594_1569752 *magicWall
 var dword_5d4594_1046936 int32
 var nox_xxx_lightningTarget_5d4594_2487908 uint32
 var dword_5d4594_1107036 uint32
@@ -180,7 +179,6 @@ var dword_5d4594_1098624 uint32
 var Dword_5d4594_1569672 *MagicEntityClass
 var dword_5d4594_1197316 *gui.Window
 var dword_5d4594_2386576 *server.Object
-var dword_5d4594_1569756 int32
 var dword_5d4594_1320968 *client.Drawable
 var dword_5d4594_2488604 *server.Object
 var qword_581450_9544 float64 = 0.5
@@ -339,7 +337,6 @@ var dword_5d4594_1567928 *server.Object
 var dword_5d4594_1307720 int32
 var dword_5d4594_2386920 uint32
 var dword_5d4594_2386564 uint32
-var nox_alloc_magicWall_1569748 alloc.ClassT[magicWall]
 var dword_5d4594_1550912 *mapgenRoom
 var dword_5d4594_1062488 uint32
 var dword_5d4594_1047936 int32
