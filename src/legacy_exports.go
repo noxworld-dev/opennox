@@ -253,11 +253,8 @@ func init() {
 	legacy.Nox_xxx_playerObserveClear_4DDEF0 = nox_xxx_playerObserveClear_4DDEF0
 	legacy.Nox_client_onClassStats = nox_client_onClassStats
 	legacy.Nox_xxx_playerObserveMonster_4DDE80 = nox_xxx_playerObserveMonster_4DDE80
-	legacy.Nox_ai_debug_print = nox_ai_debug_print
 	legacy.Sub_545E60 = sub_545E60
 	legacy.Nox_xxx_gameSetAudioFadeoutMb_501AC0 = nox_xxx_gameSetAudioFadeoutMb_501AC0
-	legacy.Nox_xxx_monsterPopAction_50A160 = nox_xxx_monsterPopAction_50A160
-	legacy.Nox_xxx_monsterPushAction_50A260_impl = nox_xxx_monsterPushAction_50A260_impl
 	legacy.Nox_xxx_unitUpdateMonster_50A5C0 = nox_xxx_unitUpdateMonster_50A5C0
 	legacy.Sub_446380 = sub_446380
 	legacy.Nox_xxx_cliUpdateCameraPos_435600 = nox_xxx_cliUpdateCameraPos_435600
@@ -330,7 +327,6 @@ func init() {
 		return noxServer.spells.walls.LoadOrSave(cryptfile.Global(), a1)
 	}
 	legacy.Nox_xxx_monsterCreateFn_54C480 = nox_xxx_monsterCreateFn_54C480
-	legacy.Nox_xxx_monsterClearActionStack_50A3A0 = nox_xxx_monsterClearActionStack_50A3A0
 	legacy.Sub_4A1A40 = sub_4A1A40
 	legacy.Nox_client_getChatMap_49FF40 = nox_client_getChatMap_49FF40
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0 = func(a1 bool) {

@@ -636,6 +636,13 @@ func (obj *Object) EqualID(id2 string) bool {
 	return id == id2 || strings.HasSuffix(id, ":"+id2)
 }
 
+func (obj *Object) ObjectTypeC() *ObjectType {
+	if obj == nil {
+		return nil
+	}
+	return obj.Server().Types.ByInd(int(obj.TypeInd))
+}
+
 func (obj *Object) FindByID(id string) *Object {
 	if obj.EqualID(id) {
 		return obj
@@ -706,8 +713,16 @@ func (obj *Object) stringAs(typ string) string {
 	} else if ind := obj.Ind(); ind != 0 {
 		oid = fmt.Sprintf("#%d", ind)
 	}
-	if t := obj.TypeInd; t != 0 {
-		return fmt.Sprintf("%s(%s,T:%q)", typ, oid, t)
+	if obj.Class().Has(object.ClassPlayer) {
+		// TODO: better way
+		for _, p := range obj.Server().Players.List() {
+			if u := p.PlayerUnit; u != nil && u == obj.SObj() {
+				oid += fmt.Sprintf(",P:%q", p.Name())
+			}
+		}
+	}
+	if t := obj.ObjectTypeC(); t != nil {
+		return fmt.Sprintf("%s(%s,T:%q)", typ, oid, t.ID())
 	}
 	return fmt.Sprintf("%s(%s)", typ, oid)
 }
@@ -1314,6 +1329,18 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 		return false
 	}
 	return true
+}
+
+func (obj *Object) CanSeeS(obj2 *Object) bool {
+	if obj == nil || obj2 == nil {
+		return false
+	}
+	p1 := obj.Pos()
+	p2 := obj2.Pos()
+	if abs(p1.X-p2.X) > 512.0 || abs(p1.Y-p2.Y) > 512.0 {
+		return false
+	}
+	return obj.Server().CanInteract(obj, obj2, 0)
 }
 
 func (s *Server) ItemsApplyUpdateEffect(obj *Object) {

@@ -11,7 +11,7 @@ import (
 )
 
 func sub_4E4C90(obj *server.Object, a2 uint) bool {
-	s := asObjectS(obj).getServer()
+	s := obj.Server()
 	typ := s.Types.ByInd(int(obj.TypeInd))
 	switch a2 {
 	case 0x1:

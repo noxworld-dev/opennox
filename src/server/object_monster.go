@@ -19,6 +19,10 @@ type AIStackItem struct {
 	Field5 uint32     // 5, 20
 }
 
+func (s *AIStackItem) C() unsafe.Pointer {
+	return unsafe.Pointer(s)
+}
+
 func (s *AIStackItem) Type() ai.ActionType {
 	if s == nil {
 		return ai.ACTION_INVALID

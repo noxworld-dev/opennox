@@ -36,15 +36,10 @@ type aiData struct {
 	listenHead         *MonsterListen
 	soundMuteThreshold int
 	lastHeard          types.Pointf
-	stackChanged       bool
 }
 
 func (a *aiData) Init(s *Server) {
 	a.s = s
-}
-
-func nox_ai_debug_print(str string) {
-	ai.Log.Printf("%s", str)
 }
 
 func aiStackArgObj(s *server.AIStackItem, i int) *Object {
@@ -55,10 +50,8 @@ func aiStackArgUnit(s *server.AIStackItem, i int) *Object {
 	return asObject(unsafe.Pointer(s.Args[i]))
 }
 
-func (obj *Object) maybePrintAIStack(event string) {
-	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		obj.UpdateDataMonster().PrintAIStack(obj.getServer().Frame(), event)
-	}
+func (obj *Object) MaybePrintAIStack(event string) {
+	obj.SObj().MaybePrintAIStack(event)
 }
 
 func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
@@ -93,7 +86,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ud.Field101 = a.s.Frame() + a.s.SecToFrames(1)
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
-			if monsterIsInjured_5347A0(u) {
+			if u.MonsterIsInjured() {
 				if u.Obj130 != nil {
 					v26 := getOwnerUnit(u.Obj130)
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
@@ -103,7 +96,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			}
 			ok = a.s.Frame()-st.ArgU32(0) <= a.s.SecToFrames(10)
 		case ai.DEPENDENCY_NOT_UNDER_ATTACK:
-			if !monsterIsInjured_5347A0(u) {
+			if !u.MonsterIsInjured() {
 				break
 			}
 			if u.Obj130 == nil {
@@ -271,15 +264,15 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			ai.Log.Printf("%d: %s DEPENDENCY '%s'@%d failed, popping:\n", a.s.Frame(), u.String(), typ.String(), i)
 		}
 		for {
-			u.monsterPopAction()
+			u.MonsterPopAction()
 			if int(ud.AIStackInd) < i || aiStackEmptyAndIdle(u.SObj()) {
 				break
 			}
 		}
 		stack = ud.GetAIStack()
 		i = len(stack) - 1
-		u.monsterActionReset()
-		u.maybePrintAIStack("procDep")
+		u.MonsterActionReset()
+		u.MaybePrintAIStack("procDep")
 	}
 }
 
@@ -290,7 +283,7 @@ func aiStackEmptyAndIdle(u *server.Object) bool {
 
 func sub_545E60(a1c *server.Object) int {
 	u := asObjectS(a1c)
-	s := u.getServer()
+	s := u.Server()
 
 	ud := u.UpdateDataMonster()
 	ts := u.Frame134
@@ -308,28 +301,28 @@ func sub_545E60(a1c *server.Object) int {
 				if !canInteract {
 					return 0
 				}
-				u.monsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.Field328)*1.05)
+				u.MonsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.Field328)*1.05)
 			} else {
-				u.monsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, s.Frame())
+				u.MonsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, s.Frame())
 			}
-			u.monsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), s.Frame())
+			u.MonsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), s.Frame())
 			if !canInteract {
-				u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
+				u.MonsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
 				if nox_xxx_monsterCanAttackAtWill_534390(u) {
-					u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
+					u.MonsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
 				}
-				u.monsterPushAction(ai.ACTION_MOVE_TO, obj4.Pos(), 0)
+				u.MonsterPushAction(ai.ACTION_MOVE_TO, obj4.Pos(), 0)
 			}
 			return 1
 		}
 	}
 	if !u.UpdateDataMonster().HasAction(ai.ACTION_ROAM) {
-		u.monsterPushAction(ai.DEPENDENCY_TIME, s.SecToFrames(5))
-		u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
+		u.MonsterPushAction(ai.DEPENDENCY_TIME, s.SecToFrames(5))
+		u.MonsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
 		if nox_xxx_monsterCanAttackAtWill_534390(u) {
-			u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
+			u.MonsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
 		}
-		u.monsterPushAction(ai.ACTION_ROAM, 0, 0, -128)
+		u.MonsterPushAction(ai.ACTION_ROAM, 0, 0, -128)
 	}
 	return 0
 }
@@ -550,93 +543,16 @@ func (a *aiData) lastHeardEvent() types.Pointf {
 	return a.lastHeard
 }
 
-func nox_xxx_monsterPopAction_50A160(a1 *server.Object) int {
-	return asObjectS(a1).monsterPopAction()
+func (obj *Object) MonsterPopAction() int { // nox_xxx_monsterPopAction_50A160
+	return obj.SObj().MonsterPopAction()
 }
 
-func (obj *Object) monsterPopAction() int {
-	s := obj.getServer()
-	ud := obj.UpdateDataMonster()
-	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		typ := ud.AIStackHead().Type()
-		ai.Log.Printf("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", s.Frame(), obj, obj.NetCode, typ, ud.AIStackInd)
-	}
-	if cur := ud.AIStackHead(); cur != nil {
-		if act := cur.Type(); !act.IsCondition() && cur.Field5 != 0 {
-			if a := server.GetAIAction(act); a != nil {
-				a.End(obj.SObj())
-			}
-		}
-	}
-	s.ai.stackChanged = true
-	// pop action
-	ud.AIStackInd--
-	// pop related conditions (if any)
-	for ; ud.AIStackInd >= 0; ud.AIStackInd-- {
-		cur := &ud.AIStack[ud.AIStackInd]
-		if !cur.Type().IsCondition() {
-			break
-		}
-	}
-	obj.monsterActionReset()
-	si := ud.AIStackInd
-	if si < 0 {
-		ud.AIStackInd = 0
-		ud.AIStack[0].Action = 0
-	}
-	return int(si)
+func (obj *Object) MonsterPushActionImpl(act ai.ActionType, file string, line int) *server.AIStackItem { // nox_xxx_monsterPushAction_50A260_impl
+	return obj.SObj().MonsterPushActionImpl(act, file, line)
 }
 
-func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int, file string, line int) unsafe.Pointer {
-	return unsafe.Pointer(asObjectS(u).monsterPushActionImpl(ai.ActionType(act), file, line))
-}
-
-func (obj *Object) monsterPushActionImpl(act ai.ActionType, file string, line int) *server.AIStackItem {
-	if !obj.Class().Has(object.ClassMonster) {
-		return nil
-	}
-	s := obj.getServer()
-	ud := obj.UpdateDataMonster()
-	if int(ud.AIStackInd) >= len(ud.AIStack)-1 {
-		return nil
-	}
-	if cur := ud.AIStackHead(); cur == nil {
-		ud.AIStackInd = -1
-	} else {
-		if ud.AIStackHead().Type() == ai.ACTION_DEAD && act != ai.ACTION_DYING {
-			return nil
-		}
-		if curAct := cur.Type(); curAct == ai.ACTION_IDLE && ud.AIStackInd == 0 {
-			ud.AIStackInd = -1
-		} else if !curAct.IsCondition() && cur.Field5 != 0 {
-			if a := server.GetAIAction(curAct); a != nil {
-				a.Cancel(obj.SObj())
-			}
-		}
-	}
-	ud.AIStackInd++
-	ud.AIStack[ud.AIStackInd] = server.AIStackItem{
-		Action: uint32(act), Field5: 0,
-	}
-	obj.monsterActionReset()
-	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		ai.Log.Printf("%d: PushActionStack( %s(#%d), %s ), result: (%s:%d)\n", s.Frame(), obj, obj.NetCode, act, file, line)
-	}
-	s.ai.stackChanged = true
-	return ud.AIStackHead()
-}
-
-func (obj *Object) monsterActionReset() {
-	ud := obj.UpdateDataMonster()
-	ud.Field2 = 0
-	ud.Field67 = 0
-	ud.Field74 = 0
-	ud.Field91 = 0
-	ud.Field120_1 = 0
-	ud.Field120_2 = 0
-	ud.Field120_3 = 0
-	ud.Field124 = noxServer.Frame()
-	ud.Field137 = noxServer.Frame()
+func (obj *Object) MonsterActionReset() {
+	obj.SObj().MonsterActionReset()
 }
 
 func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
@@ -656,7 +572,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if !u.Flags().Has(object.FlagEnabled) {
 		return
 	}
-	s.ai.stackChanged = false
+	s.AI.StackChanged = false
 	if ud.MonsterDef == nil {
 		return
 	}
@@ -689,33 +605,33 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	legacy.Nox_xxx_monsterMainAIFn_547210(u.SObj())
 	s.ai.nox_xxx_mobActionDependency(u)
 	legacy.Nox_xxx_updateNPCAnimData_50A850(u.SObj())
-	changedPrev := s.ai.stackChanged
+	changedPrev := s.AI.StackChanged
 	curAct := ai.ACTION_IDLE
 	for {
 		cur := ud.AIStackHead()
 		act := cur.Type()
 		curAct = act
 		if cur.Field5 != 0 {
-			if !s.ai.stackChanged {
-				s.ai.stackChanged = changedPrev
+			if !s.AI.StackChanged {
+				s.AI.StackChanged = changedPrev
 			}
 			break
 		}
 		cur.Field5 = 1
-		s.ai.stackChanged = false
+		s.AI.StackChanged = false
 		if a := server.GetAIAction(act); a != nil {
 			a.Start(u.SObj())
 		}
-		if !s.ai.stackChanged {
-			s.ai.stackChanged = changedPrev
+		if !s.AI.StackChanged {
+			s.AI.StackChanged = changedPrev
 			break
 		}
 	}
 	if a := server.GetAIAction(curAct); a != nil {
 		a.Update(u.SObj())
 	}
-	if s.ai.stackChanged {
-		u.maybePrintAIStack("stack changed")
+	if s.AI.StackChanged {
+		u.MaybePrintAIStack("stack changed")
 	}
 	ud.StatusFlags &^= object.MonStatusInjured
 	legacy.Nox_xxx_monsterPolygonEnter_421FF0(u.SObj())
@@ -758,7 +674,7 @@ func (AIActionIdle) Type() ai.ActionType {
 }
 func (AIActionIdle) Start(obj *server.Object) {
 	u := asObjectS(obj)
-	s := u.getServer()
+	s := u.Server()
 	ud := u.UpdateDataMonster()
 	cur := ud.AIStackHead()
 	cur.Args[0] = uintptr(s.Frame())
@@ -779,18 +695,6 @@ func sub_534440(u *Object) bool {
 	return u.UpdateDataMonster().Aggression < 0.079999998
 }
 
-func monsterIsInjured_5347A0(u *Object) bool {
-	return u.UpdateDataMonster().StatusFlags.Has(object.MonStatusInjured)
-}
-
-func nox_xxx_monsterLookAtDamager_5466B0(u *Object) bool {
-	if !monsterIsInjured_5347A0(u) {
-		return false
-	}
-	u.monsterPushAction(ai.ACTION_FACE_LOCATION, u.Pos132)
-	return true
-}
-
 func (AIActionIdle) Update(obj *server.Object) {
 	u := asObjectS(obj)
 	s := u.getServer()
@@ -800,7 +704,7 @@ func (AIActionIdle) Update(obj *server.Object) {
 	}
 	if u.Flags().Has(object.FlagEnabled) && (sub_5343C0(u) || nox_xxx_monsterCanAttackAtWill_534390(u)) {
 		if enemy := asObjectS(ud.CurrentEnemy); enemy != nil {
-			u.monsterPushAction(ai.ACTION_FIGHT, enemy.Pos(), s.Frame())
+			u.MonsterPushAction(ai.ACTION_FIGHT, enemy.Pos(), s.Frame())
 			return
 		}
 		if legacy.Sub_5466F0(u.SObj()) != 0 {
@@ -813,7 +717,7 @@ func (AIActionIdle) Update(obj *server.Object) {
 				legacy.Nox_xxx_mobHealSomeone_5411A0(u.SObj())
 			}
 		} else {
-			if nox_xxx_monsterLookAtDamager_5466B0(u) {
+			if u.MonsterLookAtDamager() {
 				return
 			}
 			if s.Frame()-ud.Field137 <= s.TickRate()/2 || u.PosVec == u.PrevPos {
@@ -821,7 +725,7 @@ func (AIActionIdle) Update(obj *server.Object) {
 					legacy.Nox_xxx_mobHealSomeone_5411A0(u.SObj())
 				}
 			} else {
-				u.monsterPushAction(ai.ACTION_FACE_LOCATION, u.PrevPos)
+				u.MonsterPushAction(ai.ACTION_FACE_LOCATION, u.PrevPos)
 			}
 		}
 	}
@@ -837,16 +741,16 @@ func (AIActionWait) End(_ *server.Object)   {}
 
 func (AIActionWait) Update(obj *server.Object) {
 	u := asObjectS(obj)
-	s := u.getServer()
+	s := u.Server()
 	ud := u.UpdateDataMonster()
 	if s.Frame() >= ud.AIStackHead().ArgU32(0) {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 	}
 }
 
 func (AIActionWait) Cancel(obj *server.Object) {
 	u := asObjectS(obj)
-	u.monsterPopAction()
+	u.MonsterPopAction()
 }
 
 type AIActionWaitRel struct{}
@@ -859,16 +763,16 @@ func (AIActionWaitRel) End(_ *server.Object)   {}
 
 func (AIActionWaitRel) Update(obj *server.Object) {
 	u := asObjectS(obj)
-	s := u.getServer()
+	s := u.Server()
 	ud := u.UpdateDataMonster()
 	if s.Frame() > ud.Field137+ud.AIStackHead().ArgU32(0) {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 	}
 }
 
 func (AIActionWaitRel) Cancel(obj *server.Object) {
 	u := asObjectS(obj)
-	u.monsterPopAction()
+	u.MonsterPopAction()
 }
 
 type AIActionCastOnObj struct{}
@@ -884,12 +788,12 @@ func (AIActionCastOnObj) Update(obj *server.Object) {
 	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	if ud.AIStackHead().ArgU32(2) == 0 {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 		return
 	}
 	legacy.Nox_xxx_mobActionCast_5413B0(u.SObj(), 0)
 	if ud.Field120_3 != 0 {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 	}
 }
 
@@ -907,7 +811,7 @@ func (AIActionCastOnPos) Update(obj *server.Object) {
 	ud := u.UpdateDataMonster()
 	legacy.Nox_xxx_mobActionCast_5413B0(u.SObj(), 1)
 	if ud.Field120_3 != 0 {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 	}
 }
 
@@ -925,7 +829,7 @@ func (AIActionCastDuration) Update(obj *server.Object) {
 	if ud.AIStackHead().ArgU32(2) != 0 {
 		legacy.Nox_xxx_mobActionCast_5413B0(u.SObj(), 0)
 	} else {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 	}
 }
 
@@ -941,13 +845,13 @@ func (AIActionCastDuration) Cancel(obj *server.Object) {
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	s.spells.duration.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
-	u.monsterPopAction()
+	u.MonsterPopAction()
 }
 
 func monsterCancelDurSpell(u *server.Object, exp spell.ID) {
 	if act := u.UpdateDataMonster().AIStackHead(); act.Type() == ai.ACTION_CAST_DURATION_SPELL {
 		if spell.ID(act.ArgU32(0)) == exp {
-			asObjectS(u).monsterPopAction()
+			asObjectS(u).MonsterPopAction()
 		}
 	}
 }
@@ -966,7 +870,7 @@ func (AIActionMorphIntoChest) Update(obj *server.Object) {
 	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 		ud.StatusFlags |= object.MonStatusMorphed
 		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
 	}
@@ -986,7 +890,7 @@ func (AIActionMorphBackToSelf) Update(obj *server.Object) {
 	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
-		u.monsterPopAction()
+		u.MonsterPopAction()
 		ud.StatusFlags &^= object.MonStatusMorphed
 		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
 	}
@@ -1006,6 +910,6 @@ func (AIActionReport) Update(obj *server.Object) {
 	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
-	u.monsterPopAction()
+	u.MonsterPopAction()
 	s.noxScript.ScriptCallback(&ud.ScriptEndOfWaypoint, nil, u.SObj(), server.NoxEventMonsterDone)
 }

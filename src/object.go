@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"encoding/binary"
-	"fmt"
 	"math"
 	"unsafe"
 
@@ -30,10 +29,6 @@ func asObject(p unsafe.Pointer) *Object {
 }
 func asObjectS(p *server.Object) *Object {
 	return (*Object)(unsafe.Pointer(p))
-}
-
-func nox_xxx_monsterClearActionStack_50A3A0(u *server.Object) {
-	asObjectS(u).clearActionStack()
 }
 
 func (s *Server) GetObjects() []*Object {
@@ -377,7 +372,7 @@ var _ = [1]struct{}{}[776-unsafe.Sizeof(Object{})]
 type Object server.Object
 
 func (obj *Object) getServer() *Server {
-	return noxServer // TODO: attach to object
+	return noxServer // TODO: allow exchanging *server.Server for *opennox.Server
 }
 
 func (obj *Object) Server() *server.Server {
@@ -412,32 +407,8 @@ func (obj *Object) ObjScriptID() int {
 	return obj.SObj().ObjScriptID()
 }
 
-func (obj *Object) stringAs(typ string) string {
-	if obj == nil {
-		return fmt.Sprintf("%s(<nil>)", typ)
-	}
-	var oid string
-	if id := obj.ID(); id != "" {
-		oid = fmt.Sprintf("%q", id)
-	} else if ind := obj.Ind(); ind != 0 {
-		oid = fmt.Sprintf("#%d", ind)
-	}
-	if obj.Class().Has(object.ClassPlayer) {
-		// TODO: better way
-		for _, p := range obj.getServer().GetPlayers() {
-			if u := p.UnitC(); u != nil && u.SObj() == obj.SObj() {
-				oid += fmt.Sprintf(",P:%q", p.Name())
-			}
-		}
-	}
-	if t := obj.ObjectTypeC(); t != nil {
-		return fmt.Sprintf("%s(%s,T:%q)", typ, oid, t.ID())
-	}
-	return fmt.Sprintf("%s(%s)", typ, oid)
-}
-
 func (obj *Object) String() string {
-	return obj.stringAs("Object")
+	return obj.SObj().String()
 }
 
 func (obj *Object) GetObject() script.Object {
@@ -722,10 +693,7 @@ func (obj *Object) DisableEnchant(v server.EnchantID) { // nox_xxx_spellBuffOff_
 }
 
 func (obj *Object) ObjectTypeC() *server.ObjectType {
-	if obj == nil {
-		return nil
-	}
-	return obj.getServer().Types.ByInd(int(obj.TypeInd))
+	return obj.SObj().ObjectTypeC()
 }
 
 func (obj *Object) ObjectType() script.ObjectType {
@@ -954,7 +922,7 @@ func (obj *Object) CallDrop(it server.Obj, pos types.Pointf) int {
 }
 
 func (obj *Object) forceDrop(item *Object) int { // nox_xxx_invForceDropItem_4ED930
-	s := obj.getServer()
+	s := obj.Server()
 	pos := s.RandomReachablePointAround(50.0, obj.Pos())
 	return obj.forceDropAt(item, pos)
 }
@@ -971,15 +939,7 @@ func (obj *Object) CanSee(obj2 script.Object) bool {
 }
 
 func (obj *Object) CanSeeS(obj2 *Object) bool {
-	if obj == nil || obj2 == nil {
-		return false
-	}
-	p1 := obj.Pos()
-	p2 := obj2.Pos()
-	if abs(p1.X-p2.X) > 512.0 || abs(p1.Y-p2.Y) > 512.0 {
-		return false
-	}
-	return obj.getServer().CanInteract(obj.SObj(), obj2.SObj(), 0)
+	return obj.SObj().CanSeeS(obj2.SObj())
 }
 
 func (obj *Object) FindOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
@@ -1131,28 +1091,16 @@ func (obj *Object) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
 	return s.castSpell(sp, lvl, obj.SObj(), sa)
 }
 
-func (obj *Object) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
-	if obj.Class().Has(object.ClassMonster) {
-		for !aiStackEmptyAndIdle(obj.SObj()) {
-			obj.monsterPopAction()
-		}
-	}
+func (obj *Object) ClearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
+	obj.SObj().ClearActionStack()
 }
 
-func (obj *Object) monsterPushAction(act ai.ActionType, args ...any) *server.AIStackItem { // aka nox_xxx_monsterPushAction_50A260
-	st := obj.monsterPushActionImpl(act, "go", 0)
-	st.SetArgs(args...)
-	return st
+func (obj *Object) MonsterPushAction(act ai.ActionType, args ...any) *server.AIStackItem { // aka nox_xxx_monsterPushAction_50A260
+	return obj.SObj().MonsterPushAction(act, args...)
 }
 
-func (obj *Object) monsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_monsterIsActionScheduled_50A090
-	stack := obj.UpdateDataMonster().GetAIStack()
-	for _, v := range stack {
-		if v.Type() == act {
-			return true
-		}
-	}
-	return false
+func (obj *Object) MonsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_monsterIsActionScheduled_50A090
+	return obj.SObj().MonsterActionIsScheduled(act)
 }
 
 func (obj *Object) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
@@ -1298,4 +1246,12 @@ func sub_4E4500(obj *server.Object, val1 uint32, val2 uint32, set bool) {
 			obj.Field140[i] &^= val1
 		}
 	}
+}
+
+func (obj *Object) MonsterIsInjured() bool {
+	return obj.SObj().MonsterIsInjured()
+}
+
+func (obj *Object) MonsterLookAtDamager() bool {
+	return obj.SObj().MonsterLookAtDamager()
 }
