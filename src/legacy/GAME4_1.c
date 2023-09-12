@@ -442,26 +442,6 @@ int nox_xxx_monsterIsActionScheduled_50A090(int a1, int a2) {
 	return 1;
 }
 
-//----- (0050A0D0) --------------------------------------------------------
-int nox_xxx_checkMobAction_50A0D0(nox_object_t* a1p, int a2) {
-	int a1 = a1p;
-	int v2;      // ecx
-	int v3;      // eax
-	uint32_t* i; // ecx
-
-	v2 = *(uint32_t*)(a1 + 748);
-	v3 = *(char*)(v2 + 544);
-	if (v3 < 0) {
-		return 0;
-	}
-	for (i = (uint32_t*)(v2 + 8 * (3 * v3 + 69)); *i != a2; i -= 6) {
-		if (--v3 < 0) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
 //----- (0050A360) --------------------------------------------------------
 int* nox_xxx_monsterAction_50A360(int a1, int a2) {
 	int* result; // eax

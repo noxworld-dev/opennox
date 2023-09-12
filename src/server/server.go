@@ -78,6 +78,7 @@ type Server struct {
 	Abils      serverAbilities
 	Spells     serverSpells
 	Balance    serverBalance
+	AI         serverAI
 
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool

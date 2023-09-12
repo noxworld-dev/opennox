@@ -22,13 +22,9 @@ import (
 )
 
 var (
-	Nox_ai_debug_print                     func(str string)
-	Sub_545E60                             func(a1c *server.Object) int
-	Nox_xxx_gameSetAudioFadeoutMb_501AC0   func(v int)
-	Nox_xxx_monsterPopAction_50A160        func(a1 *server.Object) int
-	Nox_xxx_monsterPushAction_50A260_impl  func(u *server.Object, act int, file string, line int) unsafe.Pointer
-	Nox_xxx_unitUpdateMonster_50A5C0       func(a1 *server.Object)
-	Nox_xxx_monsterClearActionStack_50A3A0 func(a1 *server.Object)
+	Sub_545E60                           func(a1c *server.Object) int
+	Nox_xxx_gameSetAudioFadeoutMb_501AC0 func(v int)
+	Nox_xxx_unitUpdateMonster_50A5C0     func(a1 *server.Object)
 )
 
 type Nox_player_polygon_check_data struct {
@@ -105,7 +101,7 @@ func (a cgoAIAction) Cancel(u *server.Object) {
 }
 
 //export nox_ai_debug_print
-func nox_ai_debug_print(str *C.char) { Nox_ai_debug_print(GoString(str)) }
+func nox_ai_debug_print(str *C.char) { ai.Log.Printf("%s", GoString(str)) }
 
 //export sub_545E60
 func sub_545E60(a1c *nox_object_t) int { return Sub_545E60(asObjectS(a1c)) }
@@ -115,12 +111,12 @@ func nox_xxx_gameSetAudioFadeoutMb_501AC0(v int) { Nox_xxx_gameSetAudioFadeoutMb
 
 //export nox_xxx_monsterPopAction_50A160
 func nox_xxx_monsterPopAction_50A160(a1 *nox_object_t) int {
-	return Nox_xxx_monsterPopAction_50A160(asObjectS(a1))
+	return asObjectS(a1).MonsterPopAction()
 }
 
 //export nox_xxx_monsterPushAction_50A260_impl
 func nox_xxx_monsterPushAction_50A260_impl(u *nox_object_t, act int, file *C.char, line int) unsafe.Pointer {
-	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), act, GoString(file), line)
+	return asObjectS(u).MonsterPushActionImpl(ai.ActionType(act), GoString(file), line).C()
 }
 
 //export nox_xxx_unitUpdateMonster_50A5C0
@@ -130,7 +126,12 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *nox_object_t) {
 
 //export nox_xxx_monsterClearActionStack_50A3A0
 func nox_xxx_monsterClearActionStack_50A3A0(a1 *nox_object_t) {
-	Nox_xxx_monsterClearActionStack_50A3A0(asObjectS(a1))
+	asObjectS(a1).ClearActionStack()
+}
+
+//export nox_xxx_checkMobAction_50A0D0
+func nox_xxx_checkMobAction_50A0D0(a1 *nox_object_t, a2 int) int {
+	return bool2int(asObjectS(a1).UpdateDataMonster().HasAction(ai.ActionType(a2)))
 }
 func Nox_xxx_mobSearchEdible_544A00(a1 *server.Object, a2 float32) int {
 	return int(C.nox_xxx_mobSearchEdible_544A00(asObjectC(a1), C.float(a2)))
@@ -143,9 +144,6 @@ func Nox_xxx_mobGetMoveAttemptTime_534810(a1 *server.Object) int {
 }
 func Nox_xxx_unitIsDangerous_547120(a1 *server.Object, a2 *server.Object) {
 	C.nox_xxx_unitIsDangerous_547120(asObjectC(a1), asObjectC(a2))
-}
-func Nox_xxx_checkMobAction_50A0D0(a1 *server.Object, a2 ai.ActionType) int {
-	return int(C.nox_xxx_checkMobAction_50A0D0(asObjectC(a1), C.int(a2)))
 }
 func Nox_xxx_checkIsKillable_528190(a1 *server.Object) int {
 	return int(C.nox_xxx_checkIsKillable_528190(asObjectC(a1)))

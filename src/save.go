@@ -317,10 +317,9 @@ func sub_419EE0(a1 ntype.PlayerInd) bool {
 	return (*memmap.PtrUint32(0x5D4594, 527716) & (1 << a1)) != 0
 }
 
-func sub_4DCC10(a1p *server.Object) int {
-	u := asObjectS(a1p)
+func sub_4DCC10(u *server.Object) int {
 	v := true
-	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > u.getServer().Frame() {
+	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > u.Server().Frame() {
 		v = false
 	}
 	if *(*uint32)(unsafe.Add(u.UpdateData, 284)) != 0 { // TODO: which type is expected here?

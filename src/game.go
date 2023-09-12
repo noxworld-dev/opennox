@@ -1229,14 +1229,14 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					v61 := s.RandomReachablePointAround(50.0, m.Pos())
 					np.SetPos(v61)
 					ud.Field97 = 0
-					np.clearActionStack()
+					np.ClearActionStack()
 					np.Obj130 = nil
 					ud.CurrentEnemy = nil
 					ud.Field304 = 0
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
 					ud.Field0 = 0xDEADFACE
 					p := m.Pos()
-					np.monsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
+					np.MonsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
 					if np.Class().Has(object.ClassMonster) && np.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC) {
 						nox_xxx_setNPCColor_4E4A90(np.SObj(), 0, &ud.Color[0])
 					}
