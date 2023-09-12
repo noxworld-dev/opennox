@@ -6012,6 +6012,7 @@ int sub_4DE4D0(char a1) {
 
 //----- (004DE7C0) --------------------------------------------------------
 void nox_script_event_playerLeave(nox_playerInfo* pl);
+int sub_4FF990(unsigned int a1);
 void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
 	nox_playerInfo* plr = nox_common_playerInfoFromNum_417090(ind);
 	nox_script_event_playerLeave(plr);

@@ -17,6 +17,9 @@ extern void* nox_alloc_magicEnt_1569668;
 extern uint32_t dword_5d4594_1569672;
 
 int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6);
+int nox_xxx_spellWallCreate_4FFA90(void* a1);
+int nox_xxx_spellWallUpdate_500070(void* a1);
+void nox_xxx_spellWallDestroy_500080(void* a1);
 
 static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
 */
@@ -54,6 +57,9 @@ var (
 	Nox_xxx_spellPrice_424C40         func(ind int) int
 	Nox_xxx_spellEnableAll_424BD0     func()
 	Nox_xxx_castSpellByUser_4FDD20    func(a1 int, a2 *server.Object, a3 unsafe.Pointer) int
+	Nox_xxx_spellWallCreate_4FFA90    func(sp *server.DurSpell) int
+	Nox_xxx_spellWallUpdate_500070    func(sp *server.DurSpell) int
+	Nox_xxx_spellWallDestroy_500080   func(sp *server.DurSpell)
 )
 
 //export nox_xxx_spellGetDefArrayPtr_424820
@@ -207,6 +213,21 @@ func nox_xxx_spellAccept_4FD400(ispellID int, a2, a3p, a4p *nox_object_t, a5p un
 //export nox_xxx_castSpellByUser_4FDD20
 func nox_xxx_castSpellByUser_4FDD20(a1 int, a2 *nox_object_t, a3 unsafe.Pointer) int {
 	return Nox_xxx_castSpellByUser_4FDD20(a1, asObjectS(a2), a3)
+}
+
+//export nox_xxx_spellWallCreate_4FFA90
+func nox_xxx_spellWallCreate_4FFA90(p unsafe.Pointer) int {
+	return Nox_xxx_spellWallCreate_4FFA90((*server.DurSpell)(p))
+}
+
+//export nox_xxx_spellWallUpdate_500070
+func nox_xxx_spellWallUpdate_500070(p unsafe.Pointer) int {
+	return Nox_xxx_spellWallUpdate_500070((*server.DurSpell)(p))
+}
+
+//export nox_xxx_spellWallDestroy_500080
+func nox_xxx_spellWallDestroy_500080(p unsafe.Pointer) {
+	Nox_xxx_spellWallDestroy_500080((*server.DurSpell)(p))
 }
 func Nox_xxx_spellCastByBook_4FCB80() {
 	C.nox_xxx_spellCastByBook_4FCB80()

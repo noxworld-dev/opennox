@@ -263,6 +263,18 @@ func (f *CryptFile) ReadString32() (string, error) {
 	return string(buf), nil
 }
 
+func (f *CryptFile) ReadWriteU8(v byte) (byte, error) {
+	if f.readonly {
+		v2, err := f.ReadU8()
+		if err != nil {
+			return v, err
+		}
+		return v2, nil
+	}
+	err := f.WriteU8(v)
+	return v, err
+}
+
 func (f *CryptFile) ReadWriteU16(v uint16) (uint16, error) {
 	if f.readonly {
 		v2, err := f.ReadU16()

@@ -736,64 +736,6 @@ void sub_4F1F20() {
 	}
 }
 
-//----- (005003B0) --------------------------------------------------------
-int nox_xxx_playerSomeWallsUpdate_5003B0(nox_object_t* obj) {
-	int a1 = obj;
-	int v1;            // edi
-	int result;        // eax
-	int v3;            // ebp
-	unsigned char* v4; // esi
-	uint8_t* v5;       // eax
-
-	if (*(int*)&dword_5d4594_1569756 <= 0) {
-		v1 = a1;
-	} else {
-		v1 = nox_xxx_spellCastedFirst_4FE930();
-		if (!v1) {
-			return 0;
-		}
-		while (*(uint32_t*)(v1 + 4) != 132 || *(uint32_t*)(v1 + 16) != a1 || *(uint8_t*)(v1 + 88) & 1) {
-			result = nox_xxx_spellCastedNext_4FE940(v1);
-			v1 = result;
-			if (!result) {
-				return result;
-			}
-		}
-		if (!v1) {
-			return 0;
-		}
-		*(uint32_t*)(v1 + 92) = nox_xxx_spellWallCreate_4FFA90;
-		*(uint32_t*)(v1 + 96) = nox_xxx_spellWallUpdate_500070;
-		*(uint32_t*)(v1 + 100) = nox_xxx_spellWallDestroy_500080;
-		*(uint32_t*)(v1 + 48) = 0;
-	}
-	v3 = 0;
-	if (dword_5d4594_1569756 > 0) {
-		v4 = getMemAt(0x5D4594, 1569764);
-		do {
-			v5 = (uint8_t*)nox_server_getWallAtGrid_410580(*v4, v4[1]);
-			if (v5) {
-				*v5 = v4[13];
-			} else {
-				v5 = nox_xxx_wallCreateAt_410250(*v4, v4[1]);
-				if (!v5) {
-					return 0;
-				}
-				v5[4] |= 8u;
-				v5[1] = v4[11];
-				v5[2] = v4[12];
-				*v5 = v4[13];
-				v5[7] = v4[14];
-			}
-			nox_xxx_netWallCreate_4FFE80(v1, v5, *((uint32_t*)v4 + 1), v4[8], v4[9], v4[10]);
-			++v3;
-			v4 += 16;
-		} while (v3 < *(int*)&dword_5d4594_1569756);
-	}
-	dword_5d4594_1569756 = 0;
-	return 1;
-}
-
 //----- (00500510) --------------------------------------------------------
 void sub_500510(const char* a1) {
 	if (a1) {

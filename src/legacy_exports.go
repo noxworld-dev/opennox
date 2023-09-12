@@ -92,6 +92,9 @@ func init() {
 	legacy.Nox_xxx_castSpellByUser_4FDD20 = nox_xxx_castSpellByUser_4FDD20
 	legacy.Nox_xxx_spellCastedFirst_4FE930 = nox_xxx_spellCastedFirst_4FE930
 	legacy.Nox_xxx_spellCastedNext_4FE940 = nox_xxx_spellCastedNext_4FE940
+	legacy.Nox_xxx_spellWallCreate_4FFA90 = nox_xxx_spellWallCreate_4FFA90
+	legacy.Nox_xxx_spellWallUpdate_500070 = nox_xxx_spellWallUpdate_500070
+	legacy.Nox_xxx_spellWallDestroy_500080 = nox_xxx_spellWallDestroy_500080
 	legacy.Sub_4FE8A0 = sub_4FE8A0
 	legacy.Sub_4FE900 = sub_4FE900
 	legacy.Nox_xxx_spellCastByPlayer_4FEEF0 = nox_xxx_spellCastByPlayer_4FEEF0
@@ -178,7 +181,6 @@ func init() {
 	legacy.Nox_xxx_XFerDefault4F49A0 = nox_xxx_XFerDefault4F49A0
 	legacy.Nox_xxx_XFer_ReadShopItem_52A840 = nox_xxx_XFer_ReadShopItem_52A840
 	legacy.Nox_xxx_XFer_WriteShopItem_52A5F0 = nox_xxx_XFer_WriteShopItem_52A5F0
-	legacy.Sub_5002D0 = sub_5002D0
 	legacy.Sub_4FC670 = sub_4FC670
 	legacy.Nox_xxx_playerExecuteAbil_4FBB70 = nox_xxx_playerExecuteAbil_4FBB70
 	legacy.Sub_4FC0B0 = sub_4FC0B0
@@ -314,6 +316,11 @@ func init() {
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
 	legacy.Sub_526CA0 = sub_526CA0
+	legacy.Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0 = nox_xxx_mapSetWallInGlobalDir0pr1_5004D0
+	legacy.Nox_xxx_map_5004F0 = nox_xxx_map_5004F0
+	legacy.Sub_4FF990 = sub_4FF990
+	legacy.Nox_xxx_wallDestroyMagicwallSysuse_4FF840 = nox_xxx_wallDestroyMagicwallSysuse_4FF840
+	legacy.Sub_5000B0 = sub_5000B0
 	legacy.Nox_xxx_monsterCreateFn_54C480 = nox_xxx_monsterCreateFn_54C480
 	legacy.Nox_xxx_monsterClearActionStack_50A3A0 = nox_xxx_monsterClearActionStack_50A3A0
 	legacy.Sub_4A1A40 = sub_4A1A40

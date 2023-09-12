@@ -360,6 +360,8 @@ int nox_xxx_mapSaveMap_51E010(char* a1, int a2) {
 // 51E0D5: variable 'v6' is possibly undefined
 
 //----- (0051E140) --------------------------------------------------------
+void nox_xxx_map_5004F0();
+void nox_xxx_mapSetWallInGlobalDir0pr1_5004D0();
 int nox_xxx_map_51E140() {
 	int result; // eax
 	char v2;    // [esp+1h] [ebp-1h]
