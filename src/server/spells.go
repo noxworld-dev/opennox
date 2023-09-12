@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -51,6 +52,10 @@ type SpellDef struct {
 
 func (s *SpellDef) IsValid() bool {
 	return s != nil && s.Valid
+}
+
+func (s *SpellDef) IsEnabled() bool {
+	return s != nil && s.Enabled
 }
 
 func (s *SpellDef) GetCastSound() sound.ID { // nox_xxx_spellGetAud44_424800(..., 0)
@@ -167,6 +172,15 @@ func (sp *serverSpells) HasFlags(ind spell.ID, flag things.SpellFlags) bool {
 	return sp.Flags(ind).Has(flag)
 }
 
+func (sp *serverSpells) Enable(ind spell.ID, enable bool) bool {
+	spl := sp.DefByInd(ind)
+	if spl == nil {
+		return false
+	}
+	spl.Enabled = enable
+	return true
+}
+
 func (sp *serverSpells) EnableAll() {
 	for _, spl := range sp.byID {
 		spl.Enabled = true
@@ -202,6 +216,59 @@ func (sp *serverSpells) PhonemeTree() *PhonemeLeaf {
 		sp.tree, _ = alloc.New(PhonemeLeaf{})
 	}
 	return sp.tree
+}
+
+func (sp *serverSpells) ManaCost(id spell.ID, a2 int) int {
+	if !id.Valid() {
+		return 0
+	}
+	if a2 == 2 {
+		switch id {
+		case spell.SPELL_LIGHTNING:
+			return int(sp.s.Balance.Float("EnergyBoltTrapCost"))
+		case spell.SPELL_CHAIN_LIGHTNING:
+			return int(sp.s.Balance.Float("LightningTrapCost"))
+		case spell.SPELL_MANA_BOMB:
+			return int(sp.s.Balance.Float("ManaBombTrapCost"))
+		}
+	}
+	spl := sp.s.Spells.DefByInd(id)
+	return spl.Def.ManaCost
+}
+
+func (sp *serverSpells) Phoneme(ind spell.ID, ind2 int) spell.Phoneme {
+	spl := sp.DefByInd(ind)
+	if spl == nil {
+		return 0
+	}
+	list := spl.Def.Phonemes
+	if ind2 < 0 || ind2 >= len(list) {
+		return 0
+	}
+	return list[ind2]
+}
+
+func (sp *serverSpells) CanUseInTraps(ind spell.ID) bool {
+	spl := sp.DefByInd(ind)
+	if sp == nil {
+		return false
+	}
+	if noxflags.HasGame(noxflags.GameModeQuest) && ind == spell.SPELL_BLINK {
+		return false
+	}
+	return !spl.Def.Flags.Has(things.SpellNoTrap)
+}
+
+func (sp *serverSpells) Price(ind spell.ID) int {
+	spl := sp.DefByInd(ind)
+	if spl == nil {
+		return 0
+	}
+	price := float64(spl.Def.Price)
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		price *= sp.s.Balance.Float("QuestSpellWorthMultiplier")
+	}
+	return int(price)
 }
 
 type ImageLoaderFunc func(ref *things.ImageRef) unsafe.Pointer
