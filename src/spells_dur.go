@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 
@@ -14,57 +15,32 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-var (
-	nox_alloc_spellDur_1569724 alloc.ClassT[server.DurSpell]
-)
-
-func nox_xxx_spellCastedFirst_4FE930() unsafe.Pointer {
-	return noxServer.spells.duration.list.C()
-}
-
-func nox_xxx_spellCastedNext_4FE940(a1 unsafe.Pointer) unsafe.Pointer {
-	return (*server.DurSpell)(a1).Next.C()
-}
-
 func sub_4FE8A0(a1 int) {
 	noxServer.spells.duration.sub4FE8A0(a1)
-}
-
-func sub_4FE900(a1 unsafe.Pointer) {
-	noxServer.spells.duration.unlink((*server.DurSpell)(a1))
-}
-
-func nox_xxx_spellCastByPlayer_4FEEF0() {
-	noxServer.spells.duration.spellCastByPlayer()
 }
 
 func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *server.Object) {
 	noxServer.spells.duration.CancelFor(spell.ID(a1), a2)
 }
 
-func sub_4FE980(a1 unsafe.Pointer) {
-	noxServer.spells.duration.freeRecursive((*server.DurSpell)(a1))
-}
-
-func sub_4FF310(a1 *server.Object) {
-	noxServer.spells.duration.nox_spell_cancelOffensiveFor_4FF310(a1)
-}
-
 type spellsDuration struct {
-	s      *Server
-	lastID uint16
-	list   *server.DurSpell
+	s                          *Server
+	nox_alloc_spellDur_1569724 alloc.ClassT[server.DurSpell]
+	list                       *server.DurSpell
+	lastID                     uint16
 }
 
 func (sp *spellsDuration) Init(s *Server) {
 	sp.s = s
+	sp.nox_alloc_spellDur_1569724 = alloc.NewClassT("spellDuration", server.DurSpell{}, 512)
 }
 
 func (sp *spellsDuration) Free() {
+	sp.nox_alloc_spellDur_1569724.Free()
 }
 
 func (sp *spellsDuration) newDur() *server.DurSpell {
-	p := nox_alloc_spellDur_1569724.NewObject()
+	p := sp.nox_alloc_spellDur_1569724.NewObject()
 	if p != nil {
 		sp.lastID++
 		p.ID = sp.lastID
@@ -74,7 +50,7 @@ func (sp *spellsDuration) newDur() *server.DurSpell {
 
 func (sp *spellsDuration) sub4FE8A0(a1 int) {
 	if a1 == 0 {
-		nox_alloc_spellDur_1569724.FreeAllObjects()
+		sp.nox_alloc_spellDur_1569724.FreeAllObjects()
 		sp.list = nil
 		return
 	}
@@ -83,8 +59,8 @@ func (sp *spellsDuration) sub4FE8A0(a1 int) {
 		u := it.Target48
 		next = it.Next
 		if u == nil || !u.Class().Has(object.ClassPlayer) {
-			sub_4FE900(it.C())
-			sub_4FE980(it.C())
+			sp.unlink(it)
+			sp.freeRecursive(it)
 		}
 	}
 }
@@ -100,7 +76,7 @@ func (sp *spellsDuration) freeRecursive(p *server.DurSpell) {
 		next2 = it.Next
 		sp.freeRecursive(it)
 	}
-	nox_alloc_spellDur_1569724.FreeObjectFirst(p)
+	sp.nox_alloc_spellDur_1569724.FreeObjectFirst(p)
 }
 
 func (sp *spellsDuration) unlink(p *server.DurSpell) {
@@ -119,9 +95,31 @@ func (sp *spellsDuration) newHook() {
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
 		if it.Flags88&0x1 != 0 {
-			legacy.Nox_xxx_plrCastSmth_4FEDA0(it.C())
+			sp.destroyDurSpell(it)
 		}
 	}
+}
+
+func (sp *spellsDuration) destroyDurSpell(spl *server.DurSpell) {
+	if spl.Caster16 != nil {
+		snd := sp.s.SpellDefByInd(spell.ID(spl.Spell)).GetAudio(2)
+		sp.s.AudioEventObj(snd, spl.Caster16, 0, 0)
+	}
+	if destroy := spl.Destroy; destroy != nil {
+		ccall.CallVoidPtr(destroy, spl.C())
+	}
+	if u := spl.Caster16; u != nil {
+		if u.Class().Has(object.ClassPlayer) {
+			ud := u.UpdateDataPlayer()
+			if ud.Player.PlayerClass() != player.Warrior || !sp.s.Abils.IsActive(u, server.AbilityBerserk) {
+				legacy.Nox_xxx_playerSetState_4FA020(u, 13)
+			}
+		} else if u.Class().Has(object.ClassMonster) {
+			monsterCancelDurSpell(u, spell.ID(spl.Spell))
+		}
+	}
+	sp.unlink(spl)
+	sp.freeRecursive(spl)
 }
 
 func (sp *spellsDuration) add(p *server.DurSpell) {
@@ -143,7 +141,7 @@ func (sp *spellsDuration) CancelFor(sid spell.ID, obj server.Obj) {
 		sid2 := spell.ID(it.Spell)
 		next = it.Next
 		if sid2 == sid && it.Caster16 == toObjectS(obj) || spellIsSummon(sid) && spellIsSummon(sid2) && it.Caster16 == toObjectS(obj) {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
 		}
 	}
 }
@@ -162,7 +160,7 @@ func (sp *spellsDuration) nox_spell_cancelOffensiveFor_4FF310(u *server.Object) 
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
 		if it.Caster16 == u.SObj() && sp.s.SpellFlags(spell.ID(it.Spell)).Has(things.SpellOffensive) {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
 		}
 	}
 }
@@ -172,7 +170,7 @@ func (sp *spellsDuration) spellCastByPlayer() {
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
 		if it.Flags88&0x1 != 0 {
-			legacy.Nox_xxx_plrCastSmth_4FEDA0(it.C())
+			sp.destroyDurSpell(it)
 			continue
 		}
 		if obj16 := it.Caster16; obj16 != nil && obj16.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
@@ -183,14 +181,14 @@ func (sp *spellsDuration) spellCastByPlayer() {
 			it.Obj12 = nil
 		}
 		if it.Caster16 == nil && it.Flag20 == 0 {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
 			continue
 		}
 		if obj24 := it.Obj24; obj24 != nil && obj24.Flags().Has(object.FlagDestroyed) {
 			it.Obj24 = nil
 		}
 		if it.Frame68 != it.Frame60 && it.Frame68 <= noxServer.Frame() || it.Update != nil && ccall.CallIntPtr(it.Update, it.C()) != 0 {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
 		}
 	}
 }
@@ -246,6 +244,6 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	if create == nil || ccall.CallIntPtr(create, p.C()) == 0 {
 		return true
 	}
-	legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(p.C())
+	legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(p)
 	return false
 }

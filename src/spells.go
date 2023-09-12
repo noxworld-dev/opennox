@@ -85,11 +85,7 @@ func nox_xxx_spellAwardAll3_4EFE10(p *server.Player) {
 }
 
 func nox_xxx_spellGetAud44_424800(ind, a2 int) int {
-	sp := noxServer.SpellDefByInd(spell.ID(ind))
-	if sp == nil {
-		return 0
-	}
-	return int(sp.GetAudio(a2))
+	return int(noxServer.SpellDefByInd(spell.ID(ind)).GetAudio(a2))
 }
 
 func nox_xxx_spellTitle_424930(ind int) (string, bool) {
@@ -257,7 +253,6 @@ func (s *Server) spellEnableAll() {
 
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 	s := noxServer
-	nox_alloc_spellDur_1569724 = alloc.NewClassT("spellDuration", server.DurSpell{}, 512)
 	legacy.Set_nox_alloc_magicEnt_1569668(alloc.NewClass("magicEntityClass", 60, 64).UPtr())
 	nox_xxx_imagCasterUnit_1569664 = asObjectS(s.NewObjectByTypeID("ImaginaryCaster"))
 	if nox_xxx_imagCasterUnit_1569664 == nil {
@@ -276,7 +271,6 @@ func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 }
 
 func nox_xxx_freeSpellRelated_4FCA80() {
-	nox_alloc_spellDur_1569724.Free()
 	alloc.AsClass(legacy.Get_nox_alloc_magicEnt_1569668()).Free()
 	legacy.Set_dword_5d4594_1569672(0)
 	nox_xxx_imagCasterUnit_1569664.Delete()
@@ -458,7 +452,7 @@ func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
 
 func nox_xxx_spellBookReact_4FCB70() {
 	legacy.Nox_xxx_spellCastByBook_4FCB80()
-	nox_xxx_spellCastByPlayer_4FEEF0()
+	noxServer.spells.duration.spellCastByPlayer()
 }
 
 func (s *Server) SpellDefs() []*SpellDef {

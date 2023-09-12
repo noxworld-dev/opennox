@@ -944,6 +944,14 @@ func (AIActionCastDuration) Cancel(obj *server.Object) {
 	u.monsterPopAction()
 }
 
+func monsterCancelDurSpell(u *server.Object, exp spell.ID) {
+	if act := u.UpdateDataMonster().AIStackHead(); act.Type() == ai.ACTION_CAST_DURATION_SPELL {
+		if spell.ID(act.ArgU32(0)) == exp {
+			asObjectS(u).monsterPopAction()
+		}
+	}
+}
+
 type AIActionMorphIntoChest struct{}
 
 func (AIActionMorphIntoChest) Type() ai.ActionType {

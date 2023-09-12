@@ -42,7 +42,7 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server
 		dur *= lvl
 	}
 	if opts.Defensive {
-		sub_4FF310(targ.SObj())
+		noxServer.spells.duration.nox_spell_cancelOffensiveFor_4FF310(targ)
 	}
 	asObjectS(targ).ApplyEnchant(enc, dur, lvl)
 	if opts.Orig != nil && opts.Offensive {
