@@ -19,6 +19,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -1094,7 +1095,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 			if legacy.Nox_xxx_mapInfoSetFlagball_417F30() != 0 {
 				noxflags.UnsetGame(noxflags.GameModeMask)
 				noxflags.SetGame(noxflags.GameModeFlagBall)
-				nox_xxx_spellDisable_424BB0(132)
+				s.Spells.Enable(spell.SPELL_WALL, false)
 			}
 		} else if mode.Has(noxflags.GameModeKOTR) {
 			gameLog.Println("setting KOTR mode")

@@ -51,10 +51,6 @@ func nox_xxx_spellAwardAll3_4EFE10(p *server.Player) {
 	serverSetAllWarriorAbilities(asPlayerS(p), noxflags.HasEngine(noxflags.EngineAdmin), 0)
 }
 
-func nox_xxx_spellGetAud44_424800(ind, a2 int) int {
-	return int(noxServer.Spells.DefByInd(spell.ID(ind)).GetAudio(a2))
-}
-
 func nox_xxx_spellTitle_424930(ind int) (string, bool) {
 	sp := noxServer.Spells.DefByInd(spell.ID(ind))
 	if sp == nil || !sp.IsValid() {
@@ -71,38 +67,6 @@ func nox_xxx_spellDescription_424A30(ind int) (string, bool) {
 	return sp.Desc, true
 }
 
-func nox_xxx_spellManaCost_4249A0(ind, a2 int) int {
-	s := noxServer
-	id := spell.ID(ind)
-	if !id.Valid() {
-		return 0
-	}
-	if a2 == 2 {
-		switch ind {
-		case 24:
-			return int(s.Balance.Float("EnergyBoltTrapCost"))
-		case 43:
-			return int(s.Balance.Float("LightningTrapCost"))
-		case 56:
-			return int(s.Balance.Float("ManaBombTrapCost"))
-		}
-	}
-	sp := s.Spells.DefByInd(id)
-	return sp.Def.ManaCost
-}
-
-func nox_xxx_spellPhonemes_424A20(ind, ind2 int) spell.Phoneme {
-	sp := noxServer.Spells.DefByInd(spell.ID(ind))
-	if sp == nil {
-		return 0
-	}
-	list := sp.Def.Phonemes
-	if ind2 < 0 || ind2 >= len(list) {
-		return 0
-	}
-	return list[ind2]
-}
-
 func nox_xxx_spellIcon_424A90(ind int) unsafe.Pointer {
 	sp := noxServer.Spells.DefByInd(spell.ID(ind))
 	if sp == nil {
@@ -117,64 +81,6 @@ func nox_xxx_spellIconHighlight_424AB0(ind int) unsafe.Pointer {
 		return nil
 	}
 	return unsafe.Pointer(((*noxrender.Image)(sp.IconEnabled)).C())
-}
-
-func nox_xxx_spellIsValid_424B50(ind int) bool {
-	sp := noxServer.Spells.DefByInd(spell.ID(ind))
-	if sp == nil {
-		return false
-	}
-	return sp.Valid
-}
-
-func nox_xxx_spellIsEnabled_424B70(ind int) bool {
-	sp := noxServer.Spells.DefByInd(spell.ID(ind))
-	if sp == nil {
-		return false
-	}
-	return sp.Enabled
-}
-
-func nox_xxx_spellEnable_424B90(ind int) bool {
-	sp := noxServer.Spells.DefByInd(spell.ID(ind))
-	if sp == nil {
-		return false
-	}
-	sp.Enabled = true
-	return true
-}
-
-func nox_xxx_spellDisable_424BB0(ind int) bool {
-	sp := noxServer.Spells.DefByInd(spell.ID(ind))
-	if sp == nil {
-		return false
-	}
-	sp.Enabled = false
-	return true
-}
-
-func nox_xxx_spellCanUseInTrap_424BF0(ind int) bool {
-	sp := noxServer.Spells.DefByInd(spell.ID(ind))
-	if sp == nil {
-		return false
-	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ind == 4 {
-		return false
-	}
-	return !sp.Def.Flags.Has(things.SpellNoTrap)
-}
-
-func nox_xxx_spellPrice_424C40(ind int) int {
-	s := noxServer
-	sp := s.Spells.DefByInd(spell.ID(ind))
-	if sp == nil {
-		return 0
-	}
-	price := float64(sp.Def.Price)
-	if noxflags.HasGame(noxflags.GameModeQuest) {
-		price *= s.Balance.Float("QuestSpellWorthMultiplier")
-	}
-	return int(price)
 }
 
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
