@@ -72,6 +72,7 @@ func nox_xxx_spellDescription_424A30(ind int) (string, bool) {
 }
 
 func nox_xxx_spellManaCost_4249A0(ind, a2 int) int {
+	s := noxServer
 	id := spell.ID(ind)
 	if !id.Valid() {
 		return 0
@@ -79,14 +80,14 @@ func nox_xxx_spellManaCost_4249A0(ind, a2 int) int {
 	if a2 == 2 {
 		switch ind {
 		case 24:
-			return int(gamedataFloat("EnergyBoltTrapCost"))
+			return int(s.Balance.Float("EnergyBoltTrapCost"))
 		case 43:
-			return int(gamedataFloat("LightningTrapCost"))
+			return int(s.Balance.Float("LightningTrapCost"))
 		case 56:
-			return int(gamedataFloat("ManaBombTrapCost"))
+			return int(s.Balance.Float("ManaBombTrapCost"))
 		}
 	}
-	sp := noxServer.Spells.DefByInd(id)
+	sp := s.Spells.DefByInd(id)
 	return sp.Def.ManaCost
 }
 
@@ -164,13 +165,14 @@ func nox_xxx_spellCanUseInTrap_424BF0(ind int) bool {
 }
 
 func nox_xxx_spellPrice_424C40(ind int) int {
-	sp := noxServer.Spells.DefByInd(spell.ID(ind))
+	s := noxServer
+	sp := s.Spells.DefByInd(spell.ID(ind))
 	if sp == nil {
 		return 0
 	}
 	price := float64(sp.Def.Price)
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		price *= gamedataFloat("QuestSpellWorthMultiplier")
+		price *= s.Balance.Float("QuestSpellWorthMultiplier")
 	}
 	return int(price)
 }
@@ -389,7 +391,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	case spell.SPELL_PIXIE_SWARM:
 		fnc = legacy.Nox_xxx_castPixies_540440
 	case spell.SPELL_PLASMA:
-		v8 := gamedataFloat("PlasmaSearchTime")
+		v8 := s.Balance.Float("PlasmaSearchTime")
 		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, legacy.Get_nox_xxx_plasmaSmth_531580(), legacy.Get_nox_xxx_plasmaShot_531600(), legacy.Get_sub_5319E0(), uint32(v8))
 	case spell.SPELL_POISON:
 		fnc = legacy.Nox_xxx_castPoison_52C720

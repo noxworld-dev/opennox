@@ -948,7 +948,7 @@ func nox_client_quit_4460C0() {
 		nox_xxx_serverIsClosing_825764 = true
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			if noxflags.HasGame(noxflags.GameHost) {
-				sub_4D6B10(false)
+				noxServer.sub_4D6B10(false)
 			}
 		}
 	}

@@ -777,7 +777,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	s := u.getServer()
 	ud := unsafe.Slice((*uint32)(u.UpdateData), 7)
 	if memmap.Uint32(0x5D4594, 2488696) == 0 {
-		dt := gamedataFloat("PixieReturnTimeout")
+		dt := s.Balance.Float("PixieReturnTimeout")
 		*memmap.PtrUint32(0x5D4594, 2488696) = s.SecToFramesF(dt)
 	}
 

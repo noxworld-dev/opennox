@@ -146,7 +146,7 @@ func (a *abilityHarpoon) UpdatePlayer(u *Object) {
 		if targ.Flags().Has(object.FlagDestroyed) {
 			a.breakForOwner(u, true)
 		} else {
-			force := gamedataFloat("HarpoonForce")
+			force := a.s.Balance.Float("HarpoonForce")
 			sub_4E7540(u, targ)
 			asObjectS(targ).applyForce(u.Pos(), -force)
 		}
@@ -175,7 +175,7 @@ func (a *abilityHarpoon) breakForOwner(u *Object, emitSound bool) {
 func (a *abilityHarpoon) Collide(bolt *Object, targ *Object) {
 	owner := bolt.OwnerC()
 	if a.damage == 0 {
-		a.damage = int(gamedataFloat("HarpoonDamage"))
+		a.damage = int(a.s.Balance.Float("HarpoonDamage"))
 	}
 	if targ == nil {
 		npos := bolt.NewPos
@@ -216,10 +216,10 @@ func (a *abilityHarpoon) Update(bolt *Object) {
 	}
 
 	if a.maxDist == 0 {
-		a.maxDist = float32(gamedataFloat("MaxHarpoonDistance"))
-		a.minDist = float32(gamedataFloat("MinHarpoonDistance"))
-		a.maxFlight = float32(gamedataFloat("MaxHarpoonFlightDistance"))
-		a.lifetime = float32(gamedataFloat("MaxHarpoonExistence"))
+		a.maxDist = float32(a.s.Balance.Float("MaxHarpoonDistance"))
+		a.minDist = float32(a.s.Balance.Float("MinHarpoonDistance"))
+		a.maxFlight = float32(a.s.Balance.Float("MaxHarpoonFlightDistance"))
+		a.lifetime = float32(a.s.Balance.Float("MaxHarpoonExistence"))
 	}
 	owner := bolt.OwnerC()
 	if owner.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {

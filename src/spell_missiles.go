@@ -36,8 +36,8 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *server.Object
 	if opts.Count <= 0 {
 		// it's intentionally loading this variable twice
 		// looks previously there were two separate config values for it
-		cnt = int(gamedataFloatInd("MagicMissileCount", lvl-1))
-		maxCnt = int(gamedataFloatInd("MagicMissileCount", lvl-1))
+		cnt = int(sp.s.Balance.FloatInd("MagicMissileCount", lvl-1))
+		maxCnt = int(sp.s.Balance.FloatInd("MagicMissileCount", lvl-1))
 	} else {
 		cnt, maxCnt = opts.Count, opts.Count
 	}

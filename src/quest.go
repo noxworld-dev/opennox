@@ -222,7 +222,7 @@ func (s *Server) nox_server_questMapNextLevel() {
 	legacy.Sub_4D10F0(name)
 	legacy.Sub_4D7520(1)
 	if !questLevelWarpInfinite {
-		cutoff := uint(gamedataFloat("WarpGateCutoffStage"))
+		cutoff := uint(s.Balance.Float("WarpGateCutoffStage"))
 		if uint(s.nox_game_getQuestStage_4E3CC0()) >= cutoff {
 			legacy.Sub_4D7520(0)
 		}

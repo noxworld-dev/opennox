@@ -520,7 +520,7 @@ func nox_xxx_sendGauntlet_4DCF80(ind ntype.PlayerInd, v byte) {
 	noxServer.nox_xxx_netSendPacket1_4E5390(int(ind), buf[:3], 0, 0)
 }
 
-func nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
+func (s *Server) nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
 	if u == nil {
 		return 0
 	}
@@ -546,7 +546,7 @@ func nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
 		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.Players.Mult.Conjurer.Strength))
 		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.Players.Mult.Conjurer.Speed))
 	}
-	return noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1)
+	return s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1)
 }
 
 func netSendServerQuit() {
