@@ -58,7 +58,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/strman"
-	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -113,7 +112,6 @@ type Server interface {
 	Nox_script_event_playerLeave(pl *server.Player)
 	NoxScriptC() NoxScript
 	GetUnitNetCode(p server.Obj) int
-	Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj, sflags things.SpellFlags, dist float32, a5 int, sself *server.Object) *server.Object
 	Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *server.Object, sa *server.SpellAcceptArg, lvl int) bool
 }
 

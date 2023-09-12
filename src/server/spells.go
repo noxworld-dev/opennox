@@ -8,6 +8,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -368,4 +369,84 @@ func (sp *serverSpells) createSpellFrom(def *things.Spell, loadImage ImageLoader
 		spl.IconEnabled = loadImage(spl.Def.IconEnabled)
 	}
 	return nil
+}
+
+func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflags things.SpellFlags, dist float32, a5 int, self *Object) *Object {
+	msl := toObject(mslo)
+	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
+		if curTarg := self.UpdateDataPlayer().CursorObj; curTarg != nil {
+			if s.IsEnemyTo(self, curTarg) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {
+				return curTarg
+			}
+		}
+	}
+	var center types.Pointf
+	if pos == nil {
+		if msl == nil {
+			return nil
+		}
+		center = msl.Pos()
+	} else if msl != nil {
+		pos1 := msl.Pos()
+		if s.MapTraceRay(pos1, *pos, MapTraceFlag1|MapTraceFlag3) {
+			center = *pos
+		} else {
+			center = pos1
+		}
+	} else {
+		center = *pos
+	}
+	dist2 := dist * dist
+	owner := msl.FindOwnerChainPlayer()
+	rect := types.Rectf{
+		Min: center.Sub(types.Ptf(dist, dist)),
+		Max: center.Add(types.Ptf(dist, dist)),
+	}
+	var (
+		minDist float32 = 1e+08
+		found   *Object
+	)
+	s.Map.EachObjInRect(rect, func(it *Object) bool {
+		if !(a5 != 0 || msl.SObj() != it) {
+			return true
+		}
+		if !it.Class().HasAny(object.MaskTargets) {
+			return true
+		}
+		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x8000 != 0) {
+			return true
+		}
+		if it.Class().Has(object.ClassPlayer) && it.ControllingPlayer().Field3680&0x1 != 0 {
+			return true
+		}
+		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
+			return true
+		}
+		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x4000 != 0) {
+			return true
+		}
+		it.FindOwnerChainPlayer() // FIXME: result unused!
+		if sflags.Has(things.SpellOffensive) && !s.IsEnemyTo(msl.SObj(), it) {
+			return true
+		}
+		opos := it.Pos()
+		dx := center.X - opos.X
+		dy := center.Y - opos.Y
+		odist := dy*dy + dx*dx
+		if odist > dist2 {
+			return true
+		}
+		if msl != nil && !s.CanInteract(msl.SObj(), it, 0) {
+			return true
+		}
+		if owner != nil && !s.CanInteract(owner.SObj(), it, 0) {
+			return true
+		}
+		if odist < minDist {
+			found = it
+			minDist = odist
+		}
+		return true
+	})
+	return found.SObj()
 }
