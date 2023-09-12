@@ -3417,6 +3417,7 @@ int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, nox_object_t* a5)
 }
 
 //----- (00534DA0) --------------------------------------------------------
+int nox_xxx_wallDestroyMagicwallSysuse_4FF840(void* a1);
 int nox_xxx_wallPreDestroy_534DA0(int* a1) {
 	int v1;        // edi
 	char v2;       // al
