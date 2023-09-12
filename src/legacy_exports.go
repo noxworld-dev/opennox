@@ -1,8 +1,6 @@
 package opennox
 
 import (
-	"github.com/noxworld-dev/opennox-lib/spell"
-
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -66,37 +64,13 @@ func init() {
 	legacy.Sub_40A1A0 = sub_40A1A0
 	legacy.PlatformTicks = platformTicks
 	legacy.Nox_ticks_reset_416D40 = nox_ticks_reset_416D40
-	legacy.GetPhonemeTree = func() *server.PhonemeLeaf {
-		return noxServer.Spells.PhonemeTree()
-	}
 	legacy.Nox_xxx_spellAwardAll1_4EFD80 = nox_xxx_spellAwardAll1_4EFD80
 	legacy.Nox_xxx_spellAwardAll2_4EFC80 = nox_xxx_spellAwardAll2_4EFC80
 	legacy.Nox_xxx_spellAwardAll3_4EFE10 = nox_xxx_spellAwardAll3_4EFE10
-	legacy.Nox_xxx_spellGetAud44_424800 = nox_xxx_spellGetAud44_424800
 	legacy.Nox_xxx_spellTitle_424930 = nox_xxx_spellTitle_424930
 	legacy.Nox_xxx_spellDescription_424A30 = nox_xxx_spellDescription_424A30
-	legacy.Nox_xxx_spellByTitle_424960 = func(ctitle string) int {
-		return int(noxServer.Spells.ByTitle(ctitle))
-	}
-	legacy.Nox_xxx_spellManaCost_4249A0 = nox_xxx_spellManaCost_4249A0
-	legacy.Nox_xxx_spellPhonemes_424A20 = nox_xxx_spellPhonemes_424A20
 	legacy.Nox_xxx_spellIcon_424A90 = nox_xxx_spellIcon_424A90
 	legacy.Nox_xxx_spellIconHighlight_424AB0 = nox_xxx_spellIconHighlight_424AB0
-	legacy.Nox_xxx_spellFirstValid_424AD0 = func() int {
-		return int(noxServer.Spells.FirstValid())
-	}
-	legacy.Nox_xxx_spellNextValid_424AF0 = func(ind int) int {
-		return int(noxServer.Spells.NextValid(spell.ID(ind)))
-	}
-	legacy.Nox_xxx_spellIsValid_424B50 = nox_xxx_spellIsValid_424B50
-	legacy.Nox_xxx_spellIsEnabled_424B70 = nox_xxx_spellIsEnabled_424B70
-	legacy.Nox_xxx_spellEnable_424B90 = nox_xxx_spellEnable_424B90
-	legacy.Nox_xxx_spellDisable_424BB0 = nox_xxx_spellDisable_424BB0
-	legacy.Nox_xxx_spellCanUseInTrap_424BF0 = nox_xxx_spellCanUseInTrap_424BF0
-	legacy.Nox_xxx_spellPrice_424C40 = nox_xxx_spellPrice_424C40
-	legacy.Nox_xxx_spellEnableAll_424BD0 = func() {
-		noxServer.Spells.EnableAll()
-	}
 	legacy.Nox_xxx_castSpellByUser_4FDD20 = nox_xxx_castSpellByUser_4FDD20
 	legacy.Nox_xxx_spellCastedFirst_4FE930 = func() *server.DurSpell {
 		return noxServer.spells.duration.list
@@ -270,9 +244,6 @@ func init() {
 	legacy.Sub_4C3B70 = sub_4C3B70
 	legacy.Sub_4CBBF0 = sub_4CBBF0
 	legacy.Nox_input_reset_430140 = nox_input_reset_430140
-	legacy.Nox_xxx_updateSpellRelated_424830 = func(p *server.PhonemeLeaf, ph spell.Phoneme) *server.PhonemeLeaf {
-		return p.Next(ph)
-	}
 	legacy.Nox_xxx_playerDisconnByPlrID_4DEB00 = nox_xxx_playerDisconnByPlrID_4DEB00
 	legacy.Nox_xxx_playerCallDisconnect_4DEAB0 = nox_xxx_playerCallDisconnect_4DEAB0
 	legacy.Nox_xxx_playerCameraUnlock_4E6040 = nox_xxx_playerCameraUnlock_4E6040
