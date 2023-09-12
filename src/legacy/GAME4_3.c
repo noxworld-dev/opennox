@@ -9825,22 +9825,6 @@ void nox_xxx_mobCastRandomRecoil_541490(int a1, float* a2, float2* a3) {
 	a3->field_4 = nox_common_randomFloat_416030(-60.0, 60.0) * v6 + a3->field_4;
 }
 
-//----- (00541630) --------------------------------------------------------
-char sub_541630(int a1, int a2) {
-	uint32_t* v2; // eax
-	int v3;       // ecx
-
-	v2 = (uint32_t*)(*(uint32_t*)(a1 + 748) + 24 * (*(char*)(*(uint32_t*)(a1 + 748) + 544) + 23));
-	if (*v2 == 20) {
-		v3 = v2[1];
-		LOBYTE(v2) = a2;
-		if (v3 == a2) {
-			LOBYTE(v2) = nox_xxx_monsterPopAction_50A160(a1);
-		}
-	}
-	return (char)v2;
-}
-
 //----- (00542BF0) --------------------------------------------------------
 void* nox_objectTypeGetXfer(char* id);
 char* sub_542BF0(int a1, int a2, int a3) {

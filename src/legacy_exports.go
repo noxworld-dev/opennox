@@ -92,8 +92,12 @@ func init() {
 	legacy.Nox_xxx_spellPrice_424C40 = nox_xxx_spellPrice_424C40
 	legacy.Nox_xxx_spellEnableAll_424BD0 = nox_xxx_spellEnableAll_424BD0
 	legacy.Nox_xxx_castSpellByUser_4FDD20 = nox_xxx_castSpellByUser_4FDD20
-	legacy.Nox_xxx_spellCastedFirst_4FE930 = nox_xxx_spellCastedFirst_4FE930
-	legacy.Nox_xxx_spellCastedNext_4FE940 = nox_xxx_spellCastedNext_4FE940
+	legacy.Nox_xxx_spellCastedFirst_4FE930 = func() *server.DurSpell {
+		return noxServer.spells.duration.list
+	}
+	legacy.Nox_xxx_spellCastedNext_4FE940 = func(sp *server.DurSpell) *server.DurSpell {
+		return sp.Next
+	}
 	legacy.Nox_xxx_spellWallCreate_4FFA90 = func(sp *server.DurSpell) int {
 		return noxServer.spells.walls.Create(sp)
 	}
@@ -104,11 +108,16 @@ func init() {
 		noxServer.spells.walls.Destroy(sp)
 	}
 	legacy.Sub_4FE8A0 = sub_4FE8A0
-	legacy.Sub_4FE900 = sub_4FE900
-	legacy.Nox_xxx_spellCastByPlayer_4FEEF0 = nox_xxx_spellCastByPlayer_4FEEF0
+	legacy.Nox_xxx_spellCastByPlayer_4FEEF0 = func() {
+		noxServer.spells.duration.spellCastByPlayer()
+	}
 	legacy.Nox_xxx_spellCancelDurSpell_4FEB10 = nox_xxx_spellCancelDurSpell_4FEB10
-	legacy.Sub_4FE980 = sub_4FE980
-	legacy.Sub_4FF310 = sub_4FF310
+	legacy.Sub_4FE980 = func(a1 *server.DurSpell) {
+		noxServer.spells.duration.freeRecursive(a1)
+	}
+	legacy.Sub_4FF310 = func(a1 *server.Object) {
+		noxServer.spells.duration.nox_spell_cancelOffensiveFor_4FF310(a1)
+	}
 	legacy.Nox_exit = nox_exit
 	legacy.Nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode = nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
 	legacy.Sub_4AA9C0 = sub_4AA9C0
