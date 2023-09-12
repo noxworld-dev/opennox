@@ -22,6 +22,7 @@ type spellBuffConf struct {
 }
 
 func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server.Object, opts spellBuffConf) int {
+	s := noxServer
 	if targ == nil {
 		return 0
 	}
@@ -30,19 +31,19 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server
 	}
 	dur := opts.Dur
 	if opts.DurOpt != "" {
-		dur = int(gamedataFloat(opts.DurOpt))
+		dur = int(s.Balance.Float(opts.DurOpt))
 	}
 	if opts.DurOptMulQuest != "" && noxflags.HasGame(noxflags.GameModeQuest) {
-		dur = int(float64(dur) * gamedataFloat(opts.DurOptMulQuest))
+		dur = int(float64(dur) * s.Balance.Float(opts.DurOptMulQuest))
 	}
 	if opts.DurInSec {
-		dur *= int(noxServer.TickRate())
+		dur *= int(s.TickRate())
 	}
 	if opts.DurLevelMul {
 		dur *= lvl
 	}
 	if opts.Defensive {
-		noxServer.spells.duration.nox_spell_cancelOffensiveFor_4FF310(targ)
+		s.spells.duration.nox_spell_cancelOffensiveFor_4FF310(targ)
 	}
 	asObjectS(targ).ApplyEnchant(enc, dur, lvl)
 	if opts.Orig != nil && opts.Offensive {

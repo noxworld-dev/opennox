@@ -13,8 +13,6 @@ func init() {
 	legacy.Sub_57C490_2 = sub_57C490_2
 	legacy.Nox_thing_debug_draw = nox_thing_debug_draw
 	legacy.Sub_4E8290 = sub_4E8290
-	legacy.GamedataFloat = gamedataFloat
-	legacy.GamedataFloatInd = gamedataFloatInd
 	legacy.Nox_client_parseConfigHotkeysLine_42CF50 = nox_client_parseConfigHotkeysLine_42CF50
 	legacy.Nox_client_getIntroScreenDuration_44E3B0 = nox_client_getIntroScreenDuration_44E3B0
 	legacy.Nox_client_getBriefDuration = nox_client_getBriefDuration
@@ -319,7 +317,9 @@ func init() {
 	legacy.SendXXX_5550D0 = sendXXX_5550D0
 	legacy.Sub_5545A0 = getServerPort
 	legacy.Sub_554230 = getOwnIP
-	legacy.Nox_xxx_netStatsMultiplier_4D9C20 = nox_xxx_netStatsMultiplier_4D9C20
+	legacy.Nox_xxx_netStatsMultiplier_4D9C20 = func(a1p *server.Object) int {
+		return noxServer.nox_xxx_netStatsMultiplier_4D9C20(a1p)
+	}
 	legacy.Sub_554240 = sub_554240
 	legacy.Nox_xxx_net_getIP_554200 = nox_xxx_net_getIP_554200
 	legacy.Nox_xxx_netOnPacketRecvCli_48EA70 = nox_xxx_netOnPacketRecvCli_48EA70

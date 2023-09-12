@@ -486,16 +486,16 @@ func (a *serverAbilities) thingsRead(f *binfile.MemFile) error {
 }
 
 func (a *serverAbilities) reloadGamedata() {
-	a.defs[server.AbilityBerserk].delay = int(gamedataFloat("BerserkerChargeDelay"))
-	a.defs[server.AbilityBerserk].duration = int(gamedataFloat("BerserkerChargeDuration"))
-	a.defs[server.AbilityWarcry].delay = int(gamedataFloat("WarcryDelay"))
-	a.defs[server.AbilityWarcry].duration = int(gamedataFloat("WarCryDuration"))
-	a.defs[server.AbilityHarpoon].delay = int(gamedataFloat("HarpoonDelay"))
-	a.defs[server.AbilityHarpoon].duration = int(gamedataFloat("HarpoonDuration"))
-	a.defs[server.AbilityTreadLightly].delay = int(gamedataFloat("TreadLightlyDelay"))
-	a.defs[server.AbilityTreadLightly].duration = int(gamedataFloat("TreadLightlyDuration"))
-	a.defs[server.AbilityInfravis].delay = int(gamedataFloat("EyeOfTheWolfDelay"))
-	a.defs[server.AbilityInfravis].duration = int(gamedataFloat("EyeOfTheWolfDuration"))
+	a.defs[server.AbilityBerserk].delay = int(a.s.Balance.Float("BerserkerChargeDelay"))
+	a.defs[server.AbilityBerserk].duration = int(a.s.Balance.Float("BerserkerChargeDuration"))
+	a.defs[server.AbilityWarcry].delay = int(a.s.Balance.Float("WarcryDelay"))
+	a.defs[server.AbilityWarcry].duration = int(a.s.Balance.Float("WarCryDuration"))
+	a.defs[server.AbilityHarpoon].delay = int(a.s.Balance.Float("HarpoonDelay"))
+	a.defs[server.AbilityHarpoon].duration = int(a.s.Balance.Float("HarpoonDuration"))
+	a.defs[server.AbilityTreadLightly].delay = int(a.s.Balance.Float("TreadLightlyDelay"))
+	a.defs[server.AbilityTreadLightly].duration = int(a.s.Balance.Float("TreadLightlyDuration"))
+	a.defs[server.AbilityInfravis].delay = int(a.s.Balance.Float("EyeOfTheWolfDelay"))
+	a.defs[server.AbilityInfravis].duration = int(a.s.Balance.Float("EyeOfTheWolfDuration"))
 }
 
 func (a *serverAbilities) getSound(abil server.Ability, snd int) sound.ID {

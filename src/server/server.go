@@ -77,6 +77,7 @@ type Server struct {
 	Teams      serverTeams
 	Abils      serverAbilities
 	Spells     serverSpells
+	Balance    serverBalance
 
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool
