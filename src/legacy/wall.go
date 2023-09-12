@@ -10,12 +10,20 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
-	Sub_526CA0 func(a1 string) int
+	Sub_526CA0                                func(a1 string) int
+	Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0  func()
+	Nox_xxx_map_5004F0                        func()
+	Sub_4FF990                                func(a1 uint32)
+	Nox_xxx_wallDestroyMagicwallSysuse_4FF840 func(a1 *server.Wall)
+	Sub_5000B0                                func(a1 *server.Object) int
 )
 
 var _ = [1]struct{}{}[12332-unsafe.Sizeof(server.WallDef{})]
@@ -143,6 +151,42 @@ func sub_526CA0(a1 *C.char) int {
 	return Sub_526CA0(GoString(a1))
 }
 
+//export nox_xxx_mapSetWallInGlobalDir0pr1_5004D0
+func nox_xxx_mapSetWallInGlobalDir0pr1_5004D0() {
+	Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0()
+}
+
+//export nox_xxx_map_5004F0
+func nox_xxx_map_5004F0() {
+	Nox_xxx_map_5004F0()
+}
+
+//export sub_4FF990
+func sub_4FF990(a1 C.uint) {
+	Sub_4FF990(uint32(a1))
+}
+
+//export nox_xxx_wallDestroyMagicwallSysuse_4FF840
+func nox_xxx_wallDestroyMagicwallSysuse_4FF840(a1 unsafe.Pointer) {
+	Nox_xxx_wallDestroyMagicwallSysuse_4FF840((*server.Wall)(a1))
+}
+
+//export sub_5000B0
+func sub_5000B0(a1 *nox_object_t) int {
+	return Sub_5000B0(asObjectS(a1))
+}
+
 func Nox_xxx_wallPreDestroyByPtr_5122C0(a1 unsafe.Pointer) {
 	C.nox_xxx_wallPreDestroyByPtr_5122C0(C.int(uintptr(a1)))
+}
+
+func Nox_xxx_math_509ED0(pos types.Pointf) int {
+	cpos, free := alloc.New(types.Pointf{})
+	defer free()
+	*cpos = pos
+	return int(C.nox_xxx_math_509ED0((*C.float2)(unsafe.Pointer(cpos))))
+}
+
+func Nox_xxx_math_509EA0(a1 int) int {
+	return int(C.nox_xxx_math_509EA0(C.int(a1)))
 }

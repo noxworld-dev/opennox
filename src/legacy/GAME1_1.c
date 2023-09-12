@@ -2070,6 +2070,7 @@ int sub_41BEC0(void* a1p, void* a2p) {
 // 41BEC0: using guessed type char var_40[64];
 
 //----- (0041C080) --------------------------------------------------------
+int sub_5000B0(nox_object_t* a1);
 int sub_41C080(void* a1p, void* a2p) {
 	int a1 = a1p;
 	int a2 = a2p;

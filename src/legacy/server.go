@@ -42,7 +42,6 @@ void sub_4E4170();
 void sub_4EC720();
 unsigned int sub_50D890();
 void nox_xxx_gameTick_4D2580_server_D();
-int  nox_xxx_playerSomeWallsUpdate_5003B0(nox_object_t* obj);
 int nox_xxx_netUpdateObjectSpecial_527E50(nox_object_t* a1p, nox_object_t* a2p);
 void sub_4139C0();
 int sub_4DCF20();
@@ -197,9 +196,6 @@ func Nox_xxx_netInformTextMsg2_4DA180(a1 int, a2 unsafe.Pointer) {
 func Nox_xxx_netReportUnitHeight_4D9020(a1 ntype.PlayerInd, a2 *server.Object) {
 	C.nox_xxx_netReportUnitHeight_4D9020(C.int(a1), asObjectC(a2))
 }
-func Sub_4FF7B0(pl *server.Player) {
-	C.sub_4FF7B0((*nox_playerInfo)(pl.C()))
-}
 func Sub_511100(a1 int) {
 	C.sub_511100(C.int(a1))
 }
@@ -329,9 +325,6 @@ func Sub_4E76C0() {
 func Nox_xxx_protectData_56F5C0() {
 	C.nox_xxx_protectData_56F5C0()
 }
-func Nox_xxx_playerSomeWallsUpdate_5003B0(a1 *server.Object) {
-	C.nox_xxx_playerSomeWallsUpdate_5003B0(asObjectC(a1))
-}
 func Sub_57B140() bool {
 	return bool(C.sub_57B140())
 }
@@ -389,9 +382,6 @@ func Nox_xxx_allocMonsterRelatedArrays_50D780() int {
 func Nox_xxx_allocVoteArray_5066D0() int {
 	return int(C.nox_xxx_allocVoteArray_5066D0())
 }
-func Nox_xxx_allocMagicWallArray_4FF730() int {
-	return int(C.nox_xxx_allocMagicWallArray_4FF730())
-}
 func Nox_xxx_monsterList_517520() int {
 	return int(C.nox_xxx_monsterList_517520())
 }
@@ -406,9 +396,6 @@ func Sub_421B10() {
 }
 func Sub_516F10() {
 	C.sub_516F10()
-}
-func Sub_4FF770() {
-	C.sub_4FF770()
 }
 func Sub_4259F0() {
 	C.sub_4259F0()
@@ -526,9 +513,6 @@ func Sub_511E20() {
 }
 func Sub_516F30() {
 	C.sub_516F30()
-}
-func Nox_xxx_mapWall_4FF790() {
-	C.nox_xxx_mapWall_4FF790()
 }
 func Nox_xxx_playerBotCreate_4FA700(u *server.Object) {
 	C.nox_xxx_playerBotCreate_4FA700(asObjectC(u))
