@@ -23,7 +23,7 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 	}
 	ud := caster.UpdateDataPlayer()
 	pl := ud.Player
-	if int(ud.CurTraps) >= int(gamedataFloat("MaxTrapCount")) {
+	if int(ud.CurTraps) >= int(s.Balance.Float("MaxTrapCount")) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, 5)
 		return 0
 	}
@@ -40,7 +40,7 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 		snd := s.Spells.DefByInd(sp).GetCastSound()
 		s.AudioEventObj(snd, targ, 0, 0)
 	} else {
-		if countBombers(caster) >= int(gamedataFloat("MaxBomberCount")) {
+		if countBombers(caster) >= int(s.Balance.Float("MaxBomberCount")) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, 5)
 			s.DelayedDelete(trap)
 			return 0
@@ -197,7 +197,7 @@ func triggerTrap(trap, a2 *server.Object) {
 	if a2 != nil {
 		idata.SpellArg.Obj = a2
 	} else {
-		v10 := float32(gamedataFloat("GlyphRange"))
+		v10 := float32(s.Balance.Float("GlyphRange"))
 		idata.SpellArg.Obj = sub_4E6EA0(trap, v10, &trapSearchArg{
 			Field0:             15,
 			Field4:             1,

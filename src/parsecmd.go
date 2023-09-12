@@ -150,7 +150,7 @@ var (
 		{Token: "execrul", HelpID: "execrulhelp", Flags: console.ClientServer, LegacyFunc: legacy.WrapCommandC(legacy.Nox_cmd_exec_rul)},
 		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(noxflags.GameHost) {
-				sub_4D6B10(false)
+				noxServer.sub_4D6B10(false)
 			}
 			if noxflags.HasGame(noxflags.GameFlag26) {
 				nox_client_quit_4460C0()

@@ -30,9 +30,9 @@ func castDeathRay(spellID spell.ID, a2, a3, a4 *server.Object, a5 *server.SpellA
 		}
 		return 0
 	}
-	dmg := int(gamedataFloat("DeathRayDamage"))
-	rin := float32(gamedataFloat("DeathRayInRadius"))
-	rout := float32(gamedataFloat("DeathRayOutRadius"))
+	dmg := int(s.Balance.Float("DeathRayDamage"))
+	rin := float32(s.Balance.Float("DeathRayInRadius"))
+	rout := float32(s.Balance.Float("DeathRayOutRadius"))
 	s.Nox_xxx_mapDamageUnitsAround(pos16, rout, rin, dmg, object.DamageZapRay, a3, nil, false)
 	nox_xxx_sendDeathRayCast_523250(pos4.Point(), pos16.Point())
 	snd := s.Spells.DefByInd(spellID).GetCastSound()

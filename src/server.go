@@ -232,13 +232,13 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 						}
 						for tm := s.Teams.First(); tm != nil; tm = s.Teams.Next(tm) {
 							if legacy.Nox_xxx_countNonEliminatedPlayersInTeam_40A830(tm) == 1 {
-								s.ServStartCountdown(int(gamedataFloat("SuddenDeathCountdown")), "Settings.c:SuddenDeathImminent")
+								s.ServStartCountdown(int(s.Balance.Float("SuddenDeathCountdown")), "Settings.c:SuddenDeathImminent")
 								break
 							}
 						}
 					} else {
 						if legacy.Sub_40A770() < legacy.Sub_40AA40() {
-							s.ServStartCountdown(int(gamedataFloat("SuddenDeathCountdown")), "Settings.c:SuddenDeathImminent")
+							s.ServStartCountdown(int(s.Balance.Float("SuddenDeathCountdown")), "Settings.c:SuddenDeathImminent")
 						}
 					}
 					break
@@ -1045,7 +1045,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	legacy.Sub_455C10()
 	legacy.Sub_456050()
 	if noxflags.HasGame(noxflags.GameModeQuest) && memmap.Int32(0x973F18, 3800) < 0 {
-		sub_4D6B10(true)
+		s.sub_4D6B10(true)
 		s.TeamsRemoveActive(true)
 	}
 	mapname := s.getServerMap()

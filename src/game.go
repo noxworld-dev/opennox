@@ -255,6 +255,16 @@ func nox_game_rollNoxLogoAndStart_4AB0F0() {
 	}
 }
 
+func nox_xxx_parseGamedataBinPre_4D1630() int {
+	s := noxServer
+	if err := s.Balance.Read(); err != nil {
+		return 0
+	}
+	s.abilities.reloadGamedata()
+	s.nox_xxx_loadBaseValues_57B200()
+	return bool2int(legacy.Nox_xxx_loadMonsterBin_517010() != 0)
+}
+
 func startServer() bool {
 	legacy.Set_nox_game_createOrJoin_815048(1)
 	noxflags.SetEngine(noxflags.EngineAdmin)
@@ -326,16 +336,14 @@ func nox_xxx_serverHost_43B4D0() {
 	isHost := legacy.Get_nox_game_createOrJoin_815048() != 0
 	gameLog.Println("host:", isHost)
 	if isHost {
-		legacy.
-			// host
-			Nox_client_xxx_switchChatMap_43B510()
+		// host
+		legacy.Nox_client_xxx_switchChatMap_43B510()
 		legacy.Nox_client_guiXxx_43A9D0()
 		nox_client_guiXxxDestroy_4A24A0()
 		noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(0)
 	} else {
-		legacy.
-			// join
-			Sub_43B630()
+		// join
+		legacy.Sub_43B630()
 		nox_client_createSockAndJoin_43B440()
 	}
 	legacy.Sub_49FF20()

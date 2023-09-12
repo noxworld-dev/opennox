@@ -284,7 +284,7 @@ func sub4A18E0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 }
 
 func nox_xxx_unknown_libname_11_4D1650() {
-	nox_xxx_gamedataFree_419DB0()
+	noxServer.Balance.Free()
 	legacy.Nox_xxx_monsterListFree_5174F0()
 }
 
