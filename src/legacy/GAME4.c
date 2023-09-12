@@ -3540,44 +3540,6 @@ void sub_4FEB60(int a1, int a2) {
 	}
 }
 
-//----- (004FEDA0) --------------------------------------------------------
-void sub_4FE900(int a1);
-void nox_xxx_plrCastSmth_4FEDA0(void* a1p) {
-	int* a1 = a1p;
-	int v1;           // eax
-	void (*v2)(int*); // eax
-	int v3;           // eax
-	int v4;           // ecx
-	int v5;           // [esp-Ch] [ebp-10h]
-
-	if (a1[4]) {
-		v5 = a1[4];
-		v1 = nox_xxx_spellGetAud44_424800(a1[1], 2);
-		nox_xxx_aud_501960(v1, v5, 0, 0);
-	}
-	v2 = (void (*)(int*))a1[25];
-	if (v2) {
-		v2(a1);
-	}
-	v3 = a1[4];
-	if (v3) {
-		v4 = *(uint32_t*)(v3 + 8);
-		if (v4 & 4) {
-			if (*(uint8_t*)(*(uint32_t*)(*(uint32_t*)(v3 + 748) + 276) + 2251) ||
-				!nox_common_playerIsAbilityActive_4FC250(v3, 1)) {
-				nox_xxx_playerSetState_4FA020((uint32_t*)a1[4], 13);
-				sub_4FE900(a1);
-				sub_4FE980(a1);
-				return;
-			}
-		} else if (v4 & 2) {
-			sub_541630(v3, a1[1]);
-		}
-	}
-	sub_4FE900(a1);
-	sub_4FE980(a1);
-}
-
 //----- (004FEE90) --------------------------------------------------------
 void nox_xxx_cancelAllSpells_4FEE90(nox_object_t* a1p) {
 	int a1 = a1p;

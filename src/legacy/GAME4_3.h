@@ -279,7 +279,6 @@ void nox_xxx_mobMayHealThis_5412A0(float* a1, int a2);
 char nox_xxx_mobCast_541300(int a1, uint32_t* a2, int a3);
 char nox_xxx_mobActionCast_5413B0(nox_object_t* a1, int a2);
 void nox_xxx_mobCastRandomRecoil_541490(int a1, float* a2, float2* a3);
-char sub_541630(int a1, int a2);
 char* sub_542BF0(int a1, int a2, int a3);
 char* sub_5435C0(int a1, int a2, int a3, int a4);
 char* sub_543620(int a1, int a2);
