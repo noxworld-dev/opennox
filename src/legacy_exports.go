@@ -3,7 +3,9 @@ package opennox
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func init() {
@@ -92,9 +94,15 @@ func init() {
 	legacy.Nox_xxx_castSpellByUser_4FDD20 = nox_xxx_castSpellByUser_4FDD20
 	legacy.Nox_xxx_spellCastedFirst_4FE930 = nox_xxx_spellCastedFirst_4FE930
 	legacy.Nox_xxx_spellCastedNext_4FE940 = nox_xxx_spellCastedNext_4FE940
-	legacy.Nox_xxx_spellWallCreate_4FFA90 = nox_xxx_spellWallCreate_4FFA90
-	legacy.Nox_xxx_spellWallUpdate_500070 = nox_xxx_spellWallUpdate_500070
-	legacy.Nox_xxx_spellWallDestroy_500080 = nox_xxx_spellWallDestroy_500080
+	legacy.Nox_xxx_spellWallCreate_4FFA90 = func(sp *server.DurSpell) int {
+		return noxServer.spells.walls.Create(sp)
+	}
+	legacy.Nox_xxx_spellWallUpdate_500070 = func(sp *server.DurSpell) int {
+		return noxServer.spells.walls.Update(sp)
+	}
+	legacy.Nox_xxx_spellWallDestroy_500080 = func(sp *server.DurSpell) {
+		noxServer.spells.walls.Destroy(sp)
+	}
 	legacy.Sub_4FE8A0 = sub_4FE8A0
 	legacy.Sub_4FE900 = sub_4FE900
 	legacy.Nox_xxx_spellCastByPlayer_4FEEF0 = nox_xxx_spellCastByPlayer_4FEEF0
@@ -316,11 +324,21 @@ func init() {
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
 	legacy.Sub_526CA0 = sub_526CA0
-	legacy.Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0 = nox_xxx_mapSetWallInGlobalDir0pr1_5004D0
-	legacy.Nox_xxx_map_5004F0 = nox_xxx_map_5004F0
-	legacy.Sub_4FF990 = sub_4FF990
-	legacy.Nox_xxx_wallDestroyMagicwallSysuse_4FF840 = nox_xxx_wallDestroyMagicwallSysuse_4FF840
-	legacy.Sub_5000B0 = sub_5000B0
+	legacy.Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0 = func() {
+		noxServer.spells.walls.switchToPrevDir()
+	}
+	legacy.Nox_xxx_map_5004F0 = func() {
+		noxServer.spells.walls.switchToNewDir()
+	}
+	legacy.Sub_4FF990 = func(a1 uint32) {
+		noxServer.spells.walls.disablePlayerBits(a1)
+	}
+	legacy.Nox_xxx_wallDestroyMagicwallSysuse_4FF840 = func(a1 *server.Wall) {
+		noxServer.spells.walls.destroySysuse(a1)
+	}
+	legacy.Sub_5000B0 = func(a1 *server.Object) int {
+		return noxServer.spells.walls.LoadOrSave(cryptfile.Global(), a1)
+	}
 	legacy.Nox_xxx_monsterCreateFn_54C480 = nox_xxx_monsterCreateFn_54C480
 	legacy.Nox_xxx_monsterClearActionStack_50A3A0 = nox_xxx_monsterClearActionStack_50A3A0
 	legacy.Sub_4A1A40 = sub_4A1A40
