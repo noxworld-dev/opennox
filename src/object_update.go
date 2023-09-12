@@ -589,7 +589,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 1)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonUN)
 				s.AudioEventObj(sound.SoundSpellPhonemeUp, u, 0, 0)
 				ud.Field47_0 = 0
 			}
@@ -598,7 +598,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 7)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonZO)
 				s.AudioEventObj(sound.SoundSpellPhonemeDown, u, 0, 0)
 				ud.Field47_0 = 0
 			}
@@ -607,7 +607,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 3)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonET)
 				s.AudioEventObj(sound.SoundSpellPhonemeLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
@@ -616,7 +616,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 5)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonCHA)
 				s.AudioEventObj(sound.SoundSpellPhonemeRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
@@ -625,7 +625,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 2)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonIN)
 				s.AudioEventObj(sound.SoundSpellPhonemeUpRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
@@ -634,7 +634,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 0)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonKA)
 				s.AudioEventObj(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
@@ -643,7 +643,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 8)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonDO)
 				s.AudioEventObj(sound.SoundSpellPhonemeDownRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
@@ -652,7 +652,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 6)
+				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonRO)
 				s.AudioEventObj(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}

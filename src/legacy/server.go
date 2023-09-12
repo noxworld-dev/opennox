@@ -114,8 +114,6 @@ type Server interface {
 	NoxScriptC() NoxScript
 	GetUnitNetCode(p server.Obj) int
 	Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj, sflags things.SpellFlags, dist float32, a5 int, sself *server.Object) *server.Object
-	SpellHasFlags(ind spell.ID, flag things.SpellFlags) bool
-	SpellFlags(ind spell.ID) things.SpellFlags
 	Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *server.Object, sa *server.SpellAcceptArg, lvl int) bool
 }
 

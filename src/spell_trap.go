@@ -37,7 +37,7 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 	}
 	if pl.PlayerClass() != player.Conjurer {
 		s.CreateObjectAt(trap, caster, targ.Pos())
-		snd := s.SpellDefByInd(sp).GetAudio(0)
+		snd := s.Spells.DefByInd(sp).GetCastSound()
 		s.AudioEventObj(snd, targ, 0, 0)
 	} else {
 		if countBombers(caster) >= int(gamedataFloat("MaxBomberCount")) {
@@ -69,9 +69,9 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 		},
 	}
 	for i := 0; i < int(ud.TrapSpellsCnt); i++ {
-		sp := spell.ID(ud.TrapSpells[i])
-		if spl := s.SpellDefByInd(sp); spl != nil && spl.Enabled {
-			idata.Spells[idata.SpellsCnt] = uint32(sp)
+		tsp := spell.ID(ud.TrapSpells[i])
+		if spl := s.Spells.DefByInd(tsp); spl != nil && spl.Enabled {
+			idata.Spells[idata.SpellsCnt] = uint32(tsp)
 			idata.SpellsCnt++
 		}
 	}
@@ -152,7 +152,7 @@ func castDetonateGlyphs(sp spell.ID, a2, a3, caster *server.Object, sa *server.S
 	pos := caster.Pos()
 	const dist = 300
 	rect := types.RectFromPointsf(pos.Sub(types.Ptf(dist, dist)), pos.Add(types.Ptf(dist, dist)))
-	snd := s.SpellDefByInd(sp).GetAudio(0)
+	snd := s.Spells.DefByInd(sp).GetCastSound()
 	s.AudioEventObj(snd, a3, 0, 0)
 	for {
 		var found *server.Object
@@ -213,7 +213,7 @@ func triggerTrap(trap, a2 *server.Object) {
 
 	for i := 0; i < int(idata.SpellsCnt); i++ {
 		sp := spell.ID(idata.Spells[i])
-		if (!s.SpellHasFlags(sp, things.SpellFlagUnk1) || a2 != nil) && legacy.Sub_4FD0E0(owner, sp) == 0 {
+		if (!s.Spells.HasFlags(sp, things.SpellFlagUnk1) || a2 != nil) && legacy.Sub_4FD0E0(owner, sp) == 0 {
 			if owner.Class().Has(object.ClassPlayer) {
 				lvl := legacy.Nox_xxx_spellGetPower_4FE7B0(sp, owner)
 				s.Nox_xxx_spellAccept4FD400(sp, owner, owner, trap, sa, lvl)

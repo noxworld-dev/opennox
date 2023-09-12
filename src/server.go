@@ -694,6 +694,7 @@ func (s *Server) newSession() error {
 	if legacy.Nox_xxx_allocVisitNodesArray_50AB90() == 0 {
 		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
 	}
+	s.Spells.Init()
 	s.spells.Init(s)
 	s.Abils.Reset()
 	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
@@ -777,6 +778,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.springs.Reset()
 	s.abilities.Free()
 	s.spells.Free()
+	s.Spells.Free()
 	nox_xxx_freeSpellRelated_4FCA80()
 	legacy.Sub_50ABF0()
 	s.Map.Free()
