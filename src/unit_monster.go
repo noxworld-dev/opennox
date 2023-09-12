@@ -17,27 +17,27 @@ var _ = [1]struct{}{}[248-unsafe.Sizeof(server.MonsterDef{})]
 
 func objectMonsterInit(sobj *server.Object) {
 	obj := asObjectS(sobj)
-	s := obj.getServer()
+	s := obj.Server()
 	ud := obj.UpdateDataMonster()
 	if !obj.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
 		switch int(obj.TypeInd) {
 		case s.Types.CarnivorousPlantID():
-			obj.clearActionStack()
+			obj.ClearActionStack()
 			ud.Field328 = float32(float64(ud.MonsterDef.MeleeAttackRange112+obj.Shape.Circle.R) + 10.0)
 			ud.AIAction340 = uint32(ai.ACTION_GUARD)
 		case s.Types.RatID():
-			obj.clearActionStack()
-			obj.monsterPushAction(ai.ACTION_RANDOM_WALK)
+			obj.ClearActionStack()
+			obj.MonsterPushAction(ai.ACTION_RANDOM_WALK)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
 		case s.Types.FishSmallID(), s.Types.FishBigID():
-			obj.clearActionStack()
-			obj.monsterPushAction(ai.ACTION_ROAM, 0, 0, 0xff)
+			obj.ClearActionStack()
+			obj.MonsterPushAction(ai.ACTION_ROAM, 0, 0, 0xff)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
 		case s.Types.GreenFrogID():
-			obj.clearActionStack()
-			obj.monsterPushAction(ai.ACTION_IDLE)
+			obj.ClearActionStack()
+			obj.MonsterPushAction(ai.ACTION_IDLE)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
 			ud.StatusFlags |= object.MonStatusAlert
@@ -52,22 +52,22 @@ func objectMonsterInit(sobj *server.Object) {
 	}
 	switch ai.ActionType(ud.AIAction340) {
 	case ai.ACTION_ESCORT:
-		obj.monsterPushAction(ai.ACTION_ESCORT, obj.Pos())
+		obj.MonsterPushAction(ai.ACTION_ESCORT, obj.Pos())
 	case ai.ACTION_GUARD:
-		obj.monsterPushAction(ai.ACTION_GUARD, obj.Pos(), int(obj.Direction1))
+		obj.MonsterPushAction(ai.ACTION_GUARD, obj.Pos(), int(obj.Direction1))
 	case ai.ACTION_ROAM:
 		if nox_xxx_monsterCanAttackAtWill_534390(obj) {
-			obj.monsterPushAction(ai.ACTION_HUNT)
+			obj.MonsterPushAction(ai.ACTION_HUNT)
 		} else {
-			obj.monsterPushAction(ai.ACTION_ROAM, 0, 0, uint32(uint8(ud.Field333)))
+			obj.MonsterPushAction(ai.ACTION_ROAM, 0, 0, uint32(uint8(ud.Field333)))
 		}
 	case ai.ACTION_FIGHT:
-		obj.monsterPushAction(ai.ACTION_FIGHT, obj.Pos(), uint32(s.Frame()))
+		obj.MonsterPushAction(ai.ACTION_FIGHT, obj.Pos(), uint32(s.Frame()))
 	case ai.ACTION_INVALID:
 		// nop
 	default:
 		if ud.AIStackInd < 0 {
-			obj.monsterPushAction(ai.ACTION_IDLE)
+			obj.MonsterPushAction(ai.ACTION_IDLE)
 		}
 	}
 	ud.AIAction340 = uint32(ai.ACTION_INVALID)
@@ -98,25 +98,25 @@ func objectMonsterInit(sobj *server.Object) {
 }
 
 func (obj *Object) monsterCast(spellInd spell.ID, target *server.Object) {
-	s := obj.getServer()
+	s := obj.Server()
 	ud := obj.UpdateDataMonster()
-	obj.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
+	obj.MonsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
 	sp := s.Spells.DefByInd(spellInd)
 	if sp.Def.Flags.Has(things.SpellDuration) {
 		ts := s.Frame() + uint32(s.Rand.Logic.IntClamp(int(s.TickRate()/2), int(2*s.TickRate())))
-		obj.monsterPushAction(ai.DEPENDENCY_TIME, ts)
-		obj.monsterPushAction(ai.ACTION_CAST_DURATION_SPELL, uint32(spellInd), 0, target)
+		obj.MonsterPushAction(ai.DEPENDENCY_TIME, ts)
+		obj.MonsterPushAction(ai.ACTION_CAST_DURATION_SPELL, uint32(spellInd), 0, target)
 	} else {
-		obj.monsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
+		obj.MonsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
 	}
-	if target.SObj() != obj.SObj() && !obj.monsterActionIsScheduled(ai.ACTION_FLEE) {
+	if target.SObj() != obj.SObj() && !obj.MonsterActionIsScheduled(ai.ACTION_FLEE) {
 		if !sp.Def.Flags.Has(things.SpellTargeted) { // TODO: looks like the flag name is incorrect on our side
-			obj.monsterPushAction(ai.ACTION_FACE_OBJECT, target)
-			obj.monsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
+			obj.MonsterPushAction(ai.ACTION_FACE_OBJECT, target)
+			obj.MonsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
 		}
-		obj.monsterPushAction(ai.DEPENDENCY_OBJECT_FARTHER_THAN, ud.MonsterDef.MissileAttackRange212, 0, target)
-		obj.monsterPushAction(ai.DEPENDENCY_OR)
-		obj.monsterPushAction(ai.ACTION_MOVE_TO, target.Pos(), target)
+		obj.MonsterPushAction(ai.DEPENDENCY_OBJECT_FARTHER_THAN, ud.MonsterDef.MissileAttackRange212, 0, target)
+		obj.MonsterPushAction(ai.DEPENDENCY_OR)
+		obj.MonsterPushAction(ai.ACTION_MOVE_TO, target.Pos(), target)
 	}
 }
 

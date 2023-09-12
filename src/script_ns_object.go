@@ -765,7 +765,7 @@ func (obj nsObj) Pickup(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	s := obj.getServer()
+	s := obj.Server()
 	it := toObject(item.(server.Obj))
 	gold := s.Types.GoldID()
 	goldPile := s.Types.GoldPileID()
@@ -804,7 +804,7 @@ func (obj nsObj) Equip(item ns4.Obj) bool {
 	it := toObject(item.(server.Obj))
 	if obj.Flags().Has(object.FlagPending) || it.Flags().Has(object.FlagPending) {
 		// TODO: figure out a way to equip pending items directly
-		obj.getServer().Objs.QueueAction(func() {
+		obj.Server().Objs.QueueAction(func() {
 			obj.Equip(item)
 		})
 		return true
@@ -855,7 +855,7 @@ func (obj nsObj) Chat(message ns4.StringID) {
 }
 
 func (obj nsObj) ChatTimer(message ns4.StringID, dt ns4.Duration) {
-	s := obj.getServer()
+	s := obj.Server()
 	v, _ := s.Strings().GetVariantInFile(strman.ID(message), "CScrFunc.c")
 	legacy.Nox_xxx_netSendChat_528AC0(obj.SObj(), v.Str, uint16(s.AsFrames(dt)))
 	if noxflags.HasGame(noxflags.GameModeCoop) {

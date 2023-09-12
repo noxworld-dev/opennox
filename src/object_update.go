@@ -65,7 +65,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 	if noxflags.HasGame(noxflags.GameSuddenDeath) {
 		playerSuddedDeath4F9E70(u)
 	}
-	sub_4F9ED0(u)
+	sub_4F9ED0(u.SObj())
 	pl := asPlayerS(ud.Player)
 	u2 := pl.CameraTarget()
 	if u2 == nil {
@@ -743,8 +743,8 @@ func playerSuddedDeath4F9E70(u *Object) {
 	}
 }
 
-func sub_4F9ED0(u *Object) {
-	s := u.getServer()
+func sub_4F9ED0(u *server.Object) {
+	s := u.Server()
 	ud := u.UpdateDataPlayer()
 	h := u.HealthData
 	if u.Flags().Has(object.FlagDead) {
@@ -757,7 +757,7 @@ func sub_4F9ED0(u *Object) {
 				div = 1
 			}
 			if s.Frame()%div == 0 {
-				legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
+				legacy.Nox_xxx_unitAdjustHP_4EE460(u, 1)
 			}
 		}
 	}
@@ -767,14 +767,13 @@ func sub_4F9ED0(u *Object) {
 			div = 1
 		}
 		if s.Frame()%div == 0 {
-			legacy.Nox_xxx_playerManaAdd_4EEB80(u.SObj(), 1)
+			legacy.Nox_xxx_playerManaAdd_4EEB80(u, 1)
 		}
 	}
 }
 
-func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
-	u := asObjectS(cobj)
-	s := u.getServer()
+func nox_xxx_updatePixie_53CD20(u *server.Object) {
+	s := u.Server()
 	ud := unsafe.Slice((*uint32)(u.UpdateData), 7)
 	if memmap.Uint32(0x5D4594, 2488696) == 0 {
 		dt := s.Balance.Float("PixieReturnTimeout")
@@ -782,7 +781,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	}
 
 	if deadline := ud[5]; deadline != 0 && s.Frame() > deadline {
-		u.Delete()
+		asObjectS(u).Delete()
 		return
 	}
 
@@ -791,12 +790,12 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 			ud[1] = 0
 		}
 	}
-	var owner *Object = u.OwnerC()
+	owner := u.ObjOwner
 	if u.Flags().Has(object.FlagEnabled) {
 		if s.Frame()-u.Field34 > s.TickRate()/4 {
-			targ := nox_xxx_pixieFindTarget_533570(u.SObj())
-			*(**server.Object)(unsafe.Pointer(&ud[1])) = targ.SObj()
-			if targ == owner.SObj() {
+			targ := nox_xxx_pixieFindTarget_533570(u)
+			*(**server.Object)(unsafe.Pointer(&ud[1])) = targ
+			if targ == owner {
 				ud[1] = 0
 			}
 			u.Field34 = s.Frame()
@@ -817,7 +816,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 			if int(it.TypeInd) != noxPixieObjID {
 				return true
 			}
-			if it != u.SObj() && u.OwnerC().SObj() == it.ObjOwner {
+			if it != u.SObj() && u.ObjOwner == it.ObjOwner {
 				nox_xxx_pixieIdleAnimate_53CF90(u, it.Pos().Sub(u.Pos()), 16)
 			}
 			return true
@@ -835,7 +834,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 		}
 	}
 	u.Float28 = 0.9
-	u.ForceVec = u.Direction2.Vec().Mul(u.curSpeed())
+	u.ForceVec = u.Direction2.Vec().Mul(u.SpeedCur)
 	if (s.Frame()&8 == 0) && owner != nil {
 		if s.MapTraceVision(u.SObj(), owner.SObj()) {
 			ud[6] = s.Frame()
@@ -847,7 +846,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	}
 }
 
-func nox_xxx_pixieIdleAnimate_53CF90(obj *Object, vec types.Pointf, ddir int) {
+func nox_xxx_pixieIdleAnimate_53CF90(obj *server.Object, vec types.Pointf, ddir int) {
 	dv := obj.Direction2.Vec()
 	dir := int(obj.Direction2)
 	if dv.X*vec.Y-dv.Y*vec.X >= 0.0 {

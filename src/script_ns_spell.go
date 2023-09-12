@@ -141,7 +141,7 @@ func (obj nsObj) Enchant(enc enchant.Enchant, dt ns4.Duration) {
 	if !ok {
 		return
 	}
-	s := obj.getServer()
+	s := obj.Server()
 	obj.ApplyEnchant(id, s.AsFrames(dt), 5)
 }
 
