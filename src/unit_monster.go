@@ -101,7 +101,7 @@ func (obj *Object) monsterCast(spellInd spell.ID, target *server.Object) {
 	s := obj.getServer()
 	ud := obj.UpdateDataMonster()
 	obj.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
-	sp := s.SpellDefByInd(spellInd)
+	sp := s.Spells.DefByInd(spellInd)
 	if sp.Def.Flags.Has(things.SpellDuration) {
 		ts := s.Frame() + uint32(s.Rand.Logic.IntClamp(int(s.TickRate()/2), int(2*s.TickRate())))
 		obj.monsterPushAction(ai.DEPENDENCY_TIME, ts)

@@ -44,6 +44,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s.Players.init()
 	s.Teams.init(sm, pr)
 	s.Abils.init(s)
+	s.Spells.init(s)
 	s.http.init()
 	return s
 }
@@ -75,6 +76,7 @@ type Server struct {
 	Players    serverPlayers
 	Teams      serverTeams
 	Abils      serverAbilities
+	Spells     serverSpells
 
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool

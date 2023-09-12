@@ -689,9 +689,9 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 	if c.dragndrapSpell != 0 { // Player is dragging spell or ability
 		pl := c.srv.GetPlayerByID(legacy.ClientPlayerNetCode())
 		if pl == nil || pl.PlayerClass() != player.Warrior {
-			sp := c.srv.SpellDefByInd(spell.ID(c.dragndrapSpell)) // Spell icon
+			sp := c.srv.Spells.DefByInd(spell.ID(c.dragndrapSpell)) // Spell icon
 			if sp != nil && sp.Icon != nil {
-				c.r.DrawImageAt(sp.Icon, mpos.Sub(image.Point{X: 15, Y: 15}))
+				c.r.DrawImageAt((*noxrender.Image)(sp.Icon), mpos.Sub(image.Point{X: 15, Y: 15}))
 			}
 		} else {
 			img := c.srv.abilities.getIcon(server.Ability(c.dragndrapSpell), 0) // Ability icon

@@ -41,7 +41,7 @@ import (
 )
 
 var (
-	Nox_xxx_updateSpellRelated_424830   func(p unsafe.Pointer, ph int) unsafe.Pointer
+	Nox_xxx_updateSpellRelated_424830   func(p *server.PhonemeLeaf, ph spell.Phoneme) *server.PhonemeLeaf
 	Nox_xxx_playerDisconnByPlrID_4DEB00 func(id ntype.PlayerInd)
 	Nox_xxx_playerCallDisconnect_4DEAB0 func(ind ntype.PlayerInd, v int8)
 	Nox_xxx_playerCameraUnlock_4E6040   func(cplayer *server.Object)
@@ -70,7 +70,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 
 //export nox_xxx_updateSpellRelated_424830
 func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer {
-	return Nox_xxx_updateSpellRelated_424830(p, ph)
+	return Nox_xxx_updateSpellRelated_424830((*server.PhonemeLeaf)(p), spell.Phoneme(ph)).C()
 }
 
 //export nox_common_playerInfoGetFirst_416EA0

@@ -28,10 +28,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer {
-	return unsafe.Pointer((*phonemeLeaf)(p).Next(spell.Phoneme(ph)))
-}
-
 func nox_xxx_playerDisconnByPlrID_4DEB00(id ntype.PlayerInd) {
 	if p := noxServer.GetPlayerByInd(id); p != nil {
 		p.Disconnect(4)
@@ -732,7 +728,7 @@ func (s *Server) sub_4E8210(u *Object) (types.Pointf, bool) {
 
 func nox_xxx_plrSetSpellType_4F9B90(u *Object) {
 	ud := u.UpdateDataPlayer()
-	ud.SpellPhonemeLeaf = unsafe.Pointer(getPhonemeTree())
+	ud.SpellPhonemeLeaf = noxServer.Spells.PhonemeTree()
 	ud.SpellCastStart = noxServer.Frame()
 }
 
@@ -745,13 +741,13 @@ func (s *Server) PlayerSpell(su *server.Object) {
 	if u != nil {
 		a1 = 1
 	}
-	if leaf := (*phonemeLeaf)(ud.SpellPhonemeLeaf); leaf == getPhonemeTree() {
+	if leaf := ud.SpellPhonemeLeaf; leaf == s.Spells.PhonemeTree() {
 		ok2 = false
 	} else if leaf != nil && leaf.Ind != 0 {
 		spellInd := spell.ID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := asObjectS(ud.CursorObj)
-			if s.SpellHasFlags(spellInd, things.SpellOffensive) {
+			if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
 				if targ != nil && !s.IsEnemyTo(u.SObj(), targ.SObj()) {
 					return
 				}
@@ -776,7 +772,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 					arg, v14free := alloc.New(server.SpellAcceptArg{})
 					defer v14free()
 					arg.Obj = pl.Obj3640.SObj()
-					if noxflags.HasGame(noxflags.GameModeQuest) && s.SpellHasFlags(spellInd, things.SpellOffensive) {
+					if noxflags.HasGame(noxflags.GameModeQuest) && s.Spells.HasFlags(spellInd, things.SpellOffensive) {
 						if pl.Obj3640 != nil && !s.IsEnemyTo(u.SObj(), pl.Obj3640) {
 							arg.Obj = nil
 						}
@@ -799,11 +795,11 @@ func (s *Server) PlayerSpell(su *server.Object) {
 		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")
 		legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), v13)
 	} else if a1 != 0 {
-		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
+		v4 := ud.SpellPhonemeLeaf
 		nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
 	} else {
-		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
-		if !s.SpellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
+		v4 := ud.SpellPhonemeLeaf
+		if !s.Spells.HasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
 			nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
 		}
 	}

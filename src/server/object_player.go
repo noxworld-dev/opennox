@@ -54,7 +54,7 @@ type PlayerUpdateData struct {
 	Field43          uint32         // 43, 172
 	Field44          uint32         // 44, 176
 	Field45          uint32         // 45, 180
-	SpellPhonemeLeaf unsafe.Pointer // 46, 184
+	SpellPhonemeLeaf *PhonemeLeaf   // 46, 184
 	Field47_0        uint8          // 47, 188
 	Field47_1        uint8          // 47, 189
 	Field47_2        uint16         // 47, 190

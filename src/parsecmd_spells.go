@@ -18,7 +18,7 @@ func init() {
 				disallow = "X"
 				invalid  = "INVALID"
 			)
-			for i, sp := range noxServer.SpellDefs() {
+			for i, sp := range noxServer.Spells.Defs() {
 				mana := sp.Def.ManaCost
 				title := sp.Title
 				ind := spell.ID(i + 1)
