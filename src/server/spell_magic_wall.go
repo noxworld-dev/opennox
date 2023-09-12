@@ -1,19 +1,19 @@
 package server
 
 type MagicWall struct {
-	Field0  uint32     // 0, 0
-	Field4  byte       // 1, 4
-	Field5  byte       // 1, 5
-	Field6  uint16     // 1, 6
-	Field8  *Wall      // 2, 8
-	Field12 byte       // 3, 12
-	Field13 byte       // 3, 13
-	Field14 byte       // 3, 14
-	Field15 byte       // 3, 15
-	Field16 uint32     // 4, 16
-	Field20 *DurSpell  // 5, 20
-	Field24 *MagicWall // 6, 24
-	Field28 *MagicWall // 7, 28
+	Field0       uint32     // 0, 0
+	Dir4         byte       // 1, 4
+	Field5       byte       // 1, 5
+	Field6       uint16     // 1, 6
+	Wall8        *Wall      // 2, 8
+	PrevTile12   byte       // 3, 12
+	PrevDir13    byte       // 3, 13
+	PrevField14  byte       // 3, 14
+	Field15      byte       // 3, 15
+	PlayerBits16 uint32     // 4, 16
+	Spell20      *DurSpell  // 5, 20
+	Next24       *MagicWall // 6, 24
+	Prev28       *MagicWall // 7, 28
 }
 
 type MagicWallSave struct {

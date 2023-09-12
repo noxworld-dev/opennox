@@ -398,7 +398,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.maybeCallMapEntry()
 	s.abilities.sub_4FC680()
 	if unit := s.GetPlayerByInd(common.MaxPlayers - 1).UnitC(); unit != nil {
-		nox_xxx_playerSomeWallsUpdate_5003B0(unit.SObj())
+		s.spells.walls.associateSavedWalls(unit.SObj())
 	}
 	if legacy.Nox_xxx_get_57AF20() != 0 && legacy.Sub_57B140() {
 		legacy.Sub_57B0A0()
@@ -580,7 +580,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 		}
 	}
 	if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 || noxflags.HasGame(noxflags.GameFlag4) {
-		sub_4FF7B0(pl.S())
+		s.spells.walls.changeOrAddRemoteWalls(pl.S())
 		legacy.Sub_511100(pl.Index())
 	}
 	legacy.Nox_xxx_netUpdateRemotePlr_501CA0(u.SObj())
@@ -712,9 +712,6 @@ func (s *Server) newSession() error {
 	if legacy.Nox_xxx_allocVoteArray_5066D0() == 0 {
 		return errors.New("nox_xxx_allocVoteArray_5066D0 failed")
 	}
-	if nox_xxx_allocMagicWallArray_4FF730() == 0 {
-		return errors.New("nox_xxx_allocMagicWallArray_4FF730 failed")
-	}
 	if legacy.Nox_xxx_monsterList_517520() == 0 {
 		return errors.New("nox_xxx_monsterList_517520 failed")
 	}
@@ -767,7 +764,6 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	sub_4DB100()
 	legacy.Sub_421B10()
 	legacy.Sub_516F10()
-	sub_4FF770()
 	s.nox_xxx_replayStopSave_4D33B0()
 	s.nox_xxx_replayStopReadMB_4D3530()
 	s.Players.ResetAll()
@@ -1186,7 +1182,7 @@ func (s *Server) nox_xxx_mapSwitchLevel_4D12E0(a1 bool) {
 	} else {
 		legacy.Sub_4FCEB0(false)
 	}
-	nox_xxx_mapWall_4FF790()
+	s.spells.walls.Reset()
 	for _, pu := range s.Players.ListUnits() {
 		ud := pu.UpdateDataPlayer()
 		legacy.Sub_4F7950(pu)

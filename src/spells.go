@@ -34,14 +34,17 @@ type serverSpells struct {
 	allowAll bool // a cheat to allow all spells
 	duration spellsDuration
 	missiles spellMissiles
+	walls    spellWall
 }
 
 func (sp *serverSpells) Init(s *Server) {
 	sp.duration.Init(s)
 	sp.missiles.Init(s)
+	sp.walls.Init(s)
 }
 
 func (sp *serverSpells) Free() {
+	sp.walls.Free()
 	sp.missiles.Free()
 	sp.duration.Free()
 }
