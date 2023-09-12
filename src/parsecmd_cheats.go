@@ -271,7 +271,7 @@ func serverCheatSpells(enable bool, max int) {
 func serverCheatAllSpells(enable bool, max int) {
 	serverCheatSage(enable, max)
 	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
-		noxServer.spells.allowAll = enable
+		noxServer.Spells.AllowAll = enable
 	}
 }
 

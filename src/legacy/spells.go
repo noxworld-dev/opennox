@@ -35,7 +35,7 @@ import (
 )
 
 var (
-	GetPhonemeTree                    func() unsafe.Pointer
+	GetPhonemeTree                    func() *server.PhonemeLeaf
 	Nox_xxx_spellAwardAll1_4EFD80     func(p *server.Player)
 	Nox_xxx_spellAwardAll2_4EFC80     func(p *server.Player)
 	Nox_xxx_spellAwardAll3_4EFE10     func(p *server.Player)
@@ -64,7 +64,7 @@ var (
 
 //export nox_xxx_spellGetDefArrayPtr_424820
 func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
-	return unsafe.Pointer(GetPhonemeTree())
+	return GetPhonemeTree().C()
 }
 
 //export nox_xxx_getEnchantSpell_424920
@@ -159,11 +159,13 @@ func nox_xxx_spellPhonemes_424A20(ind, ind2 int) C.char {
 
 //export nox_xxx_spellHasFlags_424A50
 func nox_xxx_spellHasFlags_424A50(ind, flags int) C.bool {
-	return C.bool(GetServer().SpellHasFlags(spell.ID(ind), things.SpellFlags(flags)))
+	return C.bool(GetServer().S().Spells.HasFlags(spell.ID(ind), things.SpellFlags(flags)))
 }
 
 //export nox_xxx_spellFlags_424A70
-func nox_xxx_spellFlags_424A70(ind int) C.uint { return C.uint(GetServer().SpellFlags(spell.ID(ind))) }
+func nox_xxx_spellFlags_424A70(ind int) C.uint {
+	return C.uint(GetServer().S().Spells.Flags(spell.ID(ind)))
+}
 
 //export nox_xxx_spellIcon_424A90
 func nox_xxx_spellIcon_424A90(ind int) unsafe.Pointer { return Nox_xxx_spellIcon_424A90(ind) }

@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -24,23 +25,23 @@ func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *server.Object) {
 }
 
 type spellsDuration struct {
-	s                          *Server
-	nox_alloc_spellDur_1569724 alloc.ClassT[server.DurSpell]
-	list                       *server.DurSpell
-	lastID                     uint16
+	s      *Server
+	alloc  alloc.ClassT[server.DurSpell]
+	list   *server.DurSpell
+	lastID uint16
 }
 
 func (sp *spellsDuration) Init(s *Server) {
 	sp.s = s
-	sp.nox_alloc_spellDur_1569724 = alloc.NewClassT("spellDuration", server.DurSpell{}, 512)
+	sp.alloc = alloc.NewClassT("spellDuration", server.DurSpell{}, 512)
 }
 
 func (sp *spellsDuration) Free() {
-	sp.nox_alloc_spellDur_1569724.Free()
+	sp.alloc.Free()
 }
 
 func (sp *spellsDuration) newDur() *server.DurSpell {
-	p := sp.nox_alloc_spellDur_1569724.NewObject()
+	p := sp.alloc.NewObject()
 	if p != nil {
 		sp.lastID++
 		p.ID = sp.lastID
@@ -50,7 +51,7 @@ func (sp *spellsDuration) newDur() *server.DurSpell {
 
 func (sp *spellsDuration) sub4FE8A0(a1 int) {
 	if a1 == 0 {
-		sp.nox_alloc_spellDur_1569724.FreeAllObjects()
+		sp.alloc.FreeAllObjects()
 		sp.list = nil
 		return
 	}
@@ -76,7 +77,7 @@ func (sp *spellsDuration) freeRecursive(p *server.DurSpell) {
 		next2 = it.Next
 		sp.freeRecursive(it)
 	}
-	sp.nox_alloc_spellDur_1569724.FreeObjectFirst(p)
+	sp.alloc.FreeObjectFirst(p)
 }
 
 func (sp *spellsDuration) unlink(p *server.DurSpell) {
@@ -102,7 +103,7 @@ func (sp *spellsDuration) newHook() {
 
 func (sp *spellsDuration) destroyDurSpell(spl *server.DurSpell) {
 	if spl.Caster16 != nil {
-		snd := sp.s.SpellDefByInd(spell.ID(spl.Spell)).GetAudio(2)
+		snd := sp.s.Spells.DefByInd(spell.ID(spl.Spell)).GetOffSound()
 		sp.s.AudioEventObj(snd, spl.Caster16, 0, 0)
 	}
 	if destroy := spl.Destroy; destroy != nil {
@@ -159,7 +160,7 @@ func (sp *spellsDuration) nox_spell_cancelOffensiveFor_4FF310(u *server.Object) 
 	var next *server.DurSpell
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
-		if it.Caster16 == u.SObj() && sp.s.SpellFlags(spell.ID(it.Spell)).Has(things.SpellOffensive) {
+		if it.Caster16 == u.SObj() && sp.s.Spells.Flags(spell.ID(it.Spell)).Has(things.SpellOffensive) {
 			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
 		}
 	}
@@ -235,11 +236,13 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	p.Destroy = destroy
 	p.Flags88 = 0
 	sp.add(p)
-	sid := 0
-	if sp.s.SpellHasFlags(spellID, things.SpellTargeted) {
-		sid = 1
+	def := sp.s.Spells.DefByInd(spellID)
+	var aud sound.ID
+	if sp.s.Spells.HasFlags(spellID, things.SpellTargeted) {
+		aud = def.GetOnSound()
+	} else {
+		aud = def.GetCastSound()
 	}
-	aud := sp.s.SpellDefByInd(spellID).GetAudio(sid)
 	sp.s.AudioEventObj(aud, u2, 0, 0)
 	if create == nil || ccall.CallIntPtr(create, p.C()) == 0 {
 		return true

@@ -24,7 +24,7 @@ func (sp *spellMissiles) Free() {
 }
 
 func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *server.Object, a5 *server.SpellAcceptArg, lvl int) int {
-	spl := sp.s.SpellDefByInd(spellID)
+	spl := sp.s.Spells.DefByInd(spellID)
 	opts := spl.Def.Missiles.Level(lvl)
 	typ, ok := sp.proj[spellID]
 	if !ok {
@@ -86,6 +86,6 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 		mud.Target = targ.SObj()
 		mud.SpellID = int32(spellID)
 	}
-	aud := sp.s.SpellDefByInd(spellID).GetAudio(0)
+	aud := sp.s.Spells.DefByInd(spellID).GetCastSound()
 	sp.s.AudioEventObj(aud, caster, 0, 0)
 }

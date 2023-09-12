@@ -3,6 +3,7 @@ package opennox
 import (
 	"fmt"
 	"io"
+	"os"
 	"unsafe"
 
 	"github.com/noxworld-dev/noxcrypt"
@@ -25,6 +26,7 @@ var (
 	nox_images_arr1_787156    []*legacy.ImageRef
 	objectTypeCode16ByInd     []uint16
 	objectTypeCode16ByInd_len int
+	dumpSpells                = os.Getenv("NOX_DUMP_SPELLS") == "true"
 )
 
 func getThingName(i int) string {
@@ -81,7 +83,6 @@ func loadAllBinFileSections(thg *binfile.MemFile, buf []byte) error {
 	s := noxServer
 	s.Walls.ResetDefs()
 	legacy.LoadAllBinFileSectionsResetCounters()
-	isClient := noxflags.HasGame(noxflags.GameClient)
 	for {
 		sect := thg.ReadU32()
 		if sect == 0 {
@@ -89,7 +90,12 @@ func loadAllBinFileSections(thg *binfile.MemFile, buf []byte) error {
 		}
 		switch sect {
 		case 0x5350454C: // SPEL
-			if err := s.nox_thing_read_SPEL_4156B0(thg, isClient); err != nil {
+			if err := s.Spells.Read(thg, func(ref *things.ImageRef) unsafe.Pointer {
+				if !noxflags.HasGame(noxflags.GameClient) {
+					return nil
+				}
+				return unsafe.Pointer(noxClient.r.Bag.ThingsImageRef(ref))
+			}, dumpSpells); err != nil {
 				return err
 			}
 		case 0x41554420: // AUD
