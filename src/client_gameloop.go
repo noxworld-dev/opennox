@@ -4,7 +4,6 @@ package opennox
 
 import (
 	"context"
-	"encoding/binary"
 	"errors"
 	"fmt"
 	"image"
@@ -12,18 +11,14 @@ import (
 	"strings"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/maps"
-	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
-	"github.com/noxworld-dev/opennox/v1/internal/netlist"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -230,54 +225,5 @@ func (c *Client) generateMouseSparks() {
 		}
 	} else {
 		*memmap.PtrUint32(0x5D4594, 816416) = 0
-	}
-}
-
-func sub_43CCA0() {
-	legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
-	start := noxServer.Frame()
-	netstrClientConn.RecvLoop(netstr.RecvCanRead)
-	if start != noxServer.Frame() && legacy.Get_dword_5d4594_2650652() == 1 && !noxflags.HasGame(noxflags.GameHost) {
-		if v1 := legacy.Sub_40A710(1); sub_43C790() > v1 {
-			legacy.Sub_43CEB0()
-			v2 := memmap.Uint64(0x5D4594, 815740) + memmap.Uint64(0x587000, 91880)/uint64(sub_43C790())
-			if platformTicks() >= v2 {
-				buf, free := alloc.Make([]byte{}, 8) // TODO: check if we need extra space
-				defer free()
-				buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
-				binary.LittleEndian.PutUint32(buf[1:], noxServer.Frame()+1)
-				noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, buf[:5])
-			}
-		}
-	}
-
-	if dt := platformTicks() - ticks815724; dt >= 2000 {
-		ticks815724 = platformTicks()
-		netstr.Global.SendCode6(netstrClientConn)
-	}
-	if !noxflags.HasGame(noxflags.GameHost) {
-		legacy.Nox_xxx_netImportant_4E5770(0x1F, 0)
-	}
-	nox_xxx_netSendBySock_40EE10(netstrClientConn, common.MaxPlayers-1, netlist.Kind0)
-	netstr.Global.MaybeSendQueues()
-	if lastCliHandlePackets == 0 {
-		return
-	}
-
-	if dt := platformTicks() - lastCliHandlePackets; dt > 2000 && !dword_5d4594_815704 {
-		dword_5d4594_815704 = true
-		legacy.Sub_4AB4A0(1)
-		ticks815732 = platformTicks()
-	}
-	if lastCliHandlePackets == 0 {
-		return
-	}
-
-	if dt := platformTicks() - lastCliHandlePackets; dt <= 20000 || dword_5d4594_815708 {
-		return
-	}
-
-	if dt := platformTicks() - ticks815732; dt > 20000 {
-		sub_43CF70()
 	}
 }
