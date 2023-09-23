@@ -8547,69 +8547,6 @@ int sub_53EC80(int a1, int a2) {
 	return (a2 & *getMemU32Ptr(0x587000, 279440 + 12 * v2)) != 0;
 }
 
-//----- (0053ECE0) --------------------------------------------------------
-int nox_xxx_useMushroom_53ECE0(int a1, int a2) {
-	int v2; // eax
-
-	if (*(uint8_t*)(a1 + 540)) {
-		nox_xxx_removePoison_4EE9D0(a1);
-		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "Use.c:MushroomClean", 0);
-		v2 = nox_xxx_spellGetAud44_424800(14, 1);
-		nox_xxx_aud_501960(v2, a1, 0, 0);
-	} else {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "Use.c:MushroomConfuse", 0);
-	}
-	nox_xxx_buffApplyTo_4FF380(a1, 3, 300, 5);
-	nox_xxx_delayedDeleteObject_4E5CC0(a2);
-	return 1;
-}
-
-//----- (0053ED60) --------------------------------------------------------
-int nox_xxx_useEnchant_53ED60(int a1, int a2) {
-	nox_xxx_buffApplyTo_4FF380(a1, **(uint32_t**)(a2 + 736), *(uint32_t*)(*(uint32_t*)(a2 + 736) + 4), 5);
-	nox_xxx_delayedDeleteObject_4E5CC0(a2);
-	return 1;
-}
-
-//----- (0053ED90) --------------------------------------------------------
-int nox_xxx_useCast_53ED90(int a1, uint32_t* a2) {
-	int* v2;   // ecx
-	int v3;    // eax
-	int v4;    // eax
-	int v6[3]; // [esp+4h] [ebp-Ch]
-
-	v6[0] = a1;
-	v2 = (int*)a2[184];
-	if (*(uint8_t*)(a1 + 8) & 4) {
-		v3 = *(uint32_t*)(a1 + 748);
-		*(float*)&v6[1] = (double)*(int*)(*(uint32_t*)(v3 + 276) + 2284);
-		*(float*)&v6[2] = (double)*(int*)(*(uint32_t*)(v3 + 276) + 2288);
-	} else {
-		v4 = *(uint32_t*)(a1 + 60);
-		v6[1] = *(uint32_t*)(a1 + 56);
-		v6[2] = v4;
-	}
-	nox_xxx_spellAccept_4FD400(*v2, (int)a2, a2, (int)a2, v6, 4);
-	nox_xxx_delayedDeleteObject_4E5CC0((int)a2);
-	return 1;
-}
-
-//----- (0053EF00) --------------------------------------------------------
-int nox_xxx_useCiderConfuse_53EF00(int a1, int a2) {
-	int v2; // esi
-
-	if (!a1 || !a2 || !*(uint32_t*)(a1 + 556)) {
-		return 1;
-	}
-	nox_xxx_buffApplyTo_4FF380(a1, 3, 5 * (uint16_t)gameFPS(), 4);
-	nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "Use.c:CiderConfuse", 0);
-	v2 = nox_xxx_useConsume_53EE10(a1, a2);
-	if (v2) {
-		nox_xxx_delayedDeleteObject_4E5CC0(a2);
-	}
-	return v2;
-}
-
 //----- (0053F290) --------------------------------------------------------
 int nox_xxx_useLesserFireballStaff_53F290(int a1, uint32_t* a2) {
 	int v2;            // esi

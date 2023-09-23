@@ -546,7 +546,7 @@ type Object struct {
 	Field131      uint32                     // 131, 524
 	Pos132        types.Pointf               // 132, 528
 	Frame134      uint32                     // 134, 536, TODO: some timestamp
-	Field540      byte                       // 135, 540
+	Poison540     byte                       // 135, 540
 	Field541      byte                       // 135, 541
 	Field542      uint16                     // 135, 542
 	SpeedCur      float32                    // 136, 544
