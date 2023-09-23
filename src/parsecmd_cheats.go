@@ -45,6 +45,7 @@ func init() {
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
 				legacy.CheatEquipAll(allow)
+				cheatAllowAll = allow
 				if allow {
 					c.Print(console.ColorLightYellow, "all players are allowed to equip all items")
 				} else {

@@ -681,39 +681,6 @@ float nox_double2float(double a1) { return (float)a1; }
 //----- (00419B10) --------------------------------------------------------
 int nox_double2int(double a1) { return (int)a1; }
 
-//----- (00419E10) --------------------------------------------------------
-int sub_419E10(int a1, int a2) {
-	int result; // eax
-
-	result = a1;
-	if (a1 && !(*(uint8_t*)(a1 + 16) & 0x20)) {
-		result = 1 << *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2064);
-		if (a2) {
-			dword_5d4594_527712 |= result;
-		} else {
-			result = ~result;
-			dword_5d4594_527712 &= result;
-		}
-	}
-	return result;
-}
-
-//----- (00419E60) --------------------------------------------------------
-int sub_419E60(nox_object_t* a1p) {
-	int a1 = a1p;
-	int result; // eax
-
-	if (a1 && *(uint8_t*)(a1 + 8) & 4) {
-		result = (dword_5d4594_527712 & (1 << *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2064))) != 0;
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (00419EA0) --------------------------------------------------------
-int sub_419EA0() { return dword_5d4594_527712 != 0; }
-
 //----- (0041A000) --------------------------------------------------------
 int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 	int result;        // eax

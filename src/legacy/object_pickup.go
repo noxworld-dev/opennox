@@ -8,10 +8,21 @@ int nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3);
 int nox_objectPickupAudEvent_4F3D50(nox_object_t* a1, nox_object_t* a2, int a3);
 */
 import "C"
-import "github.com/noxworld-dev/opennox/v1/server"
+import (
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
+
+	"github.com/noxworld-dev/opennox/v1/server"
+)
 
 var (
-	Nox_objectPickupAudEvent_4F3D50 func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
+	Nox_objectPickupAudEvent_4F3D50      func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
+	Nox_xxx_pickupPotion_4F37D0          func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
+	Nox_xxx_playerClassCanUseItem_57B3D0 func(item *server.Object, cl player.Class) bool
+	Sub_57B370                           func(cl object.Class, sub object.SubClass, typ int32) byte
+	Sub_419E10                           func(u *server.Object, a2 int32)
+	Sub_419E60                           func(u *server.Object) bool
+	Sub_419EA0                           func() bool
 )
 
 func init() {
@@ -37,6 +48,37 @@ func init() {
 func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 int) int {
 	return Nox_objectPickupAudEvent_4F3D50(asObjectS(cobj1), asObjectS(cobj2), a3)
 }
+
+//export nox_xxx_pickupPotion_4F37D0
+func nox_xxx_pickupPotion_4F37D0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 int) int {
+	return Nox_xxx_pickupPotion_4F37D0(asObjectS(cobj1), asObjectS(cobj2), a3)
+}
+
+//export sub_57B370
+func sub_57B370(cl, sub, typ int32) byte {
+	return Sub_57B370(object.Class(cl), object.SubClass(sub), typ)
+}
+
+//export sub_419E10
+func sub_419E10(u *nox_object_t, a2 int32) {
+	Sub_419E10(asObjectS(u), a2)
+}
+
+//export sub_419E60
+func sub_419E60(u *nox_object_t) int {
+	return bool2int(Sub_419E60(asObjectS(u)))
+}
+
+//export sub_419EA0
+func sub_419EA0() int {
+	return bool2int(Sub_419EA0())
+}
+
+//export nox_xxx_playerClassCanUseItem_57B3D0
+func nox_xxx_playerClassCanUseItem_57B3D0(item *nox_object_t, cl int8) int {
+	return bool2int(Nox_xxx_playerClassCanUseItem_57B3D0(asObjectS(item), player.Class(cl)))
+}
+
 func Nox_xxx_pickupDefault_4F31E0(a1 *server.Object, a2 *server.Object, a3 int) int {
 	return int(C.nox_xxx_pickupDefault_4F31E0(asObjectC(a1), asObjectC(a2), C.int(a3)))
 }

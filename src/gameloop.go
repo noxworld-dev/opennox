@@ -655,7 +655,7 @@ func nox_xxx_cliSetupSession_437190() {
 	}
 	noxServer.nox_xxx_mapLoad_40A380()
 	clientSetServerHost("")
-	sub_446580(1)
+	xferFree446580(1)
 	legacy.Sub_48D760()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		netlist.ResetAll()

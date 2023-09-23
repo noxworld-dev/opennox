@@ -40,7 +40,7 @@ float nox_double2float(double a1);
 int nox_double2int(double a1);
 double nox_xxx_gamedataGetFloat_419D40(char* a1);
 double nox_xxx_gamedataGetFloatTable_419D70(char* a1, int a2);
-int sub_419E10(int a1, int a2);
+void sub_419E10(nox_object_t* a1, int a2);
 int sub_419E60(nox_object_t* a1);
 int sub_419EA0();
 int sub_41A000(char* a1, nox_savegame_xxx* sv);
