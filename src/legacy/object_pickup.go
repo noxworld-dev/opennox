@@ -16,6 +16,7 @@ import (
 )
 
 var (
+	Nox_xxx_pickupDefault_4F31E0         func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
 	Nox_objectPickupAudEvent_4F3D50      func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
 	Nox_xxx_pickupPotion_4F37D0          func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
 	Nox_xxx_playerClassCanUseItem_57B3D0 func(item *server.Object, cl player.Class) bool
@@ -42,6 +43,11 @@ func init() {
 	server.RegisterObjectPickup("CrownPickup", C.sub_4F3400)
 	server.RegisterObjectPickup("AudEventPickup", C.nox_objectPickupAudEvent_4F3D50)
 	server.RegisterObjectPickup("AnkhTradablePickup", C.sub_4F3DD0)
+}
+
+//export nox_xxx_pickupDefault_4F31E0
+func nox_xxx_pickupDefault_4F31E0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 int) int {
+	return Nox_xxx_pickupDefault_4F31E0(asObjectS(cobj1), asObjectS(cobj2), a3)
 }
 
 //export nox_objectPickupAudEvent_4F3D50
@@ -77,8 +83,4 @@ func sub_419EA0() int {
 //export nox_xxx_playerClassCanUseItem_57B3D0
 func nox_xxx_playerClassCanUseItem_57B3D0(item *nox_object_t, cl int8) int {
 	return bool2int(Nox_xxx_playerClassCanUseItem_57B3D0(asObjectS(item), player.Class(cl)))
-}
-
-func Nox_xxx_pickupDefault_4F31E0(a1 *server.Object, a2 *server.Object, a3 int) int {
-	return int(C.nox_xxx_pickupDefault_4F31E0(asObjectC(a1), asObjectC(a2), C.int(a3)))
 }
