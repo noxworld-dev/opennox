@@ -36,7 +36,7 @@ func castDeathRay(spellID spell.ID, a2, a3, a4 *server.Object, a5 *server.SpellA
 	s.Nox_xxx_mapDamageUnitsAround(pos16, rout, rin, dmg, object.DamageZapRay, a3, nil, false)
 	nox_xxx_sendDeathRayCast_523250(pos4.Point(), pos16.Point())
 	snd := s.Spells.DefByInd(spellID).GetCastSound()
-	s.AudioEventObj(snd, a4, 0, 0)
+	s.Audio.EventObj(snd, a4, 0, 0)
 	legacy.Nox_xxx_sMakeScorch_537AF0(pos16, 1)
 	return 1
 }

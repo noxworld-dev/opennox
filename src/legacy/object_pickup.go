@@ -21,9 +21,6 @@ var (
 	Nox_xxx_pickupPotion_4F37D0          func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
 	Nox_xxx_playerClassCanUseItem_57B3D0 func(item *server.Object, cl player.Class) bool
 	Sub_57B370                           func(cl object.Class, sub object.SubClass, typ int32) byte
-	Sub_419E10                           func(u *server.Object, a2 int32)
-	Sub_419E60                           func(u *server.Object) bool
-	Sub_419EA0                           func() bool
 )
 
 func init() {
@@ -67,17 +64,17 @@ func sub_57B370(cl, sub, typ int32) byte {
 
 //export sub_419E10
 func sub_419E10(u *nox_object_t, a2 int32) {
-	Sub_419E10(asObjectS(u), a2)
+	GetServer().S().Players.SetXxx(asObjectS(u), a2)
 }
 
 //export sub_419E60
 func sub_419E60(u *nox_object_t) int {
-	return bool2int(Sub_419E60(asObjectS(u)))
+	return bool2int(GetServer().S().Players.CheckXxx(asObjectS(u)))
 }
 
 //export sub_419EA0
 func sub_419EA0() int {
-	return bool2int(Sub_419EA0())
+	return bool2int(GetServer().S().Players.AnyXxx())
 }
 
 //export nox_xxx_playerClassCanUseItem_57B3D0

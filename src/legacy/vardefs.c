@@ -654,7 +654,6 @@ void* nox_alloc_hit_2491548 = 0;
 uint32_t dword_5d4594_2488656 = 0;
 uint32_t dword_5d4594_2386552 = 0;
 uint32_t dword_5d4594_3835368 = 0;
-uint32_t dword_5d4594_527712 = 0;
 uint32_t nox_xxx_useAudio_587000_80772 = 0x5;
 uint32_t dword_5d4594_1307792 = 0;
 uint32_t dword_5d4594_830272 = 0;

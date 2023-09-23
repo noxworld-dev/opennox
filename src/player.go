@@ -761,13 +761,13 @@ func (s *Server) PlayerSpell(su *server.Object) {
 			}
 			if a1 != 0 {
 				nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, a1)
-				s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+				s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
 				mana := legacy.Sub_4FCF90(u.SObj(), spellInd, 1)
 				if mana < 0 {
 					a1 = 11
 					nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, a1)
-					s.AudioEventObj(sound.SoundManaEmpty, u, 0, 0)
+					s.Audio.EventObj(sound.SoundManaEmpty, u, 0, 0)
 				} else {
 					arg, v14free := alloc.New(server.SpellAcceptArg{})
 					defer v14free()
@@ -966,7 +966,7 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 			legacy.Sub_506740(pl.PlayerUnit)
 		}
 		if pl.Field4792 != 0 && pl.PlayerUnit != nil && noxflags.HasGame(noxflags.GameModeQuest) {
-			s.AudioEventObj(sound.SoundQuestPlayerExitGame, pl.PlayerUnit, 0, 0)
+			s.Audio.EventObj(sound.SoundQuestPlayerExitGame, pl.PlayerUnit, 0, 0)
 			pl.Field4792 = 0
 			if legacy.Nox_xxx_player_4E3CE0() == 0 {
 				v5 := legacy.Nox_xxx_getQuestMapFile_4D0F60()
@@ -1054,7 +1054,7 @@ func (s *Server) sub_4D7390(u *server.Object) {
 			legacy.Sub_4ED0C0(u, it)
 			legacy.Nox_xxx_inventoryPutImpl_4F3070(to, it, 1)
 			nox_xxx_netPriMsgToPlayer_4DA2C0(to, "GeneralPrint:GainedKey", 0)
-			s.AudioEventObj(sound.SoundKeyPickup, to, 0, 0)
+			s.Audio.EventObj(sound.SoundKeyPickup, to, 0, 0)
 		}
 	}
 	sub_4EDD00(u, object.ClassKey)

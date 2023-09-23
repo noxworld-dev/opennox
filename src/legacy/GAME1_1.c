@@ -42,7 +42,6 @@
 #include "server__script__builtin.h"
 #include "server__script__script.h"
 
-extern uint32_t dword_5d4594_527712;
 extern uint32_t dword_5d4594_739392;
 extern uint32_t dword_5d4594_527988;
 extern uint32_t dword_5d4594_529332;

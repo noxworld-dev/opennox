@@ -224,7 +224,7 @@ func (w *Wall) open() {
 			Y: float32(int32(*(*uint32)(unsafe.Add(p, 8)))*23) + 11.5,
 		}
 		sndName := w.Def().OpenSound()
-		s.AudioEventPos(sound.ByName(sndName), pos, 0, 0)
+		s.Audio.EventPos(sound.ByName(sndName), pos, 0, 0)
 	}
 }
 
@@ -245,7 +245,7 @@ func (w *Wall) close() {
 			Y: float32(int32(*(*uint32)(unsafe.Add(p, 8)))*23) + 11.5,
 		}
 		sndName := w.Def().CloseSound()
-		s.AudioEventPos(sound.ByName(sndName), pos, 0, 0)
+		s.Audio.EventPos(sound.ByName(sndName), pos, 0, 0)
 	}
 }
 

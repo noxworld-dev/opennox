@@ -571,7 +571,7 @@ func (s *Server) netPrintLineToAll(id strman.ID) { // nox_xxx_netPrintLineToAll_
 
 func nox_xxx_netPriMsgToPlayer_4DA2C0(u *server.Object, id strman.ID, a3 byte) {
 	var buf [52]byte
-	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || sub_419E60(u.SObj()) {
+	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || noxServer.Players.CheckXxx(u.SObj()) {
 		return
 	}
 	buf[0] = byte(noxnet.MSG_INFORM)

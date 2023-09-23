@@ -12,8 +12,7 @@ import (
 )
 
 var (
-	cheatAllowAll       = false
-	dword_5d4594_527712 uint32
+	cheatAllowAll = false
 )
 
 func nox_xxx_inventoryCountObjects_4E7D30(a1 *server.Object, a2 int32) int {
@@ -80,7 +79,7 @@ func nox_objectPickupAudEvent_4F3D50(obj1 *server.Object, obj2 *server.Object, a
 		return ok
 	}
 	if snd := s.PickupSound(obj2.TypeInd); snd != 0 {
-		s.AudioEventObj(snd, obj1, 0, 0)
+		s.Audio.EventObj(snd, obj1, 0, 0)
 	}
 	return ok
 }
@@ -118,10 +117,10 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 	s := noxServer
 	if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) && obj.Class().Has(object.ClassPlayer) && !nox_xxx_playerClassCanUseItem_57B3D0(potion, obj.UpdateDataPlayer().Player.PlayerClass()) {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "pickup.c:ObjectEquipClassFail", 0)
-		s.AudioEventObj(sound.SoundNoCanDo, obj, 2, obj.NetCode)
+		s.Audio.EventObj(sound.SoundNoCanDo, obj, 2, obj.NetCode)
 		return 0
 	}
-	if !sub_419E60(obj) {
+	if !s.Players.CheckXxx(obj) {
 		consumed := false
 		if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodHealthPotion) && obj.HealthData != nil {
 			dhp := int(*(*int32)(potion.UseData))
@@ -138,7 +137,7 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 			}
 			if dhp+int(obj.HealthData.Cur) < int(obj.HealthData.Max) {
 				legacy.Nox_xxx_unitAdjustHP_4EE460(obj, dhp)
-				s.AudioEventObj(sound.SoundRestoreHealth, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundRestoreHealth, obj, 0, 0)
 				consumed = true
 			}
 		}
@@ -155,14 +154,14 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 			}
 			if dmp+int(ud.ManaCur) < int(ud.ManaMax) {
 				legacy.Nox_xxx_playerManaAdd_4EEB80(obj, dmp)
-				s.AudioEventObj(sound.SoundRestoreMana, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundRestoreMana, obj, 0, 0)
 				consumed = true
 			}
 		}
 		if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Poison540) != 0 {
 			legacy.Nox_xxx_removePoison_4EE9D0(obj)
 			aud := s.Spells.DefByInd(spell.SPELL_CURE_POISON).GetOnSound()
-			s.AudioEventObj(aud, obj, 0, 0)
+			s.Audio.EventObj(aud, obj, 0, 0)
 			s.DelayedDelete(potion)
 			return 1
 		}
@@ -174,32 +173,7 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 	legacy.Nox_xxx_decay_5116F0(potion)
 	res := nox_xxx_pickupDefault_4F31E0(obj, potion, a3)
 	if res == 1 {
-		s.AudioEventObj(sound.SoundPotionPickup, obj, 0, 0)
+		s.Audio.EventObj(sound.SoundPotionPickup, obj, 0, 0)
 	}
 	return res
-}
-
-func sub_419E10(u *server.Object, a2 int32) {
-	if u != nil && !u.Flags().Has(object.FlagDestroyed) {
-		bit := uint32(1) << u.UpdateDataPlayer().Player.PlayerInd
-		if a2 != 0 {
-			dword_5d4594_527712 |= bit
-		} else {
-			dword_5d4594_527712 &^= bit
-		}
-	}
-}
-
-func sub_419E60(obj *server.Object) bool {
-	if obj == nil {
-		return false
-	}
-	if !obj.Class().Has(object.ClassPlayer) {
-		return false
-	}
-	return (dword_5d4594_527712 & (uint32(1) << obj.UpdateDataPlayer().Player.PlayerInd)) != 0
-}
-
-func sub_419EA0() bool {
-	return dword_5d4594_527712 != 0
 }

@@ -10,12 +10,37 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
+type audioEventObj struct {
+	ID   sound.ID
+	Obj  *Object
+	Kind int
+	Code uint32
+}
+
+type audioEventPos struct {
+	ID   sound.ID
+	Pos  types.Pointf
+	Kind int
+	Code uint32
+}
+
+type OnSoundFunc func(id sound.ID, kind int, obj *Object, pos types.Pointf)
+
 type serverAudio struct {
-	alloc   alloc.ClassT[AudioEvent]
-	inited  bool
-	head    *AudioEvent
-	bySound [1024]audioEvent2
-	bitmap  [32]uint32
+	s          *Server
+	alloc      alloc.ClassT[AudioEvent]
+	inited     bool
+	head       *AudioEvent
+	bySound    [1024]audioEvent2
+	bitmap     [32]uint32
+	onSound    []OnSoundFunc
+	delayedObj []audioEventObj
+	delayedPos []audioEventPos
+	// inAudio indicates that the server is currently accepting audio events.
+	//
+	// If this flag is set, all audio events will be added directly to the list.
+	// And if not, we will queue them for the next frame.
+	inAudio bool
 }
 
 type AudioEvent struct {
@@ -39,10 +64,11 @@ type audioEvent2 struct {
 	Field24 *AudioEvent
 }
 
-func (s *serverAudio) Init() {
+func (s *serverAudio) Init(srv *Server) {
 	if s.inited {
 		return
 	}
+	s.s = srv
 	s.alloc = alloc.NewClassT("AudEvent", AudioEvent{}, 128)
 	for i := range s.bySound[:len(s.bySound)-1] {
 		p := &s.bySound[i]
@@ -60,6 +86,10 @@ func (s *serverAudio) Free() {
 	if s.inited {
 		s.alloc.Free()
 		s.head = nil
+		s.onSound = nil
+		s.inAudio = false
+		s.delayedObj = nil
+		s.delayedPos = nil
 		s.inited = false
 	}
 }
@@ -67,10 +97,25 @@ func (s *serverAudio) Free() {
 func (s *serverAudio) Reset() {
 	s.alloc.FreeAllObjects()
 	s.head = nil
+	s.inAudio = true
+	// Replay events queued outside the audio loop.
+	for _, a := range s.delayedObj {
+		s.EventObj(a.ID, a.Obj, a.Kind, a.Code)
+	}
+	s.delayedObj = s.delayedObj[:0]
+	for _, a := range s.delayedPos {
+		s.EventPos(a.ID, a.Pos, a.Kind, a.Code)
+	}
+	s.delayedPos = s.delayedPos[:0]
+}
+
+func (s *serverAudio) OnSound(fnc OnSoundFunc) {
+	s.onSound = append(s.onSound, fnc)
 }
 
 func (s *serverAudio) ResetBitmap() {
 	s.bitmap = [32]uint32{}
+	s.inAudio = false
 }
 
 func (s *serverAudio) Flags(id sound.ID) int {
@@ -89,7 +134,7 @@ func (s *serverAudio) Field20(id sound.ID) int {
 	return s.bySound[id].Field20
 }
 
-func (s *serverAudio) NewAudioEventObj(id sound.ID, iobj Obj, kind int, code uint32) {
+func (s *serverAudio) newAudioEventObj(id sound.ID, iobj Obj, kind int, code uint32) {
 	obj := toObject(iobj)
 	if noxflags.HasGame(noxflags.GameFlag20) {
 		return
@@ -114,7 +159,7 @@ func (s *serverAudio) NewAudioEventObj(id sound.ID, iobj Obj, kind int, code uin
 	s.head = p
 }
 
-func (s *serverAudio) NewAudioEventPos(id sound.ID, pos types.Pointf, kind int, code uint32) {
+func (s *serverAudio) newAudioEventPos(id sound.ID, pos types.Pointf, kind int, code uint32) {
 	if noxflags.HasGame(noxflags.GameFlag20) {
 		return
 	}
@@ -339,5 +384,47 @@ func (s *serverAudio) ReadAVNT(f File) bool {
 		default:
 			return false
 		}
+	}
+}
+
+func (s *serverAudio) EventObj(id sound.ID, iobj Obj, kind int, code uint32) {
+	obj := toObject(iobj)
+	if !s.inAudio {
+		s.delayedObj = append(s.delayedObj, audioEventObj{
+			ID: id, Obj: obj, Kind: kind, Code: code,
+		})
+		return
+	}
+	if noxflags.HasGame(noxflags.GameFlag20) {
+		return
+	}
+	if id == 0 || obj == nil || s.Field12(id) <= 0 {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassPlayer) && s.s.Players.CheckXxx(obj) {
+		return
+	}
+	s.newAudioEventObj(id, obj, kind, code)
+	for _, fnc := range s.onSound {
+		fnc(id, kind, obj, obj.Pos())
+	}
+}
+
+func (s *serverAudio) EventPos(id sound.ID, pos types.Pointf, kind int, code uint32) {
+	if !s.inAudio {
+		s.delayedPos = append(s.delayedPos, audioEventPos{
+			ID: id, Pos: pos, Kind: kind, Code: code,
+		})
+		return
+	}
+	if noxflags.HasGame(noxflags.GameFlag20) {
+		return
+	}
+	if id == 0 || s.Field12(id) <= 0 {
+		return
+	}
+	s.newAudioEventPos(id, pos, kind, code)
+	for _, fnc := range s.onSound {
+		fnc(id, kind, nil, pos)
 	}
 }
