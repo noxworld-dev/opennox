@@ -246,7 +246,7 @@ int sub_53EC80(int a1, int a2);
 int nox_xxx_useMushroom_53ECE0(int a1, int a2);
 int nox_xxx_useEnchant_53ED60(int a1, int a2);
 int nox_xxx_useCast_53ED90(int a1, uint32_t* a2);
-int nox_xxx_useConsume_53EE10(int a1, int a2);
+int nox_xxx_useConsume_53EE10(nox_object_t* a1, nox_object_t* a2);
 int nox_xxx_useCiderConfuse_53EF00(int a1, int a2);
 int nox_xxx_usePotion_53EF70(nox_object_t* a1, nox_object_t* a2);
 int nox_xxx_useLesserFireballStaff_53F290(int a1, uint32_t* a2);
