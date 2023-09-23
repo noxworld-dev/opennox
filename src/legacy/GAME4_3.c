@@ -3624,39 +3624,6 @@ LABEL_10:
 }
 // 535128: variable 'v34' is possibly undefined
 
-//----- (00536130) --------------------------------------------------------
-char* sub_536130(char* a1, int* a2) {
-	char* result; // eax
-	int v3;       // eax
-	char* v4;     // eax
-
-	result = strtok(a1, " ");
-	if (result) {
-		v3 = nox_xxx_enchantByName_424880(result);
-		*a2 = v3;
-		if (v3 == -1) {
-			result = 0;
-		} else {
-			v4 = strtok(0, " ");
-			a2[1] = atoi(v4);
-			result = (char*)1;
-		}
-	}
-	return result;
-}
-
-//----- (00536180) --------------------------------------------------------
-char* sub_536180(char* a1, int* a2) {
-	char* result; // eax
-
-	result = strtok(a1, " ");
-	if (result) {
-		*a2 = nox_xxx_spellNameToN_4243F0(result);
-		result = (char*)1;
-	}
-	return result;
-}
-
 //----- (005361B0) --------------------------------------------------------
 char* sub_5361B0(char* a1, int a2) {
 	char* result; // eax
@@ -3727,30 +3694,6 @@ char* sub_536260(char* a1, int a2) {
 				result = (char*)1;
 			}
 		}
-	}
-	return result;
-}
-
-//----- (00536390) --------------------------------------------------------
-char* sub_536390(char* a1, int* a2) {
-	char* result; // eax
-
-	result = strtok(a1, " ");
-	if (result) {
-		*a2 = atoi(result);
-		result = (char*)1;
-	}
-	return result;
-}
-
-//----- (005363C0) --------------------------------------------------------
-char* sub_5363C0(char* a1, int* a2) {
-	char* result; // eax
-
-	result = strtok(a1, " ");
-	if (result) {
-		*a2 = atoi(result);
-		result = (char*)1;
 	}
 	return result;
 }
