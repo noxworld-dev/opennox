@@ -6,11 +6,13 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -10185,107 +10187,68 @@ func nox_xxx_inventoryServPlace_4F36F0(a1p *server.Object, a2p *server.Object, a
 	}
 	return v7
 }
-func nox_xxx_pickupPotion_4F37D0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
-	a1 := obj
-	a2 := obj2
-	var (
-		v4  *int32
-		v5  int32
-		v7  int8
-		v8  float64
-		v9  unsafe.Pointer
-		v10 int8
-		v11 float64
-		v12 int32
-		v14 float32
-		v15 float32
-		v16 int32
-		v17 int32
-	)
-	v3 := a2
-	v4 = (*int32)(a2.UseData)
-	v16 = 0
-	v5 = *v4
-	v17 = *v4
-	if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0(v3, int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251)))) == 0 {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("pickup.c:ObjectEquipClassFail"), 0)
-		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
+func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 int, a4 int) int {
+	if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) && obj.Class().Has(object.ClassPlayer) && nox_xxx_playerClassCanUseItem_57B3D0(potion, obj.UpdateDataPlayer().Player.PlayerClass()) == 0 {
+		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, internCStr("pickup.c:ObjectEquipClassFail"), 0)
+		nox_xxx_aud_501960(int32(sound.SoundNoCanDo), obj, 2, int32(obj.NetCode))
 		return 0
 	}
-	if sub_419E60(a1) != 0 {
-		goto LABEL_36
-	}
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 12)))&0x10 != 0 && a1.HealthData != nil {
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8))) & 4) == 0 {
-			goto LABEL_17
-		}
-		v7 = int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251)))
-		if int32(v7) != 0 {
-			if int32(v7) == 1 {
-				v8 = float64(v17) * float64(nox_xxx_wizardMaxHealth_587000_312816)
-			} else {
-				if int32(v7) != 2 {
-					goto LABEL_17
+	if sub_419E60(obj) == 0 {
+		consumed := false
+		if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodHealthPotion) && obj.HealthData != nil {
+			dhp := *(*int32)(potion.UseData)
+			if obj.Class().Has(object.ClassPlayer) {
+				ud := obj.UpdateDataPlayer()
+				switch ud.Player.PlayerClass() {
+				case player.Warrior:
+					dhp = int32(float64(dhp) * float64(nox_xxx_warriorMaxHealth_587000_312784))
+				case player.Wizard:
+					dhp = int32(float64(dhp) * float64(nox_xxx_wizardMaxHealth_587000_312816))
+				case player.Conjurer:
+					dhp = int32(float64(dhp) * float64(nox_xxx_conjurerMaxHealth_587000_312800))
 				}
-				v8 = float64(v17) * float64(nox_xxx_conjurerMaxHealth_587000_312800)
 			}
-		} else {
-			v8 = float64(v17) * float64(nox_xxx_warriorMaxHealth_587000_312784)
-		}
-		v15 = float32(v8)
-		v5 = int32(v15)
-		v17 = v5
-	LABEL_17:
-		if v5+int32(a1.HealthData.Cur) < int32(a1.HealthData.Max) {
-			nox_xxx_unitAdjustHP_4EE460(a1, v5)
-			nox_xxx_aud_501960(754, a1, 0, 0)
-			v16 = 1
-		}
-	}
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 12)))&0x20) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4) == 0 {
-		goto LABEL_30
-	}
-	v9 = a1.UpdateData
-	v10 = int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2251)))
-	if int32(v10) != 0 {
-		if int32(v10) == 1 {
-			v11 = float64(v17) * float64(nox_xxx_wizardMaximumMana_587000_312820)
-		} else {
-			if int32(v10) != 2 {
-				goto LABEL_28
+			if dhp+int32(obj.HealthData.Cur) < int32(obj.HealthData.Max) {
+				nox_xxx_unitAdjustHP_4EE460(obj, dhp)
+				nox_xxx_aud_501960(int32(sound.SoundRestoreHealth), obj, 0, 0)
+				consumed = true
 			}
-			v11 = float64(v17) * float64(nox_xxx_conjurerMaxMana_587000_312804)
 		}
-	} else {
-		v11 = float64(v17) * float64(nox_xxx_warriorMaxMana_587000_312788)
+		if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodManaPotion) && obj.Class().Has(object.ClassPlayer) {
+			ud := obj.UpdateDataPlayer()
+			dmp := *(*int32)(potion.UseData)
+			switch ud.Player.PlayerClass() {
+			case player.Warrior:
+				dmp = int32(float64(dmp) * float64(nox_xxx_warriorMaxMana_587000_312788))
+			case player.Wizard:
+				dmp = int32(float64(dmp) * float64(nox_xxx_wizardMaximumMana_587000_312820))
+			case player.Conjurer:
+				dmp = int32(float64(dmp) * float64(nox_xxx_conjurerMaxMana_587000_312804))
+			}
+			if dmp+int32(ud.ManaCur) < int32(ud.ManaMax) {
+				nox_xxx_playerManaAdd_4EEB80(obj, int16(dmp))
+				nox_xxx_aud_501960(int32(sound.SoundRestoreMana), obj, 0, 0)
+				consumed = true
+			}
+		}
+		if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Field540) != 0 {
+			nox_xxx_removePoison_4EE9D0(obj)
+			aud := nox_xxx_spellGetAud44_424800(14, 1)
+			nox_xxx_aud_501960(aud, obj, 0, 0)
+			nox_xxx_delayedDeleteObject_4E5CC0(potion)
+			return 1
+		}
+		if consumed {
+			nox_xxx_delayedDeleteObject_4E5CC0(potion)
+			return 1
+		}
 	}
-	v14 = float32(v11)
-	v5 = int32(v14)
-LABEL_28:
-	if v5+int32(*(*uint16)(unsafe.Add(v9, 4))) < int32(*(*uint16)(unsafe.Add(v9, 8))) {
-		nox_xxx_playerManaAdd_4EEB80(a1, int16(v5))
-		nox_xxx_aud_501960(755, a1, 0, 0)
-		v16 = 1
+	nox_xxx_decay_5116F0(potion)
+	res := Nox_xxx_pickupDefault_4F31E0(obj, potion, a3, a4)
+	if res == 1 {
+		nox_xxx_aud_501960(int32(sound.SoundPotionPickup), obj, 0, 0)
 	}
-LABEL_30:
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 12)))&0x40 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && int32(a1.Field540) != 0 {
-		nox_xxx_removePoison_4EE9D0(a1)
-		v12 = nox_xxx_spellGetAud44_424800(14, 1)
-		nox_xxx_aud_501960(v12, a1, 0, 0)
-		nox_xxx_delayedDeleteObject_4E5CC0(v3)
-		return 1
-	}
-	if v16 != 0 {
-		nox_xxx_delayedDeleteObject_4E5CC0(v3)
-		return 1
-	}
-LABEL_36:
-	nox_xxx_decay_5116F0(v3)
-	v13 := Nox_xxx_pickupDefault_4F31E0(obj, v3, a3, a4)
-	if v13 == 1 {
-		nox_xxx_aud_501960(832, a1, 0, 0)
-	}
-	return v13
+	return res
 }
 func nox_xxx_pickupAmmo_4F3B00(obj *server.Object, item *server.Object, a3 int, a4 int) int {
 	a1 := obj
@@ -10404,9 +10367,8 @@ func sub_4F3DD0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
 	nox_xxx_aud_501960(1004, a1, 0, 0)
 	return 1
 }
-func nox_xxx_xfer_4F3E30(a1 uint16, a2p *server.Object, a3 int32) int32 {
+func Nox_xxx_xfer_4F3E30(a1 uint16, a2 *server.Object, a3 uint32) int32 {
 	var (
-		a2  = a2p
 		v3  int32
 		v4  uint16
 		v10 int32
@@ -10509,68 +10471,51 @@ func nox_xxx_servMapLoadPlaceObj_4F3F50(a1p *server.Object, a2 *server.Object, a
 	}
 	return result
 }
-func nox_xxx_readObjectOldVer_4F4170(a1p *server.Object, a2 int32, a3 int32) int32 {
+func nox_xxx_readObjectOldVer_4F4170(obj *server.Object, overs int, gvers int) int {
 	var (
-		v5  uint32
-		v7  int32
-		v8  int32
-		v9  int32
-		v10 *types.Pointf
-		v11 float32
 		v16 uint16
 		i   uint32
 		v19 int32
-		v21 int32
 		v22 int32
-		v23 [2]int32
 	)
-	v3 := a1p
 	if nox_crypt_IsReadOnly() == 1 {
-		a1p.Field34 = 0
+		obj.Field34 = 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), 40)), 4)
-	v4 := v3.ObjFlags
-	v21 = int32(v3.ObjFlags) & 0x11408162
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
-	v5 = uint32(v3.ObjFlags) & 0xEEBF7E9D
-	v3.ObjFlags = v5
-	v6 := v5
-	if int32(v4)&0x40 != 0 {
-		*(*uint8)(unsafe.Pointer(&v6)) = uint8(v5 | 0x40)
-		v3.ObjFlags = v6
+
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&obj.Extent)), 4)
+	oldFlags := obj.ObjFlags
+	vFlags := oldFlags & 0x11408162
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&vFlags)), 4)
+	obj.ObjFlags &= 0xEEBF7E9D
+	if oldFlags&0x40 != 0 {
+		obj.ObjFlags |= 0x40
 	}
-	v7 = v21
-	v3.ObjFlags = uint32(v21) | uint32(v3.ObjFlags)
+	obj.ObjFlags |= vFlags
 	if nox_crypt_IsReadOnly() == 1 {
-		if uint32(v7)&0x1000000 != 0 {
-			nox_xxx_objectSetOn_4E75B0(v3)
+		if vFlags&0x1000000 != 0 {
+			nox_xxx_objectSetOn_4E75B0(obj)
 		} else {
-			nox_xxx_objectSetOff_4E7600(v3)
+			nox_xxx_objectSetOff_4E7600(obj)
 		}
 	}
-	v8 = a3
-	v9 = a2
 	if nox_crypt_IsReadOnly() != 0 {
-		if a3 < 40 || a2 < 4 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v23[0])), 8)
-			v10 = &v3.PosVec
-			v3.PosVec.X = float32(float64(v23[0]))
-			v3.PosVec.Y = float32(float64(v23[1]))
+		if gvers < 40 || overs < 4 {
+			var ipos [2]int32
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&ipos[0])), 8)
+			obj.PosVec.X = float32(ipos[0])
+			obj.PosVec.Y = float32(ipos[1])
 		} else {
-			v10 = &v3.PosVec
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), 56)), 4)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), 60)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&obj.PosVec.X)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&obj.PosVec.Y)), 4)
 		}
-		v11 = v10.Y
-		v3.NewPos.X = v10.X
-		v3.NewPos.Y = v11
+		obj.NewPos = obj.PosVec
 	} else {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), 56)), 4)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), 60)), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(obj), 56)), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(obj), 60)), 4)
 	}
-	if v8 >= 10 {
-		if v3.IDPtr != nil {
-			*(*uint8)(unsafe.Pointer(&v19)) = uint8(int8(libc.StrLen(v3.IDPtr)))
+	if gvers >= 10 {
+		if obj.IDPtr != nil {
+			*(*uint8)(unsafe.Pointer(&v19)) = uint8(int8(libc.StrLen(obj.IDPtr)))
 		} else {
 			*(*uint8)(unsafe.Pointer(&v19)) = 0
 		}
@@ -10578,41 +10523,40 @@ func nox_xxx_readObjectOldVer_4F4170(a1p *server.Object, a2 int32, a3 int32) int
 		if nox_crypt_IsReadOnly() == 1 {
 			if int32(uint8(int8(v19))) != 0 {
 				result := (*byte)(alloc.Calloc1(1, uintptr(int32(uint8(int8(v19)))+1)))
-				v3.IDPtr = result
+				obj.IDPtr = result
 				if result == nil {
 					return 0
 				}
 			}
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v3.IDPtr, uint32(uint8(int8(v19))))
-		if v3.IDPtr != nil {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(v3.IDPtr), uint8(int8(v19)))) = 0
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(obj.IDPtr, uint32(uint8(int8(v19))))
+		if obj.IDPtr != nil {
+			*(*uint8)(unsafe.Add(unsafe.Pointer(obj.IDPtr), uint8(int8(v19)))) = 0
 		}
 	}
-	if v8 >= 20 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*byte)(&v3.TeamVal.ID), 1)
+	if gvers >= 20 {
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*byte)(&obj.TeamVal.ID), 1)
 	}
-	if v8 >= 30 {
-		v13 := v3.InvFirstItem
+	if gvers >= 30 {
+		v13 := obj.InvFirstItem
 		var v20 uint32
 		for v20 = 0; v13 != nil; v20++ {
 			v13 = v13.InvNextItem
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v20)), 1)
 		if nox_crypt_IsReadOnly() == 1 {
-			v3.Field34 = v20
+			obj.Field34 = v20
 		}
 	}
-	if v8 < 40 {
+	if gvers < 40 {
 		return 1
 	}
-	v14 := &v3.ScriptIDVal
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), 44)), 4)
-	if v3.ScriptIDVal == 0 && nox_crypt_IsReadOnly() == 1 && !noxflags.HasGame(0x200000) && !noxflags.HasGame(0x400000) {
-		*v14 = int(nox_server_NextObjectScriptID())
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&obj.ScriptIDVal)), 4)
+	if obj.ScriptIDVal == 0 && nox_crypt_IsReadOnly() == 1 && !noxflags.HasGame(0x200000) && !noxflags.HasGame(0x400000) {
+		obj.ScriptIDVal = int(nox_server_NextObjectScriptID())
 	}
-	if v9 >= 2 {
-		v15 := v3.Field129
+	if overs >= 2 {
+		v15 := obj.Field129
 		v16 = 0
 		var a1 int32
 		if v15 != nil {
@@ -10627,7 +10571,7 @@ func nox_xxx_readObjectOldVer_4F4170(a1p *server.Object, a2 int32, a3 int32) int
 			}
 			v16 = uint16(int16(a1))
 		}
-		if v9 < 5 {
+		if overs < 5 {
 			v22 = int32(v16)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22)), 4)
 			a1 = v22
@@ -10636,33 +10580,32 @@ func nox_xxx_readObjectOldVer_4F4170(a1p *server.Object, a2 int32, a3 int32) int
 		}
 		if nox_crypt_IsReadOnly() != 0 {
 			for i = 0; i < uint32(uint16(int16(a1))); i++ {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3)), 4)
+				var a3b int32
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3b)), 4)
 				if !noxflags.HasGame(0x200000) && !noxflags.HasGame(0x400000) {
-					sub_516F90(int32(*v14), a3)
+					sub_516F90(int32(obj.ScriptIDVal), a3b)
 				}
 			}
 		} else {
-			for j := v3.Field129; j != nil; j = j.Field128 {
+			for j := obj.Field129; j != nil; j = j.Field128 {
 				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(j), 16)))&0x20) == 0 && sub_4E3B80(int32(j.TypeInd)) != 0 {
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(j), 44)), 4)
 				}
 			}
 		}
 	}
-	if v9 < 3 {
+	if overs < 3 {
 		return 1
 	}
-	v21 = int32(uint32(v3.Field5) & 0x5E)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
-	nox_xxx_unitUnsetXStatus_4E4780(v3, 94)
-	nox_xxx_unitSetXStatus_4E4800(v3, uint32(v21))
+	vFlags2 := uint32(obj.Field5) & 0x5E
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&vFlags2)), 4)
+	nox_xxx_unitUnsetXStatus_4E4780(obj, 94)
+	nox_xxx_unitSetXStatus_4E4800(obj, vFlags2)
 	return 1
 }
-func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
+func Nox_xxx_mapReadWriteObjData_4F4530(obj *server.Object, gvers int) int {
 	var (
-		a1  = a1p
 		v4  int32
-		v5  int16
 		v8  *types.Pointf
 		v9  int32
 		v10 int32
@@ -10676,32 +10619,30 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
 		v22 [2]int32
 		v23 int32
 	)
-	v2 := a1
-	v3 := a2
-	v4 = int32(a1.Field34)
-	v5 = 0
+	v2 := obj
+	v4 = int32(obj.Field34)
+	var vers int16
 	*(*uint8)(unsafe.Pointer(&v19)) = 0
 	v18 = 0
 	v23 = v4
-	if a2 >= 40 || nox_crypt_IsReadOnly() == 0 {
+	if gvers >= 40 || nox_crypt_IsReadOnly() == 0 {
 		v18 = 64
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v18)), 2)
-		v5 = int16(v18)
+		vers = int16(v18)
 		if int32(int16(v18)) > 64 {
 			return 0
 		}
 	}
-	if v3 < 40 || int32(v5) < 61 {
-		return nox_xxx_readObjectOldVer_4F4170(v2, int32(v5), v3)
+	if gvers < 40 || int32(vers) < 61 {
+		return nox_xxx_readObjectOldVer_4F4170(v2, int(vers), gvers)
 	}
 	if nox_crypt_IsReadOnly() == 1 {
 		v2.Field34 = 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 40)), 4)
-	v7 := &v2.ScriptIDVal
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 44)), 4)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v2.Extent)), 4)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v2.ScriptIDVal)), 4)
 	if v2.ScriptIDVal == 0 && nox_crypt_IsReadOnly() == 1 && !noxflags.HasGame(0x200000) && !noxflags.HasGame(0x400000) {
-		*v7 = int(nox_server_NextObjectScriptID())
+		v2.ScriptIDVal = int(nox_server_NextObjectScriptID())
 	}
 	if nox_crypt_IsReadOnly() != 0 {
 		if int32(int16(v18)) < 4 {
@@ -10721,9 +10662,9 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 56)), 4)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 60)), 4)
 	}
-	*(*uint8)(unsafe.Pointer(&a1)) = uint8(sub_4F40A0(v2))
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
-	if int32(uint8(uintptr(unsafe.Pointer(a1)))) == 0 {
+	a1b := uint8(sub_4F40A0(v2))
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&a1b, 1)
+	if a1b == 0 {
 		return 1
 	}
 	v10 = int32(v2.ObjFlags)
@@ -10745,14 +10686,15 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
 			nox_xxx_objectSetOff_4E7600(v2)
 		}
 	}
+	var a2b byte
 	if v2.IDPtr != nil {
-		*(*uint8)(unsafe.Pointer(&a2)) = uint8(int8(libc.StrLen(v2.IDPtr)))
+		a2b = uint8(int8(libc.StrLen(v2.IDPtr)))
 	} else {
-		*(*uint8)(unsafe.Pointer(&a2)) = 0
+		a2b = 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2)), 1)
-	if !(nox_crypt_IsReadOnly() != 1 || int32(uint8(int8(a2))) == 0 || (func() bool {
-		result := (*byte)(alloc.Calloc1(1, uintptr(int32(uint8(int8(a2)))+1)))
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&a2b, 1)
+	if !(nox_crypt_IsReadOnly() != 1 || a2b == 0 || (func() bool {
+		result := (*byte)(alloc.Calloc1(1, uintptr(a2b)+1))
 		return (func() *byte {
 			p := v2
 			v2.IDPtr = result
@@ -10761,9 +10703,9 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
 	}())) {
 		return 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2.IDPtr, uint32(uint8(int8(a2))))
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2.IDPtr, uint32(a2b))
 	if v2.IDPtr != nil {
-		*(*uint8)(unsafe.Add(unsafe.Pointer(v2.IDPtr), uintptr(int32(uint8(int8(a2)))))) = 0
+		*(*uint8)(unsafe.Add(unsafe.Pointer(v2.IDPtr), uintptr(a2b))) = 0
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*byte)(&v2.TeamVal.ID), 1)
 	v14 := v2.InvFirstItem
@@ -10785,7 +10727,7 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
 		for j := 0; j < int(i); j++ {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22[0])), 4)
 			if !noxflags.HasGame(0x200000) && !noxflags.HasGame(0x400000) {
-				sub_516F90(int32(*v7), v22[0])
+				sub_516F90(int32(v2.ScriptIDVal), v22[0])
 			}
 		}
 	} else {
@@ -10799,9 +10741,9 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *server.Object, a2 int32) int32 {
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
 	nox_xxx_unitUnsetXStatus_4E4780(v2, 94)
 	nox_xxx_unitSetXStatus_4E4800(v2, uint32(v21))
-	var result int32
-	if int32(int16(v18)) < 63 || (func() int32 {
-		result = nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v2), 4*191), (*byte)(v2.Field189))
+	var result int
+	if int32(int16(v18)) < 63 || (func() int {
+		result = int(nox_xxx_xferReadScriptHandler_4F5580(unsafe.Add(unsafe.Pointer(v2), 4*191), (*byte)(v2.Field189)))
 		return result
 	}()) != 0 {
 		if int32(int16(v18)) < 64 {
@@ -10831,13 +10773,13 @@ func nox_xxx_XFerSpellPagePedistal_4F4A20(a1p *server.Object, data unsafe.Pointe
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return 0
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*byte)(v1.CollideData), 4)
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		return nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		return Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 	}()) != 0 {
 		v1.Field34 = uint32(v2)
 		return 1
@@ -10859,7 +10801,7 @@ func nox_xxx_XFerReadable_4F4AB0(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -10873,7 +10815,7 @@ func nox_xxx_XFerReadable_4F4AB0(a1p *server.Object, data unsafe.Pointer) int {
 		*(*uint32)(unsafe.Add(v2, 256)) = 0
 		return v1.Field34 == 0
 	}()) || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v3)
@@ -10898,7 +10840,7 @@ func nox_xxx_XFerExit_4F4B90(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -10920,7 +10862,7 @@ func nox_xxx_XFerExit_4F4B90(a1p *server.Object, data unsafe.Pointer) int {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 84)), 4)
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v3)
@@ -10946,7 +10888,7 @@ func nox_xxx_XFerDoor_4F4CB0(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(v7)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(v7)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(v7)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -10978,7 +10920,7 @@ func nox_xxx_XFerDoor_4F4CB0(a1p *server.Object, data unsafe.Pointer) int {
 		*(*uint8)(unsafe.Add(v2, 1)) = uint8(int8(v8))
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v7)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(v7)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v10)
@@ -11009,7 +10951,7 @@ func nox_xxx_unitTriggerXfer_4F4E50(a1p *server.Object, data unsafe.Pointer) int
 	if int32(int16(v11)) > 61 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(v11)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(v11)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -11106,7 +11048,7 @@ func nox_xxx_unitTriggerXfer_4F4E50(a1p *server.Object, data unsafe.Pointer) int
 		}
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v11)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(v11)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		result = 1
@@ -11129,7 +11071,7 @@ func nox_xxx_XFerHole_4F51D0(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -11156,7 +11098,7 @@ func nox_xxx_XFerHole_4F51D0(a1p *server.Object, data unsafe.Pointer) int {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v3, 20)), 2)
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		result = 1
@@ -11178,7 +11120,7 @@ func nox_xxx_XFerTransporter_4F5300(a1p *server.Object, data unsafe.Pointer) int
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -11193,7 +11135,7 @@ func nox_xxx_XFerTransporter_4F5300(a1p *server.Object, data unsafe.Pointer) int
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4)
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v3)
@@ -11214,7 +11156,7 @@ func nox_xxx_XFerElevator_4F53D0(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(a1)) > 61 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -11226,7 +11168,7 @@ func nox_xxx_XFerElevator_4F53D0(a1p *server.Object, data unsafe.Pointer) int {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 12)), 1)
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v3)
@@ -11247,13 +11189,13 @@ func nox_xxx_XFerElevatorShaft_4F54A0(a1p *server.Object, data unsafe.Pointer) i
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return int(result)
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 8)), 4)
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v3)
@@ -11292,7 +11234,7 @@ func nox_xxx_XFerMover_4F5730(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(v7)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(v7)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(v7)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -11324,7 +11266,7 @@ func nox_xxx_XFerMover_4F5730(a1p *server.Object, data unsafe.Pointer) int {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v1), 544)), 4)
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v7)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(v7)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v3)
@@ -11358,7 +11300,7 @@ func nox_xxx_XFerGlyph_4F5890(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(v12)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(a1p, int32(int16(v12)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(a1p, int(int32(int16(v12)))))
 	if result == 0 {
 		return 0
 	}
@@ -11422,7 +11364,7 @@ LABEL_19:
 	*(*uint32)(unsafe.Add(v2, 24)) = 0
 LABEL_20:
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v12)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(v12)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		result = 1
@@ -11446,7 +11388,7 @@ func Nox_xxx_XFerInvLight_4F5AA0(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(v3)) > 60 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(a1, int32(int16(v3)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(a1, int(int32(int16(v3)))))
 	if result == 0 {
 		return 0
 	}
@@ -11543,7 +11485,7 @@ LABEL_20:
 	}
 LABEL_22:
 	if a1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v3)), a1, int32(a1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(v3)), a1, a1.Field34)
 		return result
 	}()) != 0 {
 		a1.Field34 = uint32(v5)
@@ -11564,7 +11506,7 @@ func nox_xxx_XFerSentry_4F5E50(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(a1)) > 61 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(v1, int32(int16(a1)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(v1, int(int32(int16(a1)))))
 	if result == 0 {
 		return int(result)
 	}
@@ -11577,7 +11519,7 @@ func nox_xxx_XFerSentry_4F5E50(a1p *server.Object, data unsafe.Pointer) int {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*byte)(v2), 4)
 	}
 	if v1.Field34 == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, int32(v1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(a1)), v1, v1.Field34)
 		return result
 	}()) != 0 {
 		v1.Field34 = uint32(v3)

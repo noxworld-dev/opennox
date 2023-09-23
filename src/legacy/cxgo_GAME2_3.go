@@ -1335,21 +1335,16 @@ func sub_4948B0(a1 *server.Team) {
 		}
 	}
 }
-func nox_xxx_netCliProcUpdateStream_494A60(a1 *uint8, a2 int32, a3 *uint32) int32 {
+func nox_xxx_netCliProcUpdateStream_494A60(a1 []byte, a2 int32, a3 *uint32) int32 {
 	var (
 		v3  uint16
 		v4  uint16
-		v5  *uint8
+		v5  []byte
 		v6  int32
-		v7  int32
 		v8  uint16
 		v9  uint16
-		v10 *uint8
 		v11 uint8
-		v12 *uint8
-		v13 uint8
 		v14 uint8
-		v15 int32
 		v17 uint8
 		v18 int32
 		v20 uint16
@@ -1359,11 +1354,11 @@ func nox_xxx_netCliProcUpdateStream_494A60(a1 *uint8, a2 int32, a3 *uint32) int3
 		v25 uint8
 		v26 uint8
 	)
-	v22 := a1
-	if int32(*a1) == math.MaxUint8 {
+	old := a1
+	if a1[0] == math.MaxUint8 {
 		v3 = *(*uint16)(unsafe.Add(unsafe.Pointer(a1), 1))
 		v4 = *(*uint16)(unsafe.Add(unsafe.Pointer(a1), 3))
-		v5 = (*uint8)(unsafe.Add(unsafe.Pointer(a1), 5))
+		v5 = a1[5:]
 		v6 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 3)))
 		v24 = uint8(nox_xxx_cliGenerateAlias_57B9A0(int32(uintptr(memmap.PtrOff(0x5D4594, 1198020))), int32(v3), v6, gameFrame()))
 		if int32(v24) != -1 {
@@ -1376,31 +1371,26 @@ func nox_xxx_netCliProcUpdateStream_494A60(a1 *uint8, a2 int32, a3 *uint32) int3
 			nox_netlist_addToMsgListCli_40EBC0(a2, 0, &v23[0], 10)
 		}
 	} else {
-		v7 = int32(*a1) * 8
-		v5 = (*uint8)(unsafe.Add(unsafe.Pointer(a1), 1))
+		v7 := int32(a1[0]) * 8
+		v5 = a1[1:]
 		v3 = *memmap.PtrUint16(0x5D4594, uintptr(v7)+1198020)
 		v4 = *memmap.PtrUint16(0x5D4594, uintptr(v7)+1198022)
 	}
 	v8 = *(*uint16)(unsafe.Pointer(v5))
 	v9 = *(*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*1))
 	v20 = *(*uint16)(unsafe.Pointer(v5))
-	v10 = (*uint8)(unsafe.Add(unsafe.Pointer(v5), 4))
+	v10 := v5[4:]
 	v21 = v9
-	v11 = *v10
-	v12 = (*uint8)(unsafe.Add(unsafe.Pointer(v10), 1))
+	v11 = v10[0]
+	v12 := v10[1:]
 	if (int32(v11) & 0x80) == 0 {
 		v25 = 0
 	} else {
-		v13 = *func() *uint8 {
-			p := &v12
-			x := *p
-			*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-			return x
-		}()
-		v25 = v13
+		v25 = v12[0]
+		v12 = v12[1:]
 	}
-	v14 = *v12
-	v15 = int32(uintptr(unsafe.Add(unsafe.Pointer(v12), 1)))
+	v14 = v12[0]
+	v15 := v12[1:]
 	v26 = v14
 	if int32(v3) != 0 || int32(v4) != 0 {
 		v16 := nox_xxx_spriteCreate_48E970(int32(v4), uint32(v3), int32(v8), int32(v9))
@@ -1422,7 +1412,7 @@ func nox_xxx_netCliProcUpdateStream_494A60(a1 *uint8, a2 int32, a3 *uint32) int3
 	*a3 = uint32(v20)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a3), 4*1)) = uint32(v21)
 	nox_xxx_cliUpdateCameraPos_435600(int32(v20), int32(v21))
-	return int32(uint32(v15) - uint32(uintptr(unsafe.Pointer(v22))))
+	return int32(uint32(v15) - uint32(uintptr(unsafe.Pointer(old))))
 }
 func nox_xxx_netCliUpdateStream2_494C30(a1 *uint8, a2 int32, a3 *int32) int32 {
 	var (

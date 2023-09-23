@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cnet"
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
+	"github.com/noxworld-dev/opennox-lib/object"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -510,28 +511,27 @@ func nox_float2int16(a1 float32) int16 {
 func nox_float2int16_abs(a1 float32) int16 {
 	return int16(int32(math.Abs(float64(a1))))
 }
-func sub_419E10(a1 *server.Object, a2 int32) {
-	if a1 != nil && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16)))&0x20) == 0 {
-		result := 1 << int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2064)))
+
+var dword_5d4594_527712 uint32
+
+func sub_419E10(u *server.Object, a2 int32) {
+	if u != nil && !u.Flags().Has(object.FlagDestroyed) {
+		bit := uint32(1) << u.UpdateDataPlayer().Player.PlayerInd
 		if a2 != 0 {
-			dword_5d4594_527712 |= uint32(result)
+			dword_5d4594_527712 |= bit
 		} else {
-			result = ^result
-			dword_5d4594_527712 &= uint32(result)
+			dword_5d4594_527712 &^= bit
 		}
 	}
 }
-func sub_419E60(a1p *server.Object) int32 {
-	var (
-		a1     = a1p
-		result int32
-	)
-	if a1 != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
-		result = bool2int32((dword_5d4594_527712 & uint32(1<<int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2064))))) != 0)
-	} else {
-		result = 0
+func sub_419E60(a1 *server.Object) int32 {
+	if a1 == nil {
+		return 0
 	}
-	return result
+	if !a1.Class().Has(object.ClassPlayer) {
+		return 0
+	}
+	return bool2int32((dword_5d4594_527712 & (uint32(1) << a1.UpdateDataPlayer().Player.PlayerInd)) != 0)
 }
 func sub_419EA0() int32 {
 	return bool2int32(dword_5d4594_527712 != 0)

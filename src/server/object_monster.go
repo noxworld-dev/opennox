@@ -16,7 +16,7 @@ import (
 
 type AIStackItem struct {
 	Action ai.ActionType // 0, 0
-	Args   [4]uintptr    // 1, 4 (8, 12, 16)
+	Args   [4]uintptr    // 1, 4 (4, 8, 12, 16)
 	Field5 uint32        // 5, 20
 }
 

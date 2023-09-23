@@ -7854,7 +7854,7 @@ func nox_xxx_XFerMonster_528DB0(a1p *server.Object, data unsafe.Pointer) int {
 	if int32(int16(v45)) > 64 {
 		return 0
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530(a1, int32(int16(v45)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530(a1, int(int32(int16(v45)))))
 	if result == 0 {
 		return 0
 	}
@@ -8276,7 +8276,7 @@ LABEL_171:
 			a1.Field34 = uint32(v51)
 			return 1
 		}
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v45)), a1, int32(a1.Field34))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(v45)), a1, a1.Field34)
 		if result == 0 {
 			return 0
 		}
@@ -8938,7 +8938,7 @@ func nox_xxx_XFerNPC_52ADE0(a1p *server.Object, data unsafe.Pointer) int {
 			*(*uint32)(unsafe.Add(v1, 1440)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*23))
 		}
 	}
-	result = nox_xxx_mapReadWriteObjData_4F4530((*server.Object)(a1), int32(int16(v44)))
+	result = int32(Nox_xxx_mapReadWriteObjData_4F4530((*server.Object)(a1), int(int32(int16(v44)))))
 	if result == 0 {
 		return 0
 	}
@@ -9344,7 +9344,7 @@ LABEL_170:
 	}
 LABEL_156:
 	if *(*uint32)(unsafe.Add(v35, 136)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
-		result = nox_xxx_xfer_4F3E30(uint16(int16(v44)), (*server.Object)(v35), int32(*(*uint32)(unsafe.Add(v35, 136))))
+		result = Nox_xxx_xfer_4F3E30(uint16(int16(v44)), (*server.Object)(v35), *(*uint32)(unsafe.Add(v35, 136)))
 		return result
 	}()) != 0 {
 		sub_52BA70(v35)

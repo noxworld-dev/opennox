@@ -16,7 +16,7 @@ import (
 
 var nox_client_fadeObjects_80836 uint32 = 1
 
-func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, sz int32) int32 {
+func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz int32) int32 {
 	var (
 		old *uint8 = data
 		v5  int64
@@ -1986,7 +1986,8 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		}
 		return 11
 	case 0xA4:
-		v15 = (*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(data), nox_xxx_netCliProcUpdateStream_494A60((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)), a1, (*uint32)(unsafe.Pointer(&v384[0])))), 1))
+		sdata := unsafe.Slice(data, sz)
+		v15 = (*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(data), nox_xxx_netCliProcUpdateStream_494A60(sdata[1:], a1, (*uint32)(unsafe.Pointer(&v384[0])))), 1))
 		if uintptr(unsafe.Pointer(v15)) >= uintptr(unsafe.Pointer(end)) {
 			return 0
 		}

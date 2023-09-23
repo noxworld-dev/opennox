@@ -68,10 +68,3 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int32) {
 func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	Nox_xxx_XFer_WriteShopItem_52A5F0(a1)
 }
-
-func Nox_xxx_mapReadWriteObjData_4F4530(a1 *server.Object, a2 int) int {
-	return int(nox_xxx_mapReadWriteObjData_4F4530(asObjectC(a1), int32(a2)))
-}
-func Nox_xxx_xfer_4F3E30(a1 int, a2 *server.Object, a3 uint32) int {
-	return int(nox_xxx_xfer_4F3E30(uint16(a1), asObjectC(a2), int32(a3)))
-}

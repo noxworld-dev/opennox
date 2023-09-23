@@ -648,7 +648,6 @@ var nox_alloc_hit_2491548 alloc.ClassT[collisionHit]
 var dword_5d4594_2488656 uint32
 var dword_5d4594_2386552 uint32
 var dword_5d4594_3835368 uint32
-var dword_5d4594_527712 uint32
 var nox_xxx_useAudio_587000_80772 uint32 = 0x5
 var dword_5d4594_1307792 uint32
 var dword_5d4594_830272 uint32

@@ -5154,7 +5154,7 @@ func nox_xxx_playerEquipWeapon_53A420(obj *server.Object, item *server.Object, a
 	if nox_xxx_probablyWarcryCheck_4FC3E0(obj, 2) != 0 || nox_xxx_probablyWarcryCheck_4FC3E0(obj, 1) != 0 {
 		return 0
 	}
-	if nox_xxx_playerClassCanUseItem_57B3D0(item, int8(*(*uint8)(unsafe.Add(unsafe.Pointer(ud.Player), 2251)))) == 0 {
+	if nox_xxx_playerClassCanUseItem_57B3D0(item, player.Class(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(ud.Player), 2251))))) == 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, internCStr("weapon.c:WeaponEquipClassFail"), 0)
 		if a4 != 0 {
 			nox_xxx_aud_501960(925, obj, 2, int32(obj.NetCode))
@@ -5310,7 +5310,7 @@ func sub_53A720(obj *server.Object, item *server.Object, a3 int, a4 int) int {
 			return 0
 		}
 	}
-	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0(item, int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251)))) == 0 {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0(item, player.Class(int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251))))) == 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("weapon.c:WeaponEquipClassFail"), 0)
 		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 		return 0
@@ -7852,7 +7852,7 @@ func nox_xxx_pickupArmor_53E7F0(obj *server.Object, obj2 *server.Object, a3 int,
 		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 		return 0
 	}
-	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0(a2, int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251)))) == 0 {
+	if !noxflags.HasGame(2048) && !noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && nox_xxx_playerClassCanUseItem_57B3D0(a2, player.Class(int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251))))) == 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("armor.c:ArmorEquipClassFail"), 0)
 		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 		return 0
@@ -9321,7 +9321,7 @@ func nox_xxx_mobCastRandomRecoil_541490(a1 unsafe.Pointer, a2 unsafe.Pointer, a3
 }
 func sub_541630(a1 *server.Object, a2 int32) {
 	if act := a1.UpdateDataMonster().AIStackHead(); act.Type() == ai.ACTION_CAST_DURATION_SPELL {
-		v3 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(act), 4*1)))
+		v3 := int32(act.ArgU32(0))
 		if v3 == a2 {
 			nox_xxx_monsterPopAction_50A160(a1)
 		}

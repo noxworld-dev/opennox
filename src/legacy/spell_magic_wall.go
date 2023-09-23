@@ -36,7 +36,7 @@ var (
 
 func nox_xxx_allocMagicWallArray_4FF730() int32 {
 	magicWallsSavedCnt = 0
-	magicWallAlloc = alloc.NewClassT("MagicWall", server.MagicWall{}, int(int32((magicWallLvlLength[0]<<6)+32)))
+	magicWallAlloc = alloc.NewClassT("MagicWall", server.MagicWall{}, (magicWallLvlLength[0]<<6)+32)
 	return bool2int32(magicWallAlloc.Class != nil)
 }
 

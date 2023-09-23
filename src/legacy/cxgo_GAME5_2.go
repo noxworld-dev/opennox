@@ -5,6 +5,8 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -1137,47 +1139,34 @@ func sub_57B350() *float32 {
 func nox_xxx_plrGetMaxVarsPtr_57B360(a1 int32) *float32 {
 	return memmap.PtrFloat32(0x5D4594, uintptr(uint32(a1*16)+2523828))
 }
-func sub_57B370(a1 int32, a2 uint8, a3 int32) int8 {
-	var (
-		v3     *uint32
-		result int8
-	)
-	if (uint32(a1) & 0x3001010) == 0 {
-		return -1
-	}
-	if uint32(a1)&0x1001000 != 0 {
-		v3 = (*uint32)(nox_xxx_getProjectileClassById_413250(a3))
-		if v3 != nil {
-			result = int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 62))))
-		} else {
-			result = 0
+func sub_57B370(cl object.Class, sub object.SubClass, typ int32) byte {
+	if cl.HasAny(object.ClassWeapon | object.ClassWand) {
+		m := nox_xxx_getProjectileClassById_413250(typ)
+		if m == nil {
+			return 0
 		}
-		return result
+		return m.Classes62
 	}
-	if uint32(a1)&0x2000000 != 0 {
-		v3 = (*uint32)(nox_xxx_equipClothFindDefByTT_413270(a3))
-		if v3 != nil {
-			result = int8(*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 62))))
-		} else {
-			result = 0
+	if cl.Has(object.ClassArmor) {
+		m := nox_xxx_equipClothFindDefByTT_413270(typ)
+		if m == nil {
+			return 0
 		}
-		return result
+		return m.Classes62
 	}
-	if a1&0x10 != 0 {
-		result = int8(^(int32(a2) >> 5) | 0xFE)
-	} else {
-		result = int8(a3)
+	if cl.Has(object.ClassFood) {
+		return byte(^(uint32(sub) >> 5) | 0xFE)
 	}
-	return result
+	return 0xFF
 }
 
 var nox_cheat_allowall int32 = 0
 
-func nox_xxx_playerClassCanUseItem_57B3D0(item *server.Object, a2 int8) int32 {
+func nox_xxx_playerClassCanUseItem_57B3D0(item *server.Object, cl player.Class) int32 {
 	if nox_cheat_allowall != 0 {
 		return 1
 	}
-	return bool2int32((int32(uint8(int8(1<<int32(a2)))) & int32(uint8(sub_57B370(int32(item.ObjClass), uint8(item.ObjSubClass), int32(item.TypeInd))))) != 0)
+	return bool2int32(((byte(1) << cl) & sub_57B370(item.Class(), item.SubClass(), int32(item.TypeInd))) != 0)
 }
 func nox_xxx_client_57B400(a1 *client.Drawable) int32 {
 	var v1 int32
@@ -1212,7 +1201,7 @@ func sub_57B450(a1p *client.Drawable) int32 {
 		return 1
 	}
 	v2 = uint8(int8(1 << int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))))
-	return bool2int32((int32(v2) & int32(uint8(sub_57B370(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*28)), uint8(int8(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*29)))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*27)))))) != 0)
+	return bool2int32((int32(v2) & int32(uint8(sub_57B370(object.Class(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*28))), object.SubClass(uint8(int8(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*29))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*27)))))) != 0)
 }
 func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 	var (

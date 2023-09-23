@@ -42,14 +42,14 @@ func nox_xxx_XFerDefault4F49A0(cf *cryptfile.CryptFile, v1 *server.Object, a2 un
 		return fmt.Errorf("default xfer: unexpected value 1: %d", a1)
 	}
 	v2 := v1.Field34
-	if legacy.Nox_xxx_mapReadWriteObjData_4F4530(v1.SObj(), int(a1)) == 0 {
+	if legacy.Nox_xxx_mapReadWriteObjData_4F4530(v1, int(a1)) == 0 {
 		return fmt.Errorf("default xfer: nox_xxx_mapReadWriteObjData_4F4530 failed")
 	}
 	if v1.Field34 == 0 || !cf.ReadOnly() {
 		v1.Field34 = v2
 		return nil
 	}
-	if legacy.Nox_xxx_xfer_4F3E30(int(a1), v1.SObj(), v1.Field34) == 0 {
+	if legacy.Nox_xxx_xfer_4F3E30(a1, v1, v1.Field34) == 0 {
 		return fmt.Errorf("default xfer: nox_xxx_xfer_4F3E30 failed")
 	}
 	v1.Field34 = v2
