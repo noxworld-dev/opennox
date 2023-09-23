@@ -73,7 +73,7 @@ type Modifier struct {
 	durability52         uint32      // 13, 52
 	field56              uint32      // 14, 56
 	reqstrength60        uint16      // 15, 60
-	classes62            byte        // 15, 62
+	Classes62            byte        // 15, 62
 	field63              byte        // 15, 63
 	damageCoeffOrArmor64 float32     // 16, 64
 	range68              float32     // 17, 68
@@ -236,7 +236,7 @@ func (s *serverModifiers) nox_xxx_parseWeaponOrArmorDef412D40(head **Modifier, a
 		if err != nil {
 			return err
 		}
-		p.classes62 = byte(cl)
+		p.Classes62 = byte(cl)
 		p.durability52 = uint32(w.Durability)
 		p.reqstrength60 = uint16(w.ReqStrength)
 		p.damageMin72 = uint16(w.DamageMin)

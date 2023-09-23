@@ -22,7 +22,6 @@ extern uint32_t dword_5d4594_1200832;
 unsigned int nox_client_getServerAddr_43B300();
 void nox_xxx_playerInitColors_461460(nox_playerInfo* pl);
 int nox_client_getServerPort_43B320();
-int sub_419E60(nox_object_t* a1);
 int sub_457140(int a1, wchar2_t* a2);
 int sub_43AF90(int a1);
 int sub_456DF0(int a1);

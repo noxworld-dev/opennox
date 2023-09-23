@@ -7696,7 +7696,8 @@ void nox_xxx_updatePoison_4EE8F0(nox_object_t* a1p, int a2) {
 }
 
 //----- (004EE9D0) --------------------------------------------------------
-void nox_xxx_removePoison_4EE9D0(int a1) {
+void nox_xxx_removePoison_4EE9D0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;   // eax
 	int v2;   // eax
 	char* v3; // eax
@@ -11251,111 +11252,6 @@ int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int 
 		}
 	}
 	return v7;
-}
-
-//----- (004F37D0) --------------------------------------------------------
-int nox_xxx_pickupPotion_4F37D0(int a1, int a2, int a3) {
-	int v3;     // ebx
-	int* v4;    // eax
-	int v5;     // edi
-	char v7;    // al
-	double v8;  // st7
-	int v9;     // ebp
-	char v10;   // al
-	double v11; // st7
-	int v12;    // eax
-	int v13;    // edi
-	float v14;  // [esp+0h] [ebp-18h]
-	float v15;  // [esp+4h] [ebp-14h]
-	int v16;    // [esp+14h] [ebp-4h]
-	int v17;    // [esp+20h] [ebp+8h]
-
-	v3 = a2;
-	v4 = *(int**)(a2 + 736);
-	v16 = 0;
-	v5 = *v4;
-	v17 = *v4;
-	if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) &&
-		*(uint8_t*)(a1 + 8) & 4 &&
-		!nox_xxx_playerClassCanUseItem_57B3D0(v3, *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251))) {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "pickup.c:ObjectEquipClassFail", 0);
-		nox_xxx_aud_501960(925, a1, 2, *(uint32_t*)(a1 + 36));
-		return 0;
-	}
-	if (sub_419E60(a1)) {
-		goto LABEL_36;
-	}
-	if (*(uint8_t*)(v3 + 12) & 0x10 && *(uint32_t*)(a1 + 556)) {
-		if (!(*(uint8_t*)(a1 + 8) & 4)) {
-			goto LABEL_17;
-		}
-		v7 = *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251);
-		if (v7) {
-			if (v7 == 1) {
-				v8 = (double)v17 * nox_xxx_wizardMaxHealth_587000_312816;
-			} else {
-				if (v7 != 2) {
-					goto LABEL_17;
-				}
-				v8 = (double)v17 * nox_xxx_conjurerMaxHealth_587000_312800;
-			}
-		} else {
-			v8 = (double)v17 * nox_xxx_warriorMaxHealth_587000_312784;
-		}
-		v15 = v8;
-		v5 = nox_float2int(v15);
-		v17 = v5;
-	LABEL_17:
-		if (v5 + **(unsigned short**)(a1 + 556) < *(unsigned short*)(*(uint32_t*)(a1 + 556) + 4)) {
-			nox_xxx_unitAdjustHP_4EE460(a1, v5);
-			nox_xxx_aud_501960(754, a1, 0, 0);
-			v16 = 1;
-		}
-	}
-	if (!(*(uint8_t*)(v3 + 12) & 0x20) || !(*(uint8_t*)(a1 + 8) & 4)) {
-		goto LABEL_30;
-	}
-	v9 = *(uint32_t*)(a1 + 748);
-	v10 = *(uint8_t*)(*(uint32_t*)(v9 + 276) + 2251);
-	if (v10) {
-		if (v10 == 1) {
-			v11 = (double)v17 * nox_xxx_wizardMaximumMana_587000_312820;
-		} else {
-			if (v10 != 2) {
-				goto LABEL_28;
-			}
-			v11 = (double)v17 * nox_xxx_conjurerMaxMana_587000_312804;
-		}
-	} else {
-		v11 = (double)v17 * nox_xxx_warriorMaxMana_587000_312788;
-	}
-	v14 = v11;
-	v5 = nox_float2int(v14);
-LABEL_28:
-	if (v5 + *(unsigned short*)(v9 + 4) < *(unsigned short*)(v9 + 8)) {
-		nox_xxx_playerManaAdd_4EEB80(a1, v5);
-		nox_xxx_aud_501960(755, a1, 0, 0);
-		v16 = 1;
-	}
-LABEL_30:
-	if (*(uint8_t*)(v3 + 12) & 0x40 && *(uint8_t*)(a1 + 8) & 4 && *(uint8_t*)(a1 + 540)) {
-		nox_xxx_removePoison_4EE9D0(a1);
-		v12 = nox_xxx_spellGetAud44_424800(14, 1);
-		nox_xxx_aud_501960(v12, a1, 0, 0);
-		nox_xxx_delayedDeleteObject_4E5CC0(v3);
-		return 1;
-	}
-	if (v16) {
-		nox_xxx_delayedDeleteObject_4E5CC0(v3);
-		return 1;
-	}
-LABEL_36:
-	nox_xxx_decay_5116F0(v3);
-	v13 = nox_xxx_pickupDefault_4F31E0(a1, v3, a3);
-	if (v13 == 1) {
-		nox_xxx_aud_501960(832, a1, 0, 0);
-	}
-	return v13;
 }
 
 //----- (004F3B00) --------------------------------------------------------

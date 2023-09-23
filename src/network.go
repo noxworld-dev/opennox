@@ -571,7 +571,7 @@ func (s *Server) netPrintLineToAll(id strman.ID) { // nox_xxx_netPrintLineToAll_
 
 func nox_xxx_netPriMsgToPlayer_4DA2C0(u *server.Object, id strman.ID, a3 byte) {
 	var buf [52]byte
-	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || legacy.Sub_419E60(u.SObj()) != 0 {
+	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || sub_419E60(u.SObj()) {
 		return
 	}
 	buf[0] = byte(noxnet.MSG_INFORM)
@@ -1104,11 +1104,11 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			if len(data) < 140 {
 				return -1
 			}
-			a2 := data[2]
+			act := data[2]
 			sz := binary.LittleEndian.Uint32(data[4:])
 			styp := alloc.GoStringS(data[8:136])
-			a4 := data[136]
-			sub_40B5D0(netstrGetClientIndex(), a2, styp, sz, a4)
+			tok := data[136]
+			xferStart40B5D0(netstrGetClientIndex(), act, styp, sz, tok)
 			return 140
 		case 1:
 			if len(data) < 4 {
@@ -1116,7 +1116,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40BFF0(netstrGetClientIndex(), a2, a3)
+			xferAccept40BFF0(netstrGetClientIndex(), a2, a3)
 			return 4
 		case 2:
 			if len(data) < 8 {
@@ -1134,7 +1134,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
 			netstrGetClientIndex().Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
-			sub_40B250(netstrGetClientIndex(), a2, a3, data[8:8+sz])
+			xferDataChunk40B250(netstrGetClientIndex(), a2, a3, data[8:8+sz])
 			return 8 + sz
 		case 3:
 			if len(data) < 6 {
@@ -1142,14 +1142,14 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := binary.LittleEndian.Uint16(data[4:])
-			sub_40BF60(netstrGetClientIndex(), a2, a3)
+			xferAck40BF60(netstrGetClientIndex(), a2, a3)
 			return 6
 		case 4:
 			if len(data) < 3 {
 				return -1
 			}
 			a2 := data[2]
-			sub_40C030(netstrGetClientIndex(), a2)
+			xferClose40C030(netstrGetClientIndex(), a2)
 			return 3
 		case 5:
 			if len(data) < 4 {
@@ -1157,7 +1157,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40B720(a3, a2)
+			xferCodeFive40B720(a3, a2)
 			return 4
 		case 6:
 			if len(data) < 4 {
@@ -1165,7 +1165,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40C070(netstrGetClientIndex(), a3, a2)
+			xferCodeSix40C070(netstrGetClientIndex(), a3, a2)
 			return 4
 		}
 		return -1
@@ -1687,7 +1687,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			a3 := binary.LittleEndian.Uint32(data[4:])
 			styp := alloc.GoStringS(data[8:136])
 			a4 := data[136]
-			sub_40B5D0(netstr.Global.ByPlayer(pl), a2, styp, a3, a4)
+			xferStart40B5D0(netstr.Global.ByPlayer(pl), a2, styp, a3, a4)
 			return 140, true
 		case 1:
 			if len(data) < 4 {
@@ -1695,7 +1695,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40BFF0(netstr.Global.ByPlayer(pl), a2, a3)
+			xferAccept40BFF0(netstr.Global.ByPlayer(pl), a2, a3)
 			return 4, true
 		case 2:
 			if len(data) < 8 {
@@ -1713,7 +1713,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
 			netstr.Global.ByPlayer(pl).Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
-			sub_40B250(netstr.Global.ByPlayer(pl), a2, a3, data[8:8+sz])
+			xferDataChunk40B250(netstr.Global.ByPlayer(pl), a2, a3, data[8:8+sz])
 			return 8 + sz, true
 		case 3:
 			if len(data) < 6 {
@@ -1721,14 +1721,14 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := binary.LittleEndian.Uint16(data[4:])
-			sub_40BF60(netstr.Global.ByPlayer(pl), a2, a3)
+			xferAck40BF60(netstr.Global.ByPlayer(pl), a2, a3)
 			return 6, true
 		case 4:
 			if len(data) < 3 {
 				return 0, false
 			}
 			a2 := data[2]
-			sub_40C030(netstr.Global.ByPlayer(pl), a2)
+			xferClose40C030(netstr.Global.ByPlayer(pl), a2)
 			return 3, true
 		case 5:
 			if len(data) < 4 {
@@ -1736,7 +1736,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40B720(a3, a2)
+			xferCodeFive40B720(a3, a2)
 			return 4, true
 		case 6:
 			if len(data) < 4 {
@@ -1744,7 +1744,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			sub_40C070(netstr.Global.ByPlayer(pl), a3, a2)
+			xferCodeSix40C070(netstr.Global.ByPlayer(pl), a3, a2)
 			return 4, true
 		}
 		return 0, false
@@ -1828,7 +1828,7 @@ func sub_40BA90(conn netstr.Handle, a2 byte, block uint16, data []byte) int {
 
 type xferData struct {
 	NetInd0   netstr.Handle // 0, 0
-	Kind4     byte          // 1, 4
+	Stream4   byte          // 1, 4
 	Kind6     uint16        // 1, 6
 	Size8     int           // 2, 8
 	Cnt12     uint32        // 3, 12
@@ -1842,8 +1842,8 @@ type xferData struct {
 
 type xferDataTwo struct {
 	NetInd0  netstr.Handle // 0, 0
-	Field4   byte          // 1, 4
-	Field5   byte          // 1, 5
+	Act4     byte          // 1, 4
+	Stream5  byte          // 1, 5
 	Cnt8     uint32        // 2, 8
 	Cur12    int           // 3, 12
 	Data20   []byte        // 5, 20
@@ -1881,7 +1881,7 @@ func sub_40B890(n int) {
 
 func sub_40B930(p *xferData) {
 	p.NetInd0 = netstr.Handle{}
-	p.Kind4 = 0
+	p.Stream4 = 0
 	p.Kind6 = 0
 	p.Size8 = 0
 	p.Cnt12 = 1
@@ -1911,17 +1911,17 @@ func sub_40B970() {
 				if s.Frame() > t+90 {
 					if it2.Cnt16 >= 20 {
 						if it.Kind6 == 2 {
-							sub_40BB20(it.NetInd0, it.Kind4, 2)
+							sub_40BB20(it.NetInd0, it.Stream4, 2)
 							break
 						}
 					} else {
-						sub_40BA90(it.NetInd0, it.Kind4, it2.Ind0, it2.Data4)
+						sub_40BA90(it.NetInd0, it.Stream4, it2.Ind0, it2.Data4)
 						it2.Frame12 = s.Frame()
 						it2.Cnt16++
 					}
 				}
 			} else {
-				sub_40BA90(it.NetInd0, it.Kind4, it2.Ind0, it2.Data4)
+				sub_40BA90(it.NetInd0, it.Stream4, it2.Ind0, it2.Data4)
 				it.Cnt12++
 				it2.Frame12 = s.Frame()
 			}
@@ -1932,7 +1932,7 @@ func sub_40B970() {
 func sub_40BC10(ind netstr.Handle, a2 byte) *xferData {
 	for i := 0; i < xferDataCnt; i++ {
 		it := &xferDataArr[i]
-		if it.NetInd0 == ind && it.Kind4 == a2 {
+		if it.NetInd0 == ind && it.Stream4 == a2 {
 			return it
 		}
 	}
@@ -1949,12 +1949,12 @@ func sub_40BF10() (*xferData, int) {
 	return nil, -1
 }
 
-func sub_40BFF0(a1 netstr.Handle, a2 byte, i byte) {
+func xferAccept40BFF0(a1 netstr.Handle, a2 byte, i byte) {
 	if int(i) >= xferDataCnt {
 		return
 	}
 	p := &xferDataArr[i]
-	p.Kind4 = a2
+	p.Stream4 = a2
 	p.Kind6 = 2
 }
 
@@ -1966,7 +1966,7 @@ func sub_40C0E0(ind netstr.Handle) {
 	for i := 0; i < xferDataCnt; i++ {
 		it := &xferDataArr[i]
 		if it.Blocks16 == 2 && it.NetInd0 == ind {
-			sub_40BB20(it.NetInd0, it.Kind4, 1)
+			sub_40BB20(it.NetInd0, it.Stream4, 1)
 		}
 	}
 }
@@ -2046,7 +2046,7 @@ func sub_40BC60(pli ntype.PlayerInd, a2 byte, typ string, data []byte, flag bool
 		p.Last156 = b
 	}
 	p.NetInd0 = nind
-	p.Kind4 = 0
+	p.Stream4 = 0
 	p.Kind6 = 1
 	p.Size8 = len(data)
 	p.Cnt12 = 1
@@ -2072,7 +2072,7 @@ func nox_xxx_netXferMsg_40BE80(conn netstr.Handle, a2 byte, typ string, sz int, 
 	conn.Send(buf[:140], netstr.SendQueue|netstr.SendFlush)
 }
 
-func sub_40C030(ind netstr.Handle, a2 byte) {
+func xferClose40C030(ind netstr.Handle, a2 byte) {
 	p := sub_40BC10(ind, a2)
 	if p == nil {
 		return
@@ -2082,7 +2082,7 @@ func sub_40C030(ind netstr.Handle, a2 byte) {
 	sub_40B930(p)
 }
 
-func sub_40C070(ind netstr.Handle, a2 byte, a3 byte) {
+func xferCodeSix40C070(ind netstr.Handle, a2 byte, a3 byte) {
 	p := sub_40BC10(ind, a3)
 	if p == nil {
 		return
@@ -2094,7 +2094,7 @@ func sub_40C070(ind netstr.Handle, a2 byte, a3 byte) {
 	sub_40B930(p)
 }
 
-func sub_40BF60(ind netstr.Handle, a2 byte, a3 uint16) {
+func xferAck40BF60(ind netstr.Handle, a2 byte, a3 uint16) {
 	p := sub_40BC10(ind, a2)
 	if p == nil {
 		return
@@ -2117,31 +2117,31 @@ func sub_40BF60(ind netstr.Handle, a2 byte, a3 uint16) {
 	}
 }
 
-func sub_40B5D0(a1 netstr.Handle, a2 byte, typ string, sz uint32, a5 byte) {
+func xferStart40B5D0(a1 netstr.Handle, act byte, typ string, sz uint32, tok byte) {
 	s := noxServer
 	if sz == 0 {
 		return
 	}
-	p, v9 := sub_40B6D0()
+	p, ind := sub_40B6D0()
 	if p == nil {
 		return
 	}
 	p.NetInd0 = a1
-	p.Field4 = a2
+	p.Act4 = act
 	if typ != "" {
 		p.Type24 = typ
 	}
-	p.Field5 = v9
+	p.Stream5 = ind
 	p.Data20 = make([]byte, sz)
 	p.Frame156 = s.Frame()
 	dword_5d4594_3628++
-	sub_40B690(a1, v9, a5)
+	sub_40B690(a1, ind, tok)
 }
 
 func sub_40B1F0(i byte) {
 	p := &dword_5d4594_3620[i]
-	p.Field4 = 0
-	p.Field5 = i
+	p.Act4 = 0
+	p.Stream5 = i
 	p.Cnt8 = 1
 	p.Cur12 = 0
 	p.Data20 = nil
@@ -2162,7 +2162,7 @@ func sub_40B4E0(a1 uint8) {
 func sub_40B530(i byte, a2 byte) {
 	p := &dword_5d4594_3620[i]
 	if len(p.Data20) != 0 {
-		nox_xxx_neXfer_40B590(p.NetInd0, p.Field5, a2)
+		nox_xxx_neXfer_40B590(p.NetInd0, p.Stream5, a2)
 		if dword_5d4594_3628 != 0 {
 			dword_5d4594_3628--
 		}
@@ -2209,7 +2209,7 @@ func sub_40B6D0() (*xferDataTwo, byte) {
 	return nil, 0
 }
 
-func sub_40B250(ind netstr.Handle, a2 byte, a3 uint16, data []byte) {
+func xferDataChunk40B250(ind netstr.Handle, a2 byte, a3 uint16, data []byte) {
 	s := noxServer
 	if len(data) == 0 {
 		return
@@ -2263,8 +2263,8 @@ func sub_40B250(ind netstr.Handle, a2 byte, a3 uint16, data []byte) {
 	}
 	p.Perc152 = float32(float64(p.Cur12) / float64(len(p.Data20)) * 100.0)
 	if p.Cur12 == len(p.Data20) {
-		nox_xxx_netXfer_40B4B0(p.NetInd0, p.Field5)
-		nox_xxx_soloGameEscMenuCallback_40AF90(ind.Player(), p.Field5, p.Field4, p.Type24, p.Data20)
+		nox_xxx_netXfer_40B4B0(p.NetInd0, p.Stream5)
+		xferDataCallback40AF90(ind.Player(), p.Stream5, p.Act4, p.Type24, p.Data20)
 		if dword_5d4594_3628 != 0 {
 			dword_5d4594_3628--
 		}
@@ -2299,16 +2299,16 @@ func sub_40B790() {
 	}
 }
 
-func sub_40B690(conn netstr.Handle, a2 byte, a3 byte) {
+func sub_40B690(conn netstr.Handle, a2 byte, tok byte) {
 	var buf [4]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
 	buf[1] = 1
 	buf[2] = a2
-	buf[3] = a3
+	buf[3] = tok
 	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
 }
 
-func sub_40B720(a1 byte, a2 byte) {
+func xferCodeFive40B720(a1 byte, a2 byte) {
 	sub_40B4E0(a2)
 	sub_40B1F0(a2)
 }

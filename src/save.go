@@ -273,7 +273,7 @@ func sub_40B850(ind netstr.Handle, act byte) {
 }
 
 func sub_40B810(act byte, data []byte) {
-	nox_xxx_soloGameEscMenuCallback_40AF90(common.MaxPlayers-1, 0, act, memmap.String(0x5D4594, 4664), data)
+	xferDataCallback40AF90(common.MaxPlayers-1, 0, act, memmap.String(0x5D4594, 4664), data)
 	sub_40B850(netstr.Global.First(), act)
 }
 
@@ -346,7 +346,7 @@ func sub_4DCE00() {
 	}
 }
 
-func sub_446520(i int, data []byte) {
+func xferSet446520(i int, data []byte) {
 	if len(data) != 0 {
 		buf, _ := alloc.Make([]byte{}, len(data))
 		copy(buf, data)
@@ -356,7 +356,7 @@ func sub_446520(i int, data []byte) {
 	}
 }
 
-func sub_446580(i int) {
+func xferFree446580(i int) {
 	if memmap.Uint32(0x5D4594, 826056+4*uintptr(i)) != 0 {
 		alloc.FreePtr(*memmap.PtrPtr(0x5D4594, 826056+4*uintptr(i)))
 		*memmap.PtrUint32(0x5D4594, 826056+4*uintptr(i)) = 0
@@ -365,10 +365,10 @@ func sub_446580(i int) {
 	}
 }
 
-func nox_xxx_soloGameEscMenuCallback_40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, data []byte) {
+func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, data []byte) {
 	switch act {
 	case 1:
-		sub_446520(1, data)
+		xferSet446520(1, data)
 	case 2:
 		path := getString10984()
 		clientSavePlayerChar(path, data)
