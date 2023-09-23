@@ -579,7 +579,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if !u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
 		if ud.StatusFlags.Has(object.MonStatusInjured) {
 			if v7 := legacy.Nox_xxx_monsterGetSoundSet_424300(u.SObj()); v7 != nil {
-				s.AudioEventObj(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
+				s.Audio.EventObj(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
 			}
 			s.noxScript.ScriptCallback(&ud.ScriptIsHit, u.Obj130, u.SObj(), server.NoxEventMonsterIsHit)
 			if noxflags.HasEngine(noxflags.EngineShowAI) {

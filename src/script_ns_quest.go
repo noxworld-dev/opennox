@@ -41,7 +41,7 @@ func (s noxScriptNS) JournalEntry(obj ns.Obj, msg ns.StringID, typ ns.EntryType)
 	} else {
 		legacy.Nox_xxx_comJournalEntryAdd_427500(obj.(server.Obj).SObj(), msg, typ)
 		if (typ & 0xB) != 0 {
-			s.s.AudioEventObj(sound.SoundJournalEntryAdd, toObject(obj.(server.Obj)), 0, 0)
+			s.s.Audio.EventObj(sound.SoundJournalEntryAdd, toObject(obj.(server.Obj)), 0, 0)
 		}
 	}
 }

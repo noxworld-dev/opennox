@@ -28,6 +28,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
@@ -89,7 +90,6 @@ type Server struct {
 	quest           questServer
 	springs         serverSprings
 	mapSend         serverMapSend
-	audio           audioData
 	mapSwitchWPName string
 	announce        bool
 
@@ -676,7 +676,12 @@ func (s *Server) newSession() error {
 	netlist.ResetAll()
 	legacy.Sub_4E4EF0()
 	legacy.Sub_4E4ED0()
-	s.Audio.Init()
+	s.Audio.Init(s.Server)
+	s.Audio.OnSound(func(id sound.ID, kind int, obj *server.Object, pos types.Pointf) {
+		if kind != 2 {
+			s.ai.NewSound(id, obj, pos)
+		}
+	})
 	if err := s.nox_read_things_alternative_4E2B60(); err != nil {
 		return err
 	}
@@ -783,7 +788,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	nox_xxx_freeSpellRelated_4FCA80()
 	legacy.Sub_50ABF0()
 	s.Map.Free()
-	s.AudioFree()
+	s.Audio.Free()
 	legacy.Sub_4ECA90()
 	legacy.Sub_506720()
 	legacy.Sub_50D820()

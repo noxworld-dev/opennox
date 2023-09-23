@@ -196,7 +196,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 		return false
 	}
 	if !(obj5 == nil || legacy.Nox_xxx_gameCaptureMagic_4FDC10(spellID, obj5.SObj()) != 0) {
-		s.AudioEventObj(sound.SoundPermanentFizzle, obj5, 0, 0)
+		s.Audio.EventObj(sound.SoundPermanentFizzle, obj5, 0, 0)
 		return false
 	}
 	var fnc func(spellID spell.ID, a2, a3, a4 *server.Object, a5 *server.SpellAcceptArg, lvl int) int
@@ -393,7 +393,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	}
 	v9 := fnc(spellID, a2.SObj(), obj3.SObj(), obj4.SObj(), sa, lvl)
 	if v9 == 0 {
-		s.AudioEventObj(sound.SoundPermanentFizzle, obj4, 0, 0)
+		s.Audio.EventObj(sound.SoundPermanentFizzle, obj4, 0, 0)
 	}
 	return v9 != 0
 }

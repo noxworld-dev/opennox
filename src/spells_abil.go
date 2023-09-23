@@ -156,42 +156,42 @@ func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 			for it := u.FirstItem(); it != nil; it = it.NextItem() {
 				if it.Class().Has(object.ClassFlag) {
 					nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 5)
-					a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+					a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 					return
 				}
 			}
 		}
 		if a.s.Abils.IsActiveVal(u, server.AbilityWarcry) || a.s.Abils.IsActive(u, server.AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
-			a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+			a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case server.AbilityWarcry:
 		if a.s.Abils.IsActive(u, server.AbilityBerserk) || a.s.Abils.IsActive(u, server.AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
-			a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+			a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case server.AbilityHarpoon:
 		if a.s.Abils.IsActiveVal(u, server.AbilityWarcry) || a.s.Abils.IsActive(u, server.AbilityBerserk) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
-			a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+			a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	}
 	if a.s.Abils.IsActive(u, abil) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
-		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if ud.Field22_0 == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 6)
-		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if (!noxflags.HasGame(noxflags.GameOnline) || noxflags.HasGame(noxflags.GameModeQuest)) && pl.SpellLvl[abil] == 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 3)
-		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if abil == server.AbilityBerserk && pl.Field3656 == 1 {
@@ -202,7 +202,7 @@ func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 	cd := &ad.Cooldowns[abil]
 	if *cd != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
-		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
+		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	*cd = a.getDelay(abil)
@@ -223,7 +223,7 @@ func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 	}
 	a.do(u, abil)
 	snd := a.getSound(abil, 0)
-	a.s.AudioEventObj(snd, u, 0, 0)
+	a.s.Audio.EventObj(snd, u, 0, 0)
 }
 
 func (a *serverAbilities) Update() {
@@ -248,7 +248,7 @@ func (a *serverAbilities) Update() {
 					continue
 				}
 				snd := a.getSound(p.Abil, 2)
-				a.s.AudioEventObj(snd, u, 0, 0)
+				a.s.Audio.EventObj(snd, u, 0, 0)
 				a.netAbilReportActive(obj, p.Abil, false)
 				if p.Abil == server.AbilityBerserk {
 					nox_xxx_playerSetState_4FA020(u, 13)

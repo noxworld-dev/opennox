@@ -104,7 +104,7 @@ func (sp *spellsDuration) newHook() {
 func (sp *spellsDuration) destroyDurSpell(spl *server.DurSpell) {
 	if spl.Caster16 != nil {
 		snd := sp.s.Spells.DefByInd(spell.ID(spl.Spell)).GetOffSound()
-		sp.s.AudioEventObj(snd, spl.Caster16, 0, 0)
+		sp.s.Audio.EventObj(snd, spl.Caster16, 0, 0)
 	}
 	if destroy := spl.Destroy; destroy != nil {
 		ccall.CallVoidPtr(destroy, spl.C())
@@ -243,7 +243,7 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	} else {
 		aud = def.GetCastSound()
 	}
-	sp.s.AudioEventObj(aud, u2, 0, 0)
+	sp.s.Audio.EventObj(aud, u2, 0, 0)
 	if create == nil || ccall.CallIntPtr(create, p.C()) == 0 {
 		return true
 	}
