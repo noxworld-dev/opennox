@@ -268,6 +268,10 @@ func init() {
 	legacy.Nox_objectPickupAudEvent_4F3D50 = nox_objectPickupAudEvent_4F3D50
 	legacy.Nox_xxx_pickupPotion_4F37D0 = nox_xxx_pickupPotion_4F37D0
 	legacy.Nox_xxx_playerClassCanUseItem_57B3D0 = nox_xxx_playerClassCanUseItem_57B3D0
+	legacy.Nox_xxx_useMushroom_53ECE0 = nox_xxx_useMushroom_53ECE0
+	legacy.Nox_xxx_useCiderConfuse_53EF00 = nox_xxx_useCiderConfuse_53EF00
+	legacy.Nox_xxx_useEnchant_53ED60 = nox_xxx_useEnchant_53ED60
+	legacy.Nox_xxx_useCast_53ED90 = nox_xxx_useCast_53ED90
 	legacy.Nox_xxx_useConsume_53EE10 = nox_xxx_useConsume_53EE10
 	legacy.Nox_xxx_usePotion_53EF70 = nox_xxx_usePotion_53EF70
 	legacy.Sub_57B370 = sub_57B370

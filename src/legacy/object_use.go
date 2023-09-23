@@ -15,8 +15,12 @@ import (
 )
 
 var (
-	Nox_xxx_useConsume_53EE10 func(obj1, obj2 *server.Object) int
-	Nox_xxx_usePotion_53EF70  func(obj1, obj2 *server.Object) int
+	Nox_xxx_useConsume_53EE10      func(obj1, obj2 *server.Object) int
+	Nox_xxx_useMushroom_53ECE0     func(obj1, obj2 *server.Object) int
+	Nox_xxx_useCiderConfuse_53EF00 func(obj1, obj2 *server.Object) int
+	Nox_xxx_useEnchant_53ED60      func(obj1, obj2 *server.Object) int
+	Nox_xxx_useCast_53ED90         func(obj1, obj2 *server.Object) int
+	Nox_xxx_usePotion_53EF70       func(obj1, obj2 *server.Object) int
 )
 
 func init() {
@@ -57,6 +61,26 @@ func Nox_call_objectType_parseUse_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Poi
 	cstr := CString(a2)
 	defer StrFree(cstr)
 	return int(C.nox_call_objectType_parseUse_go((*[0]byte)(a1), cstr, a3))
+}
+
+//export nox_xxx_useMushroom_53ECE0
+func nox_xxx_useMushroom_53ECE0(cobj1 *nox_object_t, cobj2 *nox_object_t) int {
+	return Nox_xxx_useMushroom_53ECE0(asObjectS(cobj1), asObjectS(cobj2))
+}
+
+//export nox_xxx_useCiderConfuse_53EF00
+func nox_xxx_useCiderConfuse_53EF00(cobj1 *nox_object_t, cobj2 *nox_object_t) int {
+	return Nox_xxx_useCiderConfuse_53EF00(asObjectS(cobj1), asObjectS(cobj2))
+}
+
+//export nox_xxx_useEnchant_53ED60
+func nox_xxx_useEnchant_53ED60(cobj1 *nox_object_t, cobj2 *nox_object_t) int {
+	return Nox_xxx_useEnchant_53ED60(asObjectS(cobj1), asObjectS(cobj2))
+}
+
+//export nox_xxx_useCast_53ED90
+func nox_xxx_useCast_53ED90(cobj1 *nox_object_t, cobj2 *nox_object_t) int {
+	return Nox_xxx_useCast_53ED90(asObjectS(cobj1), asObjectS(cobj2))
 }
 
 //export nox_xxx_useConsume_53EE10

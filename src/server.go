@@ -166,14 +166,14 @@ func (s *Server) updateUnitsCCC() {
 		if obj.HasEnchant(server.ENCHANT_SLOWED) {
 			obj.SpeedCur *= 0.5
 		}
-		if obj.Field541 != 0 || obj.Field540 != 0 {
+		if obj.Field541 != 0 || obj.Poison540 != 0 {
 			if obj.Field542 > 0 {
 				obj.Field542--
 				if obj.Field542 == 0 {
 					if obj.Field541 != 0 {
 						obj.Field541--
 					}
-					if obj.Field540 != 0 && !obj.Flags().Has(object.FlagDead) {
+					if obj.Poison540 != 0 && !obj.Flags().Has(object.FlagDead) {
 						legacy.Nox_xxx_updatePoison_4EE8F0(obj.SObj(), 1)
 					}
 					obj.Field542 = 1000
@@ -181,7 +181,7 @@ func (s *Server) updateUnitsCCC() {
 			}
 		}
 		legacy.Nox_xxx_updateUnitBuffs_4FF620(obj.SObj())
-		if v31 := obj.Field540; v31 != 0 {
+		if v31 := obj.Poison540; v31 != 0 {
 			if h := obj.HealthData; h != nil && h.Max > 0 && h.Cur > 0 {
 				dmg := 1
 				if noxflags.HasGame(noxflags.GameModeQuest) {

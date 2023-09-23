@@ -355,8 +355,8 @@ func Nox_xxx_action_4DA9F0(a1 *server.Object) {
 func Nox_xxx_unitPostCreateNotify_4E7F10(a1 *server.Object) {
 	C.nox_xxx_unitPostCreateNotify_4E7F10(asObjectC(a1))
 }
-func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, a3 int, a4 int) {
-	C.nox_xxx_buffApplyTo_4FF380(asObjectC(a1), C.int(a2), C.short(a3), C.char(a4))
+func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, dur int, power int) {
+	C.nox_xxx_buffApplyTo_4FF380(asObjectC(a1), C.int(a2), C.short(dur), C.char(power))
 }
 func Nox_xxx_spellBuffOff_4FF5B0(a1 *server.Object, a2 server.EnchantID) {
 	C.nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), C.int(a2))

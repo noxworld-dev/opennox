@@ -1,9 +1,12 @@
 package opennox
 
 import (
+	"unsafe"
+
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -52,6 +55,65 @@ func nox_xxx_useConsume_53EE10(obj, item *server.Object) int {
 	return 1
 }
 
+func nox_xxx_useMushroom_53ECE0(obj, item *server.Object) int {
+	s := noxServer
+	if int32(obj.Poison540) != 0 {
+		legacy.Nox_xxx_removePoison_4EE9D0(obj)
+		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:MushroomClean", 0)
+		aud := s.Spells.DefByInd(spell.SPELL_CURE_POISON).GetOnSound()
+		s.AudioEventObj(aud, obj, 0, 0)
+	} else {
+		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:MushroomConfuse", 0)
+	}
+	legacy.Nox_xxx_buffApplyTo_4FF380(obj, server.ENCHANT_CONFUSED, int(s.SecToFrames(10)), 5)
+	s.DelayedDelete(item)
+	return 1
+}
+
+func nox_xxx_useCiderConfuse_53EF00(obj, item *server.Object) int {
+	s := noxServer
+	if obj == nil || item == nil || obj.HealthData == nil {
+		return 1
+	}
+	legacy.Nox_xxx_buffApplyTo_4FF380(obj, server.ENCHANT_CONFUSED, int(s.SecToFrames(5)), 4)
+	nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:CiderConfuse", 0)
+	res := nox_xxx_useConsume_53EE10(obj, item)
+	if res != 0 {
+		s.DelayedDelete(item)
+	}
+	return res
+}
+
+func nox_xxx_useEnchant_53ED60(obj, item *server.Object) int {
+	s := noxServer
+	if item.UseData != nil {
+		ench := server.EnchantID(*(*uint32)(unsafe.Add(item.UseData, 0)))
+		dur := int(*(*uint32)(unsafe.Add(item.UseData, 4)))
+		legacy.Nox_xxx_buffApplyTo_4FF380(obj, ench, dur, 5)
+	}
+	s.DelayedDelete(item)
+	return 1
+}
+
+func nox_xxx_useCast_53ED90(obj, item *server.Object) int {
+	s := noxServer
+	if item.UseData != nil {
+		var pos types.Pointf
+		if obj.Class().Has(object.ClassPlayer) {
+			ud := obj.UpdateDataPlayer()
+			pos = types.Point2f(ud.Player.CursorVec)
+		} else {
+			pos = obj.PosVec
+		}
+		spl := spell.ID(*(*int32)(item.UseData))
+		s.Nox_xxx_spellAccept4FD400(spl, item, item, item, &server.SpellAcceptArg{
+			Obj: obj, Pos: pos,
+		}, 4)
+	}
+	s.DelayedDelete(item)
+	return 1
+}
+
 func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 	s := noxServer
 	if obj.Class().Has(object.ClassPlayer) && obj.Flags().Has(object.FlagDead) {
@@ -92,7 +154,7 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 			consumed = true
 		}
 	}
-	if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Field540) != 0 {
+	if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Poison540) != 0 {
 		legacy.Nox_xxx_removePoison_4EE9D0(obj)
 		aud := s.Spells.DefByInd(spell.SPELL_CURE_POISON).GetOnSound()
 		s.AudioEventObj(aud, obj, 0, 0)
