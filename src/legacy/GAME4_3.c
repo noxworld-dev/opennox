@@ -8594,45 +8594,6 @@ int nox_xxx_useCast_53ED90(int a1, uint32_t* a2) {
 	return 1;
 }
 
-//----- (0053EE10) --------------------------------------------------------
-int nox_xxx_useConsume_53EE10(int a1, int a2) {
-	uint16_t* v2; // eax
-	int v3;       // eax
-
-	if (*(uint8_t*)(a2 + 8) & 0x10) {
-		if (!(*(uint8_t*)(a2 + 12) & 8)) {
-			v2 = *(uint16_t**)(a1 + 556);
-			if (v2) {
-				if (*v2 < v2[2]) {
-					nox_xxx_unitAdjustHP_4EE460(a1, **(uint32_t**)(a2 + 736));
-					if (*(uint8_t*)(a1 + 8) & 4) {
-						v3 = *(uint32_t*)(a2 + 12);
-						if (*(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2252)) {
-							if (v3 & 1) {
-								nox_xxx_aud_501960(324, a1, 0, 0);
-							} else if (v3 & 2) {
-								nox_xxx_aud_501960(325, a1, 0, 0);
-							} else if (v3 & 4) {
-								nox_xxx_aud_501960(326, a1, 0, 0);
-							}
-						} else if (v3 & 1) {
-							nox_xxx_aud_501960(314, a1, 0, 0);
-						} else if (v3 & 2) {
-							nox_xxx_aud_501960(315, a1, 0, 0);
-						} else if (v3 & 4) {
-							nox_xxx_aud_501960(316, a1, 0, 0);
-						}
-					} else {
-						nox_xxx_aud_501960(334, a1, 0, 0);
-					}
-					nox_xxx_delayedDeleteObject_4E5CC0(a2);
-				}
-			}
-		}
-	}
-	return 1;
-}
-
 //----- (0053EF00) --------------------------------------------------------
 int nox_xxx_useCiderConfuse_53EF00(int a1, int a2) {
 	int v2; // esi
