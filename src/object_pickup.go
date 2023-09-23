@@ -159,7 +159,7 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 				consumed = true
 			}
 		}
-		if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Field540) != 0 {
+		if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Poison540) != 0 {
 			legacy.Nox_xxx_removePoison_4EE9D0(obj)
 			aud := s.Spells.DefByInd(spell.SPELL_CURE_POISON).GetOnSound()
 			s.AudioEventObj(aud, obj, 0, 0)
