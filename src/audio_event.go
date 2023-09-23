@@ -50,7 +50,7 @@ func (s *Server) AudioEventObj(id sound.ID, iobj server.Obj, kind int, code uint
 	if id == 0 || obj == nil || s.Audio.Field12(id) <= 0 {
 		return
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassPlayer) && legacy.Sub_419E60(obj.SObj()) != 0 {
+	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassPlayer) && sub_419E60(obj.SObj()) {
 		return
 	}
 	s.Audio.NewAudioEventObj(id, obj, kind, code)

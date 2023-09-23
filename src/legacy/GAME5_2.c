@@ -1906,50 +1906,8 @@ float* sub_57B350() { return getMemFloatPtr(0x5D4594, 2523812); }
 //----- (0057B360) --------------------------------------------------------
 float* nox_xxx_plrGetMaxVarsPtr_57B360(int a1) { return getMemFloatPtr(0x5D4594, 2523828 + 16 * a1); }
 
-//----- (0057B370) --------------------------------------------------------
-char sub_57B370(int a1, unsigned char a2, int a3) {
-	uint32_t* v3; // eax
-	char result;  // al
-
-	if (!(a1 & 0x3001010)) {
-		return -1;
-	}
-	if (a1 & 0x1001000) {
-		v3 = nox_xxx_getProjectileClassById_413250(a3);
-		if (v3) {
-			result = *((uint8_t*)v3 + 62);
-		} else {
-			result = 0;
-		}
-		return result;
-	}
-	if (a1 & 0x2000000) {
-		v3 = nox_xxx_equipClothFindDefByTT_413270(a3);
-		if (v3) {
-			result = *((uint8_t*)v3 + 62);
-		} else {
-			result = 0;
-		}
-		return result;
-	}
-	if (a1 & 0x10) {
-		result = ~(a2 >> 5) | 0xFE;
-	} else {
-		result = a3;
-	}
-	return result;
-}
-
 //----- (0057B3D0) --------------------------------------------------------
 int nox_cheat_allowall = 0;
-
-int nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
-	if (nox_cheat_allowall) {
-		return 1;
-	}
-	return ((unsigned char)(1 << a2) &
-			(unsigned char)sub_57B370(item->obj_class, item->obj_subclass, *(unsigned short*)&item->typ_ind)) != 0;
-}
 
 //----- (0057B400) --------------------------------------------------------
 int nox_xxx_client_57B400(int a1) {

@@ -3,7 +3,6 @@ package legacy
 /*
 #include <defs.h>
 char sub_501C00(float* a1, nox_object_t* a2);
-int sub_419E60(nox_object_t* a1);
 */
 import "C"
 import (
@@ -44,10 +43,6 @@ func nox_xxx_utilFindSound_40AF50(name *C.char) int {
 //export nox_xxx_getSndName_40AF80
 func nox_xxx_getSndName_40AF80(id int) *C.char {
 	return internCStr(sound.ID(id).String())
-}
-
-func Sub_419E60(obj *server.Object) int {
-	return int(C.sub_419E60(asObjectC(obj)))
 }
 
 func Sub_501C00(p types.Pointf, obj *server.Object) int {
