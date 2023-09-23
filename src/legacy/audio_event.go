@@ -22,12 +22,12 @@ func nox_xxx_getSevenDwords3_501940(i int32) int32 {
 
 //export nox_xxx_aud_501960
 func nox_xxx_aud_501960(a1 int32, a2p *nox_object_t, a3 int, a4 int32) {
-	GetServer().AudioEventObj(sound.ID(a1), asObjectS(a2p), a3, uint32(a4))
+	GetServer().S().Audio.EventObj(sound.ID(a1), asObjectS(a2p), a3, uint32(a4))
 }
 
 //export nox_xxx_audCreate_501A30
 func nox_xxx_audCreate_501A30(a1 int32, cpos *C.float2, a3 int, a4 int32) {
-	GetServer().AudioEventPos(sound.ID(a1), *(*types.Pointf)(unsafe.Pointer(cpos)), a3, uint32(a4))
+	GetServer().S().Audio.EventPos(sound.ID(a1), *(*types.Pointf)(unsafe.Pointer(cpos)), a3, uint32(a4))
 }
 
 //export nox_xxx_netUpdateRemotePlr_501CA0_B

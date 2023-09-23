@@ -15,7 +15,7 @@ func (s noxScriptNS) AudioEvent(audio audio.Name, p ns.Positioner) {
 		return
 	}
 	snd := sound.ByName(string(audio))
-	s.s.AudioEventPos(snd, p.Pos(), 0, 0)
+	s.s.Audio.EventPos(snd, p.Pos(), 0, 0)
 }
 
 func (s noxScriptNS) Music(music int, volume int) {

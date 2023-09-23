@@ -62,7 +62,6 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
-	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -83,8 +82,6 @@ type Server interface {
 	Sub40A040settings(a1 int, a2 int)
 	CreateObjectAt(obj, owner server.Obj, pt types.Pointf)
 	FirstServerObject() *server.Object
-	AudioEventObj(id sound.ID, iobj server.Obj, kind int, code uint32)
-	AudioEventPos(id sound.ID, pos types.Pointf, kind int, code uint32)
 	NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Pointer, v18 int8)
 	Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg int, dtyp object.DamageType, who *server.Object, a7 server.Obj, damageWalls bool)
 	Sub_518460(pos types.Pointf, mask byte, scanSub bool) *server.Waypoint

@@ -335,7 +335,7 @@ func (obj nsObj) Lock(lock bool) {
 		flag, snd = 5, sound.SoundLock
 	}
 	*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = flag
-	s.AudioEventObj(snd, obj, 0, 0)
+	s.Audio.EventObj(snd, obj, 0, 0)
 }
 
 func (obj nsObj) HasClass(class class.Class) bool {

@@ -84,27 +84,27 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 			v14 := u.Field131
 			if pl.Info().IsFemale() {
 				if v14 == 5 {
-					s.AudioEventObj(sound.SoundHumanFemaleHurtPoison, u, 0, 0)
+					s.Audio.EventObj(sound.SoundHumanFemaleHurtPoison, u, 0, 0)
 				} else if v2 <= 450 {
 					if v2 <= 70 {
-						s.AudioEventObj(sound.SoundHumanFemaleHurtLight, u, 0, 0)
+						s.Audio.EventObj(sound.SoundHumanFemaleHurtLight, u, 0, 0)
 					} else {
-						s.AudioEventObj(sound.SoundHumanFemaleHurtMedium, u, 0, 0)
+						s.Audio.EventObj(sound.SoundHumanFemaleHurtMedium, u, 0, 0)
 					}
 				} else {
-					s.AudioEventObj(sound.SoundHumanFemaleHurtHeavy, u, 0, 0)
+					s.Audio.EventObj(sound.SoundHumanFemaleHurtHeavy, u, 0, 0)
 				}
 			} else {
 				if v14 == 5 {
-					s.AudioEventObj(sound.SoundHumanMaleHurtPoison, u, 0, 0)
+					s.Audio.EventObj(sound.SoundHumanMaleHurtPoison, u, 0, 0)
 				} else if v2 <= 450 {
 					if v2 <= 70 {
-						s.AudioEventObj(sound.SoundHumanMaleHurtLight, u, 0, 0)
+						s.Audio.EventObj(sound.SoundHumanMaleHurtLight, u, 0, 0)
 					} else {
-						s.AudioEventObj(sound.SoundHumanMaleHurtMedium, u, 0, 0)
+						s.Audio.EventObj(sound.SoundHumanMaleHurtMedium, u, 0, 0)
 					}
 				} else {
-					s.AudioEventObj(sound.SoundHumanMaleHurtHeavy, u, 0, 0)
+					s.Audio.EventObj(sound.SoundHumanMaleHurtHeavy, u, 0, 0)
 				}
 			}
 		}
@@ -139,9 +139,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		}
 		if pl.Field3656 != 0 {
 			if pl.Info().IsFemale() {
-				s.AudioEventObj(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
 			} else {
-				s.AudioEventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 			}
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 13, 3)
 			return a1, v68, true
@@ -167,24 +167,24 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 					case 2:
 						// nop
 					case 8:
-						s.AudioEventObj(sound.SoundRunOnWood, u, 0, 0)
+						s.Audio.EventObj(sound.SoundRunOnWood, u, 0, 0)
 					case 64:
-						s.AudioEventObj(sound.SoundRunOnDirt, u, 0, 0)
+						s.Audio.EventObj(sound.SoundRunOnDirt, u, 0, 0)
 					case 128:
-						s.AudioEventObj(sound.SoundRunOnWater, u, 0, 0)
+						s.Audio.EventObj(sound.SoundRunOnWater, u, 0, 0)
 					case 0x400:
-						s.AudioEventObj(sound.SoundRunOnSnow, u, 0, 0)
+						s.Audio.EventObj(sound.SoundRunOnSnow, u, 0, 0)
 					case 0x800:
-						s.AudioEventObj(sound.SoundRunOnMud, u, 0, 0)
+						s.Audio.EventObj(sound.SoundRunOnMud, u, 0, 0)
 					case 0x4000:
 						// nop
 					default:
-						s.AudioEventObj(sound.SoundRunOnStone, u, 0, 0)
+						s.Audio.EventObj(sound.SoundRunOnStone, u, 0, 0)
 					}
 				}
 			}
 			if s.Rand.Logic.IntClamp(0, 100) <= 1 {
-				s.AudioEventObj(sound.SoundHumanMaleExertionLight, u, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanMaleExertionLight, u, 0, 0)
 			}
 		}
 		if legacy.Sub_4F9AB0(u.SObj()) == 0 {
@@ -206,19 +206,19 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 					case 2:
 						// nop
 					case 8:
-						s.AudioEventObj(sound.SoundWalkOnWood, u, 0, 0)
+						s.Audio.EventObj(sound.SoundWalkOnWood, u, 0, 0)
 					case 64:
-						s.AudioEventObj(sound.SoundWalkOnDirt, u, 0, 0)
+						s.Audio.EventObj(sound.SoundWalkOnDirt, u, 0, 0)
 					case 128:
-						s.AudioEventObj(sound.SoundWalkOnWater, u, 0, 0)
+						s.Audio.EventObj(sound.SoundWalkOnWater, u, 0, 0)
 					case 0x400:
-						s.AudioEventObj(sound.SoundWalkOnSnow, u, 0, 0)
+						s.Audio.EventObj(sound.SoundWalkOnSnow, u, 0, 0)
 					case 0x800:
-						s.AudioEventObj(sound.SoundWalkOnMud, u, 0, 0)
+						s.Audio.EventObj(sound.SoundWalkOnMud, u, 0, 0)
 					case 0x4000:
 						// nop
 					default:
-						s.AudioEventObj(sound.SoundWalkOnStone, u, 0, 0)
+						s.Audio.EventObj(sound.SoundWalkOnStone, u, 0, 0)
 					}
 				}
 			}
@@ -570,9 +570,9 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 			legacy.Nox_xxx_cancelAllSpells_4FEE90(u.SObj())
 			if pl.Field3656 != 0 {
 				if pl.Info().IsFemale() {
-					s.AudioEventObj(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
+					s.Audio.EventObj(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
 				} else {
-					s.AudioEventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
+					s.Audio.EventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 				}
 				nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 13, 3)
 			} else if legacy.Nox_xxx_playerSubStamina_4F7D30(u.SObj(), 90) != 0 {
@@ -590,7 +590,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonUN)
-				s.AudioEventObj(sound.SoundSpellPhonemeUp, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeUp, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureDown:
@@ -599,7 +599,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonZO)
-				s.AudioEventObj(sound.SoundSpellPhonemeDown, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeDown, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLeft:
@@ -608,7 +608,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonET)
-				s.AudioEventObj(sound.SoundSpellPhonemeLeft, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureRight:
@@ -617,7 +617,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonCHA)
-				s.AudioEventObj(sound.SoundSpellPhonemeRight, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureUpperRight:
@@ -626,7 +626,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonIN)
-				s.AudioEventObj(sound.SoundSpellPhonemeUpRight, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeUpRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureUpperLeft:
@@ -635,7 +635,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonKA)
-				s.AudioEventObj(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLowerRight:
@@ -644,7 +644,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonDO)
-				s.AudioEventObj(sound.SoundSpellPhonemeDownRight, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeDownRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLowerLeft:
@@ -653,7 +653,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonRO)
-				s.AudioEventObj(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
+				s.Audio.EventObj(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellPatternEnd:

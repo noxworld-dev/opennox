@@ -38,7 +38,7 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 	if pl.PlayerClass() != player.Conjurer {
 		s.CreateObjectAt(trap, caster, targ.Pos())
 		snd := s.Spells.DefByInd(sp).GetCastSound()
-		s.AudioEventObj(snd, targ, 0, 0)
+		s.Audio.EventObj(snd, targ, 0, 0)
 	} else {
 		if countBombers(caster) >= int(s.Balance.Float("MaxBomberCount")) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, 5)
@@ -59,7 +59,7 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 		if bomb != nil {
 			legacy.Nox_xxx_inventoryPutImpl_4F3070(bomb, trap, 1)
 		}
-		s.AudioEventObj(sound.SoundBomberSummon, targ, 0, 0)
+		s.Audio.EventObj(sound.SoundBomberSummon, targ, 0, 0)
 	}
 	idata := trap.InitDataGlyph()
 	*idata = server.GlyphInitData{
@@ -153,7 +153,7 @@ func castDetonateGlyphs(sp spell.ID, a2, a3, caster *server.Object, sa *server.S
 	const dist = 300
 	rect := types.RectFromPointsf(pos.Sub(types.Ptf(dist, dist)), pos.Add(types.Ptf(dist, dist)))
 	snd := s.Spells.DefByInd(sp).GetCastSound()
-	s.AudioEventObj(snd, a3, 0, 0)
+	s.Audio.EventObj(snd, a3, 0, 0)
 	for {
 		var found *server.Object
 		s.Map.EachObjInRect(rect, func(it *server.Object) bool {
@@ -224,7 +224,7 @@ func triggerTrap(trap, a2 *server.Object) {
 	}
 	pos := trap.Pos()
 	nox_xxx_netSendPointFx_522FF0(noxnet.MSG_FX_BLUE_SPARKS, pos)
-	s.AudioEventPos(sound.SoundGlyphDetonate, pos, 0, 0)
+	s.Audio.EventPos(sound.SoundGlyphDetonate, pos, 0, 0)
 	const dist = 100
 	rect := types.RectFromPointsf(pos.Sub(types.Ptf(dist, dist)), pos.Add(types.Ptf(dist, dist)))
 	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
@@ -324,7 +324,7 @@ func nox_bomberDead_54A150(u *server.Object) int {
 	s := noxServer
 	ud := u.UpdateDataMonster()
 	nox_xxx_netSendPointFx_522FF0(noxnet.MSG_FX_EXPLOSION, u.Pos())
-	s.AudioEventObj(sound.SoundBomberDie, u, 0, 0)
+	s.Audio.EventObj(sound.SoundBomberDie, u, 0, 0)
 
 	if it := u.FirstItem(); it != nil {
 		// TODO: this assumes inventory of exactly 1 item, which is a trap

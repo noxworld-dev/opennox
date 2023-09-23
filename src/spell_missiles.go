@@ -87,5 +87,5 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 		mud.SpellID = int32(spellID)
 	}
 	aud := sp.s.Spells.DefByInd(spellID).GetCastSound()
-	sp.s.AudioEventObj(aud, caster, 0, 0)
+	sp.s.Audio.EventObj(aud, caster, 0, 0)
 }

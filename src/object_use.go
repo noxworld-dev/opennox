@@ -32,23 +32,23 @@ func nox_xxx_useConsume_53EE10(obj, item *server.Object) int {
 		ud := obj.UpdateDataPlayer()
 		if ud.Player.Info().IsFemale() {
 			if item.SubClass().AsFood().Has(object.FoodSimple) {
-				s.AudioEventObj(sound.SoundHumanFemaleEatFood, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanFemaleEatFood, obj, 0, 0)
 			} else if item.SubClass().AsFood().Has(object.FoodApple) {
-				s.AudioEventObj(sound.SoundHumanFemaleEatApple, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanFemaleEatApple, obj, 0, 0)
 			} else if item.SubClass().AsFood().Has(object.FoodJug) {
-				s.AudioEventObj(sound.SoundHumanFemaleDrinkJug, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanFemaleDrinkJug, obj, 0, 0)
 			}
 		} else {
 			if item.SubClass().AsFood().Has(object.FoodSimple) {
-				s.AudioEventObj(sound.SoundHumanMaleEatFood, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanMaleEatFood, obj, 0, 0)
 			} else if item.SubClass().AsFood().Has(object.FoodApple) {
-				s.AudioEventObj(sound.SoundHumanMaleEatApple, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanMaleEatApple, obj, 0, 0)
 			} else if item.SubClass().AsFood().Has(object.FoodJug) {
-				s.AudioEventObj(sound.SoundHumanMaleDrinkJug, obj, 0, 0)
+				s.Audio.EventObj(sound.SoundHumanMaleDrinkJug, obj, 0, 0)
 			}
 		}
 	} else {
-		s.AudioEventObj(sound.SoundMonsterEatFood, obj, 0, 0)
+		s.Audio.EventObj(sound.SoundMonsterEatFood, obj, 0, 0)
 	}
 	s.DelayedDelete(item)
 	return 1
@@ -60,7 +60,7 @@ func nox_xxx_useMushroom_53ECE0(obj, item *server.Object) int {
 		legacy.Nox_xxx_removePoison_4EE9D0(obj)
 		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:MushroomClean", 0)
 		aud := s.Spells.DefByInd(spell.SPELL_CURE_POISON).GetOnSound()
-		s.AudioEventObj(aud, obj, 0, 0)
+		s.Audio.EventObj(aud, obj, 0, 0)
 	} else {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:MushroomConfuse", 0)
 	}
@@ -133,7 +133,7 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 			}
 		}
 		legacy.Nox_xxx_unitAdjustHP_4EE460(obj, dhp)
-		s.AudioEventObj(sound.SoundRestoreHealth, obj, 0, 0)
+		s.Audio.EventObj(sound.SoundRestoreHealth, obj, 0, 0)
 		consumed = true
 	}
 	if use != nil && potion.SubClass().AsFood().Has(object.FoodManaPotion) && obj.Class().Has(object.ClassPlayer) {
@@ -149,14 +149,14 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()))
 			}
 			legacy.Nox_xxx_playerManaAdd_4EEB80(obj, dmp)
-			s.AudioEventObj(sound.SoundRestoreMana, obj, 0, 0)
+			s.Audio.EventObj(sound.SoundRestoreMana, obj, 0, 0)
 			consumed = true
 		}
 	}
 	if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Poison540) != 0 {
 		legacy.Nox_xxx_removePoison_4EE9D0(obj)
 		aud := s.Spells.DefByInd(spell.SPELL_CURE_POISON).GetOnSound()
-		s.AudioEventObj(aud, obj, 0, 0)
+		s.Audio.EventObj(aud, obj, 0, 0)
 		consumed = true
 	}
 	for _, t := range []struct {

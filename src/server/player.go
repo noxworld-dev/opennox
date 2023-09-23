@@ -30,6 +30,8 @@ type serverPlayers struct {
 	}
 	Control  serverCtrlBuf
 	HostUnit *Object
+
+	playersXxx uint32
 }
 
 func (s *serverPlayers) init() {
@@ -252,6 +254,31 @@ func (s *serverPlayers) CheckName(pl *Player) {
 		pl.Info().SetNameSuff(fmt.Sprintf(" %d", i))
 		pl.SetName(fmt.Sprintf("%s %d", pl.OrigName(), i))
 	}
+}
+
+func (s *serverPlayers) SetXxx(u *Object, a2 int32) {
+	if u != nil && !u.Flags().Has(object.FlagDestroyed) {
+		bit := uint32(1) << u.UpdateDataPlayer().Player.PlayerInd
+		if a2 != 0 {
+			s.playersXxx |= bit
+		} else {
+			s.playersXxx &^= bit
+		}
+	}
+}
+
+func (s *serverPlayers) CheckXxx(obj *Object) bool {
+	if obj == nil {
+		return false
+	}
+	if !obj.Class().Has(object.ClassPlayer) {
+		return false
+	}
+	return (s.playersXxx & (uint32(1) << obj.UpdateDataPlayer().Player.PlayerInd)) != 0
+}
+
+func (s *serverPlayers) AnyXxx() bool {
+	return s.playersXxx != 0
 }
 
 var _ = [1]struct{}{}[8-unsafe.Sizeof(PlayerNetData{})]

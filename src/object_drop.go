@@ -17,7 +17,7 @@ func nox_objectDropAudEvent_4EE2F0(obj1 *server.Object, obj2 *server.Object, a3 
 		return ok
 	}
 	if snd := s.DropSound(obj2.TypeInd); snd != 0 {
-		s.AudioEventObj(snd, obj1, 0, 0)
+		s.Audio.EventObj(snd, obj1, 0, 0)
 	}
 	return ok
 }
