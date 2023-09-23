@@ -14,6 +14,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+var (
+	Nox_xxx_usePotion_53EF70 func(obj1, obj2 *server.Object) int
+)
+
 func init() {
 	server.RegisterObjectUse("ConsumeUse", C.nox_xxx_useConsume_53EE10, 4)
 	server.RegisterObjectUse("ConsumeConfuseUse", C.nox_xxx_useCiderConfuse_53EF00, 4)
@@ -52,4 +56,9 @@ func Nox_call_objectType_parseUse_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Poi
 	cstr := CString(a2)
 	defer StrFree(cstr)
 	return int(C.nox_call_objectType_parseUse_go((*[0]byte)(a1), cstr, a3))
+}
+
+//export nox_xxx_usePotion_53EF70
+func nox_xxx_usePotion_53EF70(cobj1 *nox_object_t, cobj2 *nox_object_t) int {
+	return Nox_xxx_usePotion_53EF70(asObjectS(cobj1), asObjectS(cobj2))
 }
