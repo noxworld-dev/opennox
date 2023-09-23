@@ -10,6 +10,48 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func nox_xxx_useConsume_53EE10(obj, item *server.Object) int {
+	s := noxServer
+	if !item.Class().Has(object.ClassFood) {
+		return 1
+	}
+	if item.SubClass().AsFood().Has(object.FoodPotion) {
+		return 1
+	}
+	if obj.HealthData == nil || item.UseData == nil {
+		return 1
+	}
+	if obj.HealthData.Cur >= obj.HealthData.Max {
+		return 1
+	}
+	dhp := int(*(*int32)(item.UseData))
+	legacy.Nox_xxx_unitAdjustHP_4EE460(obj, dhp)
+	if obj.Class().Has(object.ClassPlayer) {
+		ud := obj.UpdateDataPlayer()
+		if ud.Player.Info().IsFemale() {
+			if item.SubClass().AsFood().Has(object.FoodSimple) {
+				s.AudioEventObj(sound.SoundHumanFemaleEatFood, obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodApple) {
+				s.AudioEventObj(sound.SoundHumanFemaleEatApple, obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodJug) {
+				s.AudioEventObj(sound.SoundHumanFemaleDrinkJug, obj, 0, 0)
+			}
+		} else {
+			if item.SubClass().AsFood().Has(object.FoodSimple) {
+				s.AudioEventObj(sound.SoundHumanMaleEatFood, obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodApple) {
+				s.AudioEventObj(sound.SoundHumanMaleEatApple, obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodJug) {
+				s.AudioEventObj(sound.SoundHumanMaleDrinkJug, obj, 0, 0)
+			}
+		}
+	} else {
+		s.AudioEventObj(sound.SoundMonsterEatFood, obj, 0, 0)
+	}
+	s.DelayedDelete(item)
+	return 1
+}
+
 func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 	s := noxServer
 	if obj.Class().Has(object.ClassPlayer) && obj.Flags().Has(object.FlagDead) {
