@@ -10999,65 +10999,6 @@ bool nox_xxx_playerCheckStrength_4F3180(nox_object_t* a1p, nox_object_t* item) {
 	return result;
 }
 
-//----- (004F31E0) --------------------------------------------------------
-int nox_xxx_pickupDefault_4F31E0(nox_object_t* a1p, nox_object_t* item, int a3) {
-	int a1 = a1p;
-	int v3;     // eax
-	int v4;     // edi
-	char* v6;   // eax
-	int v7;     // ecx
-	int result; // eax
-	int v9;     // eax
-	int i;      // ecx
-	int v11;    // edx
-	int v12;    // esi
-	int v13;    // esi
-
-	v3 = nox_common_gameFlags_check_40A5C0(4096);
-	v4 = a1;
-	if (v3 || !nox_xxx_servObjectHasTeam_419130(&item->field_12) ||
-		nox_xxx_servCompareTeams_419150(v4 + 48, &item->field_12) ||
-		(v6 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)&item->field_13)) == 0) {
-		if (*(uint32_t*)&item->inv_holder) {
-			result = 0;
-		} else if (*(uint16_t*)(v4 + 490)) {
-			v9 = *(uint32_t*)(v4 + 504);
-			for (i = 0; v9; i += v11) {
-				v11 = *(unsigned char*)(v9 + 488);
-				v9 = *(uint32_t*)(v9 + 496);
-			}
-			if (2 * *(unsigned short*)(v4 + 490) - i >= item->weight) {
-				if ((*(uint8_t*)&item->obj_class & 0x10) != 16 ||
-					((v12 = nox_xxx_inventoryCountObjects_4E7D30(v4, *(unsigned short*)&item->typ_ind),
-					  !nox_common_gameFlags_check_40A5C0(6144))
-						 ? (v13 = v12 - 3)
-						 : (v13 = v12 - 9),
-					 v13 < 0)) {
-					nox_xxx_servFinalizeDelObject_4DADE0(item);
-					nox_xxx_inventoryPutImpl_4F3070(v4, item, a3);
-					result = 1;
-				} else {
-					nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "pickup.c:MaxSameItem", 0);
-					result = 0;
-				}
-			} else {
-				nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "pickup.c:CarryingTooMuch", 0);
-				result = 0;
-			}
-		} else {
-			result = 0;
-		}
-	} else {
-		if (*(uint8_t*)(v4 + 8) & 4) {
-			v7 = *(uint32_t*)(v4 + 748);
-			a1 = (unsigned char)v6[56];
-			nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)(*(uint32_t*)(v7 + 276) + 2064), 16, &a1);
-		}
-		result = 0;
-	}
-	return result;
-}
-
 //----- (004F3350) --------------------------------------------------------
 int nox_xxx_pickupFood_4F3350(int a1, int a2, int a3) {
 	int v4;            // ebx

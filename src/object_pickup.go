@@ -16,12 +16,66 @@ var (
 	dword_5d4594_527712 uint32
 )
 
+func nox_xxx_inventoryCountObjects_4E7D30(a1 *server.Object, a2 int32) int {
+	if a1 == nil {
+		return 0
+	}
+	var cnt int
+	for it := a1.InvFirstItem; it != nil; it = it.InvNextItem {
+		if a2 == 0 || int32(it.TypeInd) == a2 && !it.Flags().Has(object.FlagDestroyed) {
+			cnt++
+		}
+	}
+	return cnt
+}
+
+func nox_xxx_pickupDefault_4F31E0(obj *server.Object, item *server.Object, a3 int) int {
+	s := noxServer
+	if !noxflags.HasGame(noxflags.GameModeQuest) && item.TeamPtr().Has() && !obj.TeamPtr().SameAs(item.TeamPtr()) {
+		if tm := s.Teams.ByID(item.TeamVal.ID); tm != nil {
+			if obj.Class().Has(object.ClassPlayer) {
+				ud := obj.UpdateDataPlayer()
+				nox_xxx_netInformTextMsg_4DA0F0(ud.Player.PlayerIndex(), 16, int(tm.ColorInd))
+			}
+			return 0
+		}
+	}
+	if item.InvHolder != nil {
+		return 0
+	}
+	if obj.CarryCapacity == 0 {
+		return 0
+	}
+	weight := 0
+	for it := obj.InvFirstItem; it != nil; it = it.InvNextItem {
+		weight += int(it.Weight)
+	}
+	if int(item.Weight) > int(obj.CarryCapacity)*2-weight {
+		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "pickup.c:CarryingTooMuch", 0)
+		return 0
+	}
+	if item.Class().Has(object.ClassFood) {
+		cnt := nox_xxx_inventoryCountObjects_4E7D30(obj, int32(item.TypeInd))
+		max := 3
+		if noxflags.HasGame(noxflags.GameModeQuest | noxflags.GameModeCoop) {
+			max = 9
+		}
+		if cnt >= max {
+			nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "pickup.c:MaxSameItem", 0)
+			return 0
+		}
+	}
+	s.ObjectDeleteLast(item)
+	legacy.Nox_xxx_inventoryPutImpl_4F3070(obj, item, a3)
+	return 1
+}
+
 func nox_objectPickupAudEvent_4F3D50(obj1 *server.Object, obj2 *server.Object, a3 int) int {
 	s := noxServer
 	if obj1 == nil || obj2 == nil {
 		return 0
 	}
-	ok := legacy.Nox_xxx_pickupDefault_4F31E0(obj1, obj2, a3)
+	ok := nox_xxx_pickupDefault_4F31E0(obj1, obj2, a3)
 	if ok == 0 {
 		return ok
 	}
@@ -118,7 +172,7 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 		}
 	}
 	legacy.Nox_xxx_decay_5116F0(potion)
-	res := legacy.Nox_xxx_pickupDefault_4F31E0(obj, potion, a3)
+	res := nox_xxx_pickupDefault_4F31E0(obj, potion, a3)
 	if res == 1 {
 		s.AudioEventObj(sound.SoundPotionPickup, obj, 0, 0)
 	}
