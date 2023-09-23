@@ -1,8 +1,6 @@
 package opennox
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
@@ -27,7 +25,8 @@ func nox_xxx_useConsume_53EE10(obj, item *server.Object) int {
 	if obj.HealthData.Cur >= obj.HealthData.Max {
 		return 1
 	}
-	dhp := int(*(*int32)(item.UseData))
+	use := (*server.ConsumeUseData)(item.UseData)
+	dhp := int(use.Value)
 	legacy.Nox_xxx_unitAdjustHP_4EE460(obj, dhp)
 	if obj.Class().Has(object.ClassPlayer) {
 		ud := obj.UpdateDataPlayer()
@@ -86,9 +85,9 @@ func nox_xxx_useCiderConfuse_53EF00(obj, item *server.Object) int {
 
 func nox_xxx_useEnchant_53ED60(obj, item *server.Object) int {
 	s := noxServer
-	if item.UseData != nil {
-		ench := server.EnchantID(*(*uint32)(unsafe.Add(item.UseData, 0)))
-		dur := int(*(*uint32)(unsafe.Add(item.UseData, 4)))
+	if use := (*server.EnchantUseData)(item.UseData); use != nil {
+		ench := server.EnchantID(use.Enchant)
+		dur := int(use.Dur)
 		legacy.Nox_xxx_buffApplyTo_4FF380(obj, ench, dur, 5)
 	}
 	s.DelayedDelete(item)
@@ -97,7 +96,7 @@ func nox_xxx_useEnchant_53ED60(obj, item *server.Object) int {
 
 func nox_xxx_useCast_53ED90(obj, item *server.Object) int {
 	s := noxServer
-	if item.UseData != nil {
+	if use := (*server.CastUseData)(item.UseData); use != nil {
 		var pos types.Pointf
 		if obj.Class().Has(object.ClassPlayer) {
 			ud := obj.UpdateDataPlayer()
@@ -105,8 +104,7 @@ func nox_xxx_useCast_53ED90(obj, item *server.Object) int {
 		} else {
 			pos = obj.PosVec
 		}
-		spl := spell.ID(*(*int32)(item.UseData))
-		s.Nox_xxx_spellAccept4FD400(spl, item, item, item, &server.SpellAcceptArg{
+		s.Nox_xxx_spellAccept4FD400(spell.ID(use.Spell), item, item, item, &server.SpellAcceptArg{
 			Obj: obj, Pos: pos,
 		}, 4)
 	}
@@ -120,8 +118,9 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 		return 0
 	}
 	consumed := false
-	if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodHealthPotion) && obj.HealthData != nil && obj.HealthData.Cur < obj.HealthData.Max {
-		dhp := int(*(*int32)(potion.UseData))
+	use := (*server.PotionUseData)(potion.UseData)
+	if use != nil && potion.SubClass().AsFood().Has(object.FoodHealthPotion) && obj.HealthData != nil && obj.HealthData.Cur < obj.HealthData.Max {
+		dhp := int(use.Value)
 		if obj.Class().Has(object.ClassPlayer) {
 			ud := obj.UpdateDataPlayer()
 			switch ud.Player.PlayerClass() {
@@ -137,10 +136,10 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 		s.AudioEventObj(sound.SoundRestoreHealth, obj, 0, 0)
 		consumed = true
 	}
-	if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodManaPotion) && obj.Class().Has(object.ClassPlayer) {
+	if use != nil && potion.SubClass().AsFood().Has(object.FoodManaPotion) && obj.Class().Has(object.ClassPlayer) {
 		ud := obj.UpdateDataPlayer()
 		if ud.ManaCur < ud.ManaMax {
-			dmp := int(*(*int32)(potion.UseData))
+			dmp := int(use.Value)
 			switch ud.Player.PlayerClass() {
 			case player.Warrior:
 				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_warriorMaxMana_587000_312788()))
@@ -178,8 +177,8 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 			consumed = true
 		}
 	}
-	if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodShieldPotion) {
-		lvl := int(*(*int32)(potion.UseData))
+	if use != nil && potion.SubClass().AsFood().Has(object.FoodShieldPotion) {
+		lvl := int(use.Value)
 		s.Nox_xxx_spellAccept4FD400(spell.SPELL_SHIELD, obj, obj, obj, &server.SpellAcceptArg{
 			Obj: obj,
 			Pos: obj.PosVec,
