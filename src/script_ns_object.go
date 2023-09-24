@@ -882,7 +882,7 @@ func (obj nsObj) CreateMover(wp ns4.WaypointObj, speed float32) ns4.Obj {
 	obj.s.CreateObjectAt(mv, nil, obj.Pos())
 	mv.VelVec = types.Pointf{}
 
-	ud := mv.updateDataMover()
+	ud := mv.UpdateDataMover()
 	ud.Field_7 = obj.SObj()
 	ud.Field_2 = int32(wp.ScriptID())
 	ud.Field_1 = speed
@@ -897,7 +897,7 @@ func (obj nsObj) GetElevatorStatus() int {
 	if !obj.Class().Has(object.ClassElevator) {
 		return -1
 	}
-	return int(obj.updateDataElevator().Field_3)
+	return int(obj.UpdateDataElevator().Field_3)
 }
 
 func (obj nsObj) AggressionLevel(level float32) {

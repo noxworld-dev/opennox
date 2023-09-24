@@ -42,43 +42,11 @@ var (
 	Nox_xxx_collideGlyph_4E9A00                func(obj, obj2 *server.Object)
 )
 
-var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
+var _ = [1]struct{}{}[28-unsafe.Sizeof(server.MissileUpdateData{})]
 
-type Nox_object_Missile_data_t struct {
-	Owner    *server.Object // 0, 0
-	Target   *server.Object // 1, 4
-	Field_8  uint32         // 2, 8
-	SpellID  int32          // 3, 12
-	Field_16 uint32         // 4, 16
-	Field_20 uint32         // 5, 20
-	Field_24 uint32         // 6, 24
-}
+var _ = [1]struct{}{}[20-unsafe.Sizeof(server.ElevatorUpdateData{})]
 
-var _ = [1]struct{}{}[20-unsafe.Sizeof(Nox_object_Elevator_data_t{})]
-
-type Nox_object_Elevator_data_t struct {
-	Field_0 uint32  // 0, 0
-	Field_1 uint32  // 1, 4
-	Field_2 uint32  // 2, 8
-	Field_3 byte    // 3, 12
-	_       [3]byte // 3, 13
-	Field_4 uint32  // 4, 16
-}
-
-var _ = [1]struct{}{}[36-unsafe.Sizeof(Nox_object_Mover_data_t{})]
-
-type Nox_object_Mover_data_t struct {
-	Field_0 uint8          // 0, 0
-	_       [3]byte        // 0, 1
-	Field_1 float32        // 1, 4
-	Field_2 int32          // 2, 8
-	Field_3 uint32         // 3, 12
-	Field_4 uint32         // 4, 16
-	Field_5 uint32         // 5, 20
-	Field_6 uint32         // 6, 24
-	Field_7 *server.Object // 7, 28
-	Field_8 uint32         // 8, 32
-}
+var _ = [1]struct{}{}[36-unsafe.Sizeof(server.MoverUpdateData{})]
 
 type nox_object_t = C.nox_object_t
 

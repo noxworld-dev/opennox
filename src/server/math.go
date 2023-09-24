@@ -7,6 +7,10 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 )
 
+func roundDirI16(v int16) uint16 { // nox_xxx_math_roundDirI16
+	return uint16(uint8(v))
+}
+
 // RoundCoord rounds float coordinate in range [0, N) to be used as a map key.
 func RoundCoord(v float32) int {
 	if float64(v) < 0.0 {
