@@ -31,7 +31,7 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *server.Object
 		typ = sp.s.Types.IndByID(opts.Projectile)
 		sp.proj[spellID] = typ
 	}
-	curCnt := asObjectS(owner).countSubOfType(typ)
+	curCnt := owner.CountSubOfType(typ)
 	var cnt, maxCnt int
 	if opts.Count <= 0 {
 		// it's intentionally loading this variable twice
@@ -69,7 +69,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 			continue
 		}
 		msl := asObjectS(sp.s.NewObjectByTypeID(opts.Projectile))
-		mud := msl.updateDataMissile()
+		mud := msl.UpdateDataMissile()
 		sp.s.CreateObjectAt(msl, owner, p2)
 		mspeed := float32(sp.s.Rand.Logic.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.SpeedCur = mspeed
@@ -82,8 +82,8 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 			ppos = &cur
 		}
 		targ := sp.s.Nox_xxx_spellFlySearchTarget(ppos, msl, 0x20, opts.SearchDist, 0, owner)
-		mud.Owner = owner.SObj()
-		mud.Target = targ.SObj()
+		mud.Owner = owner
+		mud.Target = targ
 		mud.SpellID = int32(spellID)
 	}
 	aud := sp.s.Spells.DefByInd(spellID).GetCastSound()
