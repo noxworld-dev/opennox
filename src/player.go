@@ -357,7 +357,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		s.TeamsResetYyy()
 		legacy.Sub_40A970()
 	}
-	nox_xxx_netInformTextMsg_4DA0F0(p.PlayerIndex(), 12, bool2int(notify))
+	s.NetInformTextMsg(p.PlayerIndex(), 12, bool2int(notify))
 	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
 	u.ObjFlags |= uint32(object.FlagNoCollide)
 	p.SetPos3632(u.Pos())
@@ -542,7 +542,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		}
 	}
 	v5 := sub_416640()
-	netlist.ResetByInd(ind, netlist.Kind1)
+	s.NetList.ResetByInd(ind, netlist.Kind1)
 	legacy.Nox_xxx_playerResetImportantCtr_4E4F40(ind)
 	sub_4E4F30(ind)
 
@@ -760,13 +760,13 @@ func (s *Server) PlayerSpell(su *server.Object) {
 				a1 = legacy.Nox_xxx_checkPlrCantCastSpell_4FD150(u.SObj(), spellInd, 0)
 			}
 			if a1 != 0 {
-				nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, a1)
+				s.NetInformTextMsg(pl.PlayerIndex(), 0, a1)
 				s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
 				mana := legacy.Sub_4FCF90(u.SObj(), spellInd, 1)
 				if mana < 0 {
 					a1 = 11
-					nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, a1)
+					s.NetInformTextMsg(pl.PlayerIndex(), 0, a1)
 					s.Audio.EventObj(sound.SoundManaEmpty, u, 0, 0)
 				} else {
 					arg, v14free := alloc.New(server.SpellAcceptArg{})
@@ -779,7 +779,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 					}
 					arg.Pos = pl.CursorPos()
 					if s.nox_xxx_castSpellByUser4FDD20(spellInd, -1, u.SObj(), arg) {
-						nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 1, int(spellInd))
+						s.NetInformTextMsg(pl.PlayerIndex(), 1, int(spellInd))
 					} else {
 						sub_4FD030(u, mana)
 						a1 = 8
@@ -1053,7 +1053,7 @@ func (s *Server) sub_4D7390(u *server.Object) {
 		if to := findPlayerWithFewerKeys(); to != nil {
 			legacy.Sub_4ED0C0(u, it)
 			legacy.Nox_xxx_inventoryPutImpl_4F3070(to, it, 1)
-			nox_xxx_netPriMsgToPlayer_4DA2C0(to, "GeneralPrint:GainedKey", 0)
+			s.NetPriMsgToPlayer(to, "GeneralPrint:GainedKey", 0)
 			s.Audio.EventObj(sound.SoundKeyPickup, to, 0, 0)
 		}
 	}

@@ -143,7 +143,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			} else {
 				s.Audio.EventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 			}
-			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 13, 3)
+			s.NetInformTextMsg(pl.PlayerIndex(), 13, 3)
 			return a1, v68, true
 		}
 		v68 = true
@@ -574,7 +574,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				} else {
 					s.Audio.EventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 				}
-				nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 13, 3)
+				s.NetInformTextMsg(pl.PlayerIndex(), 13, 3)
 			} else if legacy.Nox_xxx_playerSubStamina_4F7D30(u.SObj(), 90) != 0 {
 				if u.HasEnchant(server.ENCHANT_CONFUSED) {
 					u.Direction2 = legacy.Nox_xxx_playerConfusedGetDirection_4F7A40(u.SObj())
@@ -1043,7 +1043,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 			}
 		}
 		if legacy.Get_dword_5d4594_2650652() != 0 && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) && legacy.Sub_509CF0(&pl.Field2096Buf[0], pl.PlayerClass(), pl.Field2068) == 0 {
-			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 17, 0)
+			s.NetInformTextMsg(pl.PlayerIndex(), 17, 0)
 			it.Active = false
 			continue
 		}
@@ -1055,13 +1055,13 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			if pl.Field4792 == 0 {
 				if ud.Field138 == 1 {
-					nox_xxx_netPriMsgToPlayer_4DA2C0(u.SObj(), "MainBG.wnd:Loading", 0)
+					s.NetPriMsgToPlayer(u.SObj(), "MainBG.wnd:Loading", 0)
 				} else {
 					pl.Field4792 = uint32(legacy.Sub_4E4100())
 					if pl.Field4792 == 1 {
 						legacy.Sub_4D79C0(u.SObj())
 					} else {
-						nox_xxx_netPriMsgToPlayer_4DA2C0(u.SObj(), "GeneralPrint:QuestGameFull", 0)
+						s.NetPriMsgToPlayer(u.SObj(), "GeneralPrint:QuestGameFull", 0)
 					}
 				}
 			}

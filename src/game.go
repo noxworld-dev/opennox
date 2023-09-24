@@ -712,7 +712,7 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server")
 	}
 	s.SetUpdateFunc(s.nox_xxx_gameTick_4D2580_server)
-	netlist.ResetAllInd(netlist.Kind1)
+	s.NetList.ResetAllInd(netlist.Kind1)
 	noxflags.SetGame(noxflags.GameFlag18)
 	legacy.Nox_xxx_netGameSettings_4DEF00()
 	legacy.Nox_server_gameUnsetMapLoad_40A690()
@@ -724,14 +724,14 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 	ticks := platformTicks()
 	v2 := false
 	if legacy.Get_dword_5d4594_2650652() == 0 {
-		netlist.ResetAllInd(netlist.Kind1)
+		s.NetList.ResetAllInd(netlist.Kind1)
 	} else {
 		v4 := nox_xxx_rateGet_40A6C0()
 		if legacy.Sub_416650() != 0 && legacy.Sub_41E2F0() == 8 {
 			v2 = true
 		}
 		if v4 == 1 || noxflags.HasGame(noxflags.GameFlag4) || s.Frame()%uint32(v4) == 1 {
-			netlist.ResetAllInd(netlist.Kind1)
+			s.NetList.ResetAllInd(netlist.Kind1)
 		}
 	}
 	s.Audio.Reset()
@@ -894,7 +894,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 		return false
 	}
 	crc := nox_xxx_mapCrcGetMB_409B00()
-	nox_xxx_netUseMap_4DEE00(mname+".map", crc)
+	s.nox_xxx_netUseMap_4DEE00(mname+".map", crc)
 	if false {
 		legacy.Sub_416690()
 		if noxflags.HasGame(noxflags.GameModeChat) {
@@ -1117,7 +1117,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			plx.Lessons = 0
 			plx.Field2140 = 0
 			plx.Field2144 = s.Frame()
-			nox_xxx_netReportLesson_4D8EF0(k)
+			s.nox_xxx_netReportLesson_4D8EF0(k)
 		}
 	}
 	legacy.Sub_50AFA0()
@@ -1413,9 +1413,9 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 	}
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
-		netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+		s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	} else if !isDedicatedServer {
-		netlist.HandlePacketsA(common.MaxPlayers-1, netlist.Kind0, func(data []byte) {
+		s.NetList.HandlePacketsA(common.MaxPlayers-1, netlist.Kind0, func(data []byte) {
 			if len(data) == 0 {
 				return
 			}

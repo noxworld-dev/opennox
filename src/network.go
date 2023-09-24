@@ -230,10 +230,10 @@ func (c *Client) clientSendInput(pli ntype.PlayerInd) bool {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
 	buf[1] = byte(len(nbuf))
-	if !netlist.AddToMsgListCli(pli, netlist.Kind0, buf[:2]) {
+	if !c.srv.NetList.AddToMsgListCli(pli, netlist.Kind0, buf[:2]) {
 		return false
 	}
-	if !netlist.AddToMsgListCli(pli, netlist.Kind0, nbuf) {
+	if !c.srv.NetList.AddToMsgListCli(pli, netlist.Kind0, nbuf) {
 		return false
 	}
 	return true
@@ -253,7 +253,7 @@ func (c *Client) clientSendInputMouse(pli ntype.PlayerInd, mp image.Point) bool 
 	buf[0] = byte(noxnet.MSG_MOUSE)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
-	return netlist.AddToMsgListCli(pli, netlist.Kind0, buf[:5])
+	return c.srv.NetList.AddToMsgListCli(pli, netlist.Kind0, buf[:5])
 }
 
 func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
@@ -344,6 +344,7 @@ func nox_xxx_netMapReceived_43CA80() int {
 }
 
 func nox_xxx_cliSendCancelMap_43CAB0() int {
+	s := noxServer
 	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
@@ -351,11 +352,12 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
-	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+	s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
 
 func nox_xxx_netSendIncomingClient_43CB00() int {
+	s := noxServer
 	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
@@ -363,7 +365,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
-	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+	s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
 
@@ -377,6 +379,7 @@ func nox_xxx_servNetInitialPackets_552A80_discover(src, dst []byte) int {
 }
 
 func nox_xxx_cliSendOutgoingClient_43CB50() int {
+	s := noxServer
 	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
@@ -385,26 +388,8 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 		return 0
 	}
 	conn.RecvLoop(netstr.RecvCanRead | netstr.RecvNoHooks)
-	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+	s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
-}
-
-func nox_xxx_netInformTextMsg_4DA0F0(pid ntype.PlayerInd, code byte, ind int) bool {
-	if pid < 0 {
-		return false
-	}
-	var buf [6]byte
-	buf[0] = byte(noxnet.MSG_INFORM)
-	buf[1] = code
-	switch code {
-	case 0, 1, 2, 12, 13, 16, 20, 21:
-		binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
-		return netlist.AddToMsgListCli(pid, netlist.Kind1, buf[:6])
-	case 17:
-		return netlist.AddToMsgListCli(pid, netlist.Kind1, buf[:2])
-	default:
-		return true
-	}
 }
 
 func nox_xxx_netReportSpellStat_4D9630(a1 int, a2 spell.ID, a3 byte) bool {
@@ -472,27 +457,27 @@ func nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) bool
 	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
 }
 
-func nox_xxx_netReportLesson_4D8EF0(u *Object) {
+func (s *Server) nox_xxx_netReportLesson_4D8EF0(u *Object) {
 	var buf [11]byte
 	buf[0] = byte(noxnet.MSG_REPORT_LESSON)
 	pl := u.ControllingPlayer()
 	binary.LittleEndian.PutUint16(buf[1:], uint16(u.NetCode))
 	binary.LittleEndian.PutUint32(buf[3:], uint32(pl.Lessons))
 	binary.LittleEndian.PutUint32(buf[7:], uint32(pl.Field2140))
-	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
+	s.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
 }
 
-func nox_xxx_netScriptMessageKill_4D9760(u *Object) {
+func (s *Server) nox_xxx_netScriptMessageKill_4D9760(u *Object) {
 	if !u.Class().Has(object.ClassPlayer) {
 		return
 	}
 	pl := u.ControllingPlayer()
 	var buf [1]byte
 	buf[0] = byte(noxnet.MSG_MESSAGES_KILL)
-	noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:1], 0, 1)
+	s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:1], 0, 1)
 }
 
-func nox_xxx_netKillChat_528D00(u *Object) {
+func (s *Server) nox_xxx_netKillChat_528D00(u *Object) {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_CHAT_KILL)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(noxServer.GetUnitNetCode(u)))
@@ -501,7 +486,7 @@ func nox_xxx_netKillChat_528D00(u *Object) {
 		if u == nil {
 			continue
 		}
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:3])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:3])
 	}
 }
 
@@ -533,18 +518,18 @@ func (s *Server) nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
 	case player.Warrior:
 		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(legacy.Get_nox_xxx_warriorMaxHealth_587000_312784())))
 		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(legacy.Get_nox_xxx_warriorMaxMana_587000_312788())))
-		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.Players.Mult.Warrior.Strength))
-		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.Players.Mult.Warrior.Speed))
+		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(s.Players.Mult.Warrior.Strength))
+		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(s.Players.Mult.Warrior.Speed))
 	case player.Wizard:
 		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(legacy.Get_nox_xxx_wizardMaxHealth_587000_312816())))
 		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(legacy.Get_nox_xxx_wizardMaximumMana_587000_312820())))
-		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.Players.Mult.Wizard.Strength))
-		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.Players.Mult.Wizard.Speed))
+		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(s.Players.Mult.Wizard.Strength))
+		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(s.Players.Mult.Wizard.Speed))
 	case player.Conjurer:
 		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800())))
 		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(legacy.Get_nox_xxx_conjurerMaxMana_587000_312804())))
-		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.Players.Mult.Conjurer.Strength))
-		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.Players.Mult.Conjurer.Speed))
+		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(s.Players.Mult.Conjurer.Strength))
+		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(s.Players.Mult.Conjurer.Speed))
 	}
 	return s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1)
 }
@@ -563,27 +548,8 @@ func nox_xxx_netSendBallStatus_4D95F0(a1 int, a2 byte, a3 uint16) int {
 	return noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:4], 0, 1)
 }
 
-func (s *Server) netPrintLineToAll(id strman.ID) { // nox_xxx_netPrintLineToAll_4DA390
-	for _, u := range s.getPlayerUnits() {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(u.SObj(), id, 0)
-	}
-}
-
-func nox_xxx_netPriMsgToPlayer_4DA2C0(u *server.Object, id strman.ID, a3 byte) {
-	var buf [52]byte
-	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || noxServer.Players.CheckXxx(u.SObj()) {
-		return
-	}
-	buf[0] = byte(noxnet.MSG_INFORM)
-	buf[1] = 15
-	buf[2] = a3
-	n := copy(buf[3:len(buf)-1], string(id))
-	buf[3+n] = 0
-	netlist.AddToMsgListCli(u.ControllingPlayer().PlayerIndex(), netlist.Kind1, buf[:n+4])
-}
-
-func nox_xxx_netSendBySock_40EE10(conn netstr.Handle, ind ntype.PlayerInd, kind netlist.Kind) {
-	netlist.HandlePacketsA(ind, kind, func(data []byte) {
+func (s *Server) nox_xxx_netSendBySock_40EE10(conn netstr.Handle, ind ntype.PlayerInd, kind netlist.Kind) {
+	s.NetList.HandlePacketsA(ind, kind, func(data []byte) {
 		if len(data) == 0 {
 			return
 		}
@@ -1037,7 +1003,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			} else {
 				binary.LittleEndian.PutUint32(buf[1:], *v364)
 			}
-			netlist.AddToMsgListCli(ind, 0, buf[:5])
+			c.srv.NetList.AddToMsgListCli(ind, 0, buf[:5])
 		}
 		return n
 	case noxnet.MSG_MAP_SEND_START:
@@ -1263,7 +1229,7 @@ func sub_43CF70() {
 
 func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 	if !noxflags.HasGame(noxflags.GameClient) || ind != common.MaxPlayers-1 {
-		netlist.HandlePacketsA(ind, netlist.Kind1, func(data []byte) {
+		s.NetList.HandlePacketsA(ind, netlist.Kind1, func(data []byte) {
 			if len(data) == 0 {
 				return
 			}
@@ -1278,14 +1244,14 @@ func (s *Server) sendSettings(u *Object) {
 		var buf [5]byte
 		buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
 		binary.LittleEndian.PutUint32(buf[1:], s.Frame())
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
 	}
 	{
 		var buf [7]byte
 		buf[0] = byte(noxnet.MSG_JOIN_DATA)
 		binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(u)))
 		binary.LittleEndian.PutUint32(buf[3:], uint32(pl.Field2068))
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:7])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:7])
 		legacy.Sub_4161E0()
 	}
 
@@ -1300,7 +1266,7 @@ func (s *Server) sendSettings(u *Object) {
 		buf[17] = byte(s.getServerMaxPlayers())
 		buf[18] = byte(legacy.Nox_xxx_servGamedataGet_40A020(*(*int16)(unsafe.Pointer(&v3[52]))))
 		buf[19] = byte(legacy.Sub_40A180(noxflags.GameFlag(*(*uint16)(unsafe.Pointer(&v3[52])))))
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:20])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:20])
 	}
 	{
 		var buf [49]byte
@@ -1313,12 +1279,12 @@ func (s *Server) sendSettings(u *Object) {
 		} else {
 			binary.LittleEndian.PutUint32(buf[45:], 0)
 		}
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:49])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:49])
 	}
 	{
 		var buf [129]byte
 		nox_xxx_netNewPlayerMakePacket_4DDA90(buf[:], pl)
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:129])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:129])
 		s.nox_xxx_netSendBySock_4DDDC0(pl.PlayerIndex())
 	}
 	{
@@ -1333,22 +1299,22 @@ func (s *Server) sendSettings(u *Object) {
 	}
 }
 
-func nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
+func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 	var pck [41]byte
 	pck[0] = byte(noxnet.MSG_USE_MAP)
 	copy(pck[1:33], mname)
 	binary.LittleEndian.PutUint32(pck[33:], crc)
-	binary.LittleEndian.PutUint32(pck[37:], noxServer.Frame())
+	binary.LittleEndian.PutUint32(pck[37:], s.Frame())
 
-	for pl := noxServer.PlayerFirst(); pl != nil; pl = noxServer.PlayerNext(pl) {
+	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
 		u := pl.UnitC()
 		if u == nil {
 			continue
 		}
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, pck[:41])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, pck[:41])
 		legacy.Nox_xxx_netPlayerObjSend_518C30(u.SObj(), u.SObj(), 0, 0)
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != common.MaxPlayers-1 {
-			buf := netlist.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
+			buf := s.NetList.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
 				netstr.Global.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
 			}
@@ -1767,7 +1733,7 @@ func nox_xxx_netTimerStatus_4D8F50(a1 ntype.PlayerInd, a2 int) {
 	noxServer.nox_xxx_netSendPacket1_4E5390(int(a1), buf[:13], 0, 1)
 }
 
-func netSendAudioEvent(u *Object, ev *server.AudioEvent, perc int16) {
+func (s *Server) netSendAudioEvent(u *Object, ev *server.AudioEvent, perc int16) {
 	pl := u.ControllingPlayer()
 	packed := uint16(uint32(uint16(ev.Sound)) | uint32(perc)<<10)
 	dx := ev.Pos.X - pl.Pos3632().X
@@ -1780,7 +1746,7 @@ func netSendAudioEvent(u *Object, ev *server.AudioEvent, perc int16) {
 	}
 	buf[1] = mv
 	binary.LittleEndian.PutUint16(buf[2:], packed)
-	netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:4])
+	s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:4])
 }
 
 func (s *Server) nox_xxx_netObjectOutOfSight_528A60(ind int, obj *server.Object) int {

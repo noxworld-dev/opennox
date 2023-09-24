@@ -249,7 +249,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 	}
 	if legacy.Sub_40A6B0() != 0 {
 		v8 := sub_416640()
-		s.printCompToAll(int(*(*uint32)(unsafe.Pointer(&v8[66]))))
+		s.NetPrintCompToAll(int(*(*uint32)(unsafe.Pointer(&v8[66]))))
 		legacy.Sub_40A6A0(0)
 	}
 	if (a1 - *memmap.PtrUint64(0x5D4594, 1548692)) > 0x1F4 {
@@ -265,19 +265,6 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 		legacy.Nox_server_checkWarpGate_4D7600()
 		sub_4DCE00()
 		legacy.Sub_4D7A80()
-	}
-}
-
-func (s *Server) printCompToAll(i int) {
-	switch i {
-	case 0:
-		s.netPrintLineToAll("report.c:NoComp")
-	case 1:
-		s.netPrintLineToAll("report.c:MinComp")
-	case 2:
-		s.netPrintLineToAll("report.c:AveComp")
-	case 3:
-		s.netPrintLineToAll("report.c:UserComp")
 	}
 }
 
@@ -298,7 +285,7 @@ func (s *Server) ServStartCountdown(sec int, id strman.ID) { // nox_xxx_servStar
 	*memmap.PtrUint64(0x5D4594, 3468) = platformTicks() + 1000*uint64(sec)
 	legacy.Sub_40A1F0(1)
 	if id != "" {
-		s.netPrintLineToAll(id)
+		s.NetPrintLineToAll(id)
 	}
 	s.flag3592 = true
 }
@@ -475,7 +462,7 @@ func (s *Server) updateRemotePlayers() error {
 			var buf [3]byte
 			buf[0] = byte(noxnet.MSG_TIMESTAMP)
 			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
-			netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:])
+			s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:])
 		} else {
 			if uint32(pl.UnitC().Ind()) == legacy.DeadWord { // see #401
 				pl.PlayerUnit = nil
@@ -508,7 +495,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	pind := pl.PlayerIndex()
-	netlist.InitByInd(pind)
+	s.NetList.InitByInd(pind)
 	if pind != common.MaxPlayers-1 && ((s.Frame()+uint32(pind))%s.SecToFrames(15)) == 0 {
 		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, u.SObj())
 	}
@@ -673,7 +660,7 @@ func (s *Server) newSession() error {
 	s.Objs.ResetObjectScriptIDs()
 	legacy.Sub_56F1C0()
 	s.Players.ResetAll()
-	netlist.ResetAll()
+	s.NetList.ResetAll()
 	legacy.Sub_4E4EF0()
 	legacy.Sub_4E4ED0()
 	s.Audio.Init(s.Server)
@@ -801,7 +788,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 		s.nox_server_netCloseHandler_4DEC60(s.serverConn)
 	}
 	legacy.Sub_56F3B0()
-	netlist.ResetAll()
+	s.NetList.ResetAll()
 	_ = ifs.Remove(datapath.Save("_temp_.dat"))
 }
 

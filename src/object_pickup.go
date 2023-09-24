@@ -34,7 +34,7 @@ func nox_xxx_pickupDefault_4F31E0(obj *server.Object, item *server.Object, a3 in
 		if tm := s.Teams.ByID(item.TeamVal.ID); tm != nil {
 			if obj.Class().Has(object.ClassPlayer) {
 				ud := obj.UpdateDataPlayer()
-				nox_xxx_netInformTextMsg_4DA0F0(ud.Player.PlayerIndex(), 16, int(tm.ColorInd))
+				s.NetInformTextMsg(ud.Player.PlayerIndex(), 16, int(tm.ColorInd))
 			}
 			return 0
 		}
@@ -50,7 +50,7 @@ func nox_xxx_pickupDefault_4F31E0(obj *server.Object, item *server.Object, a3 in
 		weight += int(it.Weight)
 	}
 	if int(item.Weight) > int(obj.CarryCapacity)*2-weight {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "pickup.c:CarryingTooMuch", 0)
+		s.NetPriMsgToPlayer(obj, "pickup.c:CarryingTooMuch", 0)
 		return 0
 	}
 	if item.Class().Has(object.ClassFood) {
@@ -60,7 +60,7 @@ func nox_xxx_pickupDefault_4F31E0(obj *server.Object, item *server.Object, a3 in
 			max = 9
 		}
 		if cnt >= max {
-			nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "pickup.c:MaxSameItem", 0)
+			s.NetPriMsgToPlayer(obj, "pickup.c:MaxSameItem", 0)
 			return 0
 		}
 	}
@@ -116,7 +116,7 @@ func nox_xxx_playerClassCanUseItem_57B3D0(item *server.Object, cl player.Class) 
 func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 int) int {
 	s := noxServer
 	if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) && obj.Class().Has(object.ClassPlayer) && !nox_xxx_playerClassCanUseItem_57B3D0(potion, obj.UpdateDataPlayer().Player.PlayerClass()) {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "pickup.c:ObjectEquipClassFail", 0)
+		s.NetPriMsgToPlayer(obj, "pickup.c:ObjectEquipClassFail", 0)
 		s.Audio.EventObj(sound.SoundNoCanDo, obj, 2, obj.NetCode)
 		return 0
 	}

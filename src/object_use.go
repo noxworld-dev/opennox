@@ -58,11 +58,11 @@ func nox_xxx_useMushroom_53ECE0(obj, item *server.Object) int {
 	s := noxServer
 	if int32(obj.Poison540) != 0 {
 		legacy.Nox_xxx_removePoison_4EE9D0(obj)
-		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:MushroomClean", 0)
+		s.NetPriMsgToPlayer(obj, "Use.c:MushroomClean", 0)
 		aud := s.Spells.DefByInd(spell.SPELL_CURE_POISON).GetOnSound()
 		s.Audio.EventObj(aud, obj, 0, 0)
 	} else {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:MushroomConfuse", 0)
+		s.NetPriMsgToPlayer(obj, "Use.c:MushroomConfuse", 0)
 	}
 	legacy.Nox_xxx_buffApplyTo_4FF380(obj, server.ENCHANT_CONFUSED, int(s.SecToFrames(10)), 5)
 	s.DelayedDelete(item)
@@ -75,7 +75,7 @@ func nox_xxx_useCiderConfuse_53EF00(obj, item *server.Object) int {
 		return 1
 	}
 	legacy.Nox_xxx_buffApplyTo_4FF380(obj, server.ENCHANT_CONFUSED, int(s.SecToFrames(5)), 4)
-	nox_xxx_netPriMsgToPlayer_4DA2C0(obj, "Use.c:CiderConfuse", 0)
+	s.NetPriMsgToPlayer(obj, "Use.c:CiderConfuse", 0)
 	res := nox_xxx_useConsume_53EE10(obj, item)
 	if res != 0 {
 		s.DelayedDelete(item)

@@ -35,7 +35,7 @@ func (s *Server) NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Poi
 					if s.Audio.Field20(it.Sound) != 0 {
 						s.Audio.AddAudio(it, fade)
 					} else {
-						netSendAudioEvent(asObjectS(obj), it, int16(fade))
+						s.netSendAudioEvent(asObjectS(obj), it, int16(fade))
 					}
 				}
 			}
@@ -46,6 +46,6 @@ func (s *Server) NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Poi
 
 func (s *Server) netSendAudioEvents(obj *Object) {
 	s.Audio.EachEventBitmap(func(it *server.AudioEvent) {
-		netSendAudioEvent(obj, it, int16(it.Perc))
+		s.netSendAudioEvent(obj, it, int16(it.Perc))
 	})
 }
