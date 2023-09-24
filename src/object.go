@@ -620,18 +620,6 @@ func (obj *Object) HasItem(item *Object) bool {
 	return obj.SObj().HasItem(item.SObj())
 }
 
-func (obj *Object) updateDataMissile() *legacy.Nox_object_Missile_data_t {
-	return (*legacy.Nox_object_Missile_data_t)(obj.UpdateData)
-}
-
-func (obj *Object) updateDataElevator() *legacy.Nox_object_Elevator_data_t {
-	return (*legacy.Nox_object_Elevator_data_t)(obj.UpdateData)
-}
-
-func (obj *Object) updateDataMover() *legacy.Nox_object_Mover_data_t {
-	return (*legacy.Nox_object_Mover_data_t)(obj.UpdateData)
-}
-
 func (obj *Object) Inventory() []*Object {
 	var out []*Object
 	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
@@ -866,6 +854,18 @@ func (obj *Object) UpdateDataMonster() *server.MonsterUpdateData {
 
 func (obj *Object) UpdateDataObelisk() *server.ObeliskUpdateData {
 	return obj.SObj().UpdateDataObelisk()
+}
+
+func (obj *Object) UpdateDataMissile() *server.MissileUpdateData {
+	return obj.SObj().UpdateDataMissile()
+}
+
+func (obj *Object) UpdateDataElevator() *server.ElevatorUpdateData {
+	return obj.SObj().UpdateDataElevator()
+}
+
+func (obj *Object) UpdateDataMover() *server.MoverUpdateData {
+	return obj.SObj().UpdateDataMover()
 }
 
 func (obj *Object) ControllingPlayer() *Player {
@@ -1103,17 +1103,8 @@ func (obj *Object) MonsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx
 	return obj.SObj().MonsterActionIsScheduled(act)
 }
 
-func (obj *Object) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
-	if obj == nil {
-		return 0
-	}
-	cnt := 0
-	for it := obj.FirstOwned516(); it != nil; it = it.NextOwned512() {
-		if int(it.TypeInd) == typ && !it.Flags().Has(object.FlagDestroyed) {
-			cnt++
-		}
-	}
-	return cnt
+func (obj *Object) CountSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
+	return obj.SObj().CountSubOfType(typ)
 }
 
 func (obj *Object) SetTrapSpells(spells ...spell.ID) {
@@ -1125,7 +1116,7 @@ func nox_xxx_playerSetState_4FA020(u *Object, a2 int) {
 }
 
 func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int) int {
-	return asObjectS(a1).countSubOfType(a2)
+	return asObjectS(a1).CountSubOfType(a2)
 }
 
 func nox_xxx_scriptSetDialog_548C80(obj *server.Object, flags server.DialogFlags, start, end int) {
