@@ -981,7 +981,7 @@ func sub_41AA30(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 527696)), 2)
 		*memmap.PtrUint32(0x5D4594, 527700) = uint32(*(*uint16)(unsafe.Add(v2, 4)))
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 527700)), 2)
-		*(*uint8)(unsafe.Pointer(&v8)) = v1.Field540
+		*(*uint8)(unsafe.Pointer(&v8)) = v1.Poison540
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 1)
 		if nox_crypt_IsReadOnly() == 1 {
 			nox_xxx_setSomePoisonData_4EEA90(v1, int32(uint8(int8(v8))))

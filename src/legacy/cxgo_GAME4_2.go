@@ -8239,7 +8239,7 @@ LABEL_137:
 		nox_xxx_readNPCVoiceSet_52AD10(unsafe.Pointer(a1))
 	}
 	if int32(int16(v45)) >= 64 {
-		*((*uint8)(unsafe.Pointer(&v47))) = a1.Field540
+		*((*uint8)(unsafe.Pointer(&v47))) = a1.Poison540
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v47)), 1)
 		if nox_crypt_IsReadOnly() != 1 {
 			goto LABEL_171

@@ -2568,17 +2568,17 @@ func nox_xxx_unitCountSlaves_4E7CF0(a1 *server.Object, a2 int32, a3 int32) int32
 	}
 	return result
 }
-func nox_xxx_inventoryCountObjects_4E7D30(a1 *server.Object, a2 int32) int32 {
+func nox_xxx_inventoryCountObjects_4E7D30(a1 *server.Object, a2 int32) int {
 	if a1 == nil {
 		return 0
 	}
-	var result int32
-	for i := a1.InvFirstItem; i != nil; i = i.InvNextItem {
-		if a2 == 0 || int32(i.TypeInd) == a2 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(i), 16)))&0x20) == 0 {
-			result++
+	var cnt int
+	for it := a1.InvFirstItem; it != nil; it = it.InvNextItem {
+		if a2 == 0 || int32(it.TypeInd) == a2 && !it.Flags().Has(object.FlagDestroyed) {
+			cnt++
 		}
 	}
-	return result
+	return cnt
 }
 func sub_4E7DE0(a1 *server.Object, item *server.Object) int32 {
 	var (
@@ -6401,7 +6401,7 @@ func nox_xxx_chest_4EDF00(a1 *server.Object, a2 *server.Object) {
 	)
 	if a1 != nil {
 		if a2 != nil {
-			v31 = nox_xxx_inventoryCountObjects_4E7D30(a1, 0)
+			v31 = int32(nox_xxx_inventoryCountObjects_4E7D30(a1, 0))
 			if v31 != 0 {
 				v2 = int32(a1.ObjSubClass)
 				if v2&0x100 != 0 {
@@ -6718,7 +6718,7 @@ func nox_xxx_activatePoison_4EE7E0(a1 *server.Object, a2 int32, a3 int32) int32 
 		v8  int32
 		v10 float32
 	)
-	v3 = int32(a1.Field540)
+	v3 = int32(a1.Poison540)
 	if a1 == nil {
 		return 0
 	}
@@ -6772,11 +6772,11 @@ LABEL_21:
 }
 func nox_xxx_updatePoison_4EE8F0(a1 *server.Object, a2 int32) {
 	if a1 != nil {
-		if int32(a1.Field540) > a2 {
-			a1.Field540 -= uint8(int8(a2))
+		if int32(a1.Poison540) > a2 {
+			a1.Poison540 -= uint8(int8(a2))
 		} else {
 			v2 := a1.HealthData
-			a1.Field540 = 0
+			a1.Poison540 = 0
 			if v2 != nil {
 				v2.Field16 = 0
 			}
@@ -6804,9 +6804,9 @@ func nox_xxx_updatePoison_4EE8F0(a1 *server.Object, a2 int32) {
 	}
 }
 func nox_xxx_removePoison_4EE9D0(a1 *server.Object) {
-	if a1 != nil && int32(a1.Field540) != 0 {
+	if a1 != nil && int32(a1.Poison540) != 0 {
 		v1 := a1.HealthData
-		a1.Field540 = 0
+		a1.Poison540 = 0
 		if v1 != nil {
 			v1.Field16 = 0
 		}
@@ -6837,14 +6837,14 @@ func nox_xxx_setSomePoisonData_4EEA90(a1 *server.Object, a2 int32) {
 		v6 *server.Object
 	)
 	if a1 != nil {
-		if int32(a1.Field540) == 0 && a2 > 0 {
+		if int32(a1.Poison540) == 0 && a2 > 0 {
 			v2 := a1.HealthData
 			if v2 != nil {
 				v2.Field16 = gameFrame()
 			}
 		}
 		v3 = int32(a1.ObjClass)
-		a1.Field540 = uint8(int8(a2))
+		a1.Poison540 = uint8(int8(a2))
 		if v3&4 != 0 {
 			v4 := a1.UpdateDataPlayer()
 			if a2 != 0 {
@@ -9733,7 +9733,7 @@ func sub_4F2C30(a1 unsafe.Pointer) int32 {
 	}
 	v3 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 	v1 = int32(v3)
-	return bool2int32(nox_xxx_inventoryCountObjects_4E7D30((*server.Object)(a1), *memmap.PtrInt32(0x5D4594, 1568404)) <= v1)
+	return bool2int32(nox_xxx_inventoryCountObjects_4E7D30((*server.Object)(a1), *memmap.PtrInt32(0x5D4594, 1568404)) <= int(v1))
 }
 func nox_xxx_spell_4F2E70(a1 int32) int32 {
 	var (
@@ -9936,66 +9936,46 @@ func nox_xxx_playerCheckStrength_4F3180(a1p *server.Object, item *server.Object)
 	}
 	return result
 }
-func Nox_xxx_pickupDefault_4F31E0(a1p *server.Object, item *server.Object, a3 int, a4 int) int {
-	var (
-		a1     = a1p
-		v3     int32
-		v6     *byte
-		result int32
-		i      int32
-		v11    int32
-		v12    int32
-		v13    int32
-	)
-	v3 = bool2int32(noxflags.HasGame(4096))
-	v4 := a1
-	if v3 != 0 || nox_xxx_servObjectHasTeam_419130(item.TeamPtr()) == 0 || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v4), 48)), item.TeamPtr()) != 0 || (func() *byte {
-		v6 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(item.TeamVal.ID))))
-		return v6
-	}()) == nil {
-		if item.InvHolder != nil {
-			result = 0
-		} else if int32(v4.CarryCapacity) != 0 {
-			v9 := v4.InvFirstItem
-			for i = 0; v9 != nil; i += v11 {
-				v11 = int32(v9.Weight)
-				v9 = v9.InvNextItem
+func Nox_xxx_pickupDefault_4F31E0(obj *server.Object, item *server.Object, a3 int, a4 int) int {
+	if !noxflags.HasGame(noxflags.GameModeQuest) && nox_xxx_servObjectHasTeam_419130(item.TeamPtr()) != 0 && nox_xxx_servCompareTeams_419150(obj.TeamPtr(), item.TeamPtr()) == 0 {
+		if tm := nox_xxx_getTeamByID_418AB0(int32(item.TeamVal.ID)); tm != nil {
+			if !(obj.Class().Has(object.ClassPlayer)) {
+				return 0
 			}
-			if int32(v4.CarryCapacity)*2-i >= int32(item.Weight) {
-				if (int32(*(*uint8)(unsafe.Pointer(&item.ObjClass)))&0x10) != 16 || (func() bool {
-					if func() bool {
-						v12 = nox_xxx_inventoryCountObjects_4E7D30(v4, int32(item.TypeInd))
-						return !noxflags.HasGame(6144)
-					}() {
-						v13 = v12 - 3
-					} else {
-						v13 = v12 - 9
-					}
-					return v13 < 0
-				}()) {
-					nox_xxx_servFinalizeDelObject_4DADE0(item)
-					nox_xxx_inventoryPutImpl_4F3070(v4, item, int32(a3))
-					result = 1
-				} else {
-					nox_xxx_netPriMsgToPlayer_4DA2C0(v4, internCStr("pickup.c:MaxSameItem"), 0)
-					result = 0
-				}
-			} else {
-				nox_xxx_netPriMsgToPlayer_4DA2C0(v4, internCStr("pickup.c:CarryingTooMuch"), 0)
-				result = 0
-			}
-		} else {
-			result = 0
+			ud := obj.UpdateDataPlayer()
+			a1b := int32(tm.ColorInd)
+			nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 16, &a1b)
+			return 0
 		}
-	} else {
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))&4 != 0 {
-			v7 := v4.UpdateDataPlayer()
-			a1 := int32(*(*byte)(unsafe.Add(unsafe.Pointer(v6), 56)))
-			nox_xxx_netInformTextMsg_4DA0F0(int32(v7.Player.PlayerInd), 16, &a1)
-		}
-		result = 0
 	}
-	return int(result)
+	if item.InvHolder != nil {
+		return 0
+	}
+	if obj.CarryCapacity == 0 {
+		return 0
+	}
+	weight := 0
+	for it := obj.InvFirstItem; it != nil; it = it.InvNextItem {
+		weight += int(it.Weight)
+	}
+	if int(item.Weight) > int(obj.CarryCapacity)*2-weight {
+		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, internCStr("pickup.c:CarryingTooMuch"), 0)
+		return 0
+	}
+	if item.Class().Has(object.ClassFood) {
+		cnt := nox_xxx_inventoryCountObjects_4E7D30(obj, int32(item.TypeInd))
+		max := 3
+		if noxflags.HasGame(noxflags.GameModeQuest | noxflags.GameModeCoop) {
+			max = 9
+		}
+		if cnt >= max {
+			nox_xxx_netPriMsgToPlayer_4DA2C0(obj, internCStr("pickup.c:MaxSameItem"), 0)
+			return 0
+		}
+	}
+	nox_xxx_servFinalizeDelObject_4DADE0(item)
+	nox_xxx_inventoryPutImpl_4F3070(obj, item, int32(a3))
+	return 1
 }
 func nox_xxx_pickupFood_4F3350(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
 	a1 := obj
@@ -10231,7 +10211,7 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 				consumed = true
 			}
 		}
-		if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Field540) != 0 {
+		if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Poison540) != 0 {
 			nox_xxx_removePoison_4EE9D0(obj)
 			aud := nox_xxx_spellGetAud44_424800(14, 1)
 			nox_xxx_aud_501960(aud, obj, 0, 0)

@@ -528,7 +528,7 @@ func sub_5100C0_trade(a1 *server.Object, a2 *uint32, a3 int32) {
 				return
 			}
 			if int32(*(*uint8)(unsafe.Add(v6, 8)))&0x10 != 0 {
-				v9 = nox_xxx_inventoryCountObjects_4E7D30(v3, int32(*(*uint16)(unsafe.Add(v6, 4))))
+				v9 = int32(nox_xxx_inventoryCountObjects_4E7D30(v3, int32(*(*uint16)(unsafe.Add(v6, 4)))))
 				if v9 >= (func() int32 {
 					if noxflags.HasGame(6144) {
 						return 9
@@ -554,7 +554,7 @@ func sub_5100C0_trade(a1 *server.Object, a2 *uint32, a3 int32) {
 					if *(*uint32)(unsafe.Add(v6, 12))&0x200000 != 0 {
 						v17 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 						v12 = int32(v17)
-						if nox_xxx_inventoryCountObjects_4E7D30(v3, int32(*(*uint16)(unsafe.Add(v6, 4)))) >= v12 {
+						if nox_xxx_inventoryCountObjects_4E7D30(v3, int32(*(*uint16)(unsafe.Add(v6, 4)))) >= int(v12) {
 							nox_xxx_netPriMsgToPlayer_4DA2C0(v3, internCStr("pickup.c:MaxSameItem"), 0)
 							nox_xxx_aud_501960(925, v3, 0, 0)
 							return
@@ -637,7 +637,7 @@ func sub_510640_trade(a1 *server.Object, a2 unsafe.Pointer, a3 int32, a4 *float3
 			return
 		}
 		if int32(*(*uint8)(unsafe.Add(v7, 8)))&0x10 != 0 {
-			v9 = nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Add(v7, 4))))
+			v9 = int32(nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Add(v7, 4)))))
 			if v9 >= (func() int32 {
 				if noxflags.HasGame(6144) {
 					return 9
@@ -662,7 +662,7 @@ func sub_510640_trade(a1 *server.Object, a2 unsafe.Pointer, a3 int32, a4 *float3
 				if *(*uint32)(unsafe.Add(v7, 12))&0x200000 != 0 {
 					v17 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 					v11 = int32(v17)
-					if nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Add(v7, 4)))) >= v11 {
+					if nox_xxx_inventoryCountObjects_4E7D30(v4, int32(*(*uint16)(unsafe.Add(v7, 4)))) >= int(v11) {
 						nox_xxx_netPriMsgToPlayer_4DA2C0(v4, internCStr("pickup.c:MaxSameItem"), 0)
 						goto LABEL_36
 					}

@@ -4382,7 +4382,7 @@ func nox_xxx_netSendReportNPC_4D93A0(a1 int32, a2 *server.Object) {
 	v10[0] = 105
 	v2 := a2.UpdateData
 	*(*uint16)(unsafe.Pointer(&v10[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(a2), 36))
-	if int32(a2.Field540) != 0 {
+	if int32(a2.Poison540) != 0 {
 		v10[2] |= 0x80
 	}
 	v3 = &v10[3]

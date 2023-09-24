@@ -7,10 +7,13 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -5273,7 +5276,7 @@ func sub_53A720(obj *server.Object, item *server.Object, a3 int, a4 int) int {
 			if item.ObjSubClass&0x200000 != 0 {
 				v12 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 				v6 = int32(v12)
-				if nox_xxx_inventoryCountObjects_4E7D30(a1, int32(item.ObjFlags)) >= v6 {
+				if nox_xxx_inventoryCountObjects_4E7D30(a1, int32(item.ObjFlags)) >= int(v6) {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("pickup.c:MaxSameItem"), 0)
 					nox_xxx_aud_501960(925, a1, 0, 0)
 					return 0
@@ -7963,7 +7966,7 @@ LABEL_40:
 	nox_xxx_decay_5116F0(a2)
 	return 1
 }
-func sub_53EAE0(a1 int32) {
+func sub_53EAE0(a1 *server.Object) {
 	var v2 int16
 	if a1 != 0 {
 		v2 = int16(*(*uint16)(unsafe.Add(a1, 24)))
@@ -8065,95 +8068,77 @@ func sub_53EC80(a1 unsafe.Pointer, a2 int32) int32 {
 	}
 	return bool2int32((uint32(a2) & *memmap.PtrUint32(0x587000, uintptr(v2*12)+279440)) != 0)
 }
-func nox_xxx_useMushroom_53ECE0(obj, obj2 *server.Object) int {
-	a1 := obj
-	a2 := obj2
-	var v2 int32
-	if int32(a1.Field540) != 0 {
-		nox_xxx_removePoison_4EE9D0(a1)
-		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("Use.c:MushroomClean"), 0)
-		v2 = nox_xxx_spellGetAud44_424800(14, 1)
-		nox_xxx_aud_501960(v2, a1, 0, 0)
+func nox_xxx_useMushroom_53ECE0(obj, item *server.Object) int {
+	if int32(obj.Poison540) != 0 {
+		nox_xxx_removePoison_4EE9D0(obj)
+		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, internCStr("Use.c:MushroomClean"), 0)
+		v2 := nox_xxx_spellGetAud44_424800(14, 1)
+		nox_xxx_aud_501960(v2, obj, 0, 0)
 	} else {
-		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("Use.c:MushroomConfuse"), 0)
+		nox_xxx_netPriMsgToPlayer_4DA2C0(obj, internCStr("Use.c:MushroomConfuse"), 0)
 	}
-	nox_xxx_buffApplyTo_4FF380(a1, 3, 300, 5)
-	nox_xxx_delayedDeleteObject_4E5CC0(a2)
+	nox_xxx_buffApplyTo_4FF380(obj, 3, 300, 5)
+	nox_xxx_delayedDeleteObject_4E5CC0(item)
 	return 1
 }
-func nox_xxx_useEnchant_53ED60(obj, obj2 *server.Object) int {
-	a1 := obj
-	a2 := obj2
-	nox_xxx_buffApplyTo_4FF380(a1, server.EnchantID(*a2.UseData), int16(uint16(*(*uint32)(unsafe.Add(a2.UseData, 4)))), 5)
-	nox_xxx_delayedDeleteObject_4E5CC0(a2)
+func nox_xxx_useEnchant_53ED60(obj, item *server.Object) int {
+	nox_xxx_buffApplyTo_4FF380(obj, server.EnchantID(*item.UseData), int16(uint16(*(*uint32)(unsafe.Add(item.UseData, 4)))), 5)
+	nox_xxx_delayedDeleteObject_4E5CC0(item)
 	return 1
 }
 func nox_xxx_useCast_53ED90(obj, obj2 *server.Object) int {
-	a1 := obj
-	a2 := (*uint32)(obj2.CObj())
-	var (
-		v2 *int32
-		v3 int32
-		v4 int32
-		v6 [3]int32
-	)
-	v6[0] = a1
-	v2 = (*int32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 4*184)))
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
-		v3 = int32(a1.UpdateData)
-		*(*float32)(unsafe.Pointer(&v6[1])) = float32(float64(*(*int32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2284))))
-		*(*float32)(unsafe.Pointer(&v6[2])) = float32(float64(*(*int32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2288))))
+	var v6 [3]int32
+	v6[0] = obj
+	v2 := obj2.UseData
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(obj), 8)))&4 != 0 {
+		v3 := obj.UpdateDataPlayer()
+		*(*float32)(unsafe.Pointer(&v6[1])) = float32(float64(v3.Player.CursorVec.X))
+		*(*float32)(unsafe.Pointer(&v6[2])) = float32(float64(v3.Player.CursorVec.Y))
 	} else {
-		v4 = int32(a1.PosVec.Y)
-		v6[1] = int32(a1.PosVec.X)
-		v6[2] = v4
+		v6[1] = int32(obj.PosVec.X)
+		v6[2] = int32(obj.PosVec.Y)
 	}
-	nox_xxx_spellAccept_4FD400(*v2, (*server.Object)(unsafe.Pointer(a2)), (*server.Object)(unsafe.Pointer(a2)), (*server.Object)(unsafe.Pointer(a2)), (*server.SpellAcceptArg)(unsafe.Pointer(&v6[0])), 4)
-	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(a2)))
+	nox_xxx_spellAccept_4FD400(*v2, obj2, obj2, obj2, (*server.SpellAcceptArg)(unsafe.Pointer(&v6[0])), 4)
+	nox_xxx_delayedDeleteObject_4E5CC0(obj2)
 	return 1
 }
-func nox_xxx_useConsume_53EE10(obj, obj2 *server.Object) int {
-	a1 := obj
-	a2 := obj2
-	var (
-		v2 *uint16
-		v3 int32
-	)
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&0x10 == 0 {
+func nox_xxx_useConsume_53EE10(obj, item *server.Object) int {
+	if !item.Class().Has(object.ClassFood) {
 		return 1
 	}
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 12))) & 8) != 0 {
+	if item.SubClass().AsFood().Has(object.FoodPotion) {
 		return 1
 	}
-	v2 = a1.HealthData
-	if v2 == nil {
+	if obj.HealthData == nil || item.UseData == nil {
 		return 1
 	}
-	if int32(*v2) >= int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*2))) {
+	if obj.HealthData.Cur >= obj.HealthData.Max {
 		return 1
 	}
-	nox_xxx_unitAdjustHP_4EE460(a1, int32(*a2.UseData))
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
-		v3 = int32(a2.ObjSubClass)
-		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2252))) != 0 {
-			if v3&1 != 0 {
-				nox_xxx_aud_501960(324, a1, 0, 0)
-			} else if v3&2 != 0 {
-				nox_xxx_aud_501960(325, a1, 0, 0)
-			} else if v3&4 != 0 {
-				nox_xxx_aud_501960(326, a1, 0, 0)
+	nox_xxx_unitAdjustHP_4EE460(obj, *(*int32)(item.UseData))
+	if obj.Class().Has(object.ClassPlayer) {
+		ud := obj.UpdateDataPlayer()
+		if ud.Player.Info().IsFemale() {
+			if item.SubClass().AsFood().Has(object.FoodSimple) {
+				nox_xxx_aud_501960(int32(sound.SoundHumanFemaleEatFood), obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodApple) {
+				nox_xxx_aud_501960(int32(sound.SoundHumanFemaleEatApple), obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodJug) {
+				nox_xxx_aud_501960(int32(sound.SoundHumanFemaleDrinkJug), obj, 0, 0)
 			}
-		} else if v3&1 != 0 {
-			nox_xxx_aud_501960(314, a1, 0, 0)
-		} else if v3&2 != 0 {
-			nox_xxx_aud_501960(315, a1, 0, 0)
-		} else if v3&4 != 0 {
-			nox_xxx_aud_501960(316, a1, 0, 0)
+		} else {
+			if item.SubClass().AsFood().Has(object.FoodSimple) {
+				nox_xxx_aud_501960(int32(sound.SoundHumanMaleEatFood), obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodApple) {
+				nox_xxx_aud_501960(int32(sound.SoundHumanMaleEatApple), obj, 0, 0)
+			} else if item.SubClass().AsFood().Has(object.FoodJug) {
+				nox_xxx_aud_501960(int32(sound.SoundHumanMaleDrinkJug), obj, 0, 0)
+			}
 		}
 	} else {
-		nox_xxx_aud_501960(334, a1, 0, 0)
+		nox_xxx_aud_501960(int32(sound.SoundMonsterEatFood), obj, 0, 0)
 	}
-	nox_xxx_delayedDeleteObject_4E5CC0(a2)
+	nox_xxx_delayedDeleteObject_4E5CC0(item)
 	return 1
 }
 func nox_xxx_useCiderConfuse_53EF00(obj, obj2 *server.Object) int {
@@ -8170,163 +8155,80 @@ func nox_xxx_useCiderConfuse_53EF00(obj, obj2 *server.Object) int {
 	}
 	return v2
 }
-func nox_xxx_usePotion_53EF70(obj, obj2 *server.Object) int {
-	a1 := obj
-	a2 := obj2
-	var (
-		v3     int32
-		result int32
-		v5     int32
-		v6     *uint16
-		v7     int8
-		v8     float64
-		v9     int32
-		v10    int8
-		v11    float64
-		v12    int32
-		v13    int32
-		v14    int32
-		v15    int32
-		v16    int32
-		v17    int32
-		v18    int32
-		v19    int32
-		v20    int32
-		v21    int32
-		v22    int32
-		v23    float32
-		v24    float32
-		v25    int32
-		v26    [3]int32
-	)
-	v2 := a2
-	v3 = int32(*a2.UseData)
-	result = 0
-	v25 = int32(*a2.UseData)
-	if (a1.ObjClass&4) != 0 && !(func() bool {
-		v5 = int32(a1.ObjFlags)
-		return (v5 & 0x8000) == 0
-	}()) {
-		return int(result)
+func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
+	if obj.Class().Has(object.ClassPlayer) && obj.Flags().Has(object.FlagDead) {
+		return 0
 	}
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 12)))&0x10) == 0 || (func() *uint16 {
-		v6 = a1.HealthData
-		return v6
-	}()) == nil {
-		goto LABEL_16
-	}
-	if int32(*v6) >= int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*2))) {
-		v2 = a2
-		goto LABEL_16
-	}
-	if a1.ObjClass&4 != 0 {
-		v7 = int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251)))
-		switch v7 {
-		case 0:
-			v8 = float64(v25) * float64(nox_xxx_warriorMaxHealth_587000_312784)
-			v23 = float32(v8)
-			v3 = int32(v23)
-			v25 = v3
-		case 1:
-			v8 = float64(v25) * float64(nox_xxx_wizardMaxHealth_587000_312816)
-			v23 = float32(v8)
-			v3 = int32(v23)
-			v25 = v3
-		case 2:
-			v8 = float64(v25) * float64(nox_xxx_conjurerMaxHealth_587000_312800)
-			v23 = float32(v8)
-			v3 = int32(v23)
-			v25 = v3
-		}
-	}
-	nox_xxx_unitAdjustHP_4EE460(a1, v3)
-	nox_xxx_aud_501960(754, a1, 0, 0)
-	result = 1
-	v2 = a2
-LABEL_16:
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 12)))&0x20) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4) == 0 || (func() bool {
-		v9 = int32(a1.UpdateData)
-		return int32(*(*uint16)(unsafe.Add(v9, 4))) >= int32(*(*uint16)(unsafe.Add(v9, 8)))
-	}()) {
-		goto LABEL_27
-	}
-	v10 = int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2251)))
-	if int32(v10) != 0 {
-		if int32(v10) == 1 {
-			v11 = float64(v25) * float64(nox_xxx_wizardMaximumMana_587000_312820)
-		} else {
-			if int32(v10) != 2 {
-				goto LABEL_26
+	consumed := false
+	if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodHealthPotion) && obj.HealthData != nil && obj.HealthData.Cur < obj.HealthData.Max {
+		dhp := *(*int32)(potion.UseData)
+		if obj.Class().Has(object.ClassPlayer) {
+			ud := obj.UpdateDataPlayer()
+			switch ud.Player.PlayerClass() {
+			case player.Warrior:
+				dhp = int32(float64(dhp) * float64(nox_xxx_warriorMaxHealth_587000_312784))
+			case player.Wizard:
+				dhp = int32(float64(dhp) * float64(nox_xxx_wizardMaxHealth_587000_312816))
+			case player.Conjurer:
+				dhp = int32(float64(dhp) * float64(nox_xxx_conjurerMaxHealth_587000_312800))
 			}
-			v11 = float64(v25) * float64(nox_xxx_conjurerMaxMana_587000_312804)
 		}
-	} else {
-		v11 = float64(v25) * float64(nox_xxx_warriorMaxMana_587000_312788)
+		nox_xxx_unitAdjustHP_4EE460(obj, dhp)
+		nox_xxx_aud_501960(754, obj, 0, 0)
+		consumed = true
 	}
-	v24 = float32(v11)
-	v3 = int32(v24)
-LABEL_26:
-	nox_xxx_playerManaAdd_4EEB80(a1, int16(v3))
-	nox_xxx_aud_501960(755, a1, 0, 0)
-	result = 1
-LABEL_27:
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 12)))&0x40 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && int32(a1.Field540) != 0 {
-		nox_xxx_removePoison_4EE9D0(a1)
-		v12 = nox_xxx_spellGetAud44_424800(14, 1)
-		nox_xxx_aud_501960(v12, a1, 0, 0)
-		result = 1
+	if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodManaPotion) && obj.Class().Has(object.ClassPlayer) {
+		ud := obj.UpdateDataPlayer()
+		if int32(ud.ManaCur) < int32(ud.ManaMax) {
+			dmp := *(*int32)(potion.UseData)
+			switch ud.Player.PlayerClass() {
+			case player.Warrior:
+				dmp = int32(float64(dmp) * float64(nox_xxx_warriorMaxMana_587000_312788))
+			case player.Wizard:
+				dmp = int32(float64(dmp) * float64(nox_xxx_wizardMaximumMana_587000_312820))
+			case player.Conjurer:
+				dmp = int32(float64(dmp) * float64(nox_xxx_conjurerMaxMana_587000_312804))
+			}
+			nox_xxx_playerManaAdd_4EEB80(obj, int16(dmp))
+			nox_xxx_aud_501960(755, obj, 0, 0)
+			consumed = true
+		}
 	}
-	v13 = int32(v2.ObjSubClass)
-	if v13&0x100 != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 9, int16(int32(uint16(gameFPS()))*120), 3)
-		result = 1
+	if potion.SubClass().AsFood().Has(object.FoodCurePoisonPotion) && obj.Class().Has(object.ClassPlayer) && int32(obj.Poison540) != 0 {
+		nox_xxx_removePoison_4EE9D0(obj)
+		v12 := nox_xxx_spellGetAud44_424800(14, 1)
+		nox_xxx_aud_501960(v12, obj, 0, 0)
+		consumed = true
 	}
-	v14 = int32(v2.ObjSubClass)
-	if v14&0x200 != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 0, int16(int32(uint16(gameFPS()))*120), 3)
-		result = 1
+	for _, t := range []struct {
+		SubClass object.FoodClass
+		Enchant  server.EnchantID
+	}{
+		{object.FoodHastePotion, server.ENCHANT_HASTED},
+		{object.FoodInvisibilityPotion, server.ENCHANT_INVISIBLE},
+		{object.FoodFireProtectPotion, server.ENCHANT_PROTECT_FROM_FIRE},
+		{object.FoodShockProtectPotion, server.ENCHANT_PROTECT_FROM_ELECTRICITY},
+		{object.FoodPoisonProtectPotion, server.ENCHANT_PROTECT_FROM_POISON},
+		{object.FoodInvulnerabilityPotion, server.ENCHANT_INVULNERABLE},
+		{object.FoodInfravisionPotion, server.ENCHANT_INFRAVISION},
+		{object.FoodVampirismPotion, server.ENCHANT_VAMPIRISM},
+	} {
+		if potion.SubClass().AsFood().Has(t.SubClass) {
+			nox_xxx_buffApplyTo_4FF380(obj, t.Enchant, int16(gameFPS()*120), 3)
+			consumed = true
+		}
 	}
-	v15 = int32(v2.ObjSubClass)
-	if v15&0x400 != 0 {
-		v16 = int32(a1.PosVec.X)
-		v17 = int32(a1.PosVec.Y)
-		*(*unsafe.Pointer)(unsafe.Pointer(&v26[0])) = unsafe.Pointer(a1)
-		v26[1] = v16
-		v26[2] = v17
-		nox_xxx_spellAccept_4FD400(51, a1, a1, a1, (*server.SpellAcceptArg)(unsafe.Pointer(&v26[0])), v3)
-		result = 1
+	if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodShieldPotion) {
+		lvl := *(*int32)(potion.UseData)
+		nox_xxx_spellAccept_4FD400(int32(spell.SPELL_SHIELD), obj, obj, obj, &server.SpellAcceptArg{
+			Obj: obj,
+			Pos: obj.PosVec,
+		}, lvl)
+		consumed = true
 	}
-	v18 = int32(v2.ObjSubClass)
-	if v18&0x800 != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 17, int16(int32(uint16(gameFPS()))*120), 3)
-		result = 1
+	if consumed {
+		nox_xxx_delayedDeleteObject_4E5CC0(potion)
 	}
-	v19 = int32(v2.ObjSubClass)
-	if v19&0x1000 != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 20, int16(int32(uint16(gameFPS()))*120), 3)
-		result = 1
-	}
-	v20 = int32(v2.ObjSubClass)
-	if v20&0x2000 != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 18, int16(int32(uint16(gameFPS()))*120), 3)
-		result = 1
-	}
-	v21 = int32(v2.ObjSubClass)
-	if v21&0x4000 != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 23, int16(int32(uint16(gameFPS()))*120), 3)
-		result = 1
-	}
-	v22 = int32(v2.ObjSubClass)
-	if (v22 & 0x8000) != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 21, int16(int32(uint16(gameFPS()))*120), 3)
-		result = 1
-	}
-	if v2.ObjSubClass&0x10000 != 0 {
-		nox_xxx_buffApplyTo_4FF380(a1, 13, int16(int32(uint16(gameFPS()))*120), 3)
-	} else if result == 0 {
-		return 1
-	}
-	nox_xxx_delayedDeleteObject_4E5CC0(v2)
 	return 1
 }
 func nox_xxx_useLesserFireballStaff_53F290(obj, obj2 *server.Object) int {
