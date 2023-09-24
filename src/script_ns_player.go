@@ -99,7 +99,7 @@ func (s noxScriptNS) ClearMessages(pl ns.Obj) {
 		return
 	}
 	u := toObject(pl.(server.Obj))
-	nox_xxx_netScriptMessageKill_4D9760(u)
+	s.s.nox_xxx_netScriptMessageKill_4D9760(u)
 }
 
 func (s noxScriptNS) UnBlind() {
@@ -195,7 +195,7 @@ func (p nsPlayer) ChangeScore(score int) {
 	if tm := u.Team(); tm != nil {
 		p.s.teamChangeLessons(tm, score+tm.Lessons)
 	}
-	nox_xxx_netReportLesson_4D8EF0(u)
+	p.s.nox_xxx_netReportLesson_4D8EF0(u)
 }
 
 func (p nsPlayer) Print(message ns.StringID) {

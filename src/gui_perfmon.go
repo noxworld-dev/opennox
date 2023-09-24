@@ -43,7 +43,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 
 	format = c.Strings().GetStringInFile("PacketSize", "client.c")
 	c.r.Data().SetTextColor(color.White)
-	c.r.DrawString(nil, fmt.Sprintf(format, m.packetSize()), image.Pt(x, y))
+	c.r.DrawString(nil, fmt.Sprintf(format, m.packetSize(c.srv.NetList)), image.Pt(x, y))
 	c.drawBandwidth(m)
 	y += 10
 
@@ -96,7 +96,7 @@ func (c *Client) drawBandwidth(m *Perfmon) {
 	c.r.DrawBorder(0, wsz.Y-(perfmonSz+1), wsz.X, perfmonSz+1, nox_color_gray2)
 	si := m.bandInd
 
-	cur := perfmonSz * m.packetSize() / 120
+	cur := perfmonSz * m.packetSize(c.srv.NetList) / 120
 	if cur > perfmonSz {
 		cur = perfmonSz
 	}

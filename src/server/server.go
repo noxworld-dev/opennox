@@ -15,6 +15,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 )
 
 var Log = log.New("server")
@@ -34,6 +35,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		pr: pr, sm: sm,
 		loopHooks: make(chan func()),
 		port:      common.GamePort,
+		NetList:   netlist.New(),
 	}
 	s.handle = atomic.AddUintptr(&serverLast, 1)
 	servers.Store(s.handle, s)
@@ -83,9 +85,10 @@ type Server struct {
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool
 
-	port int
-	http httpService
-	nat  natService
+	NetList *netlist.List
+	port    int
+	http    httpService
+	nat     natService
 
 	updateFunc2 func() bool
 }
