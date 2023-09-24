@@ -329,13 +329,12 @@ func (obj nsObj) Lock(lock bool) {
 	if !obj.Class().Has(object.ClassDoor) {
 		return
 	}
-	s := obj.getServer()
 	flag, snd := byte(0), sound.SoundUnlock
 	if lock {
 		flag, snd = 5, sound.SoundLock
 	}
 	*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = flag
-	s.Audio.EventObj(snd, obj, 0, 0)
+	obj.s.Audio.EventObj(snd, obj, 0, 0)
 }
 
 func (obj nsObj) HasClass(class class.Class) bool {
@@ -487,7 +486,7 @@ func (obj nsObj) ChangeScore(val int) {
 	if tm := u.Team(); tm != nil {
 		s.teamChangeLessons(tm, val+tm.Lessons)
 	}
-	nox_xxx_netReportLesson_4D8EF0(u)
+	s.nox_xxx_netReportLesson_4D8EF0(u)
 }
 
 func (obj nsObj) HasOwner(owner ns4.Obj) bool {
@@ -868,21 +867,19 @@ func (obj nsObj) ChatStr(message string) {
 }
 
 func (obj nsObj) ChatStrTimer(message string, dt ns4.Duration) {
-	s := obj.getServer()
-	legacy.Nox_xxx_netSendChat_528AC0(obj.SObj(), message, uint16(s.AsFrames(dt)))
+	legacy.Nox_xxx_netSendChat_528AC0(obj.SObj(), message, uint16(obj.s.AsFrames(dt)))
 }
 
 func (obj nsObj) DestroyChat() {
-	nox_xxx_netKillChat_528D00(obj.Object)
+	obj.s.nox_xxx_netKillChat_528D00(obj.Object)
 }
 
 func (obj nsObj) CreateMover(wp ns4.WaypointObj, speed float32) ns4.Obj {
-	s := obj.getServer()
-	mv := asObjectS(s.NewObjectByTypeID("Mover"))
+	mv := asObjectS(obj.s.NewObjectByTypeID("Mover"))
 	if mv == nil {
 		return nil
 	}
-	s.CreateObjectAt(mv, nil, obj.Pos())
+	obj.s.CreateObjectAt(mv, nil, obj.Pos())
 	mv.VelVec = types.Pointf{}
 
 	ud := mv.updateDataMover()
@@ -892,7 +889,7 @@ func (obj nsObj) CreateMover(wp ns4.WaypointObj, speed float32) ns4.Obj {
 	ud.Field_0 = 0
 
 	mv.Enable(true)
-	s.Objs.AddToUpdatable(mv.SObj())
+	obj.s.Objs.AddToUpdatable(mv.SObj())
 	return nsObj{obj.s, mv}
 }
 

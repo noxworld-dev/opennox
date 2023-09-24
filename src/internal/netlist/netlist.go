@@ -19,56 +19,62 @@ const (
 	Kind2
 )
 
-var (
-	buffersList = [3][]buffer{
-		make([]buffer, common.MaxPlayers),
-		make([]buffer, common.MaxPlayers),
-		make([]buffer, common.MaxPlayers),
+func New() *List {
+	return &List{
+		buffersList: [3][]buffer{
+			make([]buffer, common.MaxPlayers),
+			make([]buffer, common.MaxPlayers),
+			make([]buffer, common.MaxPlayers),
+		},
 	}
+}
+
+type List struct {
+	buffersList [3][]buffer
 	messageList [3][common.MaxPlayers]*MsgList
-)
+}
 
 type buffer struct {
 	buf [bufSize]byte
 	cur int
 }
 
-func Init() {
+func (s *List) Init() {
 	for i := 0; i < common.MaxPlayers; i++ {
-		messageList[0][i] = nil
-		messageList[1][i] = newMsgList()
-		messageList[2][i] = newMsgList()
+		s.messageList[0][i] = nil
+		s.messageList[1][i] = newMsgList()
+		s.messageList[2][i] = newMsgList()
 	}
-	messageList[0][common.MaxPlayers-1] = newMsgList()
+	s.messageList[0][common.MaxPlayers-1] = newMsgList()
 }
 
-func Free() {
+func (s *List) Free() {
 	for i := 0; i < common.MaxPlayers; i++ {
 		for j := 0; j < 3; j++ {
-			if l := messageList[j][i]; l != nil {
+			if l := s.messageList[j][i]; l != nil {
 				l.Free()
-				messageList[j][i] = nil
+				s.messageList[j][i] = nil
 			}
 		}
 	}
 }
 
-func checkSizesA(ind ntype.PlayerInd, kind Kind, sz int) bool {
+func (s *List) checkSizesA(ind ntype.PlayerInd, kind Kind, sz int) bool {
 	if kind == Kind1 {
-		psz := ByInd(ind, Kind1).Size()
-		if psz+sz+ByInd(ind, Kind2).Size() > bufSize {
+		psz := s.ByInd(ind, Kind1).Size()
+		if psz+sz+s.ByInd(ind, Kind2).Size() > bufSize {
 			return false
 		}
 	} else {
-		if sz+ByInd(ind, kind).Size() > bufSize {
+		if sz+s.ByInd(ind, kind).Size() > bufSize {
 			return false
 		}
 	}
-	return ByInd(ind, kind).Count() < maxPackets
+	return s.ByInd(ind, kind).Count() < maxPackets
 }
 
-func checkSizesB(ind ntype.PlayerInd, kind Kind, sz, sz2 int) bool {
-	l := ByInd(ind, kind)
+func (s *List) checkSizesB(ind ntype.PlayerInd, kind Kind, sz, sz2 int) bool {
+	l := s.ByInd(ind, kind)
 	psz := l.Size()
 	if psz+sz+sz2 > bufSize {
 		return false
@@ -76,48 +82,48 @@ func checkSizesB(ind ntype.PlayerInd, kind Kind, sz, sz2 int) bool {
 	return l.Count() < maxPackets
 }
 
-func checkSizesC(ind ntype.PlayerInd, sz int) bool {
-	l := ByInd(ind, Kind2)
+func (s *List) checkSizesC(ind ntype.PlayerInd, sz int) bool {
+	l := s.ByInd(ind, Kind2)
 	if (sz + l.Size()) > bufSize {
 		return false
 	}
 	return l.Count() < maxPackets
 }
 
-func ResetByInd(ind ntype.PlayerInd, kind Kind) {
-	l := ByInd(ind, kind)
+func (s *List) ResetByInd(ind ntype.PlayerInd, kind Kind) {
+	l := s.ByInd(ind, kind)
 	if l == nil {
 		return
 	}
 	l.Reset()
-	buffersList[kind+1][ind].cur = 0
+	s.buffersList[kind+1][ind].cur = 0
 }
 
-func InitByInd(ind ntype.PlayerInd) {
-	l := ByInd(ind, Kind2)
+func (s *List) InitByInd(ind ntype.PlayerInd) {
+	l := s.ByInd(ind, Kind2)
 	l.Reset()
-	buffersList[0][ind].cur = 0
+	s.buffersList[0][ind].cur = 0
 }
 
-func ResetAllInd(kind Kind) {
+func (s *List) ResetAllInd(kind Kind) {
 	for i := ntype.PlayerInd(0); i < common.MaxPlayers; i++ {
-		ResetByInd(i, kind)
+		s.ResetByInd(i, kind)
 	}
 }
 
-func ResetAll() {
+func (s *List) ResetAll() {
 	for i := ntype.PlayerInd(0); i < common.MaxPlayers; i++ {
-		ResetByInd(i, Kind1)
-		ResetByInd(i, Kind0)
-		InitByInd(i)
+		s.ResetByInd(i, Kind1)
+		s.ResetByInd(i, Kind0)
+		s.InitByInd(i)
 	}
 }
 
-func allocBufferRaw(ind ntype.PlayerInd, kind Kind, buf []byte) []byte {
+func (s *List) allocBufferRaw(ind ntype.PlayerInd, kind Kind, buf []byte) []byte {
 	if len(buf) == 0 {
 		return nil
 	}
-	p := &buffersList[kind][ind]
+	p := &s.buffersList[kind][ind]
 	i := p.cur
 	if i+len(buf) > bufSize {
 		return nil
@@ -127,23 +133,23 @@ func allocBufferRaw(ind ntype.PlayerInd, kind Kind, buf []byte) []byte {
 	return p.buf[i : i+len(buf)]
 }
 
-func allocBuffer(ind ntype.PlayerInd, kind Kind, buf []byte) []byte {
-	return allocBufferRaw(ind, kind+1, buf)
+func (s *List) allocBuffer(ind ntype.PlayerInd, kind Kind, buf []byte) []byte {
+	return s.allocBufferRaw(ind, kind+1, buf)
 }
 
-func allocBuffer0(ind ntype.PlayerInd, buf []byte) []byte {
-	return allocBufferRaw(ind, Kind0, buf)
+func (s *List) allocBuffer0(ind ntype.PlayerInd, buf []byte) []byte {
+	return s.allocBufferRaw(ind, Kind0, buf)
 }
 
-func AddToMsgListCli(ind ntype.PlayerInd, kind Kind, buf []byte) bool {
-	l := ByInd(ind, kind)
+func (s *List) AddToMsgListCli(ind ntype.PlayerInd, kind Kind, buf []byte) bool {
+	l := s.ByInd(ind, kind)
 	if len(buf) == 0 {
 		return true
 	}
-	if !checkSizesA(ind, kind, len(buf)) {
+	if !s.checkSizesA(ind, kind, len(buf)) {
 		return false
 	}
-	out := allocBuffer(ind, kind, buf)
+	out := s.allocBuffer(ind, kind, buf)
 	if out == nil {
 		return false
 	}
@@ -151,8 +157,8 @@ func AddToMsgListCli(ind ntype.PlayerInd, kind Kind, buf []byte) bool {
 	return true
 }
 
-func CopyPacketsA(ind ntype.PlayerInd, kind Kind) []byte {
-	list := ByInd(ind, kind)
+func (s *List) CopyPacketsA(ind ntype.PlayerInd, kind Kind) []byte {
+	list := s.ByInd(ind, kind)
 	out := make([]byte, 0, bufSize)
 	for {
 		buf := list.Get()
@@ -166,8 +172,8 @@ func CopyPacketsA(ind ntype.PlayerInd, kind Kind) []byte {
 	}
 }
 
-func HandlePacketsA(ind ntype.PlayerInd, kind Kind, fnc func(data []byte)) {
-	list := ByInd(ind, kind)
+func (s *List) HandlePacketsA(ind ntype.PlayerInd, kind Kind, fnc func(data []byte)) {
+	list := s.ByInd(ind, kind)
 
 	out := make([]byte, bufSize)
 	out = out[:0]
@@ -184,11 +190,11 @@ func HandlePacketsA(ind ntype.PlayerInd, kind Kind, fnc func(data []byte)) {
 
 	fnc(out)
 
-	ResetByInd(ind, kind)
+	s.ResetByInd(ind, kind)
 }
 
-func CopyPacketsB(ind ntype.PlayerInd) []byte {
-	l := ByInd(ind, Kind2)
+func (s *List) CopyPacketsB(ind ntype.PlayerInd) []byte {
+	l := s.ByInd(ind, Kind2)
 	cnt := 0
 	sbuf := make([]byte, bufSize)
 	for {
@@ -207,15 +213,15 @@ func CopyPacketsB(ind ntype.PlayerInd) []byte {
 	return sbuf[:cnt]
 }
 
-func ClientSend0(ind ntype.PlayerInd, kind Kind, buf []byte, sz2 int) bool {
-	l := ByInd(ind, kind)
+func (s *List) ClientSend0(ind ntype.PlayerInd, kind Kind, buf []byte, sz2 int) bool {
+	l := s.ByInd(ind, kind)
 	if len(buf) == 0 {
 		return true
 	}
-	if !checkSizesB(ind, kind, len(buf), sz2) {
+	if !s.checkSizesB(ind, kind, len(buf), sz2) {
 		return false
 	}
-	out := allocBuffer(ind, kind, buf)
+	out := s.allocBuffer(ind, kind, buf)
 	if out == nil {
 		return false
 	}
@@ -223,16 +229,16 @@ func ClientSend0(ind ntype.PlayerInd, kind Kind, buf []byte, sz2 int) bool {
 	return true
 }
 
-func AddToMsgListSrv(ind ntype.PlayerInd, buf []byte, flush func(ind ntype.PlayerInd)) bool {
+func (s *List) AddToMsgListSrv(ind ntype.PlayerInd, buf []byte, flush func(ind ntype.PlayerInd)) bool {
 	if len(buf) == 0 {
 		return true
 	}
 	// If there are too many updates, then we may run out of space in a single
 	// packet. Instead of fragmenting, we can instead send additional packets.
 	var out []byte
-	l := ByInd(ind, Kind2)
-	if !checkSizesC(ind, len(buf)) || !(func() bool { out = allocBuffer0(ind, buf); return out != nil }()) {
-		p := &buffersList[0][ind]
+	l := s.ByInd(ind, Kind2)
+	if !s.checkSizesC(ind, len(buf)) || !(func() bool { out = s.allocBuffer0(ind, buf); return out != nil }()) {
+		p := &s.buffersList[0][ind]
 
 		// The new update packet needs to have correct bytes at the
 		// beginning. Save the length of the first two queued datas so we
@@ -249,7 +255,7 @@ func AddToMsgListSrv(ind ntype.PlayerInd, buf []byte, flush func(ind ntype.Playe
 		l.add(p.buf[len1:len2], true)
 
 		// Retry original allocation.
-		out = allocBuffer0(ind, buf)
+		out = s.allocBuffer0(ind, buf)
 	}
 	if out == nil {
 		return false
@@ -258,8 +264,8 @@ func AddToMsgListSrv(ind ntype.PlayerInd, buf []byte, flush func(ind ntype.Playe
 	return true
 }
 
-func ByInd(ind ntype.PlayerInd, kind Kind) *MsgList {
-	return messageList[kind][ind]
+func (s *List) ByInd(ind ntype.PlayerInd, kind Kind) *MsgList {
+	return s.messageList[kind][ind]
 }
 
 func newMsgList() *MsgList {

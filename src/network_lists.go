@@ -21,7 +21,7 @@ func nox_xxx_rateGet_40A6C0() int {
 
 func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 	s := noxServer
-	return netlist.AddToMsgListSrv(ind, buf, func(ind ntype.PlayerInd) {
+	return s.NetList.AddToMsgListSrv(ind, buf, func(ind ntype.PlayerInd) {
 		// Flush old data to network.
 		if ind == common.MaxPlayers-1 {
 			noxClient.nox_netlist_receiveCli_494E90()
@@ -35,11 +35,11 @@ func (c *Client) nox_netlist_receiveCli_494E90() int {
 	const ind = common.MaxPlayers - 1
 	res := 0
 
-	if buf1 := netlist.CopyPacketsB(ind); len(buf1) != 0 {
+	if buf1 := c.srv.NetList.CopyPacketsB(ind); len(buf1) != 0 {
 		res = c.nox_xxx_netOnPacketRecvCli48EA70(ind, buf1)
 	}
 
-	if buf2 := netlist.CopyPacketsA(ind, netlist.Kind1); len(buf2) != 0 {
+	if buf2 := c.srv.NetList.CopyPacketsA(ind, netlist.Kind1); len(buf2) != 0 {
 		res = c.nox_xxx_netOnPacketRecvCli48EA70(ind, buf2)
 		if res != 0 {
 			legacy.Sub_48D660()
@@ -49,7 +49,8 @@ func (c *Client) nox_netlist_receiveCli_494E90() int {
 }
 
 func sub_4DF8F0(ind ntype.PlayerInd, p1 []byte) int {
-	if netlist.ByInd(ind, netlist.Kind2).Count() == 0 {
+	s := noxServer
+	if s.NetList.ByInd(ind, netlist.Kind2).Count() == 0 {
 		return 0
 	}
 	v4 := 127
@@ -78,15 +79,16 @@ func sub_4DF8F0(ind ntype.PlayerInd, p1 []byte) int {
 	if v8 == -1 {
 		return off
 	}
-	netlist.ByInd(ind, netlist.Kind2).FindAndFreeBuf(v6)
+	s.NetList.ByInd(ind, netlist.Kind2).FindAndFreeBuf(v6)
 	return off + v8
 }
 
 func sub_4DF5E0(ind ntype.PlayerInd, max int) []byte {
+	s := noxServer
 	k1a := netPlayerK1
 	k2a := netPlayerK2
 	var found []byte
-	netlist.ByInd(ind, netlist.Kind2).Each(func(b []byte) bool {
+	s.NetList.ByInd(ind, netlist.Kind2).Each(func(b []byte) bool {
 		if len(b) < 9 {
 			return false
 		}
@@ -177,11 +179,11 @@ func (s *Server) onSend(ind netstr.Handle, buf []byte) int {
 	*memmap.PtrUint32(0x5D4594, 1563308) = 0
 	netPlayerBufSize = 0
 	netPlayerPlus16 = pl.net16()
-	v7 := netlist.ByInd(ind.Player(), netlist.Kind2).Get()
+	v7 := s.NetList.ByInd(ind.Player(), netlist.Kind2).Get()
 	var off int
 	if nox_xxx_chkIsMsgTimestamp_4DF7F0(v7) {
 		off += copy(buf[off:off+len(v7)], v7)
-		if v9 := netlist.ByInd(ind.Player(), netlist.Kind2).Get(); len(v9) != 0 {
+		if v9 := s.NetList.ByInd(ind.Player(), netlist.Kind2).Get(); len(v9) != 0 {
 			buf[off] = byte(noxnet.MSG_UPDATE_STREAM)
 			off++
 			n := sub_4DF810(buf[off:], v9)
@@ -200,7 +202,7 @@ func (s *Server) onSend(ind netstr.Handle, buf []byte) int {
 			off += zero3full(buf[off:])
 		}
 	}
-	for b := netlist.ByInd(ind.Player(), netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(ind.Player(), netlist.Kind1).Get() {
+	for b := s.NetList.ByInd(ind.Player(), netlist.Kind1).Get(); len(b) != 0; b = s.NetList.ByInd(ind.Player(), netlist.Kind1).Get() {
 		if b[0] != byte(noxnet.MSG_FX_SENTRY_RAY) || legacy.Get_dword_5d4594_2650652() != 1 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) {
 			n := copyFull(buf[off:], b)
 			if n == 0 {
@@ -212,7 +214,7 @@ func (s *Server) onSend(ind netstr.Handle, buf []byte) int {
 	netPlayerBufSize = off
 	if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
 		legacy.Nox_xxx_netImportant_4E5770(byte(ind.Player()), 1)
-		for b := netlist.ByInd(ind.Player(), netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(ind.Player(), netlist.Kind1).Get() {
+		for b := s.NetList.ByInd(ind.Player(), netlist.Kind1).Get(); len(b) != 0; b = s.NetList.ByInd(ind.Player(), netlist.Kind1).Get() {
 			n := copyFull(buf[off:], b)
 			if n == 0 {
 				break

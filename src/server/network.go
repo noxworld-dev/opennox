@@ -6,7 +6,9 @@ import (
 	"io"
 
 	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
@@ -39,7 +41,7 @@ func (s *Server) OnPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, p
 		var buf [5]byte
 		buf[0] = byte(noxnet.MSG_IMPORTANT_ACK)
 		binary.LittleEndian.PutUint32(buf[1:], id)
-		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
 		return 5, true, nil
 	}
 	return 0, false, nil
@@ -73,4 +75,54 @@ func netDecodePlayerInput(data []byte, out []PlayerCtrl) []PlayerCtrl {
 		out = append(out, v)
 	}
 	return out
+}
+
+func (s *Server) NetInformTextMsg(pid ntype.PlayerInd, code byte, ind int) bool {
+	if pid < 0 {
+		return false
+	}
+	var buf [6]byte
+	buf[0] = byte(noxnet.MSG_INFORM)
+	buf[1] = code
+	switch code {
+	case 0, 1, 2, 12, 13, 16, 20, 21:
+		binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
+		return s.NetList.AddToMsgListCli(pid, netlist.Kind1, buf[:6])
+	case 17:
+		return s.NetList.AddToMsgListCli(pid, netlist.Kind1, buf[:2])
+	default:
+		return true
+	}
+}
+
+func (s *Server) NetPrintLineToAll(id strman.ID) { // nox_xxx_netPrintLineToAll_4DA390
+	for _, u := range s.Players.ListUnits() {
+		s.NetPriMsgToPlayer(u.SObj(), id, 0)
+	}
+}
+
+func (s *Server) NetPriMsgToPlayer(u *Object, id strman.ID, a3 byte) {
+	var buf [52]byte
+	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || s.Players.CheckXxx(u) {
+		return
+	}
+	buf[0] = byte(noxnet.MSG_INFORM)
+	buf[1] = 15
+	buf[2] = a3
+	n := copy(buf[3:len(buf)-1], string(id))
+	buf[3+n] = 0
+	s.NetList.AddToMsgListCli(u.ControllingPlayer().PlayerIndex(), netlist.Kind1, buf[:n+4])
+}
+
+func (s *Server) NetPrintCompToAll(i int) {
+	switch i {
+	case 0:
+		s.NetPrintLineToAll("report.c:NoComp")
+	case 1:
+		s.NetPrintLineToAll("report.c:MinComp")
+	case 2:
+		s.NetPrintLineToAll("report.c:AveComp")
+	case 3:
+		s.NetPrintLineToAll("report.c:UserComp")
+	}
 }

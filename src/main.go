@@ -31,7 +31,6 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
-	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -267,7 +266,7 @@ func RunArgs(args []string) (gerr error) {
 		log.Printf("game flag set: %v", f)
 		legacy.Nox_xxx_guiChatShowHide_445730(noxflags.GetGame().Mode() != noxflags.GameModeChat)
 		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameHost) {
-			noxServer.netPrintLineToAll("Settings.c:SuddenDeathStart")
+			noxServer.NetPrintLineToAll("Settings.c:SuddenDeathStart")
 		}
 	})
 	noxflags.OnGameUnset(func(f noxflags.GameFlag) {
@@ -419,7 +418,7 @@ func RunArgs(args []string) (gerr error) {
 	legacy.Nox_xxx_loadMapCycle_4D0A30()
 	platform.RandSeedTime()
 	legacy.Nox_xxx_mapSelectFirst_4D0E00()
-	netlist.Init()
+	noxServer.NetList.Init()
 	sub_40B890(32)
 	sub_40B170(32)
 	legacy.Sub_4134D0()
@@ -509,7 +508,7 @@ func cleanup() {
 	legacy.Sub_42EDC0()
 	ctrlEvent.Reset()
 	Nox_strman_free_410020()
-	netlist.Free()
+	noxServer.NetList.Free()
 	legacy.Sub_4D11D0()
 	legacy.Sub_4D0DA0()
 	sub_40C0D0()
