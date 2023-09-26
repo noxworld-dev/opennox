@@ -222,12 +222,12 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0(cf *cryptfile.CryptFile) er
 			legacy.Nox_xxx_servMapLoadPlaceObj_4F3F50(obj.SObj(), 0, nil)
 		}
 	}
-	if legacy.Sub_579CA0() == 0 {
+	if sub_579CA0() == 0 {
 		return errors.New("sub_579CA0 failed")
 	}
 	s.attachPending()
 	if noxflags.HasGame(noxflags.GameHost) {
-		legacy.Nox_xxx_waypoint_5799C0()
+		s.Nox_xxx_waypoint_5799C0()
 		s.ObjectsAddPending()
 	}
 	return nil

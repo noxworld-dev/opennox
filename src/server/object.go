@@ -144,6 +144,10 @@ func (s *serverObjects) ResetObjectScriptIDs() {
 	}
 }
 
+func (s *serverObjects) First() *Object { // nox_server_getFirstObject_4DA790
+	return s.List
+}
+
 func (s *serverObjects) GetAndZeroObjects() *Object { // nox_get_and_zero_server_objects_4DA3C0
 	l := s.List
 	s.List = nil

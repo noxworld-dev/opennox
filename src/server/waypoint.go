@@ -28,9 +28,9 @@ type Waypoint struct {
 	PosVec    types.Pointf    // 2, 8
 	NameBuf   [76]byte        // 4, 16
 	Points    [32]WaypointSub // 23, 92
-	_         [32]uint32
-	PointsCnt byte // 476
-	Flags2    byte // 477
+	Field348  [32]uint32      // 87, 348
+	PointsCnt byte            // 119, 476
+	Flags2    byte            // 119, 477
 	_         [2]byte
 	Flags     uint32    // 480
 	WpNext    *Waypoint // 484

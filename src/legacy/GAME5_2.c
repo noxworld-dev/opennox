@@ -39,7 +39,6 @@ extern uint32_t dword_5d4594_2516380;
 extern uint32_t dword_5d4594_2523804;
 extern uint32_t dword_5d4594_2516372;
 extern uint32_t dword_5d4594_2523764;
-extern uint32_t dword_5d4594_2523760;
 extern uint32_t dword_5d4594_2523776;
 extern uint32_t dword_5d4594_2516356;
 extern uint64_t qword_581450_9544;
@@ -50,7 +49,6 @@ extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
 
 void* dword_5d4594_2523756 = 0;
-nox_waypoint_t* nox_xxx_waypointsHead_2523752 = 0;
 
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
@@ -934,9 +932,6 @@ int nox_xxx_packetDynamicUnitCode_578B40(int a1) {
 //----- (00578B70) --------------------------------------------------------
 unsigned int nox_xxx_netTestHighBit_578B70(unsigned int a1) { return (a1 >> 15) & 1; }
 
-//----- (00579860) --------------------------------------------------------
-void* nox_xxx_waypointGetList_579860() { return nox_xxx_waypointsHead_2523752; }
-
 //----- (00579870) --------------------------------------------------------
 int nox_xxx_waypointNext_579870(int a1) {
 	int result; // eax
@@ -948,9 +943,6 @@ int nox_xxx_waypointNext_579870(int a1) {
 	}
 	return result;
 }
-
-//----- (00579890) --------------------------------------------------------
-int sub_579890() { return dword_5d4594_2523756; }
 
 //----- (005798A0) --------------------------------------------------------
 int sub_5798A0(int a1) {
@@ -964,290 +956,6 @@ int sub_5798A0(int a1) {
 	return result;
 }
 
-//----- (005798C0) --------------------------------------------------------
-unsigned int nox_xxx_waypoint_5798C0() {
-	uint32_t* v0;        // ecx
-	unsigned int result; // eax
-
-	v0 = nox_xxx_waypointsHead_2523752;
-	result = 1;
-	if (nox_xxx_waypointsHead_2523752) {
-		do {
-			if (result <= *v0) {
-				result = *v0 + 1;
-			}
-			v0 = (uint32_t*)v0[121];
-		} while (v0);
-	}
-	return result;
-}
-
-//----- (005798F0) --------------------------------------------------------
-nox_waypoint_t* nox_xxx_waypointNew_5798F0(float a1, float a2) {
-	uint32_t* v2;    // esi
-	unsigned int v3; // eax
-	int v4;          // edx
-
-	v2 = calloc(1u, 0x204u);
-	v3 = nox_xxx_waypoint_5798C0();
-	v4 = v2[120];
-	*v2 = v3;
-	*((float*)v2 + 2) = a1;
-	*((float*)v2 + 3) = a2;
-	v2[120] = v4 | 1;
-	v2[121] = nox_xxx_waypointsHead_2523752;
-	if (nox_xxx_waypointsHead_2523752) {
-		*(uint32_t*)((uint32_t)nox_xxx_waypointsHead_2523752 + 488) = v2;
-	}
-	nox_xxx_waypointsHead_2523752 = v2;
-	if (nox_common_gameFlags_check_40A5C0(1)) {
-		nox_xxx_waypointMapRegister_5179B0((int)v2);
-	}
-	return v2;
-}
-
-//----- (00579970) --------------------------------------------------------
-float* nox_xxx_waypointNewNotMap_579970(int a1, float a2, float a3) {
-	float* result; // eax
-	int v4;        // ecx
-
-	result = calloc(1u, 0x204u);
-	*(uint32_t*)result = a1;
-	result[3] = a3;
-	v4 = *((uint32_t*)result + 120) | 1;
-	result[2] = a2;
-	*((uint32_t*)result + 120) = v4;
-	*((uint32_t*)result + 121) = dword_5d4594_2523756;
-	dword_5d4594_2523756 = result;
-	return result;
-}
-
-//----- (005799C0) --------------------------------------------------------
-char* nox_xxx_waypoint_5799C0() {
-	int v0; // esi
-	int v1; // edi
-
-	v0 = dword_5d4594_2523756;
-	if (dword_5d4594_2523756) {
-		do {
-			v1 = *(uint32_t*)(v0 + 484);
-			*(uint32_t*)(v0 + 484) = nox_xxx_waypointsHead_2523752;
-			if (nox_xxx_waypointsHead_2523752) {
-				*(uint32_t*)((uint32_t)nox_xxx_waypointsHead_2523752 + 488) = v0;
-			}
-			nox_xxx_waypointsHead_2523752 = v0;
-			if (nox_common_gameFlags_check_40A5C0(1)) {
-				nox_xxx_waypointMapRegister_5179B0(v0);
-			}
-			v0 = v1;
-		} while (v1);
-	}
-	dword_5d4594_2523756 = 0;
-	return sub_579A30();
-}
-
-//----- (00579A30) --------------------------------------------------------
-char* sub_579A30() {
-	char* result; // eax
-	char* i;      // esi
-	int v2;       // eax
-	char* v3;     // ecx
-	char v4;      // dl
-	char* j;      // eax
-	int v6;       // edi
-	uint8_t* v7;  // ecx
-
-	result = (char*)nox_xxx_waypointGetList_579860();
-	for (i = result; result; i = result) {
-		i[477] = 0;
-		v2 = 0;
-		if (i[476]) {
-			v3 = i + 96;
-			do {
-				v4 = *v3;
-				v3 += 8;
-				i[477] |= v4;
-				++v2;
-			} while (v2 < (unsigned char)i[476]);
-		}
-		for (j = (char*)nox_xxx_waypointGetList_579860(); j; j = (char*)nox_xxx_waypointNext_579870((int)j)) {
-			v6 = 0;
-			if (j[476]) {
-				v7 = j + 96;
-				do {
-					if (*((char**)v7 - 1) == i) {
-						i[477] |= *v7;
-					}
-					++v6;
-					v7 += 8;
-				} while (v6 < (unsigned char)j[476]);
-			}
-		}
-		result = (char*)nox_xxx_waypointNext_579870((int)i);
-	}
-	return result;
-}
-
-//----- (00579AD0) --------------------------------------------------------
-float* sub_579AD0(float a1, float a2) {
-	int v2;    // ecx
-	int v3;    // edx
-	double v4; // st7
-	double v5; // st6
-	double v6; // st5
-	float i;   // [esp+0h] [ebp-4h]
-
-	v2 = nox_xxx_waypointsHead_2523752;
-	v3 = 0;
-	for (i = 100.0; v2; v2 = *(uint32_t*)(v2 + 484)) {
-		v4 = *(float*)(v2 + 8) - a1;
-		v5 = *(float*)(v2 + 12) - a2;
-		v6 = v5 * v5 + v4 * v4;
-		if (v6 < i) {
-			i = v6;
-			v3 = v2;
-		}
-	}
-	return (float*)v3;
-}
-
-//----- (00579C80) --------------------------------------------------------
-uint32_t* sub_579C80(int a1) {
-	uint32_t* result; // eax
-
-	result = dword_5d4594_2523756;
-	if (!dword_5d4594_2523756) {
-		return 0;
-	}
-	while (*result != a1) {
-		result = (uint32_t*)result[121];
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
-//----- (00579CA0) --------------------------------------------------------
-int sub_579CA0() {
-	uint32_t* v0; // eax
-	uint32_t* v1; // esi
-	int v2;       // ebp
-	int* v3;      // ebx
-	int* v4;      // edi
-	int v5;       // eax
-
-	v0 = dword_5d4594_2523756;
-	if (dword_5d4594_2523756) {
-		do {
-			v0[1] = *v0;
-			v0 = (uint32_t*)v0[121];
-		} while (v0);
-		v0 = dword_5d4594_2523756;
-	}
-	v1 = v0;
-	if (!v0) {
-		return 1;
-	}
-	while (1) {
-		v2 = 0;
-		if (*((uint8_t*)v1 + 476)) {
-			v3 = v1 + 23;
-			v4 = v1 + 87;
-			while (1) {
-				v5 = sub_579C60(*v4);
-				*v3 = v5;
-				if (!v5) {
-					return 0;
-				}
-				++v2;
-				++v4;
-				v3 += 2;
-				if (v2 >= *((unsigned char*)v1 + 476)) {
-					goto LABEL_9;
-				}
-			}
-		}
-	LABEL_9:
-		v1 = (uint32_t*)v1[121];
-		if (!v1) {
-			return 1;
-		}
-	}
-}
-
-//----- (00579D20) --------------------------------------------------------
-int sub_579D20() {
-	unsigned int v0;  // eax
-	unsigned int* v1; // ecx
-	unsigned int v2;  // edx
-	unsigned int* v3; // esi
-	int v4;           // ebx
-	int* v5;          // ebp
-	int* v6;          // edi
-	int v7;           // eax
-	char v9;          // [esp+0h] [ebp-4h]
-
-	v0 = nox_xxx_waypoint_5798C0();
-	v1 = dword_5d4594_2523756;
-	if (dword_5d4594_2523756) {
-		do {
-			v2 = *v1;
-			*v1 = v0;
-			v1[1] = v2;
-			v1 = (unsigned int*)v1[121];
-			++v0;
-		} while (v1);
-		v1 = dword_5d4594_2523756;
-	}
-	v3 = v1;
-	if (!v1) {
-		return 1;
-	}
-	do {
-		v4 = 0;
-		v9 = 0;
-		if (*((uint8_t*)v3 + 476)) {
-			v5 = (int*)(v3 + 23);
-			v6 = (int*)(v3 + 87);
-			do {
-				v7 = sub_579C60(*v6);
-				*v5 = v7;
-				if (v7) {
-					v5 += 2;
-					++v9;
-				}
-				++v4;
-				++v6;
-			} while (v4 < *((unsigned char*)v3 + 476));
-		}
-		*((uint8_t*)v3 + 476) = v9;
-		v3 = (unsigned int*)v3[121];
-	} while (v3);
-	return 1;
-}
-
-//----- (00579DD0) --------------------------------------------------------
-void nox_xxx_waypointDeleteAll_579DD0() {
-	uint32_t* v0; // esi
-	uint32_t* v1; // edi
-
-	v0 = nox_xxx_waypointsHead_2523752;
-	if (nox_xxx_waypointsHead_2523752) {
-		do {
-			v1 = (uint32_t*)v0[121];
-			if (nox_common_gameFlags_check_40A5C0(1)) {
-				sub_517A70((int)v0);
-			}
-			free(v0);
-			v0 = v1;
-		} while (v1);
-	}
-	nox_xxx_waypointsHead_2523752 = 0;
-	dword_5d4594_2523756 = 0;
-	dword_5d4594_2523760 = 0;
-}
-
 //----- (00579E70) --------------------------------------------------------
 uint32_t* sub_579E70() {
 	uint32_t* result; // eax
@@ -1259,103 +967,8 @@ uint32_t* sub_579E70() {
 	return result;
 }
 
-//----- (00579E90) --------------------------------------------------------
-void sub_579E90(int a1) {
-	*(uint32_t*)(a1 + 480) |= 0x1000000u;
-	*(uint32_t*)(a1 + 484) = dword_5d4594_2523756;
-	if (dword_5d4594_2523756) {
-		*(uint32_t*)((uint32_t)dword_5d4594_2523756 + 488) = a1;
-	}
-	dword_5d4594_2523756 = a1;
-	if (nox_common_gameFlags_check_40A5C0(1)) {
-		nox_xxx_waypointMapRegister_5179B0(a1);
-	}
-}
-
 //----- (00579EE0) --------------------------------------------------------
 int sub_579EE0(nox_waypoint_t* a1, unsigned char a2) { return (a2 & *(uint8_t*)((uint32_t)a1 + 477)) != 0; }
-
-//----- (00579F00) --------------------------------------------------------
-int nox_xxx_waypoint_579F00(uint32_t* a1, int a2) {
-	int v2;     // ebp
-	int v3;     // esi
-	uint8_t* i; // esi
-	int v5;     // edi
-	void* v6;   // esi
-	float* v7;  // edx
-	float v8;   // eax
-	float v9;   // ecx
-	float v10;  // edx
-	float4 v12; // [esp+10h] [ebp-10h]
-
-	v2 = 0;
-	if (nox_common_gameFlags_check_40A5C0(32)) {
-		if (a2) {
-			v3 = nox_server_getFirstObject_4DA790();
-			if (v3) {
-				while (!(*(uint32_t*)(v3 + 8) & 0x10000000) || nox_xxx_servCompareTeams_419150(a2 + 48, v3 + 48)) {
-					v3 = nox_server_getNextObject_4DA7A0(v3);
-					if (!v3) {
-						goto LABEL_9;
-					}
-				}
-				v2 = v3;
-			}
-		}
-	}
-LABEL_9:
-	dword_5d4594_2523760 = 0;
-	for (i = nox_xxx_waypointGetList_579860(); i; i = (uint8_t*)nox_xxx_waypointNext_579870((int)i)) {
-		if (sub_579EE0((int)i, 0x80u) && i[480] & 1) {
-			++dword_5d4594_2523760;
-		}
-	}
-	if (!dword_5d4594_2523760) {
-		return 0;
-	}
-	v5 = nox_common_randomInt_415FA0(0, dword_5d4594_2523760 - 1);
-	v6 = nox_xxx_waypointGetList_579860();
-	if (!v6) {
-		return 0;
-	}
-	while (1) {
-		if (!sub_579EE0((int)v6, 0x80u)) {
-			goto LABEL_24;
-		}
-		if (!(*((uint8_t*)v6 + 480) & 1)) {
-			goto LABEL_24;
-		}
-		if (nox_common_gameFlags_check_40A5C0(32)) {
-			if (v2) {
-				if (a2) {
-					v7 = *(float**)(v2 + 748);
-					v12.field_0 = *v7;
-					v8 = *((float*)v6 + 3);
-					v9 = v7[1];
-					v10 = *((float*)v6 + 2);
-					v12.field_4 = v9;
-					v12.field_8 = v10;
-					v12.field_C = v8;
-					if (nox_xxx_mapTraceRay_535250(&v12, 0, 0, 9) == 1) {
-						goto LABEL_24;
-					}
-				}
-			}
-		}
-		if (!v5) {
-			break;
-		}
-		--v5;
-	LABEL_24:
-		v6 = (void*)nox_xxx_waypointNext_579870((int)v6);
-		if (!v6) {
-			return 0;
-		}
-	}
-	*a1 = *((uint32_t*)v6 + 2);
-	a1[1] = *((uint32_t*)v6 + 3);
-	return 1;
-}
 
 //----- (0057A160) --------------------------------------------------------
 int nox_xxx_playerCanTalkMB_57A160(int a1) {
