@@ -113,11 +113,7 @@ type Server interface {
 	Nox_xxx_generateRetreatPath_50CA00(path []types.Pointf, u *server.Object, a4 *types.Pointf) int
 	Nox_xxx_creatureSetDetailedPath_50D220(obj *server.Object, a2 *types.Pointf)
 	Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoint
-	Sub_50B500()
-	Sub_50B510()
-	Sub_50CB00() int
-	Sub_50CB10() []types.Pointf
-	Sub_50B810(obj *server.Object, pos *types.Pointf) int
+	Sub_50B810(obj *server.Object, pos *types.Pointf) bool
 }
 
 var (

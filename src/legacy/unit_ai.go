@@ -149,7 +149,7 @@ func nox_xxx_creatureSetDetailedPath_50D220(obj *nox_object_t, p *C.float2) {
 
 //export sub_50B810
 func sub_50B810(obj *nox_object_t, p *C.float2) int {
-	return GetServer().Sub_50B810(asObjectS(obj), (*types.Pointf)(unsafe.Pointer(p)))
+	return bool2int(GetServer().Sub_50B810(asObjectS(obj), (*types.Pointf)(unsafe.Pointer(p))))
 }
 
 //export sub_50CB20
@@ -159,22 +159,27 @@ func sub_50CB20(obj *nox_object_t, p *C.float2) *nox_waypoint_t {
 
 //export sub_50B500
 func sub_50B500() {
-	GetServer().Sub_50B500()
+	GetServer().S().AI.Paths.Sub_50B500()
 }
 
 //export sub_50B510
 func sub_50B510() {
-	GetServer().Sub_50B510()
+	GetServer().S().AI.Paths.Sub_50B510()
 }
 
 //export sub_50CB00
 func sub_50CB00() int {
-	return GetServer().Sub_50CB00()
+	points := GetServer().S().AI.Paths.Points()
+	return len(points)
 }
 
 //export sub_50CB10
 func sub_50CB10() unsafe.Pointer {
-	return unsafe.Pointer(&GetServer().Sub_50CB10()[0])
+	points := GetServer().S().AI.Paths.Points()
+	if len(points) == 0 {
+		return nil
+	}
+	return unsafe.Pointer(&points[0])
 }
 
 func Nox_xxx_mobSearchEdible_544A00(a1 *server.Object, a2 float32) int {

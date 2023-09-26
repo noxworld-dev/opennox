@@ -250,7 +250,7 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 			if err != nil {
 				return err
 			}
-			if err = s.ReadObjectType(th); err != nil {
+			if err = s.Types.ReadObjectType(th); err != nil {
 				return err
 			}
 		}

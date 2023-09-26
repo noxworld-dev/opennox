@@ -1121,7 +1121,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		}
 	}
 	s.sub_50AFA0()
-	sub_50B520()
+	s.AI.Paths.IndexObjects()
 	*memmap.PtrUint32(0x5D4594, 1548528) = 0
 	legacy.Set_dword_5d4594_1548532(nil)
 	if memmap.Uint32(0x5D4594, 1548708) == 0 {
