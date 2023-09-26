@@ -2816,6 +2816,7 @@ int sub_4E79B0(int a1) {
 }
 
 //----- (004E79C0) --------------------------------------------------------
+int sub_50B510();
 char nox_xxx_unitFreeze_4E79C0(nox_object_t* obj, int a2) {
 	int a1 = obj;
 	int v2; // eax

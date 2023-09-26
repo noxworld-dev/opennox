@@ -3880,6 +3880,7 @@ void sub_5375A0(int a1) {
 }
 
 //----- (00537610) --------------------------------------------------------
+void sub_50B500();
 char nox_xxx_unitHasCollideOrUpdateFn_537610(nox_object_t* a1p) {
 	int a1 = a1p;
 	int v1;               // eax
@@ -10270,6 +10271,7 @@ int sub_544740(int a1) { return sub_534750(a1); }
 int sub_544750(int a1) { return sub_534780(a1); }
 
 //----- (00544760) --------------------------------------------------------
+int nox_xxx_generateRetreatPath_50CA00(void* a1, int a2, nox_object_t* a3, float2* a4);
 char nox_xxx_mobActionFlee_544760(int a1) {
 	int v1;    // esi
 	int v2;    // eax

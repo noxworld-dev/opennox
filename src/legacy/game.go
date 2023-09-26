@@ -43,7 +43,6 @@ void sub_4D2160();
 void sub_4D22B0();
 void sub_4D2230();
 void sub_4DBA30(int a1);
-void sub_50AFA0();
 int sub_48C980();
 void nox_console_sendSysOpPass_4409D0(wchar2_t* a1);
 char* nox_xxx_getSomeMapName_4D0CF0();
@@ -588,12 +587,6 @@ func Sub_40A250() {
 }
 func Sub_4D2230() {
 	C.sub_4D2230()
-}
-func Sub_50AFA0() {
-	C.sub_50AFA0()
-}
-func Sub_50B520() {
-	C.sub_50B520()
 }
 func Sub_4D2160() {
 	C.sub_4D2160()

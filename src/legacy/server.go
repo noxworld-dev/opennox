@@ -110,6 +110,14 @@ type Server interface {
 	NoxScriptC() NoxScript
 	GetUnitNetCode(p server.Obj) int
 	Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *server.Object, sa *server.SpellAcceptArg, lvl int) bool
+	Nox_xxx_generateRetreatPath_50CA00(path []types.Pointf, u *server.Object, a4 *types.Pointf) int
+	Nox_xxx_creatureSetDetailedPath_50D220(obj *server.Object, a2 *types.Pointf)
+	Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoint
+	Sub_50B500()
+	Sub_50B510()
+	Sub_50CB00() int
+	Sub_50CB10() []types.Pointf
+	Sub_50B810(obj *server.Object, pos *types.Pointf) int
 }
 
 var (
@@ -360,9 +368,6 @@ func Sub_4D7C60() {
 func Sub_518770() int {
 	return int(C.sub_518770())
 }
-func Nox_xxx_allocVisitNodesArray_50AB90() int {
-	return int(C.nox_xxx_allocVisitNodesArray_50AB90())
-}
 func Nox_xxx_allocItemRespawnArray_4ECA60() int {
 	return int(C.nox_xxx_allocItemRespawnArray_4ECA60())
 }
@@ -392,9 +397,6 @@ func Sub_516F10() {
 }
 func Sub_4259F0() {
 	C.sub_4259F0()
-}
-func Sub_50ABF0() {
-	C.sub_50ABF0()
 }
 func Sub_4ECA90() {
 	C.sub_4ECA90()
