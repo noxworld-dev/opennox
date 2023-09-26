@@ -97,7 +97,17 @@ type Server interface {
 	TeamRemove(t *server.Team, netUpd bool)
 	DelayedDelete(obj *server.Object)
 	PendingObjByScriptID4CFFE0(sid int) *server.Object
+	FirstWaypoint() *server.Waypoint
+	Sub_579890() *server.Waypoint
+	NewWaypoint(pos types.Pointf) *server.Waypoint
+	Nox_xxx_waypointNewNotMap_579970(ind int, pos types.Pointf) *server.Waypoint
 	PendingWaypointByInd579C60(id uint32) *server.Waypoint
+	Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) int
+	Sub_579C80(a1 uint32) *server.Waypoint
+	Sub_579AD0(pos types.Pointf) *server.Waypoint
+	Sub_579E90(wp *server.Waypoint)
+	Sub_579D20()
+	Nox_xxx_waypoint_5799C0()
 	Sub504720(a1, a2 uint32) int32
 	IsEnemyTo(a1, a2 *server.Object) bool
 	IsFish(obj *server.Object) bool
@@ -468,9 +478,6 @@ func Sub_410730() {
 }
 func Nox_xxx_wallBreackableListClear_410810() {
 	C.nox_xxx_wallBreackableListClear_410810()
-}
-func Nox_xxx_waypointDeleteAll_579DD0() {
-	C.nox_xxx_waypointDeleteAll_579DD0()
 }
 func Nox_xxx_j_allocHitArray_511840() {
 	C.nox_xxx_j_allocHitArray_511840()

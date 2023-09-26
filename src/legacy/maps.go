@@ -160,14 +160,6 @@ func Nox_server_mapRWObjectTOC_428B30(_ *cryptfile.CryptFile, a1 unsafe.Pointer)
 	return nil
 }
 
-func Sub_579CA0() int {
-	return int(C.sub_579CA0())
-}
-
-func Nox_xxx_waypoint_5799C0() {
-	C.nox_xxx_waypoint_5799C0()
-}
-
 func Nox_xxx_servMapLoadPlaceObj_4F3F50(obj *server.Object, a2 int, a3 unsafe.Pointer) int {
 	return int(C.nox_xxx_servMapLoadPlaceObj_4F3F50(asObjectC(obj), C.int(a2), a3))
 }

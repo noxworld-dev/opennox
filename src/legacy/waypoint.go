@@ -2,8 +2,6 @@ package legacy
 
 /*
 #include "defs.h"
-extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
-nox_waypoint_t* nox_xxx_waypointNew_5798F0(float a1, float a2);
 */
 import "C"
 import (
@@ -38,10 +36,52 @@ func nox_server_getWaypointById_579C40(a1 int) *nox_waypoint_t {
 	return asWaypointC(Nox_server_getWaypointById_579C40(a1))
 }
 
-func FirstWaypoint() *server.Waypoint {
-	return asWaypointS(C.nox_xxx_waypointsHead_2523752)
+//export nox_xxx_waypointGetList_579860
+func nox_xxx_waypointGetList_579860() *nox_waypoint_t {
+	return asWaypointC(GetServer().FirstWaypoint())
 }
 
-func NewWaypoint(pos types.Pointf) *server.Waypoint {
-	return asWaypointS(C.nox_xxx_waypointNew_5798F0(C.float(pos.X), C.float(pos.Y)))
+//export sub_579890
+func sub_579890() *nox_waypoint_t {
+	return asWaypointC(GetServer().Sub_579890())
+}
+
+//export nox_xxx_waypoint_579F00
+func nox_xxx_waypoint_579F00(out *C.float2, obj *nox_object_t) int {
+	return GetServer().Nox_xxx_waypoint_579F00((*types.Pointf)(unsafe.Pointer(out)), asObjectS(obj))
+}
+
+//export sub_579C80
+func sub_579C80(a1 uint32) *nox_waypoint_t {
+	return asWaypointC(GetServer().Sub_579C80(a1))
+}
+
+//export nox_xxx_waypointNew_5798F0
+func nox_xxx_waypointNew_5798F0(x, y float32) *nox_waypoint_t {
+	return asWaypointC(GetServer().NewWaypoint(types.Ptf(x, y)))
+}
+
+//export sub_579AD0
+func sub_579AD0(x, y float32) *nox_waypoint_t {
+	return asWaypointC(GetServer().Sub_579AD0(types.Ptf(x, y)))
+}
+
+//export nox_xxx_waypointNewNotMap_579970
+func nox_xxx_waypointNewNotMap_579970(ind int, x, y float32) *nox_waypoint_t {
+	return asWaypointC(GetServer().Nox_xxx_waypointNewNotMap_579970(ind, types.Ptf(x, y)))
+}
+
+//export sub_579D20
+func sub_579D20() {
+	GetServer().Sub_579D20()
+}
+
+//export nox_xxx_waypoint_5799C0
+func nox_xxx_waypoint_5799C0() {
+	GetServer().Nox_xxx_waypoint_5799C0()
+}
+
+//export sub_579E90
+func sub_579E90(wp *nox_waypoint_t) {
+	GetServer().Sub_579E90(asWaypointS(wp))
 }
