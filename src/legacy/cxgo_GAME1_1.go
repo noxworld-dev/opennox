@@ -66,7 +66,7 @@ func nox_xxx_unused_418840() int32 {
 						v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*517)))
 						if v9 != 0 {
 							if v9 == *(*int32)(unsafe.Add(i, 4*8)) {
-								nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 4*9)), 57)), unsafe.Add(unsafe.Pointer(j), 48), 1, int32(j.NetCode), 0)
+								Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i, 4*9)), 57))), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(j), 48)), 1, j.NetCode, 0)
 							}
 						}
 					}
@@ -151,7 +151,7 @@ func sub_418BC0(a1 unsafe.Pointer) int32 {
 	for i := nox_common_playerInfoGetFirst_416EA0(); i != nil; i = nox_common_playerInfoGetNext_416EE0(i) {
 		v4 := nox_xxx_objGetTeamByNetCode_418C80(i.NetCodeVal)
 		if v4 != nil {
-			if nox_xxx_teamCompare2_419180(v4, *(*uint8)(unsafe.Add(a1, 57))) != 0 {
+			if nox_xxx_teamCompare2_419180(v4, server.TeamID(*(*uint8)(unsafe.Add(a1, 57)))) != 0 {
 				v1++
 			}
 		}
@@ -330,11 +330,11 @@ func nox_xxx_servCompareTeams_419150(a1 *server.ObjectTeam, a2 *server.ObjectTea
 	}
 	return result
 }
-func nox_xxx_teamCompare2_419180(a1 *server.ObjectTeam, a2 uint8) int32 {
+func nox_xxx_teamCompare2_419180(a1 *server.ObjectTeam, a2 server.TeamID) int32 {
 	if a1 == nil {
 		return 0
 	}
-	if int32(a1.ID) != int32(a2) {
+	if a1.ID != a2 {
 		return 0
 	}
 	v2 := nox_xxx_getTeamByID_418AB0(int32(a2))
@@ -362,7 +362,7 @@ func nox_xxx_netChangeTeamMb_419570(a1 unsafe.Pointer, a2 int32) {
 	if a1 != nil {
 		v2 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a1, 4))))))
 		if v2 != nil {
-			if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(a1), *(*uint8)(unsafe.Add(a1, 4))) != 0 {
+			if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(a1), server.TeamID(*(*uint8)(unsafe.Add(a1, 4)))) != 0 {
 				if noxflags.HasGame(1) && noxflags.HasGame(0x2000) {
 					v3 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a2)))
 					if v3 != nil && false && !noxflags.HasGame(128) {
@@ -394,7 +394,7 @@ func sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 int32) int32 
 		v5 *byte
 		v7 [10]byte
 	)
-	if a1 == nil || a2 == nil || nox_xxx_teamCompare2_419180((*server.ObjectTeam)(a1), *(*uint8)(unsafe.Add(a1, 4))) == 0 {
+	if a1 == nil || a2 == nil || nox_xxx_teamCompare2_419180((*server.ObjectTeam)(a1), server.TeamID(*(*uint8)(unsafe.Add(a1, 4)))) == 0 {
 		return 0
 	}
 	nox_common_playerInfoGetByID_417040(a3)
@@ -410,9 +410,9 @@ func sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int32, a4 int32) int32 
 	v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Add(a1, 4))))))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*12))--
 	Sub_418E40((*server.Team)(unsafe.Pointer(v5)), (*server.ObjectTeam)(a1))
-	nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(a2, 57)), a1, 0, a3, a4)
+	Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*uint8)(unsafe.Add(a2, 57))), (*server.ObjectTeam)(a1), 0, uint32(a3), int(a4))
 	if uint32(a3) == nox_player_netCode_85319C {
-		sub_455E70(*(*uint8)(unsafe.Add(a2, 57)))
+		sub_455E70(server.TeamID(*(*uint8)(unsafe.Add(a2, 57))))
 	}
 	return 1
 }
@@ -5522,7 +5522,7 @@ func sub_427430(a1 int32) noxrender.ImageHandle {
 	if a1 <= 0 || a1 >= 41 {
 		return nil
 	} else {
-		return *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, uintptr(a1*28)+740088)
+		return *memmap.PtrT[noxrender.ImageHandle](0x5D4594, uintptr(a1*28)+740088)
 	}
 }
 func nox_xxx_guideGetUnitSize_427460(a1 int32) uint8 {

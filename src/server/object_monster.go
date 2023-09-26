@@ -110,10 +110,9 @@ type MonsterUpdateData struct {
 	Field0                uint32               // 0, 0
 	Field1                uint32               // 1, 4
 	Field2                uint32               // 2, 8
-	Path                  [32][2]uint32        // 3, 12
+	Path                  [32]types.Pointf     // 3, 12
 	Field67               uint32               // 67, 268
-	Field68               uint32               // 68, 272
-	Field69               uint32               // 69, 276
+	Field68               types.Pointf         // 68, 272
 	Field70               uint32               // 70, 280
 	Field71               uint32               // 71, 284
 	Field72               uint32               // 72, 288
@@ -414,15 +413,10 @@ type MonsterUpdateData struct {
 	DialogResult          byte                 // 526, 2105
 	DialogPortraitBuf     [30]byte             // 526, 2106, TODO: size is a wild guess
 	Field534              uint32               // 534, 2136
-	Field535              uint32               // 535, 2140
-	Field536              uint32               // 536, 2144
-	Field537              uint32               // 537, 2148
-	Field538              uint32               // 538, 2152
-	Field539              uint32               // 539, 2156
-	Field540              uint32               // 540, 2160
-	Field541              uint32               // 541, 2164
-	Field542              uint32               // 542, 2168
-	Field543              uint32               // 543, 2172
+	Field535              [8]uint32            // 535, 2140
+	Field543_0            byte                 // 543, 2172
+	Field543_1            byte                 // 543, 2173
+	Field543_2            uint16               // 543, 2174
 	Field544              *Object              // 544, 2176, TODO: correct type?
 	UpdateDataBot         *PlayerUpdateData    // 545, 2180
 	Field546              uint32               // 546, 2184

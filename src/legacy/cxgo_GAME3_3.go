@@ -2261,32 +2261,23 @@ func nox_xxx_teleportToMB_4E7190(a1 *server.Object, a2 *float32) {
 		nox_xxx_unitMove_4E7010(a1, (*types.Pointf)(unsafe.Pointer(a2)))
 	}
 }
-func nox_xxx_objectUnkUpdateCoords_4E7290(a1p *server.Object) {
-	var (
-		a1 = a1p
-		v2 int32
-		v3 int32
-		v4 int32
-	)
-	switch a1.Shape.Kind {
+func nox_xxx_objectUnkUpdateCoords_4E7290(obj *server.Object) {
+	switch obj.Shape.Kind {
 	case 1:
-		v2 = int32(a1.PosVec.X)
-		a1.CollideP1.X = float32(uint32(v2))
-		v3 = v2
-		v4 = int32(a1.PosVec.Y)
-		a1.CollideP2.X = float32(uint32(v3))
-		a1.CollideP1.Y = float32(uint32(v4))
-		a1.CollideP2.Y = float32(uint32(v4))
+		obj.CollideP1.X = obj.PosVec.X
+		obj.CollideP2.X = obj.PosVec.X
+		obj.CollideP1.Y = obj.PosVec.Y
+		obj.CollideP2.Y = obj.PosVec.Y
 	case 2:
-		a1.CollideP1.X = a1.PosVec.X - a1.Shape.Circle.R
-		a1.CollideP1.Y = a1.PosVec.Y - a1.Shape.Circle.R
-		a1.CollideP2.X = a1.Shape.Circle.R + a1.PosVec.X
-		a1.CollideP2.Y = a1.Shape.Circle.R + a1.PosVec.Y
+		obj.CollideP1.X = obj.PosVec.X - obj.Shape.Circle.R
+		obj.CollideP1.Y = obj.PosVec.Y - obj.Shape.Circle.R
+		obj.CollideP2.X = obj.Shape.Circle.R + obj.PosVec.X
+		obj.CollideP2.Y = obj.Shape.Circle.R + obj.PosVec.Y
 	case 3:
-		a1.CollideP1.X = a1.Shape.Box.LeftBottom2 + a1.PosVec.X
-		a1.CollideP1.Y = a1.Shape.Box.LeftBottom + a1.PosVec.Y
-		a1.CollideP2.X = a1.Shape.Box.RightTop + a1.PosVec.X
-		a1.CollideP2.Y = a1.Shape.Box.RightTop2 + a1.PosVec.Y
+		obj.CollideP1.X = obj.Shape.Box.LeftBottom2 + obj.PosVec.X
+		obj.CollideP1.Y = obj.Shape.Box.LeftBottom + obj.PosVec.Y
+		obj.CollideP2.X = obj.Shape.Box.RightTop + obj.PosVec.X
+		obj.CollideP2.Y = obj.Shape.Box.RightTop2 + obj.PosVec.Y
 	}
 }
 func nox_xxx_spawnSomeBarrel_4E7470(a1 *server.Object, a2 *types.Pointf) {
@@ -4954,7 +4945,7 @@ LABEL_17:
 		}
 		sub_4196D0(unsafe.Add(unsafe.Pointer(a1), 48), unsafe.Pointer(v2), int32(a1.NetCode), 0)
 	} else {
-		nox_xxx_createAtImpl_4191D0(uint8(a2.TeamVal.ID), unsafe.Add(unsafe.Pointer(a1), 48), 1, int32(a1.NetCode), 0)
+		Nox_xxx_createAtImpl_4191D0(a2.TeamVal.ID, (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a1), 48)), 1, a1.NetCode, 0)
 	}
 	if v2 != nil {
 		if v2.ColorInd == 2 {
@@ -5999,7 +5990,7 @@ func nox_xxx_dropCrown_4ED5E0(obj, obj2 *server.Object, pos *types.Pointf) int {
 	if v6 != nil {
 		for {
 			v7 := v6.UpdateDataPlayer()
-			if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v6), 48)), uint8(a2.TeamVal.ID)) != 0 && v7.Field66 < uint32(v4) {
+			if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v6), 48)), a2.TeamVal.ID) != 0 && v7.Field66 < uint32(v4) {
 				v4 = int32(v7.Field66)
 				v5 = v6
 			}
@@ -9557,11 +9548,11 @@ func sub_4F2960(a1 *server.Object) int32 {
 		v1 = nox_xxx_modifGetIdByName_413290(internCStr("Replenishment1"))
 		dword_5d4594_1568308 = nox_xxx_modifGetDescById_413330(v1)
 		v2 = nox_xxx_modifGetIdByName_413290(internCStr("Replenishment2"))
-		*memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568312) = nox_xxx_modifGetDescById_413330(v2)
+		*memmap.PtrT[*server.ModifierEff](0x5D4594, 1568312) = nox_xxx_modifGetDescById_413330(v2)
 		v3 = nox_xxx_modifGetIdByName_413290(internCStr("Replenishment3"))
-		*memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568316) = nox_xxx_modifGetDescById_413330(v3)
+		*memmap.PtrT[*server.ModifierEff](0x5D4594, 1568316) = nox_xxx_modifGetDescById_413330(v3)
 		v4 = nox_xxx_modifGetIdByName_413290(internCStr("Replenishment4"))
-		*memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568320) = nox_xxx_modifGetDescById_413330(v4)
+		*memmap.PtrT[*server.ModifierEff](0x5D4594, 1568320) = nox_xxx_modifGetDescById_413330(v4)
 	}
 	if a1.ObjClass&0x1000000 != 0 {
 		v5 = int32(nox_xxx_weaponInventoryEquipFlags_415820(a1))
@@ -9603,11 +9594,11 @@ func sub_4F2960(a1 *server.Object) int32 {
 			if v7 == dword_5d4594_1568308 {
 				goto LABEL_A
 			}
-			if v7 != *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568312) && v7 != *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568316) && v7 != *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568320) {
+			if v7 != *memmap.PtrT[*server.ModifierEff](0x5D4594, 1568312) && v7 != *memmap.PtrT[*server.ModifierEff](0x5D4594, 1568316) && v7 != *memmap.PtrT[*server.ModifierEff](0x5D4594, 1568320) {
 				return 0
 			}
 		}
-		if v7 == dword_5d4594_1568308 || v7 == *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568312) || v7 == *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568316) || v7 == *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568320) {
+		if v7 == dword_5d4594_1568308 || v7 == *memmap.PtrT[*server.ModifierEff](0x5D4594, 1568312) || v7 == *memmap.PtrT[*server.ModifierEff](0x5D4594, 1568316) || v7 == *memmap.PtrT[*server.ModifierEff](0x5D4594, 1568320) {
 			goto LABEL_A
 		}
 		if a1.ObjClass&0x1000000 != 0 {
@@ -9670,7 +9661,7 @@ func sub_4F2B60(a1 *server.Object) int32 {
 	)
 	if *memmap.PtrUint32(0x5D4594, 1568324) == 0 {
 		v1 = nox_xxx_modifGetIdByName_413290(internCStr("Replenishment1"))
-		*memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 1568324) = nox_xxx_modifGetDescById_413330(v1)
+		*memmap.PtrT[*server.ModifierEff](0x5D4594, 1568324) = nox_xxx_modifGetDescById_413330(v1)
 	}
 	if a1.ObjClass&0x1000000 != 0 && uint32(nox_xxx_weaponInventoryEquipFlags_415820(a1))&0x10000 != 0 {
 		v2 = (*uint32)(a1.InitData)
@@ -10109,7 +10100,7 @@ func nox_xxx_pickupTreasure_4F3580(obj *server.Object, obj2 *server.Object, a3 i
 		return 1
 	}
 	for j := nox_xxx_getFirstPlayerUnit_4DA7C0(); j != nil; j = nox_xxx_getNextPlayerUnit_4DA7F0(j) {
-		if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(j), 48)), *(*byte)(unsafe.Add(unsafe.Pointer(v5), 57))) != 0 {
+		if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(j), 48)), server.TeamID(*(*byte)(unsafe.Add(unsafe.Pointer(v5), 57)))) != 0 {
 			v4 += int32(j.UpdateDataPlayer().Player.Field2152)
 		}
 	}

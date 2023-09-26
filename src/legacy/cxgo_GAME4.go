@@ -1337,7 +1337,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a1 *types.Pointf, a2p *server.Object) {
 	}
 }
 func sub_4F7CE0(a1 unsafe.Pointer, a2 int32) int32 {
-	return bool2int32(*(*uint32)(unsafe.Add(a1, 16))&0x1000000 != 0 && (a2 == 0 || nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a1, 48))) == 0 || nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(a1, 48)), uint8(int8(a2))) != 0))
+	return bool2int32(*(*uint32)(unsafe.Add(a1, 16))&0x1000000 != 0 && (a2 == 0 || nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(a1, 48))) == 0 || nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(a1, 48)), server.TeamID(uint8(int8(a2)))) != 0))
 }
 func nox_xxx_playerSubStamina_4F7D30(a1p *server.Object, a2 int32) int32 {
 	var (

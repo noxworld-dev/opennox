@@ -5637,7 +5637,7 @@ func sub_4DF2E0(a1 int32) {
 		for i := nox_server_teamFirst_418B10(); i != nil; i = nox_server_teamNext_418B60(i) {
 			sub_4197C0((*wchar2_t)(unsafe.Pointer(i)), a1)
 			for j := nox_xxx_getFirstPlayerUnit_4DA7C0(); j != nil; j = nox_xxx_getNextPlayerUnit_4DA7F0(j) {
-				if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(j), 48)), uint8(i.IDVal)) != 0 {
+				if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(j), 48)), i.IDVal) != 0 {
 					sub_4198A0(unsafe.Add(unsafe.Pointer(j), 48), a1, int32(j.NetCode))
 				}
 			}
@@ -5686,7 +5686,7 @@ func sub_4DF3C0(pl *server.Player) {
 			v4 := v2c
 			if v2c != nil {
 				if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v1), 48))) == 0 {
-					nox_xxx_createAtImpl_4191D0(*(*byte)(unsafe.Add(v4, 57)), unsafe.Add(unsafe.Pointer(v1), 48), 1, int32(v1.NetCode), 1)
+					Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*byte)(unsafe.Add(v4, 57))), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v1), 48)), 1, v1.NetCode, 1)
 				}
 			}
 		}
@@ -5731,7 +5731,7 @@ func sub_4DF3C0(pl *server.Player) {
 	if v7 != 0 {
 		sub_4196D0(v6, unsafe.Pointer(v5), int32(v1.NetCode), 0)
 	} else {
-		nox_xxx_createAtImpl_4191D0(uint8(v5.IDVal), v6, 1, int32(v1.NetCode), 0)
+		Nox_xxx_createAtImpl_4191D0(v5.IDVal, (*server.ObjectTeam)(v6), 1, v1.NetCode, 0)
 	}
 }
 func sub_4DFB50(a1 *server.ModifierEff, a2 *server.Object, a3 *server.Object) {
@@ -6697,7 +6697,7 @@ func nox_xxx_gameballOnPlayerDamage_4E1230(a1 unsafe.Pointer, a2 unsafe.Pointer,
 					sub_4196D0(unsafe.Add(v4, 48), unsafe.Pointer(v5), int32(*(*uint32)(unsafe.Add(v4, 36))), 0)
 				}
 			} else {
-				nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(a1, 52)), unsafe.Add(v4, 48), 1, int32(*(*uint32)(unsafe.Add(v4, 36))), 0)
+				Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*uint8)(unsafe.Add(a1, 52))), (*server.ObjectTeam)(unsafe.Add(v4, 48)), 1, *(*uint32)(unsafe.Add(v4, 36)), 0)
 			}
 			nox_xxx_aud_501960(926, (*server.Object)(a2), 0, 0)
 		}

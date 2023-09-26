@@ -562,7 +562,7 @@ func sub_450AD0(a1 noxrender.ImageHandle) {
 	if a1 == nil {
 		result = nox_xxx_gLoadImg_42F970(internCStr("WarriorChapterBegin8"))
 	}
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 832460) = result
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 832460) = result
 }
 func sub_450AF0(a1 int32) int32 {
 	var result int32
@@ -2113,7 +2113,7 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 *gui.Window) *gui.Window {
 	nox_draw_setTabWidth_43FE20(100)
 	sub_46B120(dword_5d4594_1045516, a1)
 	dword_5d4594_1045520 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10102)
-	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1045524) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10103)
+	*memmap.PtrT[*gui.Window](0x5D4594, 1045524) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10103)
 	dword_5d4594_1045532 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10109)
 	dword_5d4594_1045528 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10105)
 	dword_5d4594_1045536 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10200)
@@ -2121,16 +2121,16 @@ func nox_xxx_guiServerAccessLoad_4541D0(a1 *gui.Window) *gui.Window {
 	dword_5d4594_1045544 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10112)
 	dword_5d4594_1045548 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10113)
 	dword_5d4594_1045556 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10104)
-	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1045560) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10125)
-	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1045564) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10127)
-	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1045568) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10129)
-	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1045572) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10131)
+	*memmap.PtrT[*gui.Window](0x5D4594, 1045560) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10125)
+	*memmap.PtrT[*gui.Window](0x5D4594, 1045564) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10127)
+	*memmap.PtrT[*gui.Window](0x5D4594, 1045568) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10129)
+	*memmap.PtrT[*gui.Window](0x5D4594, 1045572) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10131)
 	dword_5d4594_1045576 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10126)
 	dword_5d4594_1045580 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10128)
 	dword_5d4594_1045584 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10130)
 	dword_5d4594_1045588 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10132)
 	dword_5d4594_1045552 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10123)
-	*memmap.PtrPtrT[*gui.Window](0x5D4594, 1045592) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10133)
+	*memmap.PtrT[*gui.Window](0x5D4594, 1045592) = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045516, 10133)
 	v3 := dword_5d4594_1045532.WidgetData
 	v4 := nox_xxx_gLoadImg_42F970(internCStr("UISlider"))
 	v5 := nox_xxx_gLoadImg_42F970(internCStr("UISliderLit"))
@@ -2798,7 +2798,7 @@ func sub_455CD0(win *gui.Window, draw *gui.WindowData) int {
 	}
 	return 1
 }
-func sub_455E70(a1 uint8) int32 {
+func sub_455E70(a1 server.TeamID) int32 {
 	for i := int32(0); i < int32(*memmap.PtrUint8(0x5D4594, 1045628)); i++ {
 		v2 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045604, i+8811)
 		nox_xxx_wndClearFlag_46AD80(v2, 32)
@@ -2864,7 +2864,7 @@ func sub_456070() int32 {
 		return 0
 	}
 	sub_455F10(0)
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1045648) = nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1045648) = nox_xxx_gLoadImg_42F970(internCStr("FlagTeamBorder"))
 	return 1
 }
 func sub_4560D0(win *gui.Window, draw *gui.WindowData) int {
@@ -2981,7 +2981,7 @@ func sub_456BB0(a1 unsafe.Pointer) {
 				}
 			} else {
 				if v2 != 0 {
-					nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(a1, 57)), unsafe.Pointer(v3), v2, int32(nox_player_netCode_85319C), 1)
+					Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*uint8)(unsafe.Add(a1, 57))), v3, int(v2), nox_player_netCode_85319C, 1)
 					*memmap.PtrUint32(0x5D4594, 1045696)++
 					return
 				}
@@ -4238,57 +4238,57 @@ func nox_xxx_book_45BD30(win *gui.Window, draw *gui.WindowData) int {
 func nox_xxx_bookInit_45B9D0() int32 {
 	dword_5d4594_1047516 = *memmap.PtrPtr(0x8531A0, 2576)
 	img := nox_xxx_gLoadImg_42F970(internCStr("ArrowNW"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046888) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046888) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("ArrowN"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046892) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046892) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("ArrowNE"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046896) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046896) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("ArrowW"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046900) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046900) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("ArrowE"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046908) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046908) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("ArrowSW"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046912) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046912) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("ArrowS"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046916) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046916) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("ArrowSE"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046920) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046920) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("BookOfKnowledge"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046856) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046856) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("GuideTabLit"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046660) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046660) = img
 	if img == nil {
 		return 0
 	}
 	img = nox_xxx_gLoadImg_42F970(internCStr("SpellTabLit"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1046644) = img
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1046644) = img
 	if img == nil {
 		return 0
 	}

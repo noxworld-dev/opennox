@@ -957,7 +957,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 			sub_470510()
 		}
 		v145 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
-		if v145 != nil && nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v145)), *((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))) != 0 {
+		if v145 != nil && nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v145)), server.TeamID(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))) != 0 {
 			v146 = nox_strman_loadString_40F1D0(internCStr("TeamWon"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 3776)
 			nox_swprintf(&v400[0], v146)
 			v147 = 0
@@ -997,7 +997,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 		if v172 != nil {
 			v175 = nox_strman_loadString_40F1D0(internCStr("CTF_Victory"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4071)
 			nox_swprintf(&v398[0], v175, v172)
-			if v174 == nil || nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v174)), *(*byte)(unsafe.Add(unsafe.Pointer(v172), 57))) == 0 {
+			if v174 == nil || nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v174)), server.TeamID(*(*byte)(unsafe.Add(unsafe.Pointer(v172), 57)))) == 0 {
 				v176 = 1
 				goto LABEL_600
 			}
@@ -1141,7 +1141,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 			}
 			v165 = nox_strman_loadString_40F1D0(internCStr("HL_Header"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 3969)
 			nox_swprintf(&v390[0], v165)
-			if v162 != nil && nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v162)), *(*byte)(unsafe.Add(unsafe.Pointer(v160), 57))) != 0 {
+			if v162 != nil && nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v162)), server.TeamID(*(*byte)(unsafe.Add(unsafe.Pointer(v160), 57)))) != 0 {
 				v335 = nox_strman_loadString_40F1D0(internCStr("HL_YourTeam"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 3973)
 				v166 = nox_strman_loadString_40F1D0(internCStr("HL_Victory"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 3973)
 				nox_swprintf(&v388[0], v166, v335)
@@ -1166,7 +1166,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 				v164 = 0
 				goto LABEL_585
 			}
-			if v162 != nil && nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v162)), *(*byte)(unsafe.Add(unsafe.Pointer(v160), 57))) != 0 {
+			if v162 != nil && nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Pointer(v162)), server.TeamID(*(*byte)(unsafe.Add(unsafe.Pointer(v160), 57)))) != 0 {
 				v169 = nox_strman_loadString_40F1D0(internCStr("DM_TeamVictory"), nil, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 4006)
 				nox_swprintf(&v390[0], v169)
 				v164 = 0
@@ -2362,7 +2362,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 				goto LABEL_888
 			}
 			if noxflags.HasGame(1) {
-				nox_xxx_createAtImpl_4191D0(*(*byte)(unsafe.Add(unsafe.Pointer(v272), 57)), unsafe.Pointer(v273), 1, int32(nox_player_netCode_85319C), 1)
+				Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*byte)(unsafe.Add(unsafe.Pointer(v272), 57))), (*server.ObjectTeam)(unsafe.Pointer(v273)), 1, nox_player_netCode_85319C, 1)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)) = uint32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 15))))
 				return int32((*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*1)))*2 + 18)
 			}
@@ -2387,7 +2387,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 					*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(data), 2)))))))
 					v277 = int32(v5)
 					if uint32(int32(v5)) != 0 {
-						nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(v5, 57)), v276, 0, int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 6))), 0)
+						Nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(v5, 57)), v276, 0, uint32(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 6)))), 0)
 						sub_4571A0(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 6))), int32(*(*uint8)(unsafe.Add(v277, 57))))
 					}
 				}

@@ -14,7 +14,6 @@ import (
 )
 
 var nox_xxx_resetMapInit_1569652 uint32 = 0
-var nox_server_xxx_1599716 [65536]nox_server_xxx = [65536]nox_server_xxx{}
 
 func sub_426060() {
 	var (
@@ -159,7 +158,7 @@ func sub_4D2160() {
 					v2--
 				}
 				v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(j), 4*514))))
-				if v4 != 0 && nox_xxx_teamCompare2_419180(unsafe.Add(v4, 48), *(*byte)(unsafe.Add(unsafe.Pointer(i), 57))) != 0 {
+				if v4 != 0 && nox_xxx_teamCompare2_419180(unsafe.Add(v4, 48), server.TeamID(*(*byte)(unsafe.Add(unsafe.Pointer(i), 57)))) != 0 {
 					break
 				}
 			}
@@ -731,158 +730,6 @@ func nox_xxx_voteUptate_506F30() {
 				break
 			}
 		}
-	}
-}
-func sub_50AFA0() {
-	var (
-		i      int32
-		v1     int32
-		v2     int32
-		v3     int32
-		v4     int32
-		v5     int32
-		v6     int32
-		v7     int32
-		v8     int32
-		v9     int32
-		v10    int32
-		v11    float64
-		v12    int32
-		v13    int32
-		v14    int32
-		v15    int32
-		v16    *uint8
-		v17    *float32
-		v18    int16
-		result *float32
-		k      *float32
-		v21    int32
-		v22    int32
-		v23    float32
-		v24    float32
-		v25    float32
-		v26    float32
-		v27    float32
-		v28    float32
-		v29    float32
-		v30    float32
-		v31    float32
-		v32    float32
-		v33    float32
-		v34    float32
-		v35    float32
-		v36    float32
-		j      int32
-		v38    int32
-		v39    int32
-		v40    int32
-		v41    float32
-		v42    float32
-		a2     types.Pointf
-		v44    int32
-	)
-	dword_5d4594_2386160 = 0
-	*(*[65536]nox_server_xxx)(unsafe.Pointer(&nox_server_xxx_1599716[0])) = [65536]nox_server_xxx{}
-	dword_5d4594_2386164 = 0
-	for i = nox_server_getFirstObject_4DA790(); i != 0; i = nox_server_getNextObject_4DA7A0((*server.Object)(i)) {
-		nox_xxx_aiTestUnitDangerous_50B2C0(i)
-		v1 = int32(*(*uint32)(unsafe.Add(i, 8)))
-		if (v1 & 0x80) == 0 {
-			if v1&0x800 != 0 {
-				v23 = float32(float64(*(*float32)(unsafe.Add(i, 56))) * 0.043478262)
-				v2 = int32(v23)
-				v24 = float32(float64(*(*float32)(unsafe.Add(i, 60))) * 0.043478262)
-				v3 = int32(v24)
-				nox_server_xxx_1599716[v3+(v2<<8)].field_8 |= 0x10
-			} else if v1&0x400 != 0 {
-				v25 = float32(float64(*(*float32)(unsafe.Add(i, 56))) * 0.043478262)
-				v4 = int32(v25)
-				v26 = float32(float64(*(*float32)(unsafe.Add(i, 60))) * 0.043478262)
-				v5 = int32(v26)
-				nox_server_xxx_1599716[v5+(v4<<8)].field_8 |= 0x20
-			} else if v1&0x4000 != 0 {
-				v27 = float32(float64(*(*float32)(unsafe.Add(i, 56))) * 0.043478262)
-				v6 = int32(v27)
-				v28 = float32(float64(*(*float32)(unsafe.Add(i, 60))) * 0.043478262)
-				v7 = int32(v28)
-				nox_server_xxx_1599716[v7+(v6<<8)].field_8 |= 0x4
-			} else if (v1 & 0x8000) == 0 {
-				if (int32(*(*uint8)(unsafe.Add(i, 16))) & 0x49) == 0 {
-					if uint32(v1)&0x400000 != 0 {
-						v31 = float32(float64(*(*float32)(unsafe.Add(i, 232))) * 0.043478262)
-						v10 = int32(v31)
-						v11 = float64(*(*float32)(unsafe.Add(i, 236))) * 0.043478262
-						v12 = v10
-						v44 = v10
-						v32 = float32(v11)
-						v13 = int32(v32)
-						v33 = float32(float64(*(*float32)(unsafe.Add(i, 240))) * 0.043478262)
-						v39 = int32(v33)
-						v34 = float32(float64(*(*float32)(unsafe.Add(i, 244))) * 0.043478262)
-						v14 = int32(v34)
-						v15 = v13
-						v40 = v14
-						for j = v13; v15 <= v14; j = v15 {
-							v38 = v12
-							if v12 <= v39 {
-								v16 = (*uint8)(unsafe.Pointer(&nox_server_xxx_1599716[v15+(v12<<8)].field_8))
-								for {
-									v17 = memmap.PtrFloat32(0x587000, 234108)
-									for {
-										v41 = float32(float64(v38) * 23.0)
-										a2.X = v41 + *((*float32)(unsafe.Add(unsafe.Pointer(v17), -int(unsafe.Sizeof(float32(0))*1))))
-										v42 = float32(float64(j) * 23.0)
-										a2.Y = v42 + *v17
-										if sub_547DB0(i, &a2) != 0 {
-											break
-										}
-										v17 = (*float32)(unsafe.Add(unsafe.Pointer(v17), unsafe.Sizeof(float32(0))*2))
-										if int32(uintptr(unsafe.Pointer(v17))) >= int32(uintptr(memmap.PtrOff(0x587000, 234180))) {
-											goto LABEL_22
-										}
-									}
-									v18 = int16(*(*uint16)(unsafe.Pointer(v16)))
-									*((*uint8)(unsafe.Pointer(&v18))) = uint8(int8(int32(*(*uint16)(unsafe.Pointer(v16))) | 1))
-									*(*uint16)(unsafe.Pointer(v16)) = uint16(v18)
-									if (int32(*(*uint8)(unsafe.Add(i, 16))) & 0x10) == 0 {
-										*((*uint8)(unsafe.Pointer(&v18))) = uint8(int8(int32(v18) | 2))
-										*(*uint16)(unsafe.Pointer(v16)) = uint16(v18)
-									}
-								LABEL_22:
-									v12++
-									v16 = (*uint8)(unsafe.Add(unsafe.Pointer(v16), NOX_SERVER_XXX_SIZE*unsafe.Sizeof(nox_server_xxx{})))
-									v38 = v12
-									if v12 > v39 {
-										break
-									}
-								}
-								v15 = j
-								v14 = v40
-								v12 = v44
-							}
-							v15++
-						}
-					}
-				}
-			} else {
-				v29 = float32(float64(*(*float32)(unsafe.Add(i, 56))) * 0.043478262)
-				v8 = int32(v29)
-				v30 = float32(float64(*(*float32)(unsafe.Add(i, 60))) * 0.043478262)
-				v9 = int32(v30)
-				nox_server_xxx_1599716[v9+(v8<<8)].field_8 |= 0x8
-			}
-		}
-	}
-	result = (*float32)(nox_xxx_waypointGetList_579860())
-	for k = result; result != nil; k = result {
-		if sub_579EE0((*server.Waypoint)(unsafe.Pointer(k)), 0x80) != 0 {
-			v35 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(k), unsafe.Sizeof(float32(0))*2))) * 0.043478262)
-			v21 = int32(v35)
-			v36 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(k), unsafe.Sizeof(float32(0))*3))) * 0.043478262)
-			v22 = int32(v36)
-			nox_server_xxx_1599716[v22+(v21<<8)].field_8 |= 0x40
-		}
-		result = (*float32)(unsafe.Pointer(uintptr(nox_xxx_waypointNext_579870(int32(uintptr(unsafe.Pointer(k)))))))
 	}
 }
 func sub_50D890() uint32 {

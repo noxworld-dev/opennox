@@ -3425,9 +3425,9 @@ func sub_4AB0C0() int {
 	return 1
 }
 func sub_4AB260() int32 {
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1309752) = nox_xxx_gLoadImg_42F970(internCStr("DisconnectIcon"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1309752) = nox_xxx_gLoadImg_42F970(internCStr("DisconnectIcon"))
 	dword_5d4594_1309756 = nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2+3, 50, 50, nil)
-	nox_xxx_wndSetIcon_46AE60(dword_5d4594_1309756, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1309752))
+	nox_xxx_wndSetIcon_46AE60(dword_5d4594_1309756, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1309752))
 	nox_window_set_all_funcs(dword_5d4594_1309756, nil, sub_4AB420, nil)
 	dword_5d4594_1309748 = nox_new_window_from_file(internCStr("discon.wnd"), sub_4AB390)
 	nox_xxx_wndSetWindowProc_46B300(dword_5d4594_1309748, sub_4AB340)
@@ -3602,7 +3602,7 @@ func sub_4ABDA0(a1 int32, a2 int16, a3 int16, a4 *uint32) unsafe.Pointer {
 	*(*uint32)(unsafe.Add(v6, 128)) = uint32(v15)
 	*(*uint8)(unsafe.Add(v6, 28)) = uint8(v10)
 	if !noxflags.HasGame(1) && int32(*(*uint8)(unsafe.Add(v6, 28))) != 0 && ((*(*uint32)(unsafe.Add(v6, 112))&0x10000000) == 0 || !noxflags.HasGame(128)) {
-		nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(v6, 28)), unsafe.Add(v6, 24), 0, int32(*(*uint32)(unsafe.Add(v6, 128))), 0)
+		Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*uint8)(unsafe.Add(v6, 28))), (*server.ObjectTeam)(unsafe.Add(v6, 24)), 0, *(*uint32)(unsafe.Add(v6, 128)), 0)
 	}
 	result = v6
 	return result
@@ -3727,7 +3727,7 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) unsa
 		return v9
 	}
 	if *(*uint32)(unsafe.Add(v9, 108)) != uint32(v17) {
-		nox_xxx_createAtImpl_4191D0(v18, unsafe.Add(v9, 24), 0, int32(*(*uint32)(unsafe.Add(v9, 128))), 0)
+		Nox_xxx_createAtImpl_4191D0(server.TeamID(v18), (*server.ObjectTeam)(unsafe.Add(v9, 24)), 0, *(*uint32)(unsafe.Add(v9, 128)), 0)
 	}
 	return v9
 }

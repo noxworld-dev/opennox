@@ -1555,10 +1555,10 @@ func sub_4BFAD0() int32 {
 		v3 := nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(i)+180960)))
 		v4 = *(**byte)(memmap.PtrOff(0x587000, uintptr(i)+180968))
 		*memmap.PtrPtr(0x973A20, uintptr(i+16)) = unsafe.Pointer(v3)
-		*memmap.PtrPtrT[noxrender.ImageHandle](0x973A20, uintptr(i+24)) = nox_xxx_gLoadImg_42F970(v4)
+		*memmap.PtrT[noxrender.ImageHandle](0x973A20, uintptr(i+24)) = nox_xxx_gLoadImg_42F970(v4)
 		v5 = 26
 		for {
-			*memmap.PtrPtrT[noxrender.ImageHandle](0x973A20, uintptr(v1+32)) = nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1)+180976)))
+			*memmap.PtrT[noxrender.ImageHandle](0x973A20, uintptr(v1+32)) = nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1)+180976)))
 			v1 += 4
 			v5--
 			if v5 == 0 {
@@ -1567,7 +1567,7 @@ func sub_4BFAD0() int32 {
 		}
 		v6 = 27
 		for {
-			*memmap.PtrPtrT[noxrender.ImageHandle](0x973A20, uintptr(v0+256)) = nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0)+181184)))
+			*memmap.PtrT[noxrender.ImageHandle](0x973A20, uintptr(v0+256)) = nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0)+181184)))
 			v0 += 4
 			v6--
 			if v6 == 0 {
@@ -1575,7 +1575,7 @@ func sub_4BFAD0() int32 {
 			}
 		}
 	}
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319052) = nox_xxx_gLoadImg_42F970(internCStr("MaleMedievalCloakTop"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319052) = nox_xxx_gLoadImg_42F970(internCStr("MaleMedievalCloakTop"))
 	return 1
 }
 func sub_4BFB70(a1 int32) {
@@ -1725,14 +1725,14 @@ func nox_gui_itemAmount_init_4BFEF0() int32 {
 	*memmap.PtrUint32(0x5D4594, 1319144) = uint32(nox_win_height)
 	*memmap.PtrUint32(0x5D4594, 1319124) = 0
 	*memmap.PtrUint32(0x5D4594, 1319128) = 0
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319196) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBase"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319200) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveUpLit"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319204) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveDownLit"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319208) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressed"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319212) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressed"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319216) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBaseNoTag"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319220) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressedNoTag"))
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319224) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressedNoTag"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319196) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBase"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319200) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveUpLit"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319204) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveDownLit"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319208) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressed"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319212) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressed"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319216) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveBaseNoTag"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319220) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveYesPressedNoTag"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319224) = nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressedNoTag"))
 	return 1
 }
 func sub_4C0030(win *gui.Window, draw *gui.WindowData) int {
@@ -1743,9 +1743,9 @@ func sub_4C0030(win *gui.Window, draw *gui.WindowData) int {
 	)
 	nox_client_drawRectFilledAlpha_49CF10(0, 0, nox_win_width, nox_win_height)
 	nox_gui_getWindowOffs_46AA20(a1, (*uint32)(unsafe.Pointer(&v5)), (*uint32)(unsafe.Pointer(&v6)))
-	v1 := *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319196)
+	v1 := *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319196)
 	if dword_5d4594_1319264 == 0 {
-		v1 = *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319216)
+		v1 = *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319216)
 	}
 	nox_client_drawImageAt_47D2C0(v1, v5, v6)
 	nox_gui_itemAmount_item_1319256.PosVec.X = int(v5 + dword_587000_183456)
@@ -1758,18 +1758,18 @@ func sub_4C0030(win *gui.Window, draw *gui.WindowData) int {
 		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*memmap.PtrPtr(0x5D4594, 1319200)), v5, v6)
 	}
 	if nox_xxx_wndGetChildByID_46B0C0(nox_gui_itemAmount_dialog_1319228, 3604).DrawData().Field0&4 != 0 {
-		v2 := *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319208)
+		v2 := *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319208)
 		if dword_5d4594_1319264 == 0 {
-			v2 = *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319220)
+			v2 = *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319220)
 		}
 		nox_client_drawImageAt_47D2C0(v2, v5, v6)
 	}
 	if nox_xxx_wndGetChildByID_46B0C0(nox_gui_itemAmount_dialog_1319228, 3605).DrawData().Field0&4 == 0 {
 		return 1
 	}
-	v3 := *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319212)
+	v3 := *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319212)
 	if dword_5d4594_1319264 == 0 {
-		v3 = *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1319224)
+		v3 = *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1319224)
 	}
 	nox_client_drawImageAt_47D2C0(v3, v5, v6)
 	return 1
@@ -2630,17 +2630,17 @@ func nox_xxx_prepareP2PTrade_4C1BF0() {
 func sub_4C1CA0(a1 int32) {
 	*memmap.PtrUint32(0x587000, 184448) = uint32(a1)
 	if a1 == 3 {
-		nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321040, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321020))
-		sub_46AEC0(dword_5d4594_1321040, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321016))
-		nox_xxx_wndSetIconLit_46AEA0(dword_5d4594_1321040, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321016))
+		nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321040, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321020))
+		sub_46AEC0(dword_5d4594_1321040, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321016))
+		nox_xxx_wndSetIconLit_46AEA0(dword_5d4594_1321040, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321016))
 	} else if a1 == 4 {
-		nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321040, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321028))
+		nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321040, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321028))
 		sub_46AEC0(dword_5d4594_1321040, dword_5d4594_1321024)
 		nox_xxx_wndSetIconLit_46AEA0(dword_5d4594_1321040, dword_5d4594_1321024)
 	} else if a1 == 5 {
-		nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321040, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321012))
-		sub_46AEC0(dword_5d4594_1321040, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321008))
-		nox_xxx_wndSetIconLit_46AEA0(dword_5d4594_1321040, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321008))
+		nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321040, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321012))
+		sub_46AEC0(dword_5d4594_1321040, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321008))
+		nox_xxx_wndSetIconLit_46AEA0(dword_5d4594_1321040, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321008))
 	}
 }
 func nox_xxx_guiDrawSummonBox_4C1FE0(win *gui.Window, draw *gui.WindowData) int {
@@ -3341,9 +3341,9 @@ func nox_xxx_spriteDrawCircleMB_4C32A0(a1 int32, a2 int32, a3 int32, a4 int32) i
 	return 1
 }
 func sub_4C3390() int32 {
-	*memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321220) = nox_xxx_gLoadImg_42F970(internCStr("VoteInProgress"))
+	*memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321220) = nox_xxx_gLoadImg_42F970(internCStr("VoteInProgress"))
 	dword_5d4594_1321216 = nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2-100, 50, 50, nil)
-	nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321216, *memmap.PtrPtrT[noxrender.ImageHandle](0x5D4594, 1321220))
+	nox_xxx_wndSetIcon_46AE60(dword_5d4594_1321216, *memmap.PtrT[noxrender.ImageHandle](0x5D4594, 1321220))
 	nox_window_set_all_funcs(dword_5d4594_1321216, nil, sub_4C3410, nil)
 	nox_window_set_hidden(dword_5d4594_1321216, 1)
 	return 1
@@ -3792,7 +3792,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 					v45 = int32(int(v41) - v3.PosVec.Y)
 				}
 				if v45 < 4 {
-					v46 = *memmap.PtrPtrT[*client.Drawable](0x852978, 8)
+					v46 = *memmap.PtrT[*client.Drawable](0x852978, 8)
 					if *memmap.PtrUint32(0x852978, 8) == 0 {
 						goto LABEL_82
 					}
@@ -3804,7 +3804,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 					}
 				}
 			}
-			v46 = *memmap.PtrPtrT[*client.Drawable](0x852978, 8)
+			v46 = *memmap.PtrT[*client.Drawable](0x852978, 8)
 		LABEL_82:
 			if v42 != 0 || v43 != 0 {
 				v47 = int32(v3.Field_5 - v3.Field_10)
@@ -3814,7 +3814,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 				v48 = int32(math.Sqrt(float64(v42*v42+v43*v43))) / v47
 				v30 = a1a.X
 				v42 = v48
-				v46 = *memmap.PtrPtrT[*client.Drawable](0x852978, 8)
+				v46 = *memmap.PtrT[*client.Drawable](0x852978, 8)
 			}
 			if v46 == nil {
 				goto LABEL_123

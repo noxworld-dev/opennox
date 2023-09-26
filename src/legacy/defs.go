@@ -33,8 +33,6 @@ const (
 	NOX_PLAYERINFO_MAX = 32
 
 	NOX_SPELLS_MAX = 137
-
-	NOX_SERVER_XXX_SIZE = 256
 )
 
 const (
@@ -261,12 +259,6 @@ type nox_server_netCodeCacheStruct struct {
 	objArray        [16]nox_dblLinkedList
 	firstUsedObject *nox_dblLinkedList
 	lastUsedObject  *nox_dblLinkedList
-}
-type nox_server_xxx struct {
-	field_0  uint32
-	field_4  uint32
-	field_8  uint16
-	field_10 uint16
 }
 type Journal struct {
 	Field0   [4]byte  // 0, 0, TODO: size

@@ -418,7 +418,7 @@ func nox_xxx_countNonEliminatedPlayersInTeam_40A830(a1p *server.Team) int32 {
 		return 0
 	}
 	for {
-		if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v2), 48)), *(*uint8)(unsafe.Add(a1, 57))) != 0 {
+		if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v2), 48)), server.TeamID(*(*uint8)(unsafe.Add(a1, 57)))) != 0 {
 			v3 := *(*unsafe.Pointer)(unsafe.Add(v2.UpdateData, 276))
 			if (int32(*(*uint8)(unsafe.Add(v3, 3680)))&1) == 0 && (int32(*(*uint8)(unsafe.Add(v3, 2064))) != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				v1++
@@ -462,7 +462,7 @@ func nox_xxx_gamePlayIsAnyPlayers_40A8A0() int32 {
 		v2 := nox_xxx_getFirstPlayerUnit_4DA7C0()
 		if v2 != nil {
 			for {
-				if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v2), 48)), uint8(v1.IDVal)) != 0 {
+				if nox_xxx_teamCompare2_419180((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v2), 48)), v1.IDVal) != 0 {
 					v3 = int32(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2.UpdateData, 276)), 3680)))
 					if (v3&1) == 0 || v3&0x20 != 0 {
 						break
@@ -1177,14 +1177,14 @@ func nox_xxx_modifNext_4133C0(a1 *obj_412ae0_t) *obj_412ae0_t {
 	return a1.field_34
 }
 func sub_4133D0(a1 *server.Object) int32 {
-	v1 := *memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 251620)
+	v1 := *memmap.PtrT[*server.ModifierEff](0x5D4594, 251620)
 	v2 := a1.InitDataModifier()
 	if *memmap.PtrUint32(0x5D4594, 251620) != 0 {
 		return bool2int32(a1.ObjClass&0x13001000 != 0 && v2.Modifiers[1] == v1)
 	}
 	v3 := nox_xxx_modifGetIdByName_413290(internCStr("Material7"))
 	v1b := nox_xxx_modifGetDescById_413330(v3)
-	*memmap.PtrPtrT[*server.ModifierEff](0x5D4594, 251620) = v1b
+	*memmap.PtrT[*server.ModifierEff](0x5D4594, 251620) = v1b
 	return bool2int32(a1.ObjClass&0x13001000 != 0 && v2.Modifiers[1] == v1b)
 }
 func sub_413420(a1 int8) noxrender.ImageHandle {
@@ -3355,12 +3355,12 @@ func sub_4181F0(a1 int32) {
 			if *(*int32)(unsafe.Add(v17, 2068)) != 0 {
 				t := nox_server_teamByXxx_418AE0(int32(*(*uint32)(unsafe.Add(v17, 2068))))
 				if t != nil {
-					nox_xxx_createAtImpl_4191D0(uint8(t.IDVal), unsafe.Add(v15, 48), 1, int32(*(*uint32)(unsafe.Add(v15, 36))), 0)
+					Nox_xxx_createAtImpl_4191D0(t.IDVal, (*server.ObjectTeam)(unsafe.Add(v15, 48)), 1, *(*uint32)(unsafe.Add(v15, 36)), 0)
 				}
 			}
 		} else {
 			v18 = sub_4189D0()
-			nox_xxx_createAtImpl_4191D0(*(*byte)(unsafe.Add(v18, 57)), unsafe.Add(v15, 48), 1, int32(*(*uint32)(unsafe.Add(v15, 36))), 1)
+			Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*byte)(unsafe.Add(v18, 57))), (*server.ObjectTeam)(unsafe.Add(v15, 48)), 1, *(*uint32)(unsafe.Add(v15, 36)), 1)
 		}
 		v13 = (**server.Object)(unsafe.Add(unsafe.Pointer(v13), 4*1))
 		v14--
@@ -3426,7 +3426,7 @@ func sub_4183C0() {
 							sub_4196D0(unsafe.Add(unsafe.Pointer(i), 48), v6, int32(i.NetCode), 0)
 						}
 					} else {
-						nox_xxx_createAtImpl_4191D0(*(*uint8)(unsafe.Add(v6, 57)), unsafe.Add(unsafe.Pointer(i), 48), 1, int32(i.NetCode), 0)
+						Nox_xxx_createAtImpl_4191D0(server.TeamID(*(*uint8)(unsafe.Add(v6, 57))), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(i), 48)), 1, i.NetCode, 0)
 					}
 				}
 			}

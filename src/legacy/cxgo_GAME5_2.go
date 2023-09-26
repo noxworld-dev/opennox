@@ -1203,7 +1203,7 @@ func sub_57B450(a1p *client.Drawable) int32 {
 	v2 = uint8(int8(1 << int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))))
 	return bool2int32((int32(v2) & int32(uint8(sub_57B370(object.Class(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*28))), object.SubClass(uint8(int8(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*29))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*27)))))) != 0)
 }
-func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
+func sub_57B630(a1 *server.Object, a2 int32, a3 int32) int8 {
 	var (
 		v4  int8
 		v5  int32
@@ -1239,7 +1239,7 @@ func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 							if nox_common_randomInt_415FA0(0, 100) >= 50 {
 								return v11
 							}
-						} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910((*server.Object)(a1), (*server.Object)(v5)) == nil {
+						} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
 							return v11
 						}
 						return -1
@@ -1254,7 +1254,7 @@ func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 							if nox_common_randomInt_415FA0(0, 100) >= 50 {
 								return v11
 							}
-						} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910((*server.Object)(a1), (*server.Object)(v5)) == nil {
+						} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
 							return v11
 						}
 						return -1
@@ -1267,7 +1267,7 @@ func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 								if nox_common_randomInt_415FA0(0, 100) >= 50 {
 									return v11
 								}
-							} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910((*server.Object)(a1), (*server.Object)(v5)) == nil {
+							} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
 								return v11
 							}
 							return -1
@@ -1281,14 +1281,14 @@ func sub_57B630(a1 unsafe.Pointer, a2 int32, a3 int32) int8 {
 						if nox_common_randomInt_415FA0(0, 100) >= 50 {
 							return v11
 						}
-					} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910((*server.Object)(a1), (*server.Object)(v5)) == nil {
+					} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
 						return v11
 					}
 					return -1
 				}
 			}
 		}
-	} else if (*(*uint32)(unsafe.Add(a1, 16))&0x4000) == 0 || (int32(v4)&0x40) == 0 {
+	} else if (a1.ObjFlags&0x4000) == 0 || (int32(v4)&0x40) == 0 {
 		if (int32(v4) & 4) == 0 {
 			return int8(*(*uint8)(v3))
 		}

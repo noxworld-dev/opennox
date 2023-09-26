@@ -80,7 +80,6 @@ var dword_5d4594_251572 int32
 var dword_5d4594_1303452 *gui.Window
 var dword_5d4594_2386224 uint32
 var dword_5d4594_815016 *gui.Window
-var dword_5d4594_2386152 uint32
 var dword_5d4594_1197312 *gui.Window
 var dword_5d4594_831236 *gui.Window
 var dword_5d4594_1047540 int32
@@ -146,7 +145,6 @@ var dword_5d4594_1522612 *gui.Window
 var dword_5d4594_1045468 *gui.Window
 var nox_xxx_lightningTargetArrayIndex_5d4594_2487904 uint32
 var dword_587000_127004 unsafe.Pointer
-var nox_alloc_visitNode_2386184 alloc.ClassT[visitNode]
 var nox_wol_server_result_cnt_815088 uint32
 var dword_5d4594_1046924 *ImageRef
 var nox_xxx_polygonNextAngle_587000_60356 uint32 = 0x1
@@ -163,7 +161,6 @@ var dword_5d4594_815044 uint32
 var nox_wnd_briefing_831232 *gui.Window
 var dword_5d4594_2487712 uint32
 var nox_alloc_tradeItems_2386496 alloc.ClassT[server.TradeItem]
-var dword_5d4594_2386180 int32
 var dword_5d4594_2386212 uint32
 var dword_5d4594_1319060 *gui.Window
 var dword_5d4594_1047548 uint32
@@ -240,9 +237,7 @@ var nox_server_connectionType_3596 uint32
 var dword_5d4594_830872 unsafe.Pointer
 var dword_5d4594_1200804 uint32
 var dword_5d4594_1049484 uint32
-var dword_5d4594_1599712 uint32
 var dword_5d4594_1321216 *gui.Window
-var dword_5d4594_2386160 uint32
 var dword_5d4594_1193712 *gui.Window
 var dword_5d4594_1319232 *gui.Window
 var dword_5d4594_1046656 int32
@@ -483,7 +478,6 @@ var dword_5d4594_1049524 unsafe.Pointer
 var dword_5d4594_1316484 uint32
 var dword_5d4594_1320936 unsafe.Pointer
 var dword_5d4594_1045552 *gui.Window
-var dword_587000_234176 uint32 = 0x41380000
 var dword_5d4594_1096264 uint32
 var dword_5d4594_831076 uint32
 var dword_5d4594_1321024 noxrender.ImageHandle
@@ -562,7 +556,6 @@ var dword_5d4594_1568300 uint32
 var dword_5d4594_1563320 uint32
 var dword_5d4594_1313692 uint32
 var dword_5d4594_1599688 uint32
-var dword_5d4594_2386164 uint32
 var nox_server_kickQuestPlayerMinVotes_229992 uint32 = 0x5
 var dword_5d4594_1523040 *gui.Window
 var dword_5d4594_1096272 uint32
@@ -578,7 +571,6 @@ var dword_5d4594_1556144 uint32
 var dword_5d4594_1050008 *ImageRef
 var dword_5d4594_3835372 uint32
 var dword_5d4594_1556136 uint32
-var dword_5d4594_2386168 uint32
 var dword_5d4594_527656 uint32
 var dword_5d4594_741652 uint32
 var dword_5d4594_1308096 *gui.Window
@@ -633,7 +625,6 @@ var dword_5d4594_1047536 int32
 var dword_5d4594_1549844 int32
 var dword_5d4594_1313804 uint32
 var nox_xxx_respawnAllow_587000_205200 uint32 = 0x1
-var dword_5d4594_2386172 uint32
 var dword_5d4594_1046652 uint32
 var dword_5d4594_2487632 uint32
 var dword_5d4594_3835360 uint32

@@ -1296,7 +1296,7 @@ func sub_4948B0(a1 *server.Team) {
 	if noxflags.HasGame(1) {
 		result := nox_xxx_getFirstPlayerUnit_4DA7C0()
 		for j := result; result != nil; j = result {
-			if nox_xxx_teamCompare2_419180(j.TeamPtr(), uint8(a1.IDVal)) == 0 {
+			if nox_xxx_teamCompare2_419180(j.TeamPtr(), a1.IDVal) == 0 {
 				v6 := nox_common_playerInfoGetByID_417040(int32(j.NetCode))
 				v7 := v6
 				if v6 != nil {
@@ -1316,7 +1316,7 @@ func sub_4948B0(a1 *server.Team) {
 	} else {
 		result := nox_xxx_cliGetSpritePlayer_45A000()
 		for k := result; result != nil; k = result {
-			if nox_xxx_teamCompare2_419180(k.TeamPtr(), uint8(a1.IDVal)) == 0 {
+			if nox_xxx_teamCompare2_419180(k.TeamPtr(), a1.IDVal) == 0 {
 				v9 := nox_common_playerInfoGetByID_417040(int32(k.Field_32))
 				v10 := v9
 				if v9 != nil {
