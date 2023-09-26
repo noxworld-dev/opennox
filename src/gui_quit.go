@@ -1,8 +1,6 @@
 package opennox
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -39,7 +37,7 @@ func nox_xxx_wndLoadQuitMenu_445790() int {
 	dword_5d4594_825752 = 0
 	dword_5d4594_825768 = 0
 	str := strMan.GetStringInFile("Vote", "guiquit.c")
-	alloc.StrCopyZero(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 825772)), 256), str)
+	alloc.StrCopyZero(memmap.PtrT[[256]byte](0x5D4594, 825772)[:], str)
 	return 1
 }
 

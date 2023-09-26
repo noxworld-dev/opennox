@@ -708,7 +708,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 			var v23 legacy.Nox_savegame_xxx
 			if (!noxflags.HasGame(noxflags.GameModeCoop) || copySaveDir(v20, common.SaveTmp) == nil) && legacy.Sub_41A000(alloc.GoStringS(sv.Path[:]), &v23) != 0 {
 
-				v23d := (*legacy.Nox_savegame_xxx)(memmap.PtrOff(0x85B3FC, 10980))
+				v23d := memmap.PtrT[legacy.Nox_savegame_xxx](0x85B3FC, 10980)
 				*v23d = v23
 				noxClient.GamePopState()
 				if int32(*memmap.PtrUint8(0x85B3FC, 12254)) == 0 {
@@ -902,12 +902,13 @@ func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEve
 			}
 			if alloc.GoStringS(nox_savegame_arr_1064948[saveNum].Path[:]) != "" {
 				path := datapath.SaveNameFromPath(alloc.GoStringS(nox_savegame_arr_1064948[saveNum].Path[:]))
-				alloc.StrCopy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 1082840)), 16), path)
+				pathArr := memmap.PtrT[[16]byte](0x5D4594, 1082840)
+				alloc.StrCopy(pathArr[:], path)
 				dword_5d4594_1082856.Capture(false)
 				msg := strMan.GetStringInFile("GUISave.c:OverwriteSaveMessage", "GUISave.c")
 				title := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "GUISave.c")
 				NewDialogWindow(dword_5d4594_1082856, title, msg, gui.DialogYesButton|gui.DialogNoButton|gui.DialogFlag6, func() {
-					name := alloc.GoString((*byte)(memmap.PtrOff(0x5D4594, 1082840)))
+					name := alloc.GoStringS(pathArr[:])
 					SaveCoop(name)
 					sub_46D6F0()
 				}, func() {

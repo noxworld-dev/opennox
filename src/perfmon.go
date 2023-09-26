@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"time"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/log"
@@ -91,7 +90,7 @@ type playerBandData struct {
 }
 
 func (m *Perfmon) bandData(ind int) playerBandData {
-	arr := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 1565124)), 3*common.MaxPlayers)
+	arr := memmap.PtrT[[3 * common.MaxPlayers]uint32](0x5D4594, 1565124)[:]
 	arr = arr[3*ind : 3*(ind+1)]
 	return playerBandData{
 		rpu: arr[0] & 0xff,
