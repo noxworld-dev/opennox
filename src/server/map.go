@@ -222,6 +222,16 @@ func (s *serverMap) Sub517B70(pos types.Pointf, fnc func(it *Object)) {
 	}
 }
 
+func (s *serverMap) Sub517B70byClass(pos types.Pointf, filter object.Class) *Object {
+	var found *Object
+	s.Sub517B70(pos, func(it *Object) {
+		if it.Class().HasAny(filter) {
+			found = it
+		}
+	})
+	return found
+}
+
 func (s *serverMap) ValidIndexPos(p types.Pointf) bool {
 	pi := RoundPos(p)
 	return pi.X >= 0 && pi.X < s.indexSize && pi.Y >= 0 && pi.Y < s.indexSize

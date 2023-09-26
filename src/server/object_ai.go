@@ -35,6 +35,7 @@ func aiStackEmptyAndIdle(u *Object) bool {
 
 type serverAI struct {
 	StackChanged bool
+	Paths        serverAIPaths
 }
 
 func (obj *Object) MaybePrintAIStack(event string) {

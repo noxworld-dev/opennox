@@ -683,10 +683,8 @@ func (s *Server) newSession() error {
 	if !s.Objs.Init(5000) {
 		return errors.New("nox_xxx_allocClassArrayObjects_4E3360 failed")
 	}
-	s.Server.Map.Init()
-	if nox_xxx_allocVisitNodesArray_50AB90() == 0 {
-		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
-	}
+	s.Map.Init()
+	s.AI.Paths.Init(s.Server)
 	s.Spells.Init()
 	s.spells.Init(s)
 	s.Abils.Reset()
@@ -773,7 +771,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.spells.Free()
 	s.Spells.Free()
 	nox_xxx_freeSpellRelated_4FCA80()
-	sub_50ABF0()
+	s.AI.Paths.Free()
 	s.Map.Free()
 	s.Audio.Free()
 	legacy.Sub_4ECA90()

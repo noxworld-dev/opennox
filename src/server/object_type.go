@@ -334,11 +334,7 @@ func (s *serverObjTypes) NecromancerID() int {
 	return s.cacheObjectTypeID(&s.fast.necrom, "Necromancer")
 }
 
-func (s *Server) ReadObjectType(thg *things.Thing) error {
-	return s.Types.readType(thg)
-}
-
-func (s *serverObjTypes) readType(thg *things.Thing) error {
+func (s *serverObjTypes) ReadObjectType(thg *things.Thing) error {
 	typ := &ObjectType{
 		s:        s,
 		id:       thg.Name,
