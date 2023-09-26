@@ -1950,7 +1950,8 @@ int sub_57B450(nox_drawable* a1p) {
 }
 
 //----- (0057B630) --------------------------------------------------------
-char sub_57B630(int a1, int a2, int a3) {
+char sub_57B630(nox_object_t* a1p, int a2, int a3) {
+	int a1 = a1p;
 	int v3;   // eax
 	char v4;  // cl
 	int v5;   // eax

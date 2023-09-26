@@ -247,11 +247,6 @@ func nox_xxx_collideGlyph_4E9A00(a1, a2 *nox_object_t) {
 	Nox_xxx_collideGlyph_4E9A00(asObjectS(a1), asObjectS(a2))
 }
 
-//export sub_57B4D0
-func sub_57B4D0(obj *nox_object_t) {
-	GetServer().S().Doors.SetKeyHolder(asObjectS(obj))
-}
-
 //export nox_xxx_doorGetSomeKey_4E8910
 func nox_xxx_doorGetSomeKey_4E8910(u, door *nox_object_t) *nox_object_t {
 	return asObjectC(GetServer().S().DoorCheckKey(asObjectS(u), asObjectS(door)))

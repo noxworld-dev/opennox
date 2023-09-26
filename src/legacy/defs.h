@@ -439,15 +439,6 @@ typedef struct {
 } nox_object_Mover_data_t;
 _Static_assert(sizeof(nox_object_Mover_data_t) == 36, "wrong size of nox_object_Mover_data_t structure!");
 
-#define NOX_SERVER_XXX_SIZE 256
-typedef struct nox_server_xxx {
-	uint32_t field_0;
-	uint32_t field_4;
-	uint16_t field_8;
-	uint16_t field_10;
-} nox_server_xxx;
-_Static_assert(sizeof(nox_server_xxx) == 12, "wrong size of nox_server_xxx structure!");
-
 typedef struct nox_things_imageRef_t {
 	char name[32];    // 0, 0
 	char name2[64];   // 8, 32
