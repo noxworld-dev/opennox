@@ -257,6 +257,11 @@ func PtrPtr(base, off uintptr) *unsafe.Pointer {
 	return (*unsafe.Pointer)(PtrSizeOff(base, off, ptrSize))
 }
 
+func PtrT[T comparable](base, off uintptr) *T {
+	var zero T
+	return (*T)(PtrSizeOff(base, off, unsafe.Sizeof(zero)))
+}
+
 func PtrUint8(base, off uintptr) *byte {
 	return (*byte)(PtrSizeOff(base, off, 1))
 }
