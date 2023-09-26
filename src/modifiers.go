@@ -45,28 +45,30 @@ func sub_4A5E90_A() {
 }
 
 func nox_xxx_equipWeapon_4131A0() {
+	s := noxServer
+	c := noxClient
 	if *memmap.PtrUint32(0x5D4594, 251616) != 1 {
-		for it := noxServer.Modif.Dword_5d4594_251600; it != nil; it = it.Next80 {
+		for it := s.Modif.Dword_5d4594_251600; it != nil; it = it.Next80 {
 			var ind int
 			if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
-				ind = noxServer.Types.IndByID(it.Name())
+				ind = s.Types.IndByID(it.Name())
 			} else {
 				if !noxflags.HasGame(noxflags.GameClient) {
 					return
 				}
-				ind = noxClient.Things.IndByID(it.Name())
+				ind = c.Things.IndByID(it.Name())
 			}
 			it.Ind4 = uint32(ind)
 		}
-		for j := noxServer.Modif.Dword_5d4594_251608; j != nil; j = j.Next80 {
+		for j := s.Modif.Dword_5d4594_251608; j != nil; j = j.Next80 {
 			var ind int
 			if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
-				ind = noxServer.Types.IndByID(j.Name())
+				ind = s.Types.IndByID(j.Name())
 			} else {
 				if !noxflags.HasGame(noxflags.GameClient) {
 					return
 				}
-				ind = noxClient.Things.IndByID(j.Name())
+				ind = c.Things.IndByID(j.Name())
 			}
 			j.Ind4 = uint32(ind)
 		}

@@ -1356,6 +1356,34 @@ func (obj *Object) CountSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
 	return cnt
 }
 
+func (obj *Object) Sub547DB0(p *types.Pointf) bool {
+	if obj.Shape.Kind == 1 {
+		return false
+	}
+	if obj.Shape.Kind != 2 {
+		if obj.Shape.Kind != 3 {
+			return false
+		}
+		v5 := obj.Shape.Box.LeftTop + obj.NewPos.X
+		v6 := obj.Shape.Box.LeftBottom + obj.NewPos.Y
+		if !(float64(v6-v5+p.X-p.Y)*0.70709997 < 0.0 && float64(obj.Shape.Box.LeftTop2+obj.NewPos.Y-(obj.Shape.Box.LeftBottom2+obj.NewPos.X)+p.X-p.Y)*0.70709997 > 0.0) {
+			return false
+		}
+		v7 := obj.Shape.Box.RightTop + obj.NewPos.X
+		v8 := obj.Shape.Box.RightBottom + obj.NewPos.Y
+		if float64(v8+v7-p.X-p.Y)*0.70709997 > 0.0 && float64(v6+v5-p.X-p.Y)*0.70709997 < 0.0 {
+			return true
+		}
+		return false
+	}
+	v3 := float64(obj.NewPos.X - p.X)
+	v4 := float64(obj.NewPos.Y - p.Y)
+	if v4*v4+v3*v3 > float64(obj.Shape.Circle.R2) {
+		return false
+	}
+	return true
+}
+
 func (s *Server) ItemsApplyUpdateEffect(obj *Object) {
 	for it := obj.InvFirstItem; it != nil; it = it.InvNextItem {
 		const maskItems = object.ClassFlag | object.ClassWeapon | object.ClassArmor | object.ClassWand

@@ -175,7 +175,7 @@ func drawDebugAI(vp *noxrender.Viewport) {
 	c := noxClient
 	r := c.r
 
-	if arr := Sub_50CB10(); len(arr) >= 2 {
+	if arr := c.srv.AI.Paths.Points(); len(arr) >= 2 {
 		cur := sub_50D210()
 		var lp image.Point
 		for i := 0; i < len(arr)-1; i++ {
@@ -214,7 +214,7 @@ func drawDebugAI(vp *noxrender.Viewport) {
 				r.DrawBorder(xi-vp.World.Min.X, yi-vp.World.Min.Y, common.GridStep, common.GridStep, r.Data().Color2())
 				continue
 			}
-			flags := sub_50AB50(x, y)
+			flags := c.srv.AI.Paths.MapIndexFlags(x, y)
 			var cl color.Color
 			if flags&0x40 != 0 {
 				cl = noxcolor.RGB5551Color(0, 255, 0)
@@ -222,7 +222,7 @@ func drawDebugAI(vp *noxrender.Viewport) {
 				cl = noxcolor.RGB5551Color(0, 255, 255)
 			} else if flags&1 != 0 {
 				cl = noxcolor.RGB5551Color(0, 100, 100)
-			} else if flags&(aiIndexElevator|aiIndexElevatorShaft|aiIndexHole|aiIndexTransporter) != 0 {
+			} else if flags&(server.AIIndexElevator|server.AIIndexElevatorShaft|server.AIIndexHole|server.AIIndexTransporter) != 0 {
 				cl = noxcolor.RGB5551Color(255, 0, 255)
 			} else if flags&0x400 != 0 {
 				cl = noxcolor.RGB5551Color(255, 0, 0)
