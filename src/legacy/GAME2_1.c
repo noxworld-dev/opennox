@@ -4956,6 +4956,8 @@ void nox_xxx_drawMinimap4Sprite_4725C0(int a1) {
 
 //----- (00472600) --------------------------------------------------------
 void* sub_4106A0(int a1);
+int sub_50CB00();
+void* sub_50CB10();
 int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	char* v2;                           // ebp
 	int v3;                             // esi

@@ -137,3 +137,7 @@ func (w *Waypoint) Pos() types.Pointf {
 func (w *Waypoint) SetPos(p types.Pointf) {
 	w.S().SetPos(p)
 }
+
+func sub_579EE0(a1 *server.Waypoint, a2 uint8) int {
+	return bool2int((int32(a2) & int32(a1.Flags2)) != 0)
+}

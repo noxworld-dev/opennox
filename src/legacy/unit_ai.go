@@ -11,10 +11,13 @@ package legacy
 #include "GAME5.h"
 #include "server__script__script.h"
 extern unsigned int dword_5d4594_2489460;
+char sub_57B630(nox_object_t* a1, int a2, int a3);
 */
 import "C"
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -133,6 +136,47 @@ func nox_xxx_monsterClearActionStack_50A3A0(a1 *nox_object_t) {
 func nox_xxx_checkMobAction_50A0D0(a1 *nox_object_t, a2 int) int {
 	return bool2int(asObjectS(a1).UpdateDataMonster().HasAction(ai.ActionType(a2)))
 }
+
+//export nox_xxx_generateRetreatPath_50CA00
+func nox_xxx_generateRetreatPath_50CA00(ptr unsafe.Pointer, sz int, obj *nox_object_t, p *C.float2) int {
+	return GetServer().Nox_xxx_generateRetreatPath_50CA00(unsafe.Slice((*types.Pointf)(ptr), sz), asObjectS(obj), (*types.Pointf)(unsafe.Pointer(p)))
+}
+
+//export nox_xxx_creatureSetDetailedPath_50D220
+func nox_xxx_creatureSetDetailedPath_50D220(obj *nox_object_t, p *C.float2) {
+	GetServer().Nox_xxx_creatureSetDetailedPath_50D220(asObjectS(obj), (*types.Pointf)(unsafe.Pointer(p)))
+}
+
+//export sub_50B810
+func sub_50B810(obj *nox_object_t, p *C.float2) int {
+	return GetServer().Sub_50B810(asObjectS(obj), (*types.Pointf)(unsafe.Pointer(p)))
+}
+
+//export sub_50CB20
+func sub_50CB20(obj *nox_object_t, p *C.float2) *nox_waypoint_t {
+	return asWaypointC(GetServer().Sub_50CB20(asObjectS(obj), (*types.Pointf)(unsafe.Pointer(p))))
+}
+
+//export sub_50B500
+func sub_50B500() {
+	GetServer().Sub_50B500()
+}
+
+//export sub_50B510
+func sub_50B510() {
+	GetServer().Sub_50B510()
+}
+
+//export sub_50CB00
+func sub_50CB00() int {
+	return GetServer().Sub_50CB00()
+}
+
+//export sub_50CB10
+func sub_50CB10() unsafe.Pointer {
+	return unsafe.Pointer(&GetServer().Sub_50CB10()[0])
+}
+
 func Nox_xxx_mobSearchEdible_544A00(a1 *server.Object, a2 float32) int {
 	return int(C.nox_xxx_mobSearchEdible_544A00(asObjectC(a1), C.float(a2)))
 }
@@ -189,4 +233,7 @@ func Nox_xxx_mobActionCast_5413B0(a1 *server.Object, a2 int) {
 }
 func Nox_xxx_monsterMarkUpdate_4E8020(a1 *server.Object) {
 	C.nox_xxx_monsterMarkUpdate_4E8020(asObjectC(a1))
+}
+func Sub_57B630(a1 *server.Object, a2, a3 int) int {
+	return int(C.sub_57B630(asObjectC(a1), C.int(a2), C.int(a3)))
 }
