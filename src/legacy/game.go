@@ -197,16 +197,6 @@ func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
 	GetServer().S().Map.Sub5178E0(a1 != 0, p)
 }
 
-//export nox_xxx_waypointMapRegister_5179B0
-func nox_xxx_waypointMapRegister_5179B0(a1p *nox_waypoint_t) {
-	GetServer().S().Map.Nox_xxx_waypointMapRegister_5179B0(asWaypointS(a1p))
-}
-
-//export sub_517A70
-func sub_517A70(a1p *nox_waypoint_t) {
-	GetServer().S().Map.Sub517A70(asWaypointS(a1p))
-}
-
 //export sub_517B70
 func sub_517B70(pos *C.float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 	if fnc == nil {

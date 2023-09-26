@@ -513,8 +513,6 @@ func (s *Server) sub_50AFA0() {
 		v14 int32
 		v15 int32
 		v17 *float32
-		v21 int32
-		v22 int32
 		v23 float32
 		v24 float32
 		v25 float32
@@ -527,8 +525,6 @@ func (s *Server) sub_50AFA0() {
 		v32 float32
 		v33 float32
 		v34 float32
-		v35 float32
-		v36 float32
 		v38 int32
 		v39 int32
 		v40 int32
@@ -622,16 +618,12 @@ func (s *Server) sub_50AFA0() {
 			}
 		}
 	}
-	result := legacy.FirstWaypoint()
-	for k := result; result != nil; k = result {
+	for k := s.FirstWaypoint(); k != nil; k = k.WpNext {
 		if sub_579EE0(k, 0x80) != 0 {
-			v35 = float32(float64(k.PosVec.X) / 23)
-			v21 = int32(v35)
-			v36 = float32(float64(k.PosVec.Y) / 23)
-			v22 = int32(v36)
+			v21 := int32(float64(k.PosVec.X) / 23)
+			v22 := int32(float64(k.PosVec.Y) / 23)
 			s.AI.Paths.MapIndex(int(v21), int(v22)).Flags8 |= 0x40
 		}
-		result = k.WpNext
 	}
 }
 

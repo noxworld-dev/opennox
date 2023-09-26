@@ -140,8 +140,6 @@ int sub_517590(float a1, float a2);
 short sub_517870(nox_object_t* a1);
 void sub_5178E0(int a1, void* a2);
 void nox_xxx_moveUpdateSpecial_517970(nox_object_t* unit);
-void nox_xxx_waypointMapRegister_5179B0(nox_waypoint_t* a1);
-void sub_517A70(nox_waypoint_t* a1);
 void nox_xxx_unitsGetInCircle_517F90(float2* a1, float a2, void* fnc, void* data);
 int sub_518040(int arg0, float a2, int arg8, int a4);
 void sub_5180B0(int a1, int a2);
