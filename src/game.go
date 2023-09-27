@@ -1120,7 +1120,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			s.nox_xxx_netReportLesson_4D8EF0(k)
 		}
 	}
-	s.sub_50AFA0()
+	s.AI.Paths.Sub50AFA0()
 	s.AI.Paths.IndexObjects()
 	*memmap.PtrUint32(0x5D4594, 1548528) = 0
 	legacy.Set_dword_5d4594_1548532(nil)
