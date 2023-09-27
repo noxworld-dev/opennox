@@ -170,7 +170,7 @@ func eachWaypointRecursive(s *Server, g *server.MapGroup, fnc func(wp ns4.Waypoi
 	switch g.GroupType() {
 	case server.MapGroupWaypoints:
 		for it := g.First(); it != nil; it = it.Next() {
-			if wp := s.getWaypointByInd(it.Data1()); wp != nil {
+			if wp := s.WPs.ByInd(it.Data1()); wp != nil {
 				if !fnc(wp) {
 					return false
 				}

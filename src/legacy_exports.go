@@ -20,7 +20,6 @@ func init() {
 	legacy.Nox_xxx_cliDrawConnectedLoop_43B360 = nox_xxx_cliDrawConnectedLoop_43B360
 	legacy.Nox_client_guiXxxDestroy_4A24A0 = nox_client_guiXxxDestroy_4A24A0
 	legacy.Nox_client_quit_4460C0 = nox_client_quit_4460C0
-	legacy.Nox_server_getWaypointById_579C40 = nox_server_getWaypointById_579C40
 	legacy.Nox_gui_makeAnimation_43C5B0 = nox_gui_makeAnimation
 	legacy.Nox_client_gui_set_flag_815132 = nox_client_gui_set_flag_815132
 	legacy.Nox_client_onClientStatusA = nox_client_onClientStatusA
