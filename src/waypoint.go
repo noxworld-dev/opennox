@@ -140,10 +140,6 @@ func (w *Waypoint) SetPos(p types.Pointf) {
 	w.S().SetPos(p)
 }
 
-func sub_579EE0(a1 *server.Waypoint, a2 uint8) int {
-	return bool2int((int32(a2) & int32(a1.Flags2)) != 0)
-}
-
 func (s *Server) Nox_xxx_waypoint_5799C0() {
 	var next *server.Waypoint
 	for it := s.WPs.Pending; it != nil; it = next {
@@ -260,7 +256,7 @@ func (s *Server) Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) 
 	}
 	s.WPs.CntXxx = 0
 	for wp := s.WPs.First(); wp != nil; wp = wp.WpNext {
-		if sub_579EE0(wp, 0x80) != 0 && wp.Flags&1 != 0 {
+		if wp.HasFlag2Mask(0x80) && wp.Flags&1 != 0 {
 			s.WPs.CntXxx++
 		}
 	}
@@ -269,7 +265,7 @@ func (s *Server) Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) 
 	}
 	cnt := s.Rand.Logic.IntClamp(0, s.WPs.CntXxx-1)
 	for wp := s.WPs.First(); wp != nil; wp = wp.WpNext {
-		if sub_579EE0(wp, 0x80) == 0 {
+		if !wp.HasFlag2Mask(0x80) {
 			continue
 		}
 		if (wp.Flags & 1) == 0 {

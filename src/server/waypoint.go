@@ -172,7 +172,7 @@ func (w *Waypoint) SetPos(p types.Pointf) {
 	w.PosVec = p
 }
 
-func (w *Waypoint) HasFlag2Mask(mask byte) bool {
+func (w *Waypoint) HasFlag2Mask(mask byte) bool { // sub_579EE0
 	return mask&w.Flags2 != 0
 }
 
