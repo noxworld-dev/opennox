@@ -371,10 +371,11 @@ func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 }
 
 func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool {
+	s := noxServer
 	var pos types.Pointf
 	switch len(tokens) {
 	case 1: // waypoint name
-		wp := noxServer.getWaypointByID(tokens[0])
+		wp := s.WPs.ByID(tokens[0])
 		if wp == nil {
 			c.Printf(console.ColorLightRed, "cannot find waypoint %q", tokens[0])
 			return true
@@ -396,7 +397,7 @@ func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool
 		c.Print(console.ColorLightRed, "expected two coordinates or a waypoint name")
 		return false
 	}
-	for _, p := range noxServer.GetPlayers() {
+	for _, p := range s.GetPlayers() {
 		u := p.UnitC()
 		if u == nil {
 			c.Printf(console.ColorLightRed, "player %q doesn't have a unit", p.Name())

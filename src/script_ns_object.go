@@ -541,8 +541,8 @@ func (obj nsObj) Move(w ns4.WaypointObj) {
 	if obj.Flags().Has(object.FlagDead) {
 		return
 	}
-	wp := w.(*Waypoint)
-	legacy.Nox_server_scriptMoveTo_5123C0(obj.SObj(), wp.S())
+	wp := w.(*server.Waypoint)
+	legacy.Nox_server_scriptMoveTo_5123C0(obj.SObj(), wp)
 }
 
 func (obj nsObj) WalkTo(p types.Pointf) {

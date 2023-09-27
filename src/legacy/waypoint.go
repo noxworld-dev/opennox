@@ -13,10 +13,6 @@ import (
 )
 
 var (
-	Nox_server_getWaypointById_579C40 func(a1 int) *server.Waypoint
-)
-
-var (
 	_ = [1]struct{}{}[516-unsafe.Sizeof(server.Waypoint{})]
 	_ = [1]struct{}{}[516-unsafe.Sizeof(nox_waypoint_t{})]
 )
@@ -33,7 +29,7 @@ func asWaypointC(p *server.Waypoint) *nox_waypoint_t {
 
 //export nox_server_getWaypointById_579C40
 func nox_server_getWaypointById_579C40(a1 int) *nox_waypoint_t {
-	return asWaypointC(Nox_server_getWaypointById_579C40(a1))
+	return asWaypointC(GetServer().S().WPs.ByInd(a1))
 }
 
 //export nox_xxx_waypointGetList_579860
@@ -53,7 +49,7 @@ func nox_xxx_waypoint_579F00(out *C.float2, obj *nox_object_t) int {
 
 //export sub_579C80
 func sub_579C80(a1 uint32) *nox_waypoint_t {
-	return asWaypointC(GetServer().S().WPs.Sub_579C80(a1))
+	return asWaypointC(GetServer().S().WPs.ByInd2(int(a1)))
 }
 
 //export nox_xxx_waypointNew_5798F0
