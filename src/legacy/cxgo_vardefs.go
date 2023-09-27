@@ -441,7 +441,6 @@ var dword_5d4594_3807152 int32
 var dword_5d4594_1049996 noxrender.ImageHandle
 var dword_5d4594_1305788 uint32
 var dword_5d4594_1098600 *wchar2_t
-var dword_5d4594_2523760 uint32
 var dword_5d4594_1064868 uint32
 var dword_5d4594_1320988 uint32
 var dword_5d4594_1599696 uint32

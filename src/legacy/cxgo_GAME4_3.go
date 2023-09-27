@@ -597,7 +597,7 @@ func Nox_xxx_spellBlink1_530380(sp *server.DurSpell) int32 {
 		} else {
 			nox_xxx_mapFindPlayerStart_4F7AB0(&v13, a1.Target48)
 		}
-	} else if nox_xxx_waypoint_579F00((*uint32)(unsafe.Pointer(&v13)), unsafe.Pointer(a1.Target48)) == 0 {
+	} else if nox_xxx_waypoint_579F00(&v13, a1.Target48) == 0 {
 		nox_xxx_mapFindPlayerStart_4F7AB0(&v13, a1.Target48)
 	}
 	nox_xxx_spellTeleportCreateWake_530560(a1.Target48, &a1.Target48.PosVec, (*uint32)(unsafe.Pointer(&v13)))
