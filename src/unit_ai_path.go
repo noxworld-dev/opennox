@@ -618,7 +618,7 @@ func (s *Server) sub_50AFA0() {
 			}
 		}
 	}
-	for k := s.FirstWaypoint(); k != nil; k = k.WpNext {
+	for k := s.WPs.First(); k != nil; k = k.WpNext {
 		if sub_579EE0(k, 0x80) != 0 {
 			v21 := int32(float64(k.PosVec.X) / 23)
 			v22 := int32(float64(k.PosVec.Y) / 23)

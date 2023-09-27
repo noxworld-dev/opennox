@@ -11,9 +11,82 @@ import (
 )
 
 type serverWaypoints struct {
+	List                 *Waypoint
+	Pending              *Waypoint
+	CntXxx               int
 	dword_5d4594_2386928 float32
 	dword_5d4594_2386948 *Waypoint
 	dword_5d4594_2386960 uint32
+}
+
+func (s *serverWaypoints) First() *Waypoint { // nox_xxx_waypointGetList_579860
+	return s.List
+}
+
+func (s *serverWaypoints) Nox_xxx_waypoint_5798C0() uint32 {
+	nextInd := uint32(1)
+	for it := s.List; it != nil; it = it.WpNext {
+		if nextInd <= it.Index {
+			nextInd = it.Index + 1
+		}
+	}
+	return nextInd
+}
+
+func (s *serverWaypoints) Sub_579A30() {
+	for wp := s.List; wp != nil; wp = wp.WpNext {
+		wp.Flags2 = 0
+		for i := 0; i < int(wp.PointsCnt); i++ {
+			pt := &wp.Points[i]
+			wp.Flags2 |= pt.Ind
+		}
+		for wp2 := s.List; wp2 != nil; wp2 = wp2.WpNext {
+			for i := 0; i < int(wp2.PointsCnt); i++ {
+				pt := &wp2.Points[i]
+				if pt.Waypoint == wp {
+					wp.Flags2 |= pt.Ind
+				}
+			}
+		}
+	}
+}
+
+func (s *serverWaypoints) Sub_579AD0(pos types.Pointf) *Waypoint {
+	var out *Waypoint
+	min := float32(100.0)
+	for it := s.List; it != nil; it = it.WpNext {
+		dx := float64(it.PosVec.X - pos.X)
+		dy := float64(it.PosVec.Y - pos.Y)
+		dd := dy*dy + dx*dx
+		if dd < float64(min) {
+			min = float32(dd)
+			out = it
+		}
+	}
+	return out
+}
+
+func (s *serverWaypoints) Nox_xxx_waypointNewNotMap_579970(ind int, pos types.Pointf) *Waypoint {
+	wp, _ := alloc.New(Waypoint{})
+	wp.Index = uint32(ind)
+	wp.PosVec = pos
+	wp.Flags |= 0x1
+	wp.WpNext = s.Pending
+	s.Pending = wp
+	return wp
+}
+
+func (s *serverWaypoints) Sub_579890() *Waypoint {
+	return s.Pending
+}
+
+func (s *serverWaypoints) Sub_579C80(a1 uint32) *Waypoint {
+	for it := s.Pending; it != nil; it = it.WpNext {
+		if it.Index == a1 {
+			return it
+		}
+	}
+	return nil
 }
 
 type WaypointSub struct {
@@ -104,19 +177,19 @@ func (w *Waypoint) HasFlag2Mask(mask byte) bool {
 }
 
 func (s *Server) Sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
-	s.wps.dword_5d4594_2386960++
-	s.wps.dword_5d4594_2386928 = 1000.0
+	s.WPs.dword_5d4594_2386960++
+	s.WPs.dword_5d4594_2386928 = 1000.0
 	var found *Waypoint
 	for r := float32(0.0); r < 1000.0; {
 		x1 := RoundCoord(pos.X - r)
 		y1 := RoundCoord(pos.Y - r)
 		x2 := RoundCoord(pos.X + r)
 		y2 := RoundCoord(pos.Y + r)
-		s.wps.dword_5d4594_2386948 = nil
+		s.WPs.dword_5d4594_2386948 = nil
 		s.sub_518550(image.Rect(x1, y1, x2, y2), pos, mask, scanSub)
-		if s.wps.dword_5d4594_2386948 != nil {
-			found = s.wps.dword_5d4594_2386948
-			r = s.wps.dword_5d4594_2386928
+		if s.WPs.dword_5d4594_2386948 != nil {
+			found = s.WPs.dword_5d4594_2386948
+			r = s.WPs.dword_5d4594_2386928
 		} else {
 			if found != nil {
 				return found
@@ -128,11 +201,11 @@ func (s *Server) Sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint
 }
 
 func (s *Server) sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool) {
-	s.Map.Sub518550Base(rect, mask, scanSub, &s.wps.dword_5d4594_2386960, func(it *Waypoint) {
-		if dist := pos.Sub(it.Pos()).Len(); dist < float64(s.wps.dword_5d4594_2386928) {
+	s.Map.Sub518550Base(rect, mask, scanSub, &s.WPs.dword_5d4594_2386960, func(it *Waypoint) {
+		if dist := pos.Sub(it.Pos()).Len(); dist < float64(s.WPs.dword_5d4594_2386928) {
 			if s.MapTraceRayAt(pos, it.Pos(), nil, nil, MapTraceFlag1) {
-				s.wps.dword_5d4594_2386948 = it
-				s.wps.dword_5d4594_2386928 = float32(dist)
+				s.WPs.dword_5d4594_2386948 = it
+				s.WPs.dword_5d4594_2386928 = float32(dist)
 			}
 		}
 	})

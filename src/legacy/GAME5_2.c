@@ -48,8 +48,6 @@ extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
 
-void* dword_5d4594_2523756 = 0;
-
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
 	char buf[72];
