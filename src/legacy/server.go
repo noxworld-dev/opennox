@@ -97,14 +97,9 @@ type Server interface {
 	TeamRemove(t *server.Team, netUpd bool)
 	DelayedDelete(obj *server.Object)
 	PendingObjByScriptID4CFFE0(sid int) *server.Object
-	FirstWaypoint() *server.Waypoint
-	Sub_579890() *server.Waypoint
 	NewWaypoint(pos types.Pointf) *server.Waypoint
-	Nox_xxx_waypointNewNotMap_579970(ind int, pos types.Pointf) *server.Waypoint
 	PendingWaypointByInd579C60(id uint32) *server.Waypoint
 	Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) int
-	Sub_579C80(a1 uint32) *server.Waypoint
-	Sub_579AD0(pos types.Pointf) *server.Waypoint
 	Sub_579E90(wp *server.Waypoint)
 	Sub_579D20()
 	Nox_xxx_waypoint_5799C0()

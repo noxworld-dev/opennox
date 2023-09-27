@@ -2,7 +2,6 @@ package legacy
 
 /*
 #include <stdint.h>
-extern void* dword_5d4594_2523756;
 extern uint32_t dword_5d4594_3835312;
 int  nox_server_scriptGetGroupId_57C2D0(int** a1);
 */
@@ -68,10 +67,6 @@ func sub_504720(a1, a2 uint32) int32 {
 
 func Nox_server_scriptGetGroupId_57C2D0(g unsafe.Pointer) server.MapGroupKind {
 	return server.MapGroupKind(C.nox_server_scriptGetGroupId_57C2D0((**C.int)(g)))
-}
-
-func Get_dword_5d4594_2523756() *server.Waypoint {
-	return asWaypointS((*nox_waypoint_t)(C.dword_5d4594_2523756))
 }
 
 func Get_dword_5d4594_3835312() int {

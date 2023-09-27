@@ -66,7 +66,7 @@ type Server struct {
 
 	Rand       serverRandom
 	Walls      serverWalls
-	wps        serverWaypoints
+	WPs        serverWaypoints
 	Types      serverObjTypes
 	Objs       serverObjects
 	Modif      serverModifiers
