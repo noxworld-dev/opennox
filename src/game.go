@@ -1210,7 +1210,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	s.ShouldCallMapEntry = true
 	if s.mapSwitchWPName != "" {
-		if wp := s.getWaypointByID(s.mapSwitchWPName); wp != nil {
+		if wp := s.WPs.ByID(s.mapSwitchWPName); wp != nil {
 			gameLog.Printf("moving player to waypoint: %q", s.mapSwitchWPName)
 			wpos := wp.Pos()
 			for _, u := range s.getPlayerUnits() {

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"image"
 	"strings"
 	"unsafe"
@@ -21,6 +22,14 @@ type serverWaypoints struct {
 
 func (s *serverWaypoints) First() *Waypoint { // nox_xxx_waypointGetList_579860
 	return s.List
+}
+
+func (s *serverWaypoints) All() []*Waypoint {
+	var out []*Waypoint
+	for w := s.First(); w != nil; w = w.Next() {
+		out = append(out, w)
+	}
+	return out
 }
 
 func (s *serverWaypoints) Nox_xxx_waypoint_5798C0() uint32 {
@@ -80,9 +89,27 @@ func (s *serverWaypoints) Sub_579890() *Waypoint {
 	return s.Pending
 }
 
-func (s *serverWaypoints) Sub_579C80(a1 uint32) *Waypoint {
+func (s *serverWaypoints) ByInd(ind int) *Waypoint {
+	for it := s.List; it != nil; it = it.WpNext {
+		if it.Index == uint32(ind) {
+			return it
+		}
+	}
+	return nil
+}
+
+func (s *serverWaypoints) ByID(id string) *Waypoint {
+	for w := s.List; w != nil; w = w.WpNext {
+		if w.EqualID(id) {
+			return w
+		}
+	}
+	return nil
+}
+
+func (s *serverWaypoints) ByInd2(ind int) *Waypoint { // sub_579C80
 	for it := s.Pending; it != nil; it = it.WpNext {
-		if it.Index == a1 {
+		if it.Index == uint32(ind) {
 			return it
 		}
 	}
@@ -122,14 +149,22 @@ func (w *Waypoint) C() unsafe.Pointer {
 }
 
 func (w *Waypoint) ID() string {
+	return w.Name()
+}
+
+func (w *Waypoint) SetID(id string) {
+	w.SetName(id)
+}
+
+func (w *Waypoint) Name() string {
 	if w == nil {
 		return ""
 	}
 	return alloc.GoStringS(w.NameBuf[:])
 }
 
-func (w *Waypoint) SetID(id string) {
-	alloc.StrCopyZero(w.NameBuf[:], id)
+func (w *Waypoint) SetName(name string) {
+	alloc.StrCopyZero(w.NameBuf[:], name)
 }
 
 func (w *Waypoint) EqualID(id2 string) bool {
@@ -138,6 +173,22 @@ func (w *Waypoint) EqualID(id2 string) bool {
 		return false
 	}
 	return id == id2 || strings.HasSuffix(id, ":"+id2)
+}
+
+func (w *Waypoint) Next() *Waypoint { // sub_5798A0
+	return w.WpNext
+}
+
+func (w *Waypoint) Ind() int {
+	return int(w.Index)
+}
+
+func (w *Waypoint) ScriptID() int {
+	return int(w.Index)
+}
+
+func (w *Waypoint) WaypointScriptID() int {
+	return int(w.Index)
 }
 
 func (w *Waypoint) String() string {
@@ -174,6 +225,31 @@ func (w *Waypoint) SetPos(p types.Pointf) {
 
 func (w *Waypoint) HasFlag2Mask(mask byte) bool { // sub_579EE0
 	return mask&w.Flags2 != 0
+}
+
+type debugWaypoint struct {
+	Ind      int          `json:"ind"`
+	ID       string       `json:"id,omitempty"`
+	ScriptID int          `json:"script_id,omitempty"`
+	Pos      types.Pointf `json:"pos"`
+	Flags    uint32       `json:"flags,omitempty"`
+}
+
+func (w *Waypoint) dump() *debugWaypoint {
+	if w == nil {
+		return nil
+	}
+	return &debugWaypoint{
+		Ind:      w.Ind(),
+		ID:       w.ID(),
+		ScriptID: w.ScriptID(),
+		Pos:      w.Pos(),
+		Flags:    w.Flags,
+	}
+}
+
+func (w *Waypoint) MarshalJSON() ([]byte, error) {
+	return json.Marshal(w.dump())
 }
 
 func (s *Server) Sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {

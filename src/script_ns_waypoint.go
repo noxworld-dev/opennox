@@ -8,7 +8,7 @@ import (
 )
 
 func (s noxScriptNS) Waypoints() []ns.WaypointObj {
-	list := s.s.getWaypoints()
+	list := s.s.WPs.All()
 	out := make([]ns.WaypointObj, 0, len(list))
 	for _, wp := range list {
 		out = append(out, wp)
@@ -20,7 +20,7 @@ func (s noxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
 	if h == nil {
 		return nil
 	}
-	wp := s.s.getWaypointByInd(h.WaypointScriptID())
+	wp := s.s.WPs.ByInd(h.WaypointScriptID())
 	if wp == nil {
 		return nil
 	}
@@ -28,7 +28,7 @@ func (s noxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
 }
 
 func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
-	wp := s.s.getWaypointByID(name)
+	wp := s.s.WPs.ByID(name)
 	if wp == nil {
 		scriptLog.Printf("noxscript: cannot find waypoint: %q", name)
 		return nil
@@ -37,7 +37,7 @@ func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 }
 
 func (s noxScriptNS) NewWaypoint(name string, pos types.Pointf) ns.WaypointObj {
-	wp := s.s.newWaypoint(pos)
+	wp := s.s.NewWaypoint(pos)
 	wp.SetName(name)
 	return wp
 }

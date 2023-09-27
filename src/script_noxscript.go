@@ -880,7 +880,7 @@ func (s *noxScript) PopWallGroupNS() ns4.WallGroupObj {
 }
 
 func (s *noxScript) PopWaypointNS() ns4.WaypointObj {
-	wp := s.s.getWaypointByInd(int(s.PopI32()))
+	wp := s.s.WPs.ByInd(int(s.PopI32()))
 	if wp == nil {
 		return nil
 	}

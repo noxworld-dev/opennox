@@ -276,7 +276,7 @@ func (s noxScriptImpl) ObjectGroupByID(id string) *script.ObjectGroup {
 }
 
 func (s noxScriptImpl) WaypointByID(id string) script.Waypoint {
-	w := s.s.getWaypointByID(id)
+	w := s.s.WPs.ByID(id)
 	if w == nil {
 		return nil
 	}
