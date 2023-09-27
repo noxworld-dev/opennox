@@ -38,12 +38,12 @@ func nox_server_getWaypointById_579C40(a1 int) *nox_waypoint_t {
 
 //export nox_xxx_waypointGetList_579860
 func nox_xxx_waypointGetList_579860() *nox_waypoint_t {
-	return asWaypointC(GetServer().FirstWaypoint())
+	return asWaypointC(GetServer().S().WPs.First())
 }
 
 //export sub_579890
 func sub_579890() *nox_waypoint_t {
-	return asWaypointC(GetServer().Sub_579890())
+	return asWaypointC(GetServer().S().WPs.Sub_579890())
 }
 
 //export nox_xxx_waypoint_579F00
@@ -53,7 +53,7 @@ func nox_xxx_waypoint_579F00(out *C.float2, obj *nox_object_t) int {
 
 //export sub_579C80
 func sub_579C80(a1 uint32) *nox_waypoint_t {
-	return asWaypointC(GetServer().Sub_579C80(a1))
+	return asWaypointC(GetServer().S().WPs.Sub_579C80(a1))
 }
 
 //export nox_xxx_waypointNew_5798F0
@@ -63,12 +63,12 @@ func nox_xxx_waypointNew_5798F0(x, y float32) *nox_waypoint_t {
 
 //export sub_579AD0
 func sub_579AD0(x, y float32) *nox_waypoint_t {
-	return asWaypointC(GetServer().Sub_579AD0(types.Ptf(x, y)))
+	return asWaypointC(GetServer().S().WPs.Sub_579AD0(types.Ptf(x, y)))
 }
 
 //export nox_xxx_waypointNewNotMap_579970
 func nox_xxx_waypointNewNotMap_579970(ind int, x, y float32) *nox_waypoint_t {
-	return asWaypointC(GetServer().Nox_xxx_waypointNewNotMap_579970(ind, types.Ptf(x, y)))
+	return asWaypointC(GetServer().S().WPs.Nox_xxx_waypointNewNotMap_579970(ind, types.Ptf(x, y)))
 }
 
 //export sub_579D20

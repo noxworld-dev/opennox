@@ -31,7 +31,7 @@ func (s *Server) PendingObjByScriptID4CFFE0(sid int) *server.Object {
 }
 
 func (s *Server) PendingWaypointByInd579C60(id uint32) *server.Waypoint {
-	for it := legacy.Get_dword_5d4594_2523756(); it != nil; it = it.WpNext {
+	for it := s.WPs.Pending; it != nil; it = it.WpNext {
 		if it.Field1 == id {
 			return it
 		}

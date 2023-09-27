@@ -12,12 +12,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var (
-	nox_xxx_waypointsHead_2523752 *server.Waypoint
-	dword_5d4594_2523756          *server.Waypoint
-	dword_5d4594_2523760          int
-)
-
 func asWaypoint(p unsafe.Pointer) *Waypoint {
 	return (*Waypoint)(p)
 }
@@ -31,7 +25,7 @@ func (s *Server) newWaypoint(pos types.Pointf) *Waypoint {
 }
 
 func (s *Server) firstWaypoint() *Waypoint {
-	return asWaypointS(s.FirstWaypoint())
+	return asWaypointS(s.WPs.First())
 }
 
 func (s *Server) getWaypointByID(id string) *Waypoint {
@@ -150,115 +144,55 @@ func sub_579EE0(a1 *server.Waypoint, a2 uint8) int {
 	return bool2int((int32(a2) & int32(a1.Flags2)) != 0)
 }
 
-func (s *Server) FirstWaypoint() *server.Waypoint { // nox_xxx_waypointGetList_579860
-	return nox_xxx_waypointsHead_2523752
-}
-
-func nox_xxx_waypoint_5798C0() uint32 {
-	nextInd := uint32(1)
-	for it := nox_xxx_waypointsHead_2523752; it != nil; it = it.WpNext {
-		if nextInd <= it.Index {
-			nextInd = it.Index + 1
-		}
-	}
-	return nextInd
-}
-
 func (s *Server) Nox_xxx_waypoint_5799C0() {
 	var next *server.Waypoint
-	for it := dword_5d4594_2523756; it != nil; it = next {
+	for it := s.WPs.Pending; it != nil; it = next {
 		next = it.WpNext
-		it.WpNext = nox_xxx_waypointsHead_2523752
-		if nox_xxx_waypointsHead_2523752 != nil {
-			nox_xxx_waypointsHead_2523752.WpPrev = it
+		it.WpNext = s.WPs.List
+		if s.WPs.List != nil {
+			s.WPs.List.WpPrev = it
 		}
-		nox_xxx_waypointsHead_2523752 = it
+		s.WPs.List = it
 		if noxflags.HasGame(1) {
 			s.Map.Nox_xxx_waypointMapRegister_5179B0(it)
 		}
 	}
-	dword_5d4594_2523756 = nil
-	sub_579A30()
+	s.WPs.Pending = nil
+	s.WPs.Sub_579A30()
 }
 
-func sub_579A30() {
-	s := noxServer
-	for wp := s.FirstWaypoint(); wp != nil; wp = wp.WpNext {
-		wp.Flags2 = 0
-		for i := 0; i < int(wp.PointsCnt); i++ {
-			pt := &wp.Points[i]
-			wp.Flags2 |= pt.Ind
-		}
-		for wp2 := s.FirstWaypoint(); wp2 != nil; wp2 = wp2.WpNext {
-			for i := 0; i < int(wp2.PointsCnt); i++ {
-				pt := &wp2.Points[i]
-				if pt.Waypoint == wp {
-					wp.Flags2 |= pt.Ind
-				}
-			}
-		}
-	}
-}
-
-func nox_xxx_waypointDeleteAll_579DD0() {
-	s := noxServer
+func (s *Server) nox_xxx_waypointDeleteAll_579DD0() {
 	var next *server.Waypoint
-	for it := nox_xxx_waypointsHead_2523752; it != nil; it = next {
+	for it := s.WPs.First(); it != nil; it = next {
 		next = it.WpNext
 		if noxflags.HasGame(1) {
 			s.Map.Sub517A70(it)
 		}
 		alloc.Free(it)
 	}
-	nox_xxx_waypointsHead_2523752 = nil
-	dword_5d4594_2523756 = nil
-	dword_5d4594_2523760 = 0
+	s.WPs.List = nil
+	s.WPs.Pending = nil
+	s.WPs.CntXxx = 0
 }
 
 func (s *Server) NewWaypoint(pos types.Pointf) *server.Waypoint { // nox_xxx_waypointNew_5798F0
 	wp, _ := alloc.New(server.Waypoint{})
-	v3 := nox_xxx_waypoint_5798C0()
+	v3 := s.WPs.Nox_xxx_waypoint_5798C0()
 	v4 := int32(wp.Flags)
 	wp.Index = v3
 	wp.PosVec = pos
 	wp.Flags = uint32(v4 | 1)
-	wp.WpNext = nox_xxx_waypointsHead_2523752
-	if nox_xxx_waypointsHead_2523752 != nil {
-		nox_xxx_waypointsHead_2523752.WpPrev = wp
+	wp.WpNext = s.WPs.List
+	if s.WPs.List != nil {
+		s.WPs.List.WpPrev = wp
 	}
-	nox_xxx_waypointsHead_2523752 = wp
+	s.WPs.List = wp
 	if noxflags.HasGame(1) {
 		s.Map.Nox_xxx_waypointMapRegister_5179B0(wp)
 	}
 	return wp
 }
-func (s *Server) Sub_579AD0(pos types.Pointf) *server.Waypoint {
-	var out *server.Waypoint
-	min := float32(100.0)
-	for it := nox_xxx_waypointsHead_2523752; it != nil; it = it.WpNext {
-		dx := float64(it.PosVec.X - pos.X)
-		dy := float64(it.PosVec.Y - pos.Y)
-		dd := dy*dy + dx*dx
-		if dd < float64(min) {
-			min = float32(dd)
-			out = it
-		}
-	}
-	return out
-}
 
-func (s *Server) Nox_xxx_waypointNewNotMap_579970(ind int, pos types.Pointf) *server.Waypoint {
-	wp, _ := alloc.New(server.Waypoint{})
-	wp.Index = uint32(ind)
-	wp.PosVec = pos
-	wp.Flags |= 0x1
-	wp.WpNext = dword_5d4594_2523756
-	dword_5d4594_2523756 = wp
-	return wp
-}
-func (s *Server) Sub_579890() *server.Waypoint {
-	return dword_5d4594_2523756
-}
 func sub_5798A0(a1 *server.Waypoint) *server.Waypoint {
 	if a1 != nil {
 		return a1.WpNext
@@ -266,20 +200,11 @@ func sub_5798A0(a1 *server.Waypoint) *server.Waypoint {
 		return nil
 	}
 }
-func (s *Server) Sub_579C80(a1 uint32) *server.Waypoint {
-	for it := dword_5d4594_2523756; it != nil; it = it.WpNext {
-		if it.Index == a1 {
-			return it
-		}
-	}
-	return nil
-}
-func sub_579CA0() int32 {
-	s := noxServer
-	for it1 := dword_5d4594_2523756; it1 != nil; it1 = it1.WpNext {
+func (s *Server) sub_579CA0() int32 {
+	for it1 := s.WPs.Pending; it1 != nil; it1 = it1.WpNext {
 		it1.Field1 = it1.Index
 	}
-	for it := dword_5d4594_2523756; it != nil; it = it.WpNext {
+	for it := s.WPs.Pending; it != nil; it = it.WpNext {
 		if int32(it.PointsCnt) != 0 {
 			for i := 0; i < int(it.PointsCnt); i++ {
 				pt := &it.Points[i]
@@ -293,13 +218,13 @@ func sub_579CA0() int32 {
 	return 1
 }
 func (s *Server) Sub_579D20() {
-	v0 := nox_xxx_waypoint_5798C0()
-	for it := dword_5d4594_2523756; it != nil; it = it.WpNext {
+	v0 := s.WPs.Nox_xxx_waypoint_5798C0()
+	for it := s.WPs.Pending; it != nil; it = it.WpNext {
 		it.Field1 = it.Index
 		it.Index = v0
 		v0++
 	}
-	for it := dword_5d4594_2523756; it != nil; it = it.WpNext {
+	for it := s.WPs.Pending; it != nil; it = it.WpNext {
 		j := 0
 		for i := 0; i < int(it.PointsCnt); i++ {
 			v5 := &it.Points[j]
@@ -313,11 +238,11 @@ func (s *Server) Sub_579D20() {
 }
 func (s *Server) Sub_579E90(wp *server.Waypoint) {
 	wp.Flags |= 0x1000000
-	wp.WpNext = dword_5d4594_2523756
-	if dword_5d4594_2523756 != nil {
-		dword_5d4594_2523756.WpPrev = wp
+	wp.WpNext = s.WPs.Pending
+	if s.WPs.Pending != nil {
+		s.WPs.Pending.WpPrev = wp
 	}
-	dword_5d4594_2523756 = wp
+	s.WPs.Pending = wp
 	if noxflags.HasGame(1) {
 		s.Map.Nox_xxx_waypointMapRegister_5179B0(wp)
 	}
@@ -333,17 +258,17 @@ func (s *Server) Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) 
 			}
 		}
 	}
-	dword_5d4594_2523760 = 0
-	for wp := s.FirstWaypoint(); wp != nil; wp = wp.WpNext {
+	s.WPs.CntXxx = 0
+	for wp := s.WPs.First(); wp != nil; wp = wp.WpNext {
 		if sub_579EE0(wp, 0x80) != 0 && wp.Flags&1 != 0 {
-			dword_5d4594_2523760++
+			s.WPs.CntXxx++
 		}
 	}
-	if dword_5d4594_2523760 == 0 {
+	if s.WPs.CntXxx == 0 {
 		return 0
 	}
-	cnt := s.Rand.Logic.IntClamp(0, dword_5d4594_2523760-1)
-	for wp := s.FirstWaypoint(); wp != nil; wp = wp.WpNext {
+	cnt := s.Rand.Logic.IntClamp(0, s.WPs.CntXxx-1)
+	for wp := s.WPs.First(); wp != nil; wp = wp.WpNext {
 		if sub_579EE0(wp, 0x80) == 0 {
 			continue
 		}
