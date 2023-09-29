@@ -59,7 +59,3 @@ func find[T comparable](arr []T, v T) int {
 	}
 	return -1
 }
-
-type Point32 struct {
-	X, Y int32
-}
