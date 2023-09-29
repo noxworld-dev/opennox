@@ -5,10 +5,10 @@ import (
 	"math"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -43,7 +43,7 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 	s.AI.Paths.PathStatus = 0
 	s.AI.Paths.MapIndexLast++
 	s.AI.Paths.MaybeIndexObjects()
-	var a2a Point32
+	var a2a ntype.Point32
 	a2a.X = int32(float32(float64(a3.X) / 23))
 	a2a.Y = int32(float32(float64(a3.Y) / 23))
 	s.nox_xxx_pathfind_preCheckWalls_50C8D0(obj, &a2a)
@@ -98,7 +98,7 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 				}
 			}
 			ioff := s.Rand.Logic.IntClamp(0, 7)
-			parr := memmap.PtrT[[8]Point32](0x587000, 234216)
+			parr := memmap.PtrT[[8]ntype.Point32](0x587000, 234216)
 			for i := 0; i < 8; i++ {
 				ii := (i + ioff) % 8
 				pp := parr[ii]
@@ -241,7 +241,7 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 				v31.Field8 = v77
 				v77 = v31
 			}
-			if s.sub_50AC20(vn3, &v68) != 0 {
+			if s.AI.Paths.Sub_50AC20(vn3, &v68) != 0 {
 				vn3.Flags12 |= 2
 				v32 := s.AI.Paths.NewVisitNode()
 				if v32 == nil {
@@ -323,75 +323,9 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 	s.AI.Paths.Sub_50C320(obj, v67, nil)
 }
 
-func (s *Server) sub_50AC20(node *server.AIVisitNode, out *[2]uint16) int32 {
-	x := int32(node.X0)
-	y := int32(node.Y2)
-	p := s.AI.Paths.MapIndex(int(x), int(y))
-	if (p.Flags8 & 0x3C) == 0 {
-		return 0
-	}
-	var pos types.Pointf
-	pos.X = float32(float64(x) * 23.0)
-	pos.Y = float32(float64(y) * 23.0)
-	if p.Flags8&server.AIIndexHole != 0 {
-		obj := s.Map.Sub517B70byClass(pos, object.ClassHole)
-		if obj == nil {
-			return 0
-		}
-		if int64(uintptr(obj.CollideData)) == -8 {
-			return 0
-		}
-		cd := (*Point32)(unsafe.Add(obj.CollideData, 8))
-		if obj.ObjFlags&0x1000000 != 0 {
-			out[0] = uint16(cd.X / 23)
-			out[1] = uint16(cd.Y / 23)
-			return 1
-		}
-		return 0
-	} else if p.Flags8&server.AIIndexTransporter != 0 {
-		obj := s.Map.Sub517B70byClass(pos, object.ClassTransporter)
-		if obj == nil {
-			return 0
-		}
-		targ := *(**server.Object)(unsafe.Add(obj.UpdateData, 12))
-		if targ != nil && obj.ObjFlags&0x1000000 != 0 {
-			out[0] = uint16(int16(float64(targ.PosVec.X) / 23))
-			out[1] = uint16(int16(float64(targ.PosVec.Y) / 23))
-			return 1
-		}
-		return 0
-	} else if p.Flags8&server.AIIndexElevator != 0 {
-		obj := s.Map.Sub517B70byClass(pos, object.ClassElevator)
-		if obj == nil {
-			return 0
-		}
-		targ := *(**server.Object)(unsafe.Add(obj.UpdateData, 4))
-		if targ != nil && obj.ObjFlags&0x1000000 != 0 {
-			out[0] = uint16(int16(float64(targ.PosVec.X) / 23))
-			out[1] = uint16(int16(float64(targ.PosVec.Y) / 23))
-			return 1
-		}
-		return 0
-	} else if p.Flags8&server.AIIndexElevatorShaft != 0 {
-		obj := s.Map.Sub517B70byClass(pos, object.ClassElevatorShaft)
-		if obj == nil {
-			return 0
-		}
-		targ := *(**server.Object)(unsafe.Add(obj.UpdateData, 4))
-		if targ != nil && obj.ObjFlags&0x1000000 != 0 {
-			out[0] = uint16(int16(float64(targ.PosVec.X) / 23))
-			out[1] = uint16(int16(float64(targ.PosVec.Y) / 23))
-			return 1
-		}
-		return 0
-	} else {
-		return 0
-	}
-}
-
 func (s *Server) Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoint {
 	s.AI.Paths.MapIndexLast++
-	var a2a Point32
+	var a2a ntype.Point32
 	a2a.X = int32(float64(a2.X) / 23)
 	a2a.Y = int32(float64(a2.Y) / 23)
 	s.nox_xxx_pathfind_preCheckWalls_50C8D0(a1, &a2a)
@@ -453,7 +387,7 @@ func (s *Server) Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoin
 func (s *Server) sub_50B870(a1 *server.Object, x, y int) int {
 	return bool2int(legacy.Sub_57B630(a1, x, y) != -1)
 }
-func (s *Server) nox_xxx_pathfind_preCheckWalls_50C8D0(obj *server.Object, gpos *Point32) {
+func (s *Server) nox_xxx_pathfind_preCheckWalls_50C8D0(obj *server.Object, gpos *ntype.Point32) {
 	if s.sub_50B870(obj, int(gpos.X), int(gpos.Y)) != 0 {
 		dx := float64(obj.PosVec.X) - (float64(gpos.X)*23.0 + 11.5)
 		dy := float64(obj.PosVec.Y) - (float64(gpos.Y)*23.0 + 11.5)
