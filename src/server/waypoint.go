@@ -107,13 +107,60 @@ func (s *serverWaypoints) ByID(id string) *Waypoint {
 	return nil
 }
 
-func (s *serverWaypoints) ByInd2(ind int) *Waypoint { // sub_579C80
+func (s *serverWaypoints) PendingByInd(ind int) *Waypoint { // sub_579C80
 	for it := s.Pending; it != nil; it = it.WpNext {
 		if it.Index == uint32(ind) {
 			return it
 		}
 	}
 	return nil
+}
+
+func (s *serverWaypoints) PendingByIndTmp(id uint32) *Waypoint {
+	for it := s.Pending; it != nil; it = it.WpNext {
+		if it.Field1 == id {
+			return it
+		}
+	}
+	return nil
+}
+
+func (s *serverWaypoints) Sub_579D20() {
+	ind := s.Nox_xxx_waypoint_5798C0()
+	for it := s.Pending; it != nil; it = it.WpNext {
+		it.Field1 = it.Index
+		it.Index = ind
+		ind++
+	}
+	for it := s.Pending; it != nil; it = it.WpNext {
+		j := 0
+		for i := 0; i < int(it.PointsCnt); i++ {
+			pt := &it.Points[j]
+			pt.Waypoint = s.PendingByIndTmp(it.Field348[i])
+			if pt.Waypoint != nil {
+				j++
+			}
+		}
+		it.PointsCnt = uint8(j)
+	}
+}
+
+func (s *serverWaypoints) Sub_579CA0() int32 {
+	for it := s.Pending; it != nil; it = it.WpNext {
+		it.Field1 = it.Index
+	}
+	for it := s.Pending; it != nil; it = it.WpNext {
+		if int32(it.PointsCnt) != 0 {
+			for i := 0; i < int(it.PointsCnt); i++ {
+				pt := &it.Points[i]
+				pt.Waypoint = s.PendingByIndTmp(it.Field348[i])
+				if pt.Waypoint == nil {
+					return 0
+				}
+			}
+		}
+	}
+	return 1
 }
 
 type WaypointSub struct {

@@ -75,49 +75,6 @@ func (s *Server) NewWaypoint(pos types.Pointf) *server.Waypoint { // nox_xxx_way
 	return wp
 }
 
-func sub_5798A0(a1 *server.Waypoint) *server.Waypoint {
-	if a1 != nil {
-		return a1.WpNext
-	} else {
-		return nil
-	}
-}
-func (s *Server) sub_579CA0() int32 {
-	for it1 := s.WPs.Pending; it1 != nil; it1 = it1.WpNext {
-		it1.Field1 = it1.Index
-	}
-	for it := s.WPs.Pending; it != nil; it = it.WpNext {
-		if int32(it.PointsCnt) != 0 {
-			for i := 0; i < int(it.PointsCnt); i++ {
-				pt := &it.Points[i]
-				pt.Waypoint = s.PendingWaypointByInd579C60(it.Field348[i])
-				if pt.Waypoint == nil {
-					return 0
-				}
-			}
-		}
-	}
-	return 1
-}
-func (s *Server) Sub_579D20() {
-	v0 := s.WPs.Nox_xxx_waypoint_5798C0()
-	for it := s.WPs.Pending; it != nil; it = it.WpNext {
-		it.Field1 = it.Index
-		it.Index = v0
-		v0++
-	}
-	for it := s.WPs.Pending; it != nil; it = it.WpNext {
-		j := 0
-		for i := 0; i < int(it.PointsCnt); i++ {
-			v5 := &it.Points[j]
-			v5.Waypoint = s.PendingWaypointByInd579C60(it.Field348[i])
-			if v5.Waypoint != nil {
-				j++
-			}
-		}
-		it.PointsCnt = uint8(j)
-	}
-}
 func (s *Server) Sub_579E90(wp *server.Waypoint) {
 	wp.Flags |= 0x1000000
 	wp.WpNext = s.WPs.Pending

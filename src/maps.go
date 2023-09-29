@@ -222,7 +222,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0(cf *cryptfile.CryptFile) er
 			legacy.Nox_xxx_servMapLoadPlaceObj_4F3F50(obj.SObj(), 0, nil)
 		}
 	}
-	if s.sub_579CA0() == 0 {
+	if s.WPs.Sub_579CA0() == 0 {
 		return errors.New("sub_579CA0 failed")
 	}
 	s.attachPending()

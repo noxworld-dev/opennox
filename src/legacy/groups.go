@@ -52,7 +52,7 @@ func sub_4CFFE0(sid int) *nox_object_t {
 
 //export sub_579C60
 func sub_579C60(id uint32) *nox_waypoint_t {
-	return asWaypointC(GetServer().PendingWaypointByInd579C60(id))
+	return asWaypointC(GetServer().S().WPs.PendingByIndTmp(id))
 }
 
 //export nox_server_mapLoadAddGroup_57C0C0
