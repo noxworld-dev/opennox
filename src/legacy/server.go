@@ -98,10 +98,8 @@ type Server interface {
 	DelayedDelete(obj *server.Object)
 	PendingObjByScriptID4CFFE0(sid int) *server.Object
 	NewWaypoint(pos types.Pointf) *server.Waypoint
-	PendingWaypointByInd579C60(id uint32) *server.Waypoint
 	Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) int
 	Sub_579E90(wp *server.Waypoint)
-	Sub_579D20()
 	Nox_xxx_waypoint_5799C0()
 	Sub504720(a1, a2 uint32) int32
 	IsEnemyTo(a1, a2 *server.Object) bool

@@ -30,15 +30,6 @@ func (s *Server) PendingObjByScriptID4CFFE0(sid int) *server.Object {
 	return nil
 }
 
-func (s *Server) PendingWaypointByInd579C60(id uint32) *server.Waypoint {
-	for it := s.WPs.Pending; it != nil; it = it.WpNext {
-		if it.Field1 == id {
-			return it
-		}
-	}
-	return nil
-}
-
 func (s *Server) groupsAdjust(dx, dy uint32) {
 	di := s.MapGroups.NextMapGroupIndex()
 	for it := s.MapGroups.Refs; it != nil; it = it.Next4 {
@@ -53,7 +44,7 @@ func (s *Server) groupsAdjust(dx, dy uint32) {
 					it2.Raw0 = p.Extent
 				}
 			case server.MapGroupWaypoints:
-				if p := s.PendingWaypointByInd579C60(it2.Raw0); p != nil {
+				if p := s.WPs.PendingByIndTmp(it2.Raw0); p != nil {
 					it2.Raw0 = p.Index
 				}
 			case server.MapGroupWalls:

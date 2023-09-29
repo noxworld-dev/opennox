@@ -49,7 +49,7 @@ func nox_xxx_waypoint_579F00(out *C.float2, obj *nox_object_t) int {
 
 //export sub_579C80
 func sub_579C80(a1 uint32) *nox_waypoint_t {
-	return asWaypointC(GetServer().S().WPs.ByInd2(int(a1)))
+	return asWaypointC(GetServer().S().WPs.PendingByInd(int(a1)))
 }
 
 //export nox_xxx_waypointNew_5798F0
@@ -69,7 +69,7 @@ func nox_xxx_waypointNewNotMap_579970(ind int, x, y float32) *nox_waypoint_t {
 
 //export sub_579D20
 func sub_579D20() {
-	GetServer().Sub_579D20()
+	GetServer().S().WPs.Sub_579D20()
 }
 
 //export nox_xxx_waypoint_5799C0
