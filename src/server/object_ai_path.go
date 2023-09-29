@@ -7,6 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
@@ -597,5 +598,71 @@ func (s *serverAIPaths) Sub50AFA0() {
 			v22 := int32(float64(k.PosVec.Y) / 23)
 			s.MapIndex(int(v21), int(v22)).Flags8 |= 0x40
 		}
+	}
+}
+
+func (s *serverAIPaths) Sub_50AC20(node *AIVisitNode, out *[2]uint16) int32 {
+	x := int32(node.X0)
+	y := int32(node.Y2)
+	p := s.MapIndex(int(x), int(y))
+	if (p.Flags8 & 0x3C) == 0 {
+		return 0
+	}
+	var pos types.Pointf
+	pos.X = float32(float64(x) * 23.0)
+	pos.Y = float32(float64(y) * 23.0)
+	if p.Flags8&AIIndexHole != 0 {
+		obj := s.s.Map.Sub517B70byClass(pos, object.ClassHole)
+		if obj == nil {
+			return 0
+		}
+		if int64(uintptr(obj.CollideData)) == -8 {
+			return 0
+		}
+		cd := (*ntype.Point32)(unsafe.Add(obj.CollideData, 8))
+		if obj.ObjFlags&0x1000000 != 0 {
+			out[0] = uint16(cd.X / 23)
+			out[1] = uint16(cd.Y / 23)
+			return 1
+		}
+		return 0
+	} else if p.Flags8&AIIndexTransporter != 0 {
+		obj := s.s.Map.Sub517B70byClass(pos, object.ClassTransporter)
+		if obj == nil {
+			return 0
+		}
+		targ := *(**Object)(unsafe.Add(obj.UpdateData, 12))
+		if targ != nil && obj.ObjFlags&0x1000000 != 0 {
+			out[0] = uint16(int16(float64(targ.PosVec.X) / 23))
+			out[1] = uint16(int16(float64(targ.PosVec.Y) / 23))
+			return 1
+		}
+		return 0
+	} else if p.Flags8&AIIndexElevator != 0 {
+		obj := s.s.Map.Sub517B70byClass(pos, object.ClassElevator)
+		if obj == nil {
+			return 0
+		}
+		targ := *(**Object)(unsafe.Add(obj.UpdateData, 4))
+		if targ != nil && obj.ObjFlags&0x1000000 != 0 {
+			out[0] = uint16(int16(float64(targ.PosVec.X) / 23))
+			out[1] = uint16(int16(float64(targ.PosVec.Y) / 23))
+			return 1
+		}
+		return 0
+	} else if p.Flags8&AIIndexElevatorShaft != 0 {
+		obj := s.s.Map.Sub517B70byClass(pos, object.ClassElevatorShaft)
+		if obj == nil {
+			return 0
+		}
+		targ := *(**Object)(unsafe.Add(obj.UpdateData, 4))
+		if targ != nil && obj.ObjFlags&0x1000000 != 0 {
+			out[0] = uint16(int16(float64(targ.PosVec.X) / 23))
+			out[1] = uint16(int16(float64(targ.PosVec.Y) / 23))
+			return 1
+		}
+		return 0
+	} else {
+		return 0
 	}
 }
