@@ -12,7 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-const aiMapIndexSize = 256
+const aiMapIndexSize = WallGridSize
 const dword_587000_234176 = 11.5
 
 type AIVisitNode struct {
