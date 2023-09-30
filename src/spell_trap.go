@@ -332,7 +332,7 @@ func nox_bomberDead_54A150(u *server.Object) int {
 		idata := it.InitDataGlyph()
 		owner := it.ObjOwner
 		legacy.Sub_4ED0C0(u, it)
-		legacy.Nox_xxx_unitSetOwner_4EC290(owner, it)
+		s.Nox_xxx_unitSetOwner_4EC290(owner, it)
 		idata.SpellArg.Obj = nil
 		idata.SpellArg.Pos = u.Pos()
 		it.PosVec = u.PosVec

@@ -128,7 +128,7 @@ func init() {
 			http.Error(w, "Bad index", http.StatusBadRequest)
 			return
 		}
-		obj := noxServer.GetObjectByInd(int(ind))
+		obj := asObjectS(noxServer.Objs.GetObjectByInd(int(ind)))
 		if obj == nil {
 			http.Error(w, "Not found", http.StatusFound)
 			return

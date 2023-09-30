@@ -131,8 +131,8 @@ func eachObjectNS(s *Server, g *server.MapGroup, fnc func(obj ns4.Obj) bool) {
 	switch g.GroupType() {
 	case server.MapGroupObjects:
 		for it := g.First(); it != nil; it = it.Next() {
-			if obj := s.GetObjectByInd(it.Data1()); obj != nil {
-				if !fnc(nsObj{s, obj}) {
+			if obj := s.Objs.GetObjectByInd(it.Data1()); obj != nil {
+				if !fnc(nsObj{s, asObjectS(obj)}) {
 					return
 				}
 			}
@@ -147,8 +147,8 @@ func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns4.Obj) 
 	switch g.GroupType() {
 	case server.MapGroupObjects:
 		for it := g.First(); it != nil; it = it.Next() {
-			if obj := s.GetObjectByInd(it.Data1()); obj != nil {
-				if !fnc(nsObj{s, obj}) {
+			if obj := s.Objs.GetObjectByInd(it.Data1()); obj != nil {
+				if !fnc(nsObj{s, asObjectS(obj)}) {
 					return false
 				}
 			}

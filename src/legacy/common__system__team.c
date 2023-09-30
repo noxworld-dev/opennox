@@ -153,10 +153,10 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, void* a2p, int a3, int a4, in
 	v19 = *((uint32_t*)v18 + 187);
 	sub_4D97E0(*(unsigned char*)(*(uint32_t*)(v19 + 276) + 2064));
 	sub_4E8110(*(unsigned char*)(*(uint32_t*)(v19 + 276) + 2064));
-	result = nox_xxx_monsterMarkUpdate_4E8020((int)v18);
+	nox_xxx_monsterMarkUpdate_4E8020((int)v18);
 	for (i = *((uint32_t*)v18 + 129); i; i = *(uint32_t*)(i + 512)) {
 		if (*(uint8_t*)(i + 8) & 6) {
-			result = nox_xxx_monsterMarkUpdate_4E8020(i);
+			nox_xxx_monsterMarkUpdate_4E8020(i);
 		}
 	}
 }

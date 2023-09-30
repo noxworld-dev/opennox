@@ -277,6 +277,109 @@ func (s *serverPlayers) CheckXxx(obj *Object) bool {
 	return (s.playersXxx & (uint32(1) << obj.UpdateDataPlayer().Player.PlayerInd)) != 0
 }
 
+func (s *serverPlayers) Nox_xxx_netMarkMinimapObject_417190(pind ntype.PlayerInd, obj *Object, flags uint32) int32 {
+	if pind < 0 || pind >= common.MaxPlayers || obj == nil {
+		return 0
+	}
+	pl := s.ByIndRaw(pind)
+	if pl.Field4580 != nil {
+		if pl.Field4580.Field4 == obj {
+			pl.Field4580.Field0 |= flags
+			return 1
+		}
+		for it := pl.Field4580.Field8; it != nil && it != pl.Field4580; it = it.Field8 {
+			if it.Field4 == obj {
+				it.Field0 |= flags
+				return 1
+			}
+		}
+	}
+	m, _ := alloc.New(MinimapItem{})
+	if m == nil {
+		return 0
+	}
+	m.Field4 = obj
+	m.Field0 = flags
+	if pl.Field4580 != nil {
+		m.Field8 = pl.Field4580
+		m.Field12 = pl.Field4580.Field12
+		pl.Field4580.Field12 = m
+		m.Field12.Field8 = m
+		pl.Field4580 = m
+	} else {
+		pl.Field4580 = m
+		m.Field12 = m
+		m.Field8 = m
+	}
+	obj.SetXStatus(1)
+	return 1
+}
+
+func (s *serverPlayers) Nox_xxx_netUnmarkMinimapObj_417300(pind ntype.PlayerInd, obj *Object, flags uint32) int32 {
+	if pind < 0 || pind >= common.MaxPlayers {
+		return 0
+	}
+	if obj == nil {
+		return 0
+	}
+	pl := s.ByIndRaw(pind)
+	m := pl.Field4580
+	if m == nil {
+		return 0
+	}
+	for {
+		v6 := m.Field8
+		if m.Field4 == obj {
+			break
+		}
+		if v6 == pl.Field4580 {
+			return 0
+		}
+		m = m.Field8
+		if v6 == nil {
+			return 0
+		}
+	}
+	m.Field0 &^= flags
+	if m.Field0 != 0 {
+		return 0
+	}
+	v8 := pl.Field4580
+	if v8.Field8 == v8 {
+		pl.Field4580 = nil
+	} else {
+		if v8 == m {
+			pl.Field4580 = m.Field8
+		}
+		m.Field8.Field12 = m.Field12
+		m.Field12.Field8 = m.Field8
+	}
+	alloc.Free(m)
+	v9 := int32(obj.Field5)
+	*(*uint8)(unsafe.Pointer(&v9)) = uint8(int8(v9 & 0xFE))
+	obj.Field5 = uint32(v9)
+	return 1
+}
+
+func (s *serverPlayers) Nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
+	for pl := s.First(); pl != nil; pl = s.Next(pl) {
+		s.Nox_xxx_netUnmarkMinimapObj_417300(pl.PlayerIndex(), obj, 3)
+	}
+}
+
+func (s *serverPlayers) Sub_4172C0(pind ntype.PlayerInd) *Object {
+	if pind < 0 && pind >= common.MaxPlayers {
+		return nil
+	}
+	pl := s.ByIndRaw(pind)
+	if pl.Field4580 == nil {
+		return nil
+	}
+	p := pl.Field4580.Field4
+	pl.Field4580 = pl.Field4580.Field8
+	return p
+}
+
 func (s *serverPlayers) AnyXxx() bool {
 	return s.playersXxx != 0
 }
@@ -297,6 +400,15 @@ type PlayerJournal struct {
 	Prev     *PlayerJournal // 2, 68
 	Field3   uint16         // 3, 72
 	Field4   uint16         // 4, 74, likely just padding
+}
+
+var _ = [1]struct{}{}[16-unsafe.Sizeof(MinimapItem{})]
+
+type MinimapItem struct {
+	Field0  uint32
+	Field4  *Object
+	Field8  *MinimapItem
+	Field12 *MinimapItem
 }
 
 var (
@@ -376,48 +488,48 @@ type Player struct {
 	SpellLvl            [137]uint32 // 3696
 	BeastScrollLvl      [41]uint32  // 4244
 	_                   [43]uint32
-	Field4580           unsafe.Pointer // 1145, 4580
-	ProtUnitHPCur       uint32         // 1146, 4584
-	ProtPlayerGold      uint32         // 1147, 4588
-	ProtUnitHPMax       uint32         // 1148, 4592
-	ProtUnitManaCur     uint32         // 1149, 4596
-	ProtUnitManaMax     uint32         // 1150, 4600
-	ProtUnitExperience  uint32         // 1151, 4604
-	ProtUnitMass        uint32         // 1152, 4608
-	ProtUnitBuffs       uint32         // 1153, 4612
-	ProtPlayerClass     uint32         // 1154, 4616
-	ProtPlayerField2235 uint32         // 1155, 4620
-	ProtPlayerField2239 uint32         // 1156, 4624
-	ProtPlayerOrigName  uint32         // 1157, 4628
-	Prot4632            uint32         // 1158, 4632
-	Prot4636            uint32         // 1159, 4636
-	Prot4640            uint32         // 1160, 4640
-	ProtPlayerLevel     uint32         // 1161, 4644
-	Field4648           int32          // 1162, 4648
-	field4652           uint32         // 1163, 4652
-	field4656           uint32         // 1164, 4656
-	field4660           uint32         // 1165, 4660
-	field4664           uint32         // 1166, 4664
-	field4668           uint32         // 1167, 4668
-	field4672           uint32         // 1168, 4672
-	field4676           uint32         // 1169, 4676
-	field4680           uint32         // 1170, 4680
-	field4684           uint32         // 1171, 4684
-	field4688           uint32         // 1172, 4688
-	field4692           uint32         // 1173, 4692
-	field4696           uint32         // 1174, 4696
-	Field4700           uint32         // 1175, 4700
-	NameFinal           [28]uint16     // 4704, server-approved player name // TODO: size is a wild guess
-	SaveNameBuf         [4]byte        // 1190, 4760
-	field4764           uint32         // 1191, 4764
-	field4768           uint32         // 1192, 4768
-	field4772           uint32         // 1193, 4772
-	field4776           uint32         // 1194, 4776
-	field4780           uint32         // 1195, 4780
-	field4784           uint32         // 1196, 4784
-	field4788           uint32         // 1197, 4788
-	Field4792           uint32         // 1198, 4792
-	field4796           uint32         // 1199, 4796
+	Field4580           *MinimapItem // 1145, 4580
+	ProtUnitHPCur       uint32       // 1146, 4584
+	ProtPlayerGold      uint32       // 1147, 4588
+	ProtUnitHPMax       uint32       // 1148, 4592
+	ProtUnitManaCur     uint32       // 1149, 4596
+	ProtUnitManaMax     uint32       // 1150, 4600
+	ProtUnitExperience  uint32       // 1151, 4604
+	ProtUnitMass        uint32       // 1152, 4608
+	ProtUnitBuffs       uint32       // 1153, 4612
+	ProtPlayerClass     uint32       // 1154, 4616
+	ProtPlayerField2235 uint32       // 1155, 4620
+	ProtPlayerField2239 uint32       // 1156, 4624
+	ProtPlayerOrigName  uint32       // 1157, 4628
+	Prot4632            uint32       // 1158, 4632
+	Prot4636            uint32       // 1159, 4636
+	Prot4640            uint32       // 1160, 4640
+	ProtPlayerLevel     uint32       // 1161, 4644
+	Field4648           int32        // 1162, 4648
+	field4652           uint32       // 1163, 4652
+	field4656           uint32       // 1164, 4656
+	field4660           uint32       // 1165, 4660
+	field4664           uint32       // 1166, 4664
+	field4668           uint32       // 1167, 4668
+	field4672           uint32       // 1168, 4672
+	field4676           uint32       // 1169, 4676
+	field4680           uint32       // 1170, 4680
+	field4684           uint32       // 1171, 4684
+	field4688           uint32       // 1172, 4688
+	field4692           uint32       // 1173, 4692
+	field4696           uint32       // 1174, 4696
+	Field4700           uint32       // 1175, 4700
+	NameFinal           [28]uint16   // 4704, server-approved player name // TODO: size is a wild guess
+	SaveNameBuf         [4]byte      // 1190, 4760
+	field4764           uint32       // 1191, 4764
+	field4768           uint32       // 1192, 4768
+	field4772           uint32       // 1193, 4772
+	field4776           uint32       // 1194, 4776
+	field4780           uint32       // 1195, 4780
+	field4784           uint32       // 1196, 4784
+	field4788           uint32       // 1197, 4788
+	Field4792           uint32       // 1198, 4792
+	field4796           uint32       // 1199, 4796
 	data4800            [7]uint32
 }
 

@@ -330,9 +330,6 @@ func Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 ntype.PlayerInd, d
 func Nox_xxx_netReportAcquireCreature_4D91A0(pli int, obj *server.Object) {
 	C.nox_xxx_netReportAcquireCreature_4D91A0(C.int(pli), asObjectC(obj))
 }
-func Nox_xxx_netMarkMinimapObject_417190(pli int, obj *server.Object, a3 int) {
-	C.nox_xxx_netMarkMinimapObject_417190(C.int(pli), asObjectC(obj), C.int(a3))
-}
 func Nox_xxx_netSendSimpleObject2_4DF360(pli int, obj *server.Object) {
 	C.nox_xxx_netSendSimpleObject2_4DF360(C.int(pli), asObjectC(obj))
 }

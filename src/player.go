@@ -983,12 +983,12 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 	for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
 		u := it.PlayerUnit
 		if u != nil && it != pl {
-			legacy.Nox_xxx_netUnmarkMinimapObj_417300(pli, u, 3)
-			legacy.Nox_xxx_netUnmarkMinimapObj_417300(it.PlayerIndex(), pl.PlayerUnit, 3)
+			s.Players.Nox_xxx_netUnmarkMinimapObj_417300(pli, u, 3)
+			s.Players.Nox_xxx_netUnmarkMinimapObj_417300(it.PlayerIndex(), pl.PlayerUnit, 3)
 		}
 	}
 	if pl.PlayerUnit != nil {
-		for it := s.FirstServerObject(); it != nil; it = it.Next() {
+		for it := s.Objs.First(); it != nil; it = it.Next() {
 			if it.Class().Has(object.ClassDoor) && it.ObjOwner == pl.PlayerUnit {
 				it.ObjOwner = nil
 			}

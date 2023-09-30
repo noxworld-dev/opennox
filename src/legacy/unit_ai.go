@@ -234,6 +234,3 @@ func Nox_xxx_mobHealSomeone_5411A0(a1 *server.Object) {
 func Nox_xxx_mobActionCast_5413B0(a1 *server.Object, a2 int) {
 	C.nox_xxx_mobActionCast_5413B0(asObjectC(a1), C.int(a2))
 }
-func Nox_xxx_monsterMarkUpdate_4E8020(a1 *server.Object) {
-	C.nox_xxx_monsterMarkUpdate_4E8020(asObjectC(a1))
-}

@@ -93,7 +93,7 @@ func (s noxScriptNS) ObjectGroup(name string) ns4.ObjGroup {
 func (s noxScriptNS) FindObjects(iter func(obj ns4.Obj) bool, conditions ...ns4.ObjCond) int {
 	// This generic iteration function will act as a fallback that scans everything.
 	search := func(fnc func(obj *server.Object) bool) {
-		for it := s.s.FirstServerObject(); it != nil; it = it.Next() {
+		for it := s.s.Objs.First(); it != nil; it = it.Next() {
 			if !fnc(it) {
 				break
 			}
@@ -365,27 +365,6 @@ func (obj nsObj) MonsterStatus() object.MonsterStatus {
 		return 0
 	}
 	return obj.UpdateDataMonster().StatusFlags
-}
-
-func (obj nsObj) SetMonsterStatus(v object.MonsterStatus) {
-	if obj.Class().Has(object.ClassMonster) {
-		obj.UpdateDataMonster().StatusFlags = v
-		legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
-	}
-}
-
-func (obj nsObj) MonsterStatusEnable(v object.MonsterStatus) {
-	if obj.Class().Has(object.ClassMonster) {
-		obj.UpdateDataMonster().StatusFlags |= v
-		legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
-	}
-}
-
-func (obj nsObj) MonsterStatusDisable(v object.MonsterStatus) {
-	if obj.Class().Has(object.ClassMonster) {
-		obj.UpdateDataMonster().StatusFlags &^= v
-		legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
-	}
 }
 
 func (obj nsObj) Direction() ns4.Direction {
