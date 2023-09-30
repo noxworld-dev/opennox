@@ -7650,7 +7650,7 @@ int* nox_xxx_updateBreak_53DB30(uint32_t* a1) {
 		result = gameFrame();
 		if (gameFrame() > a1[34]) {
 			nox_xxx_unitUnsetXStatus_4E4780((int)a1, 4);
-			result = nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
+			nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
 		}
 	} else if ((unsigned char)result & 8) {
 		nox_xxx_unitRemoveFromUpdatable_4DA920(a1);
@@ -7675,7 +7675,7 @@ int* nox_xxx_updateOpen_53DBB0(uint32_t* a1) {
 		result = gameFrame();
 		if (gameFrame() > a1[34]) {
 			nox_xxx_unitUnsetXStatus_4E4780((int)a1, 4);
-			result = nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
+			nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
 		}
 	} else if ((unsigned char)result & 8) {
 		nox_xxx_unitRemoveFromUpdatable_4DA920(a1);
@@ -7815,12 +7815,12 @@ int* nox_xxx_updateTrapDoor_53DE80(uint32_t* a1) {
 		result = (int*)a1[5];
 		if ((unsigned char)result & 2) {
 			nox_xxx_unitUnsetXStatus_4E4780((int)a1, 2);
-			result = nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
+			nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
 		} else if ((unsigned char)result & 4) {
 			result = *(int**)(v1 + 16);
 			if (gameFrame() >= (unsigned int)result) {
 				nox_xxx_unitUnsetXStatus_4E4780((int)a1, 4);
-				result = nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
+				nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
 			}
 		} else {
 			*(uint32_t*)(v1 + 24) = 0;

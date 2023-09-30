@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"fmt"
-	"image/color"
 	"unsafe"
 
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
@@ -825,18 +824,6 @@ func (obj nsObj) Unequip(item ns4.Obj) bool {
 	}
 	it := toObject(item.(server.Obj))
 	return legacy.Nox_xxx_playerTryDequip_4F2FB0(obj.SObj(), it.SObj())
-}
-
-func (obj nsObj) SetColor(ind int, cl color.Color) {
-	if obj.Class().Has(object.ClassMonster) {
-		ud := obj.UpdateDataMonster()
-		if ind >= 0 && ind < len(ud.Color) {
-			ccl := server.AsColor3(cl)
-			nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(ind), &ccl)
-		}
-	} else if obj.Class().Has(object.ClassPlayer) {
-		panic("not implemented")
-	}
 }
 
 func (obj nsObj) ZombieStayDown() {

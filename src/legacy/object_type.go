@@ -17,7 +17,6 @@ import (
 )
 
 var (
-	Sub_4E4C90 func(a1 *server.Object, a2 uint) bool
 	Sub_4E3B80 func(ind int) bool
 	Sub415A30  func(a1 string) *server.ObjectType
 	Sub415EC0  func(id string) *server.ObjectType
@@ -86,7 +85,7 @@ func sub_4E4C50(cobj *nox_object_t) int {
 func sub_4F40A0(a1 *nox_object_t) C.char { return C.char(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
 
 //export sub_4E4C90
-func sub_4E4C90(a1 *nox_object_t, a2 uint) int { return bool2int(Sub_4E4C90(asObjectS(a1), a2)) }
+func sub_4E4C90(a1 *nox_object_t, a2 uint) int { return bool2int(asObjectS(a1).Sub_4E4C90(a2)) }
 
 //export nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind int) int {

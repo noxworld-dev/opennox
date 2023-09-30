@@ -161,3 +161,48 @@ func (obj *Object) MonsterLookAtDamager() bool {
 	obj.MonsterPushAction(ai.ACTION_FACE_LOCATION, obj.Pos132)
 	return true
 }
+
+func (obj *Object) Sub_545E60() int {
+	s := obj.Server()
+
+	ud := obj.UpdateDataMonster()
+	ts := obj.Frame134
+	if ud.Field129 >= ts || s.Frame()-ts >= s.SecToFrames(10) {
+		return 0
+	}
+	ud.Field129 = ts
+	if obj.Obj130 != nil {
+		if obj4 := obj.Obj130.GetOwnerUnit(); obj4 != nil {
+			if !s.IsEnemyTo(obj, obj4) {
+				return 0
+			}
+			canInteract := s.CanInteract(obj, obj4, 0)
+			if s.IsPlant(obj) {
+				if !canInteract {
+					return 0
+				}
+				obj.MonsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.Field328)*1.05)
+			} else {
+				obj.MonsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, s.Frame())
+			}
+			obj.MonsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), s.Frame())
+			if !canInteract {
+				obj.MonsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
+				if obj.Nox_xxx_monsterCanAttackAtWill_534390() {
+					obj.MonsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
+				}
+				obj.MonsterPushAction(ai.ACTION_MOVE_TO, obj4.Pos(), 0)
+			}
+			return 1
+		}
+	}
+	if !obj.UpdateDataMonster().HasAction(ai.ACTION_ROAM) {
+		obj.MonsterPushAction(ai.DEPENDENCY_TIME, s.SecToFrames(5))
+		obj.MonsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
+		if obj.Nox_xxx_monsterCanAttackAtWill_534390() {
+			obj.MonsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
+		}
+		obj.MonsterPushAction(ai.ACTION_ROAM, 0, 0, -128)
+	}
+	return 0
+}

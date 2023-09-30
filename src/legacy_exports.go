@@ -218,7 +218,6 @@ func init() {
 	legacy.Nox_xxx_fireEffect_4E0550 = nox_xxx_fireEffect_4E0550
 	legacy.Nox_xxx_fireRingEffect_4E05B0 = nox_xxx_fireRingEffect_4E05B0
 	legacy.Nox_xxx_blueFREffect_4E05F0 = nox_xxx_blueFREffect_4E05F0
-	legacy.Sub_4E4C90 = sub_4E4C90
 	legacy.Sub_4E3B80 = sub_4E3B80
 	legacy.Sub415A30 = sub415A30
 	legacy.Sub415EC0 = sub415EC0
@@ -232,7 +231,6 @@ func init() {
 	legacy.Sub_4DCC10 = sub_4DCC10
 	legacy.Sub_4DCFB0 = sub_4DCFB0
 	legacy.Sub_4DD0B0 = sub_4DD0B0
-	legacy.Nox_xxx_monsterCast_540A30 = nox_xxx_monsterCast_540A30
 	legacy.InputSetKeyTimeoutLegacy = inputSetKeyTimeoutLegacy
 	legacy.InputKeyCheckTimeoutLegacy = inputKeyCheckTimeoutLegacy
 	legacy.Sub_416120 = sub_416120
@@ -252,7 +250,6 @@ func init() {
 	legacy.Nox_xxx_playerObserveClear_4DDEF0 = nox_xxx_playerObserveClear_4DDEF0
 	legacy.Nox_client_onClassStats = nox_client_onClassStats
 	legacy.Nox_xxx_playerObserveMonster_4DDE80 = nox_xxx_playerObserveMonster_4DDE80
-	legacy.Sub_545E60 = sub_545E60
 	legacy.Nox_xxx_gameSetAudioFadeoutMb_501AC0 = nox_xxx_gameSetAudioFadeoutMb_501AC0
 	legacy.Nox_xxx_unitUpdateMonster_50A5C0 = nox_xxx_unitUpdateMonster_50A5C0
 	legacy.Sub_446380 = sub_446380
@@ -305,7 +302,6 @@ func init() {
 	legacy.Sub_43CF70 = sub_43CF70
 	legacy.Nox_objectDropAudEvent_4EE2F0 = nox_objectDropAudEvent_4EE2F0
 	legacy.Nox_xxx_unitMonsterInit_4F0040 = objectMonsterInit
-	legacy.Nox_xxx_setNPCColor_4E4A90 = nox_xxx_setNPCColor_4E4A90
 	legacy.Nox_xxx_checkSummonedCreaturesLimit_500D70 = nox_xxx_checkSummonedCreaturesLimit_500D70
 	legacy.Nox_xxx_unitDoSummonAt_5016C0 = nox_xxx_unitDoSummonAt_5016C0
 	legacy.Sub_57AEE0 = sub_57AEE0

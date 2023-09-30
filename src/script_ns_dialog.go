@@ -27,7 +27,7 @@ func (s noxScriptNS) SetDialog(cobj ns.Obj, typ ns.DialogType, start, end ns.Fun
 	obj := cobj.(nsObj)
 	starti := s.s.noxScript.AsFuncIndex("DialogStart", start)
 	endi := s.s.noxScript.AsFuncIndex("DialogEnd", end)
-	nox_xxx_scriptSetDialog_548C80(obj.SObj(), flags, starti, endi)
+	obj.SObj().ScriptSetDialog(flags, starti, endi)
 }
 
 func (s noxScriptNS) CancelDialog(cobj ns.Obj) {
@@ -35,7 +35,7 @@ func (s noxScriptNS) CancelDialog(cobj ns.Obj) {
 		return
 	}
 	obj := cobj.(nsObj)
-	scriptCancelDialog(obj.SObj())
+	obj.SObj().ScriptCancelDialog()
 }
 
 func (s noxScriptNS) StoryPic(cobj ns.Obj, name string) {
@@ -72,5 +72,5 @@ func (s noxScriptNS) GetAnswer(cobj ns.Obj) ns.DialogAnswer {
 		return 0
 	}
 	obj := cobj.(nsObj)
-	return ns.DialogAnswer(sub_548F40(obj.SObj()))
+	return ns.DialogAnswer(obj.SObj().ScriptDialogResult())
 }
