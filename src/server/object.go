@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"image/color"
 	"math"
 	"strings"
 	"unsafe"
@@ -1401,5 +1402,109 @@ func (s *Server) ItemsApplyUpdateEffect(obj *Object) {
 				}
 			}
 		}
+	}
+}
+
+func (obj *Object) GetOwnerUnit() *Object {
+	for it := obj; it != nil; it = it.ObjOwner {
+		if it.Class().HasAny(object.MaskUnits) {
+			return it
+		}
+	}
+	return nil
+}
+
+func (obj *Object) Sub_4E4C90(a2 uint) bool {
+	s := obj.Server()
+	typ := s.Types.ByInd(int(obj.TypeInd))
+	switch a2 {
+	case 0x1:
+		return obj.Field33 != 0
+	case 0x2:
+		health := obj.HealthData
+		if health == nil {
+			return false
+		}
+		if typ == nil || typ.Health() == nil {
+			return false
+		}
+		return typ.Health().Cur != health.Cur
+	case 0x4:
+		return ((obj.Flags()^typ.Flags())>>24)&0x1 != 0
+	case 0x8:
+		return typ.Field9 != obj.Field5
+	case 0x40:
+		return obj.ZVal != 0.0
+	case 0x80:
+		return obj.Buffs != 0
+	case 0x200:
+		return obj.Class().HasAny(object.ClassFlag | object.ClassWeapon | object.ClassArmor | object.ClassWand)
+	case 0x400:
+		return obj.Class().Has(object.ClassMonster) &&
+			obj.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC)
+	default:
+		return false
+	}
+}
+
+func (obj *Object) Sub_4E4500(val1 uint32, val2 uint32, set bool) {
+	for i := range obj.Field140 {
+		if set {
+			obj.Field140[i] |= val2
+		} else {
+			obj.Field140[i] &^= val2
+		}
+		if obj.Field37&uint32(1<<i) != 0 {
+			obj.Field140[i] |= val1
+		} else if obj.Field140[i]&val2 == 0 {
+			obj.Field140[i] &^= val1
+		}
+	}
+}
+
+func (obj *Object) SetXStatus(a2 uint32) { // nox_xxx_unitSetXStatus_4E4800
+	obj.Field5 |= a2
+	if a2 == 1 {
+		return
+	}
+	obj.NeedSync()
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := 0; i < 32; i++ {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x80000
+		}
+	} else {
+		v5 := obj.Sub_4E4C90(0x8)
+		obj.Sub_4E4500(0x80000, 0x8, v5)
+	}
+}
+
+func (obj *Object) UnsetXStatus(a2 uint32) { // nox_xxx_unitUnsetXStatus_4E4780
+	if obj.Field5&a2 == 0 {
+		return
+	}
+	obj.Field5 = obj.Field5 &^ a2
+	if a2 == 1 {
+		return
+	}
+	obj.NeedSync()
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i := range obj.Field140 {
+			obj.Field140[i] = obj.Field140[i]&0xFFFFF000 | 0x80000
+		}
+	} else {
+		v5 := obj.Sub_4E4C90(0x8)
+		obj.Sub_4E4500(0x80000, 0x8, v5)
+	}
+}
+
+func (obj *Object) SetColor(ind int, cl color.Color) {
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.UpdateDataMonster()
+		if ind >= 0 && ind < len(ud.Color) {
+			ccl := AsColor3(cl)
+			obj.Nox_xxx_setNPCColor_4E4A90(byte(ind), &ccl)
+		}
+	} else if obj.Class().Has(object.ClassPlayer) {
+		panic("not implemented")
 	}
 }

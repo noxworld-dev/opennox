@@ -5,8 +5,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
-	"github.com/noxworld-dev/opennox-lib/spell"
-	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -15,8 +13,7 @@ import (
 
 var _ = [1]struct{}{}[248-unsafe.Sizeof(server.MonsterDef{})]
 
-func objectMonsterInit(sobj *server.Object) {
-	obj := asObjectS(sobj)
+func objectMonsterInit(obj *server.Object) {
 	s := obj.Server()
 	ud := obj.UpdateDataMonster()
 	if !obj.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
@@ -45,7 +42,7 @@ func objectMonsterInit(sobj *server.Object) {
 			for i := 0; i < 6; i++ {
 				if ud.Color[i] == (server.Color3{}) {
 					cl := s.Rand.RandomColor3()
-					nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(i), &cl)
+					obj.Nox_xxx_setNPCColor_4E4A90(byte(i), &cl)
 				}
 			}
 		}
@@ -56,7 +53,7 @@ func objectMonsterInit(sobj *server.Object) {
 	case ai.ACTION_GUARD:
 		obj.MonsterPushAction(ai.ACTION_GUARD, obj.Pos(), int(obj.Direction1))
 	case ai.ACTION_ROAM:
-		if nox_xxx_monsterCanAttackAtWill_534390(obj) {
+		if obj.Nox_xxx_monsterCanAttackAtWill_534390() {
 			obj.MonsterPushAction(ai.ACTION_HUNT)
 		} else {
 			obj.MonsterPushAction(ai.ACTION_ROAM, 0, 0, uint32(uint8(ud.Field333)))
@@ -94,47 +91,6 @@ func objectMonsterInit(sobj *server.Object) {
 	}
 	if ud.StatusFlags.Has(object.MonStatusAlwaysRun) {
 		ud.StatusFlags |= object.MonStatusRunning
-	}
-}
-
-func (obj *Object) monsterCast(spellInd spell.ID, target *server.Object) {
-	s := obj.Server()
-	ud := obj.UpdateDataMonster()
-	obj.MonsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
-	sp := s.Spells.DefByInd(spellInd)
-	if sp.Def.Flags.Has(things.SpellDuration) {
-		ts := s.Frame() + uint32(s.Rand.Logic.IntClamp(int(s.TickRate()/2), int(2*s.TickRate())))
-		obj.MonsterPushAction(ai.DEPENDENCY_TIME, ts)
-		obj.MonsterPushAction(ai.ACTION_CAST_DURATION_SPELL, uint32(spellInd), 0, target)
-	} else {
-		obj.MonsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
-	}
-	if target.SObj() != obj.SObj() && !obj.MonsterActionIsScheduled(ai.ACTION_FLEE) {
-		if !sp.Def.Flags.Has(things.SpellTargeted) { // TODO: looks like the flag name is incorrect on our side
-			obj.MonsterPushAction(ai.ACTION_FACE_OBJECT, target)
-			obj.MonsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
-		}
-		obj.MonsterPushAction(ai.DEPENDENCY_OBJECT_FARTHER_THAN, ud.MonsterDef.MissileAttackRange212, 0, target)
-		obj.MonsterPushAction(ai.DEPENDENCY_OR)
-		obj.MonsterPushAction(ai.ACTION_MOVE_TO, target.Pos(), target)
-	}
-}
-
-func nox_xxx_monsterCast_540A30(cu *server.Object, spellInd int, a3p *server.Object) {
-	asObjectS(cu).monsterCast(spell.ID(spellInd), a3p)
-}
-
-func nox_xxx_setNPCColor_4E4A90(obj *server.Object, ind byte, cl *server.Color3) {
-	ud := obj.UpdateDataMonster()
-	obj.NeedSync()
-	ud.Color[ind] = *cl
-	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
-		for i, v := range obj.Field140 {
-			obj.Field140[i] = v&0xFFFFF000 | 0x4000000
-		}
-	} else {
-		val := sub_4E4C90(obj, 0x400)
-		sub_4E4500(obj, 0x4000000, 1024, val)
 	}
 }
 

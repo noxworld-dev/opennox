@@ -32,7 +32,6 @@ import (
 
 var (
 	Nox_xxx_unitMonsterInit_4F0040             func(obj *server.Object)
-	Nox_xxx_setNPCColor_4E4A90                 func(obj *server.Object, a2 byte, a3 *server.Color3)
 	Nox_xxx_checkSummonedCreaturesLimit_500D70 func(u *server.Object, ind int) bool
 	Nox_xxx_unitDoSummonAt_5016C0              func(typID int, pos types.Pointf, owner *server.Object, dir server.Dir16) *server.Object
 	Sub_57AEE0                                 func(sp spell.ID, u *server.Object) bool
@@ -208,7 +207,7 @@ func nox_xxx_unitMonsterInit_4F0040(obj *nox_object_t) {
 
 //export nox_xxx_setNPCColor_4E4A90
 func nox_xxx_setNPCColor_4E4A90(obj *nox_object_t, a2 byte, p unsafe.Pointer) {
-	Nox_xxx_setNPCColor_4E4A90(asObjectS(obj), a2, (*server.Color3)(p))
+	asObjectS(obj).Nox_xxx_setNPCColor_4E4A90(a2, (*server.Color3)(p))
 }
 
 //export nox_xxx_checkSummonedCreaturesLimit_500D70
@@ -250,6 +249,16 @@ func nox_xxx_collideGlyph_4E9A00(a1, a2 *nox_object_t) {
 //export nox_xxx_doorGetSomeKey_4E8910
 func nox_xxx_doorGetSomeKey_4E8910(u, door *nox_object_t) *nox_object_t {
 	return asObjectC(GetServer().S().DoorCheckKey(asObjectS(u), asObjectS(door)))
+}
+
+//export nox_xxx_unitSetXStatus_4E4800
+func nox_xxx_unitSetXStatus_4E4800(a1 *nox_object_t, a2 uint32) {
+	asObjectS(a1).SetXStatus(a2)
+}
+
+//export nox_xxx_unitUnsetXStatus_4E4780
+func nox_xxx_unitUnsetXStatus_4E4780(a1 *nox_object_t, a2 uint32) {
+	asObjectS(a1).UnsetXStatus(a2)
 }
 
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
@@ -366,12 +375,6 @@ func Nox_object_getGold_4FA6D0(obj *server.Object) int {
 }
 func Nox_object_setGold_4FA620(obj *server.Object, v int) {
 	C.nox_object_setGold_4FA620(asObjectC(obj), C.int(v))
-}
-func Nox_xxx_unitSetXStatus_4E4800(obj *server.Object, a2 int) {
-	C.nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), C.int(a2))
-}
-func Nox_xxx_unitUnsetXStatus_4E4780(obj *server.Object, a2 int) {
-	C.nox_xxx_unitUnsetXStatus_4E4780(asObjectC(obj), C.int(a2))
 }
 func Nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	C.nox_xxx_script_forcedialog_548CD0(asObjectC(obj), asObjectC(obj2))

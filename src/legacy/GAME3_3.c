@@ -1249,66 +1249,6 @@ void nox_xxx_unitRaise_4E46F0(nox_object_t* obj, float a2) {
 	}
 }
 
-//----- (004E4780) --------------------------------------------------------
-int* nox_xxx_unitUnsetXStatus_4E4780(nox_object_t* a1p, int a2) {
-	int a1 = a1p;
-	int* result; // eax
-	int v3;      // ecx
-	int v4;      // edx
-	int v5;      // eax
-
-	result = *(int**)(a1 + 20);
-	if ((unsigned int)result & a2) {
-		*(uint32_t*)(a1 + 20) = (unsigned int)result & ~a2;
-		if (a2 != 1) {
-			nox_xxx_unitNeedSync_4E44F0(a1);
-			if (*(uint32_t*)(a1 + 8) & 0x20400004) {
-				result = (int*)(a1 + 560);
-				v3 = 32;
-				do {
-					v4 = *result;
-					++result;
-					--v3;
-					*(result - 1) = v4 & 0xFFFFF000 | 0x80000;
-				} while (v3);
-			} else {
-				v5 = sub_4E4C90(a1, 8u);
-				result = sub_4E4500(a1, 0x80000, 8, v5);
-			}
-		}
-	}
-	return result;
-}
-
-//----- (004E4800) --------------------------------------------------------
-int nox_xxx_unitSetXStatus_4E4800(nox_object_t* a1p, int a2) {
-	int a1 = a1p;
-	int* result; // eax
-	int v3;      // ecx
-	int v4;      // edx
-	int v5;      // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 20) |= a2;
-	if (a2 != 1) {
-		nox_xxx_unitNeedSync_4E44F0(a1);
-		if (*(uint32_t*)(a1 + 8) & 0x20400004) {
-			result = (int*)(a1 + 560);
-			v3 = 32;
-			do {
-				v4 = *result;
-				++result;
-				--v3;
-				*(result - 1) = v4 & 0xFFFFF000 | 0x80000;
-			} while (v3);
-		} else {
-			v5 = sub_4E4C90(a1, 8u);
-			result = sub_4E4500(a1, 0x80000, 8, v5);
-		}
-	}
-	return result;
-}
-
 //----- (004E4880) --------------------------------------------------------
 int* nox_xxx_servMarkObjAnimFrame_4E4880(int a1, int a2) {
 	int* result; // eax
@@ -8476,7 +8416,7 @@ int* nox_xxx_initChest_4F0400(int a1) {
 
 	result = (int*)a1;
 	if (!(*(uint8_t*)(a1 + 20) & 0xE)) {
-		result = nox_xxx_unitSetXStatus_4E4800(a1, (int*)2);
+		nox_xxx_unitSetXStatus_4E4800(a1, (int*)2);
 	}
 	return result;
 }
@@ -8564,7 +8504,7 @@ int* nox_xxx_breakInit_4F0570(int a1) {
 
 	result = (int*)a1;
 	if (!(*(uint8_t*)(a1 + 20) & 0xE)) {
-		result = nox_xxx_unitSetXStatus_4E4800(a1, (int*)2);
+		nox_xxx_unitSetXStatus_4E4800(a1, (int*)2);
 	}
 	return result;
 }

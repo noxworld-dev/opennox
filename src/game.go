@@ -1238,7 +1238,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					p := m.Pos()
 					np.MonsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
 					if np.Class().Has(object.ClassMonster) && np.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC) {
-						nox_xxx_setNPCColor_4E4A90(np.SObj(), 0, &ud.Color[0])
+						np.SObj().Nox_xxx_setNPCColor_4E4A90(0, &ud.Color[0])
 					}
 				} else if m.Class().Has(1) && legacy.Sub_4E5B80(m.SObj()) != 0 {
 					legacy.Sub_4E81D0(m.SObj())
