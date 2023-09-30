@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"encoding/binary"
+	"image/color"
 	"math"
 	"unsafe"
 
@@ -1119,49 +1120,8 @@ func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int) int {
 	return asObjectS(a1).CountSubOfType(a2)
 }
 
-func nox_xxx_scriptSetDialog_548C80(obj *server.Object, flags server.DialogFlags, start, end int) {
-	if obj == nil {
-		return
-	}
-	if !obj.Class().Has(object.ClassMonster) {
-		return
-	}
-	ud := obj.UpdateDataMonster()
-	if start == -1 || end == -1 {
-		return
-	}
-	ud.DialogStartFunc = int32(start)
-	ud.DialogEndFunc = int32(end)
-	ud.DialogFlags = byte(flags)
-	legacy.Nox_xxx_unitSetXStatus_4E4800(obj, 0x10)
-}
-
-func scriptCancelDialog(obj *server.Object) {
-	if obj == nil {
-		return
-	}
-	if !obj.Class().Has(object.ClassMonster) {
-		return
-	}
-	ud := obj.UpdateDataMonster()
-	ud.DialogStartFunc = -1
-	ud.DialogEndFunc = -1
-	legacy.Nox_xxx_unitUnsetXStatus_4E4780(obj, 0x10)
-}
-
 func nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	legacy.Nox_xxx_script_forcedialog_548CD0(obj, obj2)
-}
-
-func sub_548F40(obj *server.Object) int {
-	if obj == nil {
-		return 0
-	}
-	if !obj.Class().Has(object.ClassMonster) {
-		return 0
-	}
-	ud := obj.UpdateDataMonster()
-	return int(ud.DialogResult)
 }
 
 func nox_xxx_startShopDialog_548DE0(player, npc *server.Object, snd sound.ID, str strman.ID) {
@@ -1224,27 +1184,16 @@ func sub_516090(obj *server.Object, df int) {
 	legacy.Sub_516090(obj, df)
 }
 
-func sub_4E4500(obj *server.Object, val1 uint32, val2 uint32, set bool) {
-	for i := 0; i < 32; i++ {
-		if set {
-			obj.Field140[i] |= val2
-		} else {
-			obj.Field140[i] &^= val2
-		}
-		if obj.Field37&uint32(1<<i) != 0 {
-			obj.Field140[i] |= val1
-		} else if obj.Field140[i]&val2 == 0 {
-			obj.Field140[i] &^= val1
-		}
-	}
-}
-
 func (obj *Object) MonsterIsInjured() bool {
 	return obj.SObj().MonsterIsInjured()
 }
 
 func (obj *Object) MonsterLookAtDamager() bool {
 	return obj.SObj().MonsterLookAtDamager()
+}
+
+func (obj *Object) SetColor(ind int, cl color.Color) {
+	obj.SObj().SetColor(ind, cl)
 }
 
 func sub_534020(a1 *server.Object) int32 {

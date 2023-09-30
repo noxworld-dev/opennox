@@ -112,7 +112,7 @@ void nox_xxx_monsterCreateFn_54C480(nox_object_t* a1);
 int nox_xxx_createWeapon_54C710(int a1);
 uint32_t* sub_54C950(int a1);
 int nox_xxx_createFnObelisk_54CA10(int a1);
-int* nox_xxx_createFnAnim_54CA50(int a1);
+void nox_xxx_createFnAnim_54CA50(int a1);
 uint8_t* nox_xxx_createTrigger_54CA60(int a1);
 uint32_t* nox_xxx_createMonsterGen_54CA90(int a1);
 uint32_t* nox_xxx_createRewardMarker_54CAC0(int a1);

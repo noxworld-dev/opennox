@@ -42,14 +42,6 @@ func (a *aiData) Init(s *Server) {
 	a.s = s
 }
 
-func aiStackArgObj(s *server.AIStackItem, i int) *Object {
-	return asObject(unsafe.Pointer(s.Args[i]))
-}
-
-func aiStackArgUnit(s *server.AIStackItem, i int) *Object {
-	return asObject(unsafe.Pointer(s.Args[i]))
-}
-
 func (obj *Object) MaybePrintAIStack(event string) {
 	obj.SObj().MaybePrintAIStack(event)
 }
@@ -78,7 +70,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		case ai.DEPENDENCY_TIME:
 			ok = st.ArgU32(0) > a.s.Frame()
 		case ai.DEPENDENCY_ALIVE:
-			obj := aiStackArgObj(st, 0)
+			obj := st.ArgObj(0)
 			h := obj.HealthData
 			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.Cur == 0) && h.Max != 0 {
 				ok = false
@@ -88,7 +80,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if u.MonsterIsInjured() {
 				if u.Obj130 != nil {
-					v26 := getOwnerUnit(u.Obj130)
+					v26 := u.Obj130.GetOwnerUnit()
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
 						st.Args[0] = uintptr(a.s.Frame())
 					}
@@ -102,7 +94,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			if u.Obj130 == nil {
 				break
 			}
-			attacker := getOwnerUnit(u.Obj130)
+			attacker := u.Obj130.GetOwnerUnit()
 			if attacker == nil {
 				break
 			}
@@ -110,17 +102,17 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CAN_SEE:
-			obj := aiStackArgObj(st, 0)
-			if obj == nil || !a.s.CanInteract(u.SObj(), obj.SObj(), 0) {
+			obj := st.ArgObj(0)
+			if obj == nil || !a.s.CanInteract(u.SObj(), obj, 0) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CANNOT_SEE:
-			obj := aiStackArgObj(st, 0)
-			if obj == nil || a.s.CanSeeDir(u.SObj(), obj.SObj()) {
+			obj := st.ArgObj(0)
+			if obj == nil || a.s.CanSeeDir(u.SObj(), obj) {
 				ok = false
 			}
 		case ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE:
-			obj := aiStackArgObj(st, 0)
+			obj := st.ArgObj(0)
 			if obj == nil {
 				ok = false
 				break
@@ -128,7 +120,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			pos, pos2 := u.Pos(), obj.Pos()
 			ok = !a.s.MapTraceObstacles(u.SObj(), pos, pos2)
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
-			v28 := aiStackArgObj(st, 2)
+			v28 := st.ArgObj(2)
 			v29 := false
 			if v28 != nil && a.s.CanInteract(u.SObj(), v28.SObj(), 0) {
 				v29 = true
@@ -140,10 +132,10 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ok = false
 			}
 		case ai.DEPENDENCY_OBJECT_FARTHER_THAN:
-			obj, r := aiStackArgObj(st, 2), st.ArgF32(0)
+			obj, r := st.ArgObj(2), st.ArgF32(0)
 			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) > r
 		case ai.DEPENDENCY_OBJECT_CLOSER_THAN:
-			obj, r := aiStackArgObj(st, 2), st.ArgF32(0)
+			obj, r := st.ArgObj(2), st.ArgF32(0)
 			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) <= r
 		case ai.DEPENDENCY_LOCATION_FARTHER_THAN:
 			pos := u.Pos()
@@ -172,7 +164,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ok = false
 			}
 		case ai.DEPENDENCY_NO_NEW_ENEMY:
-			old := aiStackArgUnit(st, 0)
+			old := st.ArgObj(0)
 			if old == nil {
 				ok = false
 				break
@@ -265,7 +257,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		}
 		for {
 			u.MonsterPopAction()
-			if int(ud.AIStackInd) < i || aiStackEmptyAndIdle(u.SObj()) {
+			if int(ud.AIStackInd) < i || u.SObj().AIStackEmptyAndIdle() {
 				break
 			}
 		}
@@ -274,57 +266,6 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		u.MonsterActionReset()
 		u.MaybePrintAIStack("procDep")
 	}
-}
-
-func aiStackEmptyAndIdle(u *server.Object) bool {
-	ud := u.UpdateDataMonster()
-	return ud.AIStackInd == 0 && ai.ActionType(ud.AIStack[0].Action) == ai.ACTION_IDLE
-}
-
-func sub_545E60(a1c *server.Object) int {
-	u := asObjectS(a1c)
-	s := u.Server()
-
-	ud := u.UpdateDataMonster()
-	ts := u.Frame134
-	if ud.Field129 >= ts || s.Frame()-ts >= s.SecToFrames(10) {
-		return 0
-	}
-	ud.Field129 = ts
-	if u.Obj130 != nil {
-		if obj4 := getOwnerUnit(u.Obj130); obj4 != nil {
-			if !s.IsEnemyTo(u.SObj(), obj4) {
-				return 0
-			}
-			canInteract := s.CanInteract(u.SObj(), obj4, 0)
-			if s.IsPlant(u.SObj()) {
-				if !canInteract {
-					return 0
-				}
-				u.MonsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.Field328)*1.05)
-			} else {
-				u.MonsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, s.Frame())
-			}
-			u.MonsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), s.Frame())
-			if !canInteract {
-				u.MonsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
-				if nox_xxx_monsterCanAttackAtWill_534390(u) {
-					u.MonsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
-				}
-				u.MonsterPushAction(ai.ACTION_MOVE_TO, obj4.Pos(), 0)
-			}
-			return 1
-		}
-	}
-	if !u.UpdateDataMonster().HasAction(ai.ACTION_ROAM) {
-		u.MonsterPushAction(ai.DEPENDENCY_TIME, s.SecToFrames(5))
-		u.MonsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
-		if nox_xxx_monsterCanAttackAtWill_534390(u) {
-			u.MonsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
-		}
-		u.MonsterPushAction(ai.ACTION_ROAM, 0, 0, -128)
-	}
-	return 0
 }
 
 var _ = [1]struct{}{}[24-unsafe.Sizeof(MonsterListen{})]
@@ -357,7 +298,7 @@ func (a *aiData) NewSound(snd sound.ID, obj *server.Object, pos types.Pointf) {
 	if a.allocListen.Class == nil {
 		a.allocListen = alloc.NewClassT("MonsterListen", MonsterListen{}, 128)
 	}
-	if getOwnerUnit(obj) == nil {
+	if obj.GetOwnerUnit() == nil {
 		return
 	}
 
@@ -373,15 +314,6 @@ func (a *aiData) NewSound(snd sound.ID, obj *server.Object, pos types.Pointf) {
 	}
 	p.next = a.listenHead
 	a.listenHead = p
-}
-
-func getOwnerUnit(obj *server.Object) *server.Object {
-	for it := obj; it != nil; it = it.ObjOwner {
-		if it.Class().HasAny(object.MaskUnits) {
-			return it
-		}
-	}
-	return nil
 }
 
 func (a *aiData) aiListenToSounds(u *Object) {
@@ -682,27 +614,14 @@ func (AIActionIdle) Start(obj *server.Object) {
 func (AIActionIdle) End(_ *server.Object)    {}
 func (AIActionIdle) Cancel(_ *server.Object) {}
 
-func sub_5343C0(u *Object) bool {
-	ud := u.UpdateDataMonster()
-	return ud.Aggression < 0.66000003 && ud.Aggression > 0.33000001
-}
-
-func nox_xxx_monsterCanAttackAtWill_534390(u *Object) bool {
-	return u.UpdateDataMonster().Aggression > 0.66000003
-}
-
-func sub_534440(u *Object) bool {
-	return u.UpdateDataMonster().Aggression < 0.079999998
-}
-
 func (AIActionIdle) Update(obj *server.Object) {
 	u := asObjectS(obj)
 	s := u.getServer()
-	ud := u.UpdateDataMonster()
+	ud := obj.UpdateDataMonster()
 	if uint16(s.Frame()-ud.AIStackHead().ArgU32(0)) == uint16(ud.Field305) {
-		s.noxScript.ScriptCallback(&ud.ScriptLookingForEnemy, nil, u.SObj(), server.NoxEventMonsterIdle)
+		s.noxScript.ScriptCallback(&ud.ScriptLookingForEnemy, nil, obj, server.NoxEventMonsterIdle)
 	}
-	if u.Flags().Has(object.FlagEnabled) && (sub_5343C0(u) || nox_xxx_monsterCanAttackAtWill_534390(u)) {
+	if obj.Flags().Has(object.FlagEnabled) && (obj.Sub_5343C0() || obj.Nox_xxx_monsterCanAttackAtWill_534390()) {
 		if enemy := asObjectS(ud.CurrentEnemy); enemy != nil {
 			u.MonsterPushAction(ai.ACTION_FIGHT, enemy.Pos(), s.Frame())
 			return
@@ -711,7 +630,7 @@ func (AIActionIdle) Update(obj *server.Object) {
 			return
 		}
 	}
-	if !u.Flags().Has(object.FlagEnabled) || sub_534440(u) || sub_545E60(u.SObj()) == 0 {
+	if !u.Flags().Has(object.FlagEnabled) || obj.Sub_534440() || obj.Sub_545E60() == 0 {
 		if s.IsMimic(u.SObj()) {
 			if !u.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
 				legacy.Nox_xxx_mobHealSomeone_5411A0(u.SObj())

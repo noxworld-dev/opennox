@@ -4475,7 +4475,7 @@ int nox_xxx_createFnObelisk_54CA10(int a1) {
 // 4E4770: using guessed type void  nullsub_35(uint32_t, uint32_t);
 
 //----- (0054CA50) --------------------------------------------------------
-int* nox_xxx_createFnAnim_54CA50(int a1) { return nox_xxx_unitSetXStatus_4E4800(a1, (int*)2); }
+void nox_xxx_createFnAnim_54CA50(int a1) { nox_xxx_unitSetXStatus_4E4800(a1, (int*)2); }
 
 //----- (0054CA60) --------------------------------------------------------
 uint8_t* nox_xxx_createTrigger_54CA60(int a1) {

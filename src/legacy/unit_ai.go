@@ -24,7 +24,6 @@ import (
 )
 
 var (
-	Sub_545E60                           func(a1c *server.Object) int
 	Nox_xxx_gameSetAudioFadeoutMb_501AC0 func(v int)
 	Nox_xxx_unitUpdateMonster_50A5C0     func(a1 *server.Object)
 )
@@ -106,7 +105,7 @@ func (a cgoAIAction) Cancel(u *server.Object) {
 func nox_ai_debug_print(str *C.char) { ai.Log.Printf("%s", GoString(str)) }
 
 //export sub_545E60
-func sub_545E60(a1c *nox_object_t) int { return Sub_545E60(asObjectS(a1c)) }
+func sub_545E60(a1c *nox_object_t) int { return asObjectS(a1c).Sub_545E60() }
 
 //export nox_xxx_gameSetAudioFadeoutMb_501AC0
 func nox_xxx_gameSetAudioFadeoutMb_501AC0(v int) { Nox_xxx_gameSetAudioFadeoutMb_501AC0(v) }

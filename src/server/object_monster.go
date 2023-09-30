@@ -7,6 +7,8 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
@@ -43,6 +45,10 @@ func (s *AIStackItem) ArgPos(i int) types.Pointf {
 		X: math.Float32frombits(uint32(s.Args[i+0])),
 		Y: math.Float32frombits(uint32(s.Args[i+1])),
 	}
+}
+
+func (s *AIStackItem) ArgObj(i int) *Object {
+	return asObjectP(unsafe.Pointer(s.Args[i]))
 }
 
 func (s *AIStackItem) SetArgs(args ...any) {
@@ -477,6 +483,110 @@ func (ud *MonsterUpdateData) HasAction(act ai.ActionType) bool { // nox_xxx_chec
 		}
 	}
 	return false
+}
+
+func (obj *Object) AIStackEmptyAndIdle() bool {
+	ud := obj.UpdateDataMonster()
+	return ud.AIStackInd == 0 && ai.ActionType(ud.AIStack[0].Action) == ai.ACTION_IDLE
+}
+
+func (obj *Object) Sub_5343C0() bool {
+	ud := obj.UpdateDataMonster()
+	return ud.Aggression < 0.66000003 && ud.Aggression > 0.33000001
+}
+
+func (obj *Object) Nox_xxx_monsterCanAttackAtWill_534390() bool {
+	return obj.UpdateDataMonster().Aggression > 0.66000003
+}
+
+func (obj *Object) Sub_534440() bool {
+	return obj.UpdateDataMonster().Aggression < 0.079999998
+}
+
+func (obj *Object) Nox_xxx_setNPCColor_4E4A90(ind byte, cl *Color3) {
+	ud := obj.UpdateDataMonster()
+	obj.NeedSync()
+	ud.Color[ind] = *cl
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i, v := range obj.Field140 {
+			obj.Field140[i] = v&0xFFFFF000 | 0x4000000
+		}
+	} else {
+		val := obj.Sub_4E4C90(0x400)
+		obj.Sub_4E4500(0x4000000, 1024, val)
+	}
+}
+
+func (obj *Object) ScriptCancelDialog() {
+	if obj == nil {
+		return
+	}
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	ud.DialogStartFunc = -1
+	ud.DialogEndFunc = -1
+	obj.UnsetXStatus(0x10)
+}
+
+func (obj *Object) ScriptSetDialog(flags DialogFlags, start, end int) {
+	if obj == nil {
+		return
+	}
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	if start == -1 || end == -1 {
+		return
+	}
+	ud.DialogStartFunc = int32(start)
+	ud.DialogEndFunc = int32(end)
+	ud.DialogFlags = byte(flags)
+	obj.SetXStatus(0x10)
+}
+
+type DialogAnswer int
+
+const (
+	AnswerGoodbye = DialogAnswer(0)
+	AnswerYes     = DialogAnswer(1)
+	AnswerNo      = DialogAnswer(2)
+)
+
+func (obj *Object) ScriptDialogResult() DialogAnswer {
+	if obj == nil {
+		return 0
+	}
+	if !obj.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	ud := obj.UpdateDataMonster()
+	return DialogAnswer(ud.DialogResult)
+}
+
+func (obj *Object) MonsterCast(spellInd spell.ID, target *Object) {
+	s := obj.Server()
+	ud := obj.UpdateDataMonster()
+	obj.MonsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
+	sp := s.Spells.DefByInd(spellInd)
+	if sp.Def.Flags.Has(things.SpellDuration) {
+		ts := s.Frame() + uint32(s.Rand.Logic.IntClamp(int(s.TickRate()/2), int(2*s.TickRate())))
+		obj.MonsterPushAction(ai.DEPENDENCY_TIME, ts)
+		obj.MonsterPushAction(ai.ACTION_CAST_DURATION_SPELL, uint32(spellInd), 0, target)
+	} else {
+		obj.MonsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
+	}
+	if target != obj && !obj.MonsterActionIsScheduled(ai.ACTION_FLEE) {
+		if !sp.Def.Flags.Has(things.SpellTargeted) { // TODO: looks like the flag name is incorrect on our side
+			obj.MonsterPushAction(ai.ACTION_FACE_OBJECT, target)
+			obj.MonsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
+		}
+		obj.MonsterPushAction(ai.DEPENDENCY_OBJECT_FARTHER_THAN, ud.MonsterDef.MissileAttackRange212, 0, target)
+		obj.MonsterPushAction(ai.DEPENDENCY_OR)
+		obj.MonsterPushAction(ai.ACTION_MOVE_TO, target.Pos(), target)
+	}
 }
 
 type MonsterDef struct {
