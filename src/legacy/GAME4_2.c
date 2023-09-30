@@ -7753,6 +7753,8 @@ int sub_528950(int a1, int a2) {
 }
 
 //----- (00528990) --------------------------------------------------------
+nox_object_t* nox_xxx_getFirstUpdatableObject_4DA8A0();
+nox_object_t* nox_xxx_getNextUpdatableObject_4DA8B0(nox_object_t* obj);
 int sub_528990(nox_object_t* a1) {
 	int result; // eax
 	int i;      // esi

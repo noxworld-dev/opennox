@@ -414,15 +414,15 @@ func nox_server_mapRWObjectData_504CF0_Read(cf *cryptfile.CryptFile, a2 unsafe.P
 
 func nox_server_mapRWObjectData_504CF0_Write(cf *cryptfile.CryptFile, a2 unsafe.Pointer) error {
 	s := noxServer
-	for it := s.FirstServerObject(); it != nil; it = it.Next() {
+	for it := s.Objs.First(); it != nil; it = it.Next() {
 		pos := it.Pos()
 		if a2 == nil || sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
-			if sub_4E3B80(int(it.TypeInd)) && nox_xxx_xfer_saveObj51DF90(cf, it.SObj()) == 0 {
+			if sub_4E3B80(int(it.TypeInd)) && nox_xxx_xfer_saveObj51DF90(cf, it) == 0 {
 				return fmt.Errorf("cannot write object %s", it.String())
 			}
 		}
 	}
-	for obj := asObjectS(s.Objs.UpdatableList2); obj != nil; obj = obj.Next() {
+	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
 		if a2 != nil {
 			pos := obj.Pos()
 			if !sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
@@ -433,8 +433,8 @@ func nox_server_mapRWObjectData_504CF0_Write(cf *cryptfile.CryptFile, a2 unsafe.
 			pos := obj.Pos()
 			v6 := obj.FirstItem()
 			v6.PosVec = pos
-			nox_xxx_xfer_saveObj51DF90(cf, v6.SObj())
-		} else if sub_4E3B80(int(obj.TypeInd)) && nox_xxx_xfer_saveObj51DF90(cf, obj.SObj()) == 0 {
+			nox_xxx_xfer_saveObj51DF90(cf, v6)
+		} else if sub_4E3B80(int(obj.TypeInd)) && nox_xxx_xfer_saveObj51DF90(cf, obj) == 0 {
 			return fmt.Errorf("cannot write upd object %s", obj.String())
 		}
 	}

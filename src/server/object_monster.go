@@ -589,6 +589,90 @@ func (obj *Object) MonsterCast(spellInd spell.ID, target *Object) {
 	}
 }
 
+func Nox_xxx_creatureIsMonitored_500CC0(owner *Object, u *Object) bool {
+	if !u.Class().Has(object.ClassMonster) {
+		return false
+	}
+	if (!u.Flags().Has(object.FlagDead) || u.Server().IsZombie(u)) && u.UpdateDataMonster().StatusFlags.Has(object.MonStatusSummoned) {
+		return u.HasOwner(owner)
+	} else {
+		return false
+	}
+}
+
+func (obj *Object) Nox_xxx_monsterResetEnemy_5346F0() {
+	obj.UpdateDataMonster().CurrentEnemy = nil
+}
+
+func (obj *Object) Nox_xxx_monsterMarkUpdate_4E8020() {
+	s := obj.Server()
+	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
+		u := pl.PlayerUnit
+		bit := uint32(1) << pl.PlayerInd
+		if u == nil {
+			obj.Field36 &^= bit
+			obj.Field35 &^= bit
+		} else {
+			if s.IsHostileMimicXxx(u, obj) {
+				if obj.Field36&bit == 0 {
+					obj.Field36 |= bit
+					obj.Field35 |= bit
+				}
+			} else {
+				if obj.Field36&bit != 0 {
+					obj.Field36 &^= bit
+					obj.Field35 |= bit
+				}
+			}
+		}
+	}
+}
+
+func (obj *Object) SetMonsterStatus(v object.MonsterStatus) {
+	if obj.Class().Has(object.ClassMonster) {
+		obj.UpdateDataMonster().StatusFlags = v
+		obj.Nox_xxx_monsterMarkUpdate_4E8020()
+	}
+}
+
+func (obj *Object) MonsterStatusEnable(v object.MonsterStatus) {
+	if obj.Class().Has(object.ClassMonster) {
+		obj.UpdateDataMonster().StatusFlags |= v
+		obj.Nox_xxx_monsterMarkUpdate_4E8020()
+	}
+}
+
+func (obj *Object) MonsterStatusDisable(v object.MonsterStatus) {
+	if obj.Class().Has(object.ClassMonster) {
+		obj.UpdateDataMonster().StatusFlags &^= v
+		obj.Nox_xxx_monsterMarkUpdate_4E8020()
+	}
+}
+
+func (obj *Object) SummonSize() int {
+	cl := obj.SubClass().AsMonster()
+	switch {
+	case cl.Has(object.MonsterSmall):
+		return 1
+	case cl.Has(object.MonsterMedium):
+		return 2
+	case cl.Has(object.MonsterLarge):
+		return 4
+	default:
+		return 4
+	}
+}
+
+func (obj *Object) Nox_xxx_countControlledCreatures_500D10() int {
+	cnt := 0
+	for it := obj.FirstOwned516(); it != nil; it = it.NextOwned512() {
+		if Nox_xxx_creatureIsMonitored_500CC0(obj, it) {
+			cnt += it.SummonSize()
+		}
+	}
+	return cnt
+}
+
 type MonsterDef struct {
 	Name0                        [64]byte             // 0, 0, TODO: size is a guess
 	Experience64                 uint32               // 16, 64

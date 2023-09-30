@@ -786,12 +786,12 @@ func (AIActionMorphIntoChest) End(_ *server.Object)    {}
 func (AIActionMorphIntoChest) Cancel(_ *server.Object) {}
 
 func (AIActionMorphIntoChest) Update(obj *server.Object) {
-	u := asObjectS(obj)
+	u := obj
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.MonsterPopAction()
 		ud.StatusFlags |= object.MonStatusMorphed
-		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
+		u.Nox_xxx_monsterMarkUpdate_4E8020()
 	}
 }
 
@@ -806,12 +806,12 @@ func (AIActionMorphBackToSelf) End(_ *server.Object)    {}
 func (AIActionMorphBackToSelf) Cancel(_ *server.Object) {}
 
 func (AIActionMorphBackToSelf) Update(obj *server.Object) {
-	u := asObjectS(obj)
+	u := obj
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.MonsterPopAction()
 		ud.StatusFlags &^= object.MonStatusMorphed
-		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
+		u.Nox_xxx_monsterMarkUpdate_4E8020()
 	}
 }
 

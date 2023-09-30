@@ -257,14 +257,14 @@ func (s noxScriptImpl) ObjectTypeByID(id string) script.ObjectType {
 }
 
 func (s noxScriptImpl) ObjectByID(id string) script.Object {
-	obj := s.s.GetObjectByID(id)
+	obj := s.s.Objs.GetObjectByID(id)
 	if obj == nil {
 		return nil
 	}
 	if obj.Class().HasAny(object.MaskUnits) {
-		return obj
+		return asObjectS(obj)
 	}
-	return obj
+	return asObjectS(obj)
 }
 
 func (s noxScriptImpl) ObjectGroupByID(id string) *script.ObjectGroup {

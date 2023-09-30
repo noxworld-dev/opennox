@@ -221,8 +221,6 @@ nox_object_t* nox_xxx_getFirstUpdatable2Object_4DA840();
 nox_object_t* nox_xxx_getNextUpdatable2Object_4DA850(nox_object_t* obj);
 nox_object_t* nox_server_getFirstObjectUninited_4DA870();
 nox_object_t* nox_server_getNextObjectUninited_4DA880(nox_object_t* obj);
-nox_object_t* nox_xxx_getFirstUpdatableObject_4DA8A0();
-nox_object_t* nox_xxx_getNextUpdatableObject_4DA8B0(nox_object_t* obj);
 void nox_xxx_unitAddToUpdatable_4DA8D0(nox_object_t* obj);
 void nox_xxx_unitRemoveFromUpdatable_4DA920(nox_object_t* a1);
 uint32_t* nox_xxx_unitNewAddShadow_4DA9A0(nox_object_t* a1);

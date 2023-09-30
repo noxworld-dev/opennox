@@ -94,7 +94,6 @@ int nox_xxx_actionNByNameMB_5345F0(const char* a1);
 char* sub_534650(int a1);
 int nox_xxx_actionByName_534670(const char* a1);
 int sub_5346D0(int a1);
-int nox_xxx_monsterResetEnemy_5346F0(int a1);
 int sub_534710(int a1);
 int sub_534750(int a1);
 int sub_534780(int a1);

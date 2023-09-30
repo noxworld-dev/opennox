@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_xxx_updateSprings_5113A0() {
@@ -17,8 +18,8 @@ type serverSprings struct {
 }
 
 type Spring struct {
-	obj1    *Object
-	obj2    *Object
+	obj1    *server.Object
+	obj2    *server.Object
 	force   float32
 	length  float32
 	maxDist float32
@@ -54,7 +55,7 @@ func (s *serverSprings) listAdd(p *Spring) {
 	s.head = p
 }
 
-func (s *serverSprings) Add(obj1, obj2 *Object) {
+func (s *serverSprings) Add(obj1, obj2 *server.Object) {
 	if obj1 == nil || obj2 == nil {
 		return
 	}

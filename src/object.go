@@ -34,26 +34,10 @@ func asObjectS(p *server.Object) *Object {
 
 func (s *Server) GetObjects() []*Object {
 	var out []*Object
-	for p := s.FirstServerObject(); p != nil; p = p.Next() {
+	for p := s.Objs.First(); p != nil; p = p.Next() {
 		out = append(out, asObjectS(p))
 	}
 	return out
-}
-
-func (s *Server) GetObjectsUpdatable2() []*Object {
-	var out []*Object
-	for p := asObjectS(s.Objs.UpdatableList2); p != nil; p = p.Next() {
-		out = append(out, p)
-	}
-	return out
-}
-
-func (s *Server) GetObjectByID(id string) *Object {
-	return asObjectS(s.Server.GetObjectByID(id))
-}
-
-func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
-	return asObjectS(s.Server.GetObjectByInd(ind))
 }
 
 func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
@@ -65,8 +49,8 @@ func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 	id = g.ID()
 	var list []script.Object
 	for it := g.First(); it != nil; it = it.Next() {
-		if wl := s.GetObjectByInd(it.Data1()); wl != nil {
-			list = append(list, wl)
+		if wl := s.Objs.GetObjectByInd(it.Data1()); wl != nil {
+			list = append(list, asObjectS(wl))
 		}
 	}
 	return script.NewObjectGroup(id, list...)
@@ -81,7 +65,7 @@ func (s *Server) DelayedDelete(obj *server.Object) {
 		return
 	}
 	if owner := asObjectS(obj).OwnerC(); owner != nil && owner.Class().Has(object.ClassPlayer) {
-		if obj.Class().Has(object.ClassMonster) && legacy.Nox_xxx_creatureIsMonitored_500CC0(owner.SObj(), obj.SObj()) == 0 && (obj.SubClass()&0x80 != 0) {
+		if obj.Class().Has(object.ClassMonster) && !server.Nox_xxx_creatureIsMonitored_500CC0(owner.SObj(), obj) && (obj.SubClass()&0x80 != 0) {
 			legacy.Nox_xxx_monsterRemoveMonitors_4E7B60(owner.SObj(), obj)
 		}
 	}
@@ -339,7 +323,7 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 
 func (s *Server) deleteAllObjectsOfType(t *server.ObjectType) {
 	var next *server.Object
-	for it := s.FirstServerObject(); it != nil; it = next {
+	for it := s.Objs.First(); it != nil; it = next {
 		next = it.Next()
 		var next2 *server.Object
 		for it2 := it.FirstItem(); it2 != nil; it2 = next2 {
@@ -733,12 +717,86 @@ func (obj *Object) Owner() script.Object {
 }
 
 func (obj *Object) SetOwner(owner script.ObjectWrapper) {
+	s := obj.getServer()
 	if owner == nil {
-		legacy.Nox_xxx_unitClearOwner_4EC300(obj.SObj())
+		s.Nox_xxx_unitClearOwner_4EC300(obj.SObj())
 		return
 	}
 	own := owner.GetObject().(server.Obj)
-	legacy.Nox_xxx_unitSetOwner_4EC290(own.SObj(), obj.SObj())
+	s.Nox_xxx_unitSetOwner_4EC290(own.SObj(), obj.SObj())
+}
+
+func (obj *Object) SetMonsterStatus(v object.MonsterStatus) {
+	obj.SObj().SetMonsterStatus(v)
+}
+
+func (obj *Object) MonsterStatusEnable(v object.MonsterStatus) {
+	obj.SObj().MonsterStatusEnable(v)
+}
+
+func (obj *Object) MonsterStatusDisable(v object.MonsterStatus) {
+	obj.SObj().MonsterStatusDisable(v)
+}
+
+func (s *Server) Nox_xxx_unitSetOwner_4EC290(owner, obj *server.Object) {
+	if obj == nil {
+		return
+	}
+	s.Nox_xxx_unitClearOwner_4EC300(obj)
+	if owner != nil {
+		for owner.Flags().Has(object.FlagDestroyed) {
+			owner = owner.ObjOwner
+			if owner == nil {
+				break
+			}
+		}
+		if owner != nil {
+			obj.Field128 = owner.Field129
+			owner.Field129 = obj
+		}
+	}
+	obj.ObjOwner = owner
+	if obj.Class().Has(object.ClassMonster) {
+		obj.Nox_xxx_monsterResetEnemy_5346F0()
+	}
+	if obj.Class().HasAny(object.MaskUnits) {
+		obj.Nox_xxx_monsterMarkUpdate_4E8020()
+	}
+}
+
+func (s *Server) Nox_xxx_unitClearOwner_4EC300(obj *server.Object) {
+	if obj == nil || obj.ObjOwner == nil {
+		return
+	}
+	owner := obj.ObjOwner
+	if owner.Class().Has(object.ClassPlayer) && server.Nox_xxx_creatureIsMonitored_500CC0(owner, obj) {
+		v2 := int32(obj.ObjSubClass)
+		*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 & math.MaxInt8))
+		ud := owner.UpdateDataPlayer()
+		obj.ObjSubClass = uint32(v2)
+		s.nox_xxx_netFxShield_0_4D9200(int(ud.Player.PlayerInd), obj)
+		s.Players.Nox_xxx_netUnmarkMinimapObj_417300(ud.Player.PlayerIndex(), obj, 1)
+	}
+	if owner.Field129 != nil {
+		var last *server.Object
+		for v6 := owner.Field129; v6 != obj && v6 != nil; v6 = v6.Field128 {
+			last = v6
+		}
+		if last != nil {
+			last.Field128 = obj.Field128
+		} else {
+			owner.Field129 = obj.Field128
+		}
+	} else {
+		owner.Field129 = obj.Field128
+	}
+	obj.ObjOwner = nil
+	if obj.Class().Has(object.ClassMonster) {
+		obj.Nox_xxx_monsterResetEnemy_5346F0()
+	}
+	if obj.Class().HasAny(object.MaskUnits) {
+		obj.Nox_xxx_monsterMarkUpdate_4E8020()
+	}
 }
 
 func (obj *Object) Pos() types.Pointf {

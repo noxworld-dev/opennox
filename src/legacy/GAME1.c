@@ -2753,63 +2753,6 @@ char* nox_xxx_playerByName_4170D0(wchar2_t* a1) {
 	return v1;
 }
 
-//----- (00417190) --------------------------------------------------------
-int nox_xxx_netMarkMinimapObject_417190(int a1, nox_object_t* a2p, int a3) {
-	int a2 = a2p;
-	int v3;            // ebx
-	uint32_t* v4;      // ecx
-	unsigned char* v5; // esi
-	uint32_t* v6;      // eax
-	uint32_t* v8;      // eax
-	int v9;            // ecx
-	int v10;           // ecx
-
-	v3 = 0;
-	if (!(a1 >= 0 && a1 < NOX_PLAYERINFO_MAX && a2)) {
-		return v3;
-	}
-	nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
-	v4 = pl->field_4580;
-	v5 = pl;
-	if (v4) {
-		if (v4[1] == a2) {
-			v6 = pl->field_4580;
-			*v6 |= a3;
-			return 1;
-		}
-		v6 = (uint32_t*)v4[2];
-		while (v6 != v4) {
-			if (v6[1] == a2) {
-				*v6 |= a3;
-				return 1;
-			}
-			v6 = (uint32_t*)v6[2];
-		}
-	}
-	v8 = calloc(1, 0x10u);
-	if (!v8) {
-		return v3;
-	}
-	v8[1] = a2;
-	*v8 = a3;
-	v9 = *((uint32_t*)v5 + 1145);
-	if (v9) {
-		v8[2] = v9;
-		v10 = v8[2];
-		v8[3] = *(uint32_t*)(*((uint32_t*)v5 + 1145) + 12);
-		*(uint32_t*)(v10 + 12) = v8;
-		*(uint32_t*)(v8[3] + 8) = v8;
-		*((uint32_t*)v5 + 1145) = v8;
-	} else {
-		*((uint32_t*)v5 + 1145) = v8;
-		v8[3] = v8;
-		v8[2] = v8;
-	}
-	nox_xxx_unitSetXStatus_4E4800(a2, (int*)1);
-	v3 = 1;
-	return v3;
-}
-
 //----- (00417270) --------------------------------------------------------
 int sub_417270(int a1) {
 	int result; // eax
@@ -2824,64 +2767,6 @@ int sub_417270(int a1) {
 			v3 = *(uint32_t*)(v2 + 8);
 			for (result = 1; v3 != v2; ++result) {
 				v3 = *(uint32_t*)(v3 + 8);
-			}
-		}
-	}
-	return result;
-}
-
-//----- (00417300) --------------------------------------------------------
-int nox_xxx_netUnmarkMinimapObj_417300(int a1, nox_object_t* a2p, int a3) {
-	int a2 = a2p;
-	int result;        // eax
-	unsigned char* v4; // edi
-	uint32_t* v5;      // ecx
-	int v6;            // edx
-	bool v7;           // zf
-	uint32_t* v8;      // eax
-	int v9;            // eax
-
-	result = 0;
-	if (a1 >= 0 && a1 < NOX_PLAYERINFO_MAX) {
-		if (a2) {
-			nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
-			v4 = pl;
-			v5 = pl->field_4580;
-			if (v5) {
-				while (1) {
-					v6 = v5[2];
-					if (v5[1] == a2) {
-						break;
-					}
-					if (v6 != pl->field_4580) {
-						v5 = (uint32_t*)v5[2];
-						if (v6) {
-							continue;
-						}
-					}
-					return result;
-				}
-				v7 = (~a3 & *v5) == 0;
-				*v5 &= ~a3;
-				if (v7) {
-					v8 = (uint32_t*)*((uint32_t*)v4 + 1145);
-					if ((uint32_t*)v8[2] == v8) {
-						*((uint32_t*)v4 + 1145) = 0;
-					} else {
-						if (v8 == v5) {
-							*((uint32_t*)v4 + 1145) = v5[2];
-						}
-						*(uint32_t*)(v5[2] + 12) = v5[3];
-						*(uint32_t*)(v5[3] + 8) = v5[2];
-					}
-					free(v5);
-					v9 = *(uint32_t*)(a2 + 20);
-					LOBYTE(v9) = v9 & 0xFE;
-					*(uint32_t*)(a2 + 20) = v9;
-					result = 1;
-				} else {
-					result = 0;
-				}
 			}
 		}
 	}

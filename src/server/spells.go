@@ -450,3 +450,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflag
 	})
 	return found.SObj()
 }
+
+func Sub_57AEE0(sp spell.ID, u *Object) bool {
+	return sp < spell.SPELL_SUMMON_BAT || sp > spell.SPELL_SUMMON_URCHIN_SHAMAN || u.Nox_xxx_countControlledCreatures_500D10() <= 4
+}
