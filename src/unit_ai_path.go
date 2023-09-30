@@ -194,7 +194,7 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 						continue
 					}
 				}
-				if s.sub_50B870(v30, int(x2), int(y2)) != 0 {
+				if s.sub_50B870(v30, int(x2), int(y2)) {
 					continue
 				}
 				if x00 != x2 || y00 != y2 {
@@ -344,7 +344,7 @@ func (s *Server) Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoin
 		for v6 := v4; v6 != nil; v6 = v6.Field8 {
 			v7 := int32(v6.X0)
 			v8 := int32(v6.Y2)
-			if int32(s.AI.Paths.MapIndex(int(v7), int(v8)).Flags8)&0x40 != 0 && s.sub_50B870(a1, int(v7), int(v8)) == 0 {
+			if int32(s.AI.Paths.MapIndex(int(v7), int(v8)).Flags8)&0x40 != 0 && !s.sub_50B870(a1, int(v7), int(v8)) {
 				var v18 types.Pointf
 				v18.X = float32(float64(v7*23 + 11))
 				v18.Y = float32(float64(v8*23 + 11))
@@ -357,7 +357,7 @@ func (s *Server) Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoin
 				if p := s.AI.Paths.MapIndex(int(x2), int(y2)); p != nil && p.Index0 != s.AI.Paths.MapIndexLast {
 					v16 := int32(*(*uint32)(unsafe.Pointer(v9)) + uint32(v6.Y2))
 					p.Index0 = s.AI.Paths.MapIndexLast
-					if s.sub_50B870(a1, int(x2), int(v16)) == 0 {
+					if !s.sub_50B870(a1, int(x2), int(v16)) {
 						if sub_50C830(a1, x2, y2) != 0 {
 							v12 := s.AI.Paths.NewVisitNode()
 							if v12 != nil {
@@ -384,11 +384,89 @@ func (s *Server) Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoin
 	return nil
 }
 
-func (s *Server) sub_50B870(a1 *server.Object, x, y int) int {
-	return bool2int(legacy.Sub_57B630(a1, x, y) != -1)
+func (s *Server) sub_50B870(a1 *server.Object, x, y int) bool {
+	return s.sub_57B630(a1, x, y) != -1
+}
+func (s *Server) sub_57B630(obj *server.Object, x, y int) int8 {
+	if x < 0 || x >= 256 || y < 0 || y >= 256 {
+		return -1
+	}
+	wl := s.Walls.GetWallAtGrid2(image.Pt(x, y))
+	if wl == nil {
+		return -1
+	}
+	if wl.Flags4&0x10 != 0 {
+		door := asObject(wl.Data28).SObj()
+		if door != nil {
+			ud := door.UpdateData
+			v7 := *(*uint32)(unsafe.Add(ud, 12))
+			if v7 == *(*uint32)(unsafe.Add(ud, 4)) {
+				v8x := memmap.Int32(0x587000, uintptr(v7)*8+196184)
+				v8y := memmap.Int32(0x587000, uintptr(v7)*8+196188)
+				if v8x > 0 {
+					if v8y > 0 {
+						if door.ObjOwner != nil {
+							if s.Rand.Logic.IntClamp(0, 100) >= 50 {
+								return 1
+							}
+						} else {
+							if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && s.DoorCheckKey(obj, door) == nil {
+								return 1
+							}
+						}
+						return -1
+					} else if v8y < 0 {
+						if door.ObjOwner != nil {
+							if s.Rand.Logic.IntClamp(0, 100) >= 50 {
+								return 0
+							}
+						} else {
+							if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && s.DoorCheckKey(obj, door) == nil {
+								return 0
+							}
+						}
+						return -1
+					}
+				} else if v8x < 0 {
+					if v8y < 0 {
+						if door.ObjOwner != nil {
+							if s.Rand.Logic.IntClamp(0, 100) >= 50 {
+								return 1
+							}
+						} else {
+							if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && s.DoorCheckKey(obj, door) == nil {
+								return 1
+							}
+						}
+						return -1
+					} else if v8y > 0 {
+						if door.ObjOwner != nil {
+							if s.Rand.Logic.IntClamp(0, 100) >= 50 {
+								return 0
+							}
+						} else {
+							if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && s.DoorCheckKey(obj, door) == nil {
+								return 0
+							}
+						}
+						return -1
+					}
+				}
+			}
+		}
+	} else if (obj.ObjFlags&0x4000) == 0 || (wl.Flags4&0x40) == 0 {
+		if (wl.Flags4 & 4) == 0 {
+			return int8(wl.Dir0)
+		}
+		v13 := wl.Data28
+		if (int32(*(*uint8)(unsafe.Add(v13, 20)))&2) == 0 && int32(*(*uint8)(unsafe.Add(v13, 22))) <= 11 {
+			return int8(wl.Dir0)
+		}
+	}
+	return -1
 }
 func (s *Server) nox_xxx_pathfind_preCheckWalls_50C8D0(obj *server.Object, gpos *ntype.Point32) {
-	if s.sub_50B870(obj, int(gpos.X), int(gpos.Y)) != 0 {
+	if s.sub_50B870(obj, int(gpos.X), int(gpos.Y)) {
 		dx := float64(obj.PosVec.X) - (float64(gpos.X)*23.0 + 11.5)
 		dy := float64(obj.PosVec.Y) - (float64(gpos.Y)*23.0 + 11.5)
 		if math.Abs(dy) >= math.Abs(dx) {
@@ -458,7 +536,7 @@ func (s *Server) Nox_xxx_creatureSetDetailedPath_50D220(obj *server.Object, a2 *
 func (s *Server) Sub_50B810(obj *server.Object, pos *types.Pointf) bool {
 	x := int(float64(pos.X) / 23)
 	y := int(float64(pos.Y) / 23)
-	if s.sub_50B870(obj, x, y) != 0 {
+	if s.sub_50B870(obj, x, y) {
 		return false
 	}
 	return s.AI.Paths.Nox_xxx_pathfind_preCheckWalls2_50B8A0(obj, x, y)

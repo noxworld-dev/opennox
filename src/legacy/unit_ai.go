@@ -11,7 +11,6 @@ package legacy
 #include "GAME5.h"
 #include "server__script__script.h"
 extern unsigned int dword_5d4594_2489460;
-char sub_57B630(nox_object_t* a1, int a2, int a3);
 */
 import "C"
 import (
@@ -238,7 +237,4 @@ func Nox_xxx_mobActionCast_5413B0(a1 *server.Object, a2 int) {
 }
 func Nox_xxx_monsterMarkUpdate_4E8020(a1 *server.Object) {
 	C.nox_xxx_monsterMarkUpdate_4E8020(asObjectC(a1))
-}
-func Sub_57B630(a1 *server.Object, a2, a3 int) int {
-	return int(C.sub_57B630(asObjectC(a1), C.int(a2), C.int(a3)))
 }
