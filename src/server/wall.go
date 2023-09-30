@@ -191,15 +191,21 @@ func (s *serverWalls) Free() {
 	s.indexY = nil
 }
 
-func wallArrayInd(pos image.Point) uint16 {
-	return (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
+func wallArrayInd(pos image.Point) (uint16, bool) {
+	if pos.X < 0 || pos.X >= WallGridSize || pos.Y < 0 || pos.Y >= WallGridSize {
+		return 0, false
+	}
+	return (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF, true
 }
 
 func (s *serverWalls) GetWallAtGrid(pos image.Point) *Wall {
 	if (byte(pos.X)+byte(pos.Y))&0x1 != 0 {
 		return nil
 	}
-	ind := wallArrayInd(pos)
+	ind, ok := wallArrayInd(pos)
+	if !ok {
+		return nil
+	}
 	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
 		if pos == it.GridPos() && !it.Flags4.HasAny(WallFlag5|WallFlag6) {
 			return it
@@ -209,7 +215,10 @@ func (s *serverWalls) GetWallAtGrid(pos image.Point) *Wall {
 }
 
 func (s *serverWalls) GetWallAtGrid2(pos image.Point) *Wall {
-	ind := wallArrayInd(pos)
+	ind, ok := wallArrayInd(pos)
+	if !ok {
+		return nil
+	}
 	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
 		if pos == it.GridPos() && !it.Flags4.Has(WallFlag6) {
 			return it
@@ -270,7 +279,10 @@ func (s *serverWalls) GetWallNear(pos types.Pointf) *Wall {
 }
 
 func (s *serverWalls) addByPos(wl *Wall, pos image.Point) {
-	ind := wallArrayInd(pos)
+	ind, ok := wallArrayInd(pos)
+	if !ok {
+		panic("adding wall outside of the grid")
+	}
 	wl.NextByPos16 = s.byPos[ind]
 	s.byPos[ind] = wl
 }
@@ -333,7 +345,10 @@ func (s *serverWalls) CreateAtGrid(pos image.Point) *Wall {
 }
 
 func (s *serverWalls) findByPos(pos image.Point) (cur, prev *Wall) {
-	ind := wallArrayInd(pos)
+	ind, ok := wallArrayInd(pos)
+	if !ok {
+		return nil, nil
+	}
 	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
 		if it.X5 == byte(pos.X) && it.Y6 == byte(pos.Y) {
 			return it, prev
@@ -351,8 +366,9 @@ func (s *serverWalls) deleteByPos(pos image.Point) (*Wall, bool) {
 	if prev != nil {
 		prev.NextByPos16 = wl.NextByPos16
 	} else {
-		ind := wallArrayInd(pos)
-		s.byPos[ind] = wl.NextByPos16
+		if ind, ok := wallArrayInd(pos); ok {
+			s.byPos[ind] = wl.NextByPos16
+		}
 	}
 	return wl, true
 }
