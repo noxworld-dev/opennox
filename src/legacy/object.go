@@ -350,9 +350,6 @@ func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, a3 int, 
 func Nox_xxx_spellBuffOff_4FF5B0(a1 *server.Object, a2 server.EnchantID) {
 	nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), a2)
 }
-func Nox_xxx_unitClearOwner_4EC300(a1 *server.Object) {
-	nox_xxx_unitClearOwner_4EC300(asObjectC(a1))
-}
 func Nox_xxx_unitSetOwner_4EC290(a1 *server.Object, a2 *server.Object) {
 	nox_xxx_unitSetOwner_4EC290(asObjectC(a1), asObjectC(a2))
 }

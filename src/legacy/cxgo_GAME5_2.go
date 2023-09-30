@@ -829,44 +829,33 @@ func sub_57B450(a1p *client.Drawable) int32 {
 	v2 = uint8(int8(1 << int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))))
 	return bool2int32((int32(v2) & int32(uint8(sub_57B370(object.Class(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*28))), object.SubClass(uint8(int8(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*29))))), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*27)))))) != 0)
 }
-func sub_57B630(a1 *server.Object, a2 int32, a3 int32) int8 {
-	var (
-		v4  int8
-		v5  int32
-		v6  int32
-		v7  int32
-		v8  int32
-		v9  bool
-		v10 bool
-		v11 int8
-		v13 int32
-	)
-	if !(a2 >= 0 && a2 < 256 && (a3 >= 0 || a3 < 256)) {
+func sub_57B630(a1 *server.Object, x int32, y int32) int8 {
+	if x < 0 || x >= 256 || y < 0 || y >= 256 {
 		return -1
 	}
-	v3 := nox_xxx_wall_4105E0(a2, a3)
-	if v3 == nil {
+	wl := nox_xxx_wall_4105E0(x, y)
+	if wl == nil {
 		return -1
 	}
-	v4 = int8(v3.Flags4)
-	if int32(v4)&0x10 != 0 {
-		v5 = int32(v3.Data28)
-		if v5 != 0 {
-			v6 = int32(*(*uint32)(unsafe.Add(v5, 748)))
-			v7 = int32(*(*uint32)(unsafe.Add(v6, 12)))
-			if v7 == *(*int32)(unsafe.Add(v6, 4)) {
-				v8 = *memmap.PtrInt32(0x587000, uintptr(v7*8)+196184)
-				v9 = v8 < 0
-				v10 = v8 <= 0
+	if wl.Flags4&0x10 != 0 {
+		obj := AsObjectP(wl.Data28)
+		if obj != nil {
+			ud := obj.UpdateData
+			v7 := *(*uint32)(unsafe.Add(ud, 12))
+			if v7 == *(*uint32)(unsafe.Add(ud, 4)) {
+				v8 := *memmap.PtrInt32(0x587000, uintptr(v7*8)+196184)
+				v9 := v8 < 0
+				v10 := v8 <= 0
 				if v8 > 0 {
 					if *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) > 0 {
-						v11 = 1
-						if *(*uint32)(unsafe.Add(v5, 508)) != 0 {
+						if obj.ObjOwner != nil {
 							if nox_common_randomInt_415FA0(0, 100) >= 50 {
-								return v11
+								return 1
 							}
-						} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
-							return v11
+						} else {
+							if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, obj) == nil {
+								return 1
+							}
 						}
 						return -1
 					}
@@ -875,26 +864,28 @@ func sub_57B630(a1 *server.Object, a2 int32, a3 int32) int8 {
 				}
 				if v9 {
 					if *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) < 0 {
-						v11 = 1
-						if *(*uint32)(unsafe.Add(v5, 508)) != 0 {
+						if obj.ObjOwner != nil {
 							if nox_common_randomInt_415FA0(0, 100) >= 50 {
-								return v11
+								return 1
 							}
-						} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
-							return v11
+						} else {
+							if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, obj) == nil {
+								return 1
+							}
 						}
 						return -1
 					}
 					v10 = v8 <= 0
 					if v8 < 0 {
 						if *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) > 0 {
-							v11 = 0
-							if *(*uint32)(unsafe.Add(v5, 508)) != 0 {
+							if obj.ObjOwner != nil {
 								if nox_common_randomInt_415FA0(0, 100) >= 50 {
-									return v11
+									return 0
 								}
-							} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
-								return v11
+							} else {
+								if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, obj) == nil {
+									return 0
+								}
 							}
 							return -1
 						}
@@ -902,25 +893,26 @@ func sub_57B630(a1 *server.Object, a2 int32, a3 int32) int8 {
 					}
 				}
 				if !v10 && *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) < 0 {
-					v11 = 0
-					if *(*uint32)(unsafe.Add(v5, 508)) != 0 {
+					if obj.ObjOwner != nil {
 						if nox_common_randomInt_415FA0(0, 100) >= 50 {
-							return v11
+							return 0
 						}
-					} else if int32(*(*uint8)(unsafe.Add(v6, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, (*server.Object)(v5)) == nil {
-						return v11
+					} else {
+						if int32(*(*uint8)(unsafe.Add(ud, 1))) != 0 && nox_xxx_doorGetSomeKey_4E8910(a1, obj) == nil {
+							return 0
+						}
 					}
 					return -1
 				}
 			}
 		}
-	} else if (a1.ObjFlags&0x4000) == 0 || (int32(v4)&0x40) == 0 {
-		if (int32(v4) & 4) == 0 {
-			return int8(*(*uint8)(v3))
+	} else if (a1.ObjFlags&0x4000) == 0 || (wl.Flags4&0x40) == 0 {
+		if (wl.Flags4 & 4) == 0 {
+			return int8(wl.Dir0)
 		}
-		v13 = int32(v3.Data28)
-		if (int32(*(*uint8)(unsafe.Add(v13, 20)))&2) == 0 && int32(*(*uint8)(unsafe.Add(v13, 22))) <= 0xB {
-			return int8(*(*uint8)(v3))
+		v13 := wl.Data28
+		if (int32(*(*uint8)(unsafe.Add(v13, 20)))&2) == 0 && int32(*(*uint8)(unsafe.Add(v13, 22))) <= 11 {
+			return int8(wl.Dir0)
 		}
 	}
 	return -1

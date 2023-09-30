@@ -9582,7 +9582,7 @@ func nox_xxx_changeOwner_52BE40(a1, a2 unsafe.Pointer) {
 		} else if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*1)) == a2 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) = *v2
 			*(*unsafe.Pointer)(unsafe.Pointer(v2)) = a2
-			nox_xxx_unitClearOwner_4EC300((*server.Object)(a1))
+			Nox_xxx_unitClearOwner_4EC300((*server.Object)(a1))
 			nox_xxx_unitSetOwner_4EC290((*server.Object)(a2), (*server.Object)(a1))
 			*(*uint32)(unsafe.Add(a1, 128)) = gameFrame()
 			nox_xxx_aud_501960(64, (*server.Object)(a2), 0, 0)
@@ -9698,7 +9698,7 @@ func nox_xxx_castFumble_52C060(a1 int32, a2, a3, a4 *server.Object, a5 *server.S
 				}
 			}
 			nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Add(unsafe.Pointer(uintptr(*a5)), 56)), (*server.Object)(v13), 100.0)
-			nox_xxx_unitClearOwner_4EC300((*server.Object)(v13))
+			Nox_xxx_unitClearOwner_4EC300((*server.Object)(v13))
 			nox_xxx_aud_501960(926, (*server.Object)(unsafe.Pointer(uintptr(*a5))), 0, 0)
 		}
 	} else if v6 == 0 || (func() bool {

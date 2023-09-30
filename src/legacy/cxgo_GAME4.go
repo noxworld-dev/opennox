@@ -1397,7 +1397,7 @@ func nox_xxx_checkWinkFlags_4F7DF0(a1p *server.Object) int32 {
 	v2.ObjFlags = uint32(v4)
 	nox_xxx_objectApplyForce_52DF80(&a1.PosVec, v2, 100.0)
 	v2.Obj130 = nil
-	nox_xxx_unitClearOwner_4EC300(v2)
+	Nox_xxx_unitClearOwner_4EC300(v2)
 	nox_xxx_aud_501960(926, a1, 0, 0)
 	sub_4E8290(1, 0)
 	return 1
@@ -2538,7 +2538,7 @@ func nox_xxx_spellCheckSmth_4FCEF0(a1 unsafe.Pointer, a2 *int32, a3 int32) int32
 		if *v3 < 75 || v7 > 114 {
 			v8 = nox_xxx_spellManaCost_4249A0(v7, 2)
 		} else {
-			v8 = sub_500CA0(v7, a1)
+			v8 = sub_500CA0(v7, (*server.Object)(a1))
 		}
 		if v8 > v5 {
 			break
@@ -2572,7 +2572,7 @@ func sub_4FCF90(a1 *server.Object, a2 int32, a3 int32) int32 {
 	if a2 < 75 || a2 > 114 {
 		v5 = nox_xxx_spellManaCost_4249A0(a2, a3)
 	} else {
-		v5 = sub_500CA0(a2, unsafe.Pointer(a1))
+		v5 = sub_500CA0(a2, a1)
 	}
 	v6 = v5
 	if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2))) >= v5 {
@@ -3863,35 +3863,22 @@ func nox_xxx_orderUnitLocal_500C70(owner int32, orderType int32) int32 {
 	nox_common_playerInfoFromNum_417090(owner).SummonOrderAll = uint32(orderType)
 	return nox_xxx_netCreatureCmd_4D7EE0(owner, int8(orderType))
 }
-func sub_500CA0(a1 int32, a2 unsafe.Pointer) int32 {
-	var result int32
-	if a2 != nil && int32(*(*uint8)(unsafe.Add(a2, 8)))&4 != 0 {
-		result = int32(*memmap.PtrUint32(0x587000, uintptr(a1*4)+217668))
+func sub_500CA0(a1 int32, a2 *server.Object) int32 {
+	if a2 != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
+		return int32(*memmap.PtrUint32(0x587000, uintptr(a1*4)+217668))
 	} else {
-		result = 0
+		return 0
 	}
-	return result
 }
-func nox_xxx_creatureIsMonitored_500CC0(a1p *server.Object, a2p *server.Object) int32 {
-	var (
-		a1     = unsafe.Pointer(a1p)
-		a2     = unsafe.Pointer(a2p)
-		v2     int32
-		result int32
-	)
-	if (int32(*(*uint8)(unsafe.Add(a2, 8)))&2 != 0 && (func() bool {
-		v2 = int32(*(*uint32)(unsafe.Add(a2, 16)))
-		return (v2 & 0x8000) == 0
-	}()) || nox_xxx_unitIsZombie_534A40((*server.Object)(a2)) != 0) && (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a2, 748)), 1440)))&0x80) != 0 {
-		result = nox_xxx_unitHasThatParent_4EC4F0((*server.Object)(a2), (*server.Object)(a1))
+func nox_xxx_creatureIsMonitored_500CC0(owner *server.Object, u *server.Object) int32 {
+	if u.Class().Has(object.ClassMonster) && (!u.Flags().Has(object.FlagDead) || nox_xxx_unitIsZombie_534A40(u) != 0) && (u.UpdateDataMonster().StatusFlags&0x80) != 0 {
+		return nox_xxx_unitHasThatParent_4EC4F0(u, owner)
 	} else {
-		result = 0
+		return 0
 	}
-	return result
 }
 func Nox_xxx_summonStart_500DA0(sp *server.DurSpell) int32 {
 	var (
-		v2  int32
 		v7  int32
 		v8  int32
 		v9  int32
@@ -3901,7 +3888,7 @@ func Nox_xxx_summonStart_500DA0(sp *server.DurSpell) int32 {
 		v17 [16]uint8
 	)
 	v1 := sp.Caster16
-	v2 = int32(sp.Spell - 74)
+	v2 := int32(sp.Spell - 74)
 	if v1 == nil || v1.ObjFlags&0x8020 != 0 || sp.Flag20 != 0 {
 		return 1
 	}
@@ -4176,7 +4163,7 @@ func Nox_xxx_charmCreatureFinish_5013E0(sp *server.DurSpell) int32 {
 		nox_xxx_aud_501960(16, sp.Caster16, 0, 0)
 		return 1
 	}
-	nox_xxx_unitClearOwner_4EC300(sp.Target48)
+	Nox_xxx_unitClearOwner_4EC300(sp.Target48)
 	nox_xxx_unitSetOwner_4EC290(sp.Caster16, sp.Target48)
 	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(sp.Target48), 48))) != 0 {
 		nox_xxx_netChangeTeamMb_419570(unsafe.Add(unsafe.Pointer(sp.Target48), 48), int32(sp.Target48.NetCode))

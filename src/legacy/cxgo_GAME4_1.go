@@ -409,7 +409,7 @@ LABEL_13:
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&v9), 1)) &= 0xFE
 	a1.ObjSubClass = uint32(v9)
 	nox_xxx_unitTransferSlaves_4EC4B0(a1)
-	nox_xxx_unitClearOwner_4EC300(a1)
+	Nox_xxx_unitClearOwner_4EC300(a1)
 	v10 = int32(a1.ObjSubClass)
 	if (v10 & 0x2000) == 0 {
 		nox_xxx_dropAllItems_4EDA40(a1)

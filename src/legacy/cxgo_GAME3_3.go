@@ -133,7 +133,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 			if nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Add(unsafe.Pointer(v5), 56)), int32(v5.Direction1), (*types.Pointf)(unsafe.Add(unsafe.Pointer(v9), 56)))&1 != 0 {
 				nox_xxx_projectileReflect_4E0A70(unsafe.Pointer(v9), unsafe.Pointer(v5))
 				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 12))) & 0x40) == 0 {
-					nox_xxx_unitClearOwner_4EC300(v9)
+					Nox_xxx_unitClearOwner_4EC300(v9)
 					nox_xxx_unitSetOwner_4EC290(v5, v9)
 				}
 				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 8)))&1 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 12)))&2 != 0 {
@@ -218,7 +218,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 							nox_xxx_projectileReflect_4E0A70(unsafe.Pointer(v9), unsafe.Pointer(v5))
 							if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 8)))&1 != 0 {
 								if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 12))) & 2) == 0 {
-									nox_xxx_unitClearOwner_4EC300(v9)
+									Nox_xxx_unitClearOwner_4EC300(v9)
 									nox_xxx_unitSetOwner_4EC290(v5, v9)
 								}
 							}
@@ -271,7 +271,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 8)))&1) != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 12)))&0x70) == 0 {
 					nox_xxx_projectileReflect_4E0A70(unsafe.Pointer(v9), unsafe.Pointer(v5))
 					if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 8)))&1) != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 12)))&2) == 0 {
-						nox_xxx_unitClearOwner_4EC300(v9)
+						Nox_xxx_unitClearOwner_4EC300(v9)
 						nox_xxx_unitSetOwner_4EC290(v5, v9)
 					}
 				}
@@ -2505,7 +2505,7 @@ func nox_xxx_monsterRemoveMonitors_4E7B60(a1p *server.Object, a2p *server.Object
 			a2.ObjSubClass = uint32(v3)
 			nox_xxx_netSendUnMonitorCrea_4D92A0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 2064))), a2)
 			nox_xxx_netUnmarkMinimapObj_417300(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 2064))), a2, 1)
-			nox_xxx_unitClearOwner_4EC300(a2)
+			Nox_xxx_unitClearOwner_4EC300(a2)
 		}
 	}
 }
@@ -2659,63 +2659,40 @@ func nox_xxx_unitPostCreateNotify_4E7F10(a1p *server.Object) {
 	}
 }
 func nox_xxx_unitIsHostileMimic_4E7F90(a1 *server.Object, a2 *server.Object) int32 {
-	var v2 int32
-	v2 = 0
 	if *memmap.PtrUint32(0x5D4594, 1567724) == 0 {
 		*memmap.PtrUint32(0x5D4594, 1567724) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Mimic")))
 	}
 	if a1 == nil || a2 == nil {
 		return 0
 	}
+	res := 0
 	if nox_xxx_unitIsEnemyTo_5330C0(a1, a2) == 0 {
-		v2 = 1
+		res = 1
 	}
-	if noxflags.HasGame(4096) && uint32(a2.TypeInd) == *memmap.PtrUint32(0x5D4594, 1567724) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && a2.ObjOwner == nil {
-		v2 = 0
+	if noxflags.HasGame(4096) && uint32(a2.TypeInd) == *memmap.PtrUint32(0x5D4594, 1567724) && a1.Class().Has(object.ClassPlayer) && a2.ObjOwner == nil {
+		res = 0
 	}
-	return v2
+	return int32(res)
 }
-func nox_xxx_monsterMarkUpdate_4E8020(a1p *server.Object) {
-	var (
-		a1 = a1p
-		v4 int32
-		v5 int32
-		v6 int32
-		v7 bool
-		v8 int32
-	)
-	result := nox_common_playerInfoGetFirst_416EA0()
-	v2 := result
-	if result == nil {
-		return
-	}
-	for {
-		v3 := v2.PlayerUnit
-		v4 = 1 << int32(v2.PlayerInd)
-		if v3 == nil {
-			v5 = ^v4
-			v6 = int32(uint32(v5) & a1.Field35)
-			a1.Field36 &= uint32(v5)
-			a1.Field35 = uint32(v6)
+func nox_xxx_monsterMarkUpdate_4E8020(a1 *server.Object) {
+	for pl := nox_common_playerInfoGetFirst_416EA0(); pl != nil; pl = nox_common_playerInfoGetNext_416EE0(pl) {
+		u := pl.PlayerUnit
+		bit := uint32(1) << pl.PlayerInd
+		if u == nil {
+			a1.Field36 &^= bit
+			a1.Field35 &^= bit
 		} else {
-			v7 = nox_xxx_unitIsHostileMimic_4E7F90(v3, a1) == 1
-			v8 = int32(a1.Field36)
-			if v7 {
-				if (v8 & v4) == 0 {
-					a1.Field36 = uint32(v4 | v8)
-					v6 = int32(uint32(v4) | a1.Field35)
-					a1.Field35 = uint32(v6)
+			if nox_xxx_unitIsHostileMimic_4E7F90(u, a1) == 1 {
+				if a1.Field36&bit == 0 {
+					a1.Field36 |= bit
+					a1.Field35 |= bit
 				}
-			} else if v8&v4 != 0 {
-				a1.Field36 = uint32(v8 & ^v4)
-				v6 = int32(uint32(v4) | a1.Field35)
-				a1.Field35 = uint32(v6)
+			} else {
+				if a1.Field36&bit != 0 {
+					a1.Field36 &^= bit
+					a1.Field35 |= bit
+				}
 			}
-		}
-		result = nox_common_playerInfoGetNext_416EE0(v2)
-		v2 = result
-		if result == nil {
-			break
 		}
 	}
 }
@@ -3724,7 +3701,7 @@ func nox_xxx_fireballCollide_4E9AC0(obj *server.Object, obj2 *server.Object, pos
 	v4 = 1
 	if a2 != nil && nox_xxx_testUnitBuffs_4FF350(a2, 27) != 0 && nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56)), int32(a2.Direction1), (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)))&1 != 0 {
 		nox_xxx_projectileReflect_4E0A70(unsafe.Pointer(a1), unsafe.Pointer(a2))
-		nox_xxx_unitClearOwner_4EC300(a1)
+		Nox_xxx_unitClearOwner_4EC300(a1)
 		nox_xxx_unitSetOwner_4EC290(a2, a1)
 		v4 = 0
 		nox_xxx_aud_501960(122, a2, 0, 0)
@@ -4336,7 +4313,7 @@ LABEL_27:
 					return
 				}
 				v15 := v3.UpdateData
-				nox_xxx_unitClearOwner_4EC300(v3)
+				Nox_xxx_unitClearOwner_4EC300(v3)
 				sub_4EB9B0(v3, nil)
 				nox_xxx_netChangeTeamMb_419570(unsafe.Add(unsafe.Pointer(v3), 48), int32(v3.NetCode))
 				nox_xxx_unitHPsetOnMax_4EE6F0(v3)
@@ -5024,7 +5001,7 @@ func nox_xxx_collideHomeBase_4EBB80(obj *server.Object, obj2 *server.Object, pos
 				if int32(j.TypeInd) == v14 {
 					if v11 == 0 {
 						if j != nil {
-							nox_xxx_unitClearOwner_4EC300(a2)
+							Nox_xxx_unitClearOwner_4EC300(a2)
 							nox_xxx_unitMove_4E7010(a2, (*types.Pointf)(unsafe.Add(unsafe.Pointer(j), 56)))
 							nox_xxx_netSendPointFx_522FF0(-127, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56)))
 							a2.VelVec.X = 0
@@ -5248,84 +5225,63 @@ func nox_xxx_collideAnkhQuest_4EBF40(obj *server.Object, obj2 *server.Object, po
 		}
 	}
 }
-func nox_xxx_unitSetOwner_4EC290(obj1 *server.Object, obj2 *server.Object) {
-	var (
-		a1 = obj1
-		a2 = obj2
-	)
-	if a2 == nil {
+func nox_xxx_unitSetOwner_4EC290(owner *server.Object, obj *server.Object) {
+	if obj == nil {
 		return
 	}
-	nox_xxx_unitClearOwner_4EC300(a2)
-	v2 := a1
-	if a1 != nil {
-		for int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 16)))&0x20 != 0 {
-			v2 = v2.ObjOwner
-			if v2 == nil {
+	Nox_xxx_unitClearOwner_4EC300(obj)
+	if owner != nil {
+		for owner.Flags().Has(object.FlagDestroyed) {
+			owner = owner.ObjOwner
+			if owner == nil {
 				break
 			}
 		}
-		if v2 != nil {
-			a2.Field128 = v2.Field129
-			v2.Field129 = a2
+		if owner != nil {
+			obj.Field128 = owner.Field129
+			owner.Field129 = obj
 		}
 	}
-	a2.ObjOwner = v2
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&2 != 0 {
-		nox_xxx_monsterResetEnemy_5346F0(a2)
+	obj.ObjOwner = owner
+	if obj.Class().Has(object.ClassMonster) {
+		nox_xxx_monsterResetEnemy_5346F0(obj)
 	}
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&6 != 0 {
-		nox_xxx_monsterMarkUpdate_4E8020(a2)
+	if obj.Class().HasAny(object.MaskUnits) {
+		nox_xxx_monsterMarkUpdate_4E8020(obj)
 	}
 }
-func nox_xxx_unitClearOwner_4EC300(obj *server.Object) {
-	var (
-		a1 = obj
-		v2 int32
-		v7 int8
-	)
-	if a1 != nil {
-		v1 := a1.ObjOwner
-		if v1 != nil {
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v1), 8)))&4 != 0 && nox_xxx_creatureIsMonitored_500CC0(v1, a1) != 0 {
-				v2 = int32(a1.ObjSubClass)
-				*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 & math.MaxInt8))
-				v3 := v1.UpdateDataPlayer()
-				a1.ObjSubClass = uint32(v2)
-				nox_xxx_netFxShield_0_4D9200(int32(v3.Player.PlayerInd), a1)
-				nox_xxx_netUnmarkMinimapObj_417300(int32(v3.Player.PlayerInd), a1, 1)
-			}
-			v4 := a1.ObjOwner
-			var v5 *server.Object
-			v6 := v4.Field129
-			if v6 == nil {
-				v4.Field129 = a1.Field128
-			} else {
-				for {
-					if v6 == a1 {
-						break
-					}
-					v5 = v6
-					v6 = v6.Field128
-					if v6 == nil {
-						break
-					}
-				}
-				if v5 != nil {
-					v5.Field128 = a1.Field128
-				} else {
-					v4.Field129 = a1.Field128
-				}
-			}
-			v7 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))
-			a1.ObjOwner = nil
-			if int32(v7)&2 != 0 {
-				nox_xxx_monsterResetEnemy_5346F0(a1)
-			}
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&6 != 0 {
-				nox_xxx_monsterMarkUpdate_4E8020(a1)
-			}
+func Nox_xxx_unitClearOwner_4EC300(obj *server.Object) {
+	if obj == nil || obj.ObjOwner == nil {
+		return
+	}
+	owner := obj.ObjOwner
+	if owner.Class().Has(object.ClassPlayer) && nox_xxx_creatureIsMonitored_500CC0(owner, obj) != 0 {
+		v2 := int32(obj.ObjSubClass)
+		*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 & math.MaxInt8))
+		ud := owner.UpdateDataPlayer()
+		obj.ObjSubClass = uint32(v2)
+		nox_xxx_netFxShield_0_4D9200(int32(ud.Player.PlayerInd), obj)
+		nox_xxx_netUnmarkMinimapObj_417300(int32(ud.Player.PlayerInd), obj, 1)
+	}
+	if owner.Field129 != nil {
+		var last *server.Object
+		for v6 := owner.Field129; v6 != obj && v6 != nil; v6 = v6.Field128 {
+			last = v6
 		}
+		if last != nil {
+			last.Field128 = obj.Field128
+		} else {
+			owner.Field129 = obj.Field128
+		}
+	} else {
+		owner.Field129 = obj.Field128
+	}
+	obj.ObjOwner = nil
+	if obj.Class().Has(object.ClassMonster) {
+		nox_xxx_monsterResetEnemy_5346F0(obj)
+	}
+	if obj.Class().HasAny(object.MaskUnits) {
+		nox_xxx_monsterMarkUpdate_4E8020(obj)
 	}
 }
 func nox_xxx_playerObserverFindGoodSlave2_4EC3E0(a1 *server.Object) *server.Object {
@@ -5827,7 +5783,7 @@ func sub_4ED0C0(a1 *server.Object, object *server.Object) {
 			v6.Field125 = object.Field125
 		}
 		object.InvHolder = nil
-		nox_xxx_unitClearOwner_4EC300(object)
+		Nox_xxx_unitClearOwner_4EC300(object)
 		if int32(a1.ObjClass)&4 != 0 {
 			v7 := a1.InvFirstItem
 			v8 := a1.UpdateDataPlayer()
@@ -6009,7 +5965,7 @@ LABEL_15:
 	if Nox_xxx_dropDefault_4ED290(v8, v3, pos) == 0 {
 		return 0
 	}
-	nox_xxx_unitClearOwner_4EC300(v3)
+	Nox_xxx_unitClearOwner_4EC300(v3)
 	nox_xxx_spellBuffOff_4FF5B0(v8, 30)
 	*(*uint32)(unsafe.Pointer(&v11[2])) = v8.NetCode
 	if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v8), 48))) != 0 {

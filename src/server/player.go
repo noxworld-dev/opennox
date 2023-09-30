@@ -245,6 +245,13 @@ var (
 	_ = [1]struct{}{}[4796-unsafe.Offsetof(Player{}.data4796)]
 )
 
+type MinimapItem struct {
+	Field0  uint32
+	Field4  *Object
+	Field8  *MinimapItem
+	Field12 *MinimapItem
+}
+
 var _ Obj = (*Player)(nil) // proxies Unit
 
 type Player struct {
@@ -315,48 +322,48 @@ type Player struct {
 	SpellLvl            [137]uint32 // 3696
 	BeastScrollLvl      [41]uint32  // 4244
 	_                   [43]uint32
-	Field4580           unsafe.Pointer // 1145, 4580
-	ProtUnitHPCur       uint32         // 1146, 4584
-	ProtPlayerGold      uint32         // 1147, 4588
-	ProtUnitHPMax       uint32         // 1148, 4592
-	ProtUnitManaCur     uint32         // 1149, 4596
-	ProtUnitManaMax     uint32         // 1150, 4600
-	ProtUnitExperience  uint32         // 1151, 4604
-	ProtUnitMass        uint32         // 1152, 4608
-	ProtUnitBuffs       uint32         // 1153, 4612
-	ProtPlayerClass     uint32         // 1154, 4616
-	ProtPlayerField2235 uint32         // 1155, 4620
-	ProtPlayerField2239 uint32         // 1156, 4624
-	ProtPlayerOrigName  uint32         // 1157, 4628
-	Prot4632            uint32         // 1158, 4632
-	Prot4636            uint32         // 1159, 4636
-	Prot4640            uint32         // 1160, 4640
-	ProtPlayerLevel     uint32         // 1161, 4644
-	Field4648           int32          // 1162, 4648
-	field4652           uint32         // 1163, 4652
-	field4656           uint32         // 1164, 4656
-	field4660           uint32         // 1165, 4660
-	field4664           uint32         // 1166, 4664
-	field4668           uint32         // 1167, 4668
-	field4672           uint32         // 1168, 4672
-	field4676           uint32         // 1169, 4676
-	field4680           uint32         // 1170, 4680
-	field4684           uint32         // 1171, 4684
-	field4688           uint32         // 1172, 4688
-	field4692           uint32         // 1173, 4692
-	field4696           uint32         // 1174, 4696
-	Field4700           uint32         // 1175, 4700
-	NameFinal           [28]uint16     // 4704, server-approved player name // TODO: size is a wild guess
-	SaveNameBuf         [4]byte        // 1190, 4760
-	field4764           uint32         // 1191, 4764
-	field4768           uint32         // 1192, 4768
-	field4772           uint32         // 1193, 4772
-	field4776           uint32         // 1194, 4776
-	field4780           uint32         // 1195, 4780
-	field4784           uint32         // 1196, 4784
-	field4788           uint32         // 1197, 4788
-	Field4792           uint32         // 1198, 4792
-	data4796            [8]uint32      // 1199, 4796
+	Field4580           *MinimapItem // 1145, 4580
+	ProtUnitHPCur       uint32       // 1146, 4584
+	ProtPlayerGold      uint32       // 1147, 4588
+	ProtUnitHPMax       uint32       // 1148, 4592
+	ProtUnitManaCur     uint32       // 1149, 4596
+	ProtUnitManaMax     uint32       // 1150, 4600
+	ProtUnitExperience  uint32       // 1151, 4604
+	ProtUnitMass        uint32       // 1152, 4608
+	ProtUnitBuffs       uint32       // 1153, 4612
+	ProtPlayerClass     uint32       // 1154, 4616
+	ProtPlayerField2235 uint32       // 1155, 4620
+	ProtPlayerField2239 uint32       // 1156, 4624
+	ProtPlayerOrigName  uint32       // 1157, 4628
+	Prot4632            uint32       // 1158, 4632
+	Prot4636            uint32       // 1159, 4636
+	Prot4640            uint32       // 1160, 4640
+	ProtPlayerLevel     uint32       // 1161, 4644
+	Field4648           int32        // 1162, 4648
+	field4652           uint32       // 1163, 4652
+	field4656           uint32       // 1164, 4656
+	field4660           uint32       // 1165, 4660
+	field4664           uint32       // 1166, 4664
+	field4668           uint32       // 1167, 4668
+	field4672           uint32       // 1168, 4672
+	field4676           uint32       // 1169, 4676
+	field4680           uint32       // 1170, 4680
+	field4684           uint32       // 1171, 4684
+	field4688           uint32       // 1172, 4688
+	field4692           uint32       // 1173, 4692
+	field4696           uint32       // 1174, 4696
+	Field4700           uint32       // 1175, 4700
+	NameFinal           [28]uint16   // 4704, server-approved player name // TODO: size is a wild guess
+	SaveNameBuf         [4]byte      // 1190, 4760
+	field4764           uint32       // 1191, 4764
+	field4768           uint32       // 1192, 4768
+	field4772           uint32       // 1193, 4772
+	field4776           uint32       // 1194, 4776
+	field4780           uint32       // 1195, 4780
+	field4784           uint32       // 1196, 4784
+	field4788           uint32       // 1197, 4788
+	Field4792           uint32       // 1198, 4792
+	data4796            [8]uint32    // 1199, 4796
 }
 
 func (p *Player) C() unsafe.Pointer {

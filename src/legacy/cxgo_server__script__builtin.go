@@ -529,7 +529,7 @@ func nox_script_MakeEnemy_516760() int32 {
 	v2 = int32(*(*uint32)(unsafe.Add(v1, 12)))
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&v2), 1)) &= 0xFE
 	*(*uint32)(unsafe.Add(v1, 12)) = uint32(v2)
-	nox_xxx_unitClearOwner_4EC300((*server.Object)(v1))
+	Nox_xxx_unitClearOwner_4EC300((*server.Object)(v1))
 	return 0
 }
 func nox_script_builtin_516790() int32 {

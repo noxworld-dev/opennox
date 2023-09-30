@@ -264,7 +264,7 @@ func Nox_xxx_netReportAcquireCreature_4D91A0(pli int, obj *server.Object) {
 	nox_xxx_netReportAcquireCreature_4D91A0(int32(pli), asObjectC(obj))
 }
 func Nox_xxx_netMarkMinimapObject_417190(pli int, obj *server.Object, a3 int) {
-	nox_xxx_netMarkMinimapObject_417190(int32(pli), asObjectC(obj), int32(a3))
+	nox_xxx_netMarkMinimapObject_417190(int32(pli), asObjectC(obj), uint32(int32(a3)))
 }
 func Nox_xxx_netSendSimpleObject2_4DF360(pli int, obj *server.Object) {
 	nox_xxx_netSendSimpleObject2_4DF360(int32(pli), asObjectC(obj))

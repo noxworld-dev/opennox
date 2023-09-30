@@ -2914,7 +2914,7 @@ func sub_5346D0(a1 *server.Object) {
 	*(*uint32)(unsafe.Add(result, 296)) = 0
 }
 func nox_xxx_monsterResetEnemy_5346F0(a1 *server.Object) {
-	*(*uint32)(unsafe.Add(a1.UpdateData, 1196)) = 0
+	a1.UpdateDataMonster().CurrentEnemy = nil
 }
 func sub_534710(obj *server.Object) int32 {
 	ud := obj.UpdateDataMonster()
@@ -3012,13 +3012,11 @@ func nox_xxx_unitIsPlant_534A10(a1 unsafe.Pointer) int32 {
 	return bool2int32(int32(*(*uint16)(unsafe.Add(a1, 4))) == v1)
 }
 func nox_xxx_unitIsZombie_534A40(a1 *server.Object) int32 {
-	var v1 int32
 	if *memmap.PtrUint32(0x5D4594, 2488532) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2488532) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Zombie")))
 		*memmap.PtrUint32(0x5D4594, 2488536) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("VileZombie")))
 	}
-	v1 = int32(a1.TypeInd)
-	return bool2int32(uint32(uint16(int16(v1))) == *memmap.PtrUint32(0x5D4594, 2488532) || uint32(v1) == *memmap.PtrUint32(0x5D4594, 2488536))
+	return bool2int32(uint32(a1.TypeInd) == *memmap.PtrUint32(0x5D4594, 2488532) || uint32(a1.TypeInd) == *memmap.PtrUint32(0x5D4594, 2488536))
 }
 func nox_xxx_mobActionGetUp_534A90(obj *server.Object) {
 	a1 := obj
@@ -7449,7 +7447,7 @@ func nox_xxx_updateGameBall_53DF40(obj *server.Object) {
 				*(*uint64)(unsafe.Add(v1, 8)) = uint64(nox_platform_get_ticks())
 				v5 = int32(a3.ObjOwner)
 				if *(*uint32)(unsafe.Add(v5, 16))&0x8020 != 0 {
-					nox_xxx_unitClearOwner_4EC300(a3)
+					Nox_xxx_unitClearOwner_4EC300(a3)
 					sub_4EB9B0(a3, nil)
 					nox_xxx_netChangeTeamMb_419570(unsafe.Add(unsafe.Pointer(a3), 48), int32(a3.NetCode))
 					sub_4E8290(1, 0)
@@ -7477,7 +7475,7 @@ func nox_xxx_updateGameBall_53DF40(obj *server.Object) {
 				v11.field_0 = float32(float64(a3.PosVec.X) - float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v4*8)+194136)))*20.0)
 				v11.field_4 = float32(float64(a3.PosVec.Y) - float64(*memmap.PtrFloat32(0x587000, uintptr(uint32(v4*8)+194140)))*20.0)
 				nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Pointer(&v11)), a3, 30.0)
-				nox_xxx_unitClearOwner_4EC300(a3)
+				Nox_xxx_unitClearOwner_4EC300(a3)
 				sub_4E8290(1, 0)
 				nox_xxx_aud_501960(926, a3, 0, 0)
 			}
@@ -7524,7 +7522,7 @@ func nox_xxx_updateCrown_53E1D0(obj *server.Object) {
 		v3 = int32(a1.ObjOwner)
 		if v3 != 0 {
 			if *(*uint32)(unsafe.Add(v3, 16))&0x8020 != 0 {
-				nox_xxx_unitClearOwner_4EC300(a1)
+				Nox_xxx_unitClearOwner_4EC300(a1)
 			} else {
 				v4 = float64(*(*float32)(unsafe.Add(v3, 176)) + a1.Shape.Circle)
 				v6.field_0 = *(*float32)(unsafe.Add(v3, 56))

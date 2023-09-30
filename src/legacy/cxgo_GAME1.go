@@ -2590,56 +2590,43 @@ func nox_xxx_playerByName_4170D0(a1 *wchar2_t) *server.Player {
 	}
 	return v1
 }
-func nox_xxx_netMarkMinimapObject_417190(a1 int32, a2p *server.Object, a3 int32) int32 {
-	var (
-		a2 = a2p
-		v3 int32
-		v6 unsafe.Pointer
-	)
-	v3 = 0
-	if a1 < 0 || a1 >= NOX_PLAYERINFO_MAX || a2 == nil {
-		return v3
+
+func nox_xxx_netMarkMinimapObject_417190(pind int32, obj *server.Object, flags uint32) int32 {
+	if pind < 0 || pind >= NOX_PLAYERINFO_MAX || obj == nil {
+		return 0
 	}
-	pl := nox_common_playerInfoFromNumRaw(a1)
-	v4 := pl.Field4580
-	v5 := pl
-	if v4 != nil {
-		if *(**server.Object)(unsafe.Add(v4, 4*1)) == a2 {
-			v6 = pl.Field4580
-			*(*uint32)(v6) |= uint32(a3)
+	pl := nox_common_playerInfoFromNumRaw(pind)
+	if pl.Field4580 != nil {
+		if pl.Field4580.Field4 == obj {
+			pl.Field4580.Field0 |= flags
 			return 1
 		}
-		v6 = *(*unsafe.Pointer)(unsafe.Add(v4, 4*2))
-		for v6 != v4 {
-			if *(**server.Object)(unsafe.Add(v6, 4*1)) == a2 {
-				*(*uint32)(v6) |= uint32(a3)
+		for it := pl.Field4580.Field8; it != nil && it != pl.Field4580; it = it.Field8 {
+			if it.Field4 == obj {
+				it.Field0 |= flags
 				return 1
 			}
-			v6 = *(*unsafe.Pointer)(unsafe.Add(v6, 4*2))
 		}
 	}
-	v8 := (*uint32)(alloc.Calloc1(1, 0x10))
-	if v8 == nil {
-		return v3
+	m, _ := alloc.New(server.MinimapItem{})
+	if m == nil {
+		return 0
 	}
-	*(**server.Object)(unsafe.Add(unsafe.Pointer(v8), 4*1)) = a2
-	*v8 = uint32(a3)
-	v9 := v5.Field4580
-	if v9 != nil {
-		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*2)) = v9
-		v10 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*2))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*3)) = *(*uint32)(unsafe.Add(v5.Field4580, 12))
-		*(*uint32)(unsafe.Add(v10, 12)) = uint32(uintptr(unsafe.Pointer(v8)))
-		*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v8), 4*3)), 8)) = uint32(uintptr(unsafe.Pointer(v8)))
-		v5.Field4580 = unsafe.Pointer(v8)
+	m.Field4 = obj
+	m.Field0 = flags
+	if pl.Field4580 != nil {
+		m.Field8 = pl.Field4580
+		m.Field12 = pl.Field4580.Field12
+		pl.Field4580.Field12 = m
+		m.Field12.Field8 = m
+		pl.Field4580 = m
 	} else {
-		v5.Field4580 = unsafe.Pointer(v8)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*3)) = uint32(uintptr(unsafe.Pointer(v8)))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*2)) = uint32(uintptr(unsafe.Pointer(v8)))
+		pl.Field4580 = m
+		m.Field12 = m
+		m.Field8 = m
 	}
-	nox_xxx_unitSetXStatus_4E4800(a2, uint32(int32(uintptr(1))))
-	v3 = 1
-	return v3
+	nox_xxx_unitSetXStatus_4E4800(obj, 1)
+	return 1
 }
 func sub_417270(a1 int32) int32 {
 	var result int32
@@ -2651,67 +2638,56 @@ func sub_417270(a1 int32) int32 {
 	if v2 == nil {
 		return result
 	}
-	v3 := *(*unsafe.Pointer)(unsafe.Add(v2, 8))
+	v3 := v2.Field8
 	for result = 1; v3 != v2; result++ {
-		v3 = *(*unsafe.Pointer)(unsafe.Add(v3, 8))
+		v3 = v3.Field8
 	}
 	return result
 }
-func nox_xxx_netUnmarkMinimapObj_417300(a1 int32, a2p *server.Object, a3 int32) int32 {
-	var (
-		a2 = a2p
-		v4 *uint8
-		v6 unsafe.Pointer
-		v7 bool
-		v9 int32
-	)
-	if !(a1 >= 0 && a1 < NOX_PLAYERINFO_MAX) {
+func nox_xxx_netUnmarkMinimapObj_417300(pind int32, obj *server.Object, a3 uint32) int32 {
+	if pind < 0 || pind >= NOX_PLAYERINFO_MAX {
 		return 0
 	}
-	if a2 == nil {
+	if obj == nil {
 		return 0
 	}
-	pl := nox_common_playerInfoFromNumRaw(a1)
-	v4 = (*uint8)(unsafe.Pointer(pl))
-	v5 := pl.Field4580
-	if v5 == nil {
+	pl := nox_common_playerInfoFromNumRaw(pind)
+	m := pl.Field4580
+	if m == nil {
 		return 0
 	}
 	for {
-		v6 = *(*unsafe.Pointer)(unsafe.Add(v5, 4*2))
-		if *(**server.Object)(unsafe.Add(v5, 4*1)) == a2 {
+		v6 := m.Field8
+		if m.Field4 == obj {
 			break
 		}
 		if v6 == pl.Field4580 {
 			return 0
 		}
-		v5 = *(*unsafe.Pointer)(unsafe.Add(v5, 4*2))
-		if v6 != nil {
-			continue
+		m = m.Field8
+		if v6 == nil {
+			return 0
 		}
+	}
+	m.Field0 &^= a3
+	if m.Field0 != 0 {
 		return 0
 	}
-	v7 = (uint32(^a3) & *(*uint32)(v5)) == 0
-	*(*uint32)(v5) &= uint32(^a3)
-	if v7 {
-		v8 := *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), 4*1145))
-		if *(*unsafe.Pointer)(unsafe.Add(v8, 4*2)) == v8 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1145)) = 0
-		} else {
-			if v8 == v5 {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1145)) = *(*uint32)(unsafe.Add(v5, 4*2))
-			}
-			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 4*2)), 12)) = *(*uint32)(unsafe.Add(v5, 4*3))
-			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v5, 4*3)), 8)) = *(*uint32)(unsafe.Add(v5, 4*2))
-		}
-		alloc.FreePtr(v5)
-		v9 = int32(a2.Field5)
-		*(*uint8)(unsafe.Pointer(&v9)) = uint8(int8(v9 & 0xFE))
-		a2.Field5 = uint32(v9)
-		return 1
+	v8 := pl.Field4580
+	if v8.Field8 == v8 {
+		pl.Field4580 = nil
 	} else {
-		return 0
+		if v8 == m {
+			pl.Field4580 = m.Field8
+		}
+		m.Field8.Field12 = m.Field12
+		m.Field12.Field8 = m.Field8
 	}
+	alloc.Free(m)
+	v9 := int32(obj.Field5)
+	*(*uint8)(unsafe.Pointer(&v9)) = uint8(int8(v9 & 0xFE))
+	obj.Field5 = uint32(v9)
+	return 1
 }
 func nox_xxx_playerMapTracksObj_4173D0(a1 int32, a2p *server.Object) int32 {
 	var (
@@ -2728,8 +2704,8 @@ func nox_xxx_playerMapTracksObj_4173D0(a1 int32, a2p *server.Object) int32 {
 	if v3 == nil {
 		return 0
 	}
-	for *(**server.Object)(unsafe.Add(v3, 4)) != a2 {
-		v3 = *(*unsafe.Pointer)(unsafe.Add(v3, 8))
+	for v3.Field4 != a2 {
+		v3 = v3.Field8
 		if v3 == pl.Field4580 || v3 == nil {
 			return 0
 		}
@@ -2746,7 +2722,7 @@ func nox_xxx_netUnmarkMinimapSpec_417470(a1 *server.Object, a2 int32) {
 func nox_xxx_netMarkMinimapForAll_4174B0(a1 *server.Object, a2 int32) {
 	result := nox_common_playerInfoGetFirst_416EA0()
 	for i := result; result != nil; i = result {
-		nox_xxx_netMarkMinimapObject_417190(int32(i.PlayerInd), a1, a2)
+		nox_xxx_netMarkMinimapObject_417190(int32(i.PlayerInd), a1, uint32(a2))
 		result = nox_common_playerInfoGetNext_416EE0(i)
 	}
 }
@@ -3183,7 +3159,7 @@ func sub_417F50(a1 unsafe.Pointer) int32 {
 	*(*float32)(unsafe.Add(v8, 24)) = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("FlagballResetVel")))
 	nox_xxx_netMarkMinimapForAll_4174B0(v7, 1)
 	nox_xxx_createAt_4DAA50(v7, nil, 0.0, 0.0)
-	nox_xxx_unitClearOwner_4EC300(v7)
+	Nox_xxx_unitClearOwner_4EC300(v7)
 	sub_4EB9B0(v7, nil)
 	sub_4E8290(0, 0)
 	nox_xxx_unitMove_4E7010(v7, (*types.Pointf)(unsafe.Add(unsafe.Pointer(v4), 56)))
