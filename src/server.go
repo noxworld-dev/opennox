@@ -27,7 +27,6 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
@@ -547,7 +546,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 		}
 		if s.Frame()&8 != 0 {
 			plBit := uint32(1 << pl.Index())
-			for it := s.FirstServerObject(); it != nil; it = it.Next() {
+			for it := s.Objs.First(); it != nil; it = it.Next() {
 				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Max.X) || float64(it.CollideP2.X) < float64(rect.Min.X) || float64(it.CollideP1.Y) > float64(rect.Max.Y) || float64(it.CollideP2.Y) < float64(rect.Min.Y)) {
 					if it.Field37&plBit != 0 {
 						s.nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
@@ -574,40 +573,21 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 	legacy.Nox_xxx_netUpdateRemotePlr_501CA0(u.SObj())
 }
 
-func (s *Server) sub_4172C0(pind ntype.PlayerInd) *Object {
-	if pind < 0 && pind >= common.MaxPlayers {
-		return nil
-	}
-	pl := s.GetPlayerByIndRaw(pind)
-	if pl.Field4580 == nil {
-		return nil
-	}
-	p := *(**server.Object)(unsafe.Add(pl.Field4580, 4))
-	pl.Field4580 = *(*unsafe.Pointer)(unsafe.Add(pl.Field4580, 8))
-	return asObjectS(p)
-}
-
 func (s *Server) sub_519760(u *Object, rect types.Rectf) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	pind := pl.PlayerIndex()
-	obj := s.sub_4172C0(pind)
+	obj := s.Players.Sub_4172C0(pind)
 	if obj == nil {
 		return
 	}
 	if obj.Flags().Has(object.FlagDestroyed) {
-		s.nox_xxx_netMinimapUnmark4All_417430(obj)
+		s.Players.Nox_xxx_netMinimapUnmark4All_417430(obj)
 	} else if float64(obj.PosVec.X) < float64(rect.Min.X) || float64(obj.PosVec.X) > float64(rect.Max.X) || float64(obj.PosVec.Y) < float64(rect.Min.Y) || float64(obj.PosVec.Y) > float64(rect.Max.Y) {
 		obj.Field38 |= uint32(1 << pind)
 		legacy.Nox_xxx_netSendObjects2Plr_519410(u.SObj(), obj.SObj())
 		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, obj.SObj())
 		ud.Field67 = s.Frame()
-	}
-}
-
-func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
-	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
-		legacy.Nox_xxx_netUnmarkMinimapObj_417300(pl.PlayerIndex(), obj.SObj(), 3)
 	}
 }
 
@@ -1199,7 +1179,7 @@ func (s *Server) nox_xxx_mapSwitchLevel_4D12E0(a1 bool) {
 			break
 		}
 	}
-	for obj := s.FirstServerObject(); obj != nil; obj = obj.Next() {
+	for obj := s.Objs.First(); obj != nil; obj = obj.Next() {
 		obj.Obj130 = nil
 		if legacy.Nox_xxx_isUnit_4E5B50(obj) != 0 && obj.Class().Has(object.ClassMonster) {
 			ud := obj.UpdateDataMonster()

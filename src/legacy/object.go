@@ -26,6 +26,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -34,7 +35,6 @@ var (
 	Nox_xxx_unitMonsterInit_4F0040             func(obj *server.Object)
 	Nox_xxx_checkSummonedCreaturesLimit_500D70 func(u *server.Object, ind int) bool
 	Nox_xxx_unitDoSummonAt_5016C0              func(typID int, pos types.Pointf, owner *server.Object, dir server.Dir16) *server.Object
-	Sub_57AEE0                                 func(sp spell.ID, u *server.Object) bool
 	Sub_4E71F0                                 func(obj *server.Object)
 	Nox_bomberDead_54A150                      func(obj *server.Object) int
 	Nox_xxx_dieGlyph_54DF30                    func(obj *server.Object)
@@ -70,7 +70,7 @@ func ToObjS(p *nox_object_t) server.Obj {
 
 //export nox_server_getFirstObject_4DA790
 func nox_server_getFirstObject_4DA790() *nox_object_t {
-	return asObjectC(GetServer().FirstServerObject())
+	return asObjectC(GetServer().S().Objs.First())
 }
 
 //export nox_server_getFirstObjectUninited_4DA870
@@ -120,7 +120,7 @@ func nox_xxx_unitsNewAddToList_4DAC00() {
 
 //export nox_xxx_unitClearPendingMB_4DB030
 func nox_xxx_unitClearPendingMB_4DB030() {
-	GetServer().ObjectsClearPending()
+	GetServer().S().Objs.ObjectsClearPending()
 }
 
 //export nox_xxx_getFirstUpdatableObject_4DA8A0
@@ -144,6 +144,41 @@ func sub_548600(a1 *nox_object_t, a2, a3 C.float) {
 //export nox_xxx_delayedDeleteObject_4E5CC0
 func nox_xxx_delayedDeleteObject_4E5CC0(obj *nox_object_t) {
 	GetServer().DelayedDelete(asObjectS(obj))
+}
+
+//export nox_xxx_unitSetOwner_4EC290
+func nox_xxx_unitSetOwner_4EC290(obj1, obj2 *nox_object_t) {
+	GetServer().Nox_xxx_unitSetOwner_4EC290(asObjectS(obj1), asObjectS(obj2))
+}
+
+//export nox_xxx_unitClearOwner_4EC300
+func nox_xxx_unitClearOwner_4EC300(obj *nox_object_t) {
+	GetServer().Nox_xxx_unitClearOwner_4EC300(asObjectS(obj))
+}
+
+//export nox_xxx_creatureIsMonitored_500CC0
+func nox_xxx_creatureIsMonitored_500CC0(obj1, obj2 *nox_object_t) int {
+	return bool2int(server.Nox_xxx_creatureIsMonitored_500CC0(asObjectS(obj1), asObjectS(obj2)))
+}
+
+//export nox_xxx_netMarkMinimapObject_417190
+func nox_xxx_netMarkMinimapObject_417190(a1 int, obj *nox_object_t, a3 uint32) {
+	GetServer().S().Players.Nox_xxx_netMarkMinimapObject_417190(ntype.PlayerInd(a1), asObjectS(obj), a3)
+}
+
+//export nox_xxx_netUnmarkMinimapObj_417300
+func nox_xxx_netUnmarkMinimapObj_417300(a1 int, obj *nox_object_t, a3 uint32) {
+	GetServer().S().Players.Nox_xxx_netUnmarkMinimapObj_417300(ntype.PlayerInd(a1), asObjectS(obj), a3)
+}
+
+//export nox_xxx_monsterMarkUpdate_4E8020
+func nox_xxx_monsterMarkUpdate_4E8020(obj *nox_object_t) {
+	asObjectS(obj).Nox_xxx_monsterMarkUpdate_4E8020()
+}
+
+//export nox_xxx_unitIsHostileMimic_4E7F90
+func nox_xxx_unitIsHostileMimic_4E7F90(obj1, obj2 *nox_object_t) int {
+	return bool2int(GetServer().S().IsHostileMimicXxx(asObjectS(obj1), asObjectS(obj2)))
 }
 
 func AsPointf(p unsafe.Pointer) types.Pointf {
@@ -223,7 +258,7 @@ func nox_xxx_unitDoSummonAt_5016C0(typID int, cpos *float32, owner *nox_object_t
 
 //export sub_57AEE0
 func sub_57AEE0(sp int, u *nox_object_t) int {
-	return bool2int(Sub_57AEE0(spell.ID(sp), asObjectS(u)))
+	return bool2int(server.Sub_57AEE0(spell.ID(sp), asObjectS(u)))
 }
 
 //export sub_4E71F0
@@ -263,9 +298,6 @@ func nox_xxx_unitUnsetXStatus_4E4780(a1 *nox_object_t, a2 uint32) {
 
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
 	return asObjectS(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(a1)))
-}
-func Nox_xxx_creatureIsMonitored_500CC0(a1 *server.Object, a2 *server.Object) int {
-	return int(C.nox_xxx_creatureIsMonitored_500CC0(asObjectC(a1), asObjectC(a2)))
 }
 func Nox_xxx_monsterRemoveMonitors_4E7B60(a1 *server.Object, a2 *server.Object) {
 	C.nox_xxx_monsterRemoveMonitors_4E7B60(asObjectC(a1), asObjectC(a2))
@@ -332,12 +364,6 @@ func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, dur int,
 }
 func Nox_xxx_spellBuffOff_4FF5B0(a1 *server.Object, a2 server.EnchantID) {
 	C.nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), C.int(a2))
-}
-func Nox_xxx_unitClearOwner_4EC300(a1 *server.Object) {
-	C.nox_xxx_unitClearOwner_4EC300(asObjectC(a1))
-}
-func Nox_xxx_unitSetOwner_4EC290(a1 *server.Object, a2 *server.Object) {
-	C.nox_xxx_unitSetOwner_4EC290(asObjectC(a1), asObjectC(a2))
 }
 func Nox_xxx_unitRaise_4E46F0(a1 *server.Object, a2 float32) {
 	C.nox_xxx_unitRaise_4E46F0(asObjectC(a1), C.float(a2))

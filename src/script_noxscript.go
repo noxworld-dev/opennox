@@ -726,7 +726,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		if noxClient.r.FadeOutCinema(perc, fadeOutDur, color.Black) {
 			sub_477530(false)
 		}
-		for it := s.FirstServerObject(); it != nil; it = it.Next() {
+		for it := s.Objs.First(); it != nil; it = it.Next() {
 			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); f.Has(object.FlagNoCollide) {
 					it.ObjFlags = uint32(f &^ object.FlagNoCollide)
@@ -759,7 +759,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 
 	next = nil
-	for it := s.FirstServerObject(); it != nil; it = next {
+	for it := s.Objs.First(); it != nil; it = next {
 		next = it.Next()
 		if asObjectS(it).OwnerC() != nil {
 			for _, id := range nox_script_objCinemaRemove {

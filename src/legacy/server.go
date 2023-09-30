@@ -81,7 +81,8 @@ type Server interface {
 	GetFlag3592() bool
 	Sub40A040settings(a1 int, a2 int)
 	CreateObjectAt(obj, owner server.Obj, pt types.Pointf)
-	FirstServerObject() *server.Object
+	Nox_xxx_unitSetOwner_4EC290(owner, obj *server.Object)
+	Nox_xxx_unitClearOwner_4EC300(obj *server.Object)
 	NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Pointer, v18 int8)
 	Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg int, dtyp object.DamageType, who *server.Object, a7 server.Obj, damageWalls bool)
 	Sub_518460(pos types.Pointf, mask byte, scanSub bool) *server.Waypoint
@@ -90,7 +91,6 @@ type Server interface {
 	Nox_xxx_free503F40()
 	ObjectDeleteLast(obj *server.Object)
 	ObjectsAddPending()
-	ObjectsClearPending()
 	FinalizeDeletingObjects()
 	TeamsResetYyy() int
 	TeamsRemoveActive(hooks bool) int
@@ -204,9 +204,6 @@ func Nox_xxx_netUpdateRemotePlr_501CA0(a1 *server.Object) {
 }
 func Nox_xxx_netSendObjects2Plr_519410(a1 *server.Object, a2 *server.Object) {
 	C.nox_xxx_netSendObjects2Plr_519410(asObjectC(a1), asObjectC(a2))
-}
-func Nox_xxx_netUnmarkMinimapObj_417300(a1 ntype.PlayerInd, a2 *server.Object, a3 int) {
-	C.nox_xxx_netUnmarkMinimapObj_417300(C.int(a1), asObjectC(a2), C.int(a3))
 }
 func Sub_4D6770(a1 ntype.PlayerInd) {
 	C.sub_4D6770(C.int(a1))

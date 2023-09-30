@@ -2278,3 +2278,14 @@ func xferCodeFive40B720(a1 byte, a2 byte) {
 	sub_40B4E0(a2)
 	sub_40B1F0(a2)
 }
+
+func (s *Server) nox_xxx_netFxShield_0_4D9200(a1 int, a2 *server.Object) int {
+	code := uint16(a2.NetCode)
+	if noxflags.HasGame(noxflags.GameFlag28) {
+		code |= 0x8000
+	}
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_REPORT_LOSE_CREATURE)
+	binary.LittleEndian.PutUint16(buf[1:], code)
+	return s.nox_xxx_netSendPacket1_4E5390(a1, buf[:], 0, 1)
+}

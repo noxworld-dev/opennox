@@ -218,26 +218,28 @@ type serverObjTypes struct {
 	pickupSoundTable map[uint16]sound.ID
 
 	fast struct {
-		frog      int
-		rat       int
-		fishSmall int
-		fishBig   int
-		plant     int
-		polyp     int
-		wisp      int
-		mimic     int
-		ball      int
-		crown     int
-		npc       int
-		bomber    int
-		glyph     int
-		silverKey int
-		gold      int
-		goldPile  int
-		goldChest int
-		pixie     int
-		hecubah   int
-		necrom    int
+		frog       int
+		rat        int
+		fishSmall  int
+		fishBig    int
+		plant      int
+		polyp      int
+		wisp       int
+		mimic      int
+		ball       int
+		crown      int
+		npc        int
+		bomber     int
+		glyph      int
+		silverKey  int
+		gold       int
+		goldPile   int
+		goldChest  int
+		pixie      int
+		hecubah    int
+		necrom     int
+		zombie     int
+		zombieVile int
 	}
 }
 
@@ -332,6 +334,14 @@ func (s *serverObjTypes) HecubahID() int {
 
 func (s *serverObjTypes) NecromancerID() int {
 	return s.cacheObjectTypeID(&s.fast.necrom, "Necromancer")
+}
+
+func (s *serverObjTypes) ZombieID() int {
+	return s.cacheObjectTypeID(&s.fast.zombie, "Zombie")
+}
+
+func (s *serverObjTypes) VileZombieID() int {
+	return s.cacheObjectTypeID(&s.fast.zombieVile, "VileZombie")
 }
 
 func (s *serverObjTypes) ReadObjectType(thg *things.Thing) error {

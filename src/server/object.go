@@ -354,21 +354,17 @@ func (s *Server) NewObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTy
 	return s.Objs.NewObject(typ)
 }
 
-func (s *Server) FirstServerObject() *Object { // nox_server_getFirstObject_4DA790
-	return s.Objs.List
-}
-
-func (s *Server) GetObjects() []*Object {
+func (s *serverObjects) GetObjectsUpdatable2() []*Object {
 	var out []*Object
-	for p := s.FirstServerObject(); p != nil; p = p.ObjNext {
+	for p := s.UpdatableList2; p != nil; p = p.ObjNext {
 		out = append(out, p)
 	}
 	return out
 }
 
-func (s *Server) GetObjectsUpdatable2() []*Object {
+func (s *serverObjects) All() []*Object {
 	var out []*Object
-	for p := s.Objs.UpdatableList2; p != nil; p = p.ObjNext {
+	for p := s.List; p != nil; p = p.ObjNext {
 		out = append(out, p)
 	}
 	return out
@@ -404,16 +400,8 @@ func (s *serverObjects) RemoveFromUpdatable(obj *Object) {
 	obj.Obj130 = nil
 }
 
-func (s *Server) getPending() []*Object {
-	var out []*Object
-	for p := s.Objs.Pending; p != nil; p = p.ObjNext {
-		out = append(out, p)
-	}
-	return out
-}
-
-func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
-	for p := s.FirstServerObject(); p != nil; p = p.ObjNext {
+func (s *serverObjects) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
+	for p := s.List; p != nil; p = p.ObjNext {
 		if !p.Flags().Has(object.FlagDestroyed) && p.Ind() == ind {
 			return p
 		}
@@ -421,13 +409,21 @@ func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByEx
 	return nil
 }
 
-func (s *Server) GetObjectByID(id string) *Object {
-	for obj := s.Objs.List; obj != nil; obj = obj.ObjNext {
+func (s *serverObjects) getPending() []*Object {
+	var out []*Object
+	for p := s.Pending; p != nil; p = p.ObjNext {
+		out = append(out, p)
+	}
+	return out
+}
+
+func (s *serverObjects) GetObjectByID(id string) *Object {
+	for obj := s.List; obj != nil; obj = obj.ObjNext {
 		if p := obj.FindByID(id); p != nil {
 			return p
 		}
 	}
-	for obj := s.Objs.Pending; obj != nil; obj = obj.ObjNext {
+	for obj := s.Pending; obj != nil; obj = obj.ObjNext {
 		if p := obj.FindByID(id); p != nil {
 			return p
 		}
@@ -439,19 +435,19 @@ func (s *serverObjects) QueueAction(fnc func()) {
 	s.PendingActions = append(s.PendingActions, fnc)
 }
 
-func (s *Server) ObjectsClearPending() {
+func (s *serverObjects) ObjectsClearPending() {
 	var next *Object
-	for it := s.Objs.Pending; it != nil; it = next {
+	for it := s.Pending; it != nil; it = next {
 		next = it.ObjNext
 		it.ObjFlags &^= uint32(object.FlagPending)
-		if s.Objs.List != nil {
-			s.Objs.List.ObjPrev = it
+		if s.List != nil {
+			s.List.ObjPrev = it
 		}
-		it.ObjNext = s.Objs.List
+		it.ObjNext = s.List
 		it.ObjPrev = nil
-		s.Objs.List = it
+		s.List = it
 	}
-	s.Objs.Pending = nil
+	s.Pending = nil
 }
 
 type Dir16 uint16
@@ -1248,6 +1244,27 @@ func (s *Server) IsMimic(obj *Object) bool {
 		return false
 	}
 	return int(obj.TypeInd) == s.Types.MimicID()
+}
+
+func (s *Server) IsHostileMimicXxx(obj, obj2 *Object) bool { // nox_xxx_unitIsHostileMimic_4E7F90
+	if obj == nil || obj2 == nil {
+		return false
+	}
+	res := false
+	if !obj.IsEnemyTo(obj2) {
+		res = true
+	}
+	if noxflags.HasGame(noxflags.GameModeQuest) && obj2.Server().IsMimic(obj2) && obj.Class().Has(object.ClassPlayer) && obj2.ObjOwner == nil {
+		res = false
+	}
+	return res
+}
+
+func (s *Server) IsZombie(obj *Object) bool { // nox_xxx_unitIsZombie_534A40
+	if obj == nil {
+		return false
+	}
+	return int(obj.TypeInd) == s.Types.ZombieID() || int(obj.TypeInd) == s.Types.VileZombieID()
 }
 
 func (obj *Object) IsEnemyTo(obj2 *Object) bool { // nox_xxx_unitIsEnemyTo_5330C0

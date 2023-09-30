@@ -3176,15 +3176,6 @@ int sub_5346D0(int a1) {
 	return result;
 }
 
-//----- (005346F0) --------------------------------------------------------
-int nox_xxx_monsterResetEnemy_5346F0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(*(uint32_t*)(a1 + 748) + 1196) = 0;
-	return result;
-}
-
 //----- (00534710) --------------------------------------------------------
 int sub_534710(int a1) {
 	int v1;     // ecx

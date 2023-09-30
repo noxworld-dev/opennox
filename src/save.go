@@ -428,7 +428,7 @@ func nox_xxx_SavePlayerDataFromClient_41CD70(path string, data []byte) bool {
 
 func (s *Server) sub_4DB9C0() {
 	var next *server.Object
-	for it := s.FirstServerObject(); it != nil; it = next {
+	for it := s.Objs.First(); it != nil; it = next {
 		next = it.Next()
 		if legacy.Nox_xxx_isUnit_4E5B50(it.SObj()) != 0 {
 			asObjectS(it).Delete()

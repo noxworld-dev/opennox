@@ -1043,10 +1043,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	v2 := s.getServerMap()
 	legacy.Sub_500510(v2)
 	s.nox_xxx_mapSwitchLevel_4D12E0(true)
-	for _, obj := range s.GetObjects() {
+	for _, obj := range s.Objs.All() {
 		obj.ObjFlags |= uint32(object.FlagMarked)
 	}
-	for _, obj := range s.GetObjectsUpdatable2() {
+	for _, obj := range s.Objs.GetObjectsUpdatable2() {
 		obj.ObjFlags |= uint32(object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -1174,9 +1174,9 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			val = strings.TrimSpace(val)
 			if sub := strings.Fields(val); len(sub) >= 2 {
 				ind1, _ := strconv.Atoi(sub[0])
-				obj1 := s.GetObjectByInd(ind1)
+				obj1 := s.Objs.GetObjectByInd(ind1)
 				ind2, _ := strconv.Atoi(sub[1])
-				obj2 := s.GetObjectByInd(ind2)
+				obj2 := s.Objs.GetObjectByInd(ind2)
 				if obj1 != nil && obj2 != nil {
 					s.springs.Add(obj1, obj2)
 				}
@@ -1185,7 +1185,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			val = strings.TrimSpace(val)
 			if sub := strings.Fields(val); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
-				if v35 := s.GetObjectByInd(v34); v35 != nil {
+				if v35 := s.Objs.GetObjectByInd(v34); v35 != nil {
 					v36 := unsafe.Slice((*float32)(v35.UpdateData), 3)
 					v38, _ := strconv.ParseFloat(sub[1], 64)
 					v36[0] = float32(v38 * memmap.Float64(0x581450, 10008))
@@ -1251,7 +1251,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	for _, obj := range s.GetObjects() {
 		obj.ObjFlags &= 0x7FFFFFFF
 	}
-	for _, obj := range s.GetObjectsUpdatable2() {
+	for _, obj := range s.Objs.GetObjectsUpdatable2() {
 		obj.ObjFlags &= 0x7FFFFFFF
 	}
 	if noxflags.HasGame(noxflags.GameModeKOTR) && noxflags.HasGamePlay(4) {
