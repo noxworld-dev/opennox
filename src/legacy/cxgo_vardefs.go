@@ -20,7 +20,6 @@ var dword_5d4594_1045516 *gui.Window
 var dword_5d4594_1045684 *gui.Window
 var dword_5d4594_1307784 unsafe.Pointer
 var dword_5d4594_2650652 uint32
-var dword_5d4594_1217448 int32
 var dword_5d4594_1320940 *gui.Window
 var dword_5d4594_815004 *gui.Window
 var nox_wol_wnd_gameList_815012 *gui.Window
@@ -39,7 +38,6 @@ var dword_5d4594_1309820 *gui.Window
 var dword_5d4594_1062508 *gui.Window
 var dword_5d4594_1049864 uint32
 var dword_5d4594_1062512 int32
-var dword_5d4594_1217464 int32
 var dword_5d4594_1599656 *Vote
 var dword_5d4594_1049500 *gui.Window
 var dword_5d4594_3798840 int32
@@ -111,7 +109,6 @@ var dword_5d4594_1045484 *gui.Window
 var dword_5d4594_1049856 uint32
 var dword_5d4594_1064856 *gui.Window
 var nox_xxx_aNox_cfg_0_587000_132132 uint32 = 0x1
-var dword_5d4594_1217456 unsafe.Pointer
 var dword_5d4594_1193348 unsafe.Pointer
 var dword_5d4594_1047520 uint32
 var dword_5d4594_534808 unsafe.Pointer
@@ -148,7 +145,6 @@ var dword_587000_127004 unsafe.Pointer
 var nox_wol_server_result_cnt_815088 uint32
 var dword_5d4594_1046924 *ImageRef
 var nox_xxx_polygonNextAngle_587000_60356 uint32 = 0x1
-var dword_5d4594_1217460 int32
 var dword_5d4594_1307716 *gui.Window
 var dword_587000_93156 uint32 = 0x1
 var dword_5d4594_2523780 *server.Object
@@ -251,7 +247,6 @@ var dword_5d4594_832492 *client.Drawable
 var dword_5d4594_1046504 *gui.Window
 var dword_5d4594_1045508 *gui.Window
 var dword_5d4594_825744 *gui.Window
-var dword_5d4594_1217452 uint32
 var dword_5d4594_1319264 uint32
 var dword_5d4594_1046928 *ImageRef
 var dword_5d4594_1098580 *gui.Window
@@ -433,7 +428,6 @@ var dword_5d4594_251712 uint32
 var dword_5d4594_531652 uint32
 var dword_5d4594_2487948 uint32
 var nox_alloc_healthChange_1301772 alloc.ClassT[healthChange]
-var dword_5d4594_1522596 unsafe.Pointer
 var dword_5d4594_1049536 uint32
 var dword_5d4594_1098616 uint32
 var dword_5d4594_3807152 int32

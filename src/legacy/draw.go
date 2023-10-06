@@ -349,8 +349,8 @@ func sub_469920(p *Point32) unsafe.Pointer {
 }
 
 // nox_xxx_drawList1096512_Append_4754C0
-func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
-	Nox_xxx_drawList1096512_Append_4754C0(asWallP(p))
+func nox_xxx_drawList1096512_Append_4754C0(p *server.Wall) {
+	Nox_xxx_drawList1096512_Append_4754C0(p)
 }
 
 // nox_video_drawCircleColored_4C3270

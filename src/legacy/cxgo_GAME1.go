@@ -1355,31 +1355,6 @@ func nox_xxx_gameLoopMemDump_413E30() {
 func sub_413F60(a1 unsafe.Pointer, a2 unsafe.Pointer) int32 {
 	return int32(*(*uint32)(unsafe.Add(a1, 4*20)) - *(*uint32)(unsafe.Add(a2, 4*20)))
 }
-func sub_414BD0(a1 int32) int32 {
-	v1 := a1
-	if a1 < 0 {
-		v1 = a1 + ((25735-a1)/0x6488)*25736
-	}
-	if v1 >= 25736 {
-		v1 %= 0x6488
-	}
-	return memmap.Int32(0x85B3FC, uintptr(((v1<<12)/25736)*4+12260))
-}
-func sub_414C50(a1 int32) int32 {
-	var (
-		v1     int32
-		v2     int32
-		result int32
-	)
-	v1 = sub_414BD0(a1)
-	v2 = sub_414BD0(6434 - a1)
-	if v2 != 0 {
-		result = (v1 << 12) / v2
-	} else {
-		result = bool2int32(v1 <= 0) + math.MaxInt32
-	}
-	return result
-}
 func nox_xxx_initSinCosTables_414C90() int8 {
 	var (
 		v0 int64

@@ -113,12 +113,6 @@ func Get_dword_5d4594_1193156() int {
 func Get_dword_5d4594_1193188() int {
 	return int(dword_5d4594_1193188)
 }
-func Get_dword_5d4594_1217464() int {
-	return int(dword_5d4594_1217464)
-}
-func Set_dword_5d4594_1217464(v int) {
-	dword_5d4594_1217464 = uint32(v)
-}
 func Get_dword_5d4594_3798840() int {
 	return int(dword_5d4594_3798840)
 }
