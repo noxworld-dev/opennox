@@ -3941,11 +3941,9 @@ func sub_4D8870(a1 int32, a2 *server.Object) {
 	}
 }
 func nox_xxx_netReportTotalMana_4D88C0(a1 int32, a2 *server.Object) {
-	var (
-		v4 [7]byte
-	)
 	v3 := a2.UpdateData
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 && (v3 == nil || int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2251))) != 0) {
+		var v4 [7]byte
 		v4[0] = 222
 		*(*uint16)(unsafe.Pointer(&v4[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2))
 		*(*uint16)(unsafe.Pointer(&v4[3])) = *(*uint16)(unsafe.Add(v3, 4))
@@ -5461,7 +5459,7 @@ func nox_xxx_playerForceDisconnect_4DE7C0(ind int32) {
 		sub_40A970()
 	}
 	sub_4E55F0(uint8(int8(ind)))
-	nox_xxx_playerResetImportantCtr_4E4F40(ind)
+	nox_xxx_playerResetImportantCtr_4E4F40(int(ind))
 	sub_4E4F30(ind)
 	if false {
 		sub_4161E0()

@@ -179,7 +179,7 @@ func Nox_xxx_playerUnsetStatus_417530(p *server.Player, a2 int) {
 }
 
 func Nox_xxx_playerResetImportantCtr_4E4F40(v ntype.PlayerInd) {
-	nox_xxx_playerResetImportantCtr_4E4F40(int32(v))
+	nox_xxx_playerResetImportantCtr_4E4F40(int(int32(v)))
 }
 
 func Get_dword_5d4594_1046492() int {

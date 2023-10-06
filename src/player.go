@@ -473,10 +473,6 @@ func sub_459D70() int {
 	return int(v0 + 2)
 }
 
-func sub_4E4F30(a1 ntype.PlayerInd) {
-	*memmap.PtrUint16(0x5D4594, 1565524+2*uintptr(a1)) = 0
-}
-
 var (
 	_ encoding.BinaryMarshaler   = &PlayerOpts{}
 	_ encoding.BinaryUnmarshaler = &PlayerOpts{}
@@ -546,7 +542,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	v5 := sub_416640()
 	netlist.ResetByInd(ind, netlist.Kind1)
 	legacy.Nox_xxx_playerResetImportantCtr_4E4F40(ind)
-	sub_4E4F30(ind)
+	legacy.Sub_4E4F30(ind)
 
 	var ptyp string
 	if opts.Info.IsFemale() {

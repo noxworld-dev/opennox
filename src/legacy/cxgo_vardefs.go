@@ -192,7 +192,6 @@ var nox_client_translucentFrontWalls_805844 uint32
 var dword_5d4594_1309732 *gui.Window
 var dword_5d4594_1321204 unsafe.Pointer
 var dword_5d4594_2386500 *server.TradeSession
-var dword_5d4594_2649712 uint32
 var dword_5d4594_1046532 *gui.Window
 var dword_5d4594_3798828 uint32
 var dword_5d4594_1309728 *gui.Window

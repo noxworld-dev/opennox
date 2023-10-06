@@ -155,7 +155,7 @@ func Nox_xxx_netSendObjects2Plr_519410(a1 *server.Object, a2 *server.Object) {
 	nox_xxx_netSendObjects2Plr_519410(asObjectC(a1), asObjectC(a2))
 }
 func Nox_xxx_netUnmarkMinimapObj_417300(a1 ntype.PlayerInd, a2 *server.Object, a3 int) {
-	nox_xxx_netUnmarkMinimapObj_417300(int32(a1), asObjectC(a2), int32(a3))
+	nox_xxx_netUnmarkMinimapObj_417300(int32(a1), asObjectC(a2), uint32(int32(a3)))
 }
 func Sub_4D6770(a1 ntype.PlayerInd) {
 	sub_4D6770(int32(a1))

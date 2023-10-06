@@ -28,5 +28,5 @@ func nox_netlist_addToMsgListSrv_40EF40(ind int32, buf *byte, sz int32) bool {
 }
 
 func Nox_xxx_netImportant_4E5770(a1 byte, a2 int) {
-	nox_xxx_netImportant_4E5770(a1, int32(a2))
+	nox_xxx_netImportant_4E5770(int(a1), int32(a2))
 }

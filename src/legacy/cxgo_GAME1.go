@@ -2715,7 +2715,7 @@ func nox_xxx_playerMapTracksObj_4173D0(a1 int32, a2p *server.Object) int32 {
 func nox_xxx_netUnmarkMinimapSpec_417470(a1 *server.Object, a2 int32) {
 	result := nox_common_playerInfoGetFirst_416EA0()
 	for i := result; result != nil; i = result {
-		nox_xxx_netUnmarkMinimapObj_417300(int32(i.PlayerInd), a1, a2)
+		nox_xxx_netUnmarkMinimapObj_417300(int32(i.PlayerInd), a1, uint32(a2))
 		result = nox_common_playerInfoGetNext_416EE0(i)
 	}
 }

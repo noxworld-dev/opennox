@@ -74,3 +74,12 @@ func netDecodePlayerInput(data []byte, out []PlayerCtrl) []PlayerCtrl {
 	}
 	return out
 }
+
+type ImportantItem2 struct {
+	Field0 byte
+	Field1 byte
+	Field2 byte
+	Field3 byte
+	Field4 uint32
+	Field8 uint32
+}

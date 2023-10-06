@@ -9,9 +9,9 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 var (
@@ -91,7 +91,7 @@ type playerBandData struct {
 }
 
 func (m *Perfmon) bandData(ind int) playerBandData {
-	arr := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 1565124)), 3*common.MaxPlayers)
+	arr := unsafe.Slice((*uint32)(unsafe.Pointer(&legacy.ImportantArr1565124[0])), 3*common.MaxPlayers)
 	arr = arr[3*ind : 3*(ind+1)]
 	return playerBandData{
 		rpu: arr[0] & 0xff,
