@@ -16,7 +16,6 @@ int sub_476E90();
 unsigned int nox_xxx_packetGetMarshall_476F40();
 void nox_xxx_clientEnumHover_476FA0();
 void nox_xxx_clientOnCursorHover_477050(int arg0, int a2);
-void nox_video_drawCursorSelectCircle2_477470(uint32_t* a1, int a2, int a3);
 int nox_xxx_guiCursor_477600();
 int nox_client_setCursorType_477610(int a1);
 int nox_xxx_cursorGetTypePrev_477630();

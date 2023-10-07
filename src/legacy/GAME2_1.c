@@ -37,8 +37,6 @@
 #include "client__gui__tooltip.h"
 #include "client__video__draw_common.h"
 
-#include "client__draw__selectdw.h"
-
 #include "client__system__ctrlevnt.h"
 #include "common/fs/nox_fs.h"
 #include "common__magic__speltree.h"
