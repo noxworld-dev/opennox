@@ -91,6 +91,8 @@ type Server struct {
 	nat     natService
 
 	updateFunc2 func() bool
+
+	NetSendPacketXxx func(a1 int, buf []byte, a4, a5, a6 int) int
 }
 
 func (s *Server) Close() {

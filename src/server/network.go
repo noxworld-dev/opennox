@@ -14,6 +14,14 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 )
 
+func (s *Server) NetSendPacketXxx0(a1 int, buf []byte, a4, a5 int) int {
+	return s.NetSendPacketXxx(a1, buf, a4, a5, 0)
+}
+
+func (s *Server) NetSendPacketXxx1(a1 int, buf []byte, a4, a5 int) int {
+	return s.NetSendPacketXxx(a1, buf, a4, a5, 1)
+}
+
 func (s *Server) OnPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *Player, u *Object) (int, bool, error) {
 	switch op {
 	case noxnet.MSG_KEEP_ALIVE:

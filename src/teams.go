@@ -55,7 +55,7 @@ func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
 		buf[0] = byte(noxnet.MSG_TEAM_MSG)
 		buf[1] = 0x6
 		binary.LittleEndian.PutUint32(buf[2:], uint32(t.ID()))
-		s.nox_xxx_netSendPacket1_4E5390(0x9F, buf[:6], 0, 1)
+		s.NetSendPacketXxx1(0x9F, buf[:6], 0, 1)
 	}
 	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
 		objt := nox_xxx_objGetTeamByNetCode_418C80(pl.NetCode())
@@ -83,7 +83,7 @@ func (s *Server) sendTeamPacket(op byte) int {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_TEAM_MSG)
 	buf[1] = op
-	return s.nox_xxx_netSendPacket1_4E5390(0x9F, buf[:], 0, 1)
+	return s.NetSendPacketXxx1(0x9F, buf[:], 0, 1)
 }
 
 func (s *Server) teamChangeLessons(tm *server.Team, val int) { // nox_xxx_netChangeTeamID_419090
@@ -99,7 +99,7 @@ func (s *Server) teamChangeLessons(tm *server.Team, val int) { // nox_xxx_netCha
 	buf[1] = 0x8
 	binary.LittleEndian.PutUint32(buf[2:], uint32(tm.ID()))
 	binary.LittleEndian.PutUint32(buf[6:], uint32(val))
-	s.nox_xxx_netSendPacket1_4E5390(159, buf[:10], 0, 1)
+	s.NetSendPacketXxx1(159, buf[:10], 0, 1)
 }
 
 func (s *Server) TeamsRemoveActive(hooks bool) int {
