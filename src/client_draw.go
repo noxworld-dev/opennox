@@ -225,7 +225,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	c.nox_client_queueWallsDraw(vp, xmin, ymin)
 	c.nox_client_drawBackWalls(vp)
 	c.sub_475FE0(vp)
-	legacy.Nox_video_drawCursorSelectCircle_4773C0(vp)
+	c.drawSelection(vp)
 	c.nox_xxx_drawAllMB_475810_draw_E(vp)
 	r.partfx.Draw()
 	legacy.Sub_4C5060(vp)

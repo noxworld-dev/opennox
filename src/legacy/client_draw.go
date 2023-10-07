@@ -14,7 +14,6 @@ package legacy
 #include "GAME2_3.h"
 #include "GAME3_1.h"
 #include "client__draw__glowdraw.h"
-#include "client__draw__selectdw.h"
 #include "client__gui__guiggovr.h"
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
@@ -102,9 +101,6 @@ func Sub_49BD70(vp *noxrender.Viewport) {
 
 func Nox_xxx_drawAllMB_475810_draw_B(vp *noxrender.Viewport) int {
 	return int(C.nox_xxx_drawAllMB_475810_draw_B((*nox_draw_viewport_t)(vp.C())))
-}
-func Nox_video_drawCursorSelectCircle_4773C0(vp *noxrender.Viewport) {
-	C.nox_video_drawCursorSelectCircle_4773C0((*nox_draw_viewport_t)(vp.C()))
 }
 func Sub_4C5060(vp *noxrender.Viewport) {
 	C.sub_4C5060((*nox_draw_viewport_t)(vp.C()))

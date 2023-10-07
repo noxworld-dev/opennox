@@ -27,7 +27,6 @@
 #include "client__draw__playerdraw.h"
 #include "client__draw__powderdraw.h"
 #include "client__draw__pressureplatedraw.h"
-#include "client__draw__selectdw.h"
 #include "client__draw__slavedraw.h"
 #include "client__draw__souldraw.h"
 #include "client__draw__spiderspitdraw.h"
