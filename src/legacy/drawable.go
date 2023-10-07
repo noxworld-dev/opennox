@@ -138,11 +138,6 @@ func nox_xxx_cliGetSpritePlayer_45A000() *nox_drawable {
 	return (*nox_drawable)(GetClient().Cli().Objs.FirstPlayerList().C())
 }
 
-//export nox_xxx_getSomeSprite_49BD40
-func nox_xxx_getSomeSprite_49BD40() *nox_drawable {
-	return (*nox_drawable)(GetClient().Cli().Objs.FirstList5().C())
-}
-
 //export nox_xxx_sprite_49BA10
 func nox_xxx_sprite_49BA10(dr *nox_drawable) {
 	GetClient().Cli().Objs.DeadlineRemove(asDrawable(dr))
