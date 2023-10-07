@@ -183,10 +183,10 @@ func (c *Client) sub_468F80(vp *noxrender.Viewport) {
 func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	r := c.r
 	c.nox_xxx_drawAllMB_475810_draw_A(vp)
-	if vp.Field12 < 0 {
-		vp.Field12 = -1 - vp.Field12
-	} else if vp.Field12 > 0 {
-		vp.Field12 = 1 - vp.Field12
+	if vp.Jiggle12 < 0 {
+		vp.Jiggle12 = -1 - vp.Jiggle12
+	} else if vp.Jiggle12 > 0 {
+		vp.Jiggle12 = 1 - vp.Jiggle12
 	}
 	partViewportOff = vp.ToWorldPos(image.Pt(0, 0))
 	xmin := int(vp.World.Min.X) / common.GridStep

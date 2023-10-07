@@ -111,7 +111,6 @@ int sub_4AE3B0();
 int sub_4AE3D0();
 void sub_4AE6F0(int a1, int a2, int a3, int a4, int a5);
 long long sub_4AEE30();
-void nox_video_drawCircle_4B0B90(int a1, int a2, int a3);
 void nox_client_drawPoint_4B0BC0(int a1, int a2, int a3);
 int sub_4B4860(int a1, int a2, int a3, int a4);
 int nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4);

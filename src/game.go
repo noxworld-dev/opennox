@@ -581,7 +581,7 @@ func initGameSession435CC0() error {
 	vp.Size = sz
 	vp.Field10 = 0
 	vp.Field11 = 0
-	vp.Field12 = 0
+	vp.Jiggle12 = 0
 	v1 := nox_video_getCutSize()
 	noxClient.nox_draw_setCutSize(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {

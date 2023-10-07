@@ -6,12 +6,12 @@ import (
 )
 
 type Viewport struct {
-	Screen  image.Rectangle // 0, 0
-	World   image.Rectangle // 4, 16
-	Size    image.Point     // 8, 32
-	Field10 uint            // 10, 40
-	Field11 uint            // 11, 44
-	Field12 int             // 12, 48
+	Screen   image.Rectangle // 0, 0
+	World    image.Rectangle // 4, 16
+	Size     image.Point     // 8, 32
+	Field10  uint            // 10, 40
+	Field11  uint            // 11, 44
+	Jiggle12 int             // 12, 48
 }
 
 func (vp *Viewport) C() unsafe.Pointer {
