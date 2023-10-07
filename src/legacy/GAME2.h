@@ -176,8 +176,6 @@ nox_drawable* nox_xxx_cliFirstMinimapObj_459EB0();
 int nox_xxx_cliNextMinimapObj_459EC0(int a1);
 nox_drawable* nox_xxx_cliGetSpritePlayer_45A000();
 nox_drawable* sub_45A010(nox_drawable* dr);
-nox_drawable* nox_xxx_sprite_45A030();
-int sub_45A040(int a1);
 nox_drawable* sub_45A060();
 nox_drawable* nox_drawable_next_45A070(nox_drawable* a1);
 nox_drawable* sub_45A090();

@@ -210,7 +210,6 @@ int nox_xxx_comJournalEntryUpdate_427720(int a1, const char* a2, short a3);
 int nox_xxx_comUpdateEntryAll_427770(const char* a1, short a2);
 int sub_4277B0(nox_object_t* a1p, unsigned short a2);
 int sub_427980(float4* a1, float4* a2);
-int sub_427C80(int4* a1, int4* a2);
 int sub_427DF0(int a1, int* a2, float a3);
 
 void set_bitmask_flags_from_plus_separated_names_423930(const char* input, uint32_t* bitmask,

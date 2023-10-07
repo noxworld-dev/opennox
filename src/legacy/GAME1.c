@@ -1498,36 +1498,6 @@ void nox_xxx_gameLoopMemDump_413E30() {
 //----- (00413F60) --------------------------------------------------------
 int sub_413F60(const void* a1, const void* a2) { return *((uint32_t*)a1 + 20) - *((uint32_t*)a2 + 20); }
 
-//----- (00414BD0) --------------------------------------------------------
-int sub_414BD0(signed int a1) {
-	signed int v1; // ecx
-
-	v1 = a1;
-	if (a1 < 0) {
-		v1 = a1 + 25736 * ((25735 - a1) / 0x6488u);
-	}
-	if (v1 >= 25736) {
-		v1 %= 0x6488u;
-	}
-	return *getMemU32Ptr(0x85B3FC, 12260 + 4 * ((v1 << 12) / 25736));
-}
-
-//----- (00414C50) --------------------------------------------------------
-int sub_414C50(signed int a1) {
-	int v1;     // edi
-	int v2;     // eax
-	int result; // eax
-
-	v1 = sub_414BD0(a1);
-	v2 = sub_414BD0(6434 - a1);
-	if (v2) {
-		result = (v1 << 12) / v2;
-	} else {
-		result = (v1 <= 0) + 0x7FFFFFFF;
-	}
-	return result;
-}
-
 //----- (00414C90) --------------------------------------------------------
 char nox_xxx_initSinCosTables_414C90() {
 	long long v0;      // rax

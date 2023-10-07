@@ -96,10 +96,6 @@ func Sub_45AB40() {
 	C.sub_45AB40()
 }
 
-func Sub_498AE0() {
-	C.sub_498AE0()
-}
-
 func Get_nox_thing_glow_orb_draw() unsafe.Pointer {
 	return C.nox_thing_glow_orb_draw
 }
@@ -108,9 +104,6 @@ func Sub_49BD70(vp *noxrender.Viewport) {
 	C.sub_49BD70((*nox_draw_viewport_t)(vp.C()))
 }
 
-func Nox_xxx_drawBlack_496150(vp *noxrender.Viewport) {
-	C.nox_xxx_drawBlack_496150((*nox_draw_viewport_t)(vp.C()))
-}
 func Nox_xxx_drawAllMB_475810_draw_B(vp *noxrender.Viewport) int {
 	return int(C.nox_xxx_drawAllMB_475810_draw_B((*nox_draw_viewport_t)(vp.C())))
 }

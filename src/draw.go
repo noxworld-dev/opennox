@@ -559,7 +559,7 @@ func nox_xxx_drawList1096512_Append_4754C0(p *server.Wall) {
 func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_2 {
 		c.drawCreatureBackEffects(vp, dr)
-		if legacy.Nox_xxx_client_4984B0_drawable(dr) == 0 {
+		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
 			continue
 		}
 		dr.Field_121 = 1

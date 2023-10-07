@@ -4338,18 +4338,6 @@ int nox_xxx_cliNextMinimapObj_459EC0(int a1) {
 //----- (0045A010) --------------------------------------------------------
 nox_drawable* sub_45A010(nox_drawable* dr) { return dr->field_104; }
 
-//----- (0045A040) --------------------------------------------------------
-int sub_45A040(int a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 360);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0045A070) --------------------------------------------------------
 nox_drawable* nox_drawable_next_45A070(nox_drawable* a1) {
 	int result; // eax
