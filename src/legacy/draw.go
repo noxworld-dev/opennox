@@ -26,17 +26,18 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/server"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
-	Nox_xxx_cliUpdateCameraPos_435600     func(x, y int)
-	Sub_437260                            func()
-	Get_nox_client_texturedFloors_154956  func() bool
-	Sub_480860                            func(dst, src []uint16, w int, a4p, a5p []uint32)
-	Nox_xxx_drawList1096512_Append_4754C0 func(p *server.Wall)
-	Sub_473970                            func(a1 image.Point) image.Point
-	Nox_client_isConnected                func() bool
+	Nox_xxx_cliUpdateCameraPos_435600    func(x, y int)
+	Sub_437260                           func()
+	Get_nox_client_texturedFloors_154956 func() bool
+	Sub_480860                           func(dst, src []uint16, w int, a4p, a5p []uint32)
+	Sub_473970                           func(a1 image.Point) image.Point
+	Nox_client_isConnected               func() bool
+	Nox_video_inFadeTransition_44E0D0    func() int
+	Nox_thing_debug_draw                 func(vp *noxrender.Viewport, dr *client.Drawable) int
 )
 
 type nox_draw_viewport_t = C.nox_draw_viewport_t
@@ -67,11 +68,6 @@ func sub_4C5630(a1 int, a2 int, a3 int) int {
 //export nox_draw_getViewport_437250
 func nox_draw_getViewport_437250() *nox_draw_viewport_t {
 	return (*nox_draw_viewport_t)(GetClient().Viewport().C())
-}
-
-//export sub_4355B0
-func sub_4355B0(a1 int) {
-	GetClient().Viewport().Field12 = a1
 }
 
 //export nox_xxx_getSomeCoods_435670
@@ -375,11 +371,6 @@ func sub_469920(p *C.nox_point) *C.char {
 	return (*C.char)(unsafe.Pointer(&dst[0]))
 }
 
-//export nox_xxx_drawList1096512_Append_4754C0
-func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
-	Nox_xxx_drawList1096512_Append_4754C0(asWallP(p))
-}
-
 //export nox_video_drawCircleColored_4C3270
 func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 int) {
 	GetClient().R2().DrawCircle(a1, a2, a3, noxcolor.RGBA5551(a4))
@@ -449,6 +440,40 @@ func sub_473970(a1, a2p *C.int2) {
 //export nox_client_isConnected_43C700
 func nox_client_isConnected_43C700() int {
 	return bool2int(Nox_client_isConnected())
+}
+
+//export nox_video_stopAllFades_44E040
+func nox_video_stopAllFades_44E040() {
+	GetClient().Nox_video_stopAllFades44E040()
+}
+
+//export nox_video_inFadeTransition_44E0D0
+func nox_video_inFadeTransition_44E0D0() int {
+	return Nox_video_inFadeTransition_44E0D0()
+}
+
+//export nox_video_fadeInScreen_44DAB0
+func nox_video_fadeInScreen_44DAB0(a1, a2 C.int, fnc unsafe.Pointer) {
+	GetClient().R2().FadeInScreen(int(a1), a2 != 0, func() {
+		ccall.CallVoidVoid(fnc)
+	})
+}
+
+//export nox_video_fadeOutScreen_44DB30
+func nox_video_fadeOutScreen_44DB30(a1, a2 C.int, fnc unsafe.Pointer) {
+	GetClient().R2().FadeOutScreen(int(a1), a2 != 0, func() {
+		ccall.CallVoidVoid(fnc)
+	})
+}
+
+//export nox_thing_debug_draw
+func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) int {
+	return Nox_thing_debug_draw(asViewport(cvp), asDrawable(cdr))
+}
+
+//export sub_4B6720
+func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
+	GetClient().R2().DrawGlow(AsPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
 }
 
 func toRect(cr *C.nox_rect) image.Rectangle {

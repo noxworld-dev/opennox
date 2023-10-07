@@ -5527,6 +5527,7 @@ int sub_473420(uint32_t* a1) {
 }
 
 //----- (004734F0) --------------------------------------------------------
+void nox_video_drawCircle_4B0B90(int a1, int a2, int a3);
 void nox_video_drawCircleRad3_4734F0(int* a1) { nox_video_drawCircle_4B0B90(a1[0], a1[1], 3); }
 
 //----- (00473510) --------------------------------------------------------

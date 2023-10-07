@@ -61,7 +61,7 @@ func (c *Client) nox_xxx_drawBlack_496150(vp *noxrender.Viewport) {
 	v74 := (v3+v1)/23 - v1/23
 	v4 := int32((vp.Size.Y+int(v2))/23 - int(v2/23))
 	dword_5d4594_1217444_vec.X = v1 + v3/2
-	dword_5d4594_1217444_vec.Y = int32(uint32(vp.World.Min.Y + vp.Field12 + vp.Size.Y/2))
+	dword_5d4594_1217444_vec.Y = int32(uint32(vp.World.Min.Y + vp.Jiggle12 + vp.Size.Y/2))
 	sub_498030(vp)
 	c.sub_497260(vp)
 	if v4 >= 0 {
@@ -429,7 +429,7 @@ func (c *Client) Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {
 	v37 := v6 - v7
 	var a1a image.Rectangle
 	a1a.Min.X = vp.Screen.Min.X + vp.Size.X/2
-	a1a.Min.Y = vp.Screen.Min.Y + vp.Field12 + vp.Size.Y/2
+	a1a.Min.Y = vp.Screen.Min.Y + vp.Jiggle12 + vp.Size.Y/2
 	a1a.Max.X = int(v6 - v7)
 	a1a.Max.Y = int(v43 - v8)
 	if dword_5d4594_1217464_size <= 0 {

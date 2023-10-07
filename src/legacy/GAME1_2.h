@@ -114,7 +114,6 @@ void sub_435120(void* a1, void* a2);
 void sub_435150(uint8_t* a1, char* a2);
 void nox_draw_splitColor_435280(short a1, uint8_t* a2, uint8_t* a3, uint8_t* a4);
 long long nox_xxx_initTime_435570();
-void sub_4355B0(int a1);
 void nox_xxx_cliUpdateCameraPos_435600(int a1, int a2);
 void nox_xxx_getSomeCoods_435670(int2* a1);
 uint32_t* sub_435690(uint32_t* a1);
