@@ -399,7 +399,7 @@ func (c *Client) Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {
 	if dr.DrawFuncPtr == nil {
 		return 0
 	}
-	if dr.C() == *memmap.PtrPtr(0x852978, 8) {
+	if dr == c.ClientPlayerUnit() {
 		return 1
 	}
 	var v42, v43, v6 int32

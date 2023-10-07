@@ -4350,18 +4350,6 @@ nox_drawable* nox_drawable_next_45A070(nox_drawable* a1) {
 	return result;
 }
 
-//----- (0045A0A0) --------------------------------------------------------
-int sub_45A0A0(int a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 424);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0045A990) --------------------------------------------------------
 int nox_xxx_spriteSetActiveMB_45A990_drawable(int a1) {
 	int result; // eax
@@ -4381,7 +4369,9 @@ int nox_xxx_cliDestroyObj_45A9A0(int a1) {
 }
 
 //----- (0045A9B0) --------------------------------------------------------
-int* sub_45A9B0(int a1, int a2) {
+void sub_45A9B0(nox_drawable* a1p, nox_drawable* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2;          // esi
 	int v3;          // ebp
 	char* v4;        // eax
@@ -4451,22 +4441,6 @@ int* sub_45A9B0(int a1, int a2) {
 			result = (int*)sub_4523D0(result);
 		}
 	}
-	return result;
-}
-
-//----- (0045AB40) --------------------------------------------------------
-int sub_45AB40() {
-	int result; // eax
-	int i;      // esi
-
-	result = sub_45A090();
-	for (i = result; result; i = result) {
-		if (*(uint32_t*)(i + 492)) {
-			sub_45A9B0(i, *getMemIntPtr(0x852978, 8));
-		}
-		result = sub_45A0A0(i);
-	}
-	return result;
 }
 
 //----- (0045AB80) --------------------------------------------------------

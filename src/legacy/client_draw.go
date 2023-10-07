@@ -92,10 +92,6 @@ func Sub_49B6E0() {
 	C.sub_49B6E0()
 }
 
-func Sub_45AB40() {
-	C.sub_45AB40()
-}
-
 func Get_nox_thing_glow_orb_draw() unsafe.Pointer {
 	return C.nox_thing_glow_orb_draw
 }

@@ -627,6 +627,7 @@ func sub_450570() bool {
 }
 
 func nox_savegame_sub_46D580() {
+	c := noxClient
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		return
 	}
@@ -640,8 +641,7 @@ func nox_savegame_sub_46D580() {
 	if sub_450560() && !sub_450570() {
 		legacy.Nox_xxx_wnd_46ABB0(v1, 0)
 	} else {
-		v2 := *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276))
-		switch v2 {
+		switch c.ClientPlayerUnit().Field_69 {
 		case 1, 2, 51:
 			legacy.Nox_xxx_wnd_46ABB0(v1, 0)
 		default:
@@ -879,6 +879,7 @@ func nox_savegame_sub_46C730() int {
 }
 
 func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
+	c := noxClient
 	switch ev := ev.(type) {
 	case *WindowEvent0x4010:
 		ev2 := gui.AsWindowEvent(0x4013, ev.Val, 0)
@@ -894,7 +895,7 @@ func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEve
 			if saveNum < 0 {
 				return nil
 			}
-			v9 := *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 120)))
+			v9 := c.ClientPlayerUnit().Flags30()
 			if (v9 & 0x8000) != 0 {
 				v10 := win1.ChildByID(501)
 				legacy.Nox_xxx_wnd_46ABB0(v10, 0)
