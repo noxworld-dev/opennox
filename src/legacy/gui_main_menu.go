@@ -15,7 +15,6 @@ package legacy
 #include "client__shell__mainmenu.h"
 extern void* dword_5d4594_831236;
 extern unsigned int dword_5d4594_831220;
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_831260;
 int winMainMenuAnimOutStartFnc();
 int winMainMenuAnimOutDoneFnc();
