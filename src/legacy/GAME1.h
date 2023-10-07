@@ -127,8 +127,6 @@ void sub_413A00(int a1);
 int nox_xxx_checkGameFlagPause_413A50();
 void nox_xxx_gameLoopMemDump_413E30();
 int sub_413F60(const void* a1, const void* a2);
-int sub_414BD0(signed int a1);
-int sub_414C50(signed int a1);
 char nox_xxx_initSinCosTables_414C90();
 int nox_thing_skip_AUD_414D40(nox_memfile* f);
 int nox_thing_read_FLOR_414DB0(nox_memfile* f);

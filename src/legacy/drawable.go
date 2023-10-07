@@ -5,7 +5,6 @@ package legacy
 extern int nox_drawable_count;
 extern void* dword_5d4594_1096640;
 extern void* nox_client_spriteUnderCursorXxx_1096644;
-int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
 void sub_495B50(void* a1);
 int sub_4523D0(void* a1);
 void sub_495FC0(void* a1, nox_drawable* a2);
@@ -24,6 +23,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 )
 
 func asDrawable(p *nox_drawable) *client.Drawable {
@@ -147,11 +147,6 @@ func sub_45A090() *nox_drawable {
 	return (*nox_drawable)(GetClient().Cli().Objs.FirstList8().C())
 }
 
-//export nox_xxx_sprite_45A030
-func nox_xxx_sprite_45A030() *nox_drawable {
-	return (*nox_drawable)(GetClient().Cli().Objs.FirstList2().C())
-}
-
 //export nox_xxx_sprite_49BA10
 func nox_xxx_sprite_49BA10(dr *nox_drawable) {
 	GetClient().Cli().Objs.DeadlineRemove(asDrawable(dr))
@@ -162,12 +157,29 @@ func sub_49BCD0(dr *nox_drawable) {
 	GetClient().Cli().Objs.List5Delete(asDrawable(dr))
 }
 
-func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {
-	return int(C.go_nox_drawable_call_draw_func((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(s.C())))
+//export nox_xxx_client_4984B0_drawable
+func nox_xxx_client_4984B0_drawable(dr *nox_drawable) int {
+	return GetClient().Nox_xxx_client_4984B0_drawable(asDrawable(dr))
 }
 
-func Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {
-	return int(C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())))
+//export sub_4992B0
+func sub_4992B0(a, b int) int {
+	return GetClient().Sub_4992B0(a, b)
+}
+
+//export sub_498C20
+func sub_498C20(a, b *C.nox_point, a3 int32) int32 {
+	return GetClient().Sub_498C20((*ntype.Point32)(unsafe.Pointer(a)), (*ntype.Point32)(unsafe.Pointer(b)), a3)
+}
+
+//export sub_499290
+func sub_499290(a1 int) C.nox_point {
+	p := GetClient().Sub_499290(a1)
+	return C.nox_point{x: C.int(p.X), y: C.int(p.Y)}
+}
+
+func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {
+	return int(C.go_nox_drawable_call_draw_func((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(s.C())))
 }
 
 func Nox_xxx_spriteGetMB_476F80() *client.Drawable {

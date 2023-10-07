@@ -15,6 +15,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -183,7 +184,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	xmin := int(vp.World.Min.X) / common.GridStep
 	ymin := int(vp.World.Min.Y) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
-	legacy.Nox_xxx_drawBlack_496150(vp)
+	nox_xxx_drawBlack_496150(vp)
 	c.nox_xxx_drawBlack_496150_B()
 	disableDraw := false
 	if legacy.AsDrawableP(*memmap.PtrPtr(0x852978, 8)).HasEnchant(server.ENCHANT_BLINDED) || legacy.Get_nox_gameDisableMapDraw_5d4594_2650672() != 0 {
@@ -280,7 +281,7 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	}
 	legacy.Sub_49F6D0(v16)
 	if noxflags.HasEngine(noxflags.EngineSoftShadowEdge) {
-		legacy.Sub_498AE0()
+		sub_498AE0()
 	}
 }
 
@@ -328,7 +329,7 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_3 {
 		c.drawCreatureBackEffects(vp, dr)
-		if legacy.Nox_xxx_client_4984B0_drawable(dr) == 0 {
+		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
 			continue
 		}
 		dr.Field_121 = 1
@@ -351,7 +352,7 @@ func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 
 func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_4 {
-		if legacy.Nox_xxx_client_4984B0_drawable(dr) != 0 {
+		if c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 			dr.Field_121 = 1
 			legacy.CallDrawFunc(dr, vp)
 			if noxflags.HasEngine(noxflags.EngineShowExtents) {
@@ -498,9 +499,9 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
 		return
 	}
 	if legacy.Sub_4757D0_drawable(dr) != 0 {
-		if legacy.Get_nox_client_fadeObjects_80836() != 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || legacy.Nox_xxx_client_4984B0_drawable(dr) != 0 {
+		if legacy.Get_nox_client_fadeObjects_80836() != 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 			if dr.Field_122 == 0 {
-				if legacy.Nox_xxx_client_4984B0_drawable(dr) != 0 {
+				if c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 					dr.Field_121 = 1
 					dr.Field_120 = 0
 				} else {
@@ -791,29 +792,28 @@ func (c *Client) sub_4C5430(px int, py int) {
 
 func (c *Client) nox_xxx_drawBlack_496150_B() {
 	sub_4989A0()
-	ptr := memmap.PtrOff(0x5D4594, 1203876)
-	sz := int(legacy.Get_dword_5d4594_1217464())
+	sz := dword_5d4594_1217464
 	if sz <= 0 {
 		return
 	}
-	arr := unsafe.Slice((*image.Point)(ptr), sz)
+	arr := arr_5d4594_1203876[:sz]
 	c.sub_4C52E0(arr)
 }
 
-func (c *Client) sub_4C52E0(points []image.Point) {
+func (c *Client) sub_4C52E0(points []ntype.Point32) {
 	c.tiles.nox_arr_956A00 = [noxMaxHeight + 150]int{}
 	c.tiles.dword_5d4594_3679320 = nox_win_height
 	c.tiles.dword_5d4594_3798156 = 0
 	for i := range points {
-		p1x := points[i].X
-		p1y := points[i].Y
+		p1x := int(points[i].X)
+		p1y := int(points[i].Y)
 		var p2x, p2y int
 		if i == len(points)-1 {
-			p2x = points[0].X
-			p2y = points[0].Y
+			p2x = int(points[0].X)
+			p2y = int(points[0].Y)
 		} else {
-			p2x = points[i+1].X
-			p2y = points[i+1].Y
+			p2x = int(points[i+1].X)
+			p2y = int(points[i+1].Y)
 		}
 		if p1y == p2y {
 			continue
