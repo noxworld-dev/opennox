@@ -283,8 +283,9 @@ func (c *Client) nox_game_cdMaybeSwitchState_413800() {
 }
 
 func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
+	c := noxClient
 	legacy.ClientSetPlayerNetCode(0)
-	*memmap.PtrUint32(0x852978, 8) = 0
+	c.setClientPlayerUnit(nil)
 	setCurPlayer(nil)
 	// TODO: size is a guess
 	alloc.StrCopy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 811280)), 1024), legacy.Nox_xxx_getRandomName_4358A0())
@@ -637,6 +638,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 }
 
 func nox_xxx_cliSetupSession_437190() {
+	c := noxClient
 	legacy.Sub_473960()
 	noxServer.Players.ResetAll()
 	legacy.Sub_455EE0()
@@ -644,8 +646,8 @@ func nox_xxx_cliSetupSession_437190() {
 	legacy.Sub_48D800()
 	legacy.Sub_49A8C0()
 	sub_470550()
-	noxClient.GUI.DestroyAll()
-	noxClient.r.FadeDisable()
+	c.GUI.DestroyAll()
+	c.r.FadeDisable()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		sub_43CC80()
 	}
@@ -662,7 +664,7 @@ func nox_xxx_cliSetupSession_437190() {
 	}
 	legacy.Sub_417CF0()
 	legacy.ClientSetPlayerNetCode(0)
-	*memmap.PtrUint32(0x852978, 8) = 0
+	c.setClientPlayerUnit(nil)
 	setCurPlayer(nil)
 }
 

@@ -9,6 +9,7 @@ void sub_495B50(void* a1);
 int sub_4523D0(void* a1);
 void sub_495FC0(void* a1, nox_drawable* a2);
 int sub_49C520(nox_drawable* a1);
+void sub_45A9B0(nox_drawable* a1, nox_drawable* a2);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	return dr->draw_func(vp, dr);
 }
@@ -142,11 +143,6 @@ func nox_xxx_getSomeSprite_49BD40() *nox_drawable {
 	return (*nox_drawable)(GetClient().Cli().Objs.FirstList5().C())
 }
 
-//export sub_45A090
-func sub_45A090() *nox_drawable {
-	return (*nox_drawable)(GetClient().Cli().Objs.FirstList8().C())
-}
-
 //export nox_xxx_sprite_49BA10
 func nox_xxx_sprite_49BA10(dr *nox_drawable) {
 	GetClient().Cli().Objs.DeadlineRemove(asDrawable(dr))
@@ -212,4 +208,7 @@ func Sub_495FC0(p *client.DrawableFX, dr *client.Drawable) {
 }
 func Sub_49C520(dr *client.Drawable) int {
 	return int(C.sub_49C520((*nox_drawable)(dr.C())))
+}
+func Sub_45A9B0(a1, a2 *client.Drawable) {
+	C.sub_45A9B0((*nox_drawable)(a1.C()), (*nox_drawable)(a2.C()))
 }
