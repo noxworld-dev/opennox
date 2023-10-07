@@ -97,9 +97,9 @@ func nox_xxx_cliUpdateCameraPos_435600(x, y int) {
 	*memmap.PtrInt32(0x5D4594, 811364) = int32(vp.World.Max.X)
 	*memmap.PtrInt32(0x5D4594, 811368) = int32(vp.World.Max.Y)
 	vp.World.Min.X = x - vp.Size.X/2
-	vp.World.Min.Y = y + vp.Field12 - vp.Size.Y/2
+	vp.World.Min.Y = y + vp.Jiggle12 - vp.Size.Y/2
 	vp.World.Max.X = x
-	vp.World.Max.Y = y + vp.Field12
+	vp.World.Max.Y = y + vp.Jiggle12
 }
 
 var _ = [1]struct{}{}[52-unsafe.Sizeof(noxrender.Viewport{})]

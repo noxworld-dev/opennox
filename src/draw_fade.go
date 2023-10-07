@@ -63,11 +63,11 @@ func (r *NoxRender) FadeInScreen(t int, menu bool, done func()) bool {
 	return r.NoxRender.FadeInScreen(t, menu, done)
 }
 
-func clientPacketFade(flag4 bool, a2 bool) {
+func (c *Client) clientPacketFade(flag4 bool, a2 bool) {
 	if a2 {
-		noxClient.r.FadeOutScreen(getFadeDuration(), flag4, sub_44E020)
+		c.r.FadeOutScreen(getFadeDuration(), flag4, sub_44E020)
 	} else {
-		noxClient.r.FadeInScreen(getFadeDuration(), flag4, fadeDisableGameDraw)
+		c.r.FadeInScreen(getFadeDuration(), flag4, fadeDisableGameDraw)
 	}
 }
 

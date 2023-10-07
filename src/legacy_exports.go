@@ -140,7 +140,6 @@ func init() {
 	legacy.GetDoDamageWalls = func() bool {
 		return doDamageWalls
 	}
-	legacy.ClientPacketFade = clientPacketFade
 	legacy.Nox_video_inFadeTransition_44E0D0 = nox_video_inFadeTransition_44E0D0
 	legacy.Sub_4373A0 = sub_4373A0
 	legacy.Sub_43EA20 = sub_43EA20
@@ -257,7 +256,6 @@ func init() {
 	legacy.Sub_437260 = sub_437260
 	legacy.Get_nox_client_texturedFloors_154956 = get_nox_client_texturedFloors_154956
 	legacy.Sub_480860 = sub_480860
-	legacy.Nox_xxx_drawList1096512_Append_4754C0 = nox_xxx_drawList1096512_Append_4754C0
 	legacy.Sub_473970 = sub_473970
 	legacy.Nox_client_isConnected = nox_client_isConnected
 	legacy.Nox_xxx_pickupDefault_4F31E0 = nox_xxx_pickupDefault_4F31E0

@@ -58,7 +58,6 @@ extern uint32_t nox_player_netCode_85319C;
 
 int nox_client_getFadeDuration();
 
-void clientPacketFade(bool a1, int fnc);
 void nox_client_onClassStats(unsigned char* data, int sz);
 void nox_client_onClientStatusA(int v);
 void sub_456140(unsigned char a1);
@@ -1928,11 +1927,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			} while (v239);
 		}
 		return 5;
-	case 0x97u: // MSG_FX_JIGGLE
-		if (nox_client_isConnected_43C700()) {
-			sub_4355B0(*(unsigned char*)(data + 1) / 3);
-		}
-		return 2;
 	case 0x98u: // MSG_FX_GREEN_BOLT
 		if (!*getMemU32Ptr(0x5D4594, 1200844)) {
 			*getMemU32Ptr(0x5D4594, 1200844) = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenZap");
@@ -2895,19 +2889,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			*(uint32_t*)(v5 + 432) = k;
 		}
 		return 4;
-	case 0xE4: // MSG_FADE_BEGIN
-		if (nox_client_isConnected_43C700()) {
-			if (*(uint8_t*)(data + 1) == 1) {
-				if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-					nox_gameDisableMapDraw_5d4594_2650672 = 0;
-					sub_413A00(1);
-					clientPacketFade(*(uint8_t*)(data + 2) == 1, 1);
-				}
-			} else if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-				clientPacketFade(*(uint8_t*)(data + 2) == 1, 0);
-			}
-		}
-		return 3;
 	case 0xE5u: // MSG_MUSIC_EVENT
 		if (nox_client_isConnected_43C700()) {
 			sub_43D9B0(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2));
