@@ -608,7 +608,7 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 			Y: float32(mpos.Y - nox_win_height/2),
 		}
 		v15 := server.DirFromVec(v19) / 8
-		if v19.X*v19.X+v19.Y*v19.Y > 100*100 || memmap.Uint32(0x852978, 8) != 0 && *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276)) == 6 {
+		if v19.X*v19.X+v19.Y*v19.Y > 100*100 || c.ClientPlayerUnit() != nil && c.ClientPlayerUnit().Field_69 == 6 {
 			v15 += 32
 		}
 		if v16 := legacy.Nox_xxx_spriteGetMB_476F80(); v16 != nil {

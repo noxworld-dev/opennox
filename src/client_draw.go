@@ -79,6 +79,14 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	return memmap.Uint32(0x587000, 85720) != 0
 }
 
+func (c *Client) setClientPlayerUnit(dr *client.Drawable) {
+	*memmap.PtrPtr(0x852978, 8) = dr.C()
+}
+
+func (c *Client) ClientPlayerUnit() *client.Drawable {
+	return legacy.AsDrawableP(*memmap.PtrPtr(0x852978, 8))
+}
+
 func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	v0 := platformTicks()
 	isTick := false
@@ -106,11 +114,11 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	}
 	legacy.Sub_430B50(vp.Screen.Min.X, vp.Screen.Min.Y, vp.Screen.Max.X, vp.Screen.Max.Y)
 	if id := legacy.ClientPlayerNetCode(); id != 0 {
-		*memmap.PtrPtr(0x852978, 8) = c.Objs.ByNetCodeDynamic(id).C()
+		c.setClientPlayerUnit(c.Objs.ByNetCodeDynamic(id))
 	}
 	if noxflags.HasEngine(noxflags.EngineNoRendering) {
 		legacy.Nox_xxx_clientDrawAll_436100_draw_A()
-	} else if memmap.Uint32(0x852978, 8) != 0 && nox_client_isConnected() {
+	} else if c.ClientPlayerUnit() != nil && nox_client_isConnected() {
 		c.nox_xxx_drawAllMB_475810_draw(vp)
 		legacy.Nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
@@ -187,7 +195,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	c.nox_xxx_drawBlack_496150(vp)
 	c.nox_xxx_drawBlack_496150_B()
 	disableDraw := false
-	if legacy.AsDrawableP(*memmap.PtrPtr(0x852978, 8)).HasEnchant(server.ENCHANT_BLINDED) || legacy.Get_nox_gameDisableMapDraw_5d4594_2650672() != 0 {
+	if c.ClientPlayerUnit().HasEnchant(server.ENCHANT_BLINDED) || legacy.Get_nox_gameDisableMapDraw_5d4594_2650672() != 0 {
 		disableDraw = true
 	}
 	if legacy.Get_nox_client_gui_flag_1556112() != 0 || disableDraw {
@@ -226,7 +234,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		drawDebugAI(vp)
 	}
-	legacy.Sub_45AB40()
+	c.sub_45AB40()
 	r.SetRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	c.sub_476680()
@@ -235,8 +243,8 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 func (c *Client) sub_4765F0(vp *noxrender.Viewport) {
 	c.savedHighResFloors = legacy.Get_nox_client_highResFloors_154952()
 	c.savedHighResFrontWalls = legacy.Get_nox_client_highResFrontWalls_80820()
-	if *memmap.PtrUint32(0x852978, 8) != 0 && !nox_client_lockHighResFloors_1193152 {
-		v2 := *(*int32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276))
+	if dr := c.ClientPlayerUnit(); dr != nil && !nox_client_lockHighResFloors_1193152 {
+		v2 := dr.Field_69
 		if (v2 == 3 || v2 == 6 || v2 == 45) && (vp.World.Min.X-c.val1096556 >= 4 || vp.World.Min.Y-c.val1096560 >= 4) {
 			legacy.Set_nox_client_highResFloors_154952(0)
 			legacy.Set_nox_client_highResFrontWalls_80820(0)
@@ -441,7 +449,7 @@ LOOP:
 				if !(v27 == 9 || v27 == 10) {
 					continue
 				}
-			} else if *memmap.PtrPtr(0x852978, 8) != dr.C() {
+			} else if c.ClientPlayerUnit() != dr {
 				continue
 			}
 		}
@@ -499,7 +507,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
 		return
 	}
 	if legacy.Sub_4757D0_drawable(dr) != 0 {
-		if legacy.Get_nox_client_fadeObjects_80836() != 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
+		if legacy.Get_nox_client_fadeObjects_80836() != 0 || dr == c.ClientPlayerUnit() || c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 			if dr.Field_122 == 0 {
 				if c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 					dr.Field_121 = 1
@@ -562,7 +570,7 @@ func (c *Client) drawableUpdateLight(dr *client.Drawable) bool {
 		dr.SetLightColor(128, 128, 255)
 		dr.SetLightIntensity(300.0)
 		return true
-	} else if dr.HasEnchant(server.ENCHANT_LIGHT) || dr.C() == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
+	} else if dr.HasEnchant(server.ENCHANT_LIGHT) || dr == c.ClientPlayerUnit() && sub_467430()&8 != 0 {
 		dr.SetLightColor(255, 255, 255)
 		dr.SetLightIntensity(200.0)
 		return true
@@ -587,7 +595,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 	if !(c.drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.LightIntensityRad > 0 && dr.Flags30()&0x4 != 0) {
 		return
 	}
-	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFuncPtr == legacy.Get_nox_thing_glow_orb_draw()) {
+	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr == c.ClientPlayerUnit() || dr.DrawFuncPtr == legacy.Get_nox_thing_glow_orb_draw()) {
 		return
 	}
 	intens := int(dr.LightIntensityU16)

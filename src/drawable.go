@@ -326,3 +326,11 @@ func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
 	}
 	return out
 }
+
+func (c *Client) sub_45AB40() {
+	for it := c.Objs.FirstList8(); it != nil; it = it.Field_106 {
+		if it.Field_123 != 0 {
+			legacy.Sub_45A9B0(it, c.ClientPlayerUnit())
+		}
+	}
+}
