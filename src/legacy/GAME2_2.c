@@ -432,6 +432,7 @@ void nox_xxx_clientEnumHover_476FA0() {
 }
 
 //----- (00477050) --------------------------------------------------------
+int nox_xxx_client_4984B0_drawable(nox_drawable* dr);
 void nox_xxx_clientOnCursorHover_477050(int arg0, int a2) {
 	int v2;    // esi
 	int v3;    // eax
