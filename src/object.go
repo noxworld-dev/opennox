@@ -1214,7 +1214,7 @@ func nox_xxx_startShopDialog_548DE0(player, npc *server.Object, snd sound.ID, st
 	}
 	buf[134] = tud.DialogFlags
 	pl := player.ControllingPlayer()
-	s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:135], 0, 1)
+	s.NetSendPacketXxx0(pl.Index(), buf[:135], 0, 1)
 	legacy.Nox_xxx_unitFreeze_4E79C0(player, 0)
 }
 

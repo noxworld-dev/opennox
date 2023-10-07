@@ -68,6 +68,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s := &Server{
 		Server: server.New(pr, sm),
 	}
+	s.NetSendPacketXxx = legacy.Nox_xxx_netSendPacket_4E5030
 	s.initMetrics()
 	s.abilities.Init(s)
 	s.ai.Init(s)
