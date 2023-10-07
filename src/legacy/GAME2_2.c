@@ -571,39 +571,6 @@ LABEL_38:
 	}
 }
 
-//----- (00477470) --------------------------------------------------------
-void nox_video_drawCursorSelectCircle2_477470(uint32_t* a1, int a2, int a3) {
-	int v3;   // ebx
-	int v4;   // ebx
-	int v5;   // esi
-	int v6;   // edi
-	float v7; // [esp+0h] [ebp-14h]
-
-	if (a3) {
-		if (*(uint32_t*)(a3 + 44) == 2) {
-			v4 = nox_float2int(*(float*)(a3 + 48));
-			v3 = v4 + 6;
-		} else {
-			if (*(uint32_t*)(a3 + 44) != 3) {
-				v3 = 6;
-			} else {
-				v7 = *(float*)(a3 + 60) + *(float*)(a3 + 56);
-				v4 = nox_float2int(v7) / 2;
-				v3 = v4 + 6;
-			}
-		}
-		v5 = *a1 + *(uint32_t*)(a3 + 12) - a1[4];
-		v6 = *(uint32_t*)(a3 + 16) + a1[1] - a1[5];
-		nox_client_drawSetColor_434460(a2);
-		nox_client_drawEnableAlpha_434560(1);
-		nox_client_drawSetAlpha_434580(0x80u);
-		nox_video_drawCircle_4B0B90(v5, v6, v3 - 1);
-		nox_video_drawCircle_4B0B90(v5, v6, v3 + 1);
-		nox_client_drawEnableAlpha_434560(0);
-		nox_video_drawCircle_4B0B90(v5, v6, v3);
-	}
-}
-
 //----- (00477600) --------------------------------------------------------
 int nox_xxx_guiCursor_477600() { return *getMemU32Ptr(0x5D4594, 1096672); }
 
