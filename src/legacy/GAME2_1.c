@@ -97,7 +97,6 @@ extern uint32_t dword_5d4594_1049520;
 extern uint32_t nox_client_highResFrontWalls_80820;
 extern uint32_t dword_5d4594_1049800_inventory_click_row_index;
 extern uint32_t nox_xxx_minimap_587000_149232;
-extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_1062456;
 extern uint32_t dword_5d4594_1063636;
 extern uint32_t dword_5d4594_1049796_inventory_click_column_index;
@@ -4659,6 +4658,7 @@ int nox_xxx_guiBottleSlotProc_471B90(int a1, int a2) {
 }
 
 //----- (00471C00) --------------------------------------------------------
+extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 int nox_xxx_drawHealthManaBar_471C00(int a1) {
 	int v1;            // esi
 	unsigned char* v2; // ebp

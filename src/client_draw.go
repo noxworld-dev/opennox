@@ -184,7 +184,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	xmin := int(vp.World.Min.X) / common.GridStep
 	ymin := int(vp.World.Min.Y) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
-	nox_xxx_drawBlack_496150(vp)
+	c.nox_xxx_drawBlack_496150(vp)
 	c.nox_xxx_drawBlack_496150_B()
 	disableDraw := false
 	if legacy.AsDrawableP(*memmap.PtrPtr(0x852978, 8)).HasEnchant(server.ENCHANT_BLINDED) || legacy.Get_nox_gameDisableMapDraw_5d4594_2650672() != 0 {
@@ -281,7 +281,7 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	}
 	legacy.Sub_49F6D0(v16)
 	if noxflags.HasEngine(noxflags.EngineSoftShadowEdge) {
-		sub_498AE0()
+		c.sub_498AE0()
 	}
 }
 
@@ -788,16 +788,6 @@ func (c *Client) sub_4C5430(px int, py int) {
 	if py > c.tiles.dword_5d4594_3798156 {
 		c.tiles.dword_5d4594_3798156 = py
 	}
-}
-
-func (c *Client) nox_xxx_drawBlack_496150_B() {
-	sub_4989A0()
-	sz := dword_5d4594_1217464
-	if sz <= 0 {
-		return
-	}
-	arr := arr_5d4594_1203876[:sz]
-	c.sub_4C52E0(arr)
 }
 
 func (c *Client) sub_4C52E0(points []ntype.Point32) {

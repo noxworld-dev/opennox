@@ -48,7 +48,6 @@ extern uint32_t dword_5d4594_2386576;
 extern uint32_t dword_5d4594_2386212;
 extern void* nox_alloc_tradeItems_2386496;
 extern uint32_t dword_5d4594_2386224;
-extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 
 extern uint32_t nox_tile_def_cnt;
 extern nox_tileDef_t nox_tile_defs_arr[176];
@@ -3740,6 +3739,7 @@ void sub_516090(nox_object_t* a1p, uint32_t a2) {
 }
 
 //----- (00516570) --------------------------------------------------------
+extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 int sub_516570() {
 	uint8_t* v2 = 0;
 	int v1 = nox_xxx_getFirstPlayerUnit_4DA7C0();
