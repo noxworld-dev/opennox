@@ -3251,41 +3251,6 @@ void sub_49BBC0() {
 	}
 }
 
-//----- (0049BD50) --------------------------------------------------------
-int nox_xxx_getSprite178_49BD50(int a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 376);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (0049BD70) --------------------------------------------------------
-void sub_49BD70(nox_draw_viewport_t* a1p) {
-	int a1 = a1p;
-	void (*result2)(int, int); // eax
-	int (*v4)(int, uint32_t);  // eax
-
-	if (nox_xxx_checkGameFlagPause_413A50() == 1) {
-		return;
-	}
-	int v2 = nox_xxx_getSomeSprite_49BD40();
-	while (v2) {
-		int v3 = nox_xxx_getSprite178_49BD50(v2);
-		v4 = (int (*)(int, uint32_t)) * ((uint32_t*)v2 + 116);
-		if (!v4 || v4(a1, v2) != 0) {
-			result2 = (int (*)(int, int)) * ((uint32_t*)v2 + 115);
-			if (result2) {
-				result2(a1, (int)v2);
-			}
-		}
-		v2 = v3;
-	}
-}
-
 //----- (0049C160) --------------------------------------------------------
 uint32_t* nox_xxx_clientAddRayEffect_49C160(int a1) {
 	uint32_t* result;   // eax

@@ -416,112 +416,112 @@ func (c *clientDrawables) EachInRect(rect image.Rectangle, fnc func(dr *Drawable
 }
 
 type Drawable struct {
-	Field_0           uint32            // 0, 0
-	Field_1           uint32            // 1, 4
-	Field_2           unsafe.Pointer    // 2, 8
-	PosVec            image.Point       // 3, 12
-	Field_5           uint32            // 5, 20
-	TeamVal           server.ObjectTeam // 6, 24
-	Field_8           uint32            // 8, 32
-	Field_9           uint32            // 9, 36
-	Field_10          uint32            // 10, 40
-	Shape             server.Shape      // 11, 44
-	Field_24          float32           // 24, 96
-	Field_25          float32           // 25, 100
-	ZVal              uint16            // 26, 104
-	Field_26_1        uint16            // 26, 106
-	Field_27          uint32            // 27, 108, thing ID? pointer? union?
-	Flags28Val        uint32            // 28, 112
-	Flags29Val        uint32            // 29, 116
-	Flags30Val        uint32            // 30, 120
-	Buffs             uint32            // 31, 124
-	Field_32          uint32            // 32, 128, npc ID?
-	Field_33          uint32            // 33, 132
-	LightFlags        uint32            // 34, 136, 0
-	LightIntensity    float32           // 35, 140, 1
-	LightIntensityRad uint32            // 36, 144, 2
-	LightIntensityU16 uint32            // 37, 148, 3
-	LightColorR       uint32            // 38, 152, 4
-	LightColorG       uint32            // 39, 156, 5
-	LightColorB       uint32            // 40, 160, 6
-	Field_41_0        uint16            // 41, 164
-	Field_41_1        uint16            // 41, 166
-	Field_42          uint32            // 42, 168
-	Field_43          uint32            // 43, 172
-	Field_44          uint32            // 44, 176
-	data_45           [5]uint32
-	data_50           [10]uint32
-	data_60           [5]uint32
-	Field_65          uint32         // 65, 260
-	Field_66          uint32         // 66, 264
-	Field_67          uint32         // 67, 268
-	Field_68          uint32         // 68, 272
-	Field_69          uint32         // 69, 276
-	Flags70Val        uint32         // 70, 280
-	Field_71_0        uint8          // 71, 284
-	Field_71_1        uint8          // 71, 285
-	Field_71_2        uint16         // 71, 286
-	Field_72          uint32         // 72, 288
-	Field_73_1        uint16         // 73, 292
-	Field_73_2        uint16         // 73, 294
-	VelZ              int8           // 74, 296
-	Field_74_2        byte           // 74, 297
-	Field_74_3        byte           // 74, 298
-	Field_74_4        byte           // 74, 299
-	DrawFuncPtr       unsafe.Pointer // 75, 300, (*DrawFuncPtr)(uint32_t*, nox_drawable*) same as CObjectType->draw_func
-	Field_76          unsafe.Pointer // 76, 304
-	Field_77          uint32         // 77, 308
-	Field_78          uint32         // 78, 312
-	Field_79          uint32         // 79, 316
-	Field_80          uint32         // 80, 320
-	Field_81          uint32         // 81, 324
-	Field_82          uint32         // 82, 328
-	Field_83          *Drawable      // 83, 332
-	Field_84          *Drawable      // 84, 336
-	Field_85          uint32         // 85, 340, last draw frame number?
-	Field_86          uint32         // 86, 344
-	Field_87          *Drawable      // 87, 348
-	Field_88          *Drawable      // 88, 352
-	Deadline          uint32         // 89, 356
-	Field_90          *Drawable      // 90, 360
-	Field_91          *Drawable      // 91, 364
-	NextPtr           *Drawable      // 92, 368
-	Field_93          *Drawable      // 93, 372
-	Field_94          *Drawable      // 94, 376
-	Field_95          *Drawable      // 95, 380
-	InList5           uint32         // 96, 384
-	Field_97          *Drawable      // 97, 388
-	Field_98          *Drawable      // 98, 392
-	Field_99          **Drawable     // 99, 396
-	Field_100         *Drawable      // 100, 400
-	Field_101         *Drawable      // 101, 404
-	Field_102         *Drawable      // 102, 408
-	Field_103         *Drawable      // 103, 412
-	Field_104         *Drawable      // 104, 416
-	Field_105         *Drawable      // 105, 420
-	Field_106         *Drawable      // 106, 424
-	Field_107         *Drawable      // 107, 428
-	Field_108         uint32         // 108, 432 // TODO: union?
-	Field_109         uint32         // 109, 436, SE?
-	Field_110         uint32         // 110, 440, SW?
-	Field_111         uint32         // 111, 444, SW?
-	Field_112_0       int16          // 112, 448
-	Field_112_2       int16          // 112, 450
-	Field_113         uint32         // 113, 452
-	Field_114         *DrawableFX    // 114, 456
-	Field_115         uint32         // 115, 460
-	Field_116         uint32         // 116, 464
-	Field_117         uint32         // 117, 468
-	Field_118         uint32         // 118, 472
-	Field_119         uint32         // 119, 476
-	Field_120         uint32         // 120, 480
-	Field_121         uint32         // 121, 484
-	Field_122         uint32         // 122, 488
-	Field_123         uint32         // 123, 492
-	Field_124         unsafe.Pointer // 124, 496
-	Field_125         uint32         // 125, 500
-	Field_126         uint32         // 126, 504
-	Field_127         uint32         // 127, 508
+	Field_0             uint32            // 0, 0
+	Field_1             uint32            // 1, 4
+	Field_2             unsafe.Pointer    // 2, 8
+	PosVec              image.Point       // 3, 12
+	Field_5             uint32            // 5, 20
+	TeamVal             server.ObjectTeam // 6, 24
+	Field_8             uint32            // 8, 32
+	Field_9             uint32            // 9, 36
+	Field_10            uint32            // 10, 40
+	Shape               server.Shape      // 11, 44
+	Field_24            float32           // 24, 96
+	Field_25            float32           // 25, 100
+	ZVal                uint16            // 26, 104
+	Field_26_1          uint16            // 26, 106
+	Field_27            uint32            // 27, 108, thing ID? pointer? union?
+	Flags28Val          uint32            // 28, 112
+	Flags29Val          uint32            // 29, 116
+	Flags30Val          uint32            // 30, 120
+	Buffs               uint32            // 31, 124
+	Field_32            uint32            // 32, 128, npc ID?
+	Field_33            uint32            // 33, 132
+	LightFlags          uint32            // 34, 136, 0
+	LightIntensity      float32           // 35, 140, 1
+	LightIntensityRad   uint32            // 36, 144, 2
+	LightIntensityU16   uint32            // 37, 148, 3
+	LightColorR         uint32            // 38, 152, 4
+	LightColorG         uint32            // 39, 156, 5
+	LightColorB         uint32            // 40, 160, 6
+	Field_41_0          uint16            // 41, 164
+	Field_41_1          uint16            // 41, 166
+	Field_42            uint32            // 42, 168
+	Field_43            uint32            // 43, 172
+	Field_44            uint32            // 44, 176
+	data_45             [5]uint32
+	data_50             [10]uint32
+	data_60             [5]uint32
+	Field_65            uint32         // 65, 260
+	Field_66            uint32         // 66, 264
+	Field_67            uint32         // 67, 268
+	Field_68            uint32         // 68, 272
+	Field_69            uint32         // 69, 276
+	Flags70Val          uint32         // 70, 280
+	Field_71_0          uint8          // 71, 284
+	Field_71_1          uint8          // 71, 285
+	Field_71_2          uint16         // 71, 286
+	Field_72            uint32         // 72, 288
+	Field_73_1          uint16         // 73, 292
+	Field_73_2          uint16         // 73, 294
+	VelZ                int8           // 74, 296
+	Field_74_2          byte           // 74, 297
+	Field_74_3          byte           // 74, 298
+	Field_74_4          byte           // 74, 299
+	DrawFuncPtr         unsafe.Pointer // 75, 300, (*DrawFuncPtr)(uint32_t*, nox_drawable*) same as CObjectType->draw_func
+	Field_76            unsafe.Pointer // 76, 304
+	Field_77            uint32         // 77, 308
+	Field_78            uint32         // 78, 312
+	Field_79            uint32         // 79, 316
+	Field_80            uint32         // 80, 320
+	Field_81            uint32         // 81, 324
+	Field_82            uint32         // 82, 328
+	Field_83            *Drawable      // 83, 332
+	Field_84            *Drawable      // 84, 336
+	Field_85            uint32         // 85, 340, last draw frame number?
+	Field_86            uint32         // 86, 344
+	Field_87            *Drawable      // 87, 348
+	Field_88            *Drawable      // 88, 352
+	Deadline            uint32         // 89, 356
+	Field_90            *Drawable      // 90, 360
+	Field_91            *Drawable      // 91, 364
+	NextPtr             *Drawable      // 92, 368
+	Field_93            *Drawable      // 93, 372
+	Field_94            *Drawable      // 94, 376
+	Field_95            *Drawable      // 95, 380
+	InList5             uint32         // 96, 384
+	Field_97            *Drawable      // 97, 388
+	Field_98            *Drawable      // 98, 392
+	Field_99            **Drawable     // 99, 396
+	Field_100           *Drawable      // 100, 400
+	Field_101           *Drawable      // 101, 404
+	Field_102           *Drawable      // 102, 408
+	Field_103           *Drawable      // 103, 412
+	Field_104           *Drawable      // 104, 416
+	Field_105           *Drawable      // 105, 420
+	Field_106           *Drawable      // 106, 424
+	Field_107           *Drawable      // 107, 428
+	Field_108           uint32         // 108, 432 // TODO: union?
+	Field_109           uint32         // 109, 436, SE?
+	Field_110           uint32         // 110, 440, SW?
+	Field_111           uint32         // 111, 444, SW?
+	Field_112_0         int16          // 112, 448
+	Field_112_2         int16          // 112, 450
+	Field_113           uint32         // 113, 452
+	Field_114           *DrawableFX    // 114, 456
+	Field_115           unsafe.Pointer // 115, 460
+	ClientUpdateFuncPtr unsafe.Pointer // 116, 464
+	Field_117           uint32         // 117, 468
+	Field_118           uint32         // 118, 472
+	Field_119           uint32         // 119, 476
+	Field_120           uint32         // 120, 480
+	Field_121           uint32         // 121, 484
+	Field_122           uint32         // 122, 488
+	Field_123           uint32         // 123, 492
+	Field_124           unsafe.Pointer // 124, 496
+	Field_125           uint32         // 125, 500
+	Field_126           uint32         // 126, 504
+	Field_127           uint32         // 127, 508
 }
 
 func (s *Drawable) C() unsafe.Pointer {
@@ -709,7 +709,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	s.DrawFuncPtr = typ.DrawFunc
 	s.Field_76 = typ.Field_5c
 	s.Field_77 = typ.Field_60
-	s.Field_116 = typ.ClientUpdate
+	s.ClientUpdateFuncPtr = typ.ClientUpdate
 	s.Field_123 = typ.AudioLoop
 	s.LightFlags = uint32(typ.Field_f)
 	s.Field_42 = typ.Field_10

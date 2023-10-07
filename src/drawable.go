@@ -6,9 +6,11 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
@@ -49,7 +51,7 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 	}
 	dr.Buffs = 0
 	dr.Field_32 = 0
-	if dr.Field_116 != 0 {
+	if dr.ClientUpdateFuncPtr != nil {
 		c.Objs.List5Add(dr)
 	}
 	if dr.Flags30()&0x200000 != 0 {
@@ -331,6 +333,21 @@ func (c *Client) sub_45AB40() {
 	for it := c.Objs.FirstList8(); it != nil; it = it.Field_106 {
 		if it.Field_123 != 0 {
 			legacy.Sub_45A9B0(it, c.ClientPlayerUnit())
+		}
+	}
+}
+
+func (c *Client) sub_49BD70(vp *noxrender.Viewport) {
+	if nox_xxx_checkGameFlagPause_413A50() {
+		return
+	}
+	var next *client.Drawable
+	for it := c.Objs.FirstList5(); it != nil; it = next {
+		next = it.Field_94
+		if fnc1 := it.ClientUpdateFuncPtr; fnc1 == nil || ccall.CallIntPtr2(fnc1, vp.C(), it.C()) != 0 {
+			if fnc2 := it.Field_115; fnc2 != nil {
+				ccall.CallVoidPtr2(fnc2, vp.C(), it.C())
+			}
 		}
 	}
 }

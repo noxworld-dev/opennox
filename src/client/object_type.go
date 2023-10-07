@@ -165,7 +165,7 @@ type ObjectType struct {
 	DrawFunc       unsafe.Pointer // 22, 0x58, 88, same as nox_drawable->draw_func
 	Field_5c       unsafe.Pointer // 23, 0x5c, 92
 	Field_60       uint32         // 24, 0x60, 96
-	ClientUpdate   uint32         // 25, 0x64, 100
+	ClientUpdate   unsafe.Pointer // 25, 0x64, 100
 	AudioLoop      uint32         // 26, 0x68, 104
 	ObjNext        *ObjectType    // 27, 0x6c, 108
 	PrettyImage    uint32         // 28, 0x70, 112

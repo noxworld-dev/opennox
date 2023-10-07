@@ -58,7 +58,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	} else {
 		sub_43CCA0()
 	}
-	legacy.Sub_49BD70(vp)
+	c.sub_49BD70(vp)
 	legacy.Sub_49BBC0()
 	legacy.Nox_xxx_polygonDrawColor_421B80()
 	if nox_client_isConnected() {
