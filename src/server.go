@@ -838,13 +838,16 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		return err
 	}
 	nox_xxx_mapSetCrcMB_409B10(crc)
+	// Script VM init must be done before map sections are read.
+	// This is done because object section will need to bind to script function names.
+	// Doing VMs init after map load is too late in this case.
+	s.vmsInitMap()
 	if err := s.nox_xxx_serverParseEntireMap_4CFCE0(cf); err != nil {
 		cryptfile.Close()
 		gameLog.Println("server read map:", err)
 		return err
 	}
 	s.noxScript.nox_xxx_scriptRunFirst_507290()
-	s.vmsInitMap()
 	cryptfile.Close()
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		s.nox_xxx_mapReadSetFlags_4CF990()
