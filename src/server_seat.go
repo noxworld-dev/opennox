@@ -6,6 +6,9 @@ import (
 	"image"
 
 	"github.com/noxworld-dev/opennox-lib/log"
+
+	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 )
 
 func (c *Client) initSeat(sz image.Point) error {
@@ -56,4 +59,29 @@ func (c *Client) Sub4C5630(a1 int, a2 int, a3 int) int {
 	panic("unreachable")
 }
 
+func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
+	panic("unreachable")
+}
+
+func (c *Client) Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {
+	panic("unreachable")
+}
+
+func (c *Client) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32) int32 {
+	panic("unreachable")
+}
+
+func (c *Client) Sub_499290(a1 int) ntype.Point32 {
+	panic("unreachable")
+}
+
+func (c *Client) Sub_4992B0(a1 int, a2 int) int {
+	panic("unreachable")
+}
+
 func playMovieFile(name string) {}
+
+func sub_4960B0() int {
+	return 1
+}
+func sub_496120_free() {}
