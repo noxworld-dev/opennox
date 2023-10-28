@@ -8,6 +8,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
 )
@@ -115,6 +116,14 @@ func (c *Client) processInput() {
 	c.nox_client_processInput_4308A0()
 	c.nox_xxx_cursorUpdate_46B740()
 	c.GUI.ProcessKeys(c.Inp)
+}
+
+func (c *Client) setClientPlayerUnit(dr *client.Drawable) {
+	*memmap.PtrPtr(0x852978, 8) = dr.C()
+}
+
+func (c *Client) ClientPlayerUnit() *client.Drawable {
+	return legacy.AsDrawableP(*memmap.PtrPtr(0x852978, 8))
 }
 
 func (c *Client) Update() bool {

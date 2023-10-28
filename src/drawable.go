@@ -286,49 +286,6 @@ func (c *Client) Sub_45A670(a1 uint32) {
 	}
 }
 
-func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
-	xs := (pt.X - r) / client.Nox_drawable_2d_div
-	if xs < 0 {
-		xs = 0
-	}
-	ys := (pt.Y - r) / client.Nox_drawable_2d_div
-	if ys < 0 {
-		ys = 0
-	}
-	xe := (pt.X + r) / client.Nox_drawable_2d_div
-	if xe >= c.Objs.Index2DSize {
-		xe = c.Objs.Index2DSize - 1
-	}
-	ye := (pt.Y + r) / client.Nox_drawable_2d_div
-	if ye >= c.Objs.Index2DSize {
-		ye = c.Objs.Index2DSize - 1
-	}
-	var (
-		out *client.Drawable
-		min = -1
-		r2  = r * r
-	)
-	for y := ys; y <= ye; y++ {
-		for x := xs; x <= xe; x++ {
-			for dr := c.Objs.Index2D[x][y]; dr != nil; dr = dr.Field100() {
-				if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
-					continue
-				}
-				dp := pt.Sub(dr.Pos())
-				d2 := dp.X*dp.X + dp.Y*dp.Y
-				if d2 >= r2 {
-					continue
-				}
-				if min < 0 || d2 < min {
-					min = d2
-					out = dr
-				}
-			}
-		}
-	}
-	return out
-}
-
 func (c *Client) sub_45AB40() {
 	for it := c.Objs.FirstList8(); it != nil; it = it.Field_106 {
 		if it.Field_123 != 0 {
