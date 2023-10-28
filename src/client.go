@@ -66,8 +66,6 @@ type Client struct {
 	savedHighResFloors     int
 	savedHighResFrontWalls int
 	dword_5d4594_1046604   int
-
-	Sight clientSight
 }
 
 func (c *Client) Cli() *client.Client {

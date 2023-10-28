@@ -39,6 +39,7 @@ type Client struct {
 	Server     *server.Server
 	Things     clientObjTypes
 	Objs       clientDrawables
+	Sight      clientSight
 	r          *noxrender.NoxRender
 	Seat       seat.Seat
 	Inp        *input.Handler

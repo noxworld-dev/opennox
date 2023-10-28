@@ -155,17 +155,17 @@ func nox_xxx_client_4984B0_drawable(dr *nox_drawable) int {
 
 //export sub_4992B0
 func sub_4992B0(a, b int) int {
-	return GetClient().Sub_4992B0(a, b)
+	return GetClient().Cli().Sight.Sub_4992B0(a, b)
 }
 
 //export sub_498C20
 func sub_498C20(a, b *C.nox_point, a3 int32) int32 {
-	return GetClient().Sub_498C20((*ntype.Point32)(unsafe.Pointer(a)), (*ntype.Point32)(unsafe.Pointer(b)), a3)
+	return GetClient().Cli().Sight.Sub_498C20((*ntype.Point32)(unsafe.Pointer(a)), (*ntype.Point32)(unsafe.Pointer(b)), a3)
 }
 
 //export sub_499290
 func sub_499290(a1 int) C.nox_point {
-	p := GetClient().Sub_499290(a1)
+	p := GetClient().Cli().Sight.Sub_499290(a1)
 	return C.nox_point{x: C.int(p.X), y: C.int(p.Y)}
 }
 
