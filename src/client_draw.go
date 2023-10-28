@@ -251,7 +251,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	xmin := int(vp.World.Min.X) / common.GridStep
 	ymin := int(vp.World.Min.Y) / common.GridStep
 	c.WallsYyy = c.WallsYyy[:0]
-	c.nox_xxx_drawBlack_496150(vp)
+	c.Nox_xxx_drawBlack_496150(vp)
 	c.nox_xxx_drawBlack_496150_B()
 	disableDraw := false
 	if c.ClientPlayerUnit().HasEnchant(server.ENCHANT_BLINDED) || legacy.Get_nox_gameDisableMapDraw_5d4594_2650672() != 0 {
@@ -348,7 +348,7 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	}
 	legacy.Sub_49F6D0(v16)
 	if noxflags.HasEngine(noxflags.EngineSoftShadowEdge) {
-		c.sub_498AE0()
+		c.Sub_498AE0()
 	}
 }
 
