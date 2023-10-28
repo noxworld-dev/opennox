@@ -527,12 +527,12 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	}
 
 	if h := u.HealthData; h != nil {
-		if !u.Flags().Has(object.FlagDead) && int(s.Frame()-u.Frame134) > int(s.SecToFrames(1)) {
+		if !u.Flags().Has(object.FlagDead) && h.Max != 0 && int(s.Frame()-u.Frame134) > int(s.SecToFrames(1)) {
 			dt := 180 * s.TickRate() / uint32(h.Max)
 			if dt == 0 {
 				dt = 1
 			}
-			if h.Cur < h.Max && h.Max != 0 && s.Frame()%dt == 0 {
+			if h.Cur < h.Max && s.Frame()%dt == 0 {
 				legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
 			}
 		}
