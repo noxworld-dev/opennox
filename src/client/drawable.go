@@ -302,7 +302,7 @@ func (c *clientDrawables) TransparentDecay(dr *Drawable, lifetime int) {
 	if dr.Deadline != 0 {
 		c.DeadlineRemove(dr)
 	}
-	v2 := c.c.srv.Frame() + uint32(lifetime)
+	v2 := c.c.Server.Frame() + uint32(lifetime)
 	dr.Deadline = v2
 	if c.DeadlineList == nil {
 		dr.Field_87 = nil
@@ -350,7 +350,7 @@ func (c *clientDrawables) ByNetCodeDynamic(id int) *Drawable {
 }
 
 func (c *clientDrawables) IsPlayer(dr *Drawable) bool {
-	for pl := c.c.srv.Players.First(); pl != nil; pl = c.c.srv.Players.Next(pl) {
+	for pl := c.c.Server.Players.First(); pl != nil; pl = c.c.Server.Players.Next(pl) {
 		if dr.Field_32 == pl.NetCodeVal {
 			return true
 		}
