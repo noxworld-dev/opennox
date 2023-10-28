@@ -549,7 +549,7 @@ func initGameSession435CC0() error {
 	}
 
 	noxClient.nox_xxx_initSight_485F80()
-	if sub_4960B0() == 0 {
+	if noxClient.Sight.sub_4960B0() == 0 {
 		return errors.New("sub_4960B0 failed")
 	}
 
