@@ -15,12 +15,45 @@ const (
 	Nox_drawable_2d_div       = 128
 )
 
+const (
+	nox_drawable_list_1_cap = 8192
+	nox_drawable_lists_cap  = 512
+
+	noxDrawableWallsCap = 256
+)
+
 var (
 	drawableExts = make(map[unsafe.Pointer]*DrawableExt)
 )
 
 type DrawableExt struct {
 	Field99 **Drawable
+}
+
+func (c *Client) InitDrawableLists() {
+	c.DrawableQueue = make([]*Drawable, 0, nox_drawable_list_1_cap)
+	c.DrawableList3 = make([]*Drawable, 0, nox_drawable_lists_cap)
+	c.DrawableList2 = make([]*Drawable, 0, nox_drawable_lists_cap)
+	c.DrawableList4 = make([]*Drawable, 0, nox_drawable_lists_cap)
+
+	c.BackWalls = make([]*server.Wall, 0, noxDrawableWallsCap)
+	c.FrontWalls = make([]*server.Wall, 0, noxDrawableWallsCap)
+	c.WallsYyy = make([]*server.Wall, 0, noxDrawableWallsCap)
+}
+
+func (c *Client) FreeDrawableLists() {
+	c.DrawableQueue = nil
+	c.DrawableList3 = nil
+	c.DrawableList2 = nil
+	c.DrawableList4 = nil
+
+	c.BackWalls = nil
+	c.FrontWalls = nil
+	c.WallsYyy = nil
+}
+
+func (c *Client) DrawListAppendWallYyy(p *server.Wall) {
+	c.WallsYyy = append(c.WallsYyy, p)
 }
 
 func (c *Client) DrawableLinkThing(dr *Drawable, i int) int {

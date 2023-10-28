@@ -512,50 +512,6 @@ func nox_xxx_tileSetDrawFn_481420() {
 	legacy.Set_dword_5d4594_1193188(1)
 }
 
-const (
-	nox_drawable_list_1_cap = 8192
-	nox_drawable_lists_cap  = 512
-
-	noxDrawableWallsCap = 256
-)
-
-var (
-	nox_drawable_objects_queue []*client.Drawable
-	nox_drawable_list_3        []*client.Drawable
-	nox_drawable_list_2        []*client.Drawable
-	nox_drawable_list_4        []*client.Drawable
-
-	nox_backWalls  []*server.Wall
-	nox_frontWalls []*server.Wall
-	nox_wallsYyy   []*server.Wall
-)
-
-func initDrawableLists() {
-	nox_drawable_objects_queue = make([]*client.Drawable, 0, nox_drawable_list_1_cap)
-	nox_drawable_list_3 = make([]*client.Drawable, 0, nox_drawable_lists_cap)
-	nox_drawable_list_2 = make([]*client.Drawable, 0, nox_drawable_lists_cap)
-	nox_drawable_list_4 = make([]*client.Drawable, 0, nox_drawable_lists_cap)
-
-	nox_backWalls = make([]*server.Wall, 0, noxDrawableWallsCap)
-	nox_frontWalls = make([]*server.Wall, 0, noxDrawableWallsCap)
-	nox_wallsYyy = make([]*server.Wall, 0, noxDrawableWallsCap)
-}
-
-func sub_473B30_free() {
-	nox_drawable_objects_queue = nil
-	nox_drawable_list_3 = nil
-	nox_drawable_list_2 = nil
-	nox_drawable_list_4 = nil
-
-	nox_backWalls = nil
-	nox_frontWalls = nil
-	nox_wallsYyy = nil
-}
-
-func nox_xxx_drawList1096512_Append_4754C0(p *server.Wall) {
-	nox_wallsYyy = append(nox_wallsYyy, p)
-}
-
 func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	defer func() {
 		if r := recover(); r != nil {

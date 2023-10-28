@@ -94,7 +94,7 @@ func (c *Client) nox_xxx_drawBlack_496150(vp *noxrender.Viewport) {
 						wl.Flags4 |= 2
 					}
 					if def.Flags32&4 != 0 {
-						nox_xxx_drawList1096512_Append_4754C0(wl)
+						c.DrawListAppendWallYyy(wl)
 					}
 				} else {
 					if wl.Flags4&0x40 != 0 {
