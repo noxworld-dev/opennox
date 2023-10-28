@@ -553,7 +553,7 @@ func initGameSession435CC0() error {
 		return errors.New("sub_4960B0 failed")
 	}
 
-	initDrawableLists()
+	noxClient.InitDrawableLists()
 
 	if nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
 		return errors.New("nox_xxx_allocArrayDrawableFX_495AB0 failed")
