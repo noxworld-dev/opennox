@@ -786,7 +786,7 @@ func sub_435EB0() {
 	sub_495AE0()
 	legacy.Sub_4959D0()
 	noxClient.FreeDrawableLists()
-	sub_496120_free()
+	noxClient.Sight.sub_496120_free()
 	sub_473840()
 	noxClient.Nox_things_free_44C580()
 	noxClient.Objs.Free()
