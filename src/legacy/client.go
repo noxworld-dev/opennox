@@ -23,7 +23,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/common/ntype"
 )
 
 type Client interface {
@@ -60,9 +59,6 @@ type Client interface {
 	Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 	Nox_xxx_spriteDeleteAll_45A5E0(a1 bool)
 	Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int
-	Sub_4992B0(a, b int) int
-	Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32) int32
-	Sub_499290(a1 int) ntype.Point32
 }
 
 type Render2 interface {
