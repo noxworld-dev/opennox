@@ -64,7 +64,7 @@ func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
 }
 
 func (c *Client) sub4745F0(vp *noxrender.Viewport) {
-	for _, dr := range nox_drawable_list_2 {
+	for _, dr := range c.DrawableList2 {
 		c.drawCreatureBackEffects(vp, dr)
 		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
 			continue
@@ -84,7 +84,7 @@ func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 			dr.Field_85 = c.srv.Frame()
 		}
 	}
-	nox_drawable_list_2 = nox_drawable_list_2[:0]
+	c.DrawableList2 = c.DrawableList2[:0]
 }
 
 func (c *Client) nox_xxx_client_435F80_draw() bool {
@@ -250,7 +250,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	partViewportOff = vp.ToWorldPos(image.Pt(0, 0))
 	xmin := int(vp.World.Min.X) / common.GridStep
 	ymin := int(vp.World.Min.Y) / common.GridStep
-	nox_wallsYyy = nox_wallsYyy[:0]
+	c.WallsYyy = c.WallsYyy[:0]
 	c.nox_xxx_drawBlack_496150(vp)
 	c.nox_xxx_drawBlack_496150_B()
 	disableDraw := false
@@ -363,9 +363,9 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 			}
 			if c.srv.Walls.DefByInd(int(wl.Tile1)).Flags32&4 == 0 {
 				if wl.Flags4.Has(server.WallFlagFront) {
-					nox_frontWalls = append(nox_frontWalls, wl)
+					c.FrontWalls = append(c.FrontWalls, wl)
 				} else {
-					nox_backWalls = append(nox_backWalls, wl)
+					c.BackWalls = append(c.BackWalls, wl)
 				}
 			}
 		}
@@ -373,28 +373,28 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 }
 
 func (c *Client) nox_client_drawBackWalls(vp *noxrender.Viewport) {
-	for _, v20 := range nox_backWalls {
+	for _, v20 := range c.BackWalls {
 		legacy.Nox_xxx_drawWalls_473C10(vp, v20)
 	}
-	nox_backWalls = nox_backWalls[:0]
+	c.BackWalls = c.BackWalls[:0]
 }
 
 func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
 	if nox_client_drawFrontWalls_80812 {
-		for _, wl := range nox_frontWalls {
+		for _, wl := range c.FrontWalls {
 			legacy.Nox_xxx_drawWalls_473C10(vp, wl)
 		}
 	} else {
-		for _, wl := range nox_frontWalls {
+		for _, wl := range c.FrontWalls {
 			wl.Field3 = 0
 			wl.Flags4 &^= server.WallFlag1 | server.WallFlagFront
 		}
 	}
-	nox_frontWalls = nox_frontWalls[:0]
+	c.FrontWalls = c.FrontWalls[:0]
 }
 
 func (c *Client) sub_475F10(vp *noxrender.Viewport) {
-	for _, dr := range nox_drawable_list_3 {
+	for _, dr := range c.DrawableList3 {
 		c.drawCreatureBackEffects(vp, dr)
 		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
 			continue
@@ -414,11 +414,11 @@ func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 			dr.Field_85 = c.srv.Frame()
 		}
 	}
-	nox_drawable_list_3 = nox_drawable_list_3[:0]
+	c.DrawableList3 = c.DrawableList3[:0]
 }
 
 func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
-	for _, dr := range nox_drawable_list_4 {
+	for _, dr := range c.DrawableList4 {
 		if c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 			dr.Field_121 = 1
 			legacy.CallDrawFunc(dr, vp)
@@ -431,7 +431,7 @@ func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 			}
 		}
 	}
-	nox_drawable_list_4 = nox_drawable_list_4[:0]
+	c.DrawableList4 = c.DrawableList4[:0]
 }
 
 func (c *Client) sub_476160(a1, a2 *client.Drawable) bool {
@@ -451,16 +451,16 @@ func (c *Client) sub_476160(a1, a2 *client.Drawable) bool {
 }
 
 func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *noxrender.Viewport) {
-	sort.Slice(nox_drawable_objects_queue, func(i, j int) bool {
-		a, b := nox_drawable_objects_queue[i], nox_drawable_objects_queue[j]
+	sort.Slice(c.DrawableQueue, func(i, j int) bool {
+		a, b := c.DrawableQueue[i], c.DrawableQueue[j]
 		return c.sub_476160(a, b)
 	})
-	sort.Slice(nox_wallsYyy, func(i, j int) bool {
-		a, b := nox_wallsYyy[i], nox_wallsYyy[j]
+	sort.Slice(c.WallsYyy, func(i, j int) bool {
+		a, b := c.WallsYyy[i], c.WallsYyy[j]
 		return legacy.Sub_476080(a.C()) < legacy.Sub_476080(b.C())
 	})
-	objects := nox_drawable_objects_queue
-	walls := nox_wallsYyy
+	objects := c.DrawableQueue
+	walls := c.WallsYyy
 	sy := math.MaxInt32
 	if len(objects) > 0 {
 		sy = objects[0].Pos().Y
@@ -535,7 +535,7 @@ LOOP:
 			legacy.Sub_49A6A0(vp, dr)
 		}
 	}
-	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
+	c.DrawableQueue = c.DrawableQueue[:0]
 }
 
 func (c *Client) sub_4754F0(vp *noxrender.Viewport) {
@@ -543,26 +543,26 @@ func (c *Client) sub_4754F0(vp *noxrender.Viewport) {
 		Min: vp.World.Min,
 		Max: vp.World.Min.Add(vp.Size).Add(image.Pt(0, 128)),
 	}
-	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
-	nox_drawable_list_3 = nox_drawable_list_3[:0]
-	nox_drawable_list_2 = nox_drawable_list_2[:0]
-	nox_drawable_list_4 = nox_drawable_list_4[:0]
-	nox_backWalls = nox_backWalls[:0]
-	nox_frontWalls = nox_frontWalls[:0]
+	c.DrawableQueue = c.DrawableQueue[:0]
+	c.DrawableList3 = c.DrawableList3[:0]
+	c.DrawableList2 = c.DrawableList2[:0]
+	c.DrawableList4 = c.DrawableList4[:0]
+	c.BackWalls = c.BackWalls[:0]
+	c.FrontWalls = c.FrontWalls[:0]
 	c.Objs.EachInRect(rect, c.nox_xxx_spriteAddQueue_475560_draw)
 }
 
 func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
 	if legacy.Nox_xxx_sprite_4756E0_drawable(dr) != 0 {
-		nox_drawable_list_2 = append(nox_drawable_list_2, dr)
+		c.DrawableList2 = append(c.DrawableList2, dr)
 		return
 	}
 	if legacy.Nox_xxx_sprite_475740_drawable(dr) != 0 {
-		nox_drawable_list_3 = append(nox_drawable_list_3, dr)
+		c.DrawableList3 = append(c.DrawableList3, dr)
 		return
 	}
 	if legacy.Nox_xxx_sprite_4757A0_drawable(dr) != 0 {
-		nox_drawable_list_4 = append(nox_drawable_list_4, dr)
+		c.DrawableList4 = append(c.DrawableList4, dr)
 		return
 	}
 	if legacy.Sub_4757D0_drawable(dr) != 0 {
@@ -581,7 +581,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
 			if (dr.Field_120 != 0 || dr.Field_122 != 0) && (c.srv.Frame()-dr.Field_85) > c.srv.TickRate() {
 				dr.Field_120 = 0
 			} else {
-				nox_drawable_objects_queue = append(nox_drawable_objects_queue, dr)
+				c.DrawableQueue = append(c.DrawableQueue, dr)
 			}
 		}
 	}

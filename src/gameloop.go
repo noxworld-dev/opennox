@@ -785,7 +785,7 @@ func sub_435EB0() {
 	noxClient.nox_xxx_gameClearAll_467DF0(false)
 	sub_495AE0()
 	legacy.Sub_4959D0()
-	sub_473B30_free()
+	noxClient.FreeDrawableLists()
 	sub_496120_free()
 	sub_473840()
 	noxClient.Nox_things_free_44C580()

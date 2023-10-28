@@ -49,6 +49,15 @@ type Client struct {
 	Cursor     gui.Cursor
 	CursorPrev gui.Cursor
 	state      gui.State
+
+	DrawableQueue []*Drawable
+	DrawableList3 []*Drawable
+	DrawableList2 []*Drawable
+	DrawableList4 []*Drawable
+
+	BackWalls  []*server.Wall
+	FrontWalls []*server.Wall
+	WallsYyy   []*server.Wall
 }
 
 func (c *Client) Render() *noxrender.NoxRender {
