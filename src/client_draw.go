@@ -20,6 +20,73 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
+	xs := (pt.X - r) / client.Nox_drawable_2d_div
+	if xs < 0 {
+		xs = 0
+	}
+	ys := (pt.Y - r) / client.Nox_drawable_2d_div
+	if ys < 0 {
+		ys = 0
+	}
+	xe := (pt.X + r) / client.Nox_drawable_2d_div
+	if xe >= c.Objs.Index2DSize {
+		xe = c.Objs.Index2DSize - 1
+	}
+	ye := (pt.Y + r) / client.Nox_drawable_2d_div
+	if ye >= c.Objs.Index2DSize {
+		ye = c.Objs.Index2DSize - 1
+	}
+	var (
+		out *client.Drawable
+		min = -1
+		r2  = r * r
+	)
+	for y := ys; y <= ye; y++ {
+		for x := xs; x <= xe; x++ {
+			for dr := c.Objs.Index2D[x][y]; dr != nil; dr = dr.Field100() {
+				if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
+					continue
+				}
+				dp := pt.Sub(dr.Pos())
+				d2 := dp.X*dp.X + dp.Y*dp.Y
+				if d2 >= r2 {
+					continue
+				}
+				if min < 0 || d2 < min {
+					min = d2
+					out = dr
+				}
+			}
+		}
+	}
+	return out
+}
+
+func (c *Client) sub4745F0(vp *noxrender.Viewport) {
+	for _, dr := range nox_drawable_list_2 {
+		c.drawCreatureBackEffects(vp, dr)
+		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
+			continue
+		}
+		dr.Field_121 = 1
+		legacy.Sub_476AE0(vp, dr)
+		if dr.Flags70()&0x40 != 0 {
+			legacy.Nox_xxx_drawShinySpot_4C4F40(vp, dr)
+		}
+		c.drawCreatureFrontEffects(vp, dr)
+		legacy.Sub_495BB0(dr, vp)
+		if noxflags.HasEngine(noxflags.EngineShowExtents) {
+			nox_thing_debug_draw(vp, dr)
+		}
+		dr.Field_33 = 0
+		if dr.Field_120 == 0 && dr.Field_122 == 0 {
+			dr.Field_85 = c.srv.Frame()
+		}
+	}
+	nox_drawable_list_2 = nox_drawable_list_2[:0]
+}
+
 func (c *Client) nox_xxx_client_435F80_draw() bool {
 	mpos := c.Inp.GetMousePos()
 	if nox_xxx_serverIsClosing446180() {
@@ -77,14 +144,6 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	}
 	legacy.Sub_49B6E0()
 	return memmap.Uint32(0x587000, 85720) != 0
-}
-
-func (c *Client) setClientPlayerUnit(dr *client.Drawable) {
-	*memmap.PtrPtr(0x852978, 8) = dr.C()
-}
-
-func (c *Client) ClientPlayerUnit() *client.Drawable {
-	return legacy.AsDrawableP(*memmap.PtrPtr(0x852978, 8))
 }
 
 func (c *Client) nox_xxx_clientDrawAll_436100_draw() {

@@ -556,30 +556,6 @@ func nox_xxx_drawList1096512_Append_4754C0(p *server.Wall) {
 	nox_wallsYyy = append(nox_wallsYyy, p)
 }
 
-func (c *Client) sub4745F0(vp *noxrender.Viewport) {
-	for _, dr := range nox_drawable_list_2 {
-		c.drawCreatureBackEffects(vp, dr)
-		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
-			continue
-		}
-		dr.Field_121 = 1
-		legacy.Sub_476AE0(vp, dr)
-		if dr.Flags70()&0x40 != 0 {
-			legacy.Nox_xxx_drawShinySpot_4C4F40(vp, dr)
-		}
-		c.drawCreatureFrontEffects(vp, dr)
-		legacy.Sub_495BB0(dr, vp)
-		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw(vp, dr)
-		}
-		dr.Field_33 = 0
-		if dr.Field_120 == 0 && dr.Field_122 == 0 {
-			dr.Field_85 = c.srv.Frame()
-		}
-	}
-	nox_drawable_list_2 = nox_drawable_list_2[:0]
-}
-
 func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	defer func() {
 		if r := recover(); r != nil {
