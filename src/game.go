@@ -740,7 +740,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
 	if noxflags.HasEngine(noxflags.EngineLogBand) {
-		noxPerfmon.LogBandwidth()
+		noxPerfmon.LogBandwidth(s.Server, netstr.Global)
 	}
 	if noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_gameTick_4D2580_server_A1()
@@ -920,7 +920,7 @@ func nox_game_guiInit_473680() error {
 	if legacy.Sub_456070() == 0 {
 		return errors.New("sub_456070 failed")
 	}
-	if noxClient.initGuiFPS() == 0 {
+	if noxClient.guiFPS.initGuiFPS(noxClient.Render(), noxClient.GUI) == 0 {
 		return errors.New("sub_470710 failed")
 	}
 	if legacy.Nox_xxx_guiHealthManaInit_4714E0() == 0 {

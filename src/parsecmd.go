@@ -123,7 +123,7 @@ var (
 		{Token: "info", HelpID: "showinfohelp", Flags: console.ClientServer | console.NoHelp, LegacyFunc: legacy.WrapCommandC(legacy.Nox_cmd_show_info)},
 		{Token: "mem", HelpID: "showmemhelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: legacy.WrapCommandC(legacy.Nox_cmd_show_mem)},
 		{Token: "netstat", HelpID: "shownetstathelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			sub_470A60()
+			noxClient.guiFPS.sub_470A60()
 			return true
 		}},
 		{Token: "seq", HelpID: "showseqhelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: legacy.WrapCommandC(legacy.Nox_cmd_show_seq)},
