@@ -559,7 +559,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			sub_4703F0()
 			ce.Active = false
 		case player.CCToggleNetstat:
-			sub_470A60()
+			noxClient.guiFPS.sub_470A60()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			ce.Active = false
 		case player.CCToggleGUI:

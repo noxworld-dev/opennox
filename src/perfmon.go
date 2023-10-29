@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -60,7 +61,7 @@ func (m *Perfmon) Toggle() {
 	m.enabled = !m.enabled
 }
 
-func (m *Perfmon) LogBandwidth() {
+func (m *Perfmon) LogBandwidth(s *server.Server, nets *netstr.Streams) {
 	ticks := platform.Ticks()
 	if ticks-m.logBandLast <= time.Second {
 		return
@@ -72,14 +73,14 @@ func (m *Perfmon) LogBandwidth() {
 		m.logger.Print("Player,\tBPS, Frame, Threshold, Resend Interval, Resends Per Update, Sleep Interval\n\n")
 	}
 	m.logger.Print("\n")
-	for _, pl := range noxServer.GetPlayers() {
+	for _, pl := range s.Players.List() {
 		d := m.bandData(pl.Index())
-		v4 := noxServer.Frame()
+		v4 := s.Frame()
 		var bps uint32
 		if pl.Index() == common.MaxPlayers-1 {
-			bps = noxPerfmon.TransferStats(netstr.Global.First())
+			bps = m.TransferStats(nets.First())
 		} else {
-			bps = noxPerfmon.TransferStats(netstr.Global.ByPlayer(pl))
+			bps = m.TransferStats(nets.ByPlayer(pl))
 		}
 		m.logger.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
 	}
