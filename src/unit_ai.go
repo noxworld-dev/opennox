@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"math"
+	"time"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -487,6 +488,58 @@ func (obj *Object) MonsterActionReset() {
 	obj.SObj().MonsterActionReset()
 }
 
+func monsterRegenerateHP(u *server.Object) {
+	// TODO: see if player update can share this logic as well
+	if u.HealthData == nil {
+		return
+	}
+	if u.Flags().Has(object.FlagDead) {
+		return
+	}
+	s := u.Server()
+	if int(s.Frame()-u.Frame134) <= int(s.SecToFrames(1)) {
+		return
+	}
+	h := u.HealthData
+	if h.Max == 0 || h.Cur >= h.Max {
+		return
+	}
+	ext := u.GetExt()
+	// Classic regen - should heal to max in N min
+	interval := 3 * time.Minute
+	if ext != nil && ext.HealthRegenToMax > 0 {
+		interval = ext.HealthRegenToMax
+	}
+	intervalFr := s.DurToFrames(interval)
+	// Usually the health is low, so we need to heal only 1 HP per N frames.
+	regen := 1
+	eachFrame := uint32(intervalFr / int(h.Max))
+	if eachFrame == 0 {
+		// In other cases do the opposite - heal N HP each frame.
+		eachFrame = 1
+		regen = int(uint32(h.Max) / uint32(intervalFr))
+		if regen == 0 {
+			regen = 1
+		}
+	}
+	if ext != nil && ext.HealthRegenPerFrame >= 0 {
+		// Override per-frame health regen (including zero).
+		// We allow setting float value here, which we cannot save in HealthData.
+		// Instead, we keep float fraction separately and increase regen by 1 once fraction gets integer part.
+		mod, rem := math.Modf(float64(ext.HealthRegenPerFrame))
+		regen = int(mod)
+		if rem != 0 {
+			dhp, drem := math.Modf(float64(ext.HealthFraction) + rem)
+			regen += int(dhp)
+			ext.HealthFraction = float32(drem)
+		}
+		eachFrame = 1 // every frame
+	}
+	if regen != 0 && s.Frame()%eachFrame == 0 {
+		legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), regen)
+	}
+}
+
 func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	u := asObjectS(a1)
 	s := u.getServer()
@@ -526,17 +579,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 		legacy.Nox_xxx_mobAction_5469B0(u.SObj())
 	}
 
-	if h := u.HealthData; h != nil {
-		if !u.Flags().Has(object.FlagDead) && h.Max != 0 && int(s.Frame()-u.Frame134) > int(s.SecToFrames(1)) {
-			dt := 180 * s.TickRate() / uint32(h.Max)
-			if dt == 0 {
-				dt = 1
-			}
-			if h.Cur < h.Max && s.Frame()%dt == 0 {
-				legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
-			}
-		}
-	}
+	monsterRegenerateHP(a1)
 	legacy.Nox_xxx_unitUpdateSightMB_5281F0(u.SObj())
 	legacy.Nox_xxx_monsterMainAIFn_547210(u.SObj())
 	s.ai.nox_xxx_mobActionDependency(u)

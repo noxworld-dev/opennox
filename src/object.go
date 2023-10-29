@@ -352,12 +352,16 @@ func toObject(obj server.Obj) *Object {
 	return asObjectS(obj.SObj())
 }
 
-var _ = [1]struct{}{}[776-unsafe.Sizeof(Object{})]
+var _ = [1]struct{}{}[780-unsafe.Sizeof(Object{})]
 
 type Object server.Object
 
 func (obj *Object) getServer() *Server {
-	return noxServer // TODO: allow exchanging *server.Server for *opennox.Server
+	s := obj.Server()
+	if s == nil {
+		return nil
+	}
+	return (*Server)(s.ExtServer)
 }
 
 func (obj *Object) Server() *server.Server {
@@ -425,6 +429,14 @@ func (obj *Object) WeaponClass() object.WeaponClass {
 
 func (obj *Object) OtherClass() object.OtherClass {
 	return obj.SObj().OtherClass()
+}
+
+func (obj *Object) Ext() *server.ObjectExt {
+	return obj.SObj().Ext()
+}
+
+func (obj *Object) GetExt() *server.ObjectExt {
+	return obj.SObj().GetExt()
 }
 
 func (obj *Object) Flags() object.Flags {
