@@ -848,7 +848,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			if memmap.Int32(0x973F18, 3800) < 0 {
 				v7 := c.Strings().GetStringInFile("cdecode.c:EnterChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				nox_xxx_printCentered_445490(v7)
-				v14 := ctrlEvent.Sub_42E8E0_go(8, 1)
+				v14 := c.ctrl.Sub_42E8E0_go(8, 1)
 				v8 := c.Strings().GetStringInFile("cdecode.c:KeyToChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				nox_xxx_printCentered_445490(fmt.Sprintf(v8, v14))
 			}

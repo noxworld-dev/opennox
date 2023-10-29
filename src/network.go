@@ -212,7 +212,7 @@ func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
 }
 
 func (c *Client) clientSendInput(pli ntype.PlayerInd) bool {
-	nbuf := ctrlEvent.netBuf
+	nbuf := c.ctrl.netBuf
 	if len(nbuf) == 0 {
 		return true
 	}

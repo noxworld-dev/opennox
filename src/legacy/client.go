@@ -30,6 +30,7 @@ type Client interface {
 	Cli() *client.Client
 	Viewport() *noxrender.Viewport
 	R2() Render2
+	GetCtrlEvent() CtrlEventHandler
 	SetDrawFunc(fnc func() bool)
 	Nox_client_setCursorType(c gui.Cursor)
 	DrawGeneral(v bool) error

@@ -35,8 +35,9 @@ func nox_common_writecfgfile(str string) {
 }
 
 func noxConfigRead(path string, skip bool) error {
+	c := noxClient
 	configLog.Printf("reading legacy: %q", path)
-	ctrlEvent.Reset()
+	c.ctrl.Reset()
 	f, err := ifs.Open(path)
 	if err != nil {
 		return err
@@ -49,8 +50,9 @@ func noxConfigRead(path string, skip bool) error {
 }
 
 func nox_common_readcfgfile(path string, skip bool) error {
+	c := noxClient
 	if env.IsE2E() {
-		ctrlEvent.Reset()
+		c.ctrl.Reset()
 		return parseLegacyConfig(strings.NewReader(e2eInputConf), skip)
 	}
 	err := noxConfigRead(path, skip)

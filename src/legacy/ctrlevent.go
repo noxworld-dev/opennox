@@ -37,7 +37,6 @@ type CtrlEventHandler interface {
 }
 
 var (
-	GetCtrlEvent                             func() CtrlEventHandler
 	Nox_client_parseConfigHotkeysLine_42CF50 func(s string) int
 )
 
@@ -48,13 +47,13 @@ func nox_xxx_playerResetControlBuffer_51AC30(pi int) {
 
 //export sub_42E8E0
 func sub_42E8E0(key, a2 int) *wchar2_t {
-	s := GetCtrlEvent().Sub_42E8E0_go(keybind.Event(key), a2)
+	s := GetClient().GetCtrlEvent().Sub_42E8E0_go(keybind.Event(key), a2)
 	return internWStr(s)
 }
 
 //export sub_42CD90
 func sub_42CD90() {
-	GetCtrlEvent().Reset()
+	GetClient().GetCtrlEvent().Reset()
 }
 
 //export nox_client_parseConfigHotkeysLine_42CF50
