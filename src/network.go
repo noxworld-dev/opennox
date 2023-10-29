@@ -1158,7 +1158,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind ntype.PlayerInd, data []byte) int {
 	orig := data
 	var iters [][]byte
-	sub_470A80()
+	c.guiFPS.sub_470A80()
 	var (
 		v364 uint32
 		v373 uint16

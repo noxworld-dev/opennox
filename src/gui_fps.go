@@ -9,6 +9,7 @@ import (
 	"golang.org/x/image/font"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
 type guiFPS struct {
@@ -26,49 +27,51 @@ type guiFPS struct {
 	arr1090184   [32]uint16
 }
 
-func sub_470A80() {
-	noxClient.guiFPS.dword1090246++
+func (c *guiFPS) sub_470A80() {
+	c.dword1090246++
 }
 
-func (c *Client) initGuiFPS() int {
-	c.guiFPS.dword147864 = 10
-	c.guiFPS.win = newWindowFromFile(c.GUI, "GuiFps.wnd", nil)
-	if c.guiFPS.win == nil {
+func (c *guiFPS) initGuiFPS(r *noxrender.NoxRender, g *gui.GUI) int {
+	c.dword147864 = 10
+	c.win = newWindowFromFile(g, "GuiFps.wnd", nil)
+	if c.win == nil {
 		return 0
 	}
-	c.guiFPS.win.SetDraw(c.guiDrawFPS)
-	c.guiFPS.win.SetPos(image.Pt(121, videoGetWindowSize().Y-c.guiFPS.win.Size().Y-5))
-	c.guiFPS.font = c.r.Fonts.FontByName("numbers")
-	sub_4706C0(0)
+	c.win.SetDraw(func(win *gui.Window, draw *gui.WindowData) int {
+		return c.guiDrawFPS(r, win, draw)
+	})
+	c.win.SetPos(image.Pt(121, videoGetWindowSize().Y-c.win.Size().Y-5))
+	c.font = r.Fonts.FontByName("numbers")
+	c.sub_4706C0(0)
 	return 1
 }
 
-func (c *Client) guiDrawFPS(win *gui.Window, _ *gui.WindowData) int {
-	g := &c.guiFPS
+func (c *guiFPS) guiDrawFPS(r *noxrender.NoxRender, win *gui.Window, _ *gui.WindowData) int {
+	mon := noxPerfmon
 	pos := win.GlobalPos()
 	wsz := win.Size()
-	if g.dword1090256 >= g.dword147864 {
-		g.dword147864 = g.dword1090256 + 10
+	if c.dword1090256 >= c.dword147864 {
+		c.dword147864 = c.dword1090256 + 10
 		ticks := platformTicks()
-		g.dword1090260 = 10000 / int(ticks-g.dword1090268)
-		g.dword1090268 = ticks
+		c.dword1090260 = 10000 / int(ticks-c.dword1090268)
+		c.dword1090268 = ticks
 	}
-	if g.dword1090246 != 0 {
-		g.dword1090246 = 0
-		g.arr1090184[g.dword1090248]++
+	if c.dword1090246 != 0 {
+		c.dword1090246 = 0
+		c.arr1090184[c.dword1090248]++
 	}
-	g.dword1090252 = (g.dword1090252 + 1) % 3
-	if g.dword1090252 == 0 {
-		g.dword1090248 = (g.dword1090248 + 1) % 31
+	c.dword1090252 = (c.dword1090252 + 1) % 3
+	if c.dword1090252 == 0 {
+		c.dword1090248 = (c.dword1090248 + 1) % 31
 	}
-	c.r.DrawRectFilledAlpha(pos.X, pos.Y, wsz.X, wsz.Y)
-	str := strconv.Itoa(g.dword1090260)
-	tsz := c.r.GetStringSizeWrapped(g.font, str, 0)
-	c.r.Data().SetTextColor(nox_color_white_2523948)
-	c.r.DrawString(g.font, str, pos.Add(image.Pt((wsz.X-tsz.X)/2, 3)))
-	c.r.DrawRectFilledOpaque(pos.X+1, pos.Y+14, 30, 3, nox_color_black_2650656)
+	r.DrawRectFilledAlpha(pos.X, pos.Y, wsz.X, wsz.Y)
+	str := strconv.Itoa(c.dword1090260)
+	tsz := r.GetStringSizeWrapped(c.font, str, 0)
+	r.Data().SetTextColor(nox_color_white_2523948)
+	r.DrawString(c.font, str, pos.Add(image.Pt((wsz.X-tsz.X)/2, 3)))
+	r.DrawRectFilledOpaque(pos.X+1, pos.Y+14, 30, 3, nox_color_black_2650656)
 	for i := 1; i < 31; i++ {
-		v := g.arr1090184[(i+g.dword1090248)%31]
+		v := c.arr1090184[(i+c.dword1090248)%31]
 		var (
 			f  int
 			cl color.Color
@@ -84,38 +87,36 @@ func (c *Client) guiDrawFPS(win *gui.Window, _ *gui.WindowData) int {
 			cl = nox_color_green
 		}
 		if f != 0 {
-			c.r.DrawBorder(pos.X+i, pos.Y+14-f+3, 1, f, cl)
+			r.DrawBorder(pos.X+i, pos.Y+14-f+3, 1, f, cl)
 		}
 	}
 	var cl color.Color
-	if noxPerfmon.ping < 250*time.Millisecond {
+	if mon.ping < 250*time.Millisecond {
 		cl = nox_color_green
-	} else if noxPerfmon.ping < 500*time.Millisecond {
+	} else if mon.ping < 500*time.Millisecond {
 		cl = nox_color_yellow_2589772
 	} else {
 		cl = nox_color_red
 	}
-	str = strconv.Itoa(int(noxPerfmon.ping.Milliseconds()))
-	tsz = c.r.GetStringSizeWrapped(g.font, str, 0)
-	c.r.Data().SetTextColor(cl)
-	c.r.DrawString(g.font, str, pos.Add(image.Pt((wsz.X-tsz.X)/2, 22)))
-	c.r.DrawBorder(pos.X, pos.Y, wsz.X, wsz.Y, nox_color_gray1)
-	g.dword1090256++
+	str = strconv.Itoa(int(mon.ping.Milliseconds()))
+	tsz = r.GetStringSizeWrapped(c.font, str, 0)
+	r.Data().SetTextColor(cl)
+	r.DrawString(c.font, str, pos.Add(image.Pt((wsz.X-tsz.X)/2, 22)))
+	r.DrawBorder(pos.X, pos.Y, wsz.X, wsz.Y, nox_color_gray1)
+	c.dword1090256++
 	return 1
 }
 
-func sub_4706C0(a1 int) {
-	c := noxClient
-	win := c.guiFPS.win
-	if a1 != 0 && c.guiFPS.enabled && win.GetFlags().IsHidden() {
+func (c *guiFPS) sub_4706C0(a1 int) {
+	win := c.win
+	if a1 != 0 && c.enabled && win.GetFlags().IsHidden() {
 		win.ShowModal()
 	} else {
 		win.Hide()
 	}
 }
 
-func sub_470A60() {
-	c := noxClient
-	c.guiFPS.enabled = !c.guiFPS.enabled
-	sub_4706C0(1)
+func (c *guiFPS) sub_470A60() {
+	c.enabled = !c.enabled
+	c.sub_4706C0(1)
 }

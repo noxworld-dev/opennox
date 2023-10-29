@@ -37,7 +37,9 @@ func init() {
 	legacy.Sub_44A4E0 = sub_44A4E0
 	legacy.Sub_44A4B0 = sub_44A4B0
 	legacy.Sub_44A360 = sub_44A360
-	legacy.Sub_4706C0 = sub_4706C0
+	legacy.Sub_4706C0 = func(a1 int) {
+		noxClient.guiFPS.sub_4706C0(a1)
+	}
 	legacy.Sub_473670 = sub_473670
 	legacy.Nox_client_toggleMap_473610 = nox_client_toggleMap_473610
 	legacy.Nox_client_refreshServerList_4378B0 = nox_client_refreshServerList_4378B0
