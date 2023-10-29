@@ -39,6 +39,7 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 	c.screenshots.Init(c)
 	c.mapsend.Init(c)
 	c.srv.Teams.OnCreateOrRemove(legacy.Sub_459CD0)
+	c.ctrl = new(CtrlEventHandler)
 	return c, nil
 }
 
@@ -46,6 +47,7 @@ type Client struct {
 	*client.Client
 	srv                    *Server
 	r                      *NoxRender
+	ctrl                   *CtrlEventHandler
 	mapsend                clientMapDownload
 	guiAdv                 guiAdvOptions
 	guiFPS                 guiFPS
@@ -74,6 +76,10 @@ func (c *Client) Cli() *client.Client {
 
 func (c *Client) R2() legacy.Render2 {
 	return c.r
+}
+
+func (c *Client) GetCtrlEvent() legacy.CtrlEventHandler {
+	return c.ctrl
 }
 
 func (c *Client) Close() error {

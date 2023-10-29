@@ -23,16 +23,11 @@ import (
 )
 
 var (
-	ctrlEvent = new(CtrlEventHandler)
-
 	allowEmotionsInSolo = true
 )
 
 func init() {
 	configBoolPtr("game.extensions.solo_allow_emotes", "", true, &allowEmotionsInSolo)
-	legacy.GetCtrlEvent = func() legacy.CtrlEventHandler {
-		return ctrlEvent
-	}
 }
 
 const ctrlEventCap = 128
@@ -769,6 +764,7 @@ func nox_client_parseConfigHotkeysLine_42CF50(a1 string) int {
 }
 
 func nox_client_parseConfigHotkeysLine(key, val string) int {
+	c := noxClient
 	switch key {
 	case "MousePickup":
 		val = strings.ToLower(val)
@@ -794,14 +790,15 @@ func nox_client_parseConfigHotkeysLine(key, val string) int {
 			ce.events = append(ce.events, b.Event)
 		}
 	}
-	ctrlEvent.addBinding(ce)
+	c.ctrl.addBinding(ce)
 	return 1
 }
 
 func writeConfigHotkeys(sect *cfg.Section) {
+	c := noxClient
 	v1 := int(legacy.Nox_client_mousePriKey_430AF0())
 	sect.Set("MousePickup", noxMouseSelectOpt[v1])
-	for _, it := range ctrlEvent.listBindings() {
+	for _, it := range c.ctrl.listBindings() {
 		var keys []string
 		for _, k := range it.keys {
 			if !k.IsValid() {

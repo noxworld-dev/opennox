@@ -8,7 +8,6 @@ package legacy
 #include "client__shell__inputcfg__inputcfg.h"
 extern void* dword_5d4594_1309720;
 extern nox_gui_animation* nox_wnd_xxx_1309740;
-void sub_42CD90();
 */
 import "C"
 import (
@@ -50,10 +49,6 @@ func sub_4CBE70(a1, a2 int, a3 *C.int, a4 int) int { return Sub_4CBE70(a1, a2, u
 //export sub_4A1A40
 func sub_4A1A40(a1 int) {
 	Sub_4A1A40(a1)
-}
-
-func Sub_42CD90() {
-	C.sub_42CD90()
 }
 
 func Sub_4CBD30() {

@@ -198,11 +198,12 @@ func sub_4C3A90(a1, a2 int, a3 unsafe.Pointer, a4 int) int {
 	if a2 != 16391 {
 		return 0
 	}
+	c := noxClient
 	win := legacy.AsWindowP(a3)
 	clientPlaySoundSpecial(sound.SoundShellClick, 100)
 	switch win.ID() {
 	case 931:
-		legacy.Sub_42CD90()
+		c.ctrl.Reset()
 		nox_common_readcfgfile("nox.cfg", true)
 		sub_4C3B70()
 	case 932:
@@ -222,11 +223,12 @@ func sub_4CBE70(a1, a2 int, a3 unsafe.Pointer, a4 int) int {
 	if a2 != 16391 {
 		return 0
 	}
+	c := noxClient
 	win := legacy.AsWindowP(a3)
 	clientPlaySoundSpecial(sound.SoundShellClick, 100)
 	switch win.ID() {
 	case 931:
-		legacy.Sub_42CD90()
+		c.ctrl.Reset()
 		nox_common_readcfgfile("nox.cfg", true)
 		sub_4CBBF0()
 	case 932:

@@ -92,18 +92,19 @@ func nox_xxx_bindevent_bindNameByTitle_42EA40(title string) *keybind.BindEvent {
 }
 
 func sub_4C3CB0() {
-	ctrlEvent.Reset()
+	noxClient.ctrl.Reset()
 	nox_common_readcfgfile("default.cfg", true)
 	sub_4C3B70()
 }
 
 func sub_4CBF40() {
-	ctrlEvent.Reset()
+	noxClient.ctrl.Reset()
 	nox_common_readcfgfile("default.cfg", true)
 	sub_4CBBF0()
 }
 
 func sub_4C3B70() {
+	c := noxClient
 	win36 := legacy.Get_dword_5d4594_1321236()
 	win40 := legacy.Get_dword_5d4594_1321240()
 	win44 := legacy.Get_dword_5d4594_1321244()
@@ -118,8 +119,8 @@ func sub_4C3B70() {
 		}
 		win40.Func94(&WindowEvent0x400d{Str: ev.Title, Val: -1})
 		win36.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
-		v2 := ctrlEvent.Sub_42E8E0_go(ev.Event, 1)
-		v3 := ctrlEvent.Sub_42E8E0_go(ev.Event, 2)
+		v2 := c.ctrl.Sub_42E8E0_go(ev.Event, 1)
+		v3 := c.ctrl.Sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
 			win44.Func94(&WindowEvent0x400d{Str: v2, Val: -1})
 		} else {
@@ -134,6 +135,7 @@ func sub_4C3B70() {
 }
 
 func sub_4CBBF0() {
+	c := noxClient
 	win16 := legacy.Get_dword_5d4594_1522616()
 	win20 := legacy.Get_dword_5d4594_1522620()
 	win24 := legacy.Get_dword_5d4594_1522624()
@@ -148,8 +150,8 @@ func sub_4CBBF0() {
 		}
 		win20.Func94(&WindowEvent0x400d{Str: ev.Title, Val: -1})
 		win16.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
-		v2 := ctrlEvent.Sub_42E8E0_go(ev.Event, 1)
-		v3 := ctrlEvent.Sub_42E8E0_go(ev.Event, 2)
+		v2 := c.ctrl.Sub_42E8E0_go(ev.Event, 1)
+		v3 := c.ctrl.Sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
 			win24.Func94(&WindowEvent0x400d{Str: v2, Val: -1})
 		} else {

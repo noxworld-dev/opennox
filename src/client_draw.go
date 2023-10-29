@@ -100,7 +100,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	if legacy.Sub_478030() == 0 && nox_xxx_guiCursor_477600() == 0 {
 		legacy.Sub_470DE0()
 	}
-	ctrlEvent.nox_xxx_input_42D220(c.Inp)
+	c.ctrl.nox_xxx_input_42D220(c.Inp)
 	if c.inDraw1 {
 		c.inDraw1 = false
 	}
