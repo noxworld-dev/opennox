@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"fmt"
+	"time"
 	"unsafe"
 
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
@@ -386,6 +387,14 @@ func (obj nsObj) RestoreHealth(amount int) {
 		return
 	}
 	legacy.Nox_xxx_unitAdjustHP_4EE460(obj.SObj(), amount)
+}
+
+func (obj nsObj) SetHealthRegenToMaxDur(t time.Duration) {
+	obj.Ext().HealthRegenToMax = t
+}
+
+func (obj nsObj) SetHealthRegenPerFrame(v float32) {
+	obj.Ext().HealthRegenPerFrame = v
 }
 
 func (obj nsObj) CurrentMana() int {
