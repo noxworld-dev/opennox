@@ -5,6 +5,7 @@ import (
 	"image/color"
 	"math"
 	"strings"
+	"time"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -99,6 +100,8 @@ func (s *Server) CanSeeDir(obj, targ *Object) bool {
 type serverObjects struct {
 	handle          uintptr
 	alloc           alloc.ClassT[Object]
+	ext             map[uintptr]*ObjectExt
+	extLast         uintptr
 	Alive           int
 	MaxAlive        int
 	Created         int
@@ -118,6 +121,26 @@ type serverObjects struct {
 
 func (s *serverObjects) init(h uintptr) {
 	s.handle = h
+	s.ext = make(map[uintptr]*ObjectExt)
+	s.extLast = 0
+}
+
+func (s *serverObjects) getExt(h uintptr) *ObjectExt {
+	ext := s.ext[h]
+	if ext == nil {
+		panic("object extension id is set, but cannot find it!")
+	}
+	return ext
+}
+
+func (s *serverObjects) newExt(obj *Object) *ObjectExt {
+	s.extLast++
+	h := s.extLast
+	ext := &ObjectExt{s: obj.Server(), h: h, Object: obj}
+	ext.defaults()
+	obj.objectHandle = h
+	s.ext[obj.objectHandle] = ext
+	return ext
 }
 
 func (s *serverObjects) LastObjectScriptID() ObjectScriptID {
@@ -239,6 +262,10 @@ func (s *serverObjects) FreeObject(obj *Object) int {
 	}
 	if obj.UpdateData != nil {
 		obj.UpdateData = nil
+	}
+	if obj.objectHandle != 0 {
+		delete(s.ext, obj.objectHandle)
+		obj.objectHandle = 0
 	}
 	code := obj.NetCode
 	s.alloc.FreeObjectLast(obj.SObj())
@@ -470,6 +497,21 @@ type ScriptCallback struct {
 	Func  int32
 }
 
+// ObjectExt is a Go-allocated extension for Object structure. See Object.Ext.
+type ObjectExt struct {
+	s *Server
+	h uintptr
+	*Object
+
+	HealthRegenToMax    time.Duration
+	HealthRegenPerFrame float32
+	HealthFraction      float32 // float fraction of health; 0 <= v < 1
+}
+
+func (obj *ObjectExt) defaults() {
+	obj.HealthRegenPerFrame = -1 // disable
+}
+
 type Object struct {
 	IDPtr         unsafe.Pointer             // 0, 0
 	TypeInd       uint16                     // 1, 4
@@ -577,6 +619,7 @@ type Object struct {
 	Field191      uint32                     // 191, 764
 	Field192      int                        // 192, 768
 	serverHandle  uintptr                    // EXT
+	objectHandle  uintptr                    // EXT
 }
 
 func (obj *Object) CObj() unsafe.Pointer {
@@ -595,6 +638,32 @@ func (obj *Object) Server() *Server {
 		return nil
 	}
 	return getServer(obj.serverHandle)
+}
+
+// Ext gets or creates an extended object data and returns it.
+// Only use this when you want to write something to this data. Otherwise, see GetExt.
+func (obj *Object) Ext() *ObjectExt {
+	if obj == nil {
+		return nil
+	}
+	s := obj.Server()
+	if obj.objectHandle != 0 {
+		return s.Objs.getExt(obj.objectHandle)
+	}
+	return s.Objs.newExt(obj)
+}
+
+// GetExt returns an extended object data.
+// If there's no extended data, it returns nil. If you want to write to data, see Ext.
+func (obj *Object) GetExt() *ObjectExt {
+	if obj == nil {
+		return nil
+	}
+	s := obj.Server()
+	if obj.objectHandle != 0 {
+		return s.Objs.getExt(obj.objectHandle)
+	}
+	return s.Objs.newExt(obj)
 }
 
 func (obj *Object) ScriptID() int {

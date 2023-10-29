@@ -4,6 +4,7 @@ import (
 	"context"
 	"sync/atomic"
 	"time"
+	"unsafe"
 
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -63,6 +64,7 @@ type Server struct {
 	updateFunc func() bool
 	tickHooks  tickHooks
 	loopHooks  chan func()
+	ExtServer  unsafe.Pointer // populated by the caller of New
 
 	Rand       serverRandom
 	Walls      serverWalls
