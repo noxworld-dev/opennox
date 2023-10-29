@@ -277,9 +277,10 @@ func (c *guiConsole) Toggle() {
 }
 
 func (c *guiConsole) inputProc(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
+	cl := noxClient
 	switch ev := ev.(type) {
 	case gui.WindowKeyPress:
-		if ctrlEvent.hasDefBinding(keybind.EventToggleConsole, ev.Key) {
+		if cl.ctrl.hasDefBinding(keybind.EventToggleConsole, ev.Key) {
 			if ev.Pressed {
 				c.Toggle()
 			}

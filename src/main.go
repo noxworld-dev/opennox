@@ -506,7 +506,7 @@ func cleanup() {
 	noxServer.Walls.Free()
 	nox_video_bagFree_42F4D0()
 	legacy.Sub_42EDC0()
-	ctrlEvent.Reset()
+	noxClient.ctrl.Reset()
 	Nox_strman_free_410020()
 	noxServer.NetList.Free()
 	legacy.Sub_4D11D0()
