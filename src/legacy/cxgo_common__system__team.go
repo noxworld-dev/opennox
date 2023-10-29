@@ -1,20 +1,15 @@
 package legacy
 
 import (
+	"encoding/binary"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
-
-type nox_team_info_t struct {
-	name  *byte
-	title *wchar2_t
-	code  int32
-	color *uint32
-}
 
 var nox_color_white_2523948 uint32 = 0
 var nox_color_red_2589776 uint32 = 0
@@ -28,16 +23,7 @@ var nox_color_orange_2614256 uint32 = 0
 
 func Nox_xxx_createAtImpl_4191D0(tid server.TeamID, otm *server.ObjectTeam, a3 bool, netcode uint32, a5 bool) {
 	s := GetServer().S()
-	var (
-		v10 *wchar2_t
-		v11 *wchar2_t
-		v12 int16
-		v13 int32
-		v16 *wchar2_t
-		v17 *wchar2_t
-		v22 int16
-	)
-	var v24 [128]wchar2_t
+	var wbuf [128]wchar2_t
 	if dword_5d4594_527660 == 0 {
 		dword_5d4594_527660 = uint32(nox_xxx_getNameId_4E3AA0(internCStr("GameBall")))
 	}
@@ -65,7 +51,7 @@ func Nox_xxx_createAtImpl_4191D0(tid server.TeamID, otm *server.ObjectTeam, a3 b
 			v23 := v8
 			if v8 != nil {
 				if noxflags.HasGame(0x8000) {
-					sub_425ED0(unsafe.Pointer(v8), 1)
+					sub_425ED0(v8, 1)
 				}
 				if v7 != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 8)))&4 != 0 {
 					if a5 && !nox_xxx_CheckGameplayFlags_417DA0(2) && noxflags.HasGame(noxflags.GameModeChat) {
@@ -76,27 +62,26 @@ func Nox_xxx_createAtImpl_4191D0(tid server.TeamID, otm *server.ObjectTeam, a3 b
 					v9 := nox_common_playerInfoGetByID_417040(int32(netcode))
 					if v9 != nil {
 						if noxflags.HasGame(4096) {
-							v10 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:PlayerJoinQuest"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1848)
-							nox_swprintf(&v24[0], v10, (*byte)(unsafe.Add(unsafe.Pointer(v9), 4704)))
+							v10 := nox_strman_loadString_40F1D0(internCStr("GeneralPrint:PlayerJoinQuest"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1848)
+							nox_swprintf(&wbuf[0], v10, (*byte)(unsafe.Add(unsafe.Pointer(v9), 4704)))
 						} else {
-							v11 = nox_strman_loadString_40F1D0(internCStr("NewMember"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1850)
-							nox_swprintf(&v24[0], v11, (*byte)(unsafe.Add(unsafe.Pointer(v9), 4704)), tm)
+							v11 := nox_strman_loadString_40F1D0(internCStr("NewMember"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1850)
+							nox_swprintf(&wbuf[0], v11, (*byte)(unsafe.Add(unsafe.Pointer(v9), 4704)), tm)
 						}
-						nox_xxx_printCentered_445490(&v24[0])
+						nox_xxx_printCentered_445490(&wbuf[0])
 					}
 					v8 = v23
 				}
 			}
 			if a3 && v7 != nil && (v8 != nil || uint32(v7.TypeInd) == dword_5d4594_527660) {
-				v12 = int16(v7.TypeInd)
-				v13 = int32(tm.IDVal)
-				*(*uint16)(unsafe.Add(unsafe.Pointer(&v21[0]), unsafe.Sizeof(uint16(0))*0)) = 452
-				*(*uint16)(unsafe.Add(unsafe.Pointer(&v21[1]), unsafe.Sizeof(uint16(0))*1)) = uint16(int16(netcode))
-				*(*uint32)(unsafe.Add(unsafe.Pointer(&v21[0]), 2)) = uint32(v13)
-				v22 = v12 // FIXME: should likely be a set on v21[2]
-				sub_4571A0(int32(netcode), v13)
-				nox_xxx_netSendPacket1_4E5390(159, unsafe.Pointer(&v21[0]), 10, nil, 1)
-				_ = v22
+				var buf [10]byte
+				buf[0] = byte(noxnet.MSG_TEAM_MSG)
+				buf[1] = 0x01
+				binary.LittleEndian.PutUint32(buf[2:6], uint32(tm.IDVal))
+				binary.LittleEndian.PutUint16(buf[6:8], uint16(netcode))
+				binary.LittleEndian.PutUint16(buf[8:10], v7.TypeInd)
+				sub_4571A0(int32(netcode), int32(tm.IDVal))
+				nox_xxx_netSendPacket1_4E5390(159, buf[:10], nil, 1)
 			}
 		}
 	} else {
@@ -105,13 +90,13 @@ func Nox_xxx_createAtImpl_4191D0(tid server.TeamID, otm *server.ObjectTeam, a3 b
 			v15 := nox_common_playerInfoGetByID_417040(int32(netcode))
 			if v15 != nil {
 				if noxflags.HasGame(4096) {
-					v16 = nox_strman_loadString_40F1D0(internCStr("GeneralPrint:PlayerJoinQuest"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1889)
-					nox_swprintf(&v24[0], v16, (*byte)(unsafe.Add(unsafe.Pointer(v15), 4704)))
+					v16 := nox_strman_loadString_40F1D0(internCStr("GeneralPrint:PlayerJoinQuest"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1889)
+					nox_swprintf(&wbuf[0], v16, (*byte)(unsafe.Add(unsafe.Pointer(v15), 4704)))
 				} else {
-					v17 = nox_strman_loadString_40F1D0(internCStr("NewMember"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1891)
-					nox_swprintf(&v24[0], v17, (*byte)(unsafe.Add(unsafe.Pointer(v15), 4704)), tm)
+					v17 := nox_strman_loadString_40F1D0(internCStr("NewMember"), nil, internCStr("C:\\NoxPost\\src\\common\\System\\team.c"), 1891)
+					nox_swprintf(&wbuf[0], v17, (*byte)(unsafe.Add(unsafe.Pointer(v15), 4704)), tm)
 				}
-				nox_xxx_printCentered_445490(&v24[0])
+				nox_xxx_printCentered_445490(&wbuf[0])
 			}
 		}
 	}

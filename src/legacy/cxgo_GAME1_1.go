@@ -366,7 +366,7 @@ func nox_xxx_netChangeTeamMb_419570(a1 unsafe.Pointer, a2 int32) {
 				if noxflags.HasGame(1) && noxflags.HasGame(0x2000) {
 					v3 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a2)))
 					if v3 != nil && false && !noxflags.HasGame(128) {
-						sub_425ED0(unsafe.Pointer(v3), 0)
+						sub_425ED0((*server.Player)(unsafe.Pointer(v3)), 0)
 					}
 					sub_4571A0(a2, 0)
 					v4[0] = 196
@@ -5223,14 +5223,10 @@ func sub_425E90(a1 unsafe.Pointer, a2 int8) int32 {
 	}
 	return result
 }
-func sub_425ED0(a1 unsafe.Pointer, a2 int8) {
-	if noxflags.HasGame(0x2000) {
-		if !noxflags.HasGame(4096) {
-			result := int32(*(*uint32)(unsafe.Add(a1, 4648)))
-			if result != -1 {
-				result *= 32
-				*memmap.PtrUint8(0x5D4594, uintptr(result)+600152) = uint8(a2)
-			}
+func sub_425ED0(pl *server.Player, a2 int8) {
+	if noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) {
+		if ind := pl.Field4648; ind != -1 {
+			*memmap.PtrUint8(0x5D4594, 32*uintptr(ind)+600152) = uint8(a2)
 		}
 	}
 }

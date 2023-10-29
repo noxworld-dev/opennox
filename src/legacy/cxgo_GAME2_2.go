@@ -461,34 +461,6 @@ LABEL_38:
 		}
 	}
 }
-func nox_video_drawCursorSelectCircle2_477470(a1 *noxrender.Viewport, a2 int32, a3 *client.Drawable) {
-	var (
-		v3 int32
-		v4 int32
-		v7 float32
-	)
-	if a3 != nil {
-		if a3.Shape.Kind == 2 {
-			v4 = int32(a3.Shape.Circle.R)
-			v3 = v4 + 6
-		} else if a3.Shape.Kind != 3 {
-			v3 = 6
-		} else {
-			v7 = a3.Shape.Box.H + a3.Shape.Box.W
-			v4 = int32(v7) / 2
-			v3 = v4 + 6
-		}
-		v5 := int32(a1.Screen.Min.X + a3.PosVec.X - a1.World.Min.X)
-		v6 := int32(a3.PosVec.Y + int(a1.Screen.Min.Y) - int(a1.World.Min.Y))
-		nox_client_drawSetColor_434460(a2)
-		nox_client_drawEnableAlpha_434560(1)
-		nox_client_drawSetAlpha_434580(0x80)
-		nox_video_drawCircle_4B0B90(v5, v6, v3-1)
-		nox_video_drawCircle_4B0B90(v5, v6, v3+1)
-		nox_client_drawEnableAlpha_434560(0)
-		nox_video_drawCircle_4B0B90(v5, v6, v3)
-	}
-}
 func nox_xxx_guiCursor_477600() int32 {
 	return int32(*memmap.PtrUint32(0x5D4594, 1096672))
 }

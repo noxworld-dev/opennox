@@ -4943,8 +4943,8 @@ func sub_473420(a1 *uint32) int32 {
 	nox_client_drawAddPoint_49F500(v2-8, v1)
 	return nox_client_drawLineFromPoints_49E4B0()
 }
-func nox_video_drawCircleRad3_4734F0(a1 *int32) {
-	nox_video_drawCircle_4B0B90(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*0)), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)), 3)
+func nox_video_drawCircleRad3_4734F0(a1 *Point32) {
+	nox_video_drawCircle_4B0B90(a1.X, a1.Y, 3)
 }
 func nox_client_drawRectLines_473510(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	var (

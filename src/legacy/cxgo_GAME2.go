@@ -3689,11 +3689,11 @@ func nox_drawable_next_45A070(a1 *client.Drawable) *client.Drawable {
 	}
 	return a1.NextPtr
 }
-func sub_45A0A0(a1 unsafe.Pointer) unsafe.Pointer {
+func sub_45A0A0(a1 *client.Drawable) *client.Drawable {
 	if a1 == nil {
 		return nil
 	}
-	return *(*unsafe.Pointer)(unsafe.Add(a1, 424))
+	return a1.Field_106
 }
 func nox_xxx_spriteSetActiveMB_45A990_drawable(a1 unsafe.Pointer) {
 	*(*uint32)(unsafe.Add(a1, 120)) |= 4
@@ -3701,7 +3701,7 @@ func nox_xxx_spriteSetActiveMB_45A990_drawable(a1 unsafe.Pointer) {
 func nox_xxx_cliDestroyObj_45A9A0(a1 unsafe.Pointer) {
 	*(*uint32)(unsafe.Add(a1, 120)) &= 0xFFFFFFFB
 }
-func sub_45A9B0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
+func sub_45A9B0(a1, a2 *client.Drawable) {
 	var (
 		v3  int32
 		v7  int32
@@ -3716,7 +3716,7 @@ func sub_45A9B0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 	v2 := a1
 	v3 = 0
 	v16 = 0
-	v4 := nox_xxx_draw_452270(int32(*(*uint32)(unsafe.Add(a1, 492))))
+	v4 := nox_xxx_draw_452270(int32(a1.Field_123))
 	v5 := v4
 	v17 := v4
 	r1 := nox_draw_getViewport_437250()
@@ -3724,9 +3724,9 @@ func sub_45A9B0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 	if v5 == nil || r1 == nil {
 		return
 	}
-	if *(*uint32)(unsafe.Add(a1, 120))&0x1000000 != 0 && (int32(*(*uint8)(unsafe.Add(a1, 280)))&0xC) == 0 {
-		v7 = int32(*(*uint32)(unsafe.Add(a2, 12)) - *(*uint32)(unsafe.Add(a1, 12)))
-		v8 = int32(*(*uint32)(unsafe.Add(a2, 16)) - *(*uint32)(unsafe.Add(a1, 16)))
+	if a1.Flags30Val&0x1000000 != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 280)))&0xC) == 0 {
+		v7 = int32(a2.PosVec.X - a1.PosVec.X)
+		v8 = int32(a2.PosVec.Y - a1.PosVec.Y)
 		v9 = sub_4522A0(v17)
 		v10 = v9
 		if v7 < v9 && v8 < v9 && v9 > 0 {
@@ -3741,12 +3741,12 @@ func sub_45A9B0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 				} else {
 					v3 = 100
 				}
-				v16 = int32((int(*(*int32)(unsafe.Add(a1, 12))) - v18.World.Max.X - int(*(*int32)(unsafe.Pointer(v18)))) * 50 / int(nox_win_width/2))
+				v16 = int32((int(a1.PosVec.X) - v18.World.Max.X - int(*(*int32)(unsafe.Pointer(v18)))) * 50 / int(nox_win_width/2))
 			}
 		}
 		v2 = a1
 	}
-	v13 := unsafe.Add(v2, 496)
+	v13 := unsafe.Add(unsafe.Pointer(v2), 496)
 	r2 := (*int32)(sub_452EB0(v13))
 	v14 = r2
 	if v3 != 0 {
@@ -3767,12 +3767,10 @@ func sub_45A9B0(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 	}
 }
 func sub_45AB40() {
-	result := unsafe.Pointer(sub_45A090())
-	for i := result; result != nil; i = result {
-		if *(*uint32)(unsafe.Add(i, 492)) != 0 {
-			sub_45A9B0(i, *memmap.PtrPtr(0x852978, 8))
+	for it := sub_45A090(); it != nil; it = sub_45A0A0(it) {
+		if it.Field_123 != 0 {
+			sub_45A9B0(it, (*client.Drawable)(*memmap.PtrPtr(0x852978, 8)))
 		}
-		result = sub_45A0A0(i)
 	}
 }
 func nox_xxx_spriteSetFrameMB_45AB80(a1 unsafe.Pointer, a2 int32) {

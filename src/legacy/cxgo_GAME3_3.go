@@ -5506,44 +5506,33 @@ func nox_xxx_invForceDropItem_4ED930(a1 *server.Object, a2 *server.Object) int32
 }
 func sub_4ED970(a1 float32, a2 *types.Pointf, a3 *types.Pointf) *types.Pointf {
 	var (
-		v3     *types.Pointf
-		v4     float32
-		v5     int32
-		v6     float64
-		result *types.Pointf
-		v8     float32
-		v9     float32
-		v10    float4
-		v11    float32
+		v10 float4
 	)
-	v3 = a2
-	v4 = a2.Y
-	v9 = float32(float64(a1) * 0.015625)
+	v3 := a2
+	v4 := a2.Y
+	v9 := float32(float64(a1) * 0.015625)
 	v10.field_0 = a2.X
 	v10.field_4 = v4
-	v11 = float32(nox_common_randomFloat_416030(-3.1415927, 3.1415927))
-	v5 = 0
+	v11 := float32(nox_common_randomFloat_416030(-3.1415927, 3.1415927))
+	v5 := 0
 	for {
-		v6 = float64(v11) + 1.8849558
+		v6 := float64(v11) + 1.8849558
 		v11 = float32(v6)
 		v10.field_8 = float32(math.Cos(v6)*float64(a1) + float64(v3.X))
 		v10.field_C = float32(math.Sin(float64(v11))*float64(a1) + float64(v3.Y))
 		if nox_xxx_mapTraceRay_535250(&v10, nil, nil, 1) != 0 {
-			break
+			a3.X = v10.field_8
+			a3.Y = v10.field_C
+			return a3
 		}
 		v5++
 		a1 = a1 - v9
 		if v5 >= 64 {
-			result = a3
-			*a3 = *v3
-			return result
+			break
 		}
 	}
-	result = a3
-	v8 = v10.field_C
-	a3.X = v10.field_8
-	a3.Y = v8
-	return result
+	*a3 = *v3
+	return a3
 }
 func nox_xxx_dropAllItems_4EDA40(a1 *server.Object) {
 	var (
