@@ -30,7 +30,7 @@ func set_dword_5d4594_3799468(v int) {
 }
 
 func nox_window_new(par *gui.Window, flags nox_window_flags, a3, a4, w, h int, fnc gui.WindowFuncLegacy) *gui.Window {
-	return GetClient().Cli().GUI.NewWindowRaw(par, gui.StatusFlags(flags), a3, a4, w, h, gui.WrapFunc(fnc))
+	return GetClient().Cli().GUI.NewWindowRaw(par, flags, a3, a4, w, h, gui.WrapFunc(fnc))
 }
 
 // nox_xxx_wndGetID_46B0A0

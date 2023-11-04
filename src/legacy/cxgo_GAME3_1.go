@@ -4207,7 +4207,7 @@ func nox_gui_newProgressBar_4CAF10(a1 *gui.Window, a2 nox_window_flags, a3, a4, 
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a7), 4*4)) == 0 {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a7), 4*4)) = uint32(uintptr(unsafe.Pointer(v8)))
 	}
-	nox_gui_windowCopyDrawData_46AF80(v8, unsafe.Pointer(a7))
+	nox_gui_windowCopyDrawData_46AF80(v8, (*gui.WindowData)(unsafe.Pointer(a7)))
 	return v8
 }
 func sub_4CAF80(win *gui.Window, a2, a3, p4 uintptr) uintptr {

@@ -13,7 +13,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -1921,13 +1920,8 @@ func sub_466620(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 }
 func sub_466950(a1 *gui.Window) int32 {
 	var (
-		v5 [4]int32
 		v6 [332]byte
 	)
-	v5[1] = 0
-	v5[2] = 0
-	v5[3] = 0
-	v5[0] = 0
 	*(*uint32)(unsafe.Pointer(&v6[24])) = 0
 	*(*uint32)(unsafe.Pointer(&v6[48])) = 0
 	*(*uint32)(unsafe.Pointer(&v6[32])) = *memmap.PtrUint32(0x5D4594, 1049940)
@@ -1960,7 +1954,6 @@ func sub_466950(a1 *gui.Window) int32 {
 	}
 	nox_xxx_wndSetID_46B080(v3, 9103)
 	*(*[332]byte)(unsafe.Pointer(&v6[0])) = [332]byte{}
-	v5[2] = 0
 	*(*uint32)(unsafe.Pointer(&v6[20])) = 0x80000000
 	*(*uint32)(unsafe.Pointer(&v6[44])) = 0x80000000
 	*(*uint32)(unsafe.Pointer(&v6[28])) = 0x80000000
@@ -1968,10 +1961,12 @@ func sub_466950(a1 *gui.Window) int32 {
 	*(*uint32)(unsafe.Pointer(&v6[52])) = 0x80000000
 	*(*uint32)(unsafe.Pointer(&v6[8])) = 8
 	*(**gui.Window)(unsafe.Pointer(&v6[16])) = a1
-	v5[3] = 0
-	v5[0] = 0
-	v5[1] = 850
-	v4 := nox_gui_newSlider_4B4EE0(a1, 1033, 524, 42, 16, 91, (*uint32)(unsafe.Pointer(&v6[0])), (*float32)(unsafe.Pointer(&v5[0])))
+	var v5 nox_slider_data
+	v5.field0 = 0
+	v5.field4 = 850
+	v5.field8 = 0
+	v5.field12 = 0
+	v4 := nox_gui_newSlider_4B4EE0(a1, 1033, 524, 42, 16, 91, (*uint32)(unsafe.Pointer(&v6[0])), &v5)
 	dword_5d4594_1062508 = v4
 	if v4 == nil {
 		return 0
@@ -2912,14 +2907,14 @@ func sub_46AF40(a1 unsafe.Pointer) unsafe.Pointer {
 	}
 	return *(*unsafe.Pointer)(unsafe.Add(a1, 236))
 }
-func nox_gui_windowCopyDrawData_46AF80(win *gui.Window, p unsafe.Pointer) int32 {
+func nox_gui_windowCopyDrawData_46AF80(win *gui.Window, p *gui.WindowData) int32 {
 	if win == nil {
 		return -2
 	}
 	if p == nil {
 		return -3
 	}
-	alloc.Memcpy(unsafe.Pointer(win.DrawData()), p, unsafe.Sizeof(gui.WindowData{}))
+	*win.DrawData() = *p
 	return 0
 }
 func sub_46B630(a1p *gui.Window, a2 int32, a3 int32) *gui.Window {

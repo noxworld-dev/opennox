@@ -113,10 +113,10 @@ type nox_inventory_cell_t struct {
 	field_144 uint32
 }
 type nox_scrollListBox_item struct {
-	field_0   uint32
-	text      [256]wchar2_t
-	field_129 uint32
-	field_130 uint32
+	field_0   uint32        // 0, 0
+	text      [256]wchar2_t // 1, 4
+	field_129 uint32        // 129, 516
+	field_130 uint32        // 130, 520
 }
 
 func (it *nox_scrollListBox_item) Text() string {

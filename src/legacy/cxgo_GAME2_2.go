@@ -5069,7 +5069,7 @@ func nox_gui_newEntryField_488500(a1p *gui.Window, a2 nox_window_flags, a3, a4, 
 	if *(*uint32)(unsafe.Add(a7, 16)) == 0 {
 		*(*uint32)(unsafe.Add(a7, 16)) = uint32(uintptr(unsafe.Pointer(v8)))
 	}
-	nox_gui_windowCopyDrawData_46AF80(v8, a7)
+	nox_gui_windowCopyDrawData_46AF80(v8, (*gui.WindowData)(a7))
 	libc.MemSet(unsafe.Pointer(a8), 0, 0x100)
 	libc.MemSet(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(wchar2_t(0))*256), 0, 0x100)
 	*(*wchar2_t)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(wchar2_t(0))*526)) = wchar2_t(nox_wcslen(a8))
@@ -5102,11 +5102,11 @@ func nox_gui_newEntryField_488500(a1p *gui.Window, a2 nox_window_flags, a3, a4, 
 	*(*uint32)(unsafe.Pointer(&v14[16])) = 0
 	*(*uint16)(unsafe.Pointer(&v15[72])) = 0
 	*(*uint32)(unsafe.Pointer(&v15[8])) = 288
-	v12 := nox_gui_newScrollListBox_4A4310(nil, 17584, 0, a6, 110, 119, unsafe.Pointer(&v15[0]), (*nox_scrollListBox_data)(unsafe.Pointer(&v14[0])))
+	v12 := nox_gui_newScrollListBox_4A4310(nil, 17584, 0, a6, 110, 119, (*gui.WindowData)(unsafe.Pointer(&v15[0])), (*nox_scrollListBox_data)(unsafe.Pointer(&v14[0])))
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262)) = unsafe.Pointer(v12)
 	if v12 != nil {
 		nox_xxx_wndClearFlag_46AD80(v12, 128)
-		nox_xxx_wndListboxInit_4A3C00(*(**gui.Window)(unsafe.Add(unsafe.Pointer(v10), 4*262)), *(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262)), 32)))
+		nox_xxx_wndListboxInit_4A3C00(*(**gui.Window)(unsafe.Add(unsafe.Pointer(v10), 4*262)), (*nox_scrollListBox_data)(*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262)), 32))))
 		v13 = int32(nox_color_rgb_4344A0(0, 0, 0))
 		nox_xxx_wndSetRectColor2MB_46AFE0((*gui.Window)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262))), v13)
 		return v8

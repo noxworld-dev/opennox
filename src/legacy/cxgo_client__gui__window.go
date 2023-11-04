@@ -6,7 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
-type nox_window_flags uint32
+type nox_window_flags = gui.StatusFlags
 
 const (
 	NOX_WIN_HIDDEN      nox_window_flags = 0x10
