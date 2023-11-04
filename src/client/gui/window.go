@@ -52,7 +52,7 @@ type WidgetData interface {
 type Window struct {
 	id             int32          // 0, 0
 	Flags          StatusFlags    // 1, 4
-	size           image.Point    // 2, 8
+	SizeVal        image.Point    // 2, 8
 	Off            image.Point    // 4, 16
 	EndPos         image.Point    // 6, 24
 	WidgetData     unsafe.Pointer // 8, 32; different types
@@ -65,7 +65,7 @@ type Window struct {
 	prev           *Window        // 97, 388
 	next           *Window        // 98, 392
 	parent         *Window        // 99, 396
-	field100       *Window        // 100, 400
+	Field100Ptr    *Window        // 100, 400
 }
 
 func (win *Window) C() unsafe.Pointer {
@@ -120,7 +120,7 @@ func (win *Window) Size() image.Point {
 	if win.isNilOrDead() {
 		return image.Point{}
 	}
-	return win.size
+	return win.SizeVal
 }
 
 func (win *Window) DrawData() *WindowData {
@@ -169,12 +169,12 @@ func (win *Window) setParent(par *Window) {
 		return
 	}
 	win.next = nil
-	v2 := par.field100
+	v2 := par.Field100Ptr
 	win.prev = v2
 	if v2 != nil {
 		v2.next = win
 	}
-	par.field100 = win
+	par.Field100Ptr = win
 	win.parent = par
 }
 
@@ -189,7 +189,7 @@ func (win *Window) Field100() *Window {
 	if win == nil {
 		return nil
 	}
-	return win.field100
+	return win.Field100Ptr
 }
 
 func (win *Window) Show() {
@@ -261,7 +261,7 @@ func (win *Window) ChildByID(id uint) *Window {
 		if cur.ID() == id {
 			return cur
 		}
-		if sub := cur.field100; sub != nil {
+		if sub := cur.Field100Ptr; sub != nil {
 			if res := sub.ChildByID(id); res != nil {
 				return res
 			}
@@ -487,7 +487,7 @@ func (win *Window) drawRecursive() bool {
 		win.GUI().drawWindowBorder(win)
 	}
 
-	for sub := win.field100; sub != nil; sub = sub.Prev() {
+	for sub := win.Field100Ptr; sub != nil; sub = sub.Prev() {
 		sub.drawRecursive()
 	}
 	return true
@@ -502,11 +502,11 @@ func (win *Window) unlink() {
 			prev.next = win.Next()
 		}
 	} else if prev != nil {
-		win.Parent().field100 = prev
+		win.Parent().Field100Ptr = prev
 		win.Prev().next = win.Next()
 		win.prev = nil
 	} else {
-		win.Parent().field100 = nil
+		win.Parent().Field100Ptr = nil
 	}
 }
 

@@ -1,6 +1,7 @@
 package opennox
 
 import (
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -336,4 +337,10 @@ func init() {
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0 = func(a1 bool) {
 		noxServer.nox_xxx_mapSwitchLevel_4D12E0(a1)
 	}
+	legacy.NewButtonOrCheckbox = func(parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData) *gui.Window {
+		return newButtonOrCheckbox(noxClient.GUI, parent, status, px, py, w, h, draw)
+	}
+	legacy.Sub_4B5700 = sub_4B5700
+	legacy.Nox_xxx_wndButtonProc_4A7F50 = nox_xxx_wndButtonProc_4A7F50
+	legacy.Nox_xxx_wndButtonDrawNoImg_4A81D0 = nox_xxx_wndButtonDrawNoImg_4A81D0
 }

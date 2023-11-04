@@ -62,18 +62,18 @@ const (
 )
 
 const (
-	NOX_MOUSE_LEFT_DOWN       = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_DOWN))
-	NOX_MOUSE_LEFT_DRAG_END   = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_DRAG_END))
-	NOX_MOUSE_LEFT_UP         = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_UP))
-	NOX_MOUSE_LEFT_PRESSED    = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_PRESSED))
-	NOX_MOUSE_RIGHT_DOWN      = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_DOWN))
-	NOX_MOUSE_RIGHT_DRAG_END  = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_DRAG_END))
-	NOX_MOUSE_RIGHT_UP        = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_UP))
-	NOX_MOUSE_RIGHT_PRESSED   = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_PRESSED))
-	NOX_MOUSE_MIDDLE_DOWN     = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_DOWN))
-	NOX_MOUSE_MIDDLE_DRAG_END = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_DRAG_END))
-	NOX_MOUSE_MIDDLE_UP       = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_UP))
-	NOX_MOUSE_MIDDLE_PRESSED  = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_PRESSED))
+	NOX_MOUSE_LEFT_DOWN       = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_DOWN))       // 5
+	NOX_MOUSE_LEFT_DRAG_END   = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_DRAG_END))   // 6
+	NOX_MOUSE_LEFT_UP         = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_UP))         // 7
+	NOX_MOUSE_LEFT_PRESSED    = MouseStateCode(4*(int(NOX_MOUSE_LEFT)+1) + int(NOX_MOUSE_PRESSED))    // 8
+	NOX_MOUSE_RIGHT_DOWN      = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_DOWN))      // 9
+	NOX_MOUSE_RIGHT_DRAG_END  = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_DRAG_END))  // 10
+	NOX_MOUSE_RIGHT_UP        = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_UP))        // 11
+	NOX_MOUSE_RIGHT_PRESSED   = MouseStateCode(4*(int(NOX_MOUSE_RIGHT)+1) + int(NOX_MOUSE_PRESSED))   // 12
+	NOX_MOUSE_MIDDLE_DOWN     = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_DOWN))     // 13
+	NOX_MOUSE_MIDDLE_DRAG_END = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_DRAG_END)) // 14
+	NOX_MOUSE_MIDDLE_UP       = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_UP))       // 15
+	NOX_MOUSE_MIDDLE_PRESSED  = MouseStateCode(4*(int(NOX_MOUSE_MIDDLE)+1) + int(NOX_MOUSE_PRESSED))  // 16
 )
 
 type MouseStateCode uint

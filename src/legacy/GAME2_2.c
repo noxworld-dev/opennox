@@ -1519,6 +1519,7 @@ int sub_479BE0(uint32_t* a1, int a2, unsigned int a3, int a4) {
 }
 
 //----- (00479C40) --------------------------------------------------------
+int nox_xxx_wndButtonDrawNoImg_4A81D0(int a1, int a2);
 int sub_479C40(uint32_t* a1, int a2) {
 	char v2;   // bl
 	int yTop;  // [esp+8h] [ebp-8h]
