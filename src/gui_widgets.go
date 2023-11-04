@@ -16,14 +16,14 @@ func guiNewWidget(g *gui.GUI, typ string, parent *gui.Window, status gui.StatusF
 	switch typ {
 	case "PUSHBUTTON":
 		draw.Style |= gui.StylePushButton
-		return newButtonOrCheckbox(g, parent, status, px, py, w, h, draw)
+		return newButton(g, parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
 		tdata, _ := data.(*gui.RadioButtonData)
 		draw.Style |= gui.StyleRadioButton
 		return newRadioButton(g, parent, status, px, py, w, h, draw, tdata)
 	case "CHECKBOX":
 		draw.Style |= gui.StyleCheckBox
-		return newButtonOrCheckbox(g, parent, status, px, py, w, h, draw)
+		return newCheckBox(g, parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
 		tdata, _ := data.(*gui.SliderData)
 		draw.Style |= gui.StyleVertSlider
@@ -95,7 +95,7 @@ func NewCheckbox(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, text st
 	draw.SetHighlightImage(nil)
 	status := gui.StatusEnabled | gui.StatusImage | gui.StatusNoFocus
 
-	win := newButtonOrCheckbox(g, par, status, px, py, w, h, draw)
+	win := newCheckBox(g, par, status, px, py, w, h, draw)
 	win.SetID(id)
 	if par != nil {
 		par.Func94(gui.WindowNewChild{ID: id})
@@ -135,27 +135,9 @@ func NewRadioButton(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, grou
 func newButtonOrCheckbox(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData) *gui.Window {
 	st := draw.Style
 	if st.IsPushButton() {
-		btn := g.NewWindowRaw(parent, status, px, py, w, h, legacy.Nox_xxx_wndButtonProcPre_4A9250)
-		if btn == nil {
-			return nil
-		}
-		legacy.Nox_xxx_wndButtonInit_4A8340(btn)
-		if draw.Window == nil {
-			draw.Window = btn
-		}
-		btn.CopyDrawData(draw)
-		return btn
+		return newButton(g, parent, status, px, py, w, h, draw)
 	} else if st.IsCheckBox() {
-		btn := g.NewWindowRaw(parent, status, px, py, w, h, legacy.Nox_xxx_wndCheckboxProcMB_4A92C0)
-		if btn == nil {
-			return nil
-		}
-		legacy.Nox_xxx_wndCheckBoxInit_4A8E60(btn)
-		if draw.Window == nil {
-			draw.Window = btn
-		}
-		btn.CopyDrawData(draw)
-		return btn
+		return newCheckBox(g, parent, status, px, py, w, h, draw)
 	}
 	return nil
 }

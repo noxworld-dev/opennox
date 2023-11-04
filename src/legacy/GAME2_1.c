@@ -2228,6 +2228,7 @@ int sub_466950(int a1) {
 }
 
 //----- (00466BA0) --------------------------------------------------------
+int nox_xxx_wndButtonProc_4A7F50(nox_window* win, int ev, int a3, int a4);
 int sub_466BA0(uint32_t* a1, int a2, unsigned int a3, int a4) {
 	int result; // eax
 

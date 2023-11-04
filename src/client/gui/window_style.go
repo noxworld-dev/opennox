@@ -26,26 +26,26 @@ func NewWindowData() (*WindowData, func()) {
 }
 
 type WindowData struct {
-	Field0    uint32                // 0, 0 (36)
-	group     int32                 // 1, 4 (40)
-	Style     StyleFlags            // 2, 8 (44)
-	Status    StatusFlags           // 3, 12 (48)
-	Window    *Window               // 4, 16 (52)
-	bgColor   uint32                // 5, 20 (56)
-	bgImage   noxrender.ImageHandle // 6, 24 (60)
-	enColor   uint32                // 7, 28 (64)
-	enImage   noxrender.ImageHandle // 8, 32 (68)
-	hlColor   uint32                // 9, 36 (72)
-	hlImage   noxrender.ImageHandle // 10, 40 (76)
-	disColor  uint32                // 11, 44 (80)
-	disImage  noxrender.ImageHandle // 12, 48 (84)
-	selColor  uint32                // 13, 52 (88)
-	selImage  noxrender.ImageHandle // 14, 56 (92)
-	imgPt     image.Point           // 15, 60 (96)
-	textColor uint32                // 17, 68 (104)
-	text      [64]uint16            // 18, 72 (108)
-	font      unsafe.Pointer        // 50, 200 (236)
-	tooltip   [64]uint16            // 51, 204 (240)
+	Field0       uint32                // 0, 0 (36)
+	group        int32                 // 1, 4 (40)
+	Style        StyleFlags            // 2, 8 (44)
+	Status       StatusFlags           // 3, 12 (48)
+	Window       *Window               // 4, 16 (52)
+	BgColorVal   uint32                // 5, 20 (56)
+	BgImageHnd   noxrender.ImageHandle // 6, 24 (60)
+	EnColorVal   uint32                // 7, 28 (64)
+	EnImageHnd   noxrender.ImageHandle // 8, 32 (68)
+	HlColorVal   uint32                // 9, 36 (72)
+	HlImageHnd   noxrender.ImageHandle // 10, 40 (76)
+	DisColorVal  uint32                // 11, 44 (80)
+	DisImageHnd  noxrender.ImageHandle // 12, 48 (84)
+	SelColorVal  uint32                // 13, 52 (88)
+	SelImageHnd  noxrender.ImageHandle // 14, 56 (92)
+	ImgPtVal     image.Point           // 15, 60 (96)
+	TextColorVal uint32                // 17, 68 (104)
+	text         [64]uint16            // 18, 72 (108)
+	FontPtr      unsafe.Pointer        // 50, 200 (236)
+	tooltip      [64]uint16            // 51, 204 (240)
 }
 
 func (d *WindowData) C() unsafe.Pointer {
@@ -90,107 +90,107 @@ func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {
 }
 
 func (d *WindowData) BackgroundColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.bgColor >> 16)
+	return noxcolor.RGBA5551(d.BgColorVal >> 16)
 }
 
 func (d *WindowData) SetBackgroundColor(cl color.Color) {
-	d.bgColor = noxcolor.ToRGBA5551Color(cl).Color32()
+	d.BgColorVal = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) EnabledColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.enColor >> 16)
+	return noxcolor.RGBA5551(d.EnColorVal >> 16)
 }
 
 func (d *WindowData) SetEnabledColor(cl color.Color) {
-	d.enColor = noxcolor.ToRGBA5551Color(cl).Color32()
+	d.EnColorVal = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) DisabledColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.disColor >> 16)
+	return noxcolor.RGBA5551(d.DisColorVal >> 16)
 }
 
 func (d *WindowData) SetDisabledColor(cl color.Color) {
-	d.disColor = noxcolor.ToRGBA5551Color(cl).Color32()
+	d.DisColorVal = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) HighlightColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.hlColor >> 16)
+	return noxcolor.RGBA5551(d.HlColorVal >> 16)
 }
 
 func (d *WindowData) SetHighlightColor(cl color.Color) {
-	d.hlColor = noxcolor.ToRGBA5551Color(cl).Color32()
+	d.HlColorVal = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) SelectedColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.selColor >> 16)
+	return noxcolor.RGBA5551(d.SelColorVal >> 16)
 }
 
 func (d *WindowData) SetSelectedColor(cl color.Color) {
-	d.selColor = noxcolor.ToRGBA5551Color(cl).Color32()
+	d.SelColorVal = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) TextColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.textColor >> 16)
+	return noxcolor.RGBA5551(d.TextColorVal >> 16)
 }
 
 func (d *WindowData) SetTextColor(cl color.Color) {
-	d.textColor = noxcolor.ToRGBA5551Color(cl).Color32()
+	d.TextColorVal = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) BackgroundImage() *noxrender.Image {
-	return d.gui().r.Bag.AsImage(d.bgImage)
+	return d.gui().r.Bag.AsImage(d.BgImageHnd)
 }
 
 func (d *WindowData) SetBackgroundImage(p *noxrender.Image) {
-	d.bgImage = p.C()
+	d.BgImageHnd = p.C()
 }
 
 func (d *WindowData) EnabledImage() *noxrender.Image {
-	return d.gui().r.Bag.AsImage(d.enImage)
+	return d.gui().r.Bag.AsImage(d.EnImageHnd)
 }
 
 func (d *WindowData) SetEnabledImage(p *noxrender.Image) {
-	d.enImage = p.C()
+	d.EnImageHnd = p.C()
 }
 
 func (d *WindowData) DisabledImage() *noxrender.Image {
-	return d.gui().r.Bag.AsImage(d.disImage)
+	return d.gui().r.Bag.AsImage(d.DisImageHnd)
 }
 
 func (d *WindowData) SetDisabledImage(p *noxrender.Image) {
-	d.disImage = p.C()
+	d.DisImageHnd = p.C()
 }
 
 func (d *WindowData) HighlightImage() *noxrender.Image {
-	return d.gui().r.Bag.AsImage(d.hlImage)
+	return d.gui().r.Bag.AsImage(d.HlImageHnd)
 }
 
 func (d *WindowData) SetHighlightImage(p *noxrender.Image) {
-	d.hlImage = p.C()
+	d.HlImageHnd = p.C()
 }
 
 func (d *WindowData) SelectedImage() *noxrender.Image {
-	return d.gui().r.Bag.AsImage(d.selImage)
+	return d.gui().r.Bag.AsImage(d.SelImageHnd)
 }
 
 func (d *WindowData) SetSelectedImage(p *noxrender.Image) {
-	d.selImage = p.C()
+	d.SelImageHnd = p.C()
 }
 
 func (d *WindowData) FontC() unsafe.Pointer {
-	return d.font
+	return d.FontPtr
 }
 
 func (d *WindowData) SetFont(font unsafe.Pointer) {
-	d.font = font
+	d.FontPtr = font
 }
 
 func (d *WindowData) ImagePoint() image.Point {
-	return d.imgPt
+	return d.ImgPtVal
 }
 
 func (d *WindowData) SetImagePoint(p image.Point) {
-	d.imgPt = p
+	d.ImgPtVal = p
 }
 
 func (d *WindowData) SetDefaults(def StyleDefaults) {
@@ -203,7 +203,7 @@ func (d *WindowData) SetDefaults(def StyleDefaults) {
 }
 
 func (d *WindowData) Font() font.Face {
-	return d.gui().r.Fonts.AsFont(d.font)
+	return d.gui().r.Fonts.AsFont(d.FontPtr)
 }
 
 type Borders struct {
