@@ -16,14 +16,14 @@ func guiNewWidget(g *gui.GUI, typ string, parent *gui.Window, status gui.StatusF
 	switch typ {
 	case "PUSHBUTTON":
 		draw.Style |= gui.StylePushButton
-		return newButton(g, parent, status, px, py, w, h, draw)
+		return gui.NewButtonRaw(g, parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
 		tdata, _ := data.(*gui.RadioButtonData)
 		draw.Style |= gui.StyleRadioButton
 		return newRadioButton(g, parent, status, px, py, w, h, draw, tdata)
 	case "CHECKBOX":
 		draw.Style |= gui.StyleCheckBox
-		return newCheckBox(g, parent, status, px, py, w, h, draw)
+		return gui.NewCheckBoxRaw(g, parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
 		tdata, _ := data.(*gui.SliderData)
 		draw.Style |= gui.StyleVertSlider
@@ -78,29 +78,8 @@ func NewHorizontalSlider(par *gui.Window, id uint, px, py, w, h int, min, max in
 	return win
 }
 
-func NewCheckbox(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, text string) *gui.Window {
-	draw, dfree := gui.NewWindowData()
-	defer dfree()
-	*draw = *par.DrawData()
-
-	draw.Window = par
-	draw.Style = gui.StyleCheckBox | gui.StyleMouseTrack
-	draw.SetHighlightColor(noxcolor.RGB5551Color(192, 128, 128))
-	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
-	draw.SetText(text)
-	draw.SetBackgroundImage(nox_xxx_gLoadImg("UICheckBox"))
-	draw.SetSelectedImage(nox_xxx_gLoadImg("UICheckBoxLit"))
-	draw.SetDisabledImage(nox_xxx_gLoadImg("UICheckBox"))
-	draw.SetEnabledImage(nil)
-	draw.SetHighlightImage(nil)
-	status := gui.StatusEnabled | gui.StatusImage | gui.StatusNoFocus
-
-	win := newCheckBox(g, par, status, px, py, w, h, draw)
-	win.SetID(id)
-	if par != nil {
-		par.Func94(gui.WindowNewChild{ID: id})
-	}
-	return win
+func NewCheckBox(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, text string) *gui.Window {
+	return gui.NewCheckBoxImg(g, par, id, px, py, w, h, text, nox_xxx_gLoadImg("UICheckBox"), nox_xxx_gLoadImg("UICheckBoxLit"), nox_xxx_gLoadImg("UICheckBox"))
 }
 
 func NewRadioButton(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, group int, text string) *gui.Window {
@@ -130,16 +109,6 @@ func NewRadioButton(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, grou
 		par.Func94(gui.WindowNewChild{ID: id})
 	}
 	return win
-}
-
-func newButtonOrCheckbox(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData) *gui.Window {
-	st := draw.Style
-	if st.IsPushButton() {
-		return newButton(g, parent, status, px, py, w, h, draw)
-	} else if st.IsCheckBox() {
-		return newCheckBox(g, parent, status, px, py, w, h, draw)
-	}
-	return nil
 }
 
 func newRadioButton(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, data *gui.RadioButtonData) *gui.Window {

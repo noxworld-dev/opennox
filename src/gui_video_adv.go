@@ -187,7 +187,7 @@ func (c *guiAdvOptions) newAdvVideoOpts() *gui.Window {
 				str = e.Value().Str
 			}
 		}
-		NewCheckbox(c.cli.GUI, root, opt.ID, pad, y, width, cheight, str)
+		NewCheckBox(c.cli.GUI, root, opt.ID, pad, y, width, cheight, str)
 		n++
 	}
 	return root
