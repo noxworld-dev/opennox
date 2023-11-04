@@ -39,17 +39,17 @@ func nox_gui_newButtonOrCheckbox_4A91A0(parent *nox_window, a2, a3, a4, a5, a6 C
 
 //export sub_4B5700
 func sub_4B5700(win *nox_window, bg, dis, en, sel, hl unsafe.Pointer) {
-	gui.Sub_4B5700(asWindow(win), noxrender.ImageHandle(bg), noxrender.ImageHandle(dis), noxrender.ImageHandle(en), noxrender.ImageHandle(sel), noxrender.ImageHandle(hl))
+	gui.ButtonSetImage(asWindow(win), noxrender.ImageHandle(bg), noxrender.ImageHandle(dis), noxrender.ImageHandle(en), noxrender.ImageHandle(sel), noxrender.ImageHandle(hl))
 }
 
 //export nox_xxx_wndButtonProc_4A7F50
 func nox_xxx_wndButtonProc_4A7F50(win *nox_window, a1, a2, a3 C.int) C.int {
-	return C.int(gui.EventRespInt(gui.Nox_xxx_wndButtonProc_4A7F50(asWindow(win), gui.AsWindowEvent(int(a1), uintptr(a2), uintptr(a3)))))
+	return C.int(gui.EventRespInt(gui.ButtonProc2(asWindow(win), gui.AsWindowEvent(int(a1), uintptr(a2), uintptr(a3)))))
 }
 
 //export nox_xxx_wndButtonDrawNoImg_4A81D0
 func nox_xxx_wndButtonDrawNoImg_4A81D0(win *nox_window, draw *C.nox_window_data) int {
-	return gui.Nox_xxx_wndButtonDrawNoImg_4A81D0(asWindow(win), asWindowData(draw))
+	return gui.ButtonDrawNoImg(asWindow(win), asWindowData(draw))
 }
 
 func Nox_gui_newScrollListBox_4A4310(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.ScrollListBoxData) *gui.Window {

@@ -37,11 +37,11 @@ func NewCheckBoxImg(g *GUI, par *Window, id uint, px, py, w, h int, text string,
 }
 
 func NewCheckBoxRaw(g *GUI, parent *Window, status StatusFlags, px, py, w, h int, draw *WindowData) *Window {
-	btn := g.NewWindowRaw(parent, status, px, py, w, h, nox_xxx_wndCheckboxProcMB_4A92C0)
+	btn := g.NewWindowRaw(parent, status, px, py, w, h, checkboxProc1)
 	if btn == nil {
 		return nil
 	}
-	nox_xxx_wndCheckBoxInit_4A8E60(btn)
+	checkboxInit(btn)
 	if draw.Window == nil {
 		draw.Window = btn
 	}
@@ -49,7 +49,7 @@ func NewCheckBoxRaw(g *GUI, parent *Window, status StatusFlags, px, py, w, h int
 	return btn
 }
 
-func nox_xxx_wndCheckboxProcMB_4A92C0(win *Window, e WindowEvent) WindowEventResp {
+func checkboxProc1(win *Window, e WindowEvent) WindowEventResp {
 	switch e := e.(type) {
 	case WindowFocus:
 		if !e {
@@ -67,15 +67,15 @@ func nox_xxx_wndCheckboxProcMB_4A92C0(win *Window, e WindowEvent) WindowEventRes
 	}
 }
 
-func nox_xxx_wndCheckBoxInit_4A8E60(win *Window) {
+func checkboxInit(win *Window) {
 	if !win.Flags.Has(StatusImage) {
-		win.SetAllFuncs(nox_xxx_wndCheckBoxProc_4A8C00, nox_xxx_wndDrawCheckBoxNoImg_4A8EA0, nil)
+		win.SetAllFuncs(checkboxProc2, checkboxDrawNoImg, nil)
 	} else {
-		win.SetAllFuncs(nox_xxx_wndCheckBoxProc_4A8C00, nox_xxx_wndDrawCheckBox_4A9050, nil)
+		win.SetAllFuncs(checkboxProc2, checkboxDrawImg, nil)
 	}
 }
 
-func nox_xxx_wndCheckBoxProc_4A8C00(win *Window, e WindowEvent) WindowEventResp {
+func checkboxProc2(win *Window, e WindowEvent) WindowEventResp {
 	switch e := e.(type) {
 	case WindowKeyPress:
 		switch e.Key {
@@ -132,7 +132,7 @@ func nox_xxx_wndCheckBoxProc_4A8C00(win *Window, e WindowEvent) WindowEventResp 
 	}
 }
 
-func nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(win *Window, draw *WindowData) int {
+func checkboxDrawNoImg(win *Window, draw *WindowData) int {
 	g := win.GUI()
 	r := g.Render()
 	borderCl := draw.EnabledColor()
@@ -181,7 +181,7 @@ func nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(win *Window, draw *WindowData) int {
 	return 1
 }
 
-func nox_xxx_wndDrawCheckBox_4A9050(win *Window, draw *WindowData) int {
+func checkboxDrawImg(win *Window, draw *WindowData) int {
 	g := win.GUI()
 	r := g.Render()
 	v11 := r.Bag.AsImage(draw.EnImageHnd)
