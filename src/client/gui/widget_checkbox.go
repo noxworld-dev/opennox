@@ -1,4 +1,4 @@
-package opennox
+package gui
 
 import (
 	"image"
@@ -7,11 +7,36 @@ import (
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
-func newCheckBox(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData) *gui.Window {
+func NewCheckBoxImg(g *GUI, par *Window, id uint, px, py, w, h int, text string, bg, sel, dis *noxrender.Image) *Window {
+	draw, dfree := NewWindowData()
+	defer dfree()
+	*draw = *par.DrawData()
+
+	draw.Window = par
+	draw.Style = StyleCheckBox | StyleMouseTrack
+	draw.SetHighlightColor(noxcolor.RGB5551Color(192, 128, 128))
+	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
+	draw.SetText(text)
+	draw.SetBackgroundImage(bg)
+	draw.SetSelectedImage(sel)
+	draw.SetDisabledImage(dis)
+	draw.SetEnabledImage(nil)
+	draw.SetHighlightImage(nil)
+	status := StatusEnabled | StatusImage | StatusNoFocus
+
+	win := NewCheckBoxRaw(g, par, status, px, py, w, h, draw)
+	win.SetID(id)
+	if par != nil {
+		par.Func94(WindowNewChild{ID: id})
+	}
+	return win
+}
+
+func NewCheckBoxRaw(g *GUI, parent *Window, status StatusFlags, px, py, w, h int, draw *WindowData) *Window {
 	btn := g.NewWindowRaw(parent, status, px, py, w, h, nox_xxx_wndCheckboxProcMB_4A92C0)
 	if btn == nil {
 		return nil
@@ -24,90 +49,90 @@ func newCheckBox(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, py,
 	return btn
 }
 
-func nox_xxx_wndCheckboxProcMB_4A92C0(win *gui.Window, e gui.WindowEvent) gui.WindowEventResp {
+func nox_xxx_wndCheckboxProcMB_4A92C0(win *Window, e WindowEvent) WindowEventResp {
 	switch e := e.(type) {
-	case gui.WindowFocus:
+	case WindowFocus:
 		if !e {
 			win.DrawData().Field0 &^= 0x2
 		}
 		// TODO
 		p3, _ := e.EventArgsC()
-		win.DrawData().Window.Func94(gui.AsWindowEvent(0x4003, p3, uintptr(win.ID())))
-		return gui.RawEventResp(1)
-	case *gui.StaticTextSetText:
+		win.DrawData().Window.Func94(AsWindowEvent(0x4003, p3, uintptr(win.ID())))
+		return RawEventResp(1)
+	case *StaticTextSetText:
 		win.DrawData().SetText(e.Str)
-		return gui.RawEventResp(0)
+		return RawEventResp(0)
 	default:
-		return gui.RawEventResp(0)
+		return RawEventResp(0)
 	}
 }
 
-func nox_xxx_wndCheckBoxInit_4A8E60(win *gui.Window) {
-	if !win.Flags.Has(gui.StatusImage) {
+func nox_xxx_wndCheckBoxInit_4A8E60(win *Window) {
+	if !win.Flags.Has(StatusImage) {
 		win.SetAllFuncs(nox_xxx_wndCheckBoxProc_4A8C00, nox_xxx_wndDrawCheckBoxNoImg_4A8EA0, nil)
 	} else {
 		win.SetAllFuncs(nox_xxx_wndCheckBoxProc_4A8C00, nox_xxx_wndDrawCheckBox_4A9050, nil)
 	}
 }
 
-func nox_xxx_wndCheckBoxProc_4A8C00(win *gui.Window, e gui.WindowEvent) gui.WindowEventResp {
+func nox_xxx_wndCheckBoxProc_4A8C00(win *Window, e WindowEvent) WindowEventResp {
 	switch e := e.(type) {
-	case gui.WindowKeyPress:
+	case WindowKeyPress:
 		switch e.Key {
 		case keybind.KeyTab, keybind.KeyRight, keybind.KeyDown, keybind.KeyUp, keybind.KeyLeft:
-			return gui.RawEventResp(1)
+			return RawEventResp(1)
 		case keybind.KeyEnter, keybind.KeySpace:
 			if e.Pressed {
-				win.DrawData().Window.Func94(gui.AsWindowEvent(0x4007, uintptr(unsafe.Pointer(win)), 0))
+				win.DrawData().Window.Func94(AsWindowEvent(0x4007, uintptr(unsafe.Pointer(win)), 0))
 				win.DrawData().Field0 ^= 4
 			}
-			return gui.RawEventResp(1)
+			return RawEventResp(1)
 		default:
-			return gui.RawEventResp(0)
+			return RawEventResp(0)
 		}
-	case *gui.WindowMouseState:
+	case *WindowMouseState:
 		switch e.State {
 		case input.NOX_MOUSE_LEFT_DOWN:
-			return gui.RawEventResp(1)
+			return RawEventResp(1)
 		case input.NOX_MOUSE_LEFT_DRAG_END, input.NOX_MOUSE_LEFT_UP:
 			if (win.DrawData().Field0 & 2) == 0 {
-				return gui.RawEventResp(0)
+				return RawEventResp(0)
 			}
 			a3, _ := e.EventArgsC()
-			win.DrawData().Window.Func94(gui.AsWindowEvent(0x4007, uintptr(unsafe.Pointer(win)), a3))
+			win.DrawData().Window.Func94(AsWindowEvent(0x4007, uintptr(unsafe.Pointer(win)), a3))
 			win.DrawData().Field0 ^= 4
-			return gui.RawEventResp(1)
+			return RawEventResp(1)
 		case input.NOX_MOUSE_LEFT_PRESSED:
 			a3, _ := e.EventArgsC()
-			win.DrawData().Window.Func94(gui.AsWindowEvent(0x4000, uintptr(unsafe.Pointer(win)), a3))
-			return gui.RawEventResp(1)
+			win.DrawData().Window.Func94(AsWindowEvent(0x4000, uintptr(unsafe.Pointer(win)), a3))
+			return RawEventResp(1)
 		default:
-			return gui.RawEventResp(0)
+			return RawEventResp(0)
 		}
 	default:
 		switch e.EventCode() {
 		case 17:
-			if win.DrawData().Style.Has(gui.StyleMouseTrack) {
+			if win.DrawData().Style.Has(StyleMouseTrack) {
 				win.DrawData().Field0 |= 0x2
 				a3, _ := e.EventArgsC()
-				win.DrawData().Window.Func94(gui.AsWindowEvent(0x4005, uintptr(unsafe.Pointer(win)), a3))
+				win.DrawData().Window.Func94(AsWindowEvent(0x4005, uintptr(unsafe.Pointer(win)), a3))
 				win.Focus()
 			}
-			return gui.RawEventResp(1)
+			return RawEventResp(1)
 		case 18:
-			if win.DrawData().Style.Has(gui.StyleMouseTrack) {
+			if win.DrawData().Style.Has(StyleMouseTrack) {
 				win.DrawData().Field0 &^= 0x2
 				a3, _ := e.EventArgsC()
-				win.DrawData().Window.Func94(gui.AsWindowEvent(0x4006, uintptr(unsafe.Pointer(win)), a3))
+				win.DrawData().Window.Func94(AsWindowEvent(0x4006, uintptr(unsafe.Pointer(win)), a3))
 			}
-			return gui.RawEventResp(1)
+			return RawEventResp(1)
 		default:
-			return gui.RawEventResp(0)
+			return RawEventResp(0)
 		}
 	}
 }
 
-func nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(win *gui.Window, draw *gui.WindowData) int {
+func nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(win *Window, draw *WindowData) int {
 	g := win.GUI()
 	r := g.Render()
 	borderCl := draw.EnabledColor()
@@ -146,7 +171,7 @@ func nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(win *gui.Window, draw *gui.WindowData) 
 	font := draw.Font()
 	x2 := x1 + 14
 	y2 := 5 - r.FontHeight(font)/2 + y1
-	if win.Flags.Has(gui.StatusSmoothText) {
+	if win.Flags.Has(StatusSmoothText) {
 		r.SetTextSmooting(true)
 	}
 	defer r.SetTextSmooting(false)
@@ -156,7 +181,7 @@ func nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(win *gui.Window, draw *gui.WindowData) 
 	return 1
 }
 
-func nox_xxx_wndDrawCheckBox_4A9050(win *gui.Window, draw *gui.WindowData) int {
+func nox_xxx_wndDrawCheckBox_4A9050(win *Window, draw *WindowData) int {
 	g := win.GUI()
 	r := g.Render()
 	v11 := r.Bag.AsImage(draw.EnImageHnd)
@@ -194,7 +219,7 @@ func nox_xxx_wndDrawCheckBox_4A9050(win *gui.Window, draw *gui.WindowData) int {
 	font := draw.Font()
 	x2 := x1 + 16
 	y2 := 5 - r.FontHeight(font)/2 + y1
-	if win.Flags.Has(gui.StatusSmoothText) {
+	if win.Flags.Has(StatusSmoothText) {
 		r.SetTextSmooting(true)
 	}
 	defer r.SetTextSmooting(false)
