@@ -23,6 +23,10 @@ func (s *StyleFlags) Set(s2 StyleFlags) {
 	*s |= s2
 }
 
+func (s StyleFlags) Has(s2 StyleFlags) bool {
+	return s&s2 != 0
+}
+
 func (s StyleFlags) IsPushButton() bool {
 	return s&StylePushButton != 0
 }

@@ -83,7 +83,7 @@ func AsWindowEvent(ev int, a1, a2 uintptr) WindowEvent {
 	if fnc := winEventTypes[ev]; fnc != nil {
 		return fnc(a1, a2)
 	}
-	if ev >= int(input.NOX_MOUSE_LEFT_DOWN) && ev <= int(input.NOX_MOUSE_MIDDLE_PRESSED) {
+	if ev >= int(input.NOX_MOUSE_LEFT_DOWN) && ev <= int(input.NOX_MOUSE_MIDDLE_PRESSED) { // [5, 16]
 		if a2 != 0 {
 			panic("unexpected event")
 		}
