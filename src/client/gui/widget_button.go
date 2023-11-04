@@ -12,11 +12,11 @@ import (
 )
 
 func NewButtonRaw(g *GUI, parent *Window, status StatusFlags, px, py, w, h int, draw *WindowData) *Window {
-	btn := g.NewWindowRaw(parent, status, px, py, w, h, nox_xxx_wndButtonProcPre_4A9250)
+	btn := g.NewWindowRaw(parent, status, px, py, w, h, buttonProc1)
 	if btn == nil {
 		return nil
 	}
-	nox_xxx_wndButtonInit_4A8340(btn)
+	buttonInit(btn)
 	if draw.Window == nil {
 		draw.Window = btn
 	}
@@ -24,7 +24,7 @@ func NewButtonRaw(g *GUI, parent *Window, status StatusFlags, px, py, w, h int, 
 	return btn
 }
 
-func nox_xxx_wndButtonProcPre_4A9250(win *Window, e WindowEvent) WindowEventResp {
+func buttonProc1(win *Window, e WindowEvent) WindowEventResp {
 	switch e := e.(type) {
 	case WindowFocus:
 		if !e {
@@ -42,21 +42,21 @@ func nox_xxx_wndButtonProcPre_4A9250(win *Window, e WindowEvent) WindowEventResp
 	}
 }
 
-func nox_xxx_wndButtonInit_4A8340(win *Window) {
+func buttonInit(win *Window) {
 	if !win.Flags.Has(StatusImage) {
-		win.SetAllFuncs(Nox_xxx_wndButtonProc_4A7F50, Nox_xxx_wndButtonDrawNoImg_4A81D0, nil)
+		win.SetAllFuncs(ButtonProc2, ButtonDrawNoImg, nil)
 	} else {
-		win.SetAllFuncs(Nox_xxx_wndButtonProc_4A7F50, nox_xxx_wndButtonDraw_4A8380, nil)
+		win.SetAllFuncs(ButtonProc2, buttonDrawImg, nil)
 	}
 }
 
-func Sub_4B5700(win *Window, bg, dis, en, sel, hl noxrender.ImageHandle) {
+func ButtonSetImage(win *Window, bg, dis, en, sel, hl noxrender.ImageHandle) {
 	if win == nil {
 		return
 	}
 	win2 := win.Field100Ptr
 	win2.Flags |= StatusImage
-	nox_xxx_wndButtonInit_4A8340(win2)
+	buttonInit(win2)
 	win2.DrawData().BgImageHnd = bg
 	win2.DrawData().EnImageHnd = en
 	win2.DrawData().DisImageHnd = dis
@@ -64,7 +64,7 @@ func Sub_4B5700(win *Window, bg, dis, en, sel, hl noxrender.ImageHandle) {
 	win2.DrawData().HlImageHnd = hl
 }
 
-func Nox_xxx_wndButtonProc_4A7F50(win *Window, e WindowEvent) WindowEventResp {
+func ButtonProc2(win *Window, e WindowEvent) WindowEventResp {
 	switch e := e.(type) {
 	case WindowKeyPress:
 		switch e.Key {
@@ -129,7 +129,7 @@ func Nox_xxx_wndButtonProc_4A7F50(win *Window, e WindowEvent) WindowEventResp {
 	}
 }
 
-func Nox_xxx_wndButtonDrawNoImg_4A81D0(win *Window, draw *WindowData) int {
+func ButtonDrawNoImg(win *Window, draw *WindowData) int {
 	g := win.GUI()
 	r := g.Render()
 	borderCl := draw.EnabledColor()
@@ -171,7 +171,7 @@ func Nox_xxx_wndButtonDrawNoImg_4A81D0(win *Window, draw *WindowData) int {
 	return 1
 }
 
-func nox_xxx_wndButtonDraw_4A8380(win *Window, draw *WindowData) int {
+func buttonDrawImg(win *Window, draw *WindowData) int {
 	g := win.GUI()
 	r := g.Render()
 	fgImg := r.Bag.AsImage(draw.EnImageHnd)
