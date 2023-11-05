@@ -96,7 +96,6 @@ type Server interface {
 	TeamsRemoveActive(hooks bool) int
 	TeamRemove(t *server.Team, netUpd bool)
 	DelayedDelete(obj *server.Object)
-	PendingObjByScriptID4CFFE0(sid int) *server.Object
 	NewWaypoint(pos types.Pointf) *server.Waypoint
 	Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) int
 	Sub_579E90(wp *server.Waypoint)

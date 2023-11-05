@@ -11,7 +11,7 @@ import (
 )
 
 func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
-	g := s.GroupByID(id, server.MapGroupWaypoints)
+	g := s.MapGroups.GroupByID(id, server.MapGroupWaypoints)
 	if g == nil {
 		return nil
 	}

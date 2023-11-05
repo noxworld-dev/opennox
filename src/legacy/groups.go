@@ -3,13 +3,10 @@ package legacy
 /*
 #include <stdint.h>
 extern uint32_t dword_5d4594_3835312;
-int  nox_server_scriptGetGroupId_57C2D0(int** a1);
 */
 import "C"
 import (
 	"unsafe"
-
-	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_server_getFirstMapGroup_57C080
@@ -47,7 +44,7 @@ func sub_5046A0(d *uint32, ind uint32) int {
 
 //export sub_4CFFE0
 func sub_4CFFE0(sid int) *nox_object_t {
-	return asObjectC(GetServer().PendingObjByScriptID4CFFE0(sid))
+	return asObjectC(GetServer().S().Objs.PendingByScriptID(sid))
 }
 
 //export sub_579C60
@@ -63,10 +60,6 @@ func nox_server_mapLoadAddGroup_57C0C0(name *C.char, ind uint32, typ byte) int32
 //export sub_504720
 func sub_504720(a1, a2 uint32) int32 {
 	return GetServer().Sub504720(a1, a2)
-}
-
-func Nox_server_scriptGetGroupId_57C2D0(g unsafe.Pointer) server.MapGroupKind {
-	return server.MapGroupKind(C.nox_server_scriptGetGroupId_57C2D0((**C.int)(g)))
 }
 
 func Get_dword_5d4594_3835312() int {

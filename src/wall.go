@@ -113,7 +113,7 @@ func asWallS(p *server.Wall) *Wall {
 }
 
 func (s *Server) getWallGroupByID(id string) *script.WallGroup {
-	g := s.GroupByID(id, server.MapGroupWalls)
+	g := s.MapGroups.GroupByID(id, server.MapGroupWalls)
 	if g == nil {
 		return nil
 	}

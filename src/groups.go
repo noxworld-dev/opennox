@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"fmt"
-	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -21,15 +20,6 @@ func (s *Server) Sub504720(a1, a2 uint32) int32 {
 	return 1
 }
 
-func (s *Server) PendingObjByScriptID4CFFE0(sid int) *server.Object {
-	for it := s.Objs.Pending; it != nil; it.Next() {
-		if it.ScriptIDVal == sid {
-			return it
-		}
-	}
-	return nil
-}
-
 func (s *Server) groupsAdjust(dx, dy uint32) {
 	di := s.MapGroups.NextMapGroupIndex()
 	for it := s.MapGroups.Refs; it != nil; it = it.Next4 {
@@ -40,7 +30,7 @@ func (s *Server) groupsAdjust(dx, dy uint32) {
 		for it2 := it.Field0.List; it2 != nil; it2 = it2.Next8 {
 			switch it.Field0.GroupType() {
 			case server.MapGroupObjects:
-				if p := s.PendingObjByScriptID4CFFE0(it2.Data1()); p != nil {
+				if p := s.Objs.PendingByScriptID(it2.Data1()); p != nil {
 					it2.Raw0 = p.Extent
 				}
 			case server.MapGroupWaypoints:
@@ -55,22 +45,4 @@ func (s *Server) groupsAdjust(dx, dy uint32) {
 			}
 		}
 	}
-}
-
-func (s *Server) GroupByID(id string, typ server.MapGroupKind) *server.MapGroup {
-	for p := s.MapGroups.GetFirstMapGroup(); p != nil; p = p.Next() {
-		if mapGroupType(p) != typ {
-			continue
-		}
-		id2 := p.ID()
-		if id == id2 || strings.HasSuffix(id2, ":"+id) {
-			return p
-		}
-	}
-	return nil
-}
-
-// mapGroupType determines the group's type recursively.
-func mapGroupType(g *server.MapGroup) server.MapGroupKind {
-	return legacy.Nox_server_scriptGetGroupId_57C2D0(g.C())
 }
