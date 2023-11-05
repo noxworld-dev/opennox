@@ -873,7 +873,7 @@ func (s *noxScript) NoxScript() ns4.Implementation {
 
 func (s *noxScript) PopWallGroupNS() ns4.WallGroupObj {
 	g := s.PopGroup()
-	if g == nil || mapGroupType(g) != server.MapGroupWalls {
+	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupWalls {
 		return nil
 	}
 	return nsWallGroup{s.s, g}
@@ -889,7 +889,7 @@ func (s *noxScript) PopWaypointNS() ns4.WaypointObj {
 
 func (s *noxScript) PopWpGroupNS() ns4.WaypointGroupObj {
 	g := s.PopGroup()
-	if g == nil || mapGroupType(g) != server.MapGroupWaypoints {
+	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupWaypoints {
 		return nil
 	}
 	return nsWpGroup{s.s, g}
@@ -905,7 +905,7 @@ func (s *noxScript) PopObjectNS() ns4.Obj {
 
 func (s *noxScript) PopObjGroupNS() ns4.ObjGroup {
 	g := s.PopGroup()
-	if g == nil || mapGroupType(g) != server.MapGroupObjects {
+	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupObjects {
 		return nil
 	}
 	return nsObjGroup{s.s, g}

@@ -25,7 +25,6 @@
 
 #include "client__gui__guiinv.h"
 #include "client__shell__mainmenu.h"
-#include "common__system__group.h"
 #include "common__system__team.h"
 
 #include "MixPatch.h"

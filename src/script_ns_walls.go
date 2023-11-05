@@ -35,14 +35,14 @@ func (s noxScriptNS) WallGroupByHandle(h ns.WallGroupHandle) ns.WallGroupObj {
 		return nil
 	}
 	g := s.s.MapGroups.GroupByInd(h.WallGroupScriptID())
-	if g == nil || mapGroupType(g) != server.MapGroupObjects {
+	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupObjects {
 		return nil
 	}
 	return nsWallGroup{s.s, g}
 }
 
 func (s noxScriptNS) WallGroup(name string) ns.WallGroupObj {
-	g := s.s.GroupByID(name, server.MapGroupWalls)
+	g := s.s.MapGroups.GroupByID(name, server.MapGroupWalls)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find wall group: %q", name)
 		return nil

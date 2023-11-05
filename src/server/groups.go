@@ -1,6 +1,7 @@
 package server
 
 import (
+	"strings"
 	"unsafe"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -186,6 +187,37 @@ func (s *ServerMapGroups) MapLoadAddGroup57C0C0(name string, ind uint32, typ byt
 func (s *ServerMapGroups) GroupByInd(ind int) *MapGroup {
 	for p := s.GetFirstMapGroup(); p != nil; p = p.Next() {
 		if int(p.Index()) == ind {
+			return p
+		}
+	}
+	return nil
+}
+
+// MapGroupType determines the group's type recursively.
+func (s *ServerMapGroups) MapGroupType(g *MapGroup) MapGroupKind {
+	if g.GroupType() == MapGroupObjects {
+		return g.GroupType()
+	}
+	it := g
+	for it.GroupType() != MapGroupWaypoints && it.GroupType() != MapGroupWalls {
+		if it.GroupType() != MapGroupGroups || it == nil {
+			return 0
+		}
+		it = s.GroupByInd(int(it.List.Raw0))
+		if it.GroupType() == MapGroupObjects {
+			return it.GroupType()
+		}
+	}
+	return it.GroupType()
+}
+
+func (s *ServerMapGroups) GroupByID(id string, typ MapGroupKind) *MapGroup {
+	for p := s.GetFirstMapGroup(); p != nil; p = p.Next() {
+		if s.MapGroupType(p) != typ {
+			continue
+		}
+		id2 := p.ID()
+		if id == id2 || strings.HasSuffix(id2, ":"+id) {
 			return p
 		}
 	}

@@ -1135,10 +1135,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		flagN   int
 		ballN   int
 	}
-	for _, v22 := range s.GetObjects() {
+	for _, v22 := range s.Objs.All() {
 		if v22.Class().Has(0x10000000) {
 			v22.Field34 = 0
-			legacy.Set_dword_5d4594_1548532(v22.SObj().CObj())
+			legacy.Set_dword_5d4594_1548532(v22.CObj())
 			starts.flagN++
 		}
 		ti := uint32(v22.TypeInd)
@@ -1248,7 +1248,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		sub_4DCBF0(0)
 	}
 	_ = object.FlagMarked
-	for _, obj := range s.GetObjects() {
+	for _, obj := range s.Objs.All() {
 		obj.ObjFlags &= 0x7FFFFFFF
 	}
 	for _, obj := range s.Objs.GetObjectsUpdatable2() {
