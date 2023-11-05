@@ -76,14 +76,14 @@ func (s noxScriptNS) ObjectGroupByHandle(h ns4.ObjGroupHandle) ns4.ObjGroup {
 		return nil
 	}
 	g := s.s.MapGroups.GroupByInd(h.ObjGroupScriptID())
-	if g == nil || mapGroupType(g) != server.MapGroupObjects {
+	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupObjects {
 		return nil
 	}
 	return nsObjGroup{s.s, g}
 }
 
 func (s noxScriptNS) ObjectGroup(name string) ns4.ObjGroup {
-	g := s.s.GroupByID(name, server.MapGroupObjects)
+	g := s.s.MapGroups.GroupByID(name, server.MapGroupObjects)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find object group: %q", name)
 		return nil

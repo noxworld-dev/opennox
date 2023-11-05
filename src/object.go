@@ -41,7 +41,7 @@ func (s *Server) GetObjects() []*Object {
 }
 
 func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
-	g := s.GroupByID(id, server.MapGroupObjects)
+	g := s.MapGroups.GroupByID(id, server.MapGroupObjects)
 	if g == nil {
 		return nil
 	}
@@ -94,22 +94,22 @@ func (s *Server) DeleteAfter(obj *server.Object, frames uint32) {
 }
 
 func (s *Server) FinalizeDeletingObjects() {
-	var next *Object
-	for it := asObjectS(s.Objs.DeletedList); it != nil; it = next {
-		next = asObjectS(it.DeletedNext)
+	var next *server.Object
+	for it := s.Objs.DeletedList; it != nil; it = next {
+		next = it.DeletedNext
 		s.objectDeleteFinish(it)
 	}
 	s.Objs.DeletedList = nil
 }
 
-func (s *Server) objectDeleteFinish(obj *Object) {
-	legacy.Nox_xxx_unitTransferSlaves_4EC4B0(obj.SObj())
-	obj.SetOwner(nil)
-	s.Activators.ClearOnObject(obj.SObj())
-	legacy.Nox_xxx_decay_5116F0(obj.SObj())
-	obj.dropAllItems()
-	s.ObjectDeleteLast(obj.SObj())
-	s.Objs.FreeObject(obj.SObj())
+func (s *Server) objectDeleteFinish(obj *server.Object) {
+	legacy.Nox_xxx_unitTransferSlaves_4EC4B0(obj)
+	asObjectS(obj).SetOwner(nil)
+	s.Activators.ClearOnObject(obj)
+	legacy.Nox_xxx_decay_5116F0(obj)
+	asObjectS(obj).dropAllItems()
+	s.ObjectDeleteLast(obj)
+	s.Objs.FreeObject(obj)
 }
 
 func (s *Server) ObjectDeleteLast(obj *server.Object) {
@@ -135,20 +135,20 @@ func (s *Server) ObjectDeleteLast(obj *server.Object) {
 
 func (s *Server) deletedObjectsUpdate() {
 	var (
-		list *Object
-		next *Object
+		list *server.Object
+		next *server.Object
 	)
-	for it := asObjectS(s.Objs.DeletedList); it != nil; it = next {
-		next = asObjectS(it.DeletedNext)
+	for it := s.Objs.DeletedList; it != nil; it = next {
+		next = it.DeletedNext
 		if it.DeletedAt == s.Frame() {
-			it.DeletedNext = list.SObj()
+			it.DeletedNext = list
 			list = it
-			s.Objs.RemoveFromUpdatable(it.SObj())
+			s.Objs.RemoveFromUpdatable(it)
 		} else {
 			s.objectDeleteFinish(it)
 		}
 	}
-	s.Objs.DeletedList = list.SObj()
+	s.Objs.DeletedList = list
 }
 
 func (s *Server) ObjectsAddPending() {

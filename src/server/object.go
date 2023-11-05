@@ -477,6 +477,15 @@ func (s *serverObjects) ObjectsClearPending() {
 	s.Pending = nil
 }
 
+func (s *serverObjects) PendingByScriptID(sid int) *Object {
+	for it := s.Pending; it != nil; it.Next() {
+		if it.ScriptIDVal == sid {
+			return it
+		}
+	}
+	return nil
+}
+
 type Dir16 uint16
 
 func (v Dir16) Vec() types.Pointf {

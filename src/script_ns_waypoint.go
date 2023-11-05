@@ -47,14 +47,14 @@ func (s noxScriptNS) WaypointGroupByHandle(h ns.WaypointGroupHandle) ns.Waypoint
 		return nil
 	}
 	g := s.s.MapGroups.GroupByInd(h.WaypointGroupScriptID())
-	if g == nil || mapGroupType(g) != server.MapGroupWaypoints {
+	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupWaypoints {
 		return nil
 	}
 	return nsWpGroup{s.s, g}
 }
 
 func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
-	g := s.s.GroupByID(name, server.MapGroupWaypoints)
+	g := s.s.MapGroups.GroupByID(name, server.MapGroupWaypoints)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find waypoint group: %q", name)
 		return nil
