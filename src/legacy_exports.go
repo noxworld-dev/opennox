@@ -74,12 +74,6 @@ func init() {
 	legacy.Nox_xxx_spellIcon_424A90 = nox_xxx_spellIcon_424A90
 	legacy.Nox_xxx_spellIconHighlight_424AB0 = nox_xxx_spellIconHighlight_424AB0
 	legacy.Nox_xxx_castSpellByUser_4FDD20 = nox_xxx_castSpellByUser_4FDD20
-	legacy.Nox_xxx_spellCastedFirst_4FE930 = func() *server.DurSpell {
-		return noxServer.spells.duration.List
-	}
-	legacy.Nox_xxx_spellCastedNext_4FE940 = func(sp *server.DurSpell) *server.DurSpell {
-		return sp.Next
-	}
 	legacy.Nox_xxx_spellWallCreate_4FFA90 = func(sp *server.DurSpell) int {
 		return noxServer.spells.walls.Create(sp)
 	}

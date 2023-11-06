@@ -1797,6 +1797,7 @@ int nox_xxx_guiSpellbook_41B660(void* a1p, void* a2p) {
 // 41B660: using guessed type char var_100[256];
 
 //----- (0041B9C0) --------------------------------------------------------
+void nox_xxx_spellCastByPlayer_4FEEF0();
 int nox_xxx_guiEnchantment_41B9C0(void* a1p, void* a2p) {
 	uint32_t* a1 = a1p;
 	int a2 = a2p;

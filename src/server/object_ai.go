@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/spell"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
@@ -160,6 +161,14 @@ func (obj *Object) MonsterLookAtDamager() bool {
 	}
 	obj.MonsterPushAction(ai.ACTION_FACE_LOCATION, obj.Pos132)
 	return true
+}
+
+func (obj *Object) MonsterCancelDurSpell(exp spell.ID) {
+	if act := obj.UpdateDataMonster().AIStackHead(); act.Type() == ai.ACTION_CAST_DURATION_SPELL {
+		if spell.ID(act.ArgU32(0)) == exp {
+			obj.MonsterPopAction()
+		}
+	}
 }
 
 func (obj *Object) Sub_545E60() int {
