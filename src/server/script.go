@@ -1,6 +1,12 @@
 package server
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/noxworld-dev/opennox-lib/log"
+)
+
+var ScriptLog = log.New("script")
 
 type ScriptEventType int
 

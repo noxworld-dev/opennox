@@ -1,4 +1,4 @@
-package opennox
+package server
 
 import (
 	"encoding/binary"
@@ -10,7 +10,7 @@ type noxScriptPanic struct {
 	enabled bool
 }
 
-func (s *noxScript) panicCompilerCheck(fnc asm.Builtin) bool {
+func (s *NoxScriptVM) panicCompilerCheck(fnc asm.Builtin) bool {
 	// ===[ Panic's compiler detection ]===
 	// it usually triggers on a2=973231
 	// 0x587000 + 245900 + 3892924 -> 0x979748 -> 0x5D4594 + 3821996 + 8 -> nox_script_stack[2]
@@ -68,11 +68,11 @@ func (s *noxScript) panicCompilerCheck(fnc asm.Builtin) bool {
 	}
 	// TODO: must set it back when the map script shutdowns
 	s.panic.enabled = true
-	scriptLog.Printf("noxscript: enabled Panic's compiler API\n")
+	ScriptLog.Printf("noxscript: enabled Panic's compiler API\n")
 	return true
 }
 
-func (s *noxScript) panicBuiltinRead() int {
+func (s *NoxScriptVM) panicBuiltinRead() int {
 	// Panic's replacement for nox_script_builtin_516850 (opcode 185)
 	//
 	//  0x68, 0x50, 0x72, 0x50, 0x00, // push   0x507250 // nox_script_pop
@@ -84,13 +84,13 @@ func (s *noxScript) panicBuiltinRead() int {
 	//  0x31, 0xc0,                   // xor    eax,eax
 	//  0xc3,                         // ret
 	addr := s.PopU32()
-	scriptLog.Printf("noxscript: mem read [0x%x]\n", addr)
+	ScriptLog.Printf("noxscript: mem read [0x%x]\n", addr)
 	val := uint32(0) // TODO: read via memmap
 	s.PushU32(val)
 	return 0
 }
 
-func (s *noxScript) panicBuiltinWrite() int {
+func (s *NoxScriptVM) panicBuiltinWrite() int {
 	// Panic's replacement for nsUnused59 (opcode 89)
 	//
 	//  0x56,                         // push   esi
@@ -104,12 +104,12 @@ func (s *noxScript) panicBuiltinWrite() int {
 	//  0xc3,                         // ret
 	val := s.PopU32()
 	addr := s.PopU32()
-	scriptLog.Printf("noxscript: mem write [0x%x] = %d\n", addr, val)
+	ScriptLog.Printf("noxscript: mem write [0x%x] = %d\n", addr, val)
 	// TODO: write via memmap
 	return 0
 }
 
-func (s *noxScript) panicScriptCall(fi asm.Builtin) (int, bool) {
+func (s *NoxScriptVM) PanicScriptCall(fi asm.Builtin) (int, bool) {
 	if !s.panic.enabled {
 		return 0, false
 	}

@@ -84,9 +84,7 @@ type Server struct {
 	spells          serverSpells
 	abilities       serverAbilities
 	srvReg          srvReg
-	scriptEvents    scriptEvents
 	noxScript       noxScript
-	vms             scriptVMs
 	ai              aiData
 	quest           questServer
 	springs         serverSprings
@@ -338,8 +336,8 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		}
 		nox_xxx_spellBookReact_4FCB70()
 		s.abilities.Update()
-		s.noxScript.actRun()
-		s.scriptTick()
+		s.noxScript.ActRun()
+		s.ScriptTick()
 		legacy.Nox_xxx_voteUptate_506F30()
 		s.deletedObjectsUpdate()
 	}

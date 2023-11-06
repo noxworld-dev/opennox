@@ -690,7 +690,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		buf[2] = 1
 		s.NetSendPacketXxx(int(ind), buf[:], 0, 0, 0)
 	}
-	s.callOnPlayerJoin(pl)
+	s.CallOnPlayerJoin(pl)
 	return int(punit.NetCode)
 }
 

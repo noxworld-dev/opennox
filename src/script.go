@@ -10,16 +10,17 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/datapath"
-	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/maps"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/strman"
 	// register script runtimes
 	_ "github.com/noxworld-dev/opennox-lib/script/eval"
 	_ "github.com/noxworld-dev/opennox-lib/script/lua"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var scriptLog = log.New("script")
+var ScriptLog = server.ScriptLog
 
 func init() {
 	for _, rt := range script.VMRuntimes() {
@@ -33,7 +34,7 @@ func init() {
 				if len(tokens) == 0 {
 					return false
 				}
-				vm := noxServer.vms.vmByName[rt.Name]
+				vm := noxServer.VMs.VMByName[rt.Name]
 				if vm == nil {
 					c.Print(console.ColorRed, rt.Title+" is not running")
 					return true
@@ -61,7 +62,7 @@ func (s *Server) registerScriptAPIs(pref string) {
 				}
 				apiLog.Printf("run %s: %q", rt.Name, code)
 				s.QueueInLoop(context.Background(), func() {
-					vm := s.vms.vmByName[rt.Name]
+					vm := s.VMs.VMByName[rt.Name]
 					if vm == nil {
 						return
 					}
@@ -74,43 +75,10 @@ func (s *Server) registerScriptAPIs(pref string) {
 	}
 }
 
-type scriptVMs struct {
-	curmap   string
-	vms      []script.VM
-	vmByName map[string]script.VM
-}
-
-func (s *Server) scriptTick() {
-	for _, vm := range s.vms.vms {
-		func() {
-			defer func() {
-				if r := recover(); r != nil {
-					scriptLog.Printf("panic in OnFrame: %v", r)
-				}
-			}()
-			vm.OnFrame()
-		}()
-	}
-	s.callOnScriptFrame()
-}
-
-func (s *Server) vmsShutdown() {
-	s.noxScript.resetVirtualFuncs()
-	if len(s.vms.vms) != 0 {
-		scriptLog.Printf("stopping script(s) for map %q", s.vms.curmap)
-	}
-	for _, vm := range s.vms.vms {
-		_ = vm.Close()
-	}
-	s.vms.vms = nil
-	s.vms.vmByName = nil
-	s.vms.curmap = ""
-}
-
 func (s *Server) vmsMaybeInitMap() {
 	mp := s.nox_server_currentMapGetFilename_409B30()
-	scriptLog.Printf("check map init: %q vs %q", mp, s.vms.curmap)
-	if mp == s.vms.curmap {
+	ScriptLog.Printf("check map init: %q vs %q", mp, s.VMs.Curmap)
+	if mp == s.VMs.Curmap {
 		return
 	}
 	s.vmsInitMap()
@@ -118,12 +86,12 @@ func (s *Server) vmsMaybeInitMap() {
 
 func (s *Server) vmsInitMap() {
 	mp := s.nox_server_currentMapGetFilename_409B30()
-	s.vmsShutdown()
-	scriptLog.Printf("loading script(s) for map %q", mp)
-	s.vms.curmap = mp
+	s.VMsShutdown()
+	ScriptLog.Printf("loading script(s) for map %q", mp)
+	s.VMs.Curmap = mp
 	mp = strings.TrimSuffix(mp, maps.Ext)
 	mapsDir := datapath.Maps()
-	s.vms.vmByName = make(map[string]script.VM)
+	s.VMs.VMByName = make(map[string]script.VM)
 	for _, rt := range script.VMRuntimes() {
 		if rt.NewMap == nil {
 			continue
@@ -135,19 +103,19 @@ func (s *Server) vmsInitMap() {
 			continue
 		}
 		if vm != nil {
-			s.vms.vms = append(s.vms.vms, vm)
-			s.vms.vmByName[rt.Name] = vm
+			s.VMs.VMs = append(s.VMs.VMs, vm)
+			s.VMs.VMByName[rt.Name] = vm
 		}
 	}
-	if len(s.vms.vms) != 0 {
-		scriptLog.Printf("map script(s) loaded: %q", mp)
+	if len(s.VMs.VMs) != 0 {
+		ScriptLog.Printf("map script(s) loaded: %q", mp)
 	} else {
-		scriptLog.Printf("no map scripts for %q", mp)
+		ScriptLog.Printf("no map scripts for %q", mp)
 	}
 }
 
 func (s *Server) scriptOnEvent(event script.EventType) {
-	scriptLog.Printf("event: %q", event)
+	ScriptLog.Printf("event: %q", event)
 
 	// The global logic is the following:
 	// - MapEntry: give the script a chance to init the map itself.
@@ -163,29 +131,29 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 		script.EventMapEntry:
 		s.vmsMaybeInitMap()
 	}
-	for _, vm := range s.vms.vms {
+	for _, vm := range s.VMs.VMs {
 		func() {
 			defer func() {
 				if r := recover(); r != nil {
-					scriptLog.Printf("panic in event: %q: %v", event, r)
+					ScriptLog.Printf("panic in event: %q: %v", event, r)
 				}
 			}()
 			vm.OnEvent(event)
 		}()
 	}
-	s.callOnMapEvent(event)
+	s.CallOnMapEvent(event)
 
 	switch event {
 	case script.EventMapEntry:
 		// TODO: we "rejoin" existing players here because the engine will actually keep all player objects
 		//       after map change ideally we should find the place where it resets their
 		for _, p := range s.GetPlayers() {
-			s.callOnPlayerJoin(p)
+			s.CallOnPlayerJoin(p)
 		}
 	case script.EventMapExit:
 		// TODO: same as above: we make players "leave" when the map changes, so scripts can run their player logic
 		for _, p := range s.GetPlayers() {
-			s.callOnPlayerLeave(p)
+			s.CallOnPlayerLeave(p)
 		}
 	}
 }

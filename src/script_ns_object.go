@@ -58,7 +58,7 @@ func (s noxScriptNS) CreateObject(typ string, p ns4.Positioner) ns4.Obj {
 func (s noxScriptNS) Object(name string) ns4.Obj {
 	obj := asObjectS(legacy.Nox_xxx_getObjectByScrName_4DA4F0(name))
 	if obj == nil {
-		scriptLog.Printf("noxscript: cannot find object: %q", name)
+		ScriptLog.Printf("noxscript: cannot find object: %q", name)
 		return nil
 	}
 	return nsObj{s.s, obj}
@@ -78,7 +78,7 @@ func (s noxScriptNS) ObjectGroupByHandle(h ns4.ObjGroupHandle) ns4.ObjGroup {
 func (s noxScriptNS) ObjectGroup(name string) ns4.ObjGroup {
 	g := s.s.MapGroups.GroupByID(name, server.MapGroupObjects)
 	if g == nil {
-		scriptLog.Printf("noxscript: cannot find object group: %q", name)
+		ScriptLog.Printf("noxscript: cannot find object group: %q", name)
 		return nil
 	}
 	return nsObjGroup{s.s, g}

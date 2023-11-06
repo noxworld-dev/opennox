@@ -18,12 +18,8 @@ import (
 )
 
 var (
-	Nox_script_indexByEvent           func(name string) int
-	Nox_script_getString_512E40       func(i int) (string, bool)
-	Nox_setImaginaryCaster            func() int
-	Nox_script_readWriteZzz_541670    func(cpath, cpath2, cdst *byte) int
-	Nox_script_callbackName           func(h int) string
-	Nox_script_objCallbackName_508CB0 func(obj *server.Object, event int) (string, bool)
+	Nox_setImaginaryCaster         func() int
+	Nox_script_readWriteZzz_541670 func(cpath, cpath2, cdst *byte) int
 )
 
 type NoxScript interface {
@@ -72,11 +68,13 @@ func nox_script_popf() C.float {
 }
 
 //export nox_script_indexByEvent
-func nox_script_indexByEvent(cname *C.char) int { return Nox_script_indexByEvent(GoString(cname)) }
+func nox_script_indexByEvent(cname *C.char) int {
+	return GetServer().S().NoxScriptVM.ScriptIndexByName(GoString(cname))
+}
 
 //export nox_script_getString_512E40
 func nox_script_getString_512E40(i int) *C.char {
-	s, ok := Nox_script_getString_512E40(i)
+	s, ok := GetServer().S().NoxScriptVM.LookupString(uint32(i))
 	if !ok {
 		return nil
 	}
@@ -105,13 +103,13 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 
 //export nox_script_callbackName
 func nox_script_callbackName(h int) *C.char {
-	s := Nox_script_callbackName(h)
+	s := GetServer().S().NoxScriptVM.ScriptNameByIndex(h)
 	return internCStr(s)
 }
 
 //export nox_script_objCallbackName_508CB0
 func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int) *C.char {
-	s, ok := Nox_script_objCallbackName_508CB0(asObjectS(obj), event)
+	s, ok := GetServer().S().NoxScriptVM.Nox_script_objCallbackName_508CB0(asObjectS(obj), event)
 	if !ok {
 		return nil
 	}

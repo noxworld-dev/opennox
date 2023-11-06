@@ -1,12 +1,8 @@
-package opennox
+package server
 
-import (
-	"github.com/noxworld-dev/opennox-lib/script"
+import "github.com/noxworld-dev/opennox-lib/script"
 
-	"github.com/noxworld-dev/opennox/v1/server"
-)
-
-type OnChatFunc func(t *server.Team, p *server.Player, obj *server.Object, msg string) string
+type OnChatFunc func(t *Team, p *Player, obj *Object, msg string) string
 
 type scriptEvents struct {
 	byObject      map[uintptr]*objectHandlers
@@ -17,55 +13,55 @@ type scriptEvents struct {
 	onChat        []OnChatFunc
 }
 
-func (s *Server) clearScriptTriggers() {
-	scriptLog.Printf("reset all hooks")
-	s.scriptEvents.byObject = nil
-	s.scriptEvents.onFrame = nil
-	s.scriptEvents.onMapEvent = nil
-	s.scriptEvents.onPlayerJoin = nil
-	s.scriptEvents.onPlayerLeave = nil
-	s.scriptEvents.onChat = nil
+func (s *Server) ClearScriptTriggers() {
+	ScriptLog.Printf("reset all hooks")
+	s.ScriptEvents.byObject = nil
+	s.ScriptEvents.onFrame = nil
+	s.ScriptEvents.onMapEvent = nil
+	s.ScriptEvents.onPlayerJoin = nil
+	s.ScriptEvents.onPlayerLeave = nil
+	s.ScriptEvents.onChat = nil
 }
 
 func (s *Server) OnPlayerJoin(fnc func(p script.Player)) {
-	s.scriptEvents.onPlayerJoin = append(s.scriptEvents.onPlayerJoin, fnc)
+	s.ScriptEvents.onPlayerJoin = append(s.ScriptEvents.onPlayerJoin, fnc)
 }
 
 func (s *Server) OnPlayerLeave(fnc func(p script.Player)) {
-	s.scriptEvents.onPlayerLeave = append(s.scriptEvents.onPlayerLeave, fnc)
+	s.ScriptEvents.onPlayerLeave = append(s.ScriptEvents.onPlayerLeave, fnc)
 }
 
 func (s *Server) OnChat(fnc OnChatFunc) {
-	s.scriptEvents.onChat = append(s.scriptEvents.onChat, fnc)
+	s.ScriptEvents.onChat = append(s.ScriptEvents.onChat, fnc)
 }
 
 func (s *Server) OnScriptFrame(fnc func()) {
-	s.scriptEvents.onFrame = append(s.scriptEvents.onFrame, fnc)
+	s.ScriptEvents.onFrame = append(s.ScriptEvents.onFrame, fnc)
 }
 
 func (s *Server) OnMapEvent(typ script.EventType, fnc func()) {
-	if s.scriptEvents.onMapEvent == nil {
-		s.scriptEvents.onMapEvent = make(map[script.EventType][]func())
+	if s.ScriptEvents.onMapEvent == nil {
+		s.ScriptEvents.onMapEvent = make(map[script.EventType][]func())
 	}
-	s.scriptEvents.onMapEvent[typ] = append(s.scriptEvents.onMapEvent[typ], fnc)
+	s.ScriptEvents.onMapEvent[typ] = append(s.ScriptEvents.onMapEvent[typ], fnc)
 }
 
-func (s *Server) callOnPlayerJoin(p *Player) {
-	scriptLog.Printf("player join: %s", p)
-	for _, fnc := range s.scriptEvents.onPlayerJoin {
+func (s *Server) CallOnPlayerJoin(p script.Player) {
+	ScriptLog.Printf("player join: %s", p)
+	for _, fnc := range s.ScriptEvents.onPlayerJoin {
 		fnc(p)
 	}
 }
 
-func (s *Server) callOnPlayerLeave(p *Player) {
-	scriptLog.Printf("player leave: %s", p)
-	for _, fnc := range s.scriptEvents.onPlayerLeave {
+func (s *Server) CallOnPlayerLeave(p script.Player) {
+	ScriptLog.Printf("player leave: %s", p)
+	for _, fnc := range s.ScriptEvents.onPlayerLeave {
 		fnc(p)
 	}
 }
 
-func (s *Server) callOnChat(t *server.Team, p *server.Player, obj *server.Object, msg string) string {
-	for _, fnc := range s.scriptEvents.onChat {
+func (s *Server) CallOnChat(t *Team, p *Player, obj *Object, msg string) string {
+	for _, fnc := range s.ScriptEvents.onChat {
 		msg = fnc(t, p, obj, msg)
 		if msg == "" {
 			break
@@ -75,11 +71,11 @@ func (s *Server) callOnChat(t *server.Team, p *server.Player, obj *server.Object
 }
 
 func (s *Server) callOnScriptFrame() {
-	for _, fnc := range s.scriptEvents.onFrame {
+	for _, fnc := range s.ScriptEvents.onFrame {
 		func() {
 			defer func() {
 				if r := recover(); r != nil {
-					scriptLog.Printf("panic in OnFrame: %v", r)
+					ScriptLog.Printf("panic in OnFrame: %v", r)
 				}
 			}()
 			fnc()
@@ -87,12 +83,12 @@ func (s *Server) callOnScriptFrame() {
 	}
 }
 
-func (s *Server) callOnMapEvent(typ script.EventType) {
-	for _, fnc := range s.scriptEvents.onMapEvent[typ] {
+func (s *Server) CallOnMapEvent(typ script.EventType) {
+	for _, fnc := range s.ScriptEvents.onMapEvent[typ] {
 		func() {
 			defer func() {
 				if r := recover(); r != nil {
-					scriptLog.Printf("panic in OnEvent(%s): %v", string(typ), r)
+					ScriptLog.Printf("panic in OnEvent(%s): %v", string(typ), r)
 				}
 			}()
 			fnc()
@@ -101,20 +97,11 @@ func (s *Server) callOnMapEvent(typ script.EventType) {
 }
 
 func (obj *Object) getHandlers() *objectHandlers {
-	return obj.getServer().scriptEvents.byObject[obj.UniqueKey()]
+	return &obj.GetExt().objectHandlers
 }
 
 func (obj *Object) getOrNewHandlers() *objectHandlers {
-	s := obj.getServer()
-	if h := s.scriptEvents.byObject[obj.UniqueKey()]; h != nil {
-		return h
-	}
-	if s.scriptEvents.byObject == nil {
-		s.scriptEvents.byObject = make(map[uintptr]*objectHandlers)
-	}
-	h := &objectHandlers{obj: obj}
-	s.scriptEvents.byObject[obj.UniqueKey()] = h
-	return h
+	return &obj.SetExt().objectHandlers
 }
 
 func (obj *Object) OnUnitDeath(fnc func()) {
@@ -158,7 +145,6 @@ func (obj *Object) OnTriggerDeactivate(fnc func()) {
 }
 
 type objectHandlers struct {
-	obj              *Object
 	onDeath          []func()
 	onIdle           []func()
 	onDone           []func()
@@ -169,7 +155,7 @@ type objectHandlers struct {
 	onTrigDeactivate []func()
 }
 
-func callOnMonsterDead(obj *Object) {
+func (obj *Object) CallOnMonsterDead() {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -179,7 +165,7 @@ func callOnMonsterDead(obj *Object) {
 	}
 }
 
-func callOnMonsterIdle(obj *Object) {
+func (obj *Object) CallOnMonsterIdle() {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -189,7 +175,7 @@ func callOnMonsterIdle(obj *Object) {
 	}
 }
 
-func callOnMonsterDone(obj *Object) {
+func (obj *Object) CallOnMonsterDone() {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -199,52 +185,52 @@ func callOnMonsterDone(obj *Object) {
 	}
 }
 
-func callOnMonsterAttack(obj, targ *Object) {
+func (obj *Object) CallOnMonsterAttack(targ script.Unit) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
 	}
 	for _, fnc := range h.onAttack {
-		fnc(scrObject{targ})
+		fnc(targ)
 	}
 }
 
-func callOnMonsterSeeEnemy(obj, targ *Object) {
+func (obj *Object) CallOnMonsterSeeEnemy(targ script.Unit) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
 	}
 	for _, fnc := range h.onSeeEnemy {
-		fnc(scrObject{targ})
+		fnc(targ)
 	}
 }
 
-func callOnMonsterLostEnemy(obj, targ *Object) {
+func (obj *Object) CallOnMonsterLostEnemy(targ script.Unit) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
 	}
 	for _, fnc := range h.onLostEnemy {
-		fnc(scrObject{targ})
+		fnc(targ)
 	}
 }
 
-func callOnPolygonPlayerEnter(obj *Object) {
-	scriptLog.Printf("player enter: %s", obj)
+func (obj *Object) CallOnPolygonPlayerEnter() {
+	ScriptLog.Printf("player enter: %s", obj)
 }
 
-func callOnTriggerActivated(trig *Object, obj *Object) {
-	h := trig.getHandlers()
+func (obj *Object) CallOnTriggerActivated(obj2 script.Object) {
+	h := obj.getHandlers()
 	if h == nil {
 		return
 	}
 	for _, fnc := range h.onTrigActivate {
-		fnc(scrObject{obj})
+		fnc(obj2)
 	}
 }
 
-func callOnTriggerDeactivated(trig *Object) {
-	h := trig.getHandlers()
+func (obj *Object) CallOnTriggerDeactivated() {
+	h := obj.getHandlers()
 	if h == nil {
 		return
 	}

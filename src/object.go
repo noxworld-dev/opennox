@@ -426,8 +426,8 @@ func (obj *Object) OtherClass() object.OtherClass {
 	return obj.SObj().OtherClass()
 }
 
-func (obj *Object) Ext() *server.ObjectExt {
-	return obj.SObj().Ext()
+func (obj *Object) SetExt() *server.ObjectExt {
+	return obj.SObj().SetExt()
 }
 
 func (obj *Object) GetExt() *server.ObjectExt {
@@ -1270,11 +1270,11 @@ func (obj *Object) RestoreHealth(amount int) {
 }
 
 func (obj *Object) SetHealthRegenToMaxDur(t time.Duration) {
-	obj.Ext().HealthRegenToMax = t
+	obj.SetExt().HealthRegenToMax = t
 }
 
 func (obj *Object) SetHealthRegenPerFrame(v float32) {
-	obj.Ext().HealthRegenPerFrame = v
+	obj.SetExt().HealthRegenPerFrame = v
 }
 
 func (obj *Object) GetGold() int {
