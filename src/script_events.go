@@ -205,7 +205,7 @@ func callOnMonsterAttack(obj, targ *Object) {
 		return
 	}
 	for _, fnc := range h.onAttack {
-		fnc(targ)
+		fnc(scrObject{targ})
 	}
 }
 
@@ -215,7 +215,7 @@ func callOnMonsterSeeEnemy(obj, targ *Object) {
 		return
 	}
 	for _, fnc := range h.onSeeEnemy {
-		fnc(targ)
+		fnc(scrObject{targ})
 	}
 }
 
@@ -225,7 +225,7 @@ func callOnMonsterLostEnemy(obj, targ *Object) {
 		return
 	}
 	for _, fnc := range h.onLostEnemy {
-		fnc(targ)
+		fnc(scrObject{targ})
 	}
 }
 
@@ -239,7 +239,7 @@ func callOnTriggerActivated(trig *Object, obj *Object) {
 		return
 	}
 	for _, fnc := range h.onTrigActivate {
-		fnc(obj)
+		fnc(scrObject{obj})
 	}
 }
 

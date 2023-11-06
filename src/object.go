@@ -50,7 +50,7 @@ func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 	var list []script.Object
 	for it := g.First(); it != nil; it = it.Next() {
 		if wl := s.Objs.GetObjectByInd(it.Data1()); wl != nil {
-			list = append(list, asObjectS(wl))
+			list = append(list, scrObject{asObjectS(wl)})
 		}
 	}
 	return script.NewObjectGroup(id, list...)
@@ -64,7 +64,7 @@ func (s *Server) DelayedDelete(obj *server.Object) {
 	if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
 		return
 	}
-	if owner := asObjectS(obj).OwnerC(); owner != nil && owner.Class().Has(object.ClassPlayer) {
+	if owner := asObjectS(obj).Owner(); owner != nil && owner.Class().Has(object.ClassPlayer) {
 		if obj.Class().Has(object.ClassMonster) && !server.Nox_xxx_creatureIsMonitored_500CC0(owner.SObj(), obj) && (obj.SubClass()&0x80 != 0) {
 			legacy.Nox_xxx_monsterRemoveMonitors_4E7B60(owner.SObj(), obj)
 		}
@@ -155,7 +155,7 @@ func (s *Server) ObjectsAddPending() {
 	var next *Object
 	for it := asObjectS(s.Objs.Pending); it != nil; it = next {
 		next = it.Next()
-		for it2 := it.OwnerC(); it2 != nil; it2 = it.OwnerC() {
+		for it2 := it.Owner(); it2 != nil; it2 = it.Owner() {
 			if !it.Flags().Has(object.FlagDestroyed) {
 				break
 			}
@@ -398,13 +398,6 @@ func (obj *Object) ObjScriptID() int {
 
 func (obj *Object) String() string {
 	return obj.SObj().String()
-}
-
-func (obj *Object) GetObject() script.Object {
-	if obj == nil {
-		return nil
-	}
-	return obj
 }
 
 func (obj *Object) Class() object.Class {
@@ -710,32 +703,12 @@ func (obj *Object) Team() *server.Team {
 	return obj.SObj().Team()
 }
 
-func (obj *Object) OwnerC() *Object {
-	if obj == nil {
-		return nil
-	}
-	return asObjectS(obj.ObjOwner)
+func (obj *Object) Owner() *Object {
+	return asObjectS(obj.SObj().Owner())
 }
 
-func (obj *Object) Owner() script.Object {
-	if obj == nil {
-		return nil
-	}
-	p := obj.OwnerC()
-	if p == nil {
-		return nil
-	}
-	return p
-}
-
-func (obj *Object) SetOwner(owner script.ObjectWrapper) {
-	s := obj.getServer()
-	if owner == nil {
-		s.Nox_xxx_unitClearOwner_4EC300(obj.SObj())
-		return
-	}
-	own := owner.GetObject().(server.Obj)
-	s.Nox_xxx_unitSetOwner_4EC290(own.SObj(), obj.SObj())
+func (obj *Object) SetOwner(owner *Object) {
+	obj.SObj().SetOwner(owner.SObj())
 }
 
 func (obj *Object) SetMonsterStatus(v object.MonsterStatus) {
@@ -748,67 +721,6 @@ func (obj *Object) MonsterStatusEnable(v object.MonsterStatus) {
 
 func (obj *Object) MonsterStatusDisable(v object.MonsterStatus) {
 	obj.SObj().MonsterStatusDisable(v)
-}
-
-func (s *Server) Nox_xxx_unitSetOwner_4EC290(owner, obj *server.Object) {
-	if obj == nil {
-		return
-	}
-	s.Nox_xxx_unitClearOwner_4EC300(obj)
-	if owner != nil {
-		for owner.Flags().Has(object.FlagDestroyed) {
-			owner = owner.ObjOwner
-			if owner == nil {
-				break
-			}
-		}
-		if owner != nil {
-			obj.Field128 = owner.Field129
-			owner.Field129 = obj
-		}
-	}
-	obj.ObjOwner = owner
-	if obj.Class().Has(object.ClassMonster) {
-		obj.Nox_xxx_monsterResetEnemy_5346F0()
-	}
-	if obj.Class().HasAny(object.MaskUnits) {
-		obj.Nox_xxx_monsterMarkUpdate_4E8020()
-	}
-}
-
-func (s *Server) Nox_xxx_unitClearOwner_4EC300(obj *server.Object) {
-	if obj == nil || obj.ObjOwner == nil {
-		return
-	}
-	owner := obj.ObjOwner
-	if owner.Class().Has(object.ClassPlayer) && server.Nox_xxx_creatureIsMonitored_500CC0(owner, obj) {
-		v2 := int32(obj.ObjSubClass)
-		*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 & math.MaxInt8))
-		ud := owner.UpdateDataPlayer()
-		obj.ObjSubClass = uint32(v2)
-		s.Nox_xxx_netFxShield_0_4D9200(int(ud.Player.PlayerInd), obj)
-		s.Players.Nox_xxx_netUnmarkMinimapObj_417300(ud.Player.PlayerIndex(), obj, 1)
-	}
-	if owner.Field129 != nil {
-		var last *server.Object
-		for v6 := owner.Field129; v6 != obj && v6 != nil; v6 = v6.Field128 {
-			last = v6
-		}
-		if last != nil {
-			last.Field128 = obj.Field128
-		} else {
-			owner.Field129 = obj.Field128
-		}
-	} else {
-		owner.Field129 = obj.Field128
-	}
-	obj.ObjOwner = nil
-	if obj.Class().Has(object.ClassMonster) {
-		obj.Nox_xxx_monsterResetEnemy_5346F0()
-	}
-	if obj.Class().HasAny(object.MaskUnits) {
-		obj.Nox_xxx_monsterMarkUpdate_4E8020()
-	}
 }
 
 func (obj *Object) Pos() types.Pointf {
@@ -1002,15 +914,8 @@ func (obj *Object) forceDropAt(item *Object, pos types.Pointf) int { // nox_xxx_
 	return legacy.Nox_xxx_drop_4ED790(obj.SObj(), item.SObj(), pos)
 }
 
-func (obj *Object) CanSee(obj2 script.Object) bool {
-	if obj == nil || obj2 == nil {
-		return false
-	}
-	return obj.CanSeeS(toObject(obj2.(server.Obj)))
-}
-
-func (obj *Object) CanSeeS(obj2 *Object) bool {
-	return obj.SObj().CanSeeS(obj2.SObj())
+func (obj *Object) CanSee(obj2 *Object) bool {
+	return obj.SObj().CanSee(obj2.SObj())
 }
 
 func (obj *Object) FindOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580

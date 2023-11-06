@@ -940,6 +940,13 @@ func (obj *Object) Dir2() Dir16 {
 	return obj.Direction2
 }
 
+func (obj *Object) Owner() *Object {
+	if obj == nil {
+		return nil
+	}
+	return obj.ObjOwner
+}
+
 func (obj *Object) InitDataGlyph() *GlyphInitData {
 	if alloc.IsDead(obj.UpdateData) {
 		panic("object already deleted")
@@ -1308,6 +1315,15 @@ func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
 	return nil
 }
 
+func (obj *Object) SetOwner(owner *Object) {
+	s := obj.Server()
+	if owner == nil {
+		s.ObjClearOwner(obj)
+		return
+	}
+	s.ObjSetOwner(owner, obj)
+}
+
 func (s *Server) IsFish(obj *Object) bool {
 	if obj == nil {
 		return false
@@ -1355,6 +1371,67 @@ func (s *Server) IsHostileMimicXxx(obj, obj2 *Object) bool { // nox_xxx_unitIsHo
 		res = false
 	}
 	return res
+}
+
+func (s *Server) ObjClearOwner(obj *Object) {
+	if obj == nil || obj.ObjOwner == nil {
+		return
+	}
+	owner := obj.ObjOwner
+	if owner.Class().Has(object.ClassPlayer) && Nox_xxx_creatureIsMonitored_500CC0(owner, obj) {
+		v2 := int32(obj.ObjSubClass)
+		*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 & math.MaxInt8))
+		ud := owner.UpdateDataPlayer()
+		obj.ObjSubClass = uint32(v2)
+		s.Nox_xxx_netFxShield_0_4D9200(int(ud.Player.PlayerInd), obj)
+		s.Players.Nox_xxx_netUnmarkMinimapObj_417300(ud.Player.PlayerIndex(), obj, 1)
+	}
+	if owner.Field129 != nil {
+		var last *Object
+		for v6 := owner.Field129; v6 != obj && v6 != nil; v6 = v6.Field128 {
+			last = v6
+		}
+		if last != nil {
+			last.Field128 = obj.Field128
+		} else {
+			owner.Field129 = obj.Field128
+		}
+	} else {
+		owner.Field129 = obj.Field128
+	}
+	obj.ObjOwner = nil
+	if obj.Class().Has(object.ClassMonster) {
+		obj.Nox_xxx_monsterResetEnemy_5346F0()
+	}
+	if obj.Class().HasAny(object.MaskUnits) {
+		obj.Nox_xxx_monsterMarkUpdate_4E8020()
+	}
+}
+
+func (s *Server) ObjSetOwner(owner, obj *Object) {
+	if obj == nil {
+		return
+	}
+	s.ObjClearOwner(obj)
+	if owner != nil {
+		for owner.Flags().Has(object.FlagDestroyed) {
+			owner = owner.ObjOwner
+			if owner == nil {
+				break
+			}
+		}
+		if owner != nil {
+			obj.Field128 = owner.Field129
+			owner.Field129 = obj
+		}
+	}
+	obj.ObjOwner = owner
+	if obj.Class().Has(object.ClassMonster) {
+		obj.Nox_xxx_monsterResetEnemy_5346F0()
+	}
+	if obj.Class().HasAny(object.MaskUnits) {
+		obj.Nox_xxx_monsterMarkUpdate_4E8020()
+	}
 }
 
 func (s *Server) IsZombie(obj *Object) bool { // nox_xxx_unitIsZombie_534A40
@@ -1450,7 +1527,7 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 	return true
 }
 
-func (obj *Object) CanSeeS(obj2 *Object) bool {
+func (obj *Object) CanSee(obj2 *Object) bool {
 	if obj == nil || obj2 == nil {
 		return false
 	}

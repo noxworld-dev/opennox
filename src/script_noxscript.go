@@ -742,7 +742,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	next = nil
 	for it := s.Objs.First(); it != nil; it = next {
 		next = it.Next()
-		if asObjectS(it).OwnerC() != nil {
+		if it.Owner() != nil {
 			for _, id := range nox_script_objCinemaRemove {
 				if int(it.TypeInd) == id {
 					asObjectS(it).Delete()
