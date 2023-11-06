@@ -184,7 +184,7 @@ func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
-	if ud.Field22_0 == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
+	if ud.State == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
 		a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 6)
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return

@@ -39,6 +39,7 @@ var (
 	Nox_bomberDead_54A150                      func(obj *server.Object) int
 	Nox_xxx_dieGlyph_54DF30                    func(obj *server.Object)
 	Nox_xxx_collideGlyph_4E9A00                func(obj, obj2 *server.Object)
+	Nox_xxx_playerSetState_4FA020              func(a1 *server.Object, a2 byte) bool
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(server.MissileUpdateData{})]
@@ -294,6 +295,11 @@ func nox_xxx_unitSetXStatus_4E4800(a1 *nox_object_t, a2 uint32) {
 //export nox_xxx_unitUnsetXStatus_4E4780
 func nox_xxx_unitUnsetXStatus_4E4780(a1 *nox_object_t, a2 uint32) {
 	asObjectS(a1).UnsetXStatus(a2)
+}
+
+//export nox_xxx_playerSetState_4FA020
+func nox_xxx_playerSetState_4FA020(a1 *nox_object_t, a2 int) int {
+	return bool2int(Nox_xxx_playerSetState_4FA020(asObjectS(a1), byte(a2)))
 }
 
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
