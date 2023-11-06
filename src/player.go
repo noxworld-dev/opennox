@@ -231,13 +231,6 @@ func (p *Player) GetObject() script.Object {
 	return u
 }
 
-func (p *Player) Unit() script.Unit {
-	if p == nil {
-		return nil
-	}
-	return p.UnitC()
-}
-
 func (p *Player) C() unsafe.Pointer {
 	if p == nil {
 		return nil

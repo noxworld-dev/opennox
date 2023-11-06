@@ -148,12 +148,12 @@ func nox_xxx_delayedDeleteObject_4E5CC0(obj *nox_object_t) {
 
 //export nox_xxx_unitSetOwner_4EC290
 func nox_xxx_unitSetOwner_4EC290(obj1, obj2 *nox_object_t) {
-	GetServer().Nox_xxx_unitSetOwner_4EC290(asObjectS(obj1), asObjectS(obj2))
+	GetServer().S().ObjSetOwner(asObjectS(obj1), asObjectS(obj2))
 }
 
 //export nox_xxx_unitClearOwner_4EC300
 func nox_xxx_unitClearOwner_4EC300(obj *nox_object_t) {
-	GetServer().Nox_xxx_unitClearOwner_4EC300(asObjectS(obj))
+	GetServer().S().ObjClearOwner(asObjectS(obj))
 }
 
 //export nox_xxx_creatureIsMonitored_500CC0
