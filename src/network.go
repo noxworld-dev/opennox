@@ -1394,7 +1394,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		}
 		orig := text
 		if flags&0x1 == 0 { // global chat
-			text = s.callOnChat(nil, pl.S(), pl.UnitC().SObj(), text)
+			text = s.CallOnChat(nil, pl.S(), pl.UnitC().SObj(), text)
 			if text == "" {
 				return msz, true // mute
 			}
@@ -1422,7 +1422,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		if tcl == nil {
 			return msz, true
 		}
-		text = s.callOnChat(tcl, pl.S(), pl.UnitC().SObj(), text)
+		text = s.CallOnChat(tcl, pl.S(), pl.UnitC().SObj(), text)
 		if text == "" {
 			return msz, true // mute
 		}

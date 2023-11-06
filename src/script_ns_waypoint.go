@@ -30,7 +30,7 @@ func (s noxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
 func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 	wp := s.s.WPs.ByID(name)
 	if wp == nil {
-		scriptLog.Printf("noxscript: cannot find waypoint: %q", name)
+		ScriptLog.Printf("noxscript: cannot find waypoint: %q", name)
 		return nil
 	}
 	return wp
@@ -56,7 +56,7 @@ func (s noxScriptNS) WaypointGroupByHandle(h ns.WaypointGroupHandle) ns.Waypoint
 func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
 	g := s.s.MapGroups.GroupByID(name, server.MapGroupWaypoints)
 	if g == nil {
-		scriptLog.Printf("noxscript: cannot find waypoint group: %q", name)
+		ScriptLog.Printf("noxscript: cannot find waypoint group: %q", name)
 		return nil
 	}
 	return nsWpGroup{s.s, g}

@@ -82,6 +82,38 @@ func (obj scrObject) Attack(targ script.Positioner) {
 	obj.Object.Attack(targ)
 }
 
+func (obj scrObject) OnUnitDeath(fnc func()) {
+	obj.SObj().OnUnitDeath(fnc)
+}
+
+func (obj scrObject) OnUnitIdle(fnc func()) {
+	obj.SObj().OnUnitIdle(fnc)
+}
+
+func (obj scrObject) OnUnitDone(fnc func()) {
+	obj.SObj().OnUnitDone(fnc)
+}
+
+func (obj scrObject) OnUnitAttack(fnc func(targ script.Unit)) {
+	obj.SObj().OnUnitAttack(fnc)
+}
+
+func (obj scrObject) OnUnitSeeEnemy(fnc func(targ script.Unit)) {
+	obj.SObj().OnUnitSeeEnemy(fnc)
+}
+
+func (obj scrObject) OnUnitLostEnemy(fnc func(targ script.Unit)) {
+	obj.SObj().OnUnitLostEnemy(fnc)
+}
+
+func (obj scrObject) OnTriggerActivate(fnc func(u script.Object)) {
+	obj.SObj().OnTriggerActivate(fnc)
+}
+
+func (obj scrObject) OnTriggerDeactivate(fnc func()) {
+	obj.SObj().OnTriggerDeactivate(fnc)
+}
+
 func (p *Player) Unit() script.Unit {
 	if p == nil {
 		return nil

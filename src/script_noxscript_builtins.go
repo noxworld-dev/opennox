@@ -13,21 +13,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
-func (s *noxScript) callBuiltin(i int, fi asm.Builtin) error {
-	if fi < 0 || fi > asm.BuiltinGetScore {
-		if s.panicCompilerCheck(fi) {
-			return nil
-		}
-	}
-	s.vm.nameSuff = s.vm.funcs[i].NamePref
-	if s.builtinNeedsDPos(fi) {
-		s.vm.dpos = s.vm.funcs[i].PosOff
-	}
-	err := s.callBuiltinNative(fi)
-	s.resetBuiltin()
-	return err
-}
-
 func nox_script_shouldReadMoreXxx(fi asm.Builtin) bool {
 	return fi == 9 || fi == 10 ||
 		fi == 46 || fi == 47 ||
@@ -43,7 +28,7 @@ var errStopScript = errors.New("noxscript: exit")
 func (s *noxScript) callBuiltinNative(fi asm.Builtin) error {
 	res, ok := noxscript.CallBuiltin(s, fi)
 	if !ok {
-		res, ok = s.panicScriptCall(fi)
+		res, ok = s.PanicScriptCall(fi)
 	}
 	if !ok {
 		res, ok = legacy.CallScriptBuiltin(fi)
@@ -61,23 +46,6 @@ func (s *noxScript) callBuiltinNative(fi asm.Builtin) error {
 		return fmt.Errorf("noxscript: builtin %v failed", fi)
 	}
 	return nil
-}
-
-func (s *noxScript) builtinNeedsDPos(fi asm.Builtin) bool {
-	// TODO: 7 items in the array, but the count is set to 5; why?
-	var check = []asm.Builtin{
-		asm.BuiltinWall,
-		asm.BuiltinMoveObject, asm.BuiltinMoveWaypoint,
-		asm.BuiltinPushObject,
-		asm.BuiltinWalk, asm.BuiltinGroupWalk,
-		asm.BuiltinEffect,
-	}
-	for _, ind := range check[:5] {
-		if fi == ind {
-			return true
-		}
-	}
-	return false
 }
 
 var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
