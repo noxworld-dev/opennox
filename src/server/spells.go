@@ -115,17 +115,21 @@ type serverSpells struct {
 	s        *Server
 	byID     map[spell.ID]*SpellDef
 	tree     *PhonemeLeaf
+	Dur      SpellsDuration
 	AllowAll bool // a cheat to allow all spells
 }
 
 func (sp *serverSpells) init(s *Server) {
 	sp.s = s
+	sp.Dur.init(s)
 }
 
 func (sp *serverSpells) Init() {
+	sp.Dur.Init()
 }
 
 func (sp *serverSpells) Free() {
+	sp.Dur.Free()
 }
 
 func (sp *serverSpells) DefByInd(i spell.ID) *SpellDef {
@@ -449,6 +453,57 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflag
 		return true
 	})
 	return found.SObj()
+}
+
+func (s *Server) NetStopRaySpell(sp *DurSpell, who *Object) {
+	if sp == nil {
+		return
+	}
+	caster := sp.Caster16
+	if caster == nil {
+		return
+	}
+	if who == nil {
+		return
+	}
+	var (
+		typ, val byte
+		u1, u2   = sp.Caster16, who
+	)
+	switch spell.ID(sp.Spell) {
+	default:
+		return
+	case spell.SPELL_CHAIN_LIGHTNING:
+		for i := sp.Sub108; i != nil; i = i.Next {
+			s.NetStopRaySpell(i, i.Target48)
+		}
+		return
+	case spell.SPELL_PLASMA:
+		typ = 8
+		val = byte(caster.Direction1)
+	case spell.SPELL_CHARM:
+		typ = 9
+		val = byte(sp.Level)
+	case spell.SPELL_CHAIN_LIGHTNING_BOLT:
+		typ = 10
+		val = byte(sp.Level)
+	case spell.SPELL_DRAIN_MANA:
+		typ = 12
+		val = byte(sp.Level)
+	case spell.SPELL_LIGHTNING:
+		typ = 11
+		val = byte(sp.Level)
+	case spell.SPELL_GREATER_HEAL:
+		if caster == sp.Target48 {
+			return
+		}
+		typ = 13
+		val = byte(sp.Level)
+		u1, u2 = u2, u1
+	}
+	s.NetRayStop(typ, val, u1, u2)
+	s.Players.Nox_xxx_netUnmarkMinimapSpec_417470(sp.Caster16, 2)
+	s.Players.Nox_xxx_netUnmarkMinimapSpec_417470(who, 2)
 }
 
 func Sub_57AEE0(sp spell.ID, u *Object) bool {

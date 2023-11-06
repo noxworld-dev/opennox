@@ -316,8 +316,6 @@ func init() {
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
 	legacy.Sub_526CA0 = sub_526CA0
-	legacy.Nox_xxx_netStopRaySpell_4FEF90 = nox_xxx_netStopRaySpell_4FEF90
-	legacy.Nox_xxx_spellCancelSpellDo_4FE9D0 = nox_xxx_spellCancelSpellDo_4FE9D0
 	legacy.Nox_xxx_playerSetState_4FA020 = func(a1 *server.Object, a2 server.PlayerState) bool {
 		return nox_xxx_playerSetState_4FA020(asObjectS(a1), a2)
 	}
