@@ -551,7 +551,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 			for it := s.Objs.First(); it != nil; it = it.Next() {
 				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Max.X) || float64(it.CollideP2.X) < float64(rect.Min.X) || float64(it.CollideP1.Y) > float64(rect.Max.Y) || float64(it.CollideP2.Y) < float64(rect.Min.Y)) {
 					if it.Field37&plBit != 0 {
-						s.nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
+						s.Nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
 						it.Field38 |= plBit
 						it.Field37 &^= plBit
 					}
@@ -560,7 +560,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 			for it := s.Objs.UpdatableList2; it != nil; it = it.Next() {
 				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Max.X) || float64(it.CollideP2.X) < float64(rect.Min.X) || float64(it.CollideP1.Y) > float64(rect.Max.Y) || float64(it.CollideP2.Y) < float64(rect.Min.Y)) {
 					if it.Field37&plBit != 0 {
-						s.nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
+						s.Nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
 						it.Field38 |= plBit
 						it.Field37 &^= plBit
 					}
@@ -655,7 +655,7 @@ func (s *Server) newSession() error {
 		return err
 	}
 	legacy.Nox_motd_4463E0(1)
-	s.teamsReset()
+	s.TeamsReset()
 	legacy.Sub_4259C0()
 	legacy.Sub_4D7C60()
 	if legacy.Sub_518770() == 0 {
@@ -893,9 +893,9 @@ func (s *Server) maybeInitPlayerUnits() {
 					pi := plx.PlayerIndex()
 					if plx.Field4792 == 1 && ud.Field138 == 0 && savePlayerData(fname, pi) {
 						v5 := sub_419EE0(pi)
-						nox_xxx_sendGauntlet_4DCF80(pi, 1)
+						s.Nox_xxx_sendGauntlet_4DCF80(pi, 1)
 						if !sub41CFA0(fname, pi) && !v5 {
-							nox_xxx_sendGauntlet_4DCF80(pi, 0)
+							s.Nox_xxx_sendGauntlet_4DCF80(pi, 0)
 						}
 						ifs.Remove(fname)
 					}
@@ -911,7 +911,7 @@ func (s *Server) maybeInitPlayerUnits() {
 			legacy.Sub_4D60B0()
 		}
 	} else {
-		s.nox_xxx_netMsgFadeBegin_4D9800(true, true)
+		s.Nox_xxx_netMsgFadeBegin_4D9800(true, true)
 	}
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 		for _, u := range s.getPlayerUnits() {

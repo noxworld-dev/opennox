@@ -471,9 +471,9 @@ func (obj nsObj) ChangeScore(val int) {
 	}
 	s := obj.getServer()
 	if tm := u.Team(); tm != nil {
-		s.teamChangeLessons(tm, val+tm.Lessons)
+		s.TeamChangeLessons(tm, val+tm.Lessons)
 	}
-	s.nox_xxx_netReportLesson_4D8EF0(u)
+	s.Nox_xxx_netReportLesson_4D8EF0(u.SObj())
 }
 
 func (obj nsObj) HasOwner(owner ns4.Obj) bool {
@@ -846,7 +846,7 @@ func (obj nsObj) ChatStrTimer(message string, dt ns4.Duration) {
 }
 
 func (obj nsObj) DestroyChat() {
-	obj.s.nox_xxx_netKillChat_528D00(obj.Object)
+	obj.s.Nox_xxx_netKillChat_528D00(obj.Object.SObj())
 }
 
 func (obj nsObj) CreateMover(wp ns4.WaypointObj, speed float32) ns4.Obj {

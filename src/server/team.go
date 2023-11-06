@@ -238,6 +238,32 @@ func (s *serverTeams) ResetYyy() {
 	}
 }
 
+func (s *Server) TeamsReset() {
+	s.Teams.Reset()
+	noxflags.SetGamePlay(2)
+	noxflags.UnsetGamePlay(1)
+	noxflags.UnsetGamePlay(4)
+}
+
+func (s *Server) TeamChangeLessons(tm *Team, val int) { // nox_xxx_netChangeTeamID_419090
+	if tm == nil {
+		return
+	}
+	tm.Lessons = val
+	if !noxflags.HasGame(noxflags.GameHost) {
+		return
+	}
+	s.NetTeamChangeLessons(tm, val)
+}
+
+func (s *Server) TeamsResetYyy() int {
+	s.Teams.ResetYyy()
+	if !noxflags.HasGame(noxflags.GameHost) {
+		return 0
+	}
+	return s.SendTeamPacket(0x09)
+}
+
 type ObjectTeam struct {
 	Field0 uint32
 	ID     TeamID

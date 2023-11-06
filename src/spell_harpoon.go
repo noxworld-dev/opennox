@@ -1,11 +1,9 @@
 package opennox
 
 import (
-	"encoding/binary"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
-	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -113,28 +111,12 @@ func (a *abilityHarpoon) createBolt(u *Object) {
 	d.frame35 = 0
 }
 
-func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Object) {
-	if u1 != nil && u2 != nil {
-		var buf [7]byte
-		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
-		buf[1] = 7
-		buf[2] = 0
-		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.GetUnitNetCode(u1)))
-		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.GetUnitNetCode(u2)))
-		a.s.NetSendPacketXxx1(255, buf[:7], 0, 1)
-	}
+func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *server.Object) {
+	a.s.NetHarpoonAttach(u1, u2)
 }
 
-func (a *abilityHarpoon) netHarpoonBreak(u1 *Object, u2 *Object) {
-	if u1 != nil && u2 != nil {
-		var buf [7]byte
-		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
-		buf[1] = 14
-		buf[2] = 0
-		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.GetUnitNetCode(u1)))
-		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.GetUnitNetCode(u2)))
-		a.s.NetSendPacketXxx1(255, buf[:7], 0, 1)
-	}
+func (a *abilityHarpoon) netHarpoonBreak(u1 *server.Object, u2 *server.Object) {
+	a.s.NetHarpoonBreak(u1, u2)
 }
 
 func (a *abilityHarpoon) UpdatePlayer(u *Object) {
@@ -205,9 +187,9 @@ func (a *abilityHarpoon) Collide(bolt *Object, targ *Object) {
 	a.s.Audio.EventObj(sound.SoundHarpoonReel, owner, 0, 0)
 }
 
-func (a *abilityHarpoon) disable(u *Object) {
+func (a *abilityHarpoon) disable(u *server.Object) {
 	ud := u.UpdateDataPlayer()
-	a.netHarpoonBreak(u, asObjectS(ud.HarpoonBolt))
+	a.netHarpoonBreak(u, ud.HarpoonBolt)
 }
 
 func (a *abilityHarpoon) Update(bolt *Object) {
@@ -297,7 +279,7 @@ func (a *abilityHarpoon) Update(bolt *Object) {
 		return
 	}
 	if d.frame35 == 0 {
-		a.netHarpoonAttach(owner, bolt)
+		a.netHarpoonAttach(owner.SObj(), bolt.SObj())
 		d.frame35 = a.s.Frame()
 	}
 }

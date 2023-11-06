@@ -46,6 +46,7 @@ func sub_467440(a1 int) {
 }
 
 func sub_446190() {
+	s := noxServer
 	nox_xxx_serverIsClosing_825764 = false
 	if noxflags.HasGame(noxflags.GameHost) {
 		str := strMan.GetStringInFile("ServerManualShutdown", "guiquit.c")
@@ -54,7 +55,7 @@ func sub_446190() {
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		sub_41E300(9)
 		legacy.Nox_xxx____setargv_4_44B000()
-	} else if noxServer.nox_xxx_isQuest_4D6F50() {
+	} else if s.nox_xxx_isQuest_4D6F50() {
 		if sub4D6F30() {
 			noxClient.nox_game_checkStateMenu_43C2F0()
 		}
@@ -72,10 +73,10 @@ func sub_446190() {
 			legacy.Sub_509CB0()
 		}
 		if noxflags.HasGame(noxflags.GameHost) {
-			dword_5d4594_825752 = noxServer.Players.Count() - 1
+			dword_5d4594_825752 = s.Players.Count() - 1
 			sub_467440(0)
 			if dword_5d4594_825752 > 0 {
-				netSendServerQuit()
+				s.NetSendServerQuit()
 				v3 := strMan.GetStringInFile("ShuttingDown", "C:\\NoxPost\\src\\client\\Gui\\guiquit.c")
 				v2 := strMan.GetStringInFile("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\Gui\\guiquit.c")
 				NewDialogWindow(nil, v2, v3, 0, nil, nil)

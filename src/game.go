@@ -1038,7 +1038,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		noxClient.Nox_client_setCursorType(gui.CursorBusy)
 	}
 	legacy.Sub_4D22B0()
-	s.nox_xxx_netMsgFadeBegin_4D9800(false, true)
+	s.Nox_xxx_netMsgFadeBegin_4D9800(false, true)
 	s.scriptOnEvent(script.EventMapExit)
 	v2 := s.getServerMap()
 	legacy.Sub_500510(v2)
@@ -1117,7 +1117,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			plx.Lessons = 0
 			plx.Field2140 = 0
 			plx.Field2144 = s.Frame()
-			s.nox_xxx_netReportLesson_4D8EF0(k)
+			s.Nox_xxx_netReportLesson_4D8EF0(k.SObj())
 		}
 	}
 	s.AI.Paths.Sub50AFA0()
