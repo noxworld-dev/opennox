@@ -781,7 +781,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 			}
 		}
 	}
-	if ud.Field22_0 == 2 {
+	if ud.State == 2 {
 		nox_xxx_playerSetState_4FA020(u, 13)
 	}
 	if ok2 {

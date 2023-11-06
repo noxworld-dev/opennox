@@ -71,6 +71,3 @@ func Nox_xxx_playerSubGold_4FA5D0(a1 *server.Object, a2 int) {
 func Nox_xxx_playerAddGold_4FA590(a1 *server.Object, a2 int) {
 	C.nox_xxx_playerAddGold_4FA590(C.int(uintptr(a1.CObj())), C.int(a2))
 }
-func Nox_xxx_playerSetState_4FA020(a1 *server.Object, a2 int) {
-	C.nox_xxx_playerSetState_4FA020(asObjectC(a1), C.int(a2))
-}
