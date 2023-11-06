@@ -53,6 +53,35 @@ func (obj scrObject) CanSee(obj2 script.Object) bool {
 	return obj.Object.CanSee(toObject(obj2.(server.Obj)))
 }
 
+func (obj scrObject) Guard() {
+	panic("implement me")
+}
+
+func (obj scrObject) Destroy() {
+	panic("implement me")
+	obj.Delete()
+}
+
+func (obj scrObject) Say(text string, dur script.Duration) {
+	panic("implement me")
+}
+
+func (obj scrObject) Mute() {
+	panic("implement me")
+}
+
+func (obj scrObject) Follow(targ script.Positioner) {
+	obj.Object.Follow(targ)
+}
+
+func (obj scrObject) Flee(target script.Positioner, dt script.Duration) {
+	obj.Object.Flee(target, dt)
+}
+
+func (obj scrObject) Attack(targ script.Positioner) {
+	obj.Object.Attack(targ)
+}
+
 func (p *Player) Unit() script.Unit {
 	if p == nil {
 		return nil
