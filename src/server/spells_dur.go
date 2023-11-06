@@ -3,8 +3,26 @@ package server
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 )
+
+type SpellsDuration struct {
+	s *Server
+}
+
+func (sp *SpellsDuration) init(s *Server) {
+	sp.s = s
+}
+
+func (sp *SpellsDuration) Init() {
+
+}
+
+func (sp *SpellsDuration) Free() {
+
+}
 
 type DurSpell struct {
 	ID       uint16         // 0, 0
@@ -40,4 +58,27 @@ type DurSpell struct {
 
 func (sp *DurSpell) C() unsafe.Pointer {
 	return unsafe.Pointer(sp)
+}
+
+func (sp *SpellsDuration) CancelSpell(sd *DurSpell) {
+	obj := sd.Caster16
+	spl := spell.ID(sd.Spell)
+	if obj != nil && obj.Class().Has(object.ClassPlayer) {
+		ud := obj.UpdateDataPlayer()
+		if spl == spell.SPELL_CHAIN_LIGHTNING {
+			sp.s.NetReportSpellStat(int(ud.Player.PlayerInd), spl, 0)
+		} else {
+			sp.s.NetReportSpellStat(int(ud.Player.PlayerInd), spl, 15)
+		}
+	}
+	if spl == spell.SPELL_CHAIN_LIGHTNING {
+		for i := sd.Sub108; i != nil; i = i.Next {
+			if i.Target48 != nil {
+				sp.s.NetStopRaySpell(i, i.Target48)
+			}
+		}
+	} else if sd.Target48 != nil {
+		sp.s.NetStopRaySpell(sd, sd.Target48)
+	}
+	sd.Flags88 |= 1
 }
