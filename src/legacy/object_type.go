@@ -128,7 +128,7 @@ func nox_objectTypeGetWorth(cstr *C.char) int {
 
 //export nox_xxx_newObjectByTypeID_4E3810
 func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
-	obj := GetServer().NewObjectByTypeID(GoString(cstr))
+	obj := GetServer().S().NewObjectByTypeID(GoString(cstr))
 	if obj == nil {
 		return nil
 	}

@@ -5104,6 +5104,9 @@ int nox_xxx_mapgenSaveMap_503830(int a1) {
 
 //----- (00503B30) --------------------------------------------------------
 void nox_script_readWriteZzz_541670(char* path, char* path2, char* dst);
+void nox_xxx_waypoint_5799C0();
+void sub_579D20();
+nox_waypoint_t* sub_579890();
 int sub_503B30(float2* a1) {
 	int result; // eax
 	int v2;     // edi
@@ -5490,6 +5493,7 @@ uint32_t* sub_5044B0(int a1, float a2, float a3) {
 }
 
 //----- (00504560) --------------------------------------------------------
+void sub_579E90(nox_waypoint_t* a1);
 int sub_504560(int a1, int a2) {
 	int* v2;  // esi
 	float v4; // [esp+8h] [ebp+4h]
@@ -5905,6 +5909,7 @@ int nox_server_mapRWGroupData_505C30() {
 // 505C30: using guessed type char var_E4[76];
 
 //----- (00506260) --------------------------------------------------------
+nox_waypoint_t* nox_xxx_waypointNewNotMap_579970(int a1, float a2, float a3);
 int nox_server_mapRWWaypoints_506260(uint32_t* a1) {
 	float* v2;        // esi
 	uint32_t* v3;     // edi

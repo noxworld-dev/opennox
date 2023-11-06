@@ -6,8 +6,10 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -299,6 +301,36 @@ func (w *Waypoint) MarshalJSON() ([]byte, error) {
 	return json.Marshal(w.dump())
 }
 
+func (s *Server) NewWaypoint(pos types.Pointf) *Waypoint {
+	wp, _ := alloc.New(Waypoint{})
+	v3 := s.WPs.Nox_xxx_waypoint_5798C0()
+	v4 := int32(wp.Flags)
+	wp.Index = v3
+	wp.PosVec = pos
+	wp.Flags = uint32(v4 | 1)
+	wp.WpNext = s.WPs.List
+	if s.WPs.List != nil {
+		s.WPs.List.WpPrev = wp
+	}
+	s.WPs.List = wp
+	if noxflags.HasGame(1) {
+		s.Map.Nox_xxx_waypointMapRegister_5179B0(wp)
+	}
+	return wp
+}
+
+func (s *Server) Sub_579E90(wp *Waypoint) {
+	wp.Flags |= 0x1000000
+	wp.WpNext = s.WPs.Pending
+	if s.WPs.Pending != nil {
+		s.WPs.Pending.WpPrev = wp
+	}
+	s.WPs.Pending = wp
+	if noxflags.HasGame(1) {
+		s.Map.Nox_xxx_waypointMapRegister_5179B0(wp)
+	}
+}
+
 func (s *Server) Sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
 	s.WPs.dword_5d4594_2386960++
 	s.WPs.dword_5d4594_2386928 = 1000.0
@@ -332,4 +364,77 @@ func (s *Server) sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, s
 			}
 		}
 	})
+}
+
+func (s *Server) Nox_xxx_waypoint_579F00(out *types.Pointf, obj *Object) int {
+	var flag *Object
+	if noxflags.HasGame(noxflags.GameModeCTF) && obj != nil {
+		for it := s.Objs.First(); it != nil; it = it.Next() {
+			if it.Class().Has(object.ClassFlag) && !obj.TeamPtr().SameAs(it.TeamPtr()) {
+				flag = it
+				break
+			}
+		}
+	}
+	s.WPs.CntXxx = 0
+	for wp := s.WPs.First(); wp != nil; wp = wp.WpNext {
+		if wp.HasFlag2Mask(0x80) && wp.Flags&1 != 0 {
+			s.WPs.CntXxx++
+		}
+	}
+	if s.WPs.CntXxx == 0 {
+		return 0
+	}
+	cnt := s.Rand.Logic.IntClamp(0, s.WPs.CntXxx-1)
+	for wp := s.WPs.First(); wp != nil; wp = wp.WpNext {
+		if !wp.HasFlag2Mask(0x80) {
+			continue
+		}
+		if (wp.Flags & 1) == 0 {
+			continue
+		}
+		if noxflags.HasGame(noxflags.GameModeCTF) && flag != nil && obj != nil {
+			v7 := (*types.Pointf)(flag.UpdateData)
+			if s.MapTraceRayAt(*v7, wp.PosVec, nil, nil, 9) {
+				continue
+			}
+		}
+		if cnt == 0 {
+			*out = wp.PosVec
+			return 1
+		}
+		cnt--
+	}
+	return 0
+}
+
+func (s *Server) Nox_xxx_waypointDeleteAll_579DD0() {
+	var next *Waypoint
+	for it := s.WPs.First(); it != nil; it = next {
+		next = it.WpNext
+		if noxflags.HasGame(1) {
+			s.Map.Sub517A70(it)
+		}
+		alloc.Free(it)
+	}
+	s.WPs.List = nil
+	s.WPs.Pending = nil
+	s.WPs.CntXxx = 0
+}
+
+func (s *Server) Nox_xxx_waypoint_5799C0() {
+	var next *Waypoint
+	for it := s.WPs.Pending; it != nil; it = next {
+		next = it.WpNext
+		it.WpNext = s.WPs.List
+		if s.WPs.List != nil {
+			s.WPs.List.WpPrev = it
+		}
+		s.WPs.List = it
+		if noxflags.HasGame(1) {
+			s.Map.Nox_xxx_waypointMapRegister_5179B0(it)
+		}
+	}
+	s.WPs.Pending = nil
+	s.WPs.Sub_579A30()
 }

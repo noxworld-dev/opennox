@@ -621,6 +621,7 @@ int nox_xxx_spellBlink2_530310(uint32_t* a1) {
 }
 
 //----- (00530380) --------------------------------------------------------
+int nox_xxx_waypoint_579F00(float2* a1, nox_object_t* a2);
 int nox_xxx_spellBlink1_530380(int* a1) {
 	int v1;     // eax
 	int v3;     // eax
