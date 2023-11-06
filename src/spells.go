@@ -409,7 +409,7 @@ func (s *Server) castSpell(spellInd spell.ID, lvl int, u *server.Object, a3 *ser
 	if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
 		asObjectS(u).DisableEnchant(server.ENCHANT_INVISIBLE)
 		asObjectS(u).DisableEnchant(server.ENCHANT_INVULNERABLE)
-		s.spells.duration.CancelFor(spell.SPELL_OVAL_SHIELD, u)
+		s.Spells.Dur.CancelFor(spell.SPELL_OVAL_SHIELD, u)
 	}
 	if !s.Spells.HasFlags(spellInd, things.SpellTargeted) || u.SObj() == a3.Obj {
 		return s.Nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)

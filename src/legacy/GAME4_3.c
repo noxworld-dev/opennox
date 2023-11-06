@@ -1300,6 +1300,7 @@ int nox_xxx_spellTurnUndeadDelete_531420(int a1) {
 }
 
 //----- (00531490) --------------------------------------------------------
+void sub_4FF310(nox_object_t* a1);
 int sub_531490(uint32_t* a1) {
 	int v1;     // eax
 	int v2;     // edi
