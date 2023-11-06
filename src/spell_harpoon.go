@@ -74,7 +74,7 @@ func (a *abilityHarpoon) getHarpoonData(u *Object) *harpoonData {
 }
 
 func (a *abilityHarpoon) Do(u *Object) {
-	nox_xxx_playerSetState_4FA020(u, 32)
+	nox_xxx_playerSetState_4FA020(u, server.PlayerState32)
 	if u == nil {
 		return
 	}

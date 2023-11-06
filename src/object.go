@@ -1412,51 +1412,52 @@ func sub_534020(a1 *server.Object) int32 {
 	return int32((a1.ObjSubClass >> 10) & 1)
 }
 
-func nox_xxx_playerSetState_4FA020(u *Object, st byte) bool {
+func nox_xxx_playerSetState_4FA020(u *Object, st server.PlayerState) bool {
 	s := noxServer
 	res := true
 	ud := u.UpdateDataPlayer()
-	if u.Flags().Has(object.FlagDead) && st != 3 && st != 4 {
+	if u.Flags().Has(object.FlagDead) && st != server.PlayerState3 && st != server.PlayerState4 {
 		return false
 	}
 	if !noxflags.HasGame(2048) {
 		if u.Flags().Has(object.FlagAirborne) {
-			if st == 30 {
+			if st == server.PlayerState30 {
 				return false
 			}
 		}
 	}
-	if st == 24 || st == 25 || st == 26 || st == 27 || st == 28 || st == 29 {
+	switch st {
+	case server.PlayerState24, server.PlayerStateShakeFist, server.PlayerStateLaugh, server.PlayerState27, server.PlayerStatePoint, server.PlayerState29:
 		if s.Abils.IsActive(u.SObj(), server.AbilityBerserk) {
 			return false
 		}
-		if ud.State == 12 {
+		if ud.State == server.PlayerState12 {
 			return false
 		}
 	}
-	if ud.State == 1 {
-		if st == 1 {
+	if ud.State == server.PlayerState1 {
+		if st == server.PlayerState1 {
 			goto LABEL_26
 		}
-		if s.Abils.IsActiveVal(u.SObj(), server.AbilityWarcry) && st != 4 && st != 3 {
+		if s.Abils.IsActiveVal(u.SObj(), server.AbilityWarcry) && st != server.PlayerState4 && st != server.PlayerState3 {
 			return false
 		}
 	}
 	if st != 1 {
 		*(*uint8)(unsafe.Pointer(&ud.Player.Field8)) = 0
 		switch st {
-		case 3, 4:
+		case server.PlayerState3, server.PlayerState4:
 			ud.Field40_0 = 0
 			ud.Field41 = 0
-		case 25:
+		case server.PlayerStateShakeFist:
 			if ud.State != st {
 				s.Audio.EventObj(sound.SoundTauntShakeFist, u, 0, 0)
 			}
-		case 26:
+		case server.PlayerStateLaugh:
 			if ud.State != st {
 				s.Audio.EventObj(sound.SoundTauntLaugh, u, 0, 0)
 			}
-		case 28:
+		case server.PlayerStatePoint:
 			if ud.State != st {
 				s.Audio.EventObj(sound.SoundTauntPoint, u, 0, 0)
 			}
@@ -1484,12 +1485,12 @@ LABEL_26:
 	}
 LABEL_42:
 	if ud.State != st {
-		ud.Field22_1 = ud.State
+		ud.State2 = ud.State
 		ud.State = st
 		u.Field34 = s.Frame()
 		ud.Field59_0 = 0
 	}
-	if st == 30 {
+	if st == server.PlayerState30 {
 		ud.Field41 = s.Frame()
 	}
 	return res

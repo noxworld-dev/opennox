@@ -2,6 +2,45 @@ package server
 
 import "unsafe"
 
+type PlayerState byte
+
+const (
+	PlayerState0         = PlayerState(0)
+	PlayerState1         = PlayerState(1)
+	PlayerState2         = PlayerState(2)
+	PlayerState3         = PlayerState(3)
+	PlayerState4         = PlayerState(4)
+	PlayerState5         = PlayerState(5)
+	PlayerState6         = PlayerState(6)
+	PlayerState7         = PlayerState(7)
+	PlayerState8         = PlayerState(8)
+	PlayerState9         = PlayerState(9)
+	PlayerState10        = PlayerState(10)
+	PlayerState11        = PlayerState(11)
+	PlayerState12        = PlayerState(12)
+	PlayerState13        = PlayerState(13)
+	PlayerState14        = PlayerState(14)
+	PlayerState15        = PlayerState(15)
+	PlayerState16        = PlayerState(16)
+	PlayerState17        = PlayerState(17)
+	PlayerState18        = PlayerState(18)
+	PlayerState19        = PlayerState(19)
+	PlayerState20        = PlayerState(20)
+	PlayerState21        = PlayerState(21)
+	PlayerState22        = PlayerState(22)
+	PlayerState23        = PlayerState(23)
+	PlayerState24        = PlayerState(24)
+	PlayerStateShakeFist = PlayerState(25)
+	PlayerStateLaugh     = PlayerState(26)
+	PlayerState27        = PlayerState(27)
+	PlayerStatePoint     = PlayerState(28)
+	PlayerState29        = PlayerState(29)
+	PlayerState30        = PlayerState(30)
+	PlayerState31        = PlayerState(31)
+	PlayerState32        = PlayerState(32)
+	PlayerState33        = PlayerState(33)
+)
+
 type PlayerUpdateData struct {
 	Field0           uint32         // 0, 0
 	ManaCur          uint16         // 1, 4
@@ -29,8 +68,8 @@ type PlayerUpdateData struct {
 	Field20_0        uint16         // 20, 80
 	Field20_1        uint16         // 20, 82
 	Field21          uint32         // 21, 84
-	State            uint8          // 22, 88
-	Field22_1        uint8          // 22, 89
+	State            PlayerState    // 22, 88
+	State2           PlayerState    // 22, 89
 	Field22_2        uint8          // 22, 90
 	Field22_3        uint8          // 22, 91
 	Field23          uint32         // 23, 92

@@ -21,7 +21,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Object) {
 			ud.Field59_0 = 0
 		}
 	}
-	nox_xxx_playerSetState_4FA020(u, 1)
+	nox_xxx_playerSetState_4FA020(u, server.PlayerState1)
 	legacy.Nox_xxx_spell_4FE680(u.SObj(), dist)
 	s.Map.EachObjInCircle(u.Pos(), dist, func(it *server.Object) bool {
 		if !it.Class().HasAny(object.MaskUnits) {

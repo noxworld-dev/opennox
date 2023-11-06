@@ -184,7 +184,7 @@ func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
-	if ud.State == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
+	if ud.State == server.PlayerState12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
 		a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 6)
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
@@ -251,7 +251,7 @@ func (a *serverAbilities) Update() {
 				a.s.Audio.EventObj(snd, u, 0, 0)
 				a.netAbilReportActive(obj, p.Abil, false)
 				if p.Abil == server.AbilityBerserk {
-					nox_xxx_playerSetState_4FA020(u, 13)
+					nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 				}
 			}
 			if next != nil {
