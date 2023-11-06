@@ -678,12 +678,13 @@ func sub_4DD0B0(a1p *server.Object) {
 	if u == nil {
 		return
 	}
+	s := noxServer
 	pl := u.ControllingPlayer()
 	if nox_xxx_player_4D7980(pl.Index()) {
-		noxServer.GetPlayerByInd(pl.PlayerIndex()).Disconnect(4)
+		s.GetPlayerByInd(pl.PlayerIndex()).Disconnect(4)
 	} else {
 		sub_419EB0(pl.PlayerIndex(), 0)
-		nox_xxx_sendGauntlet_4DCF80(pl.PlayerIndex(), 0)
+		s.Nox_xxx_sendGauntlet_4DCF80(pl.PlayerIndex(), 0)
 	}
 }
 

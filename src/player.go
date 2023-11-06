@@ -87,7 +87,7 @@ func asPlayerS(p *server.Player) *Player {
 }
 
 func BlindPlayers(blind bool) {
-	noxServer.nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
+	noxServer.Nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
 }
 
 func HostPlayer() *Player {
@@ -796,11 +796,11 @@ func (s *Server) PlayerSpell(su *server.Object) {
 		legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), v13)
 	} else if a1 != 0 {
 		v4 := ud.SpellPhonemeLeaf
-		nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
+		s.Nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
 	} else {
 		v4 := ud.SpellPhonemeLeaf
 		if !s.Spells.HasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
-			nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
+			s.Nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
 		}
 	}
 }

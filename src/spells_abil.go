@@ -332,7 +332,7 @@ func (a *serverAbilities) DisableAbility(u *server.Object, abil server.Ability) 
 	}
 	switch abil {
 	case server.AbilityHarpoon:
-		a.harpoon.disable(asObjectS(u))
+		a.harpoon.disable(u)
 		break
 	case server.AbilityTreadLightly:
 		asObjectS(u).DisableEnchant(server.ENCHANT_SNEAK)

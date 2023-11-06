@@ -98,8 +98,8 @@ func (s noxScriptNS) ClearMessages(pl ns.Obj) {
 	if pl == nil {
 		return
 	}
-	u := toObject(pl.(server.Obj))
-	s.s.nox_xxx_netScriptMessageKill_4D9760(u)
+	u := toObjectS(pl.(server.Obj))
+	s.s.Nox_xxx_netScriptMessageKill_4D9760(u)
 }
 
 func (s noxScriptNS) UnBlind() {
@@ -193,9 +193,9 @@ func (p nsPlayer) ChangeScore(score int) {
 	}
 	p.p.Lessons += int32(score)
 	if tm := u.Team(); tm != nil {
-		p.s.teamChangeLessons(tm, score+tm.Lessons)
+		p.s.TeamChangeLessons(tm, score+tm.Lessons)
 	}
-	p.s.nox_xxx_netReportLesson_4D8EF0(u)
+	p.s.Nox_xxx_netReportLesson_4D8EF0(u.SObj())
 }
 
 func (p nsPlayer) Print(message ns.StringID) {

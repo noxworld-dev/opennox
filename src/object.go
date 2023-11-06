@@ -786,7 +786,7 @@ func (s *Server) Nox_xxx_unitClearOwner_4EC300(obj *server.Object) {
 		*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 & math.MaxInt8))
 		ud := owner.UpdateDataPlayer()
 		obj.ObjSubClass = uint32(v2)
-		s.nox_xxx_netFxShield_0_4D9200(int(ud.Player.PlayerInd), obj)
+		s.Nox_xxx_netFxShield_0_4D9200(int(ud.Player.PlayerInd), obj)
 		s.Players.Nox_xxx_netUnmarkMinimapObj_417300(ud.Player.PlayerIndex(), obj, 1)
 	}
 	if owner.Field129 != nil {

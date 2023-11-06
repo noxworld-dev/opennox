@@ -1,21 +1,10 @@
 package opennox
 
 import (
-	"encoding/binary"
-
-	"github.com/noxworld-dev/opennox-lib/noxnet"
-
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
-
-func (s *Server) teamsReset() {
-	s.Teams.Reset()
-	noxflags.SetGamePlay(2)
-	noxflags.UnsetGamePlay(1)
-	noxflags.UnsetGamePlay(4)
-}
 
 func nox_xxx_objGetTeamByNetCode_418C80(code int) *server.ObjectTeam {
 	if noxflags.HasGame(noxflags.GameHost) {
@@ -51,11 +40,7 @@ func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
 	}
 	name := t.Name()
 	if noxflags.HasGame(noxflags.GameHost) && netUpd {
-		var buf [6]byte
-		buf[0] = byte(noxnet.MSG_TEAM_MSG)
-		buf[1] = 0x6
-		binary.LittleEndian.PutUint32(buf[2:], uint32(t.ID()))
-		s.NetSendPacketXxx1(0x9F, buf[:6], 0, 1)
+		s.NetTeamRemove(t)
 	}
 	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
 		objt := nox_xxx_objGetTeamByNetCode_418C80(pl.NetCode())
@@ -71,37 +56,6 @@ func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
 	}
 }
 
-func (s *Server) TeamsResetYyy() int {
-	s.Teams.ResetYyy()
-	if !noxflags.HasGame(noxflags.GameHost) {
-		return 0
-	}
-	return s.sendTeamPacket(0x09)
-}
-
-func (s *Server) sendTeamPacket(op byte) int {
-	var buf [2]byte
-	buf[0] = byte(noxnet.MSG_TEAM_MSG)
-	buf[1] = op
-	return s.NetSendPacketXxx1(0x9F, buf[:], 0, 1)
-}
-
-func (s *Server) teamChangeLessons(tm *server.Team, val int) { // nox_xxx_netChangeTeamID_419090
-	if tm == nil {
-		return
-	}
-	tm.Lessons = val
-	if !noxflags.HasGame(noxflags.GameHost) {
-		return
-	}
-	var buf [10]byte
-	buf[0] = byte(noxnet.MSG_TEAM_MSG)
-	buf[1] = 0x8
-	binary.LittleEndian.PutUint32(buf[2:], uint32(tm.ID()))
-	binary.LittleEndian.PutUint32(buf[6:], uint32(val))
-	s.NetSendPacketXxx1(159, buf[:10], 0, 1)
-}
-
 func (s *Server) TeamsRemoveActive(hooks bool) int {
 	noxflags.UnsetGamePlay(4)
 	for i := 1; i < len(s.Teams.Arr); i++ {
@@ -114,5 +68,5 @@ func (s *Server) TeamsRemoveActive(hooks bool) int {
 		return 0
 	}
 	legacy.Sub_456FA0() // TODO: GUI callback?
-	return s.sendTeamPacket(0x07)
+	return s.SendTeamPacket(0x07)
 }

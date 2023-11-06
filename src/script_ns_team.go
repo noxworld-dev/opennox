@@ -41,7 +41,7 @@ func (t nsTeam) GetScore() int {
 }
 
 func (t nsTeam) ChangeScore(score int) {
-	t.s.teamChangeLessons(t.t, score+t.t.Lessons)
+	t.s.TeamChangeLessons(t.t, score+t.t.Lessons)
 }
 
 func (t nsTeam) Color() color.Color {
