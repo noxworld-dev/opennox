@@ -111,7 +111,7 @@ func (sp *spellsDuration) destroyDurSpell(spl *server.DurSpell) {
 		if u.Class().Has(object.ClassPlayer) {
 			ud := u.UpdateDataPlayer()
 			if ud.Player.PlayerClass() != player.Warrior || !sp.s.Abils.IsActive(u, server.AbilityBerserk) {
-				nox_xxx_playerSetState_4FA020(asObjectS(u), 13)
+				nox_xxx_playerSetState_4FA020(asObjectS(u), server.PlayerState13)
 			}
 		} else if u.Class().Has(object.ClassMonster) {
 			monsterCancelDurSpell(u, spell.ID(spl.Spell))
