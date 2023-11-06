@@ -315,6 +315,12 @@ func (s *serverPlayers) Nox_xxx_netMarkMinimapObject_417190(pind ntype.PlayerInd
 	return 1
 }
 
+func (s *serverPlayers) Nox_xxx_netUnmarkMinimapSpec_417470(obj *Object, flags uint32) {
+	for it := s.First(); it != nil; it = s.Next(it) {
+		s.Nox_xxx_netUnmarkMinimapObj_417300(it.PlayerIndex(), obj, flags)
+	}
+}
+
 func (s *serverPlayers) Nox_xxx_netUnmarkMinimapObj_417300(pind ntype.PlayerInd, obj *Object, flags uint32) int32 {
 	if pind < 0 || pind >= common.MaxPlayers {
 		return 0
