@@ -5,24 +5,11 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
-
-type SpellsDuration struct {
-	s *Server
-}
-
-func (sp *SpellsDuration) init(s *Server) {
-	sp.s = s
-}
-
-func (sp *SpellsDuration) Init() {
-
-}
-
-func (sp *SpellsDuration) Free() {
-
-}
 
 type DurSpell struct {
 	ID       uint16         // 0, 0
@@ -58,6 +45,133 @@ type DurSpell struct {
 
 func (sp *DurSpell) C() unsafe.Pointer {
 	return unsafe.Pointer(sp)
+}
+
+type SpellsDuration struct {
+	s      *Server
+	alloc  alloc.ClassT[DurSpell]
+	List   *DurSpell
+	lastID uint16
+}
+
+func (sp *SpellsDuration) init(s *Server) {
+	sp.s = s
+}
+
+func (sp *SpellsDuration) Init() {
+	sp.alloc = alloc.NewClassT("spellDuration", DurSpell{}, 512)
+}
+
+func (sp *SpellsDuration) Free() {
+	sp.alloc.Free()
+}
+
+func (sp *SpellsDuration) NewRaw() *DurSpell {
+	p := sp.alloc.NewObject()
+	if p != nil {
+		sp.lastID++
+		p.ID = sp.lastID
+	}
+	return p
+}
+
+func (sp *SpellsDuration) NewLightningSub(src *DurSpell, from, to *Object) {
+	p := sp.NewRaw()
+	if p == nil {
+		return
+	}
+	p.Target48 = to
+	p.Caster16 = from
+	p.Spell = uint32(spell.SPELL_CHAIN_LIGHTNING_BOLT)
+	p.Sub108 = nil
+	p.Sub104 = nil
+	p.Prev = nil
+	p.Next = src.Sub108
+	if sub := src.Sub108; sub != nil {
+		sub.Prev = p
+	}
+	src.Sub108 = p
+}
+
+func (sp *SpellsDuration) Sub4FE8A0(a1 int) {
+	if a1 == 0 {
+		sp.alloc.FreeAllObjects()
+		sp.List = nil
+		return
+	}
+	var next *DurSpell
+	for it := sp.List; it != nil; it = next {
+		u := it.Target48
+		next = it.Next
+		if u == nil || !u.Class().Has(object.ClassPlayer) {
+			sp.Unlink(it)
+			sp.FreeRecursive(it)
+		}
+	}
+}
+
+func (sp *SpellsDuration) FreeRecursive(p *DurSpell) {
+	var next1 *DurSpell
+	for it := p.Sub108; it != nil; it = next1 {
+		next1 = it.Next
+		sp.FreeRecursive(it)
+	}
+	var next2 *DurSpell
+	for it := p.Sub104; it != nil; it = next2 {
+		next2 = it.Next
+		sp.FreeRecursive(it)
+	}
+	sp.alloc.FreeObjectFirst(p)
+}
+
+func (sp *SpellsDuration) Add(p *DurSpell) {
+	if sp.List != nil {
+		sp.List.Prev = p
+	}
+	p.Prev = nil
+	p.Next = sp.List
+	sp.List = p
+}
+
+func (sp *SpellsDuration) Unlink(p *DurSpell) {
+	if prev := p.Prev; prev != nil {
+		prev.Next = p.Next
+	} else {
+		sp.List = p.Next
+	}
+	if next := p.Next; next != nil {
+		next.Prev = p.Prev
+	}
+}
+
+func (sp *SpellsDuration) Sub4FEE50(a1 spell.ID, a2 *Object) bool {
+	for it := sp.List; it != nil; it = it.Next {
+		if it.Flag20 == 0 && spell.ID(it.Spell) == a1 && it.Caster16 == a2 && it.Flags88&0x1 == 0 {
+			return true
+		}
+	}
+	return false
+}
+
+func (sp *SpellsDuration) CancelOffensiveFor(u *Object) {
+	var next *DurSpell
+	for it := sp.List; it != nil; it = next {
+		next = it.Next
+		if it.Caster16 == u && sp.s.Spells.Flags(spell.ID(it.Spell)).Has(things.SpellOffensive) {
+			sp.CancelSpell(it)
+		}
+	}
+}
+
+func (sp *SpellsDuration) CancelFor(sid spell.ID, obj Obj) {
+	var next *DurSpell
+	for it := sp.List; it != nil; it = next {
+		sid2 := spell.ID(it.Spell)
+		next = it.Next
+		if sid2 == sid && it.Caster16 == toObject(obj) || SpellIsSummon(sid) && SpellIsSummon(sid2) && it.Caster16 == toObject(obj) {
+			sp.CancelSpell(it)
+		}
+	}
 }
 
 func (sp *SpellsDuration) CancelSpell(sd *DurSpell) {
