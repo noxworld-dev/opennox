@@ -1599,11 +1599,11 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		}
 		switch data[1] {
 		case 1:
-			nox_xxx_playerSetState_4FA020(u, 26)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerStateLaugh)
 		case 2:
-			nox_xxx_playerSetState_4FA020(u, 25)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerStateShakeFist)
 		case 4:
-			nox_xxx_playerSetState_4FA020(u, 27)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState27) // TODO: should it be state 28 (point)?
 		}
 		return 2, true
 	case noxnet.MSG_DIALOG:

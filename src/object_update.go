@@ -120,8 +120,8 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 	if oa1, ov68, ok := s.unitUpdatePlayerImplA(u); ok {
 		s.unitUpdatePlayerImplB(u, oa1, ov68)
 	}
-	if u.HasEnchant(server.ENCHANT_RUN) && ud.State != 1 {
-		nox_xxx_playerSetState_4FA020(u, 5)
+	if u.HasEnchant(server.ENCHANT_RUN) && ud.State != server.PlayerState1 {
+		nox_xxx_playerSetState_4FA020(u, server.PlayerState5)
 	}
 	legacy.Nox_xxx_questCheckSecretArea_421C70(u.SObj())
 	s.abilities.harpoon.UpdatePlayer(u)
@@ -133,7 +133,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 	switch ud.State {
 	default:
 		return a1, v68, true
-	case 0, 5:
+	case server.PlayerState0, server.PlayerState5:
 		if legacy.Nox_xxx_playerCanMove_4F9BC0(u.SObj()) == 0 {
 			return a1, v68, true
 		}
@@ -152,7 +152,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		dy := float64(dp.Y)
 		a1 = false
 		const runCursorDist = 100
-		if !(ud.State != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly)) {
+		if !(ud.State != server.PlayerState5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly)) {
 			// switch from walking to running
 			a1 = true
 			u.SpeedCur *= 2
@@ -194,7 +194,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			// update force based on direction, speed, etc
 			u.ForceVec = u.ForceVec.Add(u.Direction2.Vec().Mul(u.SpeedCur))
 		}
-		if ud.State == 0 {
+		if ud.State == server.PlayerState0 {
 			v67, v69 := s.PlayerAnimFrames(4)
 			v31 := int(u.NetCode) + int(noxServer.Frame())
 			v32 := (v31 - 1) / (v69 + 1) % v67
@@ -224,27 +224,27 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			}
 		}
 		return a1, v68, true
-	case 1:
+	case server.PlayerState1:
 		if legacy.Nox_xxx_playerAttack_538960(u.SObj()) == 0 {
 			if pl.Field4&4 != 0 {
-				nox_xxx_playerSetState_4FA020(u, 14)
+				nox_xxx_playerSetState_4FA020(u, server.PlayerState14)
 				u.Field34 = s.Frame()
 			} else {
-				nox_xxx_playerSetState_4FA020(u, 13)
+				nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 				pl.Field8 &^= 0xff
 			}
 		}
 		return a1, v68, true
-	case 2:
+	case server.PlayerState2:
 		v67, v69 := s.PlayerAnimFrames(21)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			ud.Field59_0 = uint8(v67 - 1)
 		}
 		return a1, v68, true
-	case 3:
+	case server.PlayerState3:
 		if (int(s.Frame()) - int(u.Field34)) > int(s.TickRate()) {
-			nox_xxx_playerSetState_4FA020(u, 4)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState4)
 			ud.Field60 &^= 0x20
 			u.Field34 = s.Frame()
 			u.ObjFlags |= uint32(object.FlagShort | object.FlagAllowOverlap)
@@ -254,7 +254,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			s.scriptOnEvent(script.EventPlayerDeath)
 		}
 		return a1, v68, false
-	case 4:
+	case server.PlayerState4:
 		if (int(s.Frame()) - int(u.Field34)) <= int(s.TickRate())/2 {
 			return a1, v68, false
 		}
@@ -300,10 +300,10 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			}
 		}
 		return a1, v68, false
-	case 0xA:
+	case server.PlayerState10:
 		ud.Field59_0 = 0
 		return a1, v68, true
-	case 0xC:
+	case server.PlayerState12:
 		v67, v69 := s.PlayerAnimFrames(3)
 		v49 := (int(s.Frame()) - int(u.Field34)) / (v69 + 1)
 
@@ -320,44 +320,44 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		}
 		if v49 >= v67 {
 			// stop hovering after a jump?
-			nox_xxx_playerSetState_4FA020(u, 0)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState0)
 			u.ObjFlags &= 0xFFFFBFFF
 			u.Field34 = s.Frame()
 		}
 		a1 = v69 != 0
 		return a1, v68, false
-	case 0xD:
+	case server.PlayerState13:
 		u.ObjFlags &= 0xFFFFBFFE
 		if legacy.Sub_4F9A80(u.SObj()) != 0 {
-			nox_xxx_playerSetState_4FA020(u, 0)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState0)
 		}
 		if noxflags.HasGame(noxflags.GameModeChat) || (pl.Field0&0x3000000 == 0) || legacy.Nox_xxx_monsterTestBlockShield_533E70(u.SObj()) == 0 &&
 			(int(s.Frame())-int(u.Field34)) <= int(s.TickRate())/4 {
 			return a1, v68, true
 		}
-		nox_xxx_playerSetState_4FA020(u, 15)
+		nox_xxx_playerSetState_4FA020(u, server.PlayerState15)
 		ud.Field59_0 = 0
 		return a1, v68, true
-	case 0xE:
+	case server.PlayerState14:
 		v69, _ := s.PlayerAnimFrames(33)
 		ud.Field59_0 = uint8(v69 - 1)
 		if int(s.Frame())-int(u.Field34) > int(s.TickRate()) {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0xF:
+	case server.PlayerState15:
 		v67, v69 := s.PlayerAnimFrames(40)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 16)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState16)
 			ud.Field59_0 = uint8(v67 - 1)
 		}
 		return a1, v68, true
-	case 0x10:
+	case server.PlayerState16:
 		v69, _ := s.PlayerAnimFrames(40)
 		ud.Field59_0 = uint8(v69 - 1)
 		return a1, v68, true
-	case 0x11:
+	case server.PlayerState17:
 		v67, v69 := s.PlayerAnimFrames(40)
 		v11 := v67 - (int(s.Frame())-int(u.Field34))/(v69+1)
 		if v11 >= v67 {
@@ -365,115 +365,115 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		} else {
 			if v11 <= 0 {
 				v11 = 0
-				nox_xxx_playerSetState_4FA020(u, 13)
+				nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 			}
 			ud.Field59_0 = uint8(v11)
 		}
 		return a1, v68, true
-	case 0x12:
+	case server.PlayerState18:
 		v67, v69 := s.PlayerAnimFrames(48)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x13:
+	case server.PlayerState19:
 		v67, v69 := s.PlayerAnimFrames(49)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x14:
+	case server.PlayerState20:
 		v67, v69 := s.PlayerAnimFrames(47)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x15:
+	case server.PlayerState21:
 		v69, v67 := s.PlayerAnimFrames(30)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v67 + 1))
 		if int(ud.Field59_0) >= v69 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x16:
+	case server.PlayerState22:
 		v69, _ := s.PlayerAnimFrames(31)
 		ud.Field59_0 = uint8(v69 - 1)
 		return a1, v68, true
-	case 0x17:
+	case server.PlayerState23:
 		v67, v69 := s.PlayerAnimFrames(50)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x18:
+	case server.PlayerState24:
 		v67, v69 := s.PlayerAnimFrames(19)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x19:
+	case server.PlayerStateShakeFist:
 		v67, v69 := s.PlayerAnimFrames(20)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x1A:
+	case server.PlayerStateLaugh:
 		v67, v69 := s.PlayerAnimFrames(15)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x1B:
+	case server.PlayerState27:
 		v67, v69 := s.PlayerAnimFrames(16)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67/2 {
-			nox_xxx_playerSetState_4FA020(u, 28)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerStatePoint)
 			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
-	case 0x1C:
+	case server.PlayerStatePoint:
 		v67, _ := s.PlayerAnimFrames(16)
 		ud.Field59_0 = uint8(v67 / 2)
 		if (int(s.Frame()) - int(u.Field34)) > 0x14 {
-			nox_xxx_playerSetState_4FA020(u, 29)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState29)
 			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
-	case 0x1D:
+	case server.PlayerState29:
 		v67, v69 := s.PlayerAnimFrames(16)
 		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.Field34))/(v69+1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
-	case 0x1E:
+	case server.PlayerState30:
 		v67, v69 := s.PlayerAnimFrames(52)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 			ud.Field41 = 0
 		}
 		return a1, v68, true
-	case 0x20:
+	case server.PlayerState32:
 		v67, _ := s.PlayerAnimFrames(54)
 		ud.Field59_0 = uint8(v67 / 2)
 		if (int(s.Frame()) - int(u.Field34)) > 0x14 {
-			nox_xxx_playerSetState_4FA020(u, 33)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState33)
 			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
-	case 0x21:
+	case server.PlayerState33:
 		v67, v69 := s.PlayerAnimFrames(54)
 		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.Field34))/(v69+1))
 		if int(ud.Field59_0) >= v67 {
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		}
 		return a1, v68, true
 	}
@@ -487,8 +487,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 	if cb.IsEmpty() {
 		goto LABEL_247
 	}
-	if (ud.State == 0 || ud.State == 5) && legacy.Sub_4F9A80(u.SObj()) == 0 {
-		nox_xxx_playerSetState_4FA020(u, 13)
+	if (ud.State == server.PlayerState0 || ud.State == server.PlayerState5) && legacy.Sub_4F9A80(u.SObj()) == 0 {
+		nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 		u.Field34 = s.Frame()
 	}
 	ud.Field60 &^= 0x2 | 0x4 | 0x8 | 0x10
@@ -525,14 +525,14 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 			if legacy.Nox_xxx_playerCanMove_4F9BC0(u.SObj()) != 0 {
 				legacy.Nox_xxx_cancelAllSpells_4FEE90(u.SObj())
 				if !s.Abils.IsActive(u.SObj(), server.AbilityBerserk) &&
-					(ud.State != 1 || (pl.Field4&0x47F0000 != 0) && legacy.Nox_common_mapPlrActionToStateId_4FA2B0(u.SObj()) != 29) {
-					if ud.State == 16 {
-						nox_xxx_playerSetState_4FA020(u, 17)
+					(ud.State != server.PlayerState1 || (pl.Field4&0x47F0000 != 0) && legacy.Nox_common_mapPlrActionToStateId_4FA2B0(u.SObj()) != 29) {
+					if ud.State == server.PlayerState16 {
+						nox_xxx_playerSetState_4FA020(u, server.PlayerState17)
 					} else {
 						if a1 {
-							nox_xxx_playerSetState_4FA020(u, 5)
+							nox_xxx_playerSetState_4FA020(u, server.PlayerState5)
 						} else {
-							nox_xxx_playerSetState_4FA020(u, 0)
+							nox_xxx_playerSetState_4FA020(u, server.PlayerState0)
 						}
 						if it.Uint8()&2 != 0 {
 							ud.Field60 |= 0x1
@@ -558,8 +558,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				if !noxflags.HasGame(noxflags.GameModeChat) && legacy.Nox_xxx_checkWinkFlags_4F7DF0(u.SObj()) == 0 {
 					legacy.Nox_xxx_playerInputAttack_4F9C70(u.SObj())
 				}
-				if ud.State == 10 {
-					nox_xxx_playerSetState_4FA020(u, 13)
+				if ud.State == server.PlayerState10 {
+					nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 				}
 			}
 		case player.CCJump:
@@ -580,7 +580,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 					u.Direction2 = legacy.Nox_xxx_playerConfusedGetDirection_4F7A40(u.SObj())
 				}
 				u.ObjFlags |= 0x4000
-				nox_xxx_playerSetState_4FA020(u, 12)
+				nox_xxx_playerSetState_4FA020(u, server.PlayerState12)
 				u.Field34 = s.Frame()
 				return
 			}
@@ -657,7 +657,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellPatternEnd:
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.SpellCastStart != 0 {
 					s.PlayerSpell(u.SObj())
@@ -668,7 +668,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				}
 			}
 		case player.CCCastQueuedSpell:
-			nox_xxx_playerSetState_4FA020(u, 13)
+			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.SpellCastStart != 0 {
 					s.PlayerSpell(u.SObj())
@@ -694,7 +694,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 	}
 
 LABEL_247:
-	if v68 && ud.State != 0 && ud.State != 5 {
+	if v68 && ud.State != server.PlayerState0 && ud.State != server.PlayerState5 {
 		if s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly) {
 			s.abilities.DisableAbility(u.SObj(), server.AbilityTreadLightly)
 		}

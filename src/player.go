@@ -781,8 +781,8 @@ func (s *Server) PlayerSpell(su *server.Object) {
 			}
 		}
 	}
-	if ud.State == 2 {
-		nox_xxx_playerSetState_4FA020(u, 13)
+	if ud.State == server.PlayerState2 {
+		nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 	}
 	if ok2 {
 		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")

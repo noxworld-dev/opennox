@@ -22,7 +22,7 @@ func nox_xxx_warriorBerserker_53FEB0(u *Object) {
 			ud.Field59_0 = 0
 		}
 	}
-	nox_xxx_playerSetState_4FA020(u, 1)
+	nox_xxx_playerSetState_4FA020(u, server.PlayerState1)
 	u.DisableEnchant(server.ENCHANT_INVISIBLE)
 	u.DisableEnchant(server.ENCHANT_INVULNERABLE)
 	s.spells.duration.CancelFor(spell.SPELL_OVAL_SHIELD, u)
