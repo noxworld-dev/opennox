@@ -526,11 +526,13 @@ type ScriptCallback struct {
 	Func  int32
 }
 
-// ObjectExt is a Go-allocated extension for Object structure. See Object.Ext.
+// ObjectExt is a Go-allocated extension for Object structure. See Object.SetExt.
 type ObjectExt struct {
 	s *Server
 	h uintptr
 	*Object
+
+	objectHandlers objectHandlers
 
 	HealthRegenToMax    time.Duration
 	HealthRegenPerFrame float32
@@ -669,9 +671,9 @@ func (obj *Object) Server() *Server {
 	return getServer(obj.serverHandle)
 }
 
-// Ext gets or creates an extended object data and returns it.
+// SetExt gets or creates an extended object data and returns it.
 // Only use this when you want to write something to this data. Otherwise, see GetExt.
-func (obj *Object) Ext() *ObjectExt {
+func (obj *Object) SetExt() *ObjectExt {
 	if obj == nil {
 		return nil
 	}
@@ -683,7 +685,7 @@ func (obj *Object) Ext() *ObjectExt {
 }
 
 // GetExt returns an extended object data.
-// If there's no extended data, it returns nil. If you want to write to data, see Ext.
+// If there's no extended data, it returns nil. If you want to write to data, see SetExt.
 func (obj *Object) GetExt() *ObjectExt {
 	if obj == nil {
 		return nil

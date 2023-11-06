@@ -48,6 +48,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s.Teams.init(sm, pr)
 	s.Abils.init(s)
 	s.Spells.init(s)
+	s.NoxScriptVM.Init(s)
 	s.http.init()
 	return s
 }
@@ -66,23 +67,26 @@ type Server struct {
 	loopHooks  chan func()
 	ExtServer  unsafe.Pointer // populated by the caller of New
 
-	Rand       serverRandom
-	Walls      serverWalls
-	WPs        serverWaypoints
-	Types      serverObjTypes
-	Objs       serverObjects
-	Modif      serverModifiers
-	Map        serverMap
-	Doors      serverDoors
-	MapGroups  ServerMapGroups
-	Audio      serverAudio
-	Activators serverActivators
-	Players    serverPlayers
-	Teams      serverTeams
-	Abils      serverAbilities
-	Spells     serverSpells
-	Balance    serverBalance
-	AI         serverAI
+	Rand         serverRandom
+	Walls        serverWalls
+	WPs          serverWaypoints
+	Types        serverObjTypes
+	Objs         serverObjects
+	Modif        serverModifiers
+	Map          serverMap
+	Doors        serverDoors
+	MapGroups    ServerMapGroups
+	Audio        serverAudio
+	Activators   serverActivators
+	Players      serverPlayers
+	Teams        serverTeams
+	Abils        serverAbilities
+	Spells       serverSpells
+	Balance      serverBalance
+	AI           serverAI
+	NoxScriptVM  NoxScriptVM
+	VMs          ScriptVMs
+	ScriptEvents scriptEvents
 
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool
