@@ -509,3 +509,7 @@ func (s *Server) NetStopRaySpell(sp *DurSpell, who *Object) {
 func Sub_57AEE0(sp spell.ID, u *Object) bool {
 	return sp < spell.SPELL_SUMMON_BAT || sp > spell.SPELL_SUMMON_URCHIN_SHAMAN || u.Nox_xxx_countControlledCreatures_500D10() <= 4
 }
+
+func SpellIsSummon(sp spell.ID) bool {
+	return sp >= spell.SPELL_SUMMON_BAT && sp <= spell.SPELL_SUMMON_URCHIN_SHAMAN
+}

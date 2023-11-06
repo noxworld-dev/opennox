@@ -259,7 +259,7 @@ func (sp *spellWall) associateSavedWalls(obj *server.Object) int32 {
 		return 1
 	}
 	var spl *server.DurSpell
-	for it := sp.s.spells.duration.list; it != nil; it = it.Next {
+	for it := sp.s.spells.duration.List; it != nil; it = it.Next {
 		if spell.ID(it.Spell) == spell.SPELL_WALL && it.Caster16 == obj && it.Flags88&0x1 == 0 {
 			spl = it
 			break
