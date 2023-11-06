@@ -8425,6 +8425,7 @@ void nox_xxx_monsterOnSpawnSpellcaster_529BC0(int a1) {
 }
 
 //----- (00529CE0) --------------------------------------------------------
+nox_waypoint_t* sub_579C80(unsigned int a1);
 int nox_xxx_XFer_ActionData_529CE0(int a1) {
 	int v1;             // ebp
 	int v3;             // ebx

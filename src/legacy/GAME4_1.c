@@ -4968,6 +4968,7 @@ int sub_51D100(int a1) {
 }
 
 //----- (0051D120) --------------------------------------------------------
+nox_waypoint_t* nox_xxx_waypointNew_5798F0(float a1, float a2);
 uint32_t* sub_51D120(float* a1) {
 	uint32_t* result; // eax
 	uint32_t* v2;     // esi
@@ -4992,6 +4993,7 @@ uint32_t* sub_51D120(float* a1) {
 }
 
 //----- (0051D1A0) --------------------------------------------------------
+nox_waypoint_t* sub_579AD0(float a1, float a2);
 float* sub_51D1A0(float2* a1) {
 	float* result; // eax
 	float2 a2;     // [esp+0h] [ebp-8h]

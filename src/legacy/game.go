@@ -214,7 +214,7 @@ func sub_517590(x float32, y float32) int {
 
 //export sub_518740
 func sub_518740(a1 *C.float2, a2 uint8) *nox_waypoint_t {
-	return (*nox_waypoint_t)(GetServer().Sub_518460(*(*types.Pointf)(unsafe.Pointer(a1)), a2, true).C())
+	return (*nox_waypoint_t)(GetServer().S().Sub_518460(*(*types.Pointf)(unsafe.Pointer(a1)), a2, true).C())
 }
 
 //export nox_xxx_getMissilesInCircle_518170
