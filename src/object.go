@@ -10,6 +10,7 @@ import (
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/strman"
@@ -1327,10 +1328,6 @@ func (obj *Object) SetTrapSpells(spells ...spell.ID) {
 	setBomberSpells(obj.SObj(), spells...)
 }
 
-func nox_xxx_playerSetState_4FA020(u *Object, a2 int) {
-	legacy.Nox_xxx_playerSetState_4FA020(u.SObj(), a2)
-}
-
 func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int) int {
 	return asObjectS(a1).CountSubOfType(a2)
 }
@@ -1413,4 +1410,87 @@ func (obj *Object) SetColor(ind int, cl color.Color) {
 
 func sub_534020(a1 *server.Object) int32 {
 	return int32((a1.ObjSubClass >> 10) & 1)
+}
+
+func nox_xxx_playerSetState_4FA020(u *Object, st byte) bool {
+	s := noxServer
+	res := true
+	ud := u.UpdateDataPlayer()
+	if u.Flags().Has(object.FlagDead) && st != 3 && st != 4 {
+		return false
+	}
+	if !noxflags.HasGame(2048) {
+		if u.Flags().Has(object.FlagAirborne) {
+			if st == 30 {
+				return false
+			}
+		}
+	}
+	if st == 24 || st == 25 || st == 26 || st == 27 || st == 28 || st == 29 {
+		if s.Abils.IsActive(u.SObj(), server.AbilityBerserk) {
+			return false
+		}
+		if ud.State == 12 {
+			return false
+		}
+	}
+	if ud.State == 1 {
+		if st == 1 {
+			goto LABEL_26
+		}
+		if s.Abils.IsActiveVal(u.SObj(), server.AbilityWarcry) && st != 4 && st != 3 {
+			return false
+		}
+	}
+	if st != 1 {
+		*(*uint8)(unsafe.Pointer(&ud.Player.Field8)) = 0
+		switch st {
+		case 3, 4:
+			ud.Field40_0 = 0
+			ud.Field41 = 0
+		case 25:
+			if ud.State != st {
+				s.Audio.EventObj(sound.SoundTauntShakeFist, u, 0, 0)
+			}
+		case 26:
+			if ud.State != st {
+				s.Audio.EventObj(sound.SoundTauntLaugh, u, 0, 0)
+			}
+		case 28:
+			if ud.State != st {
+				s.Audio.EventObj(sound.SoundTauntPoint, u, 0, 0)
+			}
+		}
+		goto LABEL_42
+	}
+LABEL_26:
+	if ud.Field0 <= s.Frame() {
+		pl := ud.Player
+		ud.Field0 = 0
+		if pl.Field4 != 0 {
+			*(*uint8)(unsafe.Pointer(&pl.Field8)) = 0
+		} else {
+			*(*uint8)(unsafe.Pointer(&pl.Field8)) = uint8(int8(s.Rand.Logic.IntClamp(23, 24)))
+			if ud.Player.PlayerClass() == player.Warrior && s.Rand.Logic.IntClamp(0, 100) > 75 {
+				*(*uint8)(unsafe.Pointer(&pl.Field8)) = 25
+			}
+			u.DisableEnchant(server.ENCHANT_INVISIBLE)
+			u.DisableEnchant(server.ENCHANT_INVULNERABLE)
+			s.spells.duration.CancelFor(spell.SPELL_OVAL_SHIELD, u)
+		}
+	} else {
+		res = false
+		st = ud.State
+	}
+LABEL_42:
+	if ud.State != st {
+		ud.Field22_1 = ud.State
+		ud.State = st
+		u.Field34 = s.Frame()
+		ud.Field59_0 = 0
+	}
+	if st == 30 {
+		ud.Field41 = s.Frame()
+	}
+	return res
 }

@@ -9,11 +9,9 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/sound"
-	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
-
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func sub_4FE8A0(a1 int) {
@@ -113,7 +111,7 @@ func (sp *spellsDuration) destroyDurSpell(spl *server.DurSpell) {
 		if u.Class().Has(object.ClassPlayer) {
 			ud := u.UpdateDataPlayer()
 			if ud.Player.PlayerClass() != player.Warrior || !sp.s.Abils.IsActive(u, server.AbilityBerserk) {
-				legacy.Nox_xxx_playerSetState_4FA020(u, 13)
+				nox_xxx_playerSetState_4FA020(asObjectS(u), 13)
 			}
 		} else if u.Class().Has(object.ClassMonster) {
 			monsterCancelDurSpell(u, spell.ID(spl.Spell))

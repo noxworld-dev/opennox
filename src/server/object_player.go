@@ -29,7 +29,7 @@ type PlayerUpdateData struct {
 	Field20_0        uint16         // 20, 80
 	Field20_1        uint16         // 20, 82
 	Field21          uint32         // 21, 84
-	Field22_0        uint8          // 22, 88, TODO: player unit state?
+	State            uint8          // 22, 88
 	Field22_1        uint8          // 22, 89
 	Field22_2        uint8          // 22, 90
 	Field22_3        uint8          // 22, 91
