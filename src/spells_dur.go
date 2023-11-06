@@ -142,7 +142,7 @@ func (sp *spellsDuration) CancelFor(sid spell.ID, obj server.Obj) {
 		sid2 := spell.ID(it.Spell)
 		next = it.Next
 		if sid2 == sid && it.Caster16 == toObjectS(obj) || spellIsSummon(sid) && spellIsSummon(sid2) && it.Caster16 == toObjectS(obj) {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
+			nox_xxx_spellCancelSpellDo_4FE9D0(it)
 		}
 	}
 }
@@ -161,7 +161,7 @@ func (sp *spellsDuration) nox_spell_cancelOffensiveFor_4FF310(u *server.Object) 
 	for it := sp.list; it != nil; it = next {
 		next = it.Next
 		if it.Caster16 == u.SObj() && sp.s.Spells.Flags(spell.ID(it.Spell)).Has(things.SpellOffensive) {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
+			nox_xxx_spellCancelSpellDo_4FE9D0(it)
 		}
 	}
 }
@@ -182,14 +182,14 @@ func (sp *spellsDuration) spellCastByPlayer() {
 			it.Obj12 = nil
 		}
 		if it.Caster16 == nil && it.Flag20 == 0 {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
+			nox_xxx_spellCancelSpellDo_4FE9D0(it)
 			continue
 		}
 		if obj24 := it.Obj24; obj24 != nil && obj24.Flags().Has(object.FlagDestroyed) {
 			it.Obj24 = nil
 		}
 		if it.Frame68 != it.Frame60 && it.Frame68 <= noxServer.Frame() || it.Update != nil && ccall.CallIntPtr(it.Update, it.C()) != 0 {
-			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it)
+			nox_xxx_spellCancelSpellDo_4FE9D0(it)
 		}
 	}
 }
@@ -247,6 +247,6 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	if create == nil || ccall.CallIntPtr(create, p.C()) == 0 {
 		return true
 	}
-	legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(p)
+	nox_xxx_spellCancelSpellDo_4FE9D0(p)
 	return false
 }

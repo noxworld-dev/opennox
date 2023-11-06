@@ -11828,7 +11828,7 @@ int sub_52F670(int a1) {
 }
 
 //----- (0052F690) --------------------------------------------------------
-char nox_xxx_unitShield_52F690(int a1, int a2) {
+void nox_xxx_unitShield_52F690(int a1, int a2) {
 	uint32_t* v2; // eax
 	int v3;       // ecx
 
@@ -11837,27 +11837,25 @@ char nox_xxx_unitShield_52F690(int a1, int a2) {
 		while (v2[12] != a1 || v2[1] != 51) {
 			v2 = (uint32_t*)nox_xxx_spellCastedNext_4FE940((int)v2);
 			if (!v2) {
-				LOBYTE(v2) = nox_xxx_spellBuffOff_4FF5B0(a1, 26);
-				return (char)v2;
+				nox_xxx_spellBuffOff_4FF5B0(a1, 26);
+				return;
 			}
 		}
 		v3 = v2[12];
 		if (v3) {
 			if (*(uint32_t*)(v3 + 16) & 0x8020) {
-				LOBYTE(v2) = nox_xxx_spellCancelSpellDo_4FE9D0((int)v2);
+				nox_xxx_spellCancelSpellDo_4FE9D0((int)v2);
 			} else if ((int)v2[18] - a2 > 0) {
 				v2[18] -= a2;
 			} else {
-				LOBYTE(v2) = nox_xxx_spellCancelSpellDo_4FE9D0((int)v2);
+				nox_xxx_spellCancelSpellDo_4FE9D0((int)v2);
 			}
 		} else {
-			LOBYTE(v2) = nox_xxx_spellCancelSpellDo_4FE9D0((int)v2);
+			nox_xxx_spellCancelSpellDo_4FE9D0((int)v2);
 		}
 	} else {
-		LOBYTE(v2) = nox_xxx_spellBuffOff_4FF5B0(a1, 26);
-		return (char)v2;
+		nox_xxx_spellBuffOff_4FF5B0(a1, 26);
 	}
-	return (char)v2;
 }
 
 //----- (0052F710) --------------------------------------------------------
