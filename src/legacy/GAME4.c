@@ -3451,42 +3451,6 @@ int nox_xxx_spellGetPower_4FE7B0(int a1, nox_object_t* a2p) {
 	}
 }
 
-//----- (004FE9D0) --------------------------------------------------------
-char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1p) {
-	int a1 = a1p;
-	int v1;      // eax
-	int v2;      // ecx
-	int v3;      // eax
-	char result; // al
-	int i;       // esi
-
-	v1 = *(uint32_t*)(a1 + 16);
-	if (v1 && *(uint8_t*)(v1 + 8) & 4) {
-		v2 = *(uint32_t*)(a1 + 4);
-		v3 = *(uint32_t*)(v1 + 748);
-		if (v2 == 43) {
-			nox_xxx_netReportSpellStat_4D9630(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 43, 0);
-		} else {
-			nox_xxx_netReportSpellStat_4D9630(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), v2, 15);
-		}
-	}
-	if (*(uint32_t*)(a1 + 4) == 43) {
-		for (i = *(uint32_t*)(a1 + 108); i; i = *(uint32_t*)(i + 116)) {
-			if (*(uint32_t*)(i + 48)) {
-				nox_xxx_netStopRaySpell_4FEF90(i, *(uint32_t**)(i + 48));
-			}
-		}
-	} else if (*(uint32_t*)(a1 + 48)) {
-		nox_xxx_netStopRaySpell_4FEF90(a1, *(uint32_t**)(a1 + 48));
-		result = *(uint8_t*)(a1 + 88) | 1;
-		*(uint8_t*)(a1 + 88) = result;
-		return result;
-	}
-	result = *(uint8_t*)(a1 + 88) | 1;
-	*(uint8_t*)(a1 + 88) = result;
-	return result;
-}
-
 //----- (004FEA70) --------------------------------------------------------
 int sub_4FEA70(int a1, float2* a2) {
 	double v2; // st7
@@ -3556,92 +3520,11 @@ void nox_xxx_cancelAllSpells_4FEE90(nox_object_t* a1p) {
 			if (v1 == a1) {
 				v1 = *(uint32_t*)(v2 + 4);
 				if (v1 == 24 || v1 == 43 || v1 == 35 || v1 == 8 || v1 == 22 || v1 == 59 || v1 == 67) {
-					LOBYTE(v1) = nox_xxx_spellCancelSpellDo_4FE9D0(v2);
+					nox_xxx_spellCancelSpellDo_4FE9D0(v2);
 				}
 			}
 			v2 = v3;
 		} while (v3);
-	}
-}
-
-//----- (004FEF90) --------------------------------------------------------
-void nox_xxx_netStopRaySpell_4FEF90(int a1, uint32_t* a2) {
-	int v2;      // ecx
-	int v3;      // eax
-	char v4;     // cl
-	int i;       // esi
-	char v6;     // al
-	char v7;     // cl
-	char v8;     // dl
-	short v9;    // ax
-	char v10;    // cl
-	char v11[7]; // [esp+8h] [ebp-8h]
-
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 16);
-		if (v2) {
-			if (a2) {
-				v3 = *(uint32_t*)(a1 + 4);
-				v11[0] = -98;
-				switch (v3) {
-				case 7:
-					v6 = *(uint8_t*)(a1 + 8);
-					v11[1] = 10;
-					v11[2] = v6;
-					*(uint16_t*)&v11[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-					*(uint16_t*)&v11[3] = nox_xxx_netGetUnitCodeServ_578AC0(*(uint32_t**)(a1 + 16));
-					break;
-				case 9:
-					v4 = *(uint8_t*)(a1 + 8);
-					v11[1] = 9;
-					v11[2] = v4;
-					*(uint16_t*)&v11[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-					*(uint16_t*)&v11[3] = nox_xxx_netGetUnitCodeServ_578AC0(*(uint32_t**)(a1 + 16));
-					break;
-				case 22:
-					v8 = *(uint8_t*)(a1 + 8);
-					v11[1] = 12;
-					v11[2] = v8;
-					*(uint16_t*)&v11[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-					*(uint16_t*)&v11[3] = nox_xxx_netGetUnitCodeServ_578AC0(*(uint32_t**)(a1 + 16));
-					break;
-				case 24:
-					v7 = *(uint8_t*)(a1 + 8);
-					v11[1] = 11;
-					v11[2] = v7;
-					*(uint16_t*)&v11[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-					*(uint16_t*)&v11[3] = nox_xxx_netGetUnitCodeServ_578AC0(*(uint32_t**)(a1 + 16));
-					break;
-				case 35:
-					if (v2 == *(uint32_t*)(a1 + 48)) {
-						return;
-					}
-					v11[1] = 13;
-					*(uint16_t*)&v11[3] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-					v9 = nox_xxx_netGetUnitCodeServ_578AC0(*(uint32_t**)(a1 + 16));
-					v10 = *(uint8_t*)(a1 + 8);
-					*(uint16_t*)&v11[5] = v9;
-					v11[2] = v10;
-					break;
-				case 43:
-					for (i = *(uint32_t*)(a1 + 108); i; i = *(uint32_t*)(i + 116)) {
-						nox_xxx_netStopRaySpell_4FEF90(i, *(uint32_t**)(i + 48));
-					}
-					return;
-				case 59:
-					v11[1] = 8;
-					v11[2] = *(uint8_t*)(v2 + 124);
-					*(uint16_t*)&v11[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-					*(uint16_t*)&v11[3] = nox_xxx_netGetUnitCodeServ_578AC0(*(uint32_t**)(a1 + 16));
-					break;
-				default:
-					return;
-				}
-				nox_xxx_netSendPacket1_4E5390(255, (int)v11, 7, 0, 1);
-				nox_xxx_netUnmarkMinimapSpec_417470(*(uint32_t*)(a1 + 16), 2);
-				nox_xxx_netUnmarkMinimapSpec_417470((int)a2, 2);
-			}
-		}
 	}
 }
 

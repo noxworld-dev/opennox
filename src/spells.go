@@ -432,3 +432,26 @@ func (s *Server) nox_xxx_castSpellByUser4FDD20(spellInd spell.ID, lvl int, u *se
 	}
 	return s.castSpell(spellInd, lvl, u, sa)
 }
+
+func nox_xxx_spellCancelSpellDo_4FE9D0(sp *server.DurSpell) {
+	obj := sp.Caster16
+	spl := spell.ID(sp.Spell)
+	if obj != nil && obj.Class().Has(object.ClassPlayer) {
+		v3 := obj.UpdateDataPlayer()
+		if spl == spell.SPELL_CHAIN_LIGHTNING {
+			nox_xxx_netReportSpellStat_4D9630(int(v3.Player.PlayerInd), spl, 0)
+		} else {
+			nox_xxx_netReportSpellStat_4D9630(int(v3.Player.PlayerInd), spl, 15)
+		}
+	}
+	if spl == spell.SPELL_CHAIN_LIGHTNING {
+		for i := sp.Sub108; i != nil; i = i.Next {
+			if i.Target48 != nil {
+				nox_xxx_netStopRaySpell_4FEF90(i, i.Target48)
+			}
+		}
+	} else if sp.Target48 != nil {
+		nox_xxx_netStopRaySpell_4FEF90(sp, sp.Target48)
+	}
+	sp.Flags88 |= 1
+}
