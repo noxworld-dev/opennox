@@ -245,7 +245,7 @@ func (s *Server) Nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
 	return s.NetSendPacketXxx1(255, p[:], 0, 1)
 }
 
-func (s *Server) Nox_xxx_netReportSpellStat_4D9630(a1 int, a2 spell.ID, a3 byte) bool {
+func (s *Server) NetReportSpellStat(a1 int, a2 spell.ID, a3 byte) bool {
 	var buf [6]byte
 	buf[0] = byte(noxnet.MSG_REPORT_SPELL_STAT)
 	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))

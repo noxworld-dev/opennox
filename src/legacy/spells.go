@@ -46,8 +46,6 @@ var (
 	Nox_xxx_spellWallCreate_4FFA90    func(sp *server.DurSpell) int
 	Nox_xxx_spellWallUpdate_500070    func(sp *server.DurSpell) int
 	Nox_xxx_spellWallDestroy_500080   func(sp *server.DurSpell)
-	Nox_xxx_spellCancelSpellDo_4FE9D0 func(sp *server.DurSpell)
-	Nox_xxx_netStopRaySpell_4FEF90    func(sp *server.DurSpell, a2 *server.Object)
 )
 
 //export nox_xxx_spellGetDefArrayPtr_424820
@@ -236,12 +234,12 @@ func nox_xxx_spellWallDestroy_500080(p unsafe.Pointer) {
 
 //export nox_xxx_spellCancelSpellDo_4FE9D0
 func nox_xxx_spellCancelSpellDo_4FE9D0(p unsafe.Pointer) {
-	Nox_xxx_spellCancelSpellDo_4FE9D0((*server.DurSpell)(p))
+	GetServer().S().Spells.Dur.CancelSpell((*server.DurSpell)(p))
 }
 
 //export nox_xxx_netStopRaySpell_4FEF90
 func nox_xxx_netStopRaySpell_4FEF90(p unsafe.Pointer, obj *nox_object_t) {
-	Nox_xxx_netStopRaySpell_4FEF90((*server.DurSpell)(p), asObjectS(obj))
+	GetServer().S().NetStopRaySpell((*server.DurSpell)(p), asObjectS(obj))
 }
 
 func Nox_xxx_spellCastByBook_4FCB80() {
