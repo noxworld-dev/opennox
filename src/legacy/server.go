@@ -81,8 +81,6 @@ type Server interface {
 	GetFlag3592() bool
 	Sub40A040settings(a1 int, a2 int)
 	CreateObjectAt(obj, owner server.Obj, pt types.Pointf)
-	Nox_xxx_unitSetOwner_4EC290(owner, obj *server.Object)
-	Nox_xxx_unitClearOwner_4EC300(obj *server.Object)
 	NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Pointer, v18 int8)
 	Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg int, dtyp object.DamageType, who *server.Object, a7 server.Obj, damageWalls bool)
 	Sub_518460(pos types.Pointf, mask byte, scanSub bool) *server.Waypoint

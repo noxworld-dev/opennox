@@ -3,8 +3,6 @@ package opennox
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/object"
-	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -21,14 +19,11 @@ func (s *Server) FreeObjectTypes() {
 
 var _ = [1]struct{}{}[20-unsafe.Sizeof(server.HealthData{})]
 
-func (s *Server) createObject(t *server.ObjectType, p types.Pointf) script.Object {
+func (s *Server) createObject(t *server.ObjectType, p types.Pointf) *server.Object {
 	obj := s.Objs.NewObject(t)
 	if obj == nil {
 		return nil
 	}
 	s.CreateObjectAt(obj, nil, p)
-	if obj.Class().HasAny(object.MaskUnits) {
-		return asObjectS(obj)
-	}
-	return asObjectS(obj)
+	return obj
 }
