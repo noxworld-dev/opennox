@@ -1219,7 +1219,7 @@ func (s *Server) nox_xxx_mapSwitchLevel_4D12E0(a1 bool) {
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0_tileFree()
 	legacy.Sub_410730()
 	legacy.Nox_xxx_wallBreackableListClear_410810()
-	s.nox_xxx_waypointDeleteAll_579DD0()
+	s.Nox_xxx_waypointDeleteAll_579DD0()
 	legacy.Nox_xxx_j_allocHitArray_511840()
 	legacy.Nox_xxx_decayDestroy_5117B0()
 	s.springs.Reset()

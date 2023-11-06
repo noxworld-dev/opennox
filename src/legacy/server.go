@@ -75,15 +75,12 @@ type Server interface {
 	SetUpdateFunc2(fnc func() bool)
 	ServerPort() int
 	ServStartCountdown(dt int, text strman.ID)
-	TickRate() uint32
-	Frame() uint32
 	SwitchMap(name string)
 	GetFlag3592() bool
 	Sub40A040settings(a1 int, a2 int)
 	CreateObjectAt(obj, owner server.Obj, pt types.Pointf)
 	NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Pointer, v18 int8)
 	Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg int, dtyp object.DamageType, who *server.Object, a7 server.Obj, damageWalls bool)
-	Sub_518460(pos types.Pointf, mask byte, scanSub bool) *server.Waypoint
 	Sub4537F0()
 	Nox_xxx_mapReset5028E0()
 	Nox_xxx_free503F40()
@@ -94,21 +91,11 @@ type Server interface {
 	TeamsRemoveActive(hooks bool) int
 	TeamRemove(t *server.Team, netUpd bool)
 	DelayedDelete(obj *server.Object)
-	NewWaypoint(pos types.Pointf) *server.Waypoint
-	Nox_xxx_waypoint_579F00(out *types.Pointf, obj *server.Object) int
-	Sub_579E90(wp *server.Waypoint)
-	Nox_xxx_waypoint_5799C0()
 	Sub504720(a1, a2 uint32) int32
-	IsEnemyTo(a1, a2 *server.Object) bool
-	IsFish(obj *server.Object) bool
-	IsRat(obj *server.Object) bool
-	IsFrog(obj *server.Object) bool
-	NewObjectByTypeID(id string) *server.Object
 	ApplyForce(obj *server.Object, vec types.Pointf, force float64)
 	PlayerSpell(u *server.Object)
 	Nox_script_event_playerLeave(pl *server.Player)
 	NoxScriptC() NoxScript
-	GetUnitNetCode(p server.Obj) int
 	Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *server.Object, sa *server.SpellAcceptArg, lvl int) bool
 	Nox_xxx_generateRetreatPath_50CA00(path []types.Pointf, u *server.Object, a4 *types.Pointf) int
 	Nox_xxx_creatureSetDetailedPath_50D220(obj *server.Object, a2 *types.Pointf)
@@ -177,12 +164,12 @@ func sub_40A1A0() int {
 
 //export gameFPS
 func gameFPS() uint32 {
-	return GetServer().TickRate()
+	return GetServer().S().TickRate()
 }
 
 //export gameFrame
 func gameFrame() uint32 {
-	return GetServer().Frame()
+	return GetServer().S().Frame()
 }
 func Sub_409A70(a1 int) int {
 	return int(C.sub_409A70(C.short(a1)))
