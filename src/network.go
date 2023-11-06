@@ -389,6 +389,70 @@ func nox_xxx_netReportSpellStat_4D9630(a1 int, a2 spell.ID, a3 byte) bool {
 	return noxServer.NetSendPacketXxx0(a1, buf[:], 0, 1) != 0
 }
 
+func nox_xxx_netStopRaySpell_4FEF90(sp *server.DurSpell, who *server.Object) {
+	s := noxServer
+	if sp == nil {
+		return
+	}
+	caster := sp.Caster16
+	if caster == nil {
+		return
+	}
+	if who == nil {
+		return
+	}
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
+	switch spell.ID(sp.Spell) {
+	default:
+		return
+	case spell.SPELL_PLASMA:
+		buf[1] = 8
+		buf[2] = byte(caster.Direction1)
+	case spell.SPELL_CHARM:
+		buf[1] = 9
+		buf[2] = byte(sp.Level)
+	case spell.SPELL_CHAIN_LIGHTNING_BOLT:
+		buf[1] = 10
+		buf[2] = byte(sp.Level)
+	case spell.SPELL_DRAIN_MANA:
+		buf[1] = 12
+		buf[2] = byte(sp.Level)
+	case spell.SPELL_LIGHTNING:
+		buf[1] = 11
+		buf[2] = byte(sp.Level)
+	case spell.SPELL_GREATER_HEAL:
+		if caster == sp.Target48 {
+			return
+		}
+		buf[1] = 13
+		buf[2] = byte(sp.Level)
+		binary.LittleEndian.PutUint16(buf[3:], uint16(s.GetUnitNetCode(who)))
+		binary.LittleEndian.PutUint16(buf[5:], uint16(s.GetUnitNetCode(sp.Caster16)))
+		s.NetSendPacketXxx1(math.MaxUint8, buf[:7], 0, 1)
+		nox_xxx_netUnmarkMinimapSpec_417470(sp.Caster16, 2)
+		nox_xxx_netUnmarkMinimapSpec_417470(who, 2)
+		return
+	case spell.SPELL_CHAIN_LIGHTNING:
+		for i := sp.Sub108; i != nil; i = i.Next {
+			nox_xxx_netStopRaySpell_4FEF90(i, i.Target48)
+		}
+		return
+	}
+	binary.LittleEndian.PutUint16(buf[3:], uint16(s.GetUnitNetCode(sp.Caster16)))
+	binary.LittleEndian.PutUint16(buf[5:], uint16(s.GetUnitNetCode(who)))
+	s.NetSendPacketXxx1(math.MaxUint8, buf[:7], 0, 1)
+	nox_xxx_netUnmarkMinimapSpec_417470(sp.Caster16, 2)
+	nox_xxx_netUnmarkMinimapSpec_417470(who, 2)
+}
+
+func nox_xxx_netUnmarkMinimapSpec_417470(obj *server.Object, flags uint32) {
+	s := noxServer
+	for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
+		s.Players.Nox_xxx_netUnmarkMinimapObj_417300(it.PlayerIndex(), obj, flags)
+	}
+}
+
 func nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) bool {
 	var buf [5]byte
 	buf[0] = byte(fx)

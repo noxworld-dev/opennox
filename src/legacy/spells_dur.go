@@ -2,7 +2,6 @@ package legacy
 
 /*
 #include <stdint.h>
-char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1);
 */
 import "C"
 import (
@@ -45,7 +44,3 @@ func sub_4FE980(a1 unsafe.Pointer) { Sub_4FE980((*server.DurSpell)(a1)) }
 
 //export sub_4FF310
 func sub_4FF310(a1 *nox_object_t) { Sub_4FF310(asObjectS(a1)) }
-
-func Nox_xxx_spellCancelSpellDo_4FE9D0(a1 *server.DurSpell) {
-	C.nox_xxx_spellCancelSpellDo_4FE9D0(a1.C())
-}
