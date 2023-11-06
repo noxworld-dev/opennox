@@ -495,7 +495,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 	if pl.Field3680&3 != 0 {
 		goto LABEL_247
 	}
-	orientationOnly = s.spells.duration.Sub4FEE50(spell.SPELL_FORCE_OF_NATURE, u.SObj())
+	orientationOnly = s.Spells.Dur.Sub4FEE50(spell.SPELL_FORCE_OF_NATURE, u.SObj())
 	for it := cb.First(); it != nil; it = cb.Next() {
 		if orientationOnly && it.Code != player.CCOrientation {
 			continue
@@ -508,7 +508,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 			case player.CCSpellGestureUpperLeft, player.CCSpellGestureUp, player.CCSpellGestureUpperRight, player.CCSpellGestureLeft, player.CCSpellGestureRight, player.CCSpellGestureLowerLeft, player.CCSpellGestureDown, player.CCSpellGestureLowerRight:
 				if !noxflags.HasGame(noxflags.GameModeChat) {
 					if ud.SpellCastStart != 0 {
-						ud.SpellCastStart = noxServer.Frame()
+						ud.SpellCastStart = s.Frame()
 					}
 
 				}

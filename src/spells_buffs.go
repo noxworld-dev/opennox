@@ -43,7 +43,7 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server
 		dur *= lvl
 	}
 	if opts.Defensive {
-		s.spells.duration.CancelOffensiveFor(targ)
+		s.Spells.Dur.CancelOffensiveFor(targ)
 	}
 	asObjectS(targ).ApplyEnchant(enc, dur, lvl)
 	if opts.Orig != nil && opts.Offensive {

@@ -661,14 +661,13 @@ func (AIActionIdle) Start(obj *server.Object) {
 func (AIActionIdle) End(_ *server.Object)    {}
 func (AIActionIdle) Cancel(_ *server.Object) {}
 
-func (AIActionIdle) Update(obj *server.Object) {
-	u := asObjectS(obj)
-	s := u.getServer()
-	ud := obj.UpdateDataMonster()
+func (AIActionIdle) Update(u *server.Object) {
+	s := asObjectS(u).getServer()
+	ud := u.UpdateDataMonster()
 	if uint16(s.Frame()-ud.AIStackHead().ArgU32(0)) == uint16(ud.Field305) {
-		s.noxScript.ScriptCallback(&ud.ScriptLookingForEnemy, nil, obj, server.NoxEventMonsterIdle)
+		s.noxScript.ScriptCallback(&ud.ScriptLookingForEnemy, nil, u, server.NoxEventMonsterIdle)
 	}
-	if obj.Flags().Has(object.FlagEnabled) && (obj.Sub_5343C0() || obj.Nox_xxx_monsterCanAttackAtWill_534390()) {
+	if u.Flags().Has(object.FlagEnabled) && (u.Sub_5343C0() || u.Nox_xxx_monsterCanAttackAtWill_534390()) {
 		if enemy := asObjectS(ud.CurrentEnemy); enemy != nil {
 			u.MonsterPushAction(ai.ACTION_FIGHT, enemy.Pos(), s.Frame())
 			return
@@ -677,7 +676,7 @@ func (AIActionIdle) Update(obj *server.Object) {
 			return
 		}
 	}
-	if !u.Flags().Has(object.FlagEnabled) || obj.Sub_534440() || obj.Sub_545E60() == 0 {
+	if !u.Flags().Has(object.FlagEnabled) || u.Sub_534440() || u.Sub_545E60() == 0 {
 		if s.IsMimic(u.SObj()) {
 			if !u.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
 				legacy.Nox_xxx_mobHealSomeone_5411A0(u.SObj())
@@ -705,8 +704,7 @@ func (AIActionWait) Type() ai.ActionType {
 func (AIActionWait) Start(_ *server.Object) {}
 func (AIActionWait) End(_ *server.Object)   {}
 
-func (AIActionWait) Update(obj *server.Object) {
-	u := asObjectS(obj)
+func (AIActionWait) Update(u *server.Object) {
 	s := u.Server()
 	ud := u.UpdateDataMonster()
 	if s.Frame() >= ud.AIStackHead().ArgU32(0) {
@@ -714,8 +712,7 @@ func (AIActionWait) Update(obj *server.Object) {
 	}
 }
 
-func (AIActionWait) Cancel(obj *server.Object) {
-	u := asObjectS(obj)
+func (AIActionWait) Cancel(u *server.Object) {
 	u.MonsterPopAction()
 }
 
@@ -727,8 +724,7 @@ func (AIActionWaitRel) Type() ai.ActionType {
 func (AIActionWaitRel) Start(_ *server.Object) {}
 func (AIActionWaitRel) End(_ *server.Object)   {}
 
-func (AIActionWaitRel) Update(obj *server.Object) {
-	u := asObjectS(obj)
+func (AIActionWaitRel) Update(u *server.Object) {
 	s := u.Server()
 	ud := u.UpdateDataMonster()
 	if s.Frame() > ud.Field137+ud.AIStackHead().ArgU32(0) {
@@ -736,8 +732,7 @@ func (AIActionWaitRel) Update(obj *server.Object) {
 	}
 }
 
-func (AIActionWaitRel) Cancel(obj *server.Object) {
-	u := asObjectS(obj)
+func (AIActionWaitRel) Cancel(u *server.Object) {
 	u.MonsterPopAction()
 }
 
@@ -803,23 +798,15 @@ func (AIActionCastDuration) End(obj *server.Object) {
 	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
-	s.spells.duration.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
+	s.Spells.Dur.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
 }
 
 func (AIActionCastDuration) Cancel(obj *server.Object) {
 	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
-	s.spells.duration.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
+	s.Spells.Dur.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
 	u.MonsterPopAction()
-}
-
-func monsterCancelDurSpell(u *server.Object, exp spell.ID) {
-	if act := u.UpdateDataMonster().AIStackHead(); act.Type() == ai.ACTION_CAST_DURATION_SPELL {
-		if spell.ID(act.ArgU32(0)) == exp {
-			asObjectS(u).MonsterPopAction()
-		}
-	}
 }
 
 type AIActionMorphIntoChest struct{}

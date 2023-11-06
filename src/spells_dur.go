@@ -51,7 +51,7 @@ func (sp *spellsDuration) destroyDurSpell(spl *server.DurSpell) {
 				nox_xxx_playerSetState_4FA020(asObjectS(u), server.PlayerState13)
 			}
 		} else if u.Class().Has(object.ClassMonster) {
-			monsterCancelDurSpell(u, spell.ID(spl.Spell))
+			u.MonsterCancelDurSpell(spell.ID(spl.Spell))
 		}
 	}
 	sp.Unlink(spl)
@@ -80,7 +80,7 @@ func (sp *spellsDuration) spellCastByPlayer() {
 		if obj24 := it.Obj24; obj24 != nil && obj24.Flags().Has(object.FlagDestroyed) {
 			it.Obj24 = nil
 		}
-		if it.Frame68 != it.Frame60 && it.Frame68 <= noxServer.Frame() || it.Update != nil && ccall.CallIntPtr(it.Update, it.C()) != 0 {
+		if it.Frame68 != it.Frame60 && it.Frame68 <= sp.s.Frame() || it.Update != nil && ccall.CallIntPtr(it.Update, it.C()) != 0 {
 			sp.CancelSpell(it)
 		}
 	}

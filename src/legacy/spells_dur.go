@@ -13,17 +13,15 @@ import (
 )
 
 var (
-	Nox_xxx_spellCastedFirst_4FE930  func() *server.DurSpell
-	Nox_xxx_spellCastedNext_4FE940   func(a1 *server.DurSpell) *server.DurSpell
 	Nox_xxx_spellCastByPlayer_4FEEF0 func()
 )
 
 //export nox_xxx_spellCastedFirst_4FE930
-func nox_xxx_spellCastedFirst_4FE930() unsafe.Pointer { return Nox_xxx_spellCastedFirst_4FE930().C() }
+func nox_xxx_spellCastedFirst_4FE930() unsafe.Pointer { return GetServer().S().Spells.Dur.List.C() }
 
 //export nox_xxx_spellCastedNext_4FE940
 func nox_xxx_spellCastedNext_4FE940(a1 unsafe.Pointer) unsafe.Pointer {
-	return Nox_xxx_spellCastedNext_4FE940((*server.DurSpell)(a1)).C()
+	return ((*server.DurSpell)(a1)).Next.C()
 }
 
 //export sub_4FE8A0

@@ -1477,7 +1477,7 @@ LABEL_26:
 			}
 			u.DisableEnchant(server.ENCHANT_INVISIBLE)
 			u.DisableEnchant(server.ENCHANT_INVULNERABLE)
-			s.spells.duration.CancelFor(spell.SPELL_OVAL_SHIELD, u)
+			s.Spells.Dur.CancelFor(spell.SPELL_OVAL_SHIELD, u)
 		}
 	} else {
 		res = false
