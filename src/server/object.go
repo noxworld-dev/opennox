@@ -13,6 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -1322,6 +1323,32 @@ func (obj *Object) SetOwner(owner *Object) {
 		return
 	}
 	s.ObjSetOwner(owner, obj)
+}
+
+func (obj *Object) DestroyChat() {
+	obj.Server().Nox_xxx_netKillChat_528D00(obj)
+}
+
+func (obj *Object) ZombieStayDown() {
+	if obj.Class().Has(object.ClassMonster) {
+		obj.UpdateDataMonster().StatusFlags |= object.MonStatusStayDead
+	}
+}
+
+func (obj *Object) IsLocked() bool {
+	return obj.Class().Has(object.ClassDoor) && (*(*uint8)(unsafe.Add(obj.UpdateData, 1))) != 0
+}
+
+func (obj *Object) Lock(lock bool) {
+	if !obj.Class().Has(object.ClassDoor) {
+		return
+	}
+	flag, snd := byte(0), sound.SoundUnlock
+	if lock {
+		flag, snd = 5, sound.SoundLock
+	}
+	*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = flag
+	obj.Server().Audio.EventObj(snd, obj, 0, 0)
 }
 
 func (s *Server) IsFish(obj *Object) bool {

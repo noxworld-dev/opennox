@@ -2,8 +2,6 @@ package opennox
 
 import (
 	"fmt"
-	"time"
-	"unsafe"
 
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/noxscript/ns/v4/class"
@@ -12,13 +10,8 @@ import (
 	"github.com/noxworld-dev/noxscript/ns/v4/subclass"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
-	"github.com/noxworld-dev/opennox-lib/script"
-	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -306,7 +299,7 @@ func (obj nsObj) HasTeam(t ns4.Team) bool {
 	if !ok {
 		return false
 	}
-	return legacy.Nox_xxx_teamCompare2_419180(obj.Object.TeamPtr(), tm.t.ID()) != 0
+	return obj.TeamEqual(tm.t)
 }
 
 func (obj nsObj) SetTeam(t ns4.Team) {
@@ -317,24 +310,7 @@ func (obj nsObj) SetTeam(t ns4.Team) {
 	if !ok {
 		return
 	}
-	// TODO: check arg3 and arg5
-	legacy.Nox_xxx_createAtImpl_4191D0(tm.t.ID(), obj.Object.TeamPtr(), 1, obj.Object.NetCode, 0)
-}
-
-func (obj nsObj) IsLocked() bool {
-	return obj.Class().Has(object.ClassDoor) && (*(*uint8)(unsafe.Add(obj.UpdateData, 1))) != 0
-}
-
-func (obj nsObj) Lock(lock bool) {
-	if !obj.Class().Has(object.ClassDoor) {
-		return
-	}
-	flag, snd := byte(0), sound.SoundUnlock
-	if lock {
-		flag, snd = 5, sound.SoundLock
-	}
-	*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = flag
-	obj.s.Audio.EventObj(snd, obj, 0, 0)
+	obj.Object.SetTeam(tm.t)
 }
 
 func (obj nsObj) HasClass(class class.Class) bool {
@@ -382,21 +358,6 @@ func (obj nsObj) MaxHealth() int {
 	return v
 }
 
-func (obj nsObj) RestoreHealth(amount int) {
-	if amount <= 0 {
-		return
-	}
-	legacy.Nox_xxx_unitAdjustHP_4EE460(obj.SObj(), amount)
-}
-
-func (obj nsObj) SetHealthRegenToMaxDur(t time.Duration) {
-	obj.Ext().HealthRegenToMax = t
-}
-
-func (obj nsObj) SetHealthRegenPerFrame(v float32) {
-	obj.Ext().HealthRegenPerFrame = v
-}
-
 func (obj nsObj) CurrentMana() int {
 	v, _ := obj.Mana()
 	return v
@@ -405,20 +366,6 @@ func (obj nsObj) CurrentMana() int {
 func (obj nsObj) MaxMana() int {
 	_, v := obj.Mana()
 	return v
-}
-
-func (obj nsObj) GetGold() int {
-	if obj.Object == nil {
-		return 0
-	}
-	return legacy.Nox_object_getGold_4FA6D0(obj.SObj())
-}
-
-func (obj nsObj) ChangeGold(delta int) {
-	if obj.Object == nil {
-		return
-	}
-	legacy.Nox_object_setGold_4FA620(obj.SObj(), delta)
 }
 
 func (obj nsObj) GiveXp(xp float32) {
@@ -513,48 +460,6 @@ func (obj nsObj) SetOwners(owners ns4.ObjGroup) {
 	})
 }
 
-func (obj nsObj) Freeze(freeze bool) {
-	obj.Object.Freeze(freeze)
-}
-
-func (obj nsObj) Pause(dt ns4.Duration) {
-	sub_516090(obj.SObj(), obj.s.AsFrames(dt))
-}
-
-func (obj nsObj) Move(w ns4.WaypointObj) {
-	if w == nil {
-		return
-	}
-	if obj.Flags().Has(object.FlagDead) {
-		return
-	}
-	wp := w.(*server.Waypoint)
-	legacy.Nox_server_scriptMoveTo_5123C0(obj.SObj(), wp)
-}
-
-func (obj nsObj) WalkTo(p types.Pointf) {
-	obj.Object.WalkTo(p)
-}
-
-func (obj nsObj) LookAtDirection(dir ns4.Direction) {
-	if obj.Class().Has(object.ClassMonster) && !obj.Flags().Has(object.FlagDead) {
-		obj.LookAtDir(int(dir))
-	}
-}
-
-func (obj nsObj) LookWithAngle(angle int) {
-	dir := server.Dir16(nox_xxx_math_roundDir(int32(angle)))
-	obj.setAllDirs(dir)
-}
-
-func (obj nsObj) LookAtObject(targ ns4.Positioner) {
-	if targ == nil {
-		return
-	}
-	dir := server.DirFromVec(targ.Pos().Sub(obj.Pos()))
-	obj.setAllDirs(dir)
-}
-
 func (obj nsObj) CanSee(obj2 ns4.Obj) bool {
 	if obj.Object == nil || obj2 == nil {
 		return false
@@ -569,15 +474,11 @@ func (obj nsObj) PushTo(p ns4.Positioner, force float32) {
 }
 
 func (obj nsObj) Damage(source ns4.Obj, amount int, typ damage.Type) {
-	if amount <= 0 {
-		return
-	}
-	var src *Object
+	var src *server.Object
 	if source != nil {
-		src = source.(nsObj).Object
+		src = source.(nsObj).Object.SObj()
 	}
-	owner := src.FindOwnerChainPlayer()
-	obj.CallDamage(owner, src, amount, object.DamageType(typ))
+	obj.Object.DoDamage(src, amount, object.DamageType(typ))
 }
 
 func (obj nsObj) DeleteAfter(dt ns4.Duration) {
@@ -585,75 +486,11 @@ func (obj nsObj) DeleteAfter(dt ns4.Duration) {
 	s.DeleteAfter(obj.Object.SObj(), uint32(s.AsFrames(dt)))
 }
 
-func (obj nsObj) Idle() {
-	obj.Object.Idle()
-}
-
-func (obj nsObj) Wander() {
-	obj.Object.Wander()
-}
-
-func (obj nsObj) Hunt() {
-	obj.Object.Hunt()
-}
-
-func (obj nsObj) Return() {
-	obj.Object.Return()
-}
-
-func (obj nsObj) Follow(targ ns4.Positioner) {
-	if targ == nil {
-		return
-	}
-	obj.Object.Follow(targ)
-}
-
-func (obj nsObj) Guard(p1, p2 types.Pointf, distance float32) {
-	nox_xxx_monsterGoPatrol_515680(obj.SObj(), p1, p2, distance)
-}
-
-func (obj nsObj) Attack(targ ns4.Positioner) {
-	if wr, ok := targ.(script.ObjectWrapper); ok {
-		targ = wr.GetObject()
-	}
-	var tobj *server.Object
-	switch targ := targ.(type) {
-	case nil:
-		tobj = nil
-	case nsObj:
-		tobj = targ.SObj()
-	case server.Obj:
-		tobj = targ.SObj()
-	default:
-		// Fallback to hitting position (ground).
-		// TODO: pick melee/ranged automatically
-		obj.HitMelee(targ.Pos())
-		return
-	}
-	nox_xxx_mobSetFightTarg_515D30(obj.SObj(), tobj)
-}
-
 func (obj nsObj) IsAttackedBy(obj2 ns4.Obj) bool {
 	if obj2 == nil {
 		return false
 	}
-	return obj.s.IsEnemyTo(obj.SObj(), obj2.(server.Obj).SObj())
-}
-
-func (obj nsObj) HitMelee(pos types.Pointf) {
-	nox_xxx_monsterActionMelee_515A30(obj.SObj(), pos)
-}
-
-func (obj nsObj) HitRanged(pos types.Pointf) {
-	nox_xxx_monsterMissileAttack_515B80(obj.SObj(), pos)
-}
-
-func (obj nsObj) Flee(target ns4.Positioner, dt ns4.Duration) {
-	var targ *server.Object
-	if t, ok := target.(server.Obj); ok {
-		targ = t.SObj()
-	}
-	nox_server_scriptFleeFrom_515F70(obj.SObj(), targ, obj.s.AsFrames(dt))
+	return obj.Object.IsAttackedBy(obj2.(server.Obj).SObj())
 }
 
 func (obj nsObj) HasItem(item ns4.Obj) bool {
@@ -751,120 +588,32 @@ func (obj nsObj) Pickup(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	s := obj.Server()
-	it := toObject(item.(server.Obj))
-	gold := s.Types.GoldID()
-	goldPile := s.Types.GoldPileID()
-	goldChest := s.Types.GoldChestID()
-	isPlayerInCoop := noxflags.HasGame(noxflags.GameModeCoop) && obj.Class().Has(object.ClassPlayer)
-	if isPlayerInCoop {
-		if f := s.Frame(); *memmap.PtrUint32(0x5D4594, 2386844) != f {
-			*memmap.PtrUint32(0x5D4594, 2386844) = f
-			legacy.Set_dword_5d4594_2386848(0)
-			legacy.Set_dword_5d4594_2386852(0)
-		}
-		if typ := int(it.TypeInd); typ != gold && typ != goldPile && typ != goldChest {
-			legacy.Nox_xxx_playerCanCarryItem_513B00(obj.SObj(), it.SObj())
-		}
-	}
-	if legacy.Nox_xxx_inventoryServPlace_4F36F0(obj.SObj(), it.SObj(), 1, 1) == 0 {
-		return false
-	}
-	if isPlayerInCoop && int(it.TypeInd) != gold {
-		legacy.Inc_dword_5d4594_2386848()
-	}
-	return true
+	return obj.Object.DoPickup(toObject(item.(server.Obj)))
 }
 
 func (obj nsObj) Drop(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.forceDrop(toObject(item.(server.Obj))) != 0
+	return obj.DoDrop(toObject(item.(server.Obj)))
 }
 
 func (obj nsObj) Equip(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	it := toObject(item.(server.Obj))
-	if obj.Flags().Has(object.FlagPending) || it.Flags().Has(object.FlagPending) {
-		// TODO: figure out a way to equip pending items directly
-		obj.Server().Objs.QueueAction(func() {
-			obj.Equip(item)
-		})
-		return true
-	}
-	if !obj.HasItem(item) {
-		if !obj.Pickup(item) {
-			return false
-		}
-	}
-	return legacy.Nox_xxx_playerTryEquip_4F2F70(obj.SObj(), it.SObj())
+	return obj.Object.Equip(toObject(item.(server.Obj)))
 }
 
 func (obj nsObj) Unequip(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	if !obj.HasEquipment(item) {
-		return false
-	}
-	it := toObject(item.(server.Obj))
-	return legacy.Nox_xxx_playerTryDequip_4F2FB0(obj.SObj(), it.SObj())
-}
-
-func (obj nsObj) ZombieStayDown() {
-	if obj.Class().Has(object.ClassMonster) {
-		obj.UpdateDataMonster().StatusFlags |= object.MonStatusStayDead
-	}
-}
-
-func (obj nsObj) RaiseZombie() {
-	legacy.Sub_516D00(obj.SObj())
-}
-
-func (obj nsObj) Chat(message ns4.StringID) {
-	obj.ChatTimer(message, ns4.Frames(0))
-}
-
-func (obj nsObj) ChatTimer(message ns4.StringID, dt ns4.Duration) {
-	s := obj.Server()
-	v, _ := s.Strings().GetVariantInFile(strman.ID(message), "CScrFunc.c")
-	legacy.Nox_xxx_netSendChat_528AC0(obj.SObj(), v.Str, uint16(s.AsFrames(dt)))
-	if noxflags.HasGame(noxflags.GameModeCoop) {
-		legacy.Nox_xxx_playDialogFile_44D900(v.Str2, 100)
-	}
-}
-
-func (obj nsObj) ChatStr(message string) {
-	obj.ChatStrTimer(message, ns4.Frames(0))
-}
-
-func (obj nsObj) ChatStrTimer(message string, dt ns4.Duration) {
-	legacy.Nox_xxx_netSendChat_528AC0(obj.SObj(), message, uint16(obj.s.AsFrames(dt)))
-}
-
-func (obj nsObj) DestroyChat() {
-	obj.s.Nox_xxx_netKillChat_528D00(obj.Object.SObj())
+	return obj.Object.Unequip(toObject(item.(server.Obj)))
 }
 
 func (obj nsObj) CreateMover(wp ns4.WaypointObj, speed float32) ns4.Obj {
-	mv := asObjectS(obj.s.NewObjectByTypeID("Mover"))
-	if mv == nil {
-		return nil
-	}
-	obj.s.CreateObjectAt(mv, nil, obj.Pos())
-	mv.VelVec = types.Pointf{}
-
-	ud := mv.UpdateDataMover()
-	ud.Field_7 = obj.SObj()
-	ud.Field_2 = int32(wp.ScriptID())
-	ud.Field_1 = speed
-	ud.Field_0 = 0
-
-	mv.Enable(true)
-	obj.s.Objs.AddToUpdatable(mv.SObj())
+	mv := obj.Object.CreateMover(wp, speed)
 	return nsObj{obj.s, mv}
 }
 
