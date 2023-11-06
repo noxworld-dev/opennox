@@ -19,15 +19,9 @@ import (
 
 func init() {
 	server.RegisterAIAction(AIActionIdle{})
-	server.RegisterAIAction(AIActionWait{})
-	server.RegisterAIAction(AIActionWaitRel{})
 	server.RegisterAIAction(AIActionCastOnObj{})
 	server.RegisterAIAction(AIActionCastOnPos{})
 	server.RegisterAIAction(AIActionCastDuration{})
-	server.RegisterAIAction(AIActionDropObj{})
-	server.RegisterAIAction(AIActionFindObj{})
-	server.RegisterAIAction(AIActionMorphIntoChest{})
-	server.RegisterAIAction(AIActionMorphBackToSelf{})
 	server.RegisterAIAction(AIActionReport{})
 }
 
@@ -626,26 +620,6 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	}
 }
 
-type AIActionDropObj struct{}
-
-func (AIActionDropObj) Type() ai.ActionType {
-	return ai.ACTION_DROP_OBJECT
-}
-func (AIActionDropObj) Start(_ *server.Object)  {}
-func (AIActionDropObj) Update(_ *server.Object) {}
-func (AIActionDropObj) End(_ *server.Object)    {}
-func (AIActionDropObj) Cancel(_ *server.Object) {}
-
-type AIActionFindObj struct{}
-
-func (AIActionFindObj) Type() ai.ActionType {
-	return ai.ACTION_FIND_OBJECT
-}
-func (AIActionFindObj) Start(_ *server.Object)  {}
-func (AIActionFindObj) Update(_ *server.Object) {}
-func (AIActionFindObj) End(_ *server.Object)    {}
-func (AIActionFindObj) Cancel(_ *server.Object) {}
-
 type AIActionIdle struct{}
 
 func (AIActionIdle) Type() ai.ActionType {
@@ -694,46 +668,6 @@ func (AIActionIdle) Update(u *server.Object) {
 			}
 		}
 	}
-}
-
-type AIActionWait struct{}
-
-func (AIActionWait) Type() ai.ActionType {
-	return ai.ACTION_WAIT
-}
-func (AIActionWait) Start(_ *server.Object) {}
-func (AIActionWait) End(_ *server.Object)   {}
-
-func (AIActionWait) Update(u *server.Object) {
-	s := u.Server()
-	ud := u.UpdateDataMonster()
-	if s.Frame() >= ud.AIStackHead().ArgU32(0) {
-		u.MonsterPopAction()
-	}
-}
-
-func (AIActionWait) Cancel(u *server.Object) {
-	u.MonsterPopAction()
-}
-
-type AIActionWaitRel struct{}
-
-func (AIActionWaitRel) Type() ai.ActionType {
-	return ai.ACTION_WAIT_RELATIVE
-}
-func (AIActionWaitRel) Start(_ *server.Object) {}
-func (AIActionWaitRel) End(_ *server.Object)   {}
-
-func (AIActionWaitRel) Update(u *server.Object) {
-	s := u.Server()
-	ud := u.UpdateDataMonster()
-	if s.Frame() > ud.Field137+ud.AIStackHead().ArgU32(0) {
-		u.MonsterPopAction()
-	}
-}
-
-func (AIActionWaitRel) Cancel(u *server.Object) {
-	u.MonsterPopAction()
 }
 
 type AIActionCastOnObj struct{}
@@ -807,46 +741,6 @@ func (AIActionCastDuration) Cancel(obj *server.Object) {
 	ud := u.UpdateDataMonster()
 	s.Spells.Dur.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
 	u.MonsterPopAction()
-}
-
-type AIActionMorphIntoChest struct{}
-
-func (AIActionMorphIntoChest) Type() ai.ActionType {
-	return ai.ACTION_MORPH_INTO_CHEST
-}
-
-func (AIActionMorphIntoChest) Start(_ *server.Object)  {}
-func (AIActionMorphIntoChest) End(_ *server.Object)    {}
-func (AIActionMorphIntoChest) Cancel(_ *server.Object) {}
-
-func (AIActionMorphIntoChest) Update(obj *server.Object) {
-	u := obj
-	ud := u.UpdateDataMonster()
-	if ud.Field120_3 != 0 {
-		u.MonsterPopAction()
-		ud.StatusFlags |= object.MonStatusMorphed
-		u.Nox_xxx_monsterMarkUpdate_4E8020()
-	}
-}
-
-type AIActionMorphBackToSelf struct{}
-
-func (AIActionMorphBackToSelf) Type() ai.ActionType {
-	return ai.ACTION_MORPH_BACK_TO_SELF
-}
-
-func (AIActionMorphBackToSelf) Start(_ *server.Object)  {}
-func (AIActionMorphBackToSelf) End(_ *server.Object)    {}
-func (AIActionMorphBackToSelf) Cancel(_ *server.Object) {}
-
-func (AIActionMorphBackToSelf) Update(obj *server.Object) {
-	u := obj
-	ud := u.UpdateDataMonster()
-	if ud.Field120_3 != 0 {
-		u.MonsterPopAction()
-		ud.StatusFlags &^= object.MonStatusMorphed
-		u.Nox_xxx_monsterMarkUpdate_4E8020()
-	}
 }
 
 type AIActionReport struct{}
