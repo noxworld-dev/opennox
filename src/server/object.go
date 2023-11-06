@@ -49,6 +49,25 @@ func asObjectP(p unsafe.Pointer) *Object {
 	return (*Object)(p)
 }
 
+func (s *Server) GetUnitNetCode(p Obj) int {
+	obj := toObject(p)
+	if obj == nil {
+		return 0
+	}
+	if obj.NetCode >= 0x8000 {
+		return 0
+	}
+	ext := int(obj.Extent)
+	if ext >= 0x8000 {
+		return 0
+	}
+	if !obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile) {
+		return int(obj.NetCode)
+	}
+	ext |= 0x8000
+	return ext
+}
+
 func (s *Server) CanSee(obj, targ *Object, flags int) bool {
 	if obj.HasEnchant(ENCHANT_BLINDED) {
 		return false

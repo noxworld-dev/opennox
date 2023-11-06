@@ -615,25 +615,6 @@ func (s *noxScript) OnEvent(event script.EventType) {
 	}
 }
 
-func (s *Server) GetUnitNetCode(p server.Obj) int {
-	obj := toObject(p)
-	if obj == nil {
-		return 0
-	}
-	if obj.NetCode >= 0x8000 {
-		return 0
-	}
-	ext := int(obj.Extent)
-	if ext >= 0x8000 {
-		return 0
-	}
-	if !obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile) {
-		return int(obj.NetCode)
-	}
-	ext |= 0x8000
-	return ext
-}
-
 func (s *noxScript) ScriptToObject(val int) *server.Object {
 	if val == -1 {
 		obj := s.Caller()
