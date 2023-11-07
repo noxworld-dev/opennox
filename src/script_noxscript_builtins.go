@@ -3,13 +3,10 @@ package opennox
 import (
 	"errors"
 	"fmt"
-	"image"
 
 	"github.com/noxworld-dev/noxscript/ns/asm"
-	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 
 	"github.com/noxworld-dev/opennox/v1/legacy"
-	"github.com/noxworld-dev/opennox/v1/server"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
@@ -90,109 +87,10 @@ func nsFrameTimerArg(vm noxscript.VM) int {
 	return 0
 }
 
-// TODO: migrate all usage of `nox_server_scriptExecuteFnForEachGroupObj_502670` to use these funcs below.
-
-func eachObjectNS(s *Server, g *server.MapGroup, fnc func(obj ns4.Obj) bool) {
-	if g == nil {
-		return
-	}
-	switch g.GroupType() {
-	case server.MapGroupObjects:
-		for it := g.First(); it != nil; it = it.Next() {
-			if obj := s.Objs.GetObjectByInd(it.Data1()); obj != nil {
-				if !fnc(nsObj{s, asObjectS(obj)}) {
-					return
-				}
-			}
-		}
-	}
-}
-
-func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns4.Obj) bool) bool { // nox_server_scriptExecuteFnForEachGroupObj_502670
-	if g == nil {
-		return true // just skip this group
-	}
-	switch g.GroupType() {
-	case server.MapGroupObjects:
-		for it := g.First(); it != nil; it = it.Next() {
-			if obj := s.Objs.GetObjectByInd(it.Data1()); obj != nil {
-				if !fnc(nsObj{s, asObjectS(obj)}) {
-					return false
-				}
-			}
-		}
-	case server.MapGroupGroups:
-		for it := g.First(); it != nil; it = it.Next() {
-			if !eachObjectRecursiveNS(s, s.MapGroups.GroupByInd(it.Data1()), fnc) {
-				return false
-			}
-		}
-	}
-	return true
-}
-
-func eachWaypointRecursive(s *Server, g *server.MapGroup, fnc func(wp ns4.WaypointObj) bool) bool {
-	if g == nil {
-		return true
-	}
-	switch g.GroupType() {
-	case server.MapGroupWaypoints:
-		for it := g.First(); it != nil; it = it.Next() {
-			if wp := s.WPs.ByInd(it.Data1()); wp != nil {
-				if !fnc(wp) {
-					return false
-				}
-			}
-		}
-	case server.MapGroupGroups:
-		for it := g.First(); it != nil; it = it.Next() {
-			if !eachWaypointRecursive(s, s.MapGroups.GroupByInd(it.Data1()), fnc) {
-				return false
-			}
-		}
-	}
-	return true
-}
-
-func eachWallRecursive(s *Server, g *server.MapGroup, fnc func(w ns4.WallObj) bool) bool {
-	if g == nil {
-		return true
-	}
-	switch g.GroupType() {
-	case server.MapGroupWalls:
-		for it := g.First(); it != nil; it = it.Next() {
-			if w := s.Walls.GetWallAtGrid(image.Pt(it.Data1(), it.Data2())); w != nil {
-				if !fnc(asWallS(w)) {
-					return false
-				}
-			}
-		}
-	case server.MapGroupGroups:
-		for it := g.First(); it != nil; it = it.Next() {
-			if !eachWallRecursive(s, s.MapGroups.GroupByInd(it.Data1()), fnc) {
-				return false
-			}
-		}
-	}
-	return true
-}
-
 func nsCancelTimer(vm noxscript.VM) int {
 	s := vm.(*noxScript)
 	act := s.PopU32()
 	ok := s.s.Activators.Cancel(act)
 	s.PushBool(ok)
 	return 0
-}
-
-func sliceEqual(a, b []uint32) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-	return true
 }

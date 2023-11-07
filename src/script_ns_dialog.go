@@ -6,7 +6,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/common/sound"
-	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (s noxScriptNS) SetShopkeeperText(obj ns.Obj, text ns.StringID) {
@@ -17,33 +16,6 @@ func (s noxScriptNS) SetShopkeeperText(obj ns.Obj, text ns.StringID) {
 func (s noxScriptNS) SetShopkeeperTextStr(obj ns.Obj, text string) {
 	//TODO implement me
 	panic("implement me")
-}
-
-func (s noxScriptNS) SetDialog(cobj ns.Obj, typ ns.DialogType, start, end ns.Func) {
-	if cobj == nil {
-		return
-	}
-	flags := server.ParseDialogFlags(string(typ))
-	obj := cobj.(nsObj)
-	starti := s.s.noxScript.AsFuncIndex("DialogStart", start)
-	endi := s.s.noxScript.AsFuncIndex("DialogEnd", end)
-	obj.SObj().ScriptSetDialog(flags, starti, endi)
-}
-
-func (s noxScriptNS) CancelDialog(cobj ns.Obj) {
-	if cobj == nil {
-		return
-	}
-	obj := cobj.(nsObj)
-	obj.SObj().ScriptCancelDialog()
-}
-
-func (s noxScriptNS) StoryPic(cobj ns.Obj, name string) {
-	if cobj == nil {
-		return
-	}
-	obj := cobj.(nsObj)
-	obj.SObj().SetDialogPortrait(name)
 }
 
 func (s noxScriptNS) TellStory(aud audio.Name, story ns.StringID) {
@@ -65,12 +37,4 @@ func (s noxScriptNS) StartDialog(cobj ns.Obj, cother ns.Obj) {
 	obj := cobj.(nsObj)
 	other := cother.(nsObj)
 	nox_xxx_script_forcedialog_548CD0(other.SObj(), obj.SObj())
-}
-
-func (s noxScriptNS) GetAnswer(cobj ns.Obj) ns.DialogAnswer {
-	if cobj == nil {
-		return 0
-	}
-	obj := cobj.(nsObj)
-	return ns.DialogAnswer(obj.SObj().ScriptDialogResult())
 }

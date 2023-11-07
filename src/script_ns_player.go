@@ -94,14 +94,6 @@ func (s noxScriptNS) PrintStrToAll(message string) {
 	legacy.PrintToPlayers(message)
 }
 
-func (s noxScriptNS) ClearMessages(pl ns.Obj) {
-	if pl == nil {
-		return
-	}
-	u := toObjectS(pl.(server.Obj))
-	s.s.Nox_xxx_netScriptMessageKill_4D9760(u)
-}
-
 func (s noxScriptNS) UnBlind() {
 	legacy.Set_nox_gameDisableMapDraw_5d4594_2650672(0)
 	noxClient.r.FadeOutScreen(25, false, nil)

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"image"
 	"strings"
 	"unsafe"
 
@@ -305,4 +306,89 @@ func (g *MapGroup) First() *MapGroupItem {
 		return nil
 	}
 	return g.List
+}
+
+func EachObject(s *Server, g *MapGroup, fnc func(obj *Object) bool) {
+	if g == nil {
+		return
+	}
+	switch g.GroupType() {
+	case MapGroupObjects:
+		for it := g.First(); it != nil; it = it.Next() {
+			if obj := s.Objs.GetObjectByInd(it.Data1()); obj != nil {
+				if !fnc(obj) {
+					return
+				}
+			}
+		}
+	}
+}
+
+func EachObjectRecursive(s *Server, g *MapGroup, fnc func(obj *Object) bool) bool { // nox_server_scriptExecuteFnForEachGroupObj_502670
+	if g == nil {
+		return true // just skip this group
+	}
+	switch g.GroupType() {
+	case MapGroupObjects:
+		for it := g.First(); it != nil; it = it.Next() {
+			if obj := s.Objs.GetObjectByInd(it.Data1()); obj != nil {
+				if !fnc(obj) {
+					return false
+				}
+			}
+		}
+	case MapGroupGroups:
+		for it := g.First(); it != nil; it = it.Next() {
+			if !EachObjectRecursive(s, s.MapGroups.GroupByInd(it.Data1()), fnc) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func EachWaypointRecursive(s *Server, g *MapGroup, fnc func(wp *Waypoint) bool) bool {
+	if g == nil {
+		return true
+	}
+	switch g.GroupType() {
+	case MapGroupWaypoints:
+		for it := g.First(); it != nil; it = it.Next() {
+			if wp := s.WPs.ByInd(it.Data1()); wp != nil {
+				if !fnc(wp) {
+					return false
+				}
+			}
+		}
+	case MapGroupGroups:
+		for it := g.First(); it != nil; it = it.Next() {
+			if !EachWaypointRecursive(s, s.MapGroups.GroupByInd(it.Data1()), fnc) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func EachWallRecursive(s *Server, g *MapGroup, fnc func(w *Wall) bool) bool {
+	if g == nil {
+		return true
+	}
+	switch g.GroupType() {
+	case MapGroupWalls:
+		for it := g.First(); it != nil; it = it.Next() {
+			if w := s.Walls.GetWallAtGrid(image.Pt(it.Data1(), it.Data2())); w != nil {
+				if !fnc(w) {
+					return false
+				}
+			}
+		}
+	case MapGroupGroups:
+		for it := g.First(); it != nil; it = it.Next() {
+			if !EachWallRecursive(s, s.MapGroups.GroupByInd(it.Data1()), fnc) {
+				return false
+			}
+		}
+	}
+	return true
 }

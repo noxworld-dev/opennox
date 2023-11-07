@@ -26,10 +26,7 @@ type NoxScript interface {
 	noxscript.VM
 	ActResolveObjs()
 	ScriptToObject(h int) *server.Object
-	CallByIndex(index int, caller, trigger *server.Object) error
 	ScriptCallback(b *server.ScriptCallback, caller, trigger *server.Object, eventCode server.ScriptEventType) unsafe.Pointer
-	Caller() *server.Object
-	Trigger() *server.Object
 }
 
 //export nox_script_activatorResolveObjs_51B0C0
@@ -96,7 +93,7 @@ func nox_xxx_scriptCallByEventBlock_502490(a1 unsafe.Pointer, a2, a3 unsafe.Poin
 
 //export nox_script_callByIndex_507310
 func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Pointer) {
-	if err := GetServer().NoxScriptC().CallByIndex(index, AsObjectP(a2), AsObjectP(a3)); err != nil {
+	if err := GetServer().S().NoxScriptVM.CallByIndex(index, AsObjectP(a2), AsObjectP(a3)); err != nil {
 		scriptLog.Println(err)
 	}
 }
