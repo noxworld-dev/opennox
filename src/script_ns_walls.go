@@ -94,5 +94,7 @@ func (g nsWallGroup) Destroy() {
 
 func (g nsWallGroup) EachWall(recursive bool, fnc func(obj ns.WallObj) bool) {
 	// TODO: recursive parameter is unused; remove from interface?
-	eachWallRecursive(g.s, g.g, fnc)
+	server.EachWallRecursive(g.s.Server, g.g, func(wl *server.Wall) bool {
+		return fnc(asWallS(wl))
+	})
 }

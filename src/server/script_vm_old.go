@@ -358,6 +358,26 @@ func (s *NoxScriptVM) PushHandleNS(obj ns4.Handle) {
 	}
 }
 
+func (s *NoxScriptVM) PopWaypointNS() ns4.WaypointObj {
+	wp := s.s.WPs.ByInd(int(s.PopI32()))
+	if wp == nil {
+		return nil
+	}
+	return wp
+}
+
+func (s *NoxScriptVM) PopGroup() *MapGroup {
+	return s.s.MapGroups.GroupByInd(int(s.PopI32()))
+}
+
+func (s *NoxScriptVM) PopWpGroupNS() ns4.WaypointGroupObj {
+	g := s.PopGroup()
+	if g == nil || s.s.MapGroups.MapGroupType(g) != MapGroupWaypoints {
+		return nil
+	}
+	return nsWpGroup{s.s, g}
+}
+
 func (s *NoxScriptVM) scriptPushCallback(b *ScriptCallback, caller, trigger *Object) {
 	s.vm.callbacks = append(s.vm.callbacks, noxScriptCallback{
 		Block: b, Caller: caller, Trigger: trigger,
