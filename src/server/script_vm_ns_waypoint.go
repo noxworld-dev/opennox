@@ -1,13 +1,11 @@
-package opennox
+package server
 
 import (
 	"github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/types"
-
-	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func (s noxScriptNS) Waypoints() []ns.WaypointObj {
+func (s NoxScriptNS) Waypoints() []ns.WaypointObj {
 	list := s.s.WPs.All()
 	out := make([]ns.WaypointObj, 0, len(list))
 	for _, wp := range list {
@@ -16,7 +14,7 @@ func (s noxScriptNS) Waypoints() []ns.WaypointObj {
 	return out
 }
 
-func (s noxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
+func (s NoxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
 	if h == nil {
 		return nil
 	}
@@ -27,7 +25,7 @@ func (s noxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
 	return wp
 }
 
-func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
+func (s NoxScriptNS) Waypoint(name string) ns.WaypointObj {
 	wp := s.s.WPs.ByID(name)
 	if wp == nil {
 		ScriptLog.Printf("noxscript: cannot find waypoint: %q", name)
@@ -36,25 +34,25 @@ func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 	return wp
 }
 
-func (s noxScriptNS) NewWaypoint(name string, pos types.Pointf) ns.WaypointObj {
+func (s NoxScriptNS) NewWaypoint(name string, pos types.Pointf) ns.WaypointObj {
 	wp := s.s.NewWaypoint(pos)
 	wp.SetName(name)
 	return wp
 }
 
-func (s noxScriptNS) WaypointGroupByHandle(h ns.WaypointGroupHandle) ns.WaypointGroupObj {
+func (s NoxScriptNS) WaypointGroupByHandle(h ns.WaypointGroupHandle) ns.WaypointGroupObj {
 	if h == nil {
 		return nil
 	}
 	g := s.s.MapGroups.GroupByInd(h.WaypointGroupScriptID())
-	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupWaypoints {
+	if g == nil || s.s.MapGroups.MapGroupType(g) != MapGroupWaypoints {
 		return nil
 	}
 	return nsWpGroup{s.s, g}
 }
 
-func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
-	g := s.s.MapGroups.GroupByID(name, server.MapGroupWaypoints)
+func (s NoxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
+	g := s.s.MapGroups.GroupByID(name, MapGroupWaypoints)
 	if g == nil {
 		ScriptLog.Printf("noxscript: cannot find waypoint group: %q", name)
 		return nil
@@ -64,7 +62,7 @@ func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
 
 type nsWpGroup struct {
 	s *Server
-	g *server.MapGroup
+	g *MapGroup
 }
 
 func (g nsWpGroup) ScriptID() int {
@@ -99,5 +97,7 @@ func (g nsWpGroup) Toggle() bool {
 
 func (g nsWpGroup) EachWaypoint(recursive bool, fnc func(obj ns.WaypointObj) bool) {
 	// TODO: recursive parameter is unused; remove from interface?
-	eachWaypointRecursive(g.s, g.g, fnc)
+	EachWaypointRecursive(g.s, g.g, func(wp *Waypoint) bool {
+		return fnc(wp)
+	})
 }

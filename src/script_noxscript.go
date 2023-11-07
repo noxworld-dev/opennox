@@ -62,10 +62,6 @@ func (s *noxScript) PopObject() *server.Object {
 	return s.ScriptToObject(int(s.PopI32()))
 }
 
-func (s *noxScript) PopGroup() *server.MapGroup {
-	return s.s.MapGroups.GroupByInd(int(s.PopI32()))
-}
-
 func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
 	s.RunFirst(nox_xxx_gameIsSwitchToSolo_4DB240())
 }
@@ -283,22 +279,6 @@ func (s *noxScript) PopWallGroupNS() ns4.WallGroupObj {
 		return nil
 	}
 	return nsWallGroup{s.s, g}
-}
-
-func (s *noxScript) PopWaypointNS() ns4.WaypointObj {
-	wp := s.s.WPs.ByInd(int(s.PopI32()))
-	if wp == nil {
-		return nil
-	}
-	return wp
-}
-
-func (s *noxScript) PopWpGroupNS() ns4.WaypointGroupObj {
-	g := s.PopGroup()
-	if g == nil || s.s.MapGroups.MapGroupType(g) != server.MapGroupWaypoints {
-		return nil
-	}
-	return nsWpGroup{s.s, g}
 }
 
 func (s *noxScript) PopObjectNS() ns4.Obj {

@@ -148,43 +148,6 @@ func (s noxScriptNS) GetCaller() ns4.Obj {
 	return nsObj{s.s, obj}
 }
 
-func (s noxScriptNS) IsTrigger(obj ns4.Obj) bool {
-	v := s.s.noxScript.Trigger()
-	if v == nil || obj == nil {
-		return false
-	}
-	return v.ScriptIDVal == obj.ScriptID()
-}
-
-func (s noxScriptNS) IsCaller(obj ns4.Obj) bool {
-	v := s.s.noxScript.Caller()
-	if v == nil || obj == nil {
-		return false
-	}
-	return v.ScriptIDVal == obj.ScriptID()
-}
-
-func (s noxScriptNS) IsGameBall(obj ns4.Obj) bool {
-	if obj == nil {
-		return false
-	}
-	return s.s.Types.GameBallID() == obj.Type().Index()
-}
-
-func (s noxScriptNS) IsCrown(obj ns4.Obj) bool {
-	if obj == nil {
-		return false
-	}
-	return s.s.Types.CrownID() == obj.Type().Index()
-}
-
-func (s noxScriptNS) IsSummoned(obj ns4.Obj) bool {
-	if obj == nil {
-		return false
-	}
-	return (obj.MonsterStatus()>>7)&0x1 != 0
-}
-
 func (s noxScriptNS) DestroyEveryChat() {
 	legacy.Nox_xxx_destroyEveryChatMB_528D60()
 }
@@ -740,7 +703,7 @@ func (g nsObjGroup) SetOwners(owners ns4.ObjGroup) {
 }
 
 func (g nsObjGroup) Pause(dt ns4.Duration) {
-	eachObjectRecursiveNS(g.s, g.g, func(obj ns4.Obj) bool {
+	g.EachObject(true, func(obj ns4.Obj) bool {
 		obj.Pause(dt)
 		return true
 	})
@@ -812,35 +775,35 @@ func (g nsObjGroup) Follow(targ ns4.Positioner) {
 }
 
 func (g nsObjGroup) Guard(p1, p2 types.Pointf, distance float32) {
-	eachObjectRecursiveNS(g.s, g.g, func(obj ns4.Obj) bool {
+	g.EachObject(true, func(obj ns4.Obj) bool {
 		obj.Guard(p1, p2, distance)
 		return true
 	})
 }
 
 func (g nsObjGroup) Flee(target ns4.Positioner, dt ns4.Duration) {
-	eachObjectRecursiveNS(g.s, g.g, func(obj ns4.Obj) bool {
+	g.EachObject(true, func(obj ns4.Obj) bool {
 		obj.Flee(target, dt)
 		return true
 	})
 }
 
 func (g nsObjGroup) HitMelee(pos types.Pointf) {
-	eachObjectRecursiveNS(g.s, g.g, func(obj ns4.Obj) bool {
+	g.EachObject(true, func(obj ns4.Obj) bool {
 		obj.HitMelee(pos)
 		return true
 	})
 }
 
 func (g nsObjGroup) HitRanged(pos types.Pointf) {
-	eachObjectRecursiveNS(g.s, g.g, func(obj ns4.Obj) bool {
+	g.EachObject(true, func(obj ns4.Obj) bool {
 		obj.HitRanged(pos)
 		return true
 	})
 }
 
 func (g nsObjGroup) Attack(targ ns4.Positioner) {
-	eachObjectRecursiveNS(g.s, g.g, func(obj ns4.Obj) bool {
+	g.EachObject(true, func(obj ns4.Obj) bool {
 		obj.Attack(targ)
 		return true
 	})
@@ -905,9 +868,13 @@ func (g nsObjGroup) Enchant(enchant enchant.Enchant, dt ns4.Duration) {
 
 func (g nsObjGroup) EachObject(recursive bool, fnc func(obj ns4.Obj) bool) {
 	if recursive {
-		eachObjectRecursiveNS(g.s, g.g, fnc)
+		server.EachObjectRecursive(g.s.Server, g.g, func(obj *server.Object) bool {
+			return fnc(nsObj{g.s, asObjectS(obj)})
+		})
 	} else {
-		eachObjectNS(g.s, g.g, fnc)
+		server.EachObject(g.s.Server, g.g, func(obj *server.Object) bool {
+			return fnc(nsObj{g.s, asObjectS(obj)})
+		})
 	}
 }
 
