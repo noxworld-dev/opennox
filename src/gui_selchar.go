@@ -895,7 +895,7 @@ func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEve
 			if saveNum < 0 {
 				return nil
 			}
-			v9 := c.ClientPlayerUnit().Flags30()
+			v9 := c.ClientPlayerUnit().Flags()
 			if (v9 & 0x8000) != 0 {
 				v10 := win1.ChildByID(501)
 				legacy.Nox_xxx_wnd_46ABB0(v10, 0)
