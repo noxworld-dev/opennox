@@ -122,6 +122,8 @@ func (c *Client) sub_497260(vp *noxrender.Viewport) {
 	}
 }
 
+const sightPointsMax = 1024
+
 type clientSight struct {
 	dword_5d4594_1217444_vec ntype.Point32
 	dword_5d4594_1217452     int
@@ -135,12 +137,25 @@ type clientSight struct {
 
 	arr_5d4594_1322584 [100000]int16
 
-	dword_5d4594_1217464_size int
-	arr_5d4594_1203876        [1024]ntype.Point32
-	arr_5d4594_1213348        [1024]uint32
-	arr_5d4594_1212324        [1024]byte
+	sightPointsCnt  int
+	sightPointsArr  [sightPointsMax]ntype.Point32
+	sightPointsVar1 [sightPointsMax]uint32
+	sightPointsVar2 [sightPointsMax]byte
 
 	arr_5d4594_1212068 [32]ntype.Point32
+}
+
+func (c *clientSight) addSightPoint(p image.Point, a3 uint32, a4 byte) {
+	ind := c.sightPointsCnt
+	c.sightPointsArr[ind] = ntype.Point32{X: int32(p.X), Y: int32(p.Y)}
+	c.sightPointsVar1[ind] = a3
+	c.sightPointsVar2[ind] = a4
+	c.sightPointsCnt++
+}
+
+func (c *clientSight) addSightLine(p1, p2 image.Point, a3 uint32, a4 byte) {
+	c.addSightPoint(p1, a3, a4)
+	c.addSightPoint(p2, a3, a4)
 }
 
 func (c *clientSight) sub_4CAE60() {
@@ -155,7 +170,7 @@ func (c *clientSight) sub_4CAE60() {
 
 func (c *clientSight) Nox_xxx_drawBlack_496150_A(vp *noxrender.Viewport) {
 	c.sub_4CAE60()
-	c.dword_5d4594_1217464_size = 0
+	c.sightPointsCnt = 0
 	c.sightStructArrSize = 0
 	c.dword_5d4594_1217444_vec.X = int32(vp.World.Min.X) + int32(vp.Size.X)/2
 	c.dword_5d4594_1217444_vec.Y = int32(uint32(vp.World.Min.Y + vp.Jiggle12 + vp.Size.Y/2))
@@ -235,7 +250,6 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 	var brect types.Rectf
 	brect.Min.X = float32(c.dword_5d4594_1217444_vec.X)
 	brect.Min.Y = float32(c.dword_5d4594_1217444_vec.Y)
-	v51 := c.dword_5d4594_1217464_size
 	if c.sightStructArrSize > 0 {
 		for i := 0; i < c.sightStructArrSize; i++ {
 			v18 := int32(0)
@@ -390,123 +404,106 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				}
 				v18 = int32(ss.Obj20.Field_32)
 			}
-			var a1a, a2 image.Point
-			a1a.X = vp.Screen.Min.X - vp.World.Min.X + int(pp1.X)
-			a1a.Y = vp.Screen.Min.Y - vp.World.Min.Y + int(pp1.Y)
-			a2.X = vp.Screen.Min.X - vp.World.Min.X + int(pp2.X)
-			a2.Y = vp.Screen.Min.Y - vp.World.Min.Y + int(pp2.Y)
-			if sub_57BA30(&a1a, &a2, &vp.Screen) != 0 {
-				v47 := c.dword_5d4594_1217464_size
-				c.arr_5d4594_1203876[c.dword_5d4594_1217464_size].X = int32(a1a.X)
-				c.arr_5d4594_1203876[c.dword_5d4594_1217464_size].Y = int32(a1a.Y)
-				c.arr_5d4594_1213348[v47] = uint32(v18)
-				c.arr_5d4594_1212324[v47] = ss.Field56
-				v47++
-				c.dword_5d4594_1217464_size = v47
-				c.arr_5d4594_1203876[v47].X = int32(a2.X)
-				c.arr_5d4594_1203876[v47].Y = int32(a2.Y)
-				c.arr_5d4594_1213348[v47] = uint32(v18)
-				c.arr_5d4594_1212324[v47] = ss.Field56
-				v51 = v47 + 1
-				c.dword_5d4594_1217464_size = v51
-			} else {
-				v51 = c.dword_5d4594_1217464_size
+			sp1 := vp.Screen.Min.Add(pp1.Point().Sub(vp.World.Min))
+			sp2 := vp.Screen.Min.Add(pp2.Point().Sub(vp.World.Min))
+			if sub_57BA30(&sp1, &sp2, &vp.Screen) != 0 {
+				c.addSightLine(sp1, sp2, uint32(v18), ss.Field56)
 			}
 		}
 	}
 	debug()
-	c.dword_5d4594_1217464_size = v51 - 1
-	pi := c.dword_5d4594_1217464_size - 1
-	for i := 0; i < c.dword_5d4594_1217464_size; pi, i = i, i+1 {
-		v55 := c.arr_5d4594_1212324[pi]
+	c.sightPointsCnt--
+	pi := c.sightPointsCnt - 1
+	for i := 0; i < c.sightPointsCnt; pi, i = i, i+1 {
+		v55 := c.sightPointsVar2[pi]
 		var adx, ady int32
 		if v55 != 0 {
-			v56 := c.arr_5d4594_1212324[i]
+			v56 := c.sightPointsVar2[i]
 			if v56 == 0 {
-				if v55 == 6 || c.arr_5d4594_1212324[i] == 6 {
-					v63 := c.arr_5d4594_1203876[pi].X
+				if v55 == 6 || c.sightPointsVar2[i] == 6 {
+					v63 := c.sightPointsArr[pi].X
 					var v64 int32
-					if c.arr_5d4594_1203876[i].X-v63 >= 0 {
-						v64 = c.arr_5d4594_1203876[i].X - v63
+					if c.sightPointsArr[i].X-v63 >= 0 {
+						v64 = c.sightPointsArr[i].X - v63
 					} else {
-						v64 = v63 - c.arr_5d4594_1203876[i].X
+						v64 = v63 - c.sightPointsArr[i].X
 					}
-					v65 := c.arr_5d4594_1203876[pi].Y
+					v65 := c.sightPointsArr[pi].Y
 					var v66 int32
-					if c.arr_5d4594_1203876[i].Y-v65 >= 0 {
-						v66 = c.arr_5d4594_1203876[i].Y - v65
+					if c.sightPointsArr[i].Y-v65 >= 0 {
+						v66 = c.sightPointsArr[i].Y - v65
 					} else {
-						v66 = v65 - c.arr_5d4594_1203876[i].Y
+						v66 = v65 - c.sightPointsArr[i].Y
 					}
 					if v64 <= 4 && v66 <= 4 {
 						continue
 					}
 				}
-				c.arr_5d4594_1212324[pi] = 12
+				c.sightPointsVar2[pi] = 12
 				continue
 			}
 			if v56 != v55 {
-				c.arr_5d4594_1212324[pi] = 12
+				c.sightPointsVar2[pi] = 12
 				continue
 			}
-			if c.arr_5d4594_1213348[i] == c.arr_5d4594_1213348[pi] {
+			if c.sightPointsVar1[i] == c.sightPointsVar1[pi] {
 				continue
 			}
-			v57 := c.arr_5d4594_1203876[pi].X
-			v58 := c.arr_5d4594_1203876[i].X - v57
+			v57 := c.sightPointsArr[pi].X
+			v58 := c.sightPointsArr[i].X - v57
 			if v58 < 0 {
-				adx = v57 - c.arr_5d4594_1203876[i].X
+				adx = v57 - c.sightPointsArr[i].X
 			} else {
 				adx = v58
 			}
 		} else {
-			if c.arr_5d4594_1212324[i] != 0 {
-				if v55 == 6 || c.arr_5d4594_1212324[i] == 6 {
-					v63 := c.arr_5d4594_1203876[pi].X
+			if c.sightPointsVar2[i] != 0 {
+				if v55 == 6 || c.sightPointsVar2[i] == 6 {
+					v63 := c.sightPointsArr[pi].X
 					var v64 int32
-					if c.arr_5d4594_1203876[i].X-v63 >= 0 {
-						v64 = c.arr_5d4594_1203876[i].X - v63
+					if c.sightPointsArr[i].X-v63 >= 0 {
+						v64 = c.sightPointsArr[i].X - v63
 					} else {
-						v64 = v63 - c.arr_5d4594_1203876[i].X
+						v64 = v63 - c.sightPointsArr[i].X
 					}
-					v65 := c.arr_5d4594_1203876[pi].Y
+					v65 := c.sightPointsArr[pi].Y
 					var v66 int32
-					if c.arr_5d4594_1203876[i].Y-v65 >= 0 {
-						v66 = c.arr_5d4594_1203876[i].Y - v65
+					if c.sightPointsArr[i].Y-v65 >= 0 {
+						v66 = c.sightPointsArr[i].Y - v65
 					} else {
-						v66 = v65 - c.arr_5d4594_1203876[i].Y
+						v66 = v65 - c.sightPointsArr[i].Y
 					}
 					if v64 <= 4 && v66 <= 4 {
 						continue
 					}
 				}
-				c.arr_5d4594_1212324[pi] = 12
+				c.sightPointsVar2[pi] = 12
 				continue
 			}
-			if c.arr_5d4594_1213348[pi] == c.arr_5d4594_1213348[i] {
+			if c.sightPointsVar1[pi] == c.sightPointsVar1[i] {
 				continue
 			}
-			if xx1, xx2 := c.arr_5d4594_1203876[i].X, c.arr_5d4594_1203876[pi].X; xx1-xx2 < 0 {
+			if xx1, xx2 := c.sightPointsArr[i].X, c.sightPointsArr[pi].X; xx1-xx2 < 0 {
 				adx = xx2 - xx1
 			} else {
 				adx = xx1 - xx2
 			}
 		}
-		if yy1, yy2 := c.arr_5d4594_1203876[i].Y, c.arr_5d4594_1203876[pi].Y; yy1-yy2 < 0 {
+		if yy1, yy2 := c.sightPointsArr[i].Y, c.sightPointsArr[pi].Y; yy1-yy2 < 0 {
 			ady = yy2 - yy1
 		} else {
 			ady = yy1 - yy2
 		}
 		if adx > 4 || ady > 4 {
-			c.arr_5d4594_1212324[pi] = 12
+			c.sightPointsVar2[pi] = 12
 		}
 	}
 }
 
 func (c *clientSight) checkXxx(r image.Rectangle) bool {
-	prev := c.arr_5d4594_1203876[c.dword_5d4594_1217464_size-1]
-	for i := 0; i < c.dword_5d4594_1217464_size; i++ {
-		p := c.arr_5d4594_1203876[i]
+	prev := c.sightPointsArr[c.sightPointsCnt-1]
+	for i := 0; i < c.sightPointsCnt; i++ {
+		p := c.sightPointsArr[i]
 		var r2 image.Rectangle
 		r2.Min.X = int(prev.X)
 		r2.Min.Y = int(prev.Y)
@@ -548,7 +545,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 	r1.Min.Y = vp.Screen.Min.Y + vp.Jiggle12 + vp.Size.Y/2
 	r1.Max.X = pos.X - opos.X
 	r1.Max.Y = pos.Y - opos.Y
-	if c.dword_5d4594_1217464_size <= 0 {
+	if c.sightPointsCnt <= 0 {
 		return true
 	}
 	if !c.checkXxx(r1) {
@@ -649,12 +646,12 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 }
 
 func (c *clientSight) Sub_498AE0_B(draw func(p1, p2 ntype.Point32)) {
-	v0 := c.dword_5d4594_1217464_size
+	v0 := c.sightPointsCnt
 	v1 := 0
-	for i := c.dword_5d4594_1217464_size - 1; v1 < v0; v1++ {
-		if c.arr_5d4594_1212324[i] == 12 {
-			draw(c.arr_5d4594_1203876[i], c.arr_5d4594_1203876[v1])
-			v0 = c.dword_5d4594_1217464_size
+	for i := c.sightPointsCnt - 1; v1 < v0; v1++ {
+		if c.sightPointsVar2[i] == 12 {
+			draw(c.sightPointsArr[i], c.sightPointsArr[v1])
+			v0 = c.sightPointsCnt
 		}
 		i = v1
 	}
@@ -713,15 +710,15 @@ func (c *clientSight) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32)
 		v27 = float32(float64(v3.X) * float64(v29))
 		v31 = v3.Y - int32(v27)
 	}
-	v7 := c.dword_5d4594_1217464_size
-	if c.dword_5d4594_1217464_size > 0 {
+	v7 := c.sightPointsCnt
+	if c.sightPointsCnt > 0 {
 		for v32 := 0; ; {
-			a2a := c.arr_5d4594_1203876[v32]
+			a2a := c.sightPointsArr[v32]
 			var a3a ntype.Point32
 			if v32 == v7-1 {
-				a3a = c.arr_5d4594_1203876[0]
+				a3a = c.sightPointsArr[0]
 			} else {
-				a3a = c.arr_5d4594_1203876[v32+1]
+				a3a = c.sightPointsArr[v32+1]
 			}
 			v38 = sub_4990D0(&a2a, &a3a)
 			if int32(v38) != 0 && ((int32(v6)&1) == 0 || a2a.X <= v3.X || a2a.X <= v4.X || a3a.X <= v3.X || a3a.X <= v4.X) && ((int32(v37)&2) == 0 || a2a.X >= v3.X || a2a.X >= v4.X || a3a.X >= v3.X) {
@@ -810,9 +807,9 @@ func (c *clientSight) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32)
 				}
 			}
 		LABEL_65:
-			v7 = c.dword_5d4594_1217464_size
+			v7 = c.sightPointsCnt
 			v32++
-			if v32 >= c.dword_5d4594_1217464_size {
+			if v32 >= c.sightPointsCnt {
 				break
 			}
 			v6 = v37
@@ -834,14 +831,14 @@ func (c *clientSight) Sub_4992B0(a1 int, a2 int) int {
 	result = 0
 	v7 = 0
 	v8 := 0
-	if c.dword_5d4594_1217464_size <= 0 {
+	if c.sightPointsCnt <= 0 {
 		return 0
 	}
-	v3 := c.dword_5d4594_1217464_size*8 - 8
-	for v8 < c.dword_5d4594_1217464_size {
-		v4 = c.arr_5d4594_1203876[v3/8].X
-		v5 = c.arr_5d4594_1203876[v3/8].Y
-		v6 = c.arr_5d4594_1203876[v8].Y
+	v3 := c.sightPointsCnt*8 - 8
+	for v8 < c.sightPointsCnt {
+		v4 = c.sightPointsArr[v3/8].X
+		v5 = c.sightPointsArr[v3/8].Y
+		v6 = c.sightPointsArr[v8].Y
 		if v6 > int32(a2) {
 			if v5 > int32(a2) {
 				v3 = func() int {
@@ -865,7 +862,7 @@ func (c *clientSight) Sub_4992B0(a1 int, a2 int) int {
 			continue
 		}
 	LABEL_8:
-		if int32(a1) >= c.arr_5d4594_1203876[v8].X+(int32(a2)-v6)*(v4-c.arr_5d4594_1203876[v8].X)/(v5-v6) {
+		if int32(a1) >= c.sightPointsArr[v8].X+(int32(a2)-v6)*(v4-c.sightPointsArr[v8].X)/(v5-v6) {
 			result = v7
 		} else {
 			if v7 == 0 {
@@ -2120,7 +2117,7 @@ func sub_427C80(r1, r2 image.Rectangle) bool {
 }
 
 func (c *clientSight) Get_arr_5d4594_1203876() []ntype.Point32 {
-	return c.arr_5d4594_1203876[:c.dword_5d4594_1217464_size]
+	return c.sightPointsArr[:c.sightPointsCnt]
 }
 
 func (c *clientSight) Nox_xxx_drawBlack_496150_C() []ntype.Point32 {
@@ -2133,8 +2130,8 @@ func (c *clientSight) sub_4989A0() {
 		return
 	}
 
-	barr := c.arr_5d4594_1212324[:]
-	iarr := c.arr_5d4594_1213348[:]
+	barr := c.sightPointsVar2[:]
+	iarr := c.sightPointsVar1[:]
 
 	p0 := arr[0]
 	p1 := arr[1]
@@ -2152,5 +2149,5 @@ func (c *clientSight) sub_4989A0() {
 		iarr[j] = iarr[i]
 		p1 = p
 	}
-	c.dword_5d4594_1217464_size = j + 1
+	c.sightPointsCnt = j + 1
 }
