@@ -26,7 +26,7 @@ type WallChecker interface {
 }
 
 func (c *Client) Nox_xxx_drawBlack_496150(vp *noxrender.Viewport) {
-	c.Sight.Nox_xxx_drawBlack_496150_A(vp)
+	c.Sight.sightReset(vp)
 	c.Sight.Sub_498030(vp)
 	c.sub_497260(vp)
 	c.Sight.Nox_xxx_drawBlack_496150_E(vp, &c.Server.Walls, c.Server.Sub_57B500, c.DrawListAppendWallYyy)
@@ -125,10 +125,10 @@ func (c *Client) sub_497260(vp *noxrender.Viewport) {
 const sightPointsMax = 1024
 
 type clientSight struct {
-	dword_5d4594_1217444_vec ntype.Point32
-	dword_5d4594_1217452     int
-	sightStructArr           []*SightStructXxx
-	sightStructArrSize       int
+	sightViewCenter      image.Point
+	dword_5d4594_1217452 int
+	sightStructArr       []*SightStructXxx
+	sightStructArrSize   int
 
 	dword_5d4594_1522584 *SightStructXxx
 	dword_5d4594_1522588 uint32
@@ -168,12 +168,12 @@ func (c *clientSight) sub_4CAE60() {
 	}
 }
 
-func (c *clientSight) Nox_xxx_drawBlack_496150_A(vp *noxrender.Viewport) {
+func (c *clientSight) sightReset(vp *noxrender.Viewport) {
 	c.sub_4CAE60()
 	c.sightPointsCnt = 0
 	c.sightStructArrSize = 0
-	c.dword_5d4594_1217444_vec.X = int32(vp.World.Min.X) + int32(vp.Size.X)/2
-	c.dword_5d4594_1217444_vec.Y = int32(uint32(vp.World.Min.Y + vp.Jiggle12 + vp.Size.Y/2))
+	c.sightViewCenter.X = vp.World.Min.X + vp.Size.X/2
+	c.sightViewCenter.Y = vp.World.Min.Y + vp.Size.Y/2 + vp.Jiggle12
 }
 
 func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls WallChecker, checkDoor func(pos image.Point, flags byte) int8, addWall func(w *server.Wall)) {
@@ -206,7 +206,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 				def := walls.DefByInd(int(wl.Tile1))
 				if def.Flags32&1 == 0 {
 					wl.Flags4 |= 1
-					if int32(wl.Y6)*23 <= c.dword_5d4594_1217444_vec.Y {
+					if int(wl.Y6)*23 <= c.sightViewCenter.Y {
 						wl.Flags4 &^= 2
 					} else {
 						wl.Flags4 |= 2
@@ -216,7 +216,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 					}
 				} else {
 					if wl.Flags4&0x40 != 0 {
-						if (c.dword_5d4594_1217444_vec.X-v69-11)*(c.dword_5d4594_1217444_vec.X-v69-11)+(c.dword_5d4594_1217444_vec.Y-v70-11)*(c.dword_5d4594_1217444_vec.Y-v70-11) < 3600 {
+						if (int32(c.sightViewCenter.X)-v69-11)*(int32(c.sightViewCenter.X)-v69-11)+(int32(c.sightViewCenter.Y)-v70-11)*(int32(c.sightViewCenter.Y)-v70-11) < 3600 {
 							wl.Flags4 |= 1
 							continue
 						}
@@ -248,8 +248,8 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 
 func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls WallChecker, debug func()) {
 	var brect types.Rectf
-	brect.Min.X = float32(c.dword_5d4594_1217444_vec.X)
-	brect.Min.Y = float32(c.dword_5d4594_1217444_vec.Y)
+	brect.Min.X = float32(c.sightViewCenter.X)
+	brect.Min.Y = float32(c.sightViewCenter.Y)
 	if c.sightStructArrSize > 0 {
 		for i := 0; i < c.sightStructArrSize; i++ {
 			v18 := int32(0)
@@ -260,12 +260,12 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				v20 := (ss.Field40 * 25736) / 75000
 				v21 := (ss.Field44 * 25736) / 75000
 
-				brect.Max.X = float32(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v20))
-				brect.Max.Y = float32(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v20))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v20))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v20))
 				pp1 = sub_4CA960(ss.GridPos24, int8(ss.Field36), brect)
 
-				brect.Max.X = float32(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v21))
-				brect.Max.Y = float32(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v21))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v21))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v21))
 				pp2 = sub_4CA960(ss.GridPos24, int8(ss.Field36), brect)
 
 				wl := walls.GetWallAtGrid(image.Pt(int(ss.GridPos24.X), int(ss.GridPos24.Y)))
@@ -277,29 +277,28 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				wl.Field3 |= ss.Field36
 				v18 = ss.GridPos24.X + (ss.GridPos24.Y << 8)
 			case 1:
-				pp1.X = float32(c.dword_5d4594_1217444_vec.X + sub_414C50((ss.Field40*25736)/75000-19302)*int32(vp.Size.Y/2)/4096)
+				pp1.X = float32(c.sightViewCenter.X + sub_414C50((ss.Field40*25736)/75000-19302)*(vp.Size.Y/2)/4096)
 				pp1.Y = float32(vp.World.Min.Y)
-				pp2.X = float32(c.dword_5d4594_1217444_vec.X + sub_414C50((ss.Field44*25736)/75000-19302)*int32(vp.Size.Y/2)/4096)
+				pp2.X = float32(c.sightViewCenter.X + sub_414C50((ss.Field44*25736)/75000-19302)*(vp.Size.Y/2)/4096)
 				pp2.Y = float32(vp.World.Min.Y)
 				v18 = 0
 			case 2:
-				pp1.X = float32(c.dword_5d4594_1217444_vec.X - sub_414C50((ss.Field40*25736)/75000-6434)*(int32(vp.Size.Y)/2)/4096)
+				pp1.X = float32(c.sightViewCenter.X - sub_414C50((ss.Field40*25736)/75000-6434)*(vp.Size.Y/2)/4096)
 				pp1.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
-				v29 := sub_414C50((ss.Field44*25736)/75000 - 6434)
-				pp2.X = float32(c.dword_5d4594_1217444_vec.X - v29*(int32(vp.Size.Y)/2)/4096)
+				pp2.X = float32(c.sightViewCenter.X - sub_414C50((ss.Field44*25736)/75000-6434)*(vp.Size.Y/2)/4096)
 				pp2.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
 				v18 = 0
 			case 3:
 				pp1.X = float32(vp.World.Min.X)
-				pp1.Y = float32(c.dword_5d4594_1217444_vec.Y - sub_414C50((ss.Field40*25736)/75000-12868)*int32(vp.Size.X/2)/4096)
+				pp1.Y = float32(c.sightViewCenter.Y - sub_414C50((ss.Field40*25736)/75000-12868)*(vp.Size.X/2)/4096)
 				pp2.X = float32(vp.World.Min.X)
-				pp2.Y = float32(c.dword_5d4594_1217444_vec.Y - sub_414C50((ss.Field44*25736)/75000-12868)*int32(vp.Size.X/2)/4096)
+				pp2.Y = float32(c.sightViewCenter.Y - sub_414C50((ss.Field44*25736)/75000-12868)*(vp.Size.X/2)/4096)
 				v18 = 0
 			case 4:
-				pp1.X = float32(float64(vp.Size.X + vp.World.Min.X - 1))
-				pp1.Y = float32(float64(int32(c.dword_5d4594_1217444_vec.Y + int32(sub_414C50((ss.Field40*25736)/75000)*(int32(vp.Size.X)/2)/4096))))
-				pp2.X = float32(float64(vp.World.Min.X + vp.Size.X - 1))
-				pp2.Y = float32(float64(int32(c.dword_5d4594_1217444_vec.Y + int32(sub_414C50((ss.Field44*25736)/75000)*int32(vp.Size.X/2)/4096))))
+				pp1.X = float32(vp.Size.X + vp.World.Min.X - 1)
+				pp1.Y = float32(c.sightViewCenter.Y + sub_414C50((ss.Field40*25736)/75000)*(vp.Size.X/2)/4096)
+				pp2.X = float32(vp.World.Min.X + vp.Size.X - 1)
+				pp2.Y = float32(c.sightViewCenter.Y + sub_414C50((ss.Field44*25736)/75000)*(vp.Size.X/2)/4096)
 				v18 = 0
 			case 6:
 				v34 := ss.Obj20
@@ -311,16 +310,16 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				rect.Max.X = float32(float64(v34.PosVec.X + int(*memmap.PtrInt32(0x587000, uintptr(int32(v34.Field_74_4)*8)+196184))))
 				rect.Max.Y = float32(float64(v34.PosVec.Y + int(*memmap.PtrInt32(0x587000, uintptr(int32(v34.Field_74_4)*8)+196188))))
 				v36 := (ss.Field40 * 25736) / 75000
-				brect.Max.X = float32(float64(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v36)))
-				brect.Max.Y = float32(float64(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v36)))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v36))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v36))
 				var ok bool
 				pp1, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
 					pp1 = rect.Min
 				}
 				v37 := (ss.Field44 * 25736) / 75000
-				brect.Max.X = float32(float64(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v37)))
-				brect.Max.Y = float32(float64(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v37)))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v37))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v37))
 				pp2, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
 					pp2 = rect.Max
@@ -329,24 +328,24 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 			case 7:
 				ss.Obj20.Field_33 = 1
 				v38 := ss.Obj20
-				v39 := c.dword_5d4594_1217444_vec.X - int32(v38.PosVec.X)
-				v40 := int32(v38.PosVec.Y - int(c.dword_5d4594_1217444_vec.Y))
+				v39 := c.sightViewCenter.X - v38.PosVec.X
+				v40 := -(c.sightViewCenter.Y - v38.PosVec.Y)
 				var rect types.Rectf
-				rect.Min.X = float32(float64(v40 + int32(ss.Obj20.PosVec.X)))
-				rect.Min.Y = float32(float64(v39 + int32(ss.Obj20.PosVec.Y)))
-				rect.Max.X = float32(float64(ss.Obj20.PosVec.X - int(v40)))
-				rect.Max.Y = float32(float64(ss.Obj20.PosVec.Y - int(v39)))
+				rect.Min.X = float32(v40 + ss.Obj20.PosVec.X)
+				rect.Min.Y = float32(v39 + ss.Obj20.PosVec.Y)
+				rect.Max.X = float32(ss.Obj20.PosVec.X - v40)
+				rect.Max.Y = float32(ss.Obj20.PosVec.Y - v39)
 				v41 := (ss.Field40 * 25736) / 75000
-				brect.Max.X = float32(float64(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v41)))
-				brect.Max.Y = float32(float64(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v41)))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v41))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v41))
 				var ok bool
 				pp1, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
 					pp1 = types.Ptf(rect.Min.X, rect.Min.Y)
 				}
 				v42 := (ss.Field44 * 25736) / 75000
-				brect.Max.X = float32(float64(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v42)))
-				brect.Max.Y = float32(float64(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v42)))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v42))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v42))
 				pp2, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
 					pp2 = rect.Max
@@ -388,16 +387,16 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 					rect.Max.Y = float32(ss.Obj20.PosVec.Y) + ss.Obj20.Shape.Box.RightBottom
 				}
 				v45 := (ss.Field40 * 25736) / 75000
-				brect.Max.X = float32(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v45))
-				brect.Max.Y = float32(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v45))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v45))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v45))
 				var ok bool
 				pp1, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
 					pp1 = rect.Min
 				}
 				v46 := (ss.Field44 * 25736) / 75000
-				brect.Max.X = float32(c.dword_5d4594_1217444_vec.X + sub_414BD0(6434-v46))
-				brect.Max.Y = float32(c.dword_5d4594_1217444_vec.Y + sub_414BD0(v46))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v46))
+				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v46))
 				pp2, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
 					pp2 = rect.Max
@@ -406,7 +405,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 			}
 			sp1 := vp.Screen.Min.Add(pp1.Point().Sub(vp.World.Min))
 			sp2 := vp.Screen.Min.Add(pp2.Point().Sub(vp.World.Min))
-			if sub_57BA30(&sp1, &sp2, &vp.Screen) != 0 {
+			if sub_57BA30(&sp1, &sp2, vp.Screen) != 0 {
 				c.addSightLine(sp1, sp2, uint32(v18), ss.Field56)
 			}
 		}
@@ -1076,40 +1075,40 @@ func (c *clientSight) nox_xxx_drawBlackofWall_497C40(a1 int32, a2 int32, a3 int8
 	var v24 int32 // FIXME: uninitialized!
 	switch a3 {
 	case 1:
-		v6 = int32(v3) - c.dword_5d4594_1217444_vec.X + 5
-		v7 = int32(v4) - c.dword_5d4594_1217444_vec.Y - 5
+		v6 = int32(v3) - int32(c.sightViewCenter.X) + 5
+		v7 = int32(v4) - int32(c.sightViewCenter.Y) - 5
 		v8 = v3
 		v9 = a2 * 23
 		v23 = v21 + 23
 	case 2:
-		v6 = int32(v3) - c.dword_5d4594_1217444_vec.X - 5
-		v7 = int32(v4) - c.dword_5d4594_1217444_vec.Y - 5
+		v6 = int32(v3) - int32(c.sightViewCenter.X) - 5
+		v7 = int32(v4) - int32(c.sightViewCenter.Y) - 5
 		v8 = v3
 		v9 = a2 * 23
 		v23 = a1 * 23
 	case 4:
-		v6 = int32(v3) - c.dword_5d4594_1217444_vec.X + 5
+		v6 = int32(v3) - int32(c.sightViewCenter.X) + 5
 		v10 := 5
 		v8 = v3
-		v7 = int32(v4) - c.dword_5d4594_1217444_vec.Y + int32(v10)
+		v7 = int32(v4) - int32(c.sightViewCenter.Y) + int32(v10)
 		v23 = v21 + 23
 		v9 = v22 + 23
 	case 6:
 		v8 = a1 * 23
-		v7 = int32(v4) - c.dword_5d4594_1217444_vec.Y
+		v7 = int32(v4) - int32(c.sightViewCenter.Y)
 		v4 = a2 * 23
-		v6 = int32(v3) - c.dword_5d4594_1217444_vec.X
+		v6 = int32(v3) - int32(c.sightViewCenter.X)
 		v23 = v21 + 23
 		v9 = v22 + 23
 	case 8:
-		v6 = int32(v3) - c.dword_5d4594_1217444_vec.X - 5
+		v6 = int32(v3) - int32(c.sightViewCenter.X) - 5
 		v23 = a1 * 23
-		v7 = int32(v4) - c.dword_5d4594_1217444_vec.Y + 5
+		v7 = int32(v4) - int32(c.sightViewCenter.Y) + 5
 		v8 = v3
 		v9 = v22 + 23
 	case 9:
-		v6 = int32(v3) - c.dword_5d4594_1217444_vec.X
-		v7 = int32(v4) - c.dword_5d4594_1217444_vec.Y
+		v6 = int32(v3) - int32(c.sightViewCenter.X)
+		v7 = int32(v4) - int32(c.sightViewCenter.Y)
 		v4 = a2 * 23
 		v8 = v21 + 23
 		v23 = a1 * 23
@@ -1122,7 +1121,7 @@ func (c *clientSight) nox_xxx_drawBlackofWall_497C40(a1 int32, a2 int32, a3 int8
 		v9 = v24
 	}
 	v5.Field32 = v6*v6 + v7*v7
-	v11 := c.sub_4CA8B0(int32(v4)-c.dword_5d4594_1217444_vec.Y, int32(v8)-c.dword_5d4594_1217444_vec.X)
+	v11 := c.sub_4CA8B0(int32(v4)-int32(c.sightViewCenter.Y), int32(v8)-int32(c.sightViewCenter.X))
 	v5.Field40 = v11
 	if v11 < 0 {
 		for {
@@ -1142,7 +1141,7 @@ func (c *clientSight) nox_xxx_drawBlackofWall_497C40(a1 int32, a2 int32, a3 int8
 			}
 		}
 	}
-	v14 := c.sub_4CA8B0(int32(v9)-c.dword_5d4594_1217444_vec.Y, int32(v23)-c.dword_5d4594_1217444_vec.X)
+	v14 := c.sub_4CA8B0(int32(v9)-int32(c.sightViewCenter.Y), int32(v23)-int32(c.sightViewCenter.X))
 	v5.Field44 = v14
 	if v14 < 0 {
 		for {
@@ -1202,11 +1201,11 @@ func (c *clientSight) Sub_4974B0(a1 *Drawable) {
 		v2.Field56 = 6
 		v2.Obj20 = a1
 		v3 = int32(a1.Field_74_4) * 8
-		v4 = float64(int32(c.dword_5d4594_1217444_vec.X - int32(*memmap.PtrInt32(0x587000, uintptr(v3)+196184)/2) - int32(a1.PosVec.X)))
-		v15 = c.dword_5d4594_1217444_vec.Y - int32(*memmap.PtrInt32(0x587000, uintptr(v3)+196188)/2) - int32(a1.PosVec.Y)
+		v4 = float64(int32(c.sightViewCenter.X) - int32(*memmap.PtrInt32(0x587000, uintptr(v3)+196184)/2) - int32(a1.PosVec.X))
+		v15 = int32(c.sightViewCenter.Y) - int32(*memmap.PtrInt32(0x587000, uintptr(v3)+196188)/2) - int32(a1.PosVec.Y)
 		v14 = float32(float64(v15)*float64(v15) + v4*v4)
 		v2.Field32 = int32(v14)
-		v5 = c.sub_4CA8B0(int32(v1.PosVec.Y-int(c.dword_5d4594_1217444_vec.Y)), int32(v1.PosVec.X-int(c.dword_5d4594_1217444_vec.X)))
+		v5 = c.sub_4CA8B0(int32(v1.PosVec.Y-c.sightViewCenter.Y), int32(v1.PosVec.X-c.sightViewCenter.X))
 		v2.Field40 = v5
 		if v5 < 0 {
 			for {
@@ -1226,7 +1225,7 @@ func (c *clientSight) Sub_4974B0(a1 *Drawable) {
 				}
 			}
 		}
-		v8 = c.sub_4CA8B0(int32(v1.PosVec.Y+int(int32(*memmap.PtrInt32(0x587000, uintptr(int32(v1.Field_74_4)*8)+196188)))-int(c.dword_5d4594_1217444_vec.Y)), int32(v1.PosVec.X+int(int32(*memmap.PtrInt32(0x587000, uintptr(int32(v1.Field_74_4)*8)+196184)))-int(c.dword_5d4594_1217444_vec.X)))
+		v8 = c.sub_4CA8B0(int32(v1.PosVec.Y+int(int32(*memmap.PtrInt32(0x587000, uintptr(int32(v1.Field_74_4)*8)+196188)))-int(c.sightViewCenter.Y)), int32(v1.PosVec.X+int(int32(*memmap.PtrInt32(0x587000, uintptr(int32(v1.Field_74_4)*8)+196184)))-int(c.sightViewCenter.X)))
 		v2.Field44 = v8
 		if v8 < 0 {
 			for {
@@ -1292,8 +1291,8 @@ func (c *clientSight) Sub_497650(a1 *Drawable) {
 	v1.Field56 = 7
 	v1.Obj20 = a1
 	v4 = int32(a1.PosVec.Y)
-	v24 = float32(float64(int32(a1.PosVec.X - int(c.dword_5d4594_1217444_vec.X))))
-	v5 = float64(int32(int32(v4) - c.dword_5d4594_1217444_vec.Y))
+	v24 = float32(float64(int32(a1.PosVec.X - int(c.sightViewCenter.X))))
+	v5 = float64(int32(int(v4) - c.sightViewCenter.Y))
 	v23 = float32(v5)
 	v21 = float32(v5*float64(v23) + float64(v24*v24))
 	v6 = int32(v21)
@@ -1415,52 +1414,52 @@ func (c *clientSight) Sub_4977C0(a1 *Drawable) {
 	v38[5] = v39 + v1.Shape.Box.RightBottom
 	v38[6] = float32(v2 + float64(v1.Shape.Box.RightBottom2))
 	v38[7] = v39 + v1.Shape.Box.RightTop2
-	v30 = int32(int32(v38[0])) - c.dword_5d4594_1217444_vec.X
+	v30 = int32(v38[0]) - int32(c.sightViewCenter.X)
 	v4 = int32(v38[1])
-	v5 = c.sub_4CA8B0(int32(v4)-c.dword_5d4594_1217444_vec.Y, v30)
-	v31 = int32(int32(v38[2])) - c.dword_5d4594_1217444_vec.X
+	v5 = c.sub_4CA8B0(int32(v4)-int32(c.sightViewCenter.Y), v30)
+	v31 = int32(v38[2]) - int32(c.sightViewCenter.X)
 	v6 = int32(v38[3])
-	v7 = c.sub_4CA8B0(int32(v6)-c.dword_5d4594_1217444_vec.Y, v31)
-	v32 = int32(int32(v38[4])) - c.dword_5d4594_1217444_vec.X
+	v7 = c.sub_4CA8B0(int32(v6)-int32(c.sightViewCenter.Y), v31)
+	v32 = int32(v38[4]) - int32(c.sightViewCenter.X)
 	v8 = int32(v38[5])
-	v9 = c.sub_4CA8B0(int32(v8)-c.dword_5d4594_1217444_vec.Y, v32)
-	v33 = int32(int32(v38[6])) - c.dword_5d4594_1217444_vec.X
+	v9 = c.sub_4CA8B0(int32(v8)-int32(c.sightViewCenter.Y), v32)
+	v33 = int32(v38[6]) - int32(c.sightViewCenter.X)
 	v10 = int32(v38[7])
-	v40 = c.sub_4CA8B0(int32(v10)-c.dword_5d4594_1217444_vec.Y, v33)
-	result = int32(uint8(sub_497B80(&v38, &c.dword_5d4594_1217444_vec))) - 1
+	v40 = c.sub_4CA8B0(int32(v10)-int32(c.sightViewCenter.Y), v33)
+	result = int32(uint8(sub_497B80(&v38, c.sightViewCenter))) - 1
 	switch result {
 	case 0:
 		v35 = float32(float64(v38[5]+v38[1]) * 0.5)
-		v14 = float64(v38[4]+v38[0])*0.5 - float64(c.dword_5d4594_1217444_vec.X)
-		v25 = float32((float64(v35)-float64(c.dword_5d4594_1217444_vec.Y))*(float64(v35)-float64(c.dword_5d4594_1217444_vec.Y)) + v14*v14)
+		v14 = float64(v38[4]+v38[0])*0.5 - float64(c.sightViewCenter.X)
+		v25 = float32((float64(v35)-float64(c.sightViewCenter.Y))*(float64(v35)-float64(c.sightViewCenter.Y)) + v14*v14)
 		v15 = int32(v25)
 		c.sub_497F60(v5, v9, 9, v15, v1)
 	case 1:
 		v37 = float32(float64(v38[7]+v38[3]) * 0.5)
-		v18 = float64(v38[6]+v38[2])*0.5 - float64(c.dword_5d4594_1217444_vec.X)
-		v27 = float32((float64(v37)-float64(c.dword_5d4594_1217444_vec.Y))*(float64(v37)-float64(c.dword_5d4594_1217444_vec.Y)) + v18*v18)
+		v18 = float64(v38[6]+v38[2])*0.5 - float64(c.sightViewCenter.X)
+		v27 = float32((float64(v37)-float64(c.sightViewCenter.Y))*(float64(v37)-float64(c.sightViewCenter.Y)) + v18*v18)
 		v19 = int32(v27)
 		c.sub_497F60(v40, v7, 10, v19, v1)
 	case 3:
 		v34 = float32(float64(v38[3]+v38[1]) * 0.5)
-		v12 = float64(v38[2]+v38[0])*0.5 - float64(c.dword_5d4594_1217444_vec.X)
-		v24 = float32((float64(v34)-float64(c.dword_5d4594_1217444_vec.Y))*(float64(v34)-float64(c.dword_5d4594_1217444_vec.Y)) + v12*v12)
+		v12 = float64(v38[2]+v38[0])*0.5 - float64(c.sightViewCenter.X)
+		v24 = float32((float64(v34)-float64(c.sightViewCenter.Y))*(float64(v34)-float64(c.sightViewCenter.Y)) + v12*v12)
 		v13 = int32(v24)
 		c.sub_497F60(v5, v7, 8, v13, v1)
 	case 4, 9:
-		v22 = float64(int32(v1.PosVec.X - int(c.dword_5d4594_1217444_vec.X)))
-		v29 = float32(float64(int32(v1.PosVec.Y-int(c.dword_5d4594_1217444_vec.Y)))*float64(int32(v1.PosVec.Y-int(c.dword_5d4594_1217444_vec.Y))) + v22*v22)
+		v22 = float64(int32(v1.PosVec.X - int(c.sightViewCenter.X)))
+		v29 = float32(float64(int32(v1.PosVec.Y-int(c.sightViewCenter.Y)))*float64(int32(v1.PosVec.Y-int(c.sightViewCenter.Y))) + v22*v22)
 		v23 = int32(v29)
 		c.sub_497F60(v7, v9, 14, v23, v1)
 	case 5, 8:
-		v20 = float64(int32(v1.PosVec.X - int(c.dword_5d4594_1217444_vec.X)))
-		v28 = float32(float64(int32(v1.PosVec.Y-int(c.dword_5d4594_1217444_vec.Y)))*float64(int32(v1.PosVec.Y-int(c.dword_5d4594_1217444_vec.Y))) + v20*v20)
+		v20 = float64(int32(v1.PosVec.X - int(c.sightViewCenter.X)))
+		v28 = float32(float64(int32(v1.PosVec.Y-int(c.sightViewCenter.Y)))*float64(int32(v1.PosVec.Y-int(c.sightViewCenter.Y))) + v20*v20)
 		v21 = int32(v28)
 		c.sub_497F60(v5, v40, 13, v21, v1)
 	case 7:
 		v36 = float32(float64(v38[7]+v38[5]) * 0.5)
-		v16 = float64(v38[6]+v38[4])*0.5 - float64(c.dword_5d4594_1217444_vec.X)
-		v26 = float32((float64(v36)-float64(c.dword_5d4594_1217444_vec.Y))*(float64(v36)-float64(c.dword_5d4594_1217444_vec.Y)) + v16*v16)
+		v16 = float64(v38[6]+v38[4])*0.5 - float64(c.sightViewCenter.X)
+		v26 = float32((float64(v36)-float64(c.sightViewCenter.Y))*(float64(v36)-float64(c.sightViewCenter.Y)) + v16*v16)
 		v17 = int32(v26)
 		c.sub_497F60(v40, v9, 11, v17, v1)
 	}
@@ -1470,17 +1469,17 @@ func (c *clientSight) Sub_498030(a1 *noxrender.Viewport) {
 	v2 := int32(a1.World.Min.Y)
 	v3 := int32(a1.Size.X + int(uint32(v1)))
 	v4 := int32(a1.Size.Y + int(uint32(v2)))
-	v9 := c.sub_4CA8B0(int32(v2)-c.dword_5d4594_1217444_vec.Y, int32(v1)-c.dword_5d4594_1217444_vec.X)
-	v5 := c.sub_4CA8B0(int32(v2)-c.dword_5d4594_1217444_vec.Y, int32(v3)-c.dword_5d4594_1217444_vec.X)
-	v6 := c.sub_4CA8B0(int32(v4)-c.dword_5d4594_1217444_vec.Y, int32(v3)-c.dword_5d4594_1217444_vec.X)
-	v7 := c.sub_4CA8B0(int32(v4)-c.dword_5d4594_1217444_vec.Y, int32(v1)-c.dword_5d4594_1217444_vec.X)
+	v9 := c.sub_4CA8B0(v2-int32(c.sightViewCenter.Y), v1-int32(c.sightViewCenter.X))
+	v5 := c.sub_4CA8B0(v2-int32(c.sightViewCenter.Y), v3-int32(c.sightViewCenter.X))
+	v6 := c.sub_4CA8B0(v4-int32(c.sightViewCenter.Y), v3-int32(c.sightViewCenter.X))
+	v7 := c.sub_4CA8B0(v4-int32(c.sightViewCenter.Y), v1-int32(c.sightViewCenter.X))
 	c.sub_497F60(v9, v5, 1, math.MaxInt32, nil)
 	c.sub_497F60(v5, v6, 4, math.MaxInt32, nil)
 	c.sub_497F60(v6, v7, 2, math.MaxInt32, nil)
 	c.sub_497F60(v7, v9, 3, math.MaxInt32, nil)
 }
 
-func sub_497B80(a1 *[8]float32, a2 *ntype.Point32) int8 {
+func sub_497B80(a1 *[8]float32, a2 image.Point) int8 {
 	v2 := a2
 	v4 := int8(0)
 	v9 := float32(float64(a2.X))
@@ -1850,7 +1849,7 @@ func sub_4CAC30(pos ntype.Point32, rect types.Rectf, dpx, dpy int32) (out types.
 	}
 	return out
 }
-func sub_414C50(a1 int32) int32 {
+func sub_414C50(a1 int32) int {
 	v1 := sub_414BD0(a1)
 	v2 := sub_414BD0(6434 - a1)
 	if v2 != 0 {
@@ -1860,10 +1859,10 @@ func sub_414C50(a1 int32) int32 {
 		if v1 <= 0 {
 			v3 = 1
 		}
-		return int32(v3) + math.MaxInt32
+		return v3 + math.MaxInt32
 	}
 }
-func sub_414BD0(a1 int32) int32 {
+func sub_414BD0(a1 int32) int {
 	v1 := a1
 	if a1 < 0 {
 		v1 = a1 + ((25735-a1)/25736)*25736
@@ -1871,31 +1870,31 @@ func sub_414BD0(a1 int32) int32 {
 	if v1 >= 25736 {
 		v1 %= 25736
 	}
-	return memmap.Int32(0x85B3FC, uintptr(((v1<<12)/25736)*4+12260))
+	return int(memmap.Int32(0x85B3FC, uintptr(((v1<<12)/25736)*4+12260)))
 }
-func sub_57BA30(p1, p2 *image.Point, a3 *image.Rectangle) int {
+func sub_57BA30(p1, p2 *image.Point, r image.Rectangle) int {
 	swap := false
 	for {
 		var fx byte
-		if p1.X < a3.Min.X {
+		if p1.X < r.Min.X {
 			fx |= 8
-		} else if p1.X > a3.Max.X {
+		} else if p1.X > r.Max.X {
 			fx |= 4
 		}
-		if p1.Y < a3.Min.Y {
+		if p1.Y < r.Min.Y {
 			fx |= 2
-		} else if p1.Y > a3.Max.Y {
+		} else if p1.Y > r.Max.Y {
 			fx |= 1
 		}
 		var fy byte
-		if p2.X < a3.Min.X {
+		if p2.X < r.Min.X {
 			fy |= 8
-		} else if p2.X > a3.Max.X {
+		} else if p2.X > r.Max.X {
 			fy |= 4
 		}
-		if p2.Y < a3.Min.Y {
+		if p2.Y < r.Min.Y {
 			fy |= 2
-		} else if p2.Y > a3.Max.Y {
+		} else if p2.Y > r.Max.Y {
 			fy |= 1
 		}
 		if fy&fx != 0 {
@@ -1916,17 +1915,17 @@ func sub_57BA30(p1, p2 *image.Point, a3 *image.Rectangle) int {
 			swap = !swap
 		}
 		if fx&1 != 0 {
-			p1.X += (a3.Max.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y)
-			p1.Y = a3.Max.Y
+			p1.X += (r.Max.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y)
+			p1.Y = r.Max.Y
 		} else if fx&2 != 0 {
-			p1.X += (a3.Min.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y)
-			p1.Y = a3.Min.Y
+			p1.X += (r.Min.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y)
+			p1.Y = r.Min.Y
 		} else if fx&4 != 0 {
-			p1.Y += (a3.Max.X - p1.X) * (p2.Y - p1.Y) / (p2.X - p1.X)
-			p1.X = a3.Max.X
+			p1.Y += (r.Max.X - p1.X) * (p2.Y - p1.Y) / (p2.X - p1.X)
+			p1.X = r.Max.X
 		} else if fx&8 != 0 {
-			p1.Y += (a3.Min.X - p1.X) * (p2.Y - p1.Y) / (p2.X - p1.X)
-			p1.X = a3.Min.X
+			p1.Y += (r.Min.X - p1.X) * (p2.Y - p1.Y) / (p2.X - p1.X)
+			p1.X = r.Min.X
 		}
 	}
 }
