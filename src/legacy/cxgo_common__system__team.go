@@ -86,7 +86,7 @@ func Nox_xxx_createAtImpl_4191D0(tid server.TeamID, otm *server.ObjectTeam, a3 b
 		}
 	} else {
 		v14 := nox_xxx_netSpriteByCodeDynamic_45A6F0(netcode)
-		if v14 != nil && v14.Flags28Val&4 != 0 {
+		if v14 != nil && v14.ObjClass&4 != 0 {
 			v15 := nox_common_playerInfoGetByID_417040(int32(netcode))
 			if v15 != nil {
 				if noxflags.HasGame(4096) {

@@ -110,7 +110,7 @@ func (c *clientObjTypes) ReadType(thg *binfile.MemFile, buf []byte) error {
 	typ.Field_1c = int32(len(c.byInd))
 	c.byInd = append(c.byInd, typ)
 	typ.ObjFlags |= 0x1000000
-	typ.Field_f = 0
+	typ.LightFlags = 0
 	typ.Field_10 = 0xFFFF
 	typ.AudioLoop = 0
 	typ.DrawFunc = ccall.FuncPtr(ThingDrawDefault)
@@ -157,7 +157,7 @@ type ObjectType struct {
 	HWidth         uint8                        // 3, 0xc, 12
 	HHeight        uint8                        // 3, 0xd, 13
 	Weight         uint8                        // 3, 0xe, 14
-	Field_f        uint8                        // 3, 0xf, 15
+	LightFlags     uint8                        // 3, 0xf, 15
 	Field_10       uint32                       // 4, 0x10, 16
 	ShapeKind      uint16                       // 5, 0x14, 20
 	Z              uint16                       // 5, 0x16, 22
@@ -353,7 +353,7 @@ var clientThingParseFuncs = map[string]ThingFieldFunc{
 		if b > 255 {
 			b = 255
 		}
-		typ.Field_f = 2
+		typ.LightFlags = 2
 		typ.LightColorR = int32(r)
 		typ.LightColorG = int32(g)
 		typ.LightColorB = int32(b)

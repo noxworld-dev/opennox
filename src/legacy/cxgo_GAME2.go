@@ -168,84 +168,84 @@ func sub_44E110() {
 		v0 = nox_new_drawable_for_thing(v1)
 		dword_5d4594_832496 = v0
 	}
-	v0.Flags30Val |= 0x1000000
+	v0.ObjFlags |= 0x1000000
 	v2 := dword_5d4594_832492
 	if dword_5d4594_832492 == nil {
 		v3 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("BeholderGenerator"))
 		v2 = nox_new_drawable_for_thing(v3)
 		dword_5d4594_832492 = v2
 	}
-	v2.Flags30Val |= 0x1000000
+	v2.ObjFlags |= 0x1000000
 	v4 := dword_5d4594_832500
 	if dword_5d4594_832500 == nil {
 		v5 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Ankh"))
 		v4 = nox_new_drawable_for_thing(v5)
 		dword_5d4594_832500 = v4
 	}
-	v4.Flags30Val |= 0x1000000
+	v4.ObjFlags |= 0x1000000
 	v6 := dword_5d4594_832504
 	if dword_5d4594_832504 == nil {
 		v7 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SoulGate"))
 		v6 = nox_new_drawable_for_thing(v7)
 		dword_5d4594_832504 = v6
 	}
-	v6.Flags30Val |= 0x1000000
+	v6.ObjFlags |= 0x1000000
 	v8 := dword_5d4594_832508
 	if dword_5d4594_832508 == nil {
 		v9 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SilverKey"))
 		v8 = nox_new_drawable_for_thing(v9)
 		dword_5d4594_832508 = v8
 	}
-	v8.Flags30Val |= 0x1000000
+	v8.ObjFlags |= 0x1000000
 	v10 := dword_5d4594_832512
 	if dword_5d4594_832512 == nil {
 		v11 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("GoldKey"))
 		v10 = nox_new_drawable_for_thing(v11)
 		dword_5d4594_832512 = v10
 	}
-	v10.Flags30Val |= 0x1000000
+	v10.ObjFlags |= 0x1000000
 	v12 := dword_5d4594_832516
 	if dword_5d4594_832516 == nil {
 		v13 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldChest"))
 		v12 = nox_new_drawable_for_thing(v13)
 		dword_5d4594_832516 = v12
 	}
-	v12.Flags30Val |= 0x1000000
+	v12.ObjFlags |= 0x1000000
 	v14 := dword_5d4594_832520
 	if dword_5d4594_832520 == nil {
 		v15 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldPile"))
 		v14 = nox_new_drawable_for_thing(v15)
 		dword_5d4594_832520 = v14
 	}
-	v14.Flags30Val |= 0x1000000
+	v14.ObjFlags |= 0x1000000
 	v16 := dword_5d4594_832524
 	if dword_5d4594_832524 == nil {
 		v17 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("DunMirChest4"))
 		v16 = nox_new_drawable_for_thing(v17)
 		dword_5d4594_832524 = v16
 	}
-	v16.Flags30Val |= 0x1000000
+	v16.ObjFlags |= 0x1000000
 	v18 := dword_5d4594_832528
 	if dword_5d4594_832528 == nil {
 		v19 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("WarHammer"))
 		v18 = nox_new_drawable_for_thing(v19)
 		dword_5d4594_832528 = v18
 	}
-	v18.Flags30Val |= 0x1000000
+	v18.ObjFlags |= 0x1000000
 	v20 := dword_5d4594_832532
 	if dword_5d4594_832532 == nil {
 		v21 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("HastePotion"))
 		v20 = nox_new_drawable_for_thing(v21)
 		dword_5d4594_832532 = v20
 	}
-	v20.Flags30Val |= 0x1000000
+	v20.ObjFlags |= 0x1000000
 	result := dword_5d4594_832536
 	if dword_5d4594_832536 == nil {
 		v23 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ConjurerSpellBook"))
 		result = nox_new_drawable_for_thing(v23)
 		dword_5d4594_832536 = result
 	}
-	result.Flags30Val |= 0x1000000
+	result.ObjFlags |= 0x1000000
 }
 func nox_xxx_playGMCAPsmth_44E3E0() {
 	*memmap.PtrUint32(0x5D4594, 831248) = 1
@@ -3665,7 +3665,7 @@ func sub_459DA0() int32 {
 	return bool2int32(dword_5d4594_1046492 != nil)
 }
 func sub_459DB0(dr *client.Drawable) int32 {
-	return bool2int32(dr.Flags28Val&0x400000 != 0 && int32(dr.Flags29Val)&8 != 0)
+	return bool2int32(dr.ObjClass&0x400000 != 0 && int32(dr.ObjSubClass)&8 != 0)
 }
 func nox_xxx_cliNextMinimapObj_459EC0(a1 *client.Drawable) *client.Drawable {
 	next := a1.Field_102
@@ -3716,7 +3716,7 @@ func sub_45A9B0(a1, a2 *client.Drawable) {
 	v2 := a1
 	v3 = 0
 	v16 = 0
-	v4 := nox_xxx_draw_452270(int32(a1.Field_123))
+	v4 := nox_xxx_draw_452270(int32(a1.AudioLoop))
 	v5 := v4
 	v17 := v4
 	r1 := nox_draw_getViewport_437250()
@@ -3724,7 +3724,7 @@ func sub_45A9B0(a1, a2 *client.Drawable) {
 	if v5 == nil || r1 == nil {
 		return
 	}
-	if a1.Flags30Val&0x1000000 != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 280)))&0xC) == 0 {
+	if a1.ObjFlags&0x1000000 != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 280)))&0xC) == 0 {
 		v7 = int32(a2.PosVec.X - a1.PosVec.X)
 		v8 = int32(a2.PosVec.Y - a1.PosVec.Y)
 		v9 = sub_4522A0(v17)
@@ -3768,7 +3768,7 @@ func sub_45A9B0(a1, a2 *client.Drawable) {
 }
 func sub_45AB40() {
 	for it := sub_45A090(); it != nil; it = sub_45A0A0(it) {
-		if it.Field_123 != 0 {
+		if it.AudioLoop != 0 {
 			sub_45A9B0(it, (*client.Drawable)(*memmap.PtrPtr(0x852978, 8)))
 		}
 	}

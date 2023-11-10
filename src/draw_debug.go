@@ -28,8 +28,8 @@ func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	r.Data().SetTextColor(color.White)
 	p := vp.ToScreenPos(dr.Pos())
 	if dr.Flags28()&0x80 != 0 {
-		y1 := p.Y - int(dr.Field_24)
-		y2 := p.Y - int(dr.Field_25)
+		y1 := p.Y - int(dr.ZSizeMin)
+		y2 := p.Y - int(dr.ZSizeMax)
 		v11 := int(memmap.Int32(0x587000, 196184+8*uintptr(dr.Field_74_4)))
 		v18 := int(memmap.Int32(0x587000, 196188+8*uintptr(dr.Field_74_4)))
 		r.DrawVector(
@@ -92,8 +92,8 @@ func debugDrawShape(r *NoxRender, dr *client.Drawable, p image.Point, cl color.C
 	case server.ShapeKindCircle:
 		rad := int(sh.Circle.R)
 		z := int16(dr.ZVal)
-		y1 := p.Y - int(dr.Field_24-float32(z))
-		y2 := p.Y - int(dr.Field_25-float32(z))
+		y1 := p.Y - int(dr.ZSizeMin-float32(z))
+		y2 := p.Y - int(dr.ZSizeMax-float32(z))
 		if y1 > 0 {
 			r.DrawCircle(p.X, p.Y, rad, nox_color_red)
 		}
@@ -115,11 +115,11 @@ func debugDrawShape(r *NoxRender, dr *client.Drawable, p image.Point, cl color.C
 		z := int16(dr.ZVal)
 		p1 := image.Point{
 			X: p.X,
-			Y: p.Y - int(dr.Field_24-float32(z)),
+			Y: p.Y - int(dr.ZSizeMin-float32(z)),
 		}
 		p2 := image.Point{
 			X: p.X,
-			Y: p.Y - int(dr.Field_25-float32(z)),
+			Y: p.Y - int(dr.ZSizeMax-float32(z)),
 		}
 		if p1.Y > 0 {
 			drawDebugBox(r, box, p, nox_color_red)

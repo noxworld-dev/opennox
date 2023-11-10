@@ -217,9 +217,9 @@ func sub_462040(a1 int32) {
 		nox_xxx_printCentered_445490(v7)
 		return
 	}
-	v8 = int32(v5.Flags30Val)
+	v8 = int32(v5.ObjFlags)
 	v6.Field_32 = uint32(v1)
-	v6.Flags30Val = uint32(v8) | 0x40000000
+	v6.ObjFlags = uint32(v8) | 0x40000000
 	alloc.Memcpy(unsafe.Add(unsafe.Pointer(v6), 4*108), v4, 0x18)
 	v6.Field_73_1 = uint16(v18)
 	v6.Field_73_2 = uint16(v19)
@@ -232,7 +232,7 @@ func sub_462040(a1 int32) {
 			*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Pointer(v2)), 136)) = 0
 		}
 	}
-	if v6.Flags28Val&0x1000000 != 0 && v6.Flags29Val&0xC != 0 {
+	if v6.ObjClass&0x1000000 != 0 && v6.ObjSubClass&0xC != 0 {
 		v10 = 1
 		if dword_5d4594_1062488 != 0 && (func() *byte {
 			v11 = sub_461EF0(int32(dword_5d4594_1062488))

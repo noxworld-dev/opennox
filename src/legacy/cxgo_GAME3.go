@@ -3224,7 +3224,7 @@ func sub_4B6880(a1 *noxrender.Viewport, a2 *client.Drawable, a3 int32, a4 int32)
 	}
 	if v6 > 0 {
 		v8 = int32(a1.Screen.Min.X + v4.PosVec.X - a1.World.Min.X)
-		v9 = int32(v4.PosVec.Y - int(uint32(v4.Field_26_1)) - int(uint32(v4.ZVal)) - a1.World.Min.Y)
+		v9 = int32(v4.PosVec.Y - int(uint32(v4.ZVal2)) - int(uint32(v4.ZVal)) - a1.World.Min.Y)
 		v10 = int32(a1.Screen.Min.Y)
 		v11 = v10 + v9
 		v12 = uint32(v8-10) < uint32(a1.Screen.Min.X)

@@ -609,7 +609,7 @@ func nox_xxx_client_4984B0_drawable(dr *client.Drawable) int32 {
 		v42 = v3 + v5/2
 		v43 = int32(dr.PosVec.Y + int(uint32(*memmap.PtrInt32(0x587000, uintptr(v4)+196188)/2)))
 	}
-	if dr.Flags30Val&0x10000 != 0 {
+	if dr.ObjFlags&0x10000 != 0 {
 		return int32(dr.Field_33)
 	}
 	vp := nox_draw_getViewport_437250()
@@ -650,14 +650,14 @@ func nox_xxx_client_4984B0_drawable(dr *client.Drawable) int32 {
 		if int32(*(*uint16)(unsafe.Add(dr.C(), 2))) != 0 {
 			v35 := int32(*(*uint16)(unsafe.Add(dr.C(), 6)))
 			v13 = v6 - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - v7
-			v14 = v43 + v12 + int32(dr.ZVal) - v35 - v8 - int32(dr.Field_24)
+			v14 = v43 + v12 + int32(dr.ZVal) - v35 - v8 - int32(dr.ZSizeMin)
 			v15 = v13 + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
 			v16 = v14 + v35
 		} else {
 			v13 = v6 - v12 - v7
-			v14 = v43 - v12 - v8 - int32(dr.Field_25)
+			v14 = v43 - v12 - v8 - int32(dr.ZSizeMax)
 			v15 = v42 + v12 - v44
-			v16 = v43 + v12 + int32(dr.ZVal) - v45 - int32(dr.Field_24)
+			v16 = v43 + v12 + int32(dr.ZVal) - v45 - int32(dr.ZSizeMin)
 		}
 	} else if int32(*(*uint16)(unsafe.Add(dr.C(), 2))) != 0 {
 		v13 = v6 - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - v7
@@ -666,7 +666,7 @@ func nox_xxx_client_4984B0_drawable(dr *client.Drawable) int32 {
 		v15 = v13 + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
 	} else {
 		v13 = v37 + int32(dr.Shape.Box.LeftBottom2)
-		v17 := v43 - v8 - int32(dr.Field_25)
+		v17 := v43 - v8 - int32(dr.ZSizeMax)
 		v14 = int32(dr.Shape.Box.LeftBottom) + v17
 		v15 = v37 + int32(dr.Shape.Box.RightTop)
 		v16 = int32(dr.Shape.Box.RightTop2) + v43 + int32(dr.ZVal) - v45

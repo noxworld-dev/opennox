@@ -1752,7 +1752,7 @@ LABEL_26:
 	}
 LABEL_42:
 	if int32(v5.State) != v2 {
-		v5.Field22_1 = v5.State
+		v5.State2 = v5.State
 		v5.State = uint8(int8(v2))
 		a1.Field34 = gameFrame()
 		v5.Field59_0 = 0
@@ -2882,7 +2882,7 @@ func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 				return 0
 			}
 		}
-	} else if (nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(a1)).Flags28Val & 4) == 0 {
+	} else if (nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(a1)).ObjClass & 4) == 0 {
 		switch a2 {
 		case 0:
 			return 193
@@ -3232,7 +3232,7 @@ func nox_xxx_spellCancelSpellDo_4FE9D0(a1 *server.DurSpell) {
 	} else if a1.Target48 != nil {
 		nox_xxx_netStopRaySpell_4FEF90(a1, a1.Target48)
 	}
-	*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 88)) |= 1
+	a1.Flags88 |= 1
 }
 func sub_4FEA70(a1 *server.Object, a2 *types.Pointf) int32 {
 	var (

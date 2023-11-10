@@ -116,7 +116,7 @@ func sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
 
 	var v4 noxrender.ImageHandle
 	if dr.DrawFunc.Equals(nox_thing_static_draw) {
-		if a2.Flags28Val&0x40000 != 0 && (a2.Flags30Val&0x1000000) == 0 {
+		if a2.ObjClass&0x40000 != 0 && (a2.ObjFlags&0x1000000) == 0 {
 			return
 		}
 		v4 = *(*noxrender.ImageHandle)(unsafe.Add(a2.Field_76, 4))
@@ -132,7 +132,7 @@ func sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
 	v27 = int32(*(*uint32)(unsafe.Add(r1, 4*1)))
 	v7 = *(*int32)(unsafe.Add(r1, 4*2)) + int32(v2.PosVec.X) - int32(v2.Field_0)
 	v8 := (*byte)(unsafe.Add(r1, 16))
-	r2 := int32(*(*int32)(unsafe.Add(r1, 4*3)) + int32(v2.PosVec.Y) - int32(v2.Field_26_1) - int32(v2.ZVal) - int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 1))))
+	r2 := int32(*(*int32)(unsafe.Add(r1, 4*3)) + int32(v2.PosVec.Y) - int32(v2.ZVal2) - int32(v2.ZVal) - int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 1))))
 	v31 = v5
 	if v7 < dword_5d4594_3798820 || int32(v7+v5) >= dword_5d4594_3798820+dword_5d4594_3798800 || (func() bool {
 		v9 = dword_5d4594_3798824
@@ -352,13 +352,13 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 	if unsafe.Pointer(arg0) == *memmap.PtrPtr(0x852978, 8) {
 		return
 	}
-	v3 = int32(arg0.Flags30Val)
+	v3 = int32(arg0.ObjFlags)
 	if (v3&0x8000) != 0 || nox_client_drawable_testBuff_4356C0(arg0, 0) && !nox_client_drawable_testBuff_4356C0((*client.Drawable)(*memmap.PtrPtr(0x852978, 8)), 21) {
 		return
 	}
-	v4 = int32(arg0.Flags28Val)
+	v4 = int32(arg0.ObjClass)
 	if (v4&2) != 0 && !(func() bool {
-		v5 = int32(arg0.Flags29Val)
+		v5 = int32(arg0.ObjSubClass)
 		return (v5 & 0x4000) == 0
 	}()) {
 		return
@@ -375,13 +375,13 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 	}()) == nil || (*(*byte)(unsafe.Add(unsafe.Pointer(v6), 3680))&1) != 0) {
 		return
 	}
-	v7 = int32(arg0.Flags28Val)
+	v7 = int32(arg0.ObjClass)
 	if (uint32(v7)&0x400000) != 0 && (int32(*(*uint8)(unsafe.Add(arg0.C(), 116)))&0x80) == 0 || (v7&2) != 0 && arg0.Field_69 == 10 {
 		return
 	}
-	v23 = float32(float64(arg0.PosVec.Y) - float64(arg0.Field_25) - float64(arg0.ZVal))
+	v23 = float32(float64(arg0.PosVec.Y) - float64(arg0.ZSizeMax) - float64(arg0.ZVal))
 	v29 = int32(v23)
-	v24 = float32(float64(v2.PosVec.Y) - float64(v2.Field_24) - float64(v2.ZVal))
+	v24 = float32(float64(v2.PosVec.Y) - float64(v2.ZSizeMin) - float64(v2.ZVal))
 	v8 = COERCE_FLOAT(uint32(int32(v24)))
 	a3.X = v8
 	if v2.Shape.Kind == 2 {
@@ -443,7 +443,7 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 		return
 	}
 LABEL_38:
-	v26 = float32(float64(v2.ZVal) + float64(v2.PosVec.Y) + float64(v2.Field_24))
+	v26 = float32(float64(v2.ZVal) + float64(v2.PosVec.Y) + float64(v2.ZSizeMin))
 	v22 = int32(v26)
 	if v22 > *memmap.PtrInt32(0x5D4594, 1096628) {
 		*memmap.PtrUint32(0x5D4594, 1096628) = uint32(v22)
@@ -1015,10 +1015,10 @@ func sub_479300(a1 int32, a2 int32, a3 int32, a4 int16, a5 unsafe.Pointer) {
 		if r2 == nil {
 			return
 		}
-		r2.Flags30Val |= 0x40000000
+		r2.ObjFlags |= 0x40000000
 		r2.Field_73_2 = uint16(a4)
 		r2.Field_73_1 = uint16(a4)
-		if r2.Flags28Val&0x13001000 != 0 {
+		if r2.ObjClass&0x13001000 != 0 {
 			v7 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(r2), 432))
 			for i := 0; i < 4; i++ {
 				if *(*byte)(unsafe.Add(a5, i)) == math.MaxUint8 {

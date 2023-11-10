@@ -30,7 +30,7 @@ func nox_video_drawCursorSelectCircle_4773C0(vp *noxrender.Viewport) {
 			v3 = nox_color_cyan_2649820
 		}
 	}
-	v5 := dword_5d4594_1096640.Flags28Val
+	v5 := dword_5d4594_1096640.ObjClass
 	if (v5 & 0x200) == 0 {
 		nox_video_drawCursorSelectCircle2_477470(vp, int32(v3), dword_5d4594_1096640)
 	}

@@ -501,7 +501,7 @@ func sub_461930() int32 {
 		v0 := &array_5D4594_1049872[i]
 		v1 := *v0
 		if v1 != nil {
-			for (v1.Flags28Val & 0x1001000) == 0 {
+			for (v1.ObjClass & 0x1001000) == 0 {
 				v1 = v1.Next()
 				if v1 == nil {
 					goto LABEL_5
@@ -922,10 +922,10 @@ func sub_4623E0(a1 *client.Drawable, a2 int32) {
 		v4     int32
 		v5     *client.Drawable
 	)
-	if (a1.Flags28Val & 0x2000000) == 0 {
+	if (a1.ObjClass & 0x2000000) == 0 {
 		goto LABEL_19
 	}
-	v2 = int32(a1.Flags29Val)
+	v2 = int32(a1.ObjSubClass)
 	if v2&0x140 != 0 {
 		result = array_5D4594_1049872[a2]
 		if result == nil {
@@ -938,8 +938,8 @@ func sub_4623E0(a1 *client.Drawable, a2 int32) {
 			goto LABEL_19
 		}
 		if v2&0x40 != 0 {
-			if result.Flags28Val&0x2000000 != 0 {
-				v4 = int32(result.Flags29Val)
+			if result.ObjClass&0x2000000 != 0 {
+				v4 = int32(result.ObjSubClass)
 				if v4&0x100 != 0 {
 					result = result.Field_93
 				}
@@ -1365,8 +1365,8 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 						v7.PosVec.X = int(uint32(v6 + 25))
 						v7.DrawFunc.Get()((*noxrender.Viewport)(memmap.PtrOff(0x5D4594, 1049732)), v7)
 						if dword_5d4594_1049864 == 6 {
-							if v7.Flags28Val&0x13001000 != 0 {
-								if (v7.Flags28Val & 0x1000) == 4096 {
+							if v7.ObjClass&0x13001000 != 0 {
+								if (v7.ObjClass & 0x1000) == 4096 {
 									v13 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v7), 450)))
 									if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v7), 448))) < int32(v13) {
 										if int32(v13) != 0 {
@@ -1385,7 +1385,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 							nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 							nox_xxx_drawString_43F6E0(dword_5d4594_1063636, &WideCharStr[0], v6+6, v5+6)
 						}
-						if v7.Flags28Val&0x13001000 != 0 {
+						if v7.ObjClass&0x13001000 != 0 {
 							v15 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v7), 448)))
 							if int32(v15) >= 0 {
 								nox_swprintf(&WideCharStr[0], internWStr("%d"), v15)
@@ -1601,7 +1601,7 @@ func sub_465990(a1 *uint32) int32 {
 	if array_5D4594_1049872[8] == nil {
 		return 5
 	}
-	for (v5.Flags28Val&0x2000000) == 0 || (int32(v5.Flags29Val)&2) == 0 {
+	for (v5.ObjClass&0x2000000) == 0 || (int32(v5.ObjSubClass)&2) == 0 {
 		v5 = v5.Next()
 		if v5 == nil {
 			return 5
@@ -4664,9 +4664,9 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 		v42 = int32(nox_xxx_minimap_587000_149232)
 		xLeft.X = int32((k.PosVec.X - int(v8)) * 100 / int(v42))
 		xLeft.Y = int32(int(yTop) + (k.PosVec.Y-int(v9))*100/int(v42))
-		if (k.Flags28Val&0x400000) == 0 || (func() bool {
+		if (k.ObjClass&0x400000) == 0 || (func() bool {
 			v43 = int32(nox_color_blue_2650684)
-			return (int32(k.Flags29Val) & 8) == 0
+			return (int32(k.ObjSubClass) & 8) == 0
 		}()) {
 			v43 = int32(*memmap.PtrUint32(0x85B3FC, 940))
 		}
@@ -4714,9 +4714,9 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 			nox_video_drawCircleRad3_4734F0(&xLeft.X)
 			continue
 		}
-		v53 = int32(k.Flags28Val)
+		v53 = int32(k.ObjClass)
 		if uint32(v53)&0x10000000 != 0 {
-			if k.Flags30Val&0x1000000 != 0 {
+			if k.ObjFlags&0x1000000 != 0 {
 				nox_client_drawSetColor_434460(int32(nox_color_white_2523948))
 				v54 = sub_4B9470(unsafe.Pointer(k.Field_109))
 				v55 := nox_xxx_getTeamByID_418AB0(v54)
@@ -5464,7 +5464,7 @@ func sub_474B40(dr *client.Drawable) int32 {
 		return 1
 	}
 LABEL_9:
-	if int32(a1.Flags28Val)&4 != 0 {
+	if int32(a1.ObjClass)&4 != 0 {
 		if a1 != v3 {
 			nox_common_playerInfoGetByID_417040(int32(a1.Field_32))
 		}
@@ -5513,7 +5513,7 @@ func nox_xxx_sprite_4757A0_drawable(a1 *client.Drawable) int32 {
 	if a1.DrawFunc.Get() == nil {
 		return 0
 	}
-	v2 := a1.Flags30Val
+	v2 := a1.ObjFlags
 	if (v2 & 0x1000) != 0 {
 		return 0
 	}

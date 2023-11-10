@@ -51,7 +51,7 @@ func sub_4B9470(a1 unsafe.Pointer) int32 {
 	return int32(*memmap.PtrUint32(0x587000, uintptr(v2*8)+177492))
 }
 func sub_4B94E0(dr *client.Drawable) int32 {
-	if dr.Flags28Val&0x10000000 == 0 {
+	if dr.ObjClass&0x10000000 == 0 {
 		return 0
 	}
 	return sub_4B9470(unsafe.Pointer(dr.Field_109))
@@ -1489,7 +1489,7 @@ func sub_4BF9F0(a1 int32, a2 int32, a3 int32, a4 int32, a5 unsafe.Pointer, a6 in
 		return
 	}
 	var v9p unsafe.Pointer
-	if v7.Flags28Val&0x2000000 != 0 {
+	if v7.ObjClass&0x2000000 != 0 {
 		v9p = unsafe.Pointer(nox_xxx_equipClothFindDefByTT_413270(int32(v7.Field_27)))
 	} else {
 		v9p = unsafe.Pointer(nox_xxx_getProjectileClassById_413250(int32(v7.Field_27)))
@@ -1861,7 +1861,7 @@ func nox_gui_itemAmountDialog_4C0430(title *wchar2_t, x int32, y int32, a4 int32
 	v10 := nox_xxx_wndGetChildByID_46B0C0(nox_gui_itemAmount_dialog_1319228, 3606)
 	sub_46AEE0(v10, int32(uintptr(unsafe.Pointer(title))))
 	nox_gui_itemAmount_item_1319256 = nox_new_drawable_for_thing(a5)
-	nox_gui_itemAmount_item_1319256.Flags30Val |= 0x40000000
+	nox_gui_itemAmount_item_1319256.ObjFlags |= 0x40000000
 	if a6 != nil {
 		alloc.Memcpy(unsafe.Pointer(&nox_gui_itemAmount_item_1319256.Field_108_0), a6, 0x14)
 	}
@@ -2451,7 +2451,7 @@ func nox_xxx_tradeClientAddItem_4C1790(a1 unsafe.Pointer) {
 	if *(*uint32)(unsafe.Pointer(v3)) == 0 {
 		v4 := nox_new_drawable_for_thing(int32(*(*uint16)(unsafe.Add(a1, 3))))
 		*(*uint32)(unsafe.Pointer(v3)) = uint32(uintptr(unsafe.Pointer(v4)))
-		if v4.Flags28Val&0x13001000 != 0 {
+		if v4.ObjClass&0x13001000 != 0 {
 			v6 := (**server.ModifierEff)(unsafe.Add(unsafe.Pointer(v4), 4*108))
 			v7 = (*uint8)(unsafe.Add(a1, 11))
 			for {
@@ -2770,10 +2770,10 @@ func nox_xxx_guiDrawSummonBox_4C1FE0(win *gui.Window, draw *gui.WindowData) int 
 				v15 := nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(*(*int32)(v14)))
 				if v15 != nil {
 					if v14 == v13 || v10 != 0 {
-						v15.Flags30Val |= 0x40000000
+						v15.ObjFlags |= 0x40000000
 						*memmap.PtrUint32(0x5D4594, 1321212) = 1
 					} else {
-						v15.Flags30Val &= 0xBFFFFFFF
+						v15.ObjFlags &= 0xBFFFFFFF
 					}
 				}
 				v14 = sub_4C2D90(v14)
@@ -3653,7 +3653,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 	v8 = int32(a1.Screen.Min.X)
 	v9 = v7 - int32(a1.World.Min.X)
 	v10 = int32(a1.Screen.Min.Y)
-	v11 = int32(a2.Field_26_1)
+	v11 = int32(a2.ZVal2)
 	v59a = v9 + int32(a1.Screen.Min.X) - int32(a2.Field_0)
 	v12 = int32(a2.PosVec.Y)
 	v13 = int32(a2.PosVec.Y - int(uint32(v11)) - int(uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 1)))) - int(uint32(a2.ZVal)))
@@ -3661,7 +3661,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 	v59b = v10 + v13 - v14
 	a4 = nox_win_width
 	if *memmap.PtrUint32(0x587000, 80808) != 0 {
-		v15 = int32(a2.Flags30Val)
+		v15 = int32(a2.ObjFlags)
 		if (uint32(v15)&0x40000000) == 0 && (v15&1) == 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 112)))&0x80) != 0 {
 			v16 = v9 + v8
 			a1a.X = v16
@@ -3702,7 +3702,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 			}
 		}
 	}
-	if (a2.Flags28Val&0x80000) != 0 && (a2.Flags30Val&0x1000000) != 0 || (a2.Flags30Val&0x40000000) != 0 {
+	if (a2.ObjClass&0x80000) != 0 && (a2.ObjFlags&0x1000000) != 0 || (a2.ObjFlags&0x40000000) != 0 {
 		v28 = (*uint8)(memmap.PtrOff(0x587000, 185472))
 	} else {
 		v28 = (*uint8)(sub_469920((*Point32)(unsafe.Add(unsafe.Pointer(a2), 12))))
@@ -3725,7 +3725,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 		nox_xxx_draw_434600(1)
 		nox_draw_setColorMultAndIntensity_433E40(int32(nox_color_blue_2650684))
 	} else if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 112)))&2) != 0 && (func() uint32 {
-		v32 = int32(a2.Flags30Val)
+		v32 = int32(a2.ObjFlags)
 		return uint32(v32) & 0x40000000
 	}()) != 0 && (v32&0x8020) == 0 {
 		nox_xxx_draw_434600(1)
@@ -3758,7 +3758,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 				nox_client_drawSetAlpha_434580(v63)
 			}
 		} else {
-			if v3.Flags30Val&0x4000000 != 0 {
+			if v3.ObjFlags&0x4000000 != 0 {
 				v63 = uint8(int8(int32(v38) >> 1))
 			}
 			nox_client_drawEnableAlpha_434560(1)
@@ -3768,7 +3768,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 		v61 = uint8(sub_4C4EC0((*uint32)(unsafe.Pointer(a1)), unsafe.Pointer(a2)))
 		nox_client_drawEnableAlpha_434560(1)
 		nox_client_drawSetAlpha_434580(v61)
-	} else if a2.Flags30Val&0x4000000 != 0 {
+	} else if a2.ObjFlags&0x4000000 != 0 {
 		nox_client_drawEnableAlpha_434560(1)
 		nox_client_drawSetAlpha_434580(0x80)
 	}
@@ -3846,7 +3846,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *noxrender.Viewport, dr *client.Drawable,
 		LABEL_B:
 			if v53 != 0 && int32(uint8(int8(v49))) <= 1 {
 				if (func() int32 {
-					v50 = int32(v3.Flags28Val)
+					v50 = int32(v3.ObjClass)
 					return v50 & 2
 				}()) != 0 && v3.Field_69 == 8 || (v50&4) != 0 && v3.Field_69 == 0 {
 					nox_xxx_draw_434600(1)
@@ -3929,7 +3929,7 @@ func nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) i
 	v5 = (gameFrame() + a2.Field_32) / uint32(v4*8)
 	v6 = int32(((gameFrame() + a2.Field_32) % uint32(v4*8)) >> 1)
 	if v6 < v4 {
-		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v3, 4)) + uint32(v6*4))))), int32(a2.PosVec.X-a1.World.Min.X+a1.Screen.Min.X-64), int32(a1.Screen.Min.Y-int(uint32(a2.Field_26_1))-int(uint32(a2.ZVal))-a1.World.Min.Y+a2.PosVec.Y-64))
+		nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v3, 4)) + uint32(v6*4))))), int32(a2.PosVec.X-a1.World.Min.X+a1.Screen.Min.X-64), int32(a1.Screen.Min.Y-int(uint32(a2.ZVal2))-int(uint32(a2.ZVal))-a1.World.Min.Y+a2.PosVec.Y-64))
 	}
 	return int16(uint16(v5))
 }

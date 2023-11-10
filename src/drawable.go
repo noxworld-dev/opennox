@@ -28,7 +28,7 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 	} else if dr.DrawFunc.Equals(legacy.Nox_thing_red_spark_draw) || dr.DrawFunc.Equals(legacy.Nox_thing_blue_spark_draw) ||
 		dr.DrawFunc.Equals(legacy.Nox_thing_yellow_spark_draw) || dr.DrawFunc.Equals(legacy.Nox_thing_green_spark_draw) ||
 		dr.DrawFunc.Equals(legacy.Nox_thing_cyan_spark_draw) {
-		dr.Field_26_1 = 35
+		dr.ZVal2 = 35
 		dr.VelZ = 2
 	} else {
 		dr.SetFrameMB(0)
@@ -54,7 +54,7 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 	if dr.Flags30()&0x200000 != 0 {
 		c.Objs.List6Add(dr)
 	}
-	if dr.Field_123 != 0 {
+	if dr.AudioLoop != 0 {
 		c.Objs.List8Add(dr)
 	}
 	dr.PosVec.X = pos.X
@@ -81,7 +81,7 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 	if dr.Flags28()&0x4 != 0 {
 		c.Objs.PlayerListAdd(dr)
 	}
-	dr.Flags30Val |= 0x1000000
+	dr.ObjFlags |= 0x1000000
 	dr.SetActive()
 	dr.Field_120 = 0
 	dr.Field_121 = 0

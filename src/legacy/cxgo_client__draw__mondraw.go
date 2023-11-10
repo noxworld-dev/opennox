@@ -183,7 +183,7 @@ LABEL_24:
 		v36[9] = nox_win_height
 		if dword_5d4594_1313796 == nil {
 			dword_5d4594_1313796 = nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull")))
-			dword_5d4594_1313796.Flags30Val |= 0x1000000
+			dword_5d4594_1313796.ObjFlags |= 0x1000000
 		}
 		dword_5d4594_1313796.PosVec.X = int(uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))
 		dword_5d4594_1313796.PosVec.Y = int(uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - 50))

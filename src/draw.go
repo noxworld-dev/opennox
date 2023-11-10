@@ -752,9 +752,9 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 	}
 	if dr.HasEnchant(server.ENCHANT_CONFUSED) || dr.HasEnchant(server.ENCHANT_HELD) || dr.HasEnchant(server.ENCHANT_ANTI_MAGIC) || dr.HasEnchant(server.ENCHANT_CHARMING) {
 		pos := vp.ToScreenPos(dr.Pos())
-		v5 := 5 - int(int16(dr.Field_26_1)) - dr.Z() - int(dr.Field25())
+		v5 := 5 - int(int16(dr.ZVal2)) - dr.Z() - int(dr.Field25())
 		pos.Y += v5
-		if dr.Flags28Val&0x4 != 0 && dr.Field_69 == 6 {
+		if dr.ObjClass&0x4 != 0 && dr.Field_69 == 6 {
 			v8 := 8 * uintptr(dr.Field_74_2)
 			pos.X += int(memmap.Int32(0x587000, 149432+v8))
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))

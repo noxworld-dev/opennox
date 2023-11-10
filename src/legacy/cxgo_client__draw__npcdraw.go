@@ -135,7 +135,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 					if dword_5d4594_1313796 == nil {
 						v23 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))
 						dword_5d4594_1313796 = nox_new_drawable_for_thing(v23)
-						dword_5d4594_1313796.Flags30Val |= 0x1000000
+						dword_5d4594_1313796.ObjFlags |= 0x1000000
 					}
 					dword_5d4594_1313796.PosVec.X = v21.Screen.Min.X + v4.PosVec.X - v21.World.Min.X
 					dword_5d4594_1313796.PosVec.Y = v21.Screen.Min.Y - v21.World.Min.Y + v4.PosVec.Y - 50
@@ -148,7 +148,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 					if dword_5d4594_1313800 == nil {
 						v26 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningCrown"))
 						dword_5d4594_1313800 = nox_new_drawable_for_thing(v26)
-						dword_5d4594_1313800.Flags30Val |= 0x1000000
+						dword_5d4594_1313800.ObjFlags |= 0x1000000
 					}
 					dword_5d4594_1313800.PosVec.X = v21.Screen.Min.X + v4.PosVec.X - v21.World.Min.X
 					dword_5d4594_1313800.PosVec.Y = v21.Screen.Min.Y - v21.World.Min.Y + v4.PosVec.Y - 50

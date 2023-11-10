@@ -1229,7 +1229,7 @@ func nox_xxx_spriteCreate_48E970(a1 int32, a2 uint32, a3 int32, a4 int32) *clien
 			return nil
 		}
 		v8.Field_32 = uint32(v5)
-		if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1200836) || uint32(a1) == *memmap.PtrUint32(0x5D4594, 1200840) || v8.Flags28Val&0x10000000 != 0 {
+		if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1200836) || uint32(a1) == *memmap.PtrUint32(0x5D4594, 1200840) || v8.ObjClass&0x10000000 != 0 {
 			sub_459DD0(v8, 1)
 		}
 	}
@@ -1504,7 +1504,7 @@ func nox_xxx_netCliUpdateStream2_494C30(a1 *uint8, a2 int32, a3 *int32) int32 {
 	if v18 == nil {
 		return int32(int64(uintptr(unsafe.Pointer(a1))) - int64(uintptr(unsafe.Pointer(v14))))
 	}
-	if v18.Flags28Val&0x200000 != 0 {
+	if v18.ObjClass&0x200000 != 0 {
 		v18.Field_72 = gameFrame()
 		v27 = int8(*(*uint8)(v14))
 		v20 = int8(*(*uint8)(v14))
@@ -2192,7 +2192,7 @@ func sub_495D00(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 	v8 := a3
 	v9 = int32(v6.PosVec.X + int(a3.Screen.Min.X) - a3.World.Min.X)
 	v10 = int32(v6.Field_77 * 8)
-	v30 = int32(v6.PosVec.Y - int(uint32(v6.ZVal)) - int(uint32(v6.Field_26_1)) - a3.World.Min.Y + a3.Screen.Min.Y - 10)
+	v30 = int32(v6.PosVec.Y - int(uint32(v6.ZVal)) - int(uint32(v6.ZVal2)) - a3.World.Min.Y + a3.Screen.Min.Y - 10)
 	v28 = memmap.PtrFloat32(0x587000, uintptr(v6.Field_77)*64+194136)
 	v22 = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(v6.Field_77)*64+194136)) * (-12.0))
 	v11 = int32(v22) + v9
@@ -2208,7 +2208,7 @@ func sub_495D00(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 			nox_client_drawEnableAlpha_434560(1)
 			nox_client_drawSetAlpha_434580(v26)
 			v13 = int32(v8.Screen.Min.X + int(*(*uint32)(unsafe.Add(unsafe.Pointer(v32), -4))) - v8.World.Min.X)
-			v14 = *(*int32)(unsafe.Pointer(v32)) - int32(uint32(v6.ZVal)) - int32(uint32(v6.Field_26_1)) - int32(v8.World.Min.Y) + int32(v8.Screen.Min.Y) - 10
+			v14 = *(*int32)(unsafe.Pointer(v32)) - int32(uint32(v6.ZVal)) - int32(uint32(v6.ZVal2)) - int32(v8.World.Min.Y) + int32(v8.Screen.Min.Y) - 10
 			v24 = float32(float64(*v28) * (-12.0))
 			v15 = int32(v24) + v13
 			v25 = float32(float64(*v29) * (-12.0))
@@ -2612,7 +2612,7 @@ func sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 			if uint32(v10-v3) <= 0x1E {
 				if v2.Field0 == a2.Field_32 {
 					v5 = int32(a1.Screen.Min.X + a2.PosVec.X - a1.World.Min.X)
-					v6 = int32(uint32(uint64(a2.PosVec.Y+a1.Screen.Min.Y+int(uint32((v3-v10)*2))-int(uint32(a2.ZVal))) - uint64(int64(a2.Field_25)) - uint64(a1.World.Min.Y)))
+					v6 = int32(uint32(uint64(a2.PosVec.Y+a1.Screen.Min.Y+int(uint32((v3-v10)*2))-int(uint32(a2.ZVal))) - uint64(int64(a2.ZSizeMax)) - uint64(a1.World.Min.Y)))
 					nox_swprintf(&v13[0], internWStr("%d"), cmath.Abs(int64(*(*int16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(int16(0))*2)))))
 					nox_xxx_drawGetStringSize_43F840(dword_5d4594_1301780, &v13[0], &v12, nil, 0)
 					v7 = v12/(-2) + v5
@@ -2676,7 +2676,7 @@ func nox_xxx_updateSpritePosition_49AA90(dr *client.Drawable, a2 int32, a3 int32
 	}()) || a3 >= 5888 {
 		v3 = 50
 		v5 = 50
-		if (a1.Flags30Val & 0x400000) == 0 {
+		if (a1.ObjFlags & 0x400000) == 0 {
 			nox_xxx_sprite_45A110_drawable(dr)
 		}
 	}

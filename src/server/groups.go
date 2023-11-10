@@ -82,7 +82,7 @@ func (s *ServerMapGroups) Sub504600(name string, ind uint32, typ uint8) {
 	g.prev = nil
 	g.List = nil
 	g.Ind = ind
-	g.typ = typ
+	g.TypeVal = typ
 	alloc.StrCopyZero(g.name[:], name)
 }
 
@@ -170,7 +170,7 @@ func (s *ServerMapGroups) MapLoadAddGroup57C0C0(name string, ind uint32, typ byt
 		return 0
 	}
 	p.Ind = ind
-	p.typ = typ
+	p.TypeVal = typ
 	alloc.StrCopyZero(p.name[:], name)
 	p.List = nil
 	head := s.groups
@@ -231,13 +231,13 @@ func (it *MapGroupItem) Next() *MapGroupItem {
 }
 
 type MapGroup struct {
-	typ  byte // 0, 0
-	_    [3]byte
-	Ind  uint32        // 1, 4
-	name [76]byte      // 2, 8
-	List *MapGroupItem // 21, 84
-	next *MapGroup     // 22, 88
-	prev *MapGroup     // 23, 92
+	TypeVal byte // 0, 0
+	_       [3]byte
+	Ind     uint32        // 1, 4
+	name    [76]byte      // 2, 8
+	List    *MapGroupItem // 21, 84
+	next    *MapGroup     // 22, 88
+	prev    *MapGroup     // 23, 92
 }
 
 func (g *MapGroup) C() unsafe.Pointer {
@@ -246,7 +246,7 @@ func (g *MapGroup) C() unsafe.Pointer {
 
 // GroupType gets the group type (non-recursively).
 func (g *MapGroup) GroupType() MapGroupKind {
-	return MapGroupKind(g.typ)
+	return MapGroupKind(g.TypeVal)
 }
 
 func (g *MapGroup) Index() uint32 {

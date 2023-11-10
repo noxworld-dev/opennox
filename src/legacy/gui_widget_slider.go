@@ -70,7 +70,7 @@ func nox_xxx_wndScrollBoxButtonCreate_4B5640(a1 *gui.Window, a2 gui.StatusFlags,
 	*(*unsafe.Pointer)(unsafe.Pointer(&v6[16])) = a1.C()
 	*(*uint8)(unsafe.Pointer(&v4)) = uint8(int8(a2&0xEF | 0xC))
 	*(*uint32)(unsafe.Pointer(&v6[8])) = 1
-	*(*uint32)(unsafe.Pointer(&v6[68])) = uint32(v3)
+	*(*uint32)(unsafe.Pointer(&v6[68])) = v3
 	if (v4 & 0x80) == 0 {
 		*(*uint32)(unsafe.Pointer(&v6[52])) = a3.SelColorVal
 		*(*uint32)(unsafe.Pointer(&v6[28])) = a3.BgColorVal
