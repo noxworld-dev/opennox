@@ -1,6 +1,7 @@
 package opennox
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"image/color"
@@ -8,12 +9,28 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/console"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
+
+func init() {
+	noxCmdShow.Register(&console.Command{Token: "extents", HelpID: "showextentshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+		clientPlaySoundSpecial(sound.SoundShellClick, 100)
+		noxflags.ToggleEngine(noxflags.EngineShowExtents)
+		return true
+	}})
+	noxCmdShow.Register(&console.Command{Token: "sight", HelpID: "showsighthelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+		clientPlaySoundSpecial(sound.SoundShellClick, 100)
+		noxClient.Debug.ShowSight = !noxClient.Debug.ShowSight
+		return true
+	}})
+}
 
 func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	c := noxClient

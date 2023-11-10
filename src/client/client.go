@@ -59,6 +59,11 @@ type Client struct {
 	BackWalls  []*server.Wall
 	FrontWalls []*server.Wall
 	WallsYyy   []*server.Wall
+
+	Debug struct {
+		ShowSight     bool
+		showSightData [][]image.Point
+	}
 }
 
 func (c *Client) Render() *noxrender.NoxRender {

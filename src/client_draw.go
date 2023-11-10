@@ -293,6 +293,9 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		drawDebugAI(vp)
 	}
+	if c.Debug.ShowSight {
+		c.DrawDebugSight(vp)
+	}
 	c.sub_45AB40()
 	r.SetRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 68) = 1
