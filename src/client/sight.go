@@ -31,7 +31,11 @@ func (c *Client) Nox_xxx_drawBlack_496150(vp *noxrender.Viewport) {
 	c.sub_497260(vp)
 	c.Sight.Nox_xxx_drawBlack_496150_E(vp, &c.Server.Walls, c.Server.Sub_57B500, c.DrawListAppendWallYyy)
 	c.Sight.Sub_498110()
-	c.Sight.Nox_xxx_drawBlack_496150_F(vp, &c.Server.Walls)
+	c.Sight.Nox_xxx_drawBlack_496150_F(vp, &c.Server.Walls, func() {
+		if c.Debug.ShowSight {
+			c.DebugSightAdd()
+		}
+	})
 }
 
 func (c *Client) Sub_498AE0() {
@@ -227,7 +231,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 	}
 }
 
-func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls WallChecker) {
+func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls WallChecker, debug func()) {
 	var brect types.Rectf
 	brect.Min.X = float32(c.dword_5d4594_1217444_vec.X)
 	brect.Min.Y = float32(c.dword_5d4594_1217444_vec.Y)
@@ -410,6 +414,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 			}
 		}
 	}
+	debug()
 	c.dword_5d4594_1217464_size = v51 - 1
 	pi := c.dword_5d4594_1217464_size - 1
 	for i := 0; i < c.dword_5d4594_1217464_size; pi, i = i, i+1 {
@@ -2114,12 +2119,16 @@ func sub_427C80(r1, r2 image.Rectangle) bool {
 	return true
 }
 
-func (c *clientSight) Nox_xxx_drawBlack_496150_C() []ntype.Point32 {
-	c.sub_4989A0()
+func (c *clientSight) Get_arr_5d4594_1203876() []ntype.Point32 {
 	return c.arr_5d4594_1203876[:c.dword_5d4594_1217464_size]
 }
+
+func (c *clientSight) Nox_xxx_drawBlack_496150_C() []ntype.Point32 {
+	c.sub_4989A0()
+	return c.Get_arr_5d4594_1203876()
+}
 func (c *clientSight) sub_4989A0() {
-	arr := c.arr_5d4594_1203876[:c.dword_5d4594_1217464_size]
+	arr := c.Get_arr_5d4594_1203876()
 	if len(arr) < 3 {
 		return
 	}
