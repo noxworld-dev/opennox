@@ -613,7 +613,7 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 		}
 		if v16 := legacy.Nox_xxx_spriteGetMB_476F80(); v16 != nil {
 			sub_48B680(1)
-			if v16.Flags28()&6 == 0 || legacy.Sub_495A80(v16.Field32()) != 0 {
+			if v16.Class()&6 == 0 || legacy.Sub_495A80(v16.Field32()) != 0 {
 				c.r.setColorMultAndIntensity(nox_color_blue_2650684)
 			} else {
 				c.r.setColorMultAndIntensity(nox_color_red)

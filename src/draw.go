@@ -684,9 +684,9 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 	}
 	if dr.HasEnchant(server.ENCHANT_CONFUSED) || dr.HasEnchant(server.ENCHANT_HELD) || dr.HasEnchant(server.ENCHANT_ANTI_MAGIC) || dr.HasEnchant(server.ENCHANT_CHARMING) {
 		pos := vp.ToScreenPos(dr.Pos())
-		v5 := 5 - int(int16(dr.Field_26_1)) - dr.Z() - int(dr.Field25())
+		v5 := 5 - int(int16(dr.ZVal2)) - dr.Z() - int(dr.GetZSizeMax())
 		pos.Y += v5
-		if dr.Flags28Val&0x4 != 0 && dr.Field_69 == 6 {
+		if dr.ObjClass&0x4 != 0 && dr.Field_69 == 6 {
 			v8 := 8 * uintptr(dr.Field_74_2)
 			pos.X += int(memmap.Int32(0x587000, 149432+v8))
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
@@ -700,7 +700,7 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 	}
 	if dr.HasEnchant(server.ENCHANT_SLOWED) && !nox_xxx_checkGameFlagPause_413A50() {
 		v11 := int(dr.Shape.Circle.R)
-		v44 := int(dr.Field25() * 0.5)
+		v44 := int(dr.GetZSizeMax() * 0.5)
 		if drawYellowBubbleParticle == 0 {
 			drawYellowBubbleParticle = c.Things.IndByID("YellowBubbleParticle")
 		}
@@ -725,8 +725,8 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		v41 := c.srv.Rand.Other.Int(2, 3)
 		v37 := c.srv.Rand.Other.Int(3, 6)
 		v35 := c.srv.Rand.Other.Int(2, 4)
-		v29 := int(dr.Field25()) + 12
-		v14 := int(dr.Field25())
+		v29 := int(dr.GetZSizeMax()) + 12
+		v14 := int(dr.GetZSizeMax())
 		v33 := c.srv.Rand.Other.Int(v14+8, v29)
 		pos2 := image.Point{
 			X: c.srv.Rand.Other.Int(-6, 6),
@@ -740,7 +740,7 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		for v16 := 0; v16 < 10; v16++ {
 			v17 := c.srv.Rand.Other.Int(1, 2)
 			r := int(dr.Shape.Circle.R)
-			v20 := int(dr.Field25())
+			v20 := int(dr.GetZSizeMax())
 			pos2 := pos.Add(image.Point{
 				X: c.srv.Rand.Other.Int(-r, r),
 				Y: c.srv.Rand.Other.Int(-10-v20, 0) + dr.Z(),

@@ -8,6 +8,7 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
@@ -92,7 +93,7 @@ func (c *Client) sub_497260(vp *noxrender.Viewport) {
 			continue
 		}
 		pos := types.Point2f(dr.Pos())
-		if int8(byte(dr.Flags28())) >= 0 {
+		if int8(byte(dr.Class())) >= 0 {
 			switch dr.Shape.Kind {
 			case server.ShapeKindCircle:
 				if (pos.X-dr.Shape.Circle.R) < float32(vp.World.Min.X+vp.Size.X) && (pos.X+dr.Shape.Circle.R) > float32(vp.World.Min.X) {
@@ -502,12 +503,12 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		return 0
 	}
 	var v42, v43, v6 int32
-	if int8(byte(dr.Flags28())) >= 0 {
+	if int8(byte(dr.Class())) >= 0 {
 		v42 = int32(dr.PosVec.X)
 		v43 = int32(dr.PosVec.Y)
 		v6 = int32(dr.PosVec.X)
 	} else {
-		if (dr.Flags29() & 4) == 0 {
+		if (dr.SubClass() & 4) == 0 {
 			return int(int32(dr.Field_33))
 		}
 		v3 := int32(dr.PosVec.X)
@@ -517,7 +518,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		v42 = v3 + v5/2
 		v43 = int32(dr.PosVec.Y + int(uint32(*memmap.PtrInt32(0x587000, uintptr(v4)+196188)/2)))
 	}
-	if dr.Flags30Val&0x10000 != 0 {
+	if dr.Flags().Has(object.FlagShadow) {
 		return int(int32(dr.Field_33))
 	}
 	v7 := int32(vp.World.Min.X - vp.Screen.Min.X)
@@ -557,14 +558,14 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		if int32(*(*uint16)(unsafe.Add(dr.C(), 2))) != 0 {
 			v35 := int32(*(*uint16)(unsafe.Add(dr.C(), 6)))
 			v13 = v6 - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - v7
-			v14 = v43 + v12 + int32(dr.ZVal) - v35 - v8 - int32(dr.Field_24)
+			v14 = v43 + v12 + int32(dr.ZVal) - v35 - v8 - int32(dr.ZSizeMin)
 			v15 = v13 + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
 			v16 = v14 + v35
 		} else {
 			v13 = v6 - v12 - v7
-			v14 = v43 - v12 - v8 - int32(dr.Field_25)
+			v14 = v43 - v12 - v8 - int32(dr.ZSizeMax)
 			v15 = v42 + v12 - v44
-			v16 = v43 + v12 + int32(dr.ZVal) - v45 - int32(dr.Field_24)
+			v16 = v43 + v12 + int32(dr.ZVal) - v45 - int32(dr.ZSizeMin)
 		}
 	} else if int32(*(*uint16)(unsafe.Add(dr.C(), 2))) != 0 {
 		v13 = v6 - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - v7
@@ -573,7 +574,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		v15 = v13 + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
 	} else {
 		v13 = v37 + int32(dr.Shape.Box.LeftBottom2)
-		v17 := v43 - v8 - int32(dr.Field_25)
+		v17 := v43 - v8 - int32(dr.ZSizeMax)
 		v14 = int32(dr.Shape.Box.LeftBottom) + v17
 		v15 = v37 + int32(dr.Shape.Box.RightTop)
 		v16 = int32(dr.Shape.Box.RightTop2) + v43 + int32(dr.ZVal) - v45
@@ -1229,7 +1230,7 @@ func (c *clientSight) Sub_4974B0(a1 *Drawable) {
 		v15 int32
 	)
 	v1 := a1
-	if (a1.Flags29() & 4) == 0 {
+	if (a1.SubClass() & 4) == 0 {
 		v2 := c.sub_4CADD0()
 		v2.Field48 = 1
 		v2.Field56 = 6

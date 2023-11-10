@@ -303,7 +303,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 		return
 	}
 	var v65 image.Point
-	if sprite.Flags28()&0x400006 == 0 || legacy.Nox_xxx_sprite_4C3220(sprite) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
+	if sprite.Class()&0x400006 == 0 || legacy.Nox_xxx_sprite_4C3220(sprite) != 0 || sprite.Class()&2 != 0 && sprite.SubClass()&8 != 0 || sprite.Class()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 		v46 := legacy.Get_dword_5d4594_1062452()
 		for v47 := c.GUI.Last(); v47 != nil; v47 = v47.Prev() {
 			if v47.Flags.Has(gui.StatusHidden) {
@@ -336,13 +336,13 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 		c1 := v65.X - sp.X
 		c2 := v65.Y - sp.Y
 		v54 := c1*c1 + c2*c2
-		if sprite.Flags28()&0x80000000 == 0 || c.dragndropGetItem() != nil {
+		if sprite.Class()&0x80000000 == 0 || c.dragndropGetItem() != nil {
 			if v54 < 125*125 {
 				if p := getCurPlayer(); p != nil {
 					if p.Field3680&0x200 == 0 && legacy.Sub_478030() == 0 {
-						if sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
+						if sprite.Class()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 							c.Nox_client_setCursorType(gui.CursorTalk)
-						} else if sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 {
+						} else if sprite.Class()&2 != 0 && sprite.SubClass()&8 != 0 {
 							c.Nox_client_setCursorType(gui.CursorShop)
 						}
 					}
@@ -374,12 +374,12 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 			mimic = uint32(c.Things.IndByID("Mimic"))
 			*memmap.PtrUint32(0x5D4594, 1064944) = mimic
 		}
-		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.Field_27) == mimic && sprite.Field_69 == 0 {
+		if sprite.Class()&0x400000 != 0 && sprite.SubClass()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.Field_27) == mimic && sprite.Field_69 == 0 {
 			v65 = c.Viewport().World.Max
 			sp := sprite.Pos()
 			c1 := v65.X - sp.X
 			c2 := v65.Y - sp.Y
-			if c1*c1+c2*c2 < 75*75 && sprite.Flags30()&0x1000000 != 0 && sprite.Flags70()&0xC == 0 {
+			if c1*c1+c2*c2 < 75*75 && sprite.Flags()&0x1000000 != 0 && sprite.Flags70()&0xC == 0 {
 				c.Nox_client_setCursorType(gui.CursorUse)
 			}
 		}
