@@ -498,9 +498,9 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 	}
 }
 
-func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, dr *Drawable) int {
+func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, dr *Drawable) bool {
 	if dr.DrawFuncPtr == nil {
-		return 0
+		return false
 	}
 	var v42, v43, v6 int32
 	if int8(byte(dr.Class())) >= 0 {
@@ -509,7 +509,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		v6 = int32(dr.PosVec.X)
 	} else {
 		if (dr.SubClass() & 4) == 0 {
-			return int(int32(dr.Field_33))
+			return dr.Field_33 != 0
 		}
 		v3 := int32(dr.PosVec.X)
 		v4 := int32(dr.Field_74_4) * 8
@@ -519,7 +519,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		v43 = int32(dr.PosVec.Y + int(uint32(*memmap.PtrInt32(0x587000, uintptr(v4)+196188)/2)))
 	}
 	if dr.Flags().Has(object.FlagShadow) {
-		return int(int32(dr.Field_33))
+		return dr.Field_33 != 0
 	}
 	v7 := int32(vp.World.Min.X - vp.Screen.Min.X)
 	v8 := int32(vp.World.Min.Y - vp.Screen.Min.Y)
@@ -532,7 +532,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 	a1a.Max.X = int(v6 - v7)
 	a1a.Max.Y = int(v43 - v8)
 	if c.dword_5d4594_1217464_size <= 0 {
-		return 1
+		return true
 	}
 	v9 := c.arr_5d4594_1203876[c.dword_5d4594_1217464_size-1]
 	ok := false
@@ -550,7 +550,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		v9 = p
 	}
 	if !ok {
-		return 1
+		return true
 	}
 	var v13, v14, v15, v16 int32
 	if dr.Shape.Kind == 2 {
@@ -616,7 +616,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		}
 	}
 	if v51 == 0 || v32 == 0 {
-		return 0
+		return false
 	}
 	var v48 image.Rectangle
 	v48.Min.X = a1a.Min.X
@@ -654,14 +654,14 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 			a2.Max.X = int(p.X)
 			a2.Max.Y = int(p.Y)
 			if sub_427C80(a1a, a2) {
-				return 0
+				return false
 			}
 			v18 = c.dword_5d4594_1217464_size
 			v20 = p
 		}
 	}
 	if v18 <= 0 {
-		return 1
+		return true
 	}
 	v25 := c.arr_5d4594_1203876[v18-1]
 	for i := 0; i < c.dword_5d4594_1217464_size; i++ {
@@ -672,11 +672,11 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 		a2.Max.X = int(p.X)
 		a2.Max.Y = int(p.Y)
 		if sub_427C80(v48, a2) {
-			return 0
+			return false
 		}
 		v25 = p
 	}
-	return 1
+	return true
 }
 
 func (c *clientSight) Sub_498AE0_B(draw func(p1, p2 ntype.Point32)) {
