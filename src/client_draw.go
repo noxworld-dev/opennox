@@ -436,13 +436,13 @@ func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 
 func (c *Client) sub_476160(a1, a2 *client.Drawable) bool {
 	var v1 int
-	if int8(byte(a1.Flags28Val)) >= 0 {
+	if int8(byte(a1.ObjClass)) >= 0 {
 		v1 = a1.Pos().Y + a1.Z()
 	} else {
 		v1 = legacy.Sub_4761B0(a1)
 	}
 	var v2 int
-	if int8(byte(a1.Flags28Val)) >= 0 {
+	if int8(byte(a1.ObjClass)) >= 0 {
 		v2 = a2.Pos().Y + a2.Z()
 	} else {
 		v2 = legacy.Sub_4761B0(a2)
@@ -501,7 +501,7 @@ LOOP:
 				}
 			}
 		}
-		v26 := dr.Flags28()
+		v26 := dr.Class()
 		if !((v26&6 == 0) || c.srv.Frame()-dr.Field_72 <= 5) {
 			if v26&2 != 0 {
 				v27 := dr.Field_69
@@ -531,7 +531,7 @@ LOOP:
 		if legacy.Sub_459DB0(dr) != 0 {
 			c.Objs.MinimapAdd(dr, 1)
 		}
-		if dr.Flags28()&0x20006 != 0 {
+		if dr.Class()&0x20006 != 0 {
 			legacy.Sub_49A6A0(vp, dr)
 		}
 	}
@@ -572,7 +572,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
 					dr.Field_121 = 1
 					dr.Field_120 = 0
 				} else {
-					if dr.Field_121 == 0 || (dr.Flags28Val&0x6 != 0) {
+					if dr.Field_121 == 0 || (dr.ObjClass&0x6 != 0) {
 						return
 					}
 					dr.Field_120 = 1
@@ -633,25 +633,25 @@ func (c *Client) drawableUpdateLight(dr *client.Drawable) bool {
 		dr.SetLightColor(255, 255, 255)
 		dr.SetLightIntensity(200.0)
 		return true
-	} else if dr.Flags28()&0x2 == 0 || dr.Flags28()&0x80000 != 0 {
+	} else if dr.Class()&0x2 == 0 || dr.Class()&0x80000 != 0 {
 		return false
 	} else if dr.Field_69 == 10 {
 		dr.SetLightIntensity(0.0)
 		return true
 	}
 	dr.SetLightColor(255, 255, 255)
-	if dr.Flags29()&0x1 != 0 {
+	if dr.SubClass()&0x1 != 0 {
 		dr.SetLightIntensity(25.0)
-	} else if dr.Flags29()&0x2 != 0 {
+	} else if dr.SubClass()&0x2 != 0 {
 		dr.SetLightIntensity(35.0)
-	} else if dr.Flags29()&0x4 != 0 {
+	} else if dr.SubClass()&0x4 != 0 {
 		dr.SetLightIntensity(45.0)
 	}
 	return true
 }
 
 func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
-	if !(c.drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.LightIntensityRad > 0 && dr.Flags30()&0x4 != 0) {
+	if !(c.drawableUpdateLight(dr) || dr.Class()&0x80000 != 0 && dr.Flags()&0x1000000 != 0 && dr.LightIntensityRad > 0 && dr.Flags()&0x4 != 0) {
 		return
 	}
 	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr == c.ClientPlayerUnit() || dr.DrawFuncPtr == legacy.Get_nox_thing_glow_orb_draw()) {
@@ -659,7 +659,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 	}
 	intens := int(dr.LightIntensityU16)
 	rad := int(dr.LightIntensityRad)
-	if dr.Flags30()&0x20000000 != 0 {
+	if dr.Flags()&0x20000000 != 0 {
 		intens += c.srv.Rand.Other.Int(0, int(dr.LightIntensityU16)>>18) << 16
 		rad = client.LightRadius(float32(intens) / 0x10000)
 	}
@@ -720,15 +720,15 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 			(yy<<16)/common.GridStep,
 		)
 		v19 := (rad << 16) / common.GridStep
-		v22 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.Field_41_0+0x4000)>>4))))
-		v23 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.Field_41_0)>>4))))
+		v22 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.LightDir+0x4000)>>4))))
+		v23 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.LightDir)>>4))))
 
-		v22b := uint16(dr.Field_41_0) + uint16(dr.Field_41_1)
+		v22b := uint16(dr.LightDir) + uint16(dr.LightPenumbra)
 		a3 := a1.Add(image.Pt(v22, v23))
 		v44 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr((v22b+0x4000)>>4))))
 		v24 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))
 
-		v22b = uint16(dr.Field_41_0) + uint16(dr.Field_41_1)
+		v22b = uint16(dr.LightDir) + uint16(dr.LightPenumbra)
 		a2 := a1.Add(image.Pt(v44, v24))
 		v45 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr((v22b+0x4000)>>4))))
 		v25 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))

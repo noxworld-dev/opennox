@@ -31,7 +31,7 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 	} else if draw == legacy.Get_nox_thing_red_spark_draw() || draw == legacy.Get_nox_thing_blue_spark_draw() ||
 		draw == legacy.Get_nox_thing_yellow_spark_draw() || draw == legacy.Get_nox_thing_green_spark_draw() ||
 		draw == legacy.Get_nox_thing_cyan_spark_draw() {
-		dr.Field_26_1 = 35
+		dr.ZVal2 = 35
 		dr.VelZ = 2
 	} else {
 		dr.SetFrameMB(0)
@@ -54,10 +54,10 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 	if dr.ClientUpdateFuncPtr != nil {
 		c.Objs.List5Add(dr)
 	}
-	if dr.Flags30()&0x200000 != 0 {
+	if dr.Flags()&0x200000 != 0 {
 		c.Objs.List6Add(dr)
 	}
-	if dr.Field_123 != 0 {
+	if dr.AudioLoop != 0 {
 		c.Objs.List8Add(dr)
 	}
 	dr.PosVec.X = pos.X
@@ -72,7 +72,7 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 	}
 	c.Objs.List1 = dr
 	c.Objs.AddIndex2D(dr)
-	if dr.Flags30()&0x10000 != 0 {
+	if dr.Flags()&0x10000 != 0 {
 		v6 := c.Objs.List2
 		dr.Field_91 = nil
 		dr.Field_90 = v6
@@ -81,10 +81,10 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 		}
 		c.Objs.List2 = dr
 	}
-	if dr.Flags28()&0x4 != 0 {
+	if dr.Class()&0x4 != 0 {
 		c.Objs.PlayerListAdd(dr)
 	}
-	dr.Flags30Val |= 0x1000000
+	dr.ObjFlags |= 0x1000000
 	dr.SetActive()
 	dr.Field_120 = 0
 	dr.Field_121 = 0
@@ -93,8 +93,8 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 }
 
 func nox_xxx_sprite_45A480_drawable(dr *client.Drawable) {
-	if dr.Flags28()&0x1000000 != 0 && dr.Flags29()&0xC0 != 0 {
-		if dr.Flags30()&0x4000 != 0 {
+	if dr.Class()&0x1000000 != 0 && dr.SubClass()&0xC0 != 0 {
+		if dr.Flags()&0x4000 != 0 {
 			sub_495F70(dr)
 		}
 	}
@@ -135,7 +135,7 @@ func (c *Client) Nox_xxx_spriteDeleteAll_45A5E0(a1 bool) {
 	var next *client.Drawable
 	for dr := c.Objs.List1; dr != nil; dr = next {
 		next = dr.NextPtr
-		if dr.Flags28()&0x4 == 0 || !a1 || !c.Objs.IsPlayer(dr) {
+		if dr.Class()&0x4 == 0 || !a1 || !c.Objs.IsPlayer(dr) {
 			c.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		}
 	}
@@ -160,7 +160,7 @@ func (c *Client) Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 	}
 	c.Objs.Index2DRemove(dr, dr.Ext())
 	c.nox_xxx_clientDeleteSprite_476F10_drawable(dr)
-	if dr.Flags30()&0x10000 != 0 {
+	if dr.Flags()&0x10000 != 0 {
 		if dr.Field_91 != nil {
 			dr.Field_91.Field_90 = dr.Field_90
 		} else {
@@ -176,7 +176,7 @@ func (c *Client) Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 	c.Objs.DeadlineRemove(dr)
 	c.Objs.RemoveHealthBar(dr, 3)
 	c.sub_459F70(dr)
-	if dr.Flags28()&0x4 != 0 {
+	if dr.Class()&0x4 != 0 {
 		c.Objs.PlayerListDelete(dr)
 	}
 	if dr.HasTeam() {
@@ -276,7 +276,7 @@ func (c *Client) Sub_45A670(a1 uint32) {
 	var next *client.Drawable
 	for dr := c.Objs.List1; dr != nil; dr = next {
 		next = dr.NextPtr
-		if dr.Flags28()&0x20400006 == 0 {
+		if dr.Class()&0x20400006 == 0 {
 			if legacy.Sub_49C520(dr) == 0 {
 				if int(dr.Field_27) != c.dword_5d4594_1046604 && dr.Field_80 < a1 {
 					c.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
@@ -288,7 +288,7 @@ func (c *Client) Sub_45A670(a1 uint32) {
 
 func (c *Client) sub_45AB40() {
 	for it := c.Objs.FirstList8(); it != nil; it = it.Field_106 {
-		if it.Field_123 != 0 {
+		if it.AudioLoop != 0 {
 			legacy.Sub_45A9B0(it, c.ClientPlayerUnit())
 		}
 	}

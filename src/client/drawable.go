@@ -5,6 +5,8 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
+
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -152,11 +154,11 @@ func (c *clientDrawables) List34Add(dr *Drawable) {
 		c.List4 = dr
 	}
 	c.list3 = dr
-	dr.Flags30Val |= 0x400000
+	dr.ObjFlags |= 0x400000
 }
 
 func (c *clientDrawables) List34Delete(dr *Drawable) {
-	if (dr.Flags30() & 0x400000) == 0 {
+	if (dr.Flags() & 0x400000) == 0 {
 		return
 	}
 	if dr2 := dr.Field_98; dr2 != nil {
@@ -169,7 +171,7 @@ func (c *clientDrawables) List34Delete(dr *Drawable) {
 	} else {
 		c.List4 = dr.Field_98
 	}
-	dr.Flags30Val &= 0xFFBFFFFF
+	dr.ObjFlags &= 0xFFBFFFFF
 }
 
 func (c *clientDrawables) List5Add(dr *Drawable) {
@@ -212,11 +214,11 @@ func (c *clientDrawables) List6Add(dr *Drawable) {
 		c.List6.Field_84 = dr
 	}
 	c.List6 = dr
-	dr.Flags30Val |= 0x200000
+	dr.ObjFlags |= 0x200000
 }
 
 func (c *clientDrawables) List6Delete(dr *Drawable) {
-	if dr.Flags30()&0x200000 == 0 {
+	if dr.Flags()&0x200000 == 0 {
 		return
 	}
 	if v2 := dr.Field_84; v2 != nil {
@@ -227,7 +229,7 @@ func (c *clientDrawables) List6Delete(dr *Drawable) {
 	if v3 := dr.Field_83; v3 != nil {
 		v3.Field_84 = dr.Field_84
 	}
-	dr.Flags30Val &= 0xFFDFFFFF
+	dr.ObjFlags &= 0xFFDFFFFF
 }
 
 func (c *clientDrawables) List8Add(dr *Drawable) {
@@ -240,7 +242,7 @@ func (c *clientDrawables) List8Add(dr *Drawable) {
 }
 
 func (c *clientDrawables) RemoveHealthBar(dr *Drawable, a2 uint8) {
-	if dr.Flags30()&0x80000000 == 0 {
+	if dr.Flags()&0x80000000 == 0 {
 		return
 	}
 	set := (^a2 & dr.Field_71_0) == 0
@@ -256,7 +258,7 @@ func (c *clientDrawables) RemoveHealthBar(dr *Drawable, a2 uint8) {
 	} else {
 		c.minimapList = dr.Field_102
 	}
-	dr.Flags30Val &^= 0x80000000
+	dr.ObjFlags &^= 0x80000000
 }
 
 func (c *clientDrawables) MinimapAdd(dr *Drawable, a2 uint8) {
@@ -264,7 +266,7 @@ func (c *clientDrawables) MinimapAdd(dr *Drawable, a2 uint8) {
 		return
 	}
 	dr.Field_71_0 |= a2
-	if dr.Flags30()&0x80000000 != 0 {
+	if dr.Flags()&0x80000000 != 0 {
 		return
 	}
 	for it := c.FirstMinimapList(); it != nil; it = it.Nox_xxx_cliNextMinimapObj_459EC0(it) {
@@ -280,7 +282,7 @@ func (c *clientDrawables) MinimapAdd(dr *Drawable, a2 uint8) {
 		c.minimapList.Field_103 = dr
 	}
 	c.minimapList = dr
-	dr.Flags30Val |= 0x80000000
+	dr.ObjFlags |= 0x80000000
 }
 
 func (c *clientDrawables) DeadlineRemove(dr *Drawable) {
@@ -333,7 +335,7 @@ func (c *clientDrawables) TransparentDecay(dr *Drawable, lifetime int) {
 
 func (c *clientDrawables) ByNetCodeStatic(id int) *Drawable {
 	for dr := c.List1; dr != nil; dr = dr.NextPtr {
-		if dr.Flags28()&0x20400000 != 0 && dr.Field_32 == uint32(id) {
+		if dr.Class()&0x20400000 != 0 && dr.Field_32 == uint32(id) {
 			return dr
 		}
 	}
@@ -342,7 +344,7 @@ func (c *clientDrawables) ByNetCodeStatic(id int) *Drawable {
 
 func (c *clientDrawables) ByNetCodeDynamic(id int) *Drawable {
 	for dr := c.List1; dr != nil; dr = dr.NextPtr {
-		if dr.Flags28()&0x20400000 == 0 && dr.Field_32 == uint32(id) {
+		if dr.Class()&0x20400000 == 0 && dr.Field_32 == uint32(id) {
 			return dr
 		}
 	}
@@ -459,14 +461,14 @@ type Drawable struct {
 	Field_9             uint32            // 9, 36
 	Field_10            uint32            // 10, 40
 	Shape               server.Shape      // 11, 44
-	Field_24            float32           // 24, 96
-	Field_25            float32           // 25, 100
+	ZSizeMin            float32           // 24, 96
+	ZSizeMax            float32           // 25, 100
 	ZVal                uint16            // 26, 104
-	Field_26_1          uint16            // 26, 106
+	ZVal2               uint16            // 26, 106
 	Field_27            uint32            // 27, 108, thing ID? pointer? union?
-	Flags28Val          uint32            // 28, 112
-	Flags29Val          uint32            // 29, 116
-	Flags30Val          uint32            // 30, 120
+	ObjClass            uint32            // 28, 112
+	ObjSubClass         uint32            // 29, 116
+	ObjFlags            uint32            // 30, 120
 	Buffs               uint32            // 31, 124
 	Field_32            uint32            // 32, 128, npc ID?
 	Field_33            uint32            // 33, 132
@@ -477,8 +479,8 @@ type Drawable struct {
 	LightColorR         uint32            // 38, 152, 4
 	LightColorG         uint32            // 39, 156, 5
 	LightColorB         uint32            // 40, 160, 6
-	Field_41_0          uint16            // 41, 164
-	Field_41_1          uint16            // 41, 166
+	LightDir            uint16            // 41, 164
+	LightPenumbra       uint16            // 41, 166
 	Field_42            uint32            // 42, 168
 	Field_43            uint32            // 43, 172
 	Field_44            uint32            // 44, 176
@@ -499,7 +501,7 @@ type Drawable struct {
 	Field_73_2          uint16         // 73, 294
 	VelZ                int8           // 74, 296
 	Field_74_2          byte           // 74, 297
-	Field_74_3          byte           // 74, 298
+	Weight              byte           // 74, 298
 	Field_74_4          byte           // 74, 299
 	DrawFuncPtr         unsafe.Pointer // 75, 300, (*DrawFuncPtr)(uint32_t*, nox_drawable*) same as CObjectType->draw_func
 	Field_76            unsafe.Pointer // 76, 304
@@ -550,7 +552,7 @@ type Drawable struct {
 	Field_120           uint32         // 120, 480
 	Field_121           uint32         // 121, 484
 	Field_122           uint32         // 122, 488
-	Field_123           uint32         // 123, 492
+	AudioLoop           uint32         // 123, 492
 	Field_124           unsafe.Pointer // 124, 496
 	Field_125           uint32         // 125, 500
 	Field_126           uint32         // 126, 504
@@ -603,20 +605,20 @@ func (s *Drawable) Point8() image.Point {
 	}
 }
 
-func (s *Drawable) Field25() float32 {
-	return s.Field_25
+func (s *Drawable) GetZSizeMax() float32 {
+	return s.ZSizeMax
 }
 
-func (s *Drawable) Flags28() uint {
-	return uint(s.Flags28Val)
+func (s *Drawable) Class() object.Class {
+	return object.Class(s.ObjClass)
 }
 
-func (s *Drawable) Flags29() uint {
-	return uint(s.Flags29Val)
+func (s *Drawable) SubClass() object.SubClass {
+	return object.SubClass(s.ObjSubClass)
 }
 
-func (s *Drawable) Flags30() uint {
-	return uint(s.Flags30Val)
+func (s *Drawable) Flags() object.Flags {
+	return object.Flags(s.ObjFlags)
 }
 
 func (s *Drawable) HasEnchant(v server.EnchantID) bool { // nox_client_drawable_testBuff_4356C0
@@ -675,7 +677,7 @@ func (s *Drawable) Z() int {
 }
 
 func (s *Drawable) SetActive() { // Nox_xxx_spriteSetActiveMB_45A990_drawable
-	s.Flags30Val |= 0x4
+	s.ObjFlags |= uint32(object.FlagActive)
 }
 
 func (s *Drawable) HasFX(id int) bool {
@@ -688,7 +690,7 @@ func (s *Drawable) HasFX(id int) bool {
 }
 
 func (s *Drawable) SetFrameMB(a2 int) { // Nox_xxx_spriteSetFrameMB_45AB80
-	if s.Flags28()&0x2 == 0 || s.Flags29()&0x40000 == 0 || s.Field_69 != 8 {
+	if !s.Class().Has(object.ClassMonster) || s.SubClass()&0x40000 == 0 || s.Field_69 != 8 {
 		s.Field_78 = s.Field_77
 		s.Field_77 = uint32(a2)
 	}
@@ -733,24 +735,24 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	s.Field_27 = uint32(i)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 0)) = typ.HWidth
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 1)) = typ.HHeight
-	s.Field_26_1 = typ.Z // TODO: shouldn't it put this in dr.z?
-	s.Flags28Val = typ.ObjClass
-	s.Flags29Val = typ.ObjSubClass
-	s.Flags30Val = uint32(typ.ObjFlags)
+	s.ZVal2 = typ.Z // TODO: shouldn't it put this in dr.z?
+	s.ObjClass = typ.ObjClass
+	s.ObjSubClass = typ.ObjSubClass
+	s.ObjFlags = uint32(typ.ObjFlags)
 	s.Flags70Val = typ.Field_54
-	s.Field_74_3 = typ.Weight
+	s.Weight = typ.Weight
 	s.DrawFuncPtr = typ.DrawFunc
 	s.Field_76 = typ.Field_5c
 	s.Field_77 = typ.Field_60
 	s.ClientUpdateFuncPtr = typ.ClientUpdate
-	s.Field_123 = typ.AudioLoop
-	s.LightFlags = uint32(typ.Field_f)
+	s.AudioLoop = typ.AudioLoop
+	s.LightFlags = uint32(typ.LightFlags)
 	s.Field_42 = typ.Field_10
 	s.LightColorR = uint32(typ.LightColorR)
 	s.LightColorG = uint32(typ.LightColorG)
 	s.LightColorB = uint32(typ.LightColorB)
-	s.Field_41_0 = typ.LightDir
-	s.Field_41_1 = typ.LightPenumbra
+	s.LightDir = typ.LightDir
+	s.LightPenumbra = typ.LightPenumbra
 
 	s.Shape.Kind = server.ShapeKind(typ.ShapeKind)
 	s.Shape.Circle.R = typ.ShapeR
@@ -761,8 +763,8 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 		s.Shape.Box.Calc()
 	}
 
-	s.Field_24 = typ.ZSizeMin
-	s.Field_25 = typ.ZSizeMax
+	s.ZSizeMin = typ.ZSizeMin
+	s.ZSizeMax = typ.ZSizeMax
 	intens := typ.LightIntensity
 	s.Field_43 = 0
 	if intens < 0 {
@@ -779,7 +781,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 			s.LightColorB = 255
 		}
 	}
-	if s.Flags28Val&0x13001000 != 0 {
+	if s.ObjClass&0x13001000 != 0 {
 		s.Field_108 = 0
 		s.Field_109 = 0
 		s.Field_110 = 0

@@ -15,7 +15,7 @@ func (c *Client) drawSelection(vp *noxrender.Viewport) {
 		return
 	}
 	var cl color.Color
-	if dr.Flags28Val&6 != 0 && legacy.Sub_495A80(dr.Field_32) == 0 {
+	if dr.ObjClass&6 != 0 && legacy.Sub_495A80(dr.Field_32) == 0 {
 		switch c.srv.Rand.Other.Int(0, 1) {
 		case 0:
 			cl = nox_color_violet_2598268
@@ -32,7 +32,7 @@ func (c *Client) drawSelection(vp *noxrender.Viewport) {
 			cl = nox_color_cyan_2649820
 		}
 	}
-	if (dr.Flags28Val & 0x200) == 0 {
+	if (dr.ObjClass & 0x200) == 0 {
 		c.drawSelectionCursor(vp, cl, dr)
 	}
 }

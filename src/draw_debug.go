@@ -26,9 +26,9 @@ func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	r.Data().SetColor2(cl)
 	r.Data().SetTextColor(color.White)
 	p := vp.ToScreenPos(dr.Pos())
-	if dr.Flags28()&0x80 != 0 {
-		y1 := p.Y - int(dr.Field_24)
-		y2 := p.Y - int(dr.Field_25)
+	if dr.Class()&0x80 != 0 {
+		y1 := p.Y - int(dr.ZSizeMin)
+		y2 := p.Y - int(dr.ZSizeMax)
 		v11 := int(memmap.Int32(0x587000, 196184+8*uintptr(dr.Field_74_4)))
 		v18 := int(memmap.Int32(0x587000, 196188+8*uintptr(dr.Field_74_4)))
 		r.DrawVector(
@@ -51,7 +51,7 @@ func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			image.Pt(p.X+v11, y2+v18),
 			cl,
 		)
-	} else if dr.Flags28()&0x2 != 0 {
+	} else if dr.Class()&0x2 != 0 {
 		debugDrawShape(r, dr, p, cl)
 		r.DrawVector(
 			p,
@@ -64,7 +64,7 @@ func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
 		r.DrawString(nil, getThingName(int(dr.Field27())), p)
 		r.DrawString(nil, debugStateStr2(int(dr.Field_69)), image.Pt(p.X, p.Y+10))
-	} else if dr.Flags28()&0x4 != 0 {
+	} else if dr.Class()&0x4 != 0 {
 		debugDrawShape(r, dr, p, cl)
 		r.DrawVector(
 			p,
@@ -91,8 +91,8 @@ func debugDrawShape(r *NoxRender, dr *client.Drawable, p image.Point, cl color.C
 	case server.ShapeKindCircle:
 		rad := int(sh.Circle.R)
 		z := int16(dr.ZVal)
-		y1 := p.Y - int(dr.Field_24-float32(z))
-		y2 := p.Y - int(dr.Field_25-float32(z))
+		y1 := p.Y - int(dr.ZSizeMin-float32(z))
+		y2 := p.Y - int(dr.ZSizeMax-float32(z))
 		if y1 > 0 {
 			r.DrawCircle(p.X, p.Y, rad, nox_color_red)
 		}
@@ -114,11 +114,11 @@ func debugDrawShape(r *NoxRender, dr *client.Drawable, p image.Point, cl color.C
 		z := int16(dr.ZVal)
 		p1 := image.Point{
 			X: p.X,
-			Y: p.Y - int(dr.Field_24-float32(z)),
+			Y: p.Y - int(dr.ZSizeMin-float32(z)),
 		}
 		p2 := image.Point{
 			X: p.X,
-			Y: p.Y - int(dr.Field_25-float32(z)),
+			Y: p.Y - int(dr.ZSizeMax-float32(z)),
 		}
 		if p1.Y > 0 {
 			drawDebugBox(r, box, p, nox_color_red)
