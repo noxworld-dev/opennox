@@ -6,12 +6,12 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 )
 
-func (c *Client) Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {
+func (c *Client) Nox_xxx_client_4984B0_drawable(dr *client.Drawable) bool {
 	if dr.DrawFuncPtr == nil {
-		return 0
+		return false
 	}
 	if dr == c.ClientPlayerUnit() {
-		return 1
+		return true
 	}
 	return c.Sight.Nox_xxx_client_4984B0_drawable_A(c.Viewport(), dr)
 }

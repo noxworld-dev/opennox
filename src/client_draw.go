@@ -45,7 +45,7 @@ func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
 	for y := ys; y <= ye; y++ {
 		for x := xs; x <= xe; x++ {
 			for dr := c.Objs.Index2D[x][y]; dr != nil; dr = dr.Field100() {
-				if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
+				if !c.Nox_xxx_client_4984B0_drawable(dr) {
 					continue
 				}
 				dp := pt.Sub(dr.Pos())
@@ -66,7 +66,7 @@ func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
 func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 	for _, dr := range c.DrawableList2 {
 		c.drawCreatureBackEffects(vp, dr)
-		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
+		if !c.Nox_xxx_client_4984B0_drawable(dr) {
 			continue
 		}
 		dr.Field_121 = 1
@@ -396,7 +396,7 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 	for _, dr := range c.DrawableList3 {
 		c.drawCreatureBackEffects(vp, dr)
-		if c.Nox_xxx_client_4984B0_drawable(dr) == 0 {
+		if !c.Nox_xxx_client_4984B0_drawable(dr) {
 			continue
 		}
 		dr.Field_121 = 1
@@ -419,16 +419,17 @@ func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 
 func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 	for _, dr := range c.DrawableList4 {
-		if c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
-			dr.Field_121 = 1
-			legacy.CallDrawFunc(dr, vp)
-			if noxflags.HasEngine(noxflags.EngineShowExtents) {
-				nox_thing_debug_draw(vp, dr)
-			}
-			dr.Field_33 = 0
-			if dr.Field_120 == 0 && dr.Field_122 == 0 {
-				dr.Field_85 = c.srv.Frame()
-			}
+		if !c.Nox_xxx_client_4984B0_drawable(dr) {
+			continue
+		}
+		dr.Field_121 = 1
+		legacy.CallDrawFunc(dr, vp)
+		if noxflags.HasEngine(noxflags.EngineShowExtents) {
+			nox_thing_debug_draw(vp, dr)
+		}
+		dr.Field_33 = 0
+		if dr.Field_120 == 0 && dr.Field_122 == 0 {
+			dr.Field_85 = c.srv.Frame()
 		}
 	}
 	c.DrawableList4 = c.DrawableList4[:0]
@@ -566,9 +567,9 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
 		return
 	}
 	if legacy.Sub_4757D0_drawable(dr) != 0 {
-		if legacy.Get_nox_client_fadeObjects_80836() != 0 || dr == c.ClientPlayerUnit() || c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
+		if legacy.Get_nox_client_fadeObjects_80836() != 0 || dr == c.ClientPlayerUnit() || c.Nox_xxx_client_4984B0_drawable(dr) {
 			if dr.Field_122 == 0 {
-				if c.Nox_xxx_client_4984B0_drawable(dr) != 0 {
+				if c.Nox_xxx_client_4984B0_drawable(dr) {
 					dr.Field_121 = 1
 					dr.Field_120 = 0
 				} else {
