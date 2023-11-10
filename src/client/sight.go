@@ -498,183 +498,151 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 	}
 }
 
+func (c *clientSight) checkXxx(r image.Rectangle) bool {
+	prev := c.arr_5d4594_1203876[c.dword_5d4594_1217464_size-1]
+	for i := 0; i < c.dword_5d4594_1217464_size; i++ {
+		p := c.arr_5d4594_1203876[i]
+		var r2 image.Rectangle
+		r2.Min.X = int(prev.X)
+		r2.Min.Y = int(prev.Y)
+		r2.Max.X = int(p.X)
+		r2.Max.Y = int(p.Y)
+		if sub_427C80(r, r2) {
+			return true
+		}
+		prev = p
+	}
+	return false
+}
+
 func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, dr *Drawable) bool {
 	if dr.DrawFuncPtr == nil {
 		return false
 	}
-	var v42, v43, v6 int32
+	var posX, posY int32
 	if int8(byte(dr.Class())) >= 0 {
-		v42 = int32(dr.PosVec.X)
-		v43 = int32(dr.PosVec.Y)
-		v6 = int32(dr.PosVec.X)
+		posX = int32(dr.PosVec.X)
+		posY = int32(dr.PosVec.Y)
 	} else {
 		if (dr.SubClass() & 4) == 0 {
 			return dr.Field_33 != 0
 		}
-		v3 := int32(dr.PosVec.X)
-		v4 := int32(dr.Field_74_4) * 8
-		v5 := *memmap.PtrInt32(0x587000, uintptr(v4)+196184)
-		v6 = v3 + v5/2
-		v42 = v3 + v5/2
-		v43 = int32(dr.PosVec.Y + int(uint32(*memmap.PtrInt32(0x587000, uintptr(v4)+196188)/2)))
+		ind := int32(dr.Field_74_4)
+		posX = int32(dr.PosVec.X) + memmap.Int32(0x587000, 8*uintptr(ind)+196184)/2
+		posY = int32(dr.PosVec.Y) + memmap.Int32(0x587000, 8*uintptr(ind)+196188)/2
 	}
 	if dr.Flags().Has(object.FlagShadow) {
 		return dr.Field_33 != 0
 	}
-	v7 := int32(vp.World.Min.X - vp.Screen.Min.X)
-	v8 := int32(vp.World.Min.Y - vp.Screen.Min.Y)
-	v44 := v7
-	v45 := v8
-	v37 := v6 - v7
-	var a1a image.Rectangle
-	a1a.Min.X = vp.Screen.Min.X + vp.Size.X/2
-	a1a.Min.Y = vp.Screen.Min.Y + vp.Jiggle12 + vp.Size.Y/2
-	a1a.Max.X = int(v6 - v7)
-	a1a.Max.Y = int(v43 - v8)
+	oposX := int32(vp.World.Min.X - vp.Screen.Min.X)
+	oposY := int32(vp.World.Min.Y - vp.Screen.Min.Y)
+	v44 := oposX
+	v45 := oposY
+	v37 := posX - oposX
+	var r1 image.Rectangle
+	r1.Min.X = vp.Screen.Min.X + vp.Size.X/2
+	r1.Min.Y = vp.Screen.Min.Y + vp.Jiggle12 + vp.Size.Y/2
+	r1.Max.X = int(posX - oposX)
+	r1.Max.Y = int(posY - oposY)
 	if c.dword_5d4594_1217464_size <= 0 {
 		return true
 	}
-	v9 := c.arr_5d4594_1203876[c.dword_5d4594_1217464_size-1]
-	ok := false
-	for v31 := 0; v31 < c.dword_5d4594_1217464_size; v31++ {
-		p := c.arr_5d4594_1203876[v31]
-		var a2 image.Rectangle
-		a2.Min.X = int(v9.X)
-		a2.Min.Y = int(v9.Y)
-		a2.Max.X = int(p.X)
-		a2.Max.Y = int(p.Y)
-		if sub_427C80(a1a, a2) {
-			ok = true
-			break
-		}
-		v9 = p
-	}
-	if !ok {
+	if !c.checkXxx(r1) {
 		return true
 	}
-	var v13, v14, v15, v16 int32
+	var vec1X, vec1Y, vec2X, vec2Y int32
 	if dr.Shape.Kind == 2 {
 		v12 := int32(dr.Shape.Circle.R)
 		if int32(*(*uint16)(unsafe.Add(dr.C(), 2))) != 0 {
 			v35 := int32(*(*uint16)(unsafe.Add(dr.C(), 6)))
-			v13 = v6 - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - v7
-			v14 = v43 + v12 + int32(dr.ZVal) - v35 - v8 - int32(dr.ZSizeMin)
-			v15 = v13 + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
-			v16 = v14 + v35
+			vec1X = posX - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - oposX
+			vec1Y = posY + v12 + int32(dr.ZVal) - v35 - oposY - int32(dr.ZSizeMin)
+			vec2X = vec1X + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
+			vec2Y = vec1Y + v35
 		} else {
-			v13 = v6 - v12 - v7
-			v14 = v43 - v12 - v8 - int32(dr.ZSizeMax)
-			v15 = v42 + v12 - v44
-			v16 = v43 + v12 + int32(dr.ZVal) - v45 - int32(dr.ZSizeMin)
+			vec1X = posX - v12 - oposX
+			vec1Y = posY - v12 - oposY - int32(dr.ZSizeMax)
+			vec2X = posX + v12 - v44
+			vec2Y = posY + v12 + int32(dr.ZVal) - v45 - int32(dr.ZSizeMin)
 		}
 	} else if int32(*(*uint16)(unsafe.Add(dr.C(), 2))) != 0 {
-		v13 = v6 - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - v7
-		v16 = int32(dr.Shape.Box.RightTop2) + v43 + int32(dr.ZVal) - v8
-		v14 = v16 - int32(*(*uint16)(unsafe.Add(dr.C(), 6)))
-		v15 = v13 + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
+		vec1X = posX - (int32(*(*uint16)(unsafe.Add(dr.C(), 4))) >> 1) - oposX
+		vec2Y = int32(dr.Shape.Box.RightTop2) + posY + int32(dr.ZVal) - oposY
+		vec1Y = vec2Y - int32(*(*uint16)(unsafe.Add(dr.C(), 6)))
+		vec2X = vec1X + int32(*(*uint16)(unsafe.Add(dr.C(), 4)))
 	} else {
-		v13 = v37 + int32(dr.Shape.Box.LeftBottom2)
-		v17 := v43 - v8 - int32(dr.ZSizeMax)
-		v14 = int32(dr.Shape.Box.LeftBottom) + v17
-		v15 = v37 + int32(dr.Shape.Box.RightTop)
-		v16 = int32(dr.Shape.Box.RightTop2) + v43 + int32(dr.ZVal) - v45
+		vec1X = v37 + int32(dr.Shape.Box.LeftBottom2)
+		v17 := posY - oposY - int32(dr.ZSizeMax)
+		vec1Y = int32(dr.Shape.Box.LeftBottom) + v17
+		vec2X = v37 + int32(dr.Shape.Box.RightTop)
+		vec2Y = int32(dr.Shape.Box.RightTop2) + posY + int32(dr.ZVal) - v45
 	}
-	v32 := 0
-	v51 := 0
-	v41 := v13
-	v38 := v14
-	v40 := v15
-	v36 := v16
-	if int(v13) < vp.Screen.Min.X || int(v13) > vp.Screen.Max.X {
-		v32 = 1
+	scrOut := 0
+	scrIn := 0
+	vec3X := vec1X
+	vec3Y := vec1Y
+	vec4X := vec2X
+	vec4Y := vec2Y
+	if int(vec1X) < vp.Screen.Min.X || int(vec1X) > vp.Screen.Max.X {
+		scrOut = 1
 	} else {
-		v51 = 1
+		scrIn = 1
 	}
-	if int(v14) < vp.Screen.Min.Y || int(v14) > vp.Screen.Max.Y {
-		v32++
+	if int(vec1Y) < vp.Screen.Min.Y || int(vec1Y) > vp.Screen.Max.Y {
+		scrOut++
 	} else {
-		v51++
+		scrIn++
 	}
-	if int(v15) < vp.Screen.Min.X || int(v15) > vp.Screen.Max.X {
-		v32++
+	if int(vec2X) < vp.Screen.Min.X || int(vec2X) > vp.Screen.Max.X {
+		scrOut++
 	} else {
-		v51++
+		scrIn++
 	}
-	if int(v16) < vp.Screen.Min.Y || int(v16) > vp.Screen.Max.Y {
-		v32++
+	if int(vec2Y) < vp.Screen.Min.Y || int(vec2Y) > vp.Screen.Max.Y {
+		scrOut++
 	} else {
-		v51++
+		scrIn++
 	}
 	if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(dr), 2))) != 0 {
-		if v15-v13 > 6 {
-			v13 += 3
-			v15 -= 3
+		if vec2X-vec1X > 6 {
+			vec1X += 3
+			vec2X -= 3
 		}
-		if v16-v14 >= 22 {
-			v14 += 11
-			v16 -= 11
+		if vec2Y-vec1Y >= 22 {
+			vec1Y += 11
+			vec2Y -= 11
 		}
 	}
-	if v51 == 0 || v32 == 0 {
+	if scrIn == 0 || scrOut == 0 {
 		return false
 	}
-	var v48 image.Rectangle
-	v48.Min.X = a1a.Min.X
-	v48.Min.Y = a1a.Min.Y
-	if int(v41) < vp.Screen.Min.X {
-		v48.Max.X = int(v15)
-		a1a.Max.X = int(v15)
-		a1a.Max.Y = int(v14)
-		v48.Max.Y = int(v16)
-	} else if int(v40) > vp.Screen.Max.X {
-		v48.Max.X = int(v13)
-		a1a.Max.X = int(v13)
-		a1a.Max.Y = int(v14)
-		v48.Max.Y = int(v16)
+	var r2 image.Rectangle
+	r2.Min.X = r1.Min.X
+	r2.Min.Y = r1.Min.Y
+	if int(vec3X) < vp.Screen.Min.X {
+		r2.Max.X = int(vec2X)
+		r1.Max.X = int(vec2X)
+		r1.Max.Y = int(vec1Y)
+		r2.Max.Y = int(vec2Y)
+	} else if int(vec4X) > vp.Screen.Max.X {
+		r2.Max.X = int(vec1X)
+		r1.Max.X = int(vec1X)
+		r1.Max.Y = int(vec1Y)
+		r2.Max.Y = int(vec2Y)
 	}
-	if int(v38) < vp.Screen.Min.Y {
-		a1a.Max.X = int(v13)
-		v48.Max.Y = int(v16)
-		a1a.Max.Y = int(v16)
-		v48.Max.X = int(v15)
-	} else if int(v36) > vp.Screen.Max.Y {
-		a1a.Max.X = int(v13)
-		v48.Max.Y = int(v14)
-		a1a.Max.Y = int(v14)
-		v48.Max.X = int(v15)
+	if int(vec3Y) < vp.Screen.Min.Y {
+		r1.Max.X = int(vec1X)
+		r2.Max.Y = int(vec2Y)
+		r1.Max.Y = int(vec2Y)
+		r2.Max.X = int(vec2X)
+	} else if int(vec4Y) > vp.Screen.Max.Y {
+		r1.Max.X = int(vec1X)
+		r2.Max.Y = int(vec1Y)
+		r1.Max.Y = int(vec1Y)
+		r2.Max.X = int(vec2X)
 	}
-	v18 := c.dword_5d4594_1217464_size
-	v20 := c.arr_5d4594_1203876[c.dword_5d4594_1217464_size-1]
-	if c.dword_5d4594_1217464_size > 0 {
-		for v19 := 0; v19 < c.dword_5d4594_1217464_size; v19++ {
-			p := c.arr_5d4594_1203876[v19]
-			var a2 image.Rectangle
-			a2.Min.X = int(v20.X)
-			a2.Min.Y = int(v20.Y)
-			a2.Max.X = int(p.X)
-			a2.Max.Y = int(p.Y)
-			if sub_427C80(a1a, a2) {
-				return false
-			}
-			v18 = c.dword_5d4594_1217464_size
-			v20 = p
-		}
-	}
-	if v18 <= 0 {
-		return true
-	}
-	v25 := c.arr_5d4594_1203876[v18-1]
-	for i := 0; i < c.dword_5d4594_1217464_size; i++ {
-		p := c.arr_5d4594_1203876[i]
-		var a2 image.Rectangle
-		a2.Min.X = int(v25.X)
-		a2.Min.Y = int(v25.Y)
-		a2.Max.X = int(p.X)
-		a2.Max.Y = int(p.Y)
-		if sub_427C80(v48, a2) {
-			return false
-		}
-		v25 = p
+	if c.checkXxx(r1) || c.checkXxx(r2) {
+		return false
 	}
 	return true
 }
