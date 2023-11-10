@@ -150,7 +150,7 @@ func sub_49BCD0(dr *nox_drawable) {
 
 //export nox_xxx_client_4984B0_drawable
 func nox_xxx_client_4984B0_drawable(dr *nox_drawable) int {
-	return GetClient().Nox_xxx_client_4984B0_drawable(asDrawable(dr))
+	return bool2int(GetClient().Nox_xxx_client_4984B0_drawable(asDrawable(dr)))
 }
 
 //export sub_4992B0
