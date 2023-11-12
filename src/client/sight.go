@@ -55,7 +55,7 @@ func (c *Client) Nox_xxx_drawBlack_496150(vp *noxrender.Viewport) {
 	c.Sight.Sub_498030(vp)
 	c.sub_497260(vp)
 	c.Sight.Nox_xxx_drawBlack_496150_E(vp, &c.Server.Walls, c.Server.Sub_57B500, c.DrawListAppendWallYyy)
-	c.Sight.Sub_498110()
+	c.Sight.procListZzz()
 	c.Sight.Nox_xxx_drawBlack_496150_F(vp, &c.Server.Walls, func() {
 		if c.Debug.ShowSight {
 			c.DebugSightAdd()
@@ -126,45 +126,68 @@ func (c *Client) sub_497260(vp *noxrender.Viewport) {
 			case server.ShapeKindCircle:
 				if (pos.X-dr.Shape.Circle.R) < float32(vp.World.Min.X+vp.Size.X) && (pos.X+dr.Shape.Circle.R) > float32(vp.World.Min.X) {
 					if (pos.Y-dr.Shape.Circle.R) < float32(vp.World.Min.Y+vp.Size.Y) && (pos.Y+dr.Shape.Circle.R) > float32(vp.World.Min.Y) {
-						c.Sight.Sub_497650(dr)
+						c.Sight.newFromDrawableCircle(dr)
 					}
 				}
 			case server.ShapeKindBox:
 				if (pos.X+dr.Shape.Box.LeftBottom2) < float32(vp.World.Min.X+vp.Size.X) && (pos.X+dr.Shape.Box.RightTop) > float32(vp.World.Min.X) {
 					if (pos.Y+dr.Shape.Box.LeftBottom) < float32(vp.World.Min.Y+vp.Size.Y) && (pos.Y+dr.Shape.Box.RightTop2) > float32(vp.World.Min.Y) {
-						c.Sight.Sub_4977C0(dr)
+						c.Sight.newFromDrawableBox(dr)
 					}
 				}
 			}
 		} else {
 			if (pos.X-32) < float32(vp.World.Min.X+vp.Size.X) && (pos.X+32) > float32(vp.World.Min.X) {
 				if (pos.Y-32) < float32(vp.World.Min.Y+vp.Size.Y) && (pos.Y+32) > float32(vp.World.Min.Y) {
-					c.Sight.Sub_4974B0(dr)
+					c.Sight.newFromDrawableXxx(dr)
 				}
 			}
 		}
 	}
 }
 
+type SightStructXxx struct {
+	Field0    uint32          // 0, 0
+	Field4    uint32          // 1, 4
+	NextYyy8  *SightStructXxx // 2, 8
+	NextZzz12 *SightStructXxx // 3, 12
+	NextXxx16 *SightStructXxx // 4, 16
+	Obj20     *Drawable       // 5, 20
+	GridPos24 ntype.Point32   // 6, 24
+	DistSq32  int32           // 8, 32
+	Field36   byte            // 9, 36
+	Field37   byte            // 9, 37
+	Field38   uint16          // 9, 38
+	Ang40     sightAngle      // 10, 40
+	Ang44     sightAngle      // 11, 44
+	Field48   byte            // 12, 48
+	Field49   byte            // 12, 49
+	Field50   uint16          // 12, 50
+	Field52   uint32          // 13, 52
+	Field56   byte            // 14, 56
+	Field57   byte            // 14, 57
+	Field58   uint16          // 14, 58
+}
+
 type clientSight struct {
-	sightViewCenter      image.Point
-	dword_5d4594_1217452 int
-	sightStructArr       []*SightStructXxx
-	sightStructArrSize   int
+	sightViewCenter    image.Point
+	sightStructArr     []*SightStructXxx
+	sightStructArrSize int
 
-	dword_5d4594_1522584 *SightStructXxx
-	dword_5d4594_1522588 uint32
-	dword_5d4594_1522592 *SightStructXxx
-	dword_5d4594_1522596 *SightStructXxx
+	sightListCnt uint32
+	sightListXxx *SightStructXxx
+	sightListYyy *SightStructXxx
+	sightListZzz *SightStructXxx
 
-	arr_5d4594_1322584 [100000]sightAngle
+	angleTable [100000]sightAngle
 
 	sightPointsCnt  int
 	sightPointsArr  [sightPointsMax]image.Point
 	sightPointsVar1 [sightPointsMax]uint32
 	sightPointsVar2 [sightPointsMax]byte
 
-	arr_5d4594_1212068 [32]image.Point
+	arr_5d4594_1212068   [32]image.Point
+	dword_5d4594_1217452 int
 }
 
 func (c *clientSight) addSightPoint(p image.Point, a3 uint32, a4 byte) {
@@ -180,18 +203,57 @@ func (c *clientSight) addSightLine(p1, p2 image.Point, a3 uint32, a4 byte) {
 	c.addSightPoint(p2, a3, a4)
 }
 
-func (c *clientSight) sub_4CAE60() {
-	var v1 *SightStructXxx
-	c.dword_5d4594_1522584 = nil
-	for it := c.dword_5d4594_1522592; it != nil; it = it.Field8 {
-		it.Field16 = v1
-		v1 = it
-		c.dword_5d4594_1522584 = it
+func (c *clientSight) GetSightPoints() []image.Point {
+	return c.sightPointsArr[:c.sightPointsCnt]
+}
+
+func (c *clientSight) Init(w, h int) {
+	c.sightStructArr, _ = alloc.Make([]*SightStructXxx{}, uintptr(w*4/common.GridStep*(h/common.GridStep)/2))
+	c.initAngles()
+}
+func (c *clientSight) initAngles() {
+	ca := memmap.Float64(0x581450, 9960)
+	cb := memmap.Float64(0x581450, 9952)
+	for i := range c.angleTable {
+		c.angleTable[i] = sightAngle(math.Atan2(float64(i)*ca, 1.0)*cb + 0.5)
+	}
+}
+func (c *clientSight) Free() {
+	if c.sightStructArr != nil {
+		alloc.FreeSlice(c.sightStructArr)
+		c.sightStructArr = nil
 	}
 }
 
+func (c *clientSight) nextListZzz() *SightStructXxx {
+	res := c.sightListZzz
+	if c.sightListZzz != nil {
+		c.sightListZzz = c.sightListZzz.NextZzz12
+	}
+	return res
+}
+func (c *clientSight) addListZzz(ss *SightStructXxx) {
+	ss.NextZzz12 = c.sightListZzz
+	c.sightListZzz = ss
+}
+
+func (c *clientSight) sightListReset() {
+	var prev *SightStructXxx
+	c.sightListXxx = nil
+	for it := c.sightListYyy; it != nil; it = it.NextYyy8 {
+		it.NextXxx16 = prev
+		prev = it
+		c.sightListXxx = it
+	}
+}
+
+func (c *clientSight) listPutXxx(ss *SightStructXxx) {
+	ss.NextXxx16 = c.sightListXxx
+	c.sightListXxx = ss
+}
+
 func (c *clientSight) sightReset(vp *noxrender.Viewport) {
-	c.sub_4CAE60()
+	c.sightListReset()
 	c.sightPointsCnt = 0
 	c.sightStructArrSize = 0
 	c.sightViewCenter.X = vp.World.Min.X + vp.Size.X/2
@@ -246,22 +308,22 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 					}
 				}
 				if v10 == 0 {
-					c.nox_xxx_drawBlackofWall_497C40(gx, gy, 9)
+					c.newFromWall(gx, gy, 9)
 				} else if v10 == 1 {
-					c.nox_xxx_drawBlackofWall_497C40(gx, gy, 6)
+					c.newFromWall(gx, gy, 6)
 				} else {
 					v16 := memmap.Uint8(0x587000, uintptr(v10)+161764)
 					if v16&2 != 0 {
-						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 2)
+						c.newFromWall(gx, gy, 2)
 					}
 					if v16&1 != 0 {
-						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 1)
+						c.newFromWall(gx, gy, 1)
 					}
 					if v16&8 != 0 {
-						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 8)
+						c.newFromWall(gx, gy, 8)
 					}
 					if v16&4 != 0 {
-						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 4)
+						c.newFromWall(gx, gy, 4)
 					}
 				}
 			}
@@ -668,8 +730,8 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 }
 
 func (c *clientSight) Sub_498AE0_B(draw func(p1, p2 image.Point)) {
-	v0 := c.sightPointsCnt
 	v1 := 0
+	v0 := c.sightPointsCnt
 	for i := c.sightPointsCnt - 1; v1 < v0; v1++ {
 		if c.sightPointsVar2[i] == 12 {
 			draw(c.sightPointsArr[i], c.sightPointsArr[v1])
@@ -861,26 +923,6 @@ func (c *clientSight) Sub_4992B0(a1 int, a2 int) int {
 	return result
 }
 
-func (c *clientSight) sub_498130(a1 *SightStructXxx) {
-	for i := c.sub_498290(a1); i < c.sightStructArrSize; i++ {
-		ss := c.sightStructArr[i]
-		if ss.Ang40 > a1.Ang44 {
-			break
-		}
-		c.sub_498380(a1, c.sightStructArr[i])
-		if a1.Field48 == 0 || a1.Ang44-a1.Ang40 < 0 {
-			c.sub_4CAE40(a1)
-			return
-		}
-		if ss.Field48 == 0 || ss.Ang44-ss.Ang40 < 0 {
-			if c.sub_4982E0(ss) <= i {
-				i--
-			}
-			c.sub_4CAE40(ss)
-		}
-	}
-	c.sub_4981D0(a1)
-}
 func (c *clientSight) sub_4981D0(ss *SightStructXxx) {
 	i := 0
 	j := c.sightStructArrSize - 1
@@ -950,41 +992,52 @@ func (c *clientSight) sub_498330(ss *SightStructXxx) int {
 		}
 	}
 }
-func (c *clientSight) Sub_498110() {
-	for it := c.sub_4CAEB0(); it != nil; it = c.sub_4CAEB0() {
-		c.sub_498130(it)
+func (c *clientSight) procListZzz() {
+	for it := c.nextListZzz(); it != nil; it = c.nextListZzz() {
+		c.procZzz(it)
 	}
 }
-func (c *clientSight) sub_4CAEB0() *SightStructXxx {
-	res := c.dword_5d4594_1522596
-	if c.dword_5d4594_1522596 != nil {
-		c.dword_5d4594_1522596 = c.dword_5d4594_1522596.Field12
+func (c *clientSight) procZzz(a1 *SightStructXxx) {
+	for i := c.sub_498290(a1); i < c.sightStructArrSize; i++ {
+		ss := c.sightStructArr[i]
+		if ss.Ang40 > a1.Ang44 {
+			break
+		}
+		c.sub_498380(a1, c.sightStructArr[i])
+		if a1.Field48 == 0 || a1.Ang44-a1.Ang40 < 0 {
+			c.listPutXxx(a1)
+			return
+		}
+		if ss.Field48 == 0 || ss.Ang44-ss.Ang40 < 0 {
+			if c.sub_4982E0(ss) <= i {
+				i--
+			}
+			c.listPutXxx(ss)
+		}
 	}
-	return res
+	c.sub_4981D0(a1)
 }
-func (c *clientSight) sub_4CAE90(ss *SightStructXxx) {
-	ss.Field12 = c.dword_5d4594_1522596
-	c.dword_5d4594_1522596 = ss
-}
-func (c *clientSight) Free() {
-	if c.sightStructArr != nil {
-		alloc.FreeSlice(c.sightStructArr)
-		c.sightStructArr = nil
+
+func (c *clientSight) newStruct() *SightStructXxx {
+	ss := c.sightListXxx
+	if c.sightListXxx == nil {
+		const batch = 10
+		for i := 0; i < batch; i++ {
+			p, _ := alloc.New(SightStructXxx{})
+			p.NextXxx16 = c.sightListXxx
+			c.sightListXxx = p
+			p.NextYyy8 = c.sightListYyy
+			c.sightListYyy = p
+		}
+		c.sightListCnt += batch
+		ss = c.sightListXxx
 	}
+	c.sightListXxx = ss.NextXxx16
+	return ss
 }
-func (c *clientSight) Init(w, h int) {
-	c.sightStructArr, _ = alloc.Make([]*SightStructXxx{}, uintptr(w*4/common.GridStep*(h/common.GridStep)/2))
-	c.sub_4CA860()
-}
-func (c *clientSight) sub_4CA860() {
-	ca := memmap.Float64(0x581450, 9960)
-	cb := memmap.Float64(0x581450, 9952)
-	for i := range c.arr_5d4594_1322584 {
-		c.arr_5d4594_1322584[i] = sightAngle(math.Atan2(float64(i)*ca, 1.0)*cb + 0.5)
-	}
-}
-func (c *clientSight) sub_4CAED0(ss *SightStructXxx) *SightStructXxx {
-	ss2 := c.sub_4CADD0()
+
+func (c *clientSight) copyStruct(ss *SightStructXxx) *SightStructXxx {
+	ss2 := c.newStruct()
 	ss2.GridPos24 = ss.GridPos24
 	ss2.DistSq32 = ss.DistSq32
 	ss2.Field36 = ss.Field36
@@ -996,52 +1049,12 @@ func (c *clientSight) sub_4CAED0(ss *SightStructXxx) *SightStructXxx {
 	return ss2
 }
 
-type SightStructXxx struct {
-	Field0    uint32          // 0, 0
-	Field4    uint32          // 1, 4
-	Field8    *SightStructXxx // 2, 8
-	Field12   *SightStructXxx // 3, 12
-	Field16   *SightStructXxx // 4, 16
-	Obj20     *Drawable       // 5, 20
-	GridPos24 ntype.Point32   // 6, 24
-	DistSq32  int32           // 8, 32
-	Field36   byte            // 9, 36
-	Field37   byte            // 9, 37
-	Field38   uint16          // 9, 38
-	Ang40     sightAngle      // 10, 40
-	Ang44     sightAngle      // 11, 44
-	Field48   byte            // 12, 48
-	Field49   byte            // 12, 49
-	Field50   uint16          // 12, 50
-	Field52   uint32          // 13, 52
-	Field56   byte            // 14, 56
-	Field57   byte            // 14, 57
-	Field58   uint16          // 14, 58
-}
-
-func (c *clientSight) sub_4CADD0() *SightStructXxx {
-	ss := c.dword_5d4594_1522584
-	if c.dword_5d4594_1522584 == nil {
-		const batch = 10
-		for i := 0; i < batch; i++ {
-			p, _ := alloc.New(SightStructXxx{})
-			p.Field16 = c.dword_5d4594_1522584
-			c.dword_5d4594_1522584 = p
-			p.Field8 = c.dword_5d4594_1522592
-			c.dword_5d4594_1522592 = p
-		}
-		c.dword_5d4594_1522588 += batch
-		ss = c.dword_5d4594_1522584
-	}
-	c.dword_5d4594_1522584 = ss.Field16
-	return ss
-}
-func (c *clientSight) nox_xxx_drawBlackofWall_497C40(gx, gy int, typ byte) {
+func (c *clientSight) newFromWall(gx, gy int, typ byte) {
 	x := gx * common.GridStep
 	y := gy * common.GridStep
 	cx := x + 11
 	cy := y + 11
-	ss := c.sub_4CADD0()
+	ss := c.newStruct()
 	ss.GridPos24.X = int32(gx)
 	ss.GridPos24.Y = int32(gy)
 	ss.Field36 = typ
@@ -1100,22 +1113,22 @@ func (c *clientSight) nox_xxx_drawBlackofWall_497C40(gx, gy int, typ byte) {
 		ss.Ang44 = v18
 	}
 	if ss.Ang44-ss.Ang40 < sightAngYyy {
-		c.sub_4CAE90(ss)
+		c.addListZzz(ss)
 		return
 	}
-	ss2 := c.sub_4CAED0(ss)
+	ss2 := c.copyStruct(ss)
 	ss2.Ang40 = 0
 	ss2.Ang44 = ss.Ang40
 	ss.Ang40 = ss.Ang44
 	ss.Ang44 = sightAngMax
-	c.sub_4CAE90(ss2)
-	c.sub_4CAE90(ss)
+	c.addListZzz(ss2)
+	c.addListZzz(ss)
 }
-func (c *clientSight) Sub_4974B0(dr *Drawable) {
+func (c *clientSight) newFromDrawableXxx(dr *Drawable) {
 	if dr.SubClass()&4 != 0 {
 		return
 	}
-	ss := c.sub_4CADD0()
+	ss := c.newStruct()
 	ss.Field48 = 1
 	ss.Field56 = 6
 	ss.Obj20 = dr
@@ -1135,23 +1148,23 @@ func (c *clientSight) Sub_4974B0(dr *Drawable) {
 		ss.Ang44 = v12
 	}
 	if ss.Ang44-ss.Ang40 >= sightAngYyy {
-		ss2 := c.sub_4CAED0(ss)
+		ss2 := c.copyStruct(ss)
 		ss2.Ang40 = 0
 		ss2.Ang44 = ss.Ang40
 		ss.Ang40 = ss.Ang44
 		ss.Ang44 = sightAngMax
-		c.sub_4CAE90(ss2)
+		c.addListZzz(ss2)
 	}
-	c.sub_4CAE90(ss)
+	c.addListZzz(ss)
 }
-func (c *clientSight) Sub_497650(a1 *Drawable) {
-	ss := c.sub_4CADD0()
-	v2 := a1
+func (c *clientSight) newFromDrawableCircle(dr *Drawable) {
+	ss := c.newStruct()
+	v2 := dr
 	ss.Field48 = 1
 	ss.Field56 = 7
-	ss.Obj20 = a1
-	v4 := int32(a1.PosVec.Y)
-	v24 := float32(float64(int32(a1.PosVec.X - c.sightViewCenter.X)))
+	ss.Obj20 = dr
+	v4 := int32(dr.PosVec.Y)
+	v24 := float32(float64(int32(dr.PosVec.X - c.sightViewCenter.X)))
 	v5 := float64(int32(int(v4) - c.sightViewCenter.Y))
 	v23 := float32(v5)
 	v21 := float32(v5*float64(v23) + float64(v24*v24))
@@ -1172,18 +1185,18 @@ func (c *clientSight) Sub_497650(a1 *Drawable) {
 		ss.Ang44 = v18
 	}
 	if ss.Ang44-ss.Ang40 < sightAngYyy {
-		c.sub_4CAE90(ss)
+		c.addListZzz(ss)
 		return
 	}
-	ss2 := c.sub_4CAED0(ss)
+	ss2 := c.copyStruct(ss)
 	ss2.Ang40 = 0
 	ss2.Ang44 = ss.Ang40
 	ss.Ang40 = ss.Ang44
 	ss.Ang44 = sightAngMax
-	c.sub_4CAE90(ss2)
-	c.sub_4CAE90(ss)
+	c.addListZzz(ss2)
+	c.addListZzz(ss)
 }
-func (c *clientSight) Sub_4977C0(a1 *Drawable) {
+func (c *clientSight) newFromDrawableBox(a1 *Drawable) {
 	var (
 		v38 [8]float32
 		v39 float32
@@ -1219,35 +1232,35 @@ func (c *clientSight) Sub_4977C0(a1 *Drawable) {
 		v14 := float64(v38[4]+v38[0])*0.5 - float64(c.sightViewCenter.X)
 		v25 := float32((float64(v35)-float64(c.sightViewCenter.Y))*(float64(v35)-float64(c.sightViewCenter.Y)) + v14*v14)
 		v15 := int32(v25)
-		c.sub_497F60(v5, v9, 9, v15, v1)
+		c.newFromDrawableBoxSub(v5, v9, 9, v15, v1)
 	case 1:
 		v37 := float32(float64(v38[7]+v38[3]) * 0.5)
 		v18 := float64(v38[6]+v38[2])*0.5 - float64(c.sightViewCenter.X)
 		v27 := float32((float64(v37)-float64(c.sightViewCenter.Y))*(float64(v37)-float64(c.sightViewCenter.Y)) + v18*v18)
 		v19 := int32(v27)
-		c.sub_497F60(v40, v7, 10, v19, v1)
+		c.newFromDrawableBoxSub(v40, v7, 10, v19, v1)
 	case 3:
 		v34 := float32(float64(v38[3]+v38[1]) * 0.5)
 		v12 := float64(v38[2]+v38[0])*0.5 - float64(c.sightViewCenter.X)
 		v24 := float32((float64(v34)-float64(c.sightViewCenter.Y))*(float64(v34)-float64(c.sightViewCenter.Y)) + v12*v12)
 		v13 := int32(v24)
-		c.sub_497F60(v5, v7, 8, v13, v1)
+		c.newFromDrawableBoxSub(v5, v7, 8, v13, v1)
 	case 4, 9:
 		v22 := float64(int32(v1.PosVec.X - int(c.sightViewCenter.X)))
 		v29 := float32(float64(int32(v1.PosVec.Y-int(c.sightViewCenter.Y)))*float64(int32(v1.PosVec.Y-c.sightViewCenter.Y)) + v22*v22)
 		v23 := int32(v29)
-		c.sub_497F60(v7, v9, 14, v23, v1)
+		c.newFromDrawableBoxSub(v7, v9, 14, v23, v1)
 	case 5, 8:
 		v20 := float64(int32(v1.PosVec.X - int(c.sightViewCenter.X)))
 		v28 := float32(float64(int32(v1.PosVec.Y-int(c.sightViewCenter.Y)))*float64(int32(v1.PosVec.Y-c.sightViewCenter.Y)) + v20*v20)
 		v21 := int32(v28)
-		c.sub_497F60(v5, v40, 13, v21, v1)
+		c.newFromDrawableBoxSub(v5, v40, 13, v21, v1)
 	case 7:
 		v36 := float32(float64(v38[7]+v38[5]) * 0.5)
 		v16 := float64(v38[6]+v38[4])*0.5 - float64(c.sightViewCenter.X)
 		v26 := float32((float64(v36)-float64(c.sightViewCenter.Y))*(float64(v36)-float64(c.sightViewCenter.Y)) + v16*v16)
 		v17 := int32(v26)
-		c.sub_497F60(v40, v9, 11, v17, v1)
+		c.newFromDrawableBoxSub(v40, v9, 11, v17, v1)
 	}
 }
 func (c *clientSight) Sub_498030(vp *noxrender.Viewport) {
@@ -1259,10 +1272,10 @@ func (c *clientSight) Sub_498030(vp *noxrender.Viewport) {
 	v5 := c.sub_4CA8B0(v2-int32(c.sightViewCenter.Y), v3-int32(c.sightViewCenter.X))
 	v6 := c.sub_4CA8B0(v4-int32(c.sightViewCenter.Y), v3-int32(c.sightViewCenter.X))
 	v7 := c.sub_4CA8B0(v4-int32(c.sightViewCenter.Y), v1-int32(c.sightViewCenter.X))
-	c.sub_497F60(v9, v5, 1, math.MaxInt32, nil)
-	c.sub_497F60(v5, v6, 4, math.MaxInt32, nil)
-	c.sub_497F60(v6, v7, 2, math.MaxInt32, nil)
-	c.sub_497F60(v7, v9, 3, math.MaxInt32, nil)
+	c.newFromDrawableBoxSub(v9, v5, 1, math.MaxInt32, nil)
+	c.newFromDrawableBoxSub(v5, v6, 4, math.MaxInt32, nil)
+	c.newFromDrawableBoxSub(v6, v7, 2, math.MaxInt32, nil)
+	c.newFromDrawableBoxSub(v7, v9, 3, math.MaxInt32, nil)
 }
 
 func sub_497B80(a1 *[8]float32, a2 image.Point) int8 {
@@ -1315,10 +1328,10 @@ func (c *clientSight) sub_4CA8B0(a1 int32, a2 int32) sightAngle {
 		v2 = -a2
 	}
 	ind := int(v4 * 1000 / v2)
-	if ind >= len(c.arr_5d4594_1322584) {
-		ind = len(c.arr_5d4594_1322584) - 1
+	if ind >= len(c.angleTable) {
+		ind = len(c.angleTable) - 1
 	}
-	res := c.arr_5d4594_1322584[ind]
+	res := c.angleTable[ind]
 	switch v6 {
 	case 2:
 		return sightAngYyy - res
@@ -1527,8 +1540,8 @@ func sub_499160(a1, a2, a3 image.Point) bool {
 	}
 	return false
 }
-func (c *clientSight) sub_497F60(a1, a2 sightAngle, a3 byte, a4 int32, a5 *Drawable) {
-	ss := c.sub_4CADD0()
+func (c *clientSight) newFromDrawableBoxSub(a1, a2 sightAngle, a3 byte, a4 int32, a5 *Drawable) {
+	ss := c.newStruct()
 	ss.Field56 = a3
 	ss.DistSq32 = a4
 	ss.Field48 = 1
@@ -1543,16 +1556,16 @@ func (c *clientSight) sub_497F60(a1, a2 sightAngle, a3 byte, a4 int32, a5 *Drawa
 	ss.Ang40 = sightAngAdjust(ss.Ang40)
 	ss.Ang44 = sightAngAdjust(ss.Ang44)
 	if ss.Ang44-ss.Ang40 < sightAngYyy {
-		c.sub_4CAE90(ss)
+		c.addListZzz(ss)
 		return
 	}
-	ss2 := c.sub_4CAED0(ss)
+	ss2 := c.copyStruct(ss)
 	ss2.Ang40 = 0
 	ss2.Ang44 = ss.Ang40
 	ss.Ang40 = ss.Ang44
 	ss.Ang44 = sightAngMax
-	c.sub_4CAE90(ss2)
-	c.sub_4CAE90(ss)
+	c.addListZzz(ss2)
+	c.addListZzz(ss)
 }
 
 func sub_4CAC30(pos ntype.Point32, rect types.Rectf, dpx, dpy int32) (out types.Pointf) {
@@ -1705,7 +1718,7 @@ func (c *clientSight) sub_498380(ss1 *SightStructXxx, ss2 *SightStructXxx) {
 			return
 		}
 		if ss1.DistSq32 < ss2.DistSq32 {
-			v7 := c.sub_4CAED0(ss2)
+			v7 := c.copyStruct(ss2)
 			v8 := v7.Ang44
 			v9 := ss1.Ang44 + 1
 			v7.Ang40 = v9
@@ -1718,7 +1731,7 @@ func (c *clientSight) sub_498380(ss1 *SightStructXxx, ss2 *SightStructXxx) {
 			if v11 > v10 {
 				ss2.Field48 = 0
 			}
-			c.sub_4CAE90(v7)
+			c.addListZzz(v7)
 			return
 		}
 		ss1.Field48 = 0
@@ -1728,7 +1741,7 @@ func (c *clientSight) sub_498380(ss1 *SightStructXxx, ss2 *SightStructXxx) {
 	v13 := ss1.DistSq32
 	if v12 {
 		if v13 >= ss2.DistSq32 {
-			v14 := c.sub_4CAED0(ss1)
+			v14 := c.copyStruct(ss1)
 			v15 := v14.Ang44
 			v16 := ss2.Ang44 + 1
 			v14.Ang40 = v16
@@ -1741,7 +1754,7 @@ func (c *clientSight) sub_498380(ss1 *SightStructXxx, ss2 *SightStructXxx) {
 			if v18 > v17 {
 				ss1.Field48 = 0
 			}
-			c.sub_4CAE90(v14)
+			c.addListZzz(v14)
 		} else {
 			ss2.Field48 = 0
 		}
@@ -1763,10 +1776,6 @@ func (c *clientSight) sub_498380(ss1 *SightStructXxx, ss2 *SightStructXxx) {
 			ss2.Field48 = 0
 		}
 	}
-}
-func (c *clientSight) sub_4CAE40(ss *SightStructXxx) {
-	ss.Field16 = c.dword_5d4594_1522584
-	c.dword_5d4594_1522584 = ss
 }
 func sub_427C80(r1, r2 image.Rectangle) bool {
 	v2 := r1.Min.X
@@ -1849,16 +1858,12 @@ func sub_427C80(r1, r2 image.Rectangle) bool {
 	return true
 }
 
-func (c *clientSight) Get_arr_5d4594_1203876() []image.Point {
-	return c.sightPointsArr[:c.sightPointsCnt]
-}
-
 func (c *clientSight) Nox_xxx_drawBlack_496150_C() []image.Point {
 	c.sub_4989A0()
-	return c.Get_arr_5d4594_1203876()
+	return c.GetSightPoints()
 }
 func (c *clientSight) sub_4989A0() {
-	arr := c.Get_arr_5d4594_1203876()
+	arr := c.GetSightPoints()
 	if len(arr) < 3 {
 		return
 	}
