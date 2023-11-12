@@ -9,11 +9,7 @@ import (
 )
 
 func (c *Client) DebugSightAdd() {
-	var arr []image.Point
-	for _, p := range c.Sight.Get_arr_5d4594_1203876() {
-		arr = append(arr, p.Point())
-	}
-	c.Debug.showSightData = append(c.Debug.showSightData, arr)
+	c.Debug.showSightData = append(c.Debug.showSightData, c.Sight.Get_arr_5d4594_1203876())
 }
 
 func (c *Client) drawDebugSight(vp *noxrender.Viewport, arr []image.Point, gen int) {
@@ -49,9 +45,5 @@ func (c *Client) DrawDebugSight(vp *noxrender.Viewport) {
 	for i, arr := range arrs {
 		c.drawDebugSight(vp, arr, i+1)
 	}
-	var arr []image.Point
-	for _, p := range c.Sight.Get_arr_5d4594_1203876() {
-		arr = append(arr, p.Point())
-	}
-	c.drawDebugSight(vp, arr, 0)
+	c.drawDebugSight(vp, c.Sight.Get_arr_5d4594_1203876(), 0)
 }
