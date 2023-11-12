@@ -160,7 +160,17 @@ func sub_4992B0(a, b int) int {
 
 //export sub_498C20
 func sub_498C20(a, b *C.nox_point, a3 int32) int32 {
-	return GetClient().Cli().Sight.Sub_498C20((*ntype.Point32)(unsafe.Pointer(a)), (*ntype.Point32)(unsafe.Pointer(b)), a3)
+	p1, p2 := (*ntype.Point32)(unsafe.Pointer(a)), (*ntype.Point32)(unsafe.Pointer(b))
+	var v1, v2 *image.Point
+	if p1 != nil {
+		v := p1.Point()
+		v1 = &v
+	}
+	if p2 != nil {
+		v := p2.Point()
+		v2 = &v
+	}
+	return GetClient().Cli().Sight.Sub_498C20(v1, v2, a3)
 }
 
 //export sub_499290

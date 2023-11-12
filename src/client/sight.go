@@ -69,24 +69,24 @@ func (c *Client) Sub_498AE0() {
 	defer r.Data().SetAlphaEnabled(false)
 	cl := noxcolor.RGB5551Color(0, 0, 0)
 	r.Data().SetColor2(cl)
-	c.Sight.Sub_498AE0_B(func(p1, p2 ntype.Point32) {
+	c.Sight.Sub_498AE0_B(func(p1, p2 image.Point) {
 		c.sub_498B50(cl, p1, p2)
 	})
 }
 
-func (c *Client) sub_498B50(cl color.Color, p1, p2 ntype.Point32) {
+func (c *Client) sub_498B50(cl color.Color, p1, p2 image.Point) {
 	r := c.Render()
 	v7 := p1.Y - p2.Y
 	v8 := p1.X - p2.X
-	v9 := p1.X - p2.X
-	v10 := p2.Y - p1.Y
-	if p1.X-p2.X < 0 {
-		v8 = p2.X - p1.X
+	v9 := v8
+	v10 := -v7
+	if v8 < 0 {
+		v8 = -v8
 	}
 	if v7 < 0 {
-		v7 = p2.Y - p1.Y
+		v7 = -v7
 	}
-	var sy, sx int32
+	var sy, sx int
 	if v8 <= v7 {
 		if v10 < 0 {
 			sx = 1
@@ -100,16 +100,15 @@ func (c *Client) sub_498B50(cl color.Color, p1, p2 ntype.Point32) {
 		}
 		v11 := uint32(v11a - 1)
 		v11 &= 0xFFFFFFFE
-		sy = int32(v11 + 1)
+		sy = int(v11 + 1)
 	}
 	alpha := byte(208)
 	cp := p1
-	vx := p2.X - p1.X
-	vy := p2.Y - p1.Y
+	vpt := p2.Sub(p1)
 	for i := 0; i < 10; i++ {
 		r.Data().SetAlpha(alpha)
 		alpha -= 20
-		r.DrawVector(image.Pt(int(cp.X), int(cp.Y)), image.Pt(int(vx), int(vy)), cl)
+		r.DrawVector(cp, vpt, cl)
 		cp.X += sx
 		cp.Y += sy
 	}
@@ -161,16 +160,16 @@ type clientSight struct {
 	arr_5d4594_1322584 [100000]sightAngle
 
 	sightPointsCnt  int
-	sightPointsArr  [sightPointsMax]ntype.Point32
+	sightPointsArr  [sightPointsMax]image.Point
 	sightPointsVar1 [sightPointsMax]uint32
 	sightPointsVar2 [sightPointsMax]byte
 
-	arr_5d4594_1212068 [32]ntype.Point32
+	arr_5d4594_1212068 [32]image.Point
 }
 
 func (c *clientSight) addSightPoint(p image.Point, a3 uint32, a4 byte) {
 	ind := c.sightPointsCnt
-	c.sightPointsArr[ind] = ntype.Point32{X: int32(p.X), Y: int32(p.Y)}
+	c.sightPointsArr[ind] = p
 	c.sightPointsVar1[ind] = a3
 	c.sightPointsVar2[ind] = a4
 	c.sightPointsCnt++
@@ -439,20 +438,20 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 	pi := c.sightPointsCnt - 1
 	for i := 0; i < c.sightPointsCnt; pi, i = i, i+1 {
 		v55 := c.sightPointsVar2[pi]
-		var adx, ady int32
+		var adx, ady int
 		if v55 != 0 {
 			v56 := c.sightPointsVar2[i]
 			if v56 == 0 {
 				if v55 == 6 || c.sightPointsVar2[i] == 6 {
 					v63 := c.sightPointsArr[pi].X
-					var v64 int32
+					var v64 int
 					if c.sightPointsArr[i].X-v63 >= 0 {
 						v64 = c.sightPointsArr[i].X - v63
 					} else {
 						v64 = v63 - c.sightPointsArr[i].X
 					}
 					v65 := c.sightPointsArr[pi].Y
-					var v66 int32
+					var v66 int
 					if c.sightPointsArr[i].Y-v65 >= 0 {
 						v66 = c.sightPointsArr[i].Y - v65
 					} else {
@@ -483,14 +482,14 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 			if c.sightPointsVar2[i] != 0 {
 				if v55 == 6 || c.sightPointsVar2[i] == 6 {
 					v63 := c.sightPointsArr[pi].X
-					var v64 int32
+					var v64 int
 					if c.sightPointsArr[i].X-v63 >= 0 {
 						v64 = c.sightPointsArr[i].X - v63
 					} else {
 						v64 = v63 - c.sightPointsArr[i].X
 					}
 					v65 := c.sightPointsArr[pi].Y
-					var v66 int32
+					var v66 int
 					if c.sightPointsArr[i].Y-v65 >= 0 {
 						v66 = c.sightPointsArr[i].Y - v65
 					} else {
@@ -528,10 +527,8 @@ func (c *clientSight) checkXxx(r image.Rectangle) bool {
 	for i := 0; i < c.sightPointsCnt; i++ {
 		p := c.sightPointsArr[i]
 		var r2 image.Rectangle
-		r2.Min.X = int(prev.X)
-		r2.Min.Y = int(prev.Y)
-		r2.Max.X = int(p.X)
-		r2.Max.Y = int(p.Y)
+		r2.Min = prev
+		r2.Max = p
 		if sub_427C80(r, r2) {
 			return true
 		}
@@ -670,7 +667,7 @@ func (c *clientSight) Nox_xxx_client_4984B0_drawable_A(vp *noxrender.Viewport, d
 	return true
 }
 
-func (c *clientSight) Sub_498AE0_B(draw func(p1, p2 ntype.Point32)) {
+func (c *clientSight) Sub_498AE0_B(draw func(p1, p2 image.Point)) {
 	v0 := c.sightPointsCnt
 	v1 := 0
 	for i := c.sightPointsCnt - 1; v1 < v0; v1++ {
@@ -682,24 +679,23 @@ func (c *clientSight) Sub_498AE0_B(draw func(p1, p2 ntype.Point32)) {
 	}
 }
 
-func (c *clientSight) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32) int32 {
-	var (
-		v27 float32
-		v29 float32
-		v31 int32
-		a1a ntype.Point32
-	)
-	v3 := a1
-	if a1 == nil {
-		return 0
-	}
-	v4 := a2
-	if a2 == nil {
+func (c *clientSight) Sub_498C20(a1p *image.Point, a2p *image.Point, a3 int32) int32 {
+	if a1p == nil || a2p == nil {
 		return 0
 	}
 	if a3 == 0 {
 		return 0
 	}
+	var (
+		v27 float32
+		v29 float32
+		v31 int
+		a1a image.Point
+	)
+	a1 := *a1p
+	v3 := a1
+	a2 := *a2p
+	v4 := a2
 	c.dword_5d4594_1217452 = 0
 	v5 := sub_4990D0(a1, a2)
 	v6 := v5
@@ -710,19 +706,19 @@ func (c *clientSight) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32)
 	if v5 != 4 && v5 != 8 {
 		v29 = float32(float64(a2.Y-v3.Y) / float64(a2.X-v3.X))
 		v27 = float32(float64(v3.X) * float64(v29))
-		v31 = v3.Y - int32(v27)
+		v31 = v3.Y - int(v27)
 	}
 	v7 := c.sightPointsCnt
 	if c.sightPointsCnt > 0 {
 		for v32 := 0; ; {
 			a2a := c.sightPointsArr[v32]
-			var a3a ntype.Point32
+			var a3a image.Point
 			if v32 == v7-1 {
 				a3a = c.sightPointsArr[0]
 			} else {
 				a3a = c.sightPointsArr[v32+1]
 			}
-			v38 := sub_4990D0(&a2a, &a3a)
+			v38 := sub_4990D0(a2a, a3a)
 			if v38 != 0 && (v6&1 == 0 || a2a.X <= v3.X || a2a.X <= v4.X || a3a.X <= v3.X || a3a.X <= v4.X) && (v37&2 == 0 || a2a.X >= v3.X || a2a.X >= v4.X || a3a.X >= v3.X) {
 				if v37&4 == 0 || a2a.Y <= v3.Y || a2a.Y <= a2.Y || a3a.Y <= v3.Y || a3a.Y <= a2.Y {
 					if v37&8 == 0 || a2a.Y >= v3.Y || a2a.Y >= a2.Y || a3a.Y >= v3.Y || a3a.Y >= a2.Y {
@@ -733,35 +729,35 @@ func (c *clientSight) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32)
 							if v37 != 1 && v37 != 2 {
 								a1a.X = a2a.X
 								v26 := float32(float64(a2a.X) * float64(v29))
-								a1a.Y = v31 + int32(v26)
-								if sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2) {
+								a1a.Y = v31 + int(v26)
+								if sub_499160(a1a, a2a, a3a) && sub_499160(a1a, v3, a2) {
 									c.sub_499130(a1a)
 								}
 								goto LABEL_65
 							}
 							a1a.Y = v3.X
 							a1a.X = a2a.X
-							if sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2) {
+							if sub_499160(a1a, a2a, a3a) && sub_499160(a1a, v3, a2) {
 								c.sub_499130(a1a)
 								goto LABEL_65
 							}
 						} else {
 							v28 := float32(float64(a3a.Y-a2a.Y) / float64(a3a.X-a2a.X))
 							v21 := float32(float64(a2a.X) * float64(v28))
-							v15 := int32(v21)
+							v15 := int(v21)
 							v16 := a2a.Y - v15
 							if v37 == 4 || v37 == 8 {
 								if v38 == 1 || v38 == 2 {
 									a1a.X = v3.X
 									a1a.Y = a2a.X
-									if sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2) {
+									if sub_499160(a1a, a2a, a3a) && sub_499160(a1a, v3, a2) {
 										c.sub_499130(a1a)
 									}
 								} else {
 									a1a.X = v3.X
 									v22 := float32(float64(a1a.X) * float64(v28))
-									a1a.Y = v16 + int32(v22)
-									if sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2) {
+									a1a.Y = v16 + int(v22)
+									if sub_499160(a1a, a2a, a3a) && sub_499160(a1a, v3, a2) {
 										c.sub_499130(a1a)
 									}
 								}
@@ -771,11 +767,11 @@ func (c *clientSight) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32)
 									goto LABEL_65
 								}
 								v25 := float32(float64(v31-v16) / float64(v28))
-								v17 := int32(v25)
+								v17 := int(v25)
 								v18 := v3.Y
 								a1a.X = v17
 								a1a.Y = v18
-								if sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2) {
+								if sub_499160(a1a, a2a, a3a) && sub_499160(a1a, v3, a2) {
 									c.sub_499130(a1a)
 								}
 								goto LABEL_65
@@ -784,10 +780,10 @@ func (c *clientSight) Sub_498C20(a1 *ntype.Point32, a2 *ntype.Point32, a3 int32)
 								v39 := float32(float64(v31 - v16))
 								v30 := v28 - v29
 								v23 := v39 / v30
-								a1a.X = int32(v23)
+								a1a.X = int(v23)
 								v24 := v39 * v28 / v30
-								a1a.Y = v16 + int32(v24)
-								if sub_499160(&a1a, &a2a, &a3a) && sub_499160(&a1a, v3, a2) {
+								a1a.Y = v16 + int(v24)
+								if sub_499160(a1a, a2a, a3a) && sub_499160(a1a, v3, a2) {
 									c.sub_499130(a1a)
 									goto LABEL_65
 								}
@@ -822,8 +818,8 @@ func (c *clientSight) Sub_4992B0(a1 int, a2 int) int {
 		v4 := c.sightPointsArr[v3/8].X
 		v5 := c.sightPointsArr[v3/8].Y
 		v6 := c.sightPointsArr[v8].Y
-		if v6 > int32(a2) {
-			if v5 > int32(a2) {
+		if v6 > a2 {
+			if v5 > a2 {
 				v3 = func() int {
 					p := &v8
 					x := *p
@@ -832,10 +828,10 @@ func (c *clientSight) Sub_4992B0(a1 int, a2 int) int {
 				}() * 8
 				continue
 			}
-		} else if int32(a2) < v5 {
+		} else if a2 < v5 {
 			goto LABEL_8
 		}
-		if int32(a2) >= v6 {
+		if a2 >= v6 {
 			v3 = func() int {
 				p := &v8
 				x := *p
@@ -845,7 +841,7 @@ func (c *clientSight) Sub_4992B0(a1 int, a2 int) int {
 			continue
 		}
 	LABEL_8:
-		if int32(a1) >= c.sightPointsArr[v8].X+(int32(a2)-v6)*(v4-c.sightPointsArr[v8].X)/(v5-v6) {
+		if a1 >= c.sightPointsArr[v8].X+(a2-v6)*(v4-c.sightPointsArr[v8].X)/(v5-v6) {
 			result = v7
 		} else {
 			if v7 == 0 {
@@ -1403,17 +1399,17 @@ func sub_4CAA90(pos ntype.Point32, rect types.Rectf, dpx, dpy int32) (out types.
 	}
 	return out
 }
-func (c *clientSight) sub_499130(a1 ntype.Point32) {
+func (c *clientSight) sub_499130(a1 image.Point) {
 	if c.dword_5d4594_1217452 >= len(c.arr_5d4594_1212068) {
 		return
 	}
 	c.arr_5d4594_1212068[c.dword_5d4594_1217452] = a1
 	c.dword_5d4594_1217452++
 }
-func (c *clientSight) Sub_499290(a1 int) ntype.Point32 {
+func (c *clientSight) Sub_499290(a1 int) image.Point {
 	return c.arr_5d4594_1212068[a1]
 }
-func (c *clientSight) sub_4991E0(a1 *ntype.Point32) {
+func (c *clientSight) sub_4991E0(a1 image.Point) {
 	v1 := c.dword_5d4594_1217452
 	if c.dword_5d4594_1217452 <= 0 {
 		return
@@ -1450,7 +1446,7 @@ func (c *clientSight) sub_4991E0(a1 *ntype.Point32) {
 		}
 	}
 }
-func sub_4990D0(a1 *ntype.Point32, a2 *ntype.Point32) int8 {
+func sub_4990D0(a1, a2 image.Point) int8 {
 	if a1.X <= a2.X {
 		if a1.X >= a2.X {
 			v7 := a1.Y
@@ -1489,13 +1485,13 @@ func sub_4990D0(a1 *ntype.Point32, a2 *ntype.Point32) int8 {
 		return 1
 	}
 }
-func sub_499160(a1 *ntype.Point32, a2 *ntype.Point32, a3 *ntype.Point32) bool {
+func sub_499160(a1, a2, a3 image.Point) bool {
 	var (
-		v3 int32
-		v4 int32
-		v5 int32
-		v6 int32
-		v7 int32
+		v3 int
+		v4 int
+		v5 int
+		v6 int
+		v7 int
 	)
 	v3 = a3.X
 	if a3.X > a2.X {
@@ -1853,11 +1849,11 @@ func sub_427C80(r1, r2 image.Rectangle) bool {
 	return true
 }
 
-func (c *clientSight) Get_arr_5d4594_1203876() []ntype.Point32 {
+func (c *clientSight) Get_arr_5d4594_1203876() []image.Point {
 	return c.sightPointsArr[:c.sightPointsCnt]
 }
 
-func (c *clientSight) Nox_xxx_drawBlack_496150_C() []ntype.Point32 {
+func (c *clientSight) Nox_xxx_drawBlack_496150_C() []image.Point {
 	c.sub_4989A0()
 	return c.Get_arr_5d4594_1203876()
 }
