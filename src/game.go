@@ -549,9 +549,7 @@ func initGameSession435CC0() error {
 	}
 
 	noxClient.nox_xxx_initSight_485F80()
-	if noxClient.Sight.Init(nox_win_width, nox_win_height) == 0 {
-		return errors.New("sub_4960B0 failed")
-	}
+	noxClient.Sight.Init(nox_win_width, nox_win_height)
 
 	noxClient.InitDrawableLists()
 
