@@ -205,6 +205,20 @@ type SightObject struct {
 	Field58   uint16        // 14, 58
 }
 
+func (ss *SightObject) UID() uint32 {
+	switch ss.Kind56 {
+	default:
+		return 0
+	case sightKindWall:
+		return uint32(ss.WallPos.X)&0xffff + ((uint32(ss.WallPos.Y) & 0xffff) << 8)
+	case sightKindView1, sightKindView2, sightKindView3, sightKindView4:
+		return 0
+	case sightKindDrDoor, sightKindDrCircle,
+		sightKindDrBox1, sightKindDrBox2, sightKindDrBox3, sightKindDrBox4, sightKindDrBox5, sightKindDrBox6:
+		return ss.Drawable.Field_32
+	}
+}
+
 type clientSight struct {
 	sightViewCenter    image.Point
 	sightStructArr     []*SightObject
@@ -241,6 +255,10 @@ func (c *clientSight) addSightLine(p1, p2 image.Point, id uint32, kind sightObjK
 
 func (c *clientSight) GetSightPoints() []image.Point {
 	return c.sightPointsArr[:c.sightPointsCnt]
+}
+
+func (c *clientSight) getSightObjs() []*SightObject {
+	return c.sightStructArr[:c.sightStructArrSize]
 }
 
 func (c *clientSight) Init(w, h int) {
@@ -366,167 +384,175 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 	}
 }
 
-func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls WallChecker, debug func()) {
+func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1, pp2 types.Pointf) {
 	var brect types.Rectf
 	brect.Min.X = float32(c.sightViewCenter.X)
 	brect.Min.Y = float32(c.sightViewCenter.Y)
+	switch ss.Kind56 {
+	default:
+		return
+	case sightKindWall:
+		v20 := ss.Ang40.ConvA()
+		v21 := ss.Ang44.ConvA()
+
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v20))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v20))
+		pp1 = sub_4CA960(ss.WallPos, ss.Field36, brect)
+
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v21))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v21))
+		pp2 = sub_4CA960(ss.WallPos, ss.Field36, brect)
+
+		return pp1, pp2
+	case sightKindView1:
+		pp1.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang40.ConvA()-sightAngVal3)*(vp.Size.Y/2)/4096)
+		pp1.Y = float32(vp.World.Min.Y)
+		pp2.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang44.ConvA()-sightAngVal3)*(vp.Size.Y/2)/4096)
+		pp2.Y = float32(vp.World.Min.Y)
+		return pp1, pp2
+	case sightKindView2:
+		pp1.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang40.ConvA()-sightAngVal1)*(vp.Size.Y/2)/4096)
+		pp1.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
+		pp2.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang44.ConvA()-sightAngVal1)*(vp.Size.Y/2)/4096)
+		pp2.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
+		return pp1, pp2
+	case sightKindView3:
+		pp1.X = float32(vp.World.Min.X)
+		pp1.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang40.ConvA()-sightAngVal2)*(vp.Size.X/2)/4096)
+		pp2.X = float32(vp.World.Min.X)
+		pp2.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang44.ConvA()-sightAngVal2)*(vp.Size.X/2)/4096)
+		return pp1, pp2
+	case sightKindView4:
+		pp1.X = float32(vp.Size.X + vp.World.Min.X - 1)
+		pp1.Y = float32(c.sightViewCenter.Y + sub_414C50(ss.Ang40.ConvA()-0)*(vp.Size.X/2)/4096)
+		pp2.X = float32(vp.World.Min.X + vp.Size.X - 1)
+		pp2.Y = float32(c.sightViewCenter.Y + sub_414C50(ss.Ang44.ConvA()-0)*(vp.Size.X/2)/4096)
+		return pp1, pp2
+	case sightKindDrDoor:
+		dr := ss.Drawable
+		var rect types.Rectf
+		rect.Min.X = float32(float64(dr.PosVec.X))
+		rect.Min.Y = float32(float64(dr.PosVec.Y))
+		rect.Max.X = float32(float64(dr.PosVec.X + int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196184))))
+		rect.Max.Y = float32(float64(dr.PosVec.Y + int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196188))))
+		v36 := ss.Ang40.ConvA()
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v36))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v36))
+		var ok bool
+		pp1, ok = server.LineTracePointXxx(brect, rect)
+		if !ok {
+			pp1 = rect.Min
+		}
+		v37 := ss.Ang44.ConvA()
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v37))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v37))
+		pp2, ok = server.LineTracePointXxx(brect, rect)
+		if !ok {
+			pp2 = rect.Max
+		}
+		return pp1, pp2
+	case sightKindDrCircle:
+		dr := ss.Drawable
+		v39 := c.sightViewCenter.X - dr.PosVec.X
+		v40 := -(c.sightViewCenter.Y - dr.PosVec.Y)
+		var rect types.Rectf
+		rect.Min.X = float32(v40 + dr.PosVec.X)
+		rect.Min.Y = float32(v39 + dr.PosVec.Y)
+		rect.Max.X = float32(dr.PosVec.X - v40)
+		rect.Max.Y = float32(dr.PosVec.Y - v39)
+		v41 := ss.Ang40.ConvA()
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v41))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v41))
+		var ok bool
+		pp1, ok = server.LineTracePointXxx(brect, rect)
+		if !ok {
+			pp1 = types.Ptf(rect.Min.X, rect.Min.Y)
+		}
+		v42 := ss.Ang44.ConvA()
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v42))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v42))
+		pp2, ok = server.LineTracePointXxx(brect, rect)
+		if !ok {
+			pp2 = rect.Max
+		}
+		return pp1, pp2
+	case sightKindDrBox1, sightKindDrBox2, sightKindDrBox3, sightKindDrBox4, sightKindDrBox5, sightKindDrBox6:
+		dr := ss.Drawable
+		var rect types.Rectf
+		switch ss.Kind56 {
+		case sightKindDrBox1:
+			rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftTop
+			rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftBottom
+			rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftBottom2
+			rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftTop2
+		case sightKindDrBox2:
+			rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftTop
+			rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftBottom
+			rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightTop
+			rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightBottom
+		case sightKindDrBox3:
+			rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.RightBottom2
+			rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightTop2
+			rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftBottom2
+			rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftTop2
+		case sightKindDrBox4:
+			rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.RightBottom2
+			rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightTop2
+			rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightTop
+			rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightBottom
+		case sightKindDrBox5:
+			rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftTop
+			rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftBottom
+			rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightBottom2
+			rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightTop2
+		case sightKindDrBox6:
+			rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftBottom2
+			rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftTop2
+			rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightTop
+			rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightBottom
+		}
+		v45 := ss.Ang40.ConvA()
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v45))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v45))
+		var ok bool
+		pp1, ok = server.LineTracePointXxx(brect, rect)
+		if !ok {
+			pp1 = rect.Min
+		}
+		v46 := ss.Ang44.ConvA()
+		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v46))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v46))
+		pp2, ok = server.LineTracePointXxx(brect, rect)
+		if !ok {
+			pp2 = rect.Max
+		}
+		return pp1, pp2
+	}
+}
+
+func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls WallChecker, debug func()) {
 	if c.sightStructArrSize > 0 {
 		for i := 0; i < c.sightStructArrSize; i++ {
-			id := uint32(0)
 			ss := c.sightStructArr[i]
-			var pp1, pp2 types.Pointf
+			pos1, pos2 := c.sightObjVec(vp, ss)
 			switch ss.Kind56 {
 			case sightKindWall:
-				v20 := ss.Ang40.ConvA()
-				v21 := ss.Ang44.ConvA()
-
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v20))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v20))
-				pp1 = sub_4CA960(ss.WallPos, ss.Field36, brect)
-
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v21))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v21))
-				pp2 = sub_4CA960(ss.WallPos, ss.Field36, brect)
-
 				wl := walls.GetWallAtGrid(image.Pt(int(ss.WallPos.X), int(ss.WallPos.Y)))
 				wl.Field12 = 1
 				wl.Flags4 |= 1
-				if pp2.X < pp1.X {
+				if pos2.X < pos1.X {
 					wl.Flags4 |= 2
 				}
 				wl.Field3 |= ss.Field36
-				id = uint32(ss.WallPos.X)&0xffff + ((uint32(ss.WallPos.Y) & 0xffff) << 8)
-			case sightKindView1:
-				pp1.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang40.ConvA()-sightAngVal3)*(vp.Size.Y/2)/4096)
-				pp1.Y = float32(vp.World.Min.Y)
-				pp2.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang44.ConvA()-sightAngVal3)*(vp.Size.Y/2)/4096)
-				pp2.Y = float32(vp.World.Min.Y)
-				id = 0
-			case sightKindView2:
-				pp1.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang40.ConvA()-sightAngVal1)*(vp.Size.Y/2)/4096)
-				pp1.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
-				pp2.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang44.ConvA()-sightAngVal1)*(vp.Size.Y/2)/4096)
-				pp2.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
-				id = 0
-			case sightKindView3:
-				pp1.X = float32(vp.World.Min.X)
-				pp1.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang40.ConvA()-sightAngVal2)*(vp.Size.X/2)/4096)
-				pp2.X = float32(vp.World.Min.X)
-				pp2.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang44.ConvA()-sightAngVal2)*(vp.Size.X/2)/4096)
-				id = 0
-			case sightKindView4:
-				pp1.X = float32(vp.Size.X + vp.World.Min.X - 1)
-				pp1.Y = float32(c.sightViewCenter.Y + sub_414C50(ss.Ang40.ConvA()-0)*(vp.Size.X/2)/4096)
-				pp2.X = float32(vp.World.Min.X + vp.Size.X - 1)
-				pp2.Y = float32(c.sightViewCenter.Y + sub_414C50(ss.Ang44.ConvA()-0)*(vp.Size.X/2)/4096)
-				id = 0
-			case sightKindDrDoor:
+			case sightKindDrDoor, sightKindDrCircle,
+				sightKindDrBox1, sightKindDrBox2, sightKindDrBox3, sightKindDrBox4, sightKindDrBox5, sightKindDrBox6:
 				dr := ss.Drawable
 				dr.Field_33 = 1
-				var rect types.Rectf
-				rect.Min.X = float32(float64(dr.PosVec.X))
-				rect.Min.Y = float32(float64(dr.PosVec.Y))
-				rect.Max.X = float32(float64(dr.PosVec.X + int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196184))))
-				rect.Max.Y = float32(float64(dr.PosVec.Y + int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196188))))
-				v36 := ss.Ang40.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v36))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v36))
-				var ok bool
-				pp1, ok = server.LineTracePointXxx(brect, rect)
-				if !ok {
-					pp1 = rect.Min
-				}
-				v37 := ss.Ang44.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v37))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v37))
-				pp2, ok = server.LineTracePointXxx(brect, rect)
-				if !ok {
-					pp2 = rect.Max
-				}
-				id = dr.Field_32
-			case sightKindDrCircle:
-				dr := ss.Drawable
-				dr.Field_33 = 1
-				v39 := c.sightViewCenter.X - dr.PosVec.X
-				v40 := -(c.sightViewCenter.Y - dr.PosVec.Y)
-				var rect types.Rectf
-				rect.Min.X = float32(v40 + dr.PosVec.X)
-				rect.Min.Y = float32(v39 + dr.PosVec.Y)
-				rect.Max.X = float32(dr.PosVec.X - v40)
-				rect.Max.Y = float32(dr.PosVec.Y - v39)
-				v41 := ss.Ang40.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v41))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v41))
-				var ok bool
-				pp1, ok = server.LineTracePointXxx(brect, rect)
-				if !ok {
-					pp1 = types.Ptf(rect.Min.X, rect.Min.Y)
-				}
-				v42 := ss.Ang44.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v42))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v42))
-				pp2, ok = server.LineTracePointXxx(brect, rect)
-				if !ok {
-					pp2 = rect.Max
-				}
-				id = dr.Field_32
-			case sightKindDrBox1, sightKindDrBox2, sightKindDrBox3, sightKindDrBox4, sightKindDrBox5, sightKindDrBox6:
-				dr := ss.Drawable
-				dr.Field_33 = 1
-				var rect types.Rectf
-				switch ss.Kind56 {
-				case sightKindDrBox1:
-					rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftTop
-					rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftBottom
-					rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftBottom2
-					rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftTop2
-				case sightKindDrBox2:
-					rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftTop
-					rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftBottom
-					rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightTop
-					rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightBottom
-				case sightKindDrBox3:
-					rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.RightBottom2
-					rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightTop2
-					rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftBottom2
-					rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftTop2
-				case sightKindDrBox4:
-					rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.RightBottom2
-					rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightTop2
-					rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightTop
-					rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightBottom
-				case sightKindDrBox5:
-					rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftTop
-					rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftBottom
-					rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightBottom2
-					rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightTop2
-				case sightKindDrBox6:
-					rect.Min.X = float32(dr.PosVec.X) + dr.Shape.Box.LeftBottom2
-					rect.Min.Y = float32(dr.PosVec.Y) + dr.Shape.Box.LeftTop2
-					rect.Max.X = float32(dr.PosVec.X) + dr.Shape.Box.RightTop
-					rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightBottom
-				}
-				v45 := ss.Ang40.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v45))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v45))
-				var ok bool
-				pp1, ok = server.LineTracePointXxx(brect, rect)
-				if !ok {
-					pp1 = rect.Min
-				}
-				v46 := ss.Ang44.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v46))
-				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v46))
-				pp2, ok = server.LineTracePointXxx(brect, rect)
-				if !ok {
-					pp2 = rect.Max
-				}
-				id = dr.Field_32
 			}
-			sp1 := vp.Screen.Min.Add(pp1.Point().Sub(vp.World.Min))
-			sp2 := vp.Screen.Min.Add(pp2.Point().Sub(vp.World.Min))
+			sp1 := vp.ToScreenPos(pos1.Point())
+			sp2 := vp.ToScreenPos(pos2.Point())
 			if sub_57BA30(&sp1, &sp2, vp.Screen) != 0 {
-				c.addSightLine(sp1, sp2, id, ss.Kind56)
+				c.addSightLine(sp1, sp2, ss.UID(), ss.Kind56)
 			}
 		}
 	}
