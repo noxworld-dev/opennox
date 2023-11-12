@@ -395,12 +395,12 @@ func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1,
 		v20 := ss.Ang40.ConvA()
 		v21 := ss.Ang44.ConvA()
 
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v20))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v20))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v20))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v20))
 		pp1 = sub_4CA960(ss.WallPos, ss.Field36, brect)
 
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v21))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v21))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v21))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v21))
 		pp2 = sub_4CA960(ss.WallPos, ss.Field36, brect)
 
 		return pp1, pp2
@@ -436,16 +436,16 @@ func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1,
 		rect.Max.X = float32(float64(dr.PosVec.X + int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196184))))
 		rect.Max.Y = float32(float64(dr.PosVec.Y + int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196188))))
 		v36 := ss.Ang40.ConvA()
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v36))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v36))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v36))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v36))
 		var ok bool
 		pp1, ok = server.LineTracePointXxx(brect, rect)
 		if !ok {
 			pp1 = rect.Min
 		}
 		v37 := ss.Ang44.ConvA()
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v37))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v37))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v37))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v37))
 		pp2, ok = server.LineTracePointXxx(brect, rect)
 		if !ok {
 			pp2 = rect.Max
@@ -453,24 +453,30 @@ func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1,
 		return pp1, pp2
 	case sightKindDrCircle:
 		dr := ss.Drawable
-		v39 := c.sightViewCenter.X - dr.PosVec.X
-		v40 := -(c.sightViewCenter.Y - dr.PosVec.Y)
+		dx := dr.PosVec.X - c.sightViewCenter.X
+		dy := dr.PosVec.Y - c.sightViewCenter.Y
+		// Might be wrong, but looks like it works by increasing the width of the shadow depending on the distance.
+		// So if we are further in X coord, shadow size on Y will grow longer by exactly that amount,
+		// Shadow width will be mush longer when we need, but that might be intentional, since we will then check for intersection.
+		dx, dy = dy, dx
+		// We then swap some of the signs to rotate the shadow front by 90 deg.
 		var rect types.Rectf
-		rect.Min.X = float32(v40 + dr.PosVec.X)
-		rect.Min.Y = float32(v39 + dr.PosVec.Y)
-		rect.Max.X = float32(dr.PosVec.X - v40)
-		rect.Max.Y = float32(dr.PosVec.Y - v39)
+		rect.Min.X = float32(dr.PosVec.X + dx)
+		rect.Min.Y = float32(dr.PosVec.Y - dy)
+		rect.Max.X = float32(dr.PosVec.X - dx)
+		rect.Max.Y = float32(dr.PosVec.Y + dy)
+		// Intersect with the left and right view lines.
 		v41 := ss.Ang40.ConvA()
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v41))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v41))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v41))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v41))
 		var ok bool
 		pp1, ok = server.LineTracePointXxx(brect, rect)
 		if !ok {
-			pp1 = types.Ptf(rect.Min.X, rect.Min.Y)
+			pp1 = rect.Min
 		}
 		v42 := ss.Ang44.ConvA()
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v42))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v42))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v42))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v42))
 		pp2, ok = server.LineTracePointXxx(brect, rect)
 		if !ok {
 			pp2 = rect.Max
@@ -512,16 +518,16 @@ func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1,
 			rect.Max.Y = float32(dr.PosVec.Y) + dr.Shape.Box.RightBottom
 		}
 		v45 := ss.Ang40.ConvA()
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v45))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v45))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v45))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v45))
 		var ok bool
 		pp1, ok = server.LineTracePointXxx(brect, rect)
 		if !ok {
 			pp1 = rect.Min
 		}
 		v46 := ss.Ang44.ConvA()
-		brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v46))
-		brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v46))
+		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v46))
+		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v46))
 		pp2, ok = server.LineTracePointXxx(brect, rect)
 		if !ok {
 			pp2 = rect.Max
@@ -1682,23 +1688,26 @@ func sub_4CAC30(pos ntype.Point32, rect types.Rectf, dpx, dpy int32) (out types.
 	}
 	return out
 }
-func sub_414C50(a1 int32) int {
-	v1 := sub_414BD0(a1)
-	v2 := sub_414BD0(sightAngVal1 - a1)
-	if v2 != 0 {
-		return (v1 << 12) / v2
+func sub_414C50(ang int32) int {
+	x := sightFarAtAngleX(ang)
+	y := sightFarAtAngleY(ang)
+	if x != 0 {
+		return (y << 12) / x
 	} else {
 		v3 := 0
-		if v1 <= 0 {
+		if y <= 0 {
 			v3 = 1
 		}
 		return v3 + math.MaxInt32
 	}
 }
-func sub_414BD0(a1 int32) int {
-	v1 := a1
-	if a1 < 0 {
-		v1 = a1 + ((sightAngVal4-a1-1)/sightAngVal4)*sightAngVal4
+func sightFarAtAngleX(ang int32) int {
+	return sightFarAtAngleY(sightAngVal1 - ang)
+}
+func sightFarAtAngleY(ang int32) int {
+	v1 := ang
+	if ang < 0 {
+		v1 = ang + ((sightAngVal4-ang-1)/sightAngVal4)*sightAngVal4
 	}
 	if v1 >= sightAngVal4 {
 		v1 %= sightAngVal4
