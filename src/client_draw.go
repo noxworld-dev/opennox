@@ -15,7 +15,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -861,20 +860,20 @@ func (c *Client) sub_4C5430(px int, py int) {
 	}
 }
 
-func (c *Client) sub_4C52E0(points []ntype.Point32) {
+func (c *Client) sub_4C52E0(points []image.Point) {
 	c.tiles.nox_arr_956A00 = [noxMaxHeight + 150]int{}
 	c.tiles.dword_5d4594_3679320 = nox_win_height
 	c.tiles.dword_5d4594_3798156 = 0
 	for i := range points {
-		p1x := int(points[i].X)
-		p1y := int(points[i].Y)
+		p1x := points[i].X
+		p1y := points[i].Y
 		var p2x, p2y int
 		if i == len(points)-1 {
-			p2x = int(points[0].X)
-			p2y = int(points[0].Y)
+			p2x = points[0].X
+			p2y = points[0].Y
 		} else {
-			p2x = int(points[i+1].X)
-			p2y = int(points[i+1].Y)
+			p2x = points[i+1].X
+			p2y = points[i+1].Y
 		}
 		if p1y == p2y {
 			continue
