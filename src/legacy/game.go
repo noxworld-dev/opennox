@@ -318,7 +318,7 @@ func nox_xxx_mapCheck_537110(a1, a2 *nox_object_t) int {
 //export sub_497180
 func sub_497180(r1, r2 *C.float4, outp *C.float2) int {
 	out := (*types.Pointf)(unsafe.Pointer(outp))
-	p, ok := server.LineTracePointXxx(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2)))
+	p, ok := server.IntersectLines(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2)))
 	*out = p
 	return bool2int(ok)
 }
