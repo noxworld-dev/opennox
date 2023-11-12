@@ -582,24 +582,24 @@ func LineTraceXxx(r1, r2 types.Rectf) bool {
 	return true
 }
 
-func LineTracePointXxx(r1, r2 types.Rectf) (out types.Pointf, _ bool) {
-	r1c := r1.Canon()
-	r2c := r2.Canon()
-	if r2c.Min.X > r1c.Max.X || r2c.Max.X < r1c.Min.X || r2c.Min.Y > r1c.Min.Y || r2c.Max.Y < r1c.Max.Y {
+func IntersectLines(v1, v2 types.Rectf) (out types.Pointf, _ bool) {
+	v1c := v1.Canon()
+	v2c := v2.Canon()
+	if v1c.Max.X < v2c.Min.X || v1c.Min.X > v2c.Max.X || v1c.Max.Y < v2c.Min.Y || v1c.Min.Y > v2c.Max.Y {
 		return out, false
 	}
-	r1w := r1.Max.X - r1.Min.X
-	r1h := r1.Max.Y - r1.Min.Y
-	r2w := r2.Max.X - r2.Min.X
-	r2h := r2.Max.Y - r2.Min.Y
-	dx := r2.Min.X - r1.Min.X
-	dy := r2.Min.Y - r1.Min.Y
-	dd := r2w*r1h - r2h*r1w
-	dd2 := dy*r1w - dx*r1h
+	dx1 := v1.Max.X - v1.Min.X
+	dy1 := v1.Max.Y - v1.Min.Y
+	dx2 := v2.Max.X - v2.Min.X
+	dy2 := v2.Max.Y - v2.Min.Y
+	dx := v2.Min.X - v1.Min.X
+	dy := v2.Min.Y - v1.Min.Y
+	dd := dx2*dy1 - dy2*dx1
+	dd2 := dy*dx1 - dx*dy1
 	if dd == 0.0 {
 		return out, false
 	}
-	out.X = dd2*r2w/dd + r2.Min.X
-	out.Y = dd2*r2h/dd + r2.Min.Y
+	out.X = dd2*dx2/dd + v2.Min.X
+	out.Y = dd2*dy2/dd + v2.Min.Y
 	return out, true
 }

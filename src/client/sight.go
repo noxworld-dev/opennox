@@ -439,14 +439,14 @@ func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1,
 		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v36))
 		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v36))
 		var ok bool
-		pp1, ok = server.LineTracePointXxx(brect, rect)
+		pp1, ok = server.IntersectLines(brect, rect)
 		if !ok {
 			pp1 = rect.Min
 		}
 		v37 := ss.Ang44.ConvA()
 		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v37))
 		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v37))
-		pp2, ok = server.LineTracePointXxx(brect, rect)
+		pp2, ok = server.IntersectLines(brect, rect)
 		if !ok {
 			pp2 = rect.Max
 		}
@@ -470,14 +470,14 @@ func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1,
 		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v41))
 		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v41))
 		var ok bool
-		pp1, ok = server.LineTracePointXxx(brect, rect)
+		pp1, ok = server.IntersectLines(brect, rect)
 		if !ok {
 			pp1 = rect.Min
 		}
 		v42 := ss.Ang44.ConvA()
 		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v42))
 		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v42))
-		pp2, ok = server.LineTracePointXxx(brect, rect)
+		pp2, ok = server.IntersectLines(brect, rect)
 		if !ok {
 			pp2 = rect.Max
 		}
@@ -521,14 +521,14 @@ func (c *clientSight) sightObjVec(vp *noxrender.Viewport, ss *SightObject) (pp1,
 		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v45))
 		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v45))
 		var ok bool
-		pp1, ok = server.LineTracePointXxx(brect, rect)
+		pp1, ok = server.IntersectLines(brect, rect)
 		if !ok {
 			pp1 = rect.Min
 		}
 		v46 := ss.Ang44.ConvA()
 		brect.Max.X = float32(c.sightViewCenter.X + sightFarAtAngleX(v46))
 		brect.Max.Y = float32(c.sightViewCenter.Y + sightFarAtAngleY(v46))
-		pp2, ok = server.LineTracePointXxx(brect, rect)
+		pp2, ok = server.IntersectLines(brect, rect)
 		if !ok {
 			pp2 = rect.Max
 		}
