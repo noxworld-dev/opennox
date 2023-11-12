@@ -206,62 +206,63 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 	v79 := v1 / common.GridStep
 	v80 := v2 / common.GridStep
 	v74 := (v3+v1)/common.GridStep - v1/common.GridStep
-	v4 := int32((vp.Size.Y+int(v2))/common.GridStep - int(v2/common.GridStep))
-	if v4 >= 0 {
-		for yi := 0; yi < int(v4+1); yi++ {
-			gy := v80 + int32(yi)
-			v70 := common.GridStep * gy
-			v7 := (int32(uint8(int8(gy))) + int32(uint8(int8(v79)))) & 1
-			if v7 > v74 {
+	v4 := (vp.Size.Y+int(v2))/common.GridStep - int(v2/common.GridStep)
+	if v4 < 0 {
+		return
+	}
+	for yi := 0; yi < v4+1; yi++ {
+		gy := int(v80) + yi
+		v70 := int32(common.GridStep * gy)
+		v7 := (int32(uint8(int8(gy))) + int32(uint8(int8(v79)))) & 1
+		if v7 > v74 {
+			continue
+		}
+		for xi := 0; xi < int(v74-v7+2)/2; xi++ {
+			gx := int(v7 + v79 + 2*int32(xi))
+			v69 := int32(common.GridStep * gx)
+			wl := walls.GetWallAtGrid(image.Pt(gx, gy))
+			if wl == nil {
 				continue
 			}
-			for xi := 0; xi < int(v74-v7+2)/2; xi++ {
-				gx := v7 + v79 + 2*int32(xi)
-				v69 := common.GridStep * gx
-				wl := walls.GetWallAtGrid(image.Pt(int(gx), int(gy)))
-				if wl == nil {
-					continue
-				}
-				v10 := uint8(checkDoor(image.Pt(int(gx), int(gy)), 64))
-				if int32(v10) == math.MaxUint8 {
-					continue
-				}
-				def := walls.DefByInd(int(wl.Tile1))
-				if def.Flags32&1 == 0 {
-					wl.Flags4 |= 1
-					if int(wl.Y6)*common.GridStep <= c.sightViewCenter.Y {
-						wl.Flags4 &^= 2
-					} else {
-						wl.Flags4 |= 2
-					}
-					if def.Flags32&4 != 0 {
-						addWall(wl)
-					}
+			v10 := checkDoor(image.Pt(gx, gy), 64)
+			if v10 == -1 {
+				continue
+			}
+			def := walls.DefByInd(int(wl.Tile1))
+			if def.Flags32&1 == 0 {
+				wl.Flags4 |= 1
+				if int(wl.Y6)*common.GridStep <= c.sightViewCenter.Y {
+					wl.Flags4 &^= 2
 				} else {
-					if wl.Flags4&0x40 != 0 {
-						if (int32(c.sightViewCenter.X)-v69-11)*(int32(c.sightViewCenter.X)-v69-11)+(int32(c.sightViewCenter.Y)-v70-11)*(int32(c.sightViewCenter.Y)-v70-11) < 3600 {
-							wl.Flags4 |= 1
-							continue
-						}
+					wl.Flags4 |= 2
+				}
+				if def.Flags32&4 != 0 {
+					addWall(wl)
+				}
+			} else {
+				if wl.Flags4&0x40 != 0 {
+					if (int32(c.sightViewCenter.X)-v69-11)*(int32(c.sightViewCenter.X)-v69-11)+(int32(c.sightViewCenter.Y)-v70-11)*(int32(c.sightViewCenter.Y)-v70-11) < 3600 {
+						wl.Flags4 |= 1
+						continue
 					}
-					if v10 == 0 {
-						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 9)
-					} else if v10 == 1 {
-						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 6)
-					} else {
-						v16 := memmap.Uint8(0x587000, uintptr(v10)+161764)
-						if int32(v16)&2 != 0 {
-							c.nox_xxx_drawBlackofWall_497C40(gx, gy, 2)
-						}
-						if int32(v16)&1 != 0 {
-							c.nox_xxx_drawBlackofWall_497C40(gx, gy, 1)
-						}
-						if int32(v16)&8 != 0 {
-							c.nox_xxx_drawBlackofWall_497C40(gx, gy, 8)
-						}
-						if int32(v16)&4 != 0 {
-							c.nox_xxx_drawBlackofWall_497C40(gx, gy, 4)
-						}
+				}
+				if v10 == 0 {
+					c.nox_xxx_drawBlackofWall_497C40(gx, gy, 9)
+				} else if v10 == 1 {
+					c.nox_xxx_drawBlackofWall_497C40(gx, gy, 6)
+				} else {
+					v16 := memmap.Uint8(0x587000, uintptr(v10)+161764)
+					if v16&2 != 0 {
+						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 2)
+					}
+					if v16&1 != 0 {
+						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 1)
+					}
+					if v16&8 != 0 {
+						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 8)
+					}
+					if v16&4 != 0 {
+						c.nox_xxx_drawBlackofWall_497C40(gx, gy, 4)
 					}
 				}
 			}
@@ -1033,7 +1034,7 @@ func (c *clientSight) sub_4CA860() {
 func (c *clientSight) sub_4CAED0(a1 *SightStructXxx) *SightStructXxx {
 	p := c.sub_4CADD0()
 	p.GridPos24 = a1.GridPos24
-	p.Field32 = a1.Field32
+	p.DistSq32 = a1.DistSq32
 	p.Field36 = a1.Field36
 	p.Ang40 = a1.Ang40
 	p.Ang44 = a1.Ang44
@@ -1051,7 +1052,7 @@ type SightStructXxx struct {
 	Field16   *SightStructXxx // 4, 16
 	Obj20     *Drawable       // 5, 20
 	GridPos24 ntype.Point32   // 6, 24
-	Field32   int32           // 8, 32
+	DistSq32  int32           // 8, 32
 	Field36   byte            // 9, 36
 	Field37   byte            // 9, 37
 	Field38   uint16          // 9, 38
@@ -1083,68 +1084,60 @@ func (c *clientSight) sub_4CADD0() *SightStructXxx {
 	c.dword_5d4594_1522584 = result.Field16
 	return result
 }
-func (c *clientSight) nox_xxx_drawBlackofWall_497C40(a1 int32, a2 int32, a3 int8) {
-	v21 := a1 * common.GridStep
-	v22 := a2 * common.GridStep
-	v3 := a1*common.GridStep + 11
-	v4 := a2*common.GridStep + 11
+func (c *clientSight) nox_xxx_drawBlackofWall_497C40(gx, gy int, a3 byte) {
+	x := gx * common.GridStep
+	y := gy * common.GridStep
+	cx := x + 11
+	cy := y + 11
 	ss := c.sub_4CADD0()
-	ss.GridPos24.X = a1
-	ss.GridPos24.Y = a2
-	ss.Field36 = uint8(a3)
+	ss.GridPos24.X = int32(gx)
+	ss.GridPos24.Y = int32(gy)
+	ss.Field36 = a3
 	ss.Field48 = 1
 	ss.Field56 = 0
-	var v6, v7, v8, v9, v23 int32
-	var v24 int32 // FIXME: uninitialized!
+	var dx, dy, v8, v9, v23 int
 	switch a3 {
 	case 1:
-		v6 = int32(v3) - int32(c.sightViewCenter.X) + 5
-		v7 = int32(v4) - int32(c.sightViewCenter.Y) - 5
-		v8 = v3
-		v9 = a2 * common.GridStep
-		v23 = v21 + common.GridStep
+		dx = cx - c.sightViewCenter.X + 5
+		dy = cy - c.sightViewCenter.Y - 5
+		v8 = cx
+		v9 = gy * common.GridStep
+		v23 = x + common.GridStep
 	case 2:
-		v6 = int32(v3) - int32(c.sightViewCenter.X) - 5
-		v7 = int32(v4) - int32(c.sightViewCenter.Y) - 5
-		v8 = v3
-		v9 = a2 * common.GridStep
-		v23 = a1 * common.GridStep
+		dx = cx - c.sightViewCenter.X - 5
+		dy = cy - c.sightViewCenter.Y - 5
+		v8 = cx
+		v9 = gy * common.GridStep
+		v23 = gx * common.GridStep
 	case 4:
-		v6 = int32(v3) - int32(c.sightViewCenter.X) + 5
-		v10 := 5
-		v8 = v3
-		v7 = int32(v4) - int32(c.sightViewCenter.Y) + int32(v10)
-		v23 = v21 + common.GridStep
-		v9 = v22 + common.GridStep
+		dx = cx - c.sightViewCenter.X + 5
+		v8 = cx
+		dy = cy - c.sightViewCenter.Y + 5
+		v23 = x + common.GridStep
+		v9 = y + common.GridStep
 	case 6:
-		v8 = a1 * common.GridStep
-		v7 = int32(v4) - int32(c.sightViewCenter.Y)
-		v4 = a2 * common.GridStep
-		v6 = int32(v3) - int32(c.sightViewCenter.X)
-		v23 = v21 + common.GridStep
-		v9 = v22 + common.GridStep
+		v8 = gx * common.GridStep
+		dy = cy - c.sightViewCenter.Y
+		cy = gy * common.GridStep
+		dx = cx - c.sightViewCenter.X
+		v23 = x + common.GridStep
+		v9 = y + common.GridStep
 	case 8:
-		v6 = int32(v3) - int32(c.sightViewCenter.X) - 5
-		v23 = a1 * common.GridStep
-		v7 = int32(v4) - int32(c.sightViewCenter.Y) + 5
-		v8 = v3
-		v9 = v22 + common.GridStep
+		dx = cx - c.sightViewCenter.X - 5
+		v23 = gx * common.GridStep
+		dy = cy - c.sightViewCenter.Y + 5
+		v8 = cx
+		v9 = y + common.GridStep
 	case 9:
-		v6 = int32(v3) - int32(c.sightViewCenter.X)
-		v7 = int32(v4) - int32(c.sightViewCenter.Y)
-		v4 = a2 * common.GridStep
-		v8 = v21 + common.GridStep
-		v23 = a1 * common.GridStep
-		v9 = v22 + common.GridStep
-	default:
-		v6 = a1
-		v7 = a1
-		v4 = v24
-		v8 = v23
-		v9 = v24
+		dx = cx - c.sightViewCenter.X
+		dy = cy - c.sightViewCenter.Y
+		cy = gy * common.GridStep
+		v8 = x + common.GridStep
+		v23 = gx * common.GridStep
+		v9 = y + common.GridStep
 	}
-	ss.Field32 = v6*v6 + v7*v7
-	ss.Ang40 = c.sub_4CA8B0(int32(v4)-int32(c.sightViewCenter.Y), int32(v8)-int32(c.sightViewCenter.X))
+	ss.DistSq32 = int32(dx*dx + dy*dy)
+	ss.Ang40 = c.sub_4CA8B0(int32(cy)-int32(c.sightViewCenter.Y), int32(v8)-int32(c.sightViewCenter.X))
 	ss.Ang40 = sightAngAdjust(ss.Ang40)
 	ss.Ang44 = c.sub_4CA8B0(int32(v9)-int32(c.sightViewCenter.Y), int32(v23)-int32(c.sightViewCenter.X))
 	ss.Ang44 = sightAngAdjust(ss.Ang44)
@@ -1177,7 +1170,7 @@ func (c *clientSight) Sub_4974B0(a1 *Drawable) {
 		v4 := float64(int32(c.sightViewCenter.X) - int32(*memmap.PtrInt32(0x587000, uintptr(v3)+196184)/2) - int32(a1.PosVec.X))
 		v15 := int32(c.sightViewCenter.Y) - int32(*memmap.PtrInt32(0x587000, uintptr(v3)+196188)/2) - int32(a1.PosVec.Y)
 		v14 := float32(float64(v15)*float64(v15) + v4*v4)
-		ss.Field32 = int32(v14)
+		ss.DistSq32 = int32(v14)
 		ss.Ang40 = c.sub_4CA8B0(int32(v1.PosVec.Y-c.sightViewCenter.Y), int32(v1.PosVec.X-c.sightViewCenter.X))
 		ss.Ang40 = sightAngAdjust(ss.Ang40)
 		ss.Ang44 = c.sub_4CA8B0(int32(v1.PosVec.Y+int(int32(*memmap.PtrInt32(0x587000, uintptr(int32(v1.Field_74_4)*8)+196188)))-int(c.sightViewCenter.Y)), int32(v1.PosVec.X+int(int32(*memmap.PtrInt32(0x587000, uintptr(int32(v1.Field_74_4)*8)+196184)))-int(c.sightViewCenter.X)))
@@ -1223,7 +1216,7 @@ func (c *clientSight) Sub_497650(a1 *Drawable) {
 	v23 = float32(v5)
 	v21 = float32(v5*float64(v23) + float64(v24*v24))
 	v6 = int32(v21)
-	ss.Field32 = v6
+	ss.DistSq32 = v6
 	v7 = int32(int64(math.Sqrt(float64(v6))))
 	v22 = int32(v24)
 	v8 = int32(v23)
@@ -1631,7 +1624,7 @@ func sub_499160(a1 *ntype.Point32, a2 *ntype.Point32, a3 *ntype.Point32) int32 {
 func (c *clientSight) sub_497F60(a1, a2 sightAngle, a3 int8, a4 int32, a5 *Drawable) {
 	ss := c.sub_4CADD0()
 	ss.Field56 = uint8(a3)
-	ss.Field32 = a4
+	ss.DistSq32 = a4
 	ss.Field48 = 1
 	ss.Obj20 = a5
 	if a2 >= a1 {
@@ -1794,7 +1787,7 @@ func (c *clientSight) sub_498380(a1 *SightStructXxx, a2 *SightStructXxx) {
 	}
 	if v4 < v2 {
 		if v3 <= v5 {
-			if a1.Field32 >= a2.Field32 {
+			if a1.DistSq32 >= a2.DistSq32 {
 				v6 := a1.Ang44
 				a1.Ang40 = v3 + 1
 				if v3+1 > v6 {
@@ -1805,7 +1798,7 @@ func (c *clientSight) sub_498380(a1 *SightStructXxx, a2 *SightStructXxx) {
 			}
 			return
 		}
-		if a1.Field32 < a2.Field32 {
+		if a1.DistSq32 < a2.DistSq32 {
 			v7 := c.sub_4CAED0(a2)
 			v8 := v7.Ang44
 			v9 := a1.Ang44 + 1
@@ -1826,9 +1819,9 @@ func (c *clientSight) sub_498380(a1 *SightStructXxx, a2 *SightStructXxx) {
 		return
 	}
 	v12 := v3 <= v5
-	v13 := a1.Field32
+	v13 := a1.DistSq32
 	if v12 {
-		if v13 >= a2.Field32 {
+		if v13 >= a2.DistSq32 {
 			v14 := c.sub_4CAED0(a1)
 			v15 := v14.Ang44
 			v16 := a2.Ang44 + 1
@@ -1847,7 +1840,7 @@ func (c *clientSight) sub_498380(a1 *SightStructXxx, a2 *SightStructXxx) {
 			a2.Field48 = 0
 		}
 	} else {
-		if v13 >= a2.Field32 {
+		if v13 >= a2.DistSq32 {
 			v21 := v4 - 1
 			v22 := a1.Ang40
 			a1.Ang44 = v21
