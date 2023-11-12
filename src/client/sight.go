@@ -30,8 +30,13 @@ const (
 	sightAngVal3 = 3 * sightAngVal1
 	sightAngVal4 = 4 * sightAngVal1
 
-	sightPointsMax = 1024
+	sightPointsMax   = 1024
+	sightAngTableMax = 100000
 )
+
+func sightAngleFromRad(rad float64) sightAngle {
+	return sightAngle(rad*sightAngHalfSize/math.Pi + 0.5)
+}
 
 type sightAngle int32
 
@@ -39,7 +44,15 @@ func (v sightAngle) ConvA() int32 {
 	return int32((v * sightAngVal4) / sightAngSz)
 }
 
-func sightAngAdjust(v sightAngle) sightAngle {
+func (v sightAngle) Rad() float64 {
+	return float64(v) * math.Pi / sightAngHalfSize
+}
+
+func (v sightAngle) Angle() float64 {
+	return float64(v) * 180 / sightAngHalfSize
+}
+
+func (v sightAngle) Normalize() sightAngle {
 	for v < 0 {
 		v += sightAngSz
 	}
@@ -202,7 +215,7 @@ type clientSight struct {
 	sightListYyy *SightObject
 	sightListZzz *SightObject
 
-	angleTable [100000]sightAngle
+	angleTable [sightAngTableMax]sightAngle
 
 	sightPointsCnt  int
 	sightPointsArr  [sightPointsMax]image.Point
@@ -235,10 +248,9 @@ func (c *clientSight) Init(w, h int) {
 	c.initAngles()
 }
 func (c *clientSight) initAngles() {
-	ca := memmap.Float64(0x581450, 9960)
-	cb := memmap.Float64(0x581450, 9952)
+	const dy = 1.0 / 1000
 	for i := range c.angleTable {
-		c.angleTable[i] = sightAngle(math.Atan2(float64(i)*ca, 1.0)*cb + 0.5)
+		c.angleTable[i] = sightAngleFromRad(math.Atan2(float64(i)*dy, 1.0))
 	}
 }
 func (c *clientSight) Free() {
@@ -1134,9 +1146,9 @@ func (c *clientSight) newFromWall(gx, gy int, typ byte) {
 	}
 	ss.DistSq32 = int32(dx*dx + dy*dy)
 	ss.Ang40 = c.sub_4CA8B0(int32(cy)-int32(c.sightViewCenter.Y), int32(v8)-int32(c.sightViewCenter.X))
-	ss.Ang40 = sightAngAdjust(ss.Ang40)
+	ss.Ang40 = ss.Ang40.Normalize()
 	ss.Ang44 = c.sub_4CA8B0(int32(v9)-int32(c.sightViewCenter.Y), int32(v23)-int32(c.sightViewCenter.X))
-	ss.Ang44 = sightAngAdjust(ss.Ang44)
+	ss.Ang44 = ss.Ang44.Normalize()
 	v17 := ss.Ang44
 	v18 := ss.Ang40
 	if v17 < v18 {
@@ -1169,9 +1181,9 @@ func (c *clientSight) newFromDrawableDoor(dr *Drawable) {
 	v14 := float32(float64(v15)*float64(v15) + v4*v4)
 	ss.DistSq32 = int32(v14)
 	ss.Ang40 = c.sub_4CA8B0(int32(dr.PosVec.Y-c.sightViewCenter.Y), int32(dr.PosVec.X-c.sightViewCenter.X))
-	ss.Ang40 = sightAngAdjust(ss.Ang40)
+	ss.Ang40 = ss.Ang40.Normalize()
 	ss.Ang44 = c.sub_4CA8B0(int32(dr.PosVec.Y+int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196188))-c.sightViewCenter.Y), int32(dr.PosVec.X+int(memmap.Int32(0x587000, uintptr(int32(dr.Field_74_4)*8)+196184))-c.sightViewCenter.X))
-	ss.Ang44 = sightAngAdjust(ss.Ang44)
+	ss.Ang44 = ss.Ang44.Normalize()
 	v11 := ss.Ang44
 	v12 := ss.Ang40
 	if v11 < v12 {
@@ -1207,8 +1219,8 @@ func (c *clientSight) newFromDrawableCircle(dr *Drawable) {
 	v9 := c.sub_4CA8B0(v8, v22)
 	v10 := int32(v2.Shape.Circle.R)
 	v11 := c.sub_4CA8B0(v10, v7)
-	ss.Ang40 = sightAngAdjust(v11 + v9)
-	ss.Ang44 = sightAngAdjust(v9 - v11)
+	ss.Ang40 = (v11 + v9).Normalize()
+	ss.Ang44 = (v9 - v11).Normalize()
 	v17 := ss.Ang44
 	v18 := ss.Ang40
 	if v17 < v18 {
@@ -1584,8 +1596,8 @@ func (c *clientSight) newFromDrawableBoxSub(a1, a2 sightAngle, kind sightObjKind
 		ss.Ang40 = a2
 		ss.Ang44 = a1
 	}
-	ss.Ang40 = sightAngAdjust(ss.Ang40)
-	ss.Ang44 = sightAngAdjust(ss.Ang44)
+	ss.Ang40 = ss.Ang40.Normalize()
+	ss.Ang44 = ss.Ang44.Normalize()
 	if ss.Ang44-ss.Ang40 < sightAngHalfSize {
 		c.addListZzz(ss)
 		return
