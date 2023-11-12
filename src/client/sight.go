@@ -21,10 +21,14 @@ import (
 // TODO: remove references to memmap
 
 const (
-	sightAngSz  = 75000
-	sightAngMax = sightAngSz - 1
-	sightAngXxx = 25736
-	sightAngYyy = 37500
+	sightAngSz       = 75000
+	sightAngMax      = sightAngSz - 1
+	sightAngHalfSize = sightAngSz / 2
+
+	sightAngVal1 = 6434
+	sightAngVal2 = 2 * sightAngVal1
+	sightAngVal3 = 3 * sightAngVal1
+	sightAngVal4 = 4 * sightAngVal1
 
 	sightPointsMax = 1024
 )
@@ -32,7 +36,7 @@ const (
 type sightAngle int32
 
 func (v sightAngle) ConvA() int32 {
-	return int32((v * sightAngXxx) / sightAngSz)
+	return int32((v * sightAngVal4) / sightAngSz)
 }
 
 func sightAngAdjust(v sightAngle) sightAngle {
@@ -345,11 +349,11 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				v20 := ss.Ang40.ConvA()
 				v21 := ss.Ang44.ConvA()
 
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v20))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v20))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v20))
 				pp1 = sub_4CA960(ss.GridPos24, ss.Field36, brect)
 
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v21))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v21))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v21))
 				pp2 = sub_4CA960(ss.GridPos24, ss.Field36, brect)
 
@@ -362,22 +366,22 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				wl.Field3 |= ss.Field36
 				v18 = ss.GridPos24.X + (ss.GridPos24.Y << 8)
 			case 1:
-				pp1.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang40.ConvA()-19302)*(vp.Size.Y/2)/4096)
+				pp1.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang40.ConvA()-sightAngVal3)*(vp.Size.Y/2)/4096)
 				pp1.Y = float32(vp.World.Min.Y)
-				pp2.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang44.ConvA()-19302)*(vp.Size.Y/2)/4096)
+				pp2.X = float32(c.sightViewCenter.X + sub_414C50(ss.Ang44.ConvA()-sightAngVal3)*(vp.Size.Y/2)/4096)
 				pp2.Y = float32(vp.World.Min.Y)
 				v18 = 0
 			case 2:
-				pp1.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang40.ConvA()-6434)*(vp.Size.Y/2)/4096)
+				pp1.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang40.ConvA()-sightAngVal1)*(vp.Size.Y/2)/4096)
 				pp1.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
-				pp2.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang44.ConvA()-6434)*(vp.Size.Y/2)/4096)
+				pp2.X = float32(c.sightViewCenter.X - sub_414C50(ss.Ang44.ConvA()-sightAngVal1)*(vp.Size.Y/2)/4096)
 				pp2.Y = float32(vp.World.Min.Y + vp.Size.Y - 1)
 				v18 = 0
 			case 3:
 				pp1.X = float32(vp.World.Min.X)
-				pp1.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang40.ConvA()-12868)*(vp.Size.X/2)/4096)
+				pp1.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang40.ConvA()-sightAngVal2)*(vp.Size.X/2)/4096)
 				pp2.X = float32(vp.World.Min.X)
-				pp2.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang44.ConvA()-12868)*(vp.Size.X/2)/4096)
+				pp2.Y = float32(c.sightViewCenter.Y - sub_414C50(ss.Ang44.ConvA()-sightAngVal2)*(vp.Size.X/2)/4096)
 				v18 = 0
 			case 4:
 				pp1.X = float32(vp.Size.X + vp.World.Min.X - 1)
@@ -395,7 +399,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				rect.Max.X = float32(float64(v34.PosVec.X + int(memmap.Int32(0x587000, uintptr(int32(v34.Field_74_4)*8)+196184))))
 				rect.Max.Y = float32(float64(v34.PosVec.Y + int(memmap.Int32(0x587000, uintptr(int32(v34.Field_74_4)*8)+196188))))
 				v36 := ss.Ang40.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v36))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v36))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v36))
 				var ok bool
 				pp1, ok = server.LineTracePointXxx(brect, rect)
@@ -403,7 +407,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 					pp1 = rect.Min
 				}
 				v37 := ss.Ang44.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v37))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v37))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v37))
 				pp2, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
@@ -421,7 +425,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 				rect.Max.X = float32(ss.Obj20.PosVec.X - v40)
 				rect.Max.Y = float32(ss.Obj20.PosVec.Y - v39)
 				v41 := ss.Ang40.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v41))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v41))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v41))
 				var ok bool
 				pp1, ok = server.LineTracePointXxx(brect, rect)
@@ -429,7 +433,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 					pp1 = types.Ptf(rect.Min.X, rect.Min.Y)
 				}
 				v42 := ss.Ang44.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v42))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v42))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v42))
 				pp2, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
@@ -472,7 +476,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 					rect.Max.Y = float32(ss.Obj20.PosVec.Y) + ss.Obj20.Shape.Box.RightBottom
 				}
 				v45 := ss.Ang40.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v45))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v45))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v45))
 				var ok bool
 				pp1, ok = server.LineTracePointXxx(brect, rect)
@@ -480,7 +484,7 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 					pp1 = rect.Min
 				}
 				v46 := ss.Ang44.ConvA()
-				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(6434-v46))
+				brect.Max.X = float32(c.sightViewCenter.X + sub_414BD0(sightAngVal1-v46))
 				brect.Max.Y = float32(c.sightViewCenter.Y + sub_414BD0(v46))
 				pp2, ok = server.LineTracePointXxx(brect, rect)
 				if !ok {
@@ -1112,7 +1116,7 @@ func (c *clientSight) newFromWall(gx, gy int, typ byte) {
 		ss.Ang40 = v17
 		ss.Ang44 = v18
 	}
-	if ss.Ang44-ss.Ang40 < sightAngYyy {
+	if ss.Ang44-ss.Ang40 < sightAngHalfSize {
 		c.addListZzz(ss)
 		return
 	}
@@ -1147,7 +1151,7 @@ func (c *clientSight) newFromDrawableXxx(dr *Drawable) {
 		ss.Ang40 = v11
 		ss.Ang44 = v12
 	}
-	if ss.Ang44-ss.Ang40 >= sightAngYyy {
+	if ss.Ang44-ss.Ang40 >= sightAngHalfSize {
 		ss2 := c.copyStruct(ss)
 		ss2.Ang40 = 0
 		ss2.Ang44 = ss.Ang40
@@ -1184,7 +1188,7 @@ func (c *clientSight) newFromDrawableCircle(dr *Drawable) {
 		ss.Ang40 = v17
 		ss.Ang44 = v18
 	}
-	if ss.Ang44-ss.Ang40 < sightAngYyy {
+	if ss.Ang44-ss.Ang40 < sightAngHalfSize {
 		c.addListZzz(ss)
 		return
 	}
@@ -1334,9 +1338,9 @@ func (c *clientSight) sub_4CA8B0(a1 int32, a2 int32) sightAngle {
 	res := c.angleTable[ind]
 	switch v6 {
 	case 2:
-		return sightAngYyy - res
+		return sightAngHalfSize - res
 	case 3:
-		return res + sightAngYyy
+		return res + sightAngHalfSize
 	case 4:
 		return sightAngSz - res
 	}
@@ -1555,7 +1559,7 @@ func (c *clientSight) newFromDrawableBoxSub(a1, a2 sightAngle, a3 byte, a4 int32
 	}
 	ss.Ang40 = sightAngAdjust(ss.Ang40)
 	ss.Ang44 = sightAngAdjust(ss.Ang44)
-	if ss.Ang44-ss.Ang40 < sightAngYyy {
+	if ss.Ang44-ss.Ang40 < sightAngHalfSize {
 		c.addListZzz(ss)
 		return
 	}
@@ -1615,7 +1619,7 @@ func sub_4CAC30(pos ntype.Point32, rect types.Rectf, dpx, dpy int32) (out types.
 }
 func sub_414C50(a1 int32) int {
 	v1 := sub_414BD0(a1)
-	v2 := sub_414BD0(6434 - a1)
+	v2 := sub_414BD0(sightAngVal1 - a1)
 	if v2 != 0 {
 		return (v1 << 12) / v2
 	} else {
@@ -1629,12 +1633,12 @@ func sub_414C50(a1 int32) int {
 func sub_414BD0(a1 int32) int {
 	v1 := a1
 	if a1 < 0 {
-		v1 = a1 + ((sightAngXxx-a1-1)/sightAngXxx)*sightAngXxx
+		v1 = a1 + ((sightAngVal4-a1-1)/sightAngVal4)*sightAngVal4
 	}
-	if v1 >= sightAngXxx {
-		v1 %= sightAngXxx
+	if v1 >= sightAngVal4 {
+		v1 %= sightAngVal4
 	}
-	return int(memmap.Int32(0x85B3FC, uintptr(((v1<<12)/sightAngXxx)*4+12260)))
+	return int(memmap.Int32(0x85B3FC, uintptr(((v1<<12)/sightAngVal4)*4+12260)))
 }
 func sub_57BA30(p1, p2 *image.Point, r image.Rectangle) int {
 	swap := false
