@@ -751,6 +751,15 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		legacy.Sub_43C650()
 		return 3
+	case noxnet.MSG_DESTROY_WALL:
+		if len(data) < 3 {
+			return -1
+		}
+		if nox_client_isConnected() && !noxflags.HasGame(noxflags.GameHost) {
+			id := binary.LittleEndian.Uint16(data[1:])
+			c.srv.Walls.BreakByID(id)
+		}
+		return 3
 	case noxnet.MSG_SERVER_QUIT:
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_SERVER_QUIT_ACK)

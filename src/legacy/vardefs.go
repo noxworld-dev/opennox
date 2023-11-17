@@ -192,7 +192,6 @@ extern uint32_t dword_5d4594_528252;
 extern uint32_t dword_5d4594_1309828;
 extern void* dword_587000_122852;
 extern uint32_t dword_5d4594_1301776;
-extern uint32_t dword_5d4594_251564;
 extern uint32_t nox_xxx_screenWidth_587000_184452;
 extern uint32_t dword_5d4594_1550916;
 extern uint32_t dword_5d4594_2487540;

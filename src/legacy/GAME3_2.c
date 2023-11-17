@@ -5681,6 +5681,7 @@ int nox_xxx_game_4DCCB0() {
 }
 
 //----- (004DD180) --------------------------------------------------------
+int nox_xxx_wall_4DF1E0(int a1);
 char* nox_xxx_gameServerReadyMB_4DD180(int a1) {
 	char* result; // eax
 	char* v2;     // edi
@@ -6226,57 +6227,6 @@ int sub_4DF180(void* a1) {
 	for (i = result; result; i = result) {
 		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), v3, 3, 0, 1);
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
-//----- (004DF1E0) --------------------------------------------------------
-int nox_xxx_wall_4DF1E0(int a1) {
-	int* i;     // esi
-	int v2;     // eax
-	int result; // eax
-	int j;      // esi
-	char v5;    // al
-
-	for (i = (int*)nox_xxx_wallGetFirstBreakableCli_410870(); i; i = (int*)nox_xxx_wallGetNextBreakableCli_410880(i)) {
-		v2 = i[1];
-		if (*(uint8_t*)(v2 + 4) & 0x20) {
-			nox_xxx_wallSendDestroyed_4DF0A0(v2, a1);
-		}
-	}
-	sub_4DF2A0(a1);
-	if (sub_5071C0()) {
-		sub_507190(a1, 1);
-	}
-	result = nox_common_gameFlags_check_40A5C0(4096);
-	if (result) {
-		for (j = nox_server_getFirstObject_4DA790(); j; j = nox_server_getNextObject_4DA7A0(j)) {
-			if ((*(uint8_t*)(j + 8) & 0x80) && *(uint8_t*)(*(uint32_t*)(j + 748) + 48)) {
-				sub_4D6A20(a1, j);
-			}
-		}
-		result = sub_4D72C0();
-		if (result == 1) {
-			v5 = sub_4D72C0();
-			result = sub_4D7280(a1, v5);
-		}
-	}
-	return result;
-}
-
-//----- (004DF2A0) --------------------------------------------------------
-int* sub_4DF2A0(char a1) {
-	int v1;      // esi
-	int* result; // eax
-
-	v1 = 1 << a1;
-	for (result = (int*)nox_xxx_wallSecretGetFirstWall_410780(); result;
-		 result = (int*)nox_xxx_wallSecretNext_410790(result)) {
-		if (result[5] & 8) {
-			result[7] |= v1;
-		} else {
-			result[7] &= ~v1;
-		}
 	}
 	return result;
 }

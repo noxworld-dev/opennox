@@ -676,11 +676,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		}
 		nox_xxx_spriteSetFrameMB_45AB80(v5, *(unsigned char*)(data + 3));
 		return 4;
-	case 58: // MSG_DESTROY_WALL
-		if (nox_client_isConnected_43C700() && !nox_common_gameFlags_check_40A5C0(1)) {
-			nox_xxx_wallDestroyedByWallid_410520(*(uint16_t*)(data + 1));
-		}
-		return 3;
 	case 59: // MSG_OPEN_WALL
 		if (nox_client_isConnected_43C700()) {
 			if (!nox_common_gameFlags_check_40A5C0(1)) {

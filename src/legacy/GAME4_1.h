@@ -114,7 +114,6 @@ int nox_xxx_scriptPrepareFoundUnit_511D70(nox_object_t* obj);
 int sub_511DC0();
 int sub_511DE0(nox_object_t* a1);
 int sub_511E20();
-int nox_xxx_wallPreDestroyByPtr_5122C0(int a1);
 float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2);
 void nox_xxx_monsterWalkTo_514110(nox_object_t* obj, float x, float y);
 void nox_xxx_monsterGoPatrol_515680(nox_object_t* a1, void* a2);

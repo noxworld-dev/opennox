@@ -38,7 +38,6 @@ extern uint32_t dword_5d4594_251716;
 extern uint32_t dword_5d4594_10984;
 extern uint32_t dword_5d4594_251720;
 extern uint32_t dword_5d4594_251744;
-extern uint32_t dword_5d4594_251564;
 extern uint32_t dword_5d4594_3484;
 extern void* dword_5d4594_251560;
 extern uint32_t dword_5d4594_371692;
@@ -729,28 +728,6 @@ uint32_t* sub_410390(int a1, int a2, int a3) {
 	return result;
 }
 
-//----- (00410520) --------------------------------------------------------
-int* nox_xxx_wallDestroyedByWallid_410520(short a1) {
-	int* result; // eax
-	int v2;      // ecx
-
-	result = (int*)nox_xxx_wallGetFirstBreakableCli_410870();
-	if (result) {
-		while (1) {
-			v2 = result[1];
-			if (*(uint16_t*)(v2 + 10) == a1) {
-				break;
-			}
-			result = (int*)nox_xxx_wallGetNextBreakableCli_410880(result);
-			if (!result) {
-				return result;
-			}
-		}
-		*(uint8_t*)(v2 + 4) |= 0x20u;
-	}
-	return result;
-}
-
 //----- (00410550) --------------------------------------------------------
 int sub_410550(short a1) {
 	int* v1; // eax
@@ -833,51 +810,6 @@ int* sub_4107A0(void* lpMem) {
 			*v2 = nox_xxx_wallSecretNext_410790(result);
 		}
 		free(lpMem);
-	}
-	return result;
-}
-
-//----- (00410810) --------------------------------------------------------
-uint32_t* nox_xxx_wallBreackableListClear_410810() {
-	uint32_t* result; // eax
-	uint32_t* v1;     // esi
-
-	result = *(uint32_t**)&dword_5d4594_251564;
-	if (dword_5d4594_251564) {
-		do {
-			v1 = (uint32_t*)*result;
-			free(result);
-			result = v1;
-		} while (v1);
-		dword_5d4594_251564 = 0;
-	} else {
-		dword_5d4594_251564 = 0;
-	}
-	return result;
-}
-
-//----- (00410840) --------------------------------------------------------
-uint32_t* nox_xxx_wallBreackableListAdd_410840(int a1) {
-	uint32_t* result; // eax
-
-	result = calloc(1u, 8u);
-	result[1] = a1;
-	*result = dword_5d4594_251564;
-	dword_5d4594_251564 = result;
-	return result;
-}
-
-//----- (00410870) --------------------------------------------------------
-void* nox_xxx_wallGetFirstBreakableCli_410870() { return *(void**)&dword_5d4594_251564; }
-
-//----- (00410880) --------------------------------------------------------
-int nox_xxx_wallGetNextBreakableCli_410880(int* a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *a1;
-	} else {
-		result = 0;
 	}
 	return result;
 }
@@ -1320,7 +1252,8 @@ int nox_xxx_mapTileAllowTeleport_411A90(float2* a1) {
 obj_412ae0_t* nox_xxx_modifNext_4133C0(obj_412ae0_t* a1) { return a1->field_34; }
 
 //----- (004133D0) --------------------------------------------------------
-int sub_4133D0(int a1) {
+int sub_4133D0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // eax
 	int v2; // esi
 	int v3; // eax

@@ -53,6 +53,7 @@ void nox_xxx_updateUnits_51B100_D();
 */
 import "C"
 import (
+	"image"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -101,6 +102,9 @@ type Server interface {
 	Nox_xxx_creatureSetDetailedPath_50D220(obj *server.Object, a2 *types.Pointf)
 	Sub_50CB20(a1 *server.Object, a2 *types.Pointf) *server.Waypoint
 	Sub_50B810(obj *server.Object, pos *types.Pointf) bool
+	Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *server.Object) bool
+	Nox_xxx_damageToMap_534BC0(gx, gy int, dmg int, dtyp object.DamageType, who *server.Object) int
+	Nox_xxx_wall_4DF1E0(a1 int)
 }
 
 var (
@@ -449,9 +453,6 @@ func Nox_xxx_toggleAllTeamFlags_418690(a1 int) {
 }
 func Sub_410730() {
 	C.sub_410730()
-}
-func Nox_xxx_wallBreackableListClear_410810() {
-	C.nox_xxx_wallBreackableListClear_410810()
 }
 func Nox_xxx_j_allocHitArray_511840() {
 	C.nox_xxx_j_allocHitArray_511840()

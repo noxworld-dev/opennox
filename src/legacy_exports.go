@@ -309,15 +309,14 @@ func init() {
 	legacy.Sub_4FF990 = func(a1 uint32) {
 		noxServer.spells.walls.disablePlayerBits(a1)
 	}
-	legacy.Nox_xxx_wallDestroyMagicwallSysuse_4FF840 = func(a1 *server.Wall) {
-		noxServer.spells.walls.destroySysuse(a1)
-	}
 	legacy.Sub_5000B0 = func(a1 *server.Object) int {
 		return noxServer.spells.walls.LoadOrSave(cryptfile.Global(), a1)
 	}
 	legacy.Nox_xxx_monsterCreateFn_54C480 = nox_xxx_monsterCreateFn_54C480
 	legacy.Sub_4A1A40 = sub_4A1A40
 	legacy.Nox_client_getChatMap_49FF40 = nox_client_getChatMap_49FF40
+	legacy.Nox_xxx_soundPlayerDamageSound_5328B0 = Nox_xxx_soundPlayerDamageSound_5328B0
+	legacy.Nox_xxx_soundDefaultDamageSound_532E20 = server.Nox_xxx_soundDefaultDamageSound_532E20
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0 = func(a1 bool) {
 		noxServer.nox_xxx_mapSwitchLevel_4D12E0(a1)
 	}

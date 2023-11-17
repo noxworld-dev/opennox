@@ -1278,7 +1278,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		if s.Doors.Sub_4D72C0() {
 			s.Doors.Sub_4D72B0(false)
 			v57 := s.Doors.Sub_4D72C0()
-			legacy.Sub_4D7280(255, int8(bool2int(v57)))
+			s.Sub_4D7280(255, v57)
 		}
 	}
 	return nil
@@ -1364,12 +1364,8 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		int(rect.Max.X)/common.GridStep,
 		int(rect.Max.Y)/common.GridStep,
 	)
-	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, dtyp, asObjectS(who))
+	s.Nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, dtyp, who)
 	doDamageWalls = true
-}
-
-func (s *Server) nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *Object) {
-	legacy.Nox_xxx_mapDamageToWalls_534FC0(rect, pos, rad, dmg, dtyp, who.SObj())
 }
 
 func sub_473840() {
