@@ -63,7 +63,7 @@ func (c *Client) Nox_drawable_find(pt image.Point, r int) *client.Drawable {
 	panic("unreachable")
 }
 
-func (c *Client) Nox_xxx_client_4984B0_drawable(dr *client.Drawable) int {
+func (c *Client) Nox_xxx_client_4984B0_drawable(dr *client.Drawable) bool {
 	panic("unreachable")
 }
 
