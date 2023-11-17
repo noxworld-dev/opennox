@@ -8,7 +8,7 @@ require (
 	github.com/noxworld-dev/noxcrypt v0.0.0-20230831140413-02623e75408e
 	github.com/noxworld-dev/noxscript/ns v1.0.2
 	github.com/noxworld-dev/noxscript/ns/v4 v4.14.0
-	github.com/noxworld-dev/opennox-lib v0.0.0-20230831140802-093df546a389
+	github.com/noxworld-dev/opennox-lib v0.0.0-20231117234324-3a4f1902ec94
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
