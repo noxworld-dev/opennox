@@ -434,3 +434,83 @@ func (s *Server) Nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, 
 	}
 	s.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
 }
+
+func (s *Server) Nox_xxx_netSendRayFx_5232F0(fx noxnet.Op, p1, p2 image.Point) {
+	var buf [9]byte
+	buf[0] = byte(fx)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
+	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
+	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
+	s.Nox_xxx_servCode_523340(p1, p2, buf[:9])
+}
+
+func (s *Server) Nox_xxx_servCode_523340(a1a, a1b image.Point, a2 []byte) {
+	var v19, v20, v21, v22 int
+	if a1a.X >= a1b.X {
+		v19 = a1b.X
+		v21 = a1a.X
+	} else {
+		v19 = a1a.X
+		v21 = a1b.X
+	}
+	if a1a.Y >= a1b.Y {
+		v20 = a1b.Y
+		v22 = a1a.Y
+	} else {
+		v20 = a1a.Y
+		v22 = a1b.Y
+	}
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		pl := it.UpdateDataPlayer().Player
+		var pos2 types.Pointf
+		if pl.Field3680&3 != 0 && pl.CameraFollowObj != nil {
+			pos2 = pl.CameraFollowObj.PosVec
+		} else {
+			pos2 = it.PosVec
+		}
+		v9 := float64(pl.Field10)
+		v10 := 0
+		v23 := float32(float64(pos2.X) - v9 - 50.0)
+		v11 := v9 + float64(pos2.X) + 50.0
+		v12 := float64(pl.Field12)
+		v24 := float32(float64(pos2.Y) - v12 - 50.0)
+		v25 := float32(v12 + float64(pos2.Y) + 50.0)
+		v13 := float64(a1a.X)
+		if v13 >= float64(v23) {
+			if v13 > v11 {
+				v10 = 8
+			}
+		} else {
+			v10 = 4
+		}
+		v14 := float64(a1a.Y)
+		if v14 >= float64(v24) {
+			if v14 > float64(v25) {
+				v10 |= 2
+			}
+		} else {
+			v10 |= 1
+		}
+		v15 := float64(a1b.X)
+		v16 := 0
+		if v15 >= float64(v23) {
+			if v15 > v11 {
+				v16 = 8
+			}
+		} else {
+			v16 = 4
+		}
+		v17 := float64(a1b.Y)
+		if v17 >= float64(v24) {
+			if v17 > float64(v25) {
+				v16 |= 2
+			}
+		} else {
+			v16 |= 1
+		}
+		if (int32(uint8(v16))&int32(uint8(v10))) == 0 && float64(v19) <= v11 && float64(v21) >= float64(v23) && float64(v20) <= float64(v25) && float64(v22) >= float64(v24) {
+			s.NetList.AddToMsgListCli(pl.PlayerIndex(), 1, a2)
+		}
+	}
+}

@@ -102,7 +102,6 @@ int sub_523150(char a1, char a2, float* a3);
 int nox_xxx_netSparkExplosionFx_5231B0(float* a1, char a2);
 void nox_xxx_sendGeneratorBreakFX_523200(float* a1, char a2);
 int nox_xxx_netSendVampFx_523270(char a1, short* a2, short a3);
-int nox_xxx_servCode_523340(int* a1, const void* a2, int a3);
 int nox_xxx_netClientPredictLinear_523530(int a1);
 void nox_xxx_mapGenSetFlags_5235F0(char a1);
 int nox_xxx_netSendShieldFx_523670(int a1, float* a2);
