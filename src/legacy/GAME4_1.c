@@ -3419,17 +3419,6 @@ int sub_511E20() {
 	return result;
 }
 
-//----- (005122C0) --------------------------------------------------------
-int nox_xxx_wallPreDestroyByPtr_5122C0(int a1) {
-	int v1;  // edx
-	int2 v3; // [esp+0h] [ebp-8h]
-
-	v1 = *(unsigned char*)(a1 + 6);
-	v3.field_0 = *(unsigned char*)(a1 + 5);
-	v3.field_4 = v1;
-	return nox_xxx_wallPreDestroy_534DA0(&v3);
-}
-
 //----- (005125A0) --------------------------------------------------------
 float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	int a1 = obj;

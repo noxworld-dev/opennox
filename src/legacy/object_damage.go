@@ -4,6 +4,7 @@ package legacy
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4_3.h"
+int nox_xxx_soundPlayerDamageSound_5328B0(nox_object_t* a1, nox_object_t* a2);
 */
 import "C"
 import "github.com/noxworld-dev/opennox/v1/server"

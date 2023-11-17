@@ -17,11 +17,11 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 )
 
-func (s *Server) NetSendPacketXxx0(a1 int, buf []byte, a4, a5 int) int {
+func (s *Server) NetSendPacketXxx0(a1 int, buf []byte, a4, a5 int) int { // nox_xxx_netSendPacket0_4E5420
 	return s.NetSendPacketXxx(a1, buf, a4, a5, 0)
 }
 
-func (s *Server) NetSendPacketXxx1(a1 int, buf []byte, a4, a5 int) int {
+func (s *Server) NetSendPacketXxx1(a1 int, buf []byte, a4, a5 int) int { // nox_xxx_netSendPacket1_4E5390
 	return s.NetSendPacketXxx(a1, buf, a4, a5, 1)
 }
 
@@ -320,4 +320,44 @@ func (s *Server) Nox_xxx_netObjectInShadows_528A90(ind int, obj *Object) int {
 	buf[0] = byte(noxnet.MSG_OBJECT_IN_SHADOWS)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(obj)))
 	return s.NetSendPacketXxx0(ind, buf[:3], 0, 1)
+}
+
+func (s *Server) Nox_xxx_wallSendDestroyed_4DF0A0(wl *Wall, a2 int) {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_DESTROY_WALL)
+	binary.LittleEndian.PutUint16(buf[1:], wl.Field10)
+	if a2 != 32 {
+		s.NetSendPacketXxx0(a2, buf[:3], 0, 1)
+		return
+	}
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		pl := it.UpdateDataPlayer().Player
+		s.NetSendPacketXxx0(pl.Index(), buf[:3], 0, 1)
+	}
+}
+
+func (s *Server) Sub_507190(a1 int, a2 byte) int {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_VOTE)
+	buf[1] = 6
+	buf[2] = a2
+	return s.NetSendPacketXxx1(a1, buf[:3], 0, 1)
+}
+
+func (s *Server) Sub_4D6A20(a1 int, a2 *Object) int {
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_GAUNTLET)
+	buf[1] = 15
+	binary.LittleEndian.PutUint16(buf[2:], uint16(a2.Extent))
+	return s.NetSendPacketXxx0(a1, buf[:4], 0, 1)
+}
+
+func (s *Server) Sub_4D7280(a1 int, a2 bool) int {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_GAUNTLET)
+	buf[1] = 24
+	if a2 {
+		buf[2] = 1
+	}
+	return s.NetSendPacketXxx1(a1, buf[:3], 0, 1)
 }

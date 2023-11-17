@@ -196,7 +196,6 @@ uint32_t dword_5d4594_528252 = 0;
 uint32_t dword_5d4594_1309828 = 0;
 void* dword_587000_122852 = 0;
 uint32_t dword_5d4594_1301776 = 0;
-uint32_t dword_5d4594_251564 = 0;
 uint32_t nox_xxx_screenWidth_587000_184452 = 0x32;
 uint32_t dword_5d4594_1550916 = 0;
 uint32_t dword_5d4594_2487540 = 0;

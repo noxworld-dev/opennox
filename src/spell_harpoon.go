@@ -161,7 +161,7 @@ func (a *abilityHarpoon) Collide(bolt *Object, targ *Object) {
 	}
 	if targ == nil {
 		npos := bolt.NewPos
-		legacy.Nox_xxx_damageToMap_534BC0(int(npos.X/common.GridStep), int(npos.Y/common.GridStep), a.damage, 11, bolt.SObj())
+		a.s.Nox_xxx_damageToMap_534BC0(int(npos.X/common.GridStep), int(npos.Y/common.GridStep), a.damage, 11, bolt.SObj())
 		a.breakForOwner(owner, false)
 		return
 	}
@@ -170,7 +170,7 @@ func (a *abilityHarpoon) Collide(bolt *Object, targ *Object) {
 	}
 	u5 := bolt.FindOwnerChainPlayer()
 	if targ.CallDamage(u5, bolt, a.damage, object.DamageImpact) == 0 || !(a.s.IsEnemyTo(owner.SObj(), targ.SObj()) || noxflags.HasGamePlay(1) && targ.Class().HasAny(object.MaskUnits)) {
-		legacy.Nox_xxx_soundDefaultDamageSound_532E20(targ.SObj(), bolt.SObj())
+		server.Nox_xxx_soundDefaultDamageSound_532E20(targ.SObj(), bolt.SObj())
 		a.breakForOwner(owner, false)
 		return
 	}

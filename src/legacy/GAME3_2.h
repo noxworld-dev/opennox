@@ -267,8 +267,6 @@ char* sub_4DF020();
 int nox_xxx_wallSendDestroyed_4DF0A0(int a1, int a2);
 int sub_4DF120(void* a1);
 int sub_4DF180(void* a1);
-int nox_xxx_wall_4DF1E0(int a1);
-int* sub_4DF2A0(char a1);
 void sub_4DF2E0(int a1);
 int nox_xxx_netSendSimpleObject2_4DF360(int a1, nox_object_t* a2);
 void sub_4DF3C0(nox_playerInfo* pl);
