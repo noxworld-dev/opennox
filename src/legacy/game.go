@@ -346,22 +346,6 @@ func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
 	C.nox_xxx_sMakeScorch_537AF0((*C.float)(unsafe.Pointer(&cpos[0])), C.int(a2))
 }
 
-func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *server.Object) {
-	crect, rfree := alloc.Make([]int32{}, 4)
-	defer rfree()
-	crect[0] = int32(rect.Min.X)
-	crect[1] = int32(rect.Min.Y)
-	crect[2] = int32(rect.Max.X)
-	crect[3] = int32(rect.Max.Y)
-
-	cpos, pfree := alloc.Make([]float32{}, 2)
-	defer pfree()
-	cpos[0] = pos.X
-	cpos[1] = pos.Y
-
-	C.nox_xxx_mapDamageToWalls_534FC0((*C.int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), C.float(rad), C.int(dmg), C.int(dtyp), who.CObj())
-}
-
 func Nox_xxx_getSomeMapName_4D0CF0() string {
 	return GoString(C.nox_xxx_getSomeMapName_4D0CF0())
 }
@@ -735,9 +719,6 @@ func Sub_4E81D0(a1 *server.Object) {
 }
 func Sub_4D71E0(a1 int) {
 	C.sub_4D71E0(C.int(a1))
-}
-func Sub_4D7280(a1 int, a2 int8) {
-	C.sub_4D7280(C.int(a1), C.char(a2))
 }
 func Nox_xxx_calcDistance_4E6C00(a1 *server.Object, a2 *server.Object) float32 {
 	return float32(C.nox_xxx_calcDistance_4E6C00(asObjectC(a1), asObjectC(a2)))

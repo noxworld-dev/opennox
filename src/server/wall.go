@@ -30,6 +30,8 @@ type serverWalls struct {
 	byPos    []*Wall // index is wallArrayInd
 	indexY   []*Wall // TODO: replace the maps index with map[[2]int]*Wall when we can prove no access to NextByY24 is made
 
+	breakableList *BreakableWall
+
 	NoWallSounds bool
 }
 
@@ -420,6 +422,37 @@ func (s *serverWalls) DeleteAtGrid(pos image.Point) {
 	s.freeList = wl
 }
 
+func (s *serverWalls) AddBreakable(wl *Wall) {
+	p, _ := alloc.New(BreakableWall{})
+	p.Wall = wl
+	p.NextPtr = s.breakableList
+	s.breakableList = p
+}
+
+func (s *serverWalls) ClearBreakable() {
+	it := s.breakableList
+	for it != nil {
+		next := it.NextPtr
+		alloc.Free(it)
+		it = next
+	}
+	s.breakableList = nil
+}
+
+func (s *serverWalls) FirstBreakable() *BreakableWall {
+	return s.breakableList
+}
+
+func (s *serverWalls) BreakByID(id uint16) {
+	for it := s.FirstBreakable(); it != nil; it = it.Next() {
+		wl := it.Wall
+		if wl.Field10 == id {
+			wl.Flags4 |= WallFlag6
+			return
+		}
+	}
+}
+
 func ParseWallDir(name string) (WallDir, bool) {
 	for i, v := range wallDirNames {
 		if v == name {
@@ -552,6 +585,18 @@ const (
 	WallFlag7     = WallFlags(0x40)
 )
 
+type BreakableWall struct {
+	NextPtr *BreakableWall
+	Wall    *Wall
+}
+
+func (wl *BreakableWall) Next() *BreakableWall {
+	if wl == nil {
+		return nil
+	}
+	return wl.NextPtr
+}
+
 type Wall struct {
 	Dir0        byte           // 0, 0
 	Tile1       byte           // 0, 1
@@ -561,7 +606,8 @@ type Wall struct {
 	X5          byte           // 1, 5
 	Y6          byte           // 1, 6
 	Health7     byte           // 1, 7
-	Field8      uint32         // 2, 8
+	Field8      uint16         // 2, 8
+	Field10     uint16         // 2, 10
 	Field12     uint32         // 3, 12
 	NextByPos16 *Wall          // 4, 16
 	Next20      *Wall          // 5, 20

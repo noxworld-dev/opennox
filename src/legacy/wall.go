@@ -4,12 +4,14 @@ package legacy
 #include "GAME1.h"
 #include "GAME4_1.h"
 extern void* dword_5d4594_251560;
+extern uint32_t dword_5d4594_1599656;
 */
 import "C"
 import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -18,12 +20,11 @@ import (
 )
 
 var (
-	Sub_526CA0                                func(a1 string) int
-	Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0  func()
-	Nox_xxx_map_5004F0                        func()
-	Sub_4FF990                                func(a1 uint32)
-	Nox_xxx_wallDestroyMagicwallSysuse_4FF840 func(a1 *server.Wall)
-	Sub_5000B0                                func(a1 *server.Object) int
+	Sub_526CA0                               func(a1 string) int
+	Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0 func()
+	Nox_xxx_map_5004F0                       func()
+	Sub_4FF990                               func(a1 uint32)
+	Sub_5000B0                               func(a1 *server.Object) int
 )
 
 var _ = [1]struct{}{}[12332-unsafe.Sizeof(server.WallDef{})]
@@ -84,11 +85,6 @@ func nox_xxx_wallFlags(ind int) uint32 {
 	return GetServer().S().Walls.DefByInd(ind).Flags32
 }
 
-//export nox_xxx_wallGetBrickObj_410E60
-func nox_xxx_wallGetBrickObj_410E60(ind int, ind2 int) *C.char {
-	return internCStr(GetServer().S().Walls.DefByInd(ind).BrickObject(ind2))
-}
-
 //export nox_xxx_getWallSprite_46A3B0
 func nox_xxx_getWallSprite_46A3B0(ind int, a2 int, a3 int, a4 int) unsafe.Pointer {
 	return GetServer().S().Walls.DefByInd(ind).Sprite(a2, a3, a4)
@@ -114,21 +110,6 @@ func nox_xxx_map_410E00(ind int) byte {
 //export nox_xxx_mapWallGetHpByTile_410E20
 func nox_xxx_mapWallGetHpByTile_410E20(ind int) byte {
 	return GetServer().S().Walls.DefByInd(ind).Health41
-}
-
-//export nox_xxx_wallGetBrickTypeMB_410E40
-func nox_xxx_wallGetBrickTypeMB_410E40(ind int) byte {
-	return GetServer().S().Walls.DefByInd(ind).BrickType42
-}
-
-//export nox_xxx_wallField36
-func nox_xxx_wallField36(ind int) uint16 {
-	return GetServer().S().Walls.DefByInd(ind).Field36
-}
-
-//export nox_xxx_wallSoundByTile_410EA0
-func nox_xxx_wallSoundByTile_410EA0(ind int) *C.char {
-	return internCStr(GetServer().S().Walls.DefByInd(ind).BreakSound())
 }
 
 //export nox_xxx_wallFindOpenSound_410EE0
@@ -166,18 +147,34 @@ func sub_4FF990(a1 C.uint) {
 	Sub_4FF990(uint32(a1))
 }
 
-//export nox_xxx_wallDestroyMagicwallSysuse_4FF840
-func nox_xxx_wallDestroyMagicwallSysuse_4FF840(a1 unsafe.Pointer) {
-	Nox_xxx_wallDestroyMagicwallSysuse_4FF840((*server.Wall)(a1))
-}
-
 //export sub_5000B0
 func sub_5000B0(a1 *nox_object_t) int {
 	return Sub_5000B0(asObjectS(a1))
 }
 
-func Nox_xxx_wallPreDestroyByPtr_5122C0(a1 unsafe.Pointer) {
-	C.nox_xxx_wallPreDestroyByPtr_5122C0(C.int(uintptr(a1)))
+//export nox_xxx_mapDamageToWalls_534FC0
+func nox_xxx_mapDamageToWalls_534FC0(a1 *C.int4, a2 unsafe.Pointer, a3 C.float, a4, a5 int, a6 unsafe.Pointer) C.bool {
+	rect := image.Rect(int(a1.field_0), int(a1.field_4), int(a1.field_8), int(a1.field_C))
+	return C.bool(GetServer().Nox_xxx_mapDamageToWalls_534FC0(rect, *(*types.Pointf)(a2), float32(a3), a4, object.DamageType(a5), AsObjectP(a6)))
+}
+
+//export nox_xxx_damageToMap_534BC0
+func nox_xxx_damageToMap_534BC0(a1, a2, a3, a4 int, a5 *nox_object_t) int {
+	return GetServer().Nox_xxx_damageToMap_534BC0(a1, a2, a3, object.DamageType(a4), asObjectS(a5))
+}
+
+//export nox_xxx_wallBreackableListAdd_410840
+func nox_xxx_wallBreackableListAdd_410840(a1 unsafe.Pointer) {
+	GetServer().S().Walls.AddBreakable(asWallP(a1))
+}
+
+//export nox_xxx_wall_4DF1E0
+func nox_xxx_wall_4DF1E0(a1 int) {
+	GetServer().Nox_xxx_wall_4DF1E0(a1)
+}
+
+func Sub_5071C0() bool {
+	return C.dword_5d4594_1599656 != 0
 }
 
 func Nox_xxx_math_509ED0(pos types.Pointf) int {

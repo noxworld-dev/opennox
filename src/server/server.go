@@ -98,7 +98,7 @@ type Server struct {
 
 	updateFunc2 func() bool
 
-	NetSendPacketXxx func(a1 int, buf []byte, a4, a5, a6 int) int
+	NetSendPacketXxx func(a1 int, buf []byte, a4, a5, a6 int) int // Nox_xxx_netSendPacket_4E5030
 }
 
 func (s *Server) Close() {
