@@ -24,6 +24,11 @@ const (
 type serverWalls struct {
 	defs    [80]WallDef
 	defsCnt int
+	fast    struct {
+		magicSysUse int
+		invis       int
+		invisBlock  int
+	}
 
 	head     *Wall
 	freeList *Wall   // TODO: just allocate dynamically
@@ -37,6 +42,7 @@ type serverWalls struct {
 
 func (s *serverWalls) ResetDefs() {
 	s.defsCnt = 0
+	s.fast.magicSysUse = -1
 }
 
 func (s *serverWalls) Defs() []WallDef {
@@ -115,6 +121,33 @@ func (s *serverWalls) DefIndByName(name string) int {
 		}
 	}
 	return -1
+}
+
+func (s *serverWalls) cacheWallDefInd(p *int, typ string) int {
+	if *p < 0 {
+		*p = s.DefIndByName(typ)
+	}
+	return *p
+}
+
+func (s *serverWalls) MagicWallSystemUseOnlyInd() int {
+	return s.cacheWallDefInd(&s.fast.magicSysUse, "MagicWallSystemUseOnly")
+}
+
+func (s *serverWalls) InvisibleWallSetInd() int {
+	return s.cacheWallDefInd(&s.fast.invis, "InvisibleWallSet")
+}
+
+func (s *serverWalls) InvisibleBlockingWallSetInd() int {
+	return s.cacheWallDefInd(&s.fast.invisBlock, "InvisibleBlockingWallSet")
+}
+
+func (s *serverWalls) IsSysUse(wl *Wall) bool {
+	return int(wl.Tile1) == s.MagicWallSystemUseOnlyInd()
+}
+
+func (s *serverWalls) IsInvisible(wl *Wall) bool {
+	return int(wl.Tile1) == s.InvisibleWallSetInd() || int(wl.Tile1) == s.InvisibleBlockingWallSetInd()
 }
 
 func (s *serverWalls) ResetSprites() {
