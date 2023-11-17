@@ -314,7 +314,7 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 		case 0x41564E54: // "AVNT"
 			legacy.Nox_thing_skip_AVNT_452B00(thg)
 		case 0x57414C4C: // "WALL"
-			if err := nox_thing_read_wall_46A010(thg, buf); err != nil {
+			if err := c.ReadWalls(thg); err != nil {
 				return err
 			}
 		case 0x464C4F52: // "FLOR"
