@@ -4,12 +4,10 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/log"
-	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -73,15 +71,6 @@ func nox_xxx_equipWeapon_4131A0() {
 			j.Ind4 = uint32(ind)
 		}
 		*memmap.PtrUint32(0x5D4594, 251616) = 1
-	}
-}
-
-func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2, src, targ *server.Object) {
-	v5 := *(*float32)(unsafe.Add(a1, 56))
-	if targ != nil {
-		targ.CallDamage(src, a2, int(v5), object.DamageExplosion)
-		nox_xxx_netSparkExplosionFx_5231B0(targ.PosVec, byte(int8(int64(float64(v5)*10.0))))
-		noxServer.Audio.EventObj(sound.SoundWeaponEffectFire, targ, 0, 0)
 	}
 }
 
