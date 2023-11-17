@@ -5558,7 +5558,7 @@ func nox_xxx_wallSendDestroyed_4DF0A0(a1 *server.Wall, a2 int32) {
 		v4 [3]byte
 	)
 	v4[0] = 58
-	*(*uint16)(unsafe.Pointer(&v4[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(a1), 10))
+	*(*uint16)(unsafe.Pointer(&v4[1])) = a1.Field10
 	if a2 != 32 {
 		nox_xxx_netSendPacket0_4E5420(a2, unsafe.Pointer(&v4[0]), 3, nil, 1)
 		return

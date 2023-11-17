@@ -899,7 +899,7 @@ func nox_server_mapRWDestructableWalls_429530(a1 unsafe.Pointer) int32 {
 		}
 		if v2 != nil {
 			v2.Flags4 |= 8
-			*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*5)) = *memmap.PtrUint16(0x5D4594, 741344)
+			v2.Field10 = *memmap.PtrUint16(0x5D4594, 741344)
 			*memmap.PtrUint32(0x5D4594, 741344)++
 			if !noxflags.HasGame(0x400000) {
 				nox_xxx_wallBreackableListAdd_410840(v2)
@@ -1017,7 +1017,7 @@ func nox_server_mapRWSecretWalls_4297C0(a1 *uint32) int32 {
 			v8 = int8(v7.Flags4)
 			v7.Data28 = unsafe.Pointer(v2)
 			v7.Flags4 = server.WallFlags(uint8(int8(int32(v8) | 4)))
-			*(*uint16)(unsafe.Add(v7.C(), 10)) = *memmap.PtrUint16(0x5D4594, 741352)
+			v7.Field10 = *memmap.PtrUint16(0x5D4594, 741352)
 			*memmap.PtrUint32(0x5D4594, 741352)++
 			*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = unsafe.Pointer(v7)
 			if int32(*v4) == 0 {

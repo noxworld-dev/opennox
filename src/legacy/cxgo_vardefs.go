@@ -202,7 +202,7 @@ var dword_5d4594_528252 uint32
 var dword_5d4594_1309828 *gui.Window
 var dword_587000_122852 unsafe.Pointer
 var dword_5d4594_1301776 *healthChange
-var dword_5d4594_251564 *breakableWall
+var dword_5d4594_251564 *BreakableWall
 var nox_xxx_screenWidth_587000_184452 uint32 = 0x32
 var dword_5d4594_1550916 *mapgenRoom
 var dword_5d4594_2487540 int32

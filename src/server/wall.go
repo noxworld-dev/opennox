@@ -540,7 +540,8 @@ type Wall struct {
 	X5          byte           // 1, 5
 	Y6          byte           // 1, 6
 	Health7     byte           // 1, 7
-	Field8      uint32         // 2, 8
+	Field8      uint16         // 2, 8
+	Field10     uint16         // 2, 10
 	Field12     uint32         // 3, 12
 	NextByPos16 *Wall          // 4, 16
 	Next20      *Wall          // 5, 20

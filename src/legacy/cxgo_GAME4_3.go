@@ -3114,7 +3114,7 @@ func nox_xxx_wallPreDestroy_534DA0(pt *Point32) int32 {
 	if uint32(v1.Tile1) == *memmap.PtrUint32(0x5D4594, 2488560) {
 		nox_xxx_wallDestroyMagicwallSysuse_4FF840(v1)
 	} else {
-		nox_xxx_wallDestroyedByWallid_410520(int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 10))))
+		nox_xxx_wallDestroyedByWallid_410520(int16(v1.Field10))
 		nox_xxx_wallSendDestroyed_4DF0A0(v1, 32)
 	}
 	return 1

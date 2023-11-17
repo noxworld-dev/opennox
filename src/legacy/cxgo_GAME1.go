@@ -658,7 +658,7 @@ func nox_xxx_wallDestroyedByWallid_410520(a1 int16) {
 	}
 	for {
 		v2 := result.Field4
-		if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), 10))) == int32(a1) {
+		if int32(v2.Field10) == int32(a1) {
 			v2.Flags4 |= 0x20
 			return
 		}
@@ -743,19 +743,19 @@ func nox_xxx_wallBreackableListClear_410810() {
 	dword_5d4594_251564 = nil
 }
 
-type breakableWall struct {
-	Field0 *breakableWall
+type BreakableWall struct {
+	Field0 *BreakableWall
 	Field4 *server.Wall
 }
 
 func nox_xxx_wallBreackableListAdd_410840(a1 *server.Wall) {
-	result, _ := alloc.New(breakableWall{})
+	result, _ := alloc.New(BreakableWall{})
 	result.Field4 = a1
 	result.Field0 = dword_5d4594_251564
 	dword_5d4594_251564 = result
 }
-func nox_xxx_wallGetFirstBreakableCli_410870() *breakableWall { return dword_5d4594_251564 }
-func nox_xxx_wallGetNextBreakableCli_410880(a1 *breakableWall) *breakableWall {
+func nox_xxx_wallGetFirstBreakableCli_410870() *BreakableWall { return dword_5d4594_251564 }
+func nox_xxx_wallGetNextBreakableCli_410880(a1 *BreakableWall) *BreakableWall {
 	if a1 == nil {
 		return nil
 	}
