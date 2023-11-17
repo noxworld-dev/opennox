@@ -514,3 +514,22 @@ func (s *Server) Nox_xxx_servCode_523340(a1a, a1b image.Point, a2 []byte) {
 		}
 	}
 }
+
+func (s *Server) NetSendFxJiggle(ind ntype.PlayerInd, dy int8) {
+	var buf [2]byte
+	buf[0] = byte(noxnet.MSG_FX_JIGGLE)
+	buf[1] = byte(dy)
+	s.NetList.AddToMsgListCli(ind, netlist.Kind1, buf[:2])
+}
+
+func (s *Server) Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, jiggle int) {
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		pl := it.UpdateDataPlayer().Player
+		dx := float64(pos.X - pl.Pos3632Vec.X)
+		dy := float64(pos.Y - pl.Pos3632Vec.Y)
+		dd2 := dy*dy + dx*dx
+		if dd2 < 90000.0 {
+			s.NetSendFxJiggle(pl.PlayerIndex(), int8(int64((1.0-dd2*1.1111111e-05)*float64(jiggle))))
+		}
+	}
+}
