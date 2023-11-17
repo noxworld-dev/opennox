@@ -6648,7 +6648,7 @@ LABEL_87:
 		v38 = v10.ObjOwner
 	}
 	if v38 != nil && nox_xxx_unitIsEnemyTo_5330C0(a1, v38) != 0 {
-		sub_532880(unsafe.Pointer(v38))
+		sub_532880(v38)
 	}
 LABEL_137:
 	if nox_xxx_testUnitBuffs_4FF350(a1, 26) != 0 && a5 != 5 {

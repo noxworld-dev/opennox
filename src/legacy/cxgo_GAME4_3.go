@@ -2121,124 +2121,110 @@ func nox_xxx_monsterPlayHurtSound_532800(a1p *server.Object) int8 {
 	}
 	return int8(v1)
 }
-func sub_532880(a1 unsafe.Pointer) int32 {
-	var result int32
-	result = int32(*(*uint32)(unsafe.Add(a1, 748)))
-	if *(*uint32)(unsafe.Add(result, 520)) == 0 {
-		*(*uint32)(unsafe.Add(result, 520)) = gameFrame()
+func sub_532880(a1 *server.Object) {
+	ud := a1.UpdateData
+	if *(*uint32)(unsafe.Add(ud, 520)) == 0 {
+		*(*uint32)(unsafe.Add(ud, 520)) = gameFrame()
 	}
-	return result
 }
 func nox_xxx_soundPlayerDamageSound_5328B0(obj, obj2 *server.Object) int {
 	a1 := obj
 	a2 := obj2
 	var (
 		v2 uint16
-		i  int32
 	)
 	v2 = 1
 	if obj2 == nil {
 		return 1
 	}
-	for i = int32(a1.InvFirstItem); i != 0; i = int32(*(*uint32)(unsafe.Add(i, 496))) {
-		if *(*uint32)(unsafe.Add(i, 8))&0x2000000 != 0 && int32(*(*uint8)(unsafe.Add(i, 12)))&4 != 0 {
-			if sub_4133D0(i) != 0 {
+	for it := a1.InvFirstItem; it != nil; it = it.InvNextItem {
+		if it.ObjClass&0x2000000 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(it), 12)))&4 != 0 {
+			if sub_4133D0(it) != 0 {
 				v2 = 0x2000
-			} else if int32(*(*uint16)(unsafe.Add(i, 24))) > int32(v2) {
-				v2 = *(*uint16)(unsafe.Add(i, 24))
+			} else if int32(it.Material) > int32(v2) {
+				v2 = it.Material
 			}
 		}
 	}
 	sub_532930(a1, v2, a2.Material)
 	return 1
 }
-func sub_532930(a1 int32, a2 uint16, a3 uint16) {
-	var result int32
-	result = int32(a2)
+func sub_532930(a1 *server.Object, a2 uint16, a3 uint16) {
 	if int32(a2) <= 32 {
 		if int32(a2) == 32 {
-			result = int32(a3)
 			if int32(a3) > 16 {
 				if int32(a3) == 32 {
-					nox_xxx_aud_501960(848, (*server.Object)(a1), 0, 0)
+					nox_xxx_aud_501960(848, a1, 0, 0)
 				} else if int32(a3) == 0x2000 {
-					nox_xxx_aud_501960(868, (*server.Object)(a1), 0, 0)
+					nox_xxx_aud_501960(868, a1, 0, 0)
 				}
 			} else if int32(a3) == 16 {
-				nox_xxx_aud_501960(858, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(858, a1, 0, 0)
 			} else {
-				result = int32(a3) - 1
 				switch a3 {
 				case 1, 2, 4:
-					nox_xxx_aud_501960(863, (*server.Object)(a1), 0, 0)
+					nox_xxx_aud_501960(863, a1, 0, 0)
 				case 8:
-					nox_xxx_aud_501960(853, (*server.Object)(a1), 0, 0)
+					nox_xxx_aud_501960(853, a1, 0, 0)
 				default:
 					return
 				}
 			}
 		} else {
-			result = int32(a2) - 1
 			switch a2 {
 			case 1, 2, 4:
-				result = int32(a3)
 				if int32(a3) > 16 {
 					if int32(a3) == 32 {
-						nox_xxx_aud_501960(852, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(852, a1, 0, 0)
 					} else if int32(a3) == 0x2000 {
-						nox_xxx_aud_501960(872, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(872, a1, 0, 0)
 					}
 				} else if int32(a3) == 16 {
-					nox_xxx_aud_501960(862, (*server.Object)(a1), 0, 0)
+					nox_xxx_aud_501960(862, a1, 0, 0)
 				} else {
-					result = int32(a3) - 1
 					switch a3 {
 					case 1, 2, 4:
-						nox_xxx_aud_501960(867, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(867, a1, 0, 0)
 					case 8:
-						nox_xxx_aud_501960(857, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(857, a1, 0, 0)
 					default:
 						return
 					}
 				}
 			case 8:
-				result = int32(a3)
 				if int32(a3) > 16 {
 					if int32(a3) == 32 {
-						nox_xxx_aud_501960(850, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(850, a1, 0, 0)
 					} else if int32(a3) == 0x2000 {
-						nox_xxx_aud_501960(870, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(870, a1, 0, 0)
 					}
 				} else if int32(a3) == 16 {
-					nox_xxx_aud_501960(860, (*server.Object)(a1), 0, 0)
+					nox_xxx_aud_501960(860, a1, 0, 0)
 				} else {
-					result = int32(a3) - 1
 					switch a3 {
 					case 1, 2, 4:
-						nox_xxx_aud_501960(865, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(865, a1, 0, 0)
 					case 8:
-						nox_xxx_aud_501960(855, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(855, a1, 0, 0)
 					default:
 						return
 					}
 				}
 			case 0x10:
-				result = int32(a3)
 				if int32(a3) > 16 {
 					if int32(a3) == 32 {
-						nox_xxx_aud_501960(851, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(851, a1, 0, 0)
 					} else if int32(a3) == 0x2000 {
-						nox_xxx_aud_501960(871, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(871, a1, 0, 0)
 					}
 				} else if int32(a3) == 16 {
-					nox_xxx_aud_501960(861, (*server.Object)(a1), 0, 0)
+					nox_xxx_aud_501960(861, a1, 0, 0)
 				} else {
-					result = int32(a3) - 1
 					switch a3 {
 					case 1, 2, 4:
-						nox_xxx_aud_501960(866, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(866, a1, 0, 0)
 					case 8:
-						nox_xxx_aud_501960(856, (*server.Object)(a1), 0, 0)
+						nox_xxx_aud_501960(856, a1, 0, 0)
 					default:
 						return
 					}
@@ -2253,46 +2239,42 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 		if int32(a2) != 0x2000 {
 			return
 		}
-		result = int32(a3)
 		if int32(a3) > 16 {
 			if int32(a3) == 32 {
-				nox_xxx_aud_501960(868, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(868, a1, 0, 0)
 				return
 			}
 			if int32(a3) != 0x2000 {
 				return
 			}
 		} else if int32(a3) != 16 {
-			result = int32(a3) - 1
 			switch a3 {
 			case 1, 2, 4:
-				nox_xxx_aud_501960(872, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(872, a1, 0, 0)
 			case 8:
-				nox_xxx_aud_501960(870, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(870, a1, 0, 0)
 			default:
 				return
 			}
 			return
 		}
-		nox_xxx_aud_501960(871, (*server.Object)(a1), 0, 0)
+		nox_xxx_aud_501960(871, a1, 0, 0)
 		return
 	}
-	result = int32(a3)
 	if int32(a3) > 16 {
 		if int32(a3) == 32 {
-			nox_xxx_aud_501960(849, (*server.Object)(a1), 0, 0)
+			nox_xxx_aud_501960(849, a1, 0, 0)
 		} else if int32(a3) == 0x2000 {
-			nox_xxx_aud_501960(869, (*server.Object)(a1), 0, 0)
+			nox_xxx_aud_501960(869, a1, 0, 0)
 		}
 	} else if int32(a3) == 16 {
-		nox_xxx_aud_501960(859, (*server.Object)(a1), 0, 0)
+		nox_xxx_aud_501960(859, a1, 0, 0)
 	} else {
-		result = int32(a3) - 1
 		switch a3 {
 		case 1, 2, 4:
-			nox_xxx_aud_501960(864, (*server.Object)(a1), 0, 0)
+			nox_xxx_aud_501960(864, a1, 0, 0)
 		case 8:
-			nox_xxx_aud_501960(854, (*server.Object)(a1), 0, 0)
+			nox_xxx_aud_501960(854, a1, 0, 0)
 		default:
 			return
 		}
@@ -2302,7 +2284,6 @@ func nox_xxx_soundDefaultDamageSound_532E20(a1p *server.Object, a2p *server.Obje
 	var (
 		a1 = a1p
 		a2 = a2p
-		v3 int32
 	)
 	if a1 != nil && a1.ObjClass&0x1001000 != 0 && a1.InvHolder != nil {
 		return 1
@@ -2310,38 +2291,38 @@ func nox_xxx_soundDefaultDamageSound_532E20(a1p *server.Object, a2p *server.Obje
 	if !(a2 != nil && int32(a2.Material) != 0x4000 && sub_532F70(int32(a1.Field131)) != 0) {
 		return 1
 	}
-	v3 = int32(a1.HealthData)
-	if v3 != 0 && int32(*(*uint16)(unsafe.Add(v3, 4))) != 0 && sub_532FB0(int16(a1.Material)) != 0 {
+	v3 := a1.HealthData
+	if v3 != nil && int32(v3.Max) != 0 && sub_532FB0(int16(a1.Material)) != 0 {
 		sub_532EC0(a1, a1.Material)
 		return 1
 	}
 	sub_532930(a1, a1.Material, a2.Material)
 	return 1
 }
-func sub_532EC0(a1 int32, a2 uint16) {
+func sub_532EC0(a1 *server.Object, a2 uint16) {
 	if int32(a2) <= 64 {
 		if int32(a2) != 64 {
 			switch a2 {
 			case 8:
-				nox_xxx_aud_501960(875, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(875, a1, 0, 0)
 				return
 			case 0x10:
-				nox_xxx_aud_501960(876, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(876, a1, 0, 0)
 				return
 			case 0x20:
-				nox_xxx_aud_501960(873, (*server.Object)(a1), 0, 0)
+				nox_xxx_aud_501960(873, a1, 0, 0)
 			}
 			return
 		}
-		nox_xxx_aud_501960(874, (*server.Object)(a1), 0, 0)
+		nox_xxx_aud_501960(874, a1, 0, 0)
 		return
 	}
 	if int32(a2) == 1024 {
-		nox_xxx_aud_501960(874, (*server.Object)(a1), 0, 0)
+		nox_xxx_aud_501960(874, a1, 0, 0)
 		return
 	}
 	if int32(a2) == 4096 {
-		nox_xxx_aud_501960(877, (*server.Object)(a1), 0, 0)
+		nox_xxx_aud_501960(877, a1, 0, 0)
 	}
 }
 func sub_532F70(a1 int32) int32 {
@@ -2357,14 +2338,14 @@ func sub_532F70(a1 int32) int32 {
 func sub_532FB0(a1 int16) int32 {
 	return bool2int32(int32(a1) == 8 || int32(a1) == 32 || int32(a1) == 64)
 }
-func sub_532FE0(a1 uint16, a2 int32) int32 {
-	if a2 != 0 {
-		sub_532930(a2, a1, *(*uint16)(unsafe.Add(a2, 24)))
+func sub_532FE0(a1 uint16, a2 *server.Object) int32 {
+	if a2 != nil {
+		sub_532930(a2, a1, a2.Material)
 	}
 	return 1
 }
-func sub_533010(a1 uint16, a2 int32) int32 {
-	if a2 != 0 {
+func sub_533010(a1 uint16, a2 *server.Object) int32 {
+	if a2 != nil {
 		sub_532EC0(a2, a1)
 	}
 	return 1
@@ -3037,18 +3018,10 @@ func nox_xxx_mobRaiseZombie_534AB0(obj *server.Object) {
 		}
 	}
 }
-func nox_xxx_damageToMap_534BC0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.Object) int32 {
+func nox_xxx_damageToMap_534BC0(a1, a2 int32, a3 int32, a4 int32, a5 *server.Object) int32 {
 	var (
-		v6  uint8
-		v7  *server.Object
-		v8  int32
-		v10 uint8
-		v11 int32
-		v12 int32
-		v13 int32
-		v14 *byte
-		v16 float32
-		v17 Point32
+		v7 *server.Object
+		v8 int32
 	)
 	v5 := nox_server_getWallAtGrid_410580(a1, a2)
 	if *memmap.PtrUint32(0x5D4594, 2488556) == 0 {
@@ -3057,12 +3030,11 @@ func nox_xxx_damageToMap_534BC0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *serv
 	if v5 == nil {
 		return 0
 	}
-	v6 = uint8(v5.Flags4)
-	if int32(v6)&0x20 != 0 {
+	if v5.Flags4&0x20 != 0 {
 		return 0
 	}
-	if (int32(v6) & 8) == 0 {
-		sub_532FE0(nox_xxx_wallField36(int32(v5.Tile1)), int32(uintptr(unsafe.Pointer(a5))))
+	if v5.Flags4&8 == 0 {
+		sub_532FE0(nox_xxx_wallField36(int32(v5.Tile1)), a5)
 		return 0
 	}
 	if !noxflags.HasGame(4096) || a5 == nil || uint32(v5.Tile1) != *memmap.PtrUint32(0x5D4594, 2488556) || (func() *server.Object {
@@ -3075,27 +3047,29 @@ func nox_xxx_damageToMap_534BC0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *serv
 		v8 = a3
 	}
 	if int32(v5.Health7)-v8 <= 0 {
+		var v17 Point32
 		v17.X = a1
 		v17.Y = a2
 		return nox_xxx_wallPreDestroy_534DA0(&v17)
 	}
-	v10 = uint8(int8(int32(v5.Health7) - v8))
-	v11 = int32(v5.Tile1)
+	v10 := uint8(int8(int32(v5.Health7) - v8))
+	v11 := int32(v5.Tile1)
 	v5.Health7 = v10
-	*(*float32)(unsafe.Pointer(&v17.X)) = float32(float64(a1)*23.0 + 11.5)
-	*(*float32)(unsafe.Pointer(&v17.Y)) = float32(float64(a2)*23.0 + 11.5)
-	v12 = int32(nox_xxx_wallGetBrickTypeMB_410E40(v11))
+	var v17 types.Pointf
+	v17.X = float32(float64(a1)*23.0 + 11.5)
+	v17.Y = float32(float64(a2)*23.0 + 11.5)
+	v12 := int32(nox_xxx_wallGetBrickTypeMB_410E40(v11))
 	if v12 != 0 {
-		v13 = nox_common_randomInt_415FA0(0, v12-1)
-		v14 = nox_xxx_wallGetBrickObj_410E60(int32(v5.Tile1), v13)
+		v13 := nox_common_randomInt_415FA0(0, v12-1)
+		v14 := nox_xxx_wallGetBrickObj_410E60(int32(v5.Tile1), v13)
 		v15 := nox_xxx_newObjectByTypeID_4E3810(v14)
 		if v15 != nil {
-			nox_xxx_createAt_4DAA50(v15, nil, *(*float32)(unsafe.Pointer(&v17.X)), *(*float32)(unsafe.Pointer(&v17.Y)))
-			v16 = float32(nox_common_randomFloat_416030(10.0, 20.0))
-			nox_xxx_objectApplyForce_52DF80((*float32)(unsafe.Pointer(&v17)), v15, v16)
+			nox_xxx_createAt_4DAA50(v15, nil, v17.X, v17.Y)
+			v16 := float32(nox_common_randomFloat_416030(10.0, 20.0))
+			nox_xxx_objectApplyForce_52DF80(&v17, v15, v16)
 		}
 	}
-	sub_533010(nox_xxx_wallField36(int32(v5.Tile1)), int32(uintptr(unsafe.Pointer(a5))))
+	sub_533010(nox_xxx_wallField36(int32(v5.Tile1)), a5)
 	return 0
 }
 func nox_xxx_wallPreDestroy_534DA0(pt *Point32) int32 {
@@ -3147,37 +3121,34 @@ func nox_xxx_wallPreDestroy_534DA0(pt *Point32) int32 {
 }
 func nox_xxx_mapDamageToWalls_534FC0(a1 *int4, a2 *types.Pointf, a3 float32, a4 int32, a5 int32, a6 *server.Object) bool {
 	var (
-		v6  *int4
-		v7  int32
-		v9  int32
-		v10 int32
-		v12 int32
-		v13 int32
-		v14 int32
-		v15 *byte
-		v16 *float32
-		v17 float64
-		v18 float64
-		v19 float64
-		v20 float64
-		v21 float64
-		v22 float32
-		v23 *int32
-		v25 int32
-		v26 float32
-		v27 float32
-		v28 float32
-		v29 int32
-		v30 float32
-		v31 float32
-		v32 int32
-		v33 int32
-		v34 *float32
-		v35 float32
-		v36 [2]int32
-		v37 float32
-		v38 float4
-		v41 [256]byte
+		v6   *int4
+		v7   int32
+		v9   int32
+		v10  int32
+		v12  int32
+		v13  int32
+		v14  int32
+		v16  *types.Pointf
+		v17  float64
+		v18  float64
+		v19  float64
+		v20  float64
+		v21  float64
+		v22  float32
+		v25  int32
+		v26  float32
+		v27  float32
+		v28  float32
+		v29  int32
+		v30  float32
+		v31  float32
+		v32  int32
+		v33  int32
+		v34  *types.Pointf
+		v35  float32
+		v37  float32
+		v38  float4
+		v41i [32]Point32
 	)
 	v6 = a1
 	v7 = 0
@@ -3203,7 +3174,7 @@ func nox_xxx_mapDamageToWalls_534FC0(a1 *int4, a2 *types.Pointf, a3 float32, a4 
 			v10 = int32(v11.Direction1)
 			v29 = 1
 		}
-		v34 = memmap.PtrFloat32(0x587000, uintptr(uint32(v10*8)+194136))
+		v34 = memmap.PtrT[types.Pointf](0x587000, uintptr(uint32(v10*8)+194136))
 	}
 LABEL_10:
 	v12 = a1.field_C
@@ -3215,21 +3186,21 @@ LABEL_10:
 			v14 = v6.field_0
 			v32 = v6.field_0
 			if v6.field_0 <= v6.field_8 {
-				v15 = &v41[v7*8+4]
+				v15p := v41i[v7:]
 				for {
 					if nox_server_getWallAtGrid_410580(v14, v13) != nil {
-						v16 = (*float32)(unsafe.Pointer(uintptr(func() int32 {
+						v16 = func() *types.Pointf {
 							if v29 != 0 {
 								return a6 + 56
 							}
 							return a2
-						}())))
+						}()
 						v17 = float64(v32)
 						v35 = float32(v17)
-						v26 = float32(v17*23.0 + 11.5 - float64(*v16))
+						v26 = float32(v17*23.0 + 11.5 - float64(v16.X))
 						v18 = float64(v33)
 						v31 = float32(v18)
-						v19 = v18*23.0 + 11.5 - float64(*(*float32)(unsafe.Add(unsafe.Pointer(v16), unsafe.Sizeof(float32(0))*1)))
+						v19 = v18*23.0 + 11.5 - float64(v16.Y)
 						v28 = float32(v19)
 						v20 = v19*float64(v28) + float64(v26*v26)
 						v30 = float32(v20)
@@ -3237,20 +3208,19 @@ LABEL_10:
 							if v29 == 0 || float64(v30) <= 0.0 || (func() bool {
 								v21 = math.Sqrt(float64(v30)) + 0.5
 								v27 = float32(float64(v26) / v21)
-								return float64(v28)/v21*float64(*(*float32)(unsafe.Add(unsafe.Pointer(v34), unsafe.Sizeof(float32(0))*1)))+float64(v27**v34) > qword_581450_9544
+								return float64(v28)/v21*float64(v34.Y)+float64(v27*v34.X) > qword_581450_9544
 							}()) {
 								v22 = a2.Y
-								v38.field_0 = *(*float32)(a2)
+								v38.field_0 = a2.X
 								v38.field_4 = v22
 								v38.field_8 = float32(float64(v35)*23.0 + 11.5)
-								v36[1] = 0
-								v36[0] = 0
 								v38.field_C = float32(float64(v31)*23.0 + 11.5)
-								if (nox_xxx_mapTraceRay_535250(&v38, nil, (*Point32)(unsafe.Pointer(&v36[0])), 1) == 1 || v36[0] == v14 && v36[1] == v13) && v25 < 32 {
-									*((*uint32)(unsafe.Add(unsafe.Pointer(v15), -int(4*1)))) = uint32(v14)
-									*(*uint32)(unsafe.Pointer(v15)) = uint32(v13)
+								var v36 Point32
+								if (nox_xxx_mapTraceRay_535250(&v38, nil, &v36, 1) == 1 || v36.X == v14 && v36.Y == v13) && v25 < 32 {
+									v15p[0].X = v14
+									v15p[0].Y = v13
 									v25++
-									v15 = (*byte)(unsafe.Add(unsafe.Pointer(v15), 8))
+									v15p = v15p[1:]
 								}
 							}
 						}
@@ -3281,10 +3251,10 @@ LABEL_10:
 	if v7 <= 0 {
 		return v7 > 0
 	}
-	v23 = (*int32)(unsafe.Pointer(&v41[0]))
+	v23 := v41i[:]
 	for {
-		nox_xxx_damageToMap_534BC0(*v23, *(*int32)(unsafe.Add(unsafe.Pointer(v23), 4*1)), a4, a5, v8)
-		v23 = (*int32)(unsafe.Add(unsafe.Pointer(v23), 4*2))
+		nox_xxx_damageToMap_534BC0(v23[0].X, v23[0].Y, a4, a5, v8)
+		v23 = v23[1:]
 		if func() int32 {
 			p := &v7
 			*p--
