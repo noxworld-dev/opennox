@@ -709,14 +709,16 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		sub_446380()
 		return 1
 	case noxnet.MSG_USE_MAP:
-		if len(data) < 41 {
+		var p noxnet.MsgUseMap
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return -1
 		}
-		if mframe := binary.LittleEndian.Uint32(data[37:]); mframe > uint32(legacy.Get_dword_5d4594_1200804()) {
+		if mframe := p.T; mframe > uint32(legacy.Get_dword_5d4594_1200804()) {
 			noxSetUseMapFrame(int(mframe))
-			noxClient.nox_xxx_gameClearAll_467DF0(true)
-			c.srv.nox_xxx_gameSetMapPath_409D70(alloc.GoStringS(data[1:33]))
-			nox_xxx_mapSetCrcMB_409B10(binary.LittleEndian.Uint32(data[33:]))
+			c.nox_xxx_gameClearAll_467DF0(true)
+			c.srv.nox_xxx_gameSetMapPath_409D70(p.MapName)
+			nox_xxx_mapSetCrcMB_409B10(p.CRC)
 			if !noxflags.HasGame(noxflags.GameHost) {
 				noxflags.UnsetGame(noxflags.GameFlag4)
 				if legacy.Get_dword_5d4594_2650652() != 0 {
@@ -730,7 +732,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			legacy.Nox_xxx_guiServerOptionsHide_4597E0(0)
 			sub_44A400()
 		}
-		return 41
+		return 1 + n
 	case noxnet.MSG_JOIN_DATA:
 		if len(data) < 7 {
 			return -1
@@ -1182,30 +1184,34 @@ func (s *Server) sendSettings(u *Object) {
 		s.nox_xxx_netSendBySock_4DDDC0(pl.PlayerIndex())
 	}
 	{
-		var buf [41]byte
-		buf[0] = byte(noxnet.MSG_USE_MAP)
-		copy(buf[1:33], s.nox_server_currentMapGetFilename_409B30())
-		buf[32] = 0
-		binary.LittleEndian.PutUint32(buf[33:], nox_xxx_mapCrcGetMB_409B00())
-		binary.LittleEndian.PutUint32(buf[37:], s.Frame())
-		netstr.Global.ByPlayer(pl).Send(buf[:41], netstr.SendQueue|netstr.SendFlush)
+		buf, err := noxnet.AppendPacket(nil, &noxnet.MsgUseMap{
+			MapName: s.nox_server_currentMapGetFilename_409B30(),
+			CRC:     nox_xxx_mapCrcGetMB_409B00(),
+			T:       s.Frame(),
+		})
+		if err != nil {
+			panic(err)
+		}
+		netstr.Global.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
 		legacy.Sub_4DDE10(pl.Index(), pl.S())
 	}
 }
 
 func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
-	var pck [41]byte
-	pck[0] = byte(noxnet.MSG_USE_MAP)
-	copy(pck[1:33], mname)
-	binary.LittleEndian.PutUint32(pck[33:], crc)
-	binary.LittleEndian.PutUint32(pck[37:], s.Frame())
-
+	pck, err := noxnet.AppendPacket(nil, &noxnet.MsgUseMap{
+		MapName: mname,
+		CRC:     crc,
+		T:       s.Frame(),
+	})
+	if err != nil {
+		panic(err)
+	}
 	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
 		u := pl.UnitC()
 		if u == nil {
 			continue
 		}
-		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, pck[:41])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, pck)
 		legacy.Nox_xxx_netPlayerObjSend_518C30(u.SObj(), u.SObj(), 0, 0)
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != common.MaxPlayers-1 {
 			buf := s.NetList.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
