@@ -632,10 +632,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 	case noxnet.MSG_XXX_STOP:
 		return 1
 	case noxnet.MSG_FULL_TIMESTAMP:
-		if len(data) < 5 {
+		var p noxnet.MsgFullTimestamp
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return -1
 		}
-		frame := binary.LittleEndian.Uint32(data[1:])
+		frame := p.T
 		c.srv.SetFrame(frame)
 		*memmap.PtrUint32(0x5D4594, 1200800) = c.srv.Frame()
 		*v364 = c.srv.Frame()
@@ -644,7 +646,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			legacy.Nox_xxx_playerUnsetStatus_417530(p.S(), 64)
 		}
 		legacy.Sub_43C650()
-		return 5
+		return 1 + n
 	case noxnet.MSG_SIMULATED_TIMESTAMP:
 		frame := uint32(*v373)
 		if frame < (memmap.Uint32(0x5D4594, 1200800) + sub_43C790()) {
@@ -652,13 +654,15 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		return 5
 	case noxnet.MSG_TIMESTAMP:
-		if len(data) < 3 {
+		var p noxnet.MsgTimestamp
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return -1
 		}
-		fr := binary.LittleEndian.Uint16(data[1:])
+		fr := p.T
 		*v373 = fr
 		if p := getCurPlayer(); p != nil && p.Field3680&0x40 != 0 {
-			return 3
+			return 1 + n
 		}
 		v9 := 1
 		prevFrame := c.srv.Frame()
@@ -686,13 +690,13 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if !noxflags.HasGame(noxflags.GameHost) && v9 == 0 {
 			noxPerfmon.latePackets--
 			*memmap.PtrUint32(0x85B3FC, 120)++
-			return 3
+			return 1 + n
 		}
 		if c.srv.Frame() > prevFrame+1 {
 			noxPerfmon.latePackets += int(c.srv.Frame() - prevFrame)
 		}
 		legacy.Sub_43C650()
-		return 3
+		return 1 + n
 	case noxnet.MSG_DESTROY_WALL:
 		if len(data) < 3 {
 			return -1
