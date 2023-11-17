@@ -22,7 +22,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/strman"
-	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -371,14 +370,6 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 	return 1
 }
 
-func nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) bool {
-	var buf [5]byte
-	buf[0] = byte(fx)
-	binary.LittleEndian.PutUint16(buf[1:], uint16(int(pos.X)))
-	binary.LittleEndian.PutUint16(buf[3:], uint16(int(pos.Y)))
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:5])
-}
-
 func nox_xxx_netSendRayFx_5232F0(fx noxnet.Op, p1, p2 image.Point) bool {
 	var buf [9]byte
 	buf[0] = byte(fx)
@@ -387,45 +378,6 @@ func nox_xxx_netSendRayFx_5232F0(fx noxnet.Op, p1, p2 image.Point) bool {
 	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
 	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
 	return legacy.Nox_xxx_servCode_523340(p1, p2, buf[:9])
-}
-
-func nox_xxx_netSparkExplosionFx_5231B0(pos types.Pointf, a2 byte) bool {
-	var buf [6]byte
-	buf[0] = byte(noxnet.MSG_FX_SPARK_EXPLOSION)
-	binary.LittleEndian.PutUint16(buf[1:], uint16(pos.X))
-	binary.LittleEndian.PutUint16(buf[3:], uint16(pos.Y))
-	buf[5] = a2
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:6])
-}
-
-func nox_xxx_netSendFxGreenBolt_523790(p1, p2 image.Point, a2 int) bool {
-	var buf [11]byte
-	buf[0] = byte(noxnet.MSG_FX_GREEN_BOLT)
-	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
-	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
-	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
-	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
-	binary.LittleEndian.PutUint16(buf[9:], uint16(a2))
-	pos := types.Pointf{
-		X: float32(p1.X) + float32(p2.X-p1.X)*0.5,
-		Y: float32(p1.Y) + float32(p2.Y-p1.Y)*0.5,
-	}
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
-}
-
-func nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) bool {
-	var buf [11]byte
-	buf[0] = byte(fx)
-	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
-	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
-	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
-	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
-	binary.LittleEndian.PutUint16(buf[9:], uint16(a3))
-	pos := types.Pointf{
-		X: float32(p2.X),
-		Y: float32(p2.Y),
-	}
-	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
 }
 
 func netSendGauntlet() {

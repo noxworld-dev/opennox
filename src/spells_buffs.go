@@ -50,7 +50,7 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server
 		sub_4E7540(opts.Orig, targ)
 	}
 	if opts.PointFX != 0 {
-		nox_xxx_netSendPointFx_522FF0(opts.PointFX, targ.Pos())
+		s.Nox_xxx_netSendPointFx_522FF0(opts.PointFX, targ.Pos())
 	}
 	return 1
 }

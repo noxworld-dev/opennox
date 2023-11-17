@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -517,6 +518,15 @@ func ModEffectParseFloat(_ *ModifierEff, p ModParseTarg, s string) bool {
 		*p.Float = float32(v)
 	}
 	return true
+}
+
+func (s *Server) Nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2, src, targ *Object) {
+	v5 := *(*float32)(unsafe.Add(a1, 56))
+	if targ != nil {
+		targ.CallDamage(src, a2, int(v5), object.DamageExplosion)
+		s.Nox_xxx_netSparkExplosionFx_5231B0(targ.PosVec, byte(int8(int64(float64(v5)*10.0))))
+		s.Audio.EventObj(sound.SoundWeaponEffectFire, targ, 0, 0)
+	}
 }
 
 var modAllowList = map[string]uint32{

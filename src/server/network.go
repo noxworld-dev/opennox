@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/strman"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
@@ -360,4 +361,76 @@ func (s *Server) Sub_4D7280(a1 int, a2 bool) int {
 		buf[2] = 1
 	}
 	return s.NetSendPacketXxx1(a1, buf[:3], 0, 1)
+}
+
+func (s *Server) Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) {
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		pl := it.UpdateDataPlayer().Player
+		var pos2 types.Pointf
+		if pl.Field3680&0x3 != 0 && pl.CameraFollowObj != nil {
+			pos2 = pl.CameraFollowObj.PosVec
+		} else {
+			pos2 = it.PosVec
+		}
+		v9 := float64(pl.Field10)
+		v13 := float32(float64(pos2.X) - v9 - 50.0)
+		v10 := v9 + float64(pos2.X) + 50.0
+		v11 := float64(pl.Field12)
+		if float64(pos.X) > float64(v13) && v10 > float64(pos.X) {
+			v14 := float32(float64(pos2.Y) - v11 - 50.0)
+			if float64(pos.Y) > float64(v14) {
+				v15 := float32(v11 + float64(pos2.Y) + 50.0)
+				if float64(pos.Y) < float64(v15) {
+					s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, data)
+				}
+			}
+		}
+	}
+}
+
+func (s *Server) Nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) {
+	var buf [5]byte
+	buf[0] = byte(fx)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(int(pos.X)))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(int(pos.Y)))
+	s.Nox_xxx_netSendFxAllCli_523030(pos, buf[:5])
+}
+
+func (s *Server) Nox_xxx_netSparkExplosionFx_5231B0(pos types.Pointf, a2 byte) {
+	var buf [6]byte
+	buf[0] = byte(noxnet.MSG_FX_SPARK_EXPLOSION)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(pos.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(pos.Y))
+	buf[5] = a2
+	s.Nox_xxx_netSendFxAllCli_523030(pos, buf[:6])
+}
+
+func (s *Server) Nox_xxx_netSendFxGreenBolt_523790(p1, p2 image.Point, a2 int) {
+	var buf [11]byte
+	buf[0] = byte(noxnet.MSG_FX_GREEN_BOLT)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
+	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
+	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
+	binary.LittleEndian.PutUint16(buf[9:], uint16(a2))
+	pos := types.Pointf{
+		X: float32(p1.X) + float32(p2.X-p1.X)*0.5,
+		Y: float32(p1.Y) + float32(p2.Y-p1.Y)*0.5,
+	}
+	s.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
+}
+
+func (s *Server) Nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) {
+	var buf [11]byte
+	buf[0] = byte(fx)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
+	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
+	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
+	binary.LittleEndian.PutUint16(buf[9:], uint16(a3))
+	pos := types.Pointf{
+		X: float32(p2.X),
+		Y: float32(p2.Y),
+	}
+	s.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
 }

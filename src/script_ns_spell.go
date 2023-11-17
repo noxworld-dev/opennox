@@ -50,7 +50,7 @@ func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns4.Positioner) {
 		noxnet.MSG_FX_WHITE_FLASH,
 		noxnet.MSG_FX_TURN_UNDEAD,
 		noxnet.MSG_FX_MANA_BOMB_CANCEL:
-		nox_xxx_netSendPointFx_522FF0(fx, pos)
+		s.s.Nox_xxx_netSendPointFx_522FF0(fx, pos)
 	case noxnet.MSG_FX_LIGHTNING,
 		noxnet.MSG_FX_ENERGY_BOLT,
 		noxnet.MSG_FX_PLASMA,
@@ -61,13 +61,13 @@ func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns4.Positioner) {
 		noxnet.MSG_FX_SENTRY_RAY:
 		nox_xxx_netSendRayFx_5232F0(fx, pos.Point(), pos2.Point())
 	case noxnet.MSG_FX_SPARK_EXPLOSION:
-		nox_xxx_netSparkExplosionFx_5231B0(pos, byte(pos2.X))
+		s.s.Nox_xxx_netSparkExplosionFx_5231B0(pos, byte(pos2.X))
 	case noxnet.MSG_FX_JIGGLE:
 		legacy.Nox_xxx_earthquakeSend_4D9110(pos, int(pos2.X))
 	case noxnet.MSG_FX_GREEN_BOLT:
-		nox_xxx_netSendFxGreenBolt_523790(pos.Point(), pos2.Point(), 30)
+		s.s.Nox_xxx_netSendFxGreenBolt_523790(pos.Point(), pos2.Point(), 30)
 	case noxnet.MSG_FX_VAMPIRISM:
-		nox_xxx_netSendVampFx_523270(fx, pos.Point(), pos2.Point(), 100)
+		s.s.Nox_xxx_netSendVampFx_523270(fx, pos.Point(), pos2.Point(), 100)
 	}
 }
 

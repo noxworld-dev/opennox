@@ -191,19 +191,6 @@ func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
 	C.nox_xxx_earthquakeSend_4D9110((*C.float)(unsafe.Pointer(&cpos[0])), C.int(a2))
 }
 
-func Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
-	cdata, dfree := alloc.Make([]byte{}, len(data))
-	defer dfree()
-	copy(cdata, data)
-
-	cpos, pfree := alloc.Make([]float32{}, 2)
-	defer pfree()
-	cpos[0] = pos.X
-	cpos[1] = pos.Y
-
-	return C.nox_xxx_netSendFxAllCli_523030((*C.float2)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
-}
-
 func Nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {
 	cdata, dfree := alloc.Make([]byte{}, len(data))
 	defer dfree()
