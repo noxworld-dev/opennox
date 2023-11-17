@@ -370,16 +370,6 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 	return 1
 }
 
-func nox_xxx_netSendRayFx_5232F0(fx noxnet.Op, p1, p2 image.Point) bool {
-	var buf [9]byte
-	buf[0] = byte(fx)
-	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
-	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
-	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
-	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
-	return legacy.Nox_xxx_servCode_523340(p1, p2, buf[:9])
-}
-
 func netSendGauntlet() {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_GAUNTLET)

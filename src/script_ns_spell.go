@@ -59,7 +59,7 @@ func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns4.Positioner) {
 		noxnet.MSG_FX_GREATER_HEAL,
 		noxnet.MSG_FX_DEATH_RAY,
 		noxnet.MSG_FX_SENTRY_RAY:
-		nox_xxx_netSendRayFx_5232F0(fx, pos.Point(), pos2.Point())
+		s.s.Nox_xxx_netSendRayFx_5232F0(fx, pos.Point(), pos2.Point())
 	case noxnet.MSG_FX_SPARK_EXPLOSION:
 		s.s.Nox_xxx_netSparkExplosionFx_5231B0(pos, byte(pos2.X))
 	case noxnet.MSG_FX_JIGGLE:

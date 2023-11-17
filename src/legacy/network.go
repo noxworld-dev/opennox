@@ -57,7 +57,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 */
 import "C"
 import (
-	"image"
 	"net"
 	"net/netip"
 	"unsafe"
@@ -189,21 +188,6 @@ func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
 	cpos[1] = pos.Y
 
 	C.nox_xxx_earthquakeSend_4D9110((*C.float)(unsafe.Pointer(&cpos[0])), C.int(a2))
-}
-
-func Nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {
-	cdata, dfree := alloc.Make([]byte{}, len(data))
-	defer dfree()
-	copy(cdata, data)
-
-	cpos, pfree := alloc.Make([]int32{}, 4)
-	defer pfree()
-	cpos[0] = int32(p1.X)
-	cpos[1] = int32(p1.Y)
-	cpos[2] = int32(p2.X)
-	cpos[3] = int32(p2.Y)
-
-	return C.nox_xxx_servCode_523340((*C.int)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
 }
 
 func Nox_server_makeServerInfoPacket_554040(src, dst []byte) int {
