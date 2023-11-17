@@ -62,7 +62,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/noxnet"
-	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
@@ -179,15 +178,6 @@ func Nox_xxx_netSendLineMessage_4D9EB0(u *server.Object, s string) bool {
 	cstr, free := CWString(s)
 	defer free()
 	return C.nox_xxx_netSendLineMessage_go(asObjectC(u), cstr) != 0
-}
-
-func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
-	cpos, pfree := alloc.Make([]float32{}, 2)
-	defer pfree()
-	cpos[0] = pos.X
-	cpos[1] = pos.Y
-
-	C.nox_xxx_earthquakeSend_4D9110((*C.float)(unsafe.Pointer(&cpos[0])), C.int(a2))
 }
 
 func Nox_server_makeServerInfoPacket_554040(src, dst []byte) int {
