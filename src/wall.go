@@ -330,7 +330,7 @@ LABEL_10:
 							v38b.X = float32(float64(v35)*23.0 + 11.5)
 							v38b.Y = float32(float64(v31)*23.0 + 11.5)
 							var v36 image.Point
-							if (s.MapTraceRayAt(pos, v38b, nil, &v36, 1) || v36.X == int(xi) && v36.Y == int(yi)) && v25 < 32 {
+							if (s.MapTraceRayAt(pos, v38b, nil, &v36, 1) || v36.X == xi && v36.Y == yi) && v25 < 32 {
 								v15p[0].X = xi
 								v15p[0].Y = yi
 								v25++
@@ -367,9 +367,6 @@ LABEL_10:
 }
 func (s *Server) Nox_xxx_damageToMap_534BC0(gx, gy int, dmg int, dtyp object.DamageType, who *server.Object) int {
 	wl := s.Walls.GetWallAtGrid(image.Pt(gx, gy))
-	if *memmap.PtrUint32(0x5D4594, 2488556) == 0 {
-		*memmap.PtrUint32(0x5D4594, 2488556) = uint32(s.Walls.DefIndByName("MagicWallSystemUseOnly"))
-	}
 	if wl == nil {
 		return 0
 	}
@@ -384,7 +381,7 @@ func (s *Server) Nox_xxx_damageToMap_534BC0(gx, gy int, dmg int, dtyp object.Dam
 		v7 *server.Object
 		v8 int
 	)
-	if !noxflags.HasGame(4096) || who == nil || uint32(wl.Tile1) != *memmap.PtrUint32(0x5D4594, 2488556) || (func() *server.Object {
+	if !noxflags.HasGame(4096) || who == nil || s.Walls.IsSysUse(wl) || (func() *server.Object {
 		v7 = who.FindOwnerChainPlayer()
 		return v7
 	}()) == nil || (func() bool {
@@ -451,9 +448,6 @@ func sub_4DF2A0(a1 int8) {
 }
 func (s *Server) nox_xxx_wallPreDestroy_534DA0(pt image.Point) int {
 	wl := s.Walls.GetWallAtGrid(pt)
-	if *memmap.PtrUint32(0x5D4594, 2488560) == 0 {
-		*memmap.PtrUint32(0x5D4594, 2488560) = uint32(s.Walls.DefIndByName("MagicWallSystemUseOnly"))
-	}
 	if wl == nil {
 		return 0
 	}
@@ -488,7 +482,7 @@ func (s *Server) nox_xxx_wallPreDestroy_534DA0(pt image.Point) int {
 			}
 		}
 	}
-	if uint32(wl.Tile1) == *memmap.PtrUint32(0x5D4594, 2488560) {
+	if s.Walls.IsSysUse(wl) {
 		s.spells.walls.destroySysuse(wl)
 	} else {
 		s.Walls.BreakByID(wl.Field10)

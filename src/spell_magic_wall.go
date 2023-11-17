@@ -10,7 +10,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -465,17 +464,9 @@ func magicWallCalcY(dir int, sy, y int, mode bool) int {
 }
 
 func (sp *spellWall) setWall(spl *server.DurSpell, x, y int, dir uint8) int32 {
-	if int32(*memmap.PtrUint8(0x5D4594, 1570004)) == 0 {
-		*memmap.PtrUint8(0x5D4594, 1570004) = uint8(int8(sp.s.Walls.DefIndByName("MagicWallSystemUseOnly")))
-		*memmap.PtrUint8(0x5D4594, 1570005) = uint8(int8(sp.s.Walls.DefIndByName("InvisibleWallSet")))
-		*memmap.PtrUint8(0x5D4594, 1570006) = uint8(int8(sp.s.Walls.DefIndByName("InvisibleBlockingWallSet")))
-	}
 	wl := sp.s.Walls.GetWallAtGrid(image.Pt(x, y))
 	if wl != nil {
-		if int32(wl.Tile1) == int32(*memmap.PtrUint8(0x5D4594, 1570004)) {
-			return 0
-		}
-		if int32(wl.Tile1) == int32(*memmap.PtrUint8(0x5D4594, 1570005)) || int32(wl.Tile1) == int32(*memmap.PtrUint8(0x5D4594, 1570006)) {
+		if sp.s.Walls.IsSysUse(wl) || sp.s.Walls.IsInvisible(wl) {
 			return 0
 		}
 		if int32(wl.Flags4)&0x1C != 0 {
@@ -490,7 +481,7 @@ func (sp *spellWall) setWall(spl *server.DurSpell, x, y int, dir uint8) int32 {
 		if wl == nil {
 			return 0
 		}
-		wl.Tile1 = *memmap.PtrUint8(0x5D4594, 1570004)
+		wl.Tile1 = byte(sp.s.Walls.MagicWallSystemUseOnlyInd())
 		wl.Dir0 = dir
 		if int32(dir) == 0 || int32(dir) == 1 {
 			wl.Field2 = uint8(int8(int32(wl.X5) % int32(int16(sp.s.Walls.DefByInd(int(wl.Tile1)).Field749))))
