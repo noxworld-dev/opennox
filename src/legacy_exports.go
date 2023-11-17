@@ -198,7 +198,6 @@ func init() {
 	legacy.Nox_xxx_modifGetDescById_413330 = nox_xxx_modifGetDescById_413330
 	legacy.Nox_xxx_equipClothFindDefByTT_413270 = nox_xxx_equipClothFindDefByTT_413270
 	legacy.Sub_4A5E90_A = sub_4A5E90_A
-	legacy.Nox_xxx_fireEffect_4E0550 = nox_xxx_fireEffect_4E0550
 	legacy.Nox_xxx_fireRingEffect_4E05B0 = nox_xxx_fireRingEffect_4E05B0
 	legacy.Nox_xxx_blueFREffect_4E05F0 = nox_xxx_blueFREffect_4E05F0
 	legacy.Sub_4E3B80 = sub_4E3B80
