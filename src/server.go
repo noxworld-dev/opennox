@@ -1,7 +1,6 @@
 package opennox
 
 import (
-	"encoding/binary"
 	"errors"
 	"fmt"
 	"image"
@@ -458,10 +457,13 @@ func (s *Server) updateRemotePlayers() error {
 			pl.Disconnect(4)
 		}
 		if (pl.Field3676 != 3) || (pl.Field3680&0x10 == 0) {
-			var buf [3]byte
-			buf[0] = byte(noxnet.MSG_TIMESTAMP)
-			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
-			s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:])
+			buf, err := noxnet.AppendPacket(nil, &noxnet.MsgTimestamp{
+				T: uint16(s.Frame()),
+			})
+			if err != nil {
+				panic(err)
+			}
+			s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf)
 		} else {
 			if uint32(pl.UnitC().Ind()) == legacy.DeadWord { // see #401
 				pl.PlayerUnit = nil
@@ -500,16 +502,22 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 	}
 	if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 || noxflags.HasGame(noxflags.GameFlag4) {
 		if pl.Field3680&0x40 != 0 {
-			var buf [5]byte
-			buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
-			binary.LittleEndian.PutUint32(buf[1:], s.Frame())
-			nox_netlist_addToMsgListSrv(pind, buf[:5])
+			buf, err := noxnet.AppendPacket(nil, &noxnet.MsgFullTimestamp{
+				T: s.Frame(),
+			})
+			if err != nil {
+				panic(err)
+			}
+			nox_netlist_addToMsgListSrv(pind, buf)
 			legacy.Nox_xxx_playerUnsetStatus_417530(pl.S(), 64)
 		} else {
-			var buf [3]byte
-			buf[0] = byte(noxnet.MSG_TIMESTAMP)
-			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
-			nox_netlist_addToMsgListSrv(pind, buf[:3])
+			buf, err := noxnet.AppendPacket(nil, &noxnet.MsgTimestamp{
+				T: uint16(s.Frame()),
+			})
+			if err != nil {
+				panic(err)
+			}
+			nox_netlist_addToMsgListSrv(pind, buf)
 		}
 	}
 	if legacy.Get_dword_5d4594_2650652() == 0 || u.SObj() == s.Players.HostUnit || noxflags.HasGame(noxflags.GameFlag4) || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 {
