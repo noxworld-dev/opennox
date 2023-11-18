@@ -3,8 +3,6 @@
 package opennox
 
 import (
-	"encoding/binary"
-
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
@@ -14,7 +12,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func sub_4349C0(cl [3]uint32) {
@@ -58,19 +55,23 @@ func (c *Client) nox_xxx_gameClearAll_467DF0(a1 bool) {
 }
 
 func sub_43CCA0() {
+	s := noxServer
+	c := noxClient
 	legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
-	start := noxServer.Frame()
+	start := s.Frame()
 	netstrClientConn.RecvLoop(netstr.RecvCanRead)
-	if start != noxServer.Frame() && legacy.Get_dword_5d4594_2650652() == 1 && !noxflags.HasGame(noxflags.GameHost) {
+	if start != s.Frame() && legacy.Get_dword_5d4594_2650652() == 1 && !noxflags.HasGame(noxflags.GameHost) {
 		if v1 := legacy.Sub_40A710(1); sub_43C790() > v1 {
 			legacy.Sub_43CEB0()
 			v2 := memmap.Uint64(0x5D4594, 815740) + memmap.Uint64(0x587000, 91880)/uint64(sub_43C790())
 			if platformTicks() >= v2 {
-				buf, free := alloc.Make([]byte{}, 8) // TODO: check if we need extra space
-				defer free()
-				buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
-				binary.LittleEndian.PutUint32(buf[1:], noxServer.Frame()+1)
-				noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, buf[:5])
+				buf, err := noxnet.AppendPacket(nil, &noxnet.MsgFullTimestamp{
+					T: s.Frame() + 1,
+				})
+				if err != nil {
+					panic(err)
+				}
+				c.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, buf)
 			}
 		}
 	}
