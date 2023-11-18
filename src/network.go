@@ -741,14 +741,16 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		return 1 + n
 	case noxnet.MSG_JOIN_DATA:
-		if len(data) < 7 {
+		var p noxnet.MsgJoinData
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return -1
 		}
-		playerID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
+		playerID := nox_xxx_netClearHighBit_578B30(p.NetCode)
 		legacy.Set_nox_player_netCode_85319C(uint32(playerID))
 		pl := c.srv.NewPlayerInfo(int(playerID))
 		if pl != nil {
-			pl.Field2068 = binary.LittleEndian.Uint32(data[3:])
+			pl.Field2068 = p.Unk2
 			setCurPlayer(pl)
 		}
 		if !noxflags.HasGame(noxflags.GameHost) {
@@ -760,7 +762,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		noxPerfmon.ping = 0
 		legacy.Set_dword_5d4594_1200832(0)
 		legacy.Nox_xxx_cliSetSettingsAcquired_4169D0(0)
-		return 7
+		return 1 + n
 	case noxnet.MSG_NEW_PLAYER:
 		if len(data) < 129 {
 			return -1
@@ -1150,10 +1152,13 @@ func (s *Server) sendSettings(u *Object) {
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
 	}
 	{
-		var buf [7]byte
-		buf[0] = byte(noxnet.MSG_JOIN_DATA)
-		binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(u)))
-		binary.LittleEndian.PutUint32(buf[3:], uint32(pl.Field2068))
+		buf, err := noxnet.AppendPacket(nil, &noxnet.MsgJoinData{
+			NetCode: uint16(s.GetUnitNetCode(u)),
+			Unk2:    uint32(pl.Field2068),
+		})
+		if err != nil {
+			panic(err)
+		}
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:7])
 		legacy.Sub_4161E0()
 	}
