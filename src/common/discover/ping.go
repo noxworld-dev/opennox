@@ -1,7 +1,6 @@
 package discover
 
 import (
-	"bytes"
 	"context"
 	"encoding/binary"
 	"math/rand"
@@ -122,20 +121,20 @@ func (p *Pinger) read() {
 			return
 		}
 		buf = buf[:n]
-		token, ok := decodeGameInfoToken(buf)
-		if !ok {
+		m := decodeGameInfo(buf)
+		if m == nil {
 			continue
 		}
 		p.mu.Lock()
-		ch := p.byToken[token]
+		ch := p.byToken[m.Token]
 		if ch != nil {
-			delete(p.byToken, token)
+			delete(p.byToken, m.Token)
 		}
 		p.mu.Unlock()
 		if ch == nil {
 			continue
 		}
-		g := decodeGameInfo(token, getAddr(addr), buf)
+		g := convGameInfo(getAddr(addr), m, buf)
 		if g == nil {
 			continue
 		}
@@ -177,28 +176,17 @@ func (p *Pinger) Ping(ctx context.Context, addr netip.AddrPort) (*lobby.Game, er
 }
 
 func encodeGameDiscovery(token uint32) []byte {
-	data := make([]byte, 12)
+	data := make([]byte, 2, 12)
 	data[0] = 0
 	data[1] = 0
-	data[2] = byte(noxnet.MSG_SERVER_DISCOVER)
-	// data[3] = ???
-	// data[4:5] = 0
-	// data[6] = ???
-	// data[7] = ???
-	binary.LittleEndian.PutUint32(data[8:], token)
+	data, err := noxnet.AppendPacket(data, &noxnet.MsgDiscover{
+		Token: token,
+		// TODO: set the rest of the fields?
+	})
+	if err != nil {
+		panic(err)
+	}
 	return data
-}
-
-func decodeGameInfoToken(buf []byte) (uint32, bool) {
-	if len(buf) < 72 {
-		return 0, false
-	}
-	op := buf[2]
-	if op != byte(noxnet.MSG_SERVER_INFO) {
-		return 0, false
-	}
-	token := binary.LittleEndian.Uint32(buf[44:])
-	return token, true
 }
 
 func getAddr(addr net.Addr) netip.AddrPort {
@@ -216,26 +204,22 @@ func getAddr(addr net.Addr) netip.AddrPort {
 	return netip.AddrPort{}
 }
 
-func decodeGameInfo(exp uint32, addr netip.AddrPort, buf []byte) *lobby.Game {
-	if len(buf) < 72 {
+func decodeGameInfo(buf []byte) *noxnet.MsgServerInfo {
+	if len(buf) < 2 {
 		return nil
 	}
-	op := buf[2]
-	if op != 13 {
+	buf = buf[2:] // skip header
+	var p noxnet.MsgServerInfo
+	_, err := noxnet.DecodePacket(buf, &p)
+	if err != nil {
 		return nil
 	}
-	token := binary.LittleEndian.Uint32(buf[44:])
-	if token != exp {
-		return nil
-	}
-	name := buf[72:]
-	if i := bytes.IndexByte(name, 0); i >= 0 {
-		name = name[:i]
-	}
-	mname := buf[10:19]
-	if i := bytes.IndexByte(mname, 0); i >= 0 {
-		mname = mname[:i]
-	}
+	return &p
+}
+
+func convGameInfo(addr netip.AddrPort, m *noxnet.MsgServerInfo, buf []byte) *lobby.Game {
+	name := m.ServerName
+	mname := m.MapName
 	status := buf[20] | buf[21]
 	access := lobby.AccessOpen
 	if status&0x10 != 0 {
@@ -243,17 +227,17 @@ func decodeGameInfo(exp uint32, addr netip.AddrPort, buf []byte) *lobby.Game {
 	} else if status&0x20 != 0 {
 		access = lobby.AccessPassword
 	}
-	flags := noxflags.GameFlag(binary.LittleEndian.Uint16(buf[28:]))
+	flags := noxflags.GameFlag(m.Flags)
 	var q *lobby.QuestInfo
 	if flags.Has(noxflags.GameModeQuest) {
 		q = &lobby.QuestInfo{Stage: int(binary.LittleEndian.Uint16(buf[68:]))}
 	}
 	// TODO: more fields
 	return &lobby.Game{
-		Name:    string(name),
+		Name:    name,
 		Address: addr.Addr().String(),
 		Port:    int(addr.Port()),
-		Map:     strings.ToLower(string(mname)),
+		Map:     strings.ToLower(mname),
 		Mode:    gameFlagsToMode(flags),
 		Access:  access,
 		Vers:    "", // TODO: is there a version code in the response?
