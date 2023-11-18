@@ -227,11 +227,14 @@ func (c *Client) clientSendInputMouse(pli ntype.PlayerInd, mp image.Point) bool 
 	}
 	c.netPrevMouse = mp
 
-	var buf [5]byte
-	buf[0] = byte(noxnet.MSG_MOUSE)
-	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
-	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
-	return c.srv.NetList.AddToMsgListCli(pli, netlist.Kind0, buf[:5])
+	buf, err := noxnet.AppendPacket(nil, &noxnet.MsgMouse{
+		X: uint16(mp.X),
+		Y: uint16(mp.Y),
+	})
+	if err != nil {
+		panic(err)
+	}
+	return c.srv.NetList.AddToMsgListCli(pli, netlist.Kind0, buf)
 }
 
 func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
