@@ -1146,10 +1146,13 @@ func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 func (s *Server) sendSettings(u *Object) {
 	pl := u.ControllingPlayer()
 	{
-		var buf [5]byte
-		buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
-		binary.LittleEndian.PutUint32(buf[1:], s.Frame())
-		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
+		buf, err := noxnet.AppendPacket(nil, &noxnet.MsgFullTimestamp{
+			T: s.Frame(),
+		})
+		if err != nil {
+			panic(err)
+		}
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf)
 	}
 	{
 		buf, err := noxnet.AppendPacket(nil, &noxnet.MsgJoinData{
@@ -1159,7 +1162,7 @@ func (s *Server) sendSettings(u *Object) {
 		if err != nil {
 			panic(err)
 		}
-		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:7])
+		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf)
 		legacy.Sub_4161E0()
 	}
 
