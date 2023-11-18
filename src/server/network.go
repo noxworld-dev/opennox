@@ -33,14 +33,16 @@ func (s *Server) OnPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, p
 	case 0x26: // TODO: what this opcode is for?
 		return 2, true, nil
 	case noxnet.MSG_MOUSE:
-		if len(data) < 5 {
+		var p noxnet.MsgMouse
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return 0, false, io.ErrUnexpectedEOF
 		}
 		pl.SetCursorPos(image.Point{
-			X: int(binary.LittleEndian.Uint16(data[1:])),
-			Y: int(binary.LittleEndian.Uint16(data[3:])),
+			X: int(p.X),
+			Y: int(p.Y),
 		})
-		return 5, true, nil
+		return 1 + n, true, nil
 	case noxnet.MSG_PLAYER_INPUT:
 		n := s.netOnPlayerInput(pl, data[1:])
 		return 1 + n, true, nil
