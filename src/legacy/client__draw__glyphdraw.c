@@ -5,6 +5,8 @@
 #include "client__video__draw_common.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2572;
+
 //----- (004B9C70) --------------------------------------------------------
 int nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	char v3; // cl
@@ -24,7 +26,7 @@ int nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	}
 	if (nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 		nox_xxx_draw_434600(1);
-		nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
+		nox_draw_setColorMultAndIntensity_433E40(dword_8531A0_2572);
 		v3 = -1;
 		LOBYTE(a2) = v3;
 		goto LABEL_10;

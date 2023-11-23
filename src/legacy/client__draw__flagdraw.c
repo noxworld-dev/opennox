@@ -6,6 +6,8 @@
 #include "GAME3_1.h"
 #include "client__draw__weapondraw.h"
 
+extern uint32_t dword_8531A0_2572;
+
 //----- (004B9500) --------------------------------------------------------
 int nox_thing_flag_draw(int* a1, nox_drawable* dr) {
 	int v2;             // ebx
@@ -26,7 +28,7 @@ int nox_thing_flag_draw(int* a1, nox_drawable* dr) {
 			v5 = sub_4B94E0(dr);
 			v6 = (unsigned short*)sub_418A80(v5);
 			if (v6) {
-				nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 2572));
+				nox_xxx_drawSetTextColor_434390(dword_8531A0_2572);
 				nox_xxx_drawGetStringSize_43F840(0, v6, &a2, 0, 0);
 				nox_xxx_drawString_43F6E0(0, (short*)v6, a2 / -2 + v3, v4);
 			}
