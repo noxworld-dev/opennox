@@ -7,8 +7,9 @@ require (
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20230831140413-02623e75408e
 	github.com/noxworld-dev/noxscript/ns v1.0.2
+	github.com/noxworld-dev/noxscript/ns/v3 v3.4.0
 	github.com/noxworld-dev/noxscript/ns/v4 v4.14.0
-	github.com/noxworld-dev/opennox-lib v0.0.0-20231117234324-3a4f1902ec94
+	github.com/noxworld-dev/opennox-lib v0.0.0-20231123203457-a744398b665d
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
@@ -20,12 +21,12 @@ require (
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/youpy/go-wav v0.3.2
 	golang.org/x/crypto v0.12.0
-	golang.org/x/exp v0.0.0-20230811145659-89c5cff77bcb
+	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
 	golang.org/x/image v0.11.0
-	golang.org/x/mod v0.11.0
-	golang.org/x/sync v0.1.0
-	golang.org/x/sys v0.11.0
-	golang.org/x/tools v0.6.0
+	golang.org/x/mod v0.14.0
+	golang.org/x/sync v0.5.0
+	golang.org/x/sys v0.14.0
+	golang.org/x/tools v0.15.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
@@ -48,7 +49,6 @@ require (
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/noxworld-dev/noxscript/eud/v171 v171.3.1 // indirect
-	github.com/noxworld-dev/noxscript/ns/v3 v3.3.0 // indirect
 	github.com/pelletier/go-toml v1.9.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
