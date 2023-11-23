@@ -253,7 +253,6 @@ func RunArgs(args []string) (gerr error) {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
 	}
 
-	*memmap.PtrUint32(0x8531A0, 2584) = 0
 	legacy.Set_nox_gameDisableMapDraw_5d4594_2650672(0)
 	noxClient.GameAddStateCode(client.StateMovies)
 	noxflags.ResetGame()

@@ -6,7 +6,6 @@ func init() {
 	memmap.RegisterBlob(0x581450, "byte_581450", 23472)
 	memmap.RegisterBlob(0x587000, "byte_587000", 316820)
 	memmap.RegisterBlob(0x5D4594, "byte_5D4594", 2598284)
-	memmap.RegisterBlob(0x8531A0, "byte_8531A0", 2592)
 	memmap.RegisterBlob(0x973CE0, "byte_973CE0", 568)
 	memmap.RegisterBlob(0x973F18, "byte_973F18", 44881)
 	memmap.RegisterBlob(0x85B3FC, "byte_85B3FC", 1029636)
