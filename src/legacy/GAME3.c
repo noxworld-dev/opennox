@@ -44,6 +44,7 @@
 #include "input_common.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2572;
 extern uint32_t dword_5d4594_1307792;
 extern uint32_t dword_5d4594_1313788;
 extern uint32_t dword_5d4594_1308136;
@@ -6166,7 +6167,7 @@ void nox_xxx_drawOtherPlayerHP_4B8EB0(uint32_t* a1, nox_drawable* dr, unsigned s
 		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(v5, v6, 2, 48);
 		if (a4) {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));
+			nox_client_drawSetColor_434460(dword_8531A0_2572);
 		} else {
 			nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 940));
 		}

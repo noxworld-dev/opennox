@@ -39,6 +39,7 @@
 #include "input_common.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2572;
 extern uint32_t dword_5d4594_1303508;
 extern uint32_t dword_5d4594_1200776;
 extern uint32_t dword_5d4594_1203832;
@@ -2201,14 +2202,14 @@ LABEL_28:
 	if (*a1) {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2597996));
 		if (*a1 == nox_player_netCode_85319C) {
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 2572));
+			nox_xxx_drawSetTextColor_434390(dword_8531A0_2572);
 		}
 		v15 = nox_xxx_drawString_43F6E0(v24, (short*)v29, v14 / 2, v17);
 	}
 	if (a1[1]) {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2597996));
 		if (a1[1] == nox_player_netCode_85319C) {
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 2572));
+			nox_xxx_drawSetTextColor_434390(dword_8531A0_2572);
 		}
 		v15 = nox_xxx_drawString_43F6E0(v24, (short*)v28, v15, v17);
 	}
@@ -2221,7 +2222,7 @@ LABEL_28:
 	if (a1[2]) {
 		nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x5D4594, 2597996));
 		if (a1[2] == nox_player_netCode_85319C) {
-			nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 2572));
+			nox_xxx_drawSetTextColor_434390(dword_8531A0_2572);
 		}
 		result = (int*)nox_xxx_drawString_43F6E0(v24, (short*)v30, v20, v17);
 	}
@@ -3008,7 +3009,7 @@ void sub_49A6A0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 					if (*((short*)v8 + 2) <= 0) {
 						nox_xxx_drawSetTextColor_434390(v9);
 					} else {
-						nox_xxx_drawSetTextColor_434390(*getMemIntPtr(0x8531A0, 2572));
+						nox_xxx_drawSetTextColor_434390(dword_8531A0_2572);
 					}
 					nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_1301780, (short*)v13, v7, v6);
 					v4 = v11;

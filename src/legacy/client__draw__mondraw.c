@@ -15,6 +15,7 @@
 #include "operators.h"
 
 extern uint32_t dword_5d4594_1313796;
+extern uint32_t dword_8531A0_2572;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -161,7 +162,7 @@ int nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	}
 	if (*getMemU32Ptr(0x852978, 8) && nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 		nox_xxx_draw_434600(1);
-		nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
+		nox_draw_setColorMultAndIntensity_433E40(dword_8531A0_2572);
 		LOBYTE(a2) = -1;
 	} else {
 		if (v10 * v10 + v11 * v11 < 40000) {

@@ -656,3 +656,4 @@ uint32_t dword_587000_180476 = 0x0;
 uint32_t dword_5d4594_1046852 = 0;
 uint32_t array_5D4594_1049872[9];
 uint32_t dword_8531A0_2576 = 0;
+uint32_t dword_8531A0_2572 = 0;

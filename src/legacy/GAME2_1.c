@@ -43,6 +43,7 @@
 #include "input_common.h"
 
 extern uint32_t dword_8531A0_2576;
+extern uint32_t dword_8531A0_2572;
 extern uint32_t dword_5d4594_1062552;
 extern uint32_t dword_5d4594_1049844;
 extern uint32_t dword_5d4594_1050008;
@@ -5190,7 +5191,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		v29 = sub_50CB00();
 		v30 = (char*)sub_50CB10();
 		if (v29 >= 2) {
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));
+			nox_client_drawSetColor_434460(dword_8531A0_2572);
 			if (v29 - 1 > 0) {
 				v31 = (float*)(v30 + 8);
 				v72 = v29 - 1;
@@ -5260,7 +5261,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 				continue;
 			}
 		LABEL_64:
-			nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));
+			nox_client_drawSetColor_434460(dword_8531A0_2572);
 			v46 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(k + 128));
 			if (v46) {
 				v47 = nox_xxx_getTeamByID_418AB0(*((unsigned char*)v46 + 4));
@@ -5336,7 +5337,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 			}
 		}
 	}
-	v79 = *getMemU32Ptr(0x8531A0, 2572);
+	v79 = dword_8531A0_2572;
 	for (l = nox_xxx_cliGetSpritePlayer_45A000(); l; l = sub_45A010(l)) {
 		v60 = nox_client_drawable_testBuff_4356C0(l, 30);
 		v61 = *(uint32_t*)(l + 128);

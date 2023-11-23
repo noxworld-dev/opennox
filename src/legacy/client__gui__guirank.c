@@ -15,6 +15,7 @@
 #include "operators.h"
 
 extern uint32_t dword_8531A0_2576;
+extern uint32_t dword_8531A0_2572;
 extern uint32_t dword_587000_145672;
 extern uint32_t dword_5d4594_1090108;
 extern uint32_t dword_5d4594_1090112;
@@ -258,7 +259,7 @@ int nox_xxx_guiDrawRank_46E870() {
 	v45[0] = nox_strman_loadString_40F1D0("WindowDir:Empty", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1790);
 	dword_5d4594_1090108 = nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, v47,
 														*(int*)&dword_5d4594_1090040, v30, v49, v45);
-	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x8531A0, 2572);
+	*(uint32_t*)&v49[68] = dword_8531A0_2572;
 	v45[0] = nox_strman_loadString_40F1D0("TeamPlayerRank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1798);
 	*getMemU32Ptr(0x5D4594, 1090104) = nox_gui_newStaticText_489300(*(int*)&dword_5d4594_1090048, 1088, 0, 0,
 																	*(int*)&dword_5d4594_1090040, v30, v49, v45);
