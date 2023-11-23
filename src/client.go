@@ -68,6 +68,8 @@ type Client struct {
 	savedHighResFloors     int
 	savedHighResFrontWalls int
 	dword_5d4594_1046604   int
+	tsFullPRev             uint32
+	tsUpperPrev            uint32
 }
 
 func (c *Client) Cli() *client.Client {
