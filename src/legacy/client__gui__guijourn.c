@@ -9,6 +9,7 @@
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_black_2650656;
+extern uint32_t dword_8531A0_2576;
 
 //----- (00469BC0) --------------------------------------------------------
 void nox_xxx_cliBuildJournalString_469BC0() {
@@ -28,8 +29,8 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 	char v13[76];      // [esp+Ch] [ebp-104Ch]
 	wchar2_t v14[2048]; // [esp+58h] [ebp-1000h]
 
-	v0 = *getMemU32Ptr(0x8531A0, 2576); // Likely v0 is nox_playerInfo*
-	if (*getMemU32Ptr(0x8531A0, 2576)) {
+	v0 = dword_8531A0_2576; // Likely v0 is nox_playerInfo*
+	if (dword_8531A0_2576) {
 		v1 = nox_xxx_guiFontHeightMB_43F320(0);
 		v2 = *(uint32_t*)(v0 + 3644); // Likely v2 is nox_playerInfo_journal*
 		v11 = v1;
@@ -87,9 +88,9 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	char v16[76];      // [esp+18h] [ebp-104Ch]
 	wchar2_t v17[2048]; // [esp+64h] [ebp-1000h]
 
-	v3 = *getMemU32Ptr(0x8531A0, 2576);
+	v3 = dword_8531A0_2576;
 	v4 = yTop - a3;
-	if (*getMemU32Ptr(0x8531A0, 2576)) {
+	if (dword_8531A0_2576) {
 		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
 		v5 = *(uint32_t*)(v3 + 3644); // Likely v5 is nox_playerInfo_journal*

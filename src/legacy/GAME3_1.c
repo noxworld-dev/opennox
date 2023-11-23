@@ -44,6 +44,7 @@
 #include "input_common.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_587000_180476;
 extern uint32_t dword_5d4594_1319260;
 extern uint32_t dword_5d4594_1321196;
@@ -1702,9 +1703,9 @@ short sub_4BF7E0(uint32_t* a1) {
 	nox_client_drawRectFilledOpaque_49CE30(v2, v1, 200, 200);
 	LOWORD(v3) = *getMemU16Ptr(0x852978, 8);
 	if (*getMemU32Ptr(0x852978, 8)) {
-		v4 = *getMemU32Ptr(0x8531A0, 2576);
-		if (*getMemU32Ptr(0x8531A0, 2576)) {
-			nox_draw_setMaterial_4341D0(1, *(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2296));
+		v4 = dword_8531A0_2576;
+		if (dword_8531A0_2576) {
+			nox_draw_setMaterial_4341D0(1, *(uint32_t*)(dword_8531A0_2576 + 2296));
 			nox_draw_setMaterial_4341D0(2, *(uint32_t*)(v4 + 2304));
 			nox_draw_setMaterial_4341D0(3, *(uint32_t*)(v4 + 2312));
 			nox_draw_setMaterial_4341D0(4, *(uint32_t*)(v4 + 2308));
@@ -2633,8 +2634,8 @@ int nox_xxx_netP2PStartTrade_4C1320(int a1) {
 	int v5;       // [esp+4h] [ebp-8h]
 	int v6;       // [esp+8h] [ebp-4h]
 
-	v1 = *getMemU32Ptr(0x8531A0, 2576);
-	if (!*getMemU32Ptr(0x8531A0, 2576)) {
+	v1 = dword_8531A0_2576;
+	if (!dword_8531A0_2576) {
 		return 0;
 	}
 	if (dword_5d4594_1320964 == 1) {
@@ -3023,9 +3024,9 @@ int nox_xxx_prepareP2PTrade_4C1BF0() {
 	uint32_t* v3; // eax
 
 	result = dword_5d4594_1320964;
-	v1 = *getMemU32Ptr(0x8531A0, 2576);
+	v1 = dword_8531A0_2576;
 	if (dword_5d4594_1320964) {
-		if (*getMemU32Ptr(0x8531A0, 2576)) {
+		if (dword_8531A0_2576) {
 			sub_4C1410();
 			v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1320940, 3702);
 			nox_window_call_field_94((int)v2, 16385, v1 + 4704, 0);
@@ -4267,7 +4268,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	if (!(!nox_client_drawable_testBuff_4356C0((int)v3, 0) && !v54 &&
 		(*((uint32_t*)v3 + 27) != dword_5d4594_1321520 || !*getMemU32Ptr(0x852978, 8) ||
 		 !nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
-		if (*getMemU32Ptr(0x8531A0, 2576) && (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)) {
+		if (dword_8531A0_2576 && (*(uint8_t*)(dword_8531A0_2576 + 3680) & 1)) {
 			nox_client_drawEnableAlpha_434560(1);
 			nox_client_drawSetAlpha_434580(0x80u);
 		} else {

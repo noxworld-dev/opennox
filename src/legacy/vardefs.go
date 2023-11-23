@@ -781,6 +781,7 @@ extern uint32_t dword_5d4594_3798828;
 extern uint32_t dword_5d4594_3798832;
 extern uint32_t dword_5d4594_3798836;
 extern uint32_t dword_5d4594_3798840;
+extern uint32_t dword_8531A0_2576;
 extern unsigned int dword_5d4594_1599628;
 extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
 extern int (*func_587000_154944)(int, int);
@@ -803,6 +804,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func Sub_460D40() bool {
@@ -1446,4 +1448,10 @@ func Set_dword_5d4594_1123520(v int) {
 }
 func Get_dword_5d4594_826036() *byte {
 	return (*byte)(C.dword_5d4594_826036)
+}
+func Get_dword_8531A0_2576() *server.Player {
+	return AsPlayerP(unsafe.Pointer(uintptr(C.dword_8531A0_2576)))
+}
+func Set_dword_8531A0_2576(p *server.Player) {
+	C.dword_8531A0_2576 = C.uint(uintptr(p.C()))
 }

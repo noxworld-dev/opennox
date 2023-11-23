@@ -42,6 +42,7 @@
 #include "common__magic__speltree.h"
 #include "input_common.h"
 
+extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_5d4594_1062552;
 extern uint32_t dword_5d4594_1049844;
 extern uint32_t dword_5d4594_1050008;
@@ -331,8 +332,8 @@ void nox_xxx_netAbilityRewardCli_4611E0(int a1, int a2, char* a3) {
 		v3 = getMemAt(0x5D4594, 1047764 + 24*1 + 16);
 		do {
 			if (*((uint32_t*)v3 - 4) == a1 && *(uint32_t*)v3 != a2) {
-				if (nox_common_gameFlags_check_40A5C0(2) && *getMemU32Ptr(0x8531A0, 2576)) {
-					*(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 4 * a1 + 3696) = a2;
+				if (nox_common_gameFlags_check_40A5C0(2) && dword_8531A0_2576) {
+					*(uint32_t*)(dword_8531A0_2576 + 4 * a1 + 3696) = a2;
 				}
 				*(uint32_t*)v3 = a2;
 				if (a2) {
@@ -2448,8 +2449,8 @@ void nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
 	if (result) {
 		return;
 	}
-	v1 = *getMemU32Ptr(0x8531A0, 2576);
-	if (!*getMemU32Ptr(0x8531A0, 2576)) {
+	v1 = dword_8531A0_2576;
+	if (!dword_8531A0_2576) {
 		return;
 	}
 	result = *getMemU32Ptr(0x852978, 8);
@@ -2622,8 +2623,8 @@ char* nox_xxx_cliInventoryFirstItemByTT_467520(int a1) {
 int sub_467590() {
 	int result; // eax
 
-	if (*getMemU32Ptr(0x8531A0, 2576)) {
-		result = *(char*)(*getMemU32Ptr(0x8531A0, 2576) + 3684);
+	if (dword_8531A0_2576) {
+		result = *(char*)(dword_8531A0_2576 + 3684);
 	} else {
 		result = 1;
 	}
@@ -2759,8 +2760,8 @@ int sub_4678D0() {
 	int v3;     // eax
 	char* v5;   // eax
 
-	v0 = *getMemU32Ptr(0x8531A0, 2576);
-	if (!*getMemU32Ptr(0x8531A0, 2576)) {
+	v0 = dword_8531A0_2576;
+	if (!dword_8531A0_2576) {
 		return 0;
 	}
 	v1 = 1;
@@ -4278,8 +4279,8 @@ int sub_470C40(int a1) {
 int nox_xxx_cliSetTotalHealth_470C80(int a1, int a2) {
 	int result; // eax
 
-	if (*getMemU32Ptr(0x8531A0, 2576)) {
-		*(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2247) = a2;
+	if (dword_8531A0_2576) {
+		*(uint32_t*)(dword_8531A0_2576 + 2247) = a2;
 	}
 	result = a1;
 	nox_windows_arr_1093036[0].field_2 = a2;
@@ -4307,8 +4308,8 @@ int sub_470CD0() { return nox_windows_arr_1093036[0].field_2; }
 int nox_xxx_cliSetManaAndMax_470CE0(int a1, int a2) {
 	int result; // eax
 
-	if (*getMemU32Ptr(0x8531A0, 2576)) {
-		*(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2243) = a2;
+	if (dword_8531A0_2576) {
+		*(uint32_t*)(dword_8531A0_2576 + 2243) = a2;
 	}
 	result = a1;
 	nox_windows_arr_1093036[1].field_2 = a2;
@@ -4796,16 +4797,16 @@ wchar2_t* sub_472280() {
 	char* v2;        // eax
 	char* v3;        // eax
 
-	result = *(wchar2_t**)getMemAt(0x8531A0, 2576);
-	if (*getMemU32Ptr(0x8531A0, 2576)) {
+	result = *(wchar2_t**)(&dword_8531A0_2576);
+	if (dword_8531A0_2576) {
 		v1 = sub_42E8E0(38, 1);
 		nox_wcsncpy((wchar2_t*)getMemAt(0x5D4594, 1091372), (const wchar2_t*)v1, 3u);
 		*getMemU16Ptr(0x5D4594, 1091378) = 0;
 		v2 = sub_42E8E0(36, 1);
 		nox_wcsncpy((wchar2_t*)getMemAt(0x5D4594, 1090300), (const wchar2_t*)v2, 3u);
-		result = *(wchar2_t**)getMemAt(0x8531A0, 2576);
+		result = *(wchar2_t**)(&dword_8531A0_2576);
 		*getMemU16Ptr(0x5D4594, 1090306) = 0;
-		if (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
+		if (*(uint8_t*)(dword_8531A0_2576 + 2251)) {
 			v3 = sub_42E8E0(37, 1);
 			result = nox_wcsncpy((wchar2_t*)getMemAt(0x5D4594, 1090836), (const wchar2_t*)v3, 3u);
 			*getMemU16Ptr(0x5D4594, 1090842) = 0;
@@ -5352,7 +5353,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 		} else {
 			v76.field_0 = 0;
 		}
-		if (!(v77 || l == *getMemU32Ptr(0x852978, 8) || *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)) {
+		if (!(v77 || l == *getMemU32Ptr(0x852978, 8) || *(uint8_t*)(dword_8531A0_2576 + 3680) & 1)) {
 			continue;
 		}
 	LABEL_103:

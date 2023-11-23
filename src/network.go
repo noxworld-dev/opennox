@@ -621,11 +621,11 @@ func nox_xxx_netOnPacketRecvCli_48EA70(ind ntype.PlayerInd, buf *byte, sz int) i
 }
 
 func getCurPlayer() *Player {
-	return asPlayerS(legacy.AsPlayerP(*memmap.PtrPtr(0x8531A0, 2576)))
+	return asPlayerS(legacy.Get_dword_8531A0_2576())
 }
 
 func setCurPlayer(p *Player) {
-	*memmap.PtrPtr(0x8531A0, 2576) = p.C()
+	legacy.Set_dword_8531A0_2576(p.S())
 }
 
 func nox_xxx_netTestHighBit_578B70(v uint16) bool    { return (v>>15)&1 != 0 }

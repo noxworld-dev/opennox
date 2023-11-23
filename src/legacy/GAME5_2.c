@@ -46,6 +46,7 @@ extern uint32_t dword_5d4594_2516344;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
+extern uint32_t dword_8531A0_2576;
 
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
@@ -1528,10 +1529,10 @@ int nox_xxx_client_57B400(int a1) {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("Glyph");
 		*getMemU32Ptr(0x5D4594, 2523876) = v1;
 	}
-	if (!*getMemU32Ptr(0x8531A0, 2576)) {
+	if (!dword_8531A0_2576) {
 		return 0;
 	}
-	if (*(uint32_t*)(a1 + 108) != v1 || *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) == 1) {
+	if (*(uint32_t*)(a1 + 108) != v1 || *(uint8_t*)(dword_8531A0_2576 + 2251) == 1) {
 		return 1;
 	}
 	return 0;
@@ -1548,14 +1549,14 @@ int sub_57B450(nox_drawable* a1p) {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0("Glyph");
 		*getMemU32Ptr(0x5D4594, 2523880) = v1;
 	}
-	if (!a1 || !*getMemU32Ptr(0x852978, 8) || !*getMemU32Ptr(0x8531A0, 2576) ||
-		a1[27] == v1 && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) != 1) {
+	if (!a1 || !*getMemU32Ptr(0x852978, 8) || !dword_8531A0_2576 ||
+		a1[27] == v1 && *(uint8_t*)(dword_8531A0_2576 + 2251) != 1) {
 		return 0;
 	}
 	if (nox_cheat_allowall) {
 		return 1;
 	}
-	v2 = 1 << *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251);
+	v2 = 1 << *(uint8_t*)(dword_8531A0_2576 + 2251);
 	return (v2 & (unsigned char)sub_57B370(a1[28], a1[29], a1[27])) != 0;
 }
 
