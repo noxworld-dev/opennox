@@ -38,6 +38,7 @@
 #include "input_common.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_5d4594_1098456;
 extern uint32_t dword_5d4594_1193352;
 extern uint32_t dword_5d4594_1096636;
@@ -558,7 +559,7 @@ LABEL_38:
 		dword_5d4594_1096640 = v2;
 	}
 	if (v2 != *getMemU32Ptr(0x852978, 8) && v22 > *(int*)&dword_5d4594_1096636 && nox_xxx_client_57B400(v2)) {
-		if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251) == 1 &&
+		if (dword_8531A0_2576 && *(uint8_t*)(dword_8531A0_2576 + 2251) == 1 &&
 			*(uint32_t*)(v2 + 108) == *getMemU32Ptr(0x5D4594, 1096632)) {
 			if (!nox_client_spriteUnderCursorXxx_1096644) {
 				nox_client_spriteUnderCursorXxx_1096644 = v2;

@@ -138,7 +138,7 @@ int sub_4560D0(int a1, int a2);
 int sub_456240();
 int sub_456500();
 int sub_456640(int a1, int a2);
-char sub_456BB0(int a1);
+void sub_456BB0(int a1);
 wchar2_t* sub_456D00(int a1, wchar2_t* a2);
 int* sub_456D60(int a1);
 int sub_456E40(int a1, int a2);

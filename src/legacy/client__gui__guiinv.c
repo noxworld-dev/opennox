@@ -22,6 +22,7 @@
 #include "input_common.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_5d4594_1049844;
 extern uint32_t dword_5d4594_1049808;
 extern uint32_t dword_5d4594_1062484;
@@ -146,7 +147,7 @@ int sub_4617C0(int a1, int a2, const void* a3, int2* a4) {
 								!(*(uint8_t*)(v13 + 116) & 2) ||
 							v14 & 0x1000) {
 							v15 = nox_xxx_getProjectileClassById_413250(*(uint32_t*)(v13 + 108));
-							if (!v15 || (unsigned char)(1 << *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) &
+							if (!v15 || (unsigned char)(1 << *(uint8_t*)(dword_8531A0_2576 + 2251)) &
 											*((uint8_t*)v15 + 62)) {
 								nox_xxx_clientSetAltWeapon_461550((int)v9);
 								*((uint32_t*)v9 + 34) = 1;
@@ -541,14 +542,14 @@ LABEL_14:
 		if (!(v16 & 0x1001000)) {
 			goto LABEL_72;
 		}
-		v23 = *getMemU32Ptr(0x8531A0, 2576);
+		v23 = dword_8531A0_2576;
 		LODWORD(v68) = dword_5d4594_1063116 + 432;
 		v69 = 1.0;
-		v70 = *getMemFloatPtr(0x8531A0, 2576);
+		v70 = *(float*)(&dword_8531A0_2576);
 		if (!*getMemU32Ptr(0x5D4594, 1063644)) {
 			*getMemU32Ptr(0x5D4594, 1063644) = nox_xxx_getTTByNameSpriteMB_44CFC0("ArcherArrow");
 			v24 = nox_xxx_getTTByNameSpriteMB_44CFC0("ArcherBolt");
-			v23 = *getMemU32Ptr(0x8531A0, 2576);
+			v23 = dword_8531A0_2576;
 			*getMemU32Ptr(0x5D4594, 1063648) = v24;
 			v15 = dword_5d4594_1063116;
 		}
@@ -747,7 +748,7 @@ void nox_client_makePlayerStatsDlg_463880(int* a1) {
 	int v72 = nox_color_white_2523948;
 	int v6 = a1[0];
 	int v7 = a1[1];
-	int v4 = *getMemU32Ptr(0x8531A0, 2576);
+	int v4 = dword_8531A0_2576;
 	if (!v4) {
 		return;
 	}
@@ -1622,18 +1623,18 @@ int nox_xxx_inventoryNameSignInit_4671E0() {
 		if (dword_5d4594_1049844 > NOX_PLAYER_MAX_LEVEL) {
 			result = NOX_PLAYER_MAX_LEVEL;
 		}
-		v1 = *getMemU32Ptr(0x8531A0, 2576);
+		v1 = dword_8531A0_2576;
 	} else {
-		v1 = *getMemU32Ptr(0x8531A0, 2576);
-		if (!*getMemU32Ptr(0x8531A0, 2576)) {
+		v1 = dword_8531A0_2576;
+		if (!dword_8531A0_2576) {
 			return result;
 		}
-		result = *(char*)(*getMemU32Ptr(0x8531A0, 2576) + 3684);
+		result = *(char*)(dword_8531A0_2576 + 3684);
 	}
 	if (v1) {
 		nox_sprintf(v5, "experience:%s%d", *getMemU32Ptr(0x587000, 29456 + 4 * *(unsigned char*)(v1 + 2251)), result);
 		v4 = nox_strman_loadString_40F1D0(v5, 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4763);
-		v3 = *getMemU32Ptr(0x8531A0, 2576) + 4704;
+		v3 = dword_8531A0_2576 + 4704;
 		v2 = nox_strman_loadString_40F1D0("ElaborateNameFormat", 0, "C:\\NoxPost\\src\\Client\\Gui\\guiinv.c", 4761);
 		result = nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1062588), v2, v3, v4);
 	}

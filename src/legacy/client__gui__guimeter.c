@@ -16,6 +16,7 @@
 #include "common__strman.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_5d4594_1090828;
 extern uint32_t dword_5d4594_1096272;
 extern uint32_t dword_5d4594_1090292;
@@ -111,7 +112,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	wchar2_t* v14;      // eax
 	char v15[32];      // [esp+4h] [ebp-20h]
 
-	if (!*getMemU32Ptr(0x8531A0, 2576)) {
+	if (!dword_8531A0_2576) {
 		return 0;
 	}
 	dword_5d4594_1096288 = nox_xxx_guiFontPtrByName_43F360("small");
@@ -171,7 +172,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 	*getMemU16Ptr(0x5D4594, 1090312) = 0;
 	*getMemU32Ptr(0x5D4594, 1090296) = 0;
 	*getMemU32Ptr(0x5D4594, 1090308) = 0;
-	if (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
+	if (*(uint8_t*)(dword_8531A0_2576 + 2251)) {
 		dword_5d4594_1090828 = nox_window_new(*(int*)&dword_5d4594_1090276, 8, 62, 166, 28, 30, 0);
 		nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1090828, nox_xxx_guiBottleSlotProc_471B90,
 								 nox_xxx_guiBottleSlotDrawFn_471A80, 0);

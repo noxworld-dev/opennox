@@ -21,6 +21,7 @@ extern int nox_win_height;
 extern uint32_t dword_5d4594_1313792;
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
+extern uint32_t dword_8531A0_2576;
 extern uint32_t nox_player_netCode_85319C;
 
 extern uint32_t nox_color_white_2523948;
@@ -66,7 +67,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	if (!v3) {
 		return 1;
 	}
-	if (*getMemU32Ptr(0x8531A0, 2576) && (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)) {
+	if (dword_8531A0_2576 && (*(uint8_t*)(dword_8531A0_2576 + 3680) & 1)) {
 		v30 = 1;
 	}
 	if (nox_player_netCode_85319C == dr->field_32) {

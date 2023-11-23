@@ -10,6 +10,7 @@
 #include "common__random.h"
 #include "common__strman.h"
 
+extern uint32_t dword_8531A0_2576;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -87,14 +88,14 @@ int sub_436F50() {
 	result = *getMemU32Ptr(0x852978, 8);
 	v6 = v0 + v3;
 	if (*getMemU32Ptr(0x852978, 8)) {
-		if (*getMemU32Ptr(0x8531A0, 2576)) {
+		if (dword_8531A0_2576) {
 			nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 811120), L"X:%d\tY:%d",
 						 *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 12), *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 16));
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v6);
 			v9 = nox_strman_loadString_40F1D0(
-				*(char**)getMemAt(0x587000, 29456 + 4 * *(unsigned char*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)), 0,
+				*(char**)getMemAt(0x587000, 29456 + 4 * *(unsigned char*)(dword_8531A0_2576 + 2251)), 0,
 				"C:\\NoxPost\\src\\client\\System\\client.c", 1357);
-			v8 = *(char*)(*getMemU32Ptr(0x8531A0, 2576) + 3684);
+			v8 = *(char*)(dword_8531A0_2576 + 3684);
 			v7 = nox_strman_loadString_40F1D0("PlayerInfo", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1355);
 			nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 811120), v7, v8, v9);
 			result = nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v0 + v6);

@@ -9,6 +9,7 @@
 #include "GAME2.h"
 #include "GAME2_1.h"
 
+extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_587000_122956;
 extern uint32_t nox_xxx_aSpellphoneme_3_587000_123008;
 extern uint32_t dword_5d4594_832480;
@@ -188,7 +189,7 @@ int sub_44E8E0(int a1, int a2) {
 		v10 = *((uint32_t*)v6 - 1) + v2 - 320;
 		if (*(uint32_t*)v7) {
 			++v43;
-			if (v9 == *getMemU32Ptr(0x8531A0, 2576)) {
+			if (v9 == dword_8531A0_2576) {
 				v47 = *((unsigned short*)v7 + 5);
 			} else {
 				v45 += *((unsigned short*)v7 + 5);
