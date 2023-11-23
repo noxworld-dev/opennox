@@ -38,6 +38,14 @@ func (s *ScriptFunc) Args() []uint32 {
 }
 
 func (s *ScriptFunc) Locals() []uint32 {
+	sz := s.FuncDef.Args
+	if sz >= len(s.Values) {
+		return nil
+	}
+	return s.Values[sz:]
+}
+
+func (s *ScriptFunc) AllLocals() []uint32 {
 	return s.Values
 }
 
@@ -98,6 +106,28 @@ func (s *NoxScriptVM) FuncsCnt() int {
 
 func (s *NoxScriptVM) Funcs() []ScriptFunc {
 	return s.vm.funcs
+}
+
+func (s *NoxScriptVM) FuncByPref(name string) (*ScriptFunc, int) {
+	scripts := s.Funcs()
+	for i := range scripts {
+		sc := &scripts[i]
+		if strings.HasPrefix(sc.Name(), name) {
+			return sc, i
+		}
+	}
+	return nil, -1
+}
+
+func (s *NoxScriptVM) FuncByName(name string) (*ScriptFunc, int) {
+	scripts := s.Funcs()
+	for i := range scripts {
+		sc := &scripts[i]
+		if sc.Name() == name {
+			return sc, i
+		}
+	}
+	return nil, -1
 }
 
 func (s *NoxScriptVM) ResetBuiltin() {
@@ -284,14 +314,14 @@ func (s *NoxScriptVM) PushBool(v bool) {
 	}
 }
 
-func (s *NoxScriptVM) AddString(str string) uint32 {
+func (s *NoxScriptVM) NewString(str string) uint32 {
 	i := len(s.vm.strings)
 	s.vm.strings = append(s.vm.strings, str)
 	return uint32(i)
 }
 
 func (s *NoxScriptVM) PushString(str string) {
-	s.vm.stack = append(s.vm.stack, s.AddString(str))
+	s.vm.stack = append(s.vm.stack, s.NewString(str))
 }
 
 func (s *NoxScriptVM) PopI32() int32 {
@@ -426,6 +456,92 @@ func (s *NoxScriptVM) RunFirst(isSwitchToSolo bool) {
 	}
 }
 
+func (s *NoxScriptVM) getFuncVarPtr(fi int, vari int) *uint32 {
+	if fi < 0 || vari < 0 {
+		return nil
+	}
+	scripts := s.Funcs()
+	if fi >= len(scripts) {
+		return nil
+	}
+	sc := &scripts[fi]
+	return s.getFuncVarPtrFor(sc, vari)
+}
+
+func (s *NoxScriptVM) getFuncVarPtrFor(sc *ScriptFunc, vari int) *uint32 {
+	if sc == nil {
+		return nil
+	}
+	if vari < 0 || vari >= len(sc.Vars) {
+		return nil
+	}
+	off := sc.Vars[vari].Offs
+	if off < 0 || off >= len(sc.Values) {
+		return nil
+	}
+	return &sc.Values[off]
+}
+
+func (s *NoxScriptVM) GetGlobal(gvar int) (uint32, bool) {
+	return s.GetFuncVar(1, gvar)
+}
+
+func (s *NoxScriptVM) SetGlobal(gvar int, val uint32) bool {
+	return s.SetFuncVar(1, gvar, val)
+}
+
+func (s *NoxScriptVM) GetFuncVar(fnc int, vari int) (uint32, bool) {
+	ptr := s.getFuncVarPtr(fnc, vari)
+	if ptr == nil {
+		return 0, false
+	}
+	return *ptr, true
+}
+
+func (s *NoxScriptVM) SetFuncVar(fnc int, vari int, val uint32) bool {
+	ptr := s.getFuncVarPtr(fnc, vari)
+	if ptr == nil {
+		return false
+	}
+	*ptr = val
+	return true
+}
+
+func (s *NoxScriptVM) CallFunc(fnc string, args []uint32) (uint32, error) {
+	sc, _ := s.FuncByName(fnc)
+	if sc == nil {
+		return 0, fmt.Errorf("function %q not found", fnc)
+	}
+	return s.callFuncPtr(sc, args)
+}
+
+func (s *NoxScriptVM) CallFuncInd(fnc int, args []uint32) (uint32, error) {
+	if fnc < 0 {
+		return 0, errors.New("function not found")
+	}
+	scripts := s.Funcs()
+	if fnc >= len(scripts) {
+		return 0, errors.New("function not found")
+	}
+	sc := &scripts[fnc]
+	if sc == nil {
+		return 0, fmt.Errorf("function %q not found", fnc)
+	}
+	return s.callFuncPtr(sc, args)
+}
+
+func (s *NoxScriptVM) callFuncPtr(sc *ScriptFunc, args []uint32) (uint32, error) {
+	if sc == nil {
+		return 0, errors.New("function not found")
+	}
+	argsN := len(sc.Args())
+	if len(args) != argsN {
+		return 0, fmt.Errorf("function %q expects %d arguments, but got %d", sc.Name(), argsN, len(args))
+	}
+	err := s.callByFunc(sc, nil, nil, args)
+	return 0, err // TODO: read return value
+}
+
 func (s *NoxScriptVM) CallByIndex(index int, caller, trigger *Object) (gerr error) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -449,14 +565,38 @@ func (s *NoxScriptVM) CallByIndex(index int, caller, trigger *Object) (gerr erro
 	if index < 0 || index >= len(scripts) {
 		return fmt.Errorf("invalid function index: %d (%x)", index, index)
 	}
-	sc := scripts[index]
+	sc := &scripts[index]
 
 	s.vm.caller = caller
 	s.vm.trigger = trigger
 
-	args := sc.Args()
+	args := make([]uint32, len(sc.Args()))
 	for i := range args {
 		args[i] = s.PopU32()
+	}
+	return s.callByFunc(sc, caller, trigger, args)
+}
+
+func (s *NoxScriptVM) callByFunc(sc *ScriptFunc, caller, trigger *Object, args []uint32) (gerr error) {
+	defer func() {
+		if r := recover(); r != nil {
+			if e, ok := r.(error); ok {
+				gerr = e
+			} else {
+				gerr = fmt.Errorf("panic: %v", r)
+			}
+			ScriptLog.Println("ERROR:", gerr)
+		}
+	}()
+
+	s.vm.caller = caller
+	s.vm.trigger = trigger
+
+	scripts := s.Funcs()
+
+	argsArr := sc.Args()
+	for i := range argsArr {
+		argsArr[i] = args[i]
 	}
 	bstack := s.saveStack()
 	code := sc.Code
@@ -731,7 +871,7 @@ func (s *NoxScriptVM) CallByIndex(index int, caller, trigger *Object) (gerr erro
 			if ptr != nil {
 				val := s.GetString(*ptr)
 				val += dval
-				*ptr = s.AddString(val)
+				*ptr = s.NewString(val)
 				s.PushU32(*ptr)
 			} else {
 				s.PushU32(0)
@@ -913,7 +1053,7 @@ func (s *NoxScriptVM) CallByIndex(index int, caller, trigger *Object) (gerr erro
 			continue
 		case asm.OpCallBuiltin:
 			fi := asm.Builtin(readInt())
-			if err := s.callBuiltin(index, fi); err != nil {
+			if err := s.callBuiltin(sc, fi); err != nil {
 				return fmt.Errorf("in %q: %w", sc.Name(), err)
 			}
 		case asm.OpCallScript:
@@ -1161,7 +1301,7 @@ func (s *Server) nox_server_mapRWScriptData_504F90_Read(cf *cryptfile.CryptFile)
 		return nil
 	}
 	funcs := s.NoxScriptVM.Funcs()
-	vars := funcs[1].Locals()
+	vars := funcs[1].AllLocals()
 	for i := range vars {
 		v, err := cf.ReadU32()
 		if err != nil {
@@ -1183,7 +1323,7 @@ func (s *Server) nox_server_mapRWScriptData_504F90_Write(cf *cryptfile.CryptFile
 	if has == 0 {
 		return nil
 	}
-	vars := funcs[1].Locals()
+	vars := funcs[1].AllLocals()
 	for _, v := range vars {
 		cf.WriteU32(v)
 	}
