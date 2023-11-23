@@ -21,6 +21,7 @@ extern uint32_t dword_5d4594_1047524;
 extern uint32_t dword_5d4594_1046944;
 extern uint32_t dword_5d4594_1046648;
 extern uint32_t dword_5d4594_1046640;
+extern uint32_t dword_8531A0_2576;
 float2 obj_5d4594_1046620 = {0};
 extern uint32_t dword_5d4594_1046932;
 extern uint32_t dword_5d4594_1046948;
@@ -49,8 +50,8 @@ void nox_xxx_bookShowMB_45AD70(int a1) {
 	if (!(!nox_xxx_playerAnimCheck_4372B0() || (result = nox_common_gameFlags_check_40A5C0(2048)) == 0)) {
 		return;
 	}
-	if (!*getMemU32Ptr(0x8531A0, 2576) ||
-		nox_xxx_guiSpellSortList_45ADF0(*(unsigned char*)(*getMemU32Ptr(0x8531A0, 2576) + 2251))) {
+	if (!dword_8531A0_2576 ||
+		nox_xxx_guiSpellSortList_45ADF0(*(unsigned char*)(dword_8531A0_2576 + 2251))) {
 		nox_xxx_book_45B010(a1);
 	} else {
 		v2 = nox_strman_loadString_40F1D0("EmptyBook", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 377);

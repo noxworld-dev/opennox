@@ -50,6 +50,7 @@ extern uint32_t dword_5d4594_1200832;
 extern uint32_t dword_5d4594_1200776;
 extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1200768;
+extern uint32_t dword_8531A0_2576;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t dword_5d4594_1200804;
@@ -789,7 +790,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		return 2;
 	case 72: // MSG_REPORT_STATS
 		v98 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-		v99 = *getMemU32Ptr(0x8531A0, 2576);
+		v99 = dword_8531A0_2576;
 		v100 = v98;
 		if (nox_client_isConnected_43C700()) {
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
@@ -2281,7 +2282,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 				}
 				if (nox_common_gameFlags_check_40A5C0(128)) {
 					if (dword_5d4594_1200832) {
-						v330 = *getMemU32Ptr(0x8531A0, 2576) + 4704;
+						v330 = dword_8531A0_2576 + 4704;
 						v41 = nox_strman_loadString_40F1D0("NameChange", 0,
 														   "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 1470);
 						nox_swprintf(v401, v41, v330);
@@ -2727,7 +2728,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		}
 		return 13;
 	case 0xD5u: // MSG_JOURNAL_MSG
-		v296 = *getMemU32Ptr(0x8531A0, 2576);
+		v296 = dword_8531A0_2576;
 		switch (*(uint8_t*)(data + 1)) {
 		case 1:
 			if (nox_client_isConnected_43C700()) {
@@ -2904,7 +2905,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			LODWORD(v5) = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 1));
 			v111 = (uint32_t*)v5;
 			if ((uint32_t)v5) {
-				if ((uint32_t)v5 == *getMemU32Ptr(0x8531A0, 2576)) {
+				if ((uint32_t)v5 == dword_8531A0_2576) {
 					sub_4BFE40();
 					sub_478000();
 				}
@@ -3172,7 +3173,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		case 0x1Eu:
 			v303 = nox_common_playerInfoGetByID_417040(*(unsigned short*)(data + 3));
 			if (nox_client_isConnected_43C700() && v303) {
-				if (v303 == *(char**)getMemAt(0x8531A0, 2576)) {
+				if (v303 == *(char**)(&dword_8531A0_2576)) {
 					v348 = nox_xxx_spellTitle_424930(*(unsigned char*)(data + 2));
 					v304 = nox_strman_loadString_40F1D0("plyrspel.c:AwardSpell", 0,
 														"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8112);
@@ -3191,7 +3192,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			if (!nox_client_isConnected_43C700() || !v306) {
 				return 5;
 			}
-			if (v306 == *(char**)getMemAt(0x8531A0, 2576)) {
+			if (v306 == *(char**)(&dword_8531A0_2576)) {
 				v350 = nox_xxx_guiCreatureGetName_427240(*(unsigned char*)(data + 2));
 				v307 = nox_strman_loadString_40F1D0("PlyrGide.c:AwardGuide", 0,
 													"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8145);
@@ -3209,7 +3210,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			if (!nox_client_isConnected_43C700() || !v309) {
 				return 5;
 			}
-			if (v309 == *(char**)getMemAt(0x8531A0, 2576)) {
+			if (v309 == *(char**)(&dword_8531A0_2576)) {
 				v352 = nox_xxx_abilityGetName_0_425260(*(unsigned char*)(data + 2));
 				v310 = nox_strman_loadString_40F1D0("ComAblty.c:AwardAbility", 0,
 													"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 8178);

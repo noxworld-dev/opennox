@@ -113,6 +113,7 @@ extern uint32_t nox_wol_wnd_gameList_815012;
 extern nox_window* dword_5d4594_815004;
 extern nox_window* nox_wol_wnd_world_814980;
 extern uint32_t nox_color_white_2523948;
+extern uint32_t dword_8531A0_2576;
 
 int nox_win_width = 0;
 int nox_win_height = 0;
@@ -3148,7 +3149,7 @@ void nox_xxx_clientTalk_42E7B0(nox_drawable* a1p) {
 	short v2; // ax
 
 	v1 = a1;
-	if (a1 && (!*getMemU32Ptr(0x8531A0, 2576) || !(*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 3)) &&
+	if (a1 && (!dword_8531A0_2576 || !(*(uint8_t*)(dword_8531A0_2576 + 3680) & 3)) &&
 		sub_478030() != 1 && nox_gui_xxx_check_446360() != 1) {
 		v2 = *(uint16_t*)(v1 + 128);
 		LOWORD(a1) = 464;
@@ -3162,7 +3163,7 @@ void nox_xxx_clientCollideOrUse_42E810(nox_drawable* a1p) {
 	int a1 = a1p;
 	int v1; // [esp-4h] [ebp-4h]
 
-	if (a1 && (!*getMemU32Ptr(0x8531A0, 2576) || !(*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 3))) {
+	if (a1 && (!dword_8531A0_2576 || !(*(uint8_t*)(dword_8531A0_2576 + 3680) & 3))) {
 		v1 = a1;
 		LOBYTE(a1) = 123;
 		*(uint16_t*)((char*)&a1 + 1) = nox_xxx_netGetUnitCodeCli_578B00(v1);
@@ -3176,7 +3177,7 @@ void nox_xxx_clientTrade_42E850(nox_drawable* a1p) {
 	int v1; // esi
 
 	v1 = a1;
-	if (a1 && (!*getMemU32Ptr(0x8531A0, 2576) || !(*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 3)) &&
+	if (a1 && (!dword_8531A0_2576 || !(*(uint8_t*)(dword_8531A0_2576 + 3680) & 3)) &&
 		sub_47A260() != 1 && nox_gui_xxx_check_446360() != 1) {
 		LOWORD(a1) = 5577;
 		HIWORD(a1) = nox_xxx_netGetUnitCodeCli_578B00(v1);
@@ -3526,7 +3527,7 @@ wchar2_t* sub_435700(wchar2_t* a1, int a2) {
 int nox_xxx_cliToggleObsWindow_4357A0() {
 	int result; // eax
 
-	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
+	if (dword_8531A0_2576 && *(uint8_t*)(dword_8531A0_2576 + 3680) & 1) {
 		result = nox_xxx_showObserverWindow_48CA70(0);
 	} else {
 		result = nox_xxx_showObserverWindow_48CA70(1);
@@ -3601,8 +3602,8 @@ int nox_xxx_playerAnimCheck_4372B0() {
 int nox_xxx_clientIsObserver_4372E0() {
 	int result; // eax
 
-	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2092) == 1) {
-		result = (*(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 3) != 0;
+	if (dword_8531A0_2576 && *(uint32_t*)(dword_8531A0_2576 + 2092) == 1) {
+		result = (*(uint32_t*)(dword_8531A0_2576 + 3680) & 3) != 0;
 	} else {
 		result = 0;
 	}

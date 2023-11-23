@@ -14,6 +14,7 @@
 #include "common__system__team.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_587000_145672;
 extern uint32_t dword_5d4594_1090108;
 extern uint32_t dword_5d4594_1090112;
@@ -362,8 +363,8 @@ int sub_46F080(int a1, int a2) {
 			v2 = nox_xxx_getTeamByID_418AB0(*((unsigned char*)v7 + 4));
 			v35 = v2;
 		}
-		if (*getMemU32Ptr(0x8531A0, 2576)) {
-			v8 = *(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680);
+		if (dword_8531A0_2576) {
+			v8 = *(uint32_t*)(dword_8531A0_2576 + 3680);
 			if (!(v8 & 1) || v8 & 0x20) {
 				v33 = 1;
 			}

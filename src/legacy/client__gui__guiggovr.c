@@ -6,6 +6,7 @@
 #include "GAME2_1.h"
 
 extern uint32_t dword_5d4594_1303452;
+extern uint32_t dword_8531A0_2576;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -78,7 +79,7 @@ int sub_49B6E0() {
 			if (v1 < 0) {
 				v1 = 0;
 			}
-			if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2064) == 31) {
+			if (dword_8531A0_2576 && *(uint8_t*)(dword_8531A0_2576 + 2064) == 31) {
 				nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1301852), (const wchar2_t*)getMemAt(0x5D4594, 1303464));
 			} else {
 				v4 = (unsigned int)v1 / gameFPS();

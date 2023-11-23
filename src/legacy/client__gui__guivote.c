@@ -13,6 +13,7 @@ extern uint32_t dword_5d4594_1197316;
 extern uint32_t dword_5d4594_1197320;
 extern uint32_t dword_5d4594_1197324;
 extern uint32_t dword_5d4594_1197312;
+extern uint32_t dword_8531A0_2576;
 extern uint32_t nox_player_netCode_85319C;
 
 //----- (0048CB10) --------------------------------------------------------
@@ -52,7 +53,7 @@ uint32_t* sub_48CB10(int a1) {
 	dword_5d4594_1197308 = a1;
 	switch (a1) {
 	case 4:
-		if (*getMemU32Ptr(0x8531A0, 2576) && !*(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 4792)) {
+		if (dword_8531A0_2576 && !*(uint32_t*)(dword_8531A0_2576 + 4792)) {
 			v24 = nox_strman_loadString_40F1D0("GUIVote.c:NotAllowedVote", 0,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 452);
 			v2 = nox_strman_loadString_40F1D0("guiquit.c:Vote", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIVote.c", 451);
@@ -106,7 +107,7 @@ uint32_t* sub_48CB10(int a1) {
 			v26 = v16;
 			if (v16) {
 				for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
-					if (i != *(char**)getMemAt(0x8531A0, 2576)) {
+					if (i != *(char**)(&dword_8531A0_2576)) {
 						v18 = nox_xxx_objGetTeamByNetCode_418C80(*((uint32_t*)i + 515));
 						if (v18) {
 							if (nox_xxx_teamCompare2_419180((int)v18, v16[57])) {
@@ -133,7 +134,7 @@ uint32_t* sub_48CB10(int a1) {
 			}
 		} else {
 			for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
-				if (j != *(char**)getMemAt(0x8531A0, 2576)) {
+				if (j != *(char**)(&dword_8531A0_2576)) {
 					nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16397, (int)(j + 4704), 4);
 					v22 = 0;
 					if (dword_5d4594_1197324 > 0) {
