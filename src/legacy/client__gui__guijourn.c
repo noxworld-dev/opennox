@@ -10,6 +10,7 @@ extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t dword_8531A0_2576;
+extern uint32_t dword_8531A0_2572;
 
 //----- (00469BC0) --------------------------------------------------------
 void nox_xxx_cliBuildJournalString_469BC0() {
@@ -128,7 +129,7 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					nox_wcscpy(v17, v11);
 					break;
 				default:
-					v8 = *getMemU32Ptr(0x8531A0, 2572);
+					v8 = dword_8531A0_2572;
 					v17[0] = 0;
 					break;
 				}

@@ -782,6 +782,7 @@ extern uint32_t dword_5d4594_3798832;
 extern uint32_t dword_5d4594_3798836;
 extern uint32_t dword_5d4594_3798840;
 extern uint32_t dword_8531A0_2576;
+extern uint32_t dword_8531A0_2572;
 extern unsigned int dword_5d4594_1599628;
 extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
 extern int (*func_587000_154944)(int, int);
@@ -1454,4 +1455,13 @@ func Get_dword_8531A0_2576() *server.Player {
 }
 func Set_dword_8531A0_2576(p *server.Player) {
 	C.dword_8531A0_2576 = C.uint(uintptr(p.C()))
+}
+func Get_dword_8531A0_2572() uint32 {
+	return uint32(C.dword_8531A0_2572)
+}
+func Get_dword_8531A0_2572_ptr() *uint32 {
+	return (*uint32)(unsafe.Pointer(&C.dword_8531A0_2572))
+}
+func Set_dword_8531A0_2572(v uint32) {
+	C.dword_8531A0_2572 = C.uint(v)
 }

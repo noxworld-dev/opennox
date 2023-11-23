@@ -44,6 +44,7 @@
 #include "input_common.h"
 #include "operators.h"
 
+extern uint32_t dword_8531A0_2572;
 extern uint32_t dword_8531A0_2576;
 extern uint32_t dword_587000_180476;
 extern uint32_t dword_5d4594_1319260;
@@ -425,7 +426,7 @@ void nox_xxx_spriteDrawMonsterHP_4BC080(uint32_t* a1, int a2, unsigned short a3,
 			nox_client_drawSetColor_434460(nox_color_black_2650656);
 			nox_client_drawRectFilledOpaque_49CE30(v6, v9, 2, v8);
 			if (a5) {
-				nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));
+				nox_client_drawSetColor_434460(dword_8531A0_2572);
 			} else {
 				nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 940));
 			}
@@ -3171,7 +3172,7 @@ int nox_xxx_guiDrawSummonBox_4C1FE0(uint32_t* a1) {
 				}
 				nox_client_drawRectFilledOpaque_49CE30(v21 + v3 - 2, v5, 2, v20);
 				if (v19) {
-					nox_client_drawSetColor_434460(*getMemIntPtr(0x8531A0, 2572));
+					nox_client_drawSetColor_434460(dword_8531A0_2572);
 				} else {
 					nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 940));
 				}
@@ -4320,7 +4321,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 			}
 			if (!(v53 || !nox_client_drawable_testBuff_4356C0(v46, 21))) {
 				nox_xxx_draw_434600(1);
-				nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
+				nox_draw_setColorMultAndIntensity_433E40(dword_8531A0_2572);
 				v62 = -1;
 				nox_client_drawEnableAlpha_434560(1);
 				nox_client_drawSetAlpha_434580(v62);
@@ -4343,7 +4344,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 				if ((v50 = *((uint32_t*)v3 + 28), v50 & 2) && (*((uint32_t*)v3 + 69) == 8) ||
 					(v50 & 4) && !*((uint32_t*)v3 + 69)) {
 					nox_xxx_draw_434600(1);
-					nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
+					nox_draw_setColorMultAndIntensity_433E40(dword_8531A0_2572);
 					v62 = -128;
 				}
 			}
