@@ -160,15 +160,6 @@ int sub_43C650() {
 	return result;
 }
 
-//----- (0043C7A0) --------------------------------------------------------
-int sub_43C7A0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x587000, 91876) = a1;
-	return result;
-}
-
 //----- (0043CEB0) --------------------------------------------------------
 void sub_43CEB0() {
 	unsigned int v1;           // esi
