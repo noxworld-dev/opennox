@@ -2,15 +2,15 @@ package server
 
 import "github.com/noxworld-dev/noxscript/ns/asm"
 
-func (s *NoxScriptVM) callBuiltin(i int, fi asm.Builtin) error {
+func (s *NoxScriptVM) callBuiltin(sc *ScriptFunc, fi asm.Builtin) error {
 	if fi < 0 || fi > asm.BuiltinGetScore {
 		if s.panicCompilerCheck(fi) {
 			return nil
 		}
 	}
-	s.vm.nameSuff = s.vm.funcs[i].NamePref
+	s.vm.nameSuff = sc.NamePref
 	if s.builtinNeedsDPos(fi) {
-		s.vm.dpos = s.vm.funcs[i].PosOff
+		s.vm.dpos = sc.PosOff
 	}
 	err := s.CallBuiltinNative(fi)
 	s.ResetBuiltin()
