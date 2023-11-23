@@ -2971,11 +2971,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		}
 		sub_4610D0(*(uint8_t*)(data + 1));
 		return 2;
-	case 0xECu: // MSG_RATE_CHANGE
-		if (nox_client_isConnected_43C700()) {
-			sub_43C7A0(*(unsigned char*)(data + 1));
-		}
-		return 2;
 	case 0xEDu: // MSG_REPORT_CREATURE_CMD
 		if (nox_client_isConnected_43C700()) {
 			sub_4C1CA0(*(unsigned char*)(data + 1));

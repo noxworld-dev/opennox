@@ -612,6 +612,10 @@ func sub_43C790() uint32 {
 	return memmap.Uint32(0x587000, 91876)
 }
 
+func sub_43C7A0(v uint32) {
+	*memmap.PtrUint32(0x587000, 91876) = v
+}
+
 func nox_xxx_netOnPacketRecvCli_48EA70(ind ntype.PlayerInd, buf *byte, sz int) int {
 	return noxClient.nox_xxx_netOnPacketRecvCli48EA70(ind, unsafe.Slice(buf, sz))
 }
@@ -627,7 +631,7 @@ func setCurPlayer(p *Player) {
 func nox_xxx_netTestHighBit_578B70(v uint16) bool    { return (v>>15)&1 != 0 }
 func nox_xxx_netClearHighBit_578B30(v uint16) uint16 { return v & 0x7FFF }
 
-func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op noxnet.Op, data []byte, v364 *uint32, v373 *uint16) int {
+func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op noxnet.Op, data []byte, localFrame *uint32, localFrame16 *uint16) int {
 	if len(data) == 0 {
 		return 0
 	}
@@ -641,18 +645,18 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return -1
 		}
 		frame := p.T
+		*localFrame = frame
+		c.tsFullPRev = frame
+		c.tsUpperPrev = frame >> 14
 		c.srv.SetFrame(frame)
-		*memmap.PtrUint32(0x5D4594, 1200800) = c.srv.Frame()
-		*v364 = c.srv.Frame()
-		*memmap.PtrUint32(0x5D4594, 1200808) = c.srv.Frame() >> 14
 		if p := getCurPlayer(); p != nil {
 			legacy.Nox_xxx_playerUnsetStatus_417530(p.S(), 64)
 		}
 		legacy.Sub_43C650()
 		return 1 + n
 	case noxnet.MSG_SIMULATED_TIMESTAMP:
-		frame := uint32(*v373)
-		if frame < (memmap.Uint32(0x5D4594, 1200800) + sub_43C790()) {
+		frame := uint32(*localFrame16)
+		if frame < (c.tsFullPRev + sub_43C790()) {
 			c.srv.SetFrame(frame)
 		}
 		return 5
@@ -662,44 +666,47 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if err != nil {
 			return -1
 		}
-		fr := p.T
-		*v373 = fr
+		fr16 := p.T
+		*localFrame16 = fr16
 		if p := getCurPlayer(); p != nil && p.Field3680&0x40 != 0 {
 			return 1 + n
 		}
-		v9 := 1
+		v9 := true
 		prevFrame := c.srv.Frame()
-		v11 := fr
-		v12 := uint32(v11) + (c.srv.Frame() & 0xFFFF0000)
-		v13 := int32(v11) >> 14
-		if uint32(v13) != memmap.Uint32(0x5D4594, 1200808) {
-			if v13 == ((int32(memmap.Uint8(0x5D4594, 1200808)) + 1) & 3) {
-				*memmap.PtrUint32(0x5D4594, 1200808) = uint32(v13)
-				if v13 == 0 {
-					v12 += 0x10000
+		fullFrame := uint32(fr16) + (c.srv.Frame() & 0xFFFF0000)
+		if upper := uint32(fr16) >> 14; upper != c.tsUpperPrev {
+			if upper == ((uint32(c.tsUpperPrev&0xff) + 1) & 3) {
+				c.tsUpperPrev = upper
+				if upper == 0 {
+					fullFrame += 0x10000
 				}
 			} else {
-				v9 = 0
+				v9 = false
 			}
 		}
-		if v12 < c.srv.Frame() {
-			v9 = 0
+		if fullFrame < c.srv.Frame() {
+			v9 = false
 		}
-		if !noxflags.HasGame(noxflags.GameHost) && v9 == 1 {
-			c.srv.SetFrame(v12)
-			*memmap.PtrUint32(0x5D4594, 1200800) = v12
+		if !noxflags.HasGame(noxflags.GameHost) && v9 {
+			c.srv.SetFrame(fullFrame)
+			c.tsFullPRev = fullFrame
 		}
-		*v364 = v12
-		if !noxflags.HasGame(noxflags.GameHost) && v9 == 0 {
+		*localFrame = fullFrame
+		if !noxflags.HasGame(noxflags.GameHost) && !v9 {
 			noxPerfmon.latePackets--
 			*memmap.PtrUint32(0x85B3FC, 120)++
-			return 1 + n
+		} else {
+			if c.srv.Frame() > prevFrame+1 {
+				noxPerfmon.latePackets += int(c.srv.Frame() - prevFrame)
+			}
+			legacy.Sub_43C650()
 		}
-		if c.srv.Frame() > prevFrame+1 {
-			noxPerfmon.latePackets += int(c.srv.Frame() - prevFrame)
-		}
-		legacy.Sub_43C650()
 		return 1 + n
+	case noxnet.MSG_RATE_CHANGE:
+		if nox_client_isConnected() {
+			sub_43C7A0(uint32(data[1]))
+		}
+		return 1 + 1
 	case noxnet.MSG_DESTROY_WALL:
 		if len(data) < 3 {
 			return -1
@@ -879,7 +886,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 				v := binary.LittleEndian.Uint32(data[1:])
 				binary.LittleEndian.PutUint32(buf[1:], v)
 			} else {
-				binary.LittleEndian.PutUint32(buf[1:], *v364)
+				binary.LittleEndian.PutUint32(buf[1:], *localFrame)
 			}
 			c.srv.NetList.AddToMsgListCli(ind, 0, buf[:5])
 		}
@@ -1049,12 +1056,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind ntype.PlayerInd, data []by
 	var iters [][]byte
 	c.guiFPS.sub_470A80()
 	var (
-		v364 uint32
-		v373 uint16
+		localFrame   uint32
+		localFrame16 uint16
 	)
 	for len(data) > 0 {
 		op := noxnet.Op(data[0])
-		n := c.nox_xxx_netOnPacketRecvCli48EA70_switch(ind, op, data, &v364, &v373)
+		n := c.nox_xxx_netOnPacketRecvCli48EA70_switch(ind, op, data, &localFrame, &localFrame16)
 		if n == 0 {
 			break // stop earlier
 		} else if n < 0 {
