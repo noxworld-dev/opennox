@@ -16,6 +16,7 @@ extern uint32_t nox_tile_def_cnt;
 extern unsigned int dword_5d4594_2650652;
 
 void nox_xxx_updateProjectile_53AC10(nox_object_t* a1);
+void nox_xxx_updateDeathBall_53D080(nox_object_t* a1);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 void nox_xxx___mkgmtime_538280(nox_object_t* a1);
 */
@@ -38,6 +39,7 @@ var (
 	Sub_5336D0                          func(cobj *server.Object) float64
 	Nox_xxx_updatePlayerObserver_4E62F0 func(a1p *server.Object)
 	Nox_xxx_updateProjectile_53AC10     func(a1 *server.Object)
+	Nox_xxx_updateDeathBall_53D080      func(a1 *server.Object)
 	Nox_xxx___mkgmtime_538280           func(a1 *server.Object)
 )
 
@@ -141,6 +143,11 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 //export nox_xxx_updateProjectile_53AC10
 func nox_xxx_updateProjectile_53AC10(a1 *nox_object_t) {
 	Nox_xxx_updateProjectile_53AC10(asObjectS(a1))
+}
+
+//export nox_xxx_updateDeathBall_53D080
+func nox_xxx_updateDeathBall_53D080(a1 *nox_object_t) {
+	Nox_xxx_updateDeathBall_53D080(asObjectS(a1))
 }
 
 //export nox_xxx___mkgmtime_538280

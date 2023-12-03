@@ -194,7 +194,6 @@ void nox_xxx_waterBarrel_53CC30(float* a1, int a2);
 void nox_xxx_updateSelfDestruct_53CC90(int a1);
 void nox_xxx_updateBlackPowderBurn_53CCB0(int a1);
 void nox_xxx_updatePixie_53CD20(nox_object_t* a1);
-void nox_xxx_updateDeathBall_53D080(int a1);
 void sub_53D170(int a1, int a2);
 void nox_xxx_updateDeathBallFragment_53D220(int a1);
 void nox_xxx_updateMoonglow_53D270(int a1);

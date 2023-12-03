@@ -157,6 +157,7 @@ func init() {
 	legacy.Sub_5336D0 = sub_5336D0
 	legacy.Nox_xxx_updatePlayerObserver_4E62F0 = nox_xxx_updatePlayerObserver_4E62F0
 	legacy.Nox_xxx_updateProjectile_53AC10 = nox_xxx_updateProjectile_53AC10
+	legacy.Nox_xxx_updateDeathBall_53D080 = nox_xxx_updateDeathBall_53D080
 	legacy.Sub_44A4A0 = sub_44A4A0
 	legacy.Nox_script_shouldReadMoreXxx = nox_script_shouldReadMoreXxx
 	legacy.Nox_script_shouldReadEvenMoreXxx = nox_script_shouldReadEvenMoreXxx
