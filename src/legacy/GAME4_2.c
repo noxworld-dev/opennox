@@ -9335,35 +9335,6 @@ int nox_xxx_castCounterSpell_52BBB0(int a1, int a2, int a3, int a4) {
 	return 1;
 }
 
-//----- (0052BC90) --------------------------------------------------------
-int nox_xxx_deathBallCreateFragments_52BD30(int* a1);
-void nox_xxx_cspellRemoveSpell_52BC90(int a1) {
-	int v1; // eax
-
-	if (!*getMemU32Ptr(0x5D4594, 2487720)) {
-		*getMemU32Ptr(0x5D4594, 2487720) = nox_xxx_getNameId_4E3AA0("Magic");
-		*getMemU32Ptr(0x5D4594, 2487724) = nox_xxx_getNameId_4E3AA0("DeathBall");
-	}
-	if (*(uint8_t*)(a1 + 12) & 1 && !(*(uint8_t*)(a1 + 16) & 0x20)) {
-		nox_xxx_netSendPointFx_522FF0(135, (float2*)(a1 + 56));
-		v1 = *(unsigned short*)(a1 + 4);
-		if ((unsigned short)v1 == *getMemU32Ptr(0x5D4594, 2487720)) {
-			nox_xxx_delayedDeleteObject_4E5CC0(a1);
-			return;
-		}
-		if (v1 == *getMemU32Ptr(0x5D4594, 2487724)) {
-			nox_xxx_deathBallCreateFragments_52BD30((int*)a1);
-			nox_xxx_delayedDeleteObject_4E5CC0(a1);
-			return;
-		}
-		(*(void (**)(int, uint32_t, uint32_t))(a1 + 696))(a1, 0, 0);
-		if (!(*(uint8_t*)(a1 + 16) & 0x20)) {
-			nox_xxx_delayedDeleteObject_4E5CC0(a1);
-			return;
-		}
-	}
-}
-
 //----- (0052BDB0) --------------------------------------------------------
 int sub_52BDB0(int a1, int a2) {
 	int result; // eax
