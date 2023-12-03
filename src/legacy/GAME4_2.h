@@ -212,7 +212,6 @@ int sub_52BA70(int a1);
 int sub_52BAF0(int a1);
 int nox_xxx_castCounterSpell_52BBB0(int a1, int a2, int a3, int a4);
 void nox_xxx_cspellRemoveSpell_52BC90(int a1);
-int nox_xxx_deathBallCreateFragments_52BD30(int* a1);
 int sub_52BDB0(int a1, int a2);
 void nox_xxx_changeOwner_52BE40(int a1, int a2);
 int sub_52BEB0(int a1, int a2, int a3, int a4);

@@ -9336,6 +9336,7 @@ int nox_xxx_castCounterSpell_52BBB0(int a1, int a2, int a3, int a4) {
 }
 
 //----- (0052BC90) --------------------------------------------------------
+int nox_xxx_deathBallCreateFragments_52BD30(int* a1);
 void nox_xxx_cspellRemoveSpell_52BC90(int a1) {
 	int v1; // eax
 
@@ -9361,30 +9362,6 @@ void nox_xxx_cspellRemoveSpell_52BC90(int a1) {
 			return;
 		}
 	}
-}
-
-//----- (0052BD30) --------------------------------------------------------
-int nox_xxx_deathBallCreateFragments_52BD30(int* a1) {
-	int v1;     // ebx
-	int result; // eax
-	float* v3;  // esi
-	short v4;   // ax
-
-	v1 = 3;
-	do {
-		result = nox_xxx_newObjectByTypeID_4E3810("DeathBallFragment");
-		v3 = (float*)result;
-		if (result) {
-			nox_xxx_createAt_4DAA50(result, a1[127], *((float*)a1 + 14), *((float*)a1 + 15));
-			v4 = nox_common_randomInt_415FA0(0, 255);
-			*((uint16_t*)v3 + 62) = v4;
-			result = 8 * v4;
-			v3[20] = *getMemFloatPtr(0x587000, 194136 + result) * v3[136];
-			v3[21] = *getMemFloatPtr(0x587000, 194140 + result) * v3[136];
-		}
-		--v1;
-	} while (v1);
-	return result;
 }
 
 //----- (0052BDB0) --------------------------------------------------------

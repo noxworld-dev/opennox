@@ -121,3 +121,17 @@ func traceHitResult() *ntype.Point32 {
 	}
 	return nil
 }
+
+func nox_xxx_deathBallCreateFragments_52BD30(obj *server.Object) {
+	s := asObjectS(obj).getServer()
+	for i := 0; i < 3; i++ {
+		fr := s.NewObjectByTypeID("DeathBallFragment")
+		if fr != nil {
+			s.CreateObjectAt(fr, obj.ObjOwner, obj.PosVec)
+			fr.Direction1 = server.Dir16(s.Rand.Logic.IntClamp(0, math.MaxUint8))
+			cos, sin := server.SinCosDir(byte(fr.Direction1))
+			fr.VelVec.X = cos * fr.SpeedCur
+			fr.VelVec.Y = sin * fr.SpeedCur
+		}
+	}
+}
