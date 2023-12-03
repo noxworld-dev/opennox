@@ -107,7 +107,6 @@ void nox_xxx_mapGenSetFlags_5235F0(char a1);
 int nox_xxx_netSendShieldFx_523670(int a1, float* a2);
 int nox_xxx_sendSummonStartFX_5236F0(short a1, float* a2, char a3, short a4, short a5);
 int nox_xxx_sendSummonCancelFX_523760(short a1);
-int nox_xxx_netSendFxGreenBolt_523790(int4* a1, short a2);
 void nox_xxx_sendGeneratorSpawnFX_523830(int4* a1, short a2);
 void nox_xxx_sendArrowTrapFX_5238A0(float* a1, char a2);
 int nox_xxx_mapGenCheckRoomType_5238F0(int* a1);

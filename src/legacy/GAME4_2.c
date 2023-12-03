@@ -3936,34 +3936,6 @@ int nox_xxx_sendSummonCancelFX_523760(short a1) {
 	return nox_xxx_netSendPacket0_4E5420(255, v3, 3, 0, 1);
 }
 
-//----- (00523790) --------------------------------------------------------
-int nox_xxx_netSendFxGreenBolt_523790(int4* a1, short a2) {
-	int4* v2;     // eax
-	int v3;       // ecx
-	double v4;    // st7
-	short v5;     // dx
-	int v7;       // [esp+0h] [ebp-18h]
-	float2 a1a;   // [esp+4h] [ebp-14h]
-	char a2a[11]; // [esp+Ch] [ebp-Ch]
-	int4* v10;    // [esp+1Ch] [ebp+4h]
-
-	v2 = a1;
-	a2a[0] = -104;
-	v7 = a1->field_0;
-	v3 = a1->field_4;
-	v4 = (double)(a1->field_8 - a1->field_0);
-	v10 = (int4*)(a1->field_C - v3);
-	*(uint16_t*)&a2a[3] = v2->field_4;
-	v5 = v2->field_C;
-	*(uint16_t*)&a2a[1] = v2->field_0;
-	*(uint16_t*)&a2a[5] = v2->field_8;
-	*(uint16_t*)&a2a[7] = v5;
-	*(uint16_t*)&a2a[9] = a2;
-	a1a.field_0 = v4 * 0.5 + (double)v7;
-	a1a.field_4 = (double)(int)v10 * 0.5 + (double)v3;
-	return nox_xxx_netSendFxAllCli_523030(&a1a, a2a, 11);
-}
-
 //----- (00523830) --------------------------------------------------------
 void nox_xxx_sendGeneratorSpawnFX_523830(int4* a1, short a2) {
 	double v2;    // st7
