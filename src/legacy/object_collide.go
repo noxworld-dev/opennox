@@ -15,14 +15,16 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
-	Nox_xxx_collideDeathBall_4E9E90  func(a1, a2 *server.Object, pos *types.Pointf)
-	Nox_xxx_cspellRemoveSpell_52BC90 func(a1 *server.Object)
+	Nox_xxx_collideDeathBall_4E9E90 func(a1, a2 *server.Object, pos *types.Pointf)
+	Nox_xxx_castCounterSpell_52BBB0 func(cspl spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int
+	Nox_xxx_changeOwner_52BE40      func(a1, a2 *server.Object)
 )
 
 func init() {
@@ -112,7 +114,12 @@ func nox_xxx_collideDeathBall_4E9E90(a1, a2 *nox_object_t, pos *C.float) {
 	Nox_xxx_collideDeathBall_4E9E90(asObjectS(a1), asObjectS(a2), (*types.Pointf)(unsafe.Pointer(pos)))
 }
 
-//export nox_xxx_cspellRemoveSpell_52BC90
-func nox_xxx_cspellRemoveSpell_52BC90(a1 *nox_object_t) {
-	Nox_xxx_cspellRemoveSpell_52BC90(asObjectS(a1))
+//export nox_xxx_castCounterSpell_52BBB0
+func nox_xxx_castCounterSpell_52BBB0(a1 int32, a2, a3, a4 *nox_object_t) {
+	Nox_xxx_castCounterSpell_52BBB0(spell.ID(a1), asObjectS(a2), asObjectS(a3), asObjectS(a4), nil, 0)
+}
+
+//export nox_xxx_changeOwner_52BE40
+func nox_xxx_changeOwner_52BE40(a1, a2 *nox_object_t) {
+	Nox_xxx_changeOwner_52BE40(asObjectS(a1), asObjectS(a2))
 }
