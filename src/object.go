@@ -1105,7 +1105,11 @@ func (obj *Object) Pause(dt ns4.Duration) {
 }
 
 func (obj *Object) DoDamage(source *server.Object, amount int, typ object.DamageType) {
-	if amount <= 0 {
+	if obj == nil || amount <= 0 {
+		return
+	}
+	if typ == object.DamageTrue {
+		legacy.Nox_xxx_unitDamageClear_4EE5E0(obj.SObj(), amount)
 		return
 	}
 	owner := source.FindOwnerChainPlayer()
