@@ -21,7 +21,8 @@ import (
 )
 
 var (
-	Nox_xxx_collideDeathBall_4E9E90 func(a1, a2 *server.Object, pos *types.Pointf)
+	Nox_xxx_collideDeathBall_4E9E90         func(a1, a2 *server.Object, pos *types.Pointf)
+	Nox_xxx_deathBallCreateFragments_52BD30 func(a1 *server.Object)
 )
 
 func init() {
@@ -109,4 +110,9 @@ func Nox_call_objectType_parseCollide_go(a1 unsafe.Pointer, a2 string, a3 unsafe
 //export nox_xxx_collideDeathBall_4E9E90
 func nox_xxx_collideDeathBall_4E9E90(a1, a2 *nox_object_t, pos *C.float) {
 	Nox_xxx_collideDeathBall_4E9E90(asObjectS(a1), asObjectS(a2), (*types.Pointf)(unsafe.Pointer(pos)))
+}
+
+//export nox_xxx_deathBallCreateFragments_52BD30
+func nox_xxx_deathBallCreateFragments_52BD30(a1 *nox_object_t) {
+	Nox_xxx_deathBallCreateFragments_52BD30(asObjectS(a1))
 }
