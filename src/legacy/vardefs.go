@@ -1465,3 +1465,6 @@ func Get_dword_8531A0_2572_ptr() *uint32 {
 func Set_dword_8531A0_2572(v uint32) {
 	C.dword_8531A0_2572 = C.uint(v)
 }
+func Get_dword_5d4594_2488620() uint32 {
+	return uint32(C.dword_5d4594_2488620)
+}

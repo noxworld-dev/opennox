@@ -1560,34 +1560,6 @@ int sub_57B450(nox_drawable* a1p) {
 	return (v2 & (unsigned char)sub_57B370(a1[28], a1[29], a1[27])) != 0;
 }
 
-//----- (0057B770) --------------------------------------------------------
-float2* sub_57B770(float2* a1, float2* a2) {
-	float2* result; // eax
-	long double v3; // st5
-	long double v4; // st7
-	double v5;      // st6
-	long double v6; // st5
-	float v7;       // [esp+0h] [ebp-18h]
-	float v8;       // [esp+4h] [ebp-14h]
-	float v9;       // [esp+Ch] [ebp-Ch]
-	float v10;      // [esp+10h] [ebp-8h]
-	float v11;      // [esp+20h] [ebp+8h]
-
-	result = a2;
-	v9 = a2->field_0;
-	v3 = sqrt(a2->field_0 * a2->field_0 + a2->field_4 * a2->field_4);
-	v4 = v3 + 0.1;
-	v5 = -a2->field_4;
-	v6 = (a1->field_0 * a2->field_0 + a1->field_4 * a2->field_4) / (v3 + 0.1);
-	v11 = (a2->field_0 * a1->field_4 + v5 * a1->field_0) / v4;
-	v7 = v6 * result->field_0 / v4;
-	v8 = v6 * result->field_4 / v4;
-	v10 = v11 * v5 / v4;
-	a1->field_0 = v10 - v7;
-	a1->field_4 = v11 * v9 / v4 - v8;
-	return result;
-}
-
 //----- (0057B810) --------------------------------------------------------
 int nox_xxx_collideReflect_57B810(float* a1, int a2) {
 	int result; // eax
