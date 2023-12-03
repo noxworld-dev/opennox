@@ -3881,6 +3881,7 @@ int nox_xxx_itemApplyAttackEffect_538840(int a1, int a2, int a3) {
 }
 
 //----- (00538960) --------------------------------------------------------
+void nox_xxx_castCounterSpell_52BBB0(int a1, int a2, int a3, int a4);
 int nox_xxx_playerAttack_538960(nox_object_t* a1p) {
 	int a1 = a1p;
 	float* v1;         // edi

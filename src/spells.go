@@ -221,7 +221,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	case spell.SPELL_CONFUSE:
 		fnc = legacy.Nox_xxx_castConfuse_52C1E0
 	case spell.SPELL_COUNTERSPELL:
-		fnc = legacy.Nox_xxx_castCounterSpell_52BBB0
+		fnc = nox_xxx_castCounterSpell_52BBB0
 	case spell.SPELL_CURE_POISON:
 		fnc = legacy.Nox_xxx_castCurePoison_52CDB0
 	case spell.SPELL_DEATH:

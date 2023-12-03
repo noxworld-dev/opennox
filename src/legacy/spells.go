@@ -286,10 +286,6 @@ func Nox_xxx_castConfuse_52C1E0(spellID spell.ID, a2, a3, a4 *server.Object, sa 
 	return Nox_spells_call_intint6_go(C.nox_xxx_castConfuse_52C1E0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
 }
 
-func Nox_xxx_castCounterSpell_52BBB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castCounterSpell_52BBB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
-}
-
 func Nox_xxx_castCurePoison_52CDB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
 	return Nox_spells_call_intint6_go(C.nox_xxx_castCurePoison_52CDB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
 }
