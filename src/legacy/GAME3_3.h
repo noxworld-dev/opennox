@@ -162,7 +162,6 @@ void nox_xxx_fireballCollide_4E9AC0(int a1, int a2);
 void nox_xxx_collideChest_4E9C40(uint32_t* a1, int a2);
 void nox_xxx_collideSulphurShot2_4E9D80(int a1, int a2, float* a3);
 void nox_xxx_collideSulphurShot_4E9E50(int a1, int a2, int a3);
-void nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3);
 void nox_xxx_collideDeathBallFragment_4E9FE0(int a1, int a2, float* a3);
 void nox_xxx_collidePixie_4EA080(int a1, int a2, float* a3);
 void nox_xxx_collideWallReflectSpark_4EA200(int a1, int a2, float2* a3);

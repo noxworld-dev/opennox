@@ -4353,61 +4353,6 @@ void nox_xxx_collideSulphurShot_4E9E50(int a1, int a2, int a3) {
 	nox_xxx_collideSulphurShot2_4E9D80(a1, a2, (float*)a3);
 }
 
-//----- (004E9E90) --------------------------------------------------------
-void nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3) {
-	int* result; // eax
-	int* v4;     // esi
-	int v5;      // eax
-	int v6;      // eax
-	int v7;      // edx
-	double v8;   // st7
-	double v9;   // st6
-	double v10;  // st5
-	int v11;     // eax
-	float v12;   // [esp+0h] [ebp-1Ch]
-	float v13;   // [esp+4h] [ebp-18h]
-	int v14;     // [esp+4h] [ebp-18h]
-	float2 a2a;  // [esp+14h] [ebp-8h]
-
-	if (a2) {
-		if ((signed char)*(uint8_t*)(a2 + 8) >= 0) {
-			v13 = nox_xxx_gamedataGetFloat_419D40("DeathBallCollideDamage");
-			v14 = nox_float2int(v13);
-			v11 = nox_xxx_findParentChainPlayer_4EC580(a1);
-			result = (int*)(*(int (**)(int, int, int, int, int))(a2 + 716))(a2, v11, a1, v14, 2);
-		} else {
-			v6 = *(uint32_t*)(a2 + 748);
-			v7 = *(uint32_t*)(a1 + 76);
-			*(uint32_t*)(a1 + 64) = *(uint32_t*)(a1 + 72);
-			*(uint32_t*)(a1 + 68) = v7;
-			v8 = *(float*)(a2 + 56) - *(float*)(a1 + 72);
-			v9 = *(float*)(a2 + 60) - *(float*)(a1 + 76);
-			a2a.field_0 = -(double)*getMemIntPtr(0x587000, 196188 + 8 * *(uint32_t*)(v6 + 12));
-			v10 = (double)*getMemIntPtr(0x587000, 196184 + 8 * *(uint32_t*)(v6 + 12));
-			a2a.field_4 = v10;
-			if (v10 * v9 + a2a.field_0 * v8 > 0.0) {
-				a2a.field_0 = -a2a.field_0;
-				a2a.field_4 = -a2a.field_4;
-			}
-			sub_57B770((float2*)(a1 + 80), &a2a);
-			nox_xxx_aud_501960(283, a1, 0, 0);
-		}
-	} else {
-		result = (int*)a3;
-		if (a3) {
-			nox_xxx_collideReflect_57B810(a3, a1 + 80);
-			nox_xxx_aud_501960(37, a1, 0, 0);
-			result = (int*)sub_537760();
-			v4 = result;
-			if (result) {
-				v12 = nox_xxx_gamedataGetFloat_419D40("DeathBallCollideDamage");
-				v5 = nox_float2int(v12);
-				result = (int*)nox_xxx_damageToMap_534BC0(*v4, v4[1], v5, 2, a1);
-			}
-		}
-	}
-}
-
 //----- (004E9FE0) --------------------------------------------------------
 void nox_xxx_collideDeathBallFragment_4E9FE0(int a1, int a2, float* a3) {
 	int v3;   // eax
