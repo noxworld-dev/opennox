@@ -1356,7 +1356,7 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 			rdmg *= 1.0 - (dist-r2)/(rr-r2)
 		}
 		u.CallDamage(who, nil, int(rdmg), dtyp)
-		return false
+		return true
 	})
 	wrect := image.Rect(
 		int(rect.Min.X)/common.GridStep,
