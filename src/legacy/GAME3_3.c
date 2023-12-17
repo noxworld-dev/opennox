@@ -2504,55 +2504,6 @@ int nox_server_testTwoPointsAndDirection_4E6E50(float2* a1, int a2, float2* a3) 
 	return *getMemU32Ptr(0x587000, 202504 + 4 * (sub_4E6CE0(a1, a3) + 16 * v3));
 }
 
-//----- (004E7010) --------------------------------------------------------
-void nox_xxx_unitMove_4E7010(nox_object_t* obj, float2* a2) {
-	int a1 = obj;
-	int v2;     // edi
-	int v3;     // ecx
-	int v4;     // eax
-	char v5[5]; // [esp+4h] [ebp-8h]
-
-	if (a1 && !(*(uint32_t*)(a1 + 8) & 0x400000)) {
-		if ((long long)*(float*)(a1 + 56) != (long long)a2->field_0 ||
-			(long long)*(float*)(a1 + 60) != (long long)a2->field_4) {
-			nox_xxx_unitNeedSync_4E44F0(a1);
-		}
-		*(float2*)(a1 + 64) = *a2;
-		*(float2*)(a1 + 56) = *a2;
-		*(float2*)(a1 + 72) = *a2;
-		nox_xxx_moveUpdateSpecial_517970(a1);
-		if (*(uint32_t*)(a1 + 696)) {
-			nox_xxx_unitHasCollideOrUpdateFn_537610(a1);
-		}
-		if (*(uint8_t*)(a1 + 8) & 6) {
-			sub_537540(a1);
-		}
-		if (*(uint8_t*)(a1 + 8) & 2) {
-			sub_5346D0(a1);
-		}
-		nox_xxx_teleportAllPixies_4FD090(a1);
-		if (*(uint8_t*)(a1 + 8) & 6) {
-			nox_xxx_frameCounterSetCopyToNextFrame_5281D0();
-		}
-		if (*(uint8_t*)(a1 + 8) & 4 && nox_common_gameFlags_check_40A5C0(0x2000)) {
-			v2 = *(uint32_t*)(a1 + 748);
-			v3 = *(uint32_t*)(v2 + 276);
-			*(uint32_t*)(v2 + 272) = gameFrame();
-			sub_4DE4D0(*(uint8_t*)(v3 + 2064));
-			v5[0] = -22;
-			*(uint32_t*)&v5[1] = gameFrame();
-			nox_xxx_netSendPacket1_4E5390(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), (int)v5, 5, 0, 0);
-		}
-		if (*(uint8_t*)(a1 + 8) & 4) {
-			v4 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 276);
-			if (!*(uint32_t*)(v4 + 3628) && !(*(uint8_t*)(v4 + 3680) & 3)) {
-				*(uint32_t*)(v4 + 3632) = *(uint32_t*)(a1 + 56);
-				*(uint32_t*)(v4 + 3636) = *(uint32_t*)(a1 + 60);
-			}
-		}
-	}
-}
-
 //----- (004E7190) --------------------------------------------------------
 void nox_xxx_teleportToMB_4E7190(uint8_t* a1, float* a2) {
 	if (!nox_xxx_testUnitBuffs_4FF350((int)a1, 14) && !(a1[16] & 2) &&
@@ -7949,6 +7900,7 @@ nox_object_t* nox_xxx_playerRespawnItem_4EF750(nox_object_t* a1p, char* a2, int*
 }
 
 //----- (004EF7D0) --------------------------------------------------------
+int sub_4DE4D0(char a1);
 char nox_xxx_playerMakeDefItems_4EF7D0(int a1, int a2, int a3) {
 	int v3;                // esi
 	int v4;                // edi

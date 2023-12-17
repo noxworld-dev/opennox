@@ -1110,19 +1110,17 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	}
 }
 
-func nox_xxx_moveUpdateSpecial_517970(cunit *server.Object) {
-	s := noxServer
-	unit := asObjectS(cunit)
-	legacy.Sub_517870(cunit)
-	if s.Map.ValidIndexPos(unit.NewPos) {
-		s.Map.AddMissileXxx(unit.SObj())
+func (s *Server) nox_xxx_moveUpdateSpecial_517970(u *server.Object) {
+	legacy.Sub_517870(u)
+	if s.Map.ValidIndexPos(u.NewPos) {
+		s.Map.AddMissileXxx(u)
 	} else {
-		if unit.Class().Has(object.ClassPlayer) {
+		if u.Class().Has(object.ClassPlayer) {
 			gameLog.Printf("attempting to delete player unit; stopping the map")
 			mainloopStop()
 			return
 		}
-		unit.Delete()
+		asObjectS(u).Delete()
 	}
 }
 

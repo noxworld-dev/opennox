@@ -258,7 +258,6 @@ int nox_xxx_sendAllPlayerIDs_4DE270(int a1);
 char* nox_xxx_newPlayerSendAllPlayers_4DE300(int a1);
 int nox_xxx_servMinimapRevealFlag_4DE380(int a1);
 void sub_4DE410(int a1);
-int sub_4DE4D0(char a1);
 void nox_xxx_playerForceDisconnect_4DE7C0(int a1);
 char* nox_xxx_playerCallDisconnect_4DEAB0(int a1, char a2);
 void nox_xxx_playerDisconnByPlrID_4DEB00(int a1);

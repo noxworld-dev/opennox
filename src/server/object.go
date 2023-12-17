@@ -1626,6 +1626,16 @@ func (s *Server) ItemsApplyUpdateEffect(obj *Object) {
 	}
 }
 
+func (s *Server) Sub4DE4D0(a1 int) {
+	bit := uint32(1) << a1
+	for it := s.Objs.First(); it != nil; it = it.Next() {
+		it.Field38 |= bit
+		if (it.ObjFlags&0x20) == 0 && (it.ObjClass&0x20400006) == 0 {
+			it.Field37 &^= bit
+		}
+	}
+}
+
 func (obj *Object) GetOwnerUnit() *Object {
 	for it := obj; it != nil; it = it.ObjOwner {
 		if it.Class().HasAny(object.MaskUnits) {
