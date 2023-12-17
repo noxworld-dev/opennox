@@ -20,14 +20,17 @@ import (
 
 var (
 	Nox_xxx_unitIsUnitTT_4E7C80 func(a1 *server.Object, a2 int) int
+	Nox_xxx_unitMove_4E7010     func(a1 *server.Object, pos types.Pointf)
 )
 
 //export nox_xxx_unitIsUnitTT_4E7C80
 func nox_xxx_unitIsUnitTT_4E7C80(a1 *nox_object_t, a2 int) int {
 	return Nox_xxx_unitIsUnitTT_4E7C80(asObjectS(a1), a2)
 }
-func Nox_xxx_unitMove_4E7010(a1 *server.Object, a2 *types.Pointf) {
-	C.nox_xxx_unitMove_4E7010(asObjectC(a1), (*C.float2)(unsafe.Pointer(a2)))
+
+//export nox_xxx_unitMove_4E7010
+func nox_xxx_unitMove_4E7010(a1 *nox_object_t, pos *C.float2) {
+	Nox_xxx_unitMove_4E7010(asObjectS(a1), AsPointf(unsafe.Pointer(pos)))
 }
 func Nox_xxx_unitSetHP_4E4560(a1 *server.Object, a2 uint16) {
 	C.nox_xxx_unitSetHP_4E4560(asObjectC(a1), C.ushort(a2))

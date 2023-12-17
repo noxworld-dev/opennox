@@ -1,6 +1,8 @@
 package opennox
 
 import (
+	"github.com/noxworld-dev/opennox-lib/types"
+
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -61,7 +63,12 @@ func init() {
 	legacy.NetworkLogPrint = networkLogPrint
 	legacy.ClientSetServerHost = clientSetServerHost
 	legacy.Nox_client_joinGame_438A90 = nox_client_joinGame_438A90
-	legacy.Nox_xxx_moveUpdateSpecial_517970 = nox_xxx_moveUpdateSpecial_517970
+	legacy.Nox_xxx_moveUpdateSpecial_517970 = func(obj *server.Object) {
+		noxServer.nox_xxx_moveUpdateSpecial_517970(obj)
+	}
+	legacy.Nox_xxx_unitMove_4E7010 = func(a1 *server.Object, pos types.Pointf) {
+		asObjectS(a1).SetPos(pos)
+	}
 	legacy.Nox_mapToGameFlags = nox_mapToGameFlags
 	legacy.Sub_40A1A0 = sub_40A1A0
 	legacy.PlatformTicks = platformTicks
@@ -152,7 +159,6 @@ func init() {
 	legacy.Nox_xxx_unitIsUnitTT_4E7C80 = nox_xxx_unitIsUnitTT_4E7C80
 	legacy.Nox_xxx_updatePlayer_4F8100 = nox_xxx_updatePlayer_4F8100
 	legacy.Nox_xxx_updatePixie_53CD20 = nox_xxx_updatePixie_53CD20
-	legacy.Nox_xxx_teleportAllPixies_4FD090 = nox_xxx_teleportAllPixies_4FD090
 	legacy.Nox_xxx_enemyAggro_5335D0 = nox_xxx_enemyAggro_5335D0
 	legacy.Sub_5336D0 = sub_5336D0
 	legacy.Nox_xxx_updatePlayerObserver_4E62F0 = nox_xxx_updatePlayerObserver_4E62F0

@@ -761,15 +761,69 @@ func (obj *Object) setAllDirs(dir server.Dir16) {
 	obj.Direction2 = dir
 }
 
-func (obj *Object) move(cp *types.Pointf) {
-	legacy.Nox_xxx_unitMove_4E7010(obj.SObj(), cp)
+func (obj *Object) SetPos(pos types.Pointf) {
+	if obj == nil {
+		return
+	}
+	if obj.Class().Has(object.ClassImmobile) {
+		return
+	}
+	s := obj.Server()
+	ss := obj.getServer()
+	if int(obj.PosVec.X) != int(pos.X) || int(obj.PosVec.Y) != int(pos.Y) {
+		obj.NeedSync()
+	}
+	obj.NewPos = pos
+	obj.PosVec = pos
+	obj.PrevPos = pos
+	ss.nox_xxx_moveUpdateSpecial_517970(obj.SObj())
+	if obj.Collide != nil {
+		legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj.SObj())
+	}
+	if obj.ObjClass&6 != 0 {
+		obj.sub_537540()
+	}
+	if obj.Class().Has(object.ClassMonster) {
+		obj.sub_5346D0()
+	}
+	ss.nox_xxx_teleportAllPixies_4FD090(obj.SObj())
+	if obj.ObjClass&6 != 0 {
+		legacy.Nox_xxx_frameCounterSetCopyToNextFrame_5281D0()
+	}
+	if obj.Class().Has(object.ClassPlayer) && noxflags.HasGame(noxflags.GameOnline) {
+		ud := obj.UpdateDataPlayer()
+		pl := ud.Player
+		ud.Field68 = s.Frame()
+		s.Sub4DE4D0(int(pl.PlayerInd))
+		var buf [5]byte
+		buf[0] = byte(noxnet.MSG_FORGET_DRAWABLES)
+		binary.LittleEndian.PutUint32(buf[1:], s.Frame())
+		s.NetSendPacketXxx1(pl.Index(), buf[:5], 0, 0)
+	}
+	if obj.Class().Has(object.ClassPlayer) {
+		pl := obj.UpdateDataPlayer().Player
+		if pl.CameraFollowObj == nil && pl.Field3680&0x3 == 0 {
+			pl.Pos3632Vec = obj.PosVec
+		}
+	}
 }
 
-func (obj *Object) SetPos(p types.Pointf) {
-	cp, free := alloc.New(types.Pointf{})
-	defer free()
-	*cp = p
-	obj.move(cp)
+func (obj *Object) sub_537540() {
+	if obj == nil {
+		return
+	}
+	s := obj.getServer()
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		if it.UpdateDataPlayer().HarpoonTarg == obj.SObj() {
+			s.abilities.harpoon.breakForOwner(it, true)
+		}
+	}
+}
+
+func (obj *Object) sub_5346D0() {
+	ud := obj.UpdateDataMonster()
+	ud.Field2 = 0
+	ud.Field74 = 0
 }
 
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.

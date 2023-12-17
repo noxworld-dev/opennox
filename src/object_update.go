@@ -124,7 +124,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 		nox_xxx_playerSetState_4FA020(u, server.PlayerState5)
 	}
 	legacy.Nox_xxx_questCheckSecretArea_421C70(u.SObj())
-	s.abilities.harpoon.UpdatePlayer(u)
+	s.abilities.harpoon.UpdatePlayer(u.SObj())
 }
 
 func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
@@ -774,6 +774,7 @@ func sub_4F9ED0(u *server.Object) {
 
 func nox_xxx_updatePixie_53CD20(u *server.Object) {
 	s := u.Server()
+	ss := noxServer
 	ud := unsafe.Slice((*uint32)(u.UpdateData), 7)
 	if memmap.Uint32(0x5D4594, 2488696) == 0 {
 		dt := s.Balance.Float("PixieReturnTimeout")
@@ -840,7 +841,7 @@ func nox_xxx_updatePixie_53CD20(u *server.Object) {
 			ud[6] = s.Frame()
 		}
 		if s.Frame()-ud[6] > memmap.Uint32(0x5D4594, 2488696) {
-			nox_xxx_teleportPixie_4FD050(u.SObj(), owner.SObj())
+			ss.nox_xxx_teleportPixie_4FD050(u.SObj(), owner.SObj())
 			ud[6] = s.Frame()
 		}
 	}
@@ -863,12 +864,12 @@ func nox_xxx_pixieIdleAnimate_53CF90(obj *server.Object, vec types.Pointf, ddir 
 	obj.Direction2 = server.Dir16(dir)
 }
 
-func nox_xxx_teleportPixie_4FD050(u *server.Object, owner *server.Object) {
+func (s *Server) nox_xxx_teleportPixie_4FD050(u *server.Object, owner *server.Object) {
 	pos := owner.Pos()
 	u.PosVec = pos
 	u.PrevPos = pos
 	u.NewPos = pos
-	nox_xxx_moveUpdateSpecial_517970(u)
+	s.nox_xxx_moveUpdateSpecial_517970(u)
 }
 
 func nox_xxx_pixieFindTarget_533570(u *server.Object) *server.Object {
@@ -879,8 +880,7 @@ func nox_xxx_pixieFindTarget_533570(u *server.Object) *server.Object {
 	return nox_xxx_enemyAggro(u, r, math.MaxFloat32)
 }
 
-func nox_xxx_teleportAllPixies_4FD090(cobj *server.Object) {
-	u := asObjectS(cobj)
+func (s *Server) nox_xxx_teleportAllPixies_4FD090(u *server.Object) {
 	for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
 		if int(it.TypeInd) != noxPixieObjID {
 			continue
@@ -889,7 +889,7 @@ func nox_xxx_teleportAllPixies_4FD090(cobj *server.Object) {
 			continue
 		}
 		if *(*uint32)(unsafe.Add(it.UpdateData, 4)) == 0 {
-			nox_xxx_teleportPixie_4FD050(it.SObj(), u.SObj())
+			s.nox_xxx_teleportPixie_4FD050(it, u)
 		}
 	}
 }

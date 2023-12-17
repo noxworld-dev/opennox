@@ -69,20 +69,20 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 }
 
 func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpdate
-	for obj := asObjectS(s.Objs.UpdatableList2); obj != nil; obj = obj.Next() {
+	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
 		if obj.Flags().HasAny(object.FlagNoUpdateMask) {
 			continue
 		}
-		obj.CallUpdate()
-		legacy.Nox_xxx_updateFallLogic_51B870(obj.SObj())
-		legacy.Sub_51B810(obj.SObj())
-		legacy.Sub_537770(obj.SObj())
+		asObjectS(obj).CallUpdate()
+		legacy.Nox_xxx_updateFallLogic_51B870(obj)
+		legacy.Sub_51B810(obj)
+		legacy.Sub_537770(obj)
 		prev := obj.Pos()
 		obj.Direction1 = obj.Direction2
 		npos := obj.NewPos
 		obj.PrevPos = prev
 		obj.PosVec = npos
 		obj.ForceVec = types.Pointf{}
-		nox_xxx_moveUpdateSpecial_517970(obj.SObj())
+		s.nox_xxx_moveUpdateSpecial_517970(obj)
 	}
 }

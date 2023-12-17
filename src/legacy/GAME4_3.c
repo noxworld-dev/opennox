@@ -2881,16 +2881,6 @@ int nox_xxx_actionByName_534670(const char* a1) {
 	return v1;
 }
 
-//----- (005346D0) --------------------------------------------------------
-int sub_5346D0(int a1) {
-	int result; // eax
-
-	result = *(uint32_t*)(a1 + 748);
-	*(uint32_t*)(result + 8) = 0;
-	*(uint32_t*)(result + 296) = 0;
-	return result;
-}
-
 //----- (00534710) --------------------------------------------------------
 int sub_534710(int a1) {
 	int v1;     // ecx
@@ -3262,20 +3252,6 @@ int sub_536E80(char* a1, int* a2) {
 
 //----- (005374B0) --------------------------------------------------------
 int nox_xxx_traceRay_5374B0(float4* a1) { return nox_xxx_mapTraceRay_535250(a1, 0, 0, 9); }
-
-//----- (00537540) --------------------------------------------------------
-void sub_537540(int a1) {
-	uint32_t* i; // esi
-
-	if (a1) {
-		for (i = (uint32_t*)nox_xxx_getFirstPlayerUnit_4DA7C0(); i;
-			 i = (uint32_t*)nox_xxx_getNextPlayerUnit_4DA7F0((int)i)) {
-			if (*(uint32_t*)(i[187] + 132) == a1) {
-				nox_xxx_harpoonBreakForPlr_537520(i);
-			}
-		}
-	}
-}
 
 //----- (00537580) --------------------------------------------------------
 int sub_537580(int a1) { return *(uint8_t*)(a1 + 464) & 1; }

@@ -34,7 +34,6 @@ import (
 var (
 	Nox_xxx_updatePlayer_4F8100         func(up *server.Object)
 	Nox_xxx_updatePixie_53CD20          func(cobj *server.Object)
-	Nox_xxx_teleportAllPixies_4FD090    func(cobj *server.Object)
 	Nox_xxx_enemyAggro_5335D0           func(cobj *server.Object, r float32) *server.Object
 	Sub_5336D0                          func(cobj *server.Object) float64
 	Nox_xxx_updatePlayerObserver_4E62F0 func(a1p *server.Object)
@@ -121,11 +120,6 @@ func nox_xxx_objectApplyForce_52DF80(vec *C.float, obj *nox_object_t, force C.fl
 
 //export nox_xxx_updatePixie_53CD20
 func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) { Nox_xxx_updatePixie_53CD20(asObjectS(cobj)) }
-
-//export nox_xxx_teleportAllPixies_4FD090
-func nox_xxx_teleportAllPixies_4FD090(cobj *nox_object_t) {
-	Nox_xxx_teleportAllPixies_4FD090(asObjectS(cobj))
-}
 
 //export nox_xxx_enemyAggro_5335D0
 func nox_xxx_enemyAggro_5335D0(cobj *nox_object_t, r float32) *nox_object_t {
