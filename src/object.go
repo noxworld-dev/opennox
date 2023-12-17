@@ -126,7 +126,7 @@ func (s *Server) ObjectDeleteLast(obj *server.Object) {
 	legacy.Nox_xxx_unit_511810(obj)
 	asObjectS(obj).SetOwner(nil)
 	legacy.Nox_xxx_unitRemoveChild_4EC470(obj)
-	legacy.Sub_517870(obj)
+	s.sub_517870(obj)
 	s.sub_4DAE50(obj)
 	legacy.Sub_4ECFA0(obj)
 	legacy.Sub_511DE0(obj)

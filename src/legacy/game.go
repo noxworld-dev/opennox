@@ -191,12 +191,6 @@ func nox_xxx_mapTraceObstacles_50B580(from *nox_object_t, a2 *C.float4) int {
 	return 0
 }
 
-//export sub_5178E0
-func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
-	p := (*server.ObjectIndex)(a2)
-	GetServer().S().Map.Sub5178E0(a1 != 0, p)
-}
-
 //export sub_517B70
 func sub_517B70(pos *C.float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 	if fnc == nil {

@@ -4087,35 +4087,6 @@ void* nox_xxx_monsterDefByTT_517560(int a1) {
 	return result;
 }
 
-//----- (00517870) --------------------------------------------------------
-short sub_517870(nox_object_t* a1p) {
-	int a1 = a1p;
-	int v1;             // eax
-	int v2;             // edi
-	unsigned short* v3; // ebx
-
-	v1 = *(uint32_t*)(a1 + 16);
-	if (v1 & 0x200) {
-		sub_5178E0(0, (unsigned short*)(a1 + 256));
-		if (!(*(uint8_t*)(a1 + 8) & 1)) {
-			v2 = 0;
-			if (*(uint8_t*)(a1 + 336)) {
-				v3 = (unsigned short*)(a1 + 272);
-				do {
-					sub_5178E0(1, v3);
-					++v2;
-					v3 += 8;
-				} while (v2 < *(unsigned char*)(a1 + 336));
-			}
-			*(uint8_t*)(a1 + 336) = 0;
-		}
-		v1 = *(uint32_t*)(a1 + 16);
-		BYTE1(v1) &= 0xFDu;
-		*(uint32_t*)(a1 + 16) = v1;
-	}
-	return v1;
-}
-
 //----- (00518040) --------------------------------------------------------
 int sub_518040(int arg0, float a2, int arg8, int a4) {
 	int result; // eax
