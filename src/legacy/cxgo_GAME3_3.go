@@ -137,7 +137,7 @@ func nox_server_handler_PlayerDamage_4E17B0(obj, who, obj3 *server.Object, dmg i
 					nox_xxx_unitSetOwner_4EC290(v5, v9)
 				}
 				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 8)))&1 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v9), 12)))&2 != 0 {
-					nox_xxx_changeOwner_52BE40(unsafe.Pointer(v9), unsafe.Pointer(v5))
+					nox_xxx_changeOwner_52BE40(v9, v5)
 				}
 				if (*(*uint32)(unsafe.Add(unsafe.Pointer(&a5), 4*0))) == 16 {
 					nox_xxx_netSendPointFx_522FF0(-124, v16)
@@ -287,7 +287,7 @@ LABEL_120:
 	switch typ {
 	case 0, 3, 7, 8, 0xA, 0xB:
 		v51 = float32((1.0 - float64(v53)) * float64(a4))
-		nox_xxx_playerDecrementHPMana_4E20F0(unsafe.Pointer(v5), &a1, v51)
+		nox_xxx_playerDecrementHPMana_4E20F0(v5, &a1, v51)
 		v33 = a4
 		v42 = float32(a5)
 		nox_xxx_playerDamageItems_4E2180(AsObjectP(unsafe.Pointer(v5)), unsafe.Pointer(a2), unsafe.Pointer(a3), a4-a1, float32(a5))
@@ -319,7 +319,7 @@ LABEL_120:
 		}
 	case 2:
 		v50 = float32((1.0 - float64(v53)*0.5) * float64(a4))
-		nox_xxx_playerDecrementHPMana_4E20F0(unsafe.Pointer(v5), &a1, v50)
+		nox_xxx_playerDecrementHPMana_4E20F0(v5, &a1, v50)
 		v33 = a4
 		nox_xxx_playerDamageItems_4E2180(AsObjectP(unsafe.Pointer(v5)), unsafe.Pointer(a2), unsafe.Pointer(a3), a4-a1, COERCE_FLOAT(2))
 		v41 = int32(v5.ObjClass)
@@ -347,10 +347,10 @@ LABEL_120:
 			*(*uint32)(unsafe.Add(v12, 2188)) = 2
 			*(*float32)(unsafe.Add(v12, 2184)) = v40
 		}
-	case 9, 0x11:
+	case 9, 17:
 		v35 = sub_4E2220(v5)
 		v49 = float32(v35 * float64(a4))
-		nox_xxx_playerDecrementHPMana_4E20F0(unsafe.Pointer(v5), &a1, v49)
+		nox_xxx_playerDecrementHPMana_4E20F0(v5, &a1, v49)
 		v33 = a4
 		nox_xxx_playerDamageItems_4E2180(AsObjectP(unsafe.Pointer(v5)), unsafe.Pointer(a2), unsafe.Pointer(a3), a4, float32(a5))
 		v34 = int32(v5.ObjClass)
@@ -389,35 +389,30 @@ LABEL_120:
 	}
 	return nox_xxx_damageDefaultProc_4E0B30(AsObjectP(unsafe.Pointer(v5)), who, obj3, int(v45), typ)
 }
-func nox_xxx_playerDecrementHPMana_4E20F0(a1 unsafe.Pointer, a2 *int32, a3 float32) {
+func nox_xxx_playerDecrementHPMana_4E20F0(a1 *server.Object, a2 *int32, a3 float32) {
 	var (
-		v4 int32
 		v5 float64
 		v6 int32
-		v7 int32
 		v8 int32
 	)
-	v3 := a1
 	if a1 != nil && a2 != nil {
-		v4 = int32(*(*uint32)(unsafe.Add(a1, 8)))
-		if v4&4 != 0 {
-			v5 = float64(a3 + *(*float32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 84)))
+		if a1.Class().Has(object.ClassPlayer) {
+			v5 = float64(a3 + *(*float32)(unsafe.Add(a1.UpdateData, 84)))
 		} else {
-			if (v4 & 2) == 0 {
+			if !a1.Class().Has(object.ClassMonster) {
 				goto LABEL_8
 			}
-			v5 = float64(a3 + *(*float32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1, 748)), 4)))
+			v5 = float64(a3 + *(*float32)(unsafe.Add(a1.UpdateData, 4)))
 		}
 		a3 = float32(v5)
 	LABEL_8:
 		v6 = int32(a3)
 		v8 = v6
 		*(*int32)(a2) = v6
-		v7 = int32(*(*uint32)(unsafe.Add(v3, 8)))
-		if v7&4 != 0 {
-			*(*float32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 748)), 84)) = float32(float64(a3) - float64(v8))
-		} else if v7&2 != 0 {
-			*(*float32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 748)), 4)) = float32(float64(a3) - float64(v8))
+		if a1.Class().Has(object.ClassPlayer) {
+			a1.UpdateDataPlayer().Field21 = float32(float64(a3) - float64(v8))
+		} else if a1.Class().Has(object.ClassMonster) {
+			a1.UpdateDataMonster().Field1 = float32(float64(a3) - float64(v8))
 		}
 	}
 }
@@ -452,14 +447,14 @@ func nox_xxx_playerDamageItems_4E2180(a1p *server.Object, a2 unsafe.Pointer, a3 
 		}
 	}
 }
-func sub_4E2220(a1 *server.Object) float64 {
+func sub_4E2220(obj *server.Object) float64 {
 	var (
 		v2 int32
 		v3 float64
 		v5 float32
 	)
 	v5 = 1.0
-	v1 := a1.InvFirstItem
+	v1 := obj.InvFirstItem
 	if v1 == nil {
 		return 1.0
 	}
@@ -578,10 +573,10 @@ func sub_4E24B0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) i
 }
 func sub_4E24E0(obj, who, obj3 *server.Object, dmg int, typ object.DamageType) int {
 	var v5 int
-	if typ != 9 && typ != 17 {
-		v5 = dmg
-	} else {
+	if typ == object.DamageElectric || typ == object.DamageAirborneElectric {
 		v5 = dmg * 2
+	} else {
+		v5 = dmg
 	}
 	return nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3, v5, typ)
 }
@@ -2954,7 +2949,7 @@ func nox_xxx_spellFlyCollide_4E9500(obj *server.Object, obj2 *server.Object, pos
 		if nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Add(unsafe.Pointer(a2p), 56)), int32(a2p.Direction1), (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1p), 72)))&1 != 0 {
 			nox_xxx_aud_501960(878, v3, 0, 0)
 			nox_xxx_projectileReflect_4E0A70(unsafe.Pointer(v4), unsafe.Pointer(v3))
-			nox_xxx_changeOwner_52BE40(unsafe.Pointer(v4), unsafe.Pointer(v3))
+			nox_xxx_changeOwner_52BE40(v4, v3)
 			return
 		}
 	LABEL_22:
@@ -2964,7 +2959,7 @@ func nox_xxx_spellFlyCollide_4E9500(obj *server.Object, obj2 *server.Object, pos
 				v8 = nox_common_randomInt_415FA0(18, 20)
 				nox_xxx_aud_501960(890, v3, 0, 0)
 				nox_xxx_projectileReflect_4E0A70(unsafe.Pointer(v4), unsafe.Pointer(v3))
-				nox_xxx_changeOwner_52BE40(unsafe.Pointer(v4), unsafe.Pointer(v3))
+				nox_xxx_changeOwner_52BE40(v4, v3)
 				nox_xxx_playerSetState_4FA020(v3, v8)
 				v9 = nox_common_mapPlrActionToStateId_4FA2B0(v3)
 				var a1, a2 int32
@@ -2975,11 +2970,11 @@ func nox_xxx_spellFlyCollide_4E9500(obj *server.Object, obj2 *server.Object, pos
 		}
 	LABEL_13:
 		if nox_xxx_checkInversionEffect_4FA4F0(v3, v4) != 0 {
-			nox_xxx_changeOwner_52BE40(unsafe.Pointer(v4), unsafe.Pointer(v3))
+			nox_xxx_changeOwner_52BE40(v4, v3)
 			return
 		}
 		if nox_xxx_testUnitBuffs_4FF350(v3, 27) != 0 && nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Add(unsafe.Pointer(v3), 56)), int32(v3.Direction1), (*types.Pointf)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(types.Pointf{})*7)))&1 != 0 {
-			nox_xxx_changeOwner_52BE40(unsafe.Pointer(v4), unsafe.Pointer(v3))
+			nox_xxx_changeOwner_52BE40(v4, v3)
 			nox_xxx_aud_501960(122, v3, 0, 0)
 			return
 		}
@@ -3046,11 +3041,11 @@ func nox_xxx_collideBoom_4E9770(obj *server.Object, obj2 *server.Object, pos *ty
 		if a2 != nil {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
 				if nox_xxx_checkInversionEffect_4FA4F0(a2, a1) != 0 {
-					nox_xxx_changeOwner_52BE40(unsafe.Pointer(a1), unsafe.Pointer(a2))
+					nox_xxx_changeOwner_52BE40(a1, a2)
 					return
 				}
 				if nox_xxx_testUnitBuffs_4FF350(a2, 27) != 0 && nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56)), int32(a2.Direction1), (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)))&1 != 0 {
-					nox_xxx_changeOwner_52BE40(unsafe.Pointer(a1), unsafe.Pointer(a2))
+					nox_xxx_changeOwner_52BE40(a1, a2)
 					nox_xxx_aud_501960(122, a2, 0, 0)
 					return
 				}
@@ -3273,53 +3268,36 @@ func nox_xxx_collideSulphurShot_4E9E50(obj *server.Object, obj2 *server.Object, 
 	nox_xxx_collideSulphurShot2_4E9D80(obj, obj2, pos)
 }
 func nox_xxx_collideDeathBall_4E9E90(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
-	a1 := obj
-	a2 := obj2
-	a3 := pos
-	var (
-		v5  int32
-		v7  int32
-		v8  float64
-		v9  float64
-		v10 float64
-		v12 float32
-		v13 float32
-		v14 int32
-		a2a types.Pointf
-	)
-	if a2 != nil {
-		if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))) >= 0 {
-			v13 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCollideDamage")))
-			v14 = int32(v13)
-			v11 := nox_xxx_findParentChainPlayer_4EC580(a1)
-			a2.Damage.Get()(a2, v11, a1, int(v14), 2)
+	if obj2 != nil {
+		if !obj2.Class().Has(object.ClassDoor) {
+			v14 := int32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCollideDamage")))
+			v11 := nox_xxx_findParentChainPlayer_4EC580(obj)
+			obj2.Damage.Get()(obj2, v11, obj, int(v14), 2)
 		} else {
-			v6 := a2.UpdateData
-			v7 = int32(a1.PrevPos.Y)
-			a1.NewPos.X = a1.PrevPos.X
-			a1.NewPos.Y = float32(uint32(v7))
-			v8 = float64(a2.PosVec.X - a1.PrevPos.X)
-			v9 = float64(a2.PosVec.Y - a1.PrevPos.Y)
+			v6 := obj2.UpdateData
+			v7 := int32(obj.PrevPos.Y)
+			obj.NewPos.X = obj.PrevPos.X
+			obj.NewPos.Y = float32(uint32(v7))
+			v8 := float64(obj2.PosVec.X - obj.PrevPos.X)
+			v9 := float64(obj2.PosVec.Y - obj.PrevPos.Y)
+			var a2a types.Pointf
 			a2a.X = float32(-float64(*memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Add(v6, 12)))*8+196188)))
-			v10 = float64(*memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Add(v6, 12)))*8+196184))
+			v10 := float64(*memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Add(v6, 12)))*8+196184))
 			a2a.Y = float32(v10)
 			if v10*v9+float64(a2a.X)*v8 > 0.0 {
 				a2a.X = -a2a.X
 				a2a.Y = -a2a.Y
 			}
-			sub_57B770((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 80)), &a2a)
-			nox_xxx_aud_501960(283, a1, 0, 0)
+			sub_57B770((*types.Pointf)(unsafe.Add(unsafe.Pointer(obj), 80)), &a2a)
+			nox_xxx_aud_501960(283, obj, 0, 0)
 		}
 	} else {
-		if a3 != nil {
-			nox_xxx_collideReflect_57B810(a3, &a1.VelVec)
-			nox_xxx_aud_501960(37, a1, 0, 0)
-			result := sub_537760()
-			v4 := result
-			if result != nil {
-				v12 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCollideDamage")))
-				v5 = int32(v12)
-				nox_xxx_damageToMap_534BC0(*(*int32)(v4), *(*int32)(unsafe.Add(v4, 4*1)), v5, 2, a1)
+		if pos != nil {
+			nox_xxx_collideReflect_57B810(pos, &obj.VelVec)
+			nox_xxx_aud_501960(37, obj, 0, 0)
+			if v4 := sub_537760(); v4 != nil {
+				v5 := int32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCollideDamage")))
+				nox_xxx_damageToMap_534BC0(*(*int32)(v4), *(*int32)(unsafe.Add(v4, 4*1)), v5, 2, obj)
 			}
 		}
 	}
@@ -3382,11 +3360,11 @@ func nox_xxx_collidePixie_4EA080(obj *server.Object, obj2 *server.Object, pos *t
 							return
 						}
 						if nox_xxx_checkInversionEffect_4FA4F0(a2, a1) != 0 {
-							nox_xxx_changeOwner_52BE40(unsafe.Pointer(a1), unsafe.Pointer(a2))
+							nox_xxx_changeOwner_52BE40(a1, a2)
 							return
 						}
 						if nox_xxx_testUnitBuffs_4FF350(a2, 27) != 0 && nox_server_testTwoPointsAndDirection_4E6E50((*types.Pointf)(unsafe.Add(unsafe.Pointer(a2), 56)), int32(a2.Direction1), (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)))&1 != 0 {
-							nox_xxx_changeOwner_52BE40(unsafe.Pointer(a1), unsafe.Pointer(a2))
+							nox_xxx_changeOwner_52BE40(a1, a2)
 							nox_xxx_aud_501960(122, a2, 0, 0)
 						} else {
 							v15 = *(*int32)(v3)

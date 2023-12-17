@@ -498,7 +498,7 @@ type Object struct {
 	Mass          float32                           // 30, 120
 	Direction1    Dir16                             // 31, 124
 	Direction2    Dir16                             // 31, 126
-	Field32       uint32                            // 32, 128, TODO: some frame/timestamp
+	Field32       uint32                            // 32, 128, TODO: some frame/timestamp; object creation?
 	Field33       uint32                            // 33, 132
 	Field34       uint32                            // 34, 136, TODO: some frame/timestamp
 	Field35       uint32                            // 35, 140

@@ -28,7 +28,7 @@ type PlayerUpdateData struct {
 	Field19_1        uint16             // 19, 78
 	Field20_0        uint16             // 20, 80
 	Field20_1        uint16             // 20, 82
-	Field21          uint32             // 21, 84
+	Field21          float32            // 21, 84
 	State            uint8              // 22, 88
 	State2           uint8              // 22, 89
 	Field22_2        uint8              // 22, 90

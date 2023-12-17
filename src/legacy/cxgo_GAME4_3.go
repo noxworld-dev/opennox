@@ -6800,69 +6800,43 @@ func nox_xxx_updateBlackPowderBurn_53CCB0(obj *server.Object) {
 	}
 }
 func nox_xxx_updateDeathBall_53D080(obj *server.Object) {
-	a1 := obj
-	var (
-		v1 int32
-		v2 int32
-		v3 int32
-		v4 float32
-		v5 float32
-		v6 float32
-		v7 float32
-	)
-	v1 = a1
-	v2 = int32(gameFrame() - a1.Field32)
+	df := gameFrame() - obj.Field32
 	if gameFrame()%(gameFPS()/3) != 0 {
 		*memmap.PtrUint32(0x5D4594, 2488700) = 0
-		v4 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCancelRange")))
-		nox_xxx_getMissilesInCircle_518170((*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)), v4, sub_53D170, a1)
+		r := float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallCancelRange")))
+		nox_xxx_getMissilesInCircle_518170(&obj.PosVec, r, func(it *server.Object, _ unsafe.Pointer) {
+			ballTyp := int32(*memmap.PtrUint32(0x5D4594, 2488704))
+			if *memmap.PtrUint32(0x5D4594, 2488704) == 0 {
+				ballTyp = nox_xxx_getNameId_4E3AA0(internCStr("DeathBall"))
+				*memmap.PtrUint32(0x5D4594, 2488704) = uint32(ballTyp)
+			}
+			if it != obj && int32(it.TypeInd) == ballTyp && nox_xxx_mapCheck_537110(obj, it) != 0 {
+				*memmap.PtrUint32(0x5D4594, 2488700) = 1
+				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(it), 16))) & 0x20) == 0 {
+					var rect int4
+					rect.field_0 = int32(obj.PosVec.X)
+					rect.field_4 = int32(obj.PosVec.Y)
+					rect.field_8 = int32(it.PosVec.X)
+					rect.field_C = int32(it.PosVec.Y)
+					nox_xxx_netSendFxGreenBolt_523790(&rect, 10)
+					nox_xxx_sMakeScorch_537AF0(&it.PosVec, 1)
+					nox_xxx_delayedDeleteObject_4E5CC0(it)
+				}
+			}
+		}, nil)
 		if *memmap.PtrUint32(0x5D4594, 2488700) == 1 {
-			nox_xxx_sMakeScorch_537AF0(&a1.PosVec, 1)
-			nox_xxx_delayedDeleteObject_4E5CC0(a1)
+			nox_xxx_sMakeScorch_537AF0(&obj.PosVec, 1)
+			nox_xxx_delayedDeleteObject_4E5CC0(obj)
 		}
 	}
-	if v2 > 10 {
-		v6 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallOutRadius")))
-		v7 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallInRadius")))
-		v5 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallNearbyDamage")))
-		v3 = int32(v5)
-		nox_xxx_mapDamageUnitsAround_4E25B0((*types.Pointf)(unsafe.Add(v1, 56)), v6, v7, v3, 2, (*server.Object)(v1), nil)
+	if df > 10 {
+		r1 := float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallOutRadius")))
+		r2 := float32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallInRadius")))
+		dmg := int32(nox_xxx_gamedataGetFloat_419D40(internCStr("DeathBallNearbyDamage")))
+		nox_xxx_mapDamageUnitsAround_4E25B0(&obj.PosVec, r1, r2, dmg, object.DamageCrush, obj, nil)
 	}
-	if uint32(v2) > gameFPS()*4 {
-		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(v1))
-	}
-}
-func sub_53D170(it *server.Object, data unsafe.Pointer) {
-	a1 := it
-	a2 := int32(uintptr(data))
-	var (
-		v2  int32
-		v3  int32
-		v4  int32
-		v5  float32
-		v6  float32
-		a1a int4
-	)
-	v2 = int32(*memmap.PtrUint32(0x5D4594, 2488704))
-	if *memmap.PtrUint32(0x5D4594, 2488704) == 0 {
-		v2 = nox_xxx_getNameId_4E3AA0(internCStr("DeathBall"))
-		*memmap.PtrUint32(0x5D4594, 2488704) = uint32(v2)
-	}
-	if a1 != a2 && int32(a1.TypeInd) == v2 && nox_xxx_mapCheck_537110((*server.Object)(a2), a1) != 0 {
-		*memmap.PtrUint32(0x5D4594, 2488700) = 1
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16))) & 0x20) == 0 {
-			a1a.field_0 = int32(*(*float32)(unsafe.Add(a2, 56)))
-			v3 = int32(*(*float32)(unsafe.Add(a2, 60)))
-			v6 = a1.PosVec.X
-			a1a.field_4 = v3
-			v4 = int32(v6)
-			v5 = a1.PosVec.Y
-			a1a.field_8 = v4
-			a1a.field_C = int32(v5)
-			nox_xxx_netSendFxGreenBolt_523790(&a1a, 10)
-			nox_xxx_sMakeScorch_537AF0(&a1.PosVec, 1)
-			nox_xxx_delayedDeleteObject_4E5CC0(a1)
-		}
+	if df > gameFPS()*4 {
+		nox_xxx_delayedDeleteObject_4E5CC0(obj)
 	}
 }
 func nox_xxx_updateDeathBallFragment_53D220(obj *server.Object) {

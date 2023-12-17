@@ -917,32 +917,18 @@ func sub_57B630(a1 *server.Object, x int32, y int32) int8 {
 	}
 	return -1
 }
-func sub_57B770(a1 *types.Pointf, a2 *types.Pointf) *types.Pointf {
-	var (
-		result *types.Pointf
-		v3     float64
-		v4     float64
-		v5     float64
-		v6     float64
-		v7     float32
-		v8     float32
-		v9     float32
-		v10    float32
-		v11    float32
-	)
-	result = a2
-	v9 = a2.X
-	v3 = math.Sqrt(float64(a2.X*a2.X + a2.Y*a2.Y))
-	v4 = v3 + 0.1
-	v5 = float64(-a2.Y)
-	v6 = float64(a1.X*a2.X+a1.Y*a2.Y) / (v3 + 0.1)
-	v11 = float32((float64(a2.X*a1.Y) + v5*float64(a1.X)) / v4)
-	v7 = float32(v6 * float64(result.X) / v4)
-	v8 = float32(v6 * float64(result.Y) / v4)
-	v10 = float32(float64(v11) * v5 / v4)
+func sub_57B770(a1 *types.Pointf, a2 *types.Pointf) {
+	v9 := a2.X
+	v3 := math.Sqrt(float64(a2.X*a2.X + a2.Y*a2.Y))
+	v4 := v3 + 0.1
+	v5 := float64(-a2.Y)
+	v6 := float64(a1.X*a2.X+a1.Y*a2.Y) / (v3 + 0.1)
+	v11 := float32((float64(a2.X*a1.Y) + v5*float64(a1.X)) / v4)
+	v7 := float32(v6 * float64(a2.X) / v4)
+	v8 := float32(v6 * float64(a2.Y) / v4)
+	v10 := float32(float64(v11) * v5 / v4)
 	a1.X = v10 - v7
 	a1.Y = float32(float64(v11*v9)/v4 - float64(v8))
-	return result
 }
 func nox_xxx_collideReflect_57B810(a1 *types.Pointf, a2 *types.Pointf) {
 	if a1.Y*a1.X <= 0.0 {

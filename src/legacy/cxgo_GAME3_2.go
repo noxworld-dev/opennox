@@ -4281,16 +4281,14 @@ func sub_4D90E0(a1 int32, a2 int8) int32 {
 	return nox_netlist_addToMsgListCli_40EBC0(a1, 1, &v3[0], 2)
 }
 func nox_xxx_earthquakeSend_4D9110(a1 *types.Pointf, a2 int32) {
-	result := nox_xxx_getFirstPlayerUnit_4DA7C0()
-	for i := result; result != nil; i = result {
-		v4 := *(*unsafe.Pointer)(unsafe.Add(i.UpdateData, 276))
-		v5 := float64(a1.X - *(*float32)(unsafe.Add(v4, 3632)))
-		v6 := float64(a1.Y - *(*float32)(unsafe.Add(v4, 3636)))
+	for it := nox_xxx_getFirstPlayerUnit_4DA7C0(); it != nil; it = nox_xxx_getNextPlayerUnit_4DA7F0(it) {
+		v4 := it.UpdateDataPlayer().Player
+		v5 := float64(a1.X - v4.Pos3632Vec.X)
+		v6 := float64(a1.Y - v4.Pos3632Vec.Y)
 		v7 := v6*v6 + v5*v5
 		if v7 < 90000.0 {
-			sub_4D90E0(int32(*(*uint8)(unsafe.Add(v4, 2064))), int8(int64((1.0-v7*1.1111111e-05)*float64(a2))))
+			sub_4D90E0(int32(v4.PlayerInd), int8(int64((1.0-v7*1.1111111e-05)*float64(a2))))
 		}
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i)
 	}
 }
 func nox_xxx_netReportAcquireCreature_4D91A0(a1 int32, a2p *server.Object) {
@@ -5920,7 +5918,7 @@ func nox_xxx_checkElectrProtect_4DFF40(a1 *server.Object) float64 {
 	v3 := a1.InvFirstItem
 	if v3 != nil {
 		for {
-			v4 = int32(v3.ObjFlags)
+			v4 = int32(v3.Flags())
 			if v4&0x100 != 0 && v3.ObjClass&0x13001000 != 0 {
 				idata := v3.InitDataModifier()
 				for _, v7 := range idata.Modifiers {
@@ -6439,7 +6437,7 @@ func nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3 *server.Object, dmg int, ty
 		return 1
 	}
 	if a2 != nil {
-		if nox_xxx_testUnitBuffs_4FF350(a1, 22) != 0 {
+		if nox_xxx_testUnitBuffs_4FF350(a1, server.ENCHANT_SHOCK) != 0 {
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&6 != 0 {
 				if a3 != nil {
 					if sub_4E1400(unsafe.Pointer(a2), a3) != 0 {
@@ -6447,7 +6445,7 @@ func nox_xxx_damageDefaultProc_4E0B30(obj, who, obj3 *server.Object, dmg int, ty
 						nox_xxx_spellBuffOff_4FF5B0(a1, 22)
 						v41 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShockDamage"), 4))
 						v13 = int32(v41)
-						ccall.AsFunc[func(unsafe.Pointer, unsafe.Pointer, uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 716)))(unsafe.Pointer(a2), unsafe.Pointer(a1), 0, v13, 9)
+						ccall.AsFunc[func(unsafe.Pointer, unsafe.Pointer, uint32, int32, int32)](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a2), 716)))(unsafe.Pointer(a2), unsafe.Pointer(a1), 0, v13, int32(object.DamageElectric))
 						if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&4 != 0 {
 							nox_xxx_playerSetState_4FA020(a2, 23)
 						}

@@ -1459,8 +1459,8 @@ func sub_547DB0(a1 *server.Object, a2 *types.Pointf) int32 {
 	}
 	return 1
 }
-func sub_547EE0(a1 *server.Waypoint, a2 uint8) int32 {
-	return bool2int32(a1 != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 480)))&1 != 0 && sub_579EE0(a1, a2) != 0)
+func sub_547EE0(a1 *server.Waypoint, connFlag uint8) int32 {
+	return bool2int32(a1 != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 480)))&1 != 0 && sub_579EE0(a1, connFlag) != 0)
 }
 func sub_547F10() int32 {
 	result := int32(*memmap.PtrUint32(0x5D4594, 2490500))

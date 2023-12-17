@@ -108,7 +108,7 @@ type Color3 struct {
 
 type MonsterUpdateData struct {
 	Field0                uint32               // 0, 0
-	Field1                uint32               // 1, 4
+	Field1                float32              // 1, 4
 	Field2                uint32               // 2, 8
 	Path                  [32]types.Pointf     // 3, 12
 	Field67               uint32               // 67, 268
