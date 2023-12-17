@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -1306,4 +1307,33 @@ var playerAnimTypes = []player.AnimType{
 	player.AnimRecoil,
 	player.AnimSneak,
 	player.AnimHarpoonThrow,
+}
+
+type debugObjectType struct {
+	Ind          int                 `json:"ind"`
+	ID           string              `json:"id"`
+	Class        object.Class        `json:"class"`
+	MonsterClass object.MonsterClass `json:"monster_class,omitempty"`
+	ArmorClass   object.ArmorClass   `json:"armor_class,omitempty"`
+	WeaponClass  object.WeaponClass  `json:"weapon_class,omitempty"`
+	OtherClass   object.OtherClass   `json:"other_class,omitempty"`
+}
+
+func (t *ObjectType) dump() *debugObjectType {
+	if t == nil {
+		return nil
+	}
+	return &debugObjectType{
+		Ind:          t.Ind(),
+		ID:           t.ID(),
+		Class:        t.Class(),
+		MonsterClass: t.MonsterClass(),
+		ArmorClass:   t.ArmorClass(),
+		WeaponClass:  t.WeaponClass(),
+		OtherClass:   t.OtherClass(),
+	}
+}
+
+func (t *ObjectType) MarshalJSON() ([]byte, error) {
+	return json.Marshal(t.dump())
 }

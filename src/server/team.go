@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"image/color"
 	"unsafe"
 
@@ -358,4 +359,29 @@ func (t *Team) SetNameAnd68(name string, a3 int) { // sub_418800
 	alloc.StrCopy16(t.name[:20], name)
 	t.name[20] = 0
 	t.field_68 = uint32(a3)
+}
+
+type debugTeamInfo struct {
+	Ind   int       `json:"ind"`
+	Color TeamColor `json:"color"`
+	ID    TeamID    `json:"id"`
+	Ind60 int       `json:"ind_60"`
+	Name  string    `json:"name"`
+}
+
+func (t *Team) dump() *debugTeamInfo {
+	if t == nil {
+		return nil
+	}
+	return &debugTeamInfo{
+		Ind:   t.Ind(),
+		Color: t.ColorInd,
+		ID:    t.ID(),
+		Ind60: t.Ind60(),
+		Name:  t.Name(),
+	}
+}
+
+func (t *Team) MarshalJSON() ([]byte, error) {
+	return json.Marshal(t.dump())
 }

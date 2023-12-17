@@ -179,7 +179,7 @@ type Waypoint struct {
 	Points    [32]WaypointSub // 23, 92
 	Field348  [32]uint32      // 87, 348
 	PointsCnt byte            // 119, 476
-	Flags2    byte            // 119, 477
+	Flags2    byte            // 119, 477 // TODO: connection flag
 	_         [2]byte
 	Flags     uint32    // 480
 	WpNext    *Waypoint // 484
@@ -282,6 +282,7 @@ type debugWaypoint struct {
 	ScriptID int          `json:"script_id,omitempty"`
 	Pos      types.Pointf `json:"pos"`
 	Flags    uint32       `json:"flags,omitempty"`
+	Flags2   byte         `json:"flags2,omitempty"`
 }
 
 func (w *Waypoint) dump() *debugWaypoint {
@@ -294,6 +295,7 @@ func (w *Waypoint) dump() *debugWaypoint {
 		ScriptID: w.ScriptID(),
 		Pos:      w.Pos(),
 		Flags:    w.Flags,
+		Flags2:   w.Flags2,
 	}
 }
 

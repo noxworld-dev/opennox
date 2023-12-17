@@ -1,6 +1,8 @@
 module github.com/noxworld-dev/opennox/v1
 
-go 1.20
+go 1.21
+
+toolchain go1.21.5
 
 require (
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
@@ -8,8 +10,8 @@ require (
 	github.com/noxworld-dev/noxcrypt v0.0.0-20230831140413-02623e75408e
 	github.com/noxworld-dev/noxscript/ns v1.0.2
 	github.com/noxworld-dev/noxscript/ns/v3 v3.4.0
-	github.com/noxworld-dev/noxscript/ns/v4 v4.14.0
-	github.com/noxworld-dev/opennox-lib v0.0.0-20231203092141-89ddbb0de7bc
+	github.com/noxworld-dev/noxscript/ns/v4 v4.15.0
+	github.com/noxworld-dev/opennox-lib v0.0.0-20231215190404-9cc74c8b7afa
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1

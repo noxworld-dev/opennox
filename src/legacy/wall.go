@@ -60,8 +60,9 @@ func sub_4106A0(y int) unsafe.Pointer {
 
 //export nox_xxx_wallForeachFn_410640
 func nox_xxx_wallForeachFn_410640(cfnc unsafe.Pointer, data unsafe.Pointer) {
-	GetServer().S().Walls.EachWallXxx(func(it *server.Wall) {
+	GetServer().S().Walls.EachWallXxx(func(it *server.Wall) bool {
 		ccall.CallVoidPtr2(cfnc, it.C(), data)
+		return true
 	})
 }
 

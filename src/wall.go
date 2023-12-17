@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
+	"github.com/noxworld-dev/opennox-lib/wall"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -119,6 +120,10 @@ func (w *Wall) IsEnabled() bool {
 	return w.S().IsEnabled()
 }
 
+func (w *Wall) Flags() wall.Flags {
+	return w.S().Flags()
+}
+
 func (w *Wall) Server() *Server {
 	return noxServer // TODO
 }
@@ -145,10 +150,10 @@ func (w *Wall) Toggle() bool {
 }
 
 func (w *Wall) open() {
-	if w.Flags4&4 == 0 {
+	if !w.Flags4.Has(wall.FlagSecret) {
 		return
 	}
-	p := w.Data28
+	p := w.Data
 	st := *(*uint8)(unsafe.Add(p, 21))
 	if st != 3 && st != 4 {
 		*(*uint8)(unsafe.Add(p, 21)) = 4
@@ -166,10 +171,10 @@ func (w *Wall) open() {
 }
 
 func (w *Wall) close() {
-	if w.Flags4&4 == 0 {
+	if !w.Flags4.Has(wall.FlagSecret) {
 		return
 	}
-	p := w.Data28
+	p := w.Data
 	st := *(*uint8)(unsafe.Add(p, 21))
 	if st != 1 && st != 2 {
 		*(*uint8)(unsafe.Add(p, 21)) = 2
@@ -187,7 +192,7 @@ func (w *Wall) close() {
 }
 
 func (w *Wall) toggle() {
-	if w.Flags4&4 == 0 {
+	if !w.Flags4.Has(wall.FlagSecret) {
 		return
 	}
 	if w.IsEnabled() {
@@ -304,10 +309,10 @@ func (s *Server) Nox_xxx_damageToMap_534BC0(gx, gy int, dmg int, dtyp object.Dam
 	if wl == nil {
 		return 0
 	}
-	if wl.Flags4&0x20 != 0 {
+	if wl.Flags4.Has(wall.FlagBroken) {
 		return 0
 	}
-	if wl.Flags4&8 == 0 {
+	if !wl.Flags4.Has(wall.FlagBreakable) {
 		s.Sub_532FE0(s.Walls.DefByInd(int(wl.Tile1)).Field36, who)
 		return 0
 	}
@@ -349,7 +354,7 @@ func (s *Server) Nox_xxx_damageToMap_534BC0(gx, gy int, dmg int, dtyp object.Dam
 func (s *Server) Nox_xxx_wall_4DF1E0(a1 int) {
 	for it := s.Walls.FirstBreakable(); it != nil; it = it.Next() {
 		wl := it.Wall
-		if wl.Flags4&0x20 != 0 {
+		if wl.Flags4.Has(wall.FlagBroken) {
 			s.Nox_xxx_wallSendDestroyed_4DF0A0(wl, a1)
 		}
 	}
@@ -385,7 +390,7 @@ func (s *Server) nox_xxx_wallPreDestroy_534DA0(pt image.Point) int {
 	if wl == nil {
 		return 0
 	}
-	if (wl.Flags4&0x8) == 0 || (wl.Flags4&0x20) != 0 {
+	if !wl.Flags4.Has(wall.FlagBreakable) || wl.Flags4.Has(wall.FlagBroken) {
 		return 0
 	}
 	wl.Health7 = 0

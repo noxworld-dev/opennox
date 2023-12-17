@@ -6,6 +6,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/types"
+	"github.com/noxworld-dev/opennox-lib/wall"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
@@ -395,8 +396,8 @@ func (s *Server) sub_57B630(obj *server.Object, x, y int) int8 {
 	if wl == nil {
 		return -1
 	}
-	if wl.Flags4&0x10 != 0 {
-		door := asObject(wl.Data28).SObj()
+	if wl.Flags4.Has(wall.FlagDoor) {
+		door := asObject(wl.Data).SObj()
 		if door != nil {
 			ud := door.UpdateData
 			v7 := *(*uint32)(unsafe.Add(ud, 12))
@@ -454,11 +455,11 @@ func (s *Server) sub_57B630(obj *server.Object, x, y int) int8 {
 				}
 			}
 		}
-	} else if (obj.ObjFlags&0x4000) == 0 || (wl.Flags4&0x40) == 0 {
-		if (wl.Flags4 & 4) == 0 {
+	} else if (obj.ObjFlags&0x4000) == 0 || !wl.Flags4.Has(wall.FlagWindow) {
+		if !wl.Flags4.Has(wall.FlagSecret) {
 			return int8(wl.Dir0)
 		}
-		v13 := wl.Data28
+		v13 := wl.Data
 		if (int32(*(*uint8)(unsafe.Add(v13, 20)))&2) == 0 && int32(*(*uint8)(unsafe.Add(v13, 22))) <= 11 {
 			return int8(wl.Dir0)
 		}

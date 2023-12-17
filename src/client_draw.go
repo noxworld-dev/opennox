@@ -10,6 +10,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/wall"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
@@ -364,7 +365,7 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 				continue
 			}
 			if c.srv.Walls.DefByInd(int(wl.Tile1)).Flags32&4 == 0 {
-				if wl.Flags4.Has(server.WallFlagFront) {
+				if wl.Flags4.Has(wall.FlagFront) {
 					c.FrontWalls = append(c.FrontWalls, wl)
 				} else {
 					c.BackWalls = append(c.BackWalls, wl)
@@ -389,7 +390,7 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 	} else {
 		for _, wl := range c.FrontWalls {
 			wl.Field3 = 0
-			wl.Flags4 &^= server.WallFlag1 | server.WallFlagFront
+			wl.Flags4 &^= wall.Flag1 | wall.FlagFront
 		}
 	}
 	c.FrontWalls = c.FrontWalls[:0]

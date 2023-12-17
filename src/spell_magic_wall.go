@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/wall"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
@@ -281,7 +282,7 @@ func (sp *spellWall) associateSavedWalls(obj *server.Object) int32 {
 			if wl == nil {
 				return 0
 			}
-			wl.Flags4 |= 8
+			wl.Flags4 |= wall.FlagBreakable
 			wl.Tile1 = p.Tile1
 			wl.Field2 = p.Field2
 			wl.Dir0 = p.Dir
@@ -469,7 +470,7 @@ func (sp *spellWall) setWall(spl *server.DurSpell, x, y int, dir uint8) int32 {
 		if sp.s.Walls.IsSysUse(wl) || sp.s.Walls.IsInvisible(wl) {
 			return 0
 		}
-		if int32(wl.Flags4)&0x1C != 0 {
+		if wl.Flags4.HasAny(wall.FlagDoor | wall.FlagSecret | wall.FlagBreakable) {
 			return 0
 		}
 		wl.Dir0 = nox_xxx_wall_42A6C0(wl.Dir0, dir)
@@ -488,7 +489,7 @@ func (sp *spellWall) setWall(spl *server.DurSpell, x, y int, dir uint8) int32 {
 		} else {
 			wl.Field2 = 0
 		}
-		wl.Flags4 |= 8
+		wl.Flags4 |= wall.FlagBreakable
 		wl.Health7 = sp.s.Walls.DefByInd(int(wl.Tile1)).Health41
 		sp.newWall(spl, wl, 0, 0, 0, 0)
 		return 1
