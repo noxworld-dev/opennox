@@ -17,7 +17,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -420,10 +419,10 @@ func sub_42BFE0() {
 }
 
 func checkTypesMonsterGen(obj *Object, checkInd func(uint162 uint16)) {
-	arr := unsafe.Slice((**server.Object)(obj.UpdateData), 12)
+	ud := obj.UpdateDataMonsterGen()
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 4; j++ {
-			obj4 := arr[4*i+j]
+			obj4 := ud.Field0[4*i+j]
 			if obj4 != nil {
 				checkInd(obj4.TypeInd)
 				for it2 := obj4.FirstItem(); it2 != nil; it2 = it2.NextItem() {

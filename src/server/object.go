@@ -242,11 +242,10 @@ func (s *serverObjects) FreeObjects() {
 
 func (s *serverObjects) FreeObject(obj *Object) int {
 	if obj.Class().Has(object.ClassMonsterGenerator) {
-		ud := obj.UpdateData
-		arr := unsafe.Slice((**Object)(ud), 12)
+		ud := obj.UpdateDataMonsterGen()
 		for i := 0; i < 3; i++ {
 			for j := 0; j < 4; j++ {
-				it := arr[i*4+j]
+				it := ud.Field0[i*4+j]
 				if it != nil {
 					s.FreeObject(it)
 				}
@@ -987,6 +986,13 @@ func (obj *Object) UpdateDataMonster() *MonsterUpdateData {
 		panic(obj.Class().String())
 	}
 	return updateDataAs[MonsterUpdateData](obj)
+}
+
+func (obj *Object) UpdateDataMonsterGen() *MonsterGenUpdateData {
+	if !obj.Class().Has(object.ClassMonsterGenerator) {
+		panic(obj.Class().String())
+	}
+	return updateDataAs[MonsterGenUpdateData](obj)
 }
 
 func (obj *Object) UpdateDataObelisk() *ObeliskUpdateData {

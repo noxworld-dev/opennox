@@ -854,6 +854,10 @@ func (obj *Object) UpdateDataMonster() *server.MonsterUpdateData {
 	return obj.SObj().UpdateDataMonster()
 }
 
+func (obj *Object) UpdateDataMonsterGen() *server.MonsterGenUpdateData {
+	return obj.SObj().UpdateDataMonsterGen()
+}
+
 func (obj *Object) UpdateDataObelisk() *server.ObeliskUpdateData {
 	return obj.SObj().UpdateDataObelisk()
 }
