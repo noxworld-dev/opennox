@@ -11,7 +11,7 @@ func LogVersion() {
 }
 
 const (
-	DefVersion = "v1.8.12-dev"
+	DefVersion = "v1.9.0-dev"
 )
 
 const (
