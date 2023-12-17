@@ -34,8 +34,6 @@ import (
 var (
 	Nox_xxx_updatePlayer_4F8100         func(up *server.Object)
 	Nox_xxx_updatePixie_53CD20          func(cobj *server.Object)
-	Nox_xxx_enemyAggro_5335D0           func(cobj *server.Object, r float32) *server.Object
-	Sub_5336D0                          func(cobj *server.Object) float64
 	Nox_xxx_updatePlayerObserver_4E62F0 func(a1p *server.Object)
 	Nox_xxx_updateProjectile_53AC10     func(a1 *server.Object)
 	Nox_xxx_updateDeathBall_53D080      func(a1 *server.Object)
@@ -123,11 +121,13 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) { Nox_xxx_updatePixie_53CD20
 
 //export nox_xxx_enemyAggro_5335D0
 func nox_xxx_enemyAggro_5335D0(cobj *nox_object_t, r float32) *nox_object_t {
-	return asObjectC(Nox_xxx_enemyAggro_5335D0(asObjectS(cobj), r))
+	return asObjectC(GetServer().S().EnemyAggroYyy(asObjectS(cobj), r))
 }
 
 //export sub_5336D0
-func sub_5336D0(cobj *nox_object_t) C.double { return C.double(Sub_5336D0(asObjectS(cobj))) }
+func sub_5336D0(cobj *nox_object_t) C.double {
+	return C.double(GetServer().S().Sub5336D0(asObjectS(cobj)))
+}
 
 //export nox_xxx_updatePlayerObserver_4E62F0
 func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {

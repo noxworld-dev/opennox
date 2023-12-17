@@ -250,38 +250,6 @@ func (s *Server) sub_4DAE50(obj *server.Object) {
 	}
 }
 
-func (s *Server) attachPending() {
-	for it := asObjectS(s.Objs.Pending); it != nil; it = it.Next() {
-		if it.Class().Has(object.ClassElevator) {
-			ud := it.UpdateData
-			// find elevator shaft and attach them to each other
-			for it2 := asObjectS(s.Objs.Pending); it2 != nil; it2 = it2.Next() {
-				if it2.Class().Has(object.ClassElevatorShaft) {
-					ud2 := it2.UpdateData
-					if *(*uint32)(unsafe.Add(ud, 8)) == it2.Extent {
-						*(**server.Object)(unsafe.Add(ud, 4)) = it2.SObj()
-						*(**server.Object)(unsafe.Add(ud2, 4)) = it.SObj()
-						break
-					}
-				}
-			}
-		}
-		if it.Class().Has(object.ClassTransporter) {
-			ud := it.UpdateData
-			*(**server.Object)(unsafe.Add(ud, 12)) = nil
-			// if transporter target is set - attach to it
-			if ext := *(*uint32)(unsafe.Add(ud, 16)); ext != 0 {
-				for it2 := asObjectS(s.Objs.Pending); it2 != nil; it2 = it2.Next() {
-					if it2.Class().Has(object.ClassTransporter) && ext == it2.Extent {
-						*(**server.Object)(unsafe.Add(ud, 12)) = it2.SObj()
-						break
-					}
-				}
-			}
-		}
-	}
-}
-
 func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Pointf) {
 	obj := toObject(a11)
 	if obj.Flags().HasAny(object.FlagActive | object.FlagDestroyed) {

@@ -159,8 +159,6 @@ func init() {
 	legacy.Nox_xxx_unitIsUnitTT_4E7C80 = nox_xxx_unitIsUnitTT_4E7C80
 	legacy.Nox_xxx_updatePlayer_4F8100 = nox_xxx_updatePlayer_4F8100
 	legacy.Nox_xxx_updatePixie_53CD20 = nox_xxx_updatePixie_53CD20
-	legacy.Nox_xxx_enemyAggro_5335D0 = nox_xxx_enemyAggro_5335D0
-	legacy.Sub_5336D0 = sub_5336D0
 	legacy.Nox_xxx_updatePlayerObserver_4E62F0 = nox_xxx_updatePlayerObserver_4E62F0
 	legacy.Nox_xxx_updateProjectile_53AC10 = nox_xxx_updateProjectile_53AC10
 	legacy.Nox_xxx_updateDeathBall_53D080 = nox_xxx_updateDeathBall_53D080

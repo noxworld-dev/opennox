@@ -1,6 +1,8 @@
 package server
 
 import (
+	"math"
+
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
 
@@ -214,4 +216,48 @@ func (obj *Object) Sub_545E60() int {
 		obj.MonsterPushAction(ai.ACTION_ROAM, 0, 0, -128)
 	}
 	return 0
+}
+
+func (s *Server) EnemyAggroYyy(obj *Object, r float32) *Object {
+	return s.EnemyAggroXxx(obj, r, r)
+}
+
+func (s *Server) EnemyAggroXxx(self *Object, r, max float32) *Object {
+	var (
+		found    *Object
+		min      = max
+		someFlag = false
+	)
+	s.Map.EachObjInCircle(self.Pos(), r, func(it *Object) bool {
+		if self.SObj() == it {
+			return true
+		}
+		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
+			return true
+		}
+		if !s.IsEnemyTo(self, it) {
+			return true
+		}
+		if it.Flags().HasAny(object.FlagDead) {
+			return true
+		}
+		if !s.CanInteract(self, it, 0) {
+			return true
+		}
+		vec := it.Pos().Sub(self.Pos())
+		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
+		dv := self.Direction1.Vec()
+		if !someFlag || vec.Y/dist*dv.Y+vec.X/dist*dv.X > 0.5 {
+			dist2 := dist
+			if it.HasEnchant(ENCHANT_VILLAIN) {
+				dist2 /= 3
+			}
+			if dist2 < min {
+				min = dist2
+				found = it
+			}
+		}
+		return true
+	})
+	return found
 }

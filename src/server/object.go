@@ -1636,6 +1636,60 @@ func (s *Server) Sub4DE4D0(a1 int) {
 	}
 }
 
+func (s *Server) AttachPending() {
+	for it := s.Objs.Pending; it != nil; it = it.Next() {
+		if it.Class().Has(object.ClassElevator) {
+			ud := it.UpdateData
+			// find elevator shaft and attach them to each other
+			for it2 := s.Objs.Pending; it2 != nil; it2 = it2.Next() {
+				if it2.Class().Has(object.ClassElevatorShaft) {
+					ud2 := it2.UpdateData
+					if *(*uint32)(unsafe.Add(ud, 8)) == it2.Extent {
+						*(**Object)(unsafe.Add(ud, 4)) = it2
+						*(**Object)(unsafe.Add(ud2, 4)) = it
+						break
+					}
+				}
+			}
+		}
+		if it.Class().Has(object.ClassTransporter) {
+			ud := it.UpdateData
+			*(**Object)(unsafe.Add(ud, 12)) = nil
+			// if transporter target is set - attach to it
+			if ext := *(*uint32)(unsafe.Add(ud, 16)); ext != 0 {
+				for it2 := s.Objs.Pending; it2 != nil; it2 = it2.Next() {
+					if it2.Class().Has(object.ClassTransporter) && ext == it2.Extent {
+						*(**Object)(unsafe.Add(ud, 12)) = it2
+						break
+					}
+				}
+			}
+		}
+	}
+}
+
+func (s *Server) Sub5336D0(obj *Object) float64 {
+	var (
+		found *Object
+		minR2 = float32(math.MaxFloat32)
+	)
+	s.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *Object) bool {
+		if it.Class().HasAny(object.MaskUnits) && s.IsEnemyTo(obj, it) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+			vec := obj.Pos().Sub(it.Pos())
+			r2 := vec.X*vec.X + vec.Y*vec.Y
+			if r2 < minR2 {
+				minR2 = r2
+				found = it
+			}
+		}
+		return true
+	})
+	if found == nil {
+		return -1.0
+	}
+	return math.Sqrt(float64(minR2))
+}
+
 func (obj *Object) GetOwnerUnit() *Object {
 	for it := obj; it != nil; it = it.ObjOwner {
 		if it.Class().HasAny(object.MaskUnits) {
