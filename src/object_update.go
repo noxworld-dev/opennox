@@ -1,7 +1,6 @@
 package opennox
 
 import (
-	"math"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -794,7 +793,7 @@ func nox_xxx_updatePixie_53CD20(u *server.Object) {
 	owner := u.ObjOwner
 	if u.Flags().Has(object.FlagEnabled) {
 		if s.Frame()-u.Field34 > s.TickRate()/4 {
-			targ := nox_xxx_pixieFindTarget_533570(u)
+			targ := s.PixieFindTarget(u)
 			*(**server.Object)(unsafe.Pointer(&ud[1])) = targ
 			if targ == owner {
 				ud[1] = 0
@@ -808,7 +807,7 @@ func nox_xxx_updatePixie_53CD20(u *server.Object) {
 		ud[1] = 0
 	}
 	if targ := asObjectS(*(**server.Object)(unsafe.Pointer(&ud[1]))); targ != nil {
-		nox_xxx_pixieIdleAnimate_53CF90(u, targ.Pos().Sub(u.Pos()), 32)
+		server.PixieIdleAnimate(u, targ.Pos().Sub(u.Pos()), 32)
 	} else {
 		s.Map.EachMissilesInCircle(u.PosVec, 200.0, func(it *server.Object) bool {
 			if noxPixieObjID == 0 {
@@ -818,19 +817,19 @@ func nox_xxx_updatePixie_53CD20(u *server.Object) {
 				return true
 			}
 			if it != u.SObj() && u.ObjOwner == it.ObjOwner {
-				nox_xxx_pixieIdleAnimate_53CF90(u, it.Pos().Sub(u.Pos()), 16)
+				server.PixieIdleAnimate(u, it.Pos().Sub(u.Pos()), 16)
 			}
 			return true
 		})
 		if owner != nil {
 			pos1, pos2 := u.Pos(), owner.Pos()
 			if s.MapTraceRay9(pos1, pos2) {
-				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
+				server.PixieIdleAnimate(u, pos2.Sub(pos1), 25)
 			}
 		} else {
 			pos1, pos2 := u.Pos(), u.Pos39
 			if s.MapTraceRay9(pos1, pos2) {
-				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
+				server.PixieIdleAnimate(u, pos2.Sub(pos1), 25)
 			}
 		}
 	}
@@ -847,37 +846,12 @@ func nox_xxx_updatePixie_53CD20(u *server.Object) {
 	}
 }
 
-func nox_xxx_pixieIdleAnimate_53CF90(obj *server.Object, vec types.Pointf, ddir int) {
-	dv := obj.Direction2.Vec()
-	dir := int(obj.Direction2)
-	if dv.X*vec.Y-dv.Y*vec.X >= 0.0 {
-		dir += ddir
-		for dir >= 256 {
-			dir -= 256
-		}
-	} else {
-		dir -= ddir
-		for dir < 0 {
-			dir += 256
-		}
-	}
-	obj.Direction2 = server.Dir16(dir)
-}
-
 func (s *Server) nox_xxx_teleportPixie_4FD050(u *server.Object, owner *server.Object) {
 	pos := owner.Pos()
 	u.PosVec = pos
 	u.PrevPos = pos
 	u.NewPos = pos
 	s.nox_xxx_moveUpdateSpecial_517970(u)
-}
-
-func nox_xxx_pixieFindTarget_533570(u *server.Object) *server.Object {
-	r := float32(640.0)
-	if !noxflags.HasGame(noxflags.GameModeQuest) {
-		r = 250.0
-	}
-	return nox_xxx_enemyAggro(u, r, math.MaxFloat32)
 }
 
 func (s *Server) nox_xxx_teleportAllPixies_4FD090(u *server.Object) {
@@ -892,74 +866,6 @@ func (s *Server) nox_xxx_teleportAllPixies_4FD090(u *server.Object) {
 			s.nox_xxx_teleportPixie_4FD050(it, u)
 		}
 	}
-}
-
-func nox_xxx_enemyAggro_5335D0(cobj *server.Object, r float32) *server.Object {
-	return nox_xxx_enemyAggro(cobj, r, r).SObj()
-}
-
-func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
-	s := noxServer
-	var (
-		found    *server.Object
-		min      = max
-		someFlag = false
-	)
-	s.Map.EachObjInCircle(self.Pos(), r, func(it *server.Object) bool {
-		if self.SObj() == it {
-			return true
-		}
-		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
-			return true
-		}
-		if !s.IsEnemyTo(self, it) {
-			return true
-		}
-		if it.Flags().HasAny(object.FlagDead) {
-			return true
-		}
-		if !s.CanInteract(self, it, 0) {
-			return true
-		}
-		vec := it.Pos().Sub(self.Pos())
-		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
-		dv := self.Direction1.Vec()
-		if !someFlag || vec.Y/dist*dv.Y+vec.X/dist*dv.X > 0.5 {
-			dist2 := dist
-			if it.HasEnchant(server.ENCHANT_VILLAIN) {
-				dist2 /= 3
-			}
-			if dist2 < min {
-				min = dist2
-				found = it
-			}
-		}
-		return true
-	})
-	return found
-}
-
-func sub_5336D0(obj *server.Object) float64 {
-	s := noxServer
-	var (
-		found *server.Object
-		minR2 = float32(math.MaxFloat32)
-	)
-	s.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *server.Object) bool {
-		if it.Class().HasAny(object.MaskUnits) && s.IsEnemyTo(obj, it) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
-			vec := obj.Pos().Sub(it.Pos())
-			r2 := vec.X*vec.X + vec.Y*vec.Y
-			if r2 < minR2 {
-				minR2 = r2
-				found = it
-			}
-		}
-		return true
-	})
-	if found == nil {
-		return -1.0
-	}
-	return math.Sqrt(float64(minR2))
 }
 
 func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {

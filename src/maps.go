@@ -227,7 +227,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0(cf *cryptfile.CryptFile) er
 	if s.WPs.Sub_579CA0() == 0 {
 		return errors.New("sub_579CA0 failed")
 	}
-	s.attachPending()
+	s.AttachPending()
 	if noxflags.HasGame(noxflags.GameHost) {
 		s.Nox_xxx_waypoint_5799C0()
 		s.ObjectsAddPending()
