@@ -1219,28 +1219,28 @@ func (s *NoxScriptVM) Nox_script_objCallbackName_508CB0(obj *Object, event int) 
 		}
 		return "", false
 	case cl.Has(object.ClassMonsterGenerator):
-		ud := unsafe.Slice((*uint32)(obj.UpdateData), 20)
+		ud := obj.UpdateDataMonsterGen()
 		switch event {
 		case 15:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1920))), true
 			}
-			return funcs[ud[13]].Name(), true
+			return funcs[ud.FuncInd52].Name(), true
 		case 16:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 2048))), true
 			}
-			return funcs[ud[15]].Name(), true
+			return funcs[ud.FuncInd60].Name(), true
 		case 17:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 2304))), true
 			}
-			return funcs[ud[17]].Name(), true
+			return funcs[ud.FuncInd68].Name(), true
 		case 18:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 2176))), true
 			}
-			return funcs[ud[19]].Name(), true
+			return funcs[ud.FuncInd76].Name(), true
 		}
 		return "", false
 	}
