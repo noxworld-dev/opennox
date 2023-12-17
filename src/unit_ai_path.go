@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 	"github.com/noxworld-dev/opennox-lib/wall"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
@@ -231,7 +232,9 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 			LABEL_32:
 				v31 := s.AI.Paths.NewVisitNode()
 				if v31 == nil {
-					ai.Log.Printf("%d: %s(#%d), buildPath: Exhausted search storage\n", s.Frame(), v30, v30.NetCode)
+					if noxflags.HasEngine(noxflags.EngineShowAI) {
+						ai.Log.Printf("%d: %s(#%d), buildPath: Exhausted search storage\n", s.Frame(), v30, v30.NetCode)
+					}
 					s.AI.Paths.PathStatus = 1
 					s.AI.Paths.Sub_50C320(v30, v67, nil)
 					return
@@ -246,7 +249,9 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 				vn3.Flags12 |= 2
 				v32 := s.AI.Paths.NewVisitNode()
 				if v32 == nil {
-					ai.Log.Printf("%d: %s(#%d), buildPath: Exhausted search storage\n", s.Frame(), obj, obj.NetCode)
+					if noxflags.HasEngine(noxflags.EngineShowAI) {
+						ai.Log.Printf("%d: %s(#%d), buildPath: Exhausted search storage\n", s.Frame(), obj, obj.NetCode)
+					}
 					s.AI.Paths.PathStatus = 1
 					s.AI.Paths.Sub_50C320(obj, v67, nil)
 					return
@@ -312,14 +317,18 @@ func (s *Server) nox_xxx_pathFind_50BA00(far bool, obj *server.Object, a3 *types
 			break
 		}
 		if a6 != 0 && v66 >= a6 {
-			ai.Log.Printf("%d: %s(#%d), buildPath: Reached search depth limit\n", s.Frame(), obj, obj.NetCode)
+			if noxflags.HasEngine(noxflags.EngineShowAI) {
+				ai.Log.Printf("%d: %s(#%d), buildPath: Reached search depth limit\n", s.Frame(), obj, obj.NetCode)
+			}
 			s.AI.Paths.PathStatus = 2
 			s.AI.Paths.Sub_50C320(obj, v67, nil)
 			return
 		}
 		v66++
 	}
-	ai.Log.Printf("%d: %s(#%d), buildPath: Exhausted search space\n", s.Frame(), obj, obj.NetCode)
+	if noxflags.HasEngine(noxflags.EngineShowAI) {
+		ai.Log.Printf("%d: %s(#%d), buildPath: Exhausted search space\n", s.Frame(), obj, obj.NetCode)
+	}
 	s.AI.Paths.PathStatus = 2
 	s.AI.Paths.Sub_50C320(obj, v67, nil)
 }

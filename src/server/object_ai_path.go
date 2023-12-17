@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
@@ -142,7 +143,9 @@ func (s *serverAIPaths) appendWorkPath(path []types.Pointf, ind int) int {
 	v5 := path[ind:]
 	for {
 		if v4 == len(path)-1 {
-			ai.Log.Printf("appendWorkPath: Path truncated.\n")
+			if noxflags.HasEngine(noxflags.EngineShowAI) {
+				ai.Log.Printf("appendWorkPath: Path truncated.\n")
+			}
 			return v4
 		}
 		v4++
