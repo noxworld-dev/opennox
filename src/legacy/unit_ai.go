@@ -18,6 +18,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -102,7 +103,11 @@ func (a cgoAIAction) Cancel(u *server.Object) {
 }
 
 //export nox_ai_debug_print
-func nox_ai_debug_print(str *C.char) { ai.Log.Printf("%s", GoString(str)) }
+func nox_ai_debug_print(str *C.char) {
+	if noxflags.HasEngine(noxflags.EngineShowAI) {
+		ai.Log.Printf("%s", GoString(str))
+	}
+}
 
 //export sub_545E60
 func sub_545E60(a1c *nox_object_t) int { return asObjectS(a1c).Sub_545E60() }
