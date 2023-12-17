@@ -3,43 +3,12 @@ package opennox
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/noxworld-dev/opennox-lib/player"
 )
-
-type debugPlayerInfo struct {
-	Ind      int            `json:"ind"`
-	NetCode  int            `json:"net_code"`
-	Name     string         `json:"name"`
-	OrigName string         `json:"orig_name"`
-	Serial   string         `json:"serial"`
-	Active   bool           `json:"active"`
-	Class    player.Class   `json:"class"`
-	Team     *debugTeamInfo `json:"team"`
-	Unit     *debugObject   `json:"unit"`
-}
 
 var _ json.Marshaler = &Player{}
 
-func (p *Player) dump() *debugPlayerInfo {
-	if p == nil {
-		return nil
-	}
-	return &debugPlayerInfo{
-		Ind:      p.Index(),
-		NetCode:  p.NetCode(),
-		Name:     p.Name(),
-		OrigName: p.OrigName(),
-		Serial:   p.Serial(),
-		Active:   p.IsActive(),
-		Class:    p.PlayerClass(),
-		Unit:     p.UnitC().dump(),
-		Team:     dumpTeam(p.UnitC().Team()),
-	}
-}
-
 func (p *Player) MarshalJSON() ([]byte, error) {
-	return json.Marshal(p.dump())
+	return p.S().MarshalJSON()
 }
 
 func init() {

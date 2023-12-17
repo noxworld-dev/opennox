@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"image/color"
 	"math"
@@ -1727,4 +1728,101 @@ func (obj *Object) SetColor(ind int, cl color.Color) {
 	} else if obj.Class().Has(object.ClassPlayer) {
 		panic("not implemented")
 	}
+}
+
+func (obj *Object) Inventory() []*Object {
+	var out []*Object
+	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
+		out = append(out, p)
+	}
+	return out
+}
+
+func (obj *Object) Equipment() []*Object {
+	var out []*Object
+	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
+		if p.Flags().Has(object.FlagEquipped) {
+			out = append(out, p)
+		}
+	}
+	return out
+}
+
+func (obj *Object) GetOwned516() []*Object {
+	var out []*Object
+	for p := obj.FirstOwned516(); p != nil; p = p.NextOwned512() {
+		out = append(out, p)
+	}
+	return out
+}
+
+type debugObject struct {
+	Ind          int                 `json:"ind"`
+	ID           string              `json:"id,omitempty"`
+	ScriptID     int                 `json:"script_id,omitempty"`
+	Enabled      bool                `json:"enabled"`
+	Class        object.Class        `json:"class"`
+	Flags        object.Flags        `json:"flags,omitempty"`
+	MonsterClass object.MonsterClass `json:"monster_class,omitempty"`
+	ArmorClass   object.ArmorClass   `json:"armor_class,omitempty"`
+	WeaponClass  object.WeaponClass  `json:"weapon_class,omitempty"`
+	OtherClass   object.OtherClass   `json:"other_class,omitempty"`
+	Type         *debugObjectType    `json:"type"`
+	Dir1         Dir16               `json:"dir1,omitempty"`
+	Dir2         Dir16               `json:"dir2,omitempty"`
+	Pos          types.Pointf        `json:"pos"`
+	Z            float32             `json:"z,omitempty"`
+	Vel          types.Pointf        `json:"vel,omitempty"`
+	Force        types.Pointf        `json:"force,omitempty"`
+	Mass         float32             `json:"mass,omitempty"`
+	Team         *debugTeamInfo      `json:"team,omitempty"`
+	Inventory    []*debugObject      `json:"inventory,omitempty"`
+	Equipment    []*debugObject      `json:"equipment,omitempty"`
+	Field516     []*debugObject      `json:"field_516,omitempty"`
+}
+
+func (obj *Object) dump() *debugObject {
+	if obj == nil {
+		return nil
+	}
+	var inv []*debugObject
+	for _, it := range obj.Inventory() {
+		inv = append(inv, it.dump())
+	}
+	var euip []*debugObject
+	for _, it := range obj.Equipment() {
+		euip = append(euip, it.dump())
+	}
+	var f516 []*debugObject
+	for _, it := range obj.GetOwned516() {
+		f516 = append(f516, it.dump())
+	}
+	return &debugObject{
+		Ind:          obj.Ind(),
+		ScriptID:     obj.ScriptIDVal,
+		ID:           obj.ID(),
+		Enabled:      obj.IsEnabled(),
+		Class:        obj.Class(),
+		Flags:        obj.Flags(),
+		MonsterClass: obj.MonsterClass(),
+		ArmorClass:   obj.ArmorClass(),
+		WeaponClass:  obj.WeaponClass(),
+		OtherClass:   obj.OtherClass(),
+		Type:         obj.ObjectTypeC().dump(),
+		Dir1:         obj.Dir1(),
+		Dir2:         obj.Dir2(),
+		Pos:          obj.Pos(),
+		Z:            obj.ZVal,
+		Vel:          obj.Vel(),
+		Force:        obj.Force(),
+		Mass:         obj.Mass,
+		Team:         obj.Team().dump(),
+		Inventory:    inv,
+		Equipment:    euip,
+		Field516:     f516,
+	}
+}
+
+func (obj *Object) MarshalJSON() ([]byte, error) {
+	return json.Marshal(obj.dump())
 }

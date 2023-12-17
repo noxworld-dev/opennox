@@ -4,6 +4,7 @@ import (
 	"image"
 
 	"github.com/noxworld-dev/noxscript/ns/v4"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -48,6 +49,59 @@ func (s noxScriptNS) WallGroup(name string) ns.WallGroupObj {
 		return nil
 	}
 	return nsWallGroup{s.s, g}
+}
+
+func (s noxScriptNS) FindWalls(iter func(it ns.WallObj) bool, conditions ...ns.WallCond) int {
+	// This generic iteration function will act as a fallback that scans everything.
+	search := s.s.Walls.EachWallRaw
+	// Attempt to find a more specific iterator ad optimize it.
+	for i, c := range conditions {
+		found := false
+		switch c := c.(type) {
+		case ns.InRectf:
+			search = func(fnc func(obj *server.Wall) bool) {
+				s.s.Walls.EachInRect(types.RectFromPointsf(c.Min, c.Max), fnc)
+			}
+			found = true
+		case ns.InCirclef:
+			search = func(fnc func(obj *server.Wall) bool) {
+				s.s.Walls.EachInCircle(c.Center.Pos(), float32(c.R), fnc)
+			}
+			found = true
+		}
+		// We only need one optimized iterator. Once found - remove it from conditions.
+		if found {
+			conditions = append(conditions[:i], conditions[i+1:]...)
+			break
+		}
+	}
+	// Finally start the actual iteration.
+	filter := wallAND(conditions)
+	cnt := 0
+	search(func(it *server.Wall) bool {
+		wl := asWallS(it)
+		if !filter.Matches(wl) {
+			return true // find next match
+		}
+		// Found, pass to user-defined handler func.
+		cnt++
+		if iter != nil && !iter(wl) {
+			return false
+		}
+		return true
+	})
+	return cnt
+}
+
+type wallAND []ns.WallCond
+
+func (arr wallAND) Matches(obj ns.WallObj) bool {
+	for _, c := range arr {
+		if !c.WallMatches(obj) {
+			return false
+		}
+	}
+	return true
 }
 
 type nsWallGroup struct {

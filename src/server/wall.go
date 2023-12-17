@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"image"
@@ -242,7 +243,7 @@ func (s *serverWalls) GetWallAtGrid(pos image.Point) *Wall {
 		return nil
 	}
 	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
-		if pos == it.GridPos() && !it.Flags4.HasAny(WallFlag5|WallFlag6) {
+		if pos == it.GridPos() && !it.Flags4.HasAny(wall.FlagDoor|wall.FlagBroken) {
 			return it
 		}
 	}
@@ -255,7 +256,20 @@ func (s *serverWalls) GetWallAtGrid2(pos image.Point) *Wall {
 		return nil
 	}
 	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
-		if pos == it.GridPos() && !it.Flags4.Has(WallFlag6) {
+		if pos == it.GridPos() && !it.Flags4.Has(wall.FlagBroken) {
+			return it
+		}
+	}
+	return nil
+}
+
+func (s *serverWalls) GetWallAtGridRaw(pos image.Point) *Wall {
+	ind, ok := wallArrayInd(pos)
+	if !ok {
+		return nil
+	}
+	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
+		if pos == it.GridPos() {
 			return it
 		}
 	}
@@ -273,14 +287,94 @@ func (s *serverWalls) IndexByY(y int) *Wall {
 	return s.indexY[y]
 }
 
-func (s *serverWalls) EachWallXxx(fnc func(it *Wall)) {
+func (s *serverWalls) EachWallXxx(fnc func(it *Wall) bool) {
 	var next *Wall
 	for it := s.head; it != nil; it = next {
 		next = it.Next20
-		if !it.Flags4.HasAny(WallFlag5 | WallFlag6) {
-			fnc(it)
+		if !it.Flags4.HasAny(wall.FlagDoor | wall.FlagBroken) {
+			if !fnc(it) {
+				return
+			}
 		}
 	}
+}
+
+func (s *serverWalls) EachWallRaw(fnc func(it *Wall) bool) {
+	var next *Wall
+	for it := s.head; it != nil; it = next {
+		next = it.Next20
+		if !fnc(it) {
+			return
+		}
+	}
+}
+
+func (s *serverWalls) All() []*Wall {
+	var out []*Wall
+	for it := s.head; it != nil; it = it.Next20 {
+		out = append(out, it)
+	}
+	return out
+}
+
+func (s *serverWalls) EachInGridRect(r image.Rectangle, fnc func(wl *Wall) bool) {
+	r = r.Canon()
+	for y := r.Min.Y; y <= r.Max.Y; y++ {
+		for x := r.Min.X; x <= r.Max.X; x++ {
+			if wl := s.GetWallAtGridRaw(image.Pt(x, y)); wl != nil {
+				if !fnc(wl) {
+					return
+				}
+			}
+		}
+	}
+}
+
+func (s *serverWalls) EachInGridCircle(p image.Point, r int, fnc func(wl *Wall) bool) {
+	r2 := r * r
+	s.EachInGridRect(image.Rect(p.X-r, p.Y-r, p.X+r, p.Y+r), func(wl *Wall) bool {
+		dp := wl.GridPos().Sub(p)
+		if dp.X*dp.X+dp.Y*dp.Y > r2 {
+			return true
+		}
+		return fnc(wl)
+	})
+}
+
+func (s *serverWalls) EachInRect(r types.Rectf, fnc func(wl *Wall) bool) {
+	r = r.Canon()
+	ri := image.Rectangle{
+		Min: image.Point{
+			X: int(math.Floor(float64(r.Min.X) / wall.GridStep)),
+			Y: int(math.Floor(float64(r.Min.Y) / wall.GridStep)),
+		},
+		Max: image.Point{
+			X: int(math.Ceil(float64(r.Max.X) / wall.GridStep)),
+			Y: int(math.Ceil(float64(r.Max.Y) / wall.GridStep)),
+		},
+	}
+	s.EachInGridRect(ri, fnc)
+}
+
+func (s *serverWalls) EachInCircle(p types.Pointf, r float32, fnc func(wl *Wall) bool) {
+	r2 := r * r
+	rect := types.Rectf{
+		Min: types.Pointf{
+			X: p.X - r,
+			Y: p.Y - r,
+		},
+		Max: types.Pointf{
+			X: p.X + r,
+			Y: p.Y + r,
+		},
+	}
+	s.EachInRect(rect, func(wl *Wall) bool {
+		dp := wl.Pos().Sub(p)
+		if dp.X*dp.X+dp.Y*dp.Y > r2 {
+			return true
+		}
+		return fnc(wl)
+	})
 }
 
 func (s *serverWalls) GetWallNear(pos types.Pointf) *Wall {
@@ -480,7 +574,7 @@ func (s *serverWalls) BreakByID(id uint16) {
 	for it := s.FirstBreakable(); it != nil; it = it.Next() {
 		wl := it.Wall
 		if wl.Field10 == id {
-			wl.Flags4 |= WallFlag6
+			wl.Flags4 |= wall.FlagBroken
 			return
 		}
 	}
@@ -598,26 +692,6 @@ func (w *WallDef) DrawOffset(a2 int, a3 int, a4 int) image.Point {
 	return w.DrawOffs752[a4][a2][a3]
 }
 
-type WallFlags byte
-
-func (f WallFlags) Has(f2 WallFlags) bool {
-	return f&f2 != 0
-}
-
-func (f WallFlags) HasAny(f2 WallFlags) bool {
-	return f&f2 != 0
-}
-
-const (
-	WallFlag1     = WallFlags(0x1)
-	WallFlagFront = WallFlags(0x2)
-	WallFlag3     = WallFlags(0x4)
-	WallFlag4     = WallFlags(0x8)
-	WallFlag5     = WallFlags(0x10)
-	WallFlag6     = WallFlags(0x20)
-	WallFlag7     = WallFlags(0x40)
-)
-
 type BreakableWall struct {
 	NextPtr *BreakableWall
 	Wall    *Wall
@@ -635,7 +709,7 @@ type Wall struct {
 	Tile1       byte           // 0, 1
 	Field2      byte           // 0, 2
 	Field3      byte           // 0, 3
-	Flags4      WallFlags      // 1, 4
+	Flags4      wall.Flags     // 1, 4
 	X5          byte           // 1, 5
 	Y6          byte           // 1, 6
 	Health7     byte           // 1, 7
@@ -645,7 +719,7 @@ type Wall struct {
 	NextByPos16 *Wall          // 4, 16
 	Next20      *Wall          // 5, 20
 	NextByY24   *Wall          // 6, 24
-	Data28      unsafe.Pointer // 7, 28, TODO: *Object ?
+	Data        unsafe.Pointer // 7, 28, TODO: union? *Object ?
 	Field32     uint32         // 8, 32
 }
 
@@ -690,8 +764,67 @@ func (w *Wall) IsEnabled() bool {
 	if w == nil {
 		return false
 	}
-	v3 := *(*byte)(unsafe.Add(w.Data28, 21))
+	v3 := *(*byte)(unsafe.Add(w.Data, 21))
 	return v3 == 1 || v3 == 2
+}
+
+func (w *Wall) Flags() wall.Flags {
+	if w == nil {
+		return 0
+	}
+	return w.Flags4
+}
+
+func (w *Wall) Door() *Object {
+	if !w.Flags4.Has(wall.FlagDoor) {
+		return nil
+	}
+	return (*Object)(w.Data)
+}
+
+type debugWall struct {
+	GridPos  image.Point  `json:"grid"`
+	Pos      types.Pointf `json:"pos"`
+	ScriptID int          `json:"script_id"`
+	Dir      byte         `json:"dir"`
+	Tile     byte         `json:"tile"`
+	Flags    wall.Flags   `json:"flags,omitempty"`
+	Health   byte         `json:"health"`
+	Door     *debugObject `json:"door,omitempty"`
+	Field2   byte
+	Field3   byte
+	Field8   uint16
+	Field10  uint16
+	Field12  uint32
+}
+
+func (w *Wall) dump() *debugWall {
+	if w == nil {
+		return nil
+	}
+	var door *debugObject
+	if w.Flags4.Has(wall.FlagDoor) {
+		door = ((*Object)(w.Data)).dump()
+	}
+	return &debugWall{
+		ScriptID: w.ScriptID(),
+		Dir:      w.Dir0,
+		Tile:     w.Tile1,
+		Field2:   w.Field2,
+		Field3:   w.Field3,
+		Flags:    w.Flags4,
+		GridPos:  w.GridPos(),
+		Pos:      w.Pos(),
+		Health:   w.Health7,
+		Field8:   w.Field8,
+		Field10:  w.Field10,
+		Field12:  w.Field12,
+		Door:     door,
+	}
+}
+
+func (w *Wall) MarshalJSON() ([]byte, error) {
+	return json.Marshal(w.dump())
 }
 
 func (s *serverDoors) SetKeyHolder(v *Object) {
@@ -711,8 +844,8 @@ func (s *Server) Sub_57B500(pos image.Point, flags byte) int8 {
 	if wl == nil {
 		return -1
 	}
-	if !wl.Flags4.Has(WallFlag5) {
-		if flags&0x40 == 0 && wl.Flags4.Has(WallFlag7) || wl.Flags4.Has(WallFlag3) && int32(*(*uint8)(unsafe.Add(wl.Data28, 22))) > 11 {
+	if !wl.Flags4.Has(wall.FlagDoor) {
+		if flags&0x40 == 0 && wl.Flags4.Has(wall.FlagWindow) || wl.Flags4.Has(wall.FlagSecret) && int32(*(*uint8)(unsafe.Add(wl.Data, 22))) > 11 {
 			return -1
 		}
 		return int8(wl.Dir0)
@@ -720,7 +853,7 @@ func (s *Server) Sub_57B500(pos image.Point, flags byte) int8 {
 	if flags&0x10 == 0 {
 		return -1
 	}
-	obj := asObjectP(wl.Data28)
+	obj := asObjectP(wl.Data)
 	if obj == nil {
 		return -1
 	}
@@ -944,7 +1077,7 @@ func (s *Server) mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags MapT
 	} else {
 		wl = s.Walls.GetWallAtGrid(pi)
 	}
-	if wl == nil || flags.Has(MapTraceFlag8) && wl.Flags4.Has(WallFlag3) && *(*byte)(unsafe.Add(wl.Data28, 20))&0x2 != 0 {
+	if wl == nil || flags.Has(MapTraceFlag8) && wl.Flags4.Has(wall.FlagSecret) && *(*byte)(unsafe.Add(wl.Data, 20))&0x2 != 0 {
 		return nil
 	}
 	flags2 := s.Walls.DefByInd(int(wl.Tile1)).Flags32

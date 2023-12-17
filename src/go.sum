@@ -162,6 +162,7 @@ github.com/google/go-cmp v0.5.4/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.5.6/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.5.8 h1:e6P7q2lk1O+qJJb4BtCQXlK8vWEO8V1ZeuEdJNOqZyg=
+github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/google/martian v2.1.0+incompatible/go.mod h1:9I4somxYTbIHy5NJKHRl3wXiIaQGbYVAs8BPL6v8lEs=
 github.com/google/martian/v3 v3.0.0/go.mod h1:y5Zk1BBys9G+gd6Jrk0W3cC1+ELVxBWuIGO+w/tUAp0=
@@ -286,10 +287,10 @@ github.com/noxworld-dev/noxscript/ns v1.0.2 h1:PMpKqRi3fEhwAfBM+PZVTopT6o2vL6AmC
 github.com/noxworld-dev/noxscript/ns v1.0.2/go.mod h1:DobGfGPUycvh7D6hB5mW5gbL1QiRsw7QQiVPJz4wYZ0=
 github.com/noxworld-dev/noxscript/ns/v3 v3.4.0 h1:YsKB7XCDH6e8MO1+YY+9kBgZAXAGhOaR8vwT1zdoVeA=
 github.com/noxworld-dev/noxscript/ns/v3 v3.4.0/go.mod h1:rank2GpncRp/4Z8O2o/02N7dCavOIsq2XEMxZyhBT70=
-github.com/noxworld-dev/noxscript/ns/v4 v4.14.0 h1:43GYbBgVfVjqVyPrOBwxsNYf25ZGNF08aIXEslsu6/U=
-github.com/noxworld-dev/noxscript/ns/v4 v4.14.0/go.mod h1:l8sd8BvVo6LjzYjzAr7V/nbBkp0B/UMQRWbVTq0U67A=
-github.com/noxworld-dev/opennox-lib v0.0.0-20231203092141-89ddbb0de7bc h1:EZUKt5DLnzsC05DV5L9Q2nJ/WaihUtJ3cgVQUo52yoU=
-github.com/noxworld-dev/opennox-lib v0.0.0-20231203092141-89ddbb0de7bc/go.mod h1:KAuhYiJh8HExwTNQV5P8Gwmod8knEnRPPFJFvHnvE+0=
+github.com/noxworld-dev/noxscript/ns/v4 v4.15.0 h1:SAG4b60ATvijAJU0cZB7NFsxBsuaVrxRCNEME6WfOdk=
+github.com/noxworld-dev/noxscript/ns/v4 v4.15.0/go.mod h1:WBjQ4d1EfR21jqpwpQXtHLTX/62kq4w46QeEC9Dgf98=
+github.com/noxworld-dev/opennox-lib v0.0.0-20231215190404-9cc74c8b7afa h1:yIj1rlP2/fgJO4ql2a7sQkPsL+ARvYWoACRmC2ut5Ow=
+github.com/noxworld-dev/opennox-lib v0.0.0-20231215190404-9cc74c8b7afa/go.mod h1:ms2JDbcqvnqRriGZot4c010y6d2ZZTbFtwn9De1SbPw=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7 h1:RHk168W1N0o4FAcp2RIeNl5pzSeioH94OSL5cn2DV+4=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e h1:yMghTqz2j8k79+JVaSs/DOvTmgGVwGNGNvCchYP9Hcw=
@@ -611,6 +612,7 @@ golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9sn
 golang.org/x/term v0.0.0-20210927222741-03fcf44c2211/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
 golang.org/x/term v0.5.0/go.mod h1:jMB1sMXY+tzblOD4FWmEbocvup2/aLOaQEp7JmGp78k=
 golang.org/x/term v0.11.0 h1:F9tnn/DA/Im8nCwm+fX+1/eBwi4qFjRT++MhtVC4ZX0=
+golang.org/x/term v0.11.0/go.mod h1:zC9APTIj3jG3FdV/Ons+XE1riIZXG4aZ4GTHiPZJPIU=
 golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

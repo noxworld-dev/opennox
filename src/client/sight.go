@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
+	"github.com/noxworld-dev/opennox-lib/wall"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -344,19 +345,19 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_E(vp *noxrender.Viewport, walls W
 			}
 			def := walls.DefByInd(int(wl.Tile1))
 			if def.Flags32&1 == 0 {
-				wl.Flags4 |= 1
+				wl.Flags4 |= wall.Flag1
 				if int(wl.Y6)*common.GridStep <= c.sightViewCenter.Y {
-					wl.Flags4 &^= 2
+					wl.Flags4 &^= wall.FlagFront
 				} else {
-					wl.Flags4 |= 2
+					wl.Flags4 |= wall.FlagFront
 				}
 				if def.Flags32&4 != 0 {
 					addWall(wl)
 				}
 			} else {
-				if wl.Flags4&0x40 != 0 {
+				if wl.Flags4.Has(wall.FlagWindow) {
 					if (int32(c.sightViewCenter.X)-v69-11)*(int32(c.sightViewCenter.X)-v69-11)+(int32(c.sightViewCenter.Y)-v70-11)*(int32(c.sightViewCenter.Y)-v70-11) < 3600 {
-						wl.Flags4 |= 1
+						wl.Flags4 |= wall.Flag1
 						continue
 					}
 				}
@@ -545,9 +546,9 @@ func (c *clientSight) Nox_xxx_drawBlack_496150_F(vp *noxrender.Viewport, walls W
 			case sightKindWall:
 				wl := walls.GetWallAtGrid(image.Pt(int(ss.WallPos.X), int(ss.WallPos.Y)))
 				wl.Field12 = 1
-				wl.Flags4 |= 1
+				wl.Flags4 |= wall.Flag1
 				if pos2.X < pos1.X {
-					wl.Flags4 |= 2
+					wl.Flags4 |= wall.FlagFront
 				}
 				wl.Field3 |= ss.Field36
 			case sightKindDrDoor, sightKindDrCircle,
