@@ -1111,7 +1111,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 }
 
 func (s *Server) nox_xxx_moveUpdateSpecial_517970(u *server.Object) {
-	legacy.Sub_517870(u)
+	s.sub_517870(u)
 	if s.Map.ValidIndexPos(u.NewPos) {
 		s.Map.AddMissileXxx(u)
 	} else {
@@ -1122,6 +1122,20 @@ func (s *Server) nox_xxx_moveUpdateSpecial_517970(u *server.Object) {
 		}
 		asObjectS(u).Delete()
 	}
+}
+
+func (s *Server) sub_517870(obj *server.Object) {
+	if !obj.Flags().Has(object.FlagPartitioned) {
+		return
+	}
+	s.Map.Sub5178E0(false, &obj.ObjIndexBase)
+	if !obj.Class().Has(object.ClassMissile) {
+		for i := range obj.ObjIndex[:obj.ObjIndexCur] {
+			s.Map.Sub5178E0(true, &obj.ObjIndex[i])
+		}
+		obj.ObjIndexCur = 0
+	}
+	obj.ObjFlags &^= uint32(object.FlagPartitioned)
 }
 
 func sub_4DB0A0() {
