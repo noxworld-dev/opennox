@@ -860,6 +860,17 @@ func (obj *Object) UpdateDataMonster() *MonsterUpdateData {
 	return (*MonsterUpdateData)(obj.UpdateData)
 }
 
+func (obj *Object) UpdateDataMonsterGen() *MonsterGenUpdateData {
+	if !obj.Class().Has(object.ClassMonsterGenerator) {
+		panic(obj.Class().String())
+	}
+	if alloc.IsDead(obj.UpdateData) {
+		panic("object already deleted")
+	}
+	// TODO: verify this conversion by checking ObjectType
+	return (*MonsterGenUpdateData)(obj.UpdateData)
+}
+
 func (obj *Object) TeamPtr() *ObjectTeam {
 	if obj == nil {
 		return nil

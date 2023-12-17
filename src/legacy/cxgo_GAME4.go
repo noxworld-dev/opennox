@@ -4203,7 +4203,7 @@ func Nox_xxx_charmCreatureFinish_5013E0(sp *server.DurSpell) int32 {
 		nox_xxx_netMarkMinimapObject_417190(int32(v17.Player.PlayerInd), sp.Target48, 1)
 		nox_xxx_netSendSimpleObject2_4DF360(int32(v17.Player.PlayerInd), sp.Target48)
 		if noxflags.HasGame(4096) {
-			sub_50E140(unsafe.Pointer(sp.Target48))
+			sub_50E140(sp.Target48)
 		}
 	} else {
 		nox_xxx_orderUnit_533900(v16, sp.Target48, 4)

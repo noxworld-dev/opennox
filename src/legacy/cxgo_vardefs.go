@@ -320,7 +320,7 @@ var dword_5d4594_1197328 int32
 var dword_5d4594_1090044 uint32
 var dword_5d4594_1305748 uint32
 var nox_alloc_respawn_1568020 alloc.ClassT[respawnStruct]
-var nox_alloc_monsterList_2386220 unsafe.Pointer
+var nox_alloc_monsterList_2386220 *nox_alloc_class
 var nox_xxx_lightningClosestTargetDistance_5d4594_2487912 uint32
 var dword_5d4594_1567928 *server.Object
 var dword_5d4594_1307720 int32
@@ -391,7 +391,7 @@ var dword_5d4594_2487676 uint32
 var dword_5d4594_1049696 unsafe.Pointer
 var dword_5d4594_1316476 uint32
 var dword_5d4594_2488652 uint32
-var nox_alloc_spawn_2386216 unsafe.Pointer
+var nox_alloc_spawn_2386216 *nox_alloc_class
 var dword_5d4594_2487672 uint32
 var Nox_alloc_magicEnt_1569668 alloc.ClassT[MagicEntityClass]
 var dword_5d4594_814992 uint32
@@ -644,7 +644,7 @@ var dword_5d4594_1047532 int32
 var dword_5d4594_1045576 *gui.Window
 var dword_5d4594_2487656 uint32
 var dword_587000_122956 uint32 = 0x1
-var dword_5d4594_2491716 uint32
+var dword_5d4594_2491716 int32
 var dword_587000_180476 uint32 = 0x0
 var dword_5d4594_1046852 int32
 var array_5D4594_1049872 [9]*client.Drawable

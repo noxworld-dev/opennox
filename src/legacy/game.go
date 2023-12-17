@@ -130,8 +130,7 @@ func nox_xxx_mapTraceObstacles_50B580(from *server.Object, a2 *float4) int {
 }
 
 // sub_5178E0
-func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
-	p := (*server.ObjectIndex)(a2)
+func sub_5178E0(a1 int32, p *server.ObjectIndex) {
 	GetServer().S().Map.Sub5178E0(a1 != 0, p)
 }
 

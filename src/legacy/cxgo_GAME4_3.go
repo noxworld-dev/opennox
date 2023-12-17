@@ -2890,9 +2890,9 @@ func nox_xxx_actionByName_534670(a1 *byte) int32 {
 	return v1
 }
 func sub_5346D0(a1 *server.Object) {
-	result := a1.UpdateData
-	*(*uint32)(unsafe.Add(result, 8)) = 0
-	*(*uint32)(unsafe.Add(result, 296)) = 0
+	ud := a1.UpdateDataMonster()
+	ud.Field2 = 0
+	ud.Field74 = 0
 }
 func nox_xxx_monsterResetEnemy_5346F0(a1 *server.Object) {
 	a1.UpdateDataMonster().CurrentEnemy = nil
@@ -3494,9 +3494,9 @@ func nox_xxx_traceRay_5374B0(a1 *float4) int32 {
 }
 func sub_537540(a1 *server.Object) {
 	if a1 != nil {
-		for i := nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = nox_xxx_getNextPlayerUnit_4DA7F0(i) {
-			if *(*uint32)(unsafe.Add(i.UpdateData, 132)) == uint32(a1) {
-				nox_xxx_harpoonBreakForPlr_537520(i)
+		for it := nox_xxx_getFirstPlayerUnit_4DA7C0(); it != nil; it = nox_xxx_getNextPlayerUnit_4DA7F0(it) {
+			if it.UpdateDataPlayer().HarpoonTarg == a1 {
+				nox_xxx_harpoonBreakForPlr_537520(it)
 			}
 		}
 	}
@@ -7557,7 +7557,6 @@ func sub_53E430(a1 *server.Object, object *server.Object, a3 int32, a4 int32) in
 	var (
 		v4 int32
 		v5 int32
-		v7 int32
 		v8 int32
 		v9 *uint32
 	)
@@ -7576,14 +7575,14 @@ func sub_53E430(a1 *server.Object, object *server.Object, a3 int32, a4 int32) in
 	if (v5 & 4) == 0 {
 		return 0
 	}
-	v7 = int32(a1.InvFirstItem)
+	v7 := a1.InvFirstItem
 	v8 = int32(a1.UpdateData)
-	if v7 == 0 {
+	if v7 == nil {
 		return 0
 	}
 	for v7 != unsafe.Pointer(object) {
-		v7 = int32(*(*uint32)(unsafe.Add(v7, 496)))
-		if v7 == 0 {
+		v7 = v7.InvNextItem
+		if v7 == nil {
 			return 0
 		}
 	}
@@ -7607,19 +7606,15 @@ func sub_53E430(a1 *server.Object, object *server.Object, a3 int32, a4 int32) in
 	}
 	return 1
 }
-func nox_xxx_NPCEquipArmor_53E520(a1 unsafe.Pointer, a2 *uint32) int32 {
-	var (
-		v3 *uint32
-		v4 *uint32
-	)
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*2)) & 0x2000000) == 0 {
+func nox_xxx_NPCEquipArmor_53E520(a1 unsafe.Pointer, a2 *server.Object) int32 {
+	if (a2.ObjClass & 0x2000000) == 0 {
 		return 0
 	}
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))&0x100 != 0 {
+	if a2.ObjFlags&0x100 != 0 {
 		return 0
 	}
-	v3 = *(**uint32)(unsafe.Add(a1, 504))
-	v4 = *(**uint32)(unsafe.Add(a1, 504))
+	v3 := *(**uint32)(unsafe.Add(a1, 504))
+	v4 := *(**uint32)(unsafe.Add(a1, 504))
 	if v4 == nil {
 		return 0
 	}
@@ -7630,7 +7625,7 @@ func nox_xxx_NPCEquipArmor_53E520(a1 unsafe.Pointer, a2 *uint32) int32 {
 		}
 	}
 	if v3 != nil {
-		for (*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2))&0x2000000) == 0 || (*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4))&0x100) == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) != *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) {
+		for (*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2))&0x2000000) == 0 || (*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4))&0x100) == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) != a2.ObjSubClass {
 			v3 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*124)))
 			if v3 == nil {
 				goto LABEL_18
@@ -7639,16 +7634,16 @@ func nox_xxx_NPCEquipArmor_53E520(a1 unsafe.Pointer, a2 *uint32) int32 {
 		sub_53E3A0(a1, (*server.Object)(unsafe.Pointer(v3)))
 	}
 LABEL_18:
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) |= 0x100
+	a2.ObjFlags |= 0x100
 	if int32(*(*uint8)(unsafe.Add(a1, 12)))&0x10 != 0 {
-		nox_xxx_npcSetItemEquipFlags_4E4B20((*server.Object)(a1), (*server.Object)(unsafe.Pointer(a2)), 1)
+		nox_xxx_npcSetItemEquipFlags_4E4B20((*server.Object)(a1), a2, 1)
 	}
 	if sub_53E2D0(unsafe.Pointer(a2)) == 0 {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) |= 0x10000000
+		a2.ObjFlags |= 0x10000000
 	}
 	nox_xxx_recalculateArmorVal_53E300((*uint32)(a1))
-	nox_xxx_itemApplyEngageEffect_4F2FF0((*server.Object)(unsafe.Pointer(a2)), (*server.Object)(a1))
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))&2 != 0 {
+	nox_xxx_itemApplyEngageEffect_4F2FF0(a2, (*server.Object)(a1))
+	if a2.ObjSubClass&2 != 0 {
 		sub_53E600((*uint32)(a1))
 	}
 	return 1
@@ -7689,7 +7684,7 @@ func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *server.Object, a3 int32, 
 	}
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)))
 	if v5&2 != 0 {
-		return nox_xxx_NPCEquipArmor_53E520(unsafe.Pointer(a1), (*uint32)(a2))
+		return nox_xxx_NPCEquipArmor_53E520(unsafe.Pointer(a1), a2)
 	}
 	if (v5 & 4) == 0 {
 		return 0

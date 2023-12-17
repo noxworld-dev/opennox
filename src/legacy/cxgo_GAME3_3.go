@@ -1,10 +1,12 @@
 package legacy
 
 import (
+	"encoding/binary"
 	"math"
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -1649,45 +1651,42 @@ func nox_server_testTwoPointsAndDirection_4E6E50(a1 *types.Pointf, a2 int32, a3 
 	v3 = v5[1] + v5[0] + v5[1]*2 + 4
 	return int32(*memmap.PtrUint32(0x587000, uintptr((sub_4E6CE0(a1, a3)+v3*16)*4)+202504))
 }
-func nox_xxx_unitMove_4E7010(obj *server.Object, a2 *types.Pointf) {
-	var (
-		a1 = obj
-		v5 [5]byte
-	)
-	if a1 != nil && (a1.ObjClass&0x400000) == 0 {
-		if int64(a1.PosVec.X) != int64(a2.X) || int64(a1.PosVec.Y) != int64(a2.Y) {
-			nox_xxx_unitNeedSync_4E44F0(a1)
+func nox_xxx_unitMove_4E7010(obj *server.Object, pos *types.Pointf) {
+	if obj != nil && (obj.ObjClass&0x400000) == 0 {
+		if int(obj.PosVec.X) != int(pos.X) || int(obj.PosVec.Y) != int(pos.Y) {
+			nox_xxx_unitNeedSync_4E44F0(obj)
 		}
-		*(*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 64)) = *a2
-		*(*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 56)) = *a2
-		*(*types.Pointf)(unsafe.Add(unsafe.Pointer(a1), 72)) = *a2
-		nox_xxx_moveUpdateSpecial_517970(a1)
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 696)) != 0 {
-			nox_xxx_unitHasCollideOrUpdateFn_537610(a1)
+		obj.NewPos = *pos
+		obj.PosVec = *pos
+		obj.PrevPos = *pos
+		nox_xxx_moveUpdateSpecial_517970(obj)
+		if obj.Collide.Ptr() != nil {
+			nox_xxx_unitHasCollideOrUpdateFn_537610(obj)
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&6 != 0 {
-			sub_537540(a1)
+		if obj.ObjClass&6 != 0 {
+			sub_537540(obj)
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&2 != 0 {
-			sub_5346D0(a1)
+		if obj.ObjClass&2 != 0 {
+			sub_5346D0(obj)
 		}
-		nox_xxx_teleportAllPixies_4FD090(a1)
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&6 != 0 {
+		nox_xxx_teleportAllPixies_4FD090(obj)
+		if obj.ObjClass&6 != 0 {
 			nox_xxx_frameCounterSetCopyToNextFrame_5281D0()
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 && noxflags.HasGame(0x2000) {
-			v2 := a1.UpdateDataPlayer()
-			v3 := v2.Player
-			v2.Field68 = gameFrame()
-			sub_4DE4D0(int8(v3.PlayerInd))
-			v5[0] = 234
-			*(*uint32)(unsafe.Pointer(&v5[1])) = gameFrame()
-			nox_xxx_netSendPacket1_4E5390(int32(v2.Player.PlayerInd), unsafe.Pointer(&v5[0]), 5, nil, 0)
+		if obj.ObjClass&4 != 0 && noxflags.HasGame(0x2000) {
+			ud := obj.UpdateDataPlayer()
+			pl := ud.Player
+			ud.Field68 = gameFrame()
+			sub_4DE4D0(int8(pl.PlayerInd))
+			var buf [5]byte
+			buf[0] = byte(noxnet.MSG_FORGET_DRAWABLES)
+			binary.LittleEndian.PutUint32(buf[1:], gameFrame())
+			nox_xxx_netSendPacket1_4E5390(int32(pl.PlayerInd), buf[:5], nil, 0)
 		}
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
-			v4 := a1.UpdateDataPlayer().Player
-			if v4.CameraFollowObj == nil && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 3680)))&3) == 0 {
-				v4.Pos3632Vec = a1.PosVec
+		if obj.ObjClass&4 != 0 {
+			pl := obj.UpdateDataPlayer().Player
+			if pl.CameraFollowObj == nil && pl.Field3680&0x3 == 0 {
+				pl.Pos3632Vec = obj.PosVec
 			}
 		}
 	}
@@ -9232,13 +9231,7 @@ func nox_xxx_itemApplyDisengageEffect_4F3030(object, a2 *server.Object) {
 		}
 	}
 }
-func nox_xxx_inventoryPutImpl_4F3070(a1p *server.Object, item *server.Object, a3 int32) {
-	var (
-		a1 = a1p
-		v3 int32
-		v7 int32
-	)
-	v3 = 0
+func nox_xxx_inventoryPutImpl_4F3070(a1 *server.Object, item *server.Object, a3 int32) {
 	if a1 != nil && item != nil && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16)))&0x20) == 0 && (item.ObjFlags&0x20) == 0 {
 		item.Field125 = nil
 		item.InvNextItem = a1.InvFirstItem
@@ -9255,9 +9248,9 @@ func nox_xxx_inventoryPutImpl_4F3070(a1p *server.Object, item *server.Object, a3
 				nox_xxx_netReportPickup_4D8A60(int32(v5.PlayerInd), item)
 			}
 			nox_xxx_protect_56FBF0(v5.Prot4632, item)
-			for i := a1.InvFirstItem; i != nil; v3 += v7 {
-				v7 = int32(i.Weight)
-				i = i.InvNextItem
+			var v3 int32
+			for it := a1.InvFirstItem; it != nil; it = it.InvNextItem {
+				v3 += int32(it.Weight)
 			}
 			v5.Field3656 = uint32(bool2int32(v3 > int32(a1.CarryCapacity)))
 		}

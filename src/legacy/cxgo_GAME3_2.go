@@ -5381,16 +5381,11 @@ func sub_4DE410(a1 int32) {
 	}
 }
 func sub_4DE4D0(a1 int8) {
-	var (
-		v1 int32
-		v3 int8
-	)
-	v1 = 1 << int32(a1)
-	for result := nox_server_getFirstObject_4DA790(); result != nil; result = nox_server_getNextObject_4DA7A0(result) {
-		v3 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(result), 16)))
-		result.Field38 |= uint32(v1)
-		if (int32(v3)&0x20) == 0 && (result.ObjClass&0x20400006) == 0 {
-			result.Field37 &= uint32(^v1)
+	bit := uint32(1) << a1
+	for it := nox_server_getFirstObject_4DA790(); it != nil; it = nox_server_getNextObject_4DA7A0(it) {
+		it.Field38 |= bit
+		if (it.ObjFlags&0x20) == 0 && (it.ObjClass&0x20400006) == 0 {
+			it.Field37 &^= bit
 		}
 	}
 }
