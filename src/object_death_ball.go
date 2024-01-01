@@ -21,7 +21,7 @@ func nox_xxx_updateDeathBall_53D080(obj *server.Object) {
 	if s.Frame()%(s.TickRate()/3) != 0 {
 		found := false
 		r := float32(s.Balance.Float("DeathBallCancelRange"))
-		s.Map.EachMissilesInCircle(obj.PosVec, r, func(it *server.Object) bool {
+		s.Map.EachMissileInCircle(obj.PosVec, r, func(it *server.Object) bool {
 			if it == obj {
 				return true
 			}

@@ -34,14 +34,6 @@ func asObjectS(p *server.Object) *Object {
 	return (*Object)(unsafe.Pointer(p))
 }
 
-func (s *Server) GetObjects() []*Object {
-	var out []*Object
-	for p := s.Objs.First(); p != nil; p = p.Next() {
-		out = append(out, asObjectS(p))
-	}
-	return out
-}
-
 func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 	g := s.MapGroups.GroupByID(id, server.MapGroupObjects)
 	if g == nil {
@@ -154,8 +146,8 @@ func (s *Server) deletedObjectsUpdate() {
 }
 
 func (s *Server) ObjectsAddPending() {
-	var next *Object
-	for it := asObjectS(s.Objs.Pending); it != nil; it = next {
+	var next *server.Object
+	for it := s.Objs.Pending; it != nil; it = next {
 		next = it.Next()
 		for it2 := it.Owner(); it2 != nil; it2 = it.Owner() {
 			if !it.Flags().Has(object.FlagDestroyed) {
@@ -164,36 +156,36 @@ func (s *Server) ObjectsAddPending() {
 			it.SetOwner(it2.Owner())
 		}
 		if it.Class().Has(object.ClassMissile) {
-			it.ObjNext = s.Objs.UpdatableList2.SObj()
+			it.ObjNext = s.Objs.MissileList
 			it.ObjPrev = nil
-			if s.Objs.UpdatableList2 != nil {
-				s.Objs.UpdatableList2.ObjPrev = it.SObj()
+			if s.Objs.MissileList != nil {
+				s.Objs.MissileList.ObjPrev = it
 			}
-			s.Objs.UpdatableList2 = it.SObj()
+			s.Objs.MissileList = it
 		} else {
 			if it.Flags().Has(object.FlagShadow) {
 				it.ObjFlags &^= uint32(object.FlagShadow)
-				legacy.Nox_xxx_unitNewAddShadow_4DA9A0(it.SObj())
+				legacy.Nox_xxx_unitNewAddShadow_4DA9A0(it)
 			}
 			if it.Flags().Has(object.FlagRespawn) && !noxflags.HasGame(noxflags.GameModeQuest) {
-				legacy.Nox_xxx_respawnAdd_4EC5E0(it.SObj())
+				legacy.Nox_xxx_respawnAdd_4EC5E0(it)
 			}
 			if it.Update != nil || it.Vel() != (types.Pointf{}) { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
-				s.Objs.AddToUpdatable(it.SObj())
+				s.Objs.AddToUpdatable(it)
 			}
-			it.ObjNext = s.Objs.List.SObj()
+			it.ObjNext = s.Objs.List
 			it.ObjPrev = nil
 			if s.Objs.List != nil {
-				s.Objs.List.ObjPrev = it.SObj()
+				s.Objs.List.ObjPrev = it
 			}
-			s.Objs.List = it.SObj()
+			s.Objs.List = it
 		}
-		s.Map.AddMissileXxx(it.SObj())
+		s.Map.AddObjectToIndex(it)
 		if it.Collide != nil {
-			legacy.Sub_5117F0(it.SObj())
+			legacy.Sub_5117F0(it)
 		}
 		if it.Init != nil {
-			ccall.CallVoidPtr2(it.Init, it.SObj().CObj(), nil)
+			ccall.CallVoidPtr2(it.Init, it.CObj(), nil)
 		}
 		var v6 bool
 		if it.Class().Has(object.ClassImmobile) {
@@ -211,8 +203,8 @@ func (s *Server) ObjectsAddPending() {
 				it.Field37 = 0
 			}
 		} else {
-			it.makeUnseen()
-			legacy.Sub_527E00(it.SObj())
+			it.MakeUnseen()
+			legacy.Sub_527E00(it)
 			it.Field37 = math.MaxUint32
 		}
 		it.ObjFlags &^= uint32(object.FlagPending)
@@ -225,27 +217,27 @@ func (s *Server) ObjectsAddPending() {
 }
 
 func (s *Server) sub_4DAE50(obj *server.Object) {
-	legacy.Nox_xxx_action_4DA9F0(obj.SObj())
+	legacy.Nox_xxx_action_4DA9F0(obj)
 	if obj.Class().Has(object.ClassMissile) {
-		prev := asObjectS(obj.ObjPrev)
+		prev := obj.ObjPrev
 		if prev != nil {
 			prev.ObjNext = obj.ObjNext
 		} else {
-			s.Objs.UpdatableList2 = obj.ObjNext
+			s.Objs.MissileList = obj.ObjNext
 		}
 		if next := obj.ObjNext; next != nil {
-			next.ObjPrev = prev.SObj()
+			next.ObjPrev = prev
 		}
 	} else {
-		s.Objs.RemoveFromUpdatable(obj.SObj())
-		prev := asObjectS(obj.ObjPrev)
+		s.Objs.RemoveFromUpdatable(obj)
+		prev := obj.ObjPrev
 		if prev != nil {
 			prev.ObjNext = obj.ObjNext
 		} else {
 			s.Objs.List = obj.ObjNext
 		}
 		if next := obj.ObjNext; next != nil {
-			next.ObjPrev = prev.SObj()
+			next.ObjPrev = prev
 		}
 	}
 }
@@ -553,8 +545,8 @@ func (obj *Object) NeedSync() { // nox_xxx_unitNeedSync_4E44F0
 	obj.SObj().NeedSync()
 }
 
-func (obj *Object) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
-	obj.Field38 = 0
+func (obj *Object) MakeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
+	obj.SObj().MakeUnseen()
 }
 
 func (obj *Object) Next() *Object { // nox_server_getNextObject_4DA7A0, nox_xxx_getNextUpdatable2Object_4DA850, nox_server_getNextObjectUninited_4DA880

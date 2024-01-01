@@ -89,7 +89,12 @@ func (s noxScriptNS) FindObjects(iter func(obj ns4.Obj) bool, conditions ...ns4.
 	search := func(fnc func(obj *server.Object) bool) {
 		for it := s.s.Objs.First(); it != nil; it = it.Next() {
 			if !fnc(it) {
-				break
+				return
+			}
+		}
+		for it := s.s.Objs.MissileList; it != nil; it = it.Next() {
+			if !fnc(it) {
+				return
 			}
 		}
 	}
@@ -99,12 +104,12 @@ func (s noxScriptNS) FindObjects(iter func(obj ns4.Obj) bool, conditions ...ns4.
 		switch c := c.(type) {
 		case ns4.InRectf:
 			search = func(fnc func(obj *server.Object) bool) {
-				s.s.Map.EachObjInRect(types.RectFromPointsf(c.Min, c.Max), fnc)
+				s.s.Map.EachObjAndMissileInRect(types.RectFromPointsf(c.Min, c.Max), fnc)
 			}
 			found = true
 		case ns4.InCirclef:
 			search = func(fnc func(obj *server.Object) bool) {
-				s.s.Map.EachObjInCircle(c.Center.Pos(), float32(c.R), fnc)
+				s.s.Map.EachObjAndMissileInCircle(c.Center.Pos(), float32(c.R), fnc)
 			}
 			found = true
 		}

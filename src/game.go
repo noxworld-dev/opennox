@@ -1041,10 +1041,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	v2 := s.getServerMap()
 	legacy.Sub_500510(v2)
 	s.nox_xxx_mapSwitchLevel_4D12E0(true)
-	for _, obj := range s.Objs.All() {
+	for _, obj := range s.Objs.AllNonMissiles() {
 		obj.ObjFlags |= uint32(object.FlagMarked)
 	}
-	for _, obj := range s.Objs.GetObjectsUpdatable2() {
+	for _, obj := range s.Objs.AllMissiles() {
 		obj.ObjFlags |= uint32(object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -1133,7 +1133,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		flagN   int
 		ballN   int
 	}
-	for _, v22 := range s.Objs.All() {
+	for _, v22 := range s.Objs.AllNonMissiles() {
 		if v22.Class().Has(0x10000000) {
 			v22.Field34 = 0
 			legacy.Set_dword_5d4594_1548532(v22.CObj())
@@ -1246,10 +1246,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		sub_4DCBF0(0)
 	}
 	_ = object.FlagMarked
-	for _, obj := range s.Objs.All() {
+	for _, obj := range s.Objs.AllNonMissiles() {
 		obj.ObjFlags &= 0x7FFFFFFF
 	}
-	for _, obj := range s.Objs.GetObjectsUpdatable2() {
+	for _, obj := range s.Objs.AllMissiles() {
 		obj.ObjFlags &= 0x7FFFFFFF
 	}
 	if noxflags.HasGame(noxflags.GameModeKOTR) && noxflags.HasGamePlay(4) {

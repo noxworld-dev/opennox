@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -26,7 +27,7 @@ func init() {
 		qu := r.URL.Query()
 		indStr := qu.Get("ind")
 		if indStr == "" {
-			writeJSONResp(w, noxServer.GetObjects())
+			writeJSONResp(w, noxServer.Objs.AllObjects())
 			return
 		}
 		ind, err := strconv.ParseInt(indStr, 10, 32)
@@ -60,5 +61,25 @@ func init() {
 		}
 		obj.ObjFlags = uint32(all)
 		writeJSONResp(w, obj)
+	})
+	http.HandleFunc("/debug/nox/objects/updatable", func(w http.ResponseWriter, r *http.Request) {
+		var out []*Object
+		for p := noxServer.Objs.UpdatableList; p != nil; p = p.Next() {
+			out = append(out, asObjectS(p))
+		}
+		writeJSONResp(w, out)
+	})
+	http.HandleFunc("/debug/nox/objects/non-missiles", func(w http.ResponseWriter, r *http.Request) {
+		writeJSONResp(w, noxServer.Objs.AllNonMissiles())
+	})
+	http.HandleFunc("/debug/nox/objects/missiles", func(w http.ResponseWriter, r *http.Request) {
+		writeJSONResp(w, noxServer.Objs.AllMissiles())
+	})
+	http.HandleFunc("/debug/nox/objects/index", func(w http.ResponseWriter, r *http.Request) {
+		m := make(map[string]server.DebugMapIndex)
+		for k, v := range noxServer.Map.DebugIndex() {
+			m[fmt.Sprintf("%d,%d", k.X, k.Y)] = v
+		}
+		writeJSONResp(w, m)
 	})
 }

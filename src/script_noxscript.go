@@ -166,7 +166,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 
 	var next *server.Object
-	for it := s.Objs.UpdatableList2; it != nil; it = next {
+	for it := s.Objs.MissileList; it != nil; it = next {
 		next = it.Next()
 		if int(it.TypeInd) != int(memmap.Uint32(0x5D4594, 2386900)) {
 			asObjectS(it).Delete()

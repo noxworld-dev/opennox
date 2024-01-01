@@ -404,7 +404,7 @@ func sub_42BFE0() {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := asObjectS(s.Objs.UpdatableList2); it != nil; it = it.Next() {
+	for it := asObjectS(s.Objs.MissileList); it != nil; it = it.Next() {
 		checkInd(it.TypeInd)
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&

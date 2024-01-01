@@ -111,7 +111,7 @@ func nox_xxx_servFinalizeDelObject_4DADE0(cobj *nox_object_t) {
 
 //export nox_xxx_getFirstUpdatable2Object_4DA840
 func nox_xxx_getFirstUpdatable2Object_4DA840() *nox_object_t {
-	return asObjectC(GetServer().S().Objs.UpdatableList2)
+	return asObjectC(GetServer().S().Objs.MissileList)
 }
 
 //export nox_xxx_unitsNewAddToList_4DAC00
