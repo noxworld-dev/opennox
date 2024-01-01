@@ -69,7 +69,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 }
 
 func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpdate
-	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
+	for obj := s.Objs.MissileList; obj != nil; obj = obj.Next() {
 		if obj.Flags().HasAny(object.FlagNoUpdateMask) {
 			continue
 		}

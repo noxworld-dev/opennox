@@ -424,7 +424,7 @@ func nox_server_mapRWObjectData_504CF0_Write(cf *cryptfile.CryptFile, a2 unsafe.
 			}
 		}
 	}
-	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
+	for obj := s.Objs.MissileList; obj != nil; obj = obj.Next() {
 		if a2 != nil {
 			pos := obj.Pos()
 			if !sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {

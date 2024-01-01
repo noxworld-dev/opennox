@@ -26,8 +26,8 @@ const (
 )
 
 type mapIndexBucket struct {
-	List0     *ObjectIndex
-	List4     *ObjectIndex
+	List      *ObjectIndex
+	PartsList *ObjectIndex
 	Waypoints *Waypoint
 	Tok12     uint32
 }
@@ -57,11 +57,11 @@ func (s *serverMap) Free() {
 	s.bucketByPos = nil
 }
 
-func (s *serverMap) addObjToMap(flag bool, pos image.Point, obj *Object) {
+func (s *serverMap) addObjToMap(large bool, pos image.Point, obj *Object) {
 	if pos.X < 0 || pos.Y < 0 || pos.X >= s.indexSize || pos.Y >= s.indexSize { // see #403
 		return
 	}
-	if flag {
+	if large {
 		i := int(obj.ObjIndexCur)
 		if i >= len(obj.ObjIndex) {
 			return
@@ -69,100 +69,87 @@ func (s *serverMap) addObjToMap(flag bool, pos image.Point, obj *Object) {
 		p := &obj.ObjIndex[i]
 		obj.ObjIndexCur++
 		*p = ObjectIndex{
-			X:     uint16(int16(pos.X)),
-			Y:     uint16(int16(pos.Y)),
-			Obj12: obj.SObj(),
+			X:      uint16(int16(pos.X)),
+			Y:      uint16(int16(pos.Y)),
+			Object: obj,
 		}
-		p2 := s.bucketByPos[pos.X][pos.Y].List4
-		p.Next4 = p2
+		p2 := s.bucketByPos[pos.X][pos.Y].PartsList
+		p.Next = p2
 		if p2 != nil {
-			p2.Prev8 = p
+			p2.Prev = p
 		}
-		s.bucketByPos[pos.X][pos.Y].List4 = p
+		s.bucketByPos[pos.X][pos.Y].PartsList = p
 	} else {
 		p := &obj.ObjIndexBase
 		*p = ObjectIndex{
-			X:     uint16(int16(pos.X)),
-			Y:     uint16(int16(pos.Y)),
-			Obj12: obj.SObj(),
+			X:      uint16(int16(pos.X)),
+			Y:      uint16(int16(pos.Y)),
+			Object: obj,
 		}
-		p2 := s.bucketByPos[pos.X][pos.Y].List0
-		p.Next4 = p2
+		p2 := s.bucketByPos[pos.X][pos.Y].List
+		p.Next = p2
 		if p2 != nil {
-			p2.Prev8 = p
+			p2.Prev = p
 		}
-		s.bucketByPos[pos.X][pos.Y].List0 = p
+		s.bucketByPos[pos.X][pos.Y].List = p
 	}
 }
 
-func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object) bool) {
-	if s.eachInRectStackInd >= 1 {
-		return
-	}
-	if fnc == nil {
-		return
-	}
-	s.eachInRectStackInd++
-	s.eachInRectStack[s.eachInRectStackInd]++
-	defer func() {
-		s.eachInRectStackInd--
-	}()
-	sx := RoundCoord(rect.Min.X)
-	sy := RoundCoord(rect.Min.Y)
-	ex := RoundCoord(rect.Max.X)
-	ey := RoundCoord(rect.Max.Y)
-	if sx < 0 {
-		sx = 0
-	}
-	if ex >= s.indexSize {
-		ex = s.indexSize - 1
-	}
-	if sy < 0 {
-		sy = 0
-	}
-	if ey >= s.indexSize {
-		ey = s.indexSize - 1
-	}
-	for y := sy; y <= ey; y++ {
-		for x := sx; x <= ex; x++ {
-			ptr := &s.bucketByPos[x][y]
-			for it := ptr.List4; it != nil; it = it.Next4 {
-				obj := it.Obj12
-				tok1 := &obj.Field62[s.eachInRectStackInd]
-				tok2 := s.eachInRectStack[s.eachInRectStackInd]
-				if *tok1 == tok2 {
-					continue
-				}
-				*tok1 = tok2
-				if obj.CollideP1.X < rect.Max.X && obj.CollideP2.X > rect.Min.X &&
-					obj.CollideP1.Y < rect.Max.Y && obj.CollideP2.Y > rect.Min.Y {
-					if !fnc(obj) {
-						return
-					}
-				}
+type DebugObjectIndex struct {
+	Pos image.Point
+	Obj *Object
+}
+
+type DebugMapIndex struct {
+	List  []DebugObjectIndex
+	Parts []DebugObjectIndex
+}
+
+func (s *serverMap) DebugIndex() map[image.Point]DebugMapIndex {
+	m := make(map[image.Point]DebugMapIndex)
+	for x := 0; x < len(s.bucketByPos); x++ {
+		for y := 0; y < len(s.bucketByPos[x]); y++ {
+			b := s.bucketByPos[x][y]
+			if b.List == nil && b.PartsList == nil {
+				continue
 			}
+			var d DebugMapIndex
+			for it := b.List; it != nil; it = it.Next {
+				d.List = append(d.List, DebugObjectIndex{
+					Pos: image.Point{X: int(it.X), Y: int(it.Y)},
+					Obj: it.Object,
+				})
+			}
+			for it := b.PartsList; it != nil; it = it.Next {
+				d.Parts = append(d.Parts, DebugObjectIndex{
+					Pos: image.Point{X: int(it.X), Y: int(it.Y)},
+					Obj: it.Object,
+				})
+			}
+			m[image.Point{X: x, Y: y}] = d
 		}
 	}
+	return m
 }
 
 func (s *serverMap) Sub5178E0(flag bool, p *ObjectIndex) {
 	if flag {
-		if prev := p.Prev8; prev != nil {
-			prev.Next4 = p.Next4
+		if prev := p.Prev; prev != nil {
+			prev.Next = p.Next
 		} else {
-			s.bucketByPos[p.X][p.Y].List4 = p.Next4
+			s.bucketByPos[p.X][p.Y].PartsList = p.Next
 		}
-		if next := p.Next4; next != nil {
-			next.Prev8 = p.Prev8
+		if next := p.Next; next != nil {
+			next.Prev = p.Prev
 		}
 	} else {
-		if prev := p.Prev8; prev != nil {
-			prev.Next4 = p.Next4
+		if prev := p.Prev; prev != nil {
+			prev.Next = p.Next
 		} else {
-			s.bucketByPos[p.X][p.Y].List0 = p.Next4
+			s.bucketByPos[p.X][p.Y].List = p.Next
 		}
-		if next := p.Next4; next != nil {
-			next.Prev8 = p.Prev8
+		if next := p.Next; next != nil {
+			next.Prev = p.Prev
 		}
 	}
 }
@@ -217,8 +204,8 @@ func (s *serverMap) Sub517B70(pos types.Pointf, fnc func(it *Object)) {
 	} else if y >= s.indexSize {
 		y = s.indexSize - 1
 	}
-	for it := s.bucketByPos[x][y].List4; it != nil; it = it.Next4 {
-		fnc(it.Obj12)
+	for it := s.bucketByPos[x][y].PartsList; it != nil; it = it.Next {
+		fnc(it.Object)
 	}
 }
 
@@ -237,7 +224,7 @@ func (s *serverMap) ValidIndexPos(p types.Pointf) bool {
 	return pi.X >= 0 && pi.X < s.indexSize && pi.Y >= 0 && pi.Y < s.indexSize
 }
 
-func (s *serverMap) AddMissileXxx(obj *Object) {
+func (s *serverMap) AddObjectToIndex(obj *Object) {
 	if f := obj.Flags(); f.Has(object.FlagDestroyed) || f.Has(object.FlagPartitioned) || !f.Has(object.FlagActive) {
 		return
 	}
@@ -269,7 +256,72 @@ func (s *serverMap) AddMissileXxx(obj *Object) {
 	obj.ObjFlags |= uint32(object.FlagPartitioned)
 }
 
-func (s *serverMap) eachMissileInRect(rect types.Rectf, fnc func(it *Object) bool) {
+func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object) bool) {
+	if s.eachInRectStackInd >= 1 {
+		return
+	}
+	if fnc == nil {
+		return
+	}
+	s.eachInRectStackInd++
+	s.eachInRectStack[s.eachInRectStackInd]++
+	defer func() {
+		s.eachInRectStackInd--
+	}()
+	sx := RoundCoord(rect.Min.X)
+	sy := RoundCoord(rect.Min.Y)
+	ex := RoundCoord(rect.Max.X)
+	ey := RoundCoord(rect.Max.Y)
+	if sx < 0 {
+		sx = 0
+	}
+	if ex >= s.indexSize {
+		ex = s.indexSize - 1
+	}
+	if sy < 0 {
+		sy = 0
+	}
+	if ey >= s.indexSize {
+		ey = s.indexSize - 1
+	}
+	for y := sy; y <= ey; y++ {
+		for x := sx; x <= ex; x++ {
+			ptr := &s.bucketByPos[x][y]
+			for it := ptr.PartsList; it != nil; it = it.Next {
+				obj := it.Object
+				tok1 := &obj.Field62[s.eachInRectStackInd]
+				tok2 := s.eachInRectStack[s.eachInRectStackInd]
+				if *tok1 == tok2 {
+					continue
+				}
+				*tok1 = tok2
+				if obj.CollideP1.X < rect.Max.X && obj.CollideP2.X > rect.Min.X &&
+					obj.CollideP1.Y < rect.Max.Y && obj.CollideP2.Y > rect.Min.Y {
+					if !fnc(obj) {
+						return
+					}
+				}
+			}
+		}
+	}
+}
+
+func (s *serverMap) EachObjInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
+	rect := types.Rectf{
+		Min: pos.Sub(types.Ptf(r, r)),
+		Max: pos.Add(types.Ptf(r, r)),
+	}
+	r2 := r * r
+	s.EachObjInRect(rect, func(obj *Object) bool {
+		vec := obj.Pos().Sub(pos)
+		if vec.X*vec.X+vec.Y*vec.Y > r2 {
+			return true
+		}
+		return fnc(obj)
+	})
+}
+
+func (s *serverMap) EachMissileInRect(rect types.Rectf, fnc func(it *Object) bool) {
 	if fnc == nil {
 		return
 	}
@@ -291,8 +343,8 @@ func (s *serverMap) eachMissileInRect(rect types.Rectf, fnc func(it *Object) boo
 	}
 	for y := sy; y <= ey; y++ {
 		for x := sx; x <= ex; x++ {
-			for it := s.bucketByPos[x][y].List0; it != nil; it = it.Next4 {
-				obj := it.Obj12
+			for it := s.bucketByPos[x][y].List; it != nil; it = it.Next {
+				obj := it.Object
 				if obj.Class().Has(object.ClassMissile) {
 					if !fnc(obj) {
 						return
@@ -303,12 +355,7 @@ func (s *serverMap) eachMissileInRect(rect types.Rectf, fnc func(it *Object) boo
 	}
 }
 
-func (s *serverMap) EachObjAndMissileInRect(rect types.Rectf, fnc func(it *Object) bool) {
-	s.EachObjInRect(rect, fnc)
-	s.eachMissileInRect(rect, fnc)
-}
-
-func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
+func (s *serverMap) EachMissileInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
 	if fnc == nil {
 		return
 	}
@@ -331,8 +378,8 @@ func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(i
 	r2 := r * r
 	for y := sy; y <= ey; y++ {
 		for x := sx; x <= ex; x++ {
-			for it := s.bucketByPos[x][y].List0; it != nil; it = it.Next4 {
-				obj := it.Obj12
+			for it := s.bucketByPos[x][y].List; it != nil; it = it.Next {
+				obj := it.Object
 				if obj.Class().Has(object.ClassMissile) {
 					dp := pos.Sub(obj.Pos())
 					if dp.X*dp.X+dp.Y*dp.Y <= r2 {
@@ -346,19 +393,14 @@ func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(i
 	}
 }
 
-func (s *serverMap) EachObjInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
-	rect := types.Rectf{
-		Min: pos.Sub(types.Ptf(r, r)),
-		Max: pos.Add(types.Ptf(r, r)),
-	}
-	r2 := r * r
-	s.EachObjInRect(rect, func(obj *Object) bool {
-		vec := obj.Pos().Sub(pos)
-		if vec.X*vec.X+vec.Y*vec.Y > r2 {
-			return true
-		}
-		return fnc(obj)
-	})
+func (s *serverMap) EachObjAndMissileInRect(rect types.Rectf, fnc func(it *Object) bool) {
+	s.EachObjInRect(rect, fnc)
+	s.EachMissileInRect(rect, fnc)
+}
+
+func (s *serverMap) EachObjAndMissileInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
+	s.EachObjInCircle(pos, r, fnc)
+	s.EachMissileInCircle(pos, r, fnc)
 }
 
 func (s *serverMap) Sub518550Base(rect image.Rectangle, mask byte, scanSub bool, tok *uint32, fnc func(it *Waypoint)) {

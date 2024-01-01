@@ -563,7 +563,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 					}
 				}
 			}
-			for it := s.Objs.UpdatableList2; it != nil; it = it.Next() {
+			for it := s.Objs.MissileList; it != nil; it = it.Next() {
 				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Max.X) || float64(it.CollideP2.X) < float64(rect.Min.X) || float64(it.CollideP1.Y) > float64(rect.Max.Y) || float64(it.CollideP2.Y) < float64(rect.Min.Y)) {
 					if it.Field37&plBit != 0 {
 						s.Nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
@@ -1113,7 +1113,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 func (s *Server) nox_xxx_moveUpdateSpecial_517970(u *server.Object) {
 	s.sub_517870(u)
 	if s.Map.ValidIndexPos(u.NewPos) {
-		s.Map.AddMissileXxx(u)
+		s.Map.AddObjectToIndex(u)
 	} else {
 		if u.Class().Has(object.ClassPlayer) {
 			gameLog.Printf("attempting to delete player unit; stopping the map")
@@ -1221,7 +1221,7 @@ func (s *Server) nox_xxx_mapSwitchLevel_4D12E0(a1 bool) {
 		}
 	}
 	s.ai.Reset()
-	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
+	for obj := s.Objs.MissileList; obj != nil; obj = obj.Next() {
 		if legacy.Sub_4E5B80(obj) != 0 {
 			legacy.Sub_4E81D0(obj)
 		}

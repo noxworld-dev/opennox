@@ -435,7 +435,7 @@ func (s *Server) sub_4DB9C0() {
 		}
 	}
 	next = nil
-	for it := s.Objs.UpdatableList2; it != nil; it = next {
+	for it := s.Objs.MissileList; it != nil; it = next {
 		next = it.Next()
 		if legacy.Sub_4E5B80(it.SObj()) != 0 {
 			asObjectS(it).Delete()

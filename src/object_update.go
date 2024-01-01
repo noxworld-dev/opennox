@@ -809,7 +809,7 @@ func nox_xxx_updatePixie_53CD20(u *server.Object) {
 	if targ := asObjectS(*(**server.Object)(unsafe.Pointer(&ud[1]))); targ != nil {
 		server.PixieIdleAnimate(u, targ.Pos().Sub(u.Pos()), 32)
 	} else {
-		s.Map.EachMissilesInCircle(u.PosVec, 200.0, func(it *server.Object) bool {
+		s.Map.EachMissileInCircle(u.PosVec, 200.0, func(it *server.Object) bool {
 			if noxPixieObjID == 0 {
 				noxPixieObjID = noxServer.Types.PixieID()
 			}

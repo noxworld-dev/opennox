@@ -38,7 +38,7 @@ func nox_xxx_castCounterSpell_52BBB0(cspl spell.ID, a2, a3, a4 *server.Object, s
 	s := noxServer
 	r := s.Balance.Float("CounterspellRange")
 	def := s.Spells.DefByInd(cspl)
-	s.Map.EachMissilesInCircle(a4.PosVec, float32(r), func(it *server.Object) bool {
+	s.Map.EachMissileInCircle(a4.PosVec, float32(r), func(it *server.Object) bool {
 		nox_xxx_cspellRemoveSpell_52BC90(it)
 		return true
 	})

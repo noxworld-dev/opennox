@@ -130,8 +130,8 @@ type serverObjects struct {
 	CreatedImmobile int
 	List            *Object
 	Pending         *Object
+	MissileList     *Object
 	UpdatableList   *Object
-	UpdatableList2  *Object
 	DeletedList     *Object
 	firstScriptID   ObjectScriptID
 	lastScriptID    ObjectScriptID
@@ -401,17 +401,28 @@ func (s *Server) NewObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTy
 	return s.Objs.NewObject(typ)
 }
 
-func (s *serverObjects) GetObjectsUpdatable2() []*Object {
+func (s *serverObjects) AllObjects() []*Object {
 	var out []*Object
-	for p := s.UpdatableList2; p != nil; p = p.ObjNext {
+	for p := s.List; p != nil; p = p.ObjNext {
+		out = append(out, p)
+	}
+	for p := s.MissileList; p != nil; p = p.ObjNext {
 		out = append(out, p)
 	}
 	return out
 }
 
-func (s *serverObjects) All() []*Object {
+func (s *serverObjects) AllNonMissiles() []*Object {
 	var out []*Object
 	for p := s.List; p != nil; p = p.ObjNext {
+		out = append(out, p)
+	}
+	return out
+}
+
+func (s *serverObjects) AllMissiles() []*Object {
+	var out []*Object
+	for p := s.MissileList; p != nil; p = p.ObjNext {
 		out = append(out, p)
 	}
 	return out
@@ -514,11 +525,11 @@ func (v Dir16) Vec() types.Pointf {
 }
 
 type ObjectIndex struct {
-	X     uint16
-	Y     uint16
-	Next4 *ObjectIndex
-	Prev8 *ObjectIndex
-	Obj12 *Object
+	X      uint16
+	Y      uint16
+	Next   *ObjectIndex
+	Prev   *ObjectIndex
+	Object *Object
 }
 
 type ScriptCallback struct {
@@ -1276,6 +1287,10 @@ func (obj *Object) Nox_xxx_objectUnkUpdateCoords_4E7290() {
 
 func (obj *Object) NeedSync() { // nox_xxx_unitNeedSync_4E44F0
 	obj.Field38 = math.MaxUint32
+}
+
+func (obj *Object) MakeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
+	obj.Field38 = 0
 }
 
 func (obj *Object) SetDialogPortrait(name string) {
