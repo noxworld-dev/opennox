@@ -326,10 +326,6 @@ func Nox_xxx_parseSoundSetBin_424170(path string) int {
 	return int(C.nox_xxx_parseSoundSetBin_424170(internCStr(path)))
 }
 
-func Sub_486670(v int, ind int) {
-	C.sub_486670(C.int(v), C.int(ind))
-}
-
 func Nox_xxx_WorkerHurt_44D810() {
 	C.nox_xxx_WorkerHurt_44D810()
 }
@@ -408,10 +404,6 @@ func Sub_4864A0(v unsafe.Pointer) {
 
 func Sub_451850(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 	C.sub_451850(C.int(uintptr(a1)), a2)
-}
-
-func Sub_4866A0(a1 int) int {
-	return int(C.sub_4866A0(C.int(a1)))
 }
 
 func Sub_486FA0(a1 int) {

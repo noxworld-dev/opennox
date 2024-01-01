@@ -4373,41 +4373,6 @@ int sub_486640(void* a1p, int a2) {
 	return a2 * (*(uint32_t*)(a1 + 36) >> 16) / 100;
 }
 
-//----- (00486670) --------------------------------------------------------
-int sub_486670(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	if (a2) {
-		result = a2 - 1;
-		if (a2 == 1) {
-			*getMemU32Ptr(0x587000, 155052) = a1;
-		} else {
-			result = a2 - 2;
-			if (a2 == 2) {
-				result = a1;
-				*getMemU32Ptr(0x587000, 155056) = a1;
-			}
-		}
-	} else {
-		*getMemU32Ptr(0x587000, 155048) = a1;
-	}
-	return result;
-}
-
-//----- (004866A0) --------------------------------------------------------
-int sub_4866A0(int a1) {
-	switch (a1) {
-	case 0:
-		return *getMemU32Ptr(0x587000, 155048);
-	case 1:
-		return *getMemU32Ptr(0x587000, 155052);
-	case 2:
-		return *getMemU32Ptr(0x587000, 155056);
-	}
-	return 0x4000;
-}
-
 //----- (004866D0) --------------------------------------------------------
 int sub_4866D0(uint32_t* a1, int a2) { return *a1 + 36 * a2; }
 

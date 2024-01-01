@@ -351,17 +351,17 @@ func nox_audio_initall(a3 int) int {
 	legacy.Nox_xxx_WorkerHurt_44D810()
 	legacy.Sub_43D8E0()
 	legacy.Sub_451850(legacy.Get_dword_5d4594_805984(), unsafe.Pointer(dword_5d4594_805980))
-	v1 := legacy.Sub_4866A0(2)
+	v1 := configGetVolume(VolumeMusic)
 	if v1 == 0 {
 		legacy.Sub_43DC00()
 	}
 	legacy.Sub_486320(legacy.Get_dword_587000_93164(), v1)
-	v2 := legacy.Sub_4866A0(1)
+	v2 := configGetVolume(VolumeDialog)
 	if v2 == 0 {
 		legacy.Sub_44D960()
 	}
 	legacy.Sub_486320(legacy.Get_dword_587000_122852(), v2)
-	v3 := legacy.Sub_4866A0(0)
+	v3 := configGetVolume(VolumeFX)
 	if v3 == 0 {
 		legacy.Sub_453050()
 	}

@@ -107,8 +107,6 @@ int sub_486550(uint8_t* a1);
 int sub_486570(unsigned int* a1, uint32_t* a2);
 uint32_t* sub_486620(uint32_t* a1);
 int sub_486640(void* a1, int a2);
-int sub_486670(int a1, int a2);
-int sub_4866A0(int a1);
 int sub_4866D0(uint32_t* a1, int a2);
 unsigned int sub_486A10(int a1, void* a2);
 int sub_486AA0(uint32_t* a1, int a2, uint32_t* a3);
