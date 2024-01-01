@@ -50,6 +50,7 @@ func (c *Client) playMovieFile(name string) {
 		defer f.Close()
 		if plr, err := noxmovie.NewPlayerWithHandle(f, noxClient.Seat, audioDev); err == nil {
 			defer plr.Close()
+			plr.SetAudioGain(configGetVolumeGain(VolumeMusic))
 			plr.Start()
 			plr.Play()
 		}

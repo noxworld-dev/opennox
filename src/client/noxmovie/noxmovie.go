@@ -36,6 +36,7 @@ type MoviePlayer struct {
 	audioDrv     ail.Driver
 	audioSrc     ail.Sample
 	audioBuffers openal.Buffers
+	audioGain    float32
 	stop         chan struct{}
 }
 
@@ -102,6 +103,7 @@ func NewPlayerWithHandle(file io.ReadSeekCloser, mvSeat seat.Seat, audioDrv ail.
 		audioSrc:  audioSrc,
 		stop:      stop,
 		oldInputs: oldInputs,
+		audioGain: 1,
 	}
 
 	// TODO: actually replace the preexisting events
@@ -178,6 +180,10 @@ func convertSampleToData(samples []wav.Sample, format openal.Format) []byte {
 	return output
 }
 
+func (player *MoviePlayer) SetAudioGain(v float32) {
+	player.audioGain = v
+}
+
 func (player *MoviePlayer) Play() {
 	// TODO: if we got no audio, we could probably still keep displaying frames...
 	// Note that the frame delays are all calculated based on sound position
@@ -188,7 +194,7 @@ func (player *MoviePlayer) Play() {
 	}
 	alSrc := openal.Source(*audioSrc)
 	alSrc.SetPosition(&openal.Vector{0, 0, 0})
-	alSrc.SetGain(1)
+	alSrc.SetGain(player.audioGain)
 
 	framesChan := make(chan *Frame, player.movie.Header.Fps)
 

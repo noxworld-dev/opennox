@@ -98,9 +98,9 @@ func parseLegacyConfig(r io.Reader, skip bool) error {
 }
 
 func nox_common_parsecfg_all(sect cfg.Section) error {
-	legacy.Sub_486670(0x4000, 0)
-	legacy.Sub_486670(0x4000, 1)
-	legacy.Sub_486670(0x4000, 2)
+	configSetVolume(VolumeMax, VolumeFX)
+	configSetVolume(VolumeMax, VolumeDialog)
+	configSetVolume(VolumeMax, VolumeMusic)
 	for _, kv := range sect {
 		switch kv.Key {
 		case "Version":
@@ -144,15 +144,15 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			legacyGamma2Set = true
 			legacyGamma2 = v
 		case "FXVolume":
-			if err := sub_432CB0(kv.Value, 0); err != nil {
+			if err := configParseVolume(kv.Value, VolumeFX); err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 		case "DialogVolume":
-			if err := sub_432CB0(kv.Value, 1); err != nil {
+			if err := configParseVolume(kv.Value, VolumeDialog); err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 		case "MusicVolume":
-			if err := sub_432CB0(kv.Value, 2); err != nil {
+			if err := configParseVolume(kv.Value, VolumeMusic); err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 		case "LastServer":
@@ -578,20 +578,57 @@ var configConnTypes = []struct {
 	{Name: "Undefined", Val: 0x0},
 }
 
-func sub_432CB0(val string, ind int) error {
+type VolumeControl int
+
+const (
+	VolumeMax = 0x4000
+)
+
+const (
+	VolumeFX     = VolumeControl(0)
+	VolumeDialog = VolumeControl(1)
+	VolumeMusic  = VolumeControl(2)
+)
+
+func configParseVolume(val string, ind VolumeControl) error {
 	v, err := strconv.ParseUint(val, 10, 32)
 	if err != nil {
 		return err
 	}
-	if v&0x80000000 == 0 {
-		if v > 0x4000 {
-			v = 0x4000
-		}
-		legacy.Sub_486670(int(v), ind)
-	} else {
-		legacy.Sub_486670(0, ind)
+	if v < 0 {
+		v = 0
+	} else if v > VolumeMax {
+		v = VolumeMax
 	}
+	configSetVolume(int(v), ind)
 	return nil
+}
+
+func configSetVolume(val int, ind VolumeControl) {
+	switch ind {
+	case VolumeFX:
+		*memmap.PtrInt32(0x587000, 155048) = int32(val)
+	case VolumeDialog:
+		*memmap.PtrInt32(0x587000, 155052) = int32(val)
+	case VolumeMusic:
+		*memmap.PtrInt32(0x587000, 155056) = int32(val)
+	}
+}
+
+func configGetVolume(ind VolumeControl) int {
+	switch ind {
+	case VolumeFX:
+		return int(memmap.Int32(0x587000, 155048))
+	case VolumeDialog:
+		return int(memmap.Int32(0x587000, 155052))
+	case VolumeMusic:
+		return int(memmap.Int32(0x587000, 155056))
+	}
+	return VolumeMax
+}
+
+func configGetVolumeGain(ind VolumeControl) float32 {
+	return float32(configGetVolume(ind)) / float32(VolumeMax)
 }
 
 func sub_432E50(val string, ind int) error {
