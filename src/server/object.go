@@ -1314,11 +1314,11 @@ func (obj *Object) CallCollide(a2, a3 int) {
 	}
 }
 
-func (obj *Object) CallDamage(who Obj, a3 Obj, dmg int, typ object.DamageType) int {
+func (obj *Object) CallDamage(who Obj, a3 Obj, dmg int, typ object.DamageType) bool {
 	if obj.Damage != nil {
-		return ccall.CallIntUPtr5(obj.Damage, uintptr(obj.CObj()), uintptr(toObjectC(who)), uintptr(toObjectC(a3)), uintptr(uint(dmg)), uintptr(typ))
+		return ccall.CallIntUPtr5(obj.Damage, uintptr(obj.CObj()), uintptr(toObjectC(who)), uintptr(toObjectC(a3)), uintptr(uint(dmg)), uintptr(typ)) != 0
 	}
-	return 0
+	return false
 }
 
 func (obj *Object) CallDrop(it Obj, pos types.Pointf) int {

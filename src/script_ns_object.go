@@ -441,12 +441,12 @@ func (obj nsObj) PushTo(p ns4.Positioner, force float32) {
 	}
 }
 
-func (obj nsObj) Damage(source ns4.Obj, amount int, typ damage.Type) {
+func (obj nsObj) Damage(source ns4.Obj, amount int, typ damage.Type) bool {
 	var src *server.Object
 	if source != nil {
 		src = source.(nsObj).Object.SObj()
 	}
-	obj.Object.DoDamage(src, amount, object.DamageType(typ))
+	return obj.Object.DoDamage(src, amount, object.DamageType(typ))
 }
 
 func (obj nsObj) DeleteAfter(dt ns4.Duration) {

@@ -896,7 +896,7 @@ func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
 	return obj.SObj().CallXfer(a2)
 }
 
-func (obj *Object) CallDamage(who, a3 server.Obj, dmg int, typ object.DamageType) int {
+func (obj *Object) CallDamage(who, a3 server.Obj, dmg int, typ object.DamageType) bool {
 	return obj.SObj().CallDamage(who, a3, dmg, typ)
 }
 
@@ -1122,16 +1122,16 @@ func (obj *Object) Pause(dt ns4.Duration) {
 	sub_516090(obj.SObj(), obj.Server().AsFrames(dt))
 }
 
-func (obj *Object) DoDamage(source *server.Object, amount int, typ object.DamageType) {
+func (obj *Object) DoDamage(source *server.Object, amount int, typ object.DamageType) bool {
 	if obj == nil || amount <= 0 {
-		return
+		return false
 	}
 	if typ == object.DamageTrue {
 		legacy.Nox_xxx_unitDamageClear_4EE5E0(obj.SObj(), amount)
-		return
+		return true
 	}
 	owner := source.FindOwnerChainPlayer()
-	obj.CallDamage(owner, source, amount, typ)
+	return obj.CallDamage(owner, source, amount, typ)
 }
 
 func (obj *Object) Chat(message ns4.StringID) {
