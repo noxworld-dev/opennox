@@ -9,9 +9,9 @@ require (
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20230831140413-02623e75408e
 	github.com/noxworld-dev/noxscript/ns v1.0.2
-	github.com/noxworld-dev/noxscript/ns/v3 v3.4.0
-	github.com/noxworld-dev/noxscript/ns/v4 v4.15.0
-	github.com/noxworld-dev/opennox-lib v0.0.0-20231215190404-9cc74c8b7afa
+	github.com/noxworld-dev/noxscript/ns/v3 v3.4.3
+	github.com/noxworld-dev/noxscript/ns/v4 v4.15.1
+	github.com/noxworld-dev/opennox-lib v0.0.0-20240106133325-74694098a785
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
@@ -41,6 +41,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/huin/goupnp v1.0.2 // indirect
 	github.com/icza/bitio v1.1.0 // indirect
@@ -56,6 +57,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
+	github.com/shoenig/test v1.7.0 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
