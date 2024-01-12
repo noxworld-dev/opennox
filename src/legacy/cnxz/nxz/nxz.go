@@ -47,15 +47,18 @@ func DecompressFile(src, dst string) error {
 	dbuf, dfree := alloc.Make([]byte{}, dstSz)
 	defer dfree()
 
-	sleft := srcSz
-	dleft := dstSz
-
 	dec := NewDecoder()
-	for sleft > 0 && dleft > 0 {
-		if err := dec.Decode(dbuf[dstSz-dleft:], sbuf[srcSz-sleft:], &dleft, &sleft); err != nil {
+	dstBuf, srcBuf := dbuf, sbuf
+	for {
+		nDst, nSrc, err := dec.Decode(dstBuf, srcBuf)
+		if err == io.EOF {
+			break
+		} else if err != nil {
 			dec.Free()
 			return err
 		}
+		dstBuf = dstBuf[nDst:]
+		srcBuf = srcBuf[nSrc:]
 	}
 	dec.Free()
 
