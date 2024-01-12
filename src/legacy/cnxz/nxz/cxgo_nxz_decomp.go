@@ -123,20 +123,20 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 	)
 	var recs [tableSize3]decoderRec
 	dstPtr := &dst[0]
-	srcPtr := src
+	srcInd := 0
 	dstPtrEnd := unsafe.Add(unsafe.Pointer(&dst[0]), len(dst))
 	dec.field148 = 0
 	for {
 		v8 := int32(dec.field148)
 		if v8 < 4 {
-			if len(srcPtr) == 0 {
+			if srcInd >= len(src) {
 				v9 = -1
 				dec.field148 = 0
 				v63 = -1
 				goto LABEL_9
 			}
-			v10 = int32(uint32(int32(srcPtr[0])<<(24-v8)) | dec.field144)
-			srcPtr = srcPtr[1:]
+			v10 = int32(uint32(int32(src[srcInd])<<(24-v8)) | dec.field144)
+			srcInd++
 			dec.field144 = uint32(v10)
 			dec.field148 = uint32(v8 + 8)
 		}
@@ -157,9 +157,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			dec.field144 <<= uint32(v12)
 			dec.field148 -= uint32(v12)
 			v9 = v63
-		} else if len(srcPtr) > 0 {
-			v16 = int32(uint32(int32(srcPtr[0])<<(24-v14)) | dec.field144)
-			srcPtr = srcPtr[1:]
+		} else if srcInd < len(src) {
+			v16 = int32(uint32(int32(src[srcInd])<<(24-v14)) | dec.field144)
+			srcInd++
 			dec.field144 = uint32(v16)
 			dec.field148 = uint32(v14 + 8)
 			v15 = int32(dec.field144 >> uint32(32-v12))
@@ -202,11 +202,11 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 					if v24 >= 1 {
 						goto LABEL_29
 					}
-					if len(srcPtr) == 0 {
+					if srcInd >= len(src) {
 						break
 					}
-					v25 = int32(uint32(int32(srcPtr[0])<<(24-v24)) | dec.field144)
-					srcPtr = srcPtr[1:]
+					v25 = int32(uint32(int32(src[srcInd])<<(24-v24)) | dec.field144)
+					srcInd++
 					dec.field144 = uint32(v25)
 					dec.field148 = uint32(v24 + 8)
 				LABEL_29:
@@ -248,9 +248,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			v33 = int32(dec.field144 << uint32(v29))
 			dec.field148 -= uint32(v29)
 			dec.field144 = uint32(v33)
-		} else if len(srcPtr) > 0 {
-			v32 = int32(uint32(int32(srcPtr[0])<<(24-v30)) | dec.field144)
-			srcPtr = srcPtr[1:]
+		} else if srcInd < len(src) {
+			v32 = int32(uint32(int32(src[srcInd])<<(24-v30)) | dec.field144)
+			srcInd++
 			dec.field144 = uint32(v32)
 			dec.field148 = uint32(v30 + 8)
 			v31 = int32(dec.field144 >> uint32(32-v29))
@@ -266,13 +266,13 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		v34 = int32(dec.field148)
 		v67 = v28
 		if v34 < 3 {
-			if len(srcPtr) == 0 {
+			if srcInd >= len(src) {
 				dec.field148 = 0
 				v71 = -1
 				goto LABEL_48
 			}
-			v35 = int32(uint32(int32(srcPtr[0])<<(24-v34)) | dec.field144)
-			srcPtr = srcPtr[1:]
+			v35 = int32(uint32(int32(src[srcInd])<<(24-v34)) | dec.field144)
+			srcInd++
 			dec.field144 = uint32(v35)
 			dec.field148 = uint32(v34 + 8)
 		}
@@ -293,9 +293,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			dec.field144 = v41 << 8
 			dec.field148 -= 8
 			v39 = int32(v41 >> 24)
-		} else if len(srcPtr) > 0 {
-			v40 = int32(uint32(int32(srcPtr[0])<<(24-v38)) | dec.field144)
-			srcPtr = srcPtr[1:]
+		} else if srcInd < len(src) {
+			v40 = int32(uint32(int32(src[srcInd])<<(24-v38)) | dec.field144)
+			srcInd++
 			dec.field144 = uint32(v40)
 			dec.field148 = uint32(v38 + 8)
 			v41 = dec.field144
@@ -314,9 +314,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			v44 = int32(dec.field144 << uint32(v37))
 			dec.field148 -= uint32(v37)
 			dec.field144 = uint32(v44)
-		} else if len(srcPtr) > 0 {
-			dec.field144 |= uint32(int32(srcPtr[0]) << (24 - v42))
-			srcPtr = srcPtr[1:]
+		} else if srcInd < len(src) {
+			dec.field144 |= uint32(int32(src[srcInd]) << (24 - v42))
+			srcInd++
 			dec.field148 = uint32(v42 + 8)
 			v43 = int32(dec.field144 >> uint32(32-v37))
 			v44 = int32(dec.field144 << uint32(v37))
@@ -384,15 +384,10 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		dec.field4 += uint32(v47)
 		dstPtr = v68
 	LABEL_73:
-		if len(srcPtr) == 0 {
+		if srcInd >= len(src) {
 			return 0, 0, io.ErrUnexpectedEOF
 		}
 	}
 	dn = int(uintptr(unsafe.Pointer(dstPtr)) - uintptr(unsafe.Pointer(&dst[0])))
-	if len(srcPtr) == 0 {
-		sn = len(src)
-	} else {
-		sn = int(uintptr(unsafe.Pointer(&srcPtr[0])) - uintptr(unsafe.Pointer(&src[0])))
-	}
-	return dn, sn, nil
+	return dn, srcInd, nil
 }
