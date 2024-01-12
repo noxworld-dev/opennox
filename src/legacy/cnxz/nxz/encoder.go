@@ -18,9 +18,9 @@ type Encoder struct {
 }
 
 type encoderData struct {
-	field0 Common       // 0, 0
-	field4 uint32       // 1, 4
-	field8 *[274]uint32 // 2, 8
+	field0 Common              // 0, 0
+	field4 uint32              // 1, 4
+	field8 *[tableSize3]uint32 // 2, 8
 }
 
 func NewEncoder() *Encoder {
@@ -38,7 +38,7 @@ func NewEncoder() *Encoder {
 func initEncData(d *encoderData) {
 	initCommon(&d.field0)
 	d.field4 = 4096
-	d.field8, _ = alloc.New([274]uint32{})
+	d.field8, _ = alloc.New([tableSize3]uint32{})
 	*d.field8 = nxz_table_6
 }
 

@@ -71,7 +71,7 @@ func sub_57DEA0(this *uint32, a2 *uint16) int32 {
 	)
 	v2 = a2
 	v3 = 0
-	for i = 0; i < 274; i++ {
+	for i = 0; i < tableSize3; i++ {
 		*v2 = uint16(int16(i))
 		v2 = (*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*2))
 		*((*uint16)(unsafe.Add(unsafe.Pointer(v2), -int(unsafe.Sizeof(uint16(0))*1)))) = *(*uint16)(unsafe.Pointer(uintptr(*this + uint32(i*2))))
@@ -80,7 +80,7 @@ func sub_57DEA0(this *uint32, a2 *uint16) int32 {
 		v3 += int32(v6)
 		*v5 = int16(int32(v6) >> 1)
 	}
-	sub_57DDE0(int32(uintptr(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer(a2), -int(unsafe.Sizeof(uint16(0))*2)))))), 274)
+	sub_57DDE0(int32(uintptr(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer(a2), -int(unsafe.Sizeof(uint16(0))*2)))))), tableSize3)
 	return v3
 }
 func sub_57DFC0(this *uint32, a2 *int32) int32 {
@@ -165,9 +165,9 @@ func sub_57DFC0(this *uint32, a2 *int32) int32 {
 		for {
 			v49 = 0
 			v9 = 1 << v4
-			if v5+(1<<v4)+v7 > 274 {
+			if v5+(1<<v4)+v7 > tableSize3 {
 				v49 = 1
-				v9 = 274 - v5
+				v9 = tableSize3 - v5
 			}
 			if v7 < v9 {
 				v10 = v7 + v5
@@ -228,9 +228,9 @@ func sub_57DFC0(this *uint32, a2 *int32) int32 {
 	v47 = 0
 	v50 = math.MaxInt32
 	v53 = 0
-	if v5 < 274 {
+	if v5 < tableSize3 {
 		v18 = &v60[v5*4+6]
-		v19 = 274 - v5
+		v19 = tableSize3 - v5
 		for {
 			v17 += int32(*(*int16)(unsafe.Pointer(v18)))
 			v18 = (*byte)(unsafe.Add(unsafe.Pointer(v18), 4))
@@ -243,7 +243,7 @@ func sub_57DFC0(this *uint32, a2 *int32) int32 {
 	}
 	v20 = 0
 	v21 = 1
-	if v5+1 <= 274 {
+	if v5+1 <= tableSize3 {
 		for {
 			if v15 < v21 {
 				v22 = v15 + v5
@@ -260,7 +260,7 @@ func sub_57DFC0(this *uint32, a2 *int32) int32 {
 				}
 			}
 			v25 = 0
-			v26 = 274 - v15 - v5
+			v26 = tableSize3 - v15 - v5
 			if v26 > 1 {
 				for {
 					v25++
@@ -282,7 +282,7 @@ func sub_57DFC0(this *uint32, a2 *int32) int32 {
 				*p++
 				return *p
 			}()
-			if v5+(1<<v20)+v15 > 274 {
+			if v5+(1<<v20)+v15 > tableSize3 {
 				break
 			}
 		}
@@ -324,9 +324,9 @@ func sub_57DFC0(this *uint32, a2 *int32) int32 {
 	for {
 		v34 = *v27
 		v35 = 1 << *v27
-		result = 274 - v32
+		result = tableSize3 - v32
 		v57 = v35
-		if v35 < 274-v32 {
+		if v35 < tableSize3-v32 {
 			result = v35
 		}
 		v37 = 0

@@ -4,7 +4,10 @@ import (
 	"unsafe"
 )
 
-const bufferSize = 64 * 1024
+const (
+	bufferSize = 64 * 1024
+	tableSize3 = 274
+)
 
 type Common struct {
 	field0 unsafe.Pointer // 0, 0 (8)

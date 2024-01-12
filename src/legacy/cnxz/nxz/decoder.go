@@ -11,15 +11,15 @@ var _ = [1]struct{}{}[152-unsafe.Sizeof(Decoder{})]
 type Decoder struct {
 	buf0     *[bufferSize]byte // 0, 0
 	field4   uint32            // 1, 4
-	field8   decoderData       // 2, 8
+	data8    decoderData       // 2, 8
 	field144 uint32            // 36, 144
 	field148 uint32            // 37, 148
 }
 
 type decoderData struct {
-	field0   Common     // 0, 0 (8)
-	field4   [32]uint32 // 1, 4
-	field132 *[548]byte // 33, 132
+	field0   Common             // 0, 0 (8)
+	field4   [32]uint32         // 1, 4
+	field132 *[tableSize3]int16 // 33, 132
 }
 
 func NewDecoder() *Decoder {
@@ -29,7 +29,7 @@ func NewDecoder() *Decoder {
 	}
 	dec.buf0, _ = alloc.New([bufferSize]byte{})
 	dec.field4 = 0
-	initDecData(&dec.field8)
+	initDecData(&dec.data8)
 	dec.field144 = 0
 	dec.field148 = 0
 	return dec
@@ -37,7 +37,7 @@ func NewDecoder() *Decoder {
 
 func initDecData(d *decoderData) {
 	initCommon(&d.field0)
-	d.field132, _ = alloc.New([548]byte{})
+	d.field132, _ = alloc.New([tableSize3]int16{})
 	*d.field132 = nxz_table_3
 	d.field4 = nxz_table_4
 }
@@ -46,7 +46,7 @@ func (dec *Decoder) Free() {
 	if dec == nil {
 		return
 	}
-	freeDecData(&dec.field8)
+	freeDecData(&dec.data8)
 	alloc.Free(dec.buf0)
 	dec.buf0 = nil
 	alloc.Free(dec)
