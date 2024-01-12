@@ -15,18 +15,18 @@ func sub57DDE0(a1 *decoderRec, a2 int32) {
 			for {
 				v6 := v5 * 4
 				v10 := v5
-				v12 := *(*decoderRec)(unsafe.Add(unsafe.Pointer(v2), v5*4))
+				v12 := *(*decoderRec)(unsafe.Add(unsafe.Pointer(v2), (v5-1)*4))
 				if v5 > i {
 					v7 := i * 4
 					for {
-						v8 := int32(*(*int16)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7)+2))) - int32(v12.val2)
+						v8 := int32(*(*int16)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7-4)+2))) - int32(v12.val2)
 						if v8 == 0 {
-							v8 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7)))) - int32(v12.ind0)
+							v8 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7-4)))) - int32(v12.ind0)
 						}
 						if v8 >= 0 {
 							break
 						}
-						*(*uint32)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7)))
+						*(*uint32)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-4))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7-4)))
 						v6 -= v7
 						v10 -= i
 						if v10 <= i {
@@ -36,7 +36,7 @@ func sub57DDE0(a1 *decoderRec, a2 int32) {
 					v5 = v11
 				}
 				v5++
-				*(*decoderRec)(unsafe.Add(unsafe.Pointer(v2), uintptr(v10*4))) = v12
+				*(*decoderRec)(unsafe.Add(unsafe.Pointer(v2), uintptr((v10-1)*4))) = v12
 				v3 = a2
 				v11 = v5
 				if v5 > a2 {
@@ -56,7 +56,7 @@ func sub57DEA0(d *decoderData, arr []decoderRec) int {
 		n += int(*p)
 		*p /= 2
 	}
-	sub57DDE0((*decoderRec)(unsafe.Add(unsafe.Pointer(&arr[0]), -4)), tableSize3)
+	sub57DDE0(&arr[0], tableSize3)
 	return n
 }
 func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int) int {
