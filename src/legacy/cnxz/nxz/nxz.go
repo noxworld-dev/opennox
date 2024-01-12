@@ -30,12 +30,12 @@ func DecompressFile(src, dst string) error {
 	if err != nil {
 		return err
 	}
-	srcSz := int32(fi.Size() - 4)
+	srcSz := int(fi.Size() - 4)
 	var buf [4]byte
 	if _, err = io.ReadFull(r, buf[:4]); err != nil {
 		return err
 	}
-	dstSz := int32(binary.LittleEndian.Uint32(buf[:]))
+	dstSz := int(binary.LittleEndian.Uint32(buf[:]))
 
 	sbuf, sfree := alloc.Make([]byte{}, srcSz)
 	defer sfree()
@@ -47,8 +47,8 @@ func DecompressFile(src, dst string) error {
 	dbuf, dfree := alloc.Make([]byte{}, dstSz)
 	defer dfree()
 
-	sleft := int32(srcSz)
-	dleft := int32(dstSz)
+	sleft := srcSz
+	dleft := dstSz
 
 	dec := NewDecoder()
 	for sleft > 0 && dleft > 0 {

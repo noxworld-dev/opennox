@@ -83,7 +83,7 @@ func sub57DEA0(this *uint32, a2 *uint16) int32 {
 	sub57DDE0(int32(uintptr(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer(a2), -int(unsafe.Sizeof(uint16(0))*2)))))), 274)
 	return v3
 }
-func nxz_decompress(dec *Decoder, dst []byte, dstSz *int32, src []byte, srcSz *int32) int {
+func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int) int {
 	var (
 		v8  int32
 		v9  int32
@@ -471,10 +471,10 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int32, src []byte, srcSz *i
 		srcPtrEnd = srcPtrEnd2
 	}
 	if dstSz != nil {
-		*dstSz += int32(uintptr(unsafe.Pointer(v74)) - uintptr(unsafe.Pointer(dstPtr)))
+		*dstSz += int(uintptr(unsafe.Pointer(v74)) - uintptr(unsafe.Pointer(dstPtr)))
 	}
 	if srcSz != nil {
-		*srcSz += int32(uintptr(unsafe.Pointer(v73)) - uintptr(unsafe.Pointer(srcPtr2)))
+		*srcSz += int(uintptr(unsafe.Pointer(v73)) - uintptr(unsafe.Pointer(srcPtr2)))
 	}
 	return 1
 }

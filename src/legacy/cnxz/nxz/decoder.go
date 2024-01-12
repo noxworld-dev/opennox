@@ -58,6 +58,6 @@ func freeDecData(d *decoderData) {
 	freeCommon(&d.field0)
 }
 
-func (dec *Decoder) Decode(dst, src []byte, dstSz, srcSz *int32) bool {
+func (dec *Decoder) Decode(dst, src []byte, dstSz, srcSz *int) bool {
 	return nxz_decompress(dec, dst, dstSz, src, srcSz) != 0
 }
