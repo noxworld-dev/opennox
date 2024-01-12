@@ -5,41 +5,28 @@ import (
 	"unsafe"
 )
 
-func sub57DDE0(a1 int32, a2 int32) uint32 {
-	var (
-		v2     int32
-		v3     int32
-		i      int32
-		v5     int32
-		v6     int32
-		v7     int32
-		v8     int32
-		result uint32
-		v10    int32
-		v11    int32
-		v12    int32
-	)
-	v2 = a1
-	v3 = a2
-	for i = 40; i > 0; i /= 3 {
-		v5 = i + 1
-		v11 = i + 1
+func sub57DDE0(a1 *int16, a2 int32) {
+	v2 := a1
+	v3 := a2
+	for i := int32(40); i > 0; i /= 3 {
+		v5 := i + 1
+		v11 := i + 1
 		if i+1 <= v3 {
 			for {
-				v6 = v5 * 4
-				v10 = v5
-				v12 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5*4 + v2))))
+				v6 := v5 * 4
+				v10 := v5
+				v12 := int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), v5*4)))
 				if v5 > i {
-					v7 = i * 4
+					v7 := i * 4
 					for {
-						v8 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v6-v7+v2)), 2))) - int32(*(*int16)(unsafe.Add(unsafe.Pointer(&v12), unsafe.Sizeof(int16(0))*1)))
+						v8 := int32(*(*int16)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7)+2))) - int32(*(*int16)(unsafe.Add(unsafe.Pointer(&v12), unsafe.Sizeof(int16(0))*1)))
 						if v8 == 0 {
-							v8 = int32(*(*int16)(unsafe.Pointer(uintptr(v6 - v7 + v2)))) - int32(int16(v12))
+							v8 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7)))) - int32(int16(v12))
 						}
 						if v8 >= 0 {
 							break
 						}
-						*(*uint32)(unsafe.Pointer(uintptr(v6 + v2))) = *(*uint32)(unsafe.Pointer(uintptr(v6 - v7 + v2)))
+						*(*uint32)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), uintptr(v6-v7)))
 						v6 -= v7
 						v10 -= i
 						if v10 <= i {
@@ -49,7 +36,7 @@ func sub57DDE0(a1 int32, a2 int32) uint32 {
 					v5 = v11
 				}
 				v5++
-				*(*uint32)(unsafe.Pointer(uintptr(v2 + v10*4))) = uint32(v12)
+				*(*uint32)(unsafe.Add(unsafe.Pointer(v2), uintptr(v10*4))) = uint32(v12)
 				v3 = a2
 				v11 = v5
 				if v5 > a2 {
@@ -57,30 +44,21 @@ func sub57DDE0(a1 int32, a2 int32) uint32 {
 				}
 			}
 		}
-		result = uint32(i/3) >> 31
 	}
-	return result
 }
-func sub57DEA0(this *uint32, a2 *uint16) int32 {
-	var (
-		v2 *uint16
-		v3 int32
-		i  int32
-		v5 *int16
-		v6 int16
-	)
-	v2 = a2
-	v3 = 0
-	for i = 0; i < 274; i++ {
-		*v2 = uint16(int16(i))
-		v2 = (*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*2))
+func sub57DEA0(this *uint32, a2 *int16) int {
+	v2 := a2
+	v3 := 0
+	for i := 0; i < 274; i++ {
+		*v2 = int16(i)
+		v2 = (*int16)(unsafe.Add(unsafe.Pointer(v2), 4))
 		*((*uint16)(unsafe.Add(unsafe.Pointer(v2), -int(unsafe.Sizeof(uint16(0))*1)))) = *(*uint16)(unsafe.Pointer(uintptr(*this + uint32(i*2))))
-		v5 = (*int16)(unsafe.Pointer(uintptr(*this + uint32(i*2))))
-		v6 = *v5
-		v3 += int32(v6)
-		*v5 = int16(int32(v6) >> 1)
+		v5 := (*int16)(unsafe.Pointer(uintptr(*this + uint32(i*2))))
+		v6 := *v5
+		v3 += int(v6)
+		*v5 = v6 / 2
 	}
-	sub57DDE0(int32(uintptr(unsafe.Pointer((*uint16)(unsafe.Add(unsafe.Pointer(a2), -int(unsafe.Sizeof(uint16(0))*2)))))), 274)
+	sub57DDE0((*int16)(unsafe.Add(unsafe.Pointer(a2), -4)), 274)
 	return v3
 }
 func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int) int {
@@ -97,8 +75,6 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		v17 int32
 		v18 int32
 		v19 int32
-		v20 *byte
-		v21 int16
 		v22 int32
 		v23 *uint32
 		v24 int32
@@ -147,7 +123,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		v68 *uint8
 		v70 int32
 		v71 int32
-		v75 [1096]byte
+		v75 [274 * 2]int16
 	)
 	dstPtr := &dst[0]
 	srcPtr := &src[0]
@@ -240,12 +216,12 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			return 0
 		}
 		if v13 == 272 {
-			sub57DEA0((*uint32)(unsafe.Add(decP, 4*2)), (*uint16)(unsafe.Pointer(&v75[0])))
+			sub57DEA0((*uint32)(unsafe.Add(decP, 4*2)), &v75[0])
 			v19 = 0
-			v20 = &v75[0]
+			v20 := v75[:]
 			for {
-				v21 = int16(*(*uint16)(unsafe.Pointer(v20)))
-				v20 = (*byte)(unsafe.Add(unsafe.Pointer(v20), 4))
+				v21 := v20[0]
+				v20 = v20[2:]
 				*(*uint16)(unsafe.Pointer(uintptr(uint32(v19) + *(*uint32)(unsafe.Add(decP, 4*35))))) = uint16(v21)
 				v19 += 2
 				if v19 >= 548 {
