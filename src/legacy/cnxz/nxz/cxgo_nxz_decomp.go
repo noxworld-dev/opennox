@@ -233,8 +233,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int32, src []byte, srcSz *i
 				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 				return x
 			}() = uint8(int8(v13))
-			v18 = int32(*(*uint32)(unsafe.Add(decP, 4*1)))
-			*(*uint32)(unsafe.Add(decP, 4*1)) = uint32(v18 + 1)
+			v18 = int32(dec.field4)
+			dec.field4 = uint32(v18 + 1)
 			*(*uint8)(unsafe.Pointer(uintptr(uint32(uint16(int16(v18))) + *((*uint32)(decP))))) = uint8(int8(v13))
 			goto LABEL_73
 			return 0
@@ -413,7 +413,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int32, src []byte, srcSz *i
 		if uintptr(unsafe.Pointer(v68)) > uintptr(unsafe.Pointer(v72)) {
 			return 0
 		}
-		v48 = int32(*(*uint32)(unsafe.Add(decP, 4*1)) - uint32(v46))
+		v48 = int32(dec.field4 - uint32(v46))
 		if v47 >= v46 {
 			v50 = int32(uint16(int16(v48)))
 			if uint32(int32(uint16(int16(v48)))+v46) <= 0x10000 {
@@ -422,7 +422,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int32, src []byte, srcSz *i
 			} else {
 				v51 = int32(0x10000 - uint32(uint16(int16(v48))))
 				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(uint16(int16(v48))))), int(0x10000-uint32(uint16(int16(v48)))))
-				v52 = unsafe.Pointer(uintptr(*((*uint32)(decP))))
+				v52 = unsafe.Pointer(dec.buf0)
 				v53 = uint32(v46 - v51)
 				v45 = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), v51))
 			}
@@ -445,10 +445,10 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int32, src []byte, srcSz *i
 				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(v49))), int(v47))
 			} else {
 				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(v49))), int(0x10000-uint32(v49)))
-				memcpy(unsafe.Add(unsafe.Pointer(dstPtr), 0x10000-uint32(v49)), unsafe.Pointer(uintptr(*((*uint32)(decP)))), int(uint32(v47)-(0x10000-uint32(v49))))
+				memcpy(unsafe.Add(unsafe.Pointer(dstPtr), 0x10000-uint32(v49)), unsafe.Pointer(dec.buf0), int(uint32(v47)-(0x10000-uint32(v49))))
 			}
 		}
-		v57 = int32(*(*uint32)(unsafe.Add(decP, 4*1)) & math.MaxUint16)
+		v57 = int32(dec.field4 & math.MaxUint16)
 		if uint32(v57+v47) <= 0x10000 {
 			v61 = dstPtr
 			v60 = uint32(v47)
@@ -456,13 +456,13 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int32, src []byte, srcSz *i
 		} else {
 			v58 = int32(0x10000 - uint32(v57))
 			memcpy(unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(v57))), unsafe.Pointer(dstPtr), int(0x10000-uint32(v57)))
-			v59 = unsafe.Pointer(uintptr(*((*uint32)(decP))))
+			v59 = unsafe.Pointer(dec.buf0)
 			v60 = uint32(v47 - v58)
 			v61 = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), v58))
 		}
 		srcPtr2 = srcPtr
 		memcpy(v59, unsafe.Pointer(v61), int(v60))
-		*(*uint32)(unsafe.Add(decP, 4*1)) += uint32(v47)
+		dec.field4 += uint32(v47)
 		dstPtr = v68
 	LABEL_73:
 		if uintptr(unsafe.Pointer(srcPtr2)) >= uintptr(srcPtrEnd2) {
