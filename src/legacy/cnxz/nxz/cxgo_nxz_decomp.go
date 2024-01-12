@@ -1,6 +1,8 @@
 package nxz
 
 import (
+	"errors"
+	"io"
 	"math"
 	"unsafe"
 )
@@ -56,7 +58,7 @@ func sub57DEA0(d *decoderData, arr []decoderRec) int {
 	sub57DDE0(arr[:tableSize3])
 	return n
 }
-func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int) int {
+func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int) error {
 	var (
 		v9  int32
 		v10 int32
@@ -127,7 +129,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 	dstPtrEnd := unsafe.Add(unsafe.Pointer(dstPtr), *dstSz)
 	dec.field148 = 0
 	if uintptr(unsafe.Pointer(srcPtr)) >= uintptr(srcPtrEnd) {
-		return 0
+		return io.ErrUnexpectedEOF
 	}
 	for {
 		v8 := int32(dec.field148)
@@ -177,14 +179,14 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		}
 		v17 = int32(uint32(v15) + dec.data8.field4[v9*2+1])
 		if v17 >= tableSize3 {
-			return 0
+			return errors.New("wrong table index")
 		}
 		v13 = int32(dec.data8.field132[v17])
 	LABEL_18:
 		dec.data8.field0.field0[v13]++
 		if v13 < 256 {
 			if uintptr(unsafe.Pointer(dstPtr)) >= uintptr(unsafe.Pointer(dstPtrEnd)) {
-				return 0
+				return io.ErrShortBuffer
 			}
 			*dstPtr = uint8(int8(v13))
 			dstPtr = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), 1))
@@ -340,7 +342,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		v47 = v67 + 4
 		v68 = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), v67+4))
 		if uintptr(unsafe.Pointer(v68)) > uintptr(unsafe.Pointer(dstPtrEnd)) {
-			return 0
+			return io.ErrShortBuffer
 		}
 		v48 = int32(dec.field4 - uint32(v46))
 		if v47 >= v46 {
@@ -395,7 +397,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		dstPtr = v68
 	LABEL_73:
 		if uintptr(unsafe.Pointer(srcPtr2)) >= uintptr(srcPtrEnd2) {
-			return 0
+			return io.ErrUnexpectedEOF
 		}
 		srcPtrEnd = srcPtrEnd2
 	}
@@ -405,5 +407,5 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 	if srcSz != nil {
 		*srcSz += int(uintptr(unsafe.Pointer(srcBase)) - uintptr(unsafe.Pointer(srcPtr2)))
 	}
-	return 1
+	return nil
 }

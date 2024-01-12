@@ -52,8 +52,9 @@ func DecompressFile(src, dst string) error {
 
 	dec := NewDecoder()
 	for sleft > 0 && dleft > 0 {
-		if !dec.Decode(dbuf[dstSz-dleft:], sbuf[srcSz-sleft:], &dleft, &sleft) {
-			break
+		if err := dec.Decode(dbuf[dstSz-dleft:], sbuf[srcSz-sleft:], &dleft, &sleft); err != nil {
+			dec.Free()
+			return err
 		}
 	}
 	dec.Free()
