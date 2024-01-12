@@ -7,13 +7,13 @@ import (
 )
 
 type Decoder struct {
-	src1     []byte
-	err      error
-	buf0     [bufferSize]byte
-	field4   uint32
-	data8    decoderData
-	field144 uint32
-	field148 uint32
+	src1    []byte
+	err     error
+	buf0    [bufferSize]byte
+	field4  uint32
+	data8   decoderData
+	bitsVal uint
+	bitsCnt int
 }
 
 type decoderData struct {
@@ -114,6 +114,9 @@ func (dec *Decoder) Decode(dst []byte) (int, error) {
 	dec.err = err
 	return n, err
 }
+func (dec *Decoder) hasMore() bool {
+	return len(dec.src1) > 0
+}
 func (dec *Decoder) readByte() (byte, bool) {
 	if len(dec.src1) == 0 {
 		return 0, false
@@ -122,62 +125,32 @@ func (dec *Decoder) readByte() (byte, bool) {
 	dec.src1 = dec.src1[1:]
 	return b, true
 }
-func (dec *Decoder) hasMore() bool {
-	return len(dec.src1) > 0
-}
-func (dec *Decoder) readValA() int {
-	if v8 := int32(dec.field148); v8 < 4 {
+func (dec *Decoder) readBits(n int) uint {
+	for dec.bitsCnt < n {
 		b, ok := dec.readByte()
 		if !ok {
-			dec.field148 = 0
-			return -1
+			dec.bitsCnt = 0
+			return math.MaxUint
 		}
-		dec.field144 |= uint32(int32(b) << (24 - v8))
-		dec.field148 = uint32(v8 + 8)
+		dec.bitsVal |= uint(b) << (uintSize - 8 - dec.bitsCnt)
+		dec.bitsCnt += 8
 	}
-	val := dec.field144
-	dec.field144 = val * 16
-	dec.field148 -= 4
-	return int(val >> 28)
+	val := dec.bitsVal >> (uintSize - n)
+	dec.bitsVal <<= n
+	dec.bitsCnt -= n
+	return val
 }
-func (dec *Decoder) readValB(v12 uint32) int {
-	if dec.field148 >= v12 {
-		val := int(dec.field144 >> (32 - v12))
-		dec.field144 <<= v12
-		dec.field148 -= v12
-		return val
-	} else if b, ok := dec.readByte(); ok {
-		dec.field144 |= uint32(int32(b) << (24 - dec.field148))
-		dec.field148 += 8
-		val := int(dec.field144 >> (32 - v12))
-		dec.field144 <<= v12
-		dec.field148 -= v12
-		return val
-	} else {
-		dec.field148 = 0
-		return -1
-	}
+func (dec *Decoder) readBits4() int {
+	return int(dec.readBits(4))
 }
 func (dec *Decoder) decode(dst []byte) (int, error) {
 	var (
 		v22  int32
-		v28  int
 		v29  int32
-		v30  int32
 		v31  int32
-		v32  int32
-		v33  int32
-		v34  int32
-		v35  int32
-		v36  uint32
 		v37  int32
-		v38  int32
 		v39  int32
-		v40  int32
-		v41  uint32
-		v42  int32
 		v43  int32
-		v44  int32
 		v45i int
 		v46  int32
 		v47  int32
@@ -199,17 +172,17 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 	)
 	var recs [tableSize]decoderRec
 	dstInd := 0
-	dec.field148 = 0
+	dec.bitsCnt = 0
 	for {
 		if !dec.hasMore() {
 			return 0, io.ErrUnexpectedEOF
 		}
-		v9 := dec.readValA()
+		v9 := dec.readBits4()
 		var v13 int
-		if v12 := dec.data8.field4[2*v9]; v12 == 0 {
+		if n := int(dec.data8.field4[2*v9]); n == 0 {
 			v13 = int(dec.data8.field132[dec.data8.field4[v9*2+1]])
 		} else {
-			v15 := dec.readValB(v12)
+			v15 := dec.readBits(n)
 			ind := int(uint32(v15) + dec.data8.field4[v9*2+1])
 			if ind >= tableSize {
 				return 0, errors.New("wrong table index")
@@ -238,19 +211,7 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 			for {
 				var ind int
 				for {
-					if int(dec.field148) < 1 {
-						b, ok := dec.readByte()
-						if !ok {
-							dec.field148 = 0
-							break
-						}
-						dec.field144 |= uint32(b) << (24 - dec.field148)
-						dec.field148 += 8
-					}
-					stop := (dec.field144 >> 31) != 0
-					dec.field144 *= 2
-					dec.field148--
-					if stop {
+					if dec.readBits(1) != 0 {
 						break
 					}
 					ind++
@@ -273,90 +234,24 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 		if v13 == 273 {
 			return dstInd, nil
 		}
+		var v28 int
 		if v13 < 264 {
 			v28 = v13 - 256
-			goto LABEL_43
-		}
-		v29 = int32(nxz_table_1[v13].v1)
-		v30 = int32(dec.field148)
-		if v30 >= v29 {
-			v31 = int32(dec.field144 >> uint32(32-v29))
-			v33 = int32(dec.field144 << uint32(v29))
-			dec.field148 -= uint32(v29)
-			dec.field144 = uint32(v33)
-		} else if b, ok := dec.readByte(); ok {
-			v32 = int32(uint32(int32(b)<<(24-v30)) | dec.field144)
-			dec.field144 = uint32(v32)
-			dec.field148 = uint32(v30 + 8)
-			v31 = int32(dec.field144 >> uint32(32-v29))
-			v33 = int32(dec.field144 << uint32(v29))
-			dec.field148 -= uint32(v29)
-			dec.field144 = uint32(v33)
 		} else {
-			dec.field148 = 0
-			v31 = -1
+			v29 = int32(nxz_table_1[v13].v1)
+			v31 = int32(dec.readBits(int(v29)))
+			v28 = int(uint32(v31) + nxz_table_1[v13].v2)
 		}
-		v28 = int(uint32(v31) + nxz_table_1[v13].v2)
-	LABEL_43:
-		v34 = int32(dec.field148)
 		v67 = int32(v28)
-		if v34 < 3 {
-			b, ok := dec.readByte()
-			if !ok {
-				dec.field148 = 0
-				v71 = -1
-				goto LABEL_48
-			}
-			v35 = int32(uint32(int32(b)<<(24-v34)) | dec.field144)
-			dec.field144 = uint32(v35)
-			dec.field148 = uint32(v34 + 8)
-		}
-		v36 = dec.field144
-		dec.field144 = v36 * 8
-		v71 = int32(v36 >> 29)
-		dec.field148 -= 3
-	LABEL_48:
+		v71 = int32(dec.readBits(3))
 		v65 = 0
 		v37 = int32(nxz_table_2[v71+1].v1 + 9)
 		if v37 > 8 {
-			v38 = int32(dec.field148)
 			v37 = int32(nxz_table_2[v71+1].v1 + 1)
-			if v38 >= 8 {
-				v41 = dec.field144
-				dec.field144 = v41 << 8
-				dec.field148 -= 8
-				v39 = int32(v41 >> 24)
-			} else if b, ok := dec.readByte(); ok {
-				v40 = int32(uint32(int32(b)<<(24-v38)) | dec.field144)
-				dec.field144 = uint32(v40)
-				dec.field148 = uint32(v38 + 8)
-				v41 = dec.field144
-				dec.field144 = v41 << 8
-				dec.field148 -= 8
-				v39 = int32(v41 >> 24)
-			} else {
-				dec.field148 = 0
-				v39 = -1
-			}
+			v39 = int32(dec.readBits(8))
 			v65 = v39 << v37
 		}
-		v42 = int32(dec.field148)
-		if v42 >= v37 {
-			v43 = int32(dec.field144 >> uint32(32-v37))
-			v44 = int32(dec.field144 << uint32(v37))
-			dec.field148 -= uint32(v37)
-			dec.field144 = uint32(v44)
-		} else if b, ok := dec.readByte(); ok {
-			dec.field144 |= uint32(int32(b) << (24 - v42))
-			dec.field148 = uint32(v42 + 8)
-			v43 = int32(dec.field144 >> uint32(32-v37))
-			v44 = int32(dec.field144 << uint32(v37))
-			dec.field148 -= uint32(v37)
-			dec.field144 = uint32(v44)
-		} else {
-			dec.field148 = 0
-			v43 = -1
-		}
+		v43 = int32(dec.readBits(int(v37)))
 		v45i = dstInd
 		v46 = int32((nxz_table_2[v71+1].v2 << 9) + uint32(v65|v43))
 		v47 = v67 + 4

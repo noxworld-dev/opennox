@@ -1,12 +1,15 @@
 package nxz
 
 import (
+	"math/bits"
+
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 const (
 	bufferSize = 64 * 1024
 	tableSize  = 274
+	uintSize   = bits.UintSize
 )
 
 type commonData struct {
