@@ -59,5 +59,5 @@ func freeDecData(d *decoderData) {
 }
 
 func (dec *Decoder) Decode(dst, src []byte, dstSz, srcSz *int32) bool {
-	return nxz_decompress(dec, dst, dstSz, src, srcSz) != 0
+	return nxz_decompress(dec, &dst[0], dstSz, &src[0], srcSz) != 0
 }
