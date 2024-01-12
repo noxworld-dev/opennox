@@ -46,14 +46,14 @@ func sub57DDE0(a1 *int16, a2 int32) {
 		}
 	}
 }
-func sub57DEA0(this *uint32, a2 *int16) int {
-	v2 := a2
+func sub57DEA0(d *decoderData, a2 *[2]int16) int {
+	it := a2
 	v3 := 0
 	for i := 0; i < 274; i++ {
-		*v2 = int16(i)
-		v2 = (*int16)(unsafe.Add(unsafe.Pointer(v2), 4))
-		*((*uint16)(unsafe.Add(unsafe.Pointer(v2), -int(unsafe.Sizeof(uint16(0))*1)))) = *(*uint16)(unsafe.Pointer(uintptr(*this + uint32(i*2))))
-		v5 := (*int16)(unsafe.Pointer(uintptr(*this + uint32(i*2))))
+		it[0] = int16(i)
+		it[1] = *(*int16)(unsafe.Add(d.field0.field0, uintptr(i*2)))
+		it = (*[2]int16)(unsafe.Add(unsafe.Pointer(it), 4))
+		v5 := (*int16)(unsafe.Add(d.field0.field0, uintptr(i*2)))
 		v6 := *v5
 		v3 += int(v6)
 		*v5 = v6 / 2
@@ -123,7 +123,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		v68 *uint8
 		v70 int32
 		v71 int32
-		v75 [274 * 2]int16
+		v75 [274][2]int16
 	)
 	dstPtr := &dst[0]
 	srcPtr := &src[0]
@@ -216,13 +216,13 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			return 0
 		}
 		if v13 == 272 {
-			sub57DEA0((*uint32)(unsafe.Add(decP, 4*2)), &v75[0])
+			sub57DEA0(&dec.field8, &v75[0])
 			v19 = 0
 			v20 := v75[:]
 			for {
 				v21 := v20[0]
-				v20 = v20[2:]
-				*(*uint16)(unsafe.Pointer(uintptr(uint32(v19) + *(*uint32)(unsafe.Add(decP, 4*35))))) = uint16(v21)
+				v20 = v20[1:]
+				*(*int16)(unsafe.Pointer(uintptr(uint32(v19) + *(*uint32)(unsafe.Add(decP, 4*35))))) = v21[0]
 				v19 += 2
 				if v19 >= 548 {
 					break
