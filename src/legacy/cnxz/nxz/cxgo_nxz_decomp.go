@@ -67,7 +67,6 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		v15 int32
 		v16 int32
 		v17 int32
-		v18 int32
 		v22 int32
 		v23 *uint32
 		v24 int32
@@ -190,9 +189,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			}
 			*dstPtr = uint8(int8(v13))
 			dstPtr = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), 1))
-			v18 = int32(dec.field4)
-			dec.field4 = uint32(v18 + 1)
-			*(*uint8)(unsafe.Pointer(uintptr(uint32(uint16(int16(v18))) + *((*uint32)(decP))))) = uint8(int8(v13))
+			dec.buf0[dec.field4%bufferSize] = uint8(int8(v13))
+			dec.field4++
 			goto LABEL_73
 		}
 		if v13 == 272 {
