@@ -58,7 +58,7 @@ func sub57DEA0(d *decoderData, arr []decoderRec) int {
 	sub57DDE0(arr[:tableSize3])
 	return n
 }
-func nxz_decompress(dec *Decoder, dst []byte, src []byte) (dn, sn int, _ error) {
+func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 	if len(src) == 0 {
 		return 0, 0, io.EOF
 	}
@@ -122,16 +122,12 @@ func nxz_decompress(dec *Decoder, dst []byte, src []byte) (dn, sn int, _ error) 
 		v71 int32
 	)
 	var recs [tableSize3]decoderRec
-	dstLeft := len(dst)
-	srcLeft := len(src)
 	dstPtr := &dst[0]
 	srcPtr := &src[0]
 	srcPtr2 := srcPtr
-	srcPtrEnd := unsafe.Add(unsafe.Pointer(srcPtr), srcLeft)
-	dstBase := dstPtr
-	srcBase := srcPtr
+	srcPtrEnd := unsafe.Add(unsafe.Pointer(&src[0]), len(src))
 	srcPtrEnd2 := srcPtrEnd
-	dstPtrEnd := unsafe.Add(unsafe.Pointer(dstPtr), dstLeft)
+	dstPtrEnd := unsafe.Add(unsafe.Pointer(&dst[0]), len(dst))
 	dec.field148 = 0
 	if uintptr(unsafe.Pointer(srcPtr)) >= uintptr(srcPtrEnd) {
 		return 0, 0, io.ErrUnexpectedEOF
@@ -406,7 +402,7 @@ func nxz_decompress(dec *Decoder, dst []byte, src []byte) (dn, sn int, _ error) 
 		}
 		srcPtrEnd = srcPtrEnd2
 	}
-	dn = int(uintptr(unsafe.Pointer(dstPtr)) - uintptr(unsafe.Pointer(dstBase)))
-	sn = int(uintptr(unsafe.Pointer(srcPtr2)) - uintptr(unsafe.Pointer(srcBase)))
+	dn = int(uintptr(unsafe.Pointer(dstPtr)) - uintptr(unsafe.Pointer(&dst[0])))
+	sn = int(uintptr(unsafe.Pointer(srcPtr2)) - uintptr(unsafe.Pointer(&src[0])))
 	return dn, sn, nil
 }
