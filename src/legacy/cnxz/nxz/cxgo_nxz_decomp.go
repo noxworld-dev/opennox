@@ -98,15 +98,12 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		v45i int
 		v46  int32
 		v47  int32
-		v48  int32
 		v49  int32
 		v50  int32
 		v51  int32
 		v52  []byte
-		v53  uint32
 		v54  int32
 		v55  int32
-		v57  int32
 		v59  []byte
 		v60  uint32
 		v61i int
@@ -330,20 +327,21 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		if v68i > len(dst) {
 			return 0, 0, io.ErrShortBuffer
 		}
-		v48 = int32(dec.field4 - uint32(v46))
-		if v47 >= v46 {
+		if v48 := int(dec.field4 - uint32(v46)); v47 >= v46 {
 			v50 = int32(uint16(int16(v48)))
+			var v53 int
 			if uint32(int32(uint16(int16(v48)))+v46) <= bufferSize {
-				v53 = uint32(v46)
+				v53 = int(v46)
 				v52 = dec.buf0[v50:]
 			} else {
 				v51 = int32(bufferSize - uint32(uint16(int16(v48))))
-				memcpy(unsafe.Pointer(&dst[dstInd]), unsafe.Pointer(&dec.buf0[v48]), int(bufferSize-v48))
+				n := bufferSize - int(v48)
+				copy(dst[dstInd:dstInd+n], dec.buf0[v48:v48+n])
 				v52 = dec.buf0[:]
-				v53 = uint32(v46 - v51)
+				v53 = int(v46 - v51)
 				v45i = dstInd + int(v51)
 			}
-			memcpy(unsafe.Pointer(&dst[v45i]), unsafe.Pointer(&v52[0]), int(v53))
+			copy(dst[v45i:v45i+v53], v52[:v53])
 			v54 = 0
 			v55 = v47 - v46
 			if v47-v46 > 0 {
@@ -358,25 +356,25 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		} else {
 			v49 = int32(uint16(int16(v48)))
 			if uint32(v49+v47) <= bufferSize {
-				memcpy(unsafe.Pointer(&dst[dstInd]), unsafe.Pointer(&dec.buf0[v49]), int(v47))
+				copy(dst[dstInd:dstInd+int(v47)], dec.buf0[v49:v49+v47])
 			} else {
-				memcpy(unsafe.Pointer(&dst[dstInd]), unsafe.Pointer(&dec.buf0[v49]), int(bufferSize-uint32(v49)))
-				memcpy(unsafe.Pointer(&dst[dstInd+bufferSize-int(v49)]), unsafe.Pointer(&dec.buf0[0]), int(uint32(v47)-(bufferSize-uint32(v49))))
+				n := bufferSize - int(v49)
+				copy(dst[dstInd:dstInd+n], dec.buf0[v49:int(v49)+n])
+				copy(dst[dstInd+n:dstInd+int(v47)], dec.buf0[:int(v47)-n])
 			}
 		}
-		v57 = int32(dec.field4 & math.MaxUint16)
-		if uint32(v57+v47) <= bufferSize {
+		if v57 := int(dec.field4 & math.MaxUint16); v57+int(v47) <= bufferSize {
 			v61i = dstInd
 			v60 = uint32(v47)
 			v59 = dec.buf0[v57:]
 		} else {
-			v58 := bufferSize - int(v57)
-			memcpy(unsafe.Pointer(&dec.buf0[v57]), unsafe.Pointer(&dst[dstInd]), int(bufferSize-uint32(v57)))
+			n := bufferSize - v57
+			copy(dec.buf0[v57:v57+n], dst[dstInd:dstInd+n])
 			v59 = dec.buf0[:]
-			v60 = uint32(int(v47) - v58)
-			v61i = dstInd + v58
+			v60 = uint32(int(v47) - n)
+			v61i = dstInd + n
 		}
-		memcpy(unsafe.Pointer(&v59[0]), unsafe.Pointer(&dst[v61i]), int(v60))
+		copy(v59[:v60], dst[v61i:v61i+int(v60)])
 		dec.field4 += uint32(v47)
 		dstInd = v68i
 	LABEL_73:
