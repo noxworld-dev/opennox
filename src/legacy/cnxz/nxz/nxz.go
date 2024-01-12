@@ -50,13 +50,13 @@ func DecompressFile(src, dst string) error {
 	sleft := int32(srcSz)
 	dleft := int32(dstSz)
 
-	ptr := NewDecompressor()
+	dec := NewDecoder()
 	for sleft > 0 && dleft > 0 {
-		if !ptr.Decompress(dbuf[dstSz-dleft:], sbuf[srcSz-sleft:], &dleft, &sleft) {
+		if !dec.Decode(dbuf[dstSz-dleft:], sbuf[srcSz-sleft:], &dleft, &sleft) {
 			break
 		}
 	}
-	ptr.Free()
+	dec.Free()
 
 	w, err := ifs.Create(dst)
 	if err != nil {
@@ -100,20 +100,16 @@ func CompressFile(src, dst string) error {
 	dbuf, dfree := alloc.Make([]byte{}, compBufferSize(srcSz))
 	defer dfree()
 
-	ptr := nxz_compress_new()
+	enc := NewEncoder()
 	cnt := 0
 	for i := 0; i < srcSz; i += 500000 {
 		v := srcSz - i
 		if v > 500000 {
 			v = 500000
 		}
-		cnt += int(nxz_compress(ptr,
-			(*byte)(unsafe.Pointer(&dbuf[cnt])),
-			(*byte)(unsafe.Pointer(&sbuf[i])),
-			int32(v),
-		))
+		cnt += enc.Encode(dbuf[cnt:], sbuf[i:], v)
 	}
-	nxz_compress_free(ptr)
+	enc.Free()
 
 	w, err := ifs.Create(dst)
 	if err != nil {

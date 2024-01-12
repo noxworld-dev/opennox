@@ -4,10 +4,10 @@ import (
 	"unsafe"
 )
 
+const bufferSize = 64 * 1024
+
 type Common struct {
-	field0   unsafe.Pointer // 0, 0 (8)
-	field4   [32]uint32     // 1, 4
-	field132 *[548]byte     // 33, 132
+	field0 unsafe.Pointer // 0, 0 (8)
 }
 
 func initCommon(c *Common) {

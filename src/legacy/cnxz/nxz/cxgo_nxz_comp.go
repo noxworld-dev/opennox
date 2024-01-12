@@ -5,31 +5,6 @@ import (
 	"unsafe"
 )
 
-func nxz_compress_new() unsafe.Pointer {
-	var (
-		v0 *uint32
-		v2 *uint32
-		v3 int32
-	)
-	v0 = (*uint32)(calloc(1, 0x18))
-	if v0 == nil {
-		return nil
-	}
-	v2 = v0
-	*v0 = uint32(uintptr(calloc(1, 0x10000)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) = 0
-	sub_57DF00((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*5)) = uint32(uintptr(calloc(1, 0x10000)))
-	v3 = 0
-	for {
-		v3 += 2
-		*(*uint16)(unsafe.Pointer(uintptr(uint32(v3) + *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*5)) - 2))) = math.MaxUint16
-		if uint32(v3) >= 0x10000 {
-			break
-		}
-	}
-	return unsafe.Pointer(v2)
-}
 func sub_57DDE0(a1 int32, a2 int32) uint32 {
 	var (
 		v2     int32
