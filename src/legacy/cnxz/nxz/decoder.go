@@ -17,9 +17,9 @@ type Decoder struct {
 }
 
 type decoderData struct {
-	field0   Common             // 0, 0 (8)
-	field4   [32]uint32         // 1, 4
-	field132 *[tableSize3]int16 // 33, 132
+	field0   Common             // 0, 0 (2, 8)
+	field4   [32]uint32         // 1, 4 (3, 12)
+	field132 *[tableSize3]int16 // 33, 132 (35, 140)
 }
 
 type decoderRec struct {
