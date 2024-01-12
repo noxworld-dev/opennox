@@ -46,18 +46,17 @@ func sub57DDE0(a1 *int16, a2 int32) {
 		}
 	}
 }
-func sub57DEA0(d *decoderData, a2 *decoderRec) int {
-	it := a2
+func sub57DEA0(d *decoderData, arr []decoderRec) int {
+	it := arr
 	n := 0
 	for i := range d.field0.field0 {
 		p := &d.field0.field0[i]
-		it.ind0 = int16(i)
-		it.val2 = *p
-		it = (*decoderRec)(unsafe.Add(unsafe.Pointer(it), 4))
+		it[0] = decoderRec{ind0: int16(i), val2: *p}
+		it = it[1:]
 		n += int(*p)
 		*p /= 2
 	}
-	sub57DDE0((*int16)(unsafe.Add(unsafe.Pointer(a2), -4)), tableSize3)
+	sub57DDE0((*int16)(unsafe.Add(unsafe.Pointer(&arr[0]), -4)), tableSize3)
 	return n
 }
 func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int) int {
@@ -214,7 +213,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			goto LABEL_73
 		}
 		if v13 == 272 {
-			sub57DEA0(&dec.data8, &v75[0])
+			sub57DEA0(&dec.data8, v75[:])
 			v19 = 0
 			v20 := v75[:]
 			for {
