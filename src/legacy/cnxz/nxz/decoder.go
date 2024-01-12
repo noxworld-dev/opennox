@@ -4,25 +4,22 @@ import (
 	"errors"
 	"io"
 	"math"
-	"unsafe"
-
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-var _ = [1]struct{}{}[152-unsafe.Sizeof(Decoder{})]
-
 type Decoder struct {
-	buf0     *[bufferSize]byte // 0, 0
-	field4   uint32            // 1, 4
-	data8    decoderData       // 2, 8
-	field144 uint32            // 36, 144
-	field148 uint32            // 37, 148
+	src      []byte
+	err      error
+	buf0     [bufferSize]byte
+	field4   uint32
+	data8    decoderData
+	field144 uint32
+	field148 uint32
 }
 
 type decoderData struct {
-	field0   Common            // 0, 0 (2, 8)
-	field4   [32]uint32        // 1, 4 (3, 12)
-	field132 *[tableSize]int16 // 33, 132 (35, 140)
+	field0   Common
+	field4   [32]uint32
+	field132 [tableSize]int16
 }
 
 type decoderRec struct {
@@ -30,23 +27,17 @@ type decoderRec struct {
 	val2 int16
 }
 
-func NewDecoder() *Decoder {
-	dec, _ := alloc.New(Decoder{})
-	if dec == nil {
-		return nil
+func NewDecoder(src []byte) *Decoder {
+	dec := &Decoder{
+		src: src,
 	}
-	dec.buf0, _ = alloc.New([bufferSize]byte{})
-	dec.field4 = 0
 	initDecData(&dec.data8)
-	dec.field144 = 0
-	dec.field148 = 0
 	return dec
 }
 
 func initDecData(d *decoderData) {
 	initCommon(&d.field0)
-	d.field132, _ = alloc.New([tableSize]int16{})
-	*d.field132 = nxz_table_3
+	d.field132 = nxz_table_3
 	d.field4 = nxz_table_4
 }
 
@@ -55,14 +46,9 @@ func (dec *Decoder) Free() {
 		return
 	}
 	freeDecData(&dec.data8)
-	alloc.Free(dec.buf0)
-	dec.buf0 = nil
-	alloc.Free(dec)
 }
 
 func freeDecData(d *decoderData) {
-	alloc.Free(d.field132)
-	d.field132 = nil
 	freeCommon(&d.field0)
 }
 
@@ -117,10 +103,18 @@ func sub57DEA0(d *decoderData, arr []decoderRec) int {
 	sub57DDE0(arr[:tableSize])
 	return n
 }
-func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
-	if len(src) == 0 {
-		return 0, 0, io.EOF
+func (dec *Decoder) Decode(dst []byte) (int, error) {
+	if len(dec.src) == 0 {
+		if dec.err != nil {
+			return 0, dec.err
+		}
+		return 0, io.EOF
 	}
+	n, err := dec.decode(dst)
+	dec.err = err
+	return n, err
+}
+func (dec *Decoder) decode(dst []byte) (int, error) {
 	var (
 		v9   int32
 		v10  int32
@@ -166,19 +160,18 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 	)
 	var recs [tableSize]decoderRec
 	dstInd := 0
-	srcInd := 0
 	dec.field148 = 0
 	for {
 		var v13 int
 		if v8 := int32(dec.field148); v8 < 4 {
-			if srcInd >= len(src) {
+			if len(dec.src) == 0 {
 				v9 = -1
 				dec.field148 = 0
 				v63 = -1
 				goto LABEL_9
 			}
-			v10 = int32(uint32(int32(src[srcInd])<<(24-v8)) | dec.field144)
-			srcInd++
+			v10 = int32(uint32(int32(dec.src[0])<<(24-v8)) | dec.field144)
+			dec.src = dec.src[1:]
 			dec.field144 = uint32(v10)
 			dec.field148 = uint32(v8 + 8)
 		}
@@ -197,9 +190,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 				dec.field144 <<= uint32(v12)
 				dec.field148 -= uint32(v12)
 				v9 = v63
-			} else if srcInd < len(src) {
-				v16 = int32(uint32(int32(src[srcInd])<<(24-v14)) | dec.field144)
-				srcInd++
+			} else if len(dec.src) > 0 {
+				v16 = int32(uint32(int32(dec.src[0])<<(24-v14)) | dec.field144)
+				dec.src = dec.src[1:]
 				dec.field144 = uint32(v16)
 				dec.field148 = uint32(v14 + 8)
 				v15 = int(dec.field144 >> uint32(32-v12))
@@ -212,14 +205,14 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			}
 			ind := int(uint32(v15) + dec.data8.field4[v9*2+1])
 			if ind >= tableSize {
-				return 0, 0, errors.New("wrong table index")
+				return 0, errors.New("wrong table index")
 			}
 			v13 = int(dec.data8.field132[ind])
 		}
 		dec.data8.field0.field0[v13]++
 		if v13 < 256 {
 			if dstInd >= len(dst) {
-				return 0, 0, io.ErrShortBuffer
+				return 0, io.ErrShortBuffer
 			}
 			dst[dstInd] = uint8(int8(v13))
 			dstInd++
@@ -240,13 +233,13 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 				var ind int
 				for {
 					if int(dec.field148) < 1 {
-						if srcInd >= len(src) {
+						if len(dec.src) == 0 {
 							dec.field148 = 0
 							break
 						}
-						dec.field144 |= uint32(src[srcInd]) << (24 - dec.field148)
+						dec.field144 |= uint32(dec.src[0]) << (24 - dec.field148)
 						dec.field148 += 8
-						srcInd++
+						dec.src = dec.src[1:]
 					}
 					stop := (dec.field144 >> 31) != 0
 					dec.field144 *= 2
@@ -271,7 +264,7 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			}
 		}
 		if v13 == 273 {
-			return dstInd, srcInd, nil
+			return dstInd, nil
 		}
 		if v13 < 264 {
 			v28 = v13 - 256
@@ -284,9 +277,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			v33 = int32(dec.field144 << uint32(v29))
 			dec.field148 -= uint32(v29)
 			dec.field144 = uint32(v33)
-		} else if srcInd < len(src) {
-			v32 = int32(uint32(int32(src[srcInd])<<(24-v30)) | dec.field144)
-			srcInd++
+		} else if len(dec.src) > 0 {
+			v32 = int32(uint32(int32(dec.src[0])<<(24-v30)) | dec.field144)
+			dec.src = dec.src[1:]
 			dec.field144 = uint32(v32)
 			dec.field148 = uint32(v30 + 8)
 			v31 = int32(dec.field144 >> uint32(32-v29))
@@ -302,13 +295,13 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		v34 = int32(dec.field148)
 		v67 = int32(v28)
 		if v34 < 3 {
-			if srcInd >= len(src) {
+			if len(dec.src) == 0 {
 				dec.field148 = 0
 				v71 = -1
 				goto LABEL_48
 			}
-			v35 = int32(uint32(int32(src[srcInd])<<(24-v34)) | dec.field144)
-			srcInd++
+			v35 = int32(uint32(int32(dec.src[0])<<(24-v34)) | dec.field144)
+			dec.src = dec.src[1:]
 			dec.field144 = uint32(v35)
 			dec.field148 = uint32(v34 + 8)
 		}
@@ -329,9 +322,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			dec.field144 = v41 << 8
 			dec.field148 -= 8
 			v39 = int32(v41 >> 24)
-		} else if srcInd < len(src) {
-			v40 = int32(uint32(int32(src[srcInd])<<(24-v38)) | dec.field144)
-			srcInd++
+		} else if len(dec.src) > 0 {
+			v40 = int32(uint32(int32(dec.src[0])<<(24-v38)) | dec.field144)
+			dec.src = dec.src[1:]
 			dec.field144 = uint32(v40)
 			dec.field148 = uint32(v38 + 8)
 			v41 = dec.field144
@@ -350,9 +343,9 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 			v44 = int32(dec.field144 << uint32(v37))
 			dec.field148 -= uint32(v37)
 			dec.field144 = uint32(v44)
-		} else if srcInd < len(src) {
-			dec.field144 |= uint32(int32(src[srcInd]) << (24 - v42))
-			srcInd++
+		} else if len(dec.src) > 0 {
+			dec.field144 |= uint32(int32(dec.src[0]) << (24 - v42))
+			dec.src = dec.src[1:]
 			dec.field148 = uint32(v42 + 8)
 			v43 = int32(dec.field144 >> uint32(32-v37))
 			v44 = int32(dec.field144 << uint32(v37))
@@ -367,7 +360,7 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		v47 = v67 + 4
 		v68i = dstInd + int(v67) + 4
 		if v68i > len(dst) {
-			return 0, 0, io.ErrShortBuffer
+			return 0, io.ErrShortBuffer
 		}
 		if v48 := int(dec.field4 - uint32(v46)); v47 >= v46 {
 			v50 = int32(uint16(int16(v48)))
@@ -420,8 +413,8 @@ func (dec *Decoder) Decode(dst []byte, src []byte) (dn, sn int, _ error) {
 		dec.field4 += uint32(v47)
 		dstInd = v68i
 	LABEL_73:
-		if srcInd >= len(src) {
-			return 0, 0, io.ErrUnexpectedEOF
+		if len(dec.src) == 0 {
+			return 0, io.ErrUnexpectedEOF
 		}
 	}
 }
