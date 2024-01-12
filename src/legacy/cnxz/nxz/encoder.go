@@ -63,8 +63,8 @@ func (enc *Encoder) Free() {
 func (enc *Encoder) Encode(dst, src []byte, sz int) int {
 	return int(nxz_compress(
 		unsafe.Pointer(enc),
-		(*byte)(unsafe.Pointer(&dst[0])),
-		(*byte)(unsafe.Pointer(&src[0])),
+		&dst[0],
+		&src[0],
 		int32(sz),
 	))
 }

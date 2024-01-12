@@ -32,7 +32,7 @@ func sub57DDE0(a1 int32, a2 int32) uint32 {
 				if v5 > i {
 					v7 = i * 4
 					for {
-						v8 = int32(*(*int16)(unsafe.Pointer(uintptr(v6 - v7 + v2 + 2)))) - int32(*(*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(&v12))), unsafe.Sizeof(int16(0))*1)))
+						v8 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(uintptr(v6-v7+v2)), 2))) - int32(*(*int16)(unsafe.Add(unsafe.Pointer(&v12), unsafe.Sizeof(int16(0))*1)))
 						if v8 == 0 {
 							v8 = int32(*(*int16)(unsafe.Pointer(uintptr(v6 - v7 + v2)))) - int32(int16(v12))
 						}
@@ -166,16 +166,16 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 	v73 = a4
 	v69 = a4 + *a5
 	v72 = (*uint8)(unsafe.Add(unsafe.Pointer(a2), *a3))
-	*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(this))), 4*37)) = 0
+	this.field148 = 0
 	if a4 >= v7 {
 		return 0
 	}
 	for {
-		v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)))
+		v8 = int32(*(*uint32)(unsafe.Add(v6, 4*37)))
 		if v8 < 4 {
 			if uint32(uintptr(unsafe.Pointer(v5))) >= v7 {
 				v9 = -1
-				*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = 0
+				*(*uint32)(unsafe.Add(v6, 4*37)) = 0
 				v63 = -1
 				goto LABEL_9
 			}
@@ -184,23 +184,23 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 				x := *p
 				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 				return x
-			}())<<(24-v8)) | *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v10)
+			}())<<(24-v8)) | *(*uint32)(unsafe.Add(v6, 4*36)))
+			*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v10)
 			a4 = uint32(uintptr(unsafe.Pointer(v5)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v8 + 8)
+			*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v8 + 8)
 		}
-		v11 = *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36))
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = v11 * 16
+		v11 = *(*uint32)(unsafe.Add(v6, 4*36))
+		*(*uint32)(unsafe.Add(v6, 4*36)) = v11 * 16
 		v63 = int32(v11 >> 28)
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) -= 4
+		*(*uint32)(unsafe.Add(v6, 4*37)) -= 4
 		v9 = int32(v11 >> 28)
 	LABEL_9:
-		v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*uintptr(v9*2+3))))
+		v12 = int32(*(*uint32)(unsafe.Add(v6, 4*uintptr(v9*2+3))))
 		if v12 == 0 {
-			v13 = int32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*35)) + *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*uintptr(v9*2+4)))*2))))
+			v13 = int32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v6, 4*35)) + *(*uint32)(unsafe.Add(v6, 4*uintptr(v9*2+4)))*2))))
 			goto LABEL_18
 		}
-		v14 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)))
+		v14 = int32(*(*uint32)(unsafe.Add(v6, 4*37)))
 		if v14 >= v12 {
 			goto LABEL_15
 		}
@@ -210,62 +210,63 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 				x := *p
 				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 				return x
-			}())<<(24-v14)) | *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v16)
+			}())<<(24-v14)) | *(*uint32)(unsafe.Add(v6, 4*36)))
+			*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v16)
 			a4 = uint32(uintptr(unsafe.Pointer(v5)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v14 + 8)
+			*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v14 + 8)
 		LABEL_15:
-			v15 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) >> uint32(32-v12))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) <<= uint32(v12)
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) -= uint32(v12)
+			v15 = int32(*(*uint32)(unsafe.Add(v6, 4*36)) >> uint32(32-v12))
+			*(*uint32)(unsafe.Add(v6, 4*36)) <<= uint32(v12)
+			*(*uint32)(unsafe.Add(v6, 4*37)) -= uint32(v12)
 			v9 = v63
 			goto LABEL_16
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = 0
+		*(*uint32)(unsafe.Add(v6, 4*37)) = 0
 		v15 = -1
 	LABEL_16:
-		v17 = int32(uint32(v15) + *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*uintptr(v9*2+4))))
+		v17 = int32(uint32(v15) + *(*uint32)(unsafe.Add(v6, 4*uintptr(v9*2+4))))
 		if v17 >= 274 {
 			return 0
 		}
-		v13 = int32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*35)) + uint32(v17*2)))))
+		v13 = int32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v6, 4*35)) + uint32(v17*2)))))
 	LABEL_18:
-		*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*2)) + uint32(v13*2))))++
+		*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v6, 4*2)) + uint32(v13*2))))++
 		if v13 < 256 {
-			if uintptr(unsafe.Pointer(a2)) < uintptr(unsafe.Pointer(v72)) {
-				*func() *uint8 {
-					p := &a2
-					x := *p
-					*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-					return x
-				}() = uint8(int8(v13))
-				v18 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*1)))
-				*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*1)) = uint32(v18 + 1)
-				*(*uint8)(unsafe.Pointer(uintptr(uint32(uint16(int16(v18))) + *((*uint32)(v6))))) = uint8(int8(v13))
-				goto LABEL_73
+			if uintptr(unsafe.Pointer(a2)) >= uintptr(unsafe.Pointer(v72)) {
+				return 0
 			}
+			*func() *uint8 {
+				p := &a2
+				x := *p
+				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
+				return x
+			}() = uint8(int8(v13))
+			v18 = int32(*(*uint32)(unsafe.Add(v6, 4*1)))
+			*(*uint32)(unsafe.Add(v6, 4*1)) = uint32(v18 + 1)
+			*(*uint8)(unsafe.Pointer(uintptr(uint32(uint16(int16(v18))) + *((*uint32)(v6))))) = uint8(int8(v13))
+			goto LABEL_73
 			return 0
 		}
 		if v13 == 272 {
-			sub57DEA0((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*2)), (*uint16)(unsafe.Pointer(&v75[0])))
+			sub57DEA0((*uint32)(unsafe.Add(v6, 4*2)), (*uint16)(unsafe.Pointer(&v75[0])))
 			v19 = 0
 			v20 = &v75[0]
 			for {
 				v21 = int16(*(*uint16)(unsafe.Pointer(v20)))
 				v20 = (*byte)(unsafe.Add(unsafe.Pointer(v20), 4))
-				*(*uint16)(unsafe.Pointer(uintptr(uint32(v19) + *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*35))))) = uint16(v21)
+				*(*uint16)(unsafe.Pointer(uintptr(uint32(v19) + *(*uint32)(unsafe.Add(v6, 4*35))))) = uint16(v21)
 				v19 += 2
 				if v19 >= 548 {
 					break
 				}
 			}
 			v22 = 0
-			v23 = (*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*4))
+			v23 = (*uint32)(unsafe.Add(v6, 4*4))
 			v70 = 0
 			v66 = 16
 			for {
 				for i = 0; ; i++ {
-					v24 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)))
+					v24 = int32(*(*uint32)(unsafe.Add(v6, 4*37)))
 					if v24 >= 1 {
 						goto LABEL_29
 					}
@@ -277,19 +278,19 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 						x := *p
 						*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 						return x
-					}())<<(24-v24)) | *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)))
-					*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v25)
-					*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v24 + 8)
+					}())<<(24-v24)) | *(*uint32)(unsafe.Add(v6, 4*36)))
+					*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v25)
+					*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v24 + 8)
 				LABEL_29:
-					v26 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) >> 31)
-					v27 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) - 1)
-					*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) *= 2
-					*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v27)
+					v26 = int32(*(*uint32)(unsafe.Add(v6, 4*36)) >> 31)
+					v27 = int32(*(*uint32)(unsafe.Add(v6, 4*37)) - 1)
+					*(*uint32)(unsafe.Add(v6, 4*36)) *= 2
+					*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v27)
 					if v26 != 0 {
 						goto LABEL_32
 					}
 				}
-				*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = 0
+				*(*uint32)(unsafe.Add(v6, 4*37)) = 0
 			LABEL_32:
 				v22 += i
 				*((*uint32)(unsafe.Add(unsafe.Pointer(v23), -int(4*1)))) = uint32(v22)
@@ -314,7 +315,7 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 			goto LABEL_43
 		}
 		v29 = int32(nxz_table_1[v13].v1)
-		v30 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)))
+		v30 = int32(*(*uint32)(unsafe.Add(v6, 4*37)))
 		if v30 >= v29 {
 			goto LABEL_41
 		}
@@ -324,27 +325,27 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 				x := *p
 				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 				return x
-			}())<<(24-v30)) | *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v32)
+			}())<<(24-v30)) | *(*uint32)(unsafe.Add(v6, 4*36)))
+			*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v32)
 			a4 = uint32(uintptr(unsafe.Pointer(v5)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v30 + 8)
+			*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v30 + 8)
 		LABEL_41:
-			v31 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) >> uint32(32-v29))
-			v33 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) << uint32(v29))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) -= uint32(v29)
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v33)
+			v31 = int32(*(*uint32)(unsafe.Add(v6, 4*36)) >> uint32(32-v29))
+			v33 = int32(*(*uint32)(unsafe.Add(v6, 4*36)) << uint32(v29))
+			*(*uint32)(unsafe.Add(v6, 4*37)) -= uint32(v29)
+			*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v33)
 			goto LABEL_42
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = 0
+		*(*uint32)(unsafe.Add(v6, 4*37)) = 0
 		v31 = -1
 	LABEL_42:
 		v28 = int32(uint32(v31) + nxz_table_1[v13].v2)
 	LABEL_43:
-		v34 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)))
+		v34 = int32(*(*uint32)(unsafe.Add(v6, 4*37)))
 		v67 = v28
 		if v34 < 3 {
 			if uint32(uintptr(unsafe.Pointer(v5))) >= v69 {
-				*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = 0
+				*(*uint32)(unsafe.Add(v6, 4*37)) = 0
 				v71 = -1
 				goto LABEL_48
 			}
@@ -353,22 +354,22 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 				x := *p
 				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 				return x
-			}())<<(24-v34)) | *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v35)
+			}())<<(24-v34)) | *(*uint32)(unsafe.Add(v6, 4*36)))
+			*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v35)
 			a4 = uint32(uintptr(unsafe.Pointer(v5)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v34 + 8)
+			*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v34 + 8)
 		}
-		v36 = *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36))
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = v36 * 8
+		v36 = *(*uint32)(unsafe.Add(v6, 4*36))
+		*(*uint32)(unsafe.Add(v6, 4*36)) = v36 * 8
 		v71 = int32(v36 >> 29)
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) -= 3
+		*(*uint32)(unsafe.Add(v6, 4*37)) -= 3
 	LABEL_48:
 		v65 = 0
 		v37 = int32(nxz_table_2[v71+1].v1 + 9)
 		if v37 <= 8 {
 			goto LABEL_55
 		}
-		v38 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)))
+		v38 = int32(*(*uint32)(unsafe.Add(v6, 4*37)))
 		v37 = int32(nxz_table_2[v71+1].v1 + 1)
 		if v38 >= 8 {
 			goto LABEL_53
@@ -379,38 +380,38 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 				x := *p
 				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
 				return x
-			}())<<(24-v38)) | *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v40)
+			}())<<(24-v38)) | *(*uint32)(unsafe.Add(v6, 4*36)))
+			*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v40)
 			a4 = uint32(uintptr(unsafe.Pointer(v5)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v38 + 8)
+			*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v38 + 8)
 		LABEL_53:
-			v41 = *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = v41 << 8
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) -= 8
+			v41 = *(*uint32)(unsafe.Add(v6, 4*36))
+			*(*uint32)(unsafe.Add(v6, 4*36)) = v41 << 8
+			*(*uint32)(unsafe.Add(v6, 4*37)) -= 8
 			v39 = int32(v41 >> 24)
 			goto LABEL_54
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = 0
+		*(*uint32)(unsafe.Add(v6, 4*37)) = 0
 		v39 = -1
 	LABEL_54:
 		v65 = v39 << v37
 	LABEL_55:
-		v42 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)))
+		v42 = int32(*(*uint32)(unsafe.Add(v6, 4*37)))
 		if v42 >= v37 {
 			goto LABEL_59
 		}
 		if uint32(uintptr(unsafe.Pointer(v5))) < v69 {
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) |= uint32(int32(*v5) << (24 - v42))
+			*(*uint32)(unsafe.Add(v6, 4*36)) |= uint32(int32(*v5) << (24 - v42))
 			a4 = uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v5), 1)))))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = uint32(v42 + 8)
+			*(*uint32)(unsafe.Add(v6, 4*37)) = uint32(v42 + 8)
 		LABEL_59:
-			v43 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) >> uint32(32-v37))
-			v44 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) << uint32(v37))
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) -= uint32(v37)
-			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*36)) = uint32(v44)
+			v43 = int32(*(*uint32)(unsafe.Add(v6, 4*36)) >> uint32(32-v37))
+			v44 = int32(*(*uint32)(unsafe.Add(v6, 4*36)) << uint32(v37))
+			*(*uint32)(unsafe.Add(v6, 4*37)) -= uint32(v37)
+			*(*uint32)(unsafe.Add(v6, 4*36)) = uint32(v44)
 			goto LABEL_60
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*37)) = 0
+		*(*uint32)(unsafe.Add(v6, 4*37)) = 0
 		v43 = -1
 	LABEL_60:
 		v45 = a2
@@ -420,7 +421,7 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 		if uintptr(unsafe.Pointer(v68)) > uintptr(unsafe.Pointer(v72)) {
 			return 0
 		}
-		v48 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*1)) - uint32(v46))
+		v48 = int32(*(*uint32)(unsafe.Add(v6, 4*1)) - uint32(v46))
 		if v47 >= v46 {
 			v50 = int32(uint16(int16(v48)))
 			if uint32(int32(uint16(int16(v48)))+v46) <= 0x10000 {
@@ -455,7 +456,7 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 				memcpy(unsafe.Add(unsafe.Pointer(a2), 0x10000-uint32(v49)), unsafe.Pointer(uintptr(*((*uint32)(v6)))), int(uint32(v47)-(0x10000-uint32(v49))))
 			}
 		}
-		v57 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*1)) & math.MaxUint16)
+		v57 = int32(*(*uint32)(unsafe.Add(v6, 4*1)) & math.MaxUint16)
 		if uint32(v57+v47) <= 0x10000 {
 			v61 = a2
 			v60 = uint32(v47)
@@ -469,7 +470,7 @@ func nxz_decompress(this *Decoder, a2p *uint8, a3p *int32, a4p *uint8, a5p *int3
 		}
 		v5 = (*uint8)(unsafe.Pointer(uintptr(a4)))
 		memcpy(v59, unsafe.Pointer(v61), int(v60))
-		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(v6)), 4*1)) += uint32(v47)
+		*(*uint32)(unsafe.Add(v6, 4*1)) += uint32(v47)
 		a2 = v68
 	LABEL_73:
 		if uint32(uintptr(unsafe.Pointer(v5))) >= v69 {

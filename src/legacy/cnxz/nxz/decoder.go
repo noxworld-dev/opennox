@@ -60,8 +60,8 @@ func freeDecData(d *decoderData) {
 
 func (dec *Decoder) Decode(dst, src []byte, dstSz, srcSz *int32) bool {
 	return nxz_decompress(
-		unsafe.Pointer(dec),
-		(*byte)(unsafe.Pointer(&dst[0])), dstSz,
-		(*byte)(unsafe.Pointer(&src[0])), srcSz,
+		dec,
+		&dst[0], dstSz,
+		&src[0], srcSz,
 	) != 0
 }
