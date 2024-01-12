@@ -18,7 +18,7 @@ type Encoder struct {
 }
 
 type encoderData struct {
-	field0 Common             // 0, 0
+	field0 commonData         // 0, 0
 	field4 uint32             // 1, 4
 	field8 *[tableSize]uint32 // 2, 8
 }

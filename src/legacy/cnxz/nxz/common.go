@@ -9,15 +9,15 @@ const (
 	tableSize  = 274
 )
 
-type Common struct {
+type commonData struct {
 	field0 *[tableSize]int16 // 0, 0 (8)
 }
 
-func initCommon(c *Common) {
+func initCommon(c *commonData) {
 	c.field0, _ = alloc.New([tableSize]int16{})
 }
 
-func freeCommon(c *Common) {
+func freeCommon(c *commonData) {
 	alloc.Free(c.field0)
 	c.field0 = nil
 }
