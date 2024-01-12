@@ -689,7 +689,17 @@ func sub_57E4C0(this **uint32, a2 uint32, a3 int32, a4 uint32, a5 uint32) int32 
 			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v29)))
 			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(uint32(v28) | v27)))
 			if v29 >= 16 {
-				goto LABEL_14
+				*(*uint8)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)))) = uint8(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) >> 24)
+				v30 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))
+				v31 = (*uint8)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))), 1))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer(v31))
+				*v31 = *(*uint8)(unsafe.Add(unsafe.Pointer(&v30), 2))
+				v32 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))), -int(4*4))))))
+				v33 = (*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) << 16)))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))), 1))))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v32)))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = v33
+				goto LABEL_15
 			}
 		} else {
 			v13 = uint16(nxz_table_7[(a4-8)>>1].v1)
@@ -713,7 +723,17 @@ func sub_57E4C0(this **uint32, a2 uint32, a3 int32, a4 uint32, a5 uint32) int32 
 			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v22)))
 			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(((v14 | uint32(v19)) << uint32(v21)) | v20)))
 			if v22 >= 16 {
-				goto LABEL_14
+				*(*uint8)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)))) = uint8(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) >> 24)
+				v30 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))
+				v31 = (*uint8)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))), 1))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer(v31))
+				*v31 = *(*uint8)(unsafe.Add(unsafe.Pointer(&v30), 2))
+				v32 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))), -int(4*4))))))
+				v33 = (*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) << 16)))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))), 1))))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v32)))
+				*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = v33
+				goto LABEL_15
 			}
 		}
 	} else {
@@ -735,7 +755,6 @@ func sub_57E4C0(this **uint32, a2 uint32, a3 int32, a4 uint32, a5 uint32) int32 
 		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v8), v11))))
 		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(uint32(int32(v12)<<(32-int32(uint8(uintptr(unsafe.Pointer(v8))))-v11)) | v9)))
 		if int32(uintptr(unsafe.Pointer(v8)))+v11 >= 16 {
-		LABEL_14:
 			*(*uint8)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)))) = uint8(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) >> 24)
 			v30 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))
 			v31 = (*uint8)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))), 1))
@@ -804,25 +823,23 @@ LABEL_21:
 	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(result)))
 	return result
 }
-func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
+func nxz_compress(enc *Encoder, dst []byte, src []byte, a4p int) int {
 	var (
-		this *unsafe.Pointer = (*unsafe.Pointer)(a1p)
-		a2   int32           = int32(uintptr(unsafe.Pointer(a2p)))
-		a3   *uint8          = a3p
-		a4   int32           = a4p
-		v4   *unsafe.Pointer
-		v5   unsafe.Pointer
-		v6   int32
-		v7   *uint8
-		v8   int32
-		v9   int32
-		v10  int32
-		v11  int32
-		v12  int32
-		v13  *uint16
-		v14  uint32
-		v15  int32
-		v16  *uint16
+		a2  = &dst[0]
+		a3  = &src[0]
+		a4  = int32(a4p)
+		v5  unsafe.Pointer
+		v6  int32
+		v7  *uint8
+		v8  int32
+		v9  int32
+		v10 int32
+		v11 int32
+		v12 int32
+		v13 *uint16
+		v14 uint32
+		v15 int32
+		v16 *uint16
 	)
 	_ = v16
 	var v17 int32
@@ -843,7 +860,7 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 	var v32 int32
 	var v33 int32
 	var v34 int32
-	var v35 *byte
+	var v35 int32
 	var v36 int32
 	var v37 int32
 	var v38 int32
@@ -940,7 +957,7 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 	var v130 int32
 	var v131 int32
 	var v132 int32
-	var v133 unsafe.Pointer
+	var v133 int32
 	var v134 int32
 	var v135 [10]int32
 	var v136 int32
@@ -951,12 +968,12 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 	var v141 int32
 	var v142 *uint8
 	var v143 *uint8
-	v4 = this
-	v5 = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(this), unsafe.Sizeof(unsafe.Pointer(nil))*2))
-	v135[0] = int32(uintptr(unsafe.Pointer((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*2)))))
-	v135[2] = int32(uintptr(unsafe.Pointer((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*3)))))
-	v135[4] = a2
-	v135[3] = a2
+	v4 := enc
+	v5 = enc.field8.field0.field0
+	v135[0] = int32(uintptr(unsafe.Pointer(&v4.field8.field0.field0)))
+	v135[2] = int32(uintptr(unsafe.Pointer(&v4.field8.field4)))
+	*(*unsafe.Pointer)(unsafe.Pointer(&v135[4])) = unsafe.Pointer(a2)
+	*(*unsafe.Pointer)(unsafe.Pointer(&v135[3])) = unsafe.Pointer(a2)
 	v6 = 0
 	v135[1] = int32(uintptr(v5))
 	v135[5] = 0
@@ -999,11 +1016,11 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 		for {
 			*(*uint16)(unsafe.Add(unsafe.Pointer(&v15), unsafe.Sizeof(uint16(0))*1)) = 0
 			v12 = 0
-			v13 = (*uint16)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*5)))
+			v13 = (*uint16)(unsafe.Pointer(v4.field20))
 			v14 = (uint32(v10)*214013 + 2531011) >> 17
 			*(*uint16)(unsafe.Add(unsafe.Pointer(&v15), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(uint16(0))*uintptr(v14)))
 			v16 = (*uint16)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(uint16(0))*uintptr(v14)))
-			v17 = int32(uint32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) & math.MaxUint16)
+			v17 = int32(uint32(uintptr(v4.field4)) & math.MaxUint16)
 			v117 = v17
 			*v16 = uint16(int16(v17))
 			if int32(uint16(int16(v15))) == math.MaxUint16 || v15 == v17 {
@@ -1024,27 +1041,8 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 			v119 = int32(0x10000 - uint32(v15))
 			if 0x10000-uint32(v15) < uint32(v18) {
 				v22 = v15
-				if uint32(v15) >= 0x10000 {
-				LABEL_33:
-					v23 = 0
-					if uint32(v18+v15)-0x10000 <= 0 {
-					LABEL_23:
-						v12 = v18
-						goto LABEL_24
-					}
-					for int32(*((*uint8)(unsafe.Add(*v4, v23)))) == int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v138), v119+v23))) {
-						v18 = v112
-						if uint32(func() int32 {
-							p := &v23
-							*p++
-							return *p
-						}()) >= uint32(v112+v15)-0x10000 {
-							goto LABEL_23
-						}
-					}
-					v12 = v119 + v23
-				} else {
-					for int32(*((*uint8)(unsafe.Add(*v4, v22)))) == int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v138), v22-v15))) {
+				if uint32(v15) < 0x10000 {
+					for int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4.field0), v22)))) == int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v138), v22-v15))) {
 						if uint32(func() int32 {
 							p := &v22
 							*p++
@@ -1056,20 +1054,41 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 					}
 					v10 = v136
 					v12 = v22 - v15
+					goto LABEL_24
 				}
+			LABEL_33:
+				v23 = 0
+				if uint32(v18+v15)-0x10000 <= 0 {
+					v12 = v18
+					goto LABEL_24
+				}
+				for int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4.field0), v23)))) == int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v138), v119+v23))) {
+					v18 = v112
+					if uint32(func() int32 {
+						p := &v23
+						*p++
+						return *p
+					}()) >= uint32(v112+v15)-0x10000 {
+						v12 = v18
+						goto LABEL_24
+					}
+				}
+				v12 = v119 + v23
 			} else {
 				v12 = 0
 				if v18 <= 0 {
-					goto LABEL_23
+					v12 = v18
+					goto LABEL_24
 				}
-				for int32(*((*uint8)(unsafe.Add(unsafe.Add(*v4, v15), v12)))) == int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a3), v11+v12))) {
+				for int32(*((*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(v4.field0), v15), v12)))) == int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a3), v11+v12))) {
 					v18 = v112
 					if func() int32 {
 						p := &v12
 						*p++
 						return *p
 					}() >= v112 {
-						goto LABEL_23
+						v12 = v18
+						goto LABEL_24
 					}
 				}
 			}
@@ -1099,9 +1118,9 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 				if 521-v12 >= v11 {
 					v114 = v11
 				}
-				v24 = int32(uint16(uintptr(unsafe.Pointer((*byte)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), -v15))))))
+				v24 = int32(uint16(int32(v4.field4) - v15))
 				if v114 >= v24-v12 {
-					v121 = int32(uint16(uintptr(unsafe.Pointer((*byte)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), -v15)))))) - v12
+					v121 = int32(uint16(int32(v4.field4)-v15)) - v12
 				} else {
 					v121 = v114
 				}
@@ -1109,66 +1128,66 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 				if uint32(v121) < 0x10000-uint32(v24) {
 					v25 = v114
 					if v114 < v24-v12 {
-					LABEL_53:
-						v26 = 0
-						if v25 <= 0 {
-							goto LABEL_152
-						}
-						v122 = uint16(int16(v15 - 1))
-						v139 = (*uint8)(unsafe.Add(unsafe.Pointer(v138), -1))
-						for {
-							if int32(*((*uint8)(unsafe.Add(*v4, v122)))) != int32(*v139) {
-								break
-							}
-							v26++
-							v122--
-							v139 = (*uint8)(unsafe.Add(unsafe.Pointer(v139), -1))
-							if v26 >= v114 {
-								break
-							}
-						}
-						if v26 <= 0 {
-						LABEL_152:
-							v10 = v136
-						} else {
-							v11 -= v26
-							v27 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) - v26
-							*(*uint16)(unsafe.Add(unsafe.Pointer(&v15), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15 - v26))
-							v12 += v26
-							*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = unsafe.Pointer(uintptr(v27))
-							v28 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
-							*(*uint16)(unsafe.Add(unsafe.Pointer(&v117), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v27))
-							v10 = 0
-							if uintptr(unsafe.Pointer(v28)) < uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v28), 5)))) {
-								for {
-									v29 = int32(*func() *uint8 {
-										p := &v28
-										x := *p
-										*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-										return x
-									}()) ^ v10
-									v10 = int32(__ROL4__(uint32(v29), 5))
-									if uintptr(unsafe.Pointer(v28)) >= uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a3), v11+5)))) {
-										break
-									}
-								}
-							}
-							v136 = v10
-							v125 = 1
-						}
-						goto LABEL_62
+						goto LABEL_53
 					}
-					v25 = int32(uint16(uintptr(unsafe.Pointer((*byte)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), -v15)))))) - v12
+					v25 = int32(uint16(int32(v4.field4)-v15)) - v12
 				}
 				v114 = v25
-				goto LABEL_53
+			LABEL_53:
+				v26 = 0
+				if v25 <= 0 {
+					v10 = v136
+					goto LABEL_62
+				}
+				v122 = uint16(int16(v15 - 1))
+				v139 = (*uint8)(unsafe.Add(unsafe.Pointer(v138), -1))
+				for {
+					if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v4.field0), v122)))) != int32(*v139) {
+						break
+					}
+					v26++
+					v122--
+					v139 = (*uint8)(unsafe.Add(unsafe.Pointer(v139), -1))
+					if v26 >= v114 {
+						break
+					}
+				}
+				if v26 <= 0 {
+					v10 = v136
+				} else {
+					v11 -= v26
+					v27 = int32(uintptr(v4.field4)) - v26
+					*(*uint16)(unsafe.Add(unsafe.Pointer(&v15), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v15 - v26))
+					v12 += v26
+					v4.field4 = uint32(v27)
+					v28 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
+					*(*uint16)(unsafe.Add(unsafe.Pointer(&v117), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v27))
+					v10 = 0
+					if uintptr(unsafe.Pointer(v28)) < uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v28), 5)))) {
+						for {
+							v29 = int32(*func() *uint8 {
+								p := &v28
+								x := *p
+								*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
+								return x
+							}()) ^ v10
+							v10 = int32(__ROL4__(uint32(v29), 5))
+							if uintptr(unsafe.Pointer(v28)) >= uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(a3), v11+5)))) {
+								break
+							}
+						}
+					}
+					v136 = v10
+					v125 = 1
+				}
+				goto LABEL_62
 			}
 		LABEL_62:
 			v30 = v110
 			if v110 >= 4 {
 				v115 = v11
 				if v12 <= v110 {
-					*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = v133
+					v4.field4 = uint32(v133)
 					v137 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v127))
 					v55 = int32(__ROL4__(uint32(v134^int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a3), v127+5))))^__ROL4__(uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(a3), v127))), 25), 5))
 					sub_57E4C0((**uint32)(unsafe.Pointer(&v135[0])), uint32(uintptr(unsafe.Pointer(a3))), v127, uint32(v110-4), uint32(uint16(int16(int32(uint16(uintptr(v133)))-int32(v128)))))
@@ -1178,15 +1197,15 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 						v57 = v56 - 2
 					}
 					v58 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v127))
-					v59 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 2
-					v141 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 2
+					v59 = int32(uintptr(v4.field4)) + 2
+					v141 = int32(uintptr(v4.field4)) + 2
 					if v57 > 0 {
 						if v57 <= 1024 {
 							v64 = int32(__ROL4__(uint32(v55^int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v137), 6))))^__ROL4__(uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v137), 1))), 25), 5))
 							v65 = 0
 							v130 = int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v137), 7)))))
 							for {
-								*((*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*5)), unsafe.Sizeof(uint16(0))*uintptr((uint32(v64)*214013+2531011)>>17)))) = uint16(int16(v65 + v59))
+								*((*uint16)(unsafe.Add(unsafe.Pointer(v4.field20), unsafe.Sizeof(uint16(0))*uintptr((uint32(v64)*214013+2531011)>>17)))) = uint16(int16(v65 + v59))
 								v66 = int32(*(*uint8)(unsafe.Pointer(uintptr(v130 + v65))))
 								v67 = int32(__ROL4__(uint32(*(*uint8)(unsafe.Pointer(uintptr(v130 + func() int32 {
 									p := &v65
@@ -1225,16 +1244,16 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 					} else {
 						v136 = 0
 					}
-					v68 = int32(uint32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) & math.MaxUint16)
+					v68 = int32(uint32(uintptr(v4.field4)) & math.MaxUint16)
 					if uint32(v68+v110) <= 0x10000 {
 						v69 = v110
-						memcpy(unsafe.Add(*v4, v68), unsafe.Pointer(v58), int(v110))
+						memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v68), unsafe.Pointer(v58), int(v110))
 					} else {
-						memcpy(unsafe.Add(*v4, v68), unsafe.Pointer(v58), int(0x10000-uint32(v68)))
+						memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v68), unsafe.Pointer(v58), int(0x10000-uint32(v68)))
 						v69 = v110
-						memcpy(*v4, unsafe.Add(unsafe.Pointer(v58), 0x10000-uint32(v68)), int(uint32(v110)-(0x10000-uint32(v68))))
+						memcpy(unsafe.Pointer(v4.field0), unsafe.Add(unsafe.Pointer(v58), 0x10000-uint32(v68)), int(uint32(v110)-(0x10000-uint32(v68))))
 					}
-					*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), v69)
+					v4.field4 += uint32(v69)
 					a3 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v69+v127))
 					goto LABEL_143
 				}
@@ -1244,10 +1263,10 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 					v36 = v12 - 1
 				}
 				v37 = 0
-				v38 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 1
+				v38 = int32(uintptr(v4.field4)) + 1
 				v39 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 				v123 = v36
-				v129 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 1
+				v129 = int32(uintptr(v4.field4)) + 1
 				v140 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 				v40 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 				if v36 > 0 {
@@ -1256,7 +1275,7 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 						v45 = int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v40), 1)))))
 						if v123 > 0 {
 							for {
-								*((*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*5)), unsafe.Sizeof(uint16(0))*uintptr((uint32(v44)*214013+2531011)>>17)))) = uint16(int16(v37 + v38))
+								*((*uint16)(unsafe.Add(unsafe.Pointer(v4.field20), unsafe.Sizeof(uint16(0))*uintptr((uint32(v44)*214013+2531011)>>17)))) = uint16(int16(v37 + v38))
 								v46 = int32(uint32(v44^int32(*(*uint8)(unsafe.Pointer(uintptr(v45 + 5 + v37))))) ^ __ROL4__(uint32(*(*uint8)(unsafe.Pointer(uintptr(v45 + v37)))), 25))
 								v37++
 								v44 = int32(__ROL4__(uint32(v46), 5))
@@ -1290,30 +1309,28 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 				} else {
 					v136 = 0
 				}
-				v47 = int32(uint32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) & math.MaxUint16)
+				v47 = int32(uint32(uintptr(v4.field4)) & math.MaxUint16)
 				if uint32(v47+v12) > 0x10000 {
 					v48 = int32(0x10000 - uint32(v47))
-					memcpy(unsafe.Add(*v4, v47), unsafe.Pointer(v39), int(0x10000-uint32(v47)))
-					v49 = (*byte)(*v4)
+					memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v47), unsafe.Pointer(v39), int(0x10000-uint32(v47)))
+					v49 = (*byte)(unsafe.Pointer(v4.field0))
 					v50 = (*uint8)(unsafe.Add(unsafe.Pointer(v140), v48))
 					v51 = uint32(v12 - v48)
-					memcpy(*v4, unsafe.Pointer(v50), int((v51>>2)*4))
+					memcpy(unsafe.Pointer(v4.field0), unsafe.Pointer(v50), int((v51>>2)*4))
 					v53 = (*uint8)(unsafe.Add(unsafe.Pointer(v50), (v51>>2)*4))
 					v52 = (*byte)(unsafe.Add(unsafe.Pointer(v49), (v51>>2)*4))
 					v54 = int8(uint8(v51))
-				LABEL_118:
-					memcpy(unsafe.Pointer(v52), unsafe.Pointer(v53), int(int32(v54)&3))
-					*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), v12)
-					a3 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v115+v12))
-					goto LABEL_143
+				} else {
+					v84 = (*byte)(unsafe.Add(unsafe.Pointer(v4.field0), v47))
+					memcpy(unsafe.Pointer(v84), unsafe.Pointer(v39), int((uint32(v12)>>2)*4))
+					v53 = (*uint8)(unsafe.Add(unsafe.Pointer(v39), (uint32(v12)>>2)*4))
+					v52 = (*byte)(unsafe.Add(unsafe.Pointer(v84), (uint32(v12)>>2)*4))
+					v54 = int8(v12)
 				}
-			LABEL_117:
-				v84 = (*byte)(unsafe.Add(*v4, v47))
-				memcpy(unsafe.Pointer(v84), unsafe.Pointer(v39), int((uint32(v12)>>2)*4))
-				v53 = (*uint8)(unsafe.Add(unsafe.Pointer(v39), (uint32(v12)>>2)*4))
-				v52 = (*byte)(unsafe.Add(unsafe.Pointer(v84), (uint32(v12)>>2)*4))
-				v54 = int8(v12)
-				goto LABEL_118
+				memcpy(unsafe.Pointer(v52), unsafe.Pointer(v53), int(int32(v54)&3))
+				v4.field4 += uint32(v12)
+				a3 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v115+v12))
+				goto LABEL_143
 			}
 			if v12 < 4 {
 				goto LABEL_66
@@ -1326,10 +1343,10 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 					v70 = v12 - 1
 				}
 				v71 = 0
-				v72 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 1
+				v72 = int32(uintptr(v4.field4)) + 1
 				v39 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 				v124 = v70
-				v131 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 1
+				v131 = int32(uintptr(v4.field4)) + 1
 				v142 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 				v73 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 				if v70 > 0 {
@@ -1338,7 +1355,7 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 						v78 = int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v73), 1)))))
 						if v124 > 0 {
 							for {
-								*((*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*5)), unsafe.Sizeof(uint16(0))*uintptr((uint32(v77)*214013+2531011)>>17)))) = uint16(int16(v71 + v72))
+								*((*uint16)(unsafe.Add(unsafe.Pointer(v4.field20), unsafe.Sizeof(uint16(0))*uintptr((uint32(v77)*214013+2531011)>>17)))) = uint16(int16(v71 + v72))
 								v79 = int32(uint32(v77^int32(*(*uint8)(unsafe.Pointer(uintptr(v78 + 5 + v71))))) ^ __ROL4__(uint32(*(*uint8)(unsafe.Pointer(uintptr(v78 + v71)))), 25))
 								v71++
 								v77 = int32(__ROL4__(uint32(v79), 5))
@@ -1372,26 +1389,34 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 				} else {
 					v136 = 0
 				}
-				v47 = int32(uint32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) & math.MaxUint16)
+				v47 = int32(uint32(uintptr(v4.field4)) & math.MaxUint16)
 				if uint32(v47+v12) > 0x10000 {
 					v80 = int32(0x10000 - uint32(v47))
-					memcpy(unsafe.Add(*v4, v47), unsafe.Pointer(v39), int(0x10000-uint32(v47)))
-					v81 = (*byte)(*v4)
+					memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v47), unsafe.Pointer(v39), int(0x10000-uint32(v47)))
+					v81 = (*byte)(unsafe.Pointer(v4.field0))
 					v82 = (*uint8)(unsafe.Add(unsafe.Pointer(v142), v80))
 					v83 = uint32(v12 - v80)
-					memcpy(*v4, unsafe.Pointer(v82), int((v83>>2)*4))
+					memcpy(unsafe.Pointer(v4.field0), unsafe.Pointer(v82), int((v83>>2)*4))
 					v53 = (*uint8)(unsafe.Add(unsafe.Pointer(v82), (v83>>2)*4))
 					v52 = (*byte)(unsafe.Add(unsafe.Pointer(v81), (v83>>2)*4))
 					v54 = int8(uint8(v83))
-					goto LABEL_118
+				} else {
+					v84 = (*byte)(unsafe.Add(unsafe.Pointer(v4.field0), v47))
+					memcpy(unsafe.Pointer(v84), unsafe.Pointer(v39), int((uint32(v12)>>2)*4))
+					v53 = (*uint8)(unsafe.Add(unsafe.Pointer(v39), (uint32(v12)>>2)*4))
+					v52 = (*byte)(unsafe.Add(unsafe.Pointer(v84), (uint32(v12)>>2)*4))
+					v54 = int8(v12)
 				}
-				goto LABEL_117
+				memcpy(unsafe.Pointer(v52), unsafe.Pointer(v53), int(int32(v54)&3))
+				v4.field4 += uint32(v12)
+				a3 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v115+v12))
+				goto LABEL_143
 			}
 			v30 = v12
 			v110 = v12
 			v128 = int16(v15)
 			v127 = v11
-			v133 = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1))
+			v133 = int32(v4.field4)
 			v134 = v10
 		LABEL_66:
 			if v11+1 > v126 {
@@ -1406,44 +1431,44 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 				return x
 			}())))
 			v34 = int32(uint32(v32) ^ __ROL4__(uint32(v33), 25))
-			v35 = (*byte)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))
+			v35 = int32(v4.field4)
 			v10 = int32(__ROL4__(uint32(v10^v34), 5))
-			*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = unsafe.Add(unsafe.Pointer(v35), 1)
+			v4.field4 = uint32(v35 + 1)
 			v136 = v10
-			*((*uint8)(unsafe.Add(*v4, uint16(uintptr(unsafe.Pointer(v35)))))) = v31
+			*((*uint8)(unsafe.Add(unsafe.Pointer(v4.field0), v35))) = v31
 		}
 		v116 = v11
 		if v30 < 4 {
 			if v11+5 >= v111 && v111 <= 64 {
 				v100 = v111 - v11
 				v101 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
-				v102 = int32(uint32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) & math.MaxUint16)
+				v102 = int32(uint32(uintptr(v4.field4)) & math.MaxUint16)
 				if uint32(v102+v100) <= 0x10000 {
 					v105 = uint32(v100)
-					v104 = (*uint8)(unsafe.Add(*v4, v102))
+					v104 = (*uint8)(unsafe.Add(unsafe.Pointer(v4.field0), v102))
 				} else {
 					v103 = int32(0x10000 - uint32(v102))
-					memcpy(unsafe.Add(*v4, v102), unsafe.Pointer(v101), int(0x10000-uint32(v102)))
-					v104 = (*uint8)(*v4)
+					memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v102), unsafe.Pointer(v101), int(0x10000-uint32(v102)))
+					v104 = (*byte)(unsafe.Pointer(v4.field0))
 					v105 = uint32(v100 - v103)
 					v101 = (*uint8)(unsafe.Add(unsafe.Pointer(v101), v103))
 				}
 				memcpy(unsafe.Pointer(v104), unsafe.Pointer(v101), int(v105))
-				*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), v100)
+				v4.field4 += uint32(v100)
 				v11 = v111
 			}
 			sub_57E3F0((**uint32)(unsafe.Pointer(&v135[0])), uint32(uintptr(unsafe.Pointer(a3))), v11)
 			a3 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 		} else {
-			sub_57E4C0((**uint32)(unsafe.Pointer(&v135[0])), uint32(uintptr(unsafe.Pointer(a3))), v11, uint32(v110-4), uint32(uint16(uintptr(unsafe.Pointer((*byte)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), -v128)))))))
+			sub_57E4C0((**uint32)(unsafe.Pointer(&v135[0])), uint32(uintptr(unsafe.Pointer(a3))), v11, uint32(v110-4), uint32(uint16(int16(v4.field4)-v128)))
 			v85 = v110 - 1
 			if v110-1 >= int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v118), -v11))))-uintptr(unsafe.Pointer(a3)))-1 {
 				v85 = int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v118), -v11))))-uintptr(unsafe.Pointer(a3))) - 1
 			}
 			v86 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 			v87 = 0
-			v88 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 1
-			v132 = int32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) + 1
+			v88 = int32(uintptr(v4.field4)) + 1
+			v132 = int32(uintptr(v4.field4)) + 1
 			v143 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 			v89 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v11))
 			if v85 > 0 {
@@ -1452,7 +1477,7 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 					v94 = int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v89), 1)))))
 					v95 = int32(__ROL4__(uint32(v93), 5))
 					for {
-						*((*uint16)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*5)), unsafe.Sizeof(uint16(0))*uintptr((uint32(v95)*214013+2531011)>>17)))) = uint16(int16(v87 + v88))
+						*((*uint16)(unsafe.Add(unsafe.Pointer(v4.field20), unsafe.Sizeof(uint16(0))*uintptr((uint32(v95)*214013+2531011)>>17)))) = uint16(int16(v87 + v88))
 						v96 = int32(*(*uint8)(unsafe.Pointer(uintptr(v94 + 5 + v87))))
 						v97 = int32(__ROL4__(uint32(*(*uint8)(unsafe.Pointer(uintptr(v94 + func() int32 {
 							p := &v87
@@ -1490,16 +1515,16 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 			} else {
 				v136 = 0
 			}
-			v98 = int32(uint32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) & math.MaxUint16)
+			v98 = int32(uint32(uintptr(v4.field4)) & math.MaxUint16)
 			if uint32(v98+v110) <= 0x10000 {
 				v99 = v110
-				memcpy(unsafe.Add(*v4, v98), unsafe.Pointer(v86), int(v110))
+				memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v98), unsafe.Pointer(v86), int(v110))
 			} else {
-				memcpy(unsafe.Add(*v4, v98), unsafe.Pointer(v86), int(0x10000-uint32(v98)))
+				memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v98), unsafe.Pointer(v86), int(0x10000-uint32(v98)))
 				v99 = v110
-				memcpy(*v4, unsafe.Add(unsafe.Pointer(v86), 0x10000-uint32(v98)), int(uint32(v110)-(0x10000-uint32(v98))))
+				memcpy(unsafe.Pointer(v4.field0), unsafe.Add(unsafe.Pointer(v86), 0x10000-uint32(v98)), int(uint32(v110)-(0x10000-uint32(v98))))
 			}
-			*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), v99)
+			v4.field4 += uint32(v99)
 			a3 = (*uint8)(unsafe.Add(unsafe.Pointer(a3), v116+v99))
 		}
 	LABEL_143:
@@ -1513,19 +1538,19 @@ func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
 	}
 LABEL_144:
 	if v111 != 0 {
-		v106 = int32(uint32(uintptr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)))) & math.MaxUint16)
+		v106 = int32(uint32(uintptr(v4.field4)) & math.MaxUint16)
 		if uint32(v106+v111) <= 0x10000 {
 			v108 = v111
-			memcpy(unsafe.Add(*v4, v106), unsafe.Pointer(a3), int(v111))
+			memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v106), unsafe.Pointer(a3), int(v111))
 			v107 = a3
 		} else {
 			v107 = a3
-			memcpy(unsafe.Add(*v4, v106), unsafe.Pointer(a3), int(0x10000-uint32(v106)))
+			memcpy(unsafe.Add(unsafe.Pointer(v4.field0), v106), unsafe.Pointer(a3), int(0x10000-uint32(v106)))
 			v108 = v111
-			memcpy(*v4, unsafe.Add(unsafe.Pointer(a3), 0x10000-uint32(v106)), int(uint32(v111)-(0x10000-uint32(v106))))
+			memcpy(unsafe.Pointer(v4.field0), unsafe.Add(unsafe.Pointer(a3), 0x10000-uint32(v106)), int(uint32(v111)-(0x10000-uint32(v106))))
 		}
-		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)) = unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*1)), v108)
+		v4.field4 += uint32(v108)
 		sub_57E3F0((**uint32)(unsafe.Pointer(&v135[0])), uint32(uintptr(unsafe.Pointer(v107))), v108)
 	}
-	return sub_57E7D0((**uint32)(unsafe.Pointer(&v135[0])))
+	return int(sub_57E7D0((**uint32)(unsafe.Pointer(&v135[0]))))
 }
