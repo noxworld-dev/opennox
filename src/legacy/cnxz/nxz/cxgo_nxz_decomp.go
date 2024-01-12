@@ -154,7 +154,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 	LABEL_9:
 		v12 = int32(dec.data8.field4[2*v9])
 		if v12 == 0 {
-			v13 = int32(dec.data8.field132[*(*uint32)(unsafe.Add(decP, 4*uintptr(v9*2+4)))])
+			v13 = int32(dec.data8.field132[dec.data8.field4[v9*2+1]])
 			goto LABEL_18
 		}
 		v14 = int32(dec.field148)
@@ -177,7 +177,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			dec.field148 = 0
 			v15 = -1
 		}
-		v17 = int32(uint32(v15) + *(*uint32)(unsafe.Add(decP, 4*uintptr(v9*2+4))))
+		v17 = int32(uint32(v15) + dec.data8.field4[v9*2+1])
 		if v17 >= tableSize3 {
 			return 0
 		}
@@ -201,7 +201,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 				dec.data8.field132[i] = recs[i].ind0
 			}
 			v22 = 0
-			v23 = (*uint32)(unsafe.Add(decP, 4*4))
+			v23 = &dec.data8.field4[1]
 			v70 = 0
 			v66 = 16
 			for {
