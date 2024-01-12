@@ -58,7 +58,6 @@ func sub57DEA0(d *decoderData, arr []decoderRec) int {
 }
 func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int) int {
 	var (
-		v8  int32
 		v9  int32
 		v10 int32
 		v11 uint32
@@ -133,7 +132,7 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		return 0
 	}
 	for {
-		v8 = int32(dec.field148)
+		v8 := int32(dec.field148)
 		if v8 < 4 {
 			if uintptr(unsafe.Pointer(srcPtr2)) >= uintptr(srcPtrEnd) {
 				v9 = -1
@@ -141,12 +140,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 				v63 = -1
 				goto LABEL_9
 			}
-			v10 = int32(uint32(int32(*func() *uint8 {
-				p := &srcPtr2
-				x := *p
-				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-				return x
-			}())<<(24-v8)) | dec.field144)
+			v10 = int32(uint32(int32(*srcPtr2)<<(24-v8)) | dec.field144)
+			srcPtr2 = (*uint8)(unsafe.Add(unsafe.Pointer(srcPtr2), 1))
 			dec.field144 = uint32(v10)
 			srcPtr = srcPtr2
 			dec.field148 = uint32(v8 + 8)
@@ -169,12 +164,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			dec.field148 -= uint32(v12)
 			v9 = v63
 		} else if uintptr(unsafe.Pointer(srcPtr2)) < uintptr(srcPtrEnd) {
-			v16 = int32(uint32(int32(*func() *uint8 {
-				p := &srcPtr2
-				x := *p
-				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-				return x
-			}())<<(24-v14)) | dec.field144)
+			v16 = int32(uint32(int32(*srcPtr2)<<(24-v14)) | dec.field144)
+			srcPtr2 = (*uint8)(unsafe.Add(unsafe.Pointer(srcPtr2), 1))
 			dec.field144 = uint32(v16)
 			srcPtr = srcPtr2
 			dec.field148 = uint32(v14 + 8)
@@ -197,12 +188,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			if uintptr(unsafe.Pointer(dstPtr)) >= uintptr(unsafe.Pointer(dstPtrEnd)) {
 				return 0
 			}
-			*func() *uint8 {
-				p := &dstPtr
-				x := *p
-				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-				return x
-			}() = uint8(int8(v13))
+			*dstPtr = uint8(int8(v13))
+			dstPtr = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), 1))
 			v18 = int32(dec.field4)
 			dec.field4 = uint32(v18 + 1)
 			*(*uint8)(unsafe.Pointer(uintptr(uint32(uint16(int16(v18))) + *((*uint32)(decP))))) = uint8(int8(v13))
@@ -226,12 +213,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 					if uintptr(unsafe.Pointer(srcPtr2)) >= uintptr(srcPtrEnd2) {
 						break
 					}
-					v25 = int32(uint32(int32(*func() *uint8 {
-						p := &srcPtr2
-						x := *p
-						*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-						return x
-					}())<<(24-v24)) | dec.field144)
+					v25 = int32(uint32(int32(*srcPtr2)<<(24-v24)) | dec.field144)
+					srcPtr2 = (*uint8)(unsafe.Add(unsafe.Pointer(srcPtr2), 1))
 					dec.field144 = uint32(v25)
 					dec.field148 = uint32(v24 + 8)
 				LABEL_29:
@@ -275,12 +258,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			dec.field148 -= uint32(v29)
 			dec.field144 = uint32(v33)
 		} else if uintptr(unsafe.Pointer(srcPtr2)) < uintptr(srcPtrEnd2) {
-			v32 = int32(uint32(int32(*func() *uint8 {
-				p := &srcPtr2
-				x := *p
-				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-				return x
-			}())<<(24-v30)) | dec.field144)
+			v32 = int32(uint32(int32(*srcPtr2)<<(24-v30)) | dec.field144)
+			srcPtr2 = (*uint8)(unsafe.Add(unsafe.Pointer(srcPtr2), 1))
 			dec.field144 = uint32(v32)
 			srcPtr = srcPtr2
 			dec.field148 = uint32(v30 + 8)
@@ -302,12 +281,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 				v71 = -1
 				goto LABEL_48
 			}
-			v35 = int32(uint32(int32(*func() *uint8 {
-				p := &srcPtr2
-				x := *p
-				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-				return x
-			}())<<(24-v34)) | dec.field144)
+			v35 = int32(uint32(int32(*srcPtr2)<<(24-v34)) | dec.field144)
+			srcPtr2 = (*uint8)(unsafe.Add(unsafe.Pointer(srcPtr2), 1))
 			dec.field144 = uint32(v35)
 			srcPtr = srcPtr2
 			dec.field148 = uint32(v34 + 8)
@@ -330,12 +305,8 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			dec.field148 -= 8
 			v39 = int32(v41 >> 24)
 		} else if uintptr(unsafe.Pointer(srcPtr2)) < uintptr(srcPtrEnd2) {
-			v40 = int32(uint32(int32(*func() *uint8 {
-				p := &srcPtr2
-				x := *p
-				*p = (*uint8)(unsafe.Add(unsafe.Pointer(*p), 1))
-				return x
-			}())<<(24-v38)) | dec.field144)
+			v40 = int32(uint32(int32(*srcPtr2)<<(24-v38)) | dec.field144)
+			srcPtr2 = (*uint8)(unsafe.Add(unsafe.Pointer(srcPtr2), 1))
 			dec.field144 = uint32(v40)
 			srcPtr = srcPtr2
 			dec.field148 = uint32(v38 + 8)
