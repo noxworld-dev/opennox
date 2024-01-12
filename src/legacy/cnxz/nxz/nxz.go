@@ -30,12 +30,12 @@ func DecompressFile(src, dst string) error {
 	if err != nil {
 		return err
 	}
-	srcSz := int(fi.Size() - 4)
+	srcSz := int32(fi.Size() - 4)
 	var buf [4]byte
 	if _, err = io.ReadFull(r, buf[:4]); err != nil {
 		return err
 	}
-	dstSz := int(binary.LittleEndian.Uint32(buf[:]))
+	dstSz := int32(binary.LittleEndian.Uint32(buf[:]))
 
 	sbuf, sfree := alloc.Make([]byte{}, srcSz)
 	defer sfree()
@@ -47,19 +47,16 @@ func DecompressFile(src, dst string) error {
 	dbuf, dfree := alloc.Make([]byte{}, dstSz)
 	defer dfree()
 
-	sleft := srcSz
-	dleft := dstSz
+	sleft := int32(srcSz)
+	dleft := int32(dstSz)
 
-	ptr := nxz_decompress_new()
+	ptr := NewDecompressor()
 	for sleft > 0 && dleft > 0 {
-		if nxz_decompress(ptr,
-			(*byte)(unsafe.Pointer(&dbuf[dstSz-dleft])), (*int32)(unsafe.Pointer(&dleft)),
-			(*byte)(unsafe.Pointer(&sbuf[srcSz-sleft])), (*int32)(unsafe.Pointer(&sleft)),
-		) == 0 {
+		if !ptr.Decompress(dbuf[dstSz-dleft:], sbuf[srcSz-sleft:], &dleft, &sleft) {
 			break
 		}
 	}
-	nxz_decompress_free(ptr)
+	ptr.Free()
 
 	w, err := ifs.Create(dst)
 	if err != nil {

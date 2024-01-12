@@ -4,7 +4,7 @@ import "unsafe"
 
 func sub_57DF00(this *uint32) {
 	v1 := this
-	sub57DD90(this)
+	initCommon((*Common)(unsafe.Pointer(this)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) = 4096
 	v2 := (*uint8)(calloc(274, 4))
 	v3 := v2
@@ -16,12 +16,11 @@ func sub57DF70(this *unsafe.Pointer) {
 	var v1 *unsafe.Pointer
 	v1 = this
 	free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(this), unsafe.Sizeof(unsafe.Pointer(nil))*2)))
-	sub57DDC0(v1)
+	freeCommon((*Common)(unsafe.Pointer(v1)))
 }
 
 func sub57D150(this *unsafe.Pointer) {
-	var v1 *unsafe.Pointer
-	v1 = this
+	v1 := this
 	free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(this), unsafe.Sizeof(unsafe.Pointer(nil))*5)))
 	sub57DF70((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(unsafe.Pointer(nil))*2)))
 	free(*v1)

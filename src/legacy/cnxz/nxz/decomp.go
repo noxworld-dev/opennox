@@ -1,54 +1,61 @@
 package nxz
 
-import "unsafe"
+import (
+	"unsafe"
 
-func sub57E8A0(this *uint32) {
-	v1 := this
-	sub57DD90(this)
-	v2 := (*uint8)(calloc(548, 1))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*33)) = uint32(uintptr(unsafe.Pointer(v2)))
-	memcpy(unsafe.Pointer(v2), unsafe.Pointer(&nxz_table_3[0]), int(548))
-	memcpy(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1))), unsafe.Pointer(&nxz_table_4[0]), int(unsafe.Sizeof([32]uint32{})))
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+)
+
+var _ = [1]struct{}{}[152-unsafe.Sizeof(Decompressor{})]
+
+type Decompressor struct {
+	buf0     unsafe.Pointer // 0, 0
+	field4   uint32         // 1, 4
+	field8   Common         // 2, 8
+	field144 uint32         // 36, 144
+	field148 uint32         // 37, 148
 }
 
-func sub57E9A0(this *uint32) {
-	v1 := this
-	*this = uint32(uintptr(calloc(1, 0x10000)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) = 0
-	sub57E8A0((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*2)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*37)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*36)) = 0
-}
-
-func nxz_decompress_new() unsafe.Pointer {
-	v0 := (*uint32)(calloc(1, 0x98))
-	if v0 == nil {
+func NewDecompressor() *Decompressor {
+	dec, _ := alloc.New(Decompressor{})
+	if dec == nil {
 		return nil
 	}
-	sub57E9A0(v0)
-	return unsafe.Pointer(v0)
+	dec.buf0 = calloc(1, 64*1024)
+	dec.field4 = 0
+	sub57E8A0(&dec.field8)
+	dec.field144 = 0
+	dec.field148 = 0
+	return dec
 }
 
-func sub57E910(this *unsafe.Pointer) {
-	v1 := this
-	free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(this), unsafe.Sizeof(unsafe.Pointer(nil))*33)))
-	sub57DDC0(v1)
+func sub57E8A0(c *Common) {
+	initCommon(c)
+	c.field132, _ = alloc.New([548]byte{})
+	*c.field132 = nxz_table_3
+	c.field4 = nxz_table_4
 }
 
-func sub57EA00(this *unsafe.Pointer) {
-	v1 := this
-	v4 := this
-	var v2 *unsafe.Pointer
-	if v4 != nil {
-		v2 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(unsafe.Pointer(nil))*2))
+func (dec *Decompressor) Free() {
+	if dec == nil {
+		return
 	}
-	sub57E910(v2)
-	free(*v1)
+	freeCommonDec(&dec.field8)
+	alloc.FreePtr(dec.buf0)
+	dec.buf0 = nil
+	alloc.Free(dec)
 }
 
-func nxz_decompress_free(lpMem unsafe.Pointer) {
-	if lpMem != nil {
-		sub57EA00((*unsafe.Pointer)(lpMem))
-		free(lpMem)
-	}
+func freeCommonDec(c *Common) {
+	alloc.Free(c.field132)
+	c.field132 = nil
+	freeCommon(c)
+}
+
+func (dec *Decompressor) Decompress(a2, a3 []byte, a4, a5 *int32) bool {
+	return nxz_decompress(
+		unsafe.Pointer(dec),
+		(*byte)(unsafe.Pointer(&a2[0])), a4,
+		(*byte)(unsafe.Pointer(&a3[0])), a5,
+	) != 0
 }
