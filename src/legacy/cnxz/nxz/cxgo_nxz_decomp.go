@@ -120,7 +120,6 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 	dstPtr := &dst[0]
 	srcPtr := &src[0]
 	srcPtr2 := srcPtr
-	decP := unsafe.Pointer(dec)
 	srcPtrEnd := unsafe.Add(unsafe.Pointer(srcPtr), *srcSz)
 	dstBase := dstPtr
 	srcBase := srcPtr
@@ -348,10 +347,10 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 			v50 = int32(uint16(int16(v48)))
 			if uint32(int32(uint16(int16(v48)))+v46) <= bufferSize {
 				v53 = uint32(v46)
-				v52 = unsafe.Pointer(uintptr(*((*uint32)(decP)) + uint32(v50)))
+				v52 = unsafe.Pointer(&dec.buf0[v50])
 			} else {
 				v51 = int32(bufferSize - uint32(uint16(int16(v48))))
-				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(uint16(int16(v48))))), int(bufferSize-uint32(uint16(int16(v48)))))
+				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(&dec.buf0[v48]), int(bufferSize-v48))
 				v52 = unsafe.Pointer(dec.buf0)
 				v53 = uint32(v46 - v51)
 				v45 = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), v51))
@@ -372,20 +371,20 @@ func nxz_decompress(dec *Decoder, dst []byte, dstSz *int, src []byte, srcSz *int
 		} else {
 			v49 = int32(uint16(int16(v48)))
 			if uint32(v49+v47) <= bufferSize {
-				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(v49))), int(v47))
+				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(&dec.buf0[v49]), int(v47))
 			} else {
-				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(v49))), int(bufferSize-uint32(v49)))
-				memcpy(unsafe.Add(unsafe.Pointer(dstPtr), bufferSize-uint32(v49)), unsafe.Pointer(dec.buf0), int(uint32(v47)-(bufferSize-uint32(v49))))
+				memcpy(unsafe.Pointer(dstPtr), unsafe.Pointer(&dec.buf0[v49]), int(bufferSize-uint32(v49)))
+				memcpy(unsafe.Add(unsafe.Pointer(dstPtr), bufferSize-uint32(v49)), unsafe.Pointer(&dec.buf0[0]), int(uint32(v47)-(bufferSize-uint32(v49))))
 			}
 		}
 		v57 = int32(dec.field4 & math.MaxUint16)
 		if uint32(v57+v47) <= bufferSize {
 			v61 = dstPtr
 			v60 = uint32(v47)
-			v59 = unsafe.Pointer(uintptr(*((*uint32)(decP)) + uint32(v57)))
+			v59 = unsafe.Pointer(&dec.buf0[v57])
 		} else {
 			v58 = int32(bufferSize - uint32(v57))
-			memcpy(unsafe.Pointer(uintptr(*((*uint32)(decP))+uint32(v57))), unsafe.Pointer(dstPtr), int(bufferSize-uint32(v57)))
+			memcpy(unsafe.Pointer(&dec.buf0[v57]), unsafe.Pointer(dstPtr), int(bufferSize-uint32(v57)))
 			v59 = unsafe.Pointer(dec.buf0)
 			v60 = uint32(v47 - v58)
 			v61 = (*uint8)(unsafe.Add(unsafe.Pointer(dstPtr), v58))
