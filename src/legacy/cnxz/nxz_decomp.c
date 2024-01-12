@@ -738,23 +738,23 @@ int nxz_decompress(Decoder* this, uint8_t* a2p, int* a3p, uint8_t* a4p, int* a5p
 		}
 		v14 = ((uint32_t*)v6)[37];
 		if (v14 >= v12) {
-			goto LABEL_15;
-		}
-		if ((unsigned int)v5 < v7) {
-			v16 = (*v5++ << (24 - v14)) | ((uint32_t*)v6)[36];
-			((uint32_t*)v6)[36] = v16;
-			a4 = (unsigned int)v5;
-			((uint32_t*)v6)[37] = v14 + 8;
-		LABEL_15:
 			v15 = ((uint32_t*)v6)[36] >> (32 - v12);
 			((uint32_t*)v6)[36] <<= v12;
 			((uint32_t*)v6)[37] -= v12;
 			v9 = v63;
-			goto LABEL_16;
+		} else if ((unsigned int)v5 < v7) {
+			v16 = (*v5++ << (24 - v14)) | ((uint32_t*)v6)[36];
+			((uint32_t*)v6)[36] = v16;
+			a4 = (unsigned int)v5;
+			((uint32_t*)v6)[37] = v14 + 8;
+			v15 = ((uint32_t*)v6)[36] >> (32 - v12);
+			((uint32_t*)v6)[36] <<= v12;
+			((uint32_t*)v6)[37] -= v12;
+			v9 = v63;
+		} else {
+			((uint32_t*)v6)[37] = 0;
+			v15 = -1;
 		}
-		((uint32_t*)v6)[37] = 0;
-		v15 = -1;
-	LABEL_16:
 		v17 = v15 + ((uint32_t*)v6)[2 * v9 + 4];
 		if (v17 >= 274) {
 			return 0;
@@ -831,23 +831,23 @@ int nxz_decompress(Decoder* this, uint8_t* a2p, int* a3p, uint8_t* a4p, int* a5p
 		v29 = nxz_table_1[v13].v1;
 		v30 = ((uint32_t*)v6)[37];
 		if (v30 >= v29) {
-			goto LABEL_41;
-		}
-		if ((unsigned int)v5 < v69) {
-			v32 = (*v5++ << (24 - v30)) | ((uint32_t*)v6)[36];
-			((uint32_t*)v6)[36] = v32;
-			a4 = (unsigned int)v5;
-			((uint32_t*)v6)[37] = v30 + 8;
-		LABEL_41:
 			v31 = ((uint32_t*)v6)[36] >> (32 - v29);
 			v33 = ((uint32_t*)v6)[36] << v29;
 			((uint32_t*)v6)[37] -= v29;
 			((uint32_t*)v6)[36] = v33;
-			goto LABEL_42;
+		} else if ((unsigned int)v5 < v69) {
+			v32 = (*v5++ << (24 - v30)) | ((uint32_t*)v6)[36];
+			((uint32_t*)v6)[36] = v32;
+			a4 = (unsigned int)v5;
+			((uint32_t*)v6)[37] = v30 + 8;
+			v31 = ((uint32_t*)v6)[36] >> (32 - v29);
+			v33 = ((uint32_t*)v6)[36] << v29;
+			((uint32_t*)v6)[37] -= v29;
+			((uint32_t*)v6)[36] = v33;
+		} else {
+			((uint32_t*)v6)[37] = 0;
+			v31 = -1;
 		}
-		((uint32_t*)v6)[37] = 0;
-		v31 = -1;
-	LABEL_42:
 		v28 = v31 + nxz_table_1[v13].v2;
 	LABEL_43:
 		v34 = ((uint32_t*)v6)[37];
@@ -876,43 +876,43 @@ int nxz_decompress(Decoder* this, uint8_t* a2p, int* a3p, uint8_t* a4p, int* a5p
 		v38 = ((uint32_t*)v6)[37];
 		v37 = nxz_table_2[v71+1].v1 + 1;
 		if (v38 >= 8) {
-			goto LABEL_53;
-		}
-		if ((unsigned int)v5 < v69) {
-			v40 = (*v5++ << (24 - v38)) | ((uint32_t*)v6)[36];
-			((uint32_t*)v6)[36] = v40;
-			a4 = (unsigned int)v5;
-			((uint32_t*)v6)[37] = v38 + 8;
-		LABEL_53:
 			v41 = ((uint32_t*)v6)[36];
 			((uint32_t*)v6)[36] = v41 << 8;
 			((uint32_t*)v6)[37] -= 8;
 			v39 = v41 >> 24;
-			goto LABEL_54;
+		} else if ((unsigned int)v5 < v69) {
+			v40 = (*v5++ << (24 - v38)) | ((uint32_t*)v6)[36];
+			((uint32_t*)v6)[36] = v40;
+			a4 = (unsigned int)v5;
+			((uint32_t*)v6)[37] = v38 + 8;
+			v41 = ((uint32_t*)v6)[36];
+			((uint32_t*)v6)[36] = v41 << 8;
+			((uint32_t*)v6)[37] -= 8;
+			v39 = v41 >> 24;
+		} else {
+			((uint32_t*)v6)[37] = 0;
+			v39 = -1;
 		}
-		((uint32_t*)v6)[37] = 0;
-		v39 = -1;
-	LABEL_54:
 		v65 = v39 << v37;
 	LABEL_55:
 		v42 = ((uint32_t*)v6)[37];
 		if (v42 >= v37) {
-			goto LABEL_59;
-		}
-		if ((unsigned int)v5 < v69) {
-			((uint32_t*)v6)[36] |= *v5 << (24 - v42);
-			a4 = (unsigned int)(v5 + 1);
-			((uint32_t*)v6)[37] = v42 + 8;
-		LABEL_59:
 			v43 = ((uint32_t*)v6)[36] >> (32 - v37);
 			v44 = ((uint32_t*)v6)[36] << v37;
 			((uint32_t*)v6)[37] -= v37;
 			((uint32_t*)v6)[36] = v44;
-			goto LABEL_60;
+		} else if ((unsigned int)v5 < v69) {
+			((uint32_t*)v6)[36] |= *v5 << (24 - v42);
+			a4 = (unsigned int)(v5 + 1);
+			((uint32_t*)v6)[37] = v42 + 8;
+			v43 = ((uint32_t*)v6)[36] >> (32 - v37);
+			v44 = ((uint32_t*)v6)[36] << v37;
+			((uint32_t*)v6)[37] -= v37;
+			((uint32_t*)v6)[36] = v44;
+		} else {
+			((uint32_t*)v6)[37] = 0;
+			v43 = -1;
 		}
-		((uint32_t*)v6)[37] = 0;
-		v43 = -1;
-	LABEL_60:
 		v45 = a2;
 		v46 = (nxz_table_2[v71+1].v2 << 9) + (v65 | v43);
 		v47 = v67 + 4;
