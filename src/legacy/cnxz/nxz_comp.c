@@ -1456,22 +1456,7 @@ int nxz_compress(void* a1p, uint8_t* a2p, uint8_t* a3p, int a4p) {
 			v119 = 0x10000 - v15;
 			if (0x10000 - v15 < v18) {
 				v22 = v15;
-				if (v15 >= 0x10000) {
-				LABEL_33:
-					v23 = 0;
-					if (v18 + v15 - 0x10000 <= 0) {
-					LABEL_23:
-						v12 = v18;
-						goto LABEL_24;
-					}
-					while (*((uint8_t*)*v4 + v23) == v138[v119 + v23]) {
-						v18 = v112;
-						if (++v23 >= v112 + v15 - 0x10000) {
-							goto LABEL_23;
-						}
-					}
-					v12 = v119 + v23;
-				} else {
+				if (v15 < 0x10000) {
 					while (*((uint8_t*)*v4 + v22) == v138[v22 - v15]) {
 						if (++v22 >= 0x10000) {
 							v10 = v136;
@@ -1480,16 +1465,33 @@ int nxz_compress(void* a1p, uint8_t* a2p, uint8_t* a3p, int a4p) {
 					}
 					v10 = v136;
 					v12 = v22 - v15;
+					goto LABEL_24;
 				}
+			LABEL_33:
+				v23 = 0;
+				if (v18 + v15 - 0x10000 <= 0) {
+					v12 = v18;
+					goto LABEL_24;
+				}
+				while (*((uint8_t*)*v4 + v23) == v138[v119 + v23]) {
+					v18 = v112;
+					if (++v23 >= v112 + v15 - 0x10000) {
+						v12 = v18;
+						goto LABEL_24;
+					}
+				}
+				v12 = v119 + v23;
 			} else {
 				v12 = 0;
 				if (v18 <= 0) {
-					goto LABEL_23;
+					v12 = v18;
+					goto LABEL_24;
 				}
 				while (*((uint8_t*)*v4 + v15 + v12) == a3[v11 + v12]) {
 					v18 = v112;
 					if (++v12 >= v112) {
-						goto LABEL_23;
+						v12 = v18;
+						goto LABEL_24;
 					}
 				}
 			}
@@ -1525,48 +1527,48 @@ int nxz_compress(void* a1p, uint8_t* a2p, uint8_t* a3p, int a4p) {
 				if (v121 < 0x10000 - v24) {
 					v25 = v114;
 					if (v114 < v24 - v12) {
-					LABEL_53:
-						v26 = 0;
-						if (v25 <= 0) {
-							goto LABEL_152;
-						}
-						v122 = v15 - 1;
-						v139 = v138 - 1;
-						do {
-							if (*((uint8_t*)*v4 + v122) != *v139) {
-								break;
-							}
-							++v26;
-							--v122;
-							--v139;
-						} while (v26 < v114);
-						if (v26 <= 0) {
-						LABEL_152:
-							v10 = v136;
-						} else {
-							v11 -= v26;
-							v27 = (int)v4[1] - v26;
-							LOWORD(v15) = v15 - v26;
-							v12 += v26;
-							v4[1] = (void*)v27;
-							v28 = &a3[v11];
-							LOWORD(v117) = v27;
-							v10 = 0;
-							if (v28 < v28 + 5) {
-								do {
-									v29 = *v28++ ^ v10;
-									v10 = __ROL4__(v29, 5);
-								} while (v28 < &a3[v11 + 5]);
-							}
-							v136 = v10;
-							v125 = 1;
-						}
-						goto LABEL_62;
+						goto LABEL_53;
 					}
 					v25 = (unsigned short)((char*)v4[1] - v15) - v12;
 				}
 				v114 = v25;
-				goto LABEL_53;
+			LABEL_53:
+				v26 = 0;
+				if (v25 <= 0) {
+					v10 = v136;
+					goto LABEL_62;
+				}
+				v122 = v15 - 1;
+				v139 = v138 - 1;
+				do {
+					if (*((uint8_t*)*v4 + v122) != *v139) {
+						break;
+					}
+					++v26;
+					--v122;
+					--v139;
+				} while (v26 < v114);
+				if (v26 <= 0) {
+					v10 = v136;
+				} else {
+					v11 -= v26;
+					v27 = (int)v4[1] - v26;
+					LOWORD(v15) = v15 - v26;
+					v12 += v26;
+					v4[1] = (void*)v27;
+					v28 = &a3[v11];
+					LOWORD(v117) = v27;
+					v10 = 0;
+					if (v28 < v28 + 5) {
+						do {
+							v29 = *v28++ ^ v10;
+							v10 = __ROL4__(v29, 5);
+						} while (v28 < &a3[v11 + 5]);
+					}
+					v136 = v10;
+					v125 = 1;
+				}
+				goto LABEL_62;
 			}
 		LABEL_62:
 			v30 = v110;
@@ -1687,19 +1689,17 @@ int nxz_compress(void* a1p, uint8_t* a2p, uint8_t* a3p, int a4p) {
 					v53 = &v50[4 * (v51 >> 2)];
 					v52 = &v49[4 * (v51 >> 2)];
 					v54 = v51;
-				LABEL_118:
-					memcpy(v52, v53, v54 & 3);
-					v4[1] = (char*)v4[1] + v12;
-					a3 += v115 + v12;
-					goto LABEL_143;
+				} else {
+					v84 = (char*)*v4 + v47;
+					memcpy(v84, v39, 4 * ((unsigned int)v12 >> 2));
+					v53 = &v39[4 * ((unsigned int)v12 >> 2)];
+					v52 = &v84[4 * ((unsigned int)v12 >> 2)];
+					v54 = v12;
 				}
-			LABEL_117:
-				v84 = (char*)*v4 + v47;
-				memcpy(v84, v39, 4 * ((unsigned int)v12 >> 2));
-				v53 = &v39[4 * ((unsigned int)v12 >> 2)];
-				v52 = &v84[4 * ((unsigned int)v12 >> 2)];
-				v54 = v12;
-				goto LABEL_118;
+				memcpy(v52, v53, v54 & 3);
+				v4[1] = (char*)v4[1] + v12;
+				a3 += v115 + v12;
+				goto LABEL_143;
 			}
 			if (v12 < 4) {
 				goto LABEL_66;
@@ -1762,9 +1762,17 @@ int nxz_compress(void* a1p, uint8_t* a2p, uint8_t* a3p, int a4p) {
 					v53 = &v82[4 * (v83 >> 2)];
 					v52 = &v81[4 * (v83 >> 2)];
 					v54 = v83;
-					goto LABEL_118;
+				} else {
+					v84 = (char*)*v4 + v47;
+					memcpy(v84, v39, 4 * ((unsigned int)v12 >> 2));
+					v53 = &v39[4 * ((unsigned int)v12 >> 2)];
+					v52 = &v84[4 * ((unsigned int)v12 >> 2)];
+					v54 = v12;
 				}
-				goto LABEL_117;
+				memcpy(v52, v53, v54 & 3);
+				v4[1] = (char*)v4[1] + v12;
+				a3 += v115 + v12;
+				goto LABEL_143;
 			}
 			v30 = v12;
 			v110 = v12;
