@@ -1161,6 +1161,7 @@ int sub_57E4C0(uint32_t** this, unsigned int a2, int a3, unsigned int a4, unsign
 				goto LABEL_14;
 			}
 		}
+		goto LABEL_15;
 	} else {
 		v6 = a4 + 256;
 		if ((int)--*v5[2] <= 0) {
@@ -1176,20 +1177,21 @@ int sub_57E4C0(uint32_t** this, unsigned int a2, int a3, unsigned int a4, unsign
 		v5[6] = (uint32_t*)((char*)v8 + v11);
 		v5[5] = (uint32_t*)((v12 << (32 - (uint8_t)v8 - v11)) | v9);
 		if ((int)v8 + v11 >= 16) {
-		LABEL_14:
-			*(uint8_t*)v5[3] = (unsigned int)v5[5] >> 24;
-			v30 = v5[5];
-			v31 = (char*)v5[3] + 1;
-			v5[3] = v31;
-			*v31 = BYTE2(v30);
-			v32 = (int)(v5[6] - 4);
-			v33 = (uint32_t*)((uint32_t)v5[5] << 16);
-			v5[3] = (uint32_t*)((char*)v5[3] + 1);
-			v5[6] = (uint32_t*)v32;
-			v5[5] = v33;
-			goto LABEL_15;
+			goto LABEL_14;
 		}
+		goto LABEL_15;
 	}
+LABEL_14:
+	*(uint8_t*)v5[3] = (unsigned int)v5[5] >> 24;
+	v30 = v5[5];
+	v31 = (char*)v5[3] + 1;
+	v5[3] = v31;
+	*v31 = BYTE2(v30);
+	v32 = (int)(v5[6] - 4);
+	v33 = (uint32_t*)((uint32_t)v5[5] << 16);
+	v5[3] = (uint32_t*)((char*)v5[3] + 1);
+	v5[6] = (uint32_t*)v32;
+	v5[5] = v33;
 LABEL_15:
 	v34 = nxz_table_5[a5 >> 9].v1 + 9;
 	v35 = a5 & 0x1FF | (nxz_table_5[a5 >> 9].v2 << 9);
@@ -1229,19 +1231,20 @@ LABEL_15:
 	result = (int)(v44 + 4);
 	v5[5] = (uint32_t*)v45;
 	v5[6] = v44 + 4;
-	if ((int)(v44 + 4) >= 16) {
-	LABEL_21:
-		*(uint8_t*)v5[3] = (unsigned int)v5[5] >> 24;
-		v51 = v5[5];
-		v52 = (char*)v5[3] + 1;
-		v5[3] = v52;
-		*v52 = BYTE2(v51);
-		v53 = (int)(v5[6] - 4);
-		result = (uint32_t)v5[5] << 16;
-		v5[3] = (uint32_t*)((char*)v5[3] + 1);
-		v5[6] = (uint32_t*)v53;
-		v5[5] = (uint32_t*)result;
+	if ((int)(v44 + 4) < 16) {
+		return result;
 	}
+LABEL_21:
+	*(uint8_t*)v5[3] = (unsigned int)v5[5] >> 24;
+	v51 = v5[5];
+	v52 = (char*)v5[3] + 1;
+	v5[3] = v52;
+	*v52 = BYTE2(v51);
+	v53 = (int)(v5[6] - 4);
+	result = (uint32_t)v5[5] << 16;
+	v5[3] = (uint32_t*)((char*)v5[3] + 1);
+	v5[6] = (uint32_t*)v53;
+	v5[5] = (uint32_t*)result;
 	return result;
 }
 

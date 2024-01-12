@@ -713,6 +713,7 @@ func sub_57E4C0(this **uint32, a2 uint32, a3 int32, a4 uint32, a5 uint32) int32 
 				goto LABEL_14
 			}
 		}
+		goto LABEL_15
 	} else {
 		v6 = uint16(a4 + 256)
 		if int32(func() uint32 {
@@ -732,20 +733,21 @@ func sub_57E4C0(this **uint32, a2 uint32, a3 int32, a4 uint32, a5 uint32) int32 
 		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v8))), v11))))
 		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(uint32(int32(v12)<<(32-int32(uint8(uintptr(unsafe.Pointer(v8))))-v11)) | v9)))
 		if int32(uintptr(unsafe.Pointer(v8)))+v11 >= 16 {
-		LABEL_14:
-			*(*uint8)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)))) = uint8(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) >> 24)
-			v30 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))
-			v31 = (*uint8)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))
-			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer(v31))
-			*v31 = *(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v30))), 2))
-			v32 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))), -int(4*4))))))
-			v33 = (*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) << 16)))
-			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))))
-			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v32)))
-			*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = v33
-			goto LABEL_15
+			goto LABEL_14
 		}
+		goto LABEL_15
 	}
+LABEL_14:
+	*(*uint8)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)))) = uint8(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) >> 24)
+	v30 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))
+	v31 = (*uint8)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer(v31))
+	*v31 = *(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v30))), 2))
+	v32 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))), -int(4*4))))))
+	v33 = (*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) << 16)))
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))))
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v32)))
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = v33
 LABEL_15:
 	v34 = int32(nxz_table_5[a5>>9].v1 + 9)
 	v35 = a5&0x1FF | nxz_table_5[a5>>9].v2<<9
@@ -785,19 +787,20 @@ LABEL_15:
 	result = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v44), 4*4)))))
 	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(v45)))
 	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Add(unsafe.Pointer(v44), 4*4))
-	if int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v44), 4*4))))) >= 16 {
-	LABEL_21:
-		*(*uint8)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)))) = uint8(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) >> 24)
-		v51 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))
-		v52 = (*uint8)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))
-		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer(v52))
-		*v52 = *(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v51))), 2))
-		v53 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))), -int(4*4))))))
-		result = int32(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) << 16)
-		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))))
-		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v53)))
-		*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(result)))
+	if int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v44), 4*4))))) < 16 {
+		return result
 	}
+LABEL_21:
+	*(*uint8)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)))) = uint8(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) >> 24)
+	v51 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))
+	v52 = (*uint8)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer(v52))
+	*v52 = *(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v51))), 2))
+	v53 = int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))), -int(4*4))))))
+	result = int32(uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5))))) << 16)
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*3))))), 1))))
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v53)))
+	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(result)))
 	return result
 }
 func nxz_compress(a1p unsafe.Pointer, a2p *uint8, a3p *uint8, a4p int32) int32 {
