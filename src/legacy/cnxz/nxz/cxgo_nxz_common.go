@@ -1,7 +1,7 @@
 package nxz
 
 import (
-	"unsafe"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 const (
@@ -10,15 +10,14 @@ const (
 )
 
 type Common struct {
-	field0 unsafe.Pointer // 0, 0 (8)
+	field0 *[tableSize3]int16 // 0, 0 (8)
 }
 
 func initCommon(c *Common) {
-	c.field0 = calloc(1, 0x224)
-	memset(c.field0, 0, 0x224)
+	c.field0, _ = alloc.New([tableSize3]int16{})
 }
 
 func freeCommon(c *Common) {
-	free(c.field0)
+	alloc.Free(c.field0)
 	c.field0 = nil
 }

@@ -22,6 +22,11 @@ type decoderData struct {
 	field132 *[tableSize3]int16 // 33, 132
 }
 
+type decoderRec struct {
+	ind0 int16
+	val2 int16
+}
+
 func NewDecoder() *Decoder {
 	dec, _ := alloc.New(Decoder{})
 	if dec == nil {
