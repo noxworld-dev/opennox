@@ -7,104 +7,82 @@ import (
 )
 
 type Decoder struct {
-	src1    []byte
+	src     []byte
 	err     error
-	buf0    [bufferSize]byte
-	field4  uint32
-	data8   decoderData
+	rbuf    [bufferSize]byte
+	rind    int
+	data    decoderData
 	bitsVal uint
 	bitsCnt int
 }
 
 type decoderData struct {
-	field0   commonData
-	field4   [32]uint32
-	field132 [tableSize]int16
+	tableData
+	table2 [32]uint32
+	table3 [tableSize]int16
+}
+
+func (d *decoderData) init() {
+	d.tableData.init()
+	d.table3 = nxz_table_3
+	d.table2 = nxz_table_4
+}
+
+func (d *decoderData) free() {
+	d.tableData.free()
 }
 
 type decoderRec struct {
-	ind0 int16
-	val2 int16
+	ind int16
+	val int16
 }
 
 func NewDecoder(src []byte) *Decoder {
 	dec := &Decoder{
-		src1: src,
+		src: src,
 	}
-	initDecData(&dec.data8)
+	dec.data.init()
 	return dec
-}
-
-func initDecData(d *decoderData) {
-	initCommon(&d.field0)
-	d.field132 = nxz_table_3
-	d.field4 = nxz_table_4
 }
 
 func (dec *Decoder) Free() {
 	if dec == nil {
 		return
 	}
-	freeDecData(&dec.data8)
+	dec.data.free()
 }
 
-func freeDecData(d *decoderData) {
-	freeCommon(&d.field0)
-}
-
-func sub57DDE0(arr []decoderRec) {
-	for i := 40; i > 0; i /= 3 {
-		j := i + 1
-		v11 := i + 1
-		if i+1 > len(arr) {
-			continue
-		}
-		for {
-			v6 := j
-			v10 := j
-			val := arr[j-1]
-			if j > i {
-				for {
-					v8 := int32(arr[v6-i-1].val2) - int32(val.val2)
-					if v8 == 0 {
-						v8 = int32(arr[v6-i-1].ind0) - int32(val.ind0)
-					}
-					if v8 >= 0 {
-						break
-					}
-					arr[v6-1] = arr[v6-i-1]
-					v6 -= i
-					v10 -= i
-					if v10 <= i {
-						break
-					}
-				}
-				j = v11
-			}
-			j++
-			arr[v10-1] = val
-			v11 = j
-			if j > len(arr) {
-				break
-			}
-		}
-	}
-}
-func sub57DEA0(d *decoderData, arr []decoderRec) int {
+func (d *decoderData) update(arr []decoderRec) int {
 	it := arr
 	n := 0
-	for i := range d.field0.field0 {
-		p := &d.field0.field0[i]
-		it[0] = decoderRec{ind0: int16(i), val2: *p}
+	for i := range d.table {
+		p := &d.table[i]
+		it[0] = decoderRec{ind: int16(i), val: *p}
 		it = it[1:]
 		n += int(*p)
 		*p /= 2
 	}
-	sub57DDE0(arr[:tableSize])
+	for i := 40; i > 0; i /= 3 {
+		for j, cur := range arr {
+			k := j + 1
+			for ; k > i; k -= i {
+				v := int(arr[k-i-1].val) - int(cur.val)
+				if v == 0 {
+					v = int(arr[k-i-1].ind) - int(cur.ind)
+				}
+				if v >= 0 {
+					break
+				}
+				arr[k-1] = arr[k-i-1]
+			}
+			arr[k-1] = cur
+		}
+	}
 	return n
 }
+
 func (dec *Decoder) Decode(dst []byte) (int, error) {
-	if len(dec.src1) == 0 {
+	if len(dec.src) == 0 {
 		if dec.err != nil {
 			return 0, dec.err
 		}
@@ -115,14 +93,14 @@ func (dec *Decoder) Decode(dst []byte) (int, error) {
 	return n, err
 }
 func (dec *Decoder) hasMore() bool {
-	return len(dec.src1) > 0
+	return len(dec.src) > 0
 }
 func (dec *Decoder) readByte() (byte, bool) {
-	if len(dec.src1) == 0 {
+	if len(dec.src) == 0 {
 		return 0, false
 	}
-	b := dec.src1[0]
-	dec.src1 = dec.src1[1:]
+	b := dec.src[0]
+	dec.src = dec.src[1:]
 	return b, true
 }
 func (dec *Decoder) readBits(n int) uint {
@@ -151,113 +129,114 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 		if !dec.hasMore() {
 			return 0, io.ErrUnexpectedEOF
 		}
-		v9 := dec.readBits4()
+		ti := dec.readBits4()
+		n := int(dec.data.table2[2*ti+0])
+		ti2 := int(dec.data.table2[2*ti+1])
 		var op int
-		if n := int(dec.data8.field4[2*v9]); n == 0 {
-			op = int(dec.data8.field132[dec.data8.field4[v9*2+1]])
+		if n == 0 {
+			op = int(dec.data.table3[ti2])
 		} else {
-			v15 := dec.readBits(n)
-			ind := int(uint32(v15) + dec.data8.field4[v9*2+1])
+			v := dec.readBits(n)
+			ind := ti2 + int(v)
 			if ind >= tableSize {
 				return 0, errors.New("wrong table index")
 			}
-			op = int(dec.data8.field132[ind])
+			op = int(dec.data.table3[ind])
 		}
-		dec.data8.field0.field0[op]++
+		dec.data.table[op]++
 		if op < 256 {
 			if di >= len(dst) {
 				return 0, io.ErrShortBuffer
 			}
 			dst[di] = uint8(int8(op))
 			di++
-			dec.buf0[dec.field4%bufferSize] = uint8(int8(op))
-			dec.field4++
+			dec.rbuf[dec.rind%bufferSize] = uint8(int8(op))
+			dec.rind++
 			continue
 		} else if op == 272 {
-			sub57DEA0(&dec.data8, recs[:])
-			for i := range dec.data8.field132 {
-				dec.data8.field132[i] = recs[i].ind0
+			dec.data.update(recs[:])
+			for i := range dec.data.table3 {
+				dec.data.table3[i] = recs[i].ind
 			}
-			v22 := 0
-			v70 := 0
-			it := dec.data8.field4[:]
+			boff := 0
+			sval := 0
+			it := dec.data.table2[:]
 			for i := 0; i < 16; i++ {
-				var ind int
+				var bit int
 				for {
 					if dec.readBits(1) != 0 {
 						break
 					}
-					ind++
+					bit++
 				}
-				v22 += ind
-				it[0] = uint32(v22)
-				it[1] = uint32(v70)
+				boff += bit
+				it[0] = uint32(boff)
+				it[1] = uint32(sval)
 				it = it[2:]
-				v70 += 1 << v22
+				sval += 1 << boff
 			}
 			continue
 		}
 		if op == 273 {
 			return di, nil
 		}
-		var v28 int
+		var sz int
 		if op < 264 {
-			v28 = op - 256
+			sz = op - 256
 		} else {
 			v29 := nxz_table_1[op].v1
 			v31 := int32(dec.readBits(int(v29)))
-			v28 = int(uint32(v31) + nxz_table_1[op].v2)
+			sz = int(uint32(v31) + nxz_table_1[op].v2)
 		}
-		v67 := v28
-		v71 := int32(dec.readBits(3))
-		v65 := 0
-		v37 := int32(nxz_table_2[v71+1].v1 + 9)
-		if v37 > 8 {
-			v37 = int32(nxz_table_2[v71+1].v1 + 1)
-			v65 = int(dec.readBits(8)) << v37
+		sz += 4
+
+		ti3 := int(dec.readBits(3))
+		val1 := 0
+		bn := int(nxz_table_2[ti3+1].v1 + 9)
+		if bn > 8 {
+			bn = int(nxz_table_2[ti3+1].v1 + 1)
+			val1 = int(dec.readBits(8)) << bn
 		}
-		v43 := int(dec.readBits(int(v37)))
-		v45i := di
-		v46 := int((nxz_table_2[v71+1].v2 << 9) + uint32(v65|v43))
-		v47 := v67 + 4
-		v68i := di + v67 + 4
-		if v68i > len(dst) {
+		val2 := int(dec.readBits(bn))
+		di2 := di
+		off := int((nxz_table_2[ti3+1].v2 << 9) + uint32(val1|val2))
+		if di+sz > len(dst) {
 			return 0, io.ErrShortBuffer
 		}
-		if v48 := int(dec.field4-uint32(v46)) % bufferSize; v47 >= v46 {
-			if v48+v46 <= bufferSize {
-				copy(dst[v45i:v45i+v46], dec.buf0[v48:v48+v46])
+		if ri := (dec.rind - off) % bufferSize; sz >= off {
+			if ri+off <= bufferSize {
+				copy(dst[di2:di2+off], dec.rbuf[ri:ri+off])
 			} else {
-				n := bufferSize - int(v48)
-				copy(dst[di:di+n], dec.buf0[v48:v48+n])
-				v53 := v46 - n
-				v45i = di + n
-				copy(dst[v45i:v45i+v53], dec.buf0[:v53])
+				n := bufferSize - int(ri)
+				copy(dst[di:di+n], dec.rbuf[ri:ri+n])
+				n2 := off - n
+				di2 = di + n
+				copy(dst[di2:di2+n2], dec.rbuf[:n2])
 			}
-			if n := v47 - v46; n > 0 {
+			if n := sz - off; n > 0 {
 				for i := 0; i < n; i++ {
-					dst[di+v46+i] = dst[di+i]
+					dst[di+off+i] = dst[di+i]
 				}
 			}
 		} else {
-			if uint32(v48+v47) <= bufferSize {
-				copy(dst[di:di+v47], dec.buf0[v48:v48+v47])
+			if uint32(ri+sz) <= bufferSize {
+				copy(dst[di:di+sz], dec.rbuf[ri:ri+sz])
 			} else {
-				n := bufferSize - int(v48)
-				copy(dst[di:di+n], dec.buf0[v48:v48+n])
-				copy(dst[di+n:di+v47], dec.buf0[:v47-n])
+				n := bufferSize - int(ri)
+				copy(dst[di:di+n], dec.rbuf[ri:ri+n])
+				copy(dst[di+n:di+sz], dec.rbuf[:sz-n])
 			}
 		}
-		if v57 := int(dec.field4 & math.MaxUint16); v57+v47 <= bufferSize {
-			copy(dec.buf0[v57:v57+v47], dst[di:di+v47])
+		if ri := dec.rind % bufferSize; ri+sz <= bufferSize {
+			copy(dec.rbuf[ri:ri+sz], dst[di:di+sz])
 		} else {
-			n := bufferSize - v57
-			copy(dec.buf0[v57:v57+n], dst[di:di+n])
-			v60 := v47 - n
-			v61i := di + n
-			copy(dec.buf0[:v60], dst[v61i:v61i+v60])
+			n := bufferSize - ri
+			copy(dec.rbuf[ri:ri+n], dst[di:di+n])
+			n2 := sz - n
+			di2 := di + n
+			copy(dec.rbuf[:n2], dst[di2:di2+n2])
 		}
-		dec.field4 += uint32(v47)
-		di = v68i
+		dec.rind += sz
+		di += sz
 	}
 }

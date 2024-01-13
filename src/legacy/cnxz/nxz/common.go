@@ -12,15 +12,15 @@ const (
 	uintSize   = bits.UintSize
 )
 
-type commonData struct {
-	field0 *[tableSize]int16 // 0, 0 (8)
+type tableData struct {
+	table *[tableSize]int16 // 0, 0 (8)
 }
 
-func initCommon(c *commonData) {
-	c.field0, _ = alloc.New([tableSize]int16{})
+func (d *tableData) init() {
+	d.table, _ = alloc.New([tableSize]int16{})
 }
 
-func freeCommon(c *commonData) {
-	alloc.Free(c.field0)
-	c.field0 = nil
+func (d *tableData) free() {
+	alloc.Free(d.table)
+	d.table = nil
 }
