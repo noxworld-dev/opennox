@@ -56,36 +56,36 @@ func sub57DDE0(arr []decoderRec) {
 	for i := 40; i > 0; i /= 3 {
 		j := i + 1
 		v11 := i + 1
-		if i+1 <= len(arr) {
-			for {
-				v6 := j * 4
-				v10 := j
-				val := arr[j-1]
-				if j > i {
-					v7 := i * 4
-					for {
-						v8 := int32(arr[(v6-v7)/4-1].val2) - int32(val.val2)
-						if v8 == 0 {
-							v8 = int32(arr[(v6-v7)/4-1].ind0) - int32(val.ind0)
-						}
-						if v8 >= 0 {
-							break
-						}
-						arr[v6/4-1] = arr[(v6-v7)/4-1]
-						v6 -= v7
-						v10 -= i
-						if v10 <= i {
-							break
-						}
+		if i+1 > len(arr) {
+			continue
+		}
+		for {
+			v6 := j
+			v10 := j
+			val := arr[j-1]
+			if j > i {
+				for {
+					v8 := int32(arr[v6-i-1].val2) - int32(val.val2)
+					if v8 == 0 {
+						v8 = int32(arr[v6-i-1].ind0) - int32(val.ind0)
 					}
-					j = v11
+					if v8 >= 0 {
+						break
+					}
+					arr[v6-1] = arr[v6-i-1]
+					v6 -= i
+					v10 -= i
+					if v10 <= i {
+						break
+					}
 				}
-				j++
-				arr[v10-1] = val
-				v11 = j
-				if j > len(arr) {
-					break
-				}
+				j = v11
+			}
+			j++
+			arr[v10-1] = val
+			v11 = j
+			if j > len(arr) {
+				break
 			}
 		}
 	}
@@ -204,7 +204,7 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 		if op < 264 {
 			v28 = op - 256
 		} else {
-			v29 := int32(nxz_table_1[op].v1)
+			v29 := nxz_table_1[op].v1
 			v31 := int32(dec.readBits(int(v29)))
 			v28 = int(uint32(v31) + nxz_table_1[op].v2)
 		}
@@ -241,11 +241,11 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 			}
 		} else {
 			if uint32(v48+v47) <= bufferSize {
-				copy(dst[di:di+int(v47)], dec.buf0[v48:v48+v47])
+				copy(dst[di:di+v47], dec.buf0[v48:v48+v47])
 			} else {
 				n := bufferSize - int(v48)
-				copy(dst[di:di+n], dec.buf0[v48:int(v48)+n])
-				copy(dst[di+n:di+int(v47)], dec.buf0[:int(v47)-n])
+				copy(dst[di:di+n], dec.buf0[v48:v48+n])
+				copy(dst[di+n:di+v47], dec.buf0[:v47-n])
 			}
 		}
 		if v57 := int(dec.field4 & math.MaxUint16); v57+v47 <= bufferSize {
@@ -255,7 +255,7 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 			copy(dec.buf0[v57:v57+n], dst[di:di+n])
 			v60 := v47 - n
 			v61i := di + n
-			copy(dec.buf0[:v60], dst[v61i:v61i+int(v60)])
+			copy(dec.buf0[:v60], dst[v61i:v61i+v60])
 		}
 		dec.field4 += uint32(v47)
 		di = v68i
