@@ -4,7 +4,6 @@ import (
 	"encoding/binary"
 	"errors"
 	"io"
-	"math"
 
 	"github.com/noxworld-dev/opennox-lib/ifs"
 )
@@ -66,13 +65,12 @@ func DecompressFile(src, dst string) error {
 }
 
 type Decoder struct {
-	src     []byte
-	err     error
-	rbuf    [bufferSize]byte
-	rind    int
-	data    decoderData
-	bitsVal uint
-	bitsCnt int
+	src  []byte
+	err  error
+	bits *bitReader
+	rbuf [bufferSize]byte
+	rind int
+	data decoderData
 }
 
 type decoderData struct {
@@ -100,6 +98,7 @@ func NewDecoder(src []byte) *Decoder {
 	dec := &Decoder{
 		src: src,
 	}
+	dec.bits = newBitReader(dec.readByte)
 	dec.data.init()
 	return dec
 }
@@ -163,32 +162,17 @@ func (dec *Decoder) readByte() (byte, bool) {
 	return b, true
 }
 func (dec *Decoder) readBits(n int) uint {
-	for dec.bitsCnt < n {
-		b, ok := dec.readByte()
-		if !ok {
-			dec.bitsCnt = 0
-			return math.MaxUint
-		}
-		dec.bitsVal |= uint(b) << (uintSize - 8 - dec.bitsCnt)
-		dec.bitsCnt += 8
-	}
-	val := dec.bitsVal >> (uintSize - n)
-	dec.bitsVal <<= n
-	dec.bitsCnt -= n
-	return val
-}
-func (dec *Decoder) readBits4() int {
-	return int(dec.readBits(4))
+	return dec.bits.ReadBits(n)
 }
 func (dec *Decoder) decode(dst []byte) (int, error) {
 	var recs [tableSize]decoderRec
 	di := 0
-	dec.bitsCnt = 0
+	dec.bits.Reset()
 	for {
 		if !dec.hasMore() {
 			return 0, io.ErrUnexpectedEOF
 		}
-		ti := dec.readBits4()
+		ti := dec.readBits(4)
 		n := int(dec.data.table2[2*ti+0])
 		ti2 := int(dec.data.table2[2*ti+1])
 		var op int
@@ -207,9 +191,9 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 			if di >= len(dst) {
 				return 0, io.ErrShortBuffer
 			}
-			dst[di] = uint8(int8(op))
+			dst[di] = byte(op)
 			di++
-			dec.rbuf[dec.rind%bufferSize] = uint8(int8(op))
+			dec.rbuf[dec.rind%bufferSize] = byte(op)
 			dec.rind++
 			continue
 		} else if op == 272 {
