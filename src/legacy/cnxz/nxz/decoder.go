@@ -170,7 +170,7 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 	dec.bits.Reset()
 	for {
 		if !dec.hasMore() {
-			return 0, io.ErrUnexpectedEOF
+			return 0, nil
 		}
 		ti := dec.readBits(4)
 		n := int(dec.data.table2[2*ti+0])
