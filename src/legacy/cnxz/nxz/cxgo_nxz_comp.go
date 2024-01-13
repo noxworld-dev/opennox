@@ -1,3 +1,5 @@
+//go:build 386
+
 package nxz
 
 import (
@@ -667,8 +669,8 @@ func sub_57E4C0(this **uint32, a2 uint32, a3 int32, a4 uint32, a5 uint32) int32 
 	sub_57E3F0(this, a2, a3)
 	if a4 >= 8 {
 		if a4 >= 0x26 {
-			v23 = (*uint8)(unsafe.Pointer(&nxz_table_7[(a4-38)>>5]))
-			v24 = uint16(nxz_table_7[(a4-38)>>5].v1 + 4)
+			v23 = (*uint8)(unsafe.Pointer(&nxzTable7[(a4-38)>>5]))
+			v24 = uint16(nxzTable7[(a4-38)>>5].v1 + 4)
 			if int32(func() uint32 {
 				p := *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*2))
 				*p--
@@ -689,9 +691,9 @@ func sub_57E4C0(this **uint32, a2 uint32, a3 int32, a4 uint32, a5 uint32) int32 
 				goto LABEL_14
 			}
 		} else {
-			v13 = uint16(nxz_table_7[(a4-8)>>1].v1)
-			v14 = (a4-8)&1 | nxz_table_7[(a4-8)>>1].v3
-			v15 = int32(nxz_table_7[(a4-8)>>1].v2)
+			v13 = uint16(nxzTable7[(a4-8)>>1].v1)
+			v14 = (a4-8)&1 | nxzTable7[(a4-8)>>1].v3
+			v15 = int32(nxzTable7[(a4-8)>>1].v2)
 			if int32(func() uint32 {
 				p := *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*2))
 				*p--
@@ -749,8 +751,8 @@ LABEL_14:
 	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer(uintptr(v32)))
 	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = v33
 LABEL_15:
-	v34 = int32(nxz_table_5[a5>>9].v1 + 9)
-	v35 = a5&0x1FF | nxz_table_5[a5>>9].v2<<9
+	v34 = int32(nxzTable5[a5>>9].v1 + 9)
+	v35 = a5&0x1FF | nxzTable5[a5>>9].v2<<9
 	if v34 <= 16 {
 		v47 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))
 		v48 = int8(32 - int32(uint8(uintptr(unsafe.Pointer(v47)))) - v34)
@@ -766,7 +768,7 @@ LABEL_15:
 	}
 	v36 = *(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6))
 	v37 = uint32(uintptr(unsafe.Pointer(*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)))))
-	v38 = int32(nxz_table_5[a5>>9].v1 - 7)
+	v38 = int32(nxzTable5[a5>>9].v1 - 7)
 	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*6)) = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v36))), v38))))
 	v39 = int32((v35 >> 16 << uint32(32-int32(uint8(uintptr(unsafe.Pointer(v36))))-v38)) | v37)
 	*(**uint32)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof((*uint32)(nil))*5)) = (*uint32)(unsafe.Pointer(uintptr(v39)))

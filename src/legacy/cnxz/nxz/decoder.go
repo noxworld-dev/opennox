@@ -1,10 +1,69 @@
 package nxz
 
 import (
+	"encoding/binary"
 	"errors"
 	"io"
 	"math"
+
+	"github.com/noxworld-dev/opennox-lib/ifs"
 )
+
+func DecompressFile(src, dst string) error {
+	if src == "" {
+		return errors.New("empty source path")
+	}
+	if dst == "" {
+		return errors.New("empty destination path")
+	}
+	r, err := ifs.Open(src)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+	fi, err := r.Stat()
+	if err != nil {
+		return err
+	}
+	srcSz := int(fi.Size() - 4)
+	var buf [4]byte
+	if _, err = io.ReadFull(r, buf[:4]); err != nil {
+		return err
+	}
+	dstSz := int(binary.LittleEndian.Uint32(buf[:]))
+
+	sbuf := make([]byte, srcSz)
+	_, err = io.ReadFull(r, sbuf)
+	if err != nil {
+		return err
+	}
+
+	dbuf := make([]byte, dstSz)
+
+	dec := NewDecoder(sbuf)
+	dstBuf := dbuf
+	for {
+		nDst, err := dec.Decode(dstBuf)
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			dec.Free()
+			return err
+		}
+		dstBuf = dstBuf[nDst:]
+	}
+	dec.Free()
+
+	w, err := ifs.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer w.Close()
+	if _, err = w.Write(dbuf); err != nil {
+		return err
+	}
+	return w.Close()
+}
 
 type Decoder struct {
 	src     []byte
@@ -24,8 +83,8 @@ type decoderData struct {
 
 func (d *decoderData) init() {
 	d.tableData.init()
-	d.table3 = nxz_table_3
-	d.table2 = nxz_table_4
+	d.table3 = nxzTable3
+	d.table2 = nxzTable4
 }
 
 func (d *decoderData) free() {
@@ -184,22 +243,22 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 		if op < 264 {
 			sz = op - 256
 		} else {
-			v29 := nxz_table_1[op].v1
+			v29 := nxzTable1[op].v1
 			v31 := int32(dec.readBits(int(v29)))
-			sz = int(uint32(v31) + nxz_table_1[op].v2)
+			sz = int(uint32(v31) + nxzTable1[op].v2)
 		}
 		sz += 4
 
 		ti3 := int(dec.readBits(3))
 		val1 := 0
-		bn := int(nxz_table_2[ti3+1].v1 + 9)
+		bn := int(nxzTable2[ti3+1].v1 + 9)
 		if bn > 8 {
-			bn = int(nxz_table_2[ti3+1].v1 + 1)
+			bn = int(nxzTable2[ti3+1].v1 + 1)
 			val1 = int(dec.readBits(8)) << bn
 		}
 		val2 := int(dec.readBits(bn))
 		di2 := di
-		off := int((nxz_table_2[ti3+1].v2 << 9) + uint32(val1|val2))
+		off := int((nxzTable2[ti3+1].v2 << 9) + uint32(val1|val2))
 		if di+sz > len(dst) {
 			return 0, io.ErrShortBuffer
 		}
