@@ -1357,6 +1357,9 @@ func (g *Streams) processStreamOp17(out []byte, packet []byte, p1 byte, from net
 }
 
 func (g *Streams) processPong(out []byte, packet []byte, from netip.AddrPort) int {
+	if len(packet) < 8 {
+		return 0
+	}
 	token := binary.LittleEndian.Uint32(packet[4:])
 	dt := g.Now() - time.Duration(token)*time.Millisecond
 	ind := g.struct2IndByAddr(from)
