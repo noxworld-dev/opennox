@@ -833,6 +833,9 @@ func (c *Client) Sub4C5630(a1 int, a2 int, a3 int) int {
 }
 
 func (c *Client) sub_4C5430(px int, py int) {
+	if py < 0 || py >= len(c.tiles.nox_arr_956A00) {
+		return
+	}
 	v2 := c.tiles.nox_arr_956A00[py]
 	if v2 >= 32 {
 		return
