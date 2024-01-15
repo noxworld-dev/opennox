@@ -75,7 +75,7 @@ type Decoder struct {
 
 type decoderData struct {
 	tableData
-	table2 [32]uint32
+	table2 [16][2]uint32
 	table3 [tableSize]int16
 }
 
@@ -173,8 +173,8 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 			return 0, nil
 		}
 		ti := dec.readBits(4)
-		n := int(dec.data.table2[2*ti+0])
-		ti2 := int(dec.data.table2[2*ti+1])
+		n := int(dec.data.table2[ti][0])
+		ti2 := int(dec.data.table2[ti][1])
 		var op int
 		if n == 0 {
 			op = int(dec.data.table3[ti2])
@@ -213,9 +213,9 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 					bit++
 				}
 				boff += bit
-				it[0] = uint32(boff)
-				it[1] = uint32(sval)
-				it = it[2:]
+				it[0][0] = uint32(boff)
+				it[0][1] = uint32(sval)
+				it = it[1:]
 				sval += 1 << boff
 			}
 			continue
@@ -227,22 +227,22 @@ func (dec *Decoder) decode(dst []byte) (int, error) {
 		if op < 264 {
 			sz = op - 256
 		} else {
-			v29 := nxzTable1[op].v1
+			v29 := nxzTable1[op][0]
 			v31 := int32(dec.readBits(int(v29)))
-			sz = int(uint32(v31) + nxzTable1[op].v2)
+			sz = int(uint32(v31) + nxzTable1[op][1])
 		}
 		sz += 4
 
 		ti3 := int(dec.readBits(3))
 		val1 := 0
-		bn := int(nxzTable2[ti3+1].v1 + 9)
+		bn := int(nxzTable2[ti3+1][0] + 9)
 		if bn > 8 {
-			bn = int(nxzTable2[ti3+1].v1 + 1)
+			bn = int(nxzTable2[ti3+1][0] + 1)
 			val1 = int(dec.readBits(8)) << bn
 		}
 		val2 := int(dec.readBits(bn))
 		di2 := di
-		off := int((nxzTable2[ti3+1].v2 << 9) + uint32(val1|val2))
+		off := int((nxzTable2[ti3+1][1] << 9) + uint32(val1|val2))
 		if di+sz > len(dst) {
 			return 0, io.ErrShortBuffer
 		}
