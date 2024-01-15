@@ -7,7 +7,6 @@ import (
 	"image/color"
 	"math"
 	"sort"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/wall"
@@ -711,7 +710,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 				if dist := dx2 + dy2; dist <= dlimit {
 					intens3 := sub_4C1C70(intens2+dword_587000_142328, 66*dist*int(memmap.Uint32(0x587000, 142324))/v36+0x10000)
 					if intens3 > dword_587000_142328 {
-						c.sub_4695E0(x, y, (*int32)(unsafe.Pointer(&dr.LightColorR)), 8*(intens3-dword_587000_142328), dr.Field_43 != 0)
+						c.sub_4695E0(x, y, dr.LightColor, 8*(intens3-dword_587000_142328), dr.Field_43 != 0)
 					}
 					xx = a4.X
 					yy = a4.Y
@@ -738,8 +737,8 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 		v25 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))
 
 		v42 := a1.Add(image.Pt(v45, v25))
-		c.sub_4696B0(a1, a2, a3, a4, intens, (*int32)(unsafe.Pointer(&dr.LightColorR)))
-		c.sub_4696B0(a1, a3, v42, a4, intens, (*int32)(unsafe.Pointer(&dr.LightColorR)))
+		c.sub_4696B0(a1, a2, a3, a4, intens, dr.LightColor)
+		c.sub_4696B0(a1, a3, v42, a4, intens, dr.LightColor)
 	}
 }
 
@@ -747,15 +746,14 @@ func sub_4C1C60(a1, a2 int) int {
 	return int((int64(a1) * int64(a2)) >> 16)
 }
 
-func (c *Client) sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
+func (c *Client) sub_4695E0(a1, a2 int, pcl noxrender.RGB, a4 int, flip bool) {
 	v5 := a4
 	if flip {
 		v5 = -a4
 	}
-	a3 := unsafe.Slice(pcl, 3)
-	v6 := sub_4C1C60(v5, int(a3[0])) << 8
-	v7 := sub_4C1C60(v5, int(a3[1])) << 8
-	v8 := sub_4C1C60(v5, int(a3[2])) << 8
+	v6 := sub_4C1C60(v5, pcl.R) << 8
+	v7 := sub_4C1C60(v5, pcl.G) << 8
+	v8 := sub_4C1C60(v5, pcl.B) << 8
 
 	ptr := &c.tiles.nox_arr2_853BC0[a1][a2]
 
@@ -1324,7 +1322,7 @@ func (c *Client) noxTileDrawTextured(a1 image.Point, a2 int, a3, sz int, dst []u
 	return a2
 }
 
-func (c *Client) sub_4696B0(a1, a2, a3, a4 image.Point, a5 int, pcl *int32) {
+func (c *Client) sub_4696B0(a1, a2, a3, a4 image.Point, a5 int, pcl noxrender.RGB) {
 	var v8, v9, v10 image.Point
 	if a1.Y > a2.Y {
 		if a2.Y <= a3.Y {
@@ -1360,7 +1358,7 @@ func (c *Client) sub_4696B0(a1, a2, a3, a4 image.Point, a5 int, pcl *int32) {
 	}
 }
 
-func (c *Client) sub_4697C0(a1, a2 []int, a3 image.Point, a4 int, a5 *int32) {
+func (c *Client) sub_4697C0(a1, a2 []int, a3 image.Point, a4 int, pcl noxrender.RGB) {
 	v0 := a1[0]
 	v7 := a1[0] + a1[1]
 	if a1[0] < a2[0] {
@@ -1392,7 +1390,7 @@ func (c *Client) sub_4697C0(a1, a2 []int, a3 image.Point, a4 int, a5 *int32) {
 				v17 := sub_4C1C70(v12+v23, 66*int(memmap.Uint32(0x587000, 142312))*(v16+v14*v14)/v21+0x10000)
 				v12 = dword_587000_142316
 				if v17 > dword_587000_142316 {
-					c.sub_4695E0(jj, ii, a5, 8*(v17-dword_587000_142316), false)
+					c.sub_4695E0(jj, ii, pcl, 8*(v17-dword_587000_142316), false)
 					v12 = dword_587000_142316
 				}
 				v14 += common.GridStep

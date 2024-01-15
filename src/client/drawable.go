@@ -7,6 +7,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -476,9 +477,7 @@ type Drawable struct {
 	LightIntensity      float32           // 35, 140, 1
 	LightIntensityRad   uint32            // 36, 144, 2
 	LightIntensityU16   uint32            // 37, 148, 3
-	LightColorR         uint32            // 38, 152, 4
-	LightColorG         uint32            // 39, 156, 5
-	LightColorB         uint32            // 40, 160, 6
+	LightColor          noxrender.RGB     // 38-40, 152-160, 4-6
 	LightDir            uint16            // 41, 164
 	LightPenumbra       uint16            // 41, 166
 	Field_42            uint32            // 42, 168
@@ -645,9 +644,7 @@ func (s *Drawable) SetLightColor(r, g, b byte) { // nox_xxx_spriteChangeLightCol
 		return
 	}
 	s.LightFlags = 2
-	s.LightColorR = uint32(r)
-	s.LightColorG = uint32(g)
-	s.LightColorB = uint32(b)
+	s.LightColor = noxrender.RGB{R: int(r), G: int(g), B: int(b)}
 }
 
 func (s *Drawable) Field100() *Drawable {
@@ -748,9 +745,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	s.AudioLoop = typ.AudioLoop
 	s.LightFlags = uint32(typ.LightFlags)
 	s.Field_42 = typ.Field_10
-	s.LightColorR = uint32(typ.LightColorR)
-	s.LightColorG = uint32(typ.LightColorG)
-	s.LightColorB = uint32(typ.LightColorB)
+	s.LightColor = typ.LightColor
 	s.LightDir = typ.LightDir
 	s.LightPenumbra = typ.LightPenumbra
 
@@ -776,9 +771,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 		s.SetLightIntensity(intens)
 		if s.LightFlags == 0 {
 			s.LightFlags = 1
-			s.LightColorR = 255
-			s.LightColorG = 255
-			s.LightColorB = 255
+			s.LightColor = noxrender.RGB{R: 255, G: 255, B: 255}
 		}
 	}
 	if s.ObjClass&0x13001000 != 0 {

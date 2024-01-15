@@ -13,6 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/things"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -152,9 +153,7 @@ type ObjectType struct {
 	ObjSubClass    uint32         // 9, 0x24, 36
 	ObjFlags       int32          // 10, 0x28, 40
 	LightIntensity float32        // 11, 0x2c, 44
-	LightColorR    int32          // 12, 0x30, 48
-	LightColorG    int32          // 13, 0x34, 52
-	LightColorB    int32          // 14, 0x38, 56
+	LightColor     noxrender.RGB  // 12-14, 0x30-0x38, 48-56
 	Field_3c       uint32         // 15, 0x3c
 	ShapeR         float32        // 16, 0x40, 64
 	ZSizeMin       float32        // 17, 0x44, 68
@@ -338,9 +337,7 @@ var clientThingParseFuncs = map[string]ThingFieldFunc{
 			b = 255
 		}
 		typ.LightFlags = 2
-		typ.LightColorR = int32(r)
-		typ.LightColorG = int32(g)
-		typ.LightColorB = int32(b)
+		typ.LightColor = noxrender.RGB{R: r, G: g, B: b}
 		return nil
 	},
 	"AUDIOLOOP": func(typ *ObjectType, f *binfile.MemFile, str string, buf []byte) error {
