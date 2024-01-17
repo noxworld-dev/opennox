@@ -119,9 +119,9 @@ func sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
 		if a2.ObjClass&0x40000 != 0 && (a2.ObjFlags&0x1000000) == 0 {
 			return
 		}
-		v4 = *(*noxrender.ImageHandle)(unsafe.Add(a2.Field_76, 4))
+		v4 = *(*noxrender.ImageHandle)(unsafe.Add(a2.DrawData, 4))
 	} else {
-		v4 = *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a2.Field_76, 4)) + a2.Field_77*4)))
+		v4 = *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a2.DrawData, 4)) + a2.Field_77*4)))
 	}
 	r1 := nox_video_getImagePixdata_42FB30(v4)
 	if r1 == nil {

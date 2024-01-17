@@ -286,7 +286,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 	var v285 uint16
 	var v286 uint16
 	var v287 int32
-	var v288 *byte
 	var v289 *uint8
 	var v290 *wchar2_t
 	var v291 int32
@@ -1427,9 +1426,9 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 			v285 &= math.MaxInt16
 			*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1)) = v285
 			v287 = int32(v286) >> 15
-			v288 = (*byte)(unsafe.Pointer(nox_npc_by_id(int32(v285))))
+			v288 := nox_npc_by_id(int32(v285))
 			if v288 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(nox_init_npc((*nox_npc)(unsafe.Pointer(v288)), int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1)))))
+				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(nox_init_npc(v288, int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1)))))
 			} else {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_new_npc(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1)))))))
 				v288 = (*byte)(v5)
@@ -1437,7 +1436,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 			if v288 != nil {
 				k = int32(uintptr(unsafe.Add(unsafe.Pointer(v288), 8)))
 				v289 = (*uint8)(unsafe.Add(unsafe.Pointer(data), 4))
-				v358 = (*int32)(unsafe.Add(unsafe.Pointer(v288), 8))
+				v358 = &v288.color8[0]
 				v360 = 6
 				for {
 					*(*uint8)(unsafe.Add(unsafe.Pointer(&v5), 4)) = *(*uint8)(unsafe.Add(unsafe.Pointer(v289), 1))
@@ -1454,7 +1453,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 						break
 					}
 				}
-				*((*uint32)(unsafe.Add(unsafe.Pointer(v288), 4*328))) = uint32(v287)
+				v288.field1312 = uint32(v287)
 			}
 		}
 		return 21

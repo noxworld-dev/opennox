@@ -315,7 +315,7 @@ LABEL_3:
 		return false
 	}
 	v11 := unsafe.Add(unsafe.Pointer(v5), 4*uintptr(v10*66+1))
-	if nox_xxx_loadVectorAnimated_44B8B0(v11, f) == 0 {
+	if nox_xxx_loadVectorAnimated_44B8B0((*client.AnimationVector)(v11), f) == 0 {
 		return false
 	}
 	for {
@@ -356,6 +356,6 @@ LABEL_3:
 		}
 	}
 	obj.DrawFunc.Set(nox_thing_player_draw)
-	obj.Field_5c = unsafe.Pointer(v21)
+	obj.DrawData = unsafe.Pointer(v21)
 	return true
 }

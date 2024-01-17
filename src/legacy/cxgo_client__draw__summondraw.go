@@ -32,7 +32,7 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 	v2 := a2
 	v3 = int32(a2.PosVec.X)
 	v4 = int32(a2.PosVec.Y)
-	v5 = int32(a2.Field_76)
+	v5 = int32(a2.DrawData)
 	v18 = int32(a2.Field_77)
 	v6 = int32(dword_5d4594_1313740)
 	v15 = v3

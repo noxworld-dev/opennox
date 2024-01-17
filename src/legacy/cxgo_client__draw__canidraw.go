@@ -22,7 +22,7 @@ func nox_thing_cond_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) in
 		v8  int32
 		v10 int32
 	)
-	v2 = int32(uintptr(dr.Field_76))
+	v2 = int32(uintptr(dr.DrawData))
 	if dr.Flags30()&0x1000000 != 0 {
 		v3 = int32(*(*uint32)(unsafe.Add(v2, 4)))
 		v4 = int32(*(*uint8)(unsafe.Add(v2, 24)))
@@ -81,7 +81,7 @@ func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFi
 	v25 = nox_memfile_read_u8(f)
 	v23 = int32(v25)
 	if int32(v25) <= 0 {
-		obj.Field_5c = unsafe.Pointer(v3)
+		obj.DrawData = unsafe.Pointer(v3)
 		obj.DrawFunc.Set(nox_thing_cond_animate_draw)
 		obj.Field_60 = 0
 		return true
@@ -134,7 +134,7 @@ func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFi
 		v20 = (*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*1))
 		if int32(uintptr(unsafe.Add(unsafe.Pointer(v7), v22))) >= v23 {
 			v3 = v24
-			obj.Field_5c = unsafe.Pointer(v3)
+			obj.DrawData = unsafe.Pointer(v3)
 			obj.DrawFunc.Set(nox_thing_cond_animate_draw)
 			obj.Field_60 = 0
 			return true

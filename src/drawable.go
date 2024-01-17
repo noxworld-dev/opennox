@@ -23,7 +23,7 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 		return nil
 	}
 	if dr.DrawFunc.Equals(legacy.Nox_thing_static_random_draw) {
-		v4 := c.srv.Rand.Other.Int(0, int(*(*uint8)(unsafe.Add(dr.Field_76, 8)))-1)
+		v4 := c.srv.Rand.Other.Int(0, int(*(*uint8)(unsafe.Add(dr.DrawData, 8)))-1)
 		dr.SetFrameMB(v4)
 	} else if dr.DrawFunc.Equals(legacy.Nox_thing_red_spark_draw) || dr.DrawFunc.Equals(legacy.Nox_thing_blue_spark_draw) ||
 		dr.DrawFunc.Equals(legacy.Nox_thing_yellow_spark_draw) || dr.DrawFunc.Equals(legacy.Nox_thing_green_spark_draw) ||

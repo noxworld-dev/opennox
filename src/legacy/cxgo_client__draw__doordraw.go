@@ -27,7 +27,7 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v15 int32
 		a3  Point32
 	)
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dr.Field_76, 4)) + uint32(int32(dr.Field_74_4)*4))))))
+	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dr.DrawData, 4)) + uint32(int32(dr.Field_74_4)*4))))))
 	if !noxflags.HasGame(4096) || int32(dr.Field_108_1) != 1 {
 		return 1
 	}
@@ -96,6 +96,6 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 func nox_things_door_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	obj.DrawFunc.Set(nox_thing_door_draw)
 	var v3 unsafe.Pointer = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
-	obj.Field_5c = v3
+	obj.DrawData = v3
 	return v3 != nil
 }

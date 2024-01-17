@@ -58,7 +58,7 @@ var dword_5d4594_2660652 uint32
 var dword_5d4594_1045636 *gui.Window
 var dword_5d4594_3798804 int32
 var dword_5d4594_832476 uint32
-var dword_5d4594_1570272 *Journal
+var dword_5d4594_1570272 *JournalVal
 var dword_5d4594_1305684 *gui.Window
 var dword_5d4594_1321228 *gui.Window
 var nox_game_createOrJoin_815048 uint32

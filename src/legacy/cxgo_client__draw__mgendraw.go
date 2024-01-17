@@ -32,7 +32,7 @@ func nox_thing_monster_gen_draw(vp *noxrender.Viewport, dr *client.Drawable) int
 	var v21 *uint8
 	v2 = dr
 	v3 = int32(dr.Flags70())
-	v4 = int32(*(*uint32)(unsafe.Pointer(&dr.Field_76)))
+	v4 = int32(*(*uint32)(unsafe.Pointer(&dr.DrawData)))
 	if v3&0x100 != 0 {
 		v5 = 1
 	} else if v3&0x200 != 0 {

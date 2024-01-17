@@ -1691,9 +1691,9 @@ func nox_xxx_unitMove_4E7010(obj *server.Object, pos *types.Pointf) {
 		}
 	}
 }
-func nox_xxx_teleportToMB_4E7190(a1 *server.Object, a2 *float32) {
+func nox_xxx_teleportToMB_4E7190(a1 *server.Object, a2 *types.Pointf) {
 	if nox_xxx_testUnitBuffs_4FF350(a1, 14) == 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16)))&2) == 0 && (!noxflags.HasGame(4096) || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&2) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 12)))&8) == 0) && (noxflags.HasGame(2048) || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&6 != 0) {
-		nox_xxx_unitMove_4E7010(a1, (*types.Pointf)(unsafe.Pointer(a2)))
+		nox_xxx_unitMove_4E7010(a1, a2)
 	}
 }
 func nox_xxx_objectUnkUpdateCoords_4E7290(obj *server.Object) {
@@ -1817,9 +1817,7 @@ func nox_xxx_objectSetOff_4E7600(obj *server.Object) {
 	if a1.ObjClass&0x10042000 == 0 {
 		return
 	}
-	result := int32(a1.ObjFlags)
-	*(*uint8)(unsafe.Pointer(&result)) = uint8(int8(result | 0x40))
-	a1.ObjFlags = uint32(result)
+	a1.ObjFlags |= 0x40
 }
 func sub_4E7700(a1 *server.Object) int32 {
 	var (

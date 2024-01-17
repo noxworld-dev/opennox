@@ -3566,23 +3566,23 @@ func nox_xxx_journalQuestSet_500540(a1 *byte, a2 int32) {
 	if p != nil {
 		p.Value136 = uint32(a2)
 	} else {
-		p, _ = alloc.New(Journal{})
+		p, _ = alloc.New(JournalVal{})
 		v3 := p
 		if p != nil {
 			libc.StrCpy(&p.Field0[0], (*byte)(memmap.PtrOff(0x5D4594, 1570140)))
-			p.Field132 = 0
+			p.Type132 = 0
 			p.Value136 = uint32(a2)
-			p.Field144 = nil
-			p.Field140 = dword_5d4594_1570272
+			p.Prev144 = nil
+			p.Next140 = dword_5d4594_1570272
 			p = dword_5d4594_1570272
 			if dword_5d4594_1570272 != nil {
-				dword_5d4594_1570272.Field144 = v3
+				dword_5d4594_1570272.Prev144 = v3
 			}
 			dword_5d4594_1570272 = v3
 		}
 	}
 }
-func nox_xxx_scriptGetJournal_5005E0(a1 *byte) *Journal {
+func nox_xxx_scriptGetJournal_5005E0(a1 *byte) *JournalVal {
 	var (
 		v1 uint32
 		v2 *uint8
@@ -3611,8 +3611,8 @@ func nox_xxx_scriptGetJournal_5005E0(a1 *byte) *Journal {
 		v5 = int8(uint8(v1))
 	}
 	alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), uintptr(int32(v5)&3))
-	var it *Journal
-	for it = dword_5d4594_1570272; it != nil; it = it.Field140 {
+	var it *JournalVal
+	for it = dword_5d4594_1570272; it != nil; it = it.Next140 {
 		if nox_strcmpi(&it.Field0[0], (*byte)(memmap.PtrOff(0x5D4594, 1570140))) == 0 {
 			break
 		}
@@ -3624,17 +3624,17 @@ func nox_xxx_journalQuestSetBool_5006B0(a1 *byte, a2 int32) {
 	if p != nil {
 		p.Value136 = uint32(a2)
 	} else {
-		p, _ = alloc.New(Journal{})
+		p, _ = alloc.New(JournalVal{})
 		v3 := p
 		if p != nil {
 			libc.StrCpy(&p.Field0[0], (*byte)(memmap.PtrOff(0x5D4594, 1570140)))
-			p.Field132 = 1
+			p.Type132 = 1
 			p.Value136 = uint32(a2)
-			p.Field144 = nil
-			p.Field140 = dword_5d4594_1570272
+			p.Prev144 = nil
+			p.Next140 = dword_5d4594_1570272
 			p = dword_5d4594_1570272
 			if dword_5d4594_1570272 != nil {
-				dword_5d4594_1570272.Field144 = v3
+				dword_5d4594_1570272.Prev144 = v3
 			}
 			dword_5d4594_1570272 = v3
 		}
@@ -3656,17 +3656,17 @@ func sub_500770(a1 *byte) float64 {
 		return 0
 	}
 }
-func sub_500790(p *Journal) {
-	v1 := p.Field144
+func sub_500790(p *JournalVal) {
+	v1 := p.Prev144
 	if v1 != nil {
-		v1.Field140 = p.Field140
+		v1.Next140 = p.Next140
 	}
-	v2 := p.Field140
+	v2 := p.Next140
 	if v2 != nil {
-		v2.Field144 = p.Field144
+		v2.Prev144 = p.Prev144
 	}
 	if p == dword_5d4594_1570272 {
-		dword_5d4594_1570272 = p.Field140
+		dword_5d4594_1570272 = p.Next140
 	}
 	alloc.Free(p)
 }
@@ -3689,7 +3689,7 @@ func sub_5007E0(a1 *byte) {
 			result := dword_5d4594_1570272
 			if dword_5d4594_1570272 != nil {
 				for {
-					v4 := result.Field140
+					v4 := result.Next140
 					sub_500790(result)
 					result = v4
 					if v4 == nil {
@@ -3701,7 +3701,7 @@ func sub_5007E0(a1 *byte) {
 			v5 := dword_5d4594_1570272
 			if dword_5d4594_1570272 != nil {
 				for {
-					v6 := v5.Field140
+					v6 := v5.Next140
 					if nox_strnicmp(&v5.Field0[0], (*byte)(memmap.PtrOff(0x5D4594, 1570140)), int32(v3-2)) == 0 {
 						sub_500790(v5)
 					}
@@ -3715,7 +3715,7 @@ func sub_5007E0(a1 *byte) {
 			v7 := dword_5d4594_1570272
 			if v7 != nil {
 				for {
-					v8 := v7.Field140
+					v8 := v7.Next140
 					result := libc.StrStr(&v7.Field0[0], (*byte)(memmap.PtrOff(0x5D4594, 1570141)))
 					if result != nil {
 						v9 = result
@@ -3739,7 +3739,7 @@ func sub_5007E0(a1 *byte) {
 				v14 = int32(uintptr(unsafe.Pointer(v10)) - uintptr(memmap.PtrOff(0x5D4594, 1570140)))
 				v17 = int32(uintptr(unsafe.Pointer(v10)) - uintptr(memmap.PtrOff(0x5D4594, 1570140)))
 				for {
-					v15 := v12.Field140
+					v15 := v12.Next140
 					if nox_strnicmp(&v12.Field0[0], (*byte)(memmap.PtrOff(0x5D4594, 1570140)), v14+1) == 0 {
 						r9 := libc.StrStr((*byte)(unsafe.Add(unsafe.Add(unsafe.Pointer(v12), uintptr(v14)), 2)), v11)
 						if r9 != nil {
@@ -3799,16 +3799,16 @@ func sub_500A60() int32 {
 	}
 	v1 := dword_5d4594_1570272
 	for i = 0; v1 != nil; i++ {
-		v1 = v1.Field140
+		v1 = v1.Next140
 	}
 	if noxflags.HasGame(2048) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&i)), 4)
-		for j := dword_5d4594_1570272; j != nil; j = j.Field140 {
+		for j := dword_5d4594_1570272; j != nil; j = j.Next140 {
 			v6 := uint8(int8(libc.StrLen(&j.Field0[0])))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&v6, 1)
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(&j.Field0[0], uint32(uint8(int8(v6))))
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(j), 132)), 4)
-			v3 = int32(j.Field132)
+			v3 = int32(j.Type132)
 			if v3 != 0 {
 				if v3 == 1 {
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(j), 136)), 4)

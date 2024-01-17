@@ -5493,68 +5493,72 @@ func sub_54E6F0(a1 int32, a2 int32) int32 {
 	}
 	return result
 }
-func sub_54E730(a1 int32, a2 int32) int32 {
+func sub_54E730(a1 *server.Object, a2 *server.Object) int32 {
 	var (
-		v2     int32
-		v3     int32
-		result int32
+		v2 int32
+		v3 int32
 	)
 	var v5 int32
-	if int32(*(*uint8)(unsafe.Add(a2, 8)))&1 != 0 {
+	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&1 != 0 {
 		return 0
 	}
-	v2 = int32(*(*uint32)(unsafe.Add(a1, 16)))
+	v2 = int32(a1.ObjFlags)
 	if v2&0x20 != 0 {
 		return 0
 	}
-	v3 = int32(*(*uint32)(unsafe.Add(a2, 16)))
-	if v3&0x20 != 0 || *(*uint32)(unsafe.Add(a1, 696)) == 0 || *(*uint32)(unsafe.Add(a2, 696)) == 0 || v3&0x40 != 0 {
+	v3 = int32(a2.ObjFlags)
+	if v3&0x20 != 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 696)) == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 696)) == 0 || v3&0x40 != 0 {
 		return 0
 	}
 	if (v3 & 0x80) != 0 {
 		return 1
 	}
-	if v2&0x11 != 0 && v3&0x4000 != 0 || v3&0x11 != 0 && v2&0x4000 != 0 || (v2&0x400 != 0 || v3&0x400 != 0) && nox_xxx_unitsHaveSameTeam_4EC520((*server.Object)(a2), (*server.Object)(a1)) != 0 || (func() int32 {
-		v5 = int32(*(*uint32)(unsafe.Add(a1, 508)))
+	if v2&0x11 != 0 && v3&0x4000 != 0 || v3&0x11 != 0 && v2&0x4000 != 0 || (v2&0x400 != 0 || v3&0x400 != 0) && nox_xxx_unitsHaveSameTeam_4EC520(a2, a1) != 0 || (func() int32 {
+		v5 = int32(a1.ObjOwner)
 		return v5
-	}()) != 0 && int32(*(*uint8)(unsafe.Add(a1, 8)))&1 != 0 && (int32(*(*uint8)(unsafe.Add(a1, 12)))&2) == 0 && int32(*(*uint8)(unsafe.Add(v5, 8)))&2 != 0 && int32(*(*uint8)(unsafe.Add(a2, 8)))&2 != 0 && (nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(v5), (*server.Object)(a2)) == 0 || nox_xxx_unitsHaveSameTeam_4EC520((*server.Object)(a2), (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(a1, 508)))) != 0) {
+	}()) != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&1 != 0 && (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 12)))&2) == 0 && int32(*(*uint8)(unsafe.Add(v5, 8)))&2 != 0 && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 8)))&2 != 0 && (nox_xxx_unitIsEnemyTo_5330C0((*server.Object)(v5), a2) == 0 || nox_xxx_unitsHaveSameTeam_4EC520(a2, a1.ObjOwner) != 0) {
 		return 0
 	} else {
 		return 1
 	}
 }
-func sub_54E810(a1 int32, a2 *types.Pointf, a3 unsafe.Pointer) int32 {
-	var a3a [4]int32
-	a3a[0] = a1
-	a3a[1] = 0
-	*(*unsafe.Pointer)(unsafe.Pointer(&a3a[2])) = a3
-	a3a[3] = int32(uintptr(unsafe.Pointer(a2)))
-	sub_517B70(a2, sub_54E850, unsafe.Pointer(&a3a[0]))
-	return a3a[1]
+
+type arg54E810 struct {
+	Field0 *server.Object
+	Field1 *server.Object
+	Field2 *types.Pointf
+	Field3 *types.Pointf
+}
+
+func sub_54E810(a1 *server.Object, a2 *types.Pointf, a3 *types.Pointf) *server.Object {
+	var a3a arg54E810
+	a3a.Field0 = a1
+	a3a.Field1 = nil
+	a3a.Field2 = a3
+	a3a.Field3 = a2
+	sub_517B70(a2, sub_54E850, unsafe.Pointer(&a3a))
+	return a3a.Field1
 }
 func sub_54E850(it *server.Object, data unsafe.Pointer) {
 	a1 := it
-	a2 := int32(uintptr(data))
+	a2 := (*arg54E810)(data)
 	var (
-		v2  int32
 		v3  *types.Pointf
 		v4  *types.Pointf
 		v5  float32
-		v6  *uint32
-		v7  *uint32
 		a2a float4
 		a1a float4
 	)
 	if int32(int8(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))) >= 0 {
-		if sub_54E730(int32(*(*uint32)(a2)), a1) != 0 && sub_547DB0(a1, *(**types.Pointf)(unsafe.Add(a2, 12))) != 0 {
-			*(*uint32)(unsafe.Add(a2, 4)) = uint32(a1)
+		if sub_54E730(a2.Field0, a1) != 0 && sub_547DB0(a1, a2.Field3) != 0 {
+			a2.Field1 = a1
 		}
 	} else {
-		v2 = int32(a1.UpdateData)
+		v2 := a1.UpdateData
 		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 12))) & 4) == 0 {
-			v3 = *(**types.Pointf)(unsafe.Add(a2, 8))
+			v3 = a2.Field2
 			a1a.field_0 = v3.X
-			v4 = *(**types.Pointf)(unsafe.Add(a2, 12))
+			v4 = a2.Field3
 			a1a.field_4 = v3.Y
 			a1a.field_8 = v4.X
 			v5 = v4.Y
@@ -5564,11 +5568,10 @@ func sub_54E850(it *server.Object, data unsafe.Pointer) {
 			a2a.field_8 = float32(float64(*memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Add(v2, 12)))*8+196184)) + float64(a2a.field_0))
 			a2a.field_C = float32(float64(*memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Add(v2, 12)))*8+196188)) + float64(a2a.field_4))
 			if sub_427980(&a1a, &a2a) != 0 {
-				v6 = *(**uint32)(unsafe.Add(a2, 8))
-				v7 = *(**uint32)(unsafe.Add(a2, 12))
+				v6 := a2.Field2
+				v7 := a2.Field3
 				*v7 = *v6
-				*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))
-				*(*uint32)(unsafe.Add(a2, 4)) = uint32(a1)
+				a2.Field1 = a1
 			}
 		}
 	}

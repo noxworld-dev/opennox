@@ -306,51 +306,39 @@ func Nox_xxx_prepareLightningEffects_4BAB30() {
 	*memmap.PtrUint32(0x5D4594, 1316524) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("YellowSpark")))
 	*memmap.PtrUint32(0x5D4594, 1316528) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("GreenSpark")))
 }
-func nox_xxx_spriteDrawMonsterHP_4BC080(a1 *uint32, a2 unsafe.Pointer, a3 uint16, a4 uint16, a5 int8) {
-	var (
-		v5  int32
-		v6  int32
-		v7  int32
-		v8  int32
-		v9  int32
-		v10 float32
-		v11 float32
-		v12 float32
-	)
-	if a2 != nil {
-		v5 = int32(*a1 + *(*uint32)(unsafe.Add(a2, 12)) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-		v10 = *(*float32)(unsafe.Add(a2, 48)) + *(*float32)(unsafe.Add(a2, 48))
-		v6 = int32(v10) + v5
-		v7 = int32(*(*uint32)(unsafe.Add(a2, 16)) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Add(a2, 104))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
-		v11 = *(*float32)(unsafe.Add(a2, 100)) - *(*float32)(unsafe.Add(a2, 96))
-		v8 = int32(v11)
-		if v8 < 30 {
-			v8 = 30
-		}
-		v12 = *(*float32)(unsafe.Add(a2, 96)) + *(*float32)(unsafe.Add(a2, 100))
-		v9 = v7 + int32(v12)/(-2) - v8/2
-		if int32(a4) != 0 {
-			nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
-			nox_client_drawRectFilledOpaque_49CE30(v6, v9, 2, v8)
-			if int32(a5) != 0 {
-				nox_client_drawSetColor_434460(*memmap.PtrInt32(0x8531A0, 2572))
-			} else {
-				nox_client_drawSetColor_434460(*memmap.PtrInt32(0x85B3FC, 940))
-			}
-			nox_client_drawRectFilledOpaque_49CE30(v6, v8+v9-v8*int32(a3)/int32(a4), 2, v8*int32(a3)/int32(a4))
-		}
+func nox_xxx_spriteDrawMonsterHP_4BC080(a1 *noxrender.Viewport, a2 *client.Drawable, a3 uint16, a4 uint16, a5 int8) {
+	if a2 == nil {
+		return
 	}
+	v5 := int32(a1.Screen.Min.X + a2.PosVec.X - a1.World.Min.X)
+	v10 := a2.Shape.Circle.R + a2.Shape.Circle.R
+	v6 := int32(v10) + v5
+	v7 := int32(a2.PosVec.Y + a1.Screen.Min.Y - int(uint32(a2.ZVal)) - a1.World.Min.Y)
+	v11 := a2.ZSizeMax - a2.ZSizeMin
+	v8 := int32(v11)
+	if v8 < 30 {
+		v8 = 30
+	}
+	v12 := a2.ZSizeMin + a2.ZSizeMax
+	v9 := v7 + int32(v12)/(-2) - v8/2
+	if int32(a4) == 0 {
+		return
+	}
+	nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
+	nox_client_drawRectFilledOpaque_49CE30(v6, v9, 2, v8)
+	if int32(a5) != 0 {
+		nox_client_drawSetColor_434460(*memmap.PtrInt32(0x8531A0, 2572))
+	} else {
+		nox_client_drawSetColor_434460(*memmap.PtrInt32(0x85B3FC, 940))
+	}
+	nox_client_drawRectFilledOpaque_49CE30(v6, v8+v9-v8*int32(a3)/int32(a4), 2, v8*int32(a3)/int32(a4))
 }
-func sub_4BC6B0(a1 *noxrender.Viewport, dr *client.Drawable, a3 unsafe.Pointer) int {
-	var (
-		a2 = dr
-		v3 int32
-	)
-	v3 = sub_4BC5D0(dr, a3)
+func sub_4BC6B0(vp *noxrender.Viewport, dr *client.Drawable, ani *client.AnimationVector) int {
+	v3 := sub_4BC5D0(dr, ani)
 	if v3 < 0 {
 		return 0
 	}
-	nox_xxx_drawObject_4C4770_draw(a1, dr, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a3, int32(a2.Field_74_2)*4+4)) + uint32(v3*4)))))
+	nox_xxx_drawObject_4C4770_draw(vp, dr, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(ani), int32(dr.Field_74_2)*4+4)) + uint32(v3*4)))))
 	return 1
 }
 func sub_4BC720(a1 unsafe.Pointer) {

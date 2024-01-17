@@ -471,7 +471,7 @@ type Drawable struct {
 	Weight             byte                                                 // 74, 298
 	Field_74_4         byte                                                 // 74, 299
 	DrawFunc           ccall.Func[ObjectDrawFunc]                           // 75, 300
-	Field_76           unsafe.Pointer                                       // 76, 304
+	DrawData           unsafe.Pointer                                       // 76, 304
 	Field_77           uint32                                               // 77, 308
 	Field_78           uint32                                               // 78, 312
 	Field_79           uint32                                               // 79, 316
@@ -714,7 +714,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	s.Flags70Val = typ.Field_54
 	s.Weight = typ.Weight
 	s.DrawFunc = typ.DrawFunc
-	s.Field_76 = typ.Field_5c
+	s.DrawData = typ.DrawData
 	s.Field_77 = typ.Field_60
 	s.ClientUpdateFunc = typ.ClientUpdate
 	s.AudioLoop = typ.AudioLoop

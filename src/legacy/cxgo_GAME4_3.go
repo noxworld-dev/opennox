@@ -560,38 +560,32 @@ func Nox_xxx_spellBlink2_530310(sp *server.DurSpell) int32 {
 func Nox_xxx_spellBlink1_530380(sp *server.DurSpell) int32 {
 	a1 := sp
 	var (
-		v1  int32
-		v3  int32
 		v4  *types.Pointf
 		v5  int32
 		v6  bool
-		v7  int32
 		v8  int32
-		v9  int32
-		v10 int32
+		v10 *server.Object
 		v11 int32
 		v12 int32
 		v13 types.Pointf
 	)
-	v1 = a1.Target48
-	if v1 == 0 {
+	v1 := a1.Target48
+	if v1 == nil {
 		return 1
 	}
-	if *(*uint32)(unsafe.Add(v1, 16))&0x8020 != 0 {
+	if v1.ObjFlags&0x8020 != 0 {
 		return 1
 	}
 	if uint32(a1.Frame68-1) != gameFrame() {
 		return 0
 	}
-	if nox_xxx_testUnitBuffs_4FF350((*server.Object)(v1), 14) != 0 {
+	if nox_xxx_testUnitBuffs_4FF350(v1, 14) != 0 {
 		nox_xxx_aud_501960(231, a1.Target48, 0, 0)
 		return 1
 	}
-	if noxflags.HasGame(4096) && (func() int32 {
-		v3 = a1.Target48
-		return int32(*(*uint8)(unsafe.Add(v3, 8))) & 4
-	}()) != 0 {
-		v4 = *(**types.Pointf)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 748)), 308))
+	v3 := a1.Target48
+	if noxflags.HasGame(4096) && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 8)))&4 != 0 {
+		v4 = *(**types.Pointf)(unsafe.Add(v3.UpdateData, 308))
 		if v4 != nil {
 			sub_4ED970(60.0, (*types.Pointf)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(types.Pointf{})*7)), &v13)
 		} else {
@@ -602,59 +596,51 @@ func Nox_xxx_spellBlink1_530380(sp *server.DurSpell) int32 {
 	}
 	nox_xxx_spellTeleportCreateWake_530560(a1.Target48, &a1.Target48.PosVec, (*uint32)(unsafe.Pointer(&v13)))
 	nox_xxx_netSendPointFx_522FF0(-119, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1.Target48), 56)))
-	v9 = a1.Target48
+	v9 := a1.Target48
 	v5 = nox_xxx_spellGetAud44_424800(int32(a1.Spell), 0)
-	nox_xxx_aud_501960(v5, (*server.Object)(v9), 0, 0)
+	nox_xxx_aud_501960(v5, v9, 0, 0)
 	if nox_xxx_testUnitBuffs_4FF350(a1.Target48, 0) == 0 {
 		nox_xxx_netSendPointFx_522FF0(-119, (*types.Pointf)(unsafe.Add(unsafe.Pointer(a1.Target48), 56)))
 		nox_xxx_netSendPointFx_522FF0(-119, &v13)
 	}
-	nox_xxx_teleportToMB_4E7190(a1.Target48, &v13.X)
+	nox_xxx_teleportToMB_4E7190(a1.Target48, &v13)
 	v6 = nox_xxx_testUnitBuffs_4FF350(a1.Target48, 0) == 0
-	v7 = a1.Target48
+	v7 := a1.Target48
 	if v6 {
-		nox_xxx_netSendPointFx_522FF0(-119, (*types.Pointf)(unsafe.Add(v7, 56)))
+		nox_xxx_netSendPointFx_522FF0(-119, (*types.Pointf)(unsafe.Add(unsafe.Pointer(v7), 56)))
 		v12 = 0
 		v11 = 0
 		v10 = a1.Target48
 	} else {
-		if (int32(*(*uint8)(unsafe.Add(v7, 8))) & 4) == 0 {
+		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 8))) & 4) == 0 {
 			sub_4E7540(a1.Caster16, a1.Target48)
 			return 1
 		}
-		v12 = int32(*(*uint32)(unsafe.Add(v7, 36)))
+		v12 = int32(v7.NetCode)
 		v11 = 2
 		v10 = a1.Target48
 	}
 	v8 = nox_xxx_spellGetAud44_424800(int32(a1.Spell), 0)
-	nox_xxx_aud_501960(v8, (*server.Object)(v10), v11, v12)
+	nox_xxx_aud_501960(v8, v10, v11, v12)
 	sub_4E7540(a1.Caster16, a1.Target48)
 	return 1
 }
-func nox_xxx_spellTeleportCreateWake_530560(a1 int32, a2 *int32, a3 *uint32) *uint32 {
-	var (
-		v3     int32
-		result *uint32
-		v5     *uint32
-		v6     *uint32
-	)
-	v3 = int32(*memmap.PtrUint32(0x5D4594, 2487916))
+func nox_xxx_spellTeleportCreateWake_530560(a1 *server.Object, a2 *types.Pointf, a3 *uint32) {
+	v3 := int32(*memmap.PtrUint32(0x5D4594, 2487916))
 	if *memmap.PtrUint32(0x5D4594, 2487916) == 0 {
 		v3 = nox_xxx_getNameId_4E3AA0(internCStr("TeleportWake"))
 		*memmap.PtrUint32(0x5D4594, 2487916) = uint32(v3)
 	}
-	result = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(v3)))
-	v5 = result
+	result := nox_xxx_newObjectWithTypeInd_4E3450(v3)
+	v5 := result
 	if result == nil {
-		return result
+		return
 	}
-	v6 = (*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(result), 4*175)))
+	v6 := (*uint32)(result.CollideData)
 	*v6 = *a3
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a3), 4*1))
-	nox_xxx_createAt_4DAA50((*server.Object)(unsafe.Pointer(v5)), (*server.Object)(a1), *(*float32)(unsafe.Pointer(a2)), *((*float32)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(float32(0))*1))))
-	result = (*uint32)(unsafe.Pointer(uintptr(gameFrame() + gameFPS())))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*34)) = gameFrame() + gameFPS()
-	return result
+	nox_xxx_createAt_4DAA50(v5, a1, a2.X, a2.Y)
+	v5.Field34 = gameFrame() + gameFPS()
 }
 func Sub_5305D0(sp *server.DurSpell) int32 {
 	a1 := sp
@@ -3592,50 +3578,39 @@ func sub_537760() unsafe.Pointer {
 	}
 	return nil
 }
-func sub_537770(a1p *server.Object) {
-	var (
-		a1 = a1p
-		v1 int32
-		v3 int32
-		v4 types.Pointf
-	)
-	*((*uint8)(unsafe.Pointer(&v1))) = *memmap.PtrUint8(0x5D4594, 2488624)
+func sub_537770(obj *server.Object) {
 	if *memmap.PtrUint32(0x5D4594, 2488624) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2488624) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("SmallFist")))
 		*memmap.PtrUint32(0x5D4594, 2488628) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("MediumFist")))
-		v1 = nox_xxx_getNameId_4E3AA0(internCStr("LargeFist"))
-		*memmap.PtrUint32(0x5D4594, 2488632) = uint32(v1)
+		*memmap.PtrUint32(0x5D4594, 2488632) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("LargeFist")))
 	}
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 16))) & 0x60) == 0 {
+	if !obj.Flags().HasAny(object.FlagDestroyed | object.FlagNoCollide) {
 		dword_5d4594_2488620 = 0
-		*((*uint8)(unsafe.Pointer(&v1))) = uint8(nox_xxx_projectileTraceHit_537850(a1, &v3, &v4))
-		if int32(uint8(int8(v1))) != 0 {
-			if v3 == 0 || (func() bool {
-				v1 = int32(*(*uint16)(unsafe.Add(v3, 4)))
-				return uint32(uint16(int16(v1))) != *memmap.PtrUint32(0x5D4594, 2488624)
-			}()) && uint32(v1) != *memmap.PtrUint32(0x5D4594, 2488628) && uint32(v1) != *memmap.PtrUint32(0x5D4594, 2488632) {
-				v3p := AsObjectP(v3)
-				a1p.Collide.Get()(a1p, v3p, &v4)
-				*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8(v3))
+		var (
+			v3 *server.Object
+			v4 types.Pointf
+		)
+		if nox_xxx_projectileTraceHit_537850(obj, &v3, &v4) != 0 {
+			if v3 == nil || uint32(v3.TypeInd) != *memmap.PtrUint32(0x5D4594, 2488624) && uint32(v3.TypeInd) != *memmap.PtrUint32(0x5D4594, 2488628) && uint32(v3.TypeInd) != *memmap.PtrUint32(0x5D4594, 2488632) {
+				obj.Collide.Get()(obj, v3, &v4)
 				dword_5d4594_2488620 = 0
-				if v3 != 0 {
+				if v3 != nil {
 					v4.X = -v4.X
 					v4.Y = -v4.Y
-					v3p.Collide.Get()(v3p, a1p, &v4)
+					v3.Collide.Get()(v3, obj, &v4)
 				}
 			}
 		}
 	}
 }
-func nox_xxx_projectileTraceHit_537850(a1 int32, a2 *int32, a3 *types.Pointf) int8 {
+func nox_xxx_projectileTraceHit_537850(obj *server.Object, outPtr **server.Object, outPos *types.Pointf) int8 {
 	var (
-		v3  int32
-		v4  int32
+		v4  *server.Object
 		v5  float64
 		v6  float64
 		v7  int32
 		v8  float32
-		v9  int32
+		v9  *server.Object
 		v10 float32
 		v11 float32
 		v12 float32
@@ -3662,30 +3637,30 @@ func nox_xxx_projectileTraceHit_537850(a1 int32, a2 *int32, a3 *types.Pointf) in
 		v34 int32
 		v35 int32
 	)
-	v3 = a1
-	v4 = 0
-	v34 = *(*float32)(unsafe.Add(a1, 64)) - *(*float32)(unsafe.Add(a1, 56))
-	v5 = float64(*(*float32)(unsafe.Add(v3, 68)) - *(*float32)(unsafe.Add(v3, 60)))
+	v3 := obj
+	v4 = nil
+	v34 = int32(obj.NewPos.X - obj.PosVec.X)
+	v5 = float64(v3.NewPos.Y - v3.PosVec.Y)
 	v26 = float32(v5)
 	v6 = v5*float64(v26) + float64(v34*v34)
 	if v6 <= 36.0 {
-		v7 = int32(*(*uint32)(unsafe.Add(v3, 56)))
-		v8 = *(*float32)(unsafe.Add(v3, 64))
-		v28.Y = *(*float32)(unsafe.Add(v3, 68))
+		v7 = int32(v3.PosVec.X)
+		v8 = v3.NewPos.X
+		v28.Y = v3.NewPos.Y
 		v29[0] = v7
 		v28.X = v8
-		v29[1] = int32(*(*uint32)(unsafe.Add(v3, 60)))
-		v9 = sub_54E810(v3, &v28, unsafe.Pointer(&v29[0]))
-		if v9 != 0 {
+		v29[1] = int32(v3.PosVec.Y)
+		v9 = sub_54E810(v3, &v28, (*types.Pointf)(unsafe.Pointer(&v29[0])))
+		if v9 != nil {
 			v4 = v9
-			v27.X = *(*float32)(unsafe.Pointer(&v29[0])) - *(*float32)(unsafe.Add(v9, 56))
-			v27.Y = *(*float32)(unsafe.Pointer(&v29[1])) - *(*float32)(unsafe.Add(v9, 60))
+			v27.X = *(*float32)(unsafe.Pointer(&v29[0])) - v9.PosVec.X
+			v27.Y = *(*float32)(unsafe.Pointer(&v29[1])) - v9.PosVec.Y
 		}
 	} else {
 		v15 = int32(math.Sqrt(v6*0.027777778)) + 1
-		v16 = *(*float32)(unsafe.Add(v3, 60))
+		v16 = v3.PosVec.Y
 		v17 = float64(v15)
-		v29[0] = int32(*(*uint32)(unsafe.Add(v3, 56)))
+		v29[0] = int32(v3.PosVec.X)
 		v18 = 0
 		*(*float32)(unsafe.Pointer(&v29[1])) = v16
 		*(*uint32)(unsafe.Add(unsafe.Pointer(&v28.X), 4*0)) = uint32(v29[0])
@@ -3696,11 +3671,11 @@ func nox_xxx_projectileTraceHit_537850(a1 int32, a2 *int32, a3 *types.Pointf) in
 			for {
 				v28.X = v28.X + v35
 				v28.Y = v28.Y + v27.X
-				v9 = sub_54E810(v3, &v28, unsafe.Pointer(&v29[0]))
-				if v9 != 0 {
+				v9 = sub_54E810(v3, &v28, (*types.Pointf)(unsafe.Pointer(&v29[0])))
+				if v9 != nil {
 					v4 = v9
-					v27.X = *(*float32)(unsafe.Pointer(&v29[0])) - *(*float32)(unsafe.Add(v9, 56))
-					v27.Y = *(*float32)(unsafe.Pointer(&v29[1])) - *(*float32)(unsafe.Add(v9, 60))
+					v27.X = *(*float32)(unsafe.Pointer(&v29[0])) - v9.PosVec.X
+					v27.Y = *(*float32)(unsafe.Pointer(&v29[1])) - v9.PosVec.Y
 					break
 				}
 				v18++
@@ -3711,10 +3686,10 @@ func nox_xxx_projectileTraceHit_537850(a1 int32, a2 *int32, a3 *types.Pointf) in
 			}
 		}
 	}
-	v10 = *(*float32)(unsafe.Add(v3, 60))
-	v11 = *(*float32)(unsafe.Add(v3, 64))
-	a1a.field_0 = *(*float32)(unsafe.Add(v3, 56))
-	v12 = *(*float32)(unsafe.Add(v3, 68))
+	v10 = v3.PosVec.Y
+	v11 = v3.NewPos.X
+	a1a.field_0 = v3.PosVec.X
+	v12 = v3.NewPos.Y
 	a1a.field_4 = v10
 	a1a.field_8 = v11
 	a1a.field_C = v12
@@ -3725,37 +3700,37 @@ func nox_xxx_projectileTraceHit_537850(a1 int32, a2 *int32, a3 *types.Pointf) in
 		*(*types.Pointf)(unsafe.Pointer(&a1a.field_8)) = a2a
 		dword_5d4594_2488620 = 1
 		v13 = sub_57CDB0(&a3a, &a1a.field_0, &v31) != 0
-		v14 = int32(*(*uint32)(unsafe.Add(v3, 60)))
-		*(*uint32)(unsafe.Add(v3, 64)) = *(*uint32)(unsafe.Add(v3, 56))
-		*(*uint32)(unsafe.Add(v3, 68)) = uint32(v14)
+		v14 = int32(v3.PosVec.Y)
+		v3.NewPos.X = v3.PosVec.X
+		v3.NewPos.Y = float32(uint32(v14))
 	}
-	if v4 != 0 {
+	if v4 != nil {
 		if !v13 {
-			*a3 = v27
-			*a2 = v4
+			*outPos = v27
+			*outPtr = v4
 			return 1
 		}
-		v19 = float64(*(*float32)(unsafe.Add(v3, 56)) - *(*float32)(unsafe.Add(v4, 56)))
-		v20 = float64(*(*float32)(unsafe.Add(v3, 60)) - *(*float32)(unsafe.Add(v4, 60)))
+		v19 = float64(v3.PosVec.X - v4.PosVec.X)
+		v20 = float64(v3.PosVec.Y - v4.PosVec.Y)
 		v21 = v20*v20 + v19*v19
-		v22 = float64(*(*float32)(unsafe.Add(v3, 56)) - a2a.X)
-		v23 = float64(*(*float32)(unsafe.Add(v3, 60)) - a2a.Y)
+		v22 = float64(v3.PosVec.X - a2a.X)
+		v23 = float64(v3.PosVec.Y - a2a.Y)
 		if v21 < v23*v23+v22*v22 {
-			*a3 = v27
-			*a2 = v4
+			*outPos = v27
+			*outPtr = v4
 			return 1
 		}
 		v25 = v31.Y
-		a3.X = v31.X
-		a3.Y = v25
-		*a2 = 0
+		outPos.X = v31.X
+		outPos.Y = v25
+		*outPtr = nil
 		return 1
 	}
 	if v13 {
 		v25 = v31.Y
-		a3.X = v31.X
-		a3.Y = v25
-		*a2 = 0
+		outPos.X = v31.X
+		outPos.Y = v25
+		*outPtr = nil
 		return 1
 	}
 	return 0

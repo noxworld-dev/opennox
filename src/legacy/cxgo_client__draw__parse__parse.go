@@ -5,6 +5,8 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -65,81 +67,50 @@ func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *binfile.MemF
 	result = unsafe.Pointer(v4)
 	return result
 }
-func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 int32, f *binfile.MemFile) int32 {
+func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 *client.AnimationVector, f *binfile.MemFile) int32 {
 	if nox_xxx_loadVectorAnimated_44B8B0(a1, f) == 0 {
 		return 0
 	}
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f)
 }
-func nox_xxx_loadVectorAnimated_44B8B0(a1 unsafe.Pointer, f *binfile.MemFile) int32 {
-	*(*uint16)(unsafe.Add(a1, 40)) = uint16(nox_memfile_read_u8(f))
-	*(*uint16)(unsafe.Add(a1, 42)) = uint16(nox_memfile_read_u8(f))
-	var anim_kind_length uint8 = nox_memfile_read_u8(f)
-	var animation_kind [256]byte
-	nox_memfile_read(unsafe.Pointer(&animation_kind[0]), 1, int32(anim_kind_length), f)
-	animation_kind[anim_kind_length] = 0
-	*(*uint32)(unsafe.Add(a1, 44)) = uint32(get_animation_kind_id_44B4C0(&animation_kind[0]))
+func nox_xxx_loadVectorAnimated_44B8B0(a1 *client.AnimationVector, f *binfile.MemFile) int32 {
+	a1.Size40 = uint16(nox_memfile_read_u8(f))
+	a1.Val42 = uint16(nox_memfile_read_u8(f))
+	n := nox_memfile_read_u8(f)
+	var buf [256]byte
+	nox_memfile_read(unsafe.Pointer(&buf[0]), 1, int32(n), f)
+	buf[n] = 0
+	a1.Kind44 = uint32(get_animation_kind_id_44B4C0(&buf[0]))
 	return 1
 }
-func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *binfile.MemFile) int32 {
-	var (
-		v2  int32
-		v3  int32
-		v4  unsafe.Pointer
-		v5  int32
-		v7  int32
-		v9  int8
-		v11 int32
-		v13 int32
-		v14 int32
-		v15 *byte
-		v16 [128]byte
-	)
-	v2 = 0
-	v14 = 0
-	for {
-		if v2 >= 16 {
-			v13 = v2 + 4
-		} else {
-			v13 = v2
+func nox_xxx_loadVectorAnimated_44BC50(ani *client.AnimationVector, f *binfile.MemFile) int32 {
+	var buf [128]byte
+	for i := 0; i < 8; i++ {
+		k := i
+		if i >= 4 {
+			k = i + 1
 		}
-		v3 = a1
-		v4 = alloc.Calloc1(int(*(*int16)(unsafe.Add(a1, 40))), 4)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v13+a1)), 4)) = uint32(uintptr(v4))
-		if v4 == nil {
-			break
+		arr, _ := alloc.Make([]noxrender.ImageHandle{}, int(ani.Size40))
+		ani.Field4[k] = &arr[0]
+		if arr == nil {
+			return 0
 		}
-		v5 = 0
-		if int32(*(*uint16)(unsafe.Add(a1, 40))) > 0 {
-			for {
-				v7 = nox_memfile_read_i32(f)
-				v16[0] = *memmap.PtrUint8(0x5D4594, 830844)
-				if v7 == -1 {
-					v9 = nox_memfile_read_i8(f)
-					*((*uint8)(unsafe.Pointer(&v15))) = uint8(v9)
-					v11 = int32(nox_memfile_read_u8(f))
-					nox_memfile_read(unsafe.Pointer(&v16[0]), 1, v11, f)
-					v16[v11] = 0
-					v3 = a1
+		if int32(ani.Size40) > 0 {
+			for j := 0; j < int(ani.Size40); j++ {
+				id := nox_memfile_read_i32(f)
+				var v15 byte
+				buf[0] = *memmap.PtrUint8(0x5D4594, 830844)
+				if id == -1 {
+					v15 = byte(nox_memfile_read_i8(f))
+					n := int32(nox_memfile_read_u8(f))
+					nox_memfile_read(unsafe.Pointer(&buf[0]), 1, n, f)
+					buf[n] = 0
 				}
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v13+v3)), 4)) + uint32(func() int32 {
-					p := &v5
-					*p++
-					return *p
-				}()*4) - 4))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v7, int8(uintptr(unsafe.Pointer(v15))), &v16[0]))))
-				if v5 >= int32(*(*int16)(unsafe.Add(v3, 40))) {
-					break
-				}
+				arr[j] = nox_xxx_readImgMB_42FAA0(id, int8(v15), &buf[0])
 			}
-			v2 = v14
-		}
-		v2 += 4
-		v14 = v2
-		if v2 >= 32 {
-			return 1
 		}
 	}
-	return 0
+	return 1
 }
 func get_animation_kind_id_44B4C0(a1 *byte) int32 {
 	if libc.StrCmp(a1, internCStr("OneShot")) == 0 {

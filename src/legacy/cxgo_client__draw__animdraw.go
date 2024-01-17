@@ -19,7 +19,7 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v6 int32
 		v7 int32
 	)
-	v2 := dr.Field_76
+	v2 := dr.DrawData
 	switch *(*uint32)(unsafe.Add(v2, 12)) {
 	case 0:
 		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
@@ -86,7 +86,7 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 	a1 := vp
 	var v4 int32
 	v2 := dr.Flags70()
-	v3 := dr.Field_76
+	v3 := dr.DrawData
 	if v2&2 != 0 {
 		dr.Field_79 = gameFrame()
 		v4 = 0
@@ -100,7 +100,7 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		dr.Field_79 = gameFrame()
 	}
 	if int32(*(*uint16)(unsafe.Add(v5, 40))) != 0 {
-		return sub_4BC6B0(a1, dr, v5)
+		return sub_4BC6B0(a1, dr, (*client.AnimationVector)(v5))
 	} else {
 		return 1
 	}
@@ -166,7 +166,7 @@ func nox_things_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFile, a
 			}
 		}
 	}
-	obj.Field_5c = unsafe.Pointer(v5)
+	obj.DrawData = unsafe.Pointer(v5)
 	obj.DrawFunc.Set(nox_thing_animate_draw)
 	return true
 }
@@ -241,7 +241,7 @@ func nox_things_animate_state_draw_parse(obj *client.ObjectType, f *binfile.MemF
 			offset_idx = 2
 		}
 		v9 := unsafe.Add(unsafe.Pointer(draw_cb_data), 4*uintptr(int32(offset_idx)*12+1))
-		if nox_xxx_loadVectorAnimated_44B8B0(v9, f) == 0 {
+		if nox_xxx_loadVectorAnimated_44B8B0((*client.AnimationVector)(v9), f) == 0 {
 			return false
 		}
 		if sub_44BE90(v9, f) == 0 {
@@ -250,6 +250,6 @@ func nox_things_animate_state_draw_parse(obj *client.ObjectType, f *binfile.MemF
 	}
 	obj.Field_54 = 2
 	obj.DrawFunc.Set(nox_thing_animate_state_draw)
-	obj.Field_5c = unsafe.Pointer(draw_cb_data)
+	obj.DrawData = unsafe.Pointer(draw_cb_data)
 	return true
 }

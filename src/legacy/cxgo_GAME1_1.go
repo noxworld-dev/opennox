@@ -1885,7 +1885,7 @@ func sub_41C080(a1p *server.Object, a2 unsafe.Pointer) int32 {
 	var v5 int32
 	var v6 [4]byte
 	v1 := a1p
-	v2 := *(*unsafe.Pointer)(unsafe.Add(a1p.UpdateData, 276))
+	v2 := a1p.UpdateDataPlayer().Player
 	if noxflags.HasGame(0x2000) {
 		return 1
 	}
@@ -1904,12 +1904,12 @@ func sub_41C080(a1p *server.Object, a2 unsafe.Pointer) int32 {
 		}
 	}
 	if nox_crypt_IsReadOnly() == 0 {
-		libc.StrCpy((*byte)(unsafe.Add(v2, 4760)), nox_xxx_mapGetMapName_409B40())
+		libc.StrCpy((*byte)(unsafe.Add(unsafe.Pointer(v2), 4760)), nox_xxx_mapGetMapName_409B40())
 	}
-	v4 = uint32(libc.StrLen((*byte)(unsafe.Add(v2, 4760))))
+	v4 = uint32(libc.StrLen((*byte)(unsafe.Add(unsafe.Pointer(v2), 4760))))
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 2)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(v2, 4760)), uint32(int32(uint16(v4))*2))
-	*(*uint8)(unsafe.Add(v2, int32(uint16(v4))+4760)) = 0
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 4760)), uint32(int32(uint16(v4))*2))
+	*(*uint8)(unsafe.Add(unsafe.Pointer(v2), int32(uint16(v4))+4760)) = 0
 	if !(int32(int16(a1)) < 2 || (func() int32 {
 		if nox_crypt_IsReadOnly() != 0 {
 			result = sub_500B70()

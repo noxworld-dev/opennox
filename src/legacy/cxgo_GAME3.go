@@ -3904,7 +3904,7 @@ func sub_4B8FA0(dr *client.Drawable, a2 *unsafe.Pointer, a3 *int32) int32 {
 		v4 int32
 		v9 int32
 	)
-	v3 := dr.Field_76
+	v3 := dr.DrawData
 	if dr.Field_69 != 0 || sub_48D830(dr) == 0 {
 		if dr.Field_69 != 4 {
 			v4 = int32(dr.Field_69)
@@ -3921,7 +3921,7 @@ func sub_4B8FA0(dr *client.Drawable, a2 *unsafe.Pointer, a3 *int32) int32 {
 	if v5 {
 		return 0
 	}
-	v8 := sub_4BC5D0(dr, v6)
+	v8 := sub_4BC5D0(dr, (*client.AnimationVector)(v6))
 	if v8 < 0 {
 		return 0
 	}

@@ -2455,33 +2455,25 @@ func nox_alloc_npcs() {
 	npc_array = &arr[0]
 }
 func nox_new_npc(id int32) *nox_npc {
-	var (
-		n   int32    = 0
-		cur *nox_npc = npc_array
-	)
-	for cur.live != 0 {
-		cur = (*nox_npc)(unsafe.Add(unsafe.Pointer(cur), unsafe.Sizeof(nox_npc{})*1))
-		n++
-		if n >= nox_max_npcs {
-			return nil
+	arr := unsafe.Slice(npc_array, nox_max_npcs)
+	for i := range arr {
+		cur := &arr[i]
+		if cur.live == 0 {
+			nox_init_npc(cur, id)
+			return cur
 		}
 	}
-	nox_init_npc(cur, id)
-	return cur
+	return nil
 }
 func nox_npc_by_id(id int32) *nox_npc {
-	var (
-		n   int32    = 0
-		cur *nox_npc = npc_array
-	)
-	for cur.id != id || cur.live == 0 {
-		cur = (*nox_npc)(unsafe.Add(unsafe.Pointer(cur), unsafe.Sizeof(nox_npc{})*1))
-		n++
-		if n >= nox_max_npcs {
-			return nil
+	arr := unsafe.Slice(npc_array, nox_max_npcs)
+	for i := range arr {
+		cur := &arr[i]
+		if cur.id == id && cur.live != 0 {
+			return cur
 		}
 	}
-	return cur
+	return nil
 }
 func nox_init_npc(ptr *nox_npc, id int32) int32 {
 	*ptr = nox_npc{}
@@ -2492,7 +2484,7 @@ func nox_init_npc(ptr *nox_npc, id int32) int32 {
 func nox_npc_set_328(id int32, a2 int32) *nox_npc {
 	var p *nox_npc = nox_npc_by_id(id)
 	if p != nil {
-		p.data8[326] = uint32(a2)
+		p.field1312 = uint32(a2)
 	}
 	return p
 }
@@ -2509,7 +2501,7 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 	}
 	if int32(a1) == 81 || int32(a1) == 80 {
 		var v10 int32 = 0
-		for i = (*uint32)(unsafe.Add(unsafe.Pointer(npc), 32)); *i != 0; i = (*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)) {
+		for i = &npc.field32; *i != 0; i = (*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)) {
 			if func() int32 {
 				p := &v10
 				*p++
@@ -2521,14 +2513,14 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 		v12 = (*byte)(unsafe.Add(unsafe.Pointer(npc), v10*24))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*8)) = uint32(a3)
 		v13 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(v12), 36))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(npc), 4*326)) |= uint32(a3)
+		npc.field1304 |= uint32(a3)
 		for j := 0; j < 4; j++ {
 			mod := nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, j))))
 			v13[j] = mod
 		}
 	} else {
 		var v5 int32 = 0
-		for k = (*uint32)(unsafe.Add(unsafe.Pointer(npc), 680)); *k != 0; k = (*uint32)(unsafe.Add(unsafe.Pointer(k), 4*6)) {
+		for k = &npc.field680; *k != 0; k = (*uint32)(unsafe.Add(unsafe.Pointer(k), 4*6)) {
 			if func() int32 {
 				p := &v5
 				*p++
@@ -2540,7 +2532,7 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 		v7 = (*byte)(unsafe.Add(unsafe.Pointer(npc), v5*24))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*170)) = uint32(a3)
 		v8 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(v7), 684))
-		*(*uint32)(unsafe.Add(unsafe.Pointer(npc), 4*327)) |= uint32(a3)
+		npc.field1308 |= uint32(a3)
 		for l := 0; l < 4; l++ {
 			mod := nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, l))))
 			v8[l] = mod

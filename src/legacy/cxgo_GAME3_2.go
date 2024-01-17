@@ -3658,17 +3658,14 @@ func nox_xxx_netReportCharges_4D82B0(a1 int32, item *server.Object, a3 int8, a4 
 }
 func sub_4D82F0(a1 int32, a2 *server.Object) {
 	var (
-		v3  int32
 		v4  int32
 		v6  int32
 		v9  int32
 		v13 int32
-		v16 int32
-		v19 [11]byte
+		buf [11]byte
 	)
-	v3 = int32(a2.ObjClass)
 	v4 = 0
-	if uint32(v3)&0x11001000 != 0 {
+	if a2.ObjClass&0x11001000 != 0 {
 		v5 := a2.InitData
 		v6 = 4
 		v7 := a2.InitData
@@ -3684,19 +3681,19 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 		}
 		if v4 != 0 {
 			v8 := a2.InvHolder
-			v19[0] = 81
-			*(*uint16)(unsafe.Pointer(&v19[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v8), 36))
+			buf[0] = 81
+			*(*uint16)(unsafe.Pointer(&buf[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v8), 36))
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v8), 8)))&4 != 0 {
-				v19[2] |= 0x80
+				buf[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_weaponInventoryEquipFlags_415820(a2)
+			*(*uint32)(unsafe.Pointer(&buf[3])) = nox_xxx_weaponInventoryEquipFlags_415820(a2)
 			v9 = 0
 			v10 := v5
 			for {
 				if *(*uint32)(v10) != 0 {
-					v19[v9+7] = *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(v10), 4))
+					buf[v9+7] = *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(v10), 4))
 				} else {
-					v19[v9+7] = math.MaxUint8
+					buf[v9+7] = math.MaxUint8
 				}
 				v9++
 				v10 = unsafe.Add(v10, 4)
@@ -3704,18 +3701,18 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 					break
 				}
 			}
-			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v19[0]), 11, nil, 0)
+			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&buf[0]), 11, nil, 0)
 		} else {
 			v11 := a2.InvHolder
-			v19[0] = 80
-			*(*uint16)(unsafe.Pointer(&v19[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v11), 36))
+			buf[0] = 80
+			*(*uint16)(unsafe.Pointer(&buf[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v11), 36))
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v11), 8)))&4 != 0 {
-				v19[2] |= 0x80
+				buf[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_weaponInventoryEquipFlags_415820(a2)
-			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v19[0]), 7, nil, 0)
+			*(*uint32)(unsafe.Pointer(&buf[3])) = nox_xxx_weaponInventoryEquipFlags_415820(a2)
+			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&buf[0]), 7, nil, 0)
 		}
-	} else if uint32(v3)&0x2000000 != 0 {
+	} else if a2.ObjClass&0x2000000 != 0 {
 		v12 := a2.InitData
 		v13 = 4
 		v14 := a2.InitData
@@ -3731,19 +3728,19 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 		}
 		if v4 != 0 {
 			v15 := a2.InvHolder
-			v19[0] = 82
-			*(*uint16)(unsafe.Pointer(&v19[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v15), 36))
+			buf[0] = 82
+			*(*uint16)(unsafe.Pointer(&buf[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v15), 36))
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v15), 8)))&4 != 0 {
-				v19[2] |= 0x80
+				buf[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
-			v16 = 0
+			*(*uint32)(unsafe.Pointer(&buf[3])) = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
+			v16 := 0
 			v17 := v12
 			for {
 				if *(*uint32)(v17) != 0 {
-					v19[v16+7] = *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(v17), 4))
+					buf[v16+7] = *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(v17), 4))
 				} else {
-					v19[v16+7] = math.MaxUint8
+					buf[v16+7] = math.MaxUint8
 				}
 				v16++
 				v17 = unsafe.Add(v17, 4)
@@ -3751,16 +3748,16 @@ func sub_4D82F0(a1 int32, a2 *server.Object) {
 					break
 				}
 			}
-			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v19[0]), 11, nil, 0)
+			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&buf[0]), 11, nil, 0)
 		} else {
 			v18 := a2.InvHolder
-			v19[0] = 79
-			*(*uint16)(unsafe.Pointer(&v19[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v18), 36))
+			buf[0] = 79
+			*(*uint16)(unsafe.Pointer(&buf[1])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v18), 36))
 			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v18), 8)))&4 != 0 {
-				v19[2] |= 0x80
+				buf[2] |= 0x80
 			}
-			*(*uint32)(unsafe.Pointer(&v19[3])) = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
-			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v19[0]), 7, nil, 0)
+			*(*uint32)(unsafe.Pointer(&buf[3])) = nox_xxx_unitArmorInventoryEquipFlags_415C70(a2)
+			nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&buf[0]), 7, nil, 0)
 		}
 	}
 }
