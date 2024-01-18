@@ -132,7 +132,7 @@ func (s *serverTeams) Reset() {
 	}
 	for i := 0; i < len(s.Arr)-1; i++ { // TODO: why -1 ?
 		t := &s.Arr[i]
-		t.id = 0
+		t.IDVal = 0
 		t.Field_72 = nil
 		t.field_76 = 0
 		t.field_60 = 0
@@ -205,7 +205,7 @@ func (s *serverTeams) create(id TeamID) *Team {
 	if id == 0 {
 		id = s.getFreeID()
 	}
-	t.id = id
+	t.IDVal = id
 	return t
 }
 
@@ -299,7 +299,7 @@ type Team struct {
 	field_48 uint32         // 12, 48
 	Lessons  int            // 13, 52
 	ColorInd TeamColor      // 14, 56
-	id       TeamID         // 14, 57 TODO: team def code?
+	IDVal    TeamID         // 14, 57 TODO: team def code?
 	ind      byte           // 14, 58
 	_        byte           // 14, 59
 	field_60 uint32         // 15, 60 TODO: id? net code?
@@ -318,7 +318,7 @@ func (t *Team) Reset() {
 	t.field_68 = 0
 	t.Field_72 = nil
 	t.field_76 = 0
-	t.id = 0
+	t.IDVal = 0
 }
 
 func (t *Team) C() unsafe.Pointer {
@@ -330,7 +330,7 @@ func (t *Team) Name() string {
 }
 
 func (t *Team) ID() TeamID {
-	return t.id
+	return t.IDVal
 }
 
 // Ind returns a server team array index.
