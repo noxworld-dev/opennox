@@ -592,6 +592,10 @@ func (obj *Object) DisableEnchant(v server.EnchantID) { // nox_xxx_spellBuffOff_
 	legacy.Nox_xxx_spellBuffOff_4FF5B0(obj.SObj(), v)
 }
 
+func (obj *Object) ChangeScore(val int) {
+	obj.SObj().ChangeScore(val)
+}
+
 func (obj *Object) ObjectTypeC() *server.ObjectType {
 	return obj.SObj().ObjectTypeC()
 }

@@ -564,22 +564,6 @@ func sub_4FD030(u *server.Object, v int) {
 	}
 }
 
-func nox_xxx_playerSubLessons_4D8EC0(u *server.Object, val int) {
-	if !u.Class().Has(object.ClassPlayer) {
-		return
-	}
-	pl := u.ControllingPlayer()
-	pl.Lessons -= int32(val)
-}
-
-func nox_xxx_changeScore_4D8E90(u *server.Object, val int) {
-	if !u.Class().Has(object.ClassPlayer) {
-		return
-	}
-	pl := u.ControllingPlayer()
-	pl.Lessons += int32(val)
-}
-
 func (s *Server) sub_4D6B10(send bool) {
 	s.Players.LoadStats2()
 	s.CalcClassStats()

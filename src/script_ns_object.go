@@ -374,23 +374,6 @@ func (obj nsObj) GetLevel() int {
 	return int(obj.ControllingPlayer().Level)
 }
 
-func (obj nsObj) ChangeScore(val int) {
-	if !obj.Class().Has(object.ClassPlayer) {
-		return
-	}
-	u := obj.SObj()
-	if val <= 0 {
-		nox_xxx_playerSubLessons_4D8EC0(u, -val)
-	} else {
-		nox_xxx_changeScore_4D8E90(u, val)
-	}
-	s := obj.Server()
-	if tm := u.Team(); tm != nil {
-		s.TeamChangeLessons(tm, val+tm.Lessons)
-	}
-	s.Nox_xxx_netReportLesson_4D8EF0(u)
-}
-
 func (obj nsObj) HasOwner(owner ns4.Obj) bool {
 	own, _ := owner.(server.Obj)
 	return obj.Object.HasOwner(server.ToObject(own))

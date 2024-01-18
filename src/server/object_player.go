@@ -1,6 +1,10 @@
 package server
 
-import "unsafe"
+import (
+	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/object"
+)
 
 type PlayerState byte
 
@@ -186,4 +190,24 @@ type PlayerUpdateData struct {
 	Field136         uint32         // 136, 544
 	Field137         uint32         // 137, 548, TODO: some timestamp
 	Field138         uint32         // 138, 552
+}
+
+func (obj *Object) ChangeScore(val int) {
+	if !obj.Class().Has(object.ClassPlayer) {
+		return
+	}
+	obj.changeScore(val)
+	s := obj.Server()
+	if tm := obj.Team(); tm != nil {
+		s.TeamChangeLessons(tm, val+tm.Lessons)
+	}
+	s.Nox_xxx_netReportLesson_4D8EF0(obj)
+}
+
+func (obj *Object) changeScore(val int) { // nox_xxx_playerSubLessons_4D8EC0(-v), nox_xxx_changeScore_4D8E90(v)
+	if !obj.Class().Has(object.ClassPlayer) {
+		return
+	}
+	pl := obj.ControllingPlayer()
+	pl.Lessons += int32(val)
 }
