@@ -613,23 +613,23 @@ func (s *Server) LoadClassStats() {
 	}
 }
 
-func (s *Server) sub_4D6B10(a1 bool) {
-	legacy.Set_nox_xxx_warriorMaxHealth_587000_312784(memmap.Float32(0x5D4594, 1556076))
-	legacy.Set_nox_xxx_warriorMaxMana_587000_312788(memmap.Float32(0x5D4594, 1556084))
-	s.Players.Mult.Warrior.Strength = memmap.Float32(0x5D4594, 1556064)
-	s.Players.Mult.Warrior.Speed = memmap.Float32(0x5D4594, 1556072)
-	legacy.Set_nox_xxx_conjurerMaxHealth_587000_312800(memmap.Float32(0x5D4594, 1556060))
-	legacy.Set_nox_xxx_conjurerMaxMana_587000_312804(memmap.Float32(0x5D4594, 1556096))
-	s.Players.Mult.Conjurer.Strength = memmap.Float32(0x5D4594, 1550932)
-	s.Players.Mult.Conjurer.Speed = memmap.Float32(0x5D4594, 1556080)
-	legacy.Set_nox_xxx_wizardMaxHealth_587000_312816(memmap.Float32(0x5D4594, 1556088))
-	legacy.Set_nox_xxx_wizardMaximumMana_587000_312820(memmap.Float32(0x5D4594, 1556068))
-	s.Players.Mult.Wizard.Strength = memmap.Float32(0x5D4594, 1556100)
-	s.Players.Mult.Wizard.Speed = memmap.Float32(0x5D4594, 1556092)
+func (s *Server) sub_4D6B10(send bool) {
+	legacy.Set_nox_xxx_warriorMaxHealth_587000_312784(s.Players.Mult2.Warrior.Health)
+	legacy.Set_nox_xxx_warriorMaxMana_587000_312788(s.Players.Mult2.Warrior.Mana)
+	s.Players.Mult.Warrior.Strength = s.Players.Mult2.Warrior.Strength
+	s.Players.Mult.Warrior.Speed = s.Players.Mult2.Warrior.Speed
+	legacy.Set_nox_xxx_wizardMaxHealth_587000_312816(s.Players.Mult2.Wizard.Health)
+	legacy.Set_nox_xxx_wizardMaximumMana_587000_312820(s.Players.Mult2.Wizard.Mana)
+	s.Players.Mult.Wizard.Strength = s.Players.Mult2.Wizard.Strength
+	s.Players.Mult.Wizard.Speed = s.Players.Mult2.Wizard.Speed
+	legacy.Set_nox_xxx_conjurerMaxHealth_587000_312800(s.Players.Mult2.Conjurer.Health)
+	legacy.Set_nox_xxx_conjurerMaxMana_587000_312804(s.Players.Mult2.Conjurer.Mana)
+	s.Players.Mult.Conjurer.Strength = s.Players.Mult2.Conjurer.Strength
+	s.Players.Mult.Conjurer.Speed = s.Players.Mult2.Conjurer.Speed
 	s.LoadClassStats()
 	for _, it := range s.Players.ListUnits() {
 		legacy.Nox_xxx_plrReadVals_4EEDC0(it, 0)
-		if a1 {
+		if send {
 			s.nox_xxx_netStatsMultiplier_4D9C20(it)
 		}
 	}
@@ -658,18 +658,25 @@ func sub_4D6A60() {
 
 func sub_4D6BE0() {
 	s := noxServer
-	*memmap.PtrFloat32(0x5D4594, 1550932) = s.Players.Mult.Conjurer.Strength
-	*memmap.PtrFloat32(0x5D4594, 1556060) = legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800()
-	*memmap.PtrFloat32(0x5D4594, 1556064) = s.Players.Mult.Warrior.Strength
-	*memmap.PtrFloat32(0x5D4594, 1556068) = legacy.Get_nox_xxx_wizardMaximumMana_587000_312820()
-	*memmap.PtrFloat32(0x5D4594, 1556072) = s.Players.Mult.Warrior.Speed
-	*memmap.PtrFloat32(0x5D4594, 1556076) = legacy.Get_nox_xxx_warriorMaxHealth_587000_312784()
-	*memmap.PtrFloat32(0x5D4594, 1556080) = s.Players.Mult.Conjurer.Speed
-	*memmap.PtrFloat32(0x5D4594, 1556084) = legacy.Get_nox_xxx_warriorMaxMana_587000_312788()
-	*memmap.PtrFloat32(0x5D4594, 1556088) = legacy.Get_nox_xxx_wizardMaxHealth_587000_312816()
-	*memmap.PtrFloat32(0x5D4594, 1556092) = s.Players.Mult.Wizard.Speed
-	*memmap.PtrFloat32(0x5D4594, 1556096) = legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()
-	*memmap.PtrFloat32(0x5D4594, 1556100) = s.Players.Mult.Wizard.Strength
+
+	s.Players.Mult2.Warrior = server.ClassStats{
+		Health:   legacy.Get_nox_xxx_warriorMaxHealth_587000_312784(),
+		Mana:     legacy.Get_nox_xxx_warriorMaxMana_587000_312788(),
+		Speed:    s.Players.Mult.Warrior.Speed,
+		Strength: s.Players.Mult.Warrior.Strength,
+	}
+	s.Players.Mult2.Wizard = server.ClassStats{
+		Health:   legacy.Get_nox_xxx_wizardMaxHealth_587000_312816(),
+		Mana:     legacy.Get_nox_xxx_wizardMaximumMana_587000_312820(),
+		Speed:    s.Players.Mult.Wizard.Speed,
+		Strength: s.Players.Mult.Wizard.Strength,
+	}
+	s.Players.Mult2.Conjurer = server.ClassStats{
+		Health:   legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800(),
+		Mana:     legacy.Get_nox_xxx_conjurerMaxMana_587000_312804(),
+		Speed:    s.Players.Mult.Conjurer.Speed,
+		Strength: s.Players.Mult.Conjurer.Strength,
+	}
 }
 
 func nox_client_onClassStats(data []byte) {

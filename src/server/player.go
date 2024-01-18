@@ -42,6 +42,11 @@ type serverPlayers struct {
 		Wizard   ClassStatMult
 		Conjurer ClassStatMult
 	}
+	Mult2 struct {
+		Warrior  ClassStats
+		Wizard   ClassStats
+		Conjurer ClassStats
+	}
 	Control  serverCtrlBuf
 	HostUnit *Object
 
