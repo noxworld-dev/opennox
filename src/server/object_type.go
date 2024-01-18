@@ -241,6 +241,7 @@ type serverObjTypes struct {
 		zombieVile int
 		magic      int
 		deathBall  int
+		flag       int
 	}
 }
 
@@ -351,6 +352,10 @@ func (s *serverObjTypes) DeathBallID() int {
 
 func (s *serverObjTypes) MagicID() int {
 	return s.cacheObjectTypeID(&s.fast.magic, "Magic")
+}
+
+func (s *serverObjTypes) FlagID() int {
+	return s.cacheObjectTypeID(&s.fast.flag, "Flag")
 }
 
 func (s *serverObjTypes) ReadObjectType(thg *things.Thing) error {
