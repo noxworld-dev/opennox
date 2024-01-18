@@ -3899,41 +3899,37 @@ func nox_xxx_drawOtherPlayerHP_4B8EB0(a1 *noxrender.Viewport, dr *client.Drawabl
 		nox_client_drawBorderLines_49CC70(v5-1, v6-1, 4, 50)
 	}
 }
-func sub_4B8FA0(dr *client.Drawable, a2 *unsafe.Pointer, a3 *int32) int32 {
-	var (
-		v4 int32
-		v9 int32
-	)
-	v3 := dr.DrawData
+func sub_4B8FA0(dr *client.Drawable, outAnim **client.PlayerAnimation, outInd *int32) noxrender.ImageHandle {
+	dd := (*client.PlayerDrawData)(dr.DrawData)
+	var aind int32
 	if dr.Field_69 != 0 || sub_48D830(dr) == 0 {
 		if dr.Field_69 != 4 {
-			v4 = int32(dr.Field_69)
+			aind = int32(dr.Field_69)
 		} else if !nox_client_drawable_testBuff_4356C0(dr, 31) {
-			v4 = int32(dr.Field_69)
+			aind = int32(dr.Field_69)
 		} else {
-			v4 = 53
+			aind = 53
 		}
 	} else {
-		v4 = 19
+		aind = 19
 	}
-	v5 := int32(*(*uint16)(unsafe.Add(v3, v4*264+44))) == 0
-	v6 := unsafe.Add(v3, v4*264+4)
-	if v5 {
-		return 0
+	panim := &dd.Anim[aind]
+	if panim.Base.Cnt40 == 0 {
+		return nil
 	}
-	v8 := sub_4BC5D0(dr, (*client.AnimationVector)(v6))
-	if v8 < 0 {
-		return 0
+	ind := int(sub_4BC5D0(dr, &panim.Base))
+	if ind < 0 {
+		return nil
 	}
-	v9 = int32(*(*int16)(unsafe.Add(v6, 40)))
-	if v8 >= v9 {
-		v8 = v9 - 1
+	arr := unsafe.Slice(panim.Naked.Frames[dr.Field_74_2], panim.Base.Cnt40)
+	if ind >= len(arr) {
+		ind = len(arr) - 1
 	}
-	if a2 != nil {
-		*a2 = v6
+	if outAnim != nil {
+		*outAnim = panim
 	}
-	if a3 != nil {
-		*a3 = v8
+	if outInd != nil {
+		*outInd = int32(ind)
 	}
-	return int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v6, 48))+uint32(int32(dr.Field_74_2)*4))), 4)) + uint32(v8*4)))))
+	return arr[ind]
 }

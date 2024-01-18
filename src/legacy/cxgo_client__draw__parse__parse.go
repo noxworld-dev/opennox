@@ -74,13 +74,13 @@ func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 *client.AnimationVector, f *b
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f)
 }
 func nox_xxx_loadVectorAnimated_44B8B0(a1 *client.AnimationVector, f *binfile.MemFile) int32 {
-	a1.Size40 = uint16(nox_memfile_read_u8(f))
+	a1.Cnt40 = uint16(nox_memfile_read_u8(f))
 	a1.Val42 = uint16(nox_memfile_read_u8(f))
 	n := nox_memfile_read_u8(f)
 	var buf [256]byte
 	nox_memfile_read(unsafe.Pointer(&buf[0]), 1, int32(n), f)
 	buf[n] = 0
-	a1.Kind44 = uint32(get_animation_kind_id_44B4C0(&buf[0]))
+	a1.Kind = uint32(get_animation_kind_id_44B4C0(&buf[0]))
 	return 1
 }
 func nox_xxx_loadVectorAnimated_44BC50(ani *client.AnimationVector, f *binfile.MemFile) int32 {
@@ -90,13 +90,13 @@ func nox_xxx_loadVectorAnimated_44BC50(ani *client.AnimationVector, f *binfile.M
 		if i >= 4 {
 			k = i + 1
 		}
-		arr, _ := alloc.Make([]noxrender.ImageHandle{}, int(ani.Size40))
-		ani.Field4[k] = &arr[0]
+		arr, _ := alloc.Make([]noxrender.ImageHandle{}, int(ani.Cnt40))
+		ani.Frames[k] = &arr[0]
 		if arr == nil {
 			return 0
 		}
-		if int32(ani.Size40) > 0 {
-			for j := 0; j < int(ani.Size40); j++ {
+		if int32(ani.Cnt40) > 0 {
+			for j := 0; j < int(ani.Cnt40); j++ {
 				id := nox_memfile_read_i32(f)
 				var v15 byte
 				buf[0] = *memmap.PtrUint8(0x5D4594, 830844)

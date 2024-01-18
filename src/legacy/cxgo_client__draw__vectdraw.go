@@ -16,27 +16,27 @@ func sub_4BC5D0(dr *client.Drawable, ani *client.AnimationVector) int32 {
 		v3     int32
 		v4     int32
 	)
-	switch ani.Kind44 {
+	switch ani.Kind {
 	case 0:
 		result = int32((gameFrame() - a1.Field_79) / uint32(int32(ani.Val42)+1))
-		v4 = int32(ani.Size40)
+		v4 = int32(ani.Cnt40)
 		if result >= v4 {
 			result = v4 - 1
 		}
 	case 1:
 		result = int32((gameFrame() - a1.Field_79) / uint32(int32(ani.Val42)+1))
-		if result >= int32(ani.Size40) {
+		if result >= int32(ani.Cnt40) {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			result = -1
 		}
 	case 2:
 		result = int32((gameFrame() + a1.Field_32) / uint32(int32(ani.Val42)+1))
-		v3 = int32(ani.Size40)
+		v3 = int32(ani.Cnt40)
 		if result >= v3 {
 			result %= v3
 		}
 	case 4:
-		result = nox_common_randomIntMinMax_415FF0(0, int32(ani.Size40)-1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c"), 19)
+		result = nox_common_randomIntMinMax_415FF0(0, int32(ani.Cnt40)-1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\vectdraw.c"), 19)
 	case 5:
 		result = int32(a1.Field_77)
 	default:

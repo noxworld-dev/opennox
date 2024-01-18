@@ -111,7 +111,7 @@ func nox_thing_monster_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		*memmap.PtrUint32(0x5D4594, 1316536) = uint32(v6)
 	}
 	ani := &dd.Anim[dr.Field_69]
-	if int32(ani.Size40) == 0 {
+	if int32(ani.Cnt40) == 0 {
 		return 1
 	}
 	if dr.Field_27 == uint32(v6) {

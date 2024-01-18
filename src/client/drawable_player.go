@@ -1,20 +1,16 @@
 package client
 
-import "unsafe"
+import (
+	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+)
 
 var _ = [1]struct{}{}[40-unsafe.Sizeof(PlayerEquipAnimation{})]
 
 type PlayerEquipAnimation struct {
-	Size    uint32 // 0, 0
-	Field4  uint32 // 1, 4
-	Field8  uint32 // 2, 8
-	Field12 uint32 // 3, 12
-	Field16 uint32 // 4, 16
-	Field20 uint32 // 5, 20
-	Field24 uint32 // 6, 24
-	Field28 uint32 // 7, 28
-	Field32 uint32 // 8, 32
-	Field36 uint32 // 9, 36
+	Size   uint32                    // 0, 0
+	Frames [9]*noxrender.ImageHandle // 1, 4; [1][]noxrender.ImageHandle
 }
 
 var _ = [1]struct{}{}[264-unsafe.Sizeof(PlayerAnimation{})]

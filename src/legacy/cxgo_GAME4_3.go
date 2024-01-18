@@ -4985,7 +4985,7 @@ func nox_xxx_playerDequipWeapon_53A140(obj *server.Object, item *server.Object, 
 	if !(ud.Field27 == nil || (uint32(nox_xxx_weaponInventoryEquipFlags_415820(ud.Field27))&0x7FFE40C) == 0) {
 		return 1
 	}
-	v17 := *(**server.Object)(unsafe.Add(unsafe.Pointer(ud.Player), 2500))
+	v17 := ud.Player.Field2500
 	if v17 != nil && uint8(v17.ObjFlags) == 16 {
 		nox_xxx_playerTryEquip_4F2F70(obj, v17)
 	} else {

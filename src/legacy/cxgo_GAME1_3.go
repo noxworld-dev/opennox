@@ -992,66 +992,35 @@ func nox_xxx_motd_4467F0() {
 func sub_446950() int32 {
 	return bool2int32(dword_5d4594_826028 != nil && (nox_xxx_wndGetFlags_46ADA0(dword_5d4594_826028)&0x10) == 0)
 }
-func sub_44B940(a1 *client.PlayerEquipAnimation, a2 int32, f *binfile.MemFile) int32 {
-	var (
-		v3  int32
-		v4  int32
-		v5  unsafe.Pointer
-		v6  int32
-		v8  int32
-		v10 int8
-		v13 int32
-		v14 int32
-		v15 uint8
-		v16 *byte
-		v17 [128]byte
-	)
-	v3 = a2
-	v4 = 0
-	a1.Size = uint32(unsafe.Sizeof(client.PlayerEquipAnimation{}))
-	v14 = 0
-	for {
-		if v4 >= 16 {
-			v13 = v4 + 4
-		} else {
-			v13 = v4
+func sub_44B940(ani *client.PlayerEquipAnimation, cnt int32, f *binfile.MemFile) int32 {
+	var buf [128]byte
+	ani.Size = uint32(unsafe.Sizeof(client.PlayerEquipAnimation{}))
+	for i := 0; i < 8; i++ {
+		k := i
+		if i >= 4 {
+			k = i + 1
 		}
-		v5 = alloc.Calloc1(int(v3), 4)
-		*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(a1), v13), 4)) = uint32(uintptr(v5))
-		if v5 == nil {
-			break
+		arr, _ := alloc.Make([]noxrender.ImageHandle{}, cnt)
+		ani.Frames[k] = &arr[0]
+		if arr == nil {
+			return 0
 		}
-		v6 = 0
-		if v3 > 0 {
-			for {
-				v8 = nox_memfile_read_i32(f)
-				v17[0] = *memmap.PtrUint8(0x5D4594, 830840)
-				if v8 == -1 {
-					v10 = nox_memfile_read_i8(f)
-					v15 = nox_memfile_read_u8(f)
-					*(*uint8)(unsafe.Pointer(&v16)) = uint8(v10)
-					nox_memfile_read(unsafe.Pointer(&v17[0]), 1, int32(v15), f)
-					v17[v15] = 0
-					v3 = a2
+		if cnt > 0 {
+			for j := 0; j < int(cnt); j++ {
+				ind := nox_memfile_read_i32(f)
+				buf[0] = 0
+				var v16 byte
+				if ind == -1 {
+					v16 = byte(nox_memfile_read_i8(f))
+					n := nox_memfile_read_u8(f)
+					nox_memfile_read(unsafe.Pointer(&buf[0]), 1, int32(n), f)
+					buf[n] = 0
 				}
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(a1), v13), 4)) + uint32(func() int32 {
-					p := &v6
-					*p++
-					return *p
-				}()*4) - 4))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v8, int8(uintptr(unsafe.Pointer(v16))), &v17[0]))))
-				if v6 >= v3 {
-					break
-				}
+				arr[j] = nox_xxx_readImgMB_42FAA0(ind, int8(v16), &buf[0])
 			}
-			v4 = v14
-		}
-		v4 += 4
-		v14 = v4
-		if v4 >= 32 {
-			return 1
 		}
 	}
-	return 0
+	return 1
 }
 func nox_xxx_parse_Armor_44BA60(a1 *byte) int32 {
 	var (
