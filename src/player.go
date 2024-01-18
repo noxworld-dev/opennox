@@ -48,7 +48,7 @@ func nox_xxx_playerObserveClear_4DDEF0(cplayer *server.Object) {
 }
 
 func clientPlayer() *server.Player {
-	return noxServer.GetPlayerByID(legacy.ClientPlayerNetCode())
+	return noxServer.Players.ByID(legacy.ClientPlayerNetCode())
 }
 
 func getPlayerClass() player.Class {
@@ -95,13 +95,13 @@ func (s *Server) PlayerDisconnect(p *server.Player, v int) {
 }
 
 func (s *Server) PlayerDisconnectByIndCode4(ind ntype.PlayerInd) { // nox_xxx_playerDisconnByPlrID_4DEB00
-	if pl := s.GetPlayerByInd(ind); pl != nil {
+	if pl := s.Players.ByInd(ind); pl != nil {
 		s.PlayerDisconnect(pl, 4)
 	}
 }
 
 func (s *Server) PlayerDisconnectByInd(ind ntype.PlayerInd, v int8) { // nox_xxx_playerCallDisconnect_4DEAB0
-	if pl := s.GetPlayerByInd(ind); pl != nil {
+	if pl := s.Players.ByInd(ind); pl != nil {
 		s.PlayerDisconnect(pl, int(v))
 	}
 }
@@ -196,25 +196,6 @@ func (obj *Object) observeClear() {
 		_ = nox_xxx_updatePlayer_4F8100
 		obj.Update = legacy.Get_nox_xxx_updatePlayer_4F8100()
 	}
-}
-
-func (s *Server) getPlayerUnits() (out []*Object) {
-	for _, u := range s.Players.ListUnits() {
-		out = append(out, asObjectS(u))
-	}
-	return out
-}
-
-func (s *Server) GetPlayerByInd(i ntype.PlayerInd) *server.Player {
-	return s.Players.ByInd(i)
-}
-
-func (s *Server) GetPlayerByIndRaw(i ntype.PlayerInd) *server.Player {
-	return s.Players.ByIndRaw(i)
-}
-
-func (s *Server) GetPlayerByID(id int) *server.Player {
-	return s.Players.ByID(id)
 }
 
 func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *server.Player) {
@@ -478,7 +459,7 @@ func (s *Server) sub_4E8210(u *server.Object) (types.Pointf, bool) {
 		max uint32
 		v2  unsafe.Pointer
 	)
-	for _, u2 := range s.getPlayerUnits() {
+	for _, u2 := range s.Players.ListUnits() {
 		ptr := u2.UpdateDataPlayer()
 		ptr2 := ptr.Field77
 		if ptr2 == nil {
@@ -583,7 +564,7 @@ func sub_4FD030(u *server.Object, v int) {
 	}
 }
 
-func nox_xxx_playerSubLessons_4D8EC0(u *Object, val int) {
+func nox_xxx_playerSubLessons_4D8EC0(u *server.Object, val int) {
 	if !u.Class().Has(object.ClassPlayer) {
 		return
 	}
@@ -591,7 +572,7 @@ func nox_xxx_playerSubLessons_4D8EC0(u *Object, val int) {
 	pl.Lessons -= int32(val)
 }
 
-func nox_xxx_changeScore_4D8E90(u *Object, val int) {
+func nox_xxx_changeScore_4D8E90(u *server.Object, val int) {
 	if !u.Class().Has(object.ClassPlayer) {
 		return
 	}
@@ -632,10 +613,10 @@ func (s *Server) sub_4D6B10(a1 bool) {
 	s.Players.Mult.Wizard.Strength = memmap.Float32(0x5D4594, 1556100)
 	s.Players.Mult.Wizard.Speed = memmap.Float32(0x5D4594, 1556092)
 	s.nox_xxx_loadBaseValues_57B200()
-	for _, it := range s.getPlayerUnits() {
-		legacy.Nox_xxx_plrReadVals_4EEDC0(it.SObj(), 0)
+	for _, it := range s.Players.ListUnits() {
+		legacy.Nox_xxx_plrReadVals_4EEDC0(it, 0)
 		if a1 {
-			s.nox_xxx_netStatsMultiplier_4D9C20(it.SObj())
+			s.nox_xxx_netStatsMultiplier_4D9C20(it)
 		}
 	}
 }
@@ -655,9 +636,9 @@ func sub_4D6A60() {
 	s.Players.Mult.Wizard.Strength = 1
 	s.Players.Mult.Wizard.Speed = 1
 	s.nox_xxx_loadBaseValues_57B200()
-	for _, it := range s.getPlayerUnits() {
-		legacy.Nox_xxx_plrReadVals_4EEDC0(it.SObj(), 0)
-		s.nox_xxx_netStatsMultiplier_4D9C20(it.SObj())
+	for _, it := range s.Players.ListUnits() {
+		legacy.Nox_xxx_plrReadVals_4EEDC0(it, 0)
+		s.nox_xxx_netStatsMultiplier_4D9C20(it)
 	}
 }
 

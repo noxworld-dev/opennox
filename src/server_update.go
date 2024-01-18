@@ -8,10 +8,10 @@ import (
 )
 
 func (s *Server) updateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
-	for _, u := range s.getPlayerUnits() {
-		s.ItemsApplyUpdateEffect(u.SObj())
+	for _, u := range s.Players.ListUnits() {
+		s.ItemsApplyUpdateEffect(u)
 		ud := u.UpdateDataPlayer()
-		ud.CursorObj = legacy.Nox_xxx_findObjectAtCursor_54AF40(u.SObj())
+		ud.CursorObj = legacy.Nox_xxx_findObjectAtCursor_54AF40(u)
 	}
 }
 

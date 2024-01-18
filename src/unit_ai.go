@@ -41,7 +41,7 @@ func (obj *Object) MaybePrintAIStack(event string) {
 	obj.SObj().MaybePrintAIStack(event)
 }
 
-func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
+func (a *aiData) nox_xxx_mobActionDependency(u *server.Object) {
 	ud := u.UpdateDataMonster()
 	stack := ud.GetAIStack()
 	if len(stack) == 0 {
@@ -98,12 +98,12 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			}
 		case ai.DEPENDENCY_CAN_SEE:
 			obj := st.ArgObj(0)
-			if obj == nil || !a.s.CanInteract(u.SObj(), obj, 0) {
+			if obj == nil || !a.s.CanInteract(u, obj, 0) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CANNOT_SEE:
 			obj := st.ArgObj(0)
-			if obj == nil || a.s.CanSeeDir(u.SObj(), obj) {
+			if obj == nil || a.s.CanSeeDir(u, obj) {
 				ok = false
 			}
 		case ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE:
@@ -113,11 +113,11 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				break
 			}
 			pos, pos2 := u.Pos(), obj.Pos()
-			ok = !a.s.MapTraceObstacles(u.SObj(), pos, pos2)
+			ok = !a.s.MapTraceObstacles(u, pos, pos2)
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
 			v28 := st.ArgObj(2)
 			v29 := false
-			if v28 != nil && a.s.CanInteract(u.SObj(), v28, 0) {
+			if v28 != nil && a.s.CanInteract(u, v28, 0) {
 				v29 = true
 				pos := v28.Pos()
 				st.Args[0] = uintptr(math.Float32bits(pos.X))
@@ -153,7 +153,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			if noxflags.HasGame(noxflags.GameModeQuest) {
 				r = 640.0
 			}
-			ok = legacy.Nox_xxx_mobSearchEdible_544A00(u.SObj(), float32(r)) == 0
+			ok = legacy.Nox_xxx_mobSearchEdible_544A00(u, float32(r)) == 0
 		case ai.DEPENDENCY_NO_INTERESTING_SOUND:
 			if ud.Field97 != 0 && a.s.Frame()-ud.Field101 < a.s.SecToFrames(3) {
 				ok = false
@@ -207,15 +207,15 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ok = false
 			}
 		case ai.DEPENDENCY_UNDER_CURSOR:
-			if hu := a.s.Players.HostUnit; hu == nil || legacy.Nox_xxx_findObjectAtCursor_54AF40(hu) != u.SObj() {
+			if hu := a.s.Players.HostUnit; hu == nil || legacy.Nox_xxx_findObjectAtCursor_54AF40(hu) != u {
 				ok = false
 			}
 		case ai.DEPENDENCY_NOT_CORNERED:
-			ok = legacy.Nox_xxx_mobGetMoveAttemptTime_534810(u.SObj()) == 0
+			ok = legacy.Nox_xxx_mobGetMoveAttemptTime_534810(u) == 0
 		case ai.DEPENDENCY_LOCATION_IS_SAFE:
 			legacy.Set_dword_5d4594_2489460(1)
 			a.s.Map.EachObjInCircle(st.ArgPos(0), 50.0, func(it *server.Object) bool {
-				legacy.Nox_xxx_unitIsDangerous_547120(asObjectS(it).SObj(), u.SObj())
+				legacy.Nox_xxx_unitIsDangerous_547120(it, u)
 				return true
 			})
 			if legacy.Get_dword_5d4594_2489460() == 0 {
@@ -252,7 +252,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		}
 		for {
 			u.MonsterPopAction()
-			if int(ud.AIStackInd) < i || u.SObj().AIStackEmptyAndIdle() {
+			if int(ud.AIStackInd) < i || u.AIStackEmptyAndIdle() {
 				break
 			}
 		}
@@ -311,15 +311,15 @@ func (a *aiData) NewSound(snd sound.ID, obj *server.Object, pos types.Pointf) {
 	a.listenHead = p
 }
 
-func (a *aiData) aiListenToSounds(u *Object) {
+func (a *aiData) aiListenToSounds(u *server.Object) {
 	// Not sure about this check. If unit is invulnerable, don't listen for anything?
 	// Is present in vanilla though, so this might be some kind of weird fix for strange behaviour
-	if legacy.Nox_xxx_checkIsKillable_528190(u.SObj()) == 0 {
+	if legacy.Nox_xxx_checkIsKillable_528190(u) == 0 {
 		return
 	}
 
 	// Do not listen to anything if you are a fish, frog or rat
-	if a.s.IsFish(u.SObj()) || a.s.IsFrog(u.SObj()) || a.s.IsRat(u.SObj()) {
+	if a.s.IsFish(u) || a.s.IsFrog(u) || a.s.IsRat(u) {
 		return
 	}
 
@@ -359,7 +359,7 @@ func (a *aiData) aiListenToSounds(u *Object) {
 	}
 }
 
-func (a *aiData) traceSound(u *Object, p *MonsterListen) int {
+func (a *aiData) traceSound(u *server.Object, p *MonsterListen) int {
 	flags := a.s.Audio.Flags(p.snd)
 	perc := a.soundFadePerc(p.snd, p.pos, u.Pos())
 	if !a.checkSoundThreshold(flags, perc) {
@@ -415,7 +415,7 @@ func (a *aiData) checkSoundThreshold(flags, perc int) bool {
 	return perc >= threshold
 }
 
-func (a *aiData) shouldUnitListen(u *Object, lis *MonsterListen) bool {
+func (a *aiData) shouldUnitListen(u *server.Object, lis *MonsterListen) bool {
 	ud := u.UpdateDataMonster()
 	punit := lis.obj.FindOwnerChainPlayer()
 	flags := a.s.Audio.Flags(lis.snd)
@@ -427,7 +427,7 @@ func (a *aiData) shouldUnitListen(u *Object, lis *MonsterListen) bool {
 			return false
 		}
 	} else {
-		if a.s.IsEnemyTo(u.SObj(), punit) {
+		if a.s.IsEnemyTo(u, punit) {
 			if flags == 0 {
 				return false
 			}
@@ -449,7 +449,7 @@ func (a *aiData) shouldUnitListen(u *Object, lis *MonsterListen) bool {
 	return true
 }
 
-func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Object, lis *MonsterListen, dist int) {
+func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *server.Object, lis *MonsterListen, dist int) {
 	ud := u.UpdateDataMonster()
 	ud.Field97 = uint32(lis.snd)
 	ud.Field101 = a.s.Frame()
@@ -463,7 +463,7 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Object, lis *MonsterListen,
 	ud.Field99Y = lis.pos.Y
 	a.lastHeard = lis.pos
 	obj5 := lis.obj.FindOwnerChainPlayer()
-	a.s.noxScript.ScriptCallback(&ud.ScriptHearEnemy, obj5, u.SObj(), server.NoxEventMonsterHearEnemy)
+	a.s.noxScript.ScriptCallback(&ud.ScriptHearEnemy, obj5, u, server.NoxEventMonsterHearEnemy)
 }
 
 func (a *aiData) lastHeardEvent() types.Pointf {
@@ -534,9 +534,8 @@ func monsterRegenerateHP(u *server.Object) {
 	}
 }
 
-func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
-	u := asObjectS(a1)
-	s := u.getServer()
+func nox_xxx_unitUpdateMonster_50A5C0(u *server.Object) {
+	s := asObjectS(u).getServer()
 	ud := u.UpdateDataMonster()
 
 	if ud.Field523_2 != 0 {
@@ -546,7 +545,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if obj4 := ud.Field548; obj4 != nil && obj4.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
 		ud.Field548 = nil
 	}
-	legacy.Nox_xxx_mobAction_50A910(u.SObj())
+	legacy.Nox_xxx_mobAction_50A910(u)
 	s.ai.aiListenToSounds(u)
 	if !u.Flags().Has(object.FlagEnabled) {
 		return
@@ -557,27 +556,27 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	}
 	if !u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
 		if ud.StatusFlags.Has(object.MonStatusInjured) {
-			if v7 := legacy.Nox_xxx_monsterGetSoundSet_424300(u.SObj()); v7 != nil {
+			if v7 := legacy.Nox_xxx_monsterGetSoundSet_424300(u); v7 != nil {
 				s.Audio.EventObj(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
 			}
-			s.noxScript.ScriptCallback(&ud.ScriptIsHit, u.Obj130, u.SObj(), server.NoxEventMonsterIsHit)
+			s.noxScript.ScriptCallback(&ud.ScriptIsHit, u.Obj130, u, server.NoxEventMonsterIsHit)
 			if noxflags.HasEngine(noxflags.EngineShowAI) {
 				cur, max := u.Health()
 				ai.Log.Printf("%d: HP = %d/%d\n", s.Frame(), cur, max)
 			}
 		}
 		if v8 := ud.Field130; v8 != 0 && int(s.Frame()-v8) >= int(s.SecToFrames(1)) {
-			legacy.Nox_xxx_monsterPlayHurtSound_532800(u.SObj())
+			legacy.Nox_xxx_monsterPlayHurtSound_532800(u)
 			ud.Field130 = 0
 		}
-		legacy.Nox_xxx_mobAction_5469B0(u.SObj())
+		legacy.Nox_xxx_mobAction_5469B0(u)
 	}
 
-	monsterRegenerateHP(a1)
-	legacy.Nox_xxx_unitUpdateSightMB_5281F0(u.SObj())
-	legacy.Nox_xxx_monsterMainAIFn_547210(u.SObj())
+	monsterRegenerateHP(u)
+	legacy.Nox_xxx_unitUpdateSightMB_5281F0(u)
+	legacy.Nox_xxx_monsterMainAIFn_547210(u)
 	s.ai.nox_xxx_mobActionDependency(u)
-	legacy.Nox_xxx_updateNPCAnimData_50A850(u.SObj())
+	legacy.Nox_xxx_updateNPCAnimData_50A850(u)
 	changedPrev := s.AI.StackChanged
 	curAct := ai.ACTION_IDLE
 	for {
@@ -593,7 +592,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 		cur.Field5 = 1
 		s.AI.StackChanged = false
 		if a := server.GetAIAction(act); a != nil {
-			a.Start(u.SObj())
+			a.Start(u)
 		}
 		if !s.AI.StackChanged {
 			s.AI.StackChanged = changedPrev
@@ -601,19 +600,19 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 		}
 	}
 	if a := server.GetAIAction(curAct); a != nil {
-		a.Update(u.SObj())
+		a.Update(u)
 	}
 	if s.AI.StackChanged {
 		u.MaybePrintAIStack("stack changed")
 	}
 	ud.StatusFlags &^= object.MonStatusInjured
-	legacy.Nox_xxx_monsterPolygonEnter_421FF0(u.SObj())
+	legacy.Nox_xxx_monsterPolygonEnter_421FF0(u)
 
 	if v := ud.Field282_0; v < 100 {
 		ud.Field282_0 = v + uint8(100/s.TickRate())
 	}
-	if s.IsMimic(u.SObj()) {
-		legacy.Nox_xxx_monsterMimicCheckMorph_534950(u.SObj())
+	if s.IsMimic(u) {
+		legacy.Nox_xxx_monsterMimicCheckMorph_534950(u)
 	}
 	if s.Frame()-u.Frame134 > s.SecToFrames(3) {
 		ud.StatusFlags &^= object.MonStatusOnFire

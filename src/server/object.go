@@ -9,6 +9,7 @@ import (
 	"time"
 	"unsafe"
 
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -853,6 +854,10 @@ func (obj *Object) Pos() types.Pointf {
 	return obj.PosVec
 }
 
+func (obj *Object) Z() float32 {
+	return obj.ZVal
+}
+
 func (obj *Object) Vel() types.Pointf {
 	if obj == nil {
 		return types.Pointf{}
@@ -1076,6 +1081,18 @@ func (obj *Object) LookAt(p types.Pointf) {
 	obj.SetDir(v)
 }
 
+func (obj *Object) LookWithAngle(angle int) {
+	obj.SetDir(RoundDir(angle))
+}
+
+func (obj *Object) LookAtObject(targ ns4.Positioner) {
+	if targ == nil {
+		return
+	}
+	dir := DirFromVec(targ.Pos().Sub(obj.Pos()))
+	obj.SetDir(dir)
+}
+
 func (obj *Object) Sub548600(dp types.Pointf) {
 	obj.Pos24 = obj.Pos24.Add(dp.Div(obj.Mass))
 }
@@ -1091,6 +1108,21 @@ func (obj *Object) Health() (cur, max int) {
 	cur = int(h.Cur)
 	max = int(h.Max)
 	return
+}
+
+func (obj *Object) Speed() float32 {
+	if obj == nil {
+		return 0
+	}
+	return obj.SpeedCur
+}
+
+func (obj *Object) SetHealthRegenToMaxDur(t time.Duration) {
+	obj.SetExt().HealthRegenToMax = t
+}
+
+func (obj *Object) SetHealthRegenPerFrame(v float32) {
+	obj.SetExt().HealthRegenPerFrame = v
 }
 
 func (obj *Object) Mana() (cur, max int) {
@@ -1595,6 +1627,13 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 	return true
 }
 
+func (obj *Object) IsAttackedBy(obj2 *Object) bool {
+	if obj2 == nil {
+		return false
+	}
+	return obj.Server().IsEnemyTo(obj, obj2)
+}
+
 func (obj *Object) CanSee(obj2 *Object) bool {
 	if obj == nil || obj2 == nil {
 		return false
@@ -1818,6 +1857,12 @@ func (obj *Object) UnsetXStatus(a2 uint32) { // nox_xxx_unitUnsetXStatus_4E4780
 	}
 }
 
+func (obj *Object) Sub5346D0() {
+	ud := obj.UpdateDataMonster()
+	ud.Field2 = 0
+	ud.Field74 = 0
+}
+
 func (obj *Object) SetColor(ind int, cl color.Color) {
 	if obj.Class().Has(object.ClassMonster) {
 		ud := obj.UpdateDataMonster()
@@ -1846,6 +1891,13 @@ func (obj *Object) Equipment() []*Object {
 		}
 	}
 	return out
+}
+
+func (obj *Object) HasEquipment(item *Object) bool {
+	if !obj.HasItem(item) {
+		return false
+	}
+	return item.Flags().Has(object.FlagEquipped)
 }
 
 func (obj *Object) GetOwned516() []*Object {

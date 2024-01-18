@@ -378,7 +378,7 @@ func (obj nsObj) ChangeScore(val int) {
 	if !obj.Class().Has(object.ClassPlayer) {
 		return
 	}
-	u := obj.Object
+	u := obj.SObj()
 	if val <= 0 {
 		nox_xxx_playerSubLessons_4D8EC0(u, -val)
 	} else {
@@ -388,7 +388,7 @@ func (obj nsObj) ChangeScore(val int) {
 	if tm := u.Team(); tm != nil {
 		s.TeamChangeLessons(tm, val+tm.Lessons)
 	}
-	s.Nox_xxx_netReportLesson_4D8EF0(u.SObj())
+	s.Nox_xxx_netReportLesson_4D8EF0(u)
 }
 
 func (obj nsObj) HasOwner(owner ns4.Obj) bool {
@@ -545,7 +545,7 @@ func (obj nsObj) FindItems(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond)
 }
 
 func (obj nsObj) GetHolder() ns4.Obj {
-	obj2 := obj.InventoryHolder()
+	obj2 := obj.InvHolder
 	if obj2 == nil {
 		return nil
 	}

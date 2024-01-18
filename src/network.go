@@ -518,7 +518,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 			return true // continue
 		})
 		if found != nil {
-			s.PlayerDisconnect(s.GetPlayerByInd(found.PlayerIndex()), 4)
+			s.PlayerDisconnect(s.Players.ByInd(found.PlayerIndex()), 4)
 			out[2] = 21
 			return 3
 		}
@@ -817,7 +817,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 
 		playerID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
-		pl := c.srv.GetPlayerByID(int(playerID))
+		pl := c.srv.Players.ByID(int(playerID))
 		var msg string
 		if pl != nil {
 			legacy.Sub_456DF0(int(playerID))
@@ -1251,7 +1251,7 @@ func (s *Server) onPacket(ind ntype.PlayerInd, data []byte) bool {
 }
 
 func (s *Server) onPacketRaw(pli ntype.PlayerInd, data []byte) bool {
-	pl := s.GetPlayerByInd(pli)
+	pl := s.Players.ByInd(pli)
 	if len(data) == 0 {
 		if pl != nil {
 			pl.Frame3596 = s.Frame()
@@ -1654,13 +1654,13 @@ func Nox_xxx_netTimerStatus_4D8F50(a1 ntype.PlayerInd, a2 int) {
 	noxServer.NetSendPacketXxx1(int(a1), buf[:13], 0, 1)
 }
 
-func (s *Server) netSendAudioEvent(u *Object, ev *server.AudioEvent, perc int16) {
+func (s *Server) netSendAudioEvent(u *server.Object, ev *server.AudioEvent, perc int16) {
 	pl := u.ControllingPlayer()
 	packed := uint16(uint32(uint16(ev.Sound)) | uint32(perc)<<10)
 	dx := ev.Pos.X - pl.Pos3632().X
 	mv := uint8(int8(50 * int(dx) / (videoGetWindowSize().X / 2)))
 	var buf [4]byte
-	if u.SObj() == ev.Obj {
+	if u == ev.Obj {
 		buf[0] = byte(noxnet.MSG_AUDIO_PLAYER_EVENT)
 	} else {
 		buf[0] = byte(noxnet.MSG_AUDIO_EVENT)

@@ -776,9 +776,9 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
 	legacy.Set_dword_5d4594_1548524(1)
 	sub_416170(12)
 	noxflags.UnsetGame(noxflags.GameFlag4)
-	for _, u := range s.getPlayerUnits() {
-		u.dropAllItems()
-		legacy.Nox_xxx_playerMakeDefItems_4EF7D0(u.SObj(), 1, 0)
+	for _, u := range s.Players.ListUnits() {
+		asObjectS(u).dropAllItems()
+		legacy.Nox_xxx_playerMakeDefItems_4EF7D0(u, 1, 0)
 	}
 	s.ObjectsAddPending()
 	if noxflags.HasGame(noxflags.GameModeCoopTeam) {
@@ -825,7 +825,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() bool {
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
-	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return
 	}
@@ -1211,8 +1211,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		if wp := s.WPs.ByID(s.mapSwitchWPName); wp != nil {
 			gameLog.Printf("moving player to waypoint: %q", s.mapSwitchWPName)
 			wpos := wp.Pos()
-			for _, u := range s.getPlayerUnits() {
-				u.SetPos(wpos)
+			for _, u := range s.Players.ListUnits() {
+				asObjectS(u).SetPos(wpos)
 			}
 		} else {
 			gameLog.Printf("cannot find map waypoint %q!", s.mapSwitchWPName)
@@ -1220,7 +1220,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	}
 	s.mapSwitchWPName = ""
 	if sub_4DCC00() {
-		for _, m := range s.getPlayerUnits() {
+		for _, m := range s.Players.ListUnits() {
 			for _, np := range m.GetOwned516() {
 				if legacy.Nox_xxx_isUnit_4E5B50(np) != 0 {
 					ud := np.UpdateDataMonster()
@@ -1238,8 +1238,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					if np.Class().Has(object.ClassMonster) && np.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC) {
 						np.Nox_xxx_setNPCColor_4E4A90(0, &ud.Color[0])
 					}
-				} else if m.Class().Has(1) && legacy.Sub_4E5B80(m.SObj()) != 0 {
-					legacy.Sub_4E81D0(m.SObj())
+				} else if m.Class().Has(1) && legacy.Sub_4E5B80(m) != 0 {
+					legacy.Sub_4E81D0(m)
 				}
 			}
 		}

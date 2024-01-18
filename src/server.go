@@ -383,7 +383,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.maybeCallMapInit()
 	s.maybeCallMapEntry()
 	s.abilities.sub_4FC680()
-	if unit := s.GetPlayerByInd(common.MaxPlayers - 1).PlayerUnit; unit != nil {
+	if unit := s.Players.ByInd(common.MaxPlayers - 1).PlayerUnit; unit != nil {
 		s.spells.walls.associateSavedWalls(unit)
 	}
 	if legacy.Nox_xxx_get_57AF20() != 0 && legacy.Sub_57B140() {
@@ -877,7 +877,7 @@ func (s *Server) maybeInitPlayerUnits() {
 	if !s.ShouldCallMapInit && !s.ShouldCallMapEntry {
 		return
 	}
-	if len(s.getPlayerUnits()) == 0 {
+	if len(s.Players.ListUnits()) == 0 {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -893,7 +893,7 @@ func (s *Server) maybeInitPlayerUnits() {
 				legacy.Sub_4D60B0()
 			} else {
 				fname := datapath.Save("_temp_.dat")
-				for _, u := range s.getPlayerUnits() {
+				for _, u := range s.Players.ListUnits() {
 					ud := u.UpdateDataPlayer()
 					plx := ud.Player
 					pi := plx.PlayerIndex()
@@ -920,10 +920,10 @@ func (s *Server) maybeInitPlayerUnits() {
 		s.Nox_xxx_netMsgFadeBegin_4D9800(true, true)
 	}
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
-		for _, u := range s.getPlayerUnits() {
+		for _, u := range s.Players.ListUnits() {
 			plx := u.ControllingPlayer()
 			if plx.PlayerIndex() != common.MaxPlayers-1 && plx.Field3680&1 == 0 {
-				u.ApplyEnchant(server.ENCHANT_INVULNERABLE, 0, 5)
+				asObjectS(u).ApplyEnchant(server.ENCHANT_INVULNERABLE, 0, 5)
 			}
 		}
 	}

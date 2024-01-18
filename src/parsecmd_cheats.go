@@ -230,8 +230,8 @@ func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool
 		c.Print(console.ColorLightRed, "failed to parse the value")
 		return true
 	}
-	for _, u := range noxServer.getPlayerUnits() {
-		u.AddGold(v)
+	for _, u := range noxServer.Players.ListUnits() {
+		asObjectS(u).AddGold(v)
 	}
 	c.Printf(console.ColorLightYellow, "added %d gold to all players", v)
 	return true

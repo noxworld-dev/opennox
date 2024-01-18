@@ -58,6 +58,10 @@ type scrObject struct {
 	*Object
 }
 
+func (obj scrObject) LookAngle(angle int) {
+	obj.LookWithAngle(angle)
+}
+
 func (obj scrObject) GetObject() script.Object {
 	if obj.Object == nil {
 		return nil

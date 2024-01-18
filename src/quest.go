@@ -261,12 +261,12 @@ func (s *Server) setupQuestGame() {
 	noxflags.UnsetEngine(noxflags.EngineAdmin)
 	noxflags.UnsetGame(noxflags.GameNotQuest)
 	legacy.Sub_4D9CF0(255)
-	for _, u := range s.getPlayerUnits() {
+	for _, u := range s.Players.ListUnits() {
 		u.ControllingPlayer().Field4792 = 0
 	}
 
-	for _, u := range s.getPlayerUnits() {
-		legacy.Sub_4D6000(u.SObj())
+	for _, u := range s.Players.ListUnits() {
+		legacy.Sub_4D6000(u)
 		pl := u.ControllingPlayer()
 		if noxflags.HasGame(noxflags.GameHost) && noxflags.HasEngine(noxflags.EngineNoRendering) {
 			if pl.Index() == common.MaxPlayers-1 {
@@ -278,10 +278,10 @@ func (s *Server) setupQuestGame() {
 			pl.Field4792 = legacy.Sub_4E4100()
 		}
 		if pl.Field4792 == 1 {
-			legacy.Sub_4D9D20(255, u.SObj())
+			legacy.Sub_4D9D20(255, u)
 		}
-		legacy.Nox_xxx_unitInitPlayer_4EFE80(u.SObj())
-		u.AddGold(-int(pl.GoldVal))
+		legacy.Nox_xxx_unitInitPlayer_4EFE80(u)
+		asObjectS(u).AddGold(-int(pl.GoldVal))
 
 		var next *server.Object
 		for it := u.FirstItem(); it != nil; it = next {
@@ -298,9 +298,9 @@ func (s *Server) setupQuestGame() {
 		}
 		switch pl.PlayerClass() {
 		case player.Warrior:
-			legacy.Nox_xxx_playerRespawnItem_4EF750(u.SObj(), "Sword", nil, 1, 1)
+			legacy.Nox_xxx_playerRespawnItem_4EF750(u, "Sword", nil, 1, 1)
 		case player.Wizard:
-			item := legacy.Nox_xxx_playerRespawnItem_4EF750(u.SObj(), "SulphorousFlareWand", nil, 1, 1)
+			item := legacy.Nox_xxx_playerRespawnItem_4EF750(u, "SulphorousFlareWand", nil, 1, 1)
 
 			opt, freeOpt := alloc.Make([]unsafe.Pointer{}, 5)
 			mod := s.Modif.Nox_xxx_modifGetIdByName413290("Replenishment1")
@@ -308,7 +308,7 @@ func (s *Server) setupQuestGame() {
 			legacy.Nox_xxx_modifSetItemAttrs_4E4990(item, unsafe.Pointer(&opt[0]))
 			freeOpt()
 		case player.Conjurer:
-			legacy.Nox_xxx_playerRespawnItem_4EF750(u.SObj(), "Bow", nil, 1, 1)
+			legacy.Nox_xxx_playerRespawnItem_4EF750(u, "Bow", nil, 1, 1)
 		}
 		if pl.Field4792 == 0 {
 			s.PlayerGoObserver(pl, false, false)
@@ -321,7 +321,7 @@ func (s *Server) setupQuestGame() {
 		t.SetNameAnd68(title, 1)
 	}
 	legacy.Sub_4184D0(t.C())
-	for _, u := range s.getPlayerUnits() {
+	for _, u := range s.Players.ListUnits() {
 		if u.ControllingPlayer().Field4792 == 1 {
 			legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), u.TeamPtr(), 1, u.NetCode, 0)
 		}
@@ -369,7 +369,7 @@ func sub4DCEE0(path string) {
 
 func sub_4DCF20() {
 	if questPlayerSet && noxServer.getQuestFlag() == 0 {
-		if pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1); pl != nil && pl.Field3680&0x10 != 0 {
+		if pl := noxServer.Players.ByInd(common.MaxPlayers - 1); pl != nil && pl.Field3680&0x10 != 0 {
 			path := questPlayerFile
 			legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1)
 			questPlayerSet = false

@@ -12,7 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-type XferFunc func(obj *Object, a2 unsafe.Pointer) error
+type XferFunc func(obj *server.Object, a2 unsafe.Pointer) error
 
 func nox_xxx_xfer_saveObj51DF90(cf *cryptfile.CryptFile, a1p *server.Object) int {
 	if a1p.Flags().Has(object.FlagDestroyed) {

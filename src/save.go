@@ -392,7 +392,7 @@ func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, d
 				res := legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, ind)
 				if noxflags.HasGame(noxflags.GameModeQuest) {
 					if res != 0 {
-						if pl := s.GetPlayerByInd(ind); pl != nil {
+						if pl := s.Players.ByInd(ind); pl != nil {
 							if u := pl.PlayerUnit; u != nil {
 								ud := u.UpdateDataPlayer()
 								ud.Field138 = 0
@@ -477,7 +477,7 @@ func loadCoopGame(name string) bool {
 	}
 	legacy.Nox_xxx_cliPrepareGameplay1_460E60()
 	legacy.Nox_xxx_cliPrepareGameplay2_4721D0()
-	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(common.MaxPlayers - 1)
 	pl.Name()
 	mname := pl.SaveName()
 	s.nox_xxx_gameSetMapPath_409D70(mname + ".map")
@@ -504,7 +504,7 @@ func sub_4DCD40() {
 	sub_4169E0()
 	dword_5d4594_1563044 = true
 	path := datapath.Save("_temp_.dat")
-	for _, u := range noxServer.getPlayerUnits() {
+	for _, u := range noxServer.Players.ListUnits() {
 		ud := u.UpdateDataPlayer()
 		pl := ud.Player
 		if pl.Field4792 != 0 && ud.Field138 != 1 {
@@ -542,7 +542,7 @@ func sub_4DCFB0(a1p *server.Object) {
 			nox_xxx_player_4D7960(pl.Index())
 		}
 	} else {
-		s.PlayerDisconnect(s.GetPlayerByInd(pl.PlayerIndex()), 4)
+		s.PlayerDisconnect(s.Players.ByInd(pl.PlayerIndex()), 4)
 	}
 }
 
@@ -683,7 +683,7 @@ func sub_4DD0B0(a1p *server.Object) {
 	s := noxServer
 	pl := u.ControllingPlayer()
 	if nox_xxx_player_4D7980(pl.Index()) {
-		s.PlayerDisconnect(s.GetPlayerByInd(pl.PlayerIndex()), 4)
+		s.PlayerDisconnect(s.Players.ByInd(pl.PlayerIndex()), 4)
 	} else {
 		sub_419EB0(pl.PlayerIndex(), 0)
 		s.Nox_xxx_sendGauntlet_4DCF80(pl.PlayerIndex(), 0)
@@ -718,7 +718,7 @@ func saveCoopGame(name string) bool {
 	sub_478000()
 	legacy.Nox_xxx_quickBarClose_4606B0()
 	s := noxServer
-	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return false
 	}
@@ -781,7 +781,7 @@ func saveCoopGame(name string) bool {
 
 func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	s := noxServer
-	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return false
 	}

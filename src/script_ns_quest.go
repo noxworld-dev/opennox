@@ -35,8 +35,8 @@ func (s noxScriptNS) ResetQuestStatus(name string) {
 
 func (s noxScriptNS) JournalEntry(obj ns.Obj, msg ns.StringID, typ ns.EntryType) {
 	if obj == nil {
-		for _, it := range s.s.getPlayerUnits() {
-			legacy.Nox_xxx_comJournalEntryAdd_427500(it.SObj(), msg, typ)
+		for _, it := range s.s.Players.ListUnits() {
+			legacy.Nox_xxx_comJournalEntryAdd_427500(it, msg, typ)
 		}
 	} else {
 		legacy.Nox_xxx_comJournalEntryAdd_427500(server.ToObject(obj.(server.Obj)), msg, typ)

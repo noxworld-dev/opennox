@@ -324,16 +324,8 @@ func (obj *Object) SObj() *server.Object {
 	return (*server.Object)(obj)
 }
 
-func (obj *Object) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Add(unsafe.Pointer(obj), dp)
-}
-
 func (obj *Object) ID() string {
-	return alloc.GoString((*byte)(obj.IDPtr))
-}
-
-func (obj *Object) Ind() int { // aka "extent"
-	return int(obj.Extent)
+	return obj.SObj().ID()
 }
 
 func (obj *Object) ScriptID() int {
@@ -543,15 +535,11 @@ func (obj *Object) Next() *server.Object { // nox_server_getNextObject_4DA7A0, n
 }
 
 func (obj *Object) FirstItem() *server.Object { // nox_xxx_inventoryGetFirst_4E7980
-	return obj.InvFirstItem
+	return obj.SObj().FirstItem()
 }
 
 func (obj *Object) NextItem() *server.Object {
-	return obj.InvNextItem
-}
-
-func (obj *Object) InventoryHolder() *server.Object {
-	return obj.InvHolder
+	return obj.SObj().NextItem()
 }
 
 func (obj *Object) HasItem(item *server.Object) bool {
@@ -559,21 +547,11 @@ func (obj *Object) HasItem(item *server.Object) bool {
 }
 
 func (obj *Object) Inventory() []*server.Object {
-	var out []*server.Object
-	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
-		out = append(out, p)
-	}
-	return out
+	return obj.SObj().Inventory()
 }
 
 func (obj *Object) Equipment() []*server.Object {
-	var out []*server.Object
-	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
-		if p.Flags().Has(object.FlagEquipped) {
-			out = append(out, p)
-		}
-	}
-	return out
+	return obj.SObj().Equipment()
 }
 
 func (obj *Object) NextOwned512() *server.Object {
@@ -585,11 +563,7 @@ func (obj *Object) FirstOwned516() *server.Object {
 }
 
 func (obj *Object) GetOwned516() []*server.Object {
-	var out []*server.Object
-	for p := obj.FirstOwned516(); p != nil; p = p.NextOwned512() {
-		out = append(out, p)
-	}
-	return out
+	return obj.SObj().GetOwned516()
 }
 
 func (obj *Object) HasEnchant(v server.EnchantID) bool { // nox_xxx_testUnitBuffs_4FF350
@@ -692,19 +666,11 @@ func (obj *Object) Dir2() server.Dir16 {
 }
 
 func (obj *Object) Z() float32 {
-	return obj.ZVal
+	return obj.SObj().Z()
 }
 
-func (obj *Object) curSpeed() float32 {
-	if obj == nil {
-		return 0
-	}
-	return obj.SpeedCur
-}
-
-func (obj *Object) setAllDirs(dir server.Dir16) {
-	obj.Direction1 = dir
-	obj.Direction2 = dir
+func (obj *Object) Speed() float32 {
+	return obj.SObj().SpeedCur
 }
 
 func (obj *Object) SetPos(pos types.Pointf) {
@@ -730,7 +696,7 @@ func (obj *Object) SetPos(pos types.Pointf) {
 		obj.sub_537540()
 	}
 	if obj.Class().Has(object.ClassMonster) {
-		obj.sub_5346D0()
+		obj.Sub5346D0()
 	}
 	ss.nox_xxx_teleportAllPixies_4FD090(obj.SObj())
 	if obj.ObjClass&6 != 0 {
@@ -766,10 +732,8 @@ func (obj *Object) sub_537540() {
 	}
 }
 
-func (obj *Object) sub_5346D0() {
-	ud := obj.UpdateDataMonster()
-	ud.Field2 = 0
-	ud.Field74 = 0
+func (obj *Object) Sub5346D0() {
+	obj.SObj().Sub5346D0()
 }
 
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
@@ -954,11 +918,6 @@ func (obj *Object) LookAtDir(dir int) {
 	legacy.Nox_xxx_monsterLookAt_5125A0(obj.SObj(), dir)
 }
 
-func (obj *Object) LookAngle(ang int) {
-	v := nox_xxx_math_roundDir(int32(ang))
-	obj.SetDir(server.Dir16(v))
-}
-
 func (obj *Object) Freeze(freeze bool) {
 	if freeze {
 		legacy.Nox_xxx_unitFreeze_4E79C0(obj.SObj(), 1)
@@ -980,10 +939,7 @@ func (obj *Object) Idle() {
 }
 
 func (obj *Object) IsAttackedBy(obj2 *server.Object) bool {
-	if obj2 == nil {
-		return false
-	}
-	return obj.getServer().IsEnemyTo(obj.SObj(), obj2)
+	return obj.SObj().IsAttackedBy(obj2)
 }
 
 func (obj *Object) Follow(targ ns4.Positioner) {
@@ -1002,7 +958,7 @@ func (obj *Object) Flee(target ns4.Positioner, dt ns4.Duration) {
 	if t, ok := target.(server.Obj); ok {
 		targ = server.ToObject(t)
 	}
-	nox_server_scriptFleeFrom_515F70(obj.SObj(), targ, obj.Server().AsFrames(dt))
+	legacy.Nox_server_scriptFleeFrom_515F70(obj.SObj(), targ, obj.Server().AsFrames(dt))
 }
 
 func (obj *Object) Aggression() float32 {
@@ -1047,19 +1003,19 @@ func (obj *Object) Attack(targ ns4.Positioner) {
 		obj.HitMelee(targ.Pos())
 		return
 	}
-	nox_xxx_mobSetFightTarg_515D30(obj.SObj(), tobj)
+	legacy.Nox_xxx_mobSetFightTarg_515D30(obj.SObj(), tobj)
 }
 
 func (obj *Object) HitMelee(pos types.Pointf) {
-	nox_xxx_monsterActionMelee_515A30(obj.SObj(), pos)
+	legacy.Nox_xxx_monsterActionMelee_515A30(obj.SObj(), pos)
 }
 
 func (obj *Object) HitRanged(pos types.Pointf) {
-	nox_xxx_monsterMissileAttack_515B80(obj.SObj(), pos)
+	legacy.Nox_xxx_monsterMissileAttack_515B80(obj.SObj(), pos)
 }
 
 func (obj *Object) Guard(p1, p2 types.Pointf, distance float32) {
-	nox_xxx_monsterGoPatrol_515680(obj.SObj(), p1, p2, distance)
+	legacy.Nox_xxx_monsterGoPatrol_515680(obj.SObj(), p1, p2, distance)
 }
 
 func (obj *Object) Hunt() {
@@ -1081,16 +1037,11 @@ func (obj *Object) LookAtDirection(dir ns4.Direction) {
 }
 
 func (obj *Object) LookWithAngle(angle int) {
-	dir := server.Dir16(nox_xxx_math_roundDir(int32(angle)))
-	obj.setAllDirs(dir)
+	obj.SObj().LookWithAngle(angle)
 }
 
 func (obj *Object) LookAtObject(targ ns4.Positioner) {
-	if targ == nil {
-		return
-	}
-	dir := server.DirFromVec(targ.Pos().Sub(obj.Pos()))
-	obj.setAllDirs(dir)
+	obj.SObj().LookAtObject(targ)
 }
 
 func (obj *Object) Move(w ns4.WaypointObj) {
@@ -1105,7 +1056,7 @@ func (obj *Object) Move(w ns4.WaypointObj) {
 }
 
 func (obj *Object) Pause(dt ns4.Duration) {
-	sub_516090(obj.SObj(), obj.Server().AsFrames(dt))
+	legacy.Sub_516090(obj.SObj(), obj.Server().AsFrames(dt))
 }
 
 func (obj *Object) DoDamage(source *server.Object, amount int, typ object.DamageType) bool {
@@ -1230,10 +1181,7 @@ func (obj *Object) Equip(item *server.Object) bool {
 }
 
 func (obj *Object) HasEquipment(item *server.Object) bool {
-	if !obj.HasItem(item) {
-		return false
-	}
-	return item.Flags().Has(object.FlagEquipped)
+	return obj.SObj().HasEquipment(item)
 }
 
 func (obj *Object) Unequip(item *server.Object) bool {
@@ -1278,11 +1226,11 @@ func (obj *Object) RestoreHealth(amount int) {
 }
 
 func (obj *Object) SetHealthRegenToMaxDur(t time.Duration) {
-	obj.SetExt().HealthRegenToMax = t
+	obj.SObj().SetHealthRegenToMaxDur(t)
 }
 
 func (obj *Object) SetHealthRegenPerFrame(v float32) {
-	obj.SetExt().HealthRegenPerFrame = v
+	obj.SObj().SetHealthRegenPerFrame(v)
 }
 
 func (obj *Object) GetGold() int {
@@ -1378,30 +1326,6 @@ func nox_xxx_startShopDialog_548DE0(player, npc *server.Object, snd sound.ID, st
 	pl := player.ControllingPlayer()
 	s.NetSendPacketXxx0(pl.Index(), buf[:135], 0, 1)
 	legacy.Nox_xxx_unitFreeze_4E79C0(player, 0)
-}
-
-func nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
-	legacy.Nox_xxx_mobSetFightTarg_515D30(obj, targ)
-}
-
-func nox_server_scriptFleeFrom_515F70(obj, targ *server.Object, df int) {
-	legacy.Nox_server_scriptFleeFrom_515F70(obj, targ, df)
-}
-
-func nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dist float32) {
-	legacy.Nox_xxx_monsterGoPatrol_515680(obj, p1, p2, dist)
-}
-
-func nox_xxx_monsterActionMelee_515A30(obj *server.Object, pos types.Pointf) {
-	legacy.Nox_xxx_monsterActionMelee_515A30(obj, pos)
-}
-
-func nox_xxx_monsterMissileAttack_515B80(obj *server.Object, pos types.Pointf) {
-	legacy.Nox_xxx_monsterMissileAttack_515B80(obj, pos)
-}
-
-func sub_516090(obj *server.Object, df int) {
-	legacy.Sub_516090(obj, df)
 }
 
 func (obj *Object) MonsterIsInjured() bool {

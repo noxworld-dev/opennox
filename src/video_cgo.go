@@ -687,7 +687,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 		legacy.CallDrawFunc(c.dragndropItem, vp)
 	}
 	if c.dragndrapSpell != 0 { // Player is dragging spell or ability
-		pl := c.srv.GetPlayerByID(legacy.ClientPlayerNetCode())
+		pl := c.srv.Players.ByID(legacy.ClientPlayerNetCode())
 		if pl == nil || pl.PlayerClass() != player.Warrior {
 			sp := c.srv.Spells.DefByInd(spell.ID(c.dragndrapSpell)) // Spell icon
 			if sp != nil && sp.Icon != nil {

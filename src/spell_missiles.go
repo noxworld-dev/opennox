@@ -62,18 +62,18 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 		if i%2 == 1 {
 			doff = -doff
 		}
-		dir := server.Dir16(nox_xxx_math_roundDirI16(int16(caster.Direction1) + doff))
+		dir := server.RoundDir(int(int16(caster.Direction1) + doff))
 		dv := dir.Vec()
 		p2 := cpos.Add(cvel).Add(dv.Mul(rdist))
 		if !sp.s.MapTraceRay(cpos, p2, server.MapTraceFlag1|server.MapTraceFlag3) {
 			continue
 		}
-		msl := asObjectS(sp.s.NewObjectByTypeID(opts.Projectile))
+		msl := sp.s.NewObjectByTypeID(opts.Projectile)
 		mud := msl.UpdateDataMissile()
 		sp.s.CreateObjectAt(msl, owner, p2)
-		mspeed := float32(sp.s.Rand.Logic.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
+		mspeed := float32(sp.s.Rand.Logic.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.Speed()))
 		msl.SpeedCur = mspeed
-		msl.setAllDirs(dir)
+		msl.SetDir(dir)
 		msl.VelVec = cvel.Add(dv.Mul(mspeed * opts.VelMult))
 		var ppos *types.Pointf
 		if caster.Class().Has(object.ClassPlayer) {
