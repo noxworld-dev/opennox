@@ -308,6 +308,9 @@ int nox_sprintf(char* str, const char* format, ...) {
 
 wchar2_t* nox_wcscat(wchar2_t* dest, const wchar2_t* src) {
 	wchar2_t* ret = dest;
+	if (!src) {
+		return ret;
+	}
 
 	while (*dest)
 		dest++;
