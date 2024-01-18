@@ -22,13 +22,6 @@ type ClassStats struct {
 	Strength float32
 }
 
-type ClassStatMult struct {
-	// TODO: health and mana
-
-	Strength float32
-	Speed    float32
-}
-
 type serverPlayers struct {
 	list  []Player
 	Stats struct {
@@ -38,9 +31,9 @@ type serverPlayers struct {
 		Conjurer ClassStats
 	}
 	Mult struct {
-		Warrior  ClassStatMult
-		Wizard   ClassStatMult
-		Conjurer ClassStatMult
+		Warrior  ClassStats
+		Wizard   ClassStats
+		Conjurer ClassStats
 	}
 	Mult2 struct {
 		Warrior  ClassStats
@@ -70,17 +63,114 @@ func (s *serverPlayers) ClassStats(c player.Class) *ClassStats {
 	}
 }
 
+func (s *serverPlayers) ClassStatsMult(c player.Class) *ClassStats {
+	switch c {
+	case player.Warrior:
+		return &s.Mult.Warrior
+	case player.Wizard:
+		return &s.Mult.Wizard
+	case player.Conjurer:
+		return &s.Mult.Conjurer
+	default:
+		return nil
+	}
+}
+
+func (s *serverPlayers) SaveStats2() {
+	s.Mult2.Warrior = s.Mult.Warrior
+	s.Mult2.Wizard = s.Mult.Wizard
+	s.Mult2.Conjurer = s.Mult.Conjurer
+}
+
+func (s *serverPlayers) LoadStats2() {
+	s.Mult.Warrior = s.Mult2.Warrior
+	s.Mult.Wizard = s.Mult2.Wizard
+	s.Mult.Conjurer = s.Mult2.Conjurer
+}
+
+func (s *serverPlayers) DefaultStatMult() {
+	s.Mult.Warrior = ClassStats{
+		Health:   3,
+		Mana:     1,
+		Strength: 1,
+		Speed:    1,
+	}
+	s.Mult.Wizard = ClassStats{
+		Health:   3,
+		Mana:     3,
+		Strength: 1,
+		Speed:    1,
+	}
+	s.Mult.Conjurer = ClassStats{
+		Health:   3,
+		Mana:     3,
+		Strength: 1,
+		Speed:    1,
+	}
+}
+
+func (s *Server) CalcClassStats() {
+	s.Players.Stats.Base = ClassStats{
+		Health:   float32(s.Balance.Float("BaseHealth")),
+		Mana:     float32(s.Balance.Float("BaseMana")),
+		Speed:    float32(s.Balance.Float("BaseSpeed")),
+		Strength: float32(s.Balance.Float("BaseStrength")),
+	}
+
+	_ = player.Warrior
+	s.Players.Stats.Warrior = ClassStats{
+		Health:   float32(s.Balance.Float("WarriorMaxHealth")) * s.Players.Mult.Warrior.Health,
+		Mana:     float32(s.Balance.Float("WarriorMaxMana")) * s.Players.Mult.Warrior.Mana,
+		Speed:    float32(s.Balance.Float("WarriorMaxSpeed")) * s.Players.Mult.Warrior.Speed,
+		Strength: float32(s.Balance.Float("WarriorMaxStrength")) * s.Players.Mult.Warrior.Strength,
+	}
+
+	_ = player.Wizard
+	s.Players.Stats.Wizard = ClassStats{
+		Health:   float32(s.Balance.Float("WizardMaxHealth")) * s.Players.Mult.Wizard.Health,
+		Mana:     float32(s.Balance.Float("WizardMaxMana")) * s.Players.Mult.Wizard.Mana,
+		Speed:    float32(s.Balance.Float("WizardMaxSpeed")) * s.Players.Mult.Wizard.Speed,
+		Strength: float32(s.Balance.Float("WizardMaxStrength")) * s.Players.Mult.Wizard.Strength,
+	}
+
+	_ = player.Conjurer
+	s.Players.Stats.Conjurer = ClassStats{
+		Health:   float32(s.Balance.Float("ConjurerMaxHealth")) * s.Players.Mult.Conjurer.Health,
+		Mana:     float32(s.Balance.Float("ConjurerMaxMana")) * s.Players.Mult.Conjurer.Mana,
+		Speed:    float32(s.Balance.Float("ConjurerMaxSpeed")) * s.Players.Mult.Conjurer.Speed,
+		Strength: float32(s.Balance.Float("ConjurerMaxStrength")) * s.Players.Mult.Conjurer.Strength,
+	}
+}
+
+func (s *Server) OnClassStats(cl player.Class, stats ClassStats) {
+	switch cl {
+	case player.Warrior:
+		s.Players.Mult.Warrior = stats
+	case player.Wizard:
+		s.Players.Mult.Wizard = stats
+	case player.Conjurer:
+		s.Players.Mult.Conjurer = stats
+	}
+	s.CalcClassStats()
+}
+
 func (s *serverPlayers) init() {
 	s.list, _ = alloc.Make([]Player{}, common.MaxPlayers)
-	s.Mult.Warrior = ClassStatMult{
+	s.Mult.Warrior = ClassStats{
+		Health:   1,
+		Mana:     1,
 		Strength: 1,
 		Speed:    1,
 	}
-	s.Mult.Wizard = ClassStatMult{
+	s.Mult.Wizard = ClassStats{
+		Health:   1,
+		Mana:     1,
 		Strength: 1,
 		Speed:    1,
 	}
-	s.Mult.Conjurer = ClassStatMult{
+	s.Mult.Conjurer = ClassStats{
+		Health:   1,
+		Mana:     1,
 		Strength: 1,
 		Speed:    1,
 	}

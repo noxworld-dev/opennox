@@ -53,15 +53,6 @@ extern uint32_t dword_5d4594_1567928;
 extern void* nox_alloc_respawn_1568020;
 extern uint32_t dword_5d4594_1565616;
 
-extern float nox_xxx_warriorMaxMana_587000_312788;
-extern float nox_xxx_warriorMaxHealth_587000_312784;
-
-extern float nox_xxx_wizardMaxHealth_587000_312816;
-extern float nox_xxx_wizardMaximumMana_587000_312820;
-
-extern float nox_xxx_conjurerMaxHealth_587000_312800;
-extern float nox_xxx_conjurerMaxMana_587000_312804;
-
 extern uint32_t dword_5d4594_2649712;
 extern uint64_t qword_581450_10176;
 extern uint64_t qword_581450_10256;

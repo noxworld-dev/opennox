@@ -53,13 +53,7 @@ extern uint32_t dword_5d4594_3835348;
 extern uint32_t dword_5d4594_3835352;
 extern uint32_t nox_xxx_lightningClosestTargetDistance_5d4594_2487912;
 extern uint32_t dword_5d4594_3835356;
-extern float nox_xxx_warriorMaxMana_587000_312788;
-extern float nox_xxx_warriorMaxHealth_587000_312784;
 extern uint32_t dword_5d4594_2487248;
-extern float nox_xxx_conjurerMaxHealth_587000_312800;
-extern float nox_xxx_wizardMaxHealth_587000_312816;
-extern float nox_xxx_conjurerMaxMana_587000_312804;
-extern float nox_xxx_wizardMaximumMana_587000_312820;
 extern uint32_t dword_5d4594_2488660;
 extern uint64_t qword_581450_10176;
 extern uint64_t qword_581450_9512;
@@ -6321,6 +6315,9 @@ int nox_xxx_rechargeItem_53C520(int a1, int a2) {
 }
 
 //----- (0053C580) --------------------------------------------------------
+float get_nox_xxx_warriorMaxMana_587000_312788();
+float get_nox_xxx_wizardMaximumMana_587000_312820();
+float get_nox_xxx_conjurerMaxMana_587000_312804();
 signed int nox_xxx_updateObelisk_53C580(int a1) {
 	int v1;             // edi
 	signed int* v2;     // esi
@@ -6423,15 +6420,15 @@ signed int nox_xxx_updateObelisk_53C580(int a1) {
 			v13 = *(uint8_t*)(*(uint32_t*)(v5 + 276) + 2251);
 			if (v13) {
 				if (v13 == 1) {
-					v14 = nox_float2int(nox_xxx_wizardMaximumMana_587000_312820);
+					v14 = nox_float2int(get_nox_xxx_wizardMaximumMana_587000_312820());
 				} else {
 					if (v13 != 2) {
 						goto LABEL_36;
 					}
-					v14 = nox_float2int(nox_xxx_conjurerMaxMana_587000_312804);
+					v14 = nox_float2int(get_nox_xxx_conjurerMaxMana_587000_312804());
 				}
 			} else {
-				v14 = nox_float2int(nox_xxx_warriorMaxMana_587000_312788);
+				v14 = nox_float2int(get_nox_xxx_warriorMaxMana_587000_312788());
 			}
 			v12 = v14;
 		}

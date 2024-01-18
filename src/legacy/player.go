@@ -20,15 +20,6 @@ static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar2_t* str) {
 	nox_xxx_printToAll_4D9FD0(a1, str);
 }
 
-extern float nox_xxx_warriorMaxHealth_587000_312784;
-extern float nox_xxx_warriorMaxMana_587000_312788;
-
-extern float nox_xxx_conjurerMaxHealth_587000_312800;
-extern float nox_xxx_conjurerMaxMana_587000_312804;
-
-extern float nox_xxx_wizardMaxHealth_587000_312816;
-extern float nox_xxx_wizardMaximumMana_587000_312820;
-
 */
 import "C"
 import (
@@ -63,6 +54,36 @@ func AsPlayerP(p unsafe.Pointer) *server.Player {
 }
 
 var _ = [1]struct{}{}[16-unsafe.Sizeof(server.ClassStats{})]
+
+//export get_nox_xxx_warriorMaxHealth_587000_312784
+func get_nox_xxx_warriorMaxHealth_587000_312784() C.float {
+	return C.float(GetServer().S().Players.Mult.Warrior.Health)
+}
+
+//export get_nox_xxx_wizardMaxHealth_587000_312816
+func get_nox_xxx_wizardMaxHealth_587000_312816() C.float {
+	return C.float(GetServer().S().Players.Mult.Wizard.Health)
+}
+
+//export get_nox_xxx_conjurerMaxHealth_587000_312800
+func get_nox_xxx_conjurerMaxHealth_587000_312800() C.float {
+	return C.float(GetServer().S().Players.Mult.Conjurer.Health)
+}
+
+//export get_nox_xxx_warriorMaxMana_587000_312788
+func get_nox_xxx_warriorMaxMana_587000_312788() C.float {
+	return C.float(GetServer().S().Players.Mult.Warrior.Mana)
+}
+
+//export get_nox_xxx_wizardMaximumMana_587000_312820
+func get_nox_xxx_wizardMaximumMana_587000_312820() C.float {
+	return C.float(GetServer().S().Players.Mult.Wizard.Mana)
+}
+
+//export get_nox_xxx_conjurerMaxMana_587000_312804
+func get_nox_xxx_conjurerMaxMana_587000_312804() C.float {
+	return C.float(GetServer().S().Players.Mult.Conjurer.Mana)
+}
 
 //export sub_57B350
 func sub_57B350() C.float4 {
@@ -314,54 +335,6 @@ func Nox_xxx_checkPlrCantCastSpell_4FD150(obj *server.Object, sp spell.ID, a3 in
 
 func Sub_4FCF90(obj *server.Object, sp spell.ID, a3 int) int {
 	return int(C.sub_4FCF90(asObjectC(obj), C.int(sp), C.int(a3)))
-}
-
-func Get_nox_xxx_warriorMaxHealth_587000_312784() float32 {
-	return float32(C.nox_xxx_warriorMaxHealth_587000_312784)
-}
-
-func Get_nox_xxx_warriorMaxMana_587000_312788() float32 {
-	return float32(C.nox_xxx_warriorMaxMana_587000_312788)
-}
-
-func Get_nox_xxx_conjurerMaxHealth_587000_312800() float32 {
-	return float32(C.nox_xxx_conjurerMaxHealth_587000_312800)
-}
-
-func Get_nox_xxx_conjurerMaxMana_587000_312804() float32 {
-	return float32(C.nox_xxx_conjurerMaxMana_587000_312804)
-}
-
-func Get_nox_xxx_wizardMaxHealth_587000_312816() float32 {
-	return float32(C.nox_xxx_wizardMaxHealth_587000_312816)
-}
-
-func Get_nox_xxx_wizardMaximumMana_587000_312820() float32 {
-	return float32(C.nox_xxx_wizardMaximumMana_587000_312820)
-}
-
-func Set_nox_xxx_warriorMaxHealth_587000_312784(v float32) {
-	C.nox_xxx_warriorMaxHealth_587000_312784 = C.float(v)
-}
-
-func Set_nox_xxx_warriorMaxMana_587000_312788(v float32) {
-	C.nox_xxx_warriorMaxMana_587000_312788 = C.float(v)
-}
-
-func Set_nox_xxx_conjurerMaxHealth_587000_312800(v float32) {
-	C.nox_xxx_conjurerMaxHealth_587000_312800 = C.float(v)
-}
-
-func Set_nox_xxx_conjurerMaxMana_587000_312804(v float32) {
-	C.nox_xxx_conjurerMaxMana_587000_312804 = C.float(v)
-}
-
-func Set_nox_xxx_wizardMaxHealth_587000_312816(v float32) {
-	C.nox_xxx_wizardMaxHealth_587000_312816 = C.float(v)
-}
-
-func Set_nox_xxx_wizardMaximumMana_587000_312820(v float32) {
-	C.nox_xxx_wizardMaximumMana_587000_312820 = C.float(v)
 }
 
 func Sub_4D79A0(pli ntype.PlayerInd) {

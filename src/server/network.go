@@ -535,3 +535,31 @@ func (s *Server) Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, jiggle int) {
 		}
 	}
 }
+func (s *Server) NetWriteClassStats(pind ntype.PlayerInd, stats ClassStats) int {
+	var buf [17]byte
+	buf[0] = byte(noxnet.MSG_STAT_MULTIPLIERS)
+	binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(stats.Health))
+	binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(stats.Mana))
+	binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(stats.Strength))
+	binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(stats.Speed))
+	return s.NetSendPacketXxx0(int(pind), buf[:17], 0, 1)
+}
+func (s *Server) NetStatsMultiplier(u *Object) int {
+	if u == nil {
+		return 0
+	}
+	pl := u.ControllingPlayer()
+	stats := s.Players.ClassStatsMult(pl.PlayerClass())
+	if stats == nil {
+		return 0
+	}
+	return s.NetWriteClassStats(pl.PlayerIndex(), *stats)
+}
+func NetReadClassStats(data []byte) ClassStats {
+	return ClassStats{
+		Health:   math.Float32frombits(binary.LittleEndian.Uint32(data[1:])),
+		Mana:     math.Float32frombits(binary.LittleEndian.Uint32(data[5:])),
+		Strength: math.Float32frombits(binary.LittleEndian.Uint32(data[9:])),
+		Speed:    math.Float32frombits(binary.LittleEndian.Uint32(data[13:])),
+	}
+}

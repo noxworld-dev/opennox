@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"github.com/noxworld-dev/opennox-lib/object"
-	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -123,13 +122,8 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 		dhp := int(use.Value)
 		if obj.Class().Has(object.ClassPlayer) {
 			ud := obj.UpdateDataPlayer()
-			switch ud.Player.PlayerClass() {
-			case player.Warrior:
-				dhp = int(float64(dhp) * float64(legacy.Get_nox_xxx_warriorMaxHealth_587000_312784()))
-			case player.Wizard:
-				dhp = int(float64(dhp) * float64(legacy.Get_nox_xxx_wizardMaxHealth_587000_312816()))
-			case player.Conjurer:
-				dhp = int(float64(dhp) * float64(legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800()))
+			if mult := s.Players.ClassStatsMult(ud.Player.PlayerClass()); mult != nil {
+				dhp = int(float64(dhp) * float64(mult.Health))
 			}
 		}
 		legacy.Nox_xxx_unitAdjustHP_4EE460(obj, dhp)
@@ -140,13 +134,8 @@ func nox_xxx_usePotion_53EF70(obj, potion *server.Object) int {
 		ud := obj.UpdateDataPlayer()
 		if ud.ManaCur < ud.ManaMax {
 			dmp := int(use.Value)
-			switch ud.Player.PlayerClass() {
-			case player.Warrior:
-				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_warriorMaxMana_587000_312788()))
-			case player.Wizard:
-				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_wizardMaximumMana_587000_312820()))
-			case player.Conjurer:
-				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()))
+			if mult := s.Players.ClassStatsMult(ud.Player.PlayerClass()); mult != nil {
+				dmp = int(float64(dmp) * float64(mult.Mana))
 			}
 			legacy.Nox_xxx_playerManaAdd_4EEB80(obj, dmp)
 			s.Audio.EventObj(sound.SoundRestoreMana, obj, 0, 0)

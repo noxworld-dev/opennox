@@ -326,7 +326,7 @@ func (s *Server) setupQuestGame() {
 			legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), u.TeamPtr(), 1, u.NetCode, 0)
 		}
 	}
-	sub_4D6BE0()
+	s.Players.SaveStats2()
 	sub_4D6A60()
 }
 

@@ -126,13 +126,8 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 			dhp := int(*(*int32)(potion.UseData))
 			if obj.Class().Has(object.ClassPlayer) {
 				ud := obj.UpdateDataPlayer()
-				switch ud.Player.PlayerClass() {
-				case player.Warrior:
-					dhp = int(float64(dhp) * float64(legacy.Get_nox_xxx_warriorMaxHealth_587000_312784()))
-				case player.Wizard:
-					dhp = int(float64(dhp) * float64(legacy.Get_nox_xxx_wizardMaxHealth_587000_312816()))
-				case player.Conjurer:
-					dhp = int(float64(dhp) * float64(legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800()))
+				if mult := s.Players.ClassStatsMult(ud.Player.PlayerClass()); mult != nil {
+					dhp = int(float64(dhp) * float64(mult.Health))
 				}
 			}
 			if dhp+int(obj.HealthData.Cur) < int(obj.HealthData.Max) {
@@ -144,13 +139,8 @@ func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 i
 		if potion.UseData != nil && potion.SubClass().AsFood().Has(object.FoodManaPotion) && obj.Class().Has(object.ClassPlayer) {
 			ud := obj.UpdateDataPlayer()
 			dmp := int(*(*int32)(potion.UseData))
-			switch ud.Player.PlayerClass() {
-			case player.Warrior:
-				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_warriorMaxMana_587000_312788()))
-			case player.Wizard:
-				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_wizardMaximumMana_587000_312820()))
-			case player.Conjurer:
-				dmp = int(float64(dmp) * float64(legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()))
+			if mult := s.Players.ClassStatsMult(ud.Player.PlayerClass()); mult != nil {
+				dmp = int(float64(dmp) * float64(mult.Mana))
 			}
 			if dmp+int(ud.ManaCur) < int(ud.ManaMax) {
 				legacy.Nox_xxx_playerManaAdd_4EEB80(obj, dmp)

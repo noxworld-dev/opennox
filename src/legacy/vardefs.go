@@ -211,15 +211,6 @@ extern uint32_t dword_5d4594_1313792;
 extern uint32_t dword_5d4594_2487248;
 extern uint32_t dword_5d4594_1046516;
 
-extern float nox_xxx_warriorMaxHealth_587000_312784;
-extern float nox_xxx_warriorMaxMana_587000_312788;
-
-extern float nox_xxx_conjurerMaxHealth_587000_312800;
-extern float nox_xxx_conjurerMaxMana_587000_312804;
-
-extern float nox_xxx_wizardMaxHealth_587000_312816;
-extern float nox_xxx_wizardMaximumMana_587000_312820;
-
 extern uint32_t dword_5d4594_2487532;
 extern uint32_t nox_server_connectionType_3596;
 extern void* nox_monsterBin_head_2386924;

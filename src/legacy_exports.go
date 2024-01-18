@@ -287,7 +287,7 @@ func init() {
 	legacy.Sub_5545A0 = getServerPort
 	legacy.Sub_554230 = getOwnIP
 	legacy.Nox_xxx_netStatsMultiplier_4D9C20 = func(a1p *server.Object) int {
-		return noxServer.nox_xxx_netStatsMultiplier_4D9C20(a1p)
+		return noxServer.NetStatsMultiplier(a1p)
 	}
 	legacy.Sub_554240 = sub_554240
 	legacy.Nox_xxx_net_getIP_554200 = nox_xxx_net_getIP_554200

@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	"image"
-	"math"
 	"net/netip"
 	"strings"
 	"time"
@@ -20,7 +19,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
-	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -378,35 +376,6 @@ func netSendGauntlet() {
 	buf[0] = byte(noxnet.MSG_GAUNTLET)
 	buf[1] = 27
 	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:2], 0, 0)
-}
-
-func (s *Server) nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
-	if u == nil {
-		return 0
-	}
-	pl := u.ControllingPlayer()
-	var buf [17]byte
-	buf[0] = byte(noxnet.MSG_STAT_MULTIPLIERS)
-	switch pl.PlayerClass() {
-	default:
-		return 0
-	case player.Warrior:
-		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(legacy.Get_nox_xxx_warriorMaxHealth_587000_312784())))
-		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(legacy.Get_nox_xxx_warriorMaxMana_587000_312788())))
-		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(s.Players.Mult.Warrior.Strength))
-		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(s.Players.Mult.Warrior.Speed))
-	case player.Wizard:
-		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(legacy.Get_nox_xxx_wizardMaxHealth_587000_312816())))
-		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(legacy.Get_nox_xxx_wizardMaximumMana_587000_312820())))
-		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(s.Players.Mult.Wizard.Strength))
-		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(s.Players.Mult.Wizard.Speed))
-	case player.Conjurer:
-		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800())))
-		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(legacy.Get_nox_xxx_conjurerMaxMana_587000_312804())))
-		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(s.Players.Mult.Conjurer.Strength))
-		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(s.Players.Mult.Conjurer.Speed))
-	}
-	return s.NetSendPacketXxx0(pl.Index(), buf[:17], 0, 1)
 }
 
 func (s *Server) nox_xxx_netSendBySock_40EE10(conn netstr.Handle, ind ntype.PlayerInd, kind netlist.Kind) {
@@ -841,7 +810,8 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if len(data) < 17 {
 			return -1
 		}
-		nox_client_onClassStats(data)
+		stats := server.NetReadClassStats(data)
+		noxServer.OnClassStats(getPlayerClass(), stats)
 		return 17
 	case noxnet.MSG_REPORT_SPELL_START:
 		if len(data) < 2 {

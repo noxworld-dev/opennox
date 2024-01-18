@@ -214,16 +214,6 @@ uint32_t dword_5d4594_251744 = 0;
 uint32_t dword_5d4594_1313792 = 0;
 uint32_t dword_5d4594_2487248 = 0;
 uint32_t dword_5d4594_1046516 = 0;
-
-float nox_xxx_warriorMaxHealth_587000_312784 = 1.0f;
-float nox_xxx_warriorMaxMana_587000_312788 = 1.0f;
-
-float nox_xxx_conjurerMaxHealth_587000_312800 = 1.0f;
-float nox_xxx_conjurerMaxMana_587000_312804 = 1.0f;
-
-float nox_xxx_wizardMaxHealth_587000_312816 = 1.0f;
-float nox_xxx_wizardMaximumMana_587000_312820 = 1.0f;
-
 uint32_t dword_5d4594_2487532 = 0;
 uint32_t nox_server_connectionType_3596 = 0;
 uint32_t dword_5d4594_830872 = 0;

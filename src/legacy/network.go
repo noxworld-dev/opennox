@@ -40,15 +40,6 @@ static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar2_t* str) {
 	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
 
-extern float nox_xxx_warriorMaxHealth_587000_312784;
-extern float nox_xxx_warriorMaxMana_587000_312788;
-
-extern float nox_xxx_conjurerMaxHealth_587000_312800;
-extern float nox_xxx_conjurerMaxMana_587000_312804;
-
-extern float nox_xxx_wizardMaxHealth_587000_312816;
-extern float nox_xxx_wizardMaximumMana_587000_312820;
-
 nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
 
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
