@@ -86,8 +86,6 @@ func init() {
 	RegisterObjectInit("GruntInit", nil, 0)
 	RegisterObjectInit("SkeletonInit", nil, 0)
 	RegisterObjectInit("TowerInit", nil, 0)
-	RegisterObjectInit("GlyphInit", nil, unsafe.Sizeof(GlyphInitData{}))
-	RegisterObjectInit("ModifierInit", nil, 20)
 	RegisterObjectInit("RewardMarkerInit", nil, 220)
 	RegisterObjectInit("AnkhInit", nil, 5124)
 

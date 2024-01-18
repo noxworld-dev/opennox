@@ -14,7 +14,26 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
+
+func init() {
+	RegisterObjectInit("ModifierInit", nil, unsafe.Sizeof(ModifierInitData{}))
+}
+
+type ModifierInitData struct {
+	Modifiers [4]*ModifierEff // 0, 0
+	Field16   uint32          // 4, 16
+}
+
+func (p *ModifierInitData) HasModifiers() bool {
+	for _, mod := range p.Modifiers {
+		if mod != nil {
+			return true
+		}
+	}
+	return false
+}
 
 var (
 	modDamageEffects = make(map[string]modFuncs)
@@ -102,9 +121,9 @@ func (p *Modifier) Desc() string {
 }
 
 type ModifierEffFnc struct {
-	fnc  unsafe.Pointer
-	valf float32
-	val  int32
+	Fnc  unsafe.Pointer
+	Valf float32
+	Val  int32
 }
 
 type ModifierEff struct { // obj_412ae0_t
@@ -113,24 +132,24 @@ type ModifierEff struct { // obj_412ae0_t
 	desc8             *uint16        // 2, 8
 	secdesc12         *uint16        // 3, 12
 	identdesc16       *uint16        // 4, 16
-	price20           int32          // 5, 20
-	color24           ModColor       // 6, 24
+	Price20           int32          // 5, 20
+	Color24           ModColor       // 6, 24
 	_                 byte           // 6, 27
-	allowWeapons28    uint32         // 7, 28
-	allowArmor32      uint32         // 8, 32
-	allowPos36        uint32         // 9, 36
-	attack40          ModifierEffFnc // 10, 40
-	attackPreHit52    ModifierEffFnc // 13, 52
-	attackPreDmg64    ModifierEffFnc // 16, 64
-	defend76          ModifierEffFnc // 19, 76
-	defendCollide88   ModifierEffFnc // 22, 88
-	update100         ModifierEffFnc // 25, 100
-	engage112         unsafe.Pointer // 28, 112
-	disengage116      unsafe.Pointer // 29, 116
-	engageFloat120    float32        // 30, 120
-	engageInt124      int32          // 31, 124
-	disengageFloat128 float32        // 32, 128
-	disengageInt132   int32          // 33, 132
+	AllowWeapons28    uint32         // 7, 28
+	AllowArmor32      uint32         // 8, 32
+	AllowPos36        uint32         // 9, 36
+	Attack40          ModifierEffFnc // 10, 40
+	AttackPreHit52    ModifierEffFnc // 13, 52
+	AttackPreDmg64    ModifierEffFnc // 16, 64
+	Defend76          ModifierEffFnc // 19, 76
+	DefendCollide88   ModifierEffFnc // 22, 88
+	Update100         ModifierEffFnc // 25, 100
+	Engage112         unsafe.Pointer // 28, 112
+	Disengage116      unsafe.Pointer // 29, 116
+	EngageFloat120    float32        // 30, 120
+	EngageInt124      int32          // 31, 124
+	DisengageFloat128 float32        // 32, 128
+	DisengageInt132   int32          // 33, 132
 	next136           *ModifierEff   // 34, 136
 	prev140           *ModifierEff   // 35, 140
 }
@@ -149,6 +168,12 @@ func (p *ModifierEff) Index() int {
 
 func (p *ModifierEff) Desc() string {
 	return alloc.GoString16(p.desc8)
+}
+
+func (p *ModifierEff) CallUpdateNil(obj *Object) {
+	if p.Update100.Fnc != nil {
+		ccall.CallVoidPtr3(p.Update100.Fnc, p.C(), obj.CObj(), nil)
+	}
 }
 
 func modParseBitList(table []string, arr []string) (uint32, error) {
@@ -278,8 +303,8 @@ func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers
 		if v.IdentifyDesc != "" {
 			p.identdesc16, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(v.IdentifyDesc), "Modifier.c"))
 		}
-		p.price20 = int32(v.Price)
-		p.color24 = ModColor{R: byte(v.Color.R), G: byte(v.Color.G), B: byte(v.Color.B)}
+		p.Price20 = int32(v.Price)
+		p.Color24 = ModColor{R: byte(v.Color.R), G: byte(v.Color.G), B: byte(v.Color.B)}
 		for _, d := range []struct {
 			text  string
 			table map[string]modFuncs
@@ -288,29 +313,29 @@ func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers
 			ival  *int32
 			src   string
 		}{
-			{"damage", modDamageEffects, &p.attack40.fnc, &p.attack40.valf, &p.attack40.val, v.Attack},
-			{"damage", modDamageEffects, &p.attackPreHit52.fnc, &p.attackPreHit52.valf, &p.attackPreHit52.val, v.AttackPreHit},
-			{"damage", modDamageEffects, &p.attackPreDmg64.fnc, &p.attackPreDmg64.valf, &p.attackPreDmg64.val, v.AttackPreDamage},
-			{"defend", modDefendEffects, &p.defend76.fnc, &p.defend76.valf, &p.defend76.val, v.Defend},
-			{"defend", modDefendEffects, &p.defendCollide88.fnc, &p.defendCollide88.valf, &p.defendCollide88.val, v.DefendCollide},
-			{"update", modUpdateEffects, &p.update100.fnc, &p.update100.valf, &p.update100.val, v.Update},
-			{"engage", modEngageEffects, &p.engage112, &p.engageFloat120, &p.engageInt124, v.Engage},
-			{"engage", modEngageEffects, &p.disengage116, &p.disengageFloat128, &p.disengageInt132, v.Disengage},
+			{"damage", modDamageEffects, &p.Attack40.Fnc, &p.Attack40.Valf, &p.Attack40.Val, v.Attack},
+			{"damage", modDamageEffects, &p.AttackPreHit52.Fnc, &p.AttackPreHit52.Valf, &p.AttackPreHit52.Val, v.AttackPreHit},
+			{"damage", modDamageEffects, &p.AttackPreDmg64.Fnc, &p.AttackPreDmg64.Valf, &p.AttackPreDmg64.Val, v.AttackPreDamage},
+			{"defend", modDefendEffects, &p.Defend76.Fnc, &p.Defend76.Valf, &p.Defend76.Val, v.Defend},
+			{"defend", modDefendEffects, &p.DefendCollide88.Fnc, &p.DefendCollide88.Valf, &p.DefendCollide88.Val, v.DefendCollide},
+			{"update", modUpdateEffects, &p.Update100.Fnc, &p.Update100.Valf, &p.Update100.Val, v.Update},
+			{"engage", modEngageEffects, &p.Engage112, &p.EngageFloat120, &p.EngageInt124, v.Engage},
+			{"engage", modEngageEffects, &p.Disengage116, &p.DisengageFloat128, &p.DisengageInt132, v.Disengage},
 		} {
 			if err := modParseEffect(d.text, d.table, p, ModParseTarg{d.fnc, d.fval, d.ival}, d.src); err != nil {
 				return err
 			}
 		}
 		var err error
-		p.allowWeapons28, err = modParseAllowed(modAllowList, v.AllowWeapons)
+		p.AllowWeapons28, err = modParseAllowed(modAllowList, v.AllowWeapons)
 		if err != nil {
 			return err
 		}
-		p.allowArmor32, err = modParseAllowed(modAllowList, v.AllowArmor)
+		p.AllowArmor32, err = modParseAllowed(modAllowList, v.AllowArmor)
 		if err != nil {
 			return err
 		}
-		p.allowPos36, err = modParseBitList([]string{"PRIMARY", "SECONDARY"}, v.AllowPos)
+		p.AllowPos36, err = modParseBitList([]string{"PRIMARY", "SECONDARY"}, v.AllowPos)
 		if err != nil {
 			return err
 		}

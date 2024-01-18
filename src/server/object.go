@@ -961,12 +961,20 @@ func (obj *Object) Owner() *Object {
 	return obj.ObjOwner
 }
 
-func (obj *Object) InitDataGlyph() *GlyphInitData {
-	if alloc.IsDead(obj.UpdateData) {
+func initDataAs[T any](obj *Object) *T {
+	if alloc.IsDead(obj.InitData) {
 		panic("object already deleted")
 	}
 	// TODO: verify this conversion by checking ObjectType
-	return (*GlyphInitData)(obj.InitData)
+	return (*T)(obj.InitData)
+}
+
+func (obj *Object) InitDataModifier() *ModifierInitData {
+	return initDataAs[ModifierInitData](obj)
+}
+
+func (obj *Object) InitDataGlyph() *GlyphInitData {
+	return initDataAs[GlyphInitData](obj)
 }
 
 func updateDataAs[T any](obj *Object) *T {
