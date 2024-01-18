@@ -658,38 +658,44 @@ func sub_4D6A60() {
 
 func sub_4D6BE0() {
 	s := noxServer
-	*memmap.PtrFloat32(0x5D4594, 1556076) = legacy.Get_nox_xxx_warriorMaxHealth_587000_312784()
-	*memmap.PtrFloat32(0x5D4594, 1556084) = legacy.Get_nox_xxx_warriorMaxMana_587000_312788()
-	*memmap.PtrFloat32(0x5D4594, 1556064) = s.Players.Mult.Warrior.Strength
-	*memmap.PtrFloat32(0x5D4594, 1556072) = s.Players.Mult.Warrior.Speed
-	*memmap.PtrFloat32(0x5D4594, 1556060) = legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800()
-	*memmap.PtrFloat32(0x5D4594, 1556096) = legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()
 	*memmap.PtrFloat32(0x5D4594, 1550932) = s.Players.Mult.Conjurer.Strength
-	*memmap.PtrFloat32(0x5D4594, 1556080) = s.Players.Mult.Conjurer.Speed
-	*memmap.PtrFloat32(0x5D4594, 1556088) = legacy.Get_nox_xxx_wizardMaxHealth_587000_312816()
+	*memmap.PtrFloat32(0x5D4594, 1556060) = legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800()
+	*memmap.PtrFloat32(0x5D4594, 1556064) = s.Players.Mult.Warrior.Strength
 	*memmap.PtrFloat32(0x5D4594, 1556068) = legacy.Get_nox_xxx_wizardMaximumMana_587000_312820()
-	*memmap.PtrFloat32(0x5D4594, 1556100) = s.Players.Mult.Wizard.Strength
+	*memmap.PtrFloat32(0x5D4594, 1556072) = s.Players.Mult.Warrior.Speed
+	*memmap.PtrFloat32(0x5D4594, 1556076) = legacy.Get_nox_xxx_warriorMaxHealth_587000_312784()
+	*memmap.PtrFloat32(0x5D4594, 1556080) = s.Players.Mult.Conjurer.Speed
+	*memmap.PtrFloat32(0x5D4594, 1556084) = legacy.Get_nox_xxx_warriorMaxMana_587000_312788()
+	*memmap.PtrFloat32(0x5D4594, 1556088) = legacy.Get_nox_xxx_wizardMaxHealth_587000_312816()
 	*memmap.PtrFloat32(0x5D4594, 1556092) = s.Players.Mult.Wizard.Speed
+	*memmap.PtrFloat32(0x5D4594, 1556096) = legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()
+	*memmap.PtrFloat32(0x5D4594, 1556100) = s.Players.Mult.Wizard.Strength
 }
 
 func nox_client_onClassStats(data []byte) {
 	s := noxServer
+	stats := server.ClassStats{
+		Health:   math.Float32frombits(binary.LittleEndian.Uint32(data[1:])),
+		Mana:     math.Float32frombits(binary.LittleEndian.Uint32(data[5:])),
+		Strength: math.Float32frombits(binary.LittleEndian.Uint32(data[9:])),
+		Speed:    math.Float32frombits(binary.LittleEndian.Uint32(data[13:])),
+	}
 	switch getPlayerClass() {
 	case player.Warrior:
-		legacy.Set_nox_xxx_warriorMaxHealth_587000_312784(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
-		legacy.Set_nox_xxx_warriorMaxMana_587000_312788(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
-		s.Players.Mult.Warrior.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
-		s.Players.Mult.Warrior.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+		legacy.Set_nox_xxx_warriorMaxHealth_587000_312784(stats.Health)
+		legacy.Set_nox_xxx_warriorMaxMana_587000_312788(stats.Mana)
+		s.Players.Mult.Warrior.Speed = stats.Speed
+		s.Players.Mult.Warrior.Strength = stats.Strength
 	case player.Wizard:
-		legacy.Set_nox_xxx_wizardMaxHealth_587000_312816(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
-		legacy.Set_nox_xxx_wizardMaximumMana_587000_312820(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
-		s.Players.Mult.Wizard.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
-		s.Players.Mult.Wizard.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+		legacy.Set_nox_xxx_wizardMaxHealth_587000_312816(stats.Health)
+		legacy.Set_nox_xxx_wizardMaximumMana_587000_312820(stats.Mana)
+		s.Players.Mult.Wizard.Speed = stats.Speed
+		s.Players.Mult.Wizard.Strength = stats.Strength
 	case player.Conjurer:
-		legacy.Set_nox_xxx_conjurerMaxHealth_587000_312800(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
-		legacy.Set_nox_xxx_conjurerMaxMana_587000_312804(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
-		s.Players.Mult.Conjurer.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
-		s.Players.Mult.Conjurer.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+		legacy.Set_nox_xxx_conjurerMaxHealth_587000_312800(stats.Health)
+		legacy.Set_nox_xxx_conjurerMaxMana_587000_312804(stats.Mana)
+		s.Players.Mult.Conjurer.Speed = stats.Speed
+		s.Players.Mult.Conjurer.Strength = stats.Strength
 	}
 	s.LoadClassStats()
 }

@@ -837,6 +837,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			nox_xxx_printCentered_445490(msg)
 		}
 		return 3
+	case noxnet.MSG_STAT_MULTIPLIERS:
+		if len(data) < 17 {
+			return -1
+		}
+		nox_client_onClassStats(data)
+		return 17
 	case noxnet.MSG_REPORT_SPELL_START:
 		if len(data) < 2 {
 			return -1

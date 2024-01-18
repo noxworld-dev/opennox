@@ -49,7 +49,6 @@ var (
 	Nox_xxx_playerGetPossess_4DDF30     func(cplayer *server.Object) *server.Object
 	Nox_xxx_playerGoObserver_4E6860     func(pl *server.Player, a2 int, a3 int) int
 	Nox_xxx_playerObserveClear_4DDEF0   func(cplayer *server.Object)
-	Nox_client_onClassStats             func(buf []byte)
 	Nox_xxx_playerObserveMonster_4DDE80 func(cplayer, cunit *server.Object)
 )
 
@@ -149,12 +148,6 @@ func nox_xxx_playerGoObserver_4E6860(pl *nox_playerInfo, a2 int, a3 int) int {
 //export nox_xxx_playerObserveClear_4DDEF0
 func nox_xxx_playerObserveClear_4DDEF0(cplayer *nox_object_t) {
 	Nox_xxx_playerObserveClear_4DDEF0(asObjectS(cplayer))
-}
-
-//export nox_client_onClassStats
-func nox_client_onClassStats(cbuf *C.uchar, sz int) {
-	data := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), sz)
-	Nox_client_onClassStats(data)
 }
 
 //export nox_xxx_playerObserveMonster_4DDE80

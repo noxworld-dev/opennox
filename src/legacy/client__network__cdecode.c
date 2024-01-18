@@ -59,7 +59,6 @@ extern uint32_t nox_player_netCode_85319C;
 
 int nox_client_getFadeDuration();
 
-void nox_client_onClassStats(unsigned char* data, int sz);
 void nox_client_onClientStatusA(int v);
 void sub_456140(unsigned char a1);
 
@@ -2986,9 +2985,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			return 2;
 		}
 		return -1;
-	case 0xEFu: // MSG_STAT_MULTIPLIERS
-		nox_client_onClassStats(data, 17);
-		return 17;
 	case 0xF0u: // MSG_GAUNTLET
 		switch (*(unsigned char*)(data + 1)) {
 		case 0u:
