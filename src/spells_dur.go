@@ -48,7 +48,7 @@ func (sp *spellsDuration) destroyDurSpell(spl *server.DurSpell) {
 		if u.Class().Has(object.ClassPlayer) {
 			ud := u.UpdateDataPlayer()
 			if ud.Player.PlayerClass() != player.Warrior || !sp.s.Abils.IsActive(u, server.AbilityBerserk) {
-				nox_xxx_playerSetState_4FA020(asObjectS(u), server.PlayerState13)
+				nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 			}
 		} else if u.Class().Has(object.ClassMonster) {
 			u.MonsterCancelDurSpell(spell.ID(spl.Spell))
@@ -104,13 +104,13 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	}
 	p.Spell = uint32(spellID)
 	p.Level = uint32(lvl)
-	p.Obj12 = u1.SObj()
-	p.Caster16 = u2.SObj()
+	p.Obj12 = u1
+	p.Caster16 = u2
 	p.Sub104 = nil
 	p.Sub108 = nil
 	if u3 != nil && int(u3.TypeInd) == glyphID {
 		p.Flag20 = 1
-		p.Obj24 = u3.SObj()
+		p.Obj24 = u3
 		p.Pos = u3.Pos()
 	} else {
 		p.Flag20 = 0

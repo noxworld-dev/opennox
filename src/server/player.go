@@ -674,14 +674,14 @@ func (p *Player) CameraFollow(obj Obj) {
 	if p == nil {
 		return
 	}
-	p.CameraFollowObj = toObject(obj)
+	p.CameraFollowObj = ToObject(obj)
 }
 
 func (p *Player) CameraToggle(obj Obj) { // nox_xxx_playerCameraFollow_4E6060
 	if p == nil {
 		return
 	}
-	if p.CameraFollowObj == toObject(obj) {
+	if p.CameraFollowObj == ToObject(obj) {
 		p.CameraUnlock()
 	} else {
 		p.CameraFollow(obj)

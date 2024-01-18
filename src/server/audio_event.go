@@ -135,7 +135,7 @@ func (s *serverAudio) Field20(id sound.ID) int {
 }
 
 func (s *serverAudio) newAudioEventObj(id sound.ID, iobj Obj, kind int, code uint32) {
-	obj := toObject(iobj)
+	obj := ToObject(iobj)
 	if noxflags.HasGame(noxflags.GameFlag20) {
 		return
 	}
@@ -388,7 +388,7 @@ func (s *serverAudio) ReadAVNT(f File) bool {
 }
 
 func (s *serverAudio) EventObj(id sound.ID, iobj Obj, kind int, code uint32) {
-	obj := toObject(iobj)
+	obj := ToObject(iobj)
 	if !s.inAudio {
 		s.delayedObj = append(s.delayedObj, audioEventObj{
 			ID: id, Obj: obj, Kind: kind, Code: code,

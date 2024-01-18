@@ -392,13 +392,13 @@ func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, d
 				if noxflags.HasGame(noxflags.GameModeQuest) {
 					if res != 0 {
 						if pl := noxServer.GetPlayerByInd(ind); pl != nil {
-							if u := pl.UnitC(); u != nil {
+							if u := pl.PlayerUnit; u != nil {
 								ud := u.UpdateDataPlayer()
 								ud.Field138 = 0
 							}
 						}
 					} else {
-						noxServer.GetPlayerByInd(ind).Disconnect(4)
+						asPlayerS(noxServer.GetPlayerByInd(ind)).Disconnect(4)
 					}
 				}
 				ifs.Remove(path)
@@ -430,14 +430,14 @@ func (s *Server) sub_4DB9C0() {
 	var next *server.Object
 	for it := s.Objs.First(); it != nil; it = next {
 		next = it.Next()
-		if legacy.Nox_xxx_isUnit_4E5B50(it.SObj()) != 0 {
+		if legacy.Nox_xxx_isUnit_4E5B50(it) != 0 {
 			asObjectS(it).Delete()
 		}
 	}
 	next = nil
 	for it := s.Objs.MissileList; it != nil; it = next {
 		next = it.Next()
-		if legacy.Sub_4E5B80(it.SObj()) != 0 {
+		if legacy.Sub_4E5B80(it) != 0 {
 			asObjectS(it).Delete()
 		}
 	}
@@ -540,7 +540,7 @@ func sub_4DCFB0(a1p *server.Object) {
 			nox_xxx_player_4D7960(pl.Index())
 		}
 	} else {
-		noxServer.GetPlayerByInd(pl.PlayerIndex()).Disconnect(4)
+		asPlayerS(noxServer.GetPlayerByInd(pl.PlayerIndex())).Disconnect(4)
 	}
 }
 
@@ -681,7 +681,7 @@ func sub_4DD0B0(a1p *server.Object) {
 	s := noxServer
 	pl := u.ControllingPlayer()
 	if nox_xxx_player_4D7980(pl.Index()) {
-		s.GetPlayerByInd(pl.PlayerIndex()).Disconnect(4)
+		asPlayerS(s.GetPlayerByInd(pl.PlayerIndex())).Disconnect(4)
 	} else {
 		sub_419EB0(pl.PlayerIndex(), 0)
 		s.Nox_xxx_sendGauntlet_4DCF80(pl.PlayerIndex(), 0)
@@ -720,7 +720,7 @@ func saveCoopGame(name string) bool {
 	if pl == nil {
 		return false
 	}
-	u := pl.UnitC()
+	u := pl.PlayerUnit
 	if u == nil {
 		return false
 	}
@@ -783,7 +783,7 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	if pl == nil {
 		return false
 	}
-	u := pl.UnitC()
+	u := pl.PlayerUnit
 	if u == nil {
 		return false
 	}
@@ -802,11 +802,11 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	s.CreateObjectAt(obj, nil, pos)
 	s.ObjectsAddPending()
 	obj.ScriptIDVal = u.ScriptIDVal
-	var next *Object
+	var next *server.Object
 	for it := u.FirstOwned516(); it != nil; it = next {
 		next = it.NextOwned512()
 		if it.Flags().Has(object.FlagActive) {
-			it.SetOwner(asObjectS(obj))
+			it.SetOwner(obj)
 		}
 	}
 	return true

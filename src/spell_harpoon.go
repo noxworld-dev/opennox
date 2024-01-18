@@ -18,11 +18,11 @@ func nox_xxx_harpoonBreakForPlr_537520(u *server.Object) {
 }
 
 func nox_xxx_collideHarpoon_4EB6A0(a1c *server.Object, a2c *server.Object) {
-	noxServer.abilities.harpoon.Collide(asObjectS(a1c), asObjectS(a2c))
+	noxServer.abilities.harpoon.Collide(a1c, a2c)
 }
 
 func nox_xxx_updateHarpoon_54F380(a1c *server.Object) {
-	noxServer.abilities.harpoon.Update(asObjectS(a1c))
+	noxServer.abilities.harpoon.Update(a1c)
 }
 
 type harpoonData struct {
@@ -73,12 +73,12 @@ func (a *abilityHarpoon) getHarpoonData(u *server.Object) *harpoonData {
 	}
 }
 
-func (a *abilityHarpoon) Do(u *Object) {
+func (a *abilityHarpoon) Do(u *server.Object) {
 	nox_xxx_playerSetState_4FA020(u, server.PlayerState32)
 	if u == nil {
 		return
 	}
-	d := a.getHarpoonData(u.SObj())
+	d := a.getHarpoonData(u)
 	if d == nil {
 		return
 	}
@@ -86,11 +86,11 @@ func (a *abilityHarpoon) Do(u *Object) {
 	d.frame35 = 0
 }
 
-func (a *abilityHarpoon) createBolt(u *Object) {
+func (a *abilityHarpoon) createBolt(u *server.Object) {
 	if u == nil {
 		return
 	}
-	d := a.getHarpoonData(u.SObj())
+	d := a.getHarpoonData(u)
 	if d == nil {
 		return
 	}
@@ -99,7 +99,7 @@ func (a *abilityHarpoon) createBolt(u *Object) {
 		return
 	}
 	r := u.Shape.Circle.R + 1.0
-	*(**server.Object)(unsafe.Add(bolt.CollideData, 4)) = u.SObj()
+	*(**server.Object)(unsafe.Add(bolt.CollideData, 4)) = u
 	dv := u.Direction1.Vec()
 	hpos := u.Pos().Add(dv.Mul(r))
 	a.s.CreateObjectAt(bolt, u, hpos)
@@ -107,7 +107,7 @@ func (a *abilityHarpoon) createBolt(u *Object) {
 	dir := u.Direction1
 	bolt.Direction1 = dir
 	bolt.Direction2 = dir
-	d.bolt = bolt.SObj()
+	d.bolt = bolt
 	d.frame35 = 0
 }
 
@@ -154,31 +154,31 @@ func (a *abilityHarpoon) breakForOwner(u *server.Object, emitSound bool) {
 	}
 }
 
-func (a *abilityHarpoon) Collide(bolt *Object, targ *Object) {
+func (a *abilityHarpoon) Collide(bolt *server.Object, targ *server.Object) {
 	owner := bolt.Owner()
 	if a.damage == 0 {
 		a.damage = int(a.s.Balance.Float("HarpoonDamage"))
 	}
 	if targ == nil {
 		npos := bolt.NewPos
-		a.s.Nox_xxx_damageToMap_534BC0(int(npos.X/common.GridStep), int(npos.Y/common.GridStep), a.damage, 11, bolt.SObj())
-		a.breakForOwner(owner.SObj(), false)
+		a.s.Nox_xxx_damageToMap_534BC0(int(npos.X/common.GridStep), int(npos.Y/common.GridStep), a.damage, 11, bolt)
+		a.breakForOwner(owner, false)
 		return
 	}
 	if targ.Flags().HasAny(object.FlagDestroyed|object.FlagDead) || targ == owner {
 		return
 	}
 	u5 := bolt.FindOwnerChainPlayer()
-	if !targ.CallDamage(u5, bolt, a.damage, object.DamageImpact) || !(a.s.IsEnemyTo(owner.SObj(), targ.SObj()) || noxflags.HasGamePlay(1) && targ.Class().HasAny(object.MaskUnits)) {
-		server.Nox_xxx_soundDefaultDamageSound_532E20(targ.SObj(), bolt.SObj())
-		a.breakForOwner(owner.SObj(), false)
+	if !targ.CallDamage(u5, bolt, a.damage, object.DamageImpact) || !(a.s.IsEnemyTo(owner, targ) || noxflags.HasGamePlay(1) && targ.Class().HasAny(object.MaskUnits)) {
+		server.Nox_xxx_soundDefaultDamageSound_532E20(targ, bolt)
+		a.breakForOwner(owner, false)
 		return
 	}
-	d := a.getHarpoonData(owner.SObj())
+	d := a.getHarpoonData(owner)
 	if d == nil {
 		return
 	}
-	d.target = targ.SObj()
+	d.target = targ
 	tpos := targ.Pos()
 	d.targPos = tpos
 	d.frame38 = a.s.Frame()
@@ -192,7 +192,7 @@ func (a *abilityHarpoon) disable(u *server.Object) {
 	a.netHarpoonBreak(u, ud.HarpoonBolt)
 }
 
-func (a *abilityHarpoon) Update(bolt *Object) {
+func (a *abilityHarpoon) Update(bolt *server.Object) {
 	if bolt == nil || bolt.Owner() == nil {
 		return
 	}
@@ -205,24 +205,24 @@ func (a *abilityHarpoon) Update(bolt *Object) {
 	}
 	owner := bolt.Owner()
 	if owner.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-		a.breakForOwner(owner.SObj(), true)
+		a.breakForOwner(owner, true)
 		return
 	}
 	bud := bolt.UpdateData
 	obj4 := asObjectS(*(**server.Object)(bud))
 	if obj4 != nil && obj4.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
-		a.breakForOwner(owner.SObj(), true)
+		a.breakForOwner(owner, true)
 		return
 	}
-	d := a.getHarpoonData(owner.SObj())
+	d := a.getHarpoonData(owner)
 	if d == nil {
 		return
 	}
 	if d.target == nil {
 		if obj4 == nil {
 			aim := d.getAim()
-			obj6 := a.s.Nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner.SObj())
-			*(**server.Object)(bud) = obj6.SObj()
+			obj6 := a.s.Nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner)
+			*(**server.Object)(bud) = obj6
 			if obj6 != nil {
 				if legacy.Nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.Direction1), obj6.Pos())&0x1 == 0 {
 					*(**server.Object)(bud) = nil
@@ -236,16 +236,16 @@ func (a *abilityHarpoon) Update(bolt *Object) {
 	dist := nox_xxx_calcDistance_4E6C00(bolt, owner)
 	if targ := asObjectS(d.target); targ != nil {
 		if dist > a.maxDist {
-			a.breakForOwner(owner.SObj(), true)
+			a.breakForOwner(owner, true)
 			return
 		}
 		if dist < a.minDist {
-			a.breakForOwner(owner.SObj(), false)
+			a.breakForOwner(owner, false)
 			return
 		}
 
 		if df := a.s.Frame() - d.frame35; float32(df) > a.lifetime {
-			a.breakForOwner(owner.SObj(), true)
+			a.breakForOwner(owner, true)
 			return
 		}
 		tpos := targ.Pos()
@@ -254,17 +254,17 @@ func (a *abilityHarpoon) Update(bolt *Object) {
 			dx := d.targPos.X - tpos.X
 			dy := d.targPos.Y - tpos.Y
 			if dx*dx+dy*dy < 1.0 {
-				a.breakForOwner(owner.SObj(), true)
+				a.breakForOwner(owner, true)
 				return
 			}
 			d.targPos = tpos
 		}
 		if !a.s.MapTraceRayAt(owner.Pos(), tpos, nil, nil, 9) {
-			a.breakForOwner(owner.SObj(), true)
+			a.breakForOwner(owner, true)
 			return
 		}
 		if targ.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-			a.breakForOwner(owner.SObj(), true)
+			a.breakForOwner(owner, true)
 			return
 		}
 		bolt.NewPos = tpos
@@ -273,13 +273,13 @@ func (a *abilityHarpoon) Update(bolt *Object) {
 		bolt.VelVec = types.Pointf{}
 		bolt.ForceVec = types.Pointf{}
 		bolt.Direction1 = targ.Direction1
-		a.s.nox_xxx_moveUpdateSpecial_517970(bolt.SObj())
+		a.s.nox_xxx_moveUpdateSpecial_517970(bolt)
 	} else if dist > a.maxFlight {
-		a.breakForOwner(owner.SObj(), true)
+		a.breakForOwner(owner, true)
 		return
 	}
 	if d.frame35 == 0 {
-		a.netHarpoonAttach(owner.SObj(), bolt.SObj())
+		a.netHarpoonAttach(owner, bolt)
 		d.frame35 = a.s.Frame()
 	}
 }

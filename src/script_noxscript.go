@@ -42,7 +42,7 @@ func (s *noxScript) Reset() {
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
-	nox_xxx_imagCasterUnit_1569664 *Object
+	nox_xxx_imagCasterUnit_1569664 *server.Object
 )
 
 var _ noxscript.VM = (*noxScript)(nil)
@@ -207,9 +207,8 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 }
 
-func nox_setImaginaryCaster() int {
-	s := noxServer
-	nox_xxx_imagCasterUnit_1569664 = asObjectS(s.NewObjectByTypeID("ImaginaryCaster"))
+func (s *Server) nox_setImaginaryCaster() int {
+	nox_xxx_imagCasterUnit_1569664 = s.NewObjectByTypeID("ImaginaryCaster")
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return 0
 	}
@@ -265,7 +264,7 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *byte) int {
 
 func (s *noxScript) ActResolveObjs() {
 	s.s.Activators.ResolveObjs(func(id int) *server.Object {
-		return s.ScriptToObject(id).SObj()
+		return s.ScriptToObject(id)
 	})
 }
 

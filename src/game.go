@@ -829,8 +829,8 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 	if pl == nil {
 		return
 	}
-	u := pl.UnitC()
-	if u == nil || sub_4DCC10(u.SObj()) != 1 {
+	u := pl.PlayerUnit
+	if u == nil || sub_4DCC10(u) != 1 {
 		return
 	}
 	savedone := false
@@ -848,7 +848,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 	v28 := sub_4DB1C0()
 	if dead || !savedone {
 		if v28 != nil && !savedone {
-			u.SetPos(legacy.AsPointf(unsafe.Pointer(*(*uintptr)(unsafe.Add(v28, 700)) + 80)))
+			asObjectS(u).SetPos(legacy.AsPointf(unsafe.Pointer(*(*uintptr)(unsafe.Add(v28, 700)) + 80)))
 		}
 	} else if v28 != nil {
 		v30 := alloc.GoString(*(**byte)(unsafe.Add(v28, 700)))
@@ -1027,8 +1027,8 @@ func nox_game_guiInit_473680() error {
 	return nil
 }
 
-func (s *Server) nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Object) types.Pointf {
-	return legacy.Nox_xxx_mapFindPlayerStart_4F7AB0(a2.SObj())
+func (s *Server) nox_xxx_mapFindPlayerStart_4F7AB0(a2 *server.Object) types.Pointf {
+	return legacy.Nox_xxx_mapFindPlayerStart_4F7AB0(a2)
 }
 
 func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
@@ -1099,8 +1099,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		s.mapSend.ReadMapFile()
 	}
 	s.ObjectsAddPending()
-	for _, k := range s.getPlayerUnits() {
-		legacy.Sub_4EF660(k.SObj())
+	for _, k := range s.Players.ListUnits() {
+		legacy.Sub_4EF660(k)
 		v61 := s.nox_xxx_mapFindPlayerStart_4F7AB0(k)
 		if noxflags.HasGame(noxflags.GameModeChat) && s.Teams.Count() != 0 {
 			if !noxflags.HasGamePlay(2) && !noxflags.HasGame(noxflags.GameFlag16) {
@@ -1109,13 +1109,13 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 				}
 			}
 		}
-		k.SetPos(v61)
+		asObjectS(k).SetPos(v61)
 		if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
 			plx := k.ControllingPlayer()
 			plx.Lessons = 0
 			plx.Field2140 = 0
 			plx.Field2144 = s.Frame()
-			s.Nox_xxx_netReportLesson_4D8EF0(k.SObj())
+			s.Nox_xxx_netReportLesson_4D8EF0(k)
 		}
 	}
 	s.AI.Paths.Sub50AFA0()
@@ -1222,10 +1222,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	if sub_4DCC00() {
 		for _, m := range s.getPlayerUnits() {
 			for _, np := range m.GetOwned516() {
-				if legacy.Nox_xxx_isUnit_4E5B50(np.SObj()) != 0 {
+				if legacy.Nox_xxx_isUnit_4E5B50(np) != 0 {
 					ud := np.UpdateDataMonster()
 					v61 := s.RandomReachablePointAround(50.0, m.Pos())
-					np.SetPos(v61)
+					asObjectS(np).SetPos(v61)
 					ud.Field97 = 0
 					np.ClearActionStack()
 					np.Obj130 = nil
@@ -1236,7 +1236,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					p := m.Pos()
 					np.MonsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
 					if np.Class().Has(object.ClassMonster) && np.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC) {
-						np.SObj().Nox_xxx_setNPCColor_4E4A90(0, &ud.Color[0])
+						np.Nox_xxx_setNPCColor_4E4A90(0, &ud.Color[0])
 					}
 				} else if m.Class().Has(1) && legacy.Sub_4E5B80(m.SObj()) != 0 {
 					legacy.Sub_4E81D0(m.SObj())
@@ -1315,7 +1315,7 @@ func (s *Server) sub_417160() {
 }
 
 func nox_xxx_calcDistance_4E6C00(obj1, obj2 server.Obj) float32 {
-	return legacy.Nox_xxx_calcDistance_4E6C00(toObjectS(obj1), toObjectS(obj2))
+	return legacy.Nox_xxx_calcDistance_4E6C00(server.ToObject(obj1), server.ToObject(obj2))
 }
 
 var doDamageWalls = true
@@ -1334,11 +1334,11 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		Max: pos.Add(types.Ptf(rr, rr)),
 	}
 	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
-		u := asObjectS(it)
-		if u.SObj() == who.SObj() && !damageWalls {
+		u := it
+		if u == who && !damageWalls {
 			return true
 		}
-		if u.SObj() == toObjectS(a7).SObj() {
+		if u == server.ToObject(a7) {
 			return true
 		}
 		pos2 := u.Pos()
@@ -1355,7 +1355,7 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		if dist >= r2 {
 			rdmg *= 1.0 - (dist-r2)/(rr-r2)
 		}
-		u.CallDamage(who, nil, int(rdmg), dtyp)
+		asObjectS(u).CallDamage(who, nil, int(rdmg), dtyp)
 		return true
 	})
 	wrect := image.Rect(

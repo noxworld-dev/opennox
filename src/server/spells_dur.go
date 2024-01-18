@@ -168,7 +168,7 @@ func (sp *SpellsDuration) CancelFor(sid spell.ID, obj Obj) {
 	for it := sp.List; it != nil; it = next {
 		sid2 := spell.ID(it.Spell)
 		next = it.Next
-		if sid2 == sid && it.Caster16 == toObject(obj) || SpellIsSummon(sid) && SpellIsSummon(sid2) && it.Caster16 == toObject(obj) {
+		if sid2 == sid && it.Caster16 == ToObject(obj) || SpellIsSummon(sid) && SpellIsSummon(sid2) && it.Caster16 == ToObject(obj) {
 			sp.CancelSpell(it)
 		}
 	}

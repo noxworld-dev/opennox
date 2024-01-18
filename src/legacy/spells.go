@@ -271,111 +271,111 @@ func Nox_xxx_spellGetPower_4FE7B0(a1 spell.ID, a2 *server.Object) int {
 }
 
 func Nox_xxx_spellArachna_52DC80(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_spellArachna_52DC80, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_spellArachna_52DC80, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castBurn_52C3E0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castBurn_52C3E0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castBurn_52C3E0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_spellCastCleansingFlame_52D5C0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_spellCastCleansingFlame_52D5C0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_spellCastCleansingFlame_52D5C0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castConfuse_52C1E0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castConfuse_52C1E0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castConfuse_52C1E0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castCurePoison_52CDB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castCurePoison_52CDB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castCurePoison_52CDB0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castEquake_52DE40(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castEquake_52DE40, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castEquake_52DE40, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castFireball_52C790(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castFireball_52C790, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castFireball_52C790, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castFist_52D3C0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castFist_52D3C0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castFist_52D3C0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castFumble_52C060(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castFumble_52C060, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castFumble_52C060, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Sub_52BEB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.sub_52BEB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.sub_52BEB0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Sub_52DD50(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.sub_52DD50, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.sub_52DD50, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castLock_52CE90(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castLock_52CE90, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castLock_52CE90, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Sub_52CA80(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.sub_52CA80, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.sub_52CA80, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Sub_52CBD0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.sub_52CBD0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.sub_52CBD0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castMeteor_52D9D0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castMeteor_52D9D0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castMeteor_52D9D0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castMeteorShower_52D8A0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castMeteorShower_52D8A0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castMeteorShower_52D8A0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castPixies_540440(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castPixies_540440, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castPixies_540440, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castPoison_52C720(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castPoison_52C720, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castPoison_52C720, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castPull_52BFA0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castPull_52BFA0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castPull_52BFA0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castPush_52C000(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castPush_52C000, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castPush_52C000, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castSpellWinkORrestoreHealth_52BF20(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castSpellWinkORrestoreHealth_52BF20, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castSpellWinkORrestoreHealth_52BF20, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Sub_52BF50(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.sub_52BF50, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.sub_52BF50, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_useShock_52C5A0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_useShock_52C5A0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_useShock_52C5A0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castStun_52C2C0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castStun_52C2C0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castStun_52C2C0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castTelekinesis_52D330(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castTelekinesis_52D330, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castTelekinesis_52D330, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Nox_xxx_castToxicCloud_52DB60(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.nox_xxx_castToxicCloud_52DB60, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.nox_xxx_castToxicCloud_52DB60, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Sub_52CCD0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.sub_52CCD0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return Nox_spells_call_intint6_go(C.sub_52CCD0, spellID, a2, a3, a4, sa, lvl)
 }
 
 func Get_nox_xxx_spellBlink2_530310() unsafe.Pointer {

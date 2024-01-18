@@ -117,7 +117,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
 			v28 := st.ArgObj(2)
 			v29 := false
-			if v28 != nil && a.s.CanInteract(u.SObj(), v28.SObj(), 0) {
+			if v28 != nil && a.s.CanInteract(u.SObj(), v28, 0) {
 				v29 = true
 				pos := v28.Pos()
 				st.Args[0] = uintptr(math.Float32bits(pos.X))
@@ -530,7 +530,7 @@ func monsterRegenerateHP(u *server.Object) {
 		eachFrame = 1 // every frame
 	}
 	if regen != 0 && s.Frame()%eachFrame == 0 {
-		legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), regen)
+		legacy.Nox_xxx_unitAdjustHP_4EE460(u, regen)
 	}
 }
 
@@ -646,14 +646,14 @@ func (AIActionIdle) Update(u *server.Object) {
 			u.MonsterPushAction(ai.ACTION_FIGHT, enemy.Pos(), s.Frame())
 			return
 		}
-		if legacy.Sub_5466F0(u.SObj()) != 0 {
+		if legacy.Sub_5466F0(u) != 0 {
 			return
 		}
 	}
 	if !u.Flags().Has(object.FlagEnabled) || u.Sub_534440() || u.Sub_545E60() == 0 {
-		if s.IsMimic(u.SObj()) {
+		if s.IsMimic(u) {
 			if !u.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
-				legacy.Nox_xxx_mobHealSomeone_5411A0(u.SObj())
+				legacy.Nox_xxx_mobHealSomeone_5411A0(u)
 			}
 		} else {
 			if u.MonsterLookAtDamager() {
@@ -661,7 +661,7 @@ func (AIActionIdle) Update(u *server.Object) {
 			}
 			if s.Frame()-ud.Field137 <= s.TickRate()/2 || u.PosVec == u.PrevPos {
 				if !u.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
-					legacy.Nox_xxx_mobHealSomeone_5411A0(u.SObj())
+					legacy.Nox_xxx_mobHealSomeone_5411A0(u)
 				}
 			} else {
 				u.MonsterPushAction(ai.ACTION_FACE_LOCATION, u.PrevPos)

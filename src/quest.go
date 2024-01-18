@@ -283,16 +283,16 @@ func (s *Server) setupQuestGame() {
 		legacy.Nox_xxx_unitInitPlayer_4EFE80(u.SObj())
 		u.AddGold(-int(pl.GoldVal))
 
-		var next *Object
+		var next *server.Object
 		for it := u.FirstItem(); it != nil; it = next {
 			next = it.NextItem()
 			if it.Class().HasAny(object.ClassWeapon) {
 				if it.SubClass()&0x8200 != 0 {
-					it.Delete()
+					asObjectS(it).Delete()
 				}
 			} else {
 				if it.Class().HasAny(object.ClassArmor) && legacy.Sub_415D10(int(it.TypeInd))&0x405 == 0 {
-					it.Delete()
+					asObjectS(it).Delete()
 				}
 			}
 		}
@@ -305,7 +305,7 @@ func (s *Server) setupQuestGame() {
 			opt, freeOpt := alloc.Make([]unsafe.Pointer{}, 5)
 			mod := s.Modif.Nox_xxx_modifGetIdByName413290("Replenishment1")
 			opt[2] = unsafe.Pointer(s.Modif.Nox_xxx_modifGetDescById413330(mod))
-			legacy.Nox_xxx_modifSetItemAttrs_4E4990(item.SObj(), unsafe.Pointer(&opt[0]))
+			legacy.Nox_xxx_modifSetItemAttrs_4E4990(item, unsafe.Pointer(&opt[0]))
 			freeOpt()
 		case player.Conjurer:
 			legacy.Nox_xxx_playerRespawnItem_4EF750(u.SObj(), "Bow", nil, 1, 1)

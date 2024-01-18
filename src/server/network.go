@@ -111,7 +111,7 @@ func (s *Server) NetInformTextMsg(pid ntype.PlayerInd, code byte, ind int) bool 
 
 func (s *Server) NetPrintLineToAll(id strman.ID) { // nox_xxx_netPrintLineToAll_4DA390
 	for _, u := range s.Players.ListUnits() {
-		s.NetPriMsgToPlayer(u.SObj(), id, 0)
+		s.NetPriMsgToPlayer(u, id, 0)
 	}
 }
 

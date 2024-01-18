@@ -33,7 +33,7 @@ type Obj interface {
 	SObj() *Object
 }
 
-func toObject(p Obj) *Object {
+func ToObject(p Obj) *Object {
 	if p == nil {
 		return nil
 	}
@@ -52,7 +52,7 @@ func asObjectP(p unsafe.Pointer) *Object {
 }
 
 func (s *Server) GetUnitNetCode(p Obj) int {
-	obj := toObject(p)
+	obj := ToObject(p)
 	if obj == nil {
 		return 0
 	}
@@ -288,7 +288,7 @@ func (s *serverObjects) FreeObject(obj *Object) int {
 		obj.objectHandle = 0
 	}
 	code := obj.NetCode
-	s.alloc.FreeObjectLast(obj.SObj())
+	s.alloc.FreeObjectLast(obj)
 	obj.NetCode = code
 	s.Alive--
 	return s.Alive
@@ -314,7 +314,7 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	}
 	obj.Shape = t.Shape
 	if !obj.Flags().Has(object.FlagNoCollide) {
-		obj.SObj().UpdateCollider(obj.PosVec)
+		obj.UpdateCollider(obj.PosVec)
 	}
 	obj.Weight = t.Weight
 	obj.CarryCapacity = uint16(t.CarryCap)
@@ -668,6 +668,9 @@ func (obj *Object) CObj() unsafe.Pointer {
 	return unsafe.Pointer(obj)
 }
 
+// SObj unwraps server object type.
+//
+// Deprecated: This object is already unwrapped.
 func (obj *Object) SObj() *Object {
 	if obj == nil {
 		return nil
@@ -828,7 +831,7 @@ func (obj *Object) stringAs(typ string) string {
 	if obj.Class().Has(object.ClassPlayer) {
 		// TODO: better way
 		for _, p := range obj.Server().Players.List() {
-			if u := p.PlayerUnit; u != nil && u == obj.SObj() {
+			if u := p.PlayerUnit; u != nil && u == obj {
 				oid += fmt.Sprintf(",P:%q", p.Name())
 			}
 		}
@@ -1510,7 +1513,7 @@ func (obj *Object) IsEnemyTo(obj2 *Object) bool { // nox_xxx_unitIsEnemyTo_5330C
 	if obj == nil || obj2 == nil {
 		return false
 	}
-	if obj.SObj() == obj2.SObj() {
+	if obj == obj2 {
 		return false
 	}
 	return obj.Server().IsEnemyTo(obj, obj2)
@@ -1520,7 +1523,7 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 	if obj == nil || obj2 == nil {
 		return false
 	}
-	if obj.SObj() == obj2.SObj() {
+	if obj == obj2 {
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassMonster) {
@@ -1543,13 +1546,13 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 	if obj.Class().HasAny(object.ClassMonster) && obj2.Class().HasAny(object.ClassPlayer) && (obj.SubClass()&0x20 != 0) {
 		return false
 	}
-	if s.IsFish(obj.SObj()) || s.IsFrog(obj.SObj()) {
-		return !s.IsFish(obj2.SObj()) && !s.IsFrog(obj2.SObj())
+	if s.IsFish(obj) || s.IsFrog(obj) {
+		return !s.IsFish(obj2) && !s.IsFrog(obj2)
 	}
-	if s.IsRat(obj.SObj()) {
-		return !s.IsRat(obj2.SObj())
+	if s.IsRat(obj) {
+		return !s.IsRat(obj2)
 	}
-	if s.IsFish(obj2.SObj()) {
+	if s.IsFish(obj2) {
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassMonster) && (obj2.SubClass()&0x8 != 0) {

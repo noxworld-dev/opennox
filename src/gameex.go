@@ -177,7 +177,7 @@ func MixRecvFromReplacer(pc net.PacketConn, buf1 []byte, from netip.AddrPort) {
 				v9 &= 0xEF
 			}
 			if v10.ControllingPlayer().PlayerClass() == player.Warrior || v36 {
-				if legacy.Mix_MouseKeyboardWeaponRoll(v10.SObj(), int8(v9)) != 0 {
+				if legacy.Mix_MouseKeyboardWeaponRoll(v10, int8(v9)) != 0 {
 					var buf [4]byte
 					binary.LittleEndian.PutUint16(buf[0:], 0xF13A)
 					binary.LittleEndian.PutUint16(buf[2:], 2)
@@ -244,7 +244,7 @@ func MixRecvFromReplacer(pc net.PacketConn, buf1 []byte, from netip.AddrPort) {
 	case 9:
 		if (legacy.Get_gameex_flags()>>3)&1 != 0 {
 			ti := binary.LittleEndian.Uint32(buf1)
-			v35 := noxServer.getObjectFromNetCode(int(ti)).SObj()
+			v35 := noxServer.getObjectFromNetCode(int(ti))
 			legacy.PlayerDropATrap(v35)
 		}
 	}
@@ -265,7 +265,7 @@ func gameexDropTrap() {
 		}
 		if noxflags.HasGame(noxflags.GameHost) { // checkGameFlags isServer
 			v9 := noxServer.getObjectFromNetCode(legacy.ClientPlayerNetCode())
-			legacy.PlayerDropATrap(v9.SObj())
+			legacy.PlayerDropATrap(v9)
 		} else {
 			// TODO: this currently relies on extension packets, which should not be required for this
 			//       it can be done the "natural way": find the trap in the client-side data structures
@@ -301,7 +301,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		if u := c.srv.Players.HostUnit; u != nil && asObjectS(u).ControllingPlayer().PlayerClass() == player.Warrior {
-			if legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(a2a)) != 0 {
+			if legacy.Mix_MouseKeyboardWeaponRoll(u, int8(a2a)) != 0 {
 				clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 			}
 		}
@@ -322,7 +322,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
-				if u := noxServer.Players.HostUnit; u != nil && legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(v8)) != 0 {
+				if u := noxServer.Players.HostUnit; u != nil && legacy.Mix_MouseKeyboardWeaponRoll(u, int8(v8)) != 0 {
 					clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 				}
 			} else {

@@ -86,7 +86,7 @@ func nox_xxx_spellIconHighlight_424AB0(ind int) unsafe.Pointer {
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 	s := noxServer
 	legacy.Set_nox_alloc_magicEnt_1569668(alloc.NewClass("magicEntityClass", 60, 64).UPtr())
-	nox_xxx_imagCasterUnit_1569664 = asObjectS(s.NewObjectByTypeID("ImaginaryCaster"))
+	nox_xxx_imagCasterUnit_1569664 = s.NewObjectByTypeID("ImaginaryCaster")
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return errors.New("cannot find ImaginaryCaster object type")
 	}
@@ -105,7 +105,7 @@ func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 func nox_xxx_freeSpellRelated_4FCA80() {
 	alloc.AsClass(legacy.Get_nox_alloc_magicEnt_1569668()).Free()
 	legacy.Set_dword_5d4594_1569672(0)
-	nox_xxx_imagCasterUnit_1569664.Delete()
+	asObjectS(nox_xxx_imagCasterUnit_1569664).Delete()
 	nox_xxx_imagCasterUnit_1569664 = nil
 }
 
@@ -391,7 +391,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	default:
 		return true
 	}
-	v9 := fnc(spellID, a2.SObj(), obj3.SObj(), obj4.SObj(), sa, lvl)
+	v9 := fnc(spellID, a2, obj3, obj4, sa, lvl)
 	if v9 == 0 {
 		s.Audio.EventObj(sound.SoundPermanentFizzle, obj4, 0, 0)
 	}
@@ -411,17 +411,17 @@ func (s *Server) castSpell(spellInd spell.ID, lvl int, u *server.Object, a3 *ser
 		asObjectS(u).DisableEnchant(server.ENCHANT_INVULNERABLE)
 		s.Spells.Dur.CancelFor(spell.SPELL_OVAL_SHIELD, u)
 	}
-	if !s.Spells.HasFlags(spellInd, things.SpellTargeted) || u.SObj() == a3.Obj {
+	if !s.Spells.HasFlags(spellInd, things.SpellTargeted) || u == a3.Obj {
 		return s.Nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)
 	}
-	legacy.Nox_xxx_createSpellFly_4FDDA0(u.SObj(), a3.Obj, spellInd)
+	legacy.Nox_xxx_createSpellFly_4FDDA0(u, a3.Obj, spellInd)
 	return true
 }
 
 func (s *Server) castSpellBy(spellInd spell.ID, lvl int, caster *server.Object, targ server.Obj, targPos types.Pointf) bool {
 	sa, freeArg := alloc.New(server.SpellAcceptArg{})
 	defer freeArg()
-	sa.Obj = toObjectS(targ)
+	sa.Obj = server.ToObject(targ)
 	sa.Pos = targPos
 	return s.nox_xxx_castSpellByUser4FDD20(spellInd, lvl, caster, sa)
 }

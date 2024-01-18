@@ -376,7 +376,7 @@ func (sp *serverSpells) createSpellFrom(def *things.Spell, loadImage ImageLoader
 }
 
 func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflags things.SpellFlags, dist float32, a5 int, self *Object) *Object {
-	msl := toObject(mslo)
+	msl := ToObject(mslo)
 	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
 		if curTarg := self.UpdateDataPlayer().CursorObj; curTarg != nil {
 			if s.IsEnemyTo(self, curTarg) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {
@@ -411,7 +411,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflag
 		found   *Object
 	)
 	s.Map.EachObjInRect(rect, func(it *Object) bool {
-		if !(a5 != 0 || msl.SObj() != it) {
+		if !(a5 != 0 || msl != it) {
 			return true
 		}
 		if !it.Class().HasAny(object.MaskTargets) {
@@ -430,7 +430,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflag
 			return true
 		}
 		it.FindOwnerChainPlayer() // FIXME: result unused!
-		if sflags.Has(things.SpellOffensive) && !s.IsEnemyTo(msl.SObj(), it) {
+		if sflags.Has(things.SpellOffensive) && !s.IsEnemyTo(msl, it) {
 			return true
 		}
 		opos := it.Pos()
@@ -440,10 +440,10 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflag
 		if odist > dist2 {
 			return true
 		}
-		if msl != nil && !s.CanInteract(msl.SObj(), it, 0) {
+		if msl != nil && !s.CanInteract(msl, it, 0) {
 			return true
 		}
-		if owner != nil && !s.CanInteract(owner.SObj(), it, 0) {
+		if owner != nil && !s.CanInteract(owner, it, 0) {
 			return true
 		}
 		if odist < minDist {
@@ -452,7 +452,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo Obj, sflag
 		}
 		return true
 	})
-	return found.SObj()
+	return found
 }
 
 func (s *Server) NetStopRaySpell(sp *DurSpell, who *Object) {

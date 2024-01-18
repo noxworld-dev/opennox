@@ -63,7 +63,7 @@ func (obj *Object) MonsterActionReset() {
 
 func (obj *Object) ClearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
 	if obj.Class().Has(object.ClassMonster) {
-		for !aiStackEmptyAndIdle(obj.SObj()) {
+		for !aiStackEmptyAndIdle(obj) {
 			obj.MonsterPopAction()
 		}
 	}
@@ -104,7 +104,7 @@ func (obj *Object) MonsterPushActionImpl(act ai.ActionType, file string, line in
 			ud.AIStackInd = -1
 		} else if !curAct.IsCondition() && cur.Field5 != 0 {
 			if a := GetAIAction(curAct); a != nil {
-				a.Cancel(obj.SObj())
+				a.Cancel(obj)
 			}
 		}
 	}
@@ -130,7 +130,7 @@ func (obj *Object) MonsterPopAction() int {
 	if cur := ud.AIStackHead(); cur != nil {
 		if act := cur.Type(); !act.IsCondition() && cur.Field5 != 0 {
 			if a := GetAIAction(act); a != nil {
-				a.End(obj.SObj())
+				a.End(obj)
 			}
 		}
 	}
@@ -229,7 +229,7 @@ func (s *Server) EnemyAggroXxx(self *Object, r, max float32) *Object {
 		someFlag = false
 	)
 	s.Map.EachObjInCircle(self.Pos(), r, func(it *Object) bool {
-		if self.SObj() == it {
+		if self == it {
 			return true
 		}
 		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {

@@ -185,7 +185,9 @@ func init() {
 	legacy.Nox_xxx_bookNextKnownAbil_425350 = nox_xxx_bookNextKnownAbil_425350
 	legacy.Sub_425450 = sub_425450
 	legacy.Nox_xxx_netAbilRepotState_4D8100 = nox_xxx_netAbilRepotState_4D8100
-	legacy.Nox_setImaginaryCaster = nox_setImaginaryCaster
+	legacy.Nox_setImaginaryCaster = func() int {
+		return noxServer.nox_setImaginaryCaster()
+	}
 	legacy.Nox_script_readWriteZzz_541670 = nox_script_readWriteZzz_541670
 	legacy.Sub_4C26F0 = sub_4C26F0
 	legacy.WinMainMenuAnimOutStartFnc = winMainMenuAnimOutStartFnc
@@ -304,9 +306,7 @@ func init() {
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
 	legacy.Sub_526CA0 = sub_526CA0
-	legacy.Nox_xxx_playerSetState_4FA020 = func(a1 *server.Object, a2 server.PlayerState) bool {
-		return nox_xxx_playerSetState_4FA020(asObjectS(a1), a2)
-	}
+	legacy.Nox_xxx_playerSetState_4FA020 = nox_xxx_playerSetState_4FA020
 	legacy.Nox_xxx_mapSetWallInGlobalDir0pr1_5004D0 = func() {
 		noxServer.spells.walls.switchToPrevDir()
 	}

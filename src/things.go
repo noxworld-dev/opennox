@@ -17,6 +17,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -389,7 +390,7 @@ func sub_42BFE0() {
 			last++
 		}
 	}
-	for it := asObjectS(s.Objs.List); it != nil; it = it.Next() {
+	for it := s.Objs.List; it != nil; it = it.Next() {
 		checkInd(it.TypeInd)
 		for it2 := it.FirstItem(); it2 != nil; it2 = it2.NextItem() {
 			checkInd(it2.TypeInd)
@@ -398,13 +399,13 @@ func sub_42BFE0() {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := asObjectS(s.Objs.Pending); it != nil; it = it.Next() {
+	for it := s.Objs.Pending; it != nil; it = it.Next() {
 		checkInd(it.TypeInd)
 		if it.Class().Has(object.ClassMonsterGenerator) {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := asObjectS(s.Objs.MissileList); it != nil; it = it.Next() {
+	for it := s.Objs.MissileList; it != nil; it = it.Next() {
 		checkInd(it.TypeInd)
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&
@@ -418,7 +419,7 @@ func sub_42BFE0() {
 	}
 }
 
-func checkTypesMonsterGen(obj *Object, checkInd func(uint162 uint16)) {
+func checkTypesMonsterGen(obj *server.Object, checkInd func(uint162 uint16)) {
 	ud := obj.UpdateDataMonsterGen()
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 4; j++ {

@@ -239,19 +239,18 @@ func (a *serverAbilities) Update() {
 		}
 	}
 	for obj, ad := range a.s.Abils.ByUnit {
-		u := asObjectS(obj)
 		var next *server.ExecAbilityClass
 		for p := ad.ExecList; p != nil; p = next {
 			next = p.Next
-			if !u.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
+			if !obj.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 				if a.s.Frame() <= p.Frame {
 					continue
 				}
 				snd := a.getSound(p.Abil, 2)
-				a.s.Audio.EventObj(snd, u, 0, 0)
+				a.s.Audio.EventObj(snd, obj, 0, 0)
 				a.netAbilReportActive(obj, p.Abil, false)
 				if p.Abil == server.AbilityBerserk {
-					nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
+					nox_xxx_playerSetState_4FA020(obj, server.PlayerState13)
 				}
 			}
 			if next != nil {
@@ -350,15 +349,15 @@ func (a *serverAbilities) do(u *server.Object, abil server.Ability) {
 	}
 	switch abil {
 	case server.AbilityBerserk:
-		nox_xxx_warriorBerserker_53FEB0(asObjectS(u))
+		nox_xxx_warriorBerserker_53FEB0(u)
 	case server.AbilityWarcry:
-		nox_xxx_warriorWarcry_53FF40(asObjectS(u))
+		nox_xxx_warriorWarcry_53FF40(u)
 	case server.AbilityHarpoon:
-		a.harpoon.Do(asObjectS(u))
+		a.harpoon.Do(u)
 	case server.AbilityTreadLightly:
-		nox_xxx_warriorTreadLightly_5400B0(asObjectS(u), a.getDuration(abil))
+		nox_xxx_warriorTreadLightly_5400B0(u, a.getDuration(abil))
 	case server.AbilityInfravis:
-		nox_xxx_warriorInfravis_540110(asObjectS(u), a.getDuration(abil))
+		nox_xxx_warriorInfravis_540110(u, a.getDuration(abil))
 	}
 }
 

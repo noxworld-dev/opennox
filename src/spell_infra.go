@@ -13,7 +13,7 @@ func castInfravision(spellID spell.ID, _, _, _ *server.Object, args *server.Spel
 	})
 }
 
-func nox_xxx_warriorInfravis_540110(u *Object, dur int) {
+func nox_xxx_warriorInfravis_540110(u *server.Object, dur int) {
 	if u == nil {
 		return
 	}
@@ -22,7 +22,7 @@ func nox_xxx_warriorInfravis_540110(u *Object, dur int) {
 	}
 	s := noxServer
 	if ud := u.UpdateDataPlayer(); ud != nil {
-		u.ApplyEnchant(server.ENCHANT_INFRAVISION, dur, int(asPlayerS(ud.Player).SpellLvl[server.AbilityInfravis]))
-		s.abilities.netAbilReportActive(u.SObj(), server.AbilityInfravis, true)
+		asObjectS(u).ApplyEnchant(server.ENCHANT_INFRAVISION, dur, int(asPlayerS(ud.Player).SpellLvl[server.AbilityInfravis]))
+		s.abilities.netAbilReportActive(u, server.AbilityInfravis, true)
 	}
 }

@@ -31,7 +31,7 @@ func (sp *spellWall) newDurSpellForSave(u *server.Object) {
 		Obj: u,
 		Pos: pl.CursorPos(),
 	}
-	sp.s.spells.duration.New(spell.SPELL_WALL, u.SObj(), u.SObj(), u.SObj(), &sa, 3, nil, nil, nil, 0)
+	sp.s.spells.duration.New(spell.SPELL_WALL, u, u, u, &sa, 3, nil, nil, nil, 0)
 }
 
 func (sp *spellWall) Init(srv *Server) {

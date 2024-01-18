@@ -221,7 +221,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0(cf *cryptfile.CryptFile) er
 			if err := obj.CallXfer(nil); err != nil {
 				return fmt.Errorf("cannot decode map object: %q: %w", sect, err)
 			}
-			legacy.Nox_xxx_servMapLoadPlaceObj_4F3F50(obj.SObj(), 0, nil)
+			legacy.Nox_xxx_servMapLoadPlaceObj_4F3F50(obj, 0, nil)
 		}
 	}
 	if s.WPs.Sub_579CA0() == 0 {
@@ -404,8 +404,8 @@ func nox_server_mapRWObjectData_504CF0_Read(cf *cryptfile.CryptFile, a2 unsafe.P
 		if a2 != nil {
 			v16a2 = v16
 		}
-		if legacy.Nox_xxx_servMapLoadPlaceObj_4F3F50(obj.SObj(), 0, v16a2) == 1 && v11 {
-			legacy.Nox_xxx_unitSetDecayTime_511660(obj.SObj(), v7)
+		if legacy.Nox_xxx_servMapLoadPlaceObj_4F3F50(obj, 0, v16a2) == 1 && v11 {
+			legacy.Nox_xxx_unitSetDecayTime_511660(obj, v7)
 		}
 		v12, _ = cf.ReadU16()
 		if v12 == 0 {

@@ -384,7 +384,7 @@ func (obj nsObj) ChangeScore(val int) {
 	} else {
 		nox_xxx_changeScore_4D8E90(u, val)
 	}
-	s := obj.getServer()
+	s := obj.Server()
 	if tm := u.Team(); tm != nil {
 		s.TeamChangeLessons(tm, val+tm.Lessons)
 	}
@@ -393,7 +393,7 @@ func (obj nsObj) ChangeScore(val int) {
 
 func (obj nsObj) HasOwner(owner ns4.Obj) bool {
 	own, _ := owner.(server.Obj)
-	return obj.Object.HasOwner(toObject(own))
+	return obj.Object.HasOwner(server.ToObject(own))
 }
 
 func (obj nsObj) HasOwnerIn(owners ns4.ObjGroup) bool {
@@ -413,7 +413,7 @@ func (obj nsObj) SetOwner(owner ns4.Obj) {
 		obj.Object.SetOwner(nil)
 		return
 	}
-	v := toObject(owner.(server.Obj))
+	v := server.ToObject(owner.(server.Obj))
 	obj.Object.SetOwner(v)
 }
 
@@ -432,7 +432,7 @@ func (obj nsObj) CanSee(obj2 ns4.Obj) bool {
 	if obj.Object == nil || obj2 == nil {
 		return false
 	}
-	return obj.Object.CanSee(obj2.(nsObj).Object)
+	return obj.Object.CanSee(obj2.(nsObj).SObj())
 }
 
 func (obj nsObj) PushTo(p ns4.Positioner, force float32) {
@@ -458,14 +458,14 @@ func (obj nsObj) IsAttackedBy(obj2 ns4.Obj) bool {
 	if obj2 == nil {
 		return false
 	}
-	return obj.Object.IsAttackedBy(obj2.(server.Obj).SObj())
+	return obj.Object.IsAttackedBy(server.ToObject(obj2.(server.Obj)))
 }
 
 func (obj nsObj) HasItem(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.Object.HasItem(toObject(item.(server.Obj)))
+	return obj.Object.HasItem(server.ToObject(item.(server.Obj)))
 }
 
 func (obj nsObj) HasEquipment(item ns4.Obj) bool {
@@ -480,7 +480,7 @@ func (obj nsObj) GetLastItem() ns4.Obj {
 	if it == nil {
 		return nil
 	}
-	return nsObj{obj.s, it}
+	return nsObj{obj.s, asObjectS(it)}
 }
 
 func (obj nsObj) GetPreviousItem() ns4.Obj {
@@ -488,14 +488,14 @@ func (obj nsObj) GetPreviousItem() ns4.Obj {
 	if it == nil {
 		return nil
 	}
-	return nsObj{obj.s, it}
+	return nsObj{obj.s, asObjectS(it)}
 }
 
 func (obj nsObj) Items(conditions ...ns4.ObjCond) []ns4.Obj {
 	filter := ns4.AND(conditions)
 	var out []ns4.Obj
 	for it := obj.FirstItem(); it != nil; it = it.NextItem() {
-		v := nsObj{obj.s, it}
+		v := nsObj{obj.s, asObjectS(it)}
 		if filter.Matches(v) {
 			out = append(out, v)
 		}
@@ -518,7 +518,7 @@ func (s nsObjInItems) FindObjects(fnc func(it ns4.Obj) bool, conditions ...ns4.O
 	filter = append(filter, s.filters...)
 	cnt := 0
 	for it := s.obj.FirstItem(); it != nil; it = it.NextItem() {
-		v := nsObj{s.obj.s, it}
+		v := nsObj{s.obj.s, asObjectS(it)}
 		if !filter.Matches(v) {
 			continue
 		}
@@ -549,40 +549,40 @@ func (obj nsObj) GetHolder() ns4.Obj {
 	if obj2 == nil {
 		return nil
 	}
-	return nsObj{obj.s, obj2}
+	return nsObj{obj.s, asObjectS(obj2)}
 }
 
 func (obj nsObj) Pickup(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.Object.DoPickup(toObject(item.(server.Obj)))
+	return obj.Object.DoPickup(server.ToObject(item.(server.Obj)))
 }
 
 func (obj nsObj) Drop(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.DoDrop(toObject(item.(server.Obj)))
+	return obj.DoDrop(server.ToObject(item.(server.Obj)))
 }
 
 func (obj nsObj) Equip(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.Object.Equip(toObject(item.(server.Obj)))
+	return obj.Object.Equip(server.ToObject(item.(server.Obj)))
 }
 
 func (obj nsObj) Unequip(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.Object.Unequip(toObject(item.(server.Obj)))
+	return obj.Object.Unequip(server.ToObject(item.(server.Obj)))
 }
 
 func (obj nsObj) CreateMover(wp ns4.WaypointObj, speed float32) ns4.Obj {
 	mv := obj.Object.CreateMover(wp, speed)
-	return nsObj{obj.s, mv}
+	return nsObj{obj.s, asObjectS(mv)}
 }
 
 func (obj nsObj) GetElevatorStatus() int {

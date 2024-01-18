@@ -65,12 +65,12 @@ func (s noxScriptNS) Print(message ns.StringID) {
 	if c == nil {
 		return
 	}
-	obj := toObject(c.(server.Obj))
+	obj := server.ToObject(c.(server.Obj))
 	if !c.Class().Has(object.ClassPlayer) {
 		return
 	}
 	str := s.s.Strings().GetStringInFile(strman.ID(message), "CScrFunc.c")
-	legacy.Nox_xxx_netSendLineMessage_4D9EB0(obj.SObj(), str)
+	legacy.Nox_xxx_netSendLineMessage_4D9EB0(obj, str)
 }
 
 func (s noxScriptNS) PrintToAll(message ns.StringID) {

@@ -172,13 +172,13 @@ func (s *Server) updateUnitsCCC() {
 						obj.Field541--
 					}
 					if obj.Poison540 != 0 && !obj.Flags().Has(object.FlagDead) {
-						legacy.Nox_xxx_updatePoison_4EE8F0(obj.SObj(), 1)
+						legacy.Nox_xxx_updatePoison_4EE8F0(obj, 1)
 					}
 					obj.Field542 = 1000
 				}
 			}
 		}
-		legacy.Nox_xxx_updateUnitBuffs_4FF620(obj.SObj())
+		legacy.Nox_xxx_updateUnitBuffs_4FF620(obj)
 		if v31 := obj.Poison540; v31 != 0 {
 			if h := obj.HealthData; h != nil && h.Max > 0 && h.Cur > 0 {
 				dmg := 1
@@ -383,8 +383,8 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.maybeCallMapInit()
 	s.maybeCallMapEntry()
 	s.abilities.sub_4FC680()
-	if unit := s.GetPlayerByInd(common.MaxPlayers - 1).UnitC(); unit != nil {
-		s.spells.walls.associateSavedWalls(unit.SObj())
+	if unit := s.GetPlayerByInd(common.MaxPlayers - 1).PlayerUnit; unit != nil {
+		s.spells.walls.associateSavedWalls(unit)
 	}
 	if legacy.Nox_xxx_get_57AF20() != 0 && legacy.Sub_57B140() {
 		legacy.Sub_57B0A0()
@@ -593,8 +593,8 @@ func (s *Server) sub_519760(u *Object, rect types.Rectf) {
 		s.Players.Nox_xxx_netMinimapUnmark4All_417430(obj)
 	} else if float64(obj.PosVec.X) < float64(rect.Min.X) || float64(obj.PosVec.X) > float64(rect.Max.X) || float64(obj.PosVec.Y) < float64(rect.Min.Y) || float64(obj.PosVec.Y) > float64(rect.Max.Y) {
 		obj.Field38 |= uint32(1 << pind)
-		legacy.Nox_xxx_netSendObjects2Plr_519410(u.SObj(), obj.SObj())
-		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, obj.SObj())
+		legacy.Nox_xxx_netSendObjects2Plr_519410(u.SObj(), obj)
+		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, obj)
 		ud.Field67 = s.Frame()
 	}
 }

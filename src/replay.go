@@ -14,6 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const (
@@ -66,7 +67,7 @@ func (s *Server) nox_xxx_replayFileOpen_4D34C0(name string) error {
 	*memmap.PtrUint8(0x5D4594, 1548724) = 0
 	noxflags.SetEngine(noxflags.EngineReplayRead)
 	pl := s.GetPlayerByID(255)
-	pl.GoObserver(false, true)
+	asPlayerS(pl).GoObserver(false, true)
 	return nil
 }
 
@@ -95,7 +96,7 @@ func nox_xxx_replaySaveConsole(cmd string) {
 	replay.writer.Write([]byte(cmd))
 }
 
-func (s *Server) nox_xxx_replayWriteMSgMB(pl *Player, data []byte) {
+func (s *Server) nox_xxx_replayWriteMSgMB(pl *server.Player, data []byte) {
 	if replay.writer == nil {
 		return
 	}
@@ -118,7 +119,7 @@ func (s *Server) nox_xxx_replayStopReadMB_4D3530() {
 	replay.readHeader = false
 	noxflags.UnsetEngine(noxflags.EngineReplayRead)
 	pl := s.GetPlayerByID(255)
-	legacy.Nox_xxx_playerLeaveObserver_0_4E6AA0(pl.S())
+	legacy.Nox_xxx_playerLeaveObserver_0_4E6AA0(pl)
 }
 
 func nox_xxx_replay_4D3860(pi *PlayerOpts) error {

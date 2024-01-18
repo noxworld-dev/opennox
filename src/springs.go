@@ -110,10 +110,10 @@ func (s *serverSprings) Update() {
 				dl = it.length
 			}
 			dv := dp.Div(dist).Mul(dl * it.force)
-			obj1.SObj().Sub548600(dv.Mul(+1))
-			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj1.SObj())
-			obj2.SObj().Sub548600(dv.Mul(-1))
-			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj2.SObj())
+			obj1.Sub548600(dv.Mul(+1))
+			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj1)
+			obj2.Sub548600(dv.Mul(-1))
+			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj2)
 			it.prevLen = dist
 		}
 	}

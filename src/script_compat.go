@@ -31,7 +31,7 @@ func (obj scrObject) SetOwner(owner script.ObjectWrapper) {
 		obj.Object.SetOwner(nil)
 		return
 	}
-	own := owner.GetObject().(server.Obj).SObj()
+	own := server.ToObject(owner.GetObject().(server.Obj))
 	obj.SObj().SetOwner(own)
 }
 
@@ -43,14 +43,14 @@ func (obj scrObject) Owner() script.Object {
 	if p == nil {
 		return nil
 	}
-	return scrObject{p}
+	return scrObject{asObjectS(p)}
 }
 
 func (obj scrObject) CanSee(obj2 script.Object) bool {
 	if obj.Object == nil || obj2 == nil {
 		return false
 	}
-	return obj.Object.CanSee(toObject(obj2.(server.Obj)))
+	return obj.Object.CanSee(server.ToObject(obj2.(server.Obj)))
 }
 
 func (obj scrObject) Guard() {

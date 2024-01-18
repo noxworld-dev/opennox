@@ -30,7 +30,7 @@ func nox_xxx_guideGetUnitSize_427460(ind int) int {
 
 func nox_xxx_unitDoSummonAt_5016C0(typID int, pos types.Pointf, owner *server.Object, dir server.Dir16) *server.Object {
 	s := noxServer
-	obj := s.Objs.NewObject(s.Types.ByInd(typID)).SObj()
+	obj := s.Objs.NewObject(s.Types.ByInd(typID))
 	if obj == nil {
 		return obj
 	}

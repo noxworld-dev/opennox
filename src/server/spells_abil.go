@@ -32,10 +32,10 @@ func (a *serverAbilities) Reset() {
 }
 
 func (a *serverAbilities) GetFor(obj Obj) *unitAbilities {
-	if obj == nil {
+	u := ToObject(obj)
+	if u == nil {
 		return nil
 	}
-	u := obj.SObj()
 	d := a.ByUnit[u]
 	if d != nil {
 		return d

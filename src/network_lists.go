@@ -178,7 +178,7 @@ func (s *Server) onSend(ind netstr.Handle, buf []byte) int {
 	pl := s.GetPlayerByInd(ind.Player())
 	*memmap.PtrUint32(0x5D4594, 1563308) = 0
 	netPlayerBufSize = 0
-	netPlayerPlus16 = pl.net16()
+	netPlayerPlus16 = &pl.NetData16
 	v7 := s.NetList.ByInd(ind.Player(), netlist.Kind2).Get()
 	var off int
 	if nox_xxx_chkIsMsgTimestamp_4DF7F0(v7) {

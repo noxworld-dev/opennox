@@ -6,7 +6,7 @@ func nsToObj(v ns4.Obj) *Object {
 	if v == nil {
 		return nil
 	}
-	return toObject(v.(Obj))
+	return ToObject(v.(Obj))
 }
 
 func (s NoxScriptNS) IsTrigger(obj ns4.Obj) bool {

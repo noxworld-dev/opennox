@@ -72,7 +72,7 @@ func objectMonsterInit(obj *server.Object) {
 	ud.Pos95 = obj.Pos()
 	h := obj.HealthData
 	if h.Cur == h.Max {
-		legacy.Nox_xxx_unitSetHP_4E4560(obj.SObj(), uint16(float64(h.Max)*float64(ud.Field338)))
+		legacy.Nox_xxx_unitSetHP_4E4560(obj, uint16(float64(h.Max)*float64(ud.Field338)))
 	}
 	h.Field2 = h.Cur
 	for i := range ud.HealthGraph103 {
@@ -83,7 +83,7 @@ func objectMonsterInit(obj *server.Object) {
 	} else {
 		obj.SpeedBase = float32(float64(obj.SpeedBase) * s.Rand.Logic.FloatClamp(0.94999999, 1.05))
 	}
-	if legacy.Nox_xxx_monsterCanCast_534300(obj.SObj()) {
+	if legacy.Nox_xxx_monsterCanCast_534300(obj) {
 		ud.FleeRange = 100
 	}
 	if ud.StatusFlags.Has(object.MonStatusHoldYourGround) {

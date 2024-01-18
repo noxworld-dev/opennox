@@ -40,7 +40,7 @@ func (s *Server) PlayersHaveSilverKey() *Object {
 			}
 		}
 		if cnt > 0 {
-			found = u.SObj()
+			found = u
 		}
 	}
 	if found == nil {

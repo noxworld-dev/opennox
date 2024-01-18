@@ -22,18 +22,18 @@ func (s noxScriptNS) CastSpellLvl(name nsp.Spell, lvl int, source, target ns4.Po
 	}
 	srcH, _ := source.(server.Obj)
 	targH, _ := target.(server.Obj)
-	src := toObject(srcH)
+	src := server.ToObject(srcH)
 	if src != nil && src.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
 		return
 	}
 	targPos := target.Pos()
 	if src == nil {
-		nox_xxx_imagCasterUnit_1569664.SetPos(source.Pos())
+		asObjectS(nox_xxx_imagCasterUnit_1569664).SetPos(source.Pos())
 		src = nox_xxx_imagCasterUnit_1569664
 	}
 	src.Direction1 = server.DirFromVec(targPos.Sub(src.Pos()))
 	// TODO: pass spell level
-	s.s.castSpellBy(sp, lvl, src.SObj(), targH, targPos)
+	s.s.castSpellBy(sp, lvl, src, targH, targPos)
 }
 
 func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns4.Positioner) {
@@ -126,11 +126,11 @@ func (g nsObjGroup) AwardSpell(sp nsp.Spell) {
 	g.EachObject(true, func(it ns4.Obj) bool {
 		// TODO: why it.AwardSpell is different?
 		val := 0
-		obj := it.(server.Obj)
-		if noxflags.HasGame(noxflags.GameModeCoop) && it.Class().Has(object.ClassPlayer) && asPlayerS(obj.SObj().UpdateDataPlayer().Player).SpellLvl[spl] == 0 {
+		obj := server.ToObject(it.(server.Obj))
+		if noxflags.HasGame(noxflags.GameModeCoop) && it.Class().Has(object.ClassPlayer) && asPlayerS(obj.UpdateDataPlayer().Player).SpellLvl[spl] == 0 {
 			val = 1
 		}
-		legacy.Nox_xxx_spellGrantToPlayer_4FB550(obj.SObj(), spl, 1, val, 0)
+		legacy.Nox_xxx_spellGrantToPlayer_4FB550(obj, spl, 1, val, 0)
 		return true
 	})
 }

@@ -451,12 +451,12 @@ func (s *Server) MapTraceObstacles(from *Object, p1, p2 types.Pointf) bool {
 		if !searching {
 			return false
 		}
-		if from.SObj() == it.SObj() {
+		if from == it {
 			return true
 		}
 		if it.Class().HasAny(object.MaskUnits) {
 			u2 := it
-			if s.IsEnemyTo(from, u2.SObj()) {
+			if s.IsEnemyTo(from, u2) {
 				return true
 			}
 		} else if !it.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {

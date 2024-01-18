@@ -30,12 +30,12 @@ import (
 
 func nox_xxx_playerDisconnByPlrID_4DEB00(id ntype.PlayerInd) {
 	if p := noxServer.GetPlayerByInd(id); p != nil {
-		p.Disconnect(4)
+		asPlayerS(p).Disconnect(4)
 	}
 }
 
 func nox_xxx_playerCallDisconnect_4DEAB0(ind ntype.PlayerInd, v int8) {
-	noxServer.GetPlayerByInd(ind).Disconnect(int(v))
+	asPlayerS(noxServer.GetPlayerByInd(ind)).Disconnect(int(v))
 }
 
 func nox_xxx_playerCameraUnlock_4E6040(cplayer *server.Object) {
@@ -58,7 +58,7 @@ func nox_xxx_playerObserveClear_4DDEF0(cplayer *server.Object) {
 	asObjectS(cplayer).observeClear()
 }
 
-func clientPlayer() *Player {
+func clientPlayer() *server.Player {
 	return noxServer.GetPlayerByID(legacy.ClientPlayerNetCode())
 }
 
@@ -68,10 +68,6 @@ func (s *Server) PlayerFirst() *Player {
 
 func (s *Server) PlayerNext(it *Player) *Player {
 	return asPlayerS(s.Players.Next(it.S()))
-}
-
-func (s *Server) PlayerResetInd(ind ntype.PlayerInd) *Player {
-	return asPlayerS(s.Players.ResetInd(ind))
 }
 
 func (s *Server) NewPlayerInfo(id int) *Player {
@@ -110,10 +106,6 @@ func (p *Player) getServer() *Server {
 
 func (p *Player) field(off uintptr) unsafe.Pointer {
 	return unsafe.Add(unsafe.Pointer(p), off)
-}
-
-func (p *Player) net16() *[255]server.PlayerNetData {
-	return &p.NetData16
 }
 
 func (p *Player) Pos() types.Pointf {
@@ -418,27 +410,25 @@ func (s *Server) GetPlayers() (out []*Player) {
 }
 
 func (s *Server) getPlayerUnits() (out []*Object) {
-	for _, p := range s.GetPlayers() {
-		if u := p.UnitC(); u != nil {
-			out = append(out, u)
-		}
+	for _, u := range s.Players.ListUnits() {
+		out = append(out, asObjectS(u))
 	}
 	return out
 }
 
-func (s *Server) GetPlayerByInd(i ntype.PlayerInd) *Player {
-	return asPlayerS(s.Players.ByInd(i))
+func (s *Server) GetPlayerByInd(i ntype.PlayerInd) *server.Player {
+	return s.Players.ByInd(i)
 }
 
-func (s *Server) GetPlayerByIndRaw(i ntype.PlayerInd) *Player {
-	return asPlayerS(s.Players.ByIndRaw(i))
+func (s *Server) GetPlayerByIndRaw(i ntype.PlayerInd) *server.Player {
+	return s.Players.ByIndRaw(i)
 }
 
-func (s *Server) GetPlayerByID(id int) *Player {
-	return asPlayerS(s.Players.ByID(id))
+func (s *Server) GetPlayerByID(id int) *server.Player {
+	return s.Players.ByID(id)
 }
 
-func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *Player) {
+func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *server.Player) {
 	buf[0] = byte(noxnet.MSG_NEW_PLAYER)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(pl.NetCode()))
 	binary.LittleEndian.PutUint16(buf[100:], uint16(pl.Lessons))
@@ -547,7 +537,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	} else {
 		ptyp = "NewPlayer"
 	}
-	punit := asObjectS(s.NewObjectByTypeID(ptyp))
+	punit := s.NewObjectByTypeID(ptyp)
 	if punit == nil {
 		return 0
 	}
@@ -558,7 +548,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 			}
 		}
 	}
-	pl := s.PlayerResetInd(ind)
+	pl := s.Players.ResetInd(ind)
 	if int8(v5[102]) >= 0 {
 		pl.Field10 = uint16(opts.Screen.X / 2)
 		pl.Field12 = uint16(opts.Screen.Y / 2)
@@ -590,15 +580,15 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	*info = opts.Info
 	info.SetNameSuff("")
 	pl.SetName(pl.OrigName())
-	s.Players.CheckName(pl.S())
-	legacy.Nox_xxx_playerInitColors_461460(pl.S())
-	pl.PlayerUnit = punit.SObj()
+	s.Players.CheckName(pl)
+	legacy.Nox_xxx_playerInitColors_461460(pl)
+	pl.PlayerUnit = punit
 	pl.Field2152 = 0
 	pl.NetCodeVal = punit.NetCode
 	pl.Field2156 = legacy.Nox_xxx_scavengerTreasureMax_4D1600()
 	udata := punit.UpdateDataPlayer()
 	h := punit.HealthData
-	udata.Player = pl.S()
+	udata.Player = pl
 	pl.ProtUnitHPCur = protectUint16(h.Cur)
 	pl.ProtUnitHPMax = protectUint16(h.Max)
 	pl.ProtUnitManaCur = protectUint16(udata.ManaCur)
@@ -622,32 +612,32 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	}
 	legacy.Nox_xxx_netNotifyRate_4D7F10(ind)
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		pl.GoObserver(false, true)
+		asPlayerS(pl).GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeCoopTeam) {
-		legacy.Nox_xxx_netReportPlayerStatus_417630(pl.S())
+		legacy.Nox_xxx_netReportPlayerStatus_417630(pl)
 	} else if pl.Index() == common.MaxPlayers-1 && noxflags.HasEngine(noxflags.EngineNoRendering) {
-		pl.GoObserver(false, true)
+		asPlayerS(pl).GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeChat) {
 		if legacy.Sub_40A740() != 0 {
-			if legacy.Sub_40AA70(pl.S()) == 0 {
-				pl.GoObserver(false, true)
+			if legacy.Sub_40AA70(pl) == 0 {
+				asPlayerS(pl).GoObserver(false, true)
 			}
 		} else if noxflags.HasGamePlay(4) {
-			legacy.Sub_4DF3C0(pl.S())
+			legacy.Sub_4DF3C0(pl)
 		}
 	} else if !noxflags.HasGame(noxflags.GameModeCoop) {
-		pl.GoObserver(true, true)
+		asPlayerS(pl).GoObserver(true, true)
 	}
 	s.sendSettings(punit)
 	if pl.Index() == common.MaxPlayers-1 {
-		s.Players.HostUnit = punit.SObj()
+		s.Players.HostUnit = punit
 	}
 	var v30 [132]byte
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
 	s.NetSendPacketXxx(int(ind)|0x80, v30[:129], 0, 0, 0)
 	pl.Field3676 = 2
 	if false && !noxflags.HasGame(noxflags.GameModeChat) {
-		legacy.Sub_425F10(pl.S())
+		legacy.Sub_425F10(pl)
 	}
 	s.CreateObjectAt(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})
 	s.ObjectsAddPending()
@@ -661,7 +651,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	} else {
 		p28 = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 	}
-	punit.SetPos(p28)
+	asObjectS(punit).SetPos(p28)
 	pl.Sub422140()
 	if ind != common.MaxPlayers-1 {
 		if sub_459D70() == 2 {
@@ -676,7 +666,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	}
 	if noxflags.HasGame(noxflags.GameFlag15 | noxflags.GameFlag16) {
 		if (pl.Field3680 & 1) == 0 {
-			legacy.Sub_509C30(pl.S())
+			legacy.Sub_509C30(pl)
 		}
 	}
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
@@ -690,11 +680,11 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		buf[2] = 1
 		s.NetSendPacketXxx(int(ind), buf[:], 0, 0, 0)
 	}
-	s.CallOnPlayerJoin(pl)
+	s.CallOnPlayerJoin(asPlayerS(pl))
 	return int(punit.NetCode)
 }
 
-func (s *Server) sub_4E8210(u *Object) (types.Pointf, bool) {
+func (s *Server) sub_4E8210(u *server.Object) (types.Pointf, bool) {
 	var (
 		max uint32
 		v2  unsafe.Pointer
@@ -715,18 +705,18 @@ func (s *Server) sub_4E8210(u *Object) (types.Pointf, bool) {
 	}
 	ud := u.UpdateDataPlayer()
 	ud.Field77 = v2
-	out := s.RandomReachablePointAround(60.0, legacy.AsPointf(unsafe.Add(v2, 7*8)))
+	out := s.RandomReachablePointAround(60.0, *(*types.Pointf)(unsafe.Add(v2, 56)))
 	return out, true
 }
 
-func nox_xxx_plrSetSpellType_4F9B90(u *Object) {
+func nox_xxx_plrSetSpellType_4F9B90(u *server.Object) {
+	s := u.Server()
 	ud := u.UpdateDataPlayer()
-	ud.SpellPhonemeLeaf = noxServer.Spells.PhonemeTree()
-	ud.SpellCastStart = noxServer.Frame()
+	ud.SpellPhonemeLeaf = s.Spells.PhonemeTree()
+	ud.SpellCastStart = s.Frame()
 }
 
-func (s *Server) PlayerSpell(su *server.Object) {
-	u := asObjectS(su)
+func (s *Server) PlayerSpell(u *server.Object) {
 	ok2 := true
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
@@ -739,24 +729,24 @@ func (s *Server) PlayerSpell(su *server.Object) {
 	} else if leaf != nil && leaf.Ind != 0 {
 		spellInd := spell.ID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
-			targ := asObjectS(ud.CursorObj)
+			targ := ud.CursorObj
 			if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
-				if targ != nil && !s.IsEnemyTo(u.SObj(), targ.SObj()) {
+				if targ != nil && !s.IsEnemyTo(u, targ) {
 					return
 				}
 			}
 		}
 		if pl.SpellLvl[spellInd] != 0 || spellInd == spell.SPELL_GLYPH {
 			ok2 = false
-			a1 = legacy.Sub_4FD0E0(u.SObj(), spellInd)
+			a1 = legacy.Sub_4FD0E0(u, spellInd)
 			if a1 == 0 {
-				a1 = legacy.Nox_xxx_checkPlrCantCastSpell_4FD150(u.SObj(), spellInd, 0)
+				a1 = legacy.Nox_xxx_checkPlrCantCastSpell_4FD150(u, spellInd, 0)
 			}
 			if a1 != 0 {
 				s.NetInformTextMsg(pl.PlayerIndex(), 0, a1)
 				s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
-				mana := legacy.Sub_4FCF90(u.SObj(), spellInd, 1)
+				mana := legacy.Sub_4FCF90(u, spellInd, 1)
 				if mana < 0 {
 					a1 = 11
 					s.NetInformTextMsg(pl.PlayerIndex(), 0, a1)
@@ -764,14 +754,14 @@ func (s *Server) PlayerSpell(su *server.Object) {
 				} else {
 					arg, v14free := alloc.New(server.SpellAcceptArg{})
 					defer v14free()
-					arg.Obj = pl.Obj3640.SObj()
+					arg.Obj = pl.Obj3640
 					if noxflags.HasGame(noxflags.GameModeQuest) && s.Spells.HasFlags(spellInd, things.SpellOffensive) {
-						if pl.Obj3640 != nil && !s.IsEnemyTo(u.SObj(), pl.Obj3640) {
+						if pl.Obj3640 != nil && !s.IsEnemyTo(u, pl.Obj3640) {
 							arg.Obj = nil
 						}
 					}
 					arg.Pos = pl.CursorPos()
-					if s.nox_xxx_castSpellByUser4FDD20(spellInd, -1, u.SObj(), arg) {
+					if s.nox_xxx_castSpellByUser4FDD20(spellInd, -1, u, arg) {
 						s.NetInformTextMsg(pl.PlayerIndex(), 1, int(spellInd))
 					} else {
 						sub_4FD030(u, mana)
@@ -786,7 +776,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 	}
 	if ok2 {
 		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")
-		legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), v13)
+		legacy.Nox_xxx_netSendLineMessage_4D9EB0(u, v13)
 	} else if a1 != 0 {
 		v4 := ud.SpellPhonemeLeaf
 		s.NetReportSpellStat(pl.Index(), spell.ID(v4.Ind), 0)
@@ -798,9 +788,9 @@ func (s *Server) PlayerSpell(su *server.Object) {
 	}
 }
 
-func sub_4FD030(u *Object, v int) {
+func sub_4FD030(u *server.Object, v int) {
 	if u.Class().Has(object.ClassPlayer) {
-		legacy.Nox_xxx_playerManaAdd_4EEB80(u.SObj(), v)
+		legacy.Nox_xxx_playerManaAdd_4EEB80(u, v)
 	}
 }
 
@@ -940,7 +930,7 @@ func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *server.Object) {
 }
 
 func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj server.Obj) {
-	cobj := toObject(obj).SObj()
+	cobj := server.ToObject(obj)
 	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
 		if pl.CameraTarget().SObj() == cobj {
 			pl.leaveMonsterObserver()
