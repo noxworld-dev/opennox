@@ -16,6 +16,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -711,11 +712,12 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 				v23d := memmap.PtrT[legacy.Nox_savegame_xxx](0x85B3FC, 10980)
 				*v23d = v23
 				noxClient.GamePopState()
-				if int32(*memmap.PtrUint8(0x85B3FC, 12254)) == 0 {
+				switch getPlayerClass() {
+				case player.Warrior:
 					noxServer.nox_xxx_gameSetMapPath_409D70("war01a.map")
-				} else if int32(*memmap.PtrUint8(0x85B3FC, 12254)) == 1 {
+				case player.Wizard:
 					noxServer.nox_xxx_gameSetMapPath_409D70("wiz01a.map")
-				} else if int32(*memmap.PtrUint8(0x85B3FC, 12254)) == 2 {
+				case player.Conjurer:
 					noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
 				}
 				if noxflags.HasGame(noxflags.GameModeCoop) {

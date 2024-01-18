@@ -7630,6 +7630,7 @@ int nox_xxx_plrReadVals_4EEDC0(nox_object_t* a1p, int a2) {
 	int v2;     // ebx
 	int v3;     // edi
 	int v4;     // esi
+	float4 v5a;  // ebp
 	float* v5;  // ebp
 	short v6;   // ax
 	char v7;    // al
@@ -7650,16 +7651,21 @@ int nox_xxx_plrReadVals_4EEDC0(nox_object_t* a1p, int a2) {
 	float v22;  // [esp+14h] [ebp-10h]
 	int v23;    // [esp+18h] [ebp-Ch]
 	char v24;   // [esp+1Ch] [ebp-8h]
+	float4 v25a; // [esp+20h] [ebp-4h]
 	float* v25; // [esp+20h] [ebp-4h]
+	float4 v26a; // [esp+28h] [ebp+4h]
 	float* v26; // [esp+28h] [ebp+4h]
 
 	v2 = a1;
 	v3 = *(uint32_t*)(a1 + 748);
 	v23 = 0;
 	v4 = *(uint32_t*)(v3 + 276);
-	v26 = sub_57B350();
-	v5 = nox_xxx_plrGetMaxVarsPtr_57B360(*(unsigned char*)(v4 + 2251));
-	v25 = nox_xxx_plrGetMaxVarsPtr_57B360(0);
+	v26a = sub_57B350();
+	v5a = nox_xxx_plrGetMaxVarsPtr_57B360(*(unsigned char*)(v4 + 2251));
+	v25a = nox_xxx_plrGetMaxVarsPtr_57B360(0);
+	v26 = &v26a;
+	v5 = &v5a;
+	v25 = &v25a;
 	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
 		*(uint16_t*)(*(uint32_t*)(v2 + 556) + 4) = nox_float2int(*v5);
 		v6 = nox_float2int16_abs(*v5);

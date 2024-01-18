@@ -15,7 +15,14 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-type classStatMult struct {
+type ClassStats struct {
+	Health   float32
+	Mana     float32
+	Speed    float32
+	Strength float32
+}
+
+type ClassStatMult struct {
 	// TODO: health and mana
 
 	Strength float32
@@ -23,11 +30,17 @@ type classStatMult struct {
 }
 
 type serverPlayers struct {
-	list []Player
+	list  []Player
+	Stats struct {
+		Base     ClassStats
+		Warrior  ClassStats
+		Wizard   ClassStats
+		Conjurer ClassStats
+	}
 	Mult struct {
-		Warrior  classStatMult
-		Wizard   classStatMult
-		Conjurer classStatMult
+		Warrior  ClassStatMult
+		Wizard   ClassStatMult
+		Conjurer ClassStatMult
 	}
 	Control  serverCtrlBuf
 	HostUnit *Object
@@ -35,17 +48,34 @@ type serverPlayers struct {
 	playersXxx uint32
 }
 
+func (s *serverPlayers) BaseStats() *ClassStats {
+	return &s.Stats.Base
+}
+
+func (s *serverPlayers) ClassStats(c player.Class) *ClassStats {
+	switch c {
+	case player.Warrior:
+		return &s.Stats.Warrior
+	case player.Wizard:
+		return &s.Stats.Wizard
+	case player.Conjurer:
+		return &s.Stats.Conjurer
+	default:
+		return s.BaseStats()
+	}
+}
+
 func (s *serverPlayers) init() {
 	s.list, _ = alloc.Make([]Player{}, common.MaxPlayers)
-	s.Mult.Warrior = classStatMult{
+	s.Mult.Warrior = ClassStatMult{
 		Strength: 1,
 		Speed:    1,
 	}
-	s.Mult.Wizard = classStatMult{
+	s.Mult.Wizard = ClassStatMult{
 		Strength: 1,
 		Speed:    1,
 	}
-	s.Mult.Conjurer = classStatMult{
+	s.Mult.Conjurer = ClassStatMult{
 		Strength: 1,
 		Speed:    1,
 	}

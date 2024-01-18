@@ -261,7 +261,7 @@ func nox_xxx_parseGamedataBinPre_4D1630() int {
 		return 0
 	}
 	s.abilities.reloadGamedata()
-	s.nox_xxx_loadBaseValues_57B200()
+	s.LoadClassStats()
 	return bool2int(legacy.Nox_xxx_loadMonsterBin_517010() != 0)
 }
 

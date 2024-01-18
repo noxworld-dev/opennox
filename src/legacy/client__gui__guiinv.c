@@ -753,8 +753,10 @@ void nox_client_makePlayerStatsDlg_463880(int* a1) {
 		return;
 	}
 	sub_57B350();
-	float* v70 = nox_xxx_plrGetMaxVarsPtr_57B360(*(unsigned char*)(v4 + 2251));
-	float* v71 = nox_xxx_plrGetMaxVarsPtr_57B360(0);
+	float4 v70a = nox_xxx_plrGetMaxVarsPtr_57B360(*(unsigned char*)(v4 + 2251));
+	float4 v71a = nox_xxx_plrGetMaxVarsPtr_57B360(0);
+	float* v70 = &v70a;
+	float* v71 = &v71a;
 	int v8 = v6 + 11;
 	int v9 = v7 + 15;
 	nox_xxx_drawSetTextColor_434390(v72);

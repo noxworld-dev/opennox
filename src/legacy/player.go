@@ -34,6 +34,7 @@ import "C"
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
@@ -60,6 +61,18 @@ func asPlayerS(p *nox_playerInfo) *server.Player {
 
 func AsPlayerP(p unsafe.Pointer) *server.Player {
 	return (*server.Player)(p)
+}
+
+var _ = [1]struct{}{}[16-unsafe.Sizeof(server.ClassStats{})]
+
+//export sub_57B350
+func sub_57B350() C.float4 {
+	return *(*C.float4)(unsafe.Pointer(GetServer().S().Players.BaseStats()))
+}
+
+//export nox_xxx_plrGetMaxVarsPtr_57B360
+func nox_xxx_plrGetMaxVarsPtr_57B360(cl int) C.float4 {
+	return *(*C.float4)(unsafe.Pointer(GetServer().S().Players.ClassStats(player.Class(cl))))
 }
 
 //export nox_xxx_playerSpell_4FB2A0_magic_plyrspel

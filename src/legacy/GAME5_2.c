@@ -1511,12 +1511,6 @@ int sub_57B190(unsigned short a1, unsigned short a2) {
 	return result;
 }
 
-//----- (0057B350) --------------------------------------------------------
-float* sub_57B350() { return getMemFloatPtr(0x5D4594, 2523812); }
-
-//----- (0057B360) --------------------------------------------------------
-float* nox_xxx_plrGetMaxVarsPtr_57B360(int a1) { return getMemFloatPtr(0x5D4594, 2523828 + 16 * a1); }
-
 //----- (0057B3D0) --------------------------------------------------------
 int nox_cheat_allowall = 0;
 
