@@ -1309,6 +1309,12 @@ func (obj *Object) SetDialogPortrait(name string) {
 	alloc.StrCopy(ud.DialogPortraitBuf[:], name)
 }
 
+func (obj *Object) CallInit() {
+	if obj.Init != nil {
+		ccall.CallVoidPtr(obj.Init, obj.CObj())
+	}
+}
+
 func (obj *Object) CallUpdate() {
 	if obj.Update == nil {
 		return
@@ -1643,12 +1649,10 @@ func (s *Server) ItemsApplyUpdateEffect(obj *Object) {
 	for it := obj.InvFirstItem; it != nil; it = it.InvNextItem {
 		const maskItems = object.ClassFlag | object.ClassWeapon | object.ClassArmor | object.ClassWand
 		if it.Flags().Has(object.FlagEquipped) && it.Class().HasAny(maskItems) {
-			idata := unsafe.Slice((*unsafe.Pointer)(it.InitData), 4)
-			for _, mod := range idata {
+			idata := it.InitDataModifier()
+			for _, mod := range idata.Modifiers {
 				if mod != nil {
-					if fnc := *(*unsafe.Pointer)(unsafe.Add(mod, 100)); fnc != nil {
-						ccall.CallVoidPtr3(fnc, mod, it.SObj().CObj(), nil)
-					}
+					mod.CallUpdateNil(obj)
 				}
 			}
 		}
