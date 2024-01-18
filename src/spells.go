@@ -201,6 +201,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	}
 	var fnc func(spellID spell.ID, a2, a3, a4 *server.Object, a5 *server.SpellAcceptArg, lvl int) int
 	effectID := sp.Effect
+	levelIsSafe := false
 	switch effectID {
 	case spell.SPELL_ANCHOR:
 		fnc = castAnchor
@@ -282,6 +283,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 		fnc = legacy.Sub_52CBD0
 	case spell.SPELL_MAGIC_MISSILE:
 		fnc = s.spells.missiles.Cast
+		levelIsSafe = true
 	case spell.SPELL_SHIELD:
 		return s.spells.duration.New(spellID, a2, obj5.SObj(), obj4, sa, lvl, legacy.Get_nox_xxx_castShield1_52F5A0(), legacy.Get_sub_52F650(), legacy.Get_sub_52F670(), 0)
 	case spell.SPELL_METEOR:
@@ -390,6 +392,12 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, legacy.Get_nox_xxx_spellWallCreate_4FFA90(), legacy.Get_nox_xxx_spellWallUpdate_500070(), legacy.Get_nox_xxx_spellWallDestroy_500080(), 0)
 	default:
 		return true
+	}
+	// Legacy spells assume spell level 5 is max. Higher level may overflow internal arrays in the blob.
+	// For example, Fireball will check which object name the missile must have at this level and will overflow.
+	// TODO: remove this when we are ready
+	if !levelIsSafe && lvl > 5 {
+		lvl = 5
 	}
 	v9 := fnc(spellID, a2, obj3, obj4, sa, lvl)
 	if v9 == 0 {
