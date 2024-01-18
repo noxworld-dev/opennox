@@ -2102,7 +2102,7 @@ func sub_466F50(win *gui.Window, draw *gui.WindowData) int {
 					break
 				}
 			}
-			v11 = &v6.Effectiveness36
+			v11 = v6.ColorIndexes()
 			v12 = (**uint8)(v9)
 			v13 = 4
 			for {

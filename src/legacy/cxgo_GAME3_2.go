@@ -5162,8 +5162,8 @@ func nox_xxx_netNewPlayerMakePacket_4DDA90(buf *uint8, pl *server.Player) {
 	*(*uint16)(unsafe.Add(unsafe.Pointer(buf), 1)) = uint16(pl.NetCodeVal)
 	*(*uint16)(unsafe.Add(unsafe.Pointer(buf), 100)) = uint16(int16(pl.Lessons))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(buf), 102)) = uint16(pl.Field2140)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(buf), 104)) = pl.Field0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(buf), 108)) = pl.Field4
+	*(*uint32)(unsafe.Add(unsafe.Pointer(buf), 104)) = pl.ArmorEquip
+	*(*uint32)(unsafe.Add(unsafe.Pointer(buf), 108)) = pl.WeaponEquip
 	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 116)) = uint8(pl.Field2152)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 117)) = uint8(pl.Field2156)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 118)) = uint8(int8(bool2int32(int32(pl.Field3676) == 3)))

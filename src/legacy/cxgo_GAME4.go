@@ -1733,7 +1733,7 @@ func nox_xxx_playerSetState_4FA020(a1p *server.Object, a2 int32) int32 {
 LABEL_26:
 	if v5.Field0 <= gameFrame() {
 		v8 := v5.Player
-		v9 = int32(v8.Field4)
+		v9 = int32(v8.WeaponEquip)
 		v5.Field0 = 0
 		if v9 != 0 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(v8), 8)) = 0

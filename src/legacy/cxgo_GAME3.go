@@ -3535,7 +3535,7 @@ func nox_xxx_gameDeleteSpiningCrownSkull_4B8220() {
 	dword_5d4594_1313796 = nil
 	dword_5d4594_1313800 = nil
 }
-func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, a4 *uint32, panim *client.PlayerAnimation, fi int32) {
+func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, earr *[server.PlayerArmorCnt]server.EquipmentData, panim *client.PlayerAnimation, fi int32) {
 	eff := nox_client_drawable_testBuff_4356C0(dr, 23)
 	cl := nox_color_blue_2650684
 	if gameFrame()%2 != 0 {
@@ -3553,7 +3553,7 @@ func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, a4 *u
 								nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
 							}
 						} else {
-							sub_4B8CA0(a4, 2)
+							sub_4B8CA0(earr, 2)
 						}
 						frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
 						nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
@@ -3581,7 +3581,7 @@ func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, a4 *u
 						nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
 					}
 				} else {
-					sub_4B8CA0(a4, 1<<i)
+					sub_4B8CA0(earr, 1<<i)
 				}
 				frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
 				nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
@@ -3601,7 +3601,7 @@ func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, a4 *u
 							nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
 						}
 					} else {
-						sub_4B8CA0(a4, 2)
+						sub_4B8CA0(earr, 2)
 					}
 					frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
 					nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
@@ -3623,7 +3623,7 @@ func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, a4 *u
 							nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
 						}
 					} else {
-						sub_4B8CA0(a4, uint32(bit))
+						sub_4B8CA0(earr, uint32(bit))
 					}
 					frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
 					nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
@@ -3633,74 +3633,39 @@ func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, a4 *u
 		}
 	}
 }
-func sub_4B8CA0(a1 *uint32, bit uint32) {
-	var (
-		v3  int32
-		v4  int32
-		v8  int32
-		v9  *uint8
-		v10 *uint32
-		v11 int32
-		v12 *int32
-		v13 int32
-		v14 **uint32
-		v15 int32
-	)
-	r1 := a1
-	v3 = 0
-	for *r1 != bit {
-		v3++
-		r1 = (*uint32)(unsafe.Add(unsafe.Pointer(r1), 4*6))
-		if v3 >= 26 {
-			return
+func sub_4B8CA0(earr *[server.PlayerArmorCnt]server.EquipmentData, bit uint32) {
+	var found *server.EquipmentData
+	for i := range earr {
+		e := &earr[i]
+		if e.Field0 == bit {
+			found = e
+			break
 		}
 	}
-	v4 = sub_415CD0(bit)
-	r3 := nox_xxx_equipClothFindDefByTT_413270(v4)
-	v7 := r3
-	if r3 == nil {
+	if found == nil {
 		return
 	}
-	v8 = 1
-	v9 = (*uint8)(unsafe.Add(unsafe.Pointer(r3), 4*4))
-	for {
-		r4 := *(*uint8)(unsafe.Add(unsafe.Pointer(v9), 1))
-		v6 := *v9
-		v5 := *(*uint8)(unsafe.Add(unsafe.Pointer(v9), -1))
-		nox_draw_setMaterial_4340A0(func() int32 {
-			p := &v8
-			x := *p
-			*p++
-			return x
-		}(), int32(v5), int32(v6), int32(r4))
-		v9 = (*uint8)(unsafe.Add(unsafe.Pointer(v9), 3))
-		if v8 >= 7 {
-			break
-		}
+	id := sub_415CD0(bit)
+	m := nox_xxx_equipClothFindDefByTT_413270(id)
+	if m == nil {
+		return
 	}
-	v10 = a1
-	v11 = v3 * 3
-	v12 = &v7.Effectiveness36
-	v13 = 4
-	v14 = (**uint32)(unsafe.Add(unsafe.Pointer(a1), 4*uintptr(v11*2+1)))
-	for {
-		r5 := *v14
-		if *v14 != nil {
-			v5a := *(*uint8)(unsafe.Add(unsafe.Pointer(r5), 26))
-			*(*uint8)(unsafe.Pointer(&v10)) = *(*uint8)(unsafe.Add(unsafe.Pointer(r5), 25))
-			v15 = int32(v5a)
-			v5b := *(*uint8)(unsafe.Add(unsafe.Pointer(r5), 24))
-			nox_draw_setMaterial_4340A0(*v12, int32(v5b), int32(uintptr(unsafe.Pointer(v10))), v15)
-		}
-		v14 = (**uint32)(unsafe.Add(unsafe.Pointer(v14), unsafe.Sizeof((*uint32)(nil))*1))
-		v12 = (*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1))
-		v13--
-		if v13 == 0 {
-			break
+	for i := 0; i < 6; i++ { // TODO: are bounds correct?
+		cl := m.Colors12[i]
+		nox_draw_setMaterial_4340A0(int32(i+1), int32(cl.R), int32(cl.G), int32(cl.B))
+	}
+	inds := m.ColorIndexes()
+	for i := 0; i < 4; i++ {
+		p := found.Field4[i]
+		if p != nil {
+			r := *(*uint8)(unsafe.Add(p, 24))
+			g := *(*uint8)(unsafe.Add(p, 25))
+			b := *(*uint8)(unsafe.Add(p, 26))
+			nox_draw_setMaterial_4340A0(inds[i], int32(r), int32(g), int32(b))
 		}
 	}
 }
-func sub_4B8D40(vp *noxrender.Viewport, dr *client.Drawable, equp uint32, a4 *uint32, panim *client.PlayerAnimation, fi int32) {
+func sub_4B8D40(vp *noxrender.Viewport, dr *client.Drawable, equp uint32, earr *[server.PlayerWeaponCnt]server.EquipmentData, panim *client.PlayerAnimation, fi int32) {
 	eff := nox_client_drawable_testBuff_4356C0(dr, 25)
 	cl := nox_color_blue_2650684
 	if gameFrame()%2 != 0 {
@@ -3719,78 +3684,41 @@ func sub_4B8D40(vp *noxrender.Viewport, dr *client.Drawable, equp uint32, a4 *ui
 				nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
 			}
 		} else {
-			sub_4B8E10(a4, 1<<i)
+			sub_4B8E10(earr, 1<<i)
 		}
 		frames := panim.FramesSlice(eani.Frames[dr.AnimDir])
 		nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
 	}
 }
-func sub_4B8E10(a1 *uint32, bit uint32) {
-	var (
-		v3  int32
-		v4  int32
-		v5  int32
-		v6  int32
-		v8  int32
-		v9  *uint8
-		v10 *uint32
-		v11 int32
-		v12 *int32
-		v13 int32
-		v14 **uint32
-		v15 int32
-	)
-	r1 := a1
-	v3 = 0
-	for *r1 != bit {
-		v3++
-		r1 = (*uint32)(unsafe.Add(unsafe.Pointer(r1), 4*6))
-		if v3 >= 27 {
-			return
+func sub_4B8E10(earr *[server.PlayerWeaponCnt]server.EquipmentData, bit uint32) {
+	var found *server.EquipmentData
+	for i := range earr {
+		e := &earr[i]
+		if e.Field0 == bit {
+			found = e
+			break
 		}
 	}
-	v4 = sub_415840(bit)
-	r3 := nox_xxx_getProjectileClassById_413250(v4)
-	v7 := r3
-	if r3 == nil {
+	if found == nil {
 		return
 	}
-	v8 = 1
-	v9 = (*uint8)(unsafe.Add(unsafe.Pointer(r3), 4*4))
-	for {
-		r4 := *(*uint8)(unsafe.Add(unsafe.Pointer(v9), 1))
-		*(*uint8)(unsafe.Pointer(&v6)) = *v9
-		*(*uint8)(unsafe.Pointer(&v5)) = *(*uint8)(unsafe.Add(unsafe.Pointer(v9), -1))
-		nox_draw_setMaterial_4340A0(func() int32 {
-			p := &v8
-			x := *p
-			*p++
-			return x
-		}(), v5, v6, int32(r4))
-		v9 = (*uint8)(unsafe.Add(unsafe.Pointer(v9), 3))
-		if v8 >= 7 {
-			break
-		}
+	id := sub_415840(bit)
+	m := nox_xxx_getProjectileClassById_413250(id)
+	if m == nil {
+		return
 	}
-	v10 = a1
-	v11 = v3 * 3
-	v12 = &v7.Effectiveness36
-	v13 = 4
-	v14 = (**uint32)(unsafe.Add(unsafe.Pointer(a1), 4*uintptr(v11*2+1)))
-	for {
-		r5 := *v14
-		if *v14 != nil {
-			*(*uint8)(unsafe.Pointer(&v5)) = *(*uint8)(unsafe.Add(unsafe.Pointer(r5), 26))
-			*(*uint8)(unsafe.Pointer(&v10)) = *(*uint8)(unsafe.Add(unsafe.Pointer(r5), 25))
-			v15 = v5
-			*(*uint8)(unsafe.Pointer(&v5)) = *(*uint8)(unsafe.Add(unsafe.Pointer(r5), 24))
-			nox_draw_setMaterial_4340A0(*v12, v5, int32(uintptr(unsafe.Pointer(v10))), v15)
-		}
-		v14 = (**uint32)(unsafe.Add(unsafe.Pointer(v14), unsafe.Sizeof((*uint32)(nil))*1))
-		v12 = (*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1))
-		v13--
-		if v13 == 0 {
-			break
+	for i := 0; i < 5; i++ { // TODO: are bounds correct?
+		cl := m.Colors12[i]
+		nox_draw_setMaterial_4340A0(int32(i+1), int32(cl.R), int32(cl.G), int32(cl.B))
+	}
+	inds := m.ColorIndexes()
+	for i := 0; i < 4; i++ {
+		p := found.Field4[i]
+		if p != nil {
+			r := *(*uint8)(unsafe.Add(p, 24))
+			g := *(*uint8)(unsafe.Add(p, 25))
+			b := *(*uint8)(unsafe.Add(p, 26))
+			nox_draw_setMaterial_4340A0(inds[i], int32(r), int32(g), int32(b))
 		}
 	}
 }

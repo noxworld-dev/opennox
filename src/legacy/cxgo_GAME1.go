@@ -2940,7 +2940,7 @@ func nox_xxx_clientEquipWeaponArmor_417AA0(a1 int8, a2 int32, a3 int32, a4 unsaf
 	}
 	if int32(a1) == 81 || int32(a1) == 80 {
 		v9 = (*byte)(unsafe.Add(unsafe.Pointer(pl), 2324))
-		pl.Field4 |= uint32(a3)
+		pl.WeaponEquip |= uint32(a3)
 		v10 = 0
 		for *(*uint32)(unsafe.Pointer(v9)) != 0 {
 			v10++

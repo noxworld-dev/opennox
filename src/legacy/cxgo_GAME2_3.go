@@ -19,7 +19,7 @@ import (
 )
 
 var nox_max_npcs int32 = 1024
-var npc_array *nox_npc
+var npc_array *server.NPC
 var nox_draw_curDrawData_3799572 *noxrender.RenderData
 var nox_gui_wol_servers_list nox_list_item_t = nox_list_item_t{}
 
@@ -2451,40 +2451,40 @@ func sub_499F60(a1 int32, a2 int32, a3 int32, a4 int16, a5 int8, a6 int8, a7 int
 	}
 }
 func nox_alloc_npcs() {
-	arr, _ := alloc.Make([]nox_npc{}, int(nox_max_npcs))
+	arr, _ := alloc.Make([]server.NPC{}, int(nox_max_npcs))
 	npc_array = &arr[0]
 }
-func nox_new_npc(id int32) *nox_npc {
+func nox_new_npc(id int32) *server.NPC {
 	arr := unsafe.Slice(npc_array, nox_max_npcs)
 	for i := range arr {
 		cur := &arr[i]
-		if cur.live == 0 {
+		if cur.LiveVal == 0 {
 			nox_init_npc(cur, id)
 			return cur
 		}
 	}
 	return nil
 }
-func nox_npc_by_id(id int32) *nox_npc {
+func nox_npc_by_id(id int32) *server.NPC {
 	arr := unsafe.Slice(npc_array, nox_max_npcs)
 	for i := range arr {
 		cur := &arr[i]
-		if cur.id == id && cur.live != 0 {
+		if cur.IDVal == id && cur.LiveVal != 0 {
 			return cur
 		}
 	}
 	return nil
 }
-func nox_init_npc(ptr *nox_npc, id int32) int32 {
-	*ptr = nox_npc{}
-	ptr.live = 1
-	ptr.id = id
+func nox_init_npc(ptr *server.NPC, id int32) int32 {
+	*ptr = server.NPC{}
+	ptr.LiveVal = 1
+	ptr.IDVal = id
 	return id
 }
-func nox_npc_set_328(id int32, a2 int32) *nox_npc {
-	var p *nox_npc = nox_npc_by_id(id)
+func nox_npc_set_328(id int32, a2 int32) *server.NPC {
+	p := nox_npc_by_id(id)
 	if p != nil {
-		p.field1312 = uint32(a2)
+		p.Field1312 = uint32(a2)
 	}
 	return p
 }
@@ -2501,7 +2501,7 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 	}
 	if int32(a1) == 81 || int32(a1) == 80 {
 		var v10 int32 = 0
-		for i = &npc.field32; *i != 0; i = (*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)) {
+		for i = &npc.Weapon; *i != 0; i = (*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)) {
 			if func() int32 {
 				p := &v10
 				*p++
@@ -2513,14 +2513,14 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 		v12 = (*byte)(unsafe.Add(unsafe.Pointer(npc), v10*24))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*8)) = uint32(a3)
 		v13 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(v12), 36))
-		npc.field1304 |= uint32(a3)
+		npc.WeaponEquip |= uint32(a3)
 		for j := 0; j < 4; j++ {
 			mod := nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, j))))
 			v13[j] = mod
 		}
 	} else {
 		var v5 int32 = 0
-		for k = &npc.field680; *k != 0; k = (*uint32)(unsafe.Add(unsafe.Pointer(k), 4*6)) {
+		for k = &npc.Armor; *k != 0; k = (*uint32)(unsafe.Add(unsafe.Pointer(k), 4*6)) {
 			if func() int32 {
 				p := &v5
 				*p++
@@ -2532,7 +2532,7 @@ func nox_xxx_clientEquip_49A3D0(a1 int8, a2 int32, a3 int32, a4 unsafe.Pointer) 
 		v7 = (*byte)(unsafe.Add(unsafe.Pointer(npc), v5*24))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*170)) = uint32(a3)
 		v8 := (*[4]*server.ModifierEff)(unsafe.Add(unsafe.Pointer(v7), 684))
-		npc.field1308 |= uint32(a3)
+		npc.ArmorEquip |= uint32(a3)
 		for l := 0; l < 4; l++ {
 			mod := nox_xxx_modifGetDescById_413330(int32(*(*uint8)(unsafe.Add(a4, l))))
 			v8[l] = mod

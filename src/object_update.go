@@ -229,7 +229,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		return a1, v68, true
 	case 1:
 		if legacy.Nox_xxx_playerAttack_538960(u.SObj()) == 0 {
-			if pl.Field4&4 != 0 {
+			if pl.WeaponEquip&4 != 0 {
 				nox_xxx_playerSetState_4FA020(u, 14)
 				u.Field34 = s.Frame()
 			} else {
@@ -334,7 +334,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		if legacy.Sub_4F9A80(u.SObj()) != 0 {
 			nox_xxx_playerSetState_4FA020(u, 0)
 		}
-		if noxflags.HasGame(noxflags.GameModeChat) || (pl.Field0&0x3000000 == 0) || legacy.Nox_xxx_monsterTestBlockShield_533E70(u.SObj()) == 0 &&
+		if noxflags.HasGame(noxflags.GameModeChat) || (pl.ArmorEquip&0x3000000 == 0) || legacy.Nox_xxx_monsterTestBlockShield_533E70(u.SObj()) == 0 &&
 			(int(s.Frame())-int(u.Field34)) <= int(s.TickRate())/4 {
 			return a1, v68, true
 		}
@@ -528,7 +528,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 			if legacy.Nox_xxx_playerCanMove_4F9BC0(u.SObj()) != 0 {
 				legacy.Nox_xxx_cancelAllSpells_4FEE90(u.SObj())
 				if !s.Abils.IsActive(u.SObj(), server.AbilityBerserk) &&
-					(ud.State != 1 || (pl.Field4&0x47F0000 != 0) && legacy.Nox_common_mapPlrActionToStateId_4FA2B0(u.SObj()) != 29) {
+					(ud.State != 1 || (pl.WeaponEquip&0x47F0000 != 0) && legacy.Nox_common_mapPlrActionToStateId_4FA2B0(u.SObj()) != 29) {
 					if ud.State == 16 {
 						nox_xxx_playerSetState_4FA020(u, 17)
 					} else {

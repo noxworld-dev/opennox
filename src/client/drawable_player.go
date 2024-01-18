@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var _ = [1]struct{}{}[40-unsafe.Sizeof(PlayerEquipAnimation{})]
@@ -16,10 +17,10 @@ type PlayerEquipAnimation struct {
 var _ = [1]struct{}{}[264-unsafe.Sizeof(PlayerAnimation{})]
 
 type PlayerAnimation struct {
-	Base   AnimationVector                            // 0, 0
-	Naked  *PlayerEquipAnimation                      // 12, 48
-	Armor  [playerAnimArmorCnt]*PlayerEquipAnimation  // 13, 52
-	Weapon [playerAnimWeaponCnt]*PlayerEquipAnimation // 39, 156
+	Base   AnimationVector                               // 0, 0
+	Naked  *PlayerEquipAnimation                         // 12, 48
+	Armor  [server.PlayerArmorCnt]*PlayerEquipAnimation  // 13, 52
+	Weapon [server.PlayerWeaponCnt]*PlayerEquipAnimation // 39, 156
 }
 
 func (a *PlayerAnimation) FramesSlice(ptr *noxrender.ImageHandle) []noxrender.ImageHandle {
@@ -34,9 +35,7 @@ type PlayerDrawData struct {
 }
 
 const (
-	playerAnimCnt       = 55
-	playerAnimArmorCnt  = 26
-	playerAnimWeaponCnt = 27
+	playerAnimCnt = 55
 )
 
 var playerAnimations = [playerAnimCnt]string{
@@ -97,7 +96,7 @@ var playerAnimations = [playerAnimCnt]string{
 	"HARPOONTHROW",
 }
 
-var playerAnimationsArmor = [playerAnimArmorCnt]string{
+var playerAnimationsArmor = [server.PlayerArmorCnt]string{
 	0:  "STREET_SNEAKERS",
 	1:  "MEDIEVAL_CLOAK",
 	2:  "STREET_PANTS",
@@ -126,7 +125,7 @@ var playerAnimationsArmor = [playerAnimArmorCnt]string{
 	25: "KITE_SHIELD",
 }
 
-var playerAnimationsWeapons = [playerAnimWeaponCnt]string{
+var playerAnimationsWeapons = [server.PlayerWeaponCnt]string{
 	"FLAG",
 	"QUIVER",
 	"BOW",

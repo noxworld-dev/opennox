@@ -48,7 +48,7 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		}
 	}
 	teamsEnabled := nox_xxx_getTeamCounter_417DD0() != 0
-	if pl.Field4&0x1 != 0 {
+	if pl.WeaponEquip&0x1 != 0 {
 		var vp2 noxrender.Viewport
 		vp2.Screen.Max = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
 		vp2.Size = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
@@ -59,14 +59,13 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			dword_5d4594_1313792 = flag
 		}
 		if dword_5d4594_1313792 != nil {
-			v15 := &pl.Field2324
-			for i := 0; i < 27; i++ {
-				if *v15 == 1 {
-					alloc.Memcpy(unsafe.Add(unsafe.Pointer(flag), 4*108), unsafe.Add(unsafe.Pointer(pl), i*24+2328), 0x14)
+			for i := range pl.Weapon {
+				v15 := &pl.Weapon[i]
+				if v15.Field0 == 1 {
+					*(*[5]uint32)(unsafe.Add(unsafe.Pointer(flag), 4*108)) = *(*[5]uint32)(unsafe.Pointer(&v15.Field4))
 					flag = dword_5d4594_1313792
 					break
 				}
-				v15 = (*uint32)(unsafe.Add(unsafe.Pointer(v15), 4*6))
 			}
 			flag.PosVec.X = dr.PosVec.X - vp.World.Min.X + vp.Screen.Min.X + 15
 			dword_5d4594_1313792.PosVec.Y = vp.Screen.Min.Y - vp.World.Min.Y + dr.PosVec.Y - 25
@@ -133,13 +132,13 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	// rotation). The quiver is unique because it is on the player's back, e.g.
 	// it must be drawn first, then the body, then the rest of the armor.
 	if dr.AnimDir != 1 && dr.AnimDir != 0 && dr.AnimDir != 2 && dr.AnimDir != 3 && dr.AnimDir != 6 || dr.AnimInd == 37 {
-		sub_4B8D40(vp, dr, pl.Field4&2, &pl.Field2324, panim, fi)
-		sub_4B8960(vp, dr, pl.Field0, &pl.Field2972, panim, fi)
-		sub_4B8D40(vp, dr, pl.Field4&^2, &pl.Field2324, panim, fi)
+		sub_4B8D40(vp, dr, pl.WeaponEquip&2, &pl.Weapon, panim, fi)
+		sub_4B8960(vp, dr, pl.ArmorEquip, &pl.Armor, panim, fi)
+		sub_4B8D40(vp, dr, pl.WeaponEquip&^2, &pl.Weapon, panim, fi)
 	} else {
-		sub_4B8D40(vp, dr, pl.Field4&^2, &pl.Field2324, panim, fi)
-		sub_4B8960(vp, dr, pl.Field0, &pl.Field2972, panim, fi)
-		sub_4B8D40(vp, dr, pl.Field4&2, &pl.Field2324, panim, fi)
+		sub_4B8D40(vp, dr, pl.WeaponEquip&^2, &pl.Weapon, panim, fi)
+		sub_4B8960(vp, dr, pl.ArmorEquip, &pl.Armor, panim, fi)
+		sub_4B8D40(vp, dr, pl.WeaponEquip&2, &pl.Weapon, panim, fi)
 	}
 	if !(v30 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.NetCode32 == nox_player_netCode_85319C || *memmap.PtrT[*client.Drawable](0x852978, 8) != nil && (nox_client_drawable_testBuff_4356C0(*memmap.PtrT[*client.Drawable](0x852978, 8), 21) || v31)) {
 		return 1

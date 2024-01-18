@@ -6689,7 +6689,7 @@ func nox_xxx_playerMakeDefItems_4EF7D0(a1 *server.Object, a2 int32, a3 int32) {
 		v10 = nox_xxx_modifGetIdByName_413290(internCStr("UserColor1"))
 		v11 := nox_xxx_modifGetDescById_413330(v10)
 		if noxflags.HasGame(2560) || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4.Player), 2251))) != 0 {
-			v12 = int32(v4.Player.Field0)
+			v12 = int32(v4.Player.ArmorEquip)
 			if (v12 & 0x400) == 0 {
 				*(*uint32)(unsafe.Pointer(&v18[0])) = 0
 				*(**server.ModifierEff)(unsafe.Pointer(&v18[4])) = nox_xxx_modifGetDescById_413330(int32(v11.Ind4 + uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v19), 84)))))
@@ -6698,14 +6698,14 @@ func nox_xxx_playerMakeDefItems_4EF7D0(a1 *server.Object, a2 int32, a3 int32) {
 				nox_xxx_playerRespawnItem_4EF750(v3, internCStr("StreetShirt"), (*int32)(unsafe.Pointer(&v18[0])), 1, 0)
 			}
 		}
-		if (int32(v4.Player.Field0) & 4) == 0 {
+		if (int32(v4.Player.ArmorEquip) & 4) == 0 {
 			*(*uint32)(unsafe.Pointer(&v18[0])) = 0
 			*(**server.ModifierEff)(unsafe.Pointer(&v18[4])) = nox_xxx_modifGetDescById_413330(int32(v11.Ind4 + uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v19), 83)))))
 			*(*uint32)(unsafe.Pointer(&v18[8])) = 0
 			*(*uint32)(unsafe.Pointer(&v18[12])) = 0
 			nox_xxx_playerRespawnItem_4EF750(v3, internCStr("StreetPants"), (*int32)(unsafe.Pointer(&v18[0])), 1, 0)
 		}
-		if (int32(v4.Player.Field0) & 1) == 0 {
+		if (int32(v4.Player.ArmorEquip) & 1) == 0 {
 			*(**server.ModifierEff)(unsafe.Pointer(&v18[0])) = nox_xxx_modifGetDescById_413330(int32(v11.Ind4 + uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v19), 87)))))
 			*(**server.ModifierEff)(unsafe.Pointer(&v18[4])) = nox_xxx_modifGetDescById_413330(int32(v11.Ind4 + uint32(*(*uint8)(unsafe.Add(unsafe.Pointer(v19), 86)))))
 			*(*uint32)(unsafe.Pointer(&v18[8])) = 0

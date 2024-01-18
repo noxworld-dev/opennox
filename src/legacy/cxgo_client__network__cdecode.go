@@ -1436,7 +1436,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 			if v288 != nil {
 				k = int32(uintptr(unsafe.Add(unsafe.Pointer(v288), 8)))
 				v289 = (*uint8)(unsafe.Add(unsafe.Pointer(data), 4))
-				v358 = &v288.color8[0]
+				v358 = &v288.Color8[0]
 				v360 = 6
 				for {
 					*(*uint8)(unsafe.Add(unsafe.Pointer(&v5), 4)) = *(*uint8)(unsafe.Add(unsafe.Pointer(v289), 1))
@@ -1453,7 +1453,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 						break
 					}
 				}
-				v288.field1312 = uint32(v287)
+				v288.Field1312 = uint32(v287)
 			}
 		}
 		return 21

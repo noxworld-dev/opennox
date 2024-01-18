@@ -1383,7 +1383,7 @@ func nox_xxx_monsterMainAIFn_547210(u *server.Object) {
 	}
 	if ud.StatusFlags.Has(object.MonStatusBot) {
 		v3 := ud.UpdateDataBot.Player
-		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 2251)))) == 0 && v3.Field4 == 0 && (int32(uint8(gameFrame()))&0xF) == 0 {
+		if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(v3), 2251)))) == 0 && v3.WeaponEquip == 0 && (int32(uint8(gameFrame()))&0xF) == 0 {
 			if v3b := sub_544AE0(a1, 75.0); v3b != nil {
 				nox_xxx_mobMorphToPlayer_4FAAF0(u)
 				nox_xxx_inventoryServPlace_4F36F0(u, v3b, 1, 1)

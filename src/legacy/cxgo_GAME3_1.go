@@ -89,7 +89,7 @@ func sub_4B95D0(dr *client.Drawable) {
 			break
 		}
 	}
-	v7 = &v4.Effectiveness36
+	v7 = v4.ColorIndexes()
 	v8 = (**uint32)(unsafe.Add(unsafe.Pointer(a1), 432))
 	v9 = 4
 	for {
@@ -170,7 +170,7 @@ func sub_4B96F0(dr *client.Drawable) {
 			break
 		}
 	}
-	v7 = &v4.Effectiveness36
+	v7 = v4.ColorIndexes()
 	v8 = (**uint32)(unsafe.Add(unsafe.Pointer(a1), 432))
 	v9 = 4
 	for {

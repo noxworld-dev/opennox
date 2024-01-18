@@ -4958,7 +4958,7 @@ func nox_xxx_playerDequipWeapon_53A140(obj *server.Object, item *server.Object, 
 	sub_4FEB60(obj, item)
 	if eflags == 2 {
 		item.ObjFlags &= 0xFFFFFEFF
-		ud.Player.Field4 &= 0xFFFFFFFD
+		ud.Player.WeaponEquip &= 0xFFFFFFFD
 		if a3 != 0 {
 			nox_xxx_netReportDequip_4D8590(int32(ud.Player.PlayerInd), item)
 		}
@@ -4968,7 +4968,7 @@ func nox_xxx_playerDequipWeapon_53A140(obj *server.Object, item *server.Object, 
 	} else if ud.Field26 != nil {
 		v13 := ud.Field26
 		v13.ObjFlags &= 0xFFFFFEFF
-		ud.Player.Field4 &= ^nox_xxx_weaponInventoryEquipFlags_415820(v13)
+		ud.Player.WeaponEquip &= ^nox_xxx_weaponInventoryEquipFlags_415820(v13)
 		if a3 != 0 {
 			nox_xxx_netReportDequip_4D8590(int32(ud.Player.PlayerInd), v13)
 		}
@@ -5124,7 +5124,7 @@ func nox_xxx_playerEquipWeapon_53A420(obj *server.Object, item *server.Object, a
 	v11 := int32(item.ObjFlags)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&v11), 1)) |= 1
 	item.ObjFlags = uint32(v11)
-	ud.Player.Field4 |= v4
+	ud.Player.WeaponEquip |= v4
 	nox_xxx_netReportEquip_4D8540(int32(ud.Player.PlayerInd), item, a3)
 	if v4 != 2 {
 		ud.Field26 = item

@@ -110,7 +110,7 @@ type Modifier struct {
 	Name0                *byte       // 0, 0
 	Ind4                 uint32      // 1, 4
 	Desc8                *uint16     // 2, 8
-	colors12             [8]ModColor // 3, 12
+	Colors12             [8]ModColor // 3, 12
 	Effectiveness36      int32       // 9, 36
 	Material40           int32       // 10, 40
 	PriEnchant44         int32       // 11, 44
@@ -143,6 +143,10 @@ func (p *Modifier) Index() int {
 
 func (p *Modifier) Desc() string {
 	return alloc.GoString16(p.Desc8)
+}
+
+func (p *Modifier) ColorIndexes() *[4]int32 {
+	return (*[4]int32)(unsafe.Pointer(&p.Effectiveness36))
 }
 
 type ModifierEffFnc[T any] struct {
@@ -249,12 +253,12 @@ func (s *serverModifiers) nox_xxx_parseWeaponOrArmorDef412D40(head **Modifier, a
 		if w.Desc != "" {
 			p.Desc8, _ = alloc.CString16(s.sm.GetStringInFile(strman.ID(w.Desc), "Modifier.c"))
 		}
-		for i := range p.colors12 {
-			p.colors12[i] = ModColor{R: 0xff, G: 0xff, B: 0xff}
+		for i := range p.Colors12 {
+			p.Colors12[i] = ModColor{R: 0xff, G: 0xff, B: 0xff}
 		}
 		for i, c := range w.Colors {
 			cl := c.Color
-			p.colors12[i+1] = ModColor{R: byte(cl.R), G: byte(cl.G), B: byte(cl.B)}
+			p.Colors12[i+1] = ModColor{R: byte(cl.R), G: byte(cl.G), B: byte(cl.B)}
 		}
 		if w.Effectiveness >= 0 {
 			p.Effectiveness36 = int32(w.Effectiveness) + 1

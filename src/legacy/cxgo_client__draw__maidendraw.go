@@ -14,7 +14,7 @@ func nox_thing_maiden_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			return 1
 		}
 		for i := 0; i < 6; i++ {
-			nox_draw_setMaterial_4341D0(int32(i+1), int32(npc.color8[i]))
+			nox_draw_setMaterial_4341D0(int32(i+1), int32(npc.Color8[i]))
 		}
 		return nox_thing_monster_draw(vp, dr)
 	}

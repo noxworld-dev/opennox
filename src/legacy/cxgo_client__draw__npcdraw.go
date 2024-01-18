@@ -40,10 +40,10 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		for i := 0; i < 6; i++ {
 			nox_draw_setMaterial_4341D0(int32(i+1), int32(nox_color_blue_2650684))
 		}
-	} else if npc.field1312 == 1 {
+	} else if npc.Field1312 == 1 {
 		for i := 0; i < 6; i++ {
 			var v35, a2, v34 byte
-			nox_draw_splitColor_435280(int16(npc.color8[i]), &v35, &a2, &v34)
+			nox_draw_splitColor_435280(int16(npc.Color8[i]), &v35, &a2, &v34)
 			if int(a2)+100 >= 0xff {
 				a2 = 0xff
 			} else {
@@ -54,10 +54,10 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		}
 	} else {
 		for i := 0; i < 6; i++ {
-			nox_draw_setMaterial_4341D0(int32(i+1), int32(npc.color8[i]))
+			nox_draw_setMaterial_4341D0(int32(i+1), int32(npc.Color8[i]))
 		}
 	}
-	v18 := nox_xxx_spriteNPCInfo_49A4B0(dr, int32(npc.field1304), int32(npc.field1308))
+	v18 := nox_xxx_spriteNPCInfo_49A4B0(dr, int32(npc.WeaponEquip), int32(npc.ArmorEquip))
 	tp := unsafe.Add(dd2, v18*264)
 	panim := (*client.PlayerAnimation)(unsafe.Add(tp, 4))
 	if int32(*(*uint16)(unsafe.Add(tp, 44))) == 0 {
@@ -70,11 +70,11 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	frames := panim.FramesSlice(panim.Naked.Frames[dr.AnimDir])
 	nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
 	if dr.AnimDir != 1 && dr.AnimDir != 0 && dr.AnimDir != 2 && dr.AnimDir != 3 && dr.AnimDir != 6 || dr.AnimInd == 37 {
-		sub_4B8960(vp, dr, npc.field1308, &npc.field680, panim, fi)
-		sub_4B8D40(vp, dr, npc.field1304, &npc.field32, panim, fi)
+		sub_4B8960(vp, dr, npc.ArmorEquip, &npc.Armor, panim, fi)
+		sub_4B8D40(vp, dr, npc.WeaponEquip, &npc.Weapon, panim, fi)
 	} else {
-		sub_4B8D40(vp, dr, npc.field1304, &npc.field32, panim, fi)
-		sub_4B8960(vp, dr, npc.field1308, &npc.field680, panim, fi)
+		sub_4B8D40(vp, dr, npc.WeaponEquip, &npc.Weapon, panim, fi)
+		sub_4B8960(vp, dr, npc.ArmorEquip, &npc.Armor, panim, fi)
 	}
 	if nox_client_drawable_testBuff_4356C0(dr, 16) {
 		if dword_5d4594_1313796 == nil {
