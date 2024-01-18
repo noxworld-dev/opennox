@@ -10,6 +10,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func init() {
@@ -19,9 +20,11 @@ func init() {
 		Help:   "sets health for the player",
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			return noxCmdSetPlayerUnitParam(c, tokens, "health", (*Object).SetMaxHealth, func(u *Object) {
+			return noxCmdSetPlayerUnitParam(c, tokens, "health", func(u *server.Object, v int) {
+				asObjectS(u).SetMaxHealth(v)
+			}, func(u *server.Object) {
 				_, max := u.Health()
-				u.SetHealth(max)
+				asObjectS(u).SetHealth(max)
 			})
 		},
 	})
@@ -31,9 +34,11 @@ func init() {
 		Help:   "sets mana for the player",
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			return noxCmdSetPlayerUnitParam(c, tokens, "mana", (*Object).SetMaxMana, func(u *Object) {
+			return noxCmdSetPlayerUnitParam(c, tokens, "mana", func(u *server.Object, v int) {
+				asObjectS(u).SetMaxMana(v)
+			}, func(u *server.Object) {
 				_, max := u.Mana()
-				u.SetMana(max)
+				asObjectS(u).SetMana(max)
 			})
 		},
 	})
@@ -244,7 +249,7 @@ func serverCheatInvincible(enable bool) {
 
 func serverCheatSage(enable bool, max int) {
 	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
-		for _, p := range noxServer.GetPlayers() {
+		for _, p := range noxServer.Players.List() {
 			serverSetAllBeastScrolls(p, enable)
 			serverSetAllSpells(p, enable, max)
 			serverSetAllWarriorAbilities(p, enable, max)
@@ -254,7 +259,7 @@ func serverCheatSage(enable bool, max int) {
 
 func serverCheatScrolls(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
-		for _, p := range noxServer.GetPlayers() {
+		for _, p := range noxServer.Players.List() {
 			serverSetAllBeastScrolls(p, enable)
 		}
 	}
@@ -262,7 +267,7 @@ func serverCheatScrolls(enable bool) {
 
 func serverCheatSpells(enable bool, max int) {
 	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
-		for _, p := range noxServer.GetPlayers() {
+		for _, p := range noxServer.Players.List() {
 			serverSetAllSpells(p, enable, max)
 			serverSetAllWarriorAbilities(p, enable, max)
 		}
@@ -316,13 +321,14 @@ func noxCmdSetBool(c *console.Console, tokens []string, fnc func(v bool)) bool {
 	return true
 }
 
-func noxCmdSetPlayerUnitParam(c *console.Console, tokens []string, param string, fnc func(u *Object, v int), def func(u *Object)) bool {
+func noxCmdSetPlayerUnitParam(c *console.Console, tokens []string, param string, fnc func(u *server.Object, v int), def func(u *server.Object)) bool {
+	s := noxServer
 	if len(tokens) > 2 {
 		return false
 	}
 	if len(tokens) == 0 {
-		p := HostPlayer()
-		u := p.UnitC()
+		p := s.Players.Host()
+		u := p.PlayerUnit
 		if u == nil {
 			c.Printf(console.ColorLightRed, "player %q doesn't have a unit", p.Name())
 			return true
@@ -333,7 +339,7 @@ func noxCmdSetPlayerUnitParam(c *console.Console, tokens []string, param string,
 	}
 	var p *Player
 	if len(tokens) == 1 {
-		p = HostPlayer()
+		p = s.Players.Host()
 	} else {
 		p = noxCmdPlayerByIndex(c, tokens[0])
 		if p == nil {
@@ -341,7 +347,7 @@ func noxCmdSetPlayerUnitParam(c *console.Console, tokens []string, param string,
 		}
 		tokens = tokens[1:]
 	}
-	u := p.UnitC()
+	u := p.PlayerUnit
 	if u == nil {
 		c.Printf(console.ColorLightRed, "player %q doesn't have a unit", p.Name())
 		return true
@@ -362,7 +368,7 @@ func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 		c.Print(console.ColorLightRed, "player index must be an integer")
 		return nil
 	}
-	list := noxServer.GetPlayers()
+	list := noxServer.Players.List()
 	if ind < 0 || ind >= len(list) {
 		c.Printf(console.ColorLightRed, "player index out of range [0-%d]", len(list)-1)
 		return nil
@@ -397,13 +403,13 @@ func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool
 		c.Print(console.ColorLightRed, "expected two coordinates or a waypoint name")
 		return false
 	}
-	for _, p := range s.GetPlayers() {
-		u := p.UnitC()
+	for _, p := range s.Players.List() {
+		u := p.PlayerUnit
 		if u == nil {
 			c.Printf(console.ColorLightRed, "player %q doesn't have a unit", p.Name())
 			continue
 		}
-		u.SetPos(pos)
+		asObjectS(u).SetPos(pos)
 		c.Printf(console.ColorLightYellow, "teleported player %q to (%v, %v)", p.Name(), pos.X, pos.Y)
 	}
 	return true
@@ -430,7 +436,7 @@ func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) boo
 		c.Printf(console.ColorLightRed, "unknown object: %q", tokens[0])
 		return true
 	}
-	pos := HostPlayer().Pos()
+	pos := s.Players.Host().Pos()
 	for i := 0; i < cnt; i++ {
 		s.createObject(typ, pos)
 	}

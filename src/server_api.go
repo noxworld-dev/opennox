@@ -78,7 +78,7 @@ func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 			v.Quest = &gameInfoQuest{Stage: s.nox_game_getQuestStage_4E3CC0()}
 		}
 		v.Players.Max = s.getServerMaxPlayers()
-		for _, p := range s.GetPlayers() {
+		for _, p := range s.Players.List() {
 			v.Players.List = append(v.Players.List, gameInfoPlayer{
 				Name:  p.Name(),
 				Class: p.PlayerClass().String(),

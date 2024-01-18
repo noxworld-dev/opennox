@@ -245,13 +245,13 @@ func nox_xxx_netStopRaySpell_4FEF90(p unsafe.Pointer, obj *nox_object_t) {
 func Nox_xxx_spellCastByBook_4FCB80() {
 	C.nox_xxx_spellCastByBook_4FCB80()
 }
-func Nox_xxx_playerResetProtectionCRC_56F7D0(a1 uintptr, a2 int) {
+func Nox_xxx_playerResetProtectionCRC_56F7D0(a1 uint32, a2 int) {
 	C.nox_xxx_playerResetProtectionCRC_56F7D0(C.int(a1), C.int(a2))
 }
-func Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(a1 uintptr, a2 int, a3 int) {
+func Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(a1 uint32, a2 int, a3 int) {
 	C.nox_xxx_playerAwardSpellProtectionCRC_56FCE0(C.int(a1), C.int(a2), C.int(a3))
 }
-func Nox_xxx_playerApplyProtectionCRC_56FD50(a1 uintptr, a2 unsafe.Pointer, a3 int) {
+func Nox_xxx_playerApplyProtectionCRC_56FD50(a1 uint32, a2 unsafe.Pointer, a3 int) {
 	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(a1), a2, C.int(a3))
 }
 func Nox_xxx_spellGrantToPlayer_4FB550(a1 *server.Object, a2 spell.ID, a3 int, a4 int, a5 int) int {

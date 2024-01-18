@@ -67,7 +67,7 @@ func (s *Server) nox_xxx_replayFileOpen_4D34C0(name string) error {
 	*memmap.PtrUint8(0x5D4594, 1548724) = 0
 	noxflags.SetEngine(noxflags.EngineReplayRead)
 	pl := s.GetPlayerByID(255)
-	asPlayerS(pl).GoObserver(false, true)
+	s.PlayerGoObserver(pl, false, true)
 	return nil
 }
 

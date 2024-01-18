@@ -44,7 +44,7 @@ func nox_xxx_updatePlayer_4F8100(u *server.Object) {
 		u.ForceVec = types.Pointf{}
 		u.VelVec = types.Pointf{}
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && asPlayerS(ud.Player).Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > s.SecToFrames(30)) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && ud.Player.Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > s.SecToFrames(30)) {
 		sub_4DCFB0(u)
 		return
 	}
@@ -64,10 +64,10 @@ func nox_xxx_updatePlayer_4F8100(u *server.Object) {
 		playerSuddedDeath4F9E70(u)
 	}
 	sub_4F9ED0(u)
-	pl := asPlayerS(ud.Player)
+	pl := ud.Player
 	u2 := pl.CameraTarget()
 	if u2 == nil {
-		u2 = pl.UnitC()
+		u2 = pl.PlayerUnit
 	}
 	pl.SetPos3632(u2.Pos())
 	if ud.Field40_0 != 0 {
@@ -127,7 +127,7 @@ func nox_xxx_updatePlayer_4F8100(u *server.Object) {
 
 func (s *Server) unitUpdatePlayerImplA(u *server.Object) (a1, v68 bool, _ bool) {
 	ud := u.UpdateDataPlayer()
-	pl := asPlayerS(ud.Player)
+	pl := ud.Player
 	switch ud.State {
 	default:
 		return a1, v68, true
@@ -284,8 +284,8 @@ func (s *Server) unitUpdatePlayerImplA(u *server.Object) (a1, v68 bool, _ bool) 
 				}
 			}
 		} else {
-			legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl.S(), 32)
-			pl.GoObserver(false, false)
+			legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl, 32)
+			s.PlayerGoObserver(pl, false, false)
 			pl.CameraUnlock()
 			s.nox_xxx_playerLeaveObsByObserved_4E60A0(u)
 			if legacy.Sub_4F9E10(u) == 0 {
@@ -479,7 +479,7 @@ func (s *Server) unitUpdatePlayerImplA(u *server.Object) (a1, v68 bool, _ bool) 
 
 func (s *Server) unitUpdatePlayerImplB(u *server.Object, a1, v68 bool) {
 	ud := u.UpdateDataPlayer()
-	pl := asPlayerS(ud.Player)
+	pl := ud.Player
 	orientationOnly := false
 	cb := s.Players.Control.Player(pl.Index())
 	if cb.IsEmpty() {
@@ -892,7 +892,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 			if pl.Field3672 == 0 {
 				pl.Field3688 = 1
 				if pl.Field3692 == 0 {
-					asPlayerS(pl).leaveMonsterObserver()
+					s.PlayerLeaveMonsterObserver(pl)
 				}
 				it.Active = false
 			} else if pl.Field3672 == 1 {
@@ -953,7 +953,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 			continue
 		}
 		if pl.Field3680&0x20 != 0 {
-			asPlayerS(pl).leaveMonsterObserver()
+			s.PlayerLeaveMonsterObserver(pl)
 			it.Active = false
 			continue
 		}
@@ -975,12 +975,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 				continue
 			}
 			if ud.Field78 != 0 {
-				asPlayerS(pl).leaveMonsterObserver()
+				s.PlayerLeaveMonsterObserver(pl)
 				it.Active = false
 				continue
 			}
 			if pl.Field4792 == 0 {
-				asPlayerS(pl).leaveMonsterObserver()
+				s.PlayerLeaveMonsterObserver(pl)
 				it.Active = false
 				continue
 			}
@@ -988,7 +988,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 		v13 := legacy.Nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0
 		if legacy.Sub_40A740() != 0 || noxflags.HasGame(noxflags.GameFlag16) || (pl.Field3680&0x100 != 0) && v13 {
 			if legacy.Sub_40AA70(pl) == 0 {
-				asPlayerS(pl).leaveMonsterObserver()
+				s.PlayerLeaveMonsterObserver(pl)
 				it.Active = false
 				continue
 			}

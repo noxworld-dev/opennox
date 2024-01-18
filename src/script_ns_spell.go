@@ -127,7 +127,7 @@ func (g nsObjGroup) AwardSpell(sp nsp.Spell) {
 		// TODO: why it.AwardSpell is different?
 		val := 0
 		obj := server.ToObject(it.(server.Obj))
-		if noxflags.HasGame(noxflags.GameModeCoop) && it.Class().Has(object.ClassPlayer) && asPlayerS(obj.UpdateDataPlayer().Player).SpellLvl[spl] == 0 {
+		if noxflags.HasGame(noxflags.GameModeCoop) && it.Class().Has(object.ClassPlayer) && obj.UpdateDataPlayer().Player.SpellLvl[spl] == 0 {
 			val = 1
 		}
 		legacy.Nox_xxx_spellGrantToPlayer_4FB550(obj, spl, 1, val, 0)

@@ -40,15 +40,15 @@ func (sp *serverSpells) Free() {
 var _ = [1]struct{}{}[40-unsafe.Sizeof(server.PhonemeLeaf{})]
 
 func nox_xxx_spellAwardAll1_4EFD80(p *server.Player) {
-	serverSetAllBeastScrolls(asPlayerS(p), noxflags.HasEngine(noxflags.EngineAdmin))
+	serverSetAllBeastScrolls(p, noxflags.HasEngine(noxflags.EngineAdmin))
 }
 
 func nox_xxx_spellAwardAll2_4EFC80(p *server.Player) {
-	serverSetAllSpells(asPlayerS(p), noxflags.HasEngine(noxflags.EngineAdmin), 0)
+	serverSetAllSpells(p, noxflags.HasEngine(noxflags.EngineAdmin), 0)
 }
 
 func nox_xxx_spellAwardAll3_4EFE10(p *server.Player) {
-	serverSetAllWarriorAbilities(asPlayerS(p), noxflags.HasEngine(noxflags.EngineAdmin), 0)
+	serverSetAllWarriorAbilities(p, noxflags.HasEngine(noxflags.EngineAdmin), 0)
 }
 
 func nox_xxx_spellTitle_424930(ind int) (string, bool) {
@@ -114,12 +114,12 @@ func serverSetAllBeastScrolls(p *Player, enable bool) {
 	if enable {
 		lvl = 1
 	}
-	legacy.Nox_xxx_playerResetProtectionCRC_56F7D0(*(*uintptr)(p.field(4640)), 0)
+	legacy.Nox_xxx_playerResetProtectionCRC_56F7D0(p.Prot4640, 0)
 	for i := 1; i < len(p.BeastScrollLvl); i++ {
 		p.BeastScrollLvl[i] = uint32(lvl)
-		legacy.Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(*uintptr)(p.field(4640)), i, lvl)
+		legacy.Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(p.Prot4640, i, lvl)
 	}
-	legacy.Nox_xxx_playerApplyProtectionCRC_56FD50(*(*uintptr)(p.field(4640)), unsafe.Pointer(&p.BeastScrollLvl[0]), len(p.BeastScrollLvl))
+	legacy.Nox_xxx_playerApplyProtectionCRC_56FD50(p.Prot4640, unsafe.Pointer(&p.BeastScrollLvl[0]), len(p.BeastScrollLvl))
 }
 
 func serverSetAllSpells(p *Player, enable bool, max int) {
@@ -130,25 +130,25 @@ func serverSetAllSpells(p *Player, enable bool, max int) {
 			lvl = 3
 		}
 	}
-	legacy.Nox_xxx_playerResetProtectionCRC_56F7D0(*(*uintptr)(p.field(4636)), 0)
+	legacy.Nox_xxx_playerResetProtectionCRC_56F7D0(p.Prot4636, 0)
 	// set max level for all possible spells
 	// the engine will automatically allow only ones that have WIS_USE, CON_USE or COMMON_USE set
 	for i := 1; i < len(p.SpellLvl); i++ {
 		p.SpellLvl[i] = uint32(lvl)
-		legacy.Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(*uintptr)(p.field(4636)), i, lvl)
+		legacy.Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(p.Prot4636, i, lvl)
 	}
 	if !enable && noxflags.HasGame(noxflags.GameModeQuest) {
-		u := p.UnitC()
+		u := p.PlayerUnit
 		// grant default spells for Quest when disabling the cheat
 		switch p.PlayerClass() {
 		case player.Wizard:
-			legacy.Nox_xxx_spellGrantToPlayer_4FB550(u.SObj(), spell.SPELL_FIREBALL, 1, 1, 1)
+			legacy.Nox_xxx_spellGrantToPlayer_4FB550(u, spell.SPELL_FIREBALL, 1, 1, 1)
 		case player.Conjurer:
-			legacy.Nox_xxx_spellGrantToPlayer_4FB550(u.SObj(), spell.SPELL_CHARM, 1, 1, 1)
-			legacy.Nox_xxx_spellGrantToPlayer_4FB550(u.SObj(), spell.SPELL_LESSER_HEAL, 1, 1, 1)
+			legacy.Nox_xxx_spellGrantToPlayer_4FB550(u, spell.SPELL_CHARM, 1, 1, 1)
+			legacy.Nox_xxx_spellGrantToPlayer_4FB550(u, spell.SPELL_LESSER_HEAL, 1, 1, 1)
 		}
 	}
-	legacy.Nox_xxx_playerApplyProtectionCRC_56FD50(*(*uintptr)(p.field(4636)), unsafe.Pointer(&p.SpellLvl[0]), len(p.SpellLvl))
+	legacy.Nox_xxx_playerApplyProtectionCRC_56FD50(p.Prot4636, unsafe.Pointer(&p.SpellLvl[0]), len(p.SpellLvl))
 }
 
 func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
@@ -164,7 +164,7 @@ func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
 	}
 	for i := 1; i < 6; i++ {
 		p.SpellLvl[i] = uint32(lvl)
-		legacy.Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(*(*uintptr)(p.field(4636)), i, lvl)
+		legacy.Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(p.Prot4636, i, lvl)
 	}
 }
 

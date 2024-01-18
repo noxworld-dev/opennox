@@ -366,6 +366,7 @@ func xferFree446580(i int) {
 }
 
 func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, data []byte) {
+	s := noxServer
 	switch act {
 	case 1:
 		xferSet446520(1, data)
@@ -385,26 +386,26 @@ func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, d
 	case 3:
 		path := datapath.Save("_temp_.dat")
 		if nox_xxx_SavePlayerDataFromClient_41CD70(path, data) {
-			if noxServer.nox_xxx_isQuest_4D6F50() && ind == common.MaxPlayers-1 {
+			if s.nox_xxx_isQuest_4D6F50() && ind == common.MaxPlayers-1 {
 				sub4DCEE0(path)
 			} else {
 				res := legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, ind)
 				if noxflags.HasGame(noxflags.GameModeQuest) {
 					if res != 0 {
-						if pl := noxServer.GetPlayerByInd(ind); pl != nil {
+						if pl := s.GetPlayerByInd(ind); pl != nil {
 							if u := pl.PlayerUnit; u != nil {
 								ud := u.UpdateDataPlayer()
 								ud.Field138 = 0
 							}
 						}
 					} else {
-						asPlayerS(noxServer.GetPlayerByInd(ind)).Disconnect(4)
+						s.PlayerDisconnectByInd(ind, 4)
 					}
 				}
 				ifs.Remove(path)
 			}
 		} else if noxflags.HasGame(noxflags.GameModeQuest) && ind != common.MaxPlayers-1 {
-			nox_xxx_playerCallDisconnect_4DEAB0(ind, 4)
+			s.PlayerDisconnectByInd(ind, 4)
 		}
 	}
 }
@@ -505,7 +506,7 @@ func sub_4DCD40() {
 	path := datapath.Save("_temp_.dat")
 	for _, u := range noxServer.getPlayerUnits() {
 		ud := u.UpdateDataPlayer()
-		pl := asPlayerS(ud.Player)
+		pl := ud.Player
 		if pl.Field4792 != 0 && ud.Field138 != 1 {
 			if savePlayerData(path, pl.PlayerIndex()) {
 				sub41CFA0(path, pl.PlayerIndex())
@@ -516,12 +517,13 @@ func sub_4DCD40() {
 }
 
 func sub_4DCFB0(a1p *server.Object) {
+	s := noxServer
 	u := asObjectS(a1p)
 	if u == nil {
 		return
 	}
 	ud := u.UpdateDataPlayer()
-	pl := asPlayerS(ud.Player)
+	pl := ud.Player
 	if pl.Index() == common.MaxPlayers-1 {
 		return
 	}
@@ -540,7 +542,7 @@ func sub_4DCFB0(a1p *server.Object) {
 			nox_xxx_player_4D7960(pl.Index())
 		}
 	} else {
-		asPlayerS(noxServer.GetPlayerByInd(pl.PlayerIndex())).Disconnect(4)
+		s.PlayerDisconnect(s.GetPlayerByInd(pl.PlayerIndex()), 4)
 	}
 }
 
@@ -681,7 +683,7 @@ func sub_4DD0B0(a1p *server.Object) {
 	s := noxServer
 	pl := u.ControllingPlayer()
 	if nox_xxx_player_4D7980(pl.Index()) {
-		asPlayerS(s.GetPlayerByInd(pl.PlayerIndex())).Disconnect(4)
+		s.PlayerDisconnect(s.GetPlayerByInd(pl.PlayerIndex()), 4)
 	} else {
 		sub_419EB0(pl.PlayerIndex(), 0)
 		s.Nox_xxx_sendGauntlet_4DCF80(pl.PlayerIndex(), 0)

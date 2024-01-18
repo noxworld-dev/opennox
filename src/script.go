@@ -147,13 +147,13 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 	case script.EventMapEntry:
 		// TODO: we "rejoin" existing players here because the engine will actually keep all player objects
 		//       after map change ideally we should find the place where it resets their
-		for _, p := range s.GetPlayers() {
-			s.CallOnPlayerJoin(p)
+		for _, p := range s.Players.List() {
+			s.CallOnPlayerJoin(scrPlayer{p})
 		}
 	case script.EventMapExit:
 		// TODO: same as above: we make players "leave" when the map changes, so scripts can run their player logic
-		for _, p := range s.GetPlayers() {
-			s.CallOnPlayerLeave(p)
+		for _, p := range s.Players.List() {
+			s.CallOnPlayerLeave(scrPlayer{p})
 		}
 	}
 }

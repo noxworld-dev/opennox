@@ -22,7 +22,7 @@ func nox_xxx_warriorInfravis_540110(u *server.Object, dur int) {
 	}
 	s := noxServer
 	if ud := u.UpdateDataPlayer(); ud != nil {
-		asObjectS(u).ApplyEnchant(server.ENCHANT_INFRAVISION, dur, int(asPlayerS(ud.Player).SpellLvl[server.AbilityInfravis]))
+		asObjectS(u).ApplyEnchant(server.ENCHANT_INFRAVISION, dur, int(ud.Player.SpellLvl[server.AbilityInfravis]))
 		s.abilities.netAbilReportActive(u, server.AbilityInfravis, true)
 	}
 }

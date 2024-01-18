@@ -5,6 +5,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/strman"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -21,7 +22,7 @@ func (s noxScriptNS) GetHost() ns.Obj {
 }
 
 func (s noxScriptNS) HostPlayer() ns.Player {
-	pl := HostPlayer()
+	pl := s.s.Players.Host()
 	if pl == nil {
 		return nil
 	}
@@ -32,7 +33,7 @@ func (s noxScriptNS) Players() []ns.Player {
 	list := s.s.Players.List()
 	out := make([]ns.Player, 0, len(list))
 	for _, p := range list {
-		out = append(out, nsPlayer{s.s, asPlayerS(p)})
+		out = append(out, nsPlayer{s.s, p})
 	}
 	return out
 }
@@ -148,12 +149,16 @@ func (p nsPlayer) Name() string {
 	return p.p.Name()
 }
 
+func (p nsPlayer) Pos() types.Pointf {
+	return p.p.Pos()
+}
+
 func (p nsPlayer) Unit() ns.Obj {
-	u := p.p.UnitC()
+	u := p.p.PlayerUnit
 	if u == nil {
 		return nil
 	}
-	return nsObj{p.s, u}
+	return nsObj{p.s, asObjectS(u)}
 }
 
 func (p nsPlayer) Team() ns.Team {
@@ -179,7 +184,7 @@ func (p nsPlayer) GetScore() int {
 }
 
 func (p nsPlayer) ChangeScore(score int) {
-	u := p.p.UnitC()
+	u := p.p.PlayerUnit
 	if u == nil {
 		return
 	}
@@ -187,26 +192,26 @@ func (p nsPlayer) ChangeScore(score int) {
 	if tm := u.Team(); tm != nil {
 		p.s.TeamChangeLessons(tm, score+tm.Lessons)
 	}
-	p.s.Nox_xxx_netReportLesson_4D8EF0(u.SObj())
+	p.s.Nox_xxx_netReportLesson_4D8EF0(u)
 }
 
 func (p nsPlayer) Print(message ns.StringID) {
-	u := p.p.UnitC()
+	u := p.p.PlayerUnit
 	if u == nil {
 		return
 	}
 	str := p.s.Strings().GetStringInFile(strman.ID(message), "CScrFunc.c")
-	legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), str)
+	legacy.Nox_xxx_netSendLineMessage_4D9EB0(u, str)
 }
 
 func (p nsPlayer) PrintStr(message string) {
-	u := p.p.UnitC()
+	u := p.p.PlayerUnit
 	if u == nil {
 		return
 	}
-	legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), message)
+	legacy.Nox_xxx_netSendLineMessage_4D9EB0(u, message)
 }
 
 func (p nsPlayer) Blind(blind bool) {
-	p.p.Blind(blind)
+	p.s.PlayerBlind(p.p, blind)
 }

@@ -462,7 +462,7 @@ func (obj *Object) SetMana(v int) {
 		cur := int(p.ManaCur)
 		p.ManaPrev = uint16(cur)
 		p.ManaCur = uint16(v)
-		pt := asPlayerS(p.Player)
+		pt := p.Player
 		legacy.Nox_xxx_protectMana_56F9E0(int(pt.ProtUnitManaCur), int16(v-cur))
 	} else if obj.Class().Has(object.ClassImmobile) && obj.SubClass().AsOther().HasAny(object.OtherVisibleObelisk|object.OtherInvisibleObelisk) {
 		ud := obj.UpdateDataObelisk()
@@ -853,7 +853,7 @@ func (obj *Object) UpdateDataMover() *server.MoverUpdateData {
 }
 
 func (obj *Object) ControllingPlayer() *Player {
-	return asPlayerS(obj.SObj().ControllingPlayer())
+	return obj.SObj().ControllingPlayer()
 }
 
 func (obj *Object) CallUpdate() {

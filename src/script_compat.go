@@ -15,6 +15,45 @@ import (
 
 // TODO: This is only for old LUA compatibility.
 
+type scrPlayer struct {
+	*server.Player
+}
+
+func (p scrPlayer) SetPos(pos types.Pointf) {
+	noxServer.PlayerSetPos(p.Player, pos)
+}
+
+func (p scrPlayer) IsHost() bool {
+	return noxServer.Players.IsHost(p.Player)
+}
+
+func (p scrPlayer) Print(text string) {
+	noxServer.PlayerPrint(p.Player, text)
+}
+
+func (p scrPlayer) Blind(v bool) {
+	noxServer.PlayerBlind(p.Player, v)
+}
+
+func (p scrPlayer) Cinema(v bool) {
+	noxServer.PlayerCinema(p.Player, v)
+}
+
+func (p scrPlayer) Unit() script.Unit {
+	if p.PlayerUnit == nil {
+		return nil
+	}
+	return scrObject{asObjectS(p.PlayerUnit)}
+}
+
+func (p scrPlayer) GetObject() script.Object {
+	u := p.Unit()
+	if u == nil {
+		return nil
+	}
+	return u
+}
+
 type scrObject struct {
 	*Object
 }
@@ -114,13 +153,6 @@ func (obj scrObject) OnTriggerDeactivate(fnc func()) {
 	obj.SObj().OnTriggerDeactivate(fnc)
 }
 
-func (p *Player) Unit() script.Unit {
-	if p == nil {
-		return nil
-	}
-	return scrObject{p.UnitC()}
-}
-
 type noxScriptImpl struct {
 	s *Server
 }
@@ -143,16 +175,16 @@ func (noxScriptImpl) CinemaPlayers(v bool) {
 }
 
 func (s noxScriptImpl) Players() []script.Player {
-	list := s.s.GetPlayers()
+	list := s.s.Players.List()
 	out := make([]script.Player, 0, len(list))
 	for _, p := range list {
-		out = append(out, p)
+		out = append(out, scrPlayer{p})
 	}
 	return out
 }
 
 func (noxScriptImpl) HostPlayer() script.Player {
-	return HostPlayer()
+	return scrPlayer{noxServer.Players.Host()}
 }
 
 func (s noxScriptImpl) OnPlayerJoin(fnc func(p script.Player)) {

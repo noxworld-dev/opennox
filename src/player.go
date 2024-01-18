@@ -12,7 +12,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
-	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -28,30 +27,20 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_playerDisconnByPlrID_4DEB00(id ntype.PlayerInd) {
-	if p := noxServer.GetPlayerByInd(id); p != nil {
-		asPlayerS(p).Disconnect(4)
-	}
-}
-
-func nox_xxx_playerCallDisconnect_4DEAB0(ind ntype.PlayerInd, v int8) {
-	asPlayerS(noxServer.GetPlayerByInd(ind)).Disconnect(int(v))
-}
-
 func nox_xxx_playerCameraUnlock_4E6040(cplayer *server.Object) {
-	asObjectS(cplayer).ControllingPlayer().CameraUnlock()
+	cplayer.ControllingPlayer().CameraUnlock()
 }
 
 func nox_xxx_playerCameraFollow_4E6060(cplayer, cunit *server.Object) {
-	asObjectS(cplayer).ControllingPlayer().CameraToggle(cunit)
+	cplayer.ControllingPlayer().CameraToggle(cunit)
 }
 
 func nox_xxx_playerGetPossess_4DDF30(cplayer *server.Object) *server.Object {
-	return asObjectS(cplayer).ControllingPlayer().ObserveTarget().SObj()
+	return cplayer.ControllingPlayer().ObserveTarget()
 }
 
 func nox_xxx_playerGoObserver_4E6860(pl *server.Player, a2 int, a3 int) int {
-	return bool2int(asPlayerS(pl).GoObserver(a2 != 0, a3 != 0))
+	return bool2int(noxServer.PlayerGoObserver(pl, a2 != 0, a3 != 0))
 }
 
 func nox_xxx_playerObserveClear_4DDEF0(cplayer *server.Object) {
@@ -62,252 +51,70 @@ func clientPlayer() *server.Player {
 	return noxServer.GetPlayerByID(legacy.ClientPlayerNetCode())
 }
 
-func (s *Server) PlayerFirst() *Player {
-	return asPlayerS(s.Players.First())
-}
-
-func (s *Server) PlayerNext(it *Player) *Player {
-	return asPlayerS(s.Players.Next(it.S()))
-}
-
-func (s *Server) NewPlayerInfo(id int) *Player {
-	return asPlayerS(s.Players.NewRaw(id))
-}
-
 func getPlayerClass() player.Class {
 	return player.Class(memmap.Uint8(0x85B3FC, 12254))
-}
-
-func asPlayerS(p *server.Player) *Player {
-	return (*Player)(p)
 }
 
 func BlindPlayers(blind bool) {
 	noxServer.Nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
 }
 
-func HostPlayer() *Player {
-	// TODO: better way
-	for _, p := range noxServer.GetPlayers() {
-		if p.IsHost() {
-			return p
-		}
-	}
-	return nil
-}
+type Player = server.Player
 
-var _ server.Obj = (*Player)(nil) // proxies Unit
-
-type Player server.Player
-
-func (p *Player) getServer() *Server {
-	return noxServer // TODO: attach to object
-}
-
-func (p *Player) field(off uintptr) unsafe.Pointer {
-	return unsafe.Add(unsafe.Pointer(p), off)
-}
-
-func (p *Player) Pos() types.Pointf {
-	if p == nil {
-		return types.Pointf{}
-	}
-	u := p.Unit()
-	if u == nil {
-		return types.Pointf{}
-	}
-	return u.Pos()
-}
-
-func (p *Player) SetPos(pos types.Pointf) {
+func (s *Server) PlayerSetPos(p *Player, pos types.Pointf) {
 	if p == nil {
 		return
 	}
-	u := p.Unit()
-	if u == nil {
-		return
-	}
-	u.SetPos(pos)
-}
-
-func (p *Player) CursorPos() types.Pointf {
-	return p.S().CursorPos()
-}
-
-func (p *Player) SetCursorPos(pos image.Point) {
-	p.S().SetCursorPos(pos)
-}
-
-func (p *Player) Pos3632() types.Pointf {
-	return p.S().Pos3632()
-}
-
-func (p *Player) SetPos3632(pt types.Pointf) {
-	p.S().SetPos3632(pt)
-}
-
-func (p *Player) OrigName() string {
-	return p.S().OrigName()
-}
-
-func (p *Player) SetName(v string) {
-	p.S().SetName(v)
-}
-
-func (p *Player) Name() string {
-	return p.S().Name()
-}
-
-func (p *Player) SaveName() string {
-	return p.S().SaveName()
-}
-
-func (p *Player) Serial() string {
-	return p.S().Serial()
-}
-
-func (p *Player) SetSerial(v string) {
-	p.S().SetSerial(v)
-}
-
-func (p *Player) Field2096() string {
-	return p.S().Field2096()
-}
-
-func (p *Player) SetField2096(v string) {
-	p.S().SetField2096(v)
-}
-
-func (p *Player) String() string {
-	return p.S().String()
-}
-
-func (p *Player) Gold() int {
-	return p.S().Gold()
-}
-
-func (p *Player) IsHost() bool {
-	if p == nil {
-		return false
-	}
-	// TODO: better way
 	u := p.PlayerUnit
 	if u == nil {
-		return false
+		return
 	}
-	return u == u.Server().Players.HostUnit
+	asObjectS(u).SetPos(pos)
 }
 
-func (p *Player) Print(text string) {
-	legacy.Nox_xxx_netSendLineMessage_4D9EB0(p.UnitC().SObj(), text)
+func (s *Server) PlayerPrint(p *Player, text string) {
+	legacy.Nox_xxx_netSendLineMessage_4D9EB0(p.PlayerUnit, text)
 }
 
-func (p *Player) Blind(blind bool) {
+func (s *Server) PlayerBlind(p *Player, blind bool) {
 	legacy.Nox_xxx_netMsgFadeBeginPlayer(p.Index(), bool2int(!blind), 0)
 }
 
-func (p *Player) Cinema(v bool) {
+func (s *Server) PlayerCinema(p *Player, v bool) {
 	// TODO: only works for everyone for now
-	p.getServer().CinemaPlayers(v)
+	s.CinemaPlayers(v)
 }
 
-func (p *Player) SObj() *server.Object {
-	return p.S().SObj()
-}
-
-func (p *Player) GetObject() script.Object {
-	u := p.Unit()
-	if u == nil {
-		return nil
-	}
-	return u
-}
-
-func (p *Player) C() unsafe.Pointer {
-	if p == nil {
-		return nil
-	}
-	return p.S().C()
-}
-
-func (p *Player) S() *server.Player {
-	return (*server.Player)(p)
-}
-
-func (p *Player) Index() int {
-	return p.S().Index()
-}
-
-func (p *Player) PlayerIndex() ntype.PlayerInd {
-	return p.S().PlayerIndex()
-}
-
-func (p *Player) NetCode() int {
-	return p.S().NetCode()
-}
-
-func (p *Player) IsActive() bool {
-	return p.S().IsActive()
-}
-
-func (p *Player) UnitC() *Object {
-	if p == nil {
-		return nil
-	}
-	return asObjectS(p.PlayerUnit)
-}
-
-func (p *Player) Info() *server.PlayerInfo {
-	return p.S().Info()
-}
-
-func (p *Player) PlayerClass() player.Class {
-	return p.S().PlayerClass()
-}
-
-func (p *Player) Disconnect(v int) {
+func (s *Server) PlayerDisconnect(p *server.Player, v int) {
 	if !p.IsActive() {
 		return
 	}
 	nox_xxx_playerDisconnFinish_4DE530(p.PlayerIndex(), int8(v))
 	legacy.Nox_xxx_playerForceDisconnect_4DE7C0(p.PlayerIndex())
-	p.getServer().nox_xxx_netStructReadPackets2_4DEC50(p.PlayerIndex())
+	s.nox_xxx_netStructReadPackets2_4DEC50(p.PlayerIndex())
 }
 
-func (p *Player) CameraTarget() *Object {
-	return asObjectS(p.S().CameraTarget())
+func (s *Server) PlayerDisconnectByIndCode4(ind ntype.PlayerInd) { // nox_xxx_playerDisconnByPlrID_4DEB00
+	if pl := s.GetPlayerByInd(ind); pl != nil {
+		s.PlayerDisconnect(pl, 4)
+	}
 }
 
-func (p *Player) ObserveTarget() *Object { // nox_xxx_playerGetPossess_4DDF30
-	return asObjectS(p.S().ObserveTarget())
+func (s *Server) PlayerDisconnectByInd(ind ntype.PlayerInd, v int8) { // nox_xxx_playerCallDisconnect_4DEAB0
+	if pl := s.GetPlayerByInd(ind); pl != nil {
+		s.PlayerDisconnect(pl, int(v))
+	}
 }
 
-func (p *Player) Sub422140() {
-	p.S().Sub422140()
-}
-
-func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
-	p.S().CameraUnlock()
-}
-
-func (p *Player) CameraFollow(obj server.Obj) {
-	p.S().CameraFollow(obj)
-}
-
-func (p *Player) CameraToggle(obj server.Obj) { // nox_xxx_playerCameraFollow_4E6060
-	p.S().CameraToggle(obj)
-}
-
-func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoObserver_4E6860
+func (s *Server) PlayerGoObserver(p *server.Player, notify, keepPlayer bool) bool { // nox_xxx_playerGoObserver_4E6860
 	if p == nil {
 		return true
 	}
-	u := p.UnitC()
+	u := p.PlayerUnit
 	if u == nil {
 		return true
 	}
-	s := u.getServer()
-	if !keepPlayer && s.Abils.IsAnyActive(u.SObj()) {
+	if !keepPlayer && s.Abils.IsAnyActive(u) {
 		return false
 	}
 	if u.Update == legacy.Get_nox_xxx_updatePlayerMonsterBot_4FAB20() {
@@ -327,14 +134,14 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 				it.SetOwner(nil)
 				sub_4E8290(1, 0)
 			} else if it.Class().Has(object.ClassFlag) {
-				u.forceDropAt(it, u.Pos())
+				asObjectS(u).forceDropAt(it, u.Pos())
 			}
 		}
 	}
 	if p.ObserveTarget() != nil {
-		u.observeClear()
+		asObjectS(u).observeClear()
 	}
-	legacy.Nox_xxx_netNeedTimestampStatus_4174F0(p.S(), 1)
+	legacy.Nox_xxx_netNeedTimestampStatus_4174F0(p, 1)
 	v10 := legacy.Nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0
 	if !v10 && !noxflags.HasGame(noxflags.GameModeQuest) {
 		legacy.Sub_40A1F0(0)
@@ -343,7 +150,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		legacy.Sub_40A970()
 	}
 	s.NetInformTextMsg(p.PlayerIndex(), 12, bool2int(notify))
-	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
+	asObjectS(u).ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
 	u.ObjFlags |= uint32(object.FlagNoCollide)
 	p.SetPos3632(u.Pos())
 	p.CameraUnlock()
@@ -352,31 +159,31 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		p.CameraFollowObj = nil
 	} else if noxflags.HasGame(noxflags.GameModeFlagBall) {
 		if !keepPlayer {
-			p.leaveMonsterObserver()
+			s.PlayerLeaveMonsterObserver(p)
 		}
 	}
-	legacy.Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.SObj())
+	legacy.Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u)
 	ud.CurTraps = 0
 	_ = nox_xxx_updatePlayerObserver_4E62F0
 	u.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
-	legacy.Sub_4D7E50(u.SObj())
+	legacy.Sub_4D7E50(u)
 	return true
 }
 
-func (p *Player) leaveMonsterObserver() {
-	u := p.UnitC()
+func (s *Server) PlayerLeaveMonsterObserver(p *Player) {
+	u := p.PlayerUnit
 	if u == nil {
 		return
 	}
-	var targ *Object
+	var targ *server.Object
 	if p.ObserveTarget() != nil {
-		targ = asObjectS(legacy.Nox_xxx_playerObserverFindGoodSlave0_4E6280(p.S()))
+		targ = legacy.Nox_xxx_playerObserverFindGoodSlave0_4E6280(p)
 		if targ == nil {
-			u.observeClear()
+			asObjectS(u).observeClear()
 			return
 		}
 	} else {
-		targ = asObjectS(legacy.Sub_4E6150(p.S()))
+		targ = legacy.Sub_4E6150(p)
 	}
 	p.CameraFollow(targ)
 }
@@ -384,29 +191,11 @@ func (p *Player) leaveMonsterObserver() {
 func (obj *Object) observeClear() {
 	pl := obj.ControllingPlayer()
 	if pl.Field3680&2 != 0 {
-		legacy.Nox_xxx_playerUnsetStatus_417530(pl.S(), 2)
+		legacy.Nox_xxx_playerUnsetStatus_417530(pl, 2)
 		pl.CameraUnlock()
 		_ = nox_xxx_updatePlayer_4F8100
 		obj.Update = legacy.Get_nox_xxx_updatePlayer_4F8100()
 	}
-}
-
-func (s *Server) GetAllPlayerStructs() (out []*Player) {
-	arr := s.Players.ListSlots()
-	out = make([]*Player, 0, len(arr))
-	for _, p := range arr {
-		out = append(out, asPlayerS(p))
-	}
-	return out
-}
-
-func (s *Server) GetPlayers() (out []*Player) {
-	arr := s.Players.List()
-	out = make([]*Player, 0, len(arr))
-	for _, p := range arr {
-		out = append(out, asPlayerS(p))
-	}
-	return out
 }
 
 func (s *Server) getPlayerUnits() (out []*Object) {
@@ -612,21 +401,21 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	}
 	legacy.Nox_xxx_netNotifyRate_4D7F10(ind)
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		asPlayerS(pl).GoObserver(false, true)
+		s.PlayerGoObserver(pl, false, true)
 	} else if noxflags.HasGame(noxflags.GameModeCoopTeam) {
 		legacy.Nox_xxx_netReportPlayerStatus_417630(pl)
 	} else if pl.Index() == common.MaxPlayers-1 && noxflags.HasEngine(noxflags.EngineNoRendering) {
-		asPlayerS(pl).GoObserver(false, true)
+		s.PlayerGoObserver(pl, false, true)
 	} else if noxflags.HasGame(noxflags.GameModeChat) {
 		if legacy.Sub_40A740() != 0 {
 			if legacy.Sub_40AA70(pl) == 0 {
-				asPlayerS(pl).GoObserver(false, true)
+				s.PlayerGoObserver(pl, false, true)
 			}
 		} else if noxflags.HasGamePlay(4) {
 			legacy.Sub_4DF3C0(pl)
 		}
 	} else if !noxflags.HasGame(noxflags.GameModeCoop) {
-		asPlayerS(pl).GoObserver(true, true)
+		s.PlayerGoObserver(pl, true, true)
 	}
 	s.sendSettings(punit)
 	if pl.Index() == common.MaxPlayers-1 {
@@ -680,7 +469,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		buf[2] = 1
 		s.NetSendPacketXxx(int(ind), buf[:], 0, 0, 0)
 	}
-	s.CallOnPlayerJoin(asPlayerS(pl))
+	s.CallOnPlayerJoin(scrPlayer{pl})
 	return int(punit.NetCode)
 }
 
@@ -719,7 +508,7 @@ func nox_xxx_plrSetSpellType_4F9B90(u *server.Object) {
 func (s *Server) PlayerSpell(u *server.Object) {
 	ok2 := true
 	ud := u.UpdateDataPlayer()
-	pl := asPlayerS(ud.Player)
+	pl := ud.Player
 	var a1 int
 	if u != nil {
 		a1 = 1
@@ -913,17 +702,17 @@ func nox_client_onClassStats(data []byte) {
 func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *server.Object) {
 	pu := asObjectS(cplayer)
 	ud := pu.UpdateDataPlayer()
-	pl := asPlayerS(ud.Player)
+	pl := ud.Player
 
 	targ := cunit
 
 	if pl.Field3680&0x1 != 0 {
-		legacy.Nox_xxx_playerLeaveObserver_0_4E6AA0(pl.S())
+		legacy.Nox_xxx_playerLeaveObserver_0_4E6AA0(pl)
 	}
 	if pl.Field3680&0x2 != 0 {
 		pu.observeClear()
 	}
-	legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl.S(), 2)
+	legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl, 2)
 	pl.CameraFollow(targ)
 	_ = nox_xxx_updatePlayerObserver_4E62F0
 	pu.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
@@ -931,9 +720,9 @@ func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *server.Object) {
 
 func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj server.Obj) {
 	cobj := server.ToObject(obj)
-	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
-		if pl.CameraTarget().SObj() == cobj {
-			pl.leaveMonsterObserver()
+	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
+		if pl.CameraTarget() == cobj {
+			s.PlayerLeaveMonsterObserver(pl)
 		}
 	}
 }

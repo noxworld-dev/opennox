@@ -125,8 +125,8 @@ func (a *serverAbilities) nox_xxx_abilityNameToN_424D80(name string) server.Abil
 
 func (a *serverAbilities) sub_4FC680() {
 	if noxflags.HasGame(noxflags.GameModeCoop) && !noxflags.HasGame(noxflags.GameFlag20) && a.curxxx != 0 {
-		if u := a.s.PlayerFirst().UnitC(); u != nil {
-			a.Do(u.SObj(), a.curxxx)
+		if u := a.s.Players.First().PlayerUnit; u != nil {
+			a.Do(u, a.curxxx)
 			a.curxxx = 0
 		}
 	}
@@ -146,7 +146,7 @@ func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 		return
 	}
 	ud := u.UpdateDataPlayer()
-	pl := asPlayerS(ud.Player)
+	pl := ud.Player
 	if pl.PlayerClass() != player.Warrior {
 		return
 	}

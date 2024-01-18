@@ -460,7 +460,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 	if false {
 		if true {
 			serial := alloc.GoStringS(packet[56:])
-			for it := s.PlayerFirst(); it != nil; it = s.PlayerNext(it) {
+			for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
 				if byte(it.Field2135) == packet[98] {
 					if it.Serial() == serial {
 						out[2] = 19
@@ -510,7 +510,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		}
 		var found *Player
 		s.Players.EachReplaceable(func(it *server.Player) bool {
-			pit := asPlayerS(it)
+			pit := it
 			if add(it) {
 				found = pit
 				return false
@@ -518,7 +518,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 			return true // continue
 		})
 		if found != nil {
-			asPlayerS(s.GetPlayerByInd(found.PlayerIndex())).Disconnect(4)
+			s.PlayerDisconnect(s.GetPlayerByInd(found.PlayerIndex()), 4)
 			out[2] = 21
 			return 3
 		}
@@ -625,7 +625,7 @@ func getCurPlayer() *server.Player {
 }
 
 func setCurPlayer(p *Player) {
-	legacy.Set_dword_8531A0_2576(p.S())
+	legacy.Set_dword_8531A0_2576(p)
 }
 
 func nox_xxx_netTestHighBit_578B70(v uint16) bool    { return (v>>15)&1 != 0 }
@@ -755,7 +755,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		playerID := nox_xxx_netClearHighBit_578B30(p.NetCode)
 		legacy.Set_nox_player_netCode_85319C(uint32(playerID))
-		pl := c.srv.NewPlayerInfo(int(playerID))
+		pl := c.srv.Players.NewRaw(int(playerID))
 		if pl != nil {
 			pl.Field2068 = p.Unk2
 			setCurPlayer(pl)
@@ -775,7 +775,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return -1
 		}
 		playerID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
-		pl := c.srv.NewPlayerInfo(int(playerID))
+		pl := c.srv.Players.NewRaw(int(playerID))
 		if pl == nil {
 			return 129
 		}
@@ -796,7 +796,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 				pl.Field2108 = 0
 				legacy.Sub_41D670(pl.Field2096())
 			}
-			legacy.Nox_xxx_playerInitColors_461460(pl.S())
+			legacy.Nox_xxx_playerInitColors_461460(pl)
 		}
 		legacy.Sub_457140(int(playerID), &pl.NameFinal[0])
 		legacy.Sub_455920(&pl.NameFinal[0])
@@ -1228,13 +1228,13 @@ func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 	if err != nil {
 		panic(err)
 	}
-	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
-		u := pl.UnitC()
+	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
+		u := pl.PlayerUnit
 		if u == nil {
 			continue
 		}
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, pck)
-		legacy.Nox_xxx_netPlayerObjSend_518C30(u.SObj(), u.SObj(), 0, 0)
+		legacy.Nox_xxx_netPlayerObjSend_518C30(u, u, 0, 0)
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != common.MaxPlayers-1 {
 			buf := s.NetList.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
@@ -1380,7 +1380,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			if text != orig {
 				// FIXME: rebuild the packet and replace the message
 			}
-			for it := s.PlayerFirst(); it != nil; it = s.PlayerNext(it) {
+			for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
 				} else {
@@ -1408,8 +1408,8 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		if text != orig {
 			// FIXME: rebuild the packet and replace the message
 		}
-		for it := s.PlayerFirst(); it != nil; it = s.PlayerNext(it) {
-			uit := it.UnitC()
+		for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
+			uit := it.PlayerUnit
 			if uit == nil {
 				continue
 			}
@@ -1464,7 +1464,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		legacy.Nox_net_importantACK_4E55A0(pl.Index(), int(id))
 		return 5, true
 	case noxnet.MSG_REQUEST_MAP:
-		asPlayerS(pl).GoObserver(true, true)
+		s.PlayerGoObserver(pl, true, true)
 		if u != nil {
 			legacy.Nox_xxx_netChangeTeamMb_419570(u.TeamPtr(), uint32(pl.NetCode()))
 		}
@@ -1475,7 +1475,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			return 0, false
 		}
 		if noxflags.HasGame(noxflags.GameModeQuest) && pl.Index() != common.MaxPlayers-1 && pl.IsActive() && u != nil && u.UpdateDataPlayer().Field138 == 1 {
-			asPlayerS(pl).Disconnect(2)
+			s.PlayerDisconnect(pl, 2)
 		} else {
 			fname := datapath.Save(common.SaveDir, "_temp_.dat")
 			defer ifs.Remove(fname)
@@ -1670,7 +1670,7 @@ func (s *Server) netSendAudioEvent(u *Object, ev *server.AudioEvent, perc int16)
 	s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:4])
 }
 
-func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Object) bool {
+func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *server.Object) bool {
 	ud := u.UpdateDataPlayer()
 	pl := ud.Player
 	var buf [12]byte

@@ -381,7 +381,7 @@ func (s *Server) getGameInfo() xwisInfoShort {
 	} else if acc[100]&0x10 != 0 {
 		access = lobby.AccessClosed
 	}
-	players := s.GetPlayers()
+	players := s.Players.List()
 	list := make([]lobby.PlayerInfo, 0, len(players))
 	for _, p := range players {
 		list = append(list, lobby.PlayerInfo{
@@ -598,7 +598,7 @@ func initGameSession435CC0() error {
 		legacy.Nox_xxx_plrLoad_41A480(getString10984())
 	}
 	if isServer && !isDedicatedServer {
-		noxServer.GetPlayers()[0].GoObserver(false, true)
+		noxServer.PlayerGoObserver(noxServer.Players.List()[0], false, true)
 	}
 	execConsoleCmdAuthed(ctx, "execrul autoexec.rul")
 	if isServer {
@@ -1309,8 +1309,8 @@ func sub_4139C0() {
 }
 
 func (s *Server) sub_417160() {
-	for _, it := range s.GetPlayers() {
-		legacy.Nox_xxx_playerUnsetStatus_417530(it.S(), 16)
+	for _, it := range s.Players.List() {
+		legacy.Nox_xxx_playerUnsetStatus_417530(it, 16)
 	}
 }
 

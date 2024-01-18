@@ -237,6 +237,28 @@ func (s *serverPlayers) NewRaw(id int) *Player {
 	return nil
 }
 
+func (s *serverPlayers) Host() *Player {
+	// TODO: better way
+	for _, p := range s.List() {
+		if s.IsHost(p) {
+			return p
+		}
+	}
+	return nil
+}
+
+func (s *serverPlayers) IsHost(p *Player) bool {
+	if p == nil {
+		return false
+	}
+	// TODO: better way
+	u := p.PlayerUnit
+	if u == nil {
+		return false
+	}
+	return u == s.HostUnit
+}
+
 func (s *serverPlayers) CheckName(pl *Player) {
 	for i := 2; ; i++ {
 		ok := true
@@ -427,7 +449,9 @@ var (
 	_ = [1]struct{}{}[4800-unsafe.Offsetof(Player{}.data4800)]
 )
 
-var _ Obj = (*Player)(nil) // proxies Unit
+var (
+	_ Obj = (*Player)(nil) // proxies Unit
+)
 
 type Player struct {
 	Field0              uint32             // 0, 0
@@ -575,6 +599,13 @@ func (p *Player) NetCode() int {
 
 func (p *Player) Gold() int {
 	return int(p.GoldVal)
+}
+
+func (p *Player) Pos() types.Pointf {
+	if p == nil || p.PlayerUnit == nil {
+		return types.Pointf{}
+	}
+	return p.PlayerUnit.Pos()
 }
 
 func (p *Player) CursorPos() types.Pointf {

@@ -63,7 +63,7 @@ func (a *abilityHarpoon) getHarpoonData(u *server.Object) *harpoonData {
 	switch {
 	case u.Class().Has(object.ClassPlayer):
 		ud := u.UpdateDataPlayer()
-		pl := asPlayerS(ud.Player)
+		pl := ud.Player
 		p := (*harpoonPtr)(unsafe.Pointer(&ud.HarpoonTarg))
 		return &harpoonData{harpoonPtr: p, getAim: func() types.Pointf {
 			return pl.CursorPos()

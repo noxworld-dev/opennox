@@ -4,6 +4,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -233,8 +234,12 @@ func init() {
 	legacy.Sub_4C3B70 = sub_4C3B70
 	legacy.Sub_4CBBF0 = sub_4CBBF0
 	legacy.Nox_input_reset_430140 = nox_input_reset_430140
-	legacy.Nox_xxx_playerDisconnByPlrID_4DEB00 = nox_xxx_playerDisconnByPlrID_4DEB00
-	legacy.Nox_xxx_playerCallDisconnect_4DEAB0 = nox_xxx_playerCallDisconnect_4DEAB0
+	legacy.Nox_xxx_playerDisconnByPlrID_4DEB00 = func(id ntype.PlayerInd) {
+		noxServer.PlayerDisconnectByIndCode4(id)
+	}
+	legacy.Nox_xxx_playerCallDisconnect_4DEAB0 = func(ind ntype.PlayerInd, v int8) {
+		noxServer.PlayerDisconnectByInd(ind, v)
+	}
 	legacy.Nox_xxx_playerCameraUnlock_4E6040 = nox_xxx_playerCameraUnlock_4E6040
 	legacy.Nox_xxx_playerCameraFollow_4E6060 = nox_xxx_playerCameraFollow_4E6060
 	legacy.Nox_xxx_playerGetPossess_4DDF30 = nox_xxx_playerGetPossess_4DDF30

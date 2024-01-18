@@ -311,7 +311,7 @@ func (s *Server) setupQuestGame() {
 			legacy.Nox_xxx_playerRespawnItem_4EF750(u.SObj(), "Bow", nil, 1, 1)
 		}
 		if pl.Field4792 == 0 {
-			pl.GoObserver(false, false)
+			s.PlayerGoObserver(pl, false, false)
 		}
 	}
 	s.TeamsRemoveActive(true)
