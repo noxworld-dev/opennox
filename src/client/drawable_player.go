@@ -22,6 +22,10 @@ type PlayerAnimation struct {
 	Weapon [playerAnimWeaponCnt]*PlayerEquipAnimation // 39, 156
 }
 
+func (a *PlayerAnimation) FramesSlice(ptr *noxrender.ImageHandle) []noxrender.ImageHandle {
+	return unsafe.Slice(ptr, a.Base.Cnt40)
+}
+
 var _ = [1]struct{}{}[14524-unsafe.Sizeof(PlayerDrawData{})]
 
 type PlayerDrawData struct {
@@ -94,13 +98,32 @@ var playerAnimations = [playerAnimCnt]string{
 }
 
 var playerAnimationsArmor = [playerAnimArmorCnt]string{
-	"STREET_SNEAKERS", "MEDIEVAL_CLOAK", "STREET_PANTS", "MEDIEVAL_PANTS",
-	"LEATHER_LEGGINGS", "CHAIN_LEGGINGS", "LEATHER_BOOTS", "LEATHER_ARMORED_BOOTS",
-	"PLATE_BOOTS", "PLATE_LEGGINGS", "STREET_SHIRT", "MEDIEVAL_SHIRT",
-	"LEATHER_ARMBANDS", "PLATE_ARMS", "WIZARD_ROBE", "LEATHER_TUNIC",
-	"CHAIN_TUNIC", "PLATE_BREAST", "CHAIN_COIF", "WIZARD_HELM",
-	"CONJURER_HELM", "LEATHER_HELM", "PLATE_HELM", "ORNATE_HELM",
-	"ROUND_SHIELD", "KITE_SHIELD",
+	0:  "STREET_SNEAKERS",
+	1:  "MEDIEVAL_CLOAK",
+	2:  "STREET_PANTS",
+	3:  "MEDIEVAL_PANTS",
+	4:  "LEATHER_LEGGINGS",
+	5:  "CHAIN_LEGGINGS",
+	6:  "LEATHER_BOOTS",
+	7:  "LEATHER_ARMORED_BOOTS",
+	8:  "PLATE_BOOTS",
+	9:  "PLATE_LEGGINGS",
+	10: "STREET_SHIRT",
+	11: "MEDIEVAL_SHIRT",
+	12: "LEATHER_ARMBANDS",
+	13: "PLATE_ARMS",
+	14: "WIZARD_ROBE",
+	15: "LEATHER_TUNIC",
+	16: "CHAIN_TUNIC",
+	17: "PLATE_BREAST",
+	18: "CHAIN_COIF",
+	19: "WIZARD_HELM",
+	20: "CONJURER_HELM",
+	21: "LEATHER_HELM",
+	22: "PLATE_HELM",
+	23: "ORNATE_HELM",
+	24: "ROUND_SHIELD",
+	25: "KITE_SHIELD",
 }
 
 var playerAnimationsWeapons = [playerAnimWeaponCnt]string{

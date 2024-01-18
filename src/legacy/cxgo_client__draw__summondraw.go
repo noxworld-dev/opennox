@@ -33,7 +33,7 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 	v3 = int32(a2.PosVec.X)
 	v4 = int32(a2.PosVec.Y)
 	v5 = int32(a2.DrawData)
-	v18 = int32(a2.Field_77)
+	v18 = int32(a2.AnimFrameSlave)
 	v6 = int32(dword_5d4594_1313740)
 	v15 = v3
 	v17 = v4
@@ -41,7 +41,7 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("BlueSpark"))
 		dword_5d4594_1313740 = uint32(v6)
 	}
-	v7 = int32(gameFrame() - v2.Field_79)
+	v7 = int32(gameFrame() - v2.AnimStart)
 	v8 = int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*218))))
 	if uint32(v7) < uint32(uint16(int16(v8))) {
 		if v7 >= v8-1 {
@@ -54,10 +54,10 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 			if v10 >= uint32(*(*uint8)(unsafe.Add(v5, 8))) {
 				v10 = 0
 			}
-			v12 = (v10 + gameFrame() + v2.Field_32) / (uint32(*(*uint8)(unsafe.Add(v5, 9))) + 1)
-			v2.Field_77 = v12
+			v12 = (v10 + gameFrame() + v2.NetCode32) / (uint32(*(*uint8)(unsafe.Add(v5, 9))) + 1)
+			v2.AnimFrameSlave = v12
 			if v12 >= uint32(*(*uint8)(unsafe.Add(v5, 8))) {
-				v2.Field_77 = v12 % uint32(*(*uint8)(unsafe.Add(v5, 8)))
+				v2.AnimFrameSlave = v12 % uint32(*(*uint8)(unsafe.Add(v5, 8)))
 			}
 			*(*uint32)(unsafe.Add(v5, 12)) = 5
 			v13 = int32(uint32(v15) + *((*uint32)(unsafe.Add(unsafe.Pointer(v11), -int(4*1))))*2)
@@ -75,11 +75,11 @@ func nox_thing_summon_effect_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		}
 		v2.PosVec.X = int(uint32(v15))
 		v2.PosVec.Y = int(uint32(v17))
-		v2.Field_77 = uint32(v18)
+		v2.AnimFrameSlave = uint32(v18)
 		*(*uint32)(unsafe.Add(v5, 12)) = 2
 		nox_client_drawEnableAlpha_434560(1)
 		v16 = int64(gameFrame())
-		*(*uint32)(unsafe.Add(unsafe.Pointer(&v16), 4*0)) = v2.Field_79
+		*(*uint32)(unsafe.Add(unsafe.Pointer(&v16), 4*0)) = v2.AnimStart
 		nox_client_drawSetAlpha_434580(uint8(int8(int64((float64(gameFrame()) - float64(v16)) / float64(*((*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*218)))) * 255.0))))
 		(*(**client.Drawable)(unsafe.Add(unsafe.Pointer(v2), 4*108))).DrawFunc.Get()(a1, *(**client.Drawable)(unsafe.Add(unsafe.Pointer(v2), 4*108)))
 		nox_client_drawEnableAlpha_434560(0)

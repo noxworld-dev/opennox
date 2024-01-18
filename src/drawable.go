@@ -33,7 +33,7 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 	} else {
 		dr.SetFrameMB(0)
 	}
-	dr.Field_79 = c.srv.Frame()
+	dr.AnimStart = c.srv.Frame()
 	dr.Field_85 = c.srv.Frame()
 	c.Objs.Count++
 	dr.Field_120 = 0
@@ -47,7 +47,7 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 		return nil
 	}
 	dr.Buffs = 0
-	dr.Field_32 = 0
+	dr.NetCode32 = 0
 	if dr.ClientUpdateFunc.Ptr() != nil {
 		c.Objs.ClientUpdateAdd(dr)
 	}
@@ -177,7 +177,7 @@ func (c *Client) Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 		c.Objs.PlayerListDelete(dr)
 	}
 	if dr.HasTeam() {
-		legacy.Nox_xxx_netChangeTeamMb_419570(dr.TeamPtr(), dr.Field_32)
+		legacy.Nox_xxx_netChangeTeamMb_419570(dr.TeamPtr(), dr.NetCode32)
 	}
 	c.Nox_xxx_spriteDelete_45A4B0(dr)
 }

@@ -13,7 +13,7 @@ func nox_video_drawCursorSelectCircle_4773C0(vp *noxrender.Viewport) {
 		return
 	}
 	var v3 uint32
-	if int32(*(*uint8)(unsafe.Add(dword_5d4594_1096640.C(), 112)))&6 != 0 && sub_495A80(int32(dword_5d4594_1096640.Field_32)) == 0 {
+	if int32(*(*uint8)(unsafe.Add(dword_5d4594_1096640.C(), 112)))&6 != 0 && sub_495A80(int32(dword_5d4594_1096640.NetCode32)) == 0 {
 		switch nox_common_randomIntMinMax_415FF0(0, 1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\selectdw.c"), 440) {
 		case 0:
 			v3 = nox_color_violet_2598268

@@ -1,6 +1,7 @@
 package legacy
 
 import (
+	"image"
 	"math"
 	"unsafe"
 
@@ -16,93 +17,60 @@ import (
 )
 
 func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	var (
-		v5  *byte
-		v7  *server.ObjectTeam
-		v8  *server.ObjectTeam
-		v9  uint8
-		v11 *client.Drawable
-		v13 int32
-		v14 int32
-		v15 *uint32
-	)
-	var v20 int8
-	var v21 *int16
-	var v22 int32
-	var v23 int32
-	var v26 int32
-	var v30 int32
-	var v31 int32
-	var v34 int32
-	var v35 int32
-	var v36 [unsafe.Sizeof(noxrender.Viewport{})]int32
-	v26 = int32(dr.Field_32)
-	v31 = 0
-	v30 = 0
+	v26 := int32(dr.NetCode32)
 	pl := nox_common_playerInfoGetByID_417040(v26)
-	pl2 := pl
 	if pl == nil {
 		return 1
 	}
+	v30 := false
 	if *memmap.PtrUint32(0x8531A0, 2576) != 0 && (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&1) != 0 {
-		v30 = 1
+		v30 = true
 	}
-	var v29 *byte
-	if nox_player_netCode_85319C == dr.Field_32 {
+	var (
+		v31 = false
+		tm  *server.Team
+	)
+	if nox_player_netCode_85319C == dr.NetCode32 {
 		if v4 := nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C); v4 != nil {
-			v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v4.ID))))
-			v29 = v5
+			tm = nox_xxx_getTeamByID_418AB0(int32(v4.ID))
 		}
 	} else {
-		if *(*byte)(unsafe.Add(unsafe.Pointer(pl), 3680))&1 != 0 {
+		if pl.Field3680&0x1 != 0 {
 			return 1
 		}
-		v6 := nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
-		if v6 != nil {
-			v7 = nox_xxx_objGetTeamByNetCode_418C80(dr.Field_32)
-			v8 = v7
-			if v7 != nil {
+		if v6 := nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C); v6 != nil {
+			if v7 := nox_xxx_objGetTeamByNetCode_418C80(dr.NetCode32); v7 != nil {
 				if nox_xxx_servCompareTeams_419150(v6, v7) != 0 {
-					v31 = 1
+					v31 = true
 				}
-				v5 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v8.ID))))
-				v29 = v5
+				tm = nox_xxx_getTeamByID_418AB0(int32(v7.ID))
 			}
 		}
 	}
-	v9 = nox_xxx_getTeamCounter_417DD0()
-	v35 = bool2int32(int32(v9) != 0)
-	if (*(*byte)(unsafe.Add(unsafe.Pointer(pl), 4)) & 1) != 0 {
-		v36[2] = nox_win_width
-		v36[8] = nox_win_width
-		v11 = dword_5d4594_1313792
-		v36[0] = 0
-		v36[1] = 0
-		v36[3] = nox_win_height
-		v36[9] = nox_win_height
-		v36[4] = 0
-		v36[5] = 0
-		if dword_5d4594_1313792 != nil || (func() bool {
-			v13 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Flag"))
-			v11 = nox_new_drawable_for_thing(v13)
-			return (func() *client.Drawable {
-				dword_5d4594_1313792 = v11
-				return dword_5d4594_1313792
-			}()) != nil
-		}()) {
-			v15 = &pl.Field2324
-			for v14 = 0; v14 < 27; v14++ {
+	teamsEnabled := nox_xxx_getTeamCounter_417DD0() != 0
+	if pl.Field4&0x1 != 0 {
+		var vp2 noxrender.Viewport
+		vp2.Screen.Max = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
+		vp2.Size = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
+		flag := dword_5d4594_1313792
+		if dword_5d4594_1313792 == nil {
+			v13 := nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Flag"))
+			flag = nox_new_drawable_for_thing(v13)
+			dword_5d4594_1313792 = flag
+		}
+		if dword_5d4594_1313792 != nil {
+			v15 := &pl.Field2324
+			for i := 0; i < 27; i++ {
 				if *v15 == 1 {
-					alloc.Memcpy(unsafe.Add(unsafe.Pointer(v11), 4*108), unsafe.Add(unsafe.Pointer(pl), v14*24+2328), 0x14)
-					v11 = dword_5d4594_1313792
-					pl = pl2
+					alloc.Memcpy(unsafe.Add(unsafe.Pointer(flag), 4*108), unsafe.Add(unsafe.Pointer(pl), i*24+2328), 0x14)
+					flag = dword_5d4594_1313792
 					break
 				}
 				v15 = (*uint32)(unsafe.Add(unsafe.Pointer(v15), 4*6))
 			}
-			v11.PosVec.X = dr.PosVec.X - vp.World.Min.X + vp.Screen.Min.X + 15
+			flag.PosVec.X = dr.PosVec.X - vp.World.Min.X + vp.Screen.Min.X + 15
 			dword_5d4594_1313792.PosVec.Y = vp.Screen.Min.Y - vp.World.Min.Y + dr.PosVec.Y - 25
-			dword_5d4594_1313792.DrawFunc.Get()((*noxrender.Viewport)(unsafe.Pointer(&v36[0])), dword_5d4594_1313792)
+			dword_5d4594_1313792.DrawFunc.Get()(&vp2, dword_5d4594_1313792)
 		}
 	}
 	var colors [6]uint32
@@ -151,79 +119,80 @@ func nox_thing_player_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		return 0
 	}
 	nox_xxx_drawObject_4C4770_draw(vp, dr, img)
-	v20 = int8(dr.Field_74_2)
-	if int32(v20) != 1 && int32(v20) != 0 && int32(v20) != 2 && int32(v20) != 3 && int32(v20) != 6 || dr.Field_69 == 37 {
-		sub_4B8D40(vp, dr, int32(pl.Field4&2), &pl.Field2324, unsafe.Pointer(panim), fi)
-		sub_4B8960(vp, dr, int32(*(*uint32)(unsafe.Pointer(pl))), &pl.Field2972, unsafe.Pointer(panim), fi)
-		sub_4B8D40(vp, dr, int32(pl.Field4&^uint32(2)), &pl.Field2324, unsafe.Pointer(panim), fi)
+
+	// A player in Nox has a 32-bit integer field that contains bits for each
+	// type of armor / weapon. sub_4B8D40 is responsible for iterating over
+	// each type and drawing it to the screen.
+	//
+	// To add support for drawing the quiver, we must modify sub_4B8D40 to
+	// iterate from 1 instead of 2 (i.e. bit 1 indicates quiver equipped). We
+	// must also modify how sub_4B8D40 is called because of Z ordering.
+	//
+	// The Z ordering is simple to understand. Usually Nox will draw the player
+	// body, and then the armor / weapon on top (or vice versa depending on
+	// rotation). The quiver is unique because it is on the player's back, e.g.
+	// it must be drawn first, then the body, then the rest of the armor.
+	if dr.AnimDir != 1 && dr.AnimDir != 0 && dr.AnimDir != 2 && dr.AnimDir != 3 && dr.AnimDir != 6 || dr.AnimInd == 37 {
+		sub_4B8D40(vp, dr, pl.Field4&2, &pl.Field2324, panim, fi)
+		sub_4B8960(vp, dr, pl.Field0, &pl.Field2972, panim, fi)
+		sub_4B8D40(vp, dr, pl.Field4&^2, &pl.Field2324, panim, fi)
 	} else {
-		sub_4B8D40(vp, dr, int32(pl.Field4&^uint32(2)), &pl.Field2324, unsafe.Pointer(panim), fi)
-		sub_4B8960(vp, dr, int32(*(*uint32)(unsafe.Pointer(pl))), &pl.Field2972, unsafe.Pointer(panim), fi)
-		sub_4B8D40(vp, dr, int32(pl.Field4&2), &pl.Field2324, unsafe.Pointer(panim), fi)
+		sub_4B8D40(vp, dr, pl.Field4&^2, &pl.Field2324, panim, fi)
+		sub_4B8960(vp, dr, pl.Field0, &pl.Field2972, panim, fi)
+		sub_4B8D40(vp, dr, pl.Field4&2, &pl.Field2324, panim, fi)
 	}
-	if !(v30 != 0 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.Field_32 == nox_player_netCode_85319C || *memmap.PtrUint32(0x852978, 8) != 0 && (nox_client_drawable_testBuff_4356C0((*client.Drawable)(*memmap.PtrPtr(0x852978, 8)), 21) || v31 != 0)) {
+	if !(v30 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr.NetCode32 == nox_player_netCode_85319C || *memmap.PtrT[*client.Drawable](0x852978, 8) != nil && (nox_client_drawable_testBuff_4356C0(*memmap.PtrT[*client.Drawable](0x852978, 8), 21) || v31)) {
 		return 1
 	}
 	a1 := nox_color_rgb_4344A0(155, 155, 155)
 	if sub_48D830(dr) == 0 && !noxflags.HasGame(2048) {
-		v21 = (*int16)(unsafe.Add(unsafe.Pointer(pl), 4704))
-		nox_xxx_drawGetStringSize_43F840(nil, (*uint16)(unsafe.Add(unsafe.Pointer(pl), unsafe.Sizeof(uint16(0))*2352)), &v34, nil, 0)
-		v22 = int32(vp.Screen.Min.X) + int32(dr.PosVec.X) + v34/(-2) - int32(vp.World.Min.X)
-		var a2 int32 = int32(vp.Screen.Min.Y - vp.World.Min.Y + dr.PosVec.Y - 64)
+		name := &pl.NameFinal[0] // pl.Name()
+		var v34 int32
+		nox_xxx_drawGetStringSize_43F840(nil, name, &v34, nil, 0)
+		x := int32(vp.Screen.Min.X) + int32(dr.PosVec.X) + v34/(-2) - int32(vp.World.Min.X)
+		y := int32(vp.Screen.Min.Y - vp.World.Min.Y + dr.PosVec.Y - 64)
 		nox_xxx_drawSetTextColor_434390(*memmap.PtrInt32(0x852978, 4))
-		nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v21)), v22+1, a2+1)
+		nox_xxx_drawString_43F6E0(nil, name, x+1, y+1)
 		nox_xxx_drawSetTextColor_434390(int32(a1))
-		if v35 != 0 {
-			if v29 != nil {
-				v23 = int32(nox_xxx_materialGetTeamColor_418D50((*server.Team)(unsafe.Pointer(v29))))
-				nox_xxx_drawSetTextColor_434390(v23)
-			}
+		if teamsEnabled && tm != nil {
+			cl := int32(nox_xxx_materialGetTeamColor_418D50(tm))
+			nox_xxx_drawSetTextColor_434390(cl)
 		}
-		nox_xxx_drawString_43F6E0(nil, (*wchar2_t)(unsafe.Pointer(v21)), v22, a2)
-		pl = pl2
+		nox_xxx_drawString_43F6E0(nil, name, x, y)
 	}
 	if nox_client_drawable_testBuff_4356C0(dr, 16) {
-		v36[0] = 0
-		v36[1] = 0
-		v36[2] = nox_win_width
-		v36[3] = nox_win_height
-		v36[4] = 0
-		v36[5] = 0
-		v36[8] = nox_win_width
-		v36[9] = nox_win_height
+		var vp2 noxrender.Viewport
+		vp2.Screen.Max = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
+		vp2.Size = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
 		if dword_5d4594_1313796 == nil {
 			dword_5d4594_1313796 = nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull")))
 			dword_5d4594_1313796.ObjFlags |= 0x1000000
 		}
 		dword_5d4594_1313796.PosVec.X = dr.PosVec.X + vp.Screen.Min.X - vp.World.Min.X
 		dword_5d4594_1313796.PosVec.Y = dr.PosVec.Y + vp.Screen.Min.Y - vp.World.Min.Y - 50
-		dword_5d4594_1313796.DrawFunc.Get()((*noxrender.Viewport)(unsafe.Pointer(&v36[0])), dword_5d4594_1313796)
+		dword_5d4594_1313796.DrawFunc.Get()(&vp2, dword_5d4594_1313796)
 	}
 	if nox_client_drawable_testBuff_4356C0(dr, 30) {
-		v36[0] = 0
-		v36[1] = 0
-		v36[2] = nox_win_width
-		v36[3] = nox_win_height
-		v36[4] = 0
-		v36[5] = 0
-		v36[8] = nox_win_width
-		v36[9] = nox_win_height
+		var vp2 noxrender.Viewport
+		vp2.Screen.Max = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
+		vp2.Size = image.Point{X: int(nox_win_width), Y: int(nox_win_height)}
 		if dword_5d4594_1313800 == nil {
 			dword_5d4594_1313800 = nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningCrown")))
 			dword_5d4594_1313800.ObjFlags |= 0x1000000
 		}
 		dword_5d4594_1313800.PosVec.X = dr.PosVec.X + vp.Screen.Min.X - vp.World.Min.X
 		dword_5d4594_1313800.PosVec.Y = dr.PosVec.Y + vp.Screen.Min.Y - vp.World.Min.Y - 50
-		dword_5d4594_1313800.DrawFunc.Get()((*noxrender.Viewport)(unsafe.Pointer(&v36[0])), dword_5d4594_1313800)
+		dword_5d4594_1313800.DrawFunc.Get()(&vp2, dword_5d4594_1313800)
 	}
-	for i := int32(0); i < 6; i++ {
-		nox_draw_setMaterial_4341D0(i, int32(nox_color_white_2523948))
+	for i := 0; i < 6; i++ {
+		// TODO: shouldn't it be i+1 ?
+		nox_draw_setMaterial_4341D0(int32(i), int32(nox_color_white_2523948))
 	}
-	if !(unsafe.Pointer(dr) != *memmap.PtrPtr(0x852978, 8) && nox_xxx_playerGet_470A90() != 0) {
+	if !(dr != *memmap.PtrT[*client.Drawable](0x852978, 8) && nox_xxx_playerGet_470A90() != 0) {
 		return 1
 	}
 	if noxflags.HasGame(4096) {
-		nox_xxx_drawOtherPlayerHP_4B8EB0(vp, dr, uint16(*(*byte)(unsafe.Add(unsafe.Pointer(pl), 2282))), int8(uint8((pl.Field3680>>10)&1)))
+		nox_xxx_drawOtherPlayerHP_4B8EB0(vp, dr, pl.Field2282&0xff, int8(uint8((pl.Field3680>>10)&1)))
 	}
 	return 1
 }
@@ -275,7 +244,7 @@ loop:
 			return false
 		}
 		panim := &dd.Anim[aind]
-		if nox_xxx_loadVectorAnimated_44B8B0(&panim.Base, f) == 0 {
+		if !nox_xxx_loadVectorAnimated_44B8B0(&panim.Base, f) {
 			return false
 		}
 		for {

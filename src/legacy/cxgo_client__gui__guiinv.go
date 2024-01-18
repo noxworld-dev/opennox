@@ -218,7 +218,7 @@ func sub_462040(a1 int32) {
 		return
 	}
 	v8 = int32(v5.ObjFlags)
-	v6.Field_32 = uint32(v1)
+	v6.NetCode32 = uint32(v1)
 	v6.ObjFlags = uint32(v8) | 0x40000000
 	alloc.Memcpy(unsafe.Add(unsafe.Pointer(v6), 4*108), v4, 0x18)
 	v6.Field_73_1 = uint16(v18)
@@ -257,7 +257,7 @@ func sub_462040(a1 int32) {
 					}
 				}
 				v15 = v9 + NOX_INVENTORY_ROW_COUNT*v13
-				nox_client_inventory_grid_1050020[v15].field_0.Field_32 = nox_client_inventory_grid_1050020[v15].field_4
+				nox_client_inventory_grid_1050020[v15].field_0.NetCode32 = nox_client_inventory_grid_1050020[v15].field_4
 				nox_xxx_clientEquip_4623B0(nox_client_inventory_grid_1050020[v15].field_0)
 				v10 = 0
 			LABEL_26:
@@ -270,7 +270,7 @@ func sub_462040(a1 int32) {
 		}
 	}
 	if v20 == 0 {
-		dword_5d4594_1062488 = v6.Field_32
+		dword_5d4594_1062488 = v6.NetCode32
 	}
 	v16 = int16(*((*uint16)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(uint16(0))*224))))
 	if int32(v16) >= 0 {
@@ -1012,7 +1012,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 				if int32(nox_client_inventory_grid_1050020[v11].field_140) != 0 {
 					var dr = nox_client_inventory_grid_1050020[v11].field_0
 					dword_5d4594_1063116 = unsafe.Pointer(dr)
-					dr.Field_32 = nox_client_inventory_grid_1050020[v11].field_4
+					dr.NetCode32 = nox_client_inventory_grid_1050020[v11].field_4
 				} else {
 					dword_5d4594_1063116 = nil
 				}

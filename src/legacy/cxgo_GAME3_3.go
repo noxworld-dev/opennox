@@ -10726,7 +10726,7 @@ func Nox_xxx_XFerInvLight_4F5AA0(a1p *server.Object, data unsafe.Pointer) int {
 		if v2 == nil {
 			goto LABEL_14
 		}
-		for v2.Field_32 != uint32(a1.Extent) {
+		for v2.NetCode32 != uint32(a1.Extent) {
 			v2 = nox_drawable_next_45A070(v2)
 			if v2 == nil {
 				goto LABEL_14

@@ -22,20 +22,20 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	v2 := dr.DrawData
 	switch *(*uint32)(unsafe.Add(v2, 12)) {
 	case 0:
-		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
+		v3 = int32((gameFrame() - dr.AnimStart) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
 		v7 = int32(*(*uint8)(unsafe.Add(v2, 8)))
 		if v3 >= v7 {
 			v3 = v7 - 1
 		}
 	case 1:
-		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
+		v3 = int32((gameFrame() - dr.AnimStart) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
 		if v3 >= int32(*(*uint8)(unsafe.Add(v2, 8))) {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			return 0
 		}
 	case 2:
 		if dr.Flags30()&0x1000000 != 0 {
-			v3 = int32((gameFrame() + dr.Field_32) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
+			v3 = int32((gameFrame() + dr.NetCode32) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
 			v4 = int32(*(*uint8)(unsafe.Add(v2, 8)))
 			if v3 >= v4 {
 				v3 %= v4
@@ -44,7 +44,7 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		}
 		if dr.Flags28()&0x10000000 != 0 {
 			if noxflags.HasGame(32) {
-				v3 = int32((gameFrame() + dr.Field_32) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
+				v3 = int32((gameFrame() + dr.NetCode32) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
 				v4 = int32(*(*uint8)(unsafe.Add(v2, 8)))
 				if v3 >= v4 {
 					v3 %= v4
@@ -59,7 +59,7 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	case 3:
 		v6 = int32(*(*uint8)(unsafe.Add(v2, 8))) * 2
 		nox_client_drawEnableAlpha_434560(1)
-		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
+		v3 = int32((gameFrame() - dr.AnimStart) / (uint32(*(*uint8)(unsafe.Add(v2, 9))) + 1))
 		if v3 >= v6 {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			return 0
@@ -72,7 +72,7 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	case 4:
 		v3 = nox_common_randomIntMinMax_415FF0(0, int32(*(*uint8)(unsafe.Add(v2, 8)))-1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\animdraw.c"), 24)
 	case 5:
-		v3 = int32(dr.Field_77)
+		v3 = int32(dr.AnimFrameSlave)
 	default:
 		return 1
 	}
@@ -88,7 +88,7 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 	v2 := dr.Flags70()
 	v3 := dr.DrawData
 	if v2&2 != 0 {
-		dr.Field_79 = gameFrame()
+		dr.AnimStart = gameFrame()
 		v4 = 0
 	} else if v2&4 != 0 {
 		v4 = 1
@@ -97,7 +97,7 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 	}
 	v5 := unsafe.Add(v3, v4*48+4)
 	if *(*uint32)(unsafe.Add(v5, 44)) == 2 {
-		dr.Field_79 = gameFrame()
+		dr.AnimStart = gameFrame()
 	}
 	if int32(*(*uint16)(unsafe.Add(v5, 40))) != 0 {
 		return sub_4BC6B0(a1, dr, (*client.AnimationVector)(v5))
@@ -133,7 +133,7 @@ func nox_things_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFile, a
 	v20 = nox_memfile_read_u8(f)
 	nox_memfile_read(unsafe.Pointer(a3), 1, int32(v20), f)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(a3), v20)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) = uint32(get_animation_kind_id_44B4C0(a3))
+	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) = uint32(client.ParseAnimKind(GoString(a3)))
 	result = int32(uintptr(alloc.Calloc1(int(*((*uint8)(unsafe.Add(unsafe.Pointer(v5), 8)))), 4)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) = uint32(result)
 	if result == 0 {

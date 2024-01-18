@@ -158,7 +158,7 @@ func nox_xxx_netGetUnitCodeCli_578B00(a1 *client.Drawable) uint32 {
 	if a1 == nil {
 		return 0
 	}
-	code := a1.Field_32
+	code := a1.NetCode32
 	if code >= 0x8000 {
 		return 0
 	}

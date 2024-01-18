@@ -472,7 +472,7 @@ func sub_48D800() int32 {
 	return 1
 }
 func sub_48D830(dr *client.Drawable) int32 {
-	return bool2int32(nox_xxx_netCode2ChatBubble_48D850(int32(dr.Field_32)) != nil)
+	return bool2int32(nox_xxx_netCode2ChatBubble_48D850(int32(dr.NetCode32)) != nil)
 }
 func nox_xxx_netCode2ChatBubble_48D850(a1 int32) unsafe.Pointer {
 	result := *memmap.PtrPtr(0x5D4594, 1197368)
@@ -1228,7 +1228,7 @@ func nox_xxx_spriteCreate_48E970(a1 int32, a2 uint32, a3 int32, a4 int32) *clien
 			nox_xxx_spriteLoadError_4356E0()
 			return nil
 		}
-		v8.Field_32 = uint32(v5)
+		v8.NetCode32 = uint32(v5)
 		if uint32(a1) == *memmap.PtrUint32(0x5D4594, 1200836) || uint32(a1) == *memmap.PtrUint32(0x5D4594, 1200840) || v8.ObjClass&0x10000000 != 0 {
 			sub_459DD0(v8, 1)
 		}
@@ -1316,7 +1316,7 @@ func sub_4948B0(a1 *server.Team) {
 		result := nox_xxx_cliGetSpritePlayer_45A000()
 		for k := result; result != nil; k = result {
 			if nox_xxx_teamCompare2_419180(k.TeamPtr(), a1.IDVal) == 0 {
-				v9 := nox_common_playerInfoGetByID_417040(int32(k.Field_32))
+				v9 := nox_common_playerInfoGetByID_417040(int32(k.NetCode32))
 				v10 := v9
 				if v9 != nil {
 					if (*(*byte)(unsafe.Add(unsafe.Pointer(v9), 3680)) & 1) == 0 {
@@ -1396,14 +1396,14 @@ func nox_xxx_netCliProcUpdateStream_494A60(a1 []byte, a2 int32, a3 *uint32) int3
 		if v16 != nil {
 			v16.Field_72 = gameFrame()
 			v17 = uint8(int8((int32(v11) >> 4) & 7))
-			v16.Field_74_2 = v17
+			v16.AnimDir = v17
 			if int32(v17) > 3 {
-				v16.Field_74_2 = uint8(int8(int32(v17) + 1))
+				v16.AnimDir = uint8(int8(int32(v17) + 1))
 			}
-			if v16.Field_69 != uint32(v26) {
+			if v16.AnimInd != uint32(v26) {
 				v18 = int32(gameFrame())
-				v16.Field_69 = uint32(v26)
-				v16.Field_79 = uint32(v18)
+				v16.AnimInd = uint32(v26)
+				v16.AnimStart = uint32(v18)
 			}
 			nox_xxx_spriteSetFrameMB_45AB80(unsafe.Pointer(v16), int32(v25))
 		}
@@ -1509,9 +1509,9 @@ func nox_xxx_netCliUpdateStream2_494C30(a1 *uint8, a2 int32, a3 *int32) int32 {
 		v27 = int8(*(*uint8)(v14))
 		v20 = int8(*(*uint8)(v14))
 		v21 = uint8(int8((int32(*(*uint8)(v14)) >> 4) & 7))
-		v19.Field_74_2 = v21
+		v19.AnimDir = v21
 		if int32(v21) > 3 {
-			v19.Field_74_2 = uint8(int8(int32(v21) + 1))
+			v19.AnimDir = uint8(int8(int32(v21) + 1))
 		}
 		if int32(v20) < 0 {
 			nox_xxx_spriteSetFrameMB_45AB80(unsafe.Pointer(v19), int32(*(*uint8)(unsafe.Pointer(uintptr(func() unsafe.Pointer {
@@ -1531,10 +1531,10 @@ func nox_xxx_netCliUpdateStream2_494C30(a1 *uint8, a2 int32, a3 *int32) int32 {
 		} else {
 			v28 = uint8(int8(int32(v20) & 0xF))
 		}
-		if v19.Field_69 != uint32(v28) {
+		if v19.AnimInd != uint32(v28) {
 			v23 = int32(gameFrame())
-			v19.Field_69 = uint32(v28)
-			v19.Field_79 = uint32(v23)
+			v19.AnimInd = uint32(v28)
+			v19.AnimStart = uint32(v23)
 		}
 		v14 = unsafe.Add(v14, 1)
 	} else {
@@ -2191,10 +2191,10 @@ func sub_495D00(a1 *client.Drawable, a2 *client.DrawableFX, a3 *noxrender.Viewpo
 	}
 	v8 := a3
 	v9 = int32(v6.PosVec.X + int(a3.Screen.Min.X) - a3.World.Min.X)
-	v10 = int32(v6.Field_77 * 8)
+	v10 = int32(v6.AnimFrameSlave * 8)
 	v30 = int32(v6.PosVec.Y - int(uint32(v6.ZVal)) - int(uint32(v6.ZVal2)) - a3.World.Min.Y + a3.Screen.Min.Y - 10)
-	v28 = memmap.PtrFloat32(0x587000, uintptr(v6.Field_77)*64+194136)
-	v22 = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(v6.Field_77)*64+194136)) * (-12.0))
+	v28 = memmap.PtrFloat32(0x587000, uintptr(v6.AnimFrameSlave)*64+194136)
+	v22 = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(v6.AnimFrameSlave)*64+194136)) * (-12.0))
 	v11 = int32(v22) + v9
 	v29 = memmap.PtrFloat32(0x587000, uintptr(v10)*8+194140)
 	v23 = float32(float64(*memmap.PtrFloat32(0x587000, uintptr(v10)*8+194140)) * (-12.0))
@@ -2335,9 +2335,9 @@ func nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) int3
 		a1 = vp
 		a2 = dr
 	)
-	*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, uintptr(int32(a2.Field_74_2)*4)+1217468), 12)) = uint32(a2.PosVec.X + int(*memmap.PtrUint32(0x587000, uintptr(int32(a2.Field_74_2)*8)+161776)))
-	*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, uintptr(int32(a2.Field_74_2)*4)+1217468), 16)) = uint32(a2.PosVec.Y + int(uint32(a2.ZVal)) + int(*memmap.PtrUint32(0x587000, uintptr(int32(a2.Field_74_2)*8)+161780)))
-	v3 := AsDrawableP(*memmap.PtrPtr(0x5D4594, uintptr(int32(a2.Field_74_2)*4)+1217468))
+	*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, uintptr(int32(a2.AnimDir)*4)+1217468), 12)) = uint32(a2.PosVec.X + int(*memmap.PtrUint32(0x587000, uintptr(int32(a2.AnimDir)*8)+161776)))
+	*(*uint32)(unsafe.Add(*memmap.PtrPtr(0x5D4594, uintptr(int32(a2.AnimDir)*4)+1217468), 16)) = uint32(a2.PosVec.Y + int(uint32(a2.ZVal)) + int(*memmap.PtrUint32(0x587000, uintptr(int32(a2.AnimDir)*8)+161780)))
+	v3 := AsDrawableP(*memmap.PtrPtr(0x5D4594, uintptr(int32(a2.AnimDir)*4)+1217468))
 	v3.DrawFunc.Get()(a1, v3)
 	return 0
 }
@@ -2354,7 +2354,7 @@ func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) {
 			v5 := float64(*memmap.PtrFloat32(0x587000, uintptr(v4)+194140)) * 4.0
 			v3.Field_119 = 0
 			v3.Field_118 = uint32(float32(v5))
-			v3.Field_79 = gameFrame()
+			v3.AnimStart = gameFrame()
 			v3.Field_81 = uint32(*a1)
 			v3.Field_82 = uint32(*(*int16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(int16(0))*1)))
 			v3.Field_115.Set(nox_xxx_sprite_4CA540)
@@ -2602,7 +2602,7 @@ func sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 			v4 := v2.Field12
 			v11 := v2.Field12
 			if uint32(v10-v3) <= 0x1E {
-				if v2.Field0 == a2.Field_32 {
+				if v2.Field0 == a2.NetCode32 {
 					v5 = int32(a1.Screen.Min.X + a2.PosVec.X - a1.World.Min.X)
 					v6 = int32(uint32(uint64(a2.PosVec.Y+a1.Screen.Min.Y+int(uint32((v3-v10)*2))-int(uint32(a2.ZVal))) - uint64(int64(a2.ZSizeMax)) - uint64(a1.World.Min.Y)))
 					nox_swprintf(&v13[0], internWStr("%d"), cmath.Abs(int64(*(*int16)(unsafe.Add(unsafe.Pointer(v8), unsafe.Sizeof(int16(0))*2)))))

@@ -9,7 +9,7 @@ import (
 
 func nox_thing_maiden_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if !noxflags.HasGame(0x200000) {
-		npc := nox_npc_by_id(int32(dr.Field_32))
+		npc := nox_npc_by_id(int32(dr.NetCode32))
 		if npc == nil {
 			return 1
 		}
@@ -19,7 +19,7 @@ func nox_thing_maiden_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		return nox_thing_monster_draw(vp, dr)
 	}
 	for it := nox_server_getFirstObject_4DA790(); it != nil; it = nox_server_getNextObject_4DA7A0(it) {
-		if dr.Field_32 == it.Extent {
+		if dr.NetCode32 == it.Extent {
 			ud := it.UpdateDataMonster()
 			for i := 0; i < 6; i++ {
 				cl := ud.Color[i]

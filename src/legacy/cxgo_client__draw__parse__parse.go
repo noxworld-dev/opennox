@@ -3,8 +3,6 @@ package legacy
 import (
 	"unsafe"
 
-	"github.com/gotranspile/cxgo/runtime/libc"
-
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -67,23 +65,23 @@ func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *binfile.MemF
 	result = unsafe.Pointer(v4)
 	return result
 }
-func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 *client.AnimationVector, f *binfile.MemFile) int32 {
-	if nox_xxx_loadVectorAnimated_44B8B0(a1, f) == 0 {
-		return 0
+func nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(a1 *client.AnimationVector, f *binfile.MemFile) bool {
+	if !nox_xxx_loadVectorAnimated_44B8B0(a1, f) {
+		return false
 	}
 	return nox_xxx_loadVectorAnimated_44BC50(a1, f)
 }
-func nox_xxx_loadVectorAnimated_44B8B0(a1 *client.AnimationVector, f *binfile.MemFile) int32 {
+func nox_xxx_loadVectorAnimated_44B8B0(a1 *client.AnimationVector, f *binfile.MemFile) bool {
 	a1.Cnt40 = uint16(nox_memfile_read_u8(f))
 	a1.Val42 = uint16(nox_memfile_read_u8(f))
 	n := nox_memfile_read_u8(f)
 	var buf [256]byte
 	nox_memfile_read(unsafe.Pointer(&buf[0]), 1, int32(n), f)
 	buf[n] = 0
-	a1.Kind = uint32(get_animation_kind_id_44B4C0(&buf[0]))
-	return 1
+	a1.Kind = client.ParseAnimKind(GoStringS(buf[:]))
+	return true
 }
-func nox_xxx_loadVectorAnimated_44BC50(ani *client.AnimationVector, f *binfile.MemFile) int32 {
+func nox_xxx_loadVectorAnimated_44BC50(ani *client.AnimationVector, f *binfile.MemFile) bool {
 	var buf [128]byte
 	for i := 0; i < 8; i++ {
 		k := i
@@ -93,7 +91,7 @@ func nox_xxx_loadVectorAnimated_44BC50(ani *client.AnimationVector, f *binfile.M
 		arr, _ := alloc.Make([]noxrender.ImageHandle{}, int(ani.Cnt40))
 		ani.Frames[k] = &arr[0]
 		if arr == nil {
-			return 0
+			return false
 		}
 		if int32(ani.Cnt40) > 0 {
 			for j := 0; j < int(ani.Cnt40); j++ {
@@ -110,26 +108,5 @@ func nox_xxx_loadVectorAnimated_44BC50(ani *client.AnimationVector, f *binfile.M
 			}
 		}
 	}
-	return 1
-}
-func get_animation_kind_id_44B4C0(a1 *byte) int32 {
-	if libc.StrCmp(a1, internCStr("OneShot")) == 0 {
-		return 0
-	}
-	if libc.StrCmp(a1, internCStr("OneShotRemove")) == 0 {
-		return 1
-	}
-	if libc.StrCmp(a1, internCStr("Loop")) == 0 {
-		return 2
-	}
-	if libc.StrCmp(a1, internCStr("LoopAndFade")) == 0 {
-		return 3
-	}
-	if libc.StrCmp(a1, internCStr("Random")) == 0 {
-		return 4
-	}
-	if libc.StrCmp(a1, internCStr("Slave")) != 0 {
-		return 0
-	}
-	return 5
+	return true
 }

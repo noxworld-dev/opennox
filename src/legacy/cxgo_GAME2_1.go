@@ -451,7 +451,7 @@ func nox_xxx_clientSetAltWeapon_461550(a1 *nox_inventory_cell_t) {
 		nox_xxx_clientReportSecondaryWeapon_4BF010(nil)
 		return
 	}
-	dword_5d4594_1062480.field_0.Field_32 = a1.field_4
+	dword_5d4594_1062480.field_0.NetCode32 = a1.field_4
 	dword_5d4594_1062480.field_136 = 1
 	nox_xxx_clientReportSecondaryWeapon_4BF010(dword_5d4594_1062480.field_0)
 }
@@ -839,7 +839,7 @@ func sub_461F90(a1 int32) *client.Drawable {
 		v2 := &array_5D4594_1049872[i]
 		v3 := *v2
 		if *(*uint32)(unsafe.Pointer(v2)) != 0 {
-			for v3.Field_32 != uint32(a1) {
+			for v3.NetCode32 != uint32(a1) {
 				v3 = v3.Next()
 				if v3 == nil {
 					goto LABEL_5
@@ -998,8 +998,8 @@ func sub_4624D0(a1 int32) {
 	}
 	dword_5d4594_1062492 = nil
 	if dword_5d4594_1062480 != nil {
-		dword_5d4594_1062496 = v2.Field_32
-		dword_5d4594_1062480.field_0.Field_32 = dword_5d4594_1062480.field_4
+		dword_5d4594_1062496 = v2.NetCode32
+		dword_5d4594_1062480.field_0.NetCode32 = dword_5d4594_1062480.field_4
 		nox_xxx_clientEquip_4623B0(dword_5d4594_1062480.field_0)
 	} else {
 		nox_xxx_clientSetAltWeapon_461550(*v3)
@@ -2206,7 +2206,7 @@ func nox_client_invAlterWeapon_4672C0() {
 		}
 	}
 	if v3 != nil {
-		v3.field_0.Field_32 = v3.field_4
+		v3.field_0.NetCode32 = v3.field_4
 		nox_xxx_clientEquip_4623B0(dword_5d4594_1062480.field_0)
 		nox_xxx_clientPlaySoundSpecial_452D80(895, 100)
 	}
@@ -2266,7 +2266,7 @@ func nox_xxx_cliUseCurePoison_4674E0(a1 int32) {
 		if nox_xxx_checkGameFlagPause_413A50() == 0 {
 			cell := nox_xxx_cliInventoryFirstItemByTT_467520(a1)
 			if cell != nil {
-				cell.field_0.Field_32 = cell.field_4
+				cell.field_0.NetCode32 = cell.field_4
 				nox_xxx_clientUse_465C70(cell.field_0)
 			}
 		}
@@ -2424,7 +2424,7 @@ func sub_4678D0() unsafe.Pointer {
 			return nil
 		}
 	}
-	v5 := sub_461EF0(int32(v3.Field_32))
+	v5 := sub_461EF0(int32(v3.NetCode32))
 	if v5 != nil {
 		return **(**unsafe.Pointer)(unsafe.Pointer(v5))
 	} else {
@@ -4688,7 +4688,7 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 			}
 		LABEL_64:
 			nox_client_drawSetColor_434460(*memmap.PtrInt32(0x8531A0, 2572))
-			v46 := nox_xxx_objGetTeamByNetCode_418C80(k.Field_32)
+			v46 := nox_xxx_objGetTeamByNetCode_418C80(k.NetCode32)
 			if v46 != nil {
 				v47 := nox_xxx_getTeamByID_418AB0(int32(v46.ID))
 				if v47 != nil {
@@ -4700,7 +4700,7 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 			continue
 		}
 		if v44 == *memmap.PtrInt32(0x5D4594, 1096308) {
-			v49 := nox_xxx_objGetTeamByNetCode_418C80(k.Field_32)
+			v49 := nox_xxx_objGetTeamByNetCode_418C80(k.NetCode32)
 			v50 := v49
 			if v49 != nil && nox_xxx_servObjectHasTeam_419130(v49) != 0 {
 				v51 = (*byte)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(v50.ID))))
@@ -4742,11 +4742,11 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 				}
 				continue
 			}
-			v56 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(k.Field_32))))
+			v56 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(k.NetCode32))))
 			if v56 != nil {
 				if *(*uint32)(unsafe.Add(unsafe.Pointer(v56), 4*1))&1 != 0 {
 					nox_client_drawSetColor_434460(int32(nox_color_white_2523948))
-					v57 := nox_xxx_objGetTeamByNetCode_418C80(k.Field_32)
+					v57 := nox_xxx_objGetTeamByNetCode_418C80(k.NetCode32)
 					if v57 != nil {
 						v55 := func() *server.Team {
 							if int32(v57.ID) == 1 {
@@ -4770,10 +4770,10 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 	v79 = int32(*memmap.PtrUint32(0x8531A0, 2572))
 	for l := nox_xxx_cliGetSpritePlayer_45A000(); l != nil; l = sub_45A010(l) {
 		v60 = bool2int32(nox_client_drawable_testBuff_4356C0(l, 30))
-		v61 = int32(l.Field_32)
+		v61 = int32(l.NetCode32)
 		v77 = v60
 		v62 := nox_xxx_objGetTeamByNetCode_418C80(uint32(v61))
-		v68 = int32(l.Field_32)
+		v68 = int32(l.NetCode32)
 		v81b := v62
 		v75 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(v68)))
 		if v70 != nil && v62 != nil && v73 != 0 {
@@ -5445,9 +5445,9 @@ func sub_474B40(dr *client.Drawable) int32 {
 	)
 	v1 := nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C)
 	if v1 != nil {
-		v2 := nox_xxx_objGetTeamByNetCode_418C80(a1.Field_32)
+		v2 := nox_xxx_objGetTeamByNetCode_418C80(a1.NetCode32)
 		if v2 != nil {
-			if nox_player_netCode_85319C == a1.Field_32 || nox_xxx_servCompareTeams_419150(v1, v2) != 0 {
+			if nox_player_netCode_85319C == a1.NetCode32 || nox_xxx_servCompareTeams_419150(v1, v2) != 0 {
 				return 1
 			}
 		}
@@ -5466,7 +5466,7 @@ func sub_474B40(dr *client.Drawable) int32 {
 LABEL_9:
 	if int32(a1.ObjClass)&4 != 0 {
 		if a1 != v3 {
-			nox_common_playerInfoGetByID_417040(int32(a1.Field_32))
+			nox_common_playerInfoGetByID_417040(int32(a1.NetCode32))
 		}
 	}
 	return 0

@@ -239,7 +239,7 @@ type PlayerJournal struct {
 var (
 	_ = [1]struct{}{}[4828-unsafe.Sizeof(Player{})]
 	_ = [1]struct{}{}[2185-unsafe.Offsetof(Player{}.info)]
-	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.field2282)]
+	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.Field2282)]
 	_ = [1]struct{}{}[3596-unsafe.Offsetof(Player{}.Frame3596)]
 	_ = [1]struct{}{}[4580-unsafe.Offsetof(Player{}.Field4580)]
 	_ = [1]struct{}{}[4796-unsafe.Offsetof(Player{}.data4796)]
@@ -286,7 +286,7 @@ type Player struct {
 	Field2172           byte   // 543, 2172
 	_                   [12]byte
 	info                [97]byte    // 2185
-	field2282           uint16      // 2282
+	Field2282           uint16      // 2282
 	CursorVec           image.Point // 2284
 	Color5              uint32      // 573, 2292
 	Color0              uint32      // 574, 2296
@@ -674,7 +674,7 @@ type Player struct {
 	field4692           uint32       // 1173, 4692
 	field4696           uint32       // 1174, 4696
 	Field4700           uint32       // 1175, 4700
-	NameFinal           [28]uint16   // 4704, server-approved player name // TODO: size is a wild guess
+	NameFinal           [28]uint16   // 1176, 4704, server-approved player name // TODO: size is a wild guess
 	SaveNameBuf         [4]byte      // 1190, 4760
 	field4764           uint32       // 1191, 4764
 	field4768           uint32       // 1192, 4768

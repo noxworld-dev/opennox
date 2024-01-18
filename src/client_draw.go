@@ -436,7 +436,7 @@ LOOP:
 		v26 := dr.Flags28()
 		if !((v26&6 == 0) || c.srv.Frame()-dr.Field_72 <= 5) {
 			if v26&2 != 0 {
-				v27 := dr.Field_69
+				v27 := dr.AnimInd
 				if !(v27 == 9 || v27 == 10) {
 					continue
 				}
@@ -567,7 +567,7 @@ func (c *Client) drawableUpdateLight(dr *client.Drawable) bool {
 		return true
 	} else if dr.Flags28()&0x2 == 0 || dr.Flags28()&0x80000 != 0 {
 		return false
-	} else if dr.Field_69 == 10 {
+	} else if dr.AnimInd == 10 {
 		dr.SetLightIntensity(0.0)
 		return true
 	}

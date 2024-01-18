@@ -19,7 +19,7 @@ func nox_thing_static_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 }
 func Nox_thing_static_random_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	a1 := (*uint32)(vp.C())
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dr.DrawData, 4)) + dr.Field_77*4)))))
+	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dr.DrawData, 4)) + dr.AnimFrameSlave*4)))))
 	return 1
 }
 func nox_things_static_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {

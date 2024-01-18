@@ -121,7 +121,7 @@ func sub_476AE0(vp *noxrender.Viewport, dr *client.Drawable) {
 		}
 		v4 = *(*noxrender.ImageHandle)(unsafe.Add(a2.DrawData, 4))
 	} else {
-		v4 = *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a2.DrawData, 4)) + a2.Field_77*4)))
+		v4 = *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a2.DrawData, 4)) + a2.AnimFrameSlave*4)))
 	}
 	r1 := nox_video_getImagePixdata_42FB30(v4)
 	if r1 == nil {
@@ -370,13 +370,13 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 		return
 	}
 	if (int32(*(*uint8)(unsafe.Add(arg0.C(), 112)))&4) != 0 && ((func() *byte {
-		v6 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(arg0.Field_32))))
+		v6 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(arg0.NetCode32))))
 		return v6
 	}()) == nil || (*(*byte)(unsafe.Add(unsafe.Pointer(v6), 3680))&1) != 0) {
 		return
 	}
 	v7 = int32(arg0.ObjClass)
-	if (uint32(v7)&0x400000) != 0 && (int32(*(*uint8)(unsafe.Add(arg0.C(), 116)))&0x80) == 0 || (v7&2) != 0 && arg0.Field_69 == 10 {
+	if (uint32(v7)&0x400000) != 0 && (int32(*(*uint8)(unsafe.Add(arg0.C(), 116)))&0x80) == 0 || (v7&2) != 0 && arg0.AnimInd == 10 {
 		return
 	}
 	v23 = float32(float64(arg0.PosVec.Y) - float64(arg0.ZSizeMax) - float64(arg0.ZVal))

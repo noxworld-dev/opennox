@@ -25,39 +25,39 @@ func sub_4BC490(dr *client.Drawable) int8 {
 		v8 int32
 	)
 	*((*uint8)(unsafe.Pointer(&v1))) = uint8(gameFrame())
-	if !((int32(uint8(gameFrame()))&3) == 0 && dr.Field_69 == 8 && dr.ObjSubClass&0x40000 != 0) {
+	if !((int32(uint8(gameFrame()))&3) == 0 && dr.AnimInd == 8 && dr.ObjSubClass&0x40000 != 0) {
 		return int8(v1)
 	}
-	v2 = dr.Field_77
-	v3 = int32(dr.Field_77)
+	v2 = dr.AnimFrameSlave
+	v3 = int32(dr.AnimFrameSlave)
 	if v3 != 0 {
 		v4 = v3 - 2
 		if v4 != 0 {
 			if v4 == 2 {
 				v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 74)
 				if v1 < 15 {
-					v5 = int32(dr.Field_77)
+					v5 = int32(dr.AnimFrameSlave)
 					dr.Field_74_4 = 0
 					v1 = v5 - 1
-					dr.Field_77 = uint32(v1)
+					dr.AnimFrameSlave = uint32(v1)
 				}
 			} else {
 				*((*uint8)(unsafe.Pointer(&v1))) = dr.Field_74_4
 				switch uint8(int8(v1)) {
 				case 0:
 					if v2 < 2 {
-						dr.Field_77 = v2 + 1
+						dr.AnimFrameSlave = v2 + 1
 						return int8(v1)
 					}
-					dr.Field_77 = v2 - 1
+					dr.AnimFrameSlave = v2 - 1
 					return int8(v1)
 				case 1:
-					dr.Field_77 = v2 - 1
+					dr.AnimFrameSlave = v2 - 1
 					return int8(v1)
 				case 2:
-					dr.Field_77 = v2 + 1
+					dr.AnimFrameSlave = v2 + 1
 				default:
-					dr.Field_77 = 2
+					dr.AnimFrameSlave = 2
 					dr.Field_74_4 = 0
 				}
 			}
@@ -65,25 +65,25 @@ func sub_4BC490(dr *client.Drawable) int8 {
 			v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 52)
 			if v1 >= 5 {
 				if v1 < 10 {
-					v7 = int32(dr.Field_77)
+					v7 = int32(dr.AnimFrameSlave)
 					dr.Field_74_4 = 2
 					v1 = v7 + 1
-					dr.Field_77 = uint32(v1)
+					dr.AnimFrameSlave = uint32(v1)
 				}
 			} else {
-				v6 = int32(dr.Field_77)
+				v6 = int32(dr.AnimFrameSlave)
 				dr.Field_74_4 = 1
 				v1 = v6 - 1
-				dr.Field_77 = uint32(v1)
+				dr.AnimFrameSlave = uint32(v1)
 			}
 		}
 	} else {
 		v1 = nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Draw\\mondraw.c"), 66)
 		if v1 < 15 {
-			v8 = int32(dr.Field_77)
+			v8 = int32(dr.AnimFrameSlave)
 			dr.Field_74_4 = 0
 			v1 = v8 + 1
-			dr.Field_77 = uint32(v1)
+			dr.AnimFrameSlave = uint32(v1)
 		}
 	}
 	return int8(v1)
@@ -93,14 +93,14 @@ func nox_thing_monster_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	dd := (*client.MonsterDrawData)(dr.DrawData)
 	if !noxflags.HasGame(0x200000) {
 		v4 := int8(dr.Field_108_0)
-		if int32(dr.Field_74_2) != int32(v4) {
-			v5 := int32(dr.Field_69)
+		if int32(dr.AnimDir) != int32(v4) {
+			v5 := int32(dr.AnimInd)
 			if v5 != 1 && v5 != 3 && v5 != 5 {
 				if (gameFrame() - uint32(dr.Field_109)) >= uint32(int32(gameFPS())>>2) {
 					dr.Field_109 = uintptr(gameFrame())
-					dr.Field_108_0 = dr.Field_74_2
+					dr.Field_108_0 = dr.AnimDir
 				} else {
-					dr.Field_74_2 = uint8(v4)
+					dr.AnimDir = uint8(v4)
 				}
 			}
 		}
@@ -110,7 +110,7 @@ func nox_thing_monster_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		v6 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Ghost"))
 		*memmap.PtrUint32(0x5D4594, 1316536) = uint32(v6)
 	}
-	ani := &dd.Anim[dr.Field_69]
+	ani := &dd.Anim[dr.AnimInd]
 	if int32(ani.Cnt40) == 0 {
 		return 1
 	}
@@ -152,12 +152,12 @@ LABEL_24:
 		dword_5d4594_1313796.PosVec.Y = dr.PosVec.Y + vp.Screen.Min.Y - vp.World.Min.Y - 50
 		dword_5d4594_1313796.DrawFunc.Get()(&vp2, dword_5d4594_1313796)
 	}
-	if nox_xxx_unitSpriteCheckAlly_4951F0(int32(dr.Field_32)) != 0 {
+	if nox_xxx_unitSpriteCheckAlly_4951F0(int32(dr.NetCode32)) != 0 {
 		var (
 			v21b, v22b uint16
 			a2         byte
 		)
-		sub_495180(int32(dr.Field_32), &v22b, &v21b, &a2)
+		sub_495180(int32(dr.NetCode32), &v22b, &v21b, &a2)
 		nox_xxx_spriteDrawMonsterHP_4BC080(vp, dr, v22b, v21b, int8(a2))
 	}
 	if !nox_xxx_CheckGameplayFlags_417DA0(4) && (*memmap.PtrT[*client.Drawable](0x852978, 8) == nil || nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(*memmap.PtrT[*client.Drawable](0x852978, 8)), 24))) == 0) {
@@ -183,7 +183,7 @@ LABEL_24:
 	if tm != nil {
 		v16 := false
 		v17 := nox_xxx_getTeamByID_418AB0(int32(tm.ID))
-		if v17 != nil && sub_495A80(int32(dr.Field_32)) != 0 {
+		if v17 != nil && sub_495A80(int32(dr.NetCode32)) != 0 {
 			v16 = true
 		}
 		if (!noxflags.HasGame(4096) || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(dr), 112)))&2) == 0 || (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(dr), 116)))&8) == 0) && v16 {
@@ -215,10 +215,10 @@ func nox_things_monster_draw_parse(obj *client.ObjectType, f *binfile.MemFile, a
 		n = nox_memfile_read_u8(f)
 		nox_memfile_skip(f, int32(n))
 		ani := &dd.Anim[ind]
-		if nox_xxx_loadVectorAnimated_44B8B0(ani, f) == 0 {
+		if !nox_xxx_loadVectorAnimated_44B8B0(ani, f) {
 			return false
 		}
-		if nox_xxx_loadVectorAnimated_44BC50(ani, f) == 0 {
+		if !nox_xxx_loadVectorAnimated_44BC50(ani, f) {
 			return false
 		}
 	}

@@ -41,12 +41,12 @@ func nox_thing_cond_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) in
 			if v8 != 1 {
 				return 0
 			}
-			v10 = int32(dr.Field_77)
+			v10 = int32(dr.AnimFrameSlave)
 		} else {
 			v10 = nox_common_randomIntMinMax_415FF0(0, v4, internCStr("C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c"), 57)
 		}
 	} else {
-		v10 = int32((gameFrame() + dr.Field_32) / uint32(v5+1))
+		v10 = int32((gameFrame() + dr.NetCode32) / uint32(v5+1))
 		if v10 >= v4 {
 			v10 %= v4
 		}
@@ -99,7 +99,7 @@ func nox_things_cond_animate_draw_parse(obj *client.ObjectType, f *binfile.MemFi
 		nox_memfile_read(unsafe.Pointer(v6), 1, int32(v26), f)
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v6), v26)) = 0
 		v13 = v20
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*8)) = uint32(get_animation_kind_id_44B4C0(v6))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*8)) = uint32(client.ParseAnimKind(GoString(v6)))
 		v14 = alloc.Calloc1(int(*v7), 4)
 		*v20 = uint32(uintptr(v14))
 		if v14 == nil {

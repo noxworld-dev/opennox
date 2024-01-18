@@ -2737,7 +2737,7 @@ func sub_42CCE0(this *uint16) int16 {
 }
 func nox_xxx_clientTalk_42E7B0(a1p *client.Drawable) {
 	if a1p != nil && (*memmap.PtrUint32(0x8531A0, 2576) == 0 || (int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 3680)))&3) == 0) && sub_478030() != 1 && nox_gui_xxx_check_446360() != 1 {
-		v2 := int16(a1p.Field_32)
+		v2 := int16(a1p.NetCode32)
 		var a1 [4]byte
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*0)) = 464
 		*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), unsafe.Sizeof(uint16(0))*1)) = uint16(v2)

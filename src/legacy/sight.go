@@ -327,7 +327,7 @@ LABEL_32:
 				if sub_497180(&a3, &v86, &v78) == 0 {
 					v78 = types.Pointf{X: v86.field_8, Y: v86.field_C}
 				}
-				v18 = int32(v34.Field_32)
+				v18 = int32(v34.NetCode32)
 			case 7:
 				v19.Field20.Field_33 = 1
 				v38 := v19.Field20
@@ -347,11 +347,11 @@ LABEL_32:
 				a3.field_8 = float32(float64(dword_5d4594_1217444_vec.X + sub_414BD0(6434-v42)))
 				a3.field_C = float32(float64(dword_5d4594_1217444_vec.Y + sub_414BD0(v42)))
 				if sub_497180(&a3, &v83, &v78) != 0 {
-					v18 = int32(v19.Field20.Field_32)
+					v18 = int32(v19.Field20.NetCode32)
 					break
 				}
 				v78 = types.Pointf{X: v83.field_8, Y: v83.field_C}
-				v18 = int32(v19.Field20.Field_32)
+				v18 = int32(v19.Field20.NetCode32)
 			case 8, 9, 0xA, 0xB, 0xD, 0xE:
 				v19.Field20.Field_33 = 1
 				switch v19.Field56 {
@@ -407,10 +407,10 @@ LABEL_32:
 				a3.field_C = float32(float64(dword_5d4594_1217444_vec.Y + sub_414BD0(v46)))
 				if sub_497180(&a3, &v83, &v78) == 0 {
 					v78 = types.Pointf{X: v83.field_8, Y: v83.field_C}
-					v18 = int32(v19.Field20.Field_32)
+					v18 = int32(v19.Field20.NetCode32)
 					break
 				}
-				v18 = int32(v19.Field20.Field_32)
+				v18 = int32(v19.Field20.NetCode32)
 			default:
 			}
 			a1a.X = int32(a1.Screen.Min.X - a1.World.Min.X + int(int32(a4.X)))

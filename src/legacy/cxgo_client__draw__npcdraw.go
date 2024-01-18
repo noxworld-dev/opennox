@@ -18,11 +18,11 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 			return 1
 		}
 		p2 := *(*unsafe.Pointer)(unsafe.Add(dd2, 48))
-		p3 := *(*unsafe.Pointer)(unsafe.Add(p2, uintptr(dr.Field_74_2)*4+4))
+		p3 := *(*unsafe.Pointer)(unsafe.Add(p2, uintptr(dr.AnimDir)*4+4))
 		nox_xxx_drawObject_4C4770_draw(vp, dr, *(*noxrender.ImageHandle)(unsafe.Add(p3, 0)))
 		return 1
 	}
-	npcID := int32(dr.Field_32)
+	npcID := int32(dr.NetCode32)
 	dd2 := (*memmap.PtrT[*client.Drawable](0x852978, 8)).DrawData
 	npc := nox_npc_by_id(npcID)
 	if dd2 == nil || npc == nil {
@@ -30,7 +30,7 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	}
 	if nox_client_drawable_testBuff_4356C0(dr, 23) {
 		cl := nox_color_blue_2650684
-		if gameFrame()&1 != 0 {
+		if gameFrame()%2 != 0 {
 			cl = nox_color_white_2523948
 		}
 		for i := 0; i < 6; i++ {
@@ -59,23 +59,22 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	}
 	v18 := nox_xxx_spriteNPCInfo_49A4B0(dr, int32(npc.field1304), int32(npc.field1308))
 	tp := unsafe.Add(dd2, v18*264)
-	v19 := unsafe.Add(tp, 4)
+	panim := (*client.PlayerAnimation)(unsafe.Add(tp, 4))
 	if int32(*(*uint16)(unsafe.Add(tp, 44))) == 0 {
 		return 1
 	}
-	v20 := sub_4BC5D0(dr, (*client.AnimationVector)(v19))
-	if v20 < 0 {
+	fi := sub_4BC5D0(dr, &panim.Base)
+	if fi < 0 {
 		return 0
 	}
-	pp1 := *(*unsafe.Pointer)(unsafe.Add(v19, 48))
-	pp2 := *(*unsafe.Pointer)(unsafe.Add(pp1, uintptr(dr.Field_74_2)*4+4))
-	nox_xxx_drawObject_4C4770_draw(vp, dr, *(*noxrender.ImageHandle)(unsafe.Add(pp2, uint32(v20*4))))
-	if dr.Field_74_2 != 1 && dr.Field_74_2 != 0 && dr.Field_74_2 != 2 && dr.Field_74_2 != 3 && dr.Field_74_2 != 6 || dr.Field_69 == 37 {
-		sub_4B8960(vp, dr, int32(npc.field1308), &npc.field680, v19, v20)
-		sub_4B8D40(vp, dr, int32(npc.field1304), &npc.field32, v19, v20)
+	frames := panim.FramesSlice(panim.Naked.Frames[dr.AnimDir])
+	nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
+	if dr.AnimDir != 1 && dr.AnimDir != 0 && dr.AnimDir != 2 && dr.AnimDir != 3 && dr.AnimDir != 6 || dr.AnimInd == 37 {
+		sub_4B8960(vp, dr, npc.field1308, &npc.field680, panim, fi)
+		sub_4B8D40(vp, dr, npc.field1304, &npc.field32, panim, fi)
 	} else {
-		sub_4B8D40(vp, dr, int32(npc.field1304), &npc.field32, v19, v20)
-		sub_4B8960(vp, dr, int32(npc.field1308), &npc.field680, v19, v20)
+		sub_4B8D40(vp, dr, npc.field1304, &npc.field32, panim, fi)
+		sub_4B8960(vp, dr, npc.field1308, &npc.field680, panim, fi)
 	}
 	if nox_client_drawable_testBuff_4356C0(dr, 16) {
 		if dword_5d4594_1313796 == nil {
@@ -97,13 +96,13 @@ func nox_thing_npc_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		dword_5d4594_1313800.PosVec.Y = vp.Screen.Min.Y - vp.World.Min.Y + dr.PosVec.Y - 50
 		dword_5d4594_1313800.CallDraw(nox_draw_getViewport_437250())
 	}
-	if nox_xxx_unitSpriteCheckAlly_4951F0(int32(dr.Field_32)) != 0 {
+	if nox_xxx_unitSpriteCheckAlly_4951F0(int32(dr.NetCode32)) != 0 {
 		var (
 			a1   uint16
 			v33b uint16
 			a2   byte
 		)
-		sub_495180(int32(dr.Field_32), &v33b, &a1, &a2)
+		sub_495180(int32(dr.NetCode32), &v33b, &a1, &a2)
 		nox_xxx_spriteDrawMonsterHP_4BC080(vp, dr, v33b, a1, int8(a2))
 	}
 	for i := 0; i < 6; i++ {

@@ -2148,7 +2148,7 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) unsa
 		return v9
 	}
 	if *(*uint32)(unsafe.Add(v9, 108)) != uint32(v17) {
-		Nox_xxx_createAtImpl_4191D0(server.TeamID(v18), (*server.ObjectTeam)(unsafe.Add(v9, 24)), 0, *(*uint32)(unsafe.Add(v9, 128)), 0)
+		Nox_xxx_createAtImpl_4191D0(server.TeamID(v18), (*server.ObjectTeam)(unsafe.Add(v9, 24)), false, *(*uint32)(unsafe.Add(v9, 128)), false)
 	}
 	return v9
 }
@@ -3535,170 +3535,105 @@ func nox_xxx_gameDeleteSpiningCrownSkull_4B8220() {
 	dword_5d4594_1313796 = nil
 	dword_5d4594_1313800 = nil
 }
-func sub_4B8960(a1 *noxrender.Viewport, dr *client.Drawable, a3 int32, a4 *uint32, a5 unsafe.Pointer, a6 int32) {
-	var (
-		a2  = dr
-		v7  int32
-		v8  int32
-		v9  int8
-		v10 int32
-		v11 int32
-		i   int32
-		v13 int32
-		v14 int32
-		v15 int32
-		v16 uint8
-		v17 int32
-		j   int32
-		v19 int32
-		v20 int32
-		k   int32
-		v22 int32
-		v23 int32
-		v24 int32
-		v27 int32
-		v28 int32
-		v29 *int32
-		v30 int32
-		v31 int32
-	)
-	v6 := dr
-	v28 = bool2int32(nox_client_drawable_testBuff_4356C0(dr, 23))
-	v7 = 0
-	v30 = 0
-	v31 = 0
-	if int32(uint8(gameFrame()))&1 != 0 {
-		v27 = int32(nox_color_white_2523948)
-	} else {
-		v27 = int32(nox_color_blue_2650684)
+func sub_4B8960(vp *noxrender.Viewport, dr *client.Drawable, equip uint32, a4 *uint32, panim *client.PlayerAnimation, fi int32) {
+	eff := nox_client_drawable_testBuff_4356C0(dr, 23)
+	cl := nox_color_blue_2650684
+	if gameFrame()%2 != 0 {
+		cl = nox_color_white_2523948
 	}
-	v8 = a3
-	if a3&2 != 0 {
-		v9 = int8(a2.Field_74_2)
-		if int32(v9) == 6 || int32(v9) == 7 || int32(v9) == 8 {
-			v10 = int32(a2.Field_69)
-			if v10 != 6 && v10 != 35 && v10 != 39 && v10 != 40 {
-				for ((1 << v7) & 2) == 0 {
-					if func() int32 {
-						p := &v7
-						*p++
-						return *p
-					}() >= 26 {
-						goto LABEL_22
-					}
-				}
-				v11 = int32(*(*uint32)(unsafe.Add(a5, v7*4+52)))
-				if v11 != 0 {
-					if v28 != 0 {
-						for i = 1; i < 7; i++ {
-							nox_draw_setMaterial_4341D0(i, v27)
+	drawCloak := false
+	if equip&2 != 0 {
+		if (dr.AnimDir == 6 || dr.AnimDir == 7 || dr.AnimDir == 8) &&
+			dr.AnimInd != 6 && dr.AnimInd != 35 && dr.AnimInd != 39 && dr.AnimInd != 40 {
+			for i, eanim := range panim.Armor {
+				if ((1 << i) & 2) != 0 {
+					if eanim != nil {
+						if eff {
+							for j := 0; j < 6; j++ {
+								nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
+							}
+						} else {
+							sub_4B8CA0(a4, 2)
 						}
-						v6 = dr
+						frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
+						nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
+						drawCloak = true
+					}
+					break
+				}
+			}
+		}
+	}
+	drawShield := false
+	const shieldBits = (1 << 24) | (1 << 25)
+	for i, eanim := range panim.Armor {
+		if eanim == nil {
+			continue
+		}
+		bit := 1 << i
+		if (bit & 2) != 0 {
+			continue
+		}
+		if (bit&shieldBits) == 0 || (dr.AnimDir != 3 && dr.AnimDir != 0 && dr.AnimDir != 6 && dr.AnimDir != 7) {
+			if bit&int(equip) != 0 && (bit&0xC00 == 0 || equip&0x4000 == 0) {
+				if eff {
+					for j := 0; j < 6; j++ {
+						nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
+					}
+				} else {
+					sub_4B8CA0(a4, 1<<i)
+				}
+				frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
+				nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
+				if bit&shieldBits != 0 {
+					drawShield = true
+				}
+			}
+		}
+	}
+	if equip&2 != 0 && !drawCloak {
+		for i, eanim := range panim.Armor {
+			if ((1 << i) & 2) != 0 {
+				// TODO: this was taking index 19 instead of i for animation; why?
+				if eanim != nil {
+					if eff {
+						for j := 0; j < 6; j++ {
+							nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
+						}
 					} else {
 						sub_4B8CA0(a4, 2)
 					}
-					nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v11+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
-					v8 = a3
-					v30 = 1
+					frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
+					nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
 				}
+				break
 			}
 		}
 	}
-LABEL_22:
-	v13 = 0
-	v29 = (*int32)(unsafe.Add(a5, 52))
-	for {
-		v14 = 1 << v13
-		if ((1 << v13) & 2) == 0 {
-			v15 = int32(uint32(v14) & 0x3000000)
-			if (uint32(v14)&0x3000000) == 0 || (func() bool {
-				v16 = v6.Field_74_2
-				return int32(v16) != 3
-			}()) && int32(v16) != 0 && int32(v16) != 6 && int32(v16) != 7 {
-				if v14&v8 != 0 && ((v14&0xC00) == 0 || (v8&0x4000) == 0) {
-					v17 = *v29
-					if *v29 != 0 {
-						if v28 != 0 {
-							for j = 1; j < 7; j++ {
-								nox_draw_setMaterial_4341D0(j, v27)
-							}
-							v6 = dr
-						} else {
-							sub_4B8CA0(a4, 1<<v13)
+	if !drawShield && equip&shieldBits != 0 {
+		bit := 0x2000000
+		if (equip & 0x1000000) != 0 {
+			bit = 0x1000000
+		}
+		for i, eanim := range panim.Armor {
+			if ((1 << i) & bit) != 0 {
+				if eanim != nil {
+					if eff {
+						for j := 0; j < 6; j++ {
+							nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
 						}
-						nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v17+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
-						if v15 != 0 {
-							v31 = 1
-						}
-						v8 = a3
+					} else {
+						sub_4B8CA0(a4, uint32(bit))
 					}
+					frames := panim.FramesSlice(eanim.Frames[dr.AnimDir])
+					nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
 				}
+				break
 			}
-		}
-		v13++
-		v29 = (*int32)(unsafe.Add(unsafe.Pointer(v29), 4*1))
-		if v13 >= 26 {
-			break
-		}
-	}
-	if a3&2 != 0 && v30 == 0 {
-		v19 = 0
-		for ((1 << v19) & 2) == 0 {
-			if func() int32 {
-				p := &v19
-				*p++
-				return *p
-			}() >= 26 {
-				goto LABEL_55
-			}
-		}
-		v20 = int32(*(*uint32)(unsafe.Add(a5, 19*4+52)))
-		if v20 != 0 {
-			if v28 != 0 {
-				for k = 1; k < 7; k++ {
-					nox_draw_setMaterial_4341D0(k, v27)
-				}
-				v6 = dr
-			} else {
-				sub_4B8CA0(a4, 2)
-			}
-			nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v20+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
-			v8 = a3
-		}
-	}
-LABEL_55:
-	*(*uint16)(unsafe.Add(unsafe.Pointer(&v22), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(v31))
-	if v31 == 0 && uint32(v8)&0x3000000 != 0 {
-		v23 = 0
-		if (uint32(v8) & 0x1000000) != 0 {
-			v22 = 0x1000000
-		} else {
-			v22 = 0x2000000
-		}
-		for ((1 << v23) & v22) == 0 {
-			if func() int32 {
-				p := &v23
-				*p++
-				return *p
-			}() >= 26 {
-				return
-			}
-		}
-		v24 = int32(*(*uint32)(unsafe.Add(a5, v23*4+52)))
-		if v24 != 0 {
-			if v28 != 0 {
-				for l := 1; l < 7; l++ {
-					nox_draw_setMaterial_4341D0(int32(l), v27)
-				}
-				v6 = dr
-			} else {
-				sub_4B8CA0(a4, uint32(v22))
-			}
-			nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v24+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
 		}
 	}
 }
-func sub_4B8CA0(a1 *uint32, a2 uint32) {
+func sub_4B8CA0(a1 *uint32, bit uint32) {
 	var (
 		v3  int32
 		v4  int32
@@ -3713,14 +3648,14 @@ func sub_4B8CA0(a1 *uint32, a2 uint32) {
 	)
 	r1 := a1
 	v3 = 0
-	for *r1 != a2 {
+	for *r1 != bit {
 		v3++
 		r1 = (*uint32)(unsafe.Add(unsafe.Pointer(r1), 4*6))
 		if v3 >= 26 {
 			return
 		}
 	}
-	v4 = sub_415CD0(a2)
+	v4 = sub_415CD0(bit)
 	r3 := nox_xxx_equipClothFindDefByTT_413270(v4)
 	v7 := r3
 	if r3 == nil {
@@ -3765,46 +3700,32 @@ func sub_4B8CA0(a1 *uint32, a2 uint32) {
 		}
 	}
 }
-func sub_4B8D40(a1 *noxrender.Viewport, dr *client.Drawable, a3 int32, a4 *uint32, a5 unsafe.Pointer, a6 int32) {
-	var (
-		v7  int32
-		v8  *int32
-		v10 int32
-		i   int32
-		v13 int32
-	)
-	v6 := dr
-	v14 := bool2int32(nox_client_drawable_testBuff_4356C0(dr, 25))
-	if int32(uint8(gameFrame()))&1 != 0 {
-		v13 = int32(nox_color_white_2523948)
-	} else {
-		v13 = int32(nox_color_blue_2650684)
+func sub_4B8D40(vp *noxrender.Viewport, dr *client.Drawable, equp uint32, a4 *uint32, panim *client.PlayerAnimation, fi int32) {
+	eff := nox_client_drawable_testBuff_4356C0(dr, 25)
+	cl := nox_color_blue_2650684
+	if gameFrame()%2 != 0 {
+		cl = nox_color_white_2523948
 	}
-	v7 = 1
-	v8 = (*int32)(unsafe.Add(a5, 160))
-	for {
-		if (1<<v7)&a3 != 0 {
-			v10 = *v8
-			if *v8 != 0 {
-				if v14 != 0 {
-					for i = 1; i < 7; i++ {
-						nox_draw_setMaterial_4341D0(i, v13)
-					}
-					v6 = dr
-				} else {
-					sub_4B8E10(a4, (*byte)(unsafe.Pointer(uintptr(1<<v7))))
-				}
-				nox_xxx_drawObject_4C4770_draw(a1, v6, *(*noxrender.ImageHandle)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(v10+int32(v6.Field_74_2)*4)), 4)) + uint32(a6*4)))))
+	for i := 1; i < len(panim.Weapon); i++ {
+		if (1<<i)&equp == 0 {
+			continue
+		}
+		eani := panim.Weapon[i]
+		if eani == nil {
+			continue
+		}
+		if eff {
+			for j := 0; j < 6; j++ {
+				nox_draw_setMaterial_4341D0(int32(j+1), int32(cl))
 			}
+		} else {
+			sub_4B8E10(a4, 1<<i)
 		}
-		v7++
-		v8 = (*int32)(unsafe.Add(unsafe.Pointer(v8), 4*1))
-		if v7 >= 27 {
-			break
-		}
+		frames := panim.FramesSlice(eani.Frames[dr.AnimDir])
+		nox_xxx_drawObject_4C4770_draw(vp, dr, frames[fi])
 	}
 }
-func sub_4B8E10(a1 *uint32, a2 *byte) {
+func sub_4B8E10(a1 *uint32, bit uint32) {
 	var (
 		v3  int32
 		v4  int32
@@ -3821,14 +3742,14 @@ func sub_4B8E10(a1 *uint32, a2 *byte) {
 	)
 	r1 := a1
 	v3 = 0
-	for (*byte)(unsafe.Pointer(uintptr(*r1))) != a2 {
+	for *r1 != bit {
 		v3++
 		r1 = (*uint32)(unsafe.Add(unsafe.Pointer(r1), 4*6))
 		if v3 >= 27 {
 			return
 		}
 	}
-	v4 = sub_415840(uint32(int32(uintptr(unsafe.Pointer(a2)))))
+	v4 = sub_415840(bit)
 	r3 := nox_xxx_getProjectileClassById_413250(v4)
 	v7 := r3
 	if r3 == nil {
@@ -3874,39 +3795,36 @@ func sub_4B8E10(a1 *uint32, a2 *byte) {
 	}
 }
 func nox_xxx_drawOtherPlayerHP_4B8EB0(a1 *noxrender.Viewport, dr *client.Drawable, a3 uint16, a4 int8) {
-	var (
-		a2 = dr
-		v7 float32
-	)
-	if a2 != nil {
-		v4 := int32(a1.Screen.Min.X + a2.PosVec.X - a1.World.Min.X)
-		v7 = 2 * a2.Shape.Circle.R
-		v5 := int32(v7) + v4
-		v6 := int32(a2.PosVec.Y + a1.Screen.Min.Y - int(uint32(a2.ZVal)) - a1.World.Min.Y - 48)
-		nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
-		nox_client_drawRectFilledOpaque_49CE30(v5, v6, 2, 48)
-		if int32(a4) != 0 {
-			nox_client_drawSetColor_434460(*memmap.PtrInt32(0x8531A0, 2572))
-		} else {
-			nox_client_drawSetColor_434460(*memmap.PtrInt32(0x85B3FC, 940))
-		}
-		nox_client_drawRectFilledOpaque_49CE30(v5, v6-int32(a3)*48/100+48, 2, int32(a3)*48/100)
-		if int32(a4) != 0 {
-			nox_client_drawSetColor_434460(*memmap.PtrInt32(0x85B3FC, 984))
-		} else {
-			nox_client_drawSetColor_434460(int32(nox_color_violet_2598268))
-		}
-		nox_client_drawBorderLines_49CC70(v5-1, v6-1, 4, 50)
+	if dr == nil {
+		return
 	}
+	v4 := int32(a1.Screen.Min.X + dr.PosVec.X - a1.World.Min.X)
+	v7 := 2 * dr.Shape.Circle.R
+	v5 := int32(v7) + v4
+	v6 := int32(dr.PosVec.Y + a1.Screen.Min.Y - int(uint32(dr.ZVal)) - a1.World.Min.Y - 48)
+	nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
+	nox_client_drawRectFilledOpaque_49CE30(v5, v6, 2, 48)
+	if int32(a4) != 0 {
+		nox_client_drawSetColor_434460(*memmap.PtrInt32(0x8531A0, 2572))
+	} else {
+		nox_client_drawSetColor_434460(*memmap.PtrInt32(0x85B3FC, 940))
+	}
+	nox_client_drawRectFilledOpaque_49CE30(v5, v6-int32(a3)*48/100+48, 2, int32(a3)*48/100)
+	if int32(a4) != 0 {
+		nox_client_drawSetColor_434460(*memmap.PtrInt32(0x85B3FC, 984))
+	} else {
+		nox_client_drawSetColor_434460(int32(nox_color_violet_2598268))
+	}
+	nox_client_drawBorderLines_49CC70(v5-1, v6-1, 4, 50)
 }
 func sub_4B8FA0(dr *client.Drawable, outAnim **client.PlayerAnimation, outInd *int32) noxrender.ImageHandle {
 	dd := (*client.PlayerDrawData)(dr.DrawData)
 	var aind int32
-	if dr.Field_69 != 0 || sub_48D830(dr) == 0 {
-		if dr.Field_69 != 4 {
-			aind = int32(dr.Field_69)
+	if dr.AnimInd != 0 || sub_48D830(dr) == 0 {
+		if dr.AnimInd != 4 {
+			aind = int32(dr.AnimInd)
 		} else if !nox_client_drawable_testBuff_4356C0(dr, 31) {
-			aind = int32(dr.Field_69)
+			aind = int32(dr.AnimInd)
 		} else {
 			aind = 53
 		}
@@ -3921,7 +3839,7 @@ func sub_4B8FA0(dr *client.Drawable, outAnim **client.PlayerAnimation, outInd *i
 	if ind < 0 {
 		return nil
 	}
-	arr := unsafe.Slice(panim.Naked.Frames[dr.Field_74_2], panim.Base.Cnt40)
+	arr := panim.FramesSlice(panim.Naked.Frames[dr.AnimDir])
 	if ind >= len(arr) {
 		ind = len(arr) - 1
 	}

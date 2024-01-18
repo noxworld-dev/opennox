@@ -57,27 +57,27 @@ func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		r.DrawVector(
 			p,
 			image.Point{
-				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.Field_74_2))),
-				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.Field_74_2))),
+				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.AnimDir))),
+				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.AnimDir))),
 			},
 			cl,
 		)
 		r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
 		r.DrawString(nil, getThingName(int(dr.Field27())), p)
-		r.DrawString(nil, debugStateStr2(int(dr.Field_69)), image.Pt(p.X, p.Y+10))
+		r.DrawString(nil, debugStateStr2(int(dr.AnimInd)), image.Pt(p.X, p.Y+10))
 	} else if dr.Flags28()&0x4 != 0 {
 		debugDrawShape(r, dr, p, cl)
 		r.DrawVector(
 			p,
 			image.Point{
-				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.Field_74_2))),
-				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.Field_74_2))),
+				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.AnimDir))),
+				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.AnimDir))),
 			},
 			cl,
 		)
 		r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
 		r.DrawString(nil, getThingName(int(dr.Field27())), p)
-		r.DrawString(nil, debugStateStr(int(dr.Field_69)), image.Pt(p.X, p.Y+10))
+		r.DrawString(nil, debugStateStr(int(dr.AnimInd)), image.Pt(p.X, p.Y+10))
 	} else {
 		debugDrawShape(r, dr, p, cl)
 	}
