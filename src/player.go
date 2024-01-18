@@ -413,7 +413,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	s.ObjectsAddPending()
 	var p28 types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		if p, ok := s.sub_4E8210(punit); !ok {
+		if p, ok := s.Sub4E8210(punit); !ok {
 			p28 = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 		} else {
 			p28 = p
@@ -452,31 +452,6 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	}
 	s.CallOnPlayerJoin(scrPlayer{pl})
 	return int(punit.NetCode)
-}
-
-func (s *Server) sub_4E8210(u *server.Object) (types.Pointf, bool) {
-	var (
-		max uint32
-		v2  unsafe.Pointer
-	)
-	for _, u2 := range s.Players.ListUnits() {
-		ptr := u2.UpdateDataPlayer()
-		ptr2 := ptr.Field77
-		if ptr2 == nil {
-			continue
-		}
-		if val := **(**uint32)(unsafe.Add(ptr2, 700)); val > max {
-			max = val
-			v2 = ptr2
-		}
-	}
-	if v2 == nil {
-		return types.Pointf{}, false
-	}
-	ud := u.UpdateDataPlayer()
-	ud.Field77 = v2
-	out := s.RandomReachablePointAround(60.0, *(*types.Pointf)(unsafe.Add(v2, 56)))
-	return out, true
 }
 
 func (s *Server) PlayerSpell(u *server.Object) {

@@ -538,6 +538,31 @@ func (s *serverPlayers) AnyXxx() bool {
 	return s.playersXxx != 0
 }
 
+func (s *Server) Sub4E8210(u *Object) (types.Pointf, bool) {
+	var (
+		max uint32
+		v2  unsafe.Pointer
+	)
+	for _, u2 := range s.Players.ListUnits() {
+		ptr := u2.UpdateDataPlayer()
+		ptr2 := ptr.Field77
+		if ptr2 == nil {
+			continue
+		}
+		if val := **(**uint32)(unsafe.Add(ptr2, 700)); val > max {
+			max = val
+			v2 = ptr2
+		}
+	}
+	if v2 == nil {
+		return types.Pointf{}, false
+	}
+	ud := u.UpdateDataPlayer()
+	ud.Field77 = v2
+	out := s.RandomReachablePointAround(60.0, *(*types.Pointf)(unsafe.Add(v2, 56)))
+	return out, true
+}
+
 var _ = [1]struct{}{}[8-unsafe.Sizeof(PlayerNetData{})]
 
 type PlayerNetData struct {
