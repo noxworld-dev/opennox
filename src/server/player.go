@@ -40,8 +40,9 @@ type serverPlayers struct {
 		Wizard   ClassStats
 		Conjurer ClassStats
 	}
-	Control  serverCtrlBuf
-	HostUnit *Object
+	Control    serverCtrlBuf
+	hostPlayer *Player
+	hostUnit   *Object
 
 	playersXxx uint32
 }
@@ -363,25 +364,22 @@ func (s *serverPlayers) NewRaw(id int) *Player {
 }
 
 func (s *serverPlayers) Host() *Player {
-	// TODO: better way
-	for _, p := range s.List() {
-		if s.IsHost(p) {
-			return p
-		}
-	}
-	return nil
+	return s.hostPlayer
+}
+
+func (s *serverPlayers) HostUnit() *Object {
+	return s.hostUnit
+}
+
+func (s *serverPlayers) SetHost(pl *Player, u *Object) {
+	s.hostPlayer, s.hostUnit = pl, u
 }
 
 func (s *serverPlayers) IsHost(p *Player) bool {
 	if p == nil {
 		return false
 	}
-	// TODO: better way
-	u := p.PlayerUnit
-	if u == nil {
-		return false
-	}
-	return u == s.HostUnit
+	return p == s.hostPlayer
 }
 
 func (s *serverPlayers) CheckName(pl *Player) {

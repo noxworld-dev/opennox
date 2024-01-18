@@ -914,7 +914,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 				continue
 			}
 		}
-		if noxflags.HasEngine(noxflags.EngineNoRendering) && u.SObj() == s.Players.HostUnit {
+		if noxflags.HasEngine(noxflags.EngineNoRendering) && u.SObj() == s.Players.HostUnit() {
 			it.Active = false
 			continue
 		}

@@ -400,7 +400,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	}
 	s.sendSettings(punit)
 	if pl.Index() == common.MaxPlayers-1 {
-		s.Players.HostUnit = punit
+		s.Players.SetHost(pl, punit)
 	}
 	var v30 [132]byte
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)

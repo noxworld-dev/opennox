@@ -113,7 +113,7 @@ var (
 
 //export nox_getHostPlayerUnit
 func nox_getHostPlayerUnit() *nox_object_t {
-	return asObjectC(GetServer().S().Players.HostUnit)
+	return asObjectC(GetServer().S().Players.HostUnit())
 }
 
 //export nox_xxx_servStartCountdown_40A2A0

@@ -472,7 +472,7 @@ func (s *Server) updateRemotePlayers() error {
 			}
 			s.nox_xxx_netUpdate_518EE0(pl.PlayerUnit)
 		}
-		if pl.PlayerUnit == s.Players.HostUnit {
+		if pl.PlayerUnit == s.Players.HostUnit() {
 			legacy.Nox_xxx_netImportant_4E5770(byte(pl.Index()), 1)
 		} else if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
 			netstr.Global.ByPlayer(pl).SendReadPacket(false)
@@ -520,7 +520,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *server.Object) {
 			nox_netlist_addToMsgListSrv(pind, buf)
 		}
 	}
-	if legacy.Get_dword_5d4594_2650652() == 0 || u == s.Players.HostUnit || noxflags.HasGame(noxflags.GameFlag4) || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 {
+	if legacy.Get_dword_5d4594_2650652() == 0 || u == s.Players.HostUnit() || noxflags.HasGame(noxflags.GameFlag4) || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 {
 		if pl.Field3680&3 != 0 || noxflags.HasEngine(noxflags.EngineReplayRead) {
 			if !s.nox_xxx_netPlayerObjSendCamera_519330(u) {
 				return
@@ -642,7 +642,7 @@ func (s *Server) newSession() error {
 	gameLog.Println("new server session")
 	legacy.Sub_4D15C0()
 	legacy.Set_dword_5d4594_2649712(0x80000000)
-	s.Players.HostUnit = nil
+	s.Players.SetHost(nil, nil)
 	legacy.Sub_4D7B40()
 	legacy.Sub_41E4B0(0)
 	s.Objs.ResetObjectScriptIDs()
@@ -733,7 +733,7 @@ func (s *Server) StartNAT() error {
 func (s *Server) nox_server_netCloseHandler_4DEC60(ind netstr.Handle) {
 	netstr.Global.ReadPackets(ind)
 	s.nox_server_netClose_5546A0(ind)
-	s.Players.HostUnit = nil
+	s.Players.SetHost(nil, nil)
 	s.SetUpdateFunc2(nil)
 	s.StopNAT()
 	s.StopHTTP()

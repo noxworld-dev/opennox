@@ -13,8 +13,7 @@ import (
 )
 
 func (s noxScriptNS) GetHost() ns.Obj {
-	// Note: original C code got the player from `s.s.GetPlayerByInd(MaxPlayers - 1)`
-	u := s.s.Players.HostUnit
+	u := s.s.Players.HostUnit()
 	if u == nil {
 		return nil
 	}

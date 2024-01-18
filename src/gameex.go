@@ -300,8 +300,8 @@ func call_OnLibraryNotice_265(arg3 int) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		if u := c.srv.Players.HostUnit; u != nil && asObjectS(u).ControllingPlayer().PlayerClass() == player.Warrior {
-			if legacy.Mix_MouseKeyboardWeaponRoll(u, int8(a2a)) != 0 {
+		if pl := c.srv.Players.Host(); pl != nil && pl.PlayerClass() == player.Warrior && pl.PlayerUnit != nil {
+			if legacy.Mix_MouseKeyboardWeaponRoll(pl.PlayerUnit, int8(a2a)) != 0 {
 				clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 			}
 		}
@@ -322,7 +322,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
-				if u := noxServer.Players.HostUnit; u != nil && legacy.Mix_MouseKeyboardWeaponRoll(u, int8(v8)) != 0 {
+				if u := noxServer.Players.HostUnit(); u != nil && legacy.Mix_MouseKeyboardWeaponRoll(u, int8(v8)) != 0 {
 					clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 				}
 			} else {
