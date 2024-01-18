@@ -4,6 +4,11 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/spell"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 type PlayerState byte
@@ -210,4 +215,42 @@ func (obj *Object) changeScore(val int) { // nox_xxx_playerSubLessons_4D8EC0(-v)
 	}
 	pl := obj.ControllingPlayer()
 	pl.Lessons += int32(val)
+}
+
+func (obj *Object) PlayerSpellPhoneme(ph spell.Phoneme, aud sound.ID, resetTimer bool) {
+	s := obj.Server()
+	ud := obj.UpdateDataPlayer()
+	if ud.SpellCastStart == 0 {
+		ud.SpellPhonemeLeaf = s.Spells.PhonemeTree()
+		ud.SpellCastStart = s.Frame()
+	} else if resetTimer {
+		ud.SpellCastStart = s.Frame()
+	}
+	ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(ph)
+	s.Audio.EventObj(aud, obj, 0, 0)
+	ud.Field47_0 = 0
+}
+
+func (obj *Object) PlayerActionPhoneme(cc player.CtrlCode, resetTimer bool) {
+	if noxflags.HasGame(noxflags.GameModeChat) {
+		return
+	}
+	switch cc {
+	case player.CCSpellGestureUp:
+		obj.PlayerSpellPhoneme(spell.PhonUN, sound.SoundSpellPhonemeUp, resetTimer)
+	case player.CCSpellGestureDown:
+		obj.PlayerSpellPhoneme(spell.PhonZO, sound.SoundSpellPhonemeDown, resetTimer)
+	case player.CCSpellGestureLeft:
+		obj.PlayerSpellPhoneme(spell.PhonET, sound.SoundSpellPhonemeLeft, resetTimer)
+	case player.CCSpellGestureRight:
+		obj.PlayerSpellPhoneme(spell.PhonCHA, sound.SoundSpellPhonemeRight, resetTimer)
+	case player.CCSpellGestureUpperRight:
+		obj.PlayerSpellPhoneme(spell.PhonIN, sound.SoundSpellPhonemeUpRight, resetTimer)
+	case player.CCSpellGestureUpperLeft:
+		obj.PlayerSpellPhoneme(spell.PhonKA, sound.SoundSpellPhonemeUpLeft, resetTimer)
+	case player.CCSpellGestureLowerRight:
+		obj.PlayerSpellPhoneme(spell.PhonDO, sound.SoundSpellPhonemeDownRight, resetTimer)
+	case player.CCSpellGestureLowerLeft:
+		obj.PlayerSpellPhoneme(spell.PhonRO, sound.SoundSpellPhonemeDownLeft, resetTimer)
+	}
 }

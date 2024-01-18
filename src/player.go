@@ -479,13 +479,6 @@ func (s *Server) sub_4E8210(u *server.Object) (types.Pointf, bool) {
 	return out, true
 }
 
-func nox_xxx_plrSetSpellType_4F9B90(u *server.Object) {
-	s := u.Server()
-	ud := u.UpdateDataPlayer()
-	ud.SpellPhonemeLeaf = s.Spells.PhonemeTree()
-	ud.SpellCastStart = s.Frame()
-}
-
 func (s *Server) PlayerSpell(u *server.Object) {
 	ok2 := true
 	ud := u.UpdateDataPlayer()

@@ -498,20 +498,6 @@ func (s *Server) unitUpdatePlayerImplB(u *server.Object, a1, v68 bool) {
 		if orientationOnly && it.Code != player.CCOrientation {
 			continue
 		}
-
-		// If the appropriate flag is set, reset countdown for manual casting
-		// every phoneme press
-		if resetCountdownPerPhoneme {
-			switch it.Code {
-			case player.CCSpellGestureUpperLeft, player.CCSpellGestureUp, player.CCSpellGestureUpperRight, player.CCSpellGestureLeft, player.CCSpellGestureRight, player.CCSpellGestureLowerLeft, player.CCSpellGestureDown, player.CCSpellGestureLowerRight:
-				if !noxflags.HasGame(noxflags.GameModeChat) {
-					if ud.SpellCastStart != 0 {
-						ud.SpellCastStart = s.Frame()
-					}
-
-				}
-			}
-		}
 		switch it.Code {
 		case player.CCOrientation:
 			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
@@ -582,78 +568,13 @@ func (s *Server) unitUpdatePlayerImplB(u *server.Object, a1, v68 bool) {
 				u.Field34 = s.Frame()
 				return
 			}
-		case player.CCSpellGestureUp:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonUN)
-				s.Audio.EventObj(sound.SoundSpellPhonemeUp, u, 0, 0)
-				ud.Field47_0 = 0
-			}
-		case player.CCSpellGestureDown:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonZO)
-				s.Audio.EventObj(sound.SoundSpellPhonemeDown, u, 0, 0)
-				ud.Field47_0 = 0
-			}
-		case player.CCSpellGestureLeft:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonET)
-				s.Audio.EventObj(sound.SoundSpellPhonemeLeft, u, 0, 0)
-				ud.Field47_0 = 0
-			}
-		case player.CCSpellGestureRight:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonCHA)
-				s.Audio.EventObj(sound.SoundSpellPhonemeRight, u, 0, 0)
-				ud.Field47_0 = 0
-			}
-		case player.CCSpellGestureUpperRight:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonIN)
-				s.Audio.EventObj(sound.SoundSpellPhonemeUpRight, u, 0, 0)
-				ud.Field47_0 = 0
-			}
-		case player.CCSpellGestureUpperLeft:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonKA)
-				s.Audio.EventObj(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
-				ud.Field47_0 = 0
-			}
-		case player.CCSpellGestureLowerRight:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonDO)
-				s.Audio.EventObj(sound.SoundSpellPhonemeDownRight, u, 0, 0)
-				ud.Field47_0 = 0
-			}
-		case player.CCSpellGestureLowerLeft:
-			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.SpellCastStart == 0 {
-					nox_xxx_plrSetSpellType_4F9B90(u)
-				}
-				ud.SpellPhonemeLeaf = ud.SpellPhonemeLeaf.Next(spell.PhonRO)
-				s.Audio.EventObj(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
-				ud.Field47_0 = 0
-			}
+		case player.CCSpellGestureUp, player.CCSpellGestureDown,
+			player.CCSpellGestureLeft, player.CCSpellGestureRight,
+			player.CCSpellGestureUpperRight, player.CCSpellGestureUpperLeft,
+			player.CCSpellGestureLowerRight, player.CCSpellGestureLowerLeft:
+			// If the appropriate flag is set, reset countdown for manual casting
+			// every phoneme press
+			u.PlayerActionPhoneme(it.Code, resetCountdownPerPhoneme)
 		case player.CCSpellPatternEnd:
 			nox_xxx_playerSetState_4FA020(u, server.PlayerState13)
 			if !noxflags.HasGame(noxflags.GameModeChat) {
