@@ -279,83 +279,60 @@ func nox_thing_player_waypoint_draw(vp *noxrender.Viewport, dr *client.Drawable)
 	nox_client_drawEnableAlpha_434560(0)
 	return 1
 }
-func nox_things_player_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
-	var (
-		a3  = attr_value
-		v3  *uint32
-		v5  *uint32
-		v7  int32
-		v10 int32
-		v13 int32
-		v14 *uint32
-		v15 int32
-		v16 int32
-		v17 int32
-		v18 *uint32
-		v19 int32
-		v20 *uint32
-		v21 *uint32
-		v22 uint8
-		v23 uint8
-	)
-	v3 = (*uint32)(alloc.Calloc1(1, 14524))
-	v5 = v3
-	v21 = v3
-	*v3 = 14524
-	v7 = int32(nox_memfile_read_u32(f))
-	if uint32(v7) == 0x454E4420 {
+func nox_things_player_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr *byte) bool {
+	dd, _ := alloc.New(client.PlayerDrawData{})
+	dd.Size = uint32(unsafe.Sizeof(client.PlayerDrawData{}))
+	tok := nox_memfile_read_u32(f)
+	if tok == 0x454E4420 {
 		return false
 	}
-LABEL_3:
-	v22 = nox_memfile_read_u8(f)
-	nox_memfile_read(unsafe.Pointer(a3), 1, int32(v22), f)
-	*((*uint8)(unsafe.Add(unsafe.Pointer(a3), v22))) = 0
-	v10 = sub_44BB20(a3)
-	if v10 < 0 {
-		return false
-	}
-	v11 := unsafe.Add(unsafe.Pointer(v5), 4*uintptr(v10*66+1))
-	if nox_xxx_loadVectorAnimated_44B8B0((*client.AnimationVector)(v11), f) == 0 {
-		return false
-	}
+loop:
 	for {
-		v13 = int32(nox_memfile_read_u32(f))
-		if uint32(v13) == 0x454E4420 {
-			break
-		}
-		if uint32(v13) == 0x53544154 {
-			v5 = v21
-			goto LABEL_3
-		}
-		v23 = nox_memfile_read_u8(f)
-		nox_memfile_read(unsafe.Pointer(a3), 1, int32(v23), f)
-		*((*uint8)(unsafe.Add(unsafe.Pointer(a3), v23))) = 0
-		if libc.StrCmp(internCStr("NAKED"), a3) == 0 {
-			v14 = (*uint32)(alloc.Calloc1(1, 0x28))
-			v15 = int32(*(*int16)(unsafe.Add(v11, 40)))
-			*(*uint32)(unsafe.Add(v11, 48)) = uint32(uintptr(unsafe.Pointer(v14)))
-			v16 = sub_44B940(v14, v15, f)
-		} else {
-			v17 = nox_xxx_parse_Armor_44BA60(a3)
-			if v17 < 0 {
-				v19 = sub_44BAC0(a3)
-				if v19 < 0 {
-					return false
-				}
-				v20 = (*uint32)(alloc.Calloc1(1, 0x28))
-				*(*uint32)(unsafe.Add(v11, v19*4+156)) = uint32(uintptr(unsafe.Pointer(v20)))
-				v16 = sub_44B940(v20, int32(*(*int16)(unsafe.Add(v11, 40))), f)
-			} else {
-				v18 = (*uint32)(alloc.Calloc1(1, 0x28))
-				*(*uint32)(unsafe.Add(v11, v17*4+52)) = uint32(uintptr(unsafe.Pointer(v18)))
-				v16 = sub_44B940(v18, int32(*(*int16)(unsafe.Add(v11, 40))), f)
-			}
-		}
-		if v16 == 0 {
+		v22 := nox_memfile_read_u8(f)
+		nox_memfile_read(unsafe.Pointer(attr), 1, int32(v22), f)
+		*((*uint8)(unsafe.Add(unsafe.Pointer(attr), v22))) = 0
+		aind := sub_44BB20(attr)
+		if aind < 0 {
 			return false
 		}
+		panim := &dd.Anim[aind]
+		if nox_xxx_loadVectorAnimated_44B8B0(&panim.Base, f) == 0 {
+			return false
+		}
+		for {
+			tok = nox_memfile_read_u32(f)
+			if tok == 0x454E4420 {
+				obj.DrawFunc.Set(nox_thing_player_draw)
+				obj.DrawData = unsafe.Pointer(dd)
+				return true
+			}
+			if tok == 0x53544154 {
+				continue loop
+			}
+			n := nox_memfile_read_u8(f)
+			nox_memfile_read(unsafe.Pointer(attr), 1, int32(n), f)
+			*((*uint8)(unsafe.Add(unsafe.Pointer(attr), n))) = 0
+			var res int32
+			if libc.StrCmp(internCStr("NAKED"), attr) == 0 {
+				p, _ := alloc.New(client.PlayerEquipAnimation{})
+				panim.Naked = p
+				res = sub_44B940(p, int32(panim.Base.Size40), f)
+			} else {
+				if ind := nox_xxx_parse_Armor_44BA60(attr); ind >= 0 {
+					p, _ := alloc.New(client.PlayerEquipAnimation{})
+					panim.Armor[ind] = p
+					res = sub_44B940(p, int32(panim.Base.Size40), f)
+				} else if ind = sub_44BAC0(attr); ind >= 0 {
+					p, _ := alloc.New(client.PlayerEquipAnimation{})
+					panim.Weapon[ind] = p
+					res = sub_44B940(p, int32(panim.Base.Size40), f)
+				} else {
+					return false
+				}
+			}
+			if res == 0 {
+				return false
+			}
+		}
 	}
-	obj.DrawFunc.Set(nox_thing_player_draw)
-	obj.DrawData = unsafe.Pointer(v21)
-	return true
 }

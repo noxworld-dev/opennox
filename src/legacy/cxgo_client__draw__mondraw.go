@@ -199,7 +199,7 @@ LABEL_24:
 }
 func nox_things_monster_draw_parse(obj *client.ObjectType, f *binfile.MemFile, attr_value *byte) bool {
 	dd, _ := alloc.New(client.MonsterDrawData{})
-	dd.Field0 = 772
+	dd.Size = uint32(unsafe.Sizeof(client.MonsterDrawData{}))
 	for {
 		tok := nox_memfile_read_u32(f)
 		if tok == 0x454E4420 {

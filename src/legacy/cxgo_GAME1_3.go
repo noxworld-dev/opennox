@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -991,7 +992,7 @@ func nox_xxx_motd_4467F0() {
 func sub_446950() int32 {
 	return bool2int32(dword_5d4594_826028 != nil && (nox_xxx_wndGetFlags_46ADA0(dword_5d4594_826028)&0x10) == 0)
 }
-func sub_44B940(a1 *uint32, a2 int32, f *binfile.MemFile) int32 {
+func sub_44B940(a1 *client.PlayerEquipAnimation, a2 int32, f *binfile.MemFile) int32 {
 	var (
 		v3  int32
 		v4  int32
@@ -1007,7 +1008,7 @@ func sub_44B940(a1 *uint32, a2 int32, f *binfile.MemFile) int32 {
 	)
 	v3 = a2
 	v4 = 0
-	*a1 = 40
+	a1.Size = uint32(unsafe.Sizeof(client.PlayerEquipAnimation{}))
 	v14 = 0
 	for {
 		if v4 >= 16 {
@@ -1058,7 +1059,7 @@ func nox_xxx_parse_Armor_44BA60(a1 *byte) int32 {
 		v2 **byte
 	)
 	v1 = 0
-	v2 = (**byte)(memmap.PtrOff(0x587000, 113856))
+	v2 = (**byte)(memmap.PtrOff(0x587000, 113856)) // playerAnimationsArmor
 	for libc.StrCmp(*v2, a1) != 0 {
 		v2 = (**byte)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof((*byte)(nil))*1))
 		v1++
@@ -1074,7 +1075,7 @@ func sub_44BAC0(a1 *byte) int32 {
 		v2 **byte
 	)
 	v1 = 0
-	v2 = (**byte)(memmap.PtrOff(0x587000, 113964))
+	v2 = (**byte)(memmap.PtrOff(0x587000, 113964)) // playerAnimationsWeapons
 	for libc.StrCmp(*v2, a1) != 0 {
 		v2 = (**byte)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof((*byte)(nil))*1))
 		v1++
@@ -1084,13 +1085,14 @@ func sub_44BAC0(a1 *byte) int32 {
 	}
 	return v1
 }
+
 func sub_44BB20(a1 *byte) int32 {
 	var (
 		v1 int32
 		v2 **byte
 	)
 	v1 = 0
-	v2 = (**byte)(memmap.PtrOff(0x587000, 115688))
+	v2 = (**byte)(memmap.PtrOff(0x587000, 115688)) // playerAnimations
 	for libc.StrCmp(a1, *v2) != 0 {
 		v2 = (**byte)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof((*byte)(nil))*1))
 		v1++
