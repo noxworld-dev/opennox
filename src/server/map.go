@@ -4,9 +4,12 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 )
+
+const MapSize = WallGridSize * common.GridStep
 
 type MapTraceFlags byte
 
@@ -55,6 +58,10 @@ func (s *serverMap) Init() {
 
 func (s *serverMap) Free() {
 	s.bucketByPos = nil
+}
+
+func (s *serverMap) Center() types.Pointf {
+	return types.Pointf{X: MapSize / 2, Y: MapSize / 2}
 }
 
 func (s *serverMap) addObjToMap(large bool, pos image.Point, obj *Object) {

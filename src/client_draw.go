@@ -104,12 +104,12 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		c.inDraw1 = false
 	}
 	legacy.Nox_xxx_clientEnumHover_476FA0()
-	if !c.clientSendInput(common.MaxPlayers - 1) {
+	if !c.clientSendInput(server.HostPlayerIndex) {
 		return true
 	}
 	vp := c.Viewport()
 	ipos := vp.ToWorldPos(mpos)
-	if !c.clientSendInputMouse(common.MaxPlayers-1, ipos) {
+	if !c.clientSendInputMouse(server.HostPlayerIndex, ipos) {
 		return true
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {

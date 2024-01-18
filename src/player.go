@@ -8,7 +8,6 @@ import (
 	"math"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
@@ -286,7 +285,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	v2 := opts.Byte152
 	opts.Byte152 &= 0x7F
 	v3 := v2 >> 7
-	if ind != common.MaxPlayers-1 {
+	if ind != server.HostPlayerIndex {
 		if !noxflags.HasGame(noxflags.GameModeQuest) && v3 == 1 {
 			return 0
 		}
@@ -311,7 +310,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	if punit == nil {
 		return 0
 	}
-	if ind != common.MaxPlayers-1 {
+	if ind != server.HostPlayerIndex {
 		if v5[100] != 0 {
 			if (1<<opts.Info.PlayerClass())&v5[100] != 0 {
 				return 0
@@ -385,7 +384,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		s.PlayerGoObserver(pl, false, true)
 	} else if noxflags.HasGame(noxflags.GameModeCoopTeam) {
 		legacy.Nox_xxx_netReportPlayerStatus_417630(pl)
-	} else if pl.Index() == common.MaxPlayers-1 && noxflags.HasEngine(noxflags.EngineNoRendering) {
+	} else if pl.Index() == server.HostPlayerIndex && noxflags.HasEngine(noxflags.EngineNoRendering) {
 		s.PlayerGoObserver(pl, false, true)
 	} else if noxflags.HasGame(noxflags.GameModeChat) {
 		if legacy.Sub_40A740() != 0 {
@@ -399,7 +398,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		s.PlayerGoObserver(pl, true, true)
 	}
 	s.sendSettings(punit)
-	if pl.Index() == common.MaxPlayers-1 {
+	if pl.Index() == server.HostPlayerIndex {
 		s.Players.SetHost(pl, punit)
 	}
 	var v30 [132]byte
@@ -409,21 +408,21 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	if false && !noxflags.HasGame(noxflags.GameModeChat) {
 		legacy.Sub_425F10(pl)
 	}
-	s.CreateObjectAt(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})
+	s.CreateObjectAt(punit, nil, s.Map.Center())
 	s.ObjectsAddPending()
-	var p28 types.Pointf
+	var start types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		if p, ok := s.Sub4E8210(punit); !ok {
-			p28 = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
+		if p, ok := s.Sub4E8210(punit); ok {
+			start = p
 		} else {
-			p28 = p
+			start = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 		}
 	} else {
-		p28 = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
+		start = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 	}
-	asObjectS(punit).SetPos(p28)
+	asObjectS(punit).SetPos(start)
 	pl.Sub422140()
-	if ind != common.MaxPlayers-1 {
+	if ind != server.HostPlayerIndex {
 		if sub_459D70() == 2 {
 			v24 := nox_xxx_cliGamedataGet_416590(1)
 			legacy.Nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v24[0]), pl.Index())

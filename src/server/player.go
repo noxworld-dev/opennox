@@ -15,6 +15,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
+const (
+	HostPlayerIndex = common.MaxPlayers - 1
+)
+
 type ClassStats struct {
 	Health   float32
 	Mana     float32

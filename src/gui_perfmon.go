@@ -6,11 +6,11 @@ import (
 	"image/color"
 	"time"
 
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const perfmonSz = 30
@@ -74,7 +74,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 		c.r.DrawString(nil, str, image.Pt(10, y))
 		d := m.bandData(pl.Index())
 		var bps uint32
-		if pl.Index() == common.MaxPlayers-1 {
+		if pl.Index() == server.HostPlayerIndex {
 			bps = m.TransferStats(netstr.Global.First())
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		} else {

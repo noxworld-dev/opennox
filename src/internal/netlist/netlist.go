@@ -9,6 +9,7 @@ import (
 const (
 	bufSize    = 2048
 	maxPackets = 512
+	hostIndex  = common.MaxPlayers - 1
 )
 
 type Kind byte
@@ -45,7 +46,7 @@ func (s *List) Init() {
 		s.messageList[1][i] = newMsgList()
 		s.messageList[2][i] = newMsgList()
 	}
-	s.messageList[0][common.MaxPlayers-1] = newMsgList()
+	s.messageList[0][hostIndex] = newMsgList()
 }
 
 func (s *List) Free() {

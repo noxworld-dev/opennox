@@ -168,7 +168,7 @@ func (sp *spellWall) destroySysuse(a1 *server.Wall) {
 }
 
 func (sp *spellWall) changeOrAddRemoteWalls(pl *server.Player) {
-	if pl.PlayerInd == common.MaxPlayers-1 {
+	if pl.PlayerInd == server.HostPlayerIndex {
 		return
 	}
 	bit := uint32(1) << pl.PlayerInd

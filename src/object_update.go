@@ -3,7 +3,6 @@ package opennox
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
@@ -44,7 +43,7 @@ func nox_xxx_updatePlayer_4F8100(u *server.Object) {
 		u.ForceVec = types.Pointf{}
 		u.VelVec = types.Pointf{}
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && ud.Player.Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > s.SecToFrames(30)) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && ud.Player.Index() != server.HostPlayerIndex && (s.Frame()-ud.Field137 > s.SecToFrames(30)) {
 		sub_4DCFB0(u)
 		return
 	}

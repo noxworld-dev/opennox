@@ -565,7 +565,7 @@ func initGameSession435CC0() error {
 	noxflags.SetGame(noxflags.GameFlag24)
 	if noxflags.HasGame(noxflags.GameHost) {
 		if !isDedicatedServer {
-			legacy.Nox_xxx_netPlayerIncomingServ_4DDF60(common.MaxPlayers - 1)
+			legacy.Nox_xxx_netPlayerIncomingServ_4DDF60(server.HostPlayerIndex)
 		}
 	} else {
 		nox_xxx_netSendIncomingClient_43CB00()
@@ -825,7 +825,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() bool {
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
-	pl := s.Players.ByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(server.HostPlayerIndex)
 	if pl == nil {
 		return
 	}
@@ -1407,13 +1407,13 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 	}
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
-		s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+		s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
 	} else if !isDedicatedServer {
-		s.NetList.HandlePacketsA(common.MaxPlayers-1, netlist.Kind0, func(data []byte) {
+		s.NetList.HandlePacketsA(server.HostPlayerIndex, netlist.Kind0, func(data []byte) {
 			if len(data) == 0 {
 				return
 			}
-			s.onPacketRaw(common.MaxPlayers-1, data)
+			s.onPacketRaw(server.HostPlayerIndex, data)
 		})
 	}
 }

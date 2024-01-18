@@ -331,7 +331,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
-	s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+	s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
 	return 1
 }
 
@@ -344,7 +344,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
-	s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+	s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
 	return 1
 }
 
@@ -367,7 +367,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 		return 0
 	}
 	conn.RecvLoop(netstr.RecvCanRead | netstr.RecvNoHooks)
-	s.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+	s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
 	return 1
 }
 
@@ -375,7 +375,7 @@ func netSendGauntlet() {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_GAUNTLET)
 	buf[1] = 27
-	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:2], 0, 0)
+	nox_xxx_netClientSend2_4E53C0(server.HostPlayerIndex, buf[:2], 0, 0)
 }
 
 func (s *Server) nox_xxx_netSendBySock_40EE10(conn netstr.Handle, ind ntype.PlayerInd, kind netlist.Kind) {
@@ -540,7 +540,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 }
 
 func sub_554240(pli ntype.PlayerInd) int {
-	if pli != common.MaxPlayers-1 {
+	if pli != server.HostPlayerIndex {
 		return netstr.Global.GetTimingByInd1(pli)
 	}
 	return int(nox_ctrlevent_add_ticks_42E630())
@@ -1080,7 +1080,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ netstr.Handle, data []byte) int {
 	} else if op == noxnet.MSG_PING {
 		noxPerfmon.ping = time.Duration(binary.LittleEndian.Uint32(data[1:])) * time.Millisecond
 	} else if op >= noxnet.MSG_TIMESTAMP {
-		noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data)
+		noxClient.nox_xxx_netOnPacketRecvCli48EA70(server.HostPlayerIndex, data)
 		if nox_client_isConnected() {
 			legacy.Sub_48D660()
 		}
@@ -1110,13 +1110,13 @@ func sub_43CF70() {
 			legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl, 64)
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_NEED_TIMESTAMP)
-			nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:1], 0, 1)
+			nox_xxx_netClientSend2_4E53C0(server.HostPlayerIndex, buf[:1], 0, 1)
 		}
 	}
 }
 
 func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
-	if !noxflags.HasGame(noxflags.GameClient) || ind != common.MaxPlayers-1 {
+	if !noxflags.HasGame(noxflags.GameClient) || ind != server.HostPlayerIndex {
 		s.NetList.HandlePacketsA(ind, netlist.Kind1, func(data []byte) {
 			if len(data) == 0 {
 				return
@@ -1211,7 +1211,7 @@ func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		}
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, pck)
 		legacy.Nox_xxx_netPlayerObjSend_518C30(u, u, 0, 0)
-		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != common.MaxPlayers-1 {
+		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != server.HostPlayerIndex {
 			buf := s.NetList.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
 				netstr.Global.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
@@ -1357,8 +1357,8 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				// FIXME: rebuild the packet and replace the message
 			}
 			for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
-				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
-					noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
+				if noxflags.HasGame(noxflags.GameClient) && it.Index() == server.HostPlayerIndex {
+					noxClient.nox_xxx_netOnPacketRecvCli48EA70(server.HostPlayerIndex, data[:msz])
 				} else {
 					conn := netstr.Global.ByPlayer(it)
 					conn.Send(data[:msz], 0)
@@ -1450,7 +1450,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		if len(data) < 3 {
 			return 0, false
 		}
-		if noxflags.HasGame(noxflags.GameModeQuest) && pl.Index() != common.MaxPlayers-1 && pl.IsActive() && u != nil && u.UpdateDataPlayer().Field138 == 1 {
+		if noxflags.HasGame(noxflags.GameModeQuest) && pl.Index() != server.HostPlayerIndex && pl.IsActive() && u != nil && u.UpdateDataPlayer().Field138 == 1 {
 			s.PlayerDisconnect(pl, 2)
 		} else {
 			fname := datapath.Save(common.SaveDir, "_temp_.dat")
@@ -1861,7 +1861,7 @@ func sub_40BC60(pli ntype.PlayerInd, a2 byte, typ string, data []byte, flag bool
 			sub_40B810(a2, data)
 			return true
 		}
-		if pli == common.MaxPlayers-1 {
+		if pli == server.HostPlayerIndex {
 			sub_40B810(a2, data)
 			return true
 		}

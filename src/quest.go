@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/prometheus/client_golang/prometheus"
@@ -269,7 +268,7 @@ func (s *Server) setupQuestGame() {
 		legacy.Sub_4D6000(u)
 		pl := u.ControllingPlayer()
 		if noxflags.HasGame(noxflags.GameHost) && noxflags.HasEngine(noxflags.EngineNoRendering) {
-			if pl.Index() == common.MaxPlayers-1 {
+			if pl.Index() == server.HostPlayerIndex {
 				pl.Field4792 = 0
 			} else {
 				pl.Field4792 = legacy.Sub_4E4100()
@@ -369,9 +368,9 @@ func sub4DCEE0(path string) {
 
 func sub_4DCF20() {
 	if questPlayerSet && noxServer.getQuestFlag() == 0 {
-		if pl := noxServer.Players.ByInd(common.MaxPlayers - 1); pl != nil && pl.Field3680&0x10 != 0 {
+		if pl := noxServer.Players.ByInd(server.HostPlayerIndex); pl != nil && pl.Field3680&0x10 != 0 {
 			path := questPlayerFile
-			legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1)
+			legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, server.HostPlayerIndex)
 			questPlayerSet = false
 			ifs.Remove(path)
 		}

@@ -90,7 +90,7 @@ func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return errors.New("cannot find ImaginaryCaster object type")
 	}
-	s.CreateObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 2944.0, Y: 2944.0})
+	s.CreateObjectAt(nox_xxx_imagCasterUnit_1569664, nil, s.Map.Center())
 	noxPixieObjID = s.Types.PixieID()
 	*memmap.PtrUint32(0x5D4594, 1569676) = uint32(noxPixieObjID)
 	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(s.Types.IndByID("MagicMissile"))

@@ -383,7 +383,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.maybeCallMapInit()
 	s.maybeCallMapEntry()
 	s.abilities.sub_4FC680()
-	if unit := s.Players.ByInd(common.MaxPlayers - 1).PlayerUnit; unit != nil {
+	if unit := s.Players.ByInd(server.HostPlayerIndex).PlayerUnit; unit != nil {
 		s.spells.walls.associateSavedWalls(unit)
 	}
 	if legacy.Nox_xxx_get_57AF20() != 0 && legacy.Sub_57B140() {
@@ -497,7 +497,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *server.Object) {
 	pl := ud.Player
 	pind := pl.PlayerIndex()
 	s.NetList.InitByInd(pind)
-	if pind != common.MaxPlayers-1 && ((s.Frame()+uint32(pind))%s.SecToFrames(15)) == 0 {
+	if pind != server.HostPlayerIndex && ((s.Frame()+uint32(pind))%s.SecToFrames(15)) == 0 {
 		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, u)
 	}
 	if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 || noxflags.HasGame(noxflags.GameFlag4) {
@@ -922,7 +922,7 @@ func (s *Server) maybeInitPlayerUnits() {
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 		for _, u := range s.Players.ListUnits() {
 			plx := u.ControllingPlayer()
-			if plx.PlayerIndex() != common.MaxPlayers-1 && plx.Field3680&1 == 0 {
+			if plx.PlayerIndex() != server.HostPlayerIndex && plx.Field3680&1 == 0 {
 				asObjectS(u).ApplyEnchant(server.ENCHANT_INVULNERABLE, 0, 5)
 			}
 		}

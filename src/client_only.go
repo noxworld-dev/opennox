@@ -3,7 +3,6 @@
 package opennox
 
 import (
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
@@ -12,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func sub_4349C0(cl [3]uint32) {
@@ -71,7 +71,7 @@ func sub_43CCA0() {
 				if err != nil {
 					panic(err)
 				}
-				c.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, buf)
+				c.nox_xxx_netOnPacketRecvCli48EA70(server.HostPlayerIndex, buf)
 			}
 		}
 	}
@@ -83,7 +83,7 @@ func sub_43CCA0() {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
-	noxServer.nox_xxx_netSendBySock_40EE10(netstrClientConn, common.MaxPlayers-1, netlist.Kind0)
+	noxServer.nox_xxx_netSendBySock_40EE10(netstrClientConn, server.HostPlayerIndex, netlist.Kind0)
 	netstr.Global.MaybeSendQueues()
 	if lastCliHandlePackets == 0 {
 		return

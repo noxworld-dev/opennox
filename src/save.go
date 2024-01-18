@@ -273,7 +273,7 @@ func sub_40B850(ind netstr.Handle, act byte) {
 }
 
 func sub_40B810(act byte, data []byte) {
-	xferDataCallback40AF90(common.MaxPlayers-1, 0, act, memmap.String(0x5D4594, 4664), data)
+	xferDataCallback40AF90(server.HostPlayerIndex, 0, act, memmap.String(0x5D4594, 4664), data)
 	sub_40B850(netstr.Global.First(), act)
 }
 
@@ -386,7 +386,7 @@ func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, d
 	case 3:
 		path := datapath.Save("_temp_.dat")
 		if nox_xxx_SavePlayerDataFromClient_41CD70(path, data) {
-			if s.nox_xxx_isQuest_4D6F50() && ind == common.MaxPlayers-1 {
+			if s.nox_xxx_isQuest_4D6F50() && ind == server.HostPlayerIndex {
 				sub4DCEE0(path)
 			} else {
 				res := legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, ind)
@@ -404,7 +404,7 @@ func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, d
 				}
 				ifs.Remove(path)
 			}
-		} else if noxflags.HasGame(noxflags.GameModeQuest) && ind != common.MaxPlayers-1 {
+		} else if noxflags.HasGame(noxflags.GameModeQuest) && ind != server.HostPlayerIndex {
 			s.PlayerDisconnectByInd(ind, 4)
 		}
 	}
@@ -472,12 +472,12 @@ func loadCoopGame(name string) bool {
 	s.Objs.ResetObjectScriptIDs()
 	nox_xxx_gameSetSwitchSolo_4DB220(1)
 	nox_xxx_gameSetNoMPFlag_4DB230(1)
-	if legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1) == 0 {
+	if legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, server.HostPlayerIndex) == 0 {
 		return false
 	}
 	legacy.Nox_xxx_cliPrepareGameplay1_460E60()
 	legacy.Nox_xxx_cliPrepareGameplay2_4721D0()
-	pl := s.Players.ByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(server.HostPlayerIndex)
 	pl.Name()
 	mname := pl.SaveName()
 	s.nox_xxx_gameSetMapPath_409D70(mname + ".map")
@@ -524,7 +524,7 @@ func sub_4DCFB0(a1p *server.Object) {
 	}
 	ud := u.UpdateDataPlayer()
 	pl := ud.Player
-	if pl.Index() == common.MaxPlayers-1 {
+	if pl.Index() == server.HostPlayerIndex {
 		return
 	}
 	if pl.Field4792 != 0 && ud.Field138 != 1 {
@@ -718,7 +718,7 @@ func saveCoopGame(name string) bool {
 	sub_478000()
 	legacy.Nox_xxx_quickBarClose_4606B0()
 	s := noxServer
-	pl := s.Players.ByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(server.HostPlayerIndex)
 	if pl == nil {
 		return false
 	}
@@ -781,7 +781,7 @@ func saveCoopGame(name string) bool {
 
 func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	s := noxServer
-	pl := s.Players.ByInd(common.MaxPlayers - 1)
+	pl := s.Players.ByInd(server.HostPlayerIndex)
 	if pl == nil {
 		return false
 	}

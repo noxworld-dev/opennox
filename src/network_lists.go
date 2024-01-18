@@ -3,7 +3,6 @@ package opennox
 import (
 	"encoding/binary"
 
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -23,7 +22,7 @@ func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 	s := noxServer
 	return s.NetList.AddToMsgListSrv(ind, buf, func(ind ntype.PlayerInd) {
 		// Flush old data to network.
-		if ind == common.MaxPlayers-1 {
+		if ind == server.HostPlayerIndex {
 			noxClient.nox_netlist_receiveCli_494E90()
 		} else {
 			netstr.Global.ByPlayer(s.Players.ByInd(ind)).SendReadPacket(false)
@@ -32,7 +31,7 @@ func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 }
 
 func (c *Client) nox_netlist_receiveCli_494E90() int {
-	const ind = common.MaxPlayers - 1
+	const ind = server.HostPlayerIndex
 	res := 0
 
 	if buf1 := c.srv.NetList.CopyPacketsB(ind); len(buf1) != 0 {

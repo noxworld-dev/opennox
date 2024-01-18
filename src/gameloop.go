@@ -11,7 +11,6 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/log"
@@ -24,6 +23,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -404,7 +404,7 @@ func CONNECT_OR_HOST() error {
 			return fmt.Errorf("nox_xxx_replay_4D3860: %w", err)
 		}
 		if !isDedicatedServer {
-			legacy.ClientSetPlayerNetCode(noxServer.newPlayer(common.MaxPlayers-1, &popts))
+			legacy.ClientSetPlayerNetCode(noxServer.newPlayer(server.HostPlayerIndex, &popts))
 		}
 		setVersionCode(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
@@ -456,12 +456,12 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		*legacy.Get_dword_5d4594_1599592_ptr() |= 0x80000000
 	}
-	noxServer.NetList.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+	noxServer.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
 	legacy.Nox_xxx_set3512_40A340(0)
 	noxSetUseMapFrame(0)
 
 	if err := conn.DialWait(10*time.Second, func() {
-		noxServer.nox_xxx_netSendBySock_40EE10(conn, common.MaxPlayers-1, netlist.Kind0)
+		noxServer.nox_xxx_netSendBySock_40EE10(conn, server.HostPlayerIndex, netlist.Kind0)
 	}, func() bool {
 		return noxGetUseMapFrame() != 0
 	}); err != nil {
@@ -762,7 +762,7 @@ func (c *Client) map_download_finish() int {
 		return 0
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		legacy.Nox_xxx_gameServerReadyMB_4DD180(common.MaxPlayers - 1)
+		legacy.Nox_xxx_gameServerReadyMB_4DD180(server.HostPlayerIndex)
 	} else {
 		nox_xxx_netSendClientReady_43C9F0()
 	}
@@ -777,7 +777,7 @@ func (c *Client) map_download_finish() int {
 func sub_435EB0() {
 	writeConfigLegacy("nox.cfg")
 	if noxflags.HasGame(noxflags.GameHost) {
-		nox_xxx_playerDisconnFinish_4DE530(common.MaxPlayers-1, 2)
+		nox_xxx_playerDisconnFinish_4DE530(server.HostPlayerIndex, 2)
 	} else {
 		nox_xxx_cliSendOutgoingClient_43CB50()
 	}
@@ -840,7 +840,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			noxAudioServe()
 			if noxflags.HasGame(noxflags.GameHost) {
-				legacy.Nox_xxx_gameServerReadyMB_4DD180(common.MaxPlayers - 1)
+				legacy.Nox_xxx_gameServerReadyMB_4DD180(server.HostPlayerIndex)
 			} else {
 				nox_xxx_netSendClientReady_43C9F0()
 			}
@@ -878,7 +878,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 		} else {
 			if !isDedicatedServer {
-				legacy.Nox_xxx_gameServerReadyMB_4DD180(common.MaxPlayers - 1)
+				legacy.Nox_xxx_gameServerReadyMB_4DD180(server.HostPlayerIndex)
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				legacy.Set_nox_gameDisableMapDraw_5d4594_2650672(1)
