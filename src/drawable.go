@@ -26,7 +26,7 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 	}
 	draw := dr.DrawFuncPtr
 	if draw == legacy.Get_nox_thing_static_random_draw() {
-		v4 := c.srv.Rand.Other.Int(0, int(*(*uint8)(unsafe.Add(dr.Field_76, 8)))-1)
+		v4 := c.srv.Rand.Other.Int(0, int(*(*uint8)(unsafe.Add(dr.DrawData, 8)))-1)
 		dr.SetFrameMB(v4)
 	} else if draw == legacy.Get_nox_thing_red_spark_draw() || draw == legacy.Get_nox_thing_blue_spark_draw() ||
 		draw == legacy.Get_nox_thing_yellow_spark_draw() || draw == legacy.Get_nox_thing_green_spark_draw() ||

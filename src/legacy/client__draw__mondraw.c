@@ -244,38 +244,3 @@ LABEL_24:
 	nox_client_drawEnableAlpha_434560(0);
 	return v23;
 }
-
-//----- (0044BB80) --------------------------------------------------------
-bool nox_things_monster_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	uint32_t* v2;     // ebx
-	int v4;           // ecx
-	unsigned char v6; // cl
-	int v9;           // edi
-
-	v2 = calloc(1u, 0x304u);
-	*v2 = 772;
-	while (1) {
-		v4 = nox_memfile_read_u32(f);
-		if (v4 == 0x454E4420) { // 'END '
-			break;
-		}
-		v6 = nox_memfile_read_u8(f);
-		if (v6 < 0x10u) {
-			unsigned char n;
-			n = nox_memfile_read_u8(f);
-			nox_memfile_skip(f, n);
-			n = nox_memfile_read_u8(f);
-			nox_memfile_skip(f, n);
-			v9 = (int)&v2[12 * v6 + 1];
-			if (nox_xxx_loadVectorAnimated_44B8B0(v9, f)) {
-				if (nox_xxx_loadVectorAnimated_44BC50(v9, f)) {
-					continue;
-				}
-			}
-		}
-		return 0;
-	}
-	obj->draw_func = nox_thing_monster_draw;
-	obj->field_5c = v2;
-	return 1;
-}

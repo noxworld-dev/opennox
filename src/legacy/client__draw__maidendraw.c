@@ -55,10 +55,3 @@ int nox_thing_maiden_draw(uint32_t* a1, nox_drawable* dr) {
 	} while (v8 < 6);
 	return nox_thing_monster_draw(a1, dr);
 }
-
-//----- (0044BD60) --------------------------------------------------------
-bool nox_things_maiden_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int result = nox_things_monster_draw_parse(obj, f, attr_value);
-	obj->draw_func = &nox_thing_maiden_draw;
-	return result;
-}

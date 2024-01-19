@@ -162,7 +162,7 @@ type ObjectType struct {
 	ShapeH         float32        // 20, 0x50, 80
 	Field_54       uint32         // 21, 0x54
 	DrawFunc       unsafe.Pointer // 22, 0x58, 88, same as nox_drawable->draw_func
-	Field_5c       unsafe.Pointer // 23, 0x5c, 92
+	DrawData       unsafe.Pointer // 23, 0x5c, 92
 	Field_60       uint32         // 24, 0x60, 96
 	ClientUpdate   unsafe.Pointer // 25, 0x64, 100
 	AudioLoop      uint32         // 26, 0x68, 104
