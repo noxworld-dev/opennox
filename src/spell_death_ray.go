@@ -3,7 +3,6 @@ package opennox
 import (
 	"image"
 	"math"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -68,12 +67,13 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 		expire := c.srv.Rand.Other.Int(20, 40)
 		z := c.srv.Rand.Other.Int(15, 30)
 		vz := c.srv.Rand.Other.Int(-4, 4)
-		dr.Field_108 = uint32(pos.X) << 12
-		dr.Field_109 = uint32(pos.Y) << 12
 		dr.Field_74_4 = byte(r1)
-		dr.Field_110 = uint32(r2)
-		dr.Field_111 = c.srv.Frame()
-		*(*uint32)(unsafe.Pointer(&dr.Field_112_0)) = c.srv.Frame() + uint32(expire)
+		d := dr.UnionEffect()
+		d.Field_108 = uint32(pos.X) << 12
+		d.Field_109 = uint32(pos.Y) << 12
+		d.Field_110 = uint32(r2)
+		d.Field_111 = c.srv.Frame()
+		d.Field_112 = c.srv.Frame() + uint32(expire)
 		dr.ZVal = uint16(z)
 		dr.VelZ = int8(vz)
 		c.Objs.List34Add(dr)

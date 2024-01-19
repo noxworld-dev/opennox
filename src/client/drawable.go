@@ -451,6 +451,58 @@ func (c *clientDrawables) EachInRect(rect image.Rectangle, fnc func(dr *Drawable
 	}
 }
 
+var _ = [1]struct{}{}[20-unsafe.Sizeof(DrawableUnion{})]
+
+type DrawableUnion struct {
+	_ [20]byte
+}
+
+var _ = [1]struct{}{}[unsafe.Sizeof(DrawableUnionMonster{})-unsafe.Sizeof(DrawableUnion{})]
+
+type DrawableUnionMonster struct {
+	Field_108_0 uint8 // 108, 432
+	Field_108_1 uint8 // 108, 433
+	Field_108_2 uint16
+	Field_109   uint32 // 109, 436
+	Field_110   uint32 // 110, 440
+	Field_111   uint32 // 111, 444
+	Field_112_0 int16  // 112, 448
+	Field_112_2 int16  // 112, 450
+}
+
+var _ = [1]struct{}{}[unsafe.Sizeof(DrawableUnionItem{})-unsafe.Sizeof(DrawableUnion{})]
+
+type DrawableUnionItem struct {
+	Field_108   uint32 // 108, 432
+	Field_109   uint32 // 109, 436
+	Field_110   uint32 // 110, 440
+	Field_111   uint32 // 111, 444
+	Field_112_0 int16  // 112, 448
+	Field_112_2 int16  // 112, 450
+}
+
+var _ = [1]struct{}{}[unsafe.Sizeof(DrawableUnionEffect{})-unsafe.Sizeof(DrawableUnion{})]
+
+type DrawableUnionEffect struct {
+	Field_108 uint32 // 108, 432
+	Field_109 uint32 // 109, 436
+	Field_110 uint32 // 110, 440
+	Field_111 uint32 // 111, 444
+	Field_112 uint32 // 112, 448
+}
+
+var _ = [1]struct{}{}[unsafe.Sizeof(DrawableUnionDoor{})-unsafe.Sizeof(DrawableUnion{})]
+
+type DrawableUnionDoor struct {
+	Field_108_0 uint8                 // 108, 432
+	Field_108_1 uint8                 // 108, 433
+	Field_108_2 uint16                // TODO: uint8?
+	Field_109   noxrender.ImageHandle // 109, 436
+	Field_110   noxrender.ImageHandle // 110, 440
+	Field_111   noxrender.ImageHandle // 111, 444
+	Field_112   noxrender.ImageHandle // 112, 448
+}
+
 type Drawable struct {
 	Field_0             uint32            // 0, 0
 	Field_1             uint32            // 1, 4
@@ -535,12 +587,7 @@ type Drawable struct {
 	Field_105           *Drawable      // 105, 420
 	Field_106           *Drawable      // 106, 424
 	Field_107           *Drawable      // 107, 428
-	Field_108           uint32         // 108, 432 // TODO: union?
-	Field_109           uint32         // 109, 436, SE?
-	Field_110           uint32         // 110, 440, SW?
-	Field_111           uint32         // 111, 444, SW?
-	Field_112_0         int16          // 112, 448
-	Field_112_2         int16          // 112, 450
+	Union               DrawableUnion  // 108, 432
 	Field_113           uint32         // 113, 452
 	Field_114           *DrawableFX    // 114, 456
 	Field_115           unsafe.Pointer // 115, 460
@@ -572,6 +619,25 @@ func (s *Drawable) Ext() *DrawableExt {
 		drawableExts[unsafe.Pointer(s)] = p
 	}
 	return p
+}
+
+func (s *Drawable) UnionItem() *DrawableUnionItem {
+	if !s.Class().HasAny(object.ClassFlag | object.ClassArmor | object.ClassWeapon | object.ClassWand) {
+		panic("not an item")
+	}
+	return (*DrawableUnionItem)(unsafe.Pointer(&s.Union))
+}
+
+func (s *Drawable) UnionMonster() *DrawableUnionMonster {
+	return (*DrawableUnionMonster)(unsafe.Pointer(&s.Union))
+}
+
+func (s *Drawable) UnionEffect() *DrawableUnionEffect {
+	return (*DrawableUnionEffect)(unsafe.Pointer(&s.Union))
+}
+
+func (s *Drawable) UnionDoor() *DrawableUnionDoor {
+	return (*DrawableUnionDoor)(unsafe.Pointer(&s.Union))
 }
 
 func (s *Drawable) Next() *Drawable {
@@ -774,12 +840,14 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 			s.LightColor = noxrender.RGB{R: 255, G: 255, B: 255}
 		}
 	}
-	if s.ObjClass&0x13001000 != 0 {
-		s.Field_108 = 0
-		s.Field_109 = 0
-		s.Field_110 = 0
-		s.Field_111 = 0
-		s.Field_112_0 = -1
-		s.Field_112_2 = -1
+	if s.Class().HasAny(object.ClassFlag | object.ClassArmor | object.ClassWeapon | object.ClassWand) {
+		d := s.UnionItem()
+		d.Field_108 = 0
+		d.Field_109 = 0
+		d.Field_110 = 0
+		d.Field_111 = 0
+		// TODO: or was it uint32?
+		d.Field_112_0 = -1
+		d.Field_112_2 = -1
 	}
 }
