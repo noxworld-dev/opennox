@@ -241,9 +241,9 @@ func (s *serverTeams) ResetYyy() {
 
 func (s *Server) TeamsReset() {
 	s.Teams.Reset()
-	noxflags.SetGamePlay(2)
-	noxflags.UnsetGamePlay(1)
-	noxflags.UnsetGamePlay(4)
+	noxflags.SetGamePlay(noxflags.GameplayFlag2)
+	noxflags.UnsetGamePlay(noxflags.GameplayFlag1)
+	noxflags.UnsetGamePlay(noxflags.GameplayFlag4)
 }
 
 func (s *Server) TeamChangeLessons(tm *Team, val int) { // nox_xxx_netChangeTeamID_419090

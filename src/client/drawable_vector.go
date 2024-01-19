@@ -44,3 +44,7 @@ type AnimationVector struct {
 	Val42  uint16                    // 10, 42
 	Kind   AnimKind                  // 11, 44
 }
+
+func (a *AnimationVector) FramesSlice(i int) []noxrender.ImageHandle {
+	return unsafe.Slice(a.Frames[i], a.Cnt40)
+}

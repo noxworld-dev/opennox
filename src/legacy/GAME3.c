@@ -6182,6 +6182,7 @@ void nox_xxx_drawOtherPlayerHP_4B8EB0(uint32_t* a1, nox_drawable* dr, unsigned s
 }
 
 //----- (004B8FA0) --------------------------------------------------------
+int sub_4BC5D0(nox_drawable* dr, int a2);
 int sub_4B8FA0(nox_drawable* dr, int* a2, int* a3) {
 	int v3;  // esi
 	int v4;  // eax

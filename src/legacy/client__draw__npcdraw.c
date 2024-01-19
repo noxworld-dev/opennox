@@ -18,6 +18,8 @@ extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_blue_2650684;
 
 //----- (004B9050) --------------------------------------------------------
+int sub_4BC5D0(nox_drawable* dr, int a2);
+void nox_xxx_spriteDrawMonsterHP_4BC080(uint32_t* a1, int a2, unsigned short a3, unsigned short a4, char a5);
 int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 	int v2;                   // eax
 	int v4;                   // edi

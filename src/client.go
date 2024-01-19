@@ -53,6 +53,7 @@ type Client struct {
 	guiFPS                 guiFPS
 	screenshots            screenshots
 	tiles                  clientTileData
+	spells                 clientSpells
 	netPrevMouse           image.Point
 	inSub4312C0            bool
 	ticks805996            uint64

@@ -19,7 +19,6 @@
 #include "client__draw__magicdrw.h"
 #include "client__draw__maidendraw.h"
 #include "client__draw__mgendraw.h"
-#include "client__draw__mondraw.h"
 #include "client__draw__npcdraw.h"
 #include "client__draw__partrain.h"
 #include "client__draw__partscrn.h"
@@ -41,6 +40,8 @@
 #include "GAME2.h"
 #include "common__random.h"
 
+int nox_thing_released_soul_draw(int* a1, nox_drawable* dr);
+int nox_thing_monster_draw(nox_draw_viewport_t* vp, nox_drawable* dr);
 nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[] = {
 	{"NoDraw", 0, 0},
 	{"DebugDraw", &nox_thing_debug_draw, 0},

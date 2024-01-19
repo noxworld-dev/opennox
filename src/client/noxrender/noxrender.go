@@ -265,7 +265,7 @@ func (p *RenderData) SetColor2(a1 color.Color) { // nox_client_drawSetColor_4344
 	p.color2 = noxcolor.ToRGBA5551Color(a1).Color32()
 }
 
-func (p *RenderData) SetLightColor(c RGB) { // nox_client_drawSetColor_434460
+func (p *RenderData) SetLightColor(c RGB) {
 	if p == nil {
 		return
 	}

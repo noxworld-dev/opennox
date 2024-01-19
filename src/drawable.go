@@ -278,7 +278,7 @@ func (c *Client) Sub_45A670(a1 uint32) {
 		next = dr.NextPtr
 		if dr.Class()&0x20400006 == 0 {
 			if legacy.Sub_49C520(dr) == 0 {
-				if int(dr.Field_27) != c.dword_5d4594_1046604 && dr.Field_80 < a1 {
+				if int(dr.TypeIDVal) != c.dword_5d4594_1046604 && dr.Field_80 < a1 {
 					c.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 				}
 			}

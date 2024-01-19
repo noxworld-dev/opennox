@@ -225,7 +225,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 					if legacy.Sub_40AA00() == 0 {
 						break
 					}
-					if noxflags.HasGamePlay(4) {
+					if noxflags.HasGamePlay(noxflags.GameplayFlag4) {
 						if s.Teams.Count() >= legacy.Sub_40AA40() {
 							break
 						}
@@ -254,7 +254,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 		legacy.Nox_xxx_netReportAllLatency_4D3050()
 		*memmap.PtrUint64(0x5D4594, 1548692) = a1
 	}
-	if noxflags.HasGame(noxflags.GameModeChat) && legacy.Sub_40A740() == 0 && s.Teams.Count() != 0 && !noxflags.HasGamePlay(2) {
+	if noxflags.HasGame(noxflags.GameModeChat) && legacy.Sub_40A740() == 0 && s.Teams.Count() != 0 && !noxflags.HasGamePlay(noxflags.GameplayFlag2) {
 		legacy.Sub_4183C0()
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -1105,7 +1105,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 		noxflags.SetGame(noxflags.GameModeChat)
 		if s.Teams.Count() != 0 {
 			legacy.Nox_xxx_teamAssignFlags_418640()
-			if !noxflags.HasGamePlay(2) && !noxflags.HasGame(noxflags.GameFlag16) {
+			if !noxflags.HasGamePlay(noxflags.GameplayFlag2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				legacy.Nox_xxx_toggleAllTeamFlags_418690(1)
 			}
 		}

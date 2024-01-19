@@ -869,8 +869,8 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 	legacy.Sub_4EDD70()
 	s.sub_417160()
 	legacy.Sub_4573B0()
-	if noxflags.HasGamePlay(2) && !noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) &&
-		noxflags.HasGamePlay(4) && !noxflags.HasGame(noxflags.GameModeChat) {
+	if noxflags.HasGamePlay(noxflags.GameplayFlag2) && !noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) &&
+		noxflags.HasGamePlay(noxflags.GameplayFlag4) && !noxflags.HasGame(noxflags.GameModeChat) {
 		legacy.Sub_4181F0(1)
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) && false && !noxflags.HasGame(noxflags.GameModeChat) {
@@ -1103,7 +1103,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		legacy.Sub_4EF660(k)
 		v61 := s.nox_xxx_mapFindPlayerStart_4F7AB0(k)
 		if noxflags.HasGame(noxflags.GameModeChat) && s.Teams.Count() != 0 {
-			if !noxflags.HasGamePlay(2) && !noxflags.HasGame(noxflags.GameFlag16) {
+			if !noxflags.HasGamePlay(noxflags.GameplayFlag2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				if t := k.Team(); t != nil {
 					v61 = s.RandomReachablePointAround(50.0, legacy.AsPointf(unsafe.Add(t.Field_72, 56)))
 				}
@@ -1163,7 +1163,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		return errors.New("invalid ball starting position(s)")
 	}
 
-	if noxflags.HasGamePlay(4) || noxflags.HasGame(noxflags.GameFlag16) {
+	if noxflags.HasGamePlay(noxflags.GameplayFlag4) || noxflags.HasGame(noxflags.GameFlag16) {
 		s.Teams.ResetYyy()
 	}
 	s.Map.Debug.Each([]string{"spring", "SentryGlobe"}, func(key, val string) {
@@ -1252,7 +1252,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	for _, obj := range s.Objs.AllMissiles() {
 		obj.ObjFlags &= 0x7FFFFFFF
 	}
-	if noxflags.HasGame(noxflags.GameModeKOTR) && noxflags.HasGamePlay(4) {
+	if noxflags.HasGame(noxflags.GameModeKOTR) && noxflags.HasGamePlay(noxflags.GameplayFlag4) {
 		legacy.Sub_4D2160()
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {

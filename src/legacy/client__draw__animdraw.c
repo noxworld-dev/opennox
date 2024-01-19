@@ -86,36 +86,6 @@ int nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	return 1;
 }
 
-//----- (004BBF10) --------------------------------------------------------
-int nox_thing_animate_state_draw(uint32_t* a1, nox_drawable* dr) {
-	int v2;     // eax
-	int v3;     // edx
-	int v4;     // eax
-	int v5;     // eax
-	int result; // eax
-
-	v2 = dr->flags70;
-	v3 = dr->field_76;
-	if (v2 & 2) {
-		dr->field_79 = gameFrame();
-		v4 = 0;
-	} else if (v2 & 4) {
-		v4 = 1;
-	} else {
-		v4 = ((unsigned char)v2 >> 2) & 2;
-	}
-	v5 = 48 * v4 + v3 + 4;
-	if (*(uint32_t*)(v5 + 44) == 2) {
-		dr->field_79 = gameFrame();
-	}
-	if (*(uint16_t*)(v5 + 40)) {
-		result = sub_4BC6B0(a1, dr, v5);
-	} else {
-		result = 1;
-	}
-	return result;
-}
-
 //----- (0044B390) --------------------------------------------------------
 bool nox_things_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	uint8_t* a3 = attr_value;

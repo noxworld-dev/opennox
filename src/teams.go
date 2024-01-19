@@ -31,7 +31,7 @@ func (s *Server) createCoopTeam() {
 		text := s.Strings().GetStringInFile("COOP", "C:\\NoxPost\\src\\common\\System\\team.c")
 		t.SetNameAnd68(text, 0)
 	}
-	noxflags.UnsetGamePlay(1)
+	noxflags.UnsetGamePlay(noxflags.GameplayFlag1)
 }
 
 func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
@@ -57,7 +57,7 @@ func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
 }
 
 func (s *Server) TeamsRemoveActive(hooks bool) int {
-	noxflags.UnsetGamePlay(4)
+	noxflags.UnsetGamePlay(noxflags.GameplayFlag4)
 	for i := 1; i < len(s.Teams.Arr); i++ {
 		t := &s.Teams.Arr[i]
 		if t.Active() {

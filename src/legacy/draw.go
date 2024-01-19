@@ -37,7 +37,6 @@ var (
 	Sub_473970                           func(a1 image.Point) image.Point
 	Nox_client_isConnected               func() bool
 	Nox_video_inFadeTransition_44E0D0    func() int
-	Nox_thing_debug_draw                 func(vp *noxrender.Viewport, dr *client.Drawable) int
 )
 
 type nox_draw_viewport_t = C.nox_draw_viewport_t
@@ -464,11 +463,6 @@ func nox_video_fadeOutScreen_44DB30(a1, a2 C.int, fnc unsafe.Pointer) {
 	GetClient().R2().FadeOutScreen(int(a1), a2 != 0, func() {
 		ccall.CallVoidVoid(fnc)
 	})
-}
-
-//export nox_thing_debug_draw
-func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) int {
-	return Nox_thing_debug_draw(asViewport(cvp), asDrawable(cdr))
 }
 
 //export sub_4B6720

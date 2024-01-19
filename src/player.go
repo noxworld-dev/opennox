@@ -391,7 +391,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 			if legacy.Sub_40AA70(pl) == 0 {
 				s.PlayerGoObserver(pl, false, true)
 			}
-		} else if noxflags.HasGamePlay(4) {
+		} else if noxflags.HasGamePlay(noxflags.GameplayFlag4) {
 			legacy.Sub_4DF3C0(pl)
 		}
 	} else if !noxflags.HasGame(noxflags.GameModeCoop) {

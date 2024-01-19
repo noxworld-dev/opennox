@@ -49,15 +49,6 @@ void* nox_xxx_spriteLoadStaticRandomData_44C000(char* attr_value, nox_memfile* f
 	return result;
 }
 
-//----- (0044BFA0) --------------------------------------------------------
-int nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int a1, nox_memfile* f) {
-	if (!nox_xxx_loadVectorAnimated_44B8B0(a1, f)) {
-		return 0;
-	}
-
-	return nox_xxx_loadVectorAnimated_44BC50(a1, f);
-}
-
 //----- (0044B8B0) --------------------------------------------------------
 int nox_xxx_loadVectorAnimated_44B8B0(int a1, nox_memfile* f) {
 	*(uint16_t*)(a1 + 40) = nox_memfile_read_u8(f);

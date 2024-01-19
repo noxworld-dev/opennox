@@ -277,7 +277,7 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 	s.Objs.Pending = obj
 	obj.ObjFlags |= uint32(object.FlagPending)
 	if obj.TeamVal.ID != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
-		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGamePlay(4) {
+		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGamePlay(noxflags.GameplayFlag4) {
 			legacy.Nox_xxx_createAtImpl_4191D0(obj.TeamVal.ID, obj.TeamPtr(), 0, obj.NetCode, 0)
 		}
 	}

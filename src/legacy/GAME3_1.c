@@ -30,7 +30,6 @@
 #include "client__shell__inputcfg__inputcfg.h"
 #include "client__shell__mainmenu.h"
 
-#include "client__draw__mondraw.h"
 #include "client__draw__plasma.h"
 #include "client__drawable__update__charmup.h"
 #include "client__drawable__update__fireball.h"
@@ -433,20 +432,6 @@ void nox_xxx_spriteDrawMonsterHP_4BC080(uint32_t* a1, int a2, unsigned short a3,
 			nox_client_drawRectFilledOpaque_49CE30(v6, v8 + v9 - v8 * a3 / a4, 2, v8 * a3 / a4);
 		}
 	}
-}
-
-//----- (004BC6B0) --------------------------------------------------------
-int sub_4BC6B0(int* a1, nox_drawable* dr, int a3) {
-	int a2 = dr;
-	int v3; // eax
-
-	v3 = sub_4BC5D0(dr, a3);
-	if (v3 < 0) {
-		return 0;
-	}
-	nox_xxx_drawObject_4C4770_draw(a1, dr,
-								   *(uint32_t*)(*(uint32_t*)(a3 + 4 * *(unsigned char*)(a2 + 297) + 4) + 4 * v3));
-	return 1;
 }
 
 //----- (004BC720) --------------------------------------------------------
@@ -4055,8 +4040,10 @@ void sub_4C4260() {
 int sub_4C4280() { return wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1321228) == 0; }
 
 //----- (004C4770) --------------------------------------------------------
-void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
+void nox_xxx_drawObject_4C4770_draw(nox_draw_viewport_t* vp, nox_drawable* dr, void* img) {
+	int* a1 = vp;
 	unsigned char* a2 = dr;
+	int a3 = img;
 	unsigned char* v3;  // esi
 	char* v4;           // eax
 	uint32_t* v5;       // edi

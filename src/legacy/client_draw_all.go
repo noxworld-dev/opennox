@@ -22,7 +22,6 @@ package legacy
 #include "client__draw__magicdrw.h"
 #include "client__draw__maidendraw.h"
 #include "client__draw__mgendraw.h"
-#include "client__draw__mondraw.h"
 #include "client__draw__npcdraw.h"
 #include "client__draw__partrain.h"
 #include "client__draw__partscrn.h"
@@ -41,25 +40,28 @@ package legacy
 #include "client__draw__vortexdraw.h"
 #include "client__draw__weapondraw.h"
 int nox_thing_static_random_draw(uint32_t* a1, nox_drawable* dr);
+int nox_thing_monster_draw(nox_draw_viewport_t* a1, nox_drawable* dr);
+int nox_thing_released_soul_draw(nox_draw_viewport_t* a1, nox_drawable* dr);
+void nox_xxx_drawObject_4C4770_draw(nox_draw_viewport_t* vp, nox_drawable* dr, void* img);
+int sub_495180(int a1, uint16_t* a2, uint16_t* a3, uint8_t* a4);
 */
 import "C"
 import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func init() {
-	client.RegisterDraw("DebugDraw", C.nox_thing_debug_draw, 0, nil)
 	client.RegisterDraw("StaticDraw", C.nox_thing_static_draw, 1, wrapDrawParseC(C.nox_things_static_draw_parse))
 	client.RegisterDraw("StaticRandomDraw", C.nox_thing_static_random_draw, 2, wrapDrawParseC(C.nox_things_static_random_draw_parse))
 	client.RegisterDraw("DoorDraw", C.nox_thing_door_draw, 2, wrapDrawParseC(C.nox_things_door_draw_parse))
 	client.RegisterDraw("AnimateDraw", C.nox_thing_animate_draw, 3, wrapDrawParseC(C.nox_things_animate_draw_parse))
 	client.RegisterDraw("ConditionalAnimateDraw", C.nox_thing_cond_animate_draw, 4, wrapDrawParseC(C.nox_things_cond_animate_draw_parse))
 	client.RegisterDraw("MonsterGeneratorDraw", C.nox_thing_monster_gen_draw, 4, wrapDrawParseC(C.nox_things_cond_animate_draw_parse))
-	client.RegisterDraw("VectorAnimateDraw", C.nox_thing_vector_animate_draw, 5, wrapDrawParseC(C.nox_things_vector_animate_draw_parse))
 	client.RegisterDraw("AnimateStateDraw", C.nox_thing_animate_state_draw, 8, wrapDrawParseC(C.nox_things_animate_state_draw_parse))
 	client.RegisterDraw("SlaveDraw", C.nox_thing_slave_draw, 2, wrapDrawParseC(C.nox_things_slave_draw_parse))
 	client.RegisterDraw("TriggerDraw", C.nox_thing_trigger_draw, 0, nil)
@@ -105,7 +107,6 @@ func init() {
 	client.RegisterDraw("NPCDraw", C.nox_thing_npc_draw, 0, nil)
 	client.RegisterDraw("SphericalShieldDraw", C.nox_thing_spherical_shield_draw, 3, wrapDrawParseC(C.nox_things_animate_draw_parse))
 	client.RegisterDraw("SummonEffectDraw", C.nox_thing_summon_effect_draw, 3, wrapDrawParseC(C.nox_things_animate_draw_parse))
-	client.RegisterDraw("ReleasedSoulDraw", C.nox_thing_released_soul_draw, 5, wrapDrawParseC(C.nox_things_vector_animate_draw_parse))
 	client.RegisterDraw("UndeadKillerDraw", C.nox_thing_undead_killer_draw, 0, nil)
 	client.RegisterDraw("ArrowDraw", C.nox_thing_arrow_draw, 2, wrapDrawParseC(C.nox_things_slave_draw_parse))
 	client.RegisterDraw("WeakArrowDraw", C.nox_thing_weak_arrow_draw, 2, wrapDrawParseC(C.nox_things_slave_draw_parse))
@@ -119,12 +120,56 @@ func init() {
 	client.RegisterDraw("HarpoonRopeDraw", C.nox_thing_harpoon_rope_draw, 0, nil)
 }
 
+var (
+	Nox_thing_debug_draw          func(vp *noxrender.Viewport, dr *client.Drawable) int
+	Nox_thing_monster_draw        func(vp *noxrender.Viewport, dr *client.Drawable) int
+	Nox_thing_vector_animate_draw func(vp *noxrender.Viewport, dr *client.Drawable) int
+	Nox_thing_animate_state_draw  func(vp *noxrender.Viewport, dr *client.Drawable) int
+)
+
 func wrapDrawParseC(fnc unsafe.Pointer) client.ThingFieldFunc {
 	return func(typ *client.ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 		StrNCopyBytes(buf, str)
 		ccall.CallVoidPtr3(fnc, typ.C(), f.C(), unsafe.Pointer(&buf[0]))
 		return nil
 	}
+}
+
+//export nox_thing_debug_draw
+func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) int {
+	return Nox_thing_debug_draw(asViewport(cvp), asDrawable(cdr))
+}
+
+//export nox_thing_monster_draw
+func nox_thing_monster_draw(vp *nox_draw_viewport_t, dr *nox_drawable) int {
+	return Nox_thing_monster_draw(asViewport(vp), asDrawable(dr))
+}
+
+//export nox_thing_vector_animate_draw
+func nox_thing_vector_animate_draw(vp *nox_draw_viewport_t, dr *nox_drawable) int {
+	return Nox_thing_vector_animate_draw(asViewport(vp), asDrawable(dr))
+}
+
+//export nox_thing_released_soul_draw
+func nox_thing_released_soul_draw(vp *nox_draw_viewport_t, dr *nox_drawable) int {
+	return Nox_thing_vector_animate_draw(asViewport(vp), asDrawable(dr))
+}
+
+//export nox_thing_animate_state_draw
+func nox_thing_animate_state_draw(vp *nox_draw_viewport_t, dr *nox_drawable) int {
+	return Nox_thing_animate_state_draw(asViewport(vp), asDrawable(dr))
+}
+
+func Nox_xxx_drawObject_4C4770_draw(vp *noxrender.Viewport, dr *client.Drawable, img noxrender.ImageHandle) {
+	C.nox_xxx_drawObject_4C4770_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()), unsafe.Pointer(img))
+}
+func Sub_495180(id int) (cur, max int, alt, ok bool) {
+	var (
+		curV, maxV C.uint16_t
+		altV       C.uint8_t
+	)
+	ok = C.sub_495180(C.int(id), &curV, &maxV, &altV) != 0
+	return int(curV), int(maxV), altV != 0, ok
 }
 
 func Get_nox_thing_static_random_draw() unsafe.Pointer {
@@ -153,4 +198,13 @@ func Get_nox_thing_maiden_draw() unsafe.Pointer {
 }
 func Get_nox_thing_player_draw() unsafe.Pointer {
 	return C.nox_thing_player_draw
+}
+func Get_nox_thing_vector_animate_draw() unsafe.Pointer {
+	return C.nox_thing_vector_animate_draw
+}
+func Get_nox_thing_released_soul_draw() unsafe.Pointer {
+	return C.nox_thing_released_soul_draw
+}
+func Get_nox_thing_debug_draw() unsafe.Pointer {
+	return C.nox_thing_debug_draw
 }

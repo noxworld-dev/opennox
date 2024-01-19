@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -518,7 +519,7 @@ type Drawable struct {
 	ZSizeMax            float32           // 25, 100
 	ZVal                uint16            // 26, 104
 	ZVal2               uint16            // 26, 106
-	Field_27            uint32            // 27, 108, thing ID? pointer? union?
+	TypeIDVal           uint32            // 27, 108, thing ID? pointer? union?
 	ObjClass            uint32            // 28, 112
 	ObjSubClass         uint32            // 29, 116
 	ObjFlags            uint32            // 30, 120
@@ -698,7 +699,7 @@ func (s *Drawable) Flags70() uint {
 }
 
 func (s *Drawable) Field27() uint32 {
-	return s.Field_27 // TODO: Thing ID?
+	return s.TypeIDVal // TODO: Thing ID?
 }
 
 func (s *Drawable) Field32() uint32 {
@@ -741,6 +742,10 @@ func (s *Drawable) Z() int {
 
 func (s *Drawable) SetActive() { // Nox_xxx_spriteSetActiveMB_45A990_drawable
 	s.ObjFlags |= uint32(object.FlagActive)
+}
+
+func (s *Drawable) CallDraw(vp *noxrender.Viewport) int {
+	return ccall.CallIntPtr2(s.DrawFuncPtr, vp.C(), s.C())
 }
 
 func (s *Drawable) HasFX(id int) bool {
@@ -795,7 +800,7 @@ func LightRadius(intens float32) int {
 
 func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	*s = Drawable{}
-	s.Field_27 = uint32(i)
+	s.TypeIDVal = uint32(i)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 0)) = typ.HWidth
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 1)) = typ.HHeight
 	s.ZVal2 = typ.Z // TODO: shouldn't it put this in dr.z?

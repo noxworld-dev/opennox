@@ -46,24 +46,3 @@ int sub_4BC5D0(nox_drawable* dr, int a2) {
 	}
 	return result;
 }
-
-//----- (004BC700) --------------------------------------------------------
-int nox_thing_vector_animate_draw(int* a1, nox_drawable* dr) { return sub_4BC6B0(a1, dr, *(uint32_t*)&dr->field_76); }
-
-//----- (0044BF60) --------------------------------------------------------
-bool nox_things_vector_animate_draw_parse(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	uint32_t* v2; // eax
-	uint32_t* v3; // esi
-	int result;   // eax
-
-	v2 = calloc(1u, 0x30u);
-	v3 = v2;
-	*v2 = 48;
-	result = nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0((int)v2, f);
-	if (result) {
-		obj->draw_func = nox_thing_vector_animate_draw;
-		obj->field_5c = v3;
-		result = 1;
-	}
-	return result;
-}

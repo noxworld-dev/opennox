@@ -10,6 +10,7 @@ int sub_4523D0(void* a1);
 void sub_495FC0(void* a1, nox_drawable* a2);
 int sub_49C520(nox_drawable* a1);
 void sub_45A9B0(nox_drawable* a1, nox_drawable* a2);
+int nox_xxx_unitSpriteCheckAlly_4951F0(int a1);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	return dr->draw_func(vp, dr);
 }
@@ -216,4 +217,7 @@ func Sub_49C520(dr *client.Drawable) int {
 }
 func Sub_45A9B0(a1, a2 *client.Drawable) {
 	C.sub_45A9B0((*nox_drawable)(a1.C()), (*nox_drawable)(a2.C()))
+}
+func Nox_xxx_unitSpriteCheckAlly_4951F0(id int) bool {
+	return C.nox_xxx_unitSpriteCheckAlly_4951F0(C.int(id)) != 0
 }

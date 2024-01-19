@@ -374,7 +374,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 			mimic = uint32(c.Things.IndByID("Mimic"))
 			*memmap.PtrUint32(0x5D4594, 1064944) = mimic
 		}
-		if sprite.Class()&0x400000 != 0 && sprite.SubClass()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.Field_27) == mimic && sprite.AnimInd == 0 {
+		if sprite.Class()&0x400000 != 0 && sprite.SubClass()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.TypeIDVal) == mimic && sprite.AnimInd == 0 {
 			v65 = c.Viewport().World.Max
 			sp := sprite.Pos()
 			c1 := v65.X - sp.X

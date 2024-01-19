@@ -3,7 +3,9 @@ package opennox
 import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -328,6 +330,15 @@ func init() {
 	legacy.Nox_client_getChatMap_49FF40 = nox_client_getChatMap_49FF40
 	legacy.Nox_xxx_soundPlayerDamageSound_5328B0 = Nox_xxx_soundPlayerDamageSound_5328B0
 	legacy.Nox_xxx_soundDefaultDamageSound_532E20 = server.Nox_xxx_soundDefaultDamageSound_532E20
+	legacy.Nox_thing_monster_draw = func(vp *noxrender.Viewport, dr *client.Drawable) int {
+		return noxClient.DrawMonster(vp, dr)
+	}
+	legacy.Nox_thing_vector_animate_draw = func(vp *noxrender.Viewport, dr *client.Drawable) int {
+		return noxClient.DrawAnimVector(vp, dr)
+	}
+	legacy.Nox_thing_animate_state_draw = func(vp *noxrender.Viewport, dr *client.Drawable) int {
+		return noxClient.DrawAnimState(vp, dr)
+	}
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0 = func(a1 bool) {
 		noxServer.nox_xxx_mapSwitchLevel_4D12E0(a1)
 	}

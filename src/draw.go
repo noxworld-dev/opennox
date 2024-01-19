@@ -247,7 +247,7 @@ func sub433E40(cl noxcolor.Color) int {
 	return int(noxClient.r.SetColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
 
-func (r *NoxRender) setColorMultAndIntensity(cl color.Color) {
+func (r *NoxRender) SetColorMultAndIntensity(cl color.Color) {
 	c := noxcolor.ToRGBA5551Color(cl).ColorNRGBA()
 	r.SetColorMultAndIntensityRGB(c.R, c.G, c.B)
 }

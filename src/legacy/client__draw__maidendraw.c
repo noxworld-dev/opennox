@@ -2,12 +2,12 @@
 #include "GAME1.h"
 #include "GAME2_3.h"
 #include "GAME3_2.h"
-#include "client__draw__mondraw.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
 #include "operators.h"
 
 //----- (004BBF90) --------------------------------------------------------
+int nox_thing_monster_draw(nox_draw_viewport_t* vp, nox_drawable* dr);
 int nox_thing_maiden_draw(uint32_t* a1, nox_drawable* dr) {
 	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
 		char* v9 = nox_npc_by_id(dr->field_32);

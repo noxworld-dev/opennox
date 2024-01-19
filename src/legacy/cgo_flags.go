@@ -41,17 +41,17 @@ func nox_xxx_GetGameplayFlags_417D90() int {
 
 //export nox_xxx_CheckGameplayFlags_417DA0
 func nox_xxx_CheckGameplayFlags_417DA0(v int) C.bool {
-	return C.bool(noxflags.HasGamePlay(uint32(v)))
+	return C.bool(noxflags.HasGamePlay(noxflags.GameplayFlag(v)))
 }
 
 //export nox_xxx_SetGameplayFlag_417D50
 func nox_xxx_SetGameplayFlag_417D50(v int) {
-	noxflags.SetGamePlay(uint32(v))
+	noxflags.SetGamePlay(noxflags.GameplayFlag(v))
 }
 
 //export nox_xxx_UnsetGameplayFlags_417D70
 func nox_xxx_UnsetGameplayFlags_417D70(v int) {
-	noxflags.UnsetGamePlay(uint32(v))
+	noxflags.UnsetGamePlay(noxflags.GameplayFlag(v))
 }
 
 //export nox_xxx_moveUpdateSpecial_517970

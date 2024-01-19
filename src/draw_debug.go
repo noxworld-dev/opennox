@@ -16,6 +16,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -30,6 +31,8 @@ func init() {
 		noxClient.Debug.ShowSight = !noxClient.Debug.ShowSight
 		return true
 	}})
+
+	client.RegisterDraw("DebugDraw", legacy.Get_nox_thing_debug_draw(), 0, nil)
 }
 
 func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
@@ -37,7 +40,7 @@ func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	r := c.r
 
 	cl := nox_color_green
-	if uint32(dr.Field_72) >= c.srv.Frame() {
+	if dr.Field_72 >= c.srv.Frame() {
 		cl = nox_color_yellow_2589772
 	}
 	r.Data().SetColor2(cl)
