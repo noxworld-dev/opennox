@@ -324,24 +324,7 @@ void* sub_44C7B0(int a1) {
 }
 
 //----- (0044C650) --------------------------------------------------------
-void nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
-	int kind = 0;
-	if (*(uint32_t*)nox_parse_thing_draw_funcs) {
-		nox_parse_thing_draw_funcs_t* item = NULL;
-		for (int i = 0; i < nox_parse_thing_draw_funcs_cnt; i++) {
-			nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
-			if (!cur->name) {
-				break;
-			}
-			if (cur->draw == draw) {
-				item = cur;
-				break;
-			}
-		}
-		if (item) {
-			kind = item->kind;
-		}
-	}
+void nox_xxx_draw_44C650_free_kind(void* lpMem, int kind) {
 	void** v7 = 0;
 	int v8 = 0;
 	char* v9 = 0;

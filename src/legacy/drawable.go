@@ -11,6 +11,7 @@ void sub_495FC0(void* a1, nox_drawable* a2);
 int sub_49C520(nox_drawable* a1);
 void sub_45A9B0(nox_drawable* a1, nox_drawable* a2);
 int nox_xxx_unitSpriteCheckAlly_4951F0(int a1);
+void nox_xxx_draw_44C650_free_kind(void* lpMem, int kind);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	return dr->draw_func(vp, dr);
 }
@@ -220,4 +221,7 @@ func Sub_45A9B0(a1, a2 *client.Drawable) {
 }
 func Nox_xxx_unitSpriteCheckAlly_4951F0(id int) bool {
 	return C.nox_xxx_unitSpriteCheckAlly_4951F0(C.int(id)) != 0
+}
+func Nox_xxx_draw_44C650_free_kind(ptr unsafe.Pointer, kind int) {
+	C.nox_xxx_draw_44C650_free_kind(ptr, C.int(kind))
 }

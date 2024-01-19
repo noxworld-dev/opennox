@@ -1,6 +1,8 @@
 package opennox
 
 import (
+	"unsafe"
+
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -25,11 +27,15 @@ func init() {
 func (c *Client) Nox_things_free_44C580() {
 	c.Things.Each(func(it *client.ObjectType) {
 		if it.DrawData != nil {
-			legacy.Nox_xxx_draw_44C650_free(it.DrawData, it.DrawFunc)
+			freeDrawableData(it.DrawData, it.DrawFunc)
 		}
 	})
 	c.Things.Nox_things_free_44C580_B()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		nox_xxx_free_42BF80()
 	}
+}
+
+func freeDrawableData(ptr unsafe.Pointer, fnc unsafe.Pointer) {
+	legacy.Nox_xxx_draw_44C650_free_kind(ptr, client.DrawableDataKind(fnc))
 }

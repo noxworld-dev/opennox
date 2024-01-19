@@ -28,6 +28,18 @@ func RegisterDraw(name string, draw unsafe.Pointer, kind int, parse ThingFieldFu
 	drawFuncs[name] = &thingsDraw{Name: name, Draw: draw, Kind: kind, Parse: parse}
 }
 
+func DrawableDataKind(fnc unsafe.Pointer) int {
+	if fnc == nil {
+		return 0
+	}
+	for _, v := range drawFuncs {
+		if v.Draw == fnc {
+			return v.Kind
+		}
+	}
+	return 0
+}
+
 func parseThingDraw(obj *ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 	name, _ := f.ReadString8()
 	// TODO: After cleanup: Figure out if this value has any significance to the data in the file, or if the file was

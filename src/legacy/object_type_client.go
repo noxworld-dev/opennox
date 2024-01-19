@@ -3,7 +3,6 @@ package legacy
 /*
 #include "GAME2_3.h"
 #include "client__draw__debugdraw.h"
-void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 
 bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
@@ -103,7 +102,4 @@ func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
 		}
 		return nil
 	}
-}
-func Nox_xxx_draw_44C650_free(a1 unsafe.Pointer, a2 unsafe.Pointer) {
-	C.nox_xxx_draw_44C650_free(a1, a2)
 }
