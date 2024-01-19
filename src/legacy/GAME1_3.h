@@ -123,10 +123,6 @@ int sub_44A4A0();
 void sub_44A4B0();
 int sub_44A4E0();
 void nox_xxx____setargv_4_44B000();
-int sub_44B940(uint32_t* a1, int a2, nox_memfile* f);
-int nox_xxx_parse_Armor_44BA60(const char* a1);
-int sub_44BAC0(const char* a1);
-int sub_44BB20(const char* a1);
 
 void* nox_xxx_dialogMsgBoxCreate_449A10(nox_window* win, wchar2_t* a2, wchar2_t* text, int a4, void* a5, void* a6);
 

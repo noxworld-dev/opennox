@@ -61,7 +61,6 @@ func init() {
 	client.RegisterDraw("MonsterGeneratorDraw", C.nox_thing_monster_gen_draw, 4, wrapDrawParseC(C.nox_things_cond_animate_draw_parse))
 	client.RegisterDraw("VectorAnimateDraw", C.nox_thing_vector_animate_draw, 5, wrapDrawParseC(C.nox_things_vector_animate_draw_parse))
 	client.RegisterDraw("AnimateStateDraw", C.nox_thing_animate_state_draw, 8, wrapDrawParseC(C.nox_things_animate_state_draw_parse))
-	client.RegisterDraw("PlayerDraw", C.nox_thing_player_draw, 6, wrapDrawParseC(C.nox_things_player_draw_parse))
 	client.RegisterDraw("SlaveDraw", C.nox_thing_slave_draw, 2, wrapDrawParseC(C.nox_things_slave_draw_parse))
 	client.RegisterDraw("TriggerDraw", C.nox_thing_trigger_draw, 0, nil)
 	client.RegisterDraw("PressurePlateDraw", C.nox_thing_pressure_plate_draw, 0, nil)
@@ -151,4 +150,7 @@ func Get_nox_thing_monster_draw() unsafe.Pointer {
 }
 func Get_nox_thing_maiden_draw() unsafe.Pointer {
 	return C.nox_thing_maiden_draw
+}
+func Get_nox_thing_player_draw() unsafe.Pointer {
+	return C.nox_thing_player_draw
 }
