@@ -2084,8 +2084,6 @@ void nullsub_10(uint32_t a1) {}
 
 int sub_42CC50(void** this) { return sub_42C770(this); }
 
-void nox_xxx_j_resetNPCRenderData_49A2E0(void) { nox_alloc_npcs(); }
-
 int nox_xxx_j_inventoryNameSignInit_467460(void) { return nox_xxx_inventoryNameSignInit_4671E0(); }
 
 int nullsub_8(int a1, int a2) { return 0; }

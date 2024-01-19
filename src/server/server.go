@@ -74,6 +74,7 @@ type Server struct {
 	Types        serverObjTypes
 	Objs         serverObjects
 	Modif        serverModifiers
+	NPCs         serverNPCs
 	Map          serverMap
 	Doors        serverDoors
 	MapGroups    ServerMapGroups

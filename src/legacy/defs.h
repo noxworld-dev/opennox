@@ -880,14 +880,6 @@ typedef struct {
 _Static_assert(sizeof(obj_5D4594_2650668_t) == 44, "wrong size of obj_5D4594_2650668_t structure!");
 
 typedef struct {
-	bool live;
-	uint8_t pad[3];
-	int id;
-	uint32_t data8[327];
-} nox_npc;
-//_Static_assert( sizeof( nox_npc ) == 1316, "struct nox_npc size is wrong" );
-
-typedef struct {
 	void* value;
 	void* next;
 	void* prev;

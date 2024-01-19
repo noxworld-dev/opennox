@@ -66,6 +66,9 @@ uint32_t nox_client_fadeObjects_80836 = 1;
 
 //----- (0048EA70) --------------------------------------------------------
 void sub_41CC00(char* s);
+void* nox_new_npc(int id);
+void nox_init_npc(void* ptr, int id);
+void nox_npc_set_328(int id, int a2);
 int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz) {
 	unsigned char* old = data;
 	long long v5;           // rax
@@ -1466,10 +1469,9 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			v287 = v286 >> 15;
 			v288 = nox_npc_by_id(v285);
 			if (v288) {
-				LODWORD(v5) = nox_init_npc(v288, *(unsigned short*)(data + 1));
+				nox_init_npc(v288, *(unsigned short*)(data + 1));
 			} else {
-				LODWORD(v5) = nox_new_npc(*(unsigned short*)(data + 1));
-				v288 = (char*)v5;
+				v288 = nox_new_npc(*(unsigned short*)(data + 1));
 			}
 			if (v288) {
 				k = (int)(v288 + 8);

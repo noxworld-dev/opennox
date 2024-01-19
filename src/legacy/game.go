@@ -409,9 +409,6 @@ func Nox_xxx_loadGuides_427070() int {
 func Sub_494F00() int {
 	return int(C.sub_494F00())
 }
-func Nox_alloc_npcs() {
-	C.nox_alloc_npcs()
-}
 func Nox_xxx_loadReflSheild_499360() int {
 	return int(C.nox_xxx_loadReflSheild_499360())
 }

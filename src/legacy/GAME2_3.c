@@ -82,9 +82,6 @@ extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_black_2650656;
 
-const int nox_max_npcs = 1024;
-nox_npc* npc_array;
-
 nox_render_data_t* nox_draw_curDrawData_3799572 = 0;
 
 nox_list_item_t nox_gui_wol_servers_list = {0};
@@ -2820,55 +2817,6 @@ void sub_499F60(int a1, int a2, int a3, short a4, char a5, char a6, char a7, cha
 }
 // 49A025: variable 'v11' is possibly undefined
 // 49A025: variable 'v12' is possibly undefined
-
-//----- (0049A2C0) --------------------------------------------------------
-void nox_alloc_npcs() { npc_array = calloc(nox_max_npcs, sizeof(nox_npc)); }
-
-//----- (0049A300) --------------------------------------------------------
-nox_npc* nox_new_npc(int id) {
-	int n = 0;
-	nox_npc* cur = npc_array;
-	while (cur->live) {
-		cur++;
-		n++;
-		if (n >= nox_max_npcs) {
-			return 0;
-		}
-	}
-	nox_init_npc(cur, id);
-	return cur;
-}
-
-//----- (0049A340) --------------------------------------------------------
-nox_npc* nox_npc_by_id(int id) {
-	int n = 0;
-	nox_npc* cur = npc_array;
-	while (cur->id != id || !cur->live) {
-		cur++;
-		n++;
-		if (n >= nox_max_npcs) {
-			return 0;
-		}
-	}
-	return cur;
-}
-
-//----- (0049A380) --------------------------------------------------------
-int nox_init_npc(nox_npc* ptr, int id) {
-	memset(ptr, 0, sizeof(nox_npc));
-	ptr->live = 1;
-	ptr->id = id;
-	return id;
-}
-
-//----- (0049A3B0) --------------------------------------------------------
-nox_npc* nox_npc_set_328(int id, int a2) {
-	nox_npc* p = nox_npc_by_id(id);
-	if (p) {
-		p->data8[326] = a2;
-	}
-	return p;
-}
 
 //----- (0049A3D0) --------------------------------------------------------
 char* nox_xxx_clientEquip_49A3D0(char a1, int a2, int a3, int a4) {

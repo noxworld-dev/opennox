@@ -182,6 +182,26 @@ func nox_xxx_unitIsHostileMimic_4E7F90(obj1, obj2 *nox_object_t) int {
 	return bool2int(GetServer().S().IsHostileMimicXxx(asObjectS(obj1), asObjectS(obj2)))
 }
 
+//export nox_new_npc
+func nox_new_npc(id int) unsafe.Pointer {
+	return GetServer().S().NPCs.New(id).C()
+}
+
+//export nox_npc_by_id
+func nox_npc_by_id(id int) unsafe.Pointer {
+	return GetServer().S().NPCs.ByID(id).C()
+}
+
+//export nox_init_npc
+func nox_init_npc(npc unsafe.Pointer, id int) {
+	GetServer().S().NPCs.Set((*server.NPC)(npc), id)
+}
+
+//export nox_npc_set_328
+func nox_npc_set_328(id, val int) {
+	GetServer().S().NPCs.Set328(id, val)
+}
+
 func AsPointf(p unsafe.Pointer) types.Pointf {
 	cp := (*C.float2)(p)
 	return types.Pointf{

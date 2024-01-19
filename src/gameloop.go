@@ -791,7 +791,7 @@ func sub_435EB0() {
 	noxClient.Nox_things_free_44C580()
 	noxClient.Objs.Free()
 	legacy.Sub_49AEA0()
-	legacy.Nox_xxx_j_resetNPCRenderData_49A2E0()
+	noxClient.Server.NPCs.Init()
 	legacy.Sub_4951C0()
 	gameSetPlayState(2)
 }

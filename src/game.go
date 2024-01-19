@@ -543,7 +543,7 @@ func initGameSession435CC0() error {
 			return fmt.Errorf("game gui init failed: %w", err)
 		}
 	}
-	legacy.Nox_alloc_npcs()
+	noxClient.Server.NPCs.Init()
 	if legacy.Nox_xxx_loadReflSheild_499360() == 0 {
 		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}

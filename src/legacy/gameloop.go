@@ -190,9 +190,6 @@ func Sub_4959D0() {
 func Sub_49AEA0() {
 	C.sub_49AEA0()
 }
-func Nox_xxx_j_resetNPCRenderData_49A2E0() {
-	C.nox_xxx_j_resetNPCRenderData_49A2E0()
-}
 func Nox_xxx_netSavePlayer_41CE00() {
 	C.nox_xxx_netSavePlayer_41CE00()
 }
