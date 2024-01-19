@@ -769,7 +769,6 @@ typedef struct nox_parse_thing_draw_funcs_t {
 	const char* name;
 	void* draw;
 	unsigned int kind;
-	bool (*parse_fnc)(nox_thing*, nox_memfile*, char*);
 } nox_parse_thing_draw_funcs_t;
 
 typedef struct nox_render_mat_t {

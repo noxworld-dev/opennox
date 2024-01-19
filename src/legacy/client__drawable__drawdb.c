@@ -24,44 +24,6 @@ extern uint32_t dword_5d4594_251572;
 
 extern int nox_parse_thing_draw_funcs_cnt;
 
-//----- (0044C200) --------------------------------------------------------
-bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	const uint8_t read_len = nox_memfile_read_u8(f);
-
-	char read_str[256];
-	nox_memfile_read(read_str, 1u, read_len, f);
-	read_str[read_len] = 0;
-
-	// TODO: After cleanup: Figure out if this value has any significance to the data in the file, or if the file was
-	// simply 16byte-aligned
-	uint32_t tmp;
-	nox_memfile_read64align_40AD60((char*)&tmp, sizeof(tmp), 1, f);
-
-	if (!*(uint32_t*)nox_parse_thing_draw_funcs) {
-		return 1;
-	}
-
-	nox_parse_thing_draw_funcs_t* item = NULL;
-	for (int i = 0; i < nox_parse_thing_draw_funcs_cnt; i++) {
-		nox_parse_thing_draw_funcs_t* cur = &nox_parse_thing_draw_funcs[i];
-		if (!strcmp(cur->name, read_str)) {
-			item = cur;
-			break;
-		}
-	}
-
-	if (!item) {
-		return 1;
-	}
-
-	if (item->parse_fnc) {
-		item->parse_fnc(obj, f, attr_value);
-	}
-	obj->draw_func = item->draw;
-
-	return 1;
-}
-
 //----- (0044B2D0) --------------------------------------------------------
 bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;

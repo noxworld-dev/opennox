@@ -62,10 +62,6 @@ extern uint32_t nox_color_orange_2614256;
 extern int nox_win_width;
 extern int nox_win_height;
 
-
-
-extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
-
 uint32_t dword_5d4594_816364 = 0;
 uint32_t dword_5d4594_816376 = 0;
 uint32_t dword_5d4594_816092 = 0;

@@ -5,7 +5,6 @@ package legacy
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 
-bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
@@ -25,7 +24,6 @@ import (
 )
 
 func init() {
-	client.RegisterThingParse("DRAW", wrapClientThingFuncC(C.nox_parse_thing_draw))
 	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(C.nox_parse_thing_light_dir))
 	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(C.nox_parse_thing_light_penumbra))
 	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(C.nox_parse_thing_client_update))
