@@ -176,7 +176,7 @@ func (c *clientDrawables) List34Delete(dr *Drawable) {
 }
 
 func (c *clientDrawables) List5Add(dr *Drawable) {
-	if dr.InList5 != 0 {
+	if dr.InClientUpdateList != 0 {
 		return
 	}
 	dr.Field_95 = nil
@@ -185,18 +185,18 @@ func (c *clientDrawables) List5Add(dr *Drawable) {
 		c.list5.Field_95 = dr
 	}
 	c.list5 = dr
-	dr.InList5 = 1
+	dr.InClientUpdateList = 1
 }
 
 func (c *clientDrawables) List5Delete(dr *Drawable) {
-	if dr.InList5 == 0 {
+	if dr.InClientUpdateList == 0 {
 		return
 	}
 	if v2 := dr.Field_95; v2 != nil {
 		v2.Field_94 = dr.Field_94
 		if v3 := dr.Field_94; v3 != nil {
 			v3.Field_95 = dr.Field_95
-			dr.InList5 = 0
+			dr.InClientUpdateList = 0
 			return
 		}
 	} else {
@@ -205,7 +205,7 @@ func (c *clientDrawables) List5Delete(dr *Drawable) {
 			v4.Field_95 = nil
 		}
 	}
-	dr.InList5 = 0
+	dr.InClientUpdateList = 0
 }
 
 func (c *clientDrawables) List6Add(dr *Drawable) {
@@ -336,7 +336,7 @@ func (c *clientDrawables) TransparentDecay(dr *Drawable, lifetime int) {
 
 func (c *clientDrawables) ByNetCodeStatic(id int) *Drawable {
 	for dr := c.List1; dr != nil; dr = dr.NextPtr {
-		if dr.Class()&0x20400000 != 0 && dr.Field_32 == uint32(id) {
+		if dr.Class()&0x20400000 != 0 && dr.NetCode32 == uint32(id) {
 			return dr
 		}
 	}
@@ -345,7 +345,7 @@ func (c *clientDrawables) ByNetCodeStatic(id int) *Drawable {
 
 func (c *clientDrawables) ByNetCodeDynamic(id int) *Drawable {
 	for dr := c.List1; dr != nil; dr = dr.NextPtr {
-		if dr.Class()&0x20400000 == 0 && dr.Field_32 == uint32(id) {
+		if dr.Class()&0x20400000 == 0 && dr.NetCode32 == uint32(id) {
 			return dr
 		}
 	}
@@ -354,7 +354,7 @@ func (c *clientDrawables) ByNetCodeDynamic(id int) *Drawable {
 
 func (c *clientDrawables) IsPlayer(dr *Drawable) bool {
 	for pl := c.c.Server.Players.First(); pl != nil; pl = c.c.Server.Players.Next(pl) {
-		if dr.Field_32 == pl.NetCodeVal {
+		if dr.NetCode32 == pl.NetCodeVal {
 			return true
 		}
 	}
@@ -471,7 +471,7 @@ type Drawable struct {
 	ObjSubClass         uint32            // 29, 116
 	ObjFlags            uint32            // 30, 120
 	Buffs               uint32            // 31, 124
-	Field_32            uint32            // 32, 128, npc ID?
+	NetCode32           uint32            // 32, 128, npc ID?
 	Field_33            uint32            // 33, 132
 	LightFlags          uint32            // 34, 136, 0
 	LightIntensity      float32           // 35, 140, 1
@@ -490,7 +490,7 @@ type Drawable struct {
 	Field_66            uint32         // 66, 264
 	Field_67            uint32         // 67, 268
 	Field_68            uint32         // 68, 272
-	Field_69            uint32         // 69, 276
+	AnimInd             uint32         // 69, 276
 	Flags70Val          uint32         // 70, 280
 	Field_71_0          uint8          // 71, 284
 	Field_71_1          uint8          // 71, 285
@@ -499,14 +499,14 @@ type Drawable struct {
 	Field_73_1          uint16         // 73, 292
 	Field_73_2          uint16         // 73, 294
 	VelZ                int8           // 74, 296
-	Field_74_2          byte           // 74, 297
+	AnimDir             byte           // 74, 297
 	Weight              byte           // 74, 298
 	Field_74_4          byte           // 74, 299
 	DrawFuncPtr         unsafe.Pointer // 75, 300, (*DrawFuncPtr)(uint32_t*, nox_drawable*) same as CObjectType->draw_func
 	DrawData            unsafe.Pointer // 76, 304
-	Field_77            uint32         // 77, 308
+	AnimFrameSlave      uint32         // 77, 308
 	Field_78            uint32         // 78, 312
-	Field_79            uint32         // 79, 316
+	AnimStart           uint32         // 79, 316
 	Field_80            uint32         // 80, 320
 	Field_81            uint32         // 81, 324
 	Field_82            uint32         // 82, 328
@@ -523,7 +523,7 @@ type Drawable struct {
 	Field_93            *Drawable      // 93, 372
 	Field_94            *Drawable      // 94, 376
 	Field_95            *Drawable      // 95, 380
-	InList5             uint32         // 96, 384
+	InClientUpdateList  uint32         // 96, 384
 	Field_97            *Drawable      // 97, 388
 	Field_98            *Drawable      // 98, 392
 	Field_99            **Drawable     // 99, 396
@@ -636,7 +636,7 @@ func (s *Drawable) Field27() uint32 {
 }
 
 func (s *Drawable) Field32() uint32 {
-	return s.Field_32 // TODO: NPC ID?
+	return s.NetCode32 // TODO: NPC ID?
 }
 
 func (s *Drawable) SetLightColor(r, g, b byte) { // nox_xxx_spriteChangeLightColor_484BE0
@@ -687,9 +687,9 @@ func (s *Drawable) HasFX(id int) bool {
 }
 
 func (s *Drawable) SetFrameMB(a2 int) { // Nox_xxx_spriteSetFrameMB_45AB80
-	if !s.Class().Has(object.ClassMonster) || s.SubClass()&0x40000 == 0 || s.Field_69 != 8 {
-		s.Field_78 = s.Field_77
-		s.Field_77 = uint32(a2)
+	if !s.Class().Has(object.ClassMonster) || s.SubClass()&0x40000 == 0 || s.AnimInd != 8 {
+		s.Field_78 = s.AnimFrameSlave
+		s.AnimFrameSlave = uint32(a2)
 	}
 }
 
@@ -740,7 +740,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	s.Weight = typ.Weight
 	s.DrawFuncPtr = typ.DrawFunc
 	s.DrawData = typ.DrawData
-	s.Field_77 = typ.Field_60
+	s.AnimFrameSlave = typ.Field_60
 	s.ClientUpdateFuncPtr = typ.ClientUpdate
 	s.AudioLoop = typ.AudioLoop
 	s.LightFlags = uint32(typ.LightFlags)

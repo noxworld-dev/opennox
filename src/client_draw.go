@@ -305,7 +305,7 @@ func (c *Client) sub_4765F0(vp *noxrender.Viewport) {
 	c.savedHighResFloors = legacy.Get_nox_client_highResFloors_154952()
 	c.savedHighResFrontWalls = legacy.Get_nox_client_highResFrontWalls_80820()
 	if dr := c.ClientPlayerUnit(); dr != nil && !nox_client_lockHighResFloors_1193152 {
-		v2 := dr.Field_69
+		v2 := dr.AnimInd
 		if (v2 == 3 || v2 == 6 || v2 == 45) && (vp.World.Min.X-c.val1096556 >= 4 || vp.World.Min.Y-c.val1096560 >= 4) {
 			legacy.Set_nox_client_highResFloors_154952(0)
 			legacy.Set_nox_client_highResFrontWalls_80820(0)
@@ -507,7 +507,7 @@ LOOP:
 		v26 := dr.Class()
 		if !((v26&6 == 0) || c.srv.Frame()-dr.Field_72 <= 5) {
 			if v26&2 != 0 {
-				v27 := dr.Field_69
+				v27 := dr.AnimInd
 				if !(v27 == 9 || v27 == 10) {
 					continue
 				}
@@ -638,7 +638,7 @@ func (c *Client) drawableUpdateLight(dr *client.Drawable) bool {
 		return true
 	} else if dr.Class()&0x2 == 0 || dr.Class()&0x80000 != 0 {
 		return false
-	} else if dr.Field_69 == 10 {
+	} else if dr.AnimInd == 10 {
 		dr.SetLightIntensity(0.0)
 		return true
 	}

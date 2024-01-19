@@ -642,7 +642,7 @@ func nox_savegame_sub_46D580() {
 	if sub_450560() && !sub_450570() {
 		legacy.Nox_xxx_wnd_46ABB0(v1, 0)
 	} else {
-		switch c.ClientPlayerUnit().Field_69 {
+		switch c.ClientPlayerUnit().AnimInd {
 		case 1, 2, 51:
 			legacy.Nox_xxx_wnd_46ABB0(v1, 0)
 		default:

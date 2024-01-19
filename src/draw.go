@@ -664,7 +664,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, true)
 	}
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
-		switch dr.Field_74_2 {
+		switch dr.AnimDir {
 		case 0, 1, 2:
 			legacy.Nox_xxx_drawShield_499810(vp, dr)
 		}
@@ -686,8 +686,8 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		pos := vp.ToScreenPos(dr.Pos())
 		v5 := 5 - int(int16(dr.ZVal2)) - dr.Z() - int(dr.GetZSizeMax())
 		pos.Y += v5
-		if dr.ObjClass&0x4 != 0 && dr.Field_69 == 6 {
-			v8 := 8 * uintptr(dr.Field_74_2)
+		if dr.ObjClass&0x4 != 0 && dr.AnimInd == 6 {
+			v8 := 8 * uintptr(dr.AnimDir)
 			pos.X += int(memmap.Int32(0x587000, 149432+v8))
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
 		}
@@ -764,8 +764,8 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		v24 := -90 - dr.Z()
 		pos.X -= 64
 		pos.Y += v24
-		if dr.Field_69 == 6 {
-			v26 := 8 * uintptr(dr.Field_74_2)
+		if dr.AnimInd == 6 {
+			v26 := 8 * uintptr(dr.AnimDir)
 			pos.X += int(memmap.Int32(0x587000, 149504+v26))
 			pos.Y += int(memmap.Int32(0x587000, 149508+v26))
 		}
@@ -775,7 +775,7 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		c.r.Data().SetAlphaEnabled(false)
 	}
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) {
-		switch dr.Field_74_2 {
+		switch dr.AnimDir {
 		default:
 			legacy.Nox_xxx_drawShield_499810(vp, dr)
 		case 0, 1, 2:

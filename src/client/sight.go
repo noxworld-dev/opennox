@@ -216,7 +216,7 @@ func (ss *SightObject) UID() uint32 {
 		return 0
 	case sightKindDrDoor, sightKindDrCircle,
 		sightKindDrBox1, sightKindDrBox2, sightKindDrBox3, sightKindDrBox4, sightKindDrBox5, sightKindDrBox6:
-		return ss.Drawable.Field_32
+		return ss.Drawable.NetCode32
 	}
 }
 
