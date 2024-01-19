@@ -17,6 +17,9 @@ import (
 
 const (
 	HostPlayerIndex = common.MaxPlayers - 1
+	PlayerWeaponCnt = 27
+	PlayerArmorCnt  = 26
+	PlayerAnimCnt   = 55
 )
 
 type ClassStats struct {
@@ -592,10 +595,18 @@ type MinimapItem struct {
 	Field12 *MinimapItem
 }
 
+var _ = [1]struct{}{}[24-unsafe.Sizeof(EquipmentData{})]
+
+type EquipmentData struct {
+	Field0  uint32            // 0, 0
+	Field4  [4]unsafe.Pointer // 1, 4
+	Field20 uint32            // 5, 20
+}
+
 var (
 	_ = [1]struct{}{}[4828-unsafe.Sizeof(Player{})]
 	_ = [1]struct{}{}[2185-unsafe.Offsetof(Player{}.info)]
-	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.field2282)]
+	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.Field2282)]
 	_ = [1]struct{}{}[3596-unsafe.Offsetof(Player{}.Frame3596)]
 	_ = [1]struct{}{}[4580-unsafe.Offsetof(Player{}.Field4580)]
 	_ = [1]struct{}{}[4800-unsafe.Offsetof(Player{}.data4800)]
@@ -606,8 +617,8 @@ var (
 )
 
 type Player struct {
-	Field0              uint32             // 0, 0
-	Field4              uint32             // 1, 4
+	ArmorEquip          uint32             // 0, 0
+	WeaponEquip         uint32             // 1, 4
 	Field8              uint16             // 2, 8
 	Field10             uint16             // 2, 10
 	Field12             uint16             // 3, 12
@@ -633,15 +644,22 @@ type Player struct {
 	Field2156           uint32 // 539, 2156
 	field2160           uint32 // 540, 2160
 	GoldVal             uint32 // 541, 2164
-	_                   [17]byte
-	info                [97]byte    // 2185
-	field2282           uint16      // 2282
-	CursorVec           image.Point // 2284
-	_                   [322]uint32
-	Field3580           uint32
-	Field3584           uint32
-	Field3588           uint32
-	Field3592           uint32
+	Field2168           uint32 // 542, 2168
+	Field2172           byte   // 543, 2172
+	_                   [12]byte
+	info                [97]byte                       // 2185
+	Field2282           uint16                         // 2282
+	CursorVec           image.Point                    // 2284
+	Color5              uint32                         // 573, 2292
+	Color0              uint32                         // 574, 2296
+	Color4              uint32                         // 575, 2300
+	Color1              uint32                         // 576, 2304
+	Color3              uint32                         // 577, 2308
+	Color2              uint32                         // 578, 2312
+	Field2316           uint32                         // 579, 2316
+	Field2320           uint32                         // 580, 2320
+	Weapon              [PlayerWeaponCnt]EquipmentData // 581, 2324
+	Armor               [PlayerArmorCnt]EquipmentData  // 743, 2972
 	Frame3596           uint32
 	Field3600           uint32         // 900, 3600
 	Field3604           uint32         // 901, 3604
@@ -1072,4 +1090,121 @@ func (p *Player) dump() *debugPlayerInfo {
 
 func (p *Player) MarshalJSON() ([]byte, error) {
 	return json.Marshal(p.dump())
+}
+
+var PlayerAnimNames = [PlayerAnimCnt]string{
+	"IDLE",
+	"DIE",
+	"DEAD",
+	"JUMP",
+	"WALK",
+	"WALK_AND_DRAG",
+	"RUN",
+	"RUNNING_JUMP",
+	"PICKUP",
+	"DODGE_LEFT",
+	"DODGE_RIGHT",
+	"ELECTROCUTED",
+	"FALL",
+	"TRIP",
+	"GET_UP",
+	"LAUGH",
+	"POINT",
+	"SIT",
+	"SLEEP",
+	"TALK",
+	"TAUNT",
+	"CAST_SPELL",
+	"CONCENTRATE",
+	"PUNCH_LEFT",
+	"PUNCH_RIGHT",
+	"PUNCH_RIGHT_HOOK",
+	"MACE_STRIKE",
+	"SWORD_STRIKE",
+	"LONG_SWORD_STRIKE",
+	"STAFF_STRIKE",
+	"STAFF_BLOCK",
+	"STAFF_SPELL_BLAST",
+	"STAFF_THRUST",
+	"SHOOT_BOW",
+	"SHOOT_CROSSBOW",
+	"AXE_STRIKE",
+	"GREAT_SWORD_PARRY",
+	"GREAT_SWORD_STRIKE",
+	"GREAT_SWORD_IDLE",
+	"HAMMER_STRIKE",
+	"RAISE_SHIELD",
+	"RECOIL_FORWARD",
+	"RECOIL_BACKWARD",
+	"RECOIL_SHIELD",
+	"CHAKRAM_STRIKE",
+	"BERSERKER_CHARGE",
+	"WARCRY",
+	"GREAT_SWORD_BLOCK_LEFT",
+	"GREAT_SWORD_BLOCK_RIGHT",
+	"GREAT_SWORD_BLOCK_DOWN",
+	"ELECTRIC_ZAP",
+	"DUST",
+	"RECOIL",
+	"SNEAK",
+	"HARPOONTHROW",
+}
+
+var PlayerArmorNames = [PlayerArmorCnt]string{
+	0:  "STREET_SNEAKERS",
+	1:  "MEDIEVAL_CLOAK",
+	2:  "STREET_PANTS",
+	3:  "MEDIEVAL_PANTS",
+	4:  "LEATHER_LEGGINGS",
+	5:  "CHAIN_LEGGINGS",
+	6:  "LEATHER_BOOTS",
+	7:  "LEATHER_ARMORED_BOOTS",
+	8:  "PLATE_BOOTS",
+	9:  "PLATE_LEGGINGS",
+	10: "STREET_SHIRT",
+	11: "MEDIEVAL_SHIRT",
+	12: "LEATHER_ARMBANDS",
+	13: "PLATE_ARMS",
+	14: "WIZARD_ROBE",
+	15: "LEATHER_TUNIC",
+	16: "CHAIN_TUNIC",
+	17: "PLATE_BREAST",
+	18: "CHAIN_COIF",
+	19: "WIZARD_HELM",
+	20: "CONJURER_HELM",
+	21: "LEATHER_HELM",
+	22: "PLATE_HELM",
+	23: "ORNATE_HELM",
+	24: "ROUND_SHIELD",
+	25: "KITE_SHIELD",
+}
+
+var PlayerWeaponNames = [PlayerWeaponCnt]string{
+	"FLAG",
+	"QUIVER",
+	"BOW",
+	"CROSSBOW",
+	"ARROW",
+	"BOLT",
+	"CHAKRAM",
+	"SHURIKEN",
+	"SWORD",
+	"LONG_SWORD",
+	"GREAT_SWORD",
+	"MACE",
+	"AXE",
+	"OGRE_AXE",
+	"HAMMER",
+	"STAFF",
+	"STAFF_SULPHOROUS_FLARE",
+	"STAFF_SULPHOROUS_SHOWER",
+	"STAFF_LIGHTNING",
+	"STAFF_FIREBALL",
+	"STAFF_TRIPLE_FIREBALL",
+	"STAFF_FORCE_OF_NATURE",
+	"STAFF_DEATH_RAY",
+	"STAFF_OBLIVION_HALBERD",
+	"STAFF_OBLIVION_HEART",
+	"STAFF_OBLIVION_WIERDLING",
+	"STAFF_OBLIVION_ORB",
 }

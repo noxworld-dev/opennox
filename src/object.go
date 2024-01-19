@@ -1404,7 +1404,7 @@ LABEL_26:
 	if ud.Field0 <= s.Frame() {
 		pl := ud.Player
 		ud.Field0 = 0
-		if pl.Field4 != 0 {
+		if pl.WeaponEquip != 0 {
 			*(*uint8)(unsafe.Pointer(&pl.Field8)) = 0
 		} else {
 			*(*uint8)(unsafe.Pointer(&pl.Field8)) = uint8(int8(s.Rand.Logic.IntClamp(23, 24)))
