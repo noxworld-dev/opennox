@@ -383,8 +383,10 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.maybeCallMapInit()
 	s.maybeCallMapEntry()
 	s.abilities.sub_4FC680()
-	if unit := s.Players.ByInd(server.HostPlayerIndex).PlayerUnit; unit != nil {
-		s.spells.walls.associateSavedWalls(unit)
+	if playerInd := s.Players.ByInd(server.HostPlayerIndex); playerInd != nil {
+		if unit := playerInd.PlayerUnit; unit != nil {
+			s.spells.walls.associateSavedWalls(unit)
+		}
 	}
 	if legacy.Nox_xxx_get_57AF20() != 0 && legacy.Sub_57B140() {
 		legacy.Sub_57B0A0()
