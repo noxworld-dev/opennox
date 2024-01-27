@@ -26,6 +26,22 @@ func (s *Server) NetSendPacketXxx1(a1 int, buf []byte, a4, a5 int) int { // nox_
 	return s.NetSendPacketXxx(a1, buf, a4, a5, 1)
 }
 
+func (s *Server) NetSendMsgXxx0(a1 int, msg noxnet.Message, a4, a5 int) int { // nox_xxx_netSendPacket0_4E5420
+	buf, err := noxnet.AppendPacket(nil, msg)
+	if err != nil {
+		panic(err)
+	}
+	return s.NetSendPacketXxx0(a1, buf, a4, a5)
+}
+
+func (s *Server) NetSendMsgXxx1(a1 int, msg noxnet.Message, a4, a5 int) int { // nox_xxx_netSendPacket1_4E5390
+	buf, err := noxnet.AppendPacket(nil, msg)
+	if err != nil {
+		panic(err)
+	}
+	return s.NetSendPacketXxx1(a1, buf, a4, a5)
+}
+
 func (s *Server) OnPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *Player, u *Object) (int, bool, error) {
 	switch op {
 	case noxnet.MSG_KEEP_ALIVE:
@@ -236,16 +252,15 @@ func (s *Server) Nox_xxx_netFxShield_0_4D9200(a1 int, a2 *Object) int {
 	return s.NetSendPacketXxx1(a1, buf[:], 0, 1)
 }
 
-func (s *Server) Nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
-	var p [3]byte
-	p[0] = byte(noxnet.MSG_FADE_BEGIN)
-	if a1 {
-		p[1] = 1
+func (s *Server) Nox_xxx_netMsgFadeBegin_4D9800(out, menu bool) int {
+	var m noxnet.MsgFadeBegin
+	if out {
+		m.Out = 1
 	}
-	if a2 {
-		p[2] = 1
+	if menu {
+		m.Menu = 1
 	}
-	return s.NetSendPacketXxx1(255, p[:], 0, 1)
+	return s.NetSendMsgXxx1(255, &m, 0, 1)
 }
 
 func (s *Server) NetReportSpellStat(a1 int, a2 spell.ID, a3 byte) bool {

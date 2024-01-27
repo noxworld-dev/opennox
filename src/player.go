@@ -452,11 +452,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		legacy.Nox_game_sendQuestStage_4D6960(ind)
 		return int(punit.NetCode)
 	}
-	var buf [3]byte
-	buf[0] = byte(noxnet.MSG_FADE_BEGIN)
-	buf[1] = 1
-	buf[2] = 1
-	s.NetSendPacketXxx(int(ind), buf[:], 0, 0, 0)
+	s.NetSendMsgXxx0(int(ind), &noxnet.MsgFadeBegin{Out: 1, Menu: 1}, 0, 0)
 	return int(punit.NetCode)
 }
 
