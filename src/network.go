@@ -887,18 +887,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if err != nil {
 			return -1
 		}
-		if nox_client_isConnected() {
+		if nox_client_isConnected() && !noxflags.HasEngine(noxflags.EngineNoRendering) {
 			if p.Out == 1 {
-				if !noxflags.HasEngine(noxflags.EngineNoRendering) {
-					legacy.Set_nox_gameDisableMapDraw_5d4594_2650672(0)
-					sub_413A00(1)
-					c.clientPacketFade(p.Menu == 1, true)
-				}
-			} else {
-				if !noxflags.HasEngine(noxflags.EngineNoRendering) {
-					c.clientPacketFade(p.Menu == 1, false)
-				}
+				legacy.Set_nox_gameDisableMapDraw_5d4594_2650672(0)
+				sub_413A00(1)
 			}
+			c.clientPacketFade(p.Menu == 1, p.Out == 1)
 		}
 		return 1 + n
 	case noxnet.MSG_DIALOG:
