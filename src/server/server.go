@@ -72,6 +72,8 @@ type Server struct {
 	Walls        serverWalls
 	WPs          serverWaypoints
 	Types        serverObjTypes
+	Armor        serverArmor
+	Weapons      serverWeapons
 	Objs         serverObjects
 	Modif        serverModifiers
 	NPCs         serverNPCs

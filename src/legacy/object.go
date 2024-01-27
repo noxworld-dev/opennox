@@ -322,6 +322,51 @@ func nox_xxx_playerSetState_4FA020(a1 *nox_object_t, a2 int) int {
 	return bool2int(Nox_xxx_playerSetState_4FA020(asObjectS(a1), server.PlayerState(a2)))
 }
 
+//export nox_xxx_weaponInventoryEquipFlags_415820
+func nox_xxx_weaponInventoryEquipFlags_415820(obj *nox_object_t) int {
+	return int(GetServer().S().Weapons.Nox_xxx_weaponInventoryEquipFlags_415820(asObjectS(obj)))
+}
+
+//export nox_xxx_unitArmorInventoryEquipFlags_415C70
+func nox_xxx_unitArmorInventoryEquipFlags_415C70(obj *nox_object_t) int {
+	return int(GetServer().S().Armor.Nox_xxx_unitArmorInventoryEquipFlags_415C70(asObjectS(obj)))
+}
+
+//export nox_xxx_ammoCheck_415880
+func nox_xxx_ammoCheck_415880(a1 int) int {
+	return int(GetServer().S().Weapons.Nox_xxx_ammoCheck_415880(a1))
+}
+
+//export sub_415D10
+func sub_415D10(a1 int) int {
+	return int(GetServer().S().Armor.Sub_415D10(a1))
+}
+
+//export sub_415CD0
+func sub_415CD0(a1 int) int {
+	return int(GetServer().S().Armor.Sub_415CD0(uint32(a1)))
+}
+
+//export sub_415840
+func sub_415840(a1 int) int {
+	return int(GetServer().S().Weapons.Sub_415840(uint32(a1)))
+}
+
+//export sub_4159B0
+func sub_4159B0(a1 int) *C.char {
+	return internCStr(GetServer().S().Weapons.Sub_4159B0(uint32(a1)))
+}
+
+//export sub_415E40
+func sub_415E40(a1 int) *C.char {
+	return internCStr(GetServer().S().Armor.Sub_415E40(uint32(a1)))
+}
+
+//export sub_415B60
+func sub_415B60(obj *nox_object_t) *wchar2_t {
+	return internWStr(GetServer().S().Armor.Sub_415B60(asObjectS(obj)))
+}
+
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
 	return asObjectS(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(a1)))
 }

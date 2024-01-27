@@ -11,8 +11,6 @@ package legacy
 #include "GAME4.h"
 extern uint32_t nox_tile_def_cnt;
 extern uint32_t dword_5d4594_251572;
-void nox_xxx_equipArmor_415AB0();
-void nox_xxx_equipWeapon_4157C0();
 int nox_free_tile_defs();
 int sub_485F30();
 int sub_4F0640();
@@ -54,12 +52,6 @@ func sub_42BFE0() { Sub_42BFE0() }
 
 //export sub_4E3AD0
 func sub_4E3AD0(ind int) int { return Sub_4E3AD0(ind) }
-func Nox_xxx_equipArmor_415AB0() {
-	C.nox_xxx_equipArmor_415AB0()
-}
-func Nox_xxx_equipWeapon_4157C0() {
-	C.nox_xxx_equipWeapon_4157C0()
-}
 func Sub_4F0640() {
 	C.sub_4F0640()
 }

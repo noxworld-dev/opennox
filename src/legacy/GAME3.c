@@ -1661,6 +1661,7 @@ LABEL_9:
 }
 
 //----- (004A62B0) --------------------------------------------------------
+void* nox_xxx_modifGetModifListByType_4133B0(int a1);
 void sub_4A62B0() {
 	unsigned char* v0; // esi
 	int v1;            // eax

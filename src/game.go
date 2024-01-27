@@ -540,7 +540,7 @@ func initGameSession435CC0() error {
 
 	if !isDedicatedServer {
 		if err := nox_game_guiInit_473680(); err != nil {
-			return fmt.Errorf("game gui init failed: %w", err)
+			return fmt.Errorf("game gui Init failed: %w", err)
 		}
 	}
 	noxClient.Server.NPCs.Init()
@@ -1456,17 +1456,4 @@ func (c *Client) nox_game_checkStateMenu_43C2F0() {
 		}
 	}
 	c.GamePopStateUntil(client.StateMainMenu)
-}
-
-func (s *Server) Sub4537F0() {
-	for i := 0; i < 26; i++ {
-		if ind := legacy.Sub_415CD0(1 << i); ind != 0 {
-			s.Types.ByInd(ind).SetAllowed(true)
-		}
-	}
-	for i := 0; i < 27; i++ {
-		if ind := legacy.Sub_415840(1 << i); ind != 0 {
-			s.Types.ByInd(ind).SetAllowed(true)
-		}
-	}
 }

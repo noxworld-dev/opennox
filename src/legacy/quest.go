@@ -84,9 +84,6 @@ func Sub_4D9D20(a1 int, a2 *server.Object) {
 func Nox_xxx_unitInitPlayer_4EFE80(a1 *server.Object) {
 	C.nox_xxx_unitInitPlayer_4EFE80(asObjectC(a1))
 }
-func Sub_415D10(a1 int) int {
-	return int(C.sub_415D10(C.int(a1)))
-}
 func Nox_xxx_playerRespawnItem_4EF750(a1 *server.Object, a2 string, a3 unsafe.Pointer, a4 int, a5 int) *server.Object {
 	return asObjectS(C.nox_xxx_playerRespawnItem_4EF750(asObjectC(a1), internCStr(a2), (*C.int)(a3), C.int(a4), C.int(a5)))
 }

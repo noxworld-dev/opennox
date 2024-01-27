@@ -1292,6 +1292,8 @@ int sub_57A9F0(const char* a1, const char* a2) {
 }
 
 //----- (0057AAA0) --------------------------------------------------------
+char* sub_4159B0(int a1);
+char* sub_415E40(char* a1);
 char sub_57AAA0(const char* a1, char* a2, int* a3) {
 	FILE* v3;           // eax
 	FILE* v4;           // ebp

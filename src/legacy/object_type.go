@@ -18,8 +18,6 @@ import (
 
 var (
 	Sub_4E3B80 func(ind int) bool
-	Sub415A30  func(a1 string) *server.ObjectType
-	Sub415EC0  func(id string) *server.ObjectType
 )
 
 func init() {
@@ -142,7 +140,7 @@ func nox_xxx_getNameId_4E3AA0(cstr *C.char) int {
 
 //export sub_415A30
 func sub_415A30(a1 *C.char) int {
-	t := Sub415A30(GoString(a1))
+	t := GetServer().S().Sub415A30(GoString(a1))
 	if t == nil {
 		return -1
 	}
@@ -151,7 +149,7 @@ func sub_415A30(a1 *C.char) int {
 
 //export sub_415EC0
 func sub_415EC0(a1 *C.char) int {
-	t := Sub415EC0(GoString(a1))
+	t := GetServer().S().Sub415EC0(GoString(a1))
 	if t == nil {
 		return -1
 	}

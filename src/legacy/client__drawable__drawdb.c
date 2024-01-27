@@ -134,56 +134,6 @@ int sub_485F30() {
 	return 1;
 }
 
-//----- (00415AB0) --------------------------------------------------------
-void nox_xxx_equipArmor_415AB0() {
-	unsigned char* v0; // esi
-	int v1;            // eax
-	int v2;            // eax
-
-	if (*getMemU32Ptr(0x5D4594, 371252) != 1) {
-		if (*getMemU32Ptr(0x587000, 34848)) {
-			v0 = getMemAt(0x587000, 34864);
-			do {
-				if (nox_common_gameFlags_check_40A5C0(2097153)) {
-					*((uint32_t*)v0 - 2) = nox_xxx_getNameId_4E3AA0(*((char**)v0 - 4));
-					v1 = nox_xxx_getNameId_4E3AA0(*(char**)v0);
-				} else {
-					*((uint32_t*)v0 - 2) = nox_xxx_getTTByNameSpriteMB_44CFC0(*((char**)v0 - 4));
-					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)v0);
-				}
-				*((uint32_t*)v0 + 1) = v1;
-				v2 = *((uint32_t*)v0 + 2);
-				v0 += 24;
-			} while (v2);
-		}
-		*getMemU32Ptr(0x5D4594, 371252) = 1;
-	}
-}
-
-//----- (004157C0) --------------------------------------------------------
-void nox_xxx_equipWeapon_4157C0() {
-	unsigned char* v0; // esi
-	int v1;            // eax
-	int v2;            // eax
-
-	if (*getMemU32Ptr(0x5D4594, 371244) != 1) {
-		if (*getMemU32Ptr(0x587000, 33064)) {
-			v0 = getMemAt(0x587000, 33064);
-			do {
-				if (nox_common_gameFlags_check_40A5C0(2097153)) {
-					v1 = nox_xxx_getNameId_4E3AA0(*(char**)v0);
-				} else {
-					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)v0);
-				}
-				*((uint32_t*)v0 + 1) = v1;
-				v2 = *((uint32_t*)v0 + 3);
-				v0 += 12;
-			} while (v2);
-		}
-		*getMemU32Ptr(0x5D4594, 371244) = 1;
-	}
-}
-
 //----- (004F0640) --------------------------------------------------------
 int sub_4F0640() {
 	char* v0;           // eax

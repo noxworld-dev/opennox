@@ -258,9 +258,7 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 	if err := s.CheckTypes(); err != nil {
 		return err
 	}
-	s.Nox_xxx_equipWeapon_4131A0()
-	legacy.Nox_xxx_equipArmor_415AB0()
-	legacy.Nox_xxx_equipWeapon_4157C0()
+	s.ReloadItems()
 	legacy.Sub_4F0640()
 	sub_42BF10()
 	return nil
@@ -289,7 +287,7 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 	c.Nox_things_free_44C580()
 	legacy.Sub_485CF0()
 	legacy.Sub_485F30()
-	c.srv.Walls.ResetSprites()
+	c.Server.Walls.ResetSprites()
 
 	thg, err := openThings()
 	if err != nil {
@@ -333,9 +331,7 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 			}
 		}
 	}
-	c.Server.Nox_xxx_equipWeapon_4131A0()
-	legacy.Nox_xxx_equipArmor_415AB0()
-	legacy.Nox_xxx_equipWeapon_4157C0()
+	c.Server.ReloadItems()
 	sub_42BF10()
 	return nil
 }

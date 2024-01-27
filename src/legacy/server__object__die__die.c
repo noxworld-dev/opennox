@@ -83,6 +83,7 @@ void nox_xxx_dieArmor_54E170_obj_die(int a1) {
 }
 
 //----- (0054E370) --------------------------------------------------------
+wchar2_t* sub_415B60(nox_object_t* a1);
 void nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 	int v1;      // edi
 	float2* v2;  // ebx

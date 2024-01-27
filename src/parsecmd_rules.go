@@ -45,7 +45,7 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 	}
 	t := sub_415EF0(id)
 	if t == nil {
-		t = sub415EC0(id)
+		t = s.Sub415EC0(id)
 	}
 	if t == nil {
 		str := c.Strings().GetStringInFile("invalidarmor", "parsecmd.c")
@@ -131,7 +131,7 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 	}
 	t := sub_415A60(id)
 	if t == nil {
-		t = sub415A30(id)
+		t = s.Sub415A30(id)
 	}
 	if t == nil {
 		str := c.Strings().GetStringInFile("invalidweapon", "parsecmd.c")
@@ -149,7 +149,7 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 		c.Printf(console.ColorRed, str, id)
 		return true
 	case "off":
-		if !s.Types.ByInd(t.Ind()).Allowed() || legacy.Nox_xxx_ammoCheck_415880(t.Ind()) == 1 {
+		if !s.Types.ByInd(t.Ind()).Allowed() || s.Weapons.Nox_xxx_ammoCheck_415880(t.Ind()) == 1 {
 			return true
 		}
 		t.SetAllowed(false)
@@ -163,49 +163,25 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 }
 
 func sub_415A60(id string) *server.ObjectType {
-	v1 := legacy.Sub_415960(id)
-	if v1 == 0 {
+	bit := legacy.Sub_415960(id)
+	if bit == 0 {
 		return nil
 	}
-	v2 := legacy.Sub_415840(v1)
-	if v2 == 0 {
+	ind := noxServer.Weapons.Sub_415840(bit)
+	if ind == 0 {
 		return nil
 	}
-	return noxServer.Types.ByInd(v2)
-}
-
-func sub415A30(a1 string) *server.ObjectType {
-	v1 := legacy.Sub_415910(a1)
-	if v1 == 0 {
-		return nil
-	}
-	v2 := legacy.Sub_415840(v1)
-	if v2 == 0 {
-		return nil
-	}
-	return noxServer.Types.ByInd(v2)
+	return noxServer.Types.ByInd(ind)
 }
 
 func sub_415EF0(id string) *server.ObjectType {
-	v1 := legacy.Sub_415DA0(id)
-	if v1 == 0 {
+	bit := legacy.Sub_415DA0(id)
+	if bit == 0 {
 		return nil
 	}
-	v2 := legacy.Sub_415CD0(v1)
-	if v2 == 0 {
+	ind := noxServer.Armor.Sub_415CD0(bit)
+	if ind == 0 {
 		return nil
 	}
-	return noxServer.Types.ByInd(v2)
-}
-
-func sub415EC0(id string) *server.ObjectType {
-	v1 := legacy.Sub_415DF0(id)
-	if v1 == 0 {
-		return nil
-	}
-	v2 := legacy.Sub_415CD0(v1)
-	if v2 == 0 {
-		return nil
-	}
-	return noxServer.Types.ByInd(v2)
+	return noxServer.Types.ByInd(ind)
 }

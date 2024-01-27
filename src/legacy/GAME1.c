@@ -1926,79 +1926,6 @@ int nox_thing_read_audio_415660(nox_memfile* a1p, char* a2) {
 	return 0;
 }
 
-//----- (00415820) --------------------------------------------------------
-int nox_xxx_weaponInventoryEquipFlags_415820(nox_object_t* item) {
-	if (!item) {
-		return 0;
-	}
-	return nox_xxx_ammoCheck_415880(item->typ_ind);
-}
-
-//----- (00415840) --------------------------------------------------------
-int sub_415840(int a1) {
-	int v1;           // ecx
-	unsigned char* i; // eax
-	int v3;           // esi
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 33064)) {
-		return 0;
-	}
-	for (i = getMemAt(0x587000, 33064); *((char**)i + 2) != a1; i += 12) {
-		v3 = *((uint32_t*)i + 3);
-		++v1;
-		if (!v3) {
-			return 0;
-		}
-	}
-	return *getMemU32Ptr(0x587000, 33068 + 12 * v1);
-}
-
-//----- (00415880) --------------------------------------------------------
-int nox_xxx_ammoCheck_415880(unsigned short typ_ind) {
-	int v1;           // ecx
-	unsigned char* i; // eax
-	int v3;           // esi
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 33064)) {
-		return 0;
-	}
-	for (i = getMemAt(0x587000, 33064); *((char**)i + 1) != typ_ind; i += 12) {
-		v3 = *((uint32_t*)i + 3);
-		++v1;
-		if (!v3) {
-			return 0;
-		}
-	}
-	return *getMemU32Ptr(0x587000, 33072 + 12 * v1);
-}
-
-//----- (00415910) --------------------------------------------------------
-int sub_415910(char* a1) {
-	int v1;            // edi
-	const char** v2;   // eax
-	unsigned char* v3; // esi
-	int v4;            // ecx
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 33064)) {
-		return 0;
-	}
-	v2 = (const char**)getMemAt(0x587000, 33064);
-	v3 = getMemAt(0x587000, 33064);
-	while (nox_strcmpi(a1, *v2)) {
-		v4 = *((uint32_t*)v3 + 3);
-		v3 += 12;
-		++v1;
-		v2 = (const char**)v3;
-		if (!v4) {
-			return 0;
-		}
-	}
-	return *getMemU32Ptr(0x587000, 33072 + 12 * v1);
-}
-
 //----- (00415960) --------------------------------------------------------
 int sub_415960(wchar2_t* a1) {
 	int v1;             // edi
@@ -2022,26 +1949,6 @@ int sub_415960(wchar2_t* a1) {
 		}
 	}
 	return *getMemU32Ptr(0x587000, 33400 + 12 * v1);
-}
-
-//----- (004159B0) --------------------------------------------------------
-char* sub_4159B0(char* a1) {
-	int v1;           // ecx
-	unsigned char* i; // eax
-	int v3;           // esi
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 33064)) {
-		return 0;
-	}
-	for (i = getMemAt(0x587000, 33064); *((char**)i + 2) != a1; i += 12) {
-		v3 = *((uint32_t*)i + 3);
-		++v1;
-		if (!v3) {
-			return 0;
-		}
-	}
-	return *(char**)getMemAt(0x587000, 33064 + 12 * v1);
 }
 
 //----- (004159F0) --------------------------------------------------------
@@ -2106,89 +2013,6 @@ double nox_xxx_itemApplyDefendEffect_415C00(int a1) {
 	return v6;
 }
 
-//----- (00415C70) --------------------------------------------------------
-int nox_xxx_unitArmorInventoryEquipFlags_415C70(nox_object_t* item) {
-	int v1;     // eax
-	int result; // eax
-
-	v1 = sub_415C90(item);
-	if (v1 < 0) {
-		result = 0;
-	} else {
-		result = *getMemU32Ptr(0x587000, 34860 + 24 * v1);
-	}
-	return result;
-}
-
-//----- (00415C90) --------------------------------------------------------
-int sub_415C90(const nox_object_t* item) {
-	int result;       // eax
-	int v2;           // edx
-	unsigned char* i; // ecx
-	int v4;           // esi
-
-	if (!item) {
-		return -1;
-	}
-	result = 0;
-	if (!*getMemU32Ptr(0x587000, 34848)) {
-		return -1;
-	}
-	HIWORD(v2) = 0;
-	for (i = getMemAt(0x587000, 34848);; i += 24) {
-		LOWORD(v2) = item->typ_ind;
-		if (v2 == *((uint32_t*)i + 2)) {
-			break;
-		}
-		v4 = *((uint32_t*)i + 6);
-		++result;
-		if (!v4) {
-			return -1;
-		}
-	}
-	return result;
-}
-
-//----- (00415CD0) --------------------------------------------------------
-int sub_415CD0(int a1) {
-	int v1;           // ecx
-	unsigned char* i; // eax
-	int v3;           // esi
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 34848)) {
-		return 0;
-	}
-	for (i = getMemAt(0x587000, 34848); a1 != *((char**)i + 3); i += 24) {
-		v3 = *((uint32_t*)i + 6);
-		++v1;
-		if (!v3) {
-			return 0;
-		}
-	}
-	return *getMemU32Ptr(0x587000, 34856 + 24 * v1);
-}
-
-//----- (00415D10) --------------------------------------------------------
-int sub_415D10(int a1) {
-	int v1;           // ecx
-	unsigned char* i; // eax
-	int v3;           // esi
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 34848)) {
-		return 0;
-	}
-	for (i = getMemAt(0x587000, 34848); a1 != *((char**)i + 2); i += 24) {
-		v3 = *((uint32_t*)i + 6);
-		++v1;
-		if (!v3) {
-			return 0;
-		}
-	}
-	return *getMemU32Ptr(0x587000, 34860 + 24 * v1);
-}
-
 //----- (00415DA0) --------------------------------------------------------
 int sub_415DA0(wchar2_t* a1) {
 	int v1;             // edi
@@ -2212,51 +2036,6 @@ int sub_415DA0(wchar2_t* a1) {
 		}
 	}
 	return *getMemU32Ptr(0x587000, 35504 + 12 * v1);
-}
-
-//----- (00415DF0) --------------------------------------------------------
-int sub_415DF0(char* a1) {
-	int v1;            // edi
-	const char** v2;   // eax
-	unsigned char* v3; // esi
-	int v4;            // ecx
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 34848)) {
-		return 0;
-	}
-	v2 = (const char**)getMemAt(0x587000, 34848);
-	v3 = getMemAt(0x587000, 34848);
-	while (nox_strcmpi(a1, *v2)) {
-		v4 = *((uint32_t*)v3 + 6);
-		v3 += 24;
-		++v1;
-		v2 = (const char**)v3;
-		if (!v4) {
-			return 0;
-		}
-	}
-	return *getMemU32Ptr(0x587000, 34860 + 24 * v1);
-}
-
-//----- (00415E40) --------------------------------------------------------
-char* sub_415E40(char* a1) {
-	int v1;           // ecx
-	unsigned char* i; // eax
-	int v3;           // esi
-
-	v1 = 0;
-	if (!*getMemU32Ptr(0x587000, 34852)) {
-		return 0;
-	}
-	for (i = getMemAt(0x587000, 34852); *((char**)i + 2) != a1; i += 24) {
-		v3 = *((uint32_t*)i + 6);
-		++v1;
-		if (!v3) {
-			return 0;
-		}
-	}
-	return *(char**)getMemAt(0x587000, 34848 + 24 * v1);
 }
 
 //----- (00415E80) --------------------------------------------------------

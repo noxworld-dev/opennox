@@ -212,8 +212,6 @@ func init() {
 	legacy.Nox_xxx_fireRingEffect_4E05B0 = nox_xxx_fireRingEffect_4E05B0
 	legacy.Nox_xxx_blueFREffect_4E05F0 = nox_xxx_blueFREffect_4E05F0
 	legacy.Sub_4E3B80 = sub_4E3B80
-	legacy.Sub415A30 = sub415A30
-	legacy.Sub415EC0 = sub415EC0
 	legacy.Nox_savegame_rm = deleteSaveDir
 	legacy.Nox_client_countPlayerFiles04_4DC7D0 = nox_client_countPlayerFiles04_4DC7D0
 	legacy.Nox_xxx_gameGet_4DB1B0 = nox_xxx_gameGet_4DB1B0

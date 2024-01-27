@@ -290,7 +290,7 @@ func (s *Server) setupQuestGame() {
 					asObjectS(it).Delete()
 				}
 			} else {
-				if it.Class().HasAny(object.ClassArmor) && legacy.Sub_415D10(int(it.TypeInd))&0x405 == 0 {
+				if it.Class().HasAny(object.ClassArmor) && s.Armor.Sub_415D10(int(it.TypeInd))&0x405 == 0 {
 					asObjectS(it).Delete()
 				}
 			}

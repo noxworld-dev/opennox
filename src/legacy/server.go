@@ -82,7 +82,6 @@ type Server interface {
 	CreateObjectAt(obj, owner server.Obj, pt types.Pointf)
 	NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Pointer, v18 int8)
 	Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg int, dtyp object.DamageType, who *server.Object, a7 server.Obj, damageWalls bool)
-	Sub4537F0()
 	Nox_xxx_mapReset5028E0()
 	Nox_xxx_free503F40()
 	ObjectDeleteLast(obj *server.Object)

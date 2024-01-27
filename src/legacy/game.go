@@ -281,7 +281,7 @@ func nox_game_switchStates_43C0A0() int {
 
 //export sub_4537F0
 func sub_4537F0() {
-	GetServer().Sub4537F0()
+	GetServer().S().Sub4537F0()
 }
 
 //export sub_41CC00
@@ -713,12 +713,6 @@ func Sub_4D71E0(a1 int) {
 }
 func Nox_xxx_calcDistance_4E6C00(a1 *server.Object, a2 *server.Object) float32 {
 	return float32(C.nox_xxx_calcDistance_4E6C00(asObjectC(a1), asObjectC(a2)))
-}
-func Sub_415CD0(a1 int) int {
-	return int(C.sub_415CD0(C.int(a1)))
-}
-func Sub_415840(a1 int) int {
-	return int(C.sub_415840(C.int(a1)))
 }
 func Get_nox_game_switchStates_43C0A0() unsafe.Pointer {
 	return C.nox_game_switchStates_43C0A0
