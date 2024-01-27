@@ -271,7 +271,7 @@ func (c *Client) sub_495B00(dr *client.Drawable) {
 
 func (c *Client) Sub_45A670(a1 uint32) {
 	if c.dword_5d4594_1046604 == 0 {
-		c.dword_5d4594_1046604 = c.Things.TypeByID("SummonEffect").Index()
+		c.dword_5d4594_1046604 = c.Things.IndByID("SummonEffect")
 	}
 	var next *client.Drawable
 	for dr := c.Objs.List1; dr != nil; dr = next {

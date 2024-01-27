@@ -68,7 +68,7 @@ func (c *Client) DrawMonster(vp *noxrender.Viewport, dr *client.Drawable) int {
 		return 1
 	}
 	res := 1
-	if int(dr.TypeIDVal) == c.Things.TypeByID("Ghost").Index() {
+	if int(dr.TypeIDVal) == c.Things.IndByID("Ghost") {
 		// Ghosts are only visible up close or with infravision
 		var dp image.Point
 		if !noxflags.HasGame(noxflags.GameFlag22) {
