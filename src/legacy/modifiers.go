@@ -55,11 +55,9 @@ import (
 )
 
 var (
-	Nox_xxx_modifGetDescById_413330      func(a1 int32) unsafe.Pointer
-	Nox_xxx_equipClothFindDefByTT_413270 func(a1 int32) unsafe.Pointer
-	Sub_4A5E90_A                         func()
-	Nox_xxx_fireRingEffect_4E05B0        func(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object)
-	Nox_xxx_blueFREffect_4E05F0          func(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object)
+	Sub_4A5E90_A                  func()
+	Nox_xxx_fireRingEffect_4E05B0 func(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object)
+	Nox_xxx_blueFREffect_4E05F0   func(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object)
 )
 
 var _ = [1]struct{}{}[88-unsafe.Sizeof(server.Modifier{})]
@@ -125,22 +123,22 @@ func nox_xxx_modifGetModifListByType_4133B0(a1 int) unsafe.Pointer {
 
 //export nox_xxx_modifGetDescById_413330
 func nox_xxx_modifGetDescById_413330(a1 int32) unsafe.Pointer {
-	return Nox_xxx_modifGetDescById_413330(a1)
+	return GetServer().S().Modif.Nox_xxx_modifGetDescById413330(int(a1)).C()
 }
 
 //export nox_xxx_modifGetIdByName_413290
 func nox_xxx_modifGetIdByName_413290(name *C.char) int32 {
-	return GetServer().S().Modif.Nox_xxx_modifGetIdByName413290(GoString(name))
+	return int32(GetServer().S().Modif.Nox_xxx_modifGetIdByName413290(GoString(name)))
 }
 
 //export nox_xxx_getProjectileClassById_413250
 func nox_xxx_getProjectileClassById_413250(a1 int32) unsafe.Pointer {
-	return GetServer().S().Modif.Nox_xxx_getProjectileClassById413250(a1).C()
+	return GetServer().S().Modif.Nox_xxx_getProjectileClassById413250(int(a1)).C()
 }
 
 //export nox_xxx_equipClothFindDefByTT_413270
 func nox_xxx_equipClothFindDefByTT_413270(a1 int32) unsafe.Pointer {
-	return Nox_xxx_equipClothFindDefByTT_413270(a1)
+	return GetServer().S().Modif.Nox_xxx_equipClothFindDefByTT413270(int(a1)).C()
 }
 
 //export sub_4A5E90_A

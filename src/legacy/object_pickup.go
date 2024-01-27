@@ -20,7 +20,7 @@ var (
 	Nox_objectPickupAudEvent_4F3D50      func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
 	Nox_xxx_pickupPotion_4F37D0          func(cobj1 *server.Object, cobj2 *server.Object, a3 int) int
 	Nox_xxx_playerClassCanUseItem_57B3D0 func(item *server.Object, cl player.Class) bool
-	Sub_57B370                           func(cl object.Class, sub object.SubClass, typ int32) byte
+	Sub_57B370                           func(cl object.Class, sub object.SubClass, typ int) byte
 )
 
 func init() {
@@ -59,7 +59,7 @@ func nox_xxx_pickupPotion_4F37D0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 in
 
 //export sub_57B370
 func sub_57B370(cl, sub, typ int32) byte {
-	return Sub_57B370(object.Class(cl), object.SubClass(sub), typ)
+	return Sub_57B370(object.Class(cl), object.SubClass(sub), int(typ))
 }
 
 //export sub_419E10

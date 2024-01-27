@@ -83,7 +83,7 @@ type ModColor struct {
 
 type Modifier struct {
 	Name0                *byte       // 0, 0
-	Ind4                 uint32      // 1, 4
+	TypeInd              uint32      // 1, 4
 	Desc8                *uint16     // 2, 8
 	Colors12             [8]ModColor // 3, 12
 	Effectiveness36      int32       // 9, 36
@@ -113,7 +113,7 @@ func (p *Modifier) Name() string {
 }
 
 func (p *Modifier) Index() int {
-	return int(p.Ind4)
+	return int(p.TypeInd)
 }
 
 func (p *Modifier) Desc() string {
@@ -386,7 +386,7 @@ func (s *serverModifiers) Nox_xxx_modifGetModifListByType_4133B0(a1 int) unsafe.
 	return s.byte_5D4594_251584[a1].C()
 }
 
-func (s *serverModifiers) Nox_xxx_modifGetDescById413330(a1 int32) *ModifierEff {
+func (s *serverModifiers) Nox_xxx_modifGetDescById413330(a1 int) *ModifierEff {
 	if a1 == math.MaxUint8 {
 		return nil
 	}
@@ -400,32 +400,32 @@ func (s *serverModifiers) Nox_xxx_modifGetDescById413330(a1 int32) *ModifierEff 
 	return nil
 }
 
-func (s *serverModifiers) Nox_xxx_modifGetIdByName413290(name string) int32 {
+func (s *serverModifiers) Nox_xxx_modifGetIdByName413290(name string) int {
 	if name == "" {
 		return math.MaxUint8
 	}
 	for _, head := range s.byte_5D4594_251584 {
 		for it := head; it != nil; it = it.next136 {
 			if alloc.GoString(it.name0) == name {
-				return int32(it.ind4)
+				return int(it.ind4)
 			}
 		}
 	}
 	return math.MaxUint8
 }
 
-func (s *serverModifiers) Nox_xxx_getProjectileClassById413250(a1 int32) *Modifier {
+func (s *serverModifiers) Nox_xxx_getProjectileClassById413250(a1 int) *Modifier {
 	for it := s.Dword_5d4594_251600; it != nil; it = it.Next80 {
-		if it.Ind4 == uint32(a1) {
+		if it.TypeInd == uint32(a1) {
 			return it
 		}
 	}
 	return nil
 }
 
-func (s *serverModifiers) Nox_xxx_equipClothFindDefByTT413270(a1 int32) *Modifier {
+func (s *serverModifiers) Nox_xxx_equipClothFindDefByTT413270(a1 int) *Modifier {
 	for it := s.Dword_5d4594_251608; it != nil; it = it.Next80 {
-		if it.Ind4 == uint32(a1) {
+		if it.TypeInd == uint32(a1) {
 			return it
 		}
 	}

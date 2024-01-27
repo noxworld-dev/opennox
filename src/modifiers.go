@@ -3,7 +3,6 @@ package opennox
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/spell"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -12,22 +11,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
-
-var (
-	modLog = log.New("modifiers")
-)
-
-func nox_xxx_modifGetDescById_413330(a1 int32) unsafe.Pointer {
-	return noxServer.Modif.Nox_xxx_modifGetDescById413330(a1).C()
-}
-
-func nox_xxx_getProjectileClassById_413250(a1 int32) unsafe.Pointer {
-	return noxServer.Modif.Nox_xxx_getProjectileClassById413250(a1).C()
-}
-
-func nox_xxx_equipClothFindDefByTT_413270(a1 int32) unsafe.Pointer {
-	return noxServer.Modif.Nox_xxx_equipClothFindDefByTT413270(a1).C()
-}
 
 func sub_4A5E90_A() {
 	for it := noxServer.Modif.Dword_5d4594_251608; it != nil; it = it.Next80 {
@@ -56,7 +39,7 @@ func nox_xxx_equipWeapon_4131A0() {
 				}
 				ind = c.Things.IndByID(it.Name())
 			}
-			it.Ind4 = uint32(ind)
+			it.TypeInd = uint32(ind)
 		}
 		for j := s.Modif.Dword_5d4594_251608; j != nil; j = j.Next80 {
 			var ind int
@@ -68,7 +51,7 @@ func nox_xxx_equipWeapon_4131A0() {
 				}
 				ind = c.Things.IndByID(j.Name())
 			}
-			j.Ind4 = uint32(ind)
+			j.TypeInd = uint32(ind)
 		}
 		*memmap.PtrUint32(0x5D4594, 251616) = 1
 	}

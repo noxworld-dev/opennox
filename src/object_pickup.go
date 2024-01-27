@@ -84,7 +84,7 @@ func nox_objectPickupAudEvent_4F3D50(obj1 *server.Object, obj2 *server.Object, a
 	return ok
 }
 
-func sub_57B370(cl object.Class, sub object.SubClass, typ int32) byte {
+func sub_57B370(cl object.Class, sub object.SubClass, typ int) byte {
 	s := noxServer
 	if cl.HasAny(object.ClassWeapon | object.ClassWand) {
 		m := s.Modif.Nox_xxx_getProjectileClassById413250(typ)
@@ -110,7 +110,7 @@ func nox_xxx_playerClassCanUseItem_57B3D0(item *server.Object, cl player.Class) 
 	if cheatAllowAll {
 		return true
 	}
-	return ((byte(1) << cl) & sub_57B370(item.Class(), item.SubClass(), int32(item.TypeInd))) != 0
+	return ((byte(1) << cl) & sub_57B370(item.Class(), item.SubClass(), int(item.TypeInd))) != 0
 }
 
 func nox_xxx_pickupPotion_4F37D0(obj *server.Object, potion *server.Object, a3 int) int {
