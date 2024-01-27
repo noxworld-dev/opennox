@@ -1003,62 +1003,42 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		return -1
 	case noxnet.MSG_TEXT_MESSAGE:
-		if len(data) < 11 {
+		var p noxnet.MsgText
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return -1
 		}
-		hdr := binary.LittleEndian.Uint16(data[1:])
-		id := int(nox_xxx_netClearHighBit_578B30(hdr))
+		netcode := p.NetCode
+		id := int(nox_xxx_netClearHighBit_578B30(netcode))
 
-		sz := int(data[8]) // Buffer size in vanilla: 636
-		flags := data[3]
-		rtext := data[11:]
-		var text string
-		if flags&0x8 != 0 { // Localized
-			sz *= 1
-			if sz > len(rtext) {
-				return -1
-			}
-			rtext = rtext[:sz]
-			name := strman.ID(alloc.GoStringS(rtext))
+		// Buffer size in vanilla: 636
+		text := p.Text()
+		if p.Flags.Has(noxnet.TextLocalized) { // Localized
+			name := strman.ID(text)
 			text = c.Strings().GetStringInFile(name, "cdecode.c")
 		} else {
-			if flags&0x2 != 0 { // ASCII or UTF-8
-				sz *= 1
-				if sz > len(rtext) {
-					return -1
-				}
-				rtext = rtext[:sz]
-				text = alloc.GoStringS(rtext)
-			} else { // UTF-16
-				sz *= 2
-				if sz > len(rtext) {
-					return -1
-				}
-				rtext = rtext[:sz]
-				text = alloc.GoString16B(rtext)
-			}
-			if flags&0x1 != 0 { // Team chat
+			if p.Flags.Has(noxnet.TextTeam) { // Team chat
 				tstr := c.Strings().GetStringInFile("Guirank.c:team", "cdecode.c")
 				text = fmt.Sprintf("%s: %s", tstr, text)
 			}
 		}
-		msz := 11 + sz
+		msz := 1 + n
 		if !nox_client_isConnected() {
 			return msz
 		}
 		if gameGetPlayState() != 3 {
 			return msz
 		}
-		if flags&0x10 != 0 { // Notice
+		if p.Flags.Has(noxnet.TextNotice) { // Notice
 			str := c.Strings().GetStringInFile("guiserv.c:Notice", "cdecode.c")
 			NewDialogWindow(nil, str, text, gui.DialogFlag6|gui.DialogOKButton, nil, nil)
 			return msz
 		}
-		if hdr == 0 { // From server
+		if netcode == 0 { // From server
 			nox_xxx_printCentered_445490(text)
 			return msz
 		}
-		pl := c.Server.Players.ByID(int(hdr))
+		pl := c.Server.Players.ByID(int(netcode))
 		if pl != nil { // From player
 			if !nox_xxx_playerCantTalkMB_57A160(pl) {
 				c.Printf(console.ColorYellow, "%s> %s", pl.Name(), text)
@@ -1069,7 +1049,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		// From object
 		legacy.Nox_xxx_createTextBubble_48D880(data, text)
 		var dr *client.Drawable
-		if nox_xxx_netTestHighBit_578B70(hdr) {
+		if nox_xxx_netTestHighBit_578B70(netcode) {
 			dr = c.Objs.ByNetCodeStatic(id)
 		} else {
 			dr = c.Objs.ByNetCodeDynamic(id)
@@ -1079,7 +1059,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			if t := c.Things.TypeByInd(int(dr.TypeIDVal)); t != nil {
 				pname = alloc.GoString16(t.PrettyName)
 			}
-			c.Printf(console.ColorRed, "%s(%d)> %s", pname, hdr, text)
+			c.Printf(console.ColorRed, "%s(%d)> %s", pname, netcode, text)
 		}
 		return msz
 	}
