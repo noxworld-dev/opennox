@@ -828,14 +828,8 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if len(data) < 14 {
 			return -1
 		}
-		drID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[8:]))
 		if nox_client_isConnected() {
-			var dr *client.Drawable
-			if nox_xxx_netTestHighBit_578B70(binary.LittleEndian.Uint16(data[8:])) {
-				dr = c.Objs.ByNetCodeStatic(int(drID))
-			} else {
-				dr = c.Objs.ByNetCodeDynamic(int(drID))
-			}
+			dr := c.Objs.ByNetCode(binary.LittleEndian.Uint16(data[8:]))
 			c.r.partfx.onParticleFx(data[1], dr, int(binary.LittleEndian.Uint16(data[2:])), binary.LittleEndian.Uint16(data[4:]) != 0, int(binary.LittleEndian.Uint16(data[6:])))
 		}
 		return 14
@@ -1009,7 +1003,6 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return -1
 		}
 		netcode := p.NetCode
-		id := int(nox_xxx_netClearHighBit_578B30(netcode))
 
 		// Buffer size in vanilla: 636
 		text := p.Text()
@@ -1048,13 +1041,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		// From object
 		legacy.Nox_xxx_createTextBubble_48D880(data, text)
-		var dr *client.Drawable
-		if nox_xxx_netTestHighBit_578B70(netcode) {
-			dr = c.Objs.ByNetCodeStatic(id)
-		} else {
-			dr = c.Objs.ByNetCodeDynamic(id)
-		}
-		if dr != nil {
+		if dr := c.Objs.ByNetCode(netcode); dr != nil {
 			var pname string
 			if t := c.Things.TypeByInd(int(dr.TypeIDVal)); t != nil {
 				pname = alloc.GoString16(t.PrettyName)

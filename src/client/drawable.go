@@ -335,6 +335,15 @@ func (c *clientDrawables) TransparentDecay(dr *Drawable, lifetime int) {
 	dr.Field_88 = last
 }
 
+func (c *clientDrawables) ByNetCode(code uint16) *Drawable {
+	bit := code&0x8000 != 0
+	id := int(code & 0x7FFF)
+	if bit {
+		return c.ByNetCodeStatic(id)
+	}
+	return c.ByNetCodeDynamic(id)
+}
+
 func (c *clientDrawables) ByNetCodeStatic(id int) *Drawable {
 	for dr := c.List1; dr != nil; dr = dr.NextPtr {
 		if dr.Class()&0x20400000 != 0 && dr.NetCode32 == uint32(id) {
