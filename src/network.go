@@ -881,14 +881,6 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		c.mapsend.onMapDownloadAbort()
 		return 2
-	case noxnet.MSG_FX_JIGGLE:
-		if len(data) < 2 {
-			return -1
-		}
-		if nox_client_isConnected() {
-			c.Viewport().Jiggle12 = int(data[1]) / 3
-		}
-		return 2
 	case noxnet.MSG_FADE_BEGIN:
 		if len(data) < 3 {
 			return -1

@@ -46,7 +46,17 @@ func (c *Client) OnClientPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []b
 		if cur.Connected && !noxflags.HasGame(noxflags.GameHost) {
 			c.Server.Walls.BreakByID(p.ID)
 		}
-		return n + 1, true, nil
+		return 1 + n, true, nil
+	case noxnet.MSG_FX_JIGGLE:
+		var p noxnet.MsgFxJiggle
+		n, err := p.Decode(data[1:])
+		if err != nil {
+			return 0, false, err
+		}
+		if cur.Connected {
+			c.Viewport().Jiggle12 = int(p.Val) / 3
+		}
+		return 1 + n, true, nil
 	}
 	return 0, false, nil
 }
