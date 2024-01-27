@@ -341,16 +341,14 @@ func (s *Server) Nox_xxx_netObjectInShadows_528A90(ind int, obj *Object) int {
 }
 
 func (s *Server) Nox_xxx_wallSendDestroyed_4DF0A0(wl *Wall, a2 int) {
-	var buf [3]byte
-	buf[0] = byte(noxnet.MSG_DESTROY_WALL)
-	binary.LittleEndian.PutUint16(buf[1:], wl.Field10)
+	m := &noxnet.MsgWallDestroy{ID: wl.Field10}
 	if a2 != 32 {
-		s.NetSendPacketXxx0(a2, buf[:3], 0, 1)
+		s.NetSendMsgXxx0(a2, m, 0, 1)
 		return
 	}
 	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
 		pl := it.UpdateDataPlayer().Player
-		s.NetSendPacketXxx0(pl.Index(), buf[:3], 0, 1)
+		s.NetSendMsgXxx0(pl.Index(), m, 0, 1)
 	}
 }
 
@@ -551,16 +549,12 @@ func (s *Server) Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, jiggle int) {
 	}
 }
 func (s *Server) NetWriteClassStats(pind ntype.PlayerInd, stats ClassStats) int {
-	buf, err := noxnet.AppendPacket(nil, &noxnet.MsgStatMult{
+	return s.NetSendMsgXxx0(int(pind), &noxnet.MsgStatMult{
 		Health:   stats.Health,
 		Mana:     stats.Mana,
 		Strength: stats.Strength,
 		Speed:    stats.Speed,
-	})
-	if err != nil {
-		panic(err)
-	}
-	return s.NetSendPacketXxx0(int(pind), buf, 0, 1)
+	}, 0, 1)
 }
 func (s *Server) NetStatsMultiplier(u *Object) int {
 	if u == nil {
