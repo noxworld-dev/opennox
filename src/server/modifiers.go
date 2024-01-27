@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -71,10 +72,42 @@ type serverModifiers struct {
 	byte_5D4594_251596  uint32
 	Dword_5d4594_251600 *Modifier
 	Dword_5d4594_251608 *Modifier
+	ready               bool
 }
 
 func (s *serverModifiers) init(sm *strman.StringManager) {
 	s.sm = sm
+}
+
+func (s *Server) Nox_xxx_equipWeapon_4131A0() {
+	if s.Modif.ready {
+		return
+	}
+	for it := s.Modif.Dword_5d4594_251600; it != nil; it = it.Next80 {
+		var ind int
+		if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
+			ind = s.Types.IndByID(it.Name())
+		} else {
+			if !noxflags.HasGame(noxflags.GameClient) {
+				return
+			}
+			ind = s.Types.ClientTypeByID(it.Name())
+		}
+		it.TypeInd = uint32(ind)
+	}
+	for j := s.Modif.Dword_5d4594_251608; j != nil; j = j.Next80 {
+		var ind int
+		if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
+			ind = s.Types.IndByID(j.Name())
+		} else {
+			if !noxflags.HasGame(noxflags.GameClient) {
+				return
+			}
+			ind = s.Types.ClientTypeByID(j.Name())
+		}
+		j.TypeInd = uint32(ind)
+	}
+	s.Modif.ready = true
 }
 
 type ModColor struct {

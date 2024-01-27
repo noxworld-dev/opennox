@@ -243,6 +243,8 @@ type serverObjTypes struct {
 		deathBall  int
 		flag       int
 	}
+
+	ClientTypeByID func(id string) int
 }
 
 func (s *serverObjTypes) init() {

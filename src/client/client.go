@@ -27,6 +27,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 		Cursor:     gui.CursorSelect,
 		CursorPrev: gui.Cursor17,
 	}
+	s.Types.ClientTypeByID = c.Things.IndByID
 	c.Things.init(s.Strings())
 	c.Objs.init(c)
 	c.GUI = gui.New(c.r)

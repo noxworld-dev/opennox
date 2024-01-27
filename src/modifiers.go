@@ -5,8 +5,6 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/spell"
 
-	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -22,38 +20,6 @@ func sub_4A5E90_A() {
 		case "StreetSneakers":
 			legacy.Set_dword_5d4594_1308164(it.C())
 		}
-	}
-}
-
-func nox_xxx_equipWeapon_4131A0() {
-	s := noxServer
-	c := noxClient
-	if *memmap.PtrUint32(0x5D4594, 251616) != 1 {
-		for it := s.Modif.Dword_5d4594_251600; it != nil; it = it.Next80 {
-			var ind int
-			if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
-				ind = s.Types.IndByID(it.Name())
-			} else {
-				if !noxflags.HasGame(noxflags.GameClient) {
-					return
-				}
-				ind = c.Things.IndByID(it.Name())
-			}
-			it.TypeInd = uint32(ind)
-		}
-		for j := s.Modif.Dword_5d4594_251608; j != nil; j = j.Next80 {
-			var ind int
-			if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
-				ind = s.Types.IndByID(j.Name())
-			} else {
-				if !noxflags.HasGame(noxflags.GameClient) {
-					return
-				}
-				ind = c.Things.IndByID(j.Name())
-			}
-			j.TypeInd = uint32(ind)
-		}
-		*memmap.PtrUint32(0x5D4594, 251616) = 1
 	}
 }
 
