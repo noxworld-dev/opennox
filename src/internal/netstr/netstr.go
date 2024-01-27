@@ -570,6 +570,14 @@ func (v SendFlags) Has(v2 SendFlags) bool {
 	return v&v2 != 0
 }
 
+func (h Handle) SendMsg(msg noxnet.Message, flags SendFlags) (int, error) {
+	buf, err := noxnet.AppendPacket(nil, msg)
+	if err != nil {
+		return 0, err
+	}
+	return h.Send(buf, flags)
+}
+
 func (h Handle) Send(buf []byte, flags SendFlags) (int, error) {
 	ns := h.get()
 	if ns == nil {

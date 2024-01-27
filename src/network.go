@@ -1096,6 +1096,14 @@ func nox_xxx_playerCantTalkMB_57A160(pl *server.Player) bool {
 	return (pl.Field3680>>3)&0x1 != 0
 }
 
+func (c *Client) HandleMessage(ind ntype.PlayerInd, msg noxnet.Message) int {
+	// TODO: avoid re-encoding
+	buf, err := noxnet.AppendPacket(nil, msg)
+	if err != nil {
+		panic(err)
+	}
+	return c.nox_xxx_netOnPacketRecvCli48EA70(ind, buf)
+}
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind ntype.PlayerInd, data []byte) int {
 	orig := data
 	var iters [][]byte
@@ -1390,54 +1398,40 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		s.mapSend.EndReceive(pl.PlayerIndex())
 		return 1, true
 	case noxnet.MSG_TEXT_MESSAGE:
-		if len(data) < 11 {
+		var msg noxnet.MsgText
+		n, err := msg.Decode(data[1:])
+		if err != nil {
 			return 0, false
 		}
-		sz := int(data[8])
-		flags := data[3]
-		rtext := data[11:]
-		var text string
-		if flags&0x2 != 0 { // ASCII or UTF-8
-			sz *= 1
-			if sz > len(rtext) {
-				return 0, false
-			}
-			rtext = rtext[:sz]
-			text = alloc.GoStringS(rtext)
-		} else { // UTF-16
-			sz *= 2
-			if sz > len(rtext) {
-				return 0, false
-			}
-			rtext = rtext[:sz]
-			text = alloc.GoString16B(rtext)
-		}
-		msz := 11 + sz
+		text := msg.Text()
+		msz := 1 + n
 		if pl != nil && (pl.Field3680>>2)&0x1 != 0 {
 			return msz, true
 		}
 		orig := text
-		if flags&0x1 == 0 { // global chat
+		if !msg.Flags.Has(noxnet.TextTeam) { // global chat
 			text = s.CallOnChat(nil, pl, pl.PlayerUnit, text)
 			if text == "" {
 				return msz, true // mute
 			}
 			if text != orig {
-				// FIXME: rebuild the packet and replace the message
+				msg.Flags = noxnet.TextUTF8
+				msg.Data = []byte(text + "\x00")
+				msg.Size = byte(len(text))
 			}
 			for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == server.HostPlayerIndex {
-					noxClient.nox_xxx_netOnPacketRecvCli48EA70(server.HostPlayerIndex, data[:msz])
+					noxClient.HandleMessage(server.HostPlayerIndex, &msg)
 				} else {
 					conn := netstr.Global.ByPlayer(it)
-					conn.Send(data[:msz], 0)
+					conn.SendMsg(&msg, 0)
 					conn.SendReadPacket(true)
 				}
 			}
 			return msz, true
 		}
 		// team message
-		netcode := int(binary.LittleEndian.Uint16(data[1:]))
+		netcode := int(msg.NetCode)
 		tm := nox_xxx_objGetTeamByNetCode_418C80(netcode)
 		if tm == nil || !tm.Has() {
 			return msz, true
@@ -1451,7 +1445,9 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			return msz, true // mute
 		}
 		if text != orig {
-			// FIXME: rebuild the packet and replace the message
+			msg.Flags = noxnet.TextUTF8 | noxnet.TextTeam
+			msg.Data = []byte(text + "\x00")
+			msg.Size = byte(len(text))
 		}
 		for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
 			uit := it.PlayerUnit
@@ -1460,10 +1456,10 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			if legacy.Nox_xxx_teamCompare2_419180(uit.TeamPtr(), tcl.ID()) != 0 {
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == legacy.ClientPlayerNetCode() {
-					noxClient.nox_xxx_netOnPacketRecvCli48EA70(it.PlayerIndex(), data[:msz])
+					noxClient.HandleMessage(it.PlayerIndex(), &msg)
 				} else {
 					conn := netstr.Global.ByPlayer(it)
-					conn.Send(data[:msz], 0)
+					conn.SendMsg(&msg, 0)
 					conn.SendReadPacket(true)
 				}
 			}
