@@ -809,12 +809,18 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		return 3
 	case noxnet.MSG_STAT_MULTIPLIERS:
-		if len(data) < 17 {
+		var p noxnet.MsgStatMult
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return -1
 		}
-		stats := server.NetReadClassStats(data)
-		noxServer.OnClassStats(getPlayerClass(), stats)
-		return 17
+		c.Server.OnClassStats(getPlayerClass(), server.ClassStats{
+			Health:   p.Health,
+			Mana:     p.Mana,
+			Strength: p.Strength,
+			Speed:    p.Speed,
+		})
+		return 1 + n
 	case noxnet.MSG_REPORT_SPELL_START:
 		if len(data) < 2 {
 			return -1
