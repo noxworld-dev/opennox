@@ -22,7 +22,7 @@ var (
 
 func NewClient(pr console.Printer, s *server.Server) *Client {
 	c := &Client{
-		pr: pr, Server: s,
+		Printer: pr, Server: s,
 		r:          noxrender.NewRender(s),
 		Cursor:     gui.CursorSelect,
 		CursorPrev: gui.Cursor17,
@@ -36,7 +36,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 }
 
 type Client struct {
-	pr         console.Printer
+	console.Printer
 	Server     *server.Server
 	Things     clientObjTypes
 	Objs       clientDrawables

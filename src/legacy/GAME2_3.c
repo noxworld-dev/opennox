@@ -635,7 +635,8 @@ int nox_xxx_netCode2ChatBubble_48D850(int a1) {
 }
 
 //----- (0048D880) --------------------------------------------------------
-wchar2_t* nox_xxx_createTextBubble_48D880(int a1, wchar2_t* a2) {
+void nox_xxx_createTextBubble_48D880(void* a1p, wchar2_t* a2) {
+	int a1 = a1p;
 	wchar2_t* v2;     // esi
 	int v3;          // ebx
 	wchar2_t* result; // eax
@@ -649,7 +650,7 @@ wchar2_t* nox_xxx_createTextBubble_48D880(int a1, wchar2_t* a2) {
 		result = (wchar2_t*)nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_chat_1197364);
 		v2 = result;
 		if (!result) {
-			return result;
+			return;
 		}
 		v3 = 1;
 	}
@@ -683,7 +684,6 @@ wchar2_t* nox_xxx_createTextBubble_48D880(int a1, wchar2_t* a2) {
 			*((uint32_t*)v2 + 171) = 0;
 		}
 	}
-	return result;
 }
 
 //----- (0048D990) --------------------------------------------------------

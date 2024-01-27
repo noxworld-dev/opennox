@@ -1,6 +1,7 @@
 package legacy
 
 /*
+#include "noxstring.h"
 void sub_4519C0();
 int sub_495430();
 void sub_44D3A0();
@@ -10,11 +11,13 @@ void sub_45D810();
 void sub_49A630();
 void sub_49BBB0();
 void sub_479280();
+void nox_xxx_createTextBubble_48D880(void* a1, wchar2_t* a2);
 */
 import "C"
 import (
 	"image"
 	"image/color"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"golang.org/x/image/font"
@@ -22,6 +25,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type Client interface {
@@ -139,4 +143,12 @@ func Sub_49A630() {
 
 func Sub_49BBB0() {
 	C.sub_49BBB0()
+}
+
+func Nox_xxx_createTextBubble_48D880(pck []byte, text string) {
+	cpck, pfree := alloc.Make(pck, len(pck))
+	defer pfree()
+	ctext, tfree := CWString(text)
+	defer tfree()
+	C.nox_xxx_createTextBubble_48D880(unsafe.Pointer(&cpck[0]), ctext)
 }

@@ -23,6 +23,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
@@ -1024,8 +1025,98 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return 4
 		}
 		return -1
+	case noxnet.MSG_TEXT_MESSAGE:
+		if len(data) < 11 {
+			return -1
+		}
+		hdr := binary.LittleEndian.Uint16(data[1:])
+		id := int(nox_xxx_netClearHighBit_578B30(hdr))
+
+		sz := int(data[8]) // Buffer size in vanilla: 636
+		flags := data[3]
+		rtext := data[11:]
+		var text string
+		if flags&0x8 != 0 { // Localized
+			sz *= 1
+			if sz > len(rtext) {
+				return -1
+			}
+			rtext = rtext[:sz]
+			name := strman.ID(alloc.GoStringS(rtext))
+			text = c.Strings().GetStringInFile(name, "cdecode.c")
+		} else {
+			if flags&0x2 != 0 { // ASCII or UTF-8
+				sz *= 1
+				if sz > len(rtext) {
+					return -1
+				}
+				rtext = rtext[:sz]
+				text = alloc.GoStringS(rtext)
+			} else { // UTF-16
+				sz *= 2
+				if sz > len(rtext) {
+					return -1
+				}
+				rtext = rtext[:sz]
+				text = alloc.GoString16B(rtext)
+			}
+			if flags&0x1 != 0 { // Team chat
+				tstr := c.Strings().GetStringInFile("Guirank.c:team", "cdecode.c")
+				text = fmt.Sprintf("%s: %s", tstr, text)
+			}
+		}
+		msz := 11 + sz
+		if !nox_client_isConnected() {
+			return msz
+		}
+		if gameGetPlayState() != 3 {
+			return msz
+		}
+		if flags&0x10 != 0 { // Notice
+			str := c.Strings().GetStringInFile("guiserv.c:Notice", "cdecode.c")
+			NewDialogWindow(nil, str, text, gui.DialogFlag6|gui.DialogOKButton, nil, nil)
+			return msz
+		}
+		if hdr == 0 { // From server
+			nox_xxx_printCentered_445490(text)
+			return msz
+		}
+		pl := c.Server.Players.ByID(int(hdr))
+		if pl != nil { // From player
+			if !nox_xxx_playerCantTalkMB_57A160(pl) {
+				c.Printf(console.ColorYellow, "%s> %s", pl.Name(), text)
+				legacy.Nox_xxx_createTextBubble_48D880(data, text)
+			}
+			return msz
+		}
+		// From object
+		legacy.Nox_xxx_createTextBubble_48D880(data, text)
+		var dr *client.Drawable
+		if nox_xxx_netTestHighBit_578B70(hdr) {
+			dr = c.Objs.ByNetCodeStatic(id)
+		} else {
+			dr = c.Objs.ByNetCodeDynamic(id)
+		}
+		if dr != nil {
+			var pname string
+			if t := c.Things.TypeByInd(int(dr.TypeIDVal)); t != nil {
+				pname = alloc.GoString16(t.PrettyName)
+			}
+			c.Printf(console.ColorRed, "%s(%d)> %s", pname, hdr, text)
+		}
+		return msz
 	}
 	return legacy.Nox_xxx_netOnPacketRecvCli_48EA70_switch(ind, op, data)
+}
+
+func nox_xxx_playerCantTalkMB_57A160(pl *server.Player) bool {
+	if pl == nil {
+		return false
+	}
+	if !noxflags.HasGame(noxflags.GameClient) {
+		return false
+	}
+	return (pl.Field3680>>3)&0x1 != 0
 }
 
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind ntype.PlayerInd, data []byte) int {

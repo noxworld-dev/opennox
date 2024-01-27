@@ -797,6 +797,9 @@ func sub_435EB0() {
 }
 
 func nox_xxx_printCentered_445490(str string) {
+	if len(str) == 0 {
+		return
+	}
 	legacy.Nox_xxx_printCentered_445490(str)
 }
 

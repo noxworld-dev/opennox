@@ -33,7 +33,7 @@ func getServer(h uintptr) *Server {
 
 func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s := &Server{
-		pr: pr, sm: sm,
+		Printer: pr, sm: sm,
 		loopHooks: make(chan func()),
 		port:      common.GamePort,
 		NetList:   netlist.New(),
@@ -57,8 +57,8 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 type ObjectScriptID uint32
 
 type Server struct {
+	console.Printer
 	handle     uintptr
-	pr         console.Printer
 	sm         *strman.StringManager
 	frame      uint32
 	tickRate   uint32
@@ -108,14 +108,6 @@ type Server struct {
 
 func (s *Server) Close() {
 	servers.Delete(s.handle)
-}
-
-func (s *Server) Printer() console.Printer {
-	return s.pr
-}
-
-func (s *Server) Printf(cl console.Color, format string, args ...interface{}) {
-	s.pr.Printf(cl, format, args...)
 }
 
 func (s *Server) Strings() *strman.StringManager {
