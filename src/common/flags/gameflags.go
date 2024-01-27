@@ -48,7 +48,7 @@ const (
 	GamePause           = GameFlag(0x40000)    // 262144
 	GameFlag20          = GameFlag(0x80000)    // 524288
 	GameFlag21          = GameFlag(0x100000)   // 1048576
-	GameFlag22          = GameFlag(0x200000)   // 2097152
+	GameFlag22          = GameFlag(0x200000)   // 2097152, TODO: editor? map preview?
 	GameFlag23          = GameFlag(0x400000)   // 4194304
 	GameFlag24          = GameFlag(0x800000)   // 8388608
 	GameFlag25          = GameFlag(0x1000000)  // 16777216
