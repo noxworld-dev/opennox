@@ -107,11 +107,11 @@ func (c *clientMapDownload) startNative(name string, sz uint) error {
 	return nil
 }
 
-func (c *clientMapDownload) onMapDownloadStart(name string, a2 uint) {
+func (c *clientMapDownload) onMapDownloadStart(name string, sz uint) {
 	name = strings.TrimSuffix(strings.ToLower(name), maps.Ext)
-	c.log.Printf("download start (native): %q, %d", name, int(a2))
+	c.log.Printf("download start (native): %q, %d", name, int(sz))
 	c.native = true
-	if err := c.startNative(name, a2); err != nil {
+	if err := c.startNative(name, sz); err != nil {
 		c.log.Println("download start failed:", err)
 		c.iface.sendCancelMap()
 		c.setDownloading(false)

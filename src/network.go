@@ -956,7 +956,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		typ := data[1]
 		switch typ {
-		case 0:
+		case 0: // XFER_START
 			if len(data) < 140 {
 				return -1
 			}
@@ -966,7 +966,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			tok := data[136]
 			xferStart40B5D0(netstrGetClientIndex(), act, styp, sz, tok)
 			return 140
-		case 1:
+		case 1: // XFER_ACCEPT
 			if len(data) < 4 {
 				return -1
 			}
@@ -974,7 +974,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			a3 := data[3]
 			xferAccept40BFF0(netstrGetClientIndex(), a2, a3)
 			return 4
-		case 2:
+		case 2: // XFER_DATA
 			if len(data) < 8 {
 				return -1
 			}
@@ -986,13 +986,13 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			var buf [6]byte
 			buf[0] = byte(noxnet.MSG_XFER_MSG)
-			buf[1] = 3
+			buf[1] = 3 // XFER_ACK
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
 			netstrGetClientIndex().Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
 			xferDataChunk40B250(netstrGetClientIndex(), a2, a3, data[8:8+sz])
 			return 8 + sz
-		case 3:
+		case 3: // XFER_ACK
 			if len(data) < 6 {
 				return -1
 			}
@@ -1000,14 +1000,14 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			a3 := binary.LittleEndian.Uint16(data[4:])
 			xferAck40BF60(netstrGetClientIndex(), a2, a3)
 			return 6
-		case 4:
+		case 4: // XFER_CLOSE
 			if len(data) < 3 {
 				return -1
 			}
 			a2 := data[2]
 			xferClose40C030(netstrGetClientIndex(), a2)
 			return 3
-		case 5:
+		case 5: // XFER_CODE5
 			if len(data) < 4 {
 				return -1
 			}
@@ -1015,7 +1015,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			a3 := data[3]
 			xferCodeFive40B720(a3, a2)
 			return 4
-		case 6:
+		case 6: // XFER_CODE6
 			if len(data) < 4 {
 				return -1
 			}
@@ -1635,7 +1635,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		}
 		typ := data[1]
 		switch typ {
-		case 0:
+		case 0: // XFER_START
 			if len(data) < 140 {
 				return 0, false
 			}
@@ -1645,7 +1645,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			a4 := data[136]
 			xferStart40B5D0(netstr.Global.ByPlayer(pl), a2, styp, a3, a4)
 			return 140, true
-		case 1:
+		case 1: // XFER_ACCEPT
 			if len(data) < 4 {
 				return 0, false
 			}
@@ -1653,7 +1653,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			a3 := data[3]
 			xferAccept40BFF0(netstr.Global.ByPlayer(pl), a2, a3)
 			return 4, true
-		case 2:
+		case 2: // XFER_DATA
 			if len(data) < 8 {
 				return 0, false
 			}
@@ -1665,13 +1665,13 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			var buf [6]byte
 			buf[0] = byte(noxnet.MSG_XFER_MSG)
-			buf[1] = 3
+			buf[1] = 3 // XFER_ACK
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
 			netstr.Global.ByPlayer(pl).Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
 			xferDataChunk40B250(netstr.Global.ByPlayer(pl), a2, a3, data[8:8+sz])
 			return 8 + sz, true
-		case 3:
+		case 3: // XFER_ACK
 			if len(data) < 6 {
 				return 0, false
 			}
@@ -1679,14 +1679,14 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			a3 := binary.LittleEndian.Uint16(data[4:])
 			xferAck40BF60(netstr.Global.ByPlayer(pl), a2, a3)
 			return 6, true
-		case 4:
+		case 4: // XFER_CLOSE
 			if len(data) < 3 {
 				return 0, false
 			}
 			a2 := data[2]
 			xferClose40C030(netstr.Global.ByPlayer(pl), a2)
 			return 3, true
-		case 5:
+		case 5: // XFER_CODE5
 			if len(data) < 4 {
 				return 0, false
 			}
@@ -1694,7 +1694,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			a3 := data[3]
 			xferCodeFive40B720(a3, a2)
 			return 4, true
-		case 6:
+		case 6: // XFER_CODE6
 			if len(data) < 4 {
 				return 0, false
 			}
@@ -1757,7 +1757,7 @@ func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *server.Object) bool {
 func sub_40BA90(conn netstr.Handle, a2 byte, block uint16, data []byte) int {
 	buf := make([]byte, 8+len(data))
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 2 // XFER_BLOCK?
+	buf[1] = 2 // XFER_DATA
 	buf[2] = a2
 	buf[3] = 0
 	binary.LittleEndian.PutUint16(buf[4:], block)
@@ -1890,12 +1890,12 @@ func sub_40BF10() (*xferData, int) {
 	return nil, -1
 }
 
-func xferAccept40BFF0(a1 netstr.Handle, a2 byte, i byte) {
-	if int(i) >= xferDataCnt {
+func xferAccept40BFF0(a1 netstr.Handle, stream byte, tok byte) {
+	if int(tok) >= xferDataCnt {
 		return
 	}
-	p := &xferDataArr[i]
-	p.Stream4 = a2
+	p := &xferDataArr[tok]
+	p.Stream4 = stream
 	p.Kind6 = 2
 }
 
@@ -1919,7 +1919,7 @@ func sub_40BB20(conn netstr.Handle, a2 byte, a3 byte) *xferData {
 	}
 	var buf [4]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 5
+	buf[1] = 5 // XFER_CODE5
 	buf[2] = a2
 	buf[3] = a3
 	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
@@ -2001,15 +2001,15 @@ func sub_40BC60(pli ntype.PlayerInd, a2 byte, typ string, data []byte, flag bool
 	return true
 }
 
-func nox_xxx_netXferMsg_40BE80(conn netstr.Handle, a2 byte, typ string, sz int, a5 byte) {
+func nox_xxx_netXferMsg_40BE80(conn netstr.Handle, act byte, typ string, sz int, tok byte) {
 	var buf [140]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 0 // XFER_HEADER?
-	buf[2] = a2
+	buf[1] = 0 // XFER_START
+	buf[2] = act
 	binary.LittleEndian.PutUint32(buf[4:], uint32(sz))
 	n := copy(buf[8:136], typ)
 	buf[8+n] = 0
-	buf[136] = a5
+	buf[136] = tok
 	conn.Send(buf[:140], netstr.SendQueue|netstr.SendFlush)
 }
 
@@ -2076,7 +2076,7 @@ func xferStart40B5D0(a1 netstr.Handle, act byte, typ string, sz uint32, tok byte
 	p.Data20 = make([]byte, sz)
 	p.Frame156 = s.Frame()
 	dword_5d4594_3628++
-	sub_40B690(a1, ind, tok)
+	xferSendAccept(a1, ind, tok)
 }
 
 func sub_40B1F0(i byte) {
@@ -2115,7 +2115,7 @@ func sub_40B530(i byte, a2 byte) {
 func nox_xxx_neXfer_40B590(conn netstr.Handle, a2 byte, a3 byte) {
 	var buf [4]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 6
+	buf[1] = 6 // XFER_CODE6
 	buf[2] = a2
 	buf[3] = a3
 	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
@@ -2218,7 +2218,7 @@ func xferDataChunk40B250(ind netstr.Handle, a2 byte, a3 uint16, data []byte) {
 func nox_xxx_netXfer_40B4B0(conn netstr.Handle, a2 byte) {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 4
+	buf[1] = 4 // XFER_CLOSE
 	buf[2] = a2
 	conn.Send(buf[:3], netstr.SendQueue|netstr.SendFlush)
 }
@@ -2240,11 +2240,11 @@ func sub_40B790() {
 	}
 }
 
-func sub_40B690(conn netstr.Handle, a2 byte, tok byte) {
+func xferSendAccept(conn netstr.Handle, stream byte, tok byte) {
 	var buf [4]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 1
-	buf[2] = a2
+	buf[1] = 1 // XFER_ACCEPT
+	buf[2] = stream
 	buf[3] = tok
 	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
 }
