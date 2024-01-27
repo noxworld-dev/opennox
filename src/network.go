@@ -606,9 +606,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 	if len(data) == 0 {
 		return 0
 	}
+	if n, ok, err := c.Client.OnClientPacketOpSub(ind, op, data, localFrame, localFrame16); err != nil {
+		return -1
+	} else if ok {
+		return n
+	}
 	switch op {
-	case noxnet.MSG_XXX_STOP:
-		return 1
 	case noxnet.MSG_FULL_TIMESTAMP:
 		var p noxnet.MsgFullTimestamp
 		n, err := p.Decode(data[1:])
