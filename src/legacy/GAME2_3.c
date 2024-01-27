@@ -617,12 +617,6 @@ int sub_48D800() {
 	return 1;
 }
 
-//----- (0048D830) --------------------------------------------------------
-int sub_48D830(nox_drawable* dr) {
-	int a1 = dr;
-	return nox_xxx_netCode2ChatBubble_48D850(*(uint32_t*)(a1 + 128)) != 0;
-}
-
 //----- (0048D850) --------------------------------------------------------
 int nox_xxx_netCode2ChatBubble_48D850(int a1) {
 	int result; // eax

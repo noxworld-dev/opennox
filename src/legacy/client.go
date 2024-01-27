@@ -5,7 +5,6 @@ void sub_4519C0();
 int sub_495430();
 void sub_44D3A0();
 void sub_43D440();
-void nox_xxx_gameDeleteSpiningCrownSkull_4B8220();
 void nox_xxx_sprite_49C4F0();
 void sub_45D810();
 void sub_49A630();
@@ -128,10 +127,6 @@ func Sub_479280() {
 
 func Sub_45D810() {
 	C.sub_45D810()
-}
-
-func Nox_xxx_gameDeleteSpiningCrownSkull_4B8220() {
-	C.nox_xxx_gameDeleteSpiningCrownSkull_4B8220()
 }
 
 func Nox_xxx_sprite_49C4F0() {

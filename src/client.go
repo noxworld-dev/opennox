@@ -35,6 +35,7 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 		srv:    srv,
 		r:      NewNoxRender(cl.Render()),
 	}
+	c.info.Init(c)
 	c.guiAdv.Init(c)
 	c.screenshots.Init(c)
 	c.mapsend.Init(c)
@@ -53,7 +54,7 @@ type Client struct {
 	guiFPS                 guiFPS
 	screenshots            screenshots
 	tiles                  clientTileData
-	spells                 clientSpells
+	info                   clientDrawInfo
 	netPrevMouse           image.Point
 	inSub4312C0            bool
 	ticks805996            uint64

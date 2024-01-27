@@ -31,8 +31,7 @@ func (c *Client) nox_xxx_gameClearAll_467DF0(a1 bool) {
 		legacy.Sub_479280()
 	}
 	legacy.Sub_45D810()
-	legacy.Nox_xxx_gameDeleteSpiningCrownSkull_4B8220()
-	c.spells.skull = nil
+	c.info.Free()
 	c.Server.NPCs.Init()
 	legacy.Sub_4573B0()
 	acl := [3]uint32{

@@ -25,7 +25,6 @@ package legacy
 #include "client__draw__canidraw.h"
 #include "client__draw__slavedraw.h"
 #include "client__draw__staticdraw.h"
-#include "client__draw__vectdraw.h"
 #include "client__drawable__update__dball.h"
 #include "client__drawable__update__drainup.h"
 #include "client__drawable__update__healup.h"

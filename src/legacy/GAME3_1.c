@@ -15,7 +15,6 @@
 #include "GAME4.h"
 #include "GAME5_2.h"
 #include "client__draw__animdraw.h"
-#include "client__draw__vectdraw.h"
 #include "client__drawable__drawable.h"
 #include "client__gui__guisumn.h"
 #include "client__gui__servopts__advserv.h"
@@ -34,7 +33,6 @@
 #include "client__drawable__update__charmup.h"
 #include "client__drawable__update__fireball.h"
 #include "client__system__ctrlevnt.h"
-#include "client__system__npcinfo.h"
 
 #include "client__shell__optsback.h"
 #include "client__video__draw_common.h"
@@ -397,42 +395,6 @@ int nox_xxx_prepareLightningEffects_4BAB30() {
 // 4BBC74: variable 'v9' is possibly undefined
 // 4BC002: variable 'v5' is possibly undefined
 // 4BC002: variable 'v3' is possibly undefined
-
-//----- (004BC080) --------------------------------------------------------
-void nox_xxx_spriteDrawMonsterHP_4BC080(uint32_t* a1, int a2, unsigned short a3, unsigned short a4, char a5) {
-	int v5;    // edi
-	int v6;    // edi
-	int v7;    // ebp
-	int v8;    // ebx
-	int v9;    // esi
-	float v10; // [esp+0h] [ebp-14h]
-	float v11; // [esp+0h] [ebp-14h]
-	float v12; // [esp+0h] [ebp-14h]
-
-	if (a2) {
-		v5 = *a1 + *(uint32_t*)(a2 + 12) - a1[4];
-		v10 = *(float*)(a2 + 48) + *(float*)(a2 + 48);
-		v6 = nox_float2int(v10) + v5;
-		v7 = *(uint32_t*)(a2 + 16) + a1[1] - *(short*)(a2 + 104) - a1[5];
-		v11 = *(float*)(a2 + 100) - *(float*)(a2 + 96);
-		v8 = nox_float2int(v11);
-		if (v8 < 30) {
-			v8 = 30;
-		}
-		v12 = *(float*)(a2 + 96) + *(float*)(a2 + 100);
-		v9 = v7 + nox_float2int(v12) / -2 - v8 / 2;
-		if (a4) {
-			nox_client_drawSetColor_434460(nox_color_black_2650656);
-			nox_client_drawRectFilledOpaque_49CE30(v6, v9, 2, v8);
-			if (a5) {
-				nox_client_drawSetColor_434460(dword_8531A0_2572);
-			} else {
-				nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 940));
-			}
-			nox_client_drawRectFilledOpaque_49CE30(v6, v8 + v9 - v8 * a3 / a4, 2, v8 * a3 / a4);
-		}
-	}
-}
 
 //----- (004BC720) --------------------------------------------------------
 int sub_4BC720(int a1) {

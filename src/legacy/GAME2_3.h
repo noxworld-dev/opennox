@@ -28,7 +28,6 @@ int sub_48D740();
 void sub_48D760();
 int* sub_48D7B0();
 int sub_48D800();
-int sub_48D830(nox_drawable* dr);
 int nox_xxx_netCode2ChatBubble_48D850(int a1);
 wchar2_t* nox_xxx_createTextBubble_48D880(int a1, wchar2_t* a2);
 void sub_48D990(nox_draw_viewport_t* a1);

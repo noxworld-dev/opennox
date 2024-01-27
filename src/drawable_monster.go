@@ -96,13 +96,8 @@ func (c *Client) DrawMonster(vp *noxrender.Viewport, dr *client.Drawable) int {
 		res = c.drawAnimVector(vp, dr, ani)
 		c.r.Data().SetColorize17(0)
 	}
-	if dr.HasEnchant(server.ENCHANT_DEATH) {
-		c.DrawSpinningSkull(vp, dr)
-	}
-	if legacy.Nox_xxx_unitSpriteCheckAlly_4951F0(int(dr.NetCode32)) {
-		curHP, maxHP, alt, _ := legacy.Sub_495180(int(dr.NetCode32))
-		c.DrawMonsterHP(vp, dr, curHP, maxHP, alt)
-	}
+	c.DrawEnchantsTop(vp, dr)
+	c.DrawMonsterHP(vp, dr)
 	if !noxflags.HasGamePlay(noxflags.GameplayFlag4) && (c.ClientPlayerUnit() == nil || !c.ClientPlayerUnit().TeamPtr().Has()) {
 		c.r.Data().SetAlphaEnabled(false)
 		return res
@@ -186,7 +181,14 @@ func (c *Client) drawMonsterUpdate(dr *client.Drawable) {
 	}
 }
 
-func (c *Client) DrawMonsterHP(vp *noxrender.Viewport, dr *client.Drawable, curHP int, maxHP int, alt bool) {
+func (c *Client) DrawMonsterHP(vp *noxrender.Viewport, dr *client.Drawable) {
+	if legacy.Nox_xxx_unitSpriteCheckAlly_4951F0(int(dr.NetCode32)) {
+		curHP, maxHP, alt, _ := legacy.Sub_495180(int(dr.NetCode32))
+		c.drawMonsterHP(vp, dr, curHP, maxHP, alt)
+	}
+}
+
+func (c *Client) drawMonsterHP(vp *noxrender.Viewport, dr *client.Drawable, curHP int, maxHP int, alt bool) {
 	if dr == nil {
 		return
 	}

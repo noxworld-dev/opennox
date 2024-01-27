@@ -335,6 +335,12 @@ func init() {
 	legacy.Nox_thing_animate_state_draw = func(vp *noxrender.Viewport, dr *client.Drawable) int {
 		return noxClient.DrawAnimState(vp, dr)
 	}
+	legacy.Nox_thing_player_draw = func(vp *noxrender.Viewport, dr *client.Drawable) int {
+		return noxClient.DrawPlayer(vp, dr)
+	}
+	legacy.Nox_thing_npc_draw = func(vp *noxrender.Viewport, dr *client.Drawable) int {
+		return noxClient.DrawNPC(vp, dr)
+	}
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0 = func(a1 bool) {
 		noxServer.nox_xxx_mapSwitchLevel_4D12E0(a1)
 	}

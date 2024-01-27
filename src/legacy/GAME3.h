@@ -128,12 +128,6 @@ void sub_4B7EE0(short a1);
 int nox_xxx_spriteShieldLoad_4B7F90();
 uint32_t* nox_xxx_fxShield_4B8090(unsigned int a1, int a2);
 void nox_xxx_spriteScanForShield_4B81E0(int a1, int a2);
-int nox_xxx_gameDeleteSpiningCrownSkull_4B8220();
-void sub_4B8960(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6);
-uint32_t* sub_4B8CA0(uint32_t* a1, char* a2);
-void sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6);
 uint32_t* sub_4B8E10(uint32_t* a1, char* a2);
-void nox_xxx_drawOtherPlayerHP_4B8EB0(uint32_t* a1, nox_drawable* dr, unsigned short a3, char a4);
-int sub_4B8FA0(nox_drawable* dr, int* a2, int* a3);
 
 #endif // NOX_PORT_GAME3

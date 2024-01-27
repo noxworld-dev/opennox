@@ -285,3 +285,6 @@ func Nox_xxx_netReportAcquireCreature_4D91A0(pli int, obj *server.Object) {
 func Nox_xxx_netSendSimpleObject2_4DF360(pli int, obj *server.Object) {
 	C.nox_xxx_netSendSimpleObject2_4DF360(C.int(pli), asObjectC(obj))
 }
+func Nox_xxx_netCode2ChatBubble_48D850(a1 int) int {
+	return int(C.nox_xxx_netCode2ChatBubble_48D850(C.int(a1)))
+}

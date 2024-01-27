@@ -81,11 +81,9 @@ extern uint32_t dword_5d4594_1565512;
 extern uint32_t dword_5d4594_815028;
 extern uint32_t dword_5d4594_1301848;
 extern uint32_t dword_5d4594_1316712;
-extern uint32_t dword_5d4594_1313800;
 extern uint32_t dword_5d4594_1321232;
 extern uint32_t dword_5d4594_815024;
 extern uint32_t dword_5d4594_1045528;
-extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_815020;
 extern uint32_t dword_5d4594_1305680;
 extern uint32_t dword_5d4594_815032;
@@ -207,7 +205,6 @@ extern uint32_t dword_5d4594_1062516;
 extern uint32_t dword_5d4594_1316492;
 extern uint32_t dword_5d4594_2491616;
 extern uint32_t dword_5d4594_251744;
-extern uint32_t dword_5d4594_1313792;
 extern uint32_t dword_5d4594_2487248;
 extern uint32_t dword_5d4594_1046516;
 
@@ -1452,4 +1449,7 @@ func Set_dword_8531A0_2572(v uint32) {
 }
 func Get_dword_5d4594_2488620() uint32 {
 	return uint32(C.dword_5d4594_2488620)
+}
+func Nox_xxx_playerGet_470A90() int {
+	return int(C.dword_5d4594_1096252)
 }

@@ -101,7 +101,7 @@ func (c *Client) DrawAnimState(vp *noxrender.Viewport, dr *client.Drawable) int 
 	return c.drawAnimVector(vp, dr, ani)
 }
 
-func (c *Client) getAnimFrameInd(dr *client.Drawable, ani *client.AnimationVector) int { // sub_4BC5D0
+func (c *Client) getAnimFrameInd(dr *client.Drawable, ani *client.AnimationVector) int {
 	switch ani.Kind {
 	case client.AnimOneShot:
 		ind := int((c.Server.Frame() - dr.AnimStart) / (uint32(ani.Val42) + 1))
