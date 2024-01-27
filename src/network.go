@@ -606,7 +606,9 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 	if len(data) == 0 {
 		return 0
 	}
-	if n, ok, err := c.Client.OnClientPacketOpSub(ind, op, data, localFrame, localFrame16); err != nil {
+	if n, ok, err := c.Client.OnClientPacketOpSub(ind, op, data, localFrame, localFrame16, client.CurPlayerInfo{
+		Class: getPlayerClass(),
+	}); err != nil {
 		return -1
 	} else if ok {
 		return n
@@ -811,19 +813,6 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			nox_xxx_printCentered_445490(msg)
 		}
 		return 3
-	case noxnet.MSG_STAT_MULTIPLIERS:
-		var p noxnet.MsgStatMult
-		n, err := p.Decode(data[1:])
-		if err != nil {
-			return -1
-		}
-		c.Server.OnClassStats(getPlayerClass(), server.ClassStats{
-			Health:   p.Health,
-			Mana:     p.Mana,
-			Strength: p.Strength,
-			Speed:    p.Speed,
-		})
-		return 1 + n
 	case noxnet.MSG_REPORT_SPELL_START:
 		if len(data) < 2 {
 			return -1
