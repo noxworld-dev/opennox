@@ -724,7 +724,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return -1
 		}
 		playerID := nox_xxx_netClearHighBit_578B30(p.NetCode)
-		legacy.Set_nox_player_netCode_85319C(uint32(playerID))
+		legacy.ClientSetPlayerNetCode(int(playerID))
 		pl := c.srv.Players.NewRaw(int(playerID))
 		if pl != nil {
 			pl.Field2068 = p.Unk2
@@ -774,7 +774,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			format := c.Strings().GetStringInFile("PlayerJoined", "cdecode.c")
 			nox_xxx_printCentered_445490(fmt.Sprintf(format, pl.Name()))
 		}
-		if uint32(playerID) == uint32(legacy.Get_nox_player_netCode_85319C()) && alloc.GoString16((*uint16)(memmap.PtrOff(0x85B3FC, 12204))) != pl.Name() {
+		if uint32(playerID) == uint32(legacy.ClientPlayerNetCode()) && alloc.GoString16((*uint16)(memmap.PtrOff(0x85B3FC, 12204))) != pl.Name() {
 			legacy.Set_dword_5d4594_1200832(1)
 		}
 		return 129
@@ -1474,7 +1474,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			netcode := int(binary.LittleEndian.Uint16(data[6:]))
 			obj := s.getObjectFromNetCode(netcode)
-			legacy.Nox_xxx_createAtImpl_4191D0(tm.ID(), obj.TeamPtr(), 1, uint32(netcode), 1)
+			legacy.Nox_xxx_createAtImpl_4191D0(tm.ID(), obj.TeamPtr(), 1, netcode, 1)
 			return 10, true
 		case 11:
 			netcode := int(binary.LittleEndian.Uint16(data[6:]))

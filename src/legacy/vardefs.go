@@ -811,9 +811,6 @@ func Sub_43AF30() uint32 {
 	return uint32(C.dword_5d4594_815052)
 }
 
-func Get_nox_player_netCode_85319C() uint32 {
-	return uint32(C.nox_player_netCode_85319C)
-}
 func Get_nox_wol_server_result_cnt_815088() int {
 	return int(C.nox_wol_server_result_cnt_815088)
 }
@@ -1398,9 +1395,6 @@ func Set_qword_5d4594_814956(v uint64) {
 }
 func Set_dword_5d4594_1200804(v uint32) {
 	C.dword_5d4594_1200804 = C.uint(v)
-}
-func Set_nox_player_netCode_85319C(v uint32) {
-	C.nox_player_netCode_85319C = C.uint(v)
 }
 func Set_dword_5d4594_1200832(v int) {
 	C.dword_5d4594_1200832 = C.uint(v)

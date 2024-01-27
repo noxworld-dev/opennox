@@ -322,7 +322,7 @@ func (s *Server) setupQuestGame() {
 	legacy.Sub_4184D0(t.C())
 	for _, u := range s.Players.ListUnits() {
 		if u.ControllingPlayer().Field4792 == 1 {
-			legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), u.TeamPtr(), 1, u.NetCode, 0)
+			legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), u.TeamPtr(), 1, int(u.NetCode), 0)
 		}
 	}
 	s.Players.SaveStats2()

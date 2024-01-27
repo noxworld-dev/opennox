@@ -24,8 +24,8 @@ func nox_xxx_objGetTeamByNetCode_418C80(code int) *server.ObjectTeam {
 func (s *Server) createCoopTeam() {
 	noxflags.SetGame(noxflags.GameModeCoopTeam)
 	t := s.Teams.GetOrCreate(1)
-	if v1 := nox_xxx_objGetTeamByNetCode_418C80(int(legacy.Get_nox_player_netCode_85319C())); v1 != nil {
-		legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), v1, 0, legacy.Get_nox_player_netCode_85319C(), 0)
+	if v1 := nox_xxx_objGetTeamByNetCode_418C80(legacy.ClientPlayerNetCode()); v1 != nil {
+		legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), v1, 0, legacy.ClientPlayerNetCode(), 0)
 	}
 	if t != nil {
 		text := s.Strings().GetStringInFile("COOP", "C:\\NoxPost\\src\\common\\System\\team.c")

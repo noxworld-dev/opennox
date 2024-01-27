@@ -278,7 +278,7 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 	obj.ObjFlags |= uint32(object.FlagPending)
 	if obj.TeamVal.ID != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
 		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGamePlay(noxflags.GameplayFlag4) {
-			legacy.Nox_xxx_createAtImpl_4191D0(obj.TeamVal.ID, obj.TeamPtr(), 0, obj.NetCode, 0)
+			legacy.Nox_xxx_createAtImpl_4191D0(obj.TeamVal.ID, obj.TeamPtr(), 0, int(obj.NetCode), 0)
 		}
 	}
 }
@@ -1211,7 +1211,7 @@ func (obj *Object) SetTeam(tm *server.Team) {
 		return // TODO: support clearing the team
 	}
 	// TODO: check arg3 and arg5
-	legacy.Nox_xxx_createAtImpl_4191D0(tm.ID(), obj.TeamPtr(), 1, obj.NetCode, 0)
+	legacy.Nox_xxx_createAtImpl_4191D0(tm.ID(), obj.TeamPtr(), 1, int(obj.NetCode), 0)
 }
 
 func (obj *Object) IsLocked() bool {
