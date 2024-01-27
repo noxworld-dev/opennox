@@ -607,7 +607,8 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		return 0
 	}
 	if n, ok, err := c.Client.OnClientPacketOpSub(ind, op, data, localFrame, localFrame16, client.CurPlayerInfo{
-		Class: getPlayerClass(),
+		Connected: nox_client_isConnected(),
+		Class:     getPlayerClass(),
 	}); err != nil {
 		return -1
 	} else if ok {
@@ -683,15 +684,6 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			sub_43C7A0(uint32(data[1]))
 		}
 		return 1 + 1
-	case noxnet.MSG_DESTROY_WALL:
-		if len(data) < 3 {
-			return -1
-		}
-		if nox_client_isConnected() && !noxflags.HasGame(noxflags.GameHost) {
-			id := binary.LittleEndian.Uint16(data[1:])
-			c.srv.Walls.BreakByID(id)
-		}
-		return 3
 	case noxnet.MSG_SERVER_QUIT:
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_SERVER_QUIT_ACK)

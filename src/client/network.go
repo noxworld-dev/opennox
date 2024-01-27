@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/player"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -15,7 +16,8 @@ var (
 )
 
 type CurPlayerInfo struct {
-	Class player.Class
+	Connected bool
+	Class     player.Class
 }
 
 func (c *Client) OnClientPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, localFrame *uint32, localFrame16 *uint16, cur CurPlayerInfo) (int, bool, error) {
@@ -35,6 +37,16 @@ func (c *Client) OnClientPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []b
 			Speed:    p.Speed,
 		})
 		return 1 + n, true, nil
+	case noxnet.MSG_DESTROY_WALL:
+		var p noxnet.MsgWallDestroy
+		n, err := p.Decode(data[1:])
+		if err != nil {
+			return 0, false, err
+		}
+		if cur.Connected && !noxflags.HasGame(noxflags.GameHost) {
+			c.Server.Walls.BreakByID(p.ID)
+		}
+		return n + 1, true, nil
 	}
 	return 0, false, nil
 }
