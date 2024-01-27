@@ -603,6 +603,22 @@ type EquipmentData struct {
 	Field20 uint32            // 5, 20
 }
 
+type EquipWeaponData = [PlayerWeaponCnt]EquipmentData
+type EquipArmorData = [PlayerArmorCnt]EquipmentData
+
+type ArmorAndWeaponHolder interface {
+	ArmorHolder
+	WeaponHolder
+}
+
+type ArmorHolder interface {
+	ArmorData() (equip uint32, arr *EquipArmorData)
+}
+
+type WeaponHolder interface {
+	WeaponData() (equip uint32, arr *EquipWeaponData)
+}
+
 var (
 	_ = [1]struct{}{}[4828-unsafe.Sizeof(Player{})]
 	_ = [1]struct{}{}[2185-unsafe.Offsetof(Player{}.info)]
@@ -613,7 +629,8 @@ var (
 )
 
 var (
-	_ Obj = (*Player)(nil) // proxies Unit
+	_ Obj                  = (*Player)(nil) // proxies Unit
+	_ ArmorAndWeaponHolder = (*Player)(nil)
 )
 
 type Player struct {
@@ -647,19 +664,19 @@ type Player struct {
 	Field2168           uint32 // 542, 2168
 	Field2172           byte   // 543, 2172
 	_                   [12]byte
-	info                [97]byte                       // 2185
-	Field2282           uint16                         // 2282
-	CursorVec           image.Point                    // 2284
-	Color5              uint32                         // 573, 2292
-	Color0              uint32                         // 574, 2296
-	Color4              uint32                         // 575, 2300
-	Color1              uint32                         // 576, 2304
-	Color3              uint32                         // 577, 2308
-	Color2              uint32                         // 578, 2312
-	Field2316           uint32                         // 579, 2316
-	Field2320           uint32                         // 580, 2320
-	Weapon              [PlayerWeaponCnt]EquipmentData // 581, 2324
-	Armor               [PlayerArmorCnt]EquipmentData  // 743, 2972
+	info                [97]byte        // 2185
+	Field2282           uint16          // 2282
+	CursorVec           image.Point     // 2284
+	Color5              uint32          // 573, 2292
+	Color0              uint32          // 574, 2296
+	Color4              uint32          // 575, 2300
+	Color1              uint32          // 576, 2304
+	Color3              uint32          // 577, 2308
+	Color2              uint32          // 578, 2312
+	Field2316           uint32          // 579, 2316
+	Field2320           uint32          // 580, 2320
+	Weapon              EquipWeaponData // 581, 2324
+	Armor               EquipArmorData  // 743, 2972
 	Frame3596           uint32
 	Field3600           uint32         // 900, 3600
 	Field3604           uint32         // 901, 3604
@@ -732,6 +749,14 @@ type Player struct {
 	Field4792           uint32       // 1198, 4792
 	field4796           uint32       // 1199, 4796
 	data4800            [7]uint32
+}
+
+func (p *Player) ArmorData() (uint32, *EquipArmorData) {
+	return p.ArmorEquip, &p.Armor
+}
+
+func (p *Player) WeaponData() (uint32, *EquipWeaponData) {
+	return p.WeaponEquip, &p.Weapon
 }
 
 func (p *Player) C() unsafe.Pointer {
