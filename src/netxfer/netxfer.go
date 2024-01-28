@@ -2,6 +2,7 @@ package netxfer
 
 import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/noxnet/xfer"
 
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
@@ -11,11 +12,9 @@ const (
 	maxStreams = 256
 )
 
-type Action byte
+type Action = xfer.Action
 
 type Time = uint32
-
-type chunkInd uint16
 
 type NetXfer struct {
 	send sender
@@ -47,22 +46,19 @@ func (x *NetXfer) CancelSend(conn netstr.Handle) {
 
 func (x *NetXfer) Handle(conn netstr.Handle, ts Time, m *noxnet.MsgXfer) {
 	switch m := m.Msg.(type) {
-	case *noxnet.MsgXferStart:
+	case *xfer.MsgStart:
 		x.recv.HandleStart(conn, ts, m)
-	case *noxnet.MsgXferState:
-		switch m.Code {
-		case noxnet.XferAccept:
-			x.send.HandleAccept(conn, m)
-		case noxnet.XferCode5:
-			x.recv.HandleCancel(m)
-		case noxnet.XferCode6:
-			x.send.HandleAbort(conn, m)
-		}
-	case *noxnet.MsgXferData:
+	case *xfer.MsgAccept:
+		x.send.HandleAccept(conn, m)
+	case *xfer.MsgCancel:
+		x.recv.HandleCancel(m)
+	case *xfer.MsgAbort:
+		x.send.HandleAbort(conn, m)
+	case *xfer.MsgData:
 		x.recv.HandleData(conn, ts, m)
-	case *noxnet.MsgXferAck:
+	case *xfer.MsgAck:
 		x.send.HandleAck(conn, m)
-	case *noxnet.MsgXferClose:
+	case *xfer.MsgDone:
 		x.send.HandleDone(conn, m)
 	}
 }

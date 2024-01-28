@@ -2,16 +2,15 @@ package netxfer
 
 import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/noxnet/xfer"
 
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 type ReceiveFunc func(conn netstr.Handle, act Action, typ string, data []byte)
 
-type recvStreamID byte
-
 type recvChunk struct {
-	ind  chunkInd
+	ind  xfer.Chunk
 	data []byte
 	next *recvChunk
 	prev *recvChunk
@@ -20,7 +19,7 @@ type recvChunk struct {
 type recvStream struct {
 	conn       netstr.Handle
 	action     Action
-	index      recvStreamID
+	recvID     xfer.RecvID
 	nextChunk  int
 	received   int
 	full       []byte
@@ -31,15 +30,15 @@ type recvStream struct {
 	last       *recvChunk
 }
 
-func (p *recvStream) Reset(id recvStreamID) {
+func (p *recvStream) Reset(id xfer.RecvID) {
 	*p = recvStream{
 		conn:      p.conn,
-		index:     id,
+		recvID:    id,
 		nextChunk: 1,
 	}
 }
 
-func (p *recvStream) AddChunk(chunk chunkInd, data []byte) {
+func (p *recvStream) AddChunk(chunk xfer.Chunk, data []byte) {
 	if int(chunk) == p.nextChunk {
 		copy(p.full[p.received:p.received+len(data)], data)
 		p.received += len(data)
@@ -101,23 +100,23 @@ func (x *receiver) Init(n int, onRecv ReceiveFunc) {
 	x.active = 0
 	x.arr = make([]recvStream, n)
 	for i := 0; i < n; i++ {
-		x.arr[i].Reset(recvStreamID(i))
+		x.arr[i].Reset(xfer.RecvID(i))
 	}
 }
 
-func (x *receiver) reset(i recvStreamID) {
-	x.arr[i].Reset(i)
+func (x *receiver) reset(rid xfer.RecvID) {
+	x.arr[rid].Reset(rid)
 }
 
 func (x *receiver) Free() {
 	for i := 0; i < x.cnt; i++ {
-		x.free(recvStreamID(i))
+		x.free(xfer.RecvID(i))
 	}
 	x.arr = nil
 }
 
-func (x *receiver) free(i recvStreamID) {
-	p := &x.arr[i]
+func (x *receiver) free(rid xfer.RecvID) {
+	p := &x.arr[rid]
 	for it := p.first; it != nil; it = it.next {
 		*it = recvChunk{}
 	}
@@ -127,20 +126,20 @@ func (x *receiver) Update(ts Time) {
 	for i := 0; i < x.cnt; i++ {
 		it := &x.arr[i]
 		if len(it.full) != 0 && ts > it.lastUpdate+900 {
-			x.abort(recvStreamID(i), 3)
+			x.abort(xfer.RecvID(i), xfer.ErrRecvTimeout)
 		}
 	}
 }
 
-func (x *receiver) abort(i recvStreamID, reason byte) {
-	p := &x.arr[i]
+func (x *receiver) abort(rid xfer.RecvID, reason xfer.Error) {
+	p := &x.arr[rid]
 	if len(p.full) != 0 {
-		sendCode6(p.conn, p.index, reason)
+		sendAbort(p.conn, p.recvID, reason)
 		if x.active != 0 {
 			x.active--
 		}
-		x.free(i)
-		x.reset(i)
+		x.free(rid)
+		x.reset(rid)
 	}
 }
 
@@ -151,7 +150,7 @@ func (x *receiver) new() *recvStream {
 	for id := 0; id < x.cnt; id++ {
 		it := &x.arr[id]
 		if len(it.full) == 0 {
-			it.index = recvStreamID(id)
+			it.recvID = xfer.RecvID(id)
 			return it
 		}
 	}
@@ -167,22 +166,22 @@ func (x *receiver) New(conn netstr.Handle, act Action, typ string, sz uint32) *r
 	return p
 }
 
-func (x *receiver) HandleStart(conn netstr.Handle, ts Time, m *noxnet.MsgXferStart) {
+func (x *receiver) HandleStart(conn netstr.Handle, ts Time, m *xfer.MsgStart) {
 	if m.Size == 0 {
 		return
 	}
-	p := x.New(conn, Action(m.Act), m.Type.Value, m.Size)
+	p := x.New(conn, m.Act, m.Type.Value, m.Size)
 	if p == nil {
 		return
 	}
 	p.lastUpdate = ts
 	x.active++
-	sendAccept(conn, p.index, m.Token)
+	sendAccept(conn, p.recvID, m.SendID)
 }
 
-func (x *receiver) HandleData(conn netstr.Handle, ts Time, m *noxnet.MsgXferData) {
-	id := recvStreamID(m.Stream)
-	chunk := chunkInd(m.Chunk)
+func (x *receiver) HandleData(conn netstr.Handle, ts Time, m *xfer.MsgData) {
+	id := m.RecvID
+	chunk := m.Chunk
 	sendAck(conn, id, chunk)
 	if len(m.Data) == 0 {
 		return
@@ -197,7 +196,7 @@ func (x *receiver) HandleData(conn netstr.Handle, ts Time, m *noxnet.MsgXferData
 	p.lastUpdate = ts
 	p.AddChunk(chunk, m.Data)
 	if p.received == len(p.full) {
-		sendClose(p.conn, p.index)
+		sendDone(p.conn, p.recvID)
 		if x.onReceive != nil {
 			x.onReceive(conn, p.action, p.typ, p.full)
 		}
@@ -210,38 +209,36 @@ func (x *receiver) HandleData(conn netstr.Handle, ts Time, m *noxnet.MsgXferData
 	}
 }
 
-func (x *receiver) HandleCancel(m *noxnet.MsgXferState) {
-	id := recvStreamID(m.Stream)
+func (x *receiver) HandleCancel(m *xfer.MsgCancel) {
+	id := m.RecvID
 	x.free(id)
 	x.reset(id)
 }
 
-func sendAck(conn netstr.Handle, stream recvStreamID, chunk chunkInd) {
-	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferAck{
-		Stream: byte(stream),
+func sendAck(conn netstr.Handle, rid xfer.RecvID, chunk xfer.Chunk) {
+	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgAck{
+		RecvID: rid,
 		Token:  0,
-		Chunk:  uint16(chunk),
+		Chunk:  chunk,
 	}}, netstr.SendQueue|netstr.SendFlush)
 }
 
-func sendAccept(conn netstr.Handle, stream recvStreamID, tok byte) {
-	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferState{
-		Code:   noxnet.XferAccept,
-		Stream: byte(stream),
-		Token:  tok,
+func sendAccept(conn netstr.Handle, rid xfer.RecvID, sid xfer.SendID) {
+	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgAccept{
+		RecvID: rid,
+		SendID: sid,
 	}}, netstr.SendQueue|netstr.SendFlush)
 }
 
-func sendClose(conn netstr.Handle, stream recvStreamID) {
-	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferClose{
-		Stream: byte(stream),
+func sendDone(conn netstr.Handle, stream xfer.RecvID) {
+	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgDone{
+		RecvID: stream,
 	}}, netstr.SendQueue|netstr.SendFlush)
 }
 
-func sendCode6(conn netstr.Handle, stream recvStreamID, reason byte) {
-	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferState{
-		Code:   noxnet.XferCode6,
-		Stream: byte(stream),
-		Token:  reason,
+func sendAbort(conn netstr.Handle, stream xfer.RecvID, reason xfer.Error) {
+	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgAbort{
+		RecvID: stream,
+		Reason: reason,
 	}}, netstr.SendQueue|netstr.SendFlush)
 }
