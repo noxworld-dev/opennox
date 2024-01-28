@@ -431,8 +431,8 @@ func RunArgs(args []string) (gerr error) {
 	platform.RandSeedTime()
 	legacy.Nox_xxx_mapSelectFirst_4D0E00()
 	noxServer.NetList.Init()
-	sub_40B890(32)
-	sub_40B170(32)
+	xferSendr.Init(32)
+	xferRecvr.Init(32)
 	legacy.Sub_4134D0()
 	if v := noxClient.Strings().Lang(); v == 6 || v == 8 {
 		noxClient.r.SetBold(false)
@@ -523,8 +523,8 @@ func cleanup() {
 	noxServer.NetList.Free()
 	legacy.Sub_4D11D0()
 	legacy.Sub_4D0DA0()
-	sub_40C0D0()
-	sub_40B740()
+	xferSendr.Free()
+	xferRecvr.Free()
 	legacy.Nox_common_maplist_free_4D0970()
 	ail.Shutdown()
 }

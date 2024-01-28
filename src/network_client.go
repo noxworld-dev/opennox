@@ -387,7 +387,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			sz := binary.LittleEndian.Uint32(data[4:])
 			styp := alloc.GoStringS(data[8:136])
 			tok := data[136]
-			xferStart40B5D0(netstrGetClientIndex(), act, styp, sz, tok)
+			xferRecvr.HandleStart(netstrGetClientIndex(), c.Server.Frame(), act, styp, sz, tok)
 			return 140
 		case 1: // XFER_ACCEPT
 			if len(data) < 4 {
@@ -395,7 +395,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := data[3]
-			xferAccept40BFF0(netstrGetClientIndex(), a2, a3)
+			xferSendr.HandleAccept(netstrGetClientIndex(), a2, a3)
 			return 4
 		case 2: // XFER_DATA
 			if len(data) < 8 {
@@ -413,7 +413,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
 			netstrGetClientIndex().Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
-			xferDataChunk40B250(netstrGetClientIndex(), a2, a3, data[8:8+sz])
+			xferRecvr.HandleData(netstrGetClientIndex(), c.Server.Frame(), a2, a3, data[8:8+sz])
 			return 8 + sz
 		case 3: // XFER_ACK
 			if len(data) < 6 {
@@ -421,14 +421,14 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := binary.LittleEndian.Uint16(data[4:])
-			xferAck40BF60(netstrGetClientIndex(), a2, a3)
+			xferSendr.HandleAck(netstrGetClientIndex(), a2, a3)
 			return 6
 		case 4: // XFER_CLOSE
 			if len(data) < 3 {
 				return -1
 			}
 			a2 := data[2]
-			xferClose40C030(netstrGetClientIndex(), a2)
+			xferSendr.HandleDone(netstrGetClientIndex(), a2)
 			return 3
 		case 5: // XFER_CODE5
 			if len(data) < 4 {
@@ -436,7 +436,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := data[3]
-			xferCodeFive40B720(a3, a2)
+			xferRecvr.HandleCancel(a3, a2)
 			return 4
 		case 6: // XFER_CODE6
 			if len(data) < 4 {
@@ -444,7 +444,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			}
 			a2 := data[2]
 			a3 := data[3]
-			xferCodeSix40C070(netstrGetClientIndex(), a3, a2)
+			xferSendr.HandleAbort(netstrGetClientIndex(), a3, a2)
 			return 4
 		}
 		return -1

@@ -338,7 +338,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			a3 := binary.LittleEndian.Uint32(data[4:])
 			styp := alloc.GoStringS(data[8:136])
 			a4 := data[136]
-			xferStart40B5D0(netstr.Global.ByPlayer(pl), a2, styp, a3, a4)
+			xferRecvr.HandleStart(netstr.Global.ByPlayer(pl), s.Frame(), a2, styp, a3, a4)
 			return 140, true
 		case 1: // XFER_ACCEPT
 			if len(data) < 4 {
@@ -346,7 +346,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			xferAccept40BFF0(netstr.Global.ByPlayer(pl), a2, a3)
+			xferSendr.HandleAccept(netstr.Global.ByPlayer(pl), a2, a3)
 			return 4, true
 		case 2: // XFER_DATA
 			if len(data) < 8 {
@@ -364,7 +364,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
 			netstr.Global.ByPlayer(pl).Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
-			xferDataChunk40B250(netstr.Global.ByPlayer(pl), a2, a3, data[8:8+sz])
+			xferRecvr.HandleData(netstr.Global.ByPlayer(pl), s.Frame(), a2, a3, data[8:8+sz])
 			return 8 + sz, true
 		case 3: // XFER_ACK
 			if len(data) < 6 {
@@ -372,14 +372,14 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := binary.LittleEndian.Uint16(data[4:])
-			xferAck40BF60(netstr.Global.ByPlayer(pl), a2, a3)
+			xferSendr.HandleAck(netstr.Global.ByPlayer(pl), a2, a3)
 			return 6, true
 		case 4: // XFER_CLOSE
 			if len(data) < 3 {
 				return 0, false
 			}
 			a2 := data[2]
-			xferClose40C030(netstr.Global.ByPlayer(pl), a2)
+			xferSendr.HandleDone(netstr.Global.ByPlayer(pl), a2)
 			return 3, true
 		case 5: // XFER_CODE5
 			if len(data) < 4 {
@@ -387,7 +387,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			xferCodeFive40B720(a3, a2)
+			xferRecvr.HandleCancel(a3, a2)
 			return 4, true
 		case 6: // XFER_CODE6
 			if len(data) < 4 {
@@ -395,7 +395,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			}
 			a2 := data[2]
 			a3 := data[3]
-			xferCodeSix40C070(netstr.Global.ByPlayer(pl), a3, a2)
+			xferSendr.HandleAbort(netstr.Global.ByPlayer(pl), a3, a2)
 			return 4, true
 		}
 		return 0, false

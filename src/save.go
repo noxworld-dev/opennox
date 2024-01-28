@@ -248,8 +248,8 @@ func serverQuitAck() {
 	}
 }
 
-func sub_40BBC0(ind netstr.Handle, a2 byte) {
-	if a2 == 2 {
+func netXferSendAborted(ind netstr.Handle, act byte) {
+	if act == 2 {
 		if sub_446030() {
 			serverQuitAck()
 			if sub_446090() {
@@ -257,12 +257,12 @@ func sub_40BBC0(ind netstr.Handle, a2 byte) {
 				sub_446060()
 			}
 		}
-	} else if a2 == 3 {
+	} else if act == 3 {
 		nox_game_exit_xxx2()
 	}
 }
 
-func sub_40B850(ind netstr.Handle, act byte) {
+func netXferSendDone(ind netstr.Handle, act byte) {
 	if act == 2 && sub_446030() {
 		serverQuitAck()
 		if sub_446090() {
@@ -272,9 +272,9 @@ func sub_40B850(ind netstr.Handle, act byte) {
 	}
 }
 
-func sub_40B810(act byte, data []byte) {
+func netXferLocal(act byte, data []byte) {
 	xferDataCallback40AF90(server.HostPlayerIndex, 0, act, memmap.String(0x5D4594, 4664), data)
-	sub_40B850(netstr.Global.First(), act)
+	netXferSendDone(netstr.Global.First(), act)
 }
 
 func nox_xxx_serverIsClosing_446180() int {
@@ -671,7 +671,7 @@ func sub41CFA0(a1 string, a2 ntype.PlayerInd) bool {
 
 	f.Read(buf)
 	sub_419EB0(a2, 1)
-	sub_40BC60(a2, 2, "SAVEDATA", buf, true)
+	xferSendr.Send(a2, 2, "SAVEDATA", buf, true)
 	return true
 }
 
