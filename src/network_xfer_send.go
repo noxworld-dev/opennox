@@ -213,8 +213,7 @@ func (x *xferSender) Send(pli ntype.PlayerInd, act byte, typ string, data []byte
 func (x *xferSender) Cancel(ind netstr.Handle) {
 	for i := 0; i < x.cnt; i++ {
 		it := &x.arr[i]
-		// TODO: shouldn't it be State == 2?
-		if it.BlockCnt == 2 && it.Conn == ind {
+		if it.State == xferSendAccepted && it.Conn == ind {
 			x.cancel(it, 1)
 		}
 	}
