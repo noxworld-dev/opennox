@@ -671,7 +671,7 @@ func sub41CFA0(a1 string, a2 ntype.PlayerInd) bool {
 
 	f.Read(buf)
 	sub_419EB0(a2, 1)
-	xferSendr.Send(a2, 2, "SAVEDATA", buf, true)
+	netXfer.Send(a2, 2, "SAVEDATA", buf, true)
 	return true
 }
 

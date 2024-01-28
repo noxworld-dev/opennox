@@ -9,10 +9,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var (
-	xferSendr xferSender
-)
-
 const (
 	xferSendFree     = xferSendState(0)
 	xferSendStarted  = xferSendState(1)

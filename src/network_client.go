@@ -380,25 +380,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return -1
 		}
 		conn := netstrGetClientIndex()
-		switch x := p.Msg.(type) {
-		case *noxnet.MsgXferStart:
-			xferRecvr.HandleStart(conn, c.Server.Frame(), x)
-		case *noxnet.MsgXferState:
-			switch x.Code {
-			case noxnet.XferAccept:
-				xferSendr.HandleAccept(conn, x)
-			case noxnet.XferCode5:
-				xferRecvr.HandleCancel(x)
-			case noxnet.XferCode6:
-				xferSendr.HandleAbort(conn, x)
-			}
-		case *noxnet.MsgXferData:
-			xferRecvr.HandleData(conn, c.Server.Frame(), x)
-		case *noxnet.MsgXferAck:
-			xferSendr.HandleAck(conn, x)
-		case *noxnet.MsgXferClose:
-			xferSendr.HandleDone(conn, x)
-		}
+		netXfer.Handle(conn, c.Server.Frame(), &p)
 		return 1 + n
 	case noxnet.MSG_TEXT_MESSAGE:
 		var p noxnet.MsgText

@@ -324,8 +324,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		return false
 	}
 	s.mapSend.Update()
-	xferSendr.Update(s.Frame())
-	xferRecvr.Update(s.Frame())
+	netXfer.Update(s.Frame())
 	if !noxflags.HasGame(noxflags.GamePause) {
 		s.updateUnits()
 		legacy.Sub_4EC720()

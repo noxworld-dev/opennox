@@ -331,25 +331,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			return 0, false
 		}
 		conn := netstr.Global.ByPlayer(pl)
-		switch x := p.Msg.(type) {
-		case *noxnet.MsgXferStart:
-			xferRecvr.HandleStart(conn, s.Frame(), x)
-		case *noxnet.MsgXferState:
-			switch x.Code {
-			case noxnet.XferAccept:
-				xferSendr.HandleAccept(conn, x)
-			case noxnet.XferCode5:
-				xferRecvr.HandleCancel(x)
-			case noxnet.XferCode6:
-				xferSendr.HandleAbort(conn, x)
-			}
-		case *noxnet.MsgXferData:
-			xferRecvr.HandleData(conn, s.Frame(), x)
-		case *noxnet.MsgXferAck:
-			xferSendr.HandleAck(conn, x)
-		case *noxnet.MsgXferClose:
-			xferSendr.HandleDone(conn, x)
-		}
+		netXfer.Handle(conn, s.Frame(), &p)
 		return 1 + n, true
 	default:
 		res := legacy.Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(pli, data, pl, u, u.UpdateData)

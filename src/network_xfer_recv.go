@@ -6,10 +6,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
-var (
-	xferRecvr xferReceiver
-)
-
 type xferBlockRecv struct {
 	Ind  uint16
 	Data []byte
