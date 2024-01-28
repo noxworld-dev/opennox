@@ -163,33 +163,34 @@ func (x *xferReceiver) New(conn netstr.Handle, act byte, typ string, sz uint32) 
 	return p
 }
 
-func (x *xferReceiver) HandleStart(conn netstr.Handle, ts uint32, act byte, typ string, sz uint32, tok byte) {
-	if sz == 0 {
+func (x *xferReceiver) HandleStart(conn netstr.Handle, ts uint32, m *noxnet.MsgXferStart) {
+	if m.Size == 0 {
 		return
 	}
-	p := x.New(conn, act, typ, sz)
+	p := x.New(conn, m.Act, m.Type.Value, m.Size)
 	if p == nil {
 		return
 	}
 	p.LastUpdate = ts
 	x.active++
-	netSendXferAccept(conn, p.Index, tok)
+	netSendXferAccept(conn, p.Index, m.Token)
 }
 
-func (x *xferReceiver) HandleData(conn netstr.Handle, ts uint32, stream byte, chunk uint16, data []byte) {
-	netSendXferAck(conn, stream, chunk)
-	if len(data) == 0 {
+func (x *xferReceiver) HandleData(conn netstr.Handle, ts uint32, m *noxnet.MsgXferData) {
+	netSendXferAck(conn, m.Stream, m.Chunk)
+	if len(m.Data) == 0 {
 		return
 	}
-	if int(stream) >= x.cnt {
+	ind := int(m.Stream)
+	if ind >= x.cnt {
 		return
 	}
-	p := &x.arr[stream]
+	p := &x.arr[ind]
 	if len(p.Result) == 0 {
 		return
 	}
 	p.LastUpdate = ts
-	p.AddChunk(chunk, data)
+	p.AddChunk(m.Chunk, m.Data)
 	if p.Received == len(p.Result) {
 		netSendXferClose(p.Conn, p.Index)
 		xferDataCallback40AF90(conn.Player(), p.Index, p.Action, p.Type, p.Result)
@@ -197,14 +198,15 @@ func (x *xferReceiver) HandleData(conn netstr.Handle, ts uint32, stream byte, ch
 			x.active--
 		}
 		p.Result = nil
-		x.free(int(stream))
-		x.reset(int(stream))
+		x.free(ind)
+		x.reset(ind)
 	}
 }
 
-func (x *xferReceiver) HandleCancel(reason byte, a2 byte) {
-	x.free(int(a2))
-	x.reset(int(a2))
+func (x *xferReceiver) HandleCancel(m *noxnet.MsgXferState) {
+	ind := int(m.Stream)
+	x.free(ind)
+	x.reset(ind)
 }
 
 func netSendXferAck(conn netstr.Handle, stream byte, chunk uint16) {

@@ -333,22 +333,22 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		conn := netstr.Global.ByPlayer(pl)
 		switch x := p.Msg.(type) {
 		case *noxnet.MsgXferStart:
-			xferRecvr.HandleStart(conn, s.Frame(), x.Act, x.Type.Value, x.Size, x.Token)
+			xferRecvr.HandleStart(conn, s.Frame(), x)
 		case *noxnet.MsgXferState:
 			switch x.Code {
 			case noxnet.XferAccept:
-				xferSendr.HandleAccept(conn, x.Stream, x.Token)
+				xferSendr.HandleAccept(conn, x)
 			case noxnet.XferCode5:
-				xferRecvr.HandleCancel(x.Token, x.Stream)
+				xferRecvr.HandleCancel(x)
 			case noxnet.XferCode6:
-				xferSendr.HandleAbort(conn, x.Token, x.Stream)
+				xferSendr.HandleAbort(conn, x)
 			}
 		case *noxnet.MsgXferData:
-			xferRecvr.HandleData(conn, s.Frame(), x.Stream, x.Chunk, x.Data)
+			xferRecvr.HandleData(conn, s.Frame(), x)
 		case *noxnet.MsgXferAck:
-			xferSendr.HandleAck(conn, x.Stream, x.Chunk)
+			xferSendr.HandleAck(conn, x)
 		case *noxnet.MsgXferClose:
-			xferSendr.HandleDone(conn, x.Stream)
+			xferSendr.HandleDone(conn, x)
 		}
 		return 1 + n, true
 	default:

@@ -32,7 +32,7 @@ type xferBlockSend struct {
 
 type xferSend struct {
 	Conn      netstr.Handle
-	Index     byte
+	Stream    byte
 	State     xferSendState
 	Size      int
 	NextBlock uint32
@@ -54,6 +54,28 @@ func (p *xferSend) Reset() {
 func (p *xferSend) Free() {
 	for it := p.First; it != nil; it = it.Next {
 		*it = xferBlockSend{}
+	}
+}
+
+func (p *xferSend) Ack(chunk uint16) {
+	if p == nil {
+		return
+	}
+	for it := p.First; it != nil; it = it.Next {
+		if it.Ind == chunk {
+			if next := it.Next; next != nil {
+				next.Prev = it.Prev
+			} else {
+				p.Last = it.Prev
+			}
+			if prev := it.Prev; prev != nil {
+				prev.Next = it.Next
+			} else {
+				p.First = it.Next
+			}
+			*it = xferBlockSend{}
+			return
+		}
 	}
 }
 
@@ -81,50 +103,32 @@ func (x *xferSender) Init(n int) {
 	x.active = 0
 }
 
-func (x *xferSender) find(conn netstr.Handle, ind byte) *xferSend {
+func (x *xferSender) find(conn netstr.Handle, stream byte) *xferSend {
 	for i := 0; i < x.cnt; i++ {
 		it := &x.arr[i]
-		if it.Conn == conn && it.Index == ind {
+		if it.Conn == conn && it.Stream == stream {
 			return it
 		}
 	}
 	return nil
 }
 
-func (x *xferSender) HandleAccept(conn netstr.Handle, stream byte, tok byte) {
-	if int(tok) >= x.cnt {
+func (x *xferSender) HandleAccept(conn netstr.Handle, m *noxnet.MsgXferState) {
+	ind := int(m.Token)
+	if ind >= x.cnt {
 		return
 	}
-	p := &x.arr[tok]
-	p.Index = stream
+	p := &x.arr[ind]
+	p.Stream = m.Stream
 	p.State = xferSendAccepted
 }
 
-func (x *xferSender) HandleAck(conn netstr.Handle, stream byte, chunk uint16) {
-	p := x.find(conn, stream)
-	if p == nil {
-		return
-	}
-	for it := p.First; it != nil; it = it.Next {
-		if it.Ind == chunk {
-			if next := it.Next; next != nil {
-				next.Prev = it.Prev
-			} else {
-				p.Last = it.Prev
-			}
-			if prev := it.Prev; prev != nil {
-				prev.Next = it.Next
-			} else {
-				p.First = it.Next
-			}
-			*it = xferBlockSend{}
-			return
-		}
-	}
+func (x *xferSender) HandleAck(conn netstr.Handle, m *noxnet.MsgXferAck) {
+	x.find(conn, m.Stream).Ack(m.Chunk)
 }
 
-func (x *xferSender) HandleDone(conn netstr.Handle, ind byte) {
-	p := x.find(conn, ind)
+func (x *xferSender) HandleDone(conn netstr.Handle, m *noxnet.MsgXferClose) {
+	p := x.find(conn, m.Stream)
 	if p == nil {
 		return
 	}
@@ -133,8 +137,8 @@ func (x *xferSender) HandleDone(conn netstr.Handle, ind byte) {
 	p.Reset()
 }
 
-func (x *xferSender) HandleAbort(conn netstr.Handle, reason byte, ind byte) {
-	p := x.find(conn, ind)
+func (x *xferSender) HandleAbort(conn netstr.Handle, m *noxnet.MsgXferState) {
+	p := x.find(conn, m.Stream)
 	if p == nil {
 		return
 	}
@@ -194,7 +198,7 @@ func (x *xferSender) Send(pli ntype.PlayerInd, act byte, typ string, data []byte
 		s.Last = b
 	}
 	s.Conn = nind
-	s.Index = 0
+	s.Stream = 0
 	s.State = xferSendStarted
 	s.Size = len(data)
 	s.NextBlock = 1
@@ -245,12 +249,12 @@ func (x *xferSender) Update(ts uint32) {
 		}
 		for j, b := 0, s.First; j < 2 && b != nil; j, b = j+1, b.Next {
 			if t := b.LastSent; t == 0 {
-				netSendXferData(s.Conn, s.Index, b.Ind, b.Data)
+				netSendXferData(s.Conn, s.Stream, b.Ind, b.Data)
 				s.NextBlock++
 				b.LastSent = ts
 			} else if ts > t+90 {
 				if b.Retries < 20 {
-					netSendXferData(s.Conn, s.Index, b.Ind, b.Data)
+					netSendXferData(s.Conn, s.Stream, b.Ind, b.Data)
 					b.LastSent = ts
 					b.Retries++
 				} else if s.State == xferSendAccepted {
@@ -263,7 +267,7 @@ func (x *xferSender) Update(ts uint32) {
 }
 
 func (x *xferSender) cancel(s *xferSend, reason byte) {
-	netSendXferCancel(s.Conn, s.Index, reason)
+	netSendXferCancel(s.Conn, s.Stream, reason)
 	s.callAborted()
 	s.Free()
 	s.Reset()

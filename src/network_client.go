@@ -382,22 +382,22 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		conn := netstrGetClientIndex()
 		switch x := p.Msg.(type) {
 		case *noxnet.MsgXferStart:
-			xferRecvr.HandleStart(conn, c.Server.Frame(), x.Act, x.Type.Value, x.Size, x.Token)
+			xferRecvr.HandleStart(conn, c.Server.Frame(), x)
 		case *noxnet.MsgXferState:
 			switch x.Code {
 			case noxnet.XferAccept:
-				xferSendr.HandleAccept(conn, x.Stream, x.Token)
+				xferSendr.HandleAccept(conn, x)
 			case noxnet.XferCode5:
-				xferRecvr.HandleCancel(x.Token, x.Stream)
+				xferRecvr.HandleCancel(x)
 			case noxnet.XferCode6:
-				xferSendr.HandleAbort(conn, x.Token, x.Stream)
+				xferSendr.HandleAbort(conn, x)
 			}
 		case *noxnet.MsgXferData:
-			xferRecvr.HandleData(conn, c.Server.Frame(), x.Stream, x.Chunk, x.Data)
+			xferRecvr.HandleData(conn, c.Server.Frame(), x)
 		case *noxnet.MsgXferAck:
-			xferSendr.HandleAck(conn, x.Stream, x.Chunk)
+			xferSendr.HandleAck(conn, x)
 		case *noxnet.MsgXferClose:
-			xferSendr.HandleDone(conn, x.Stream)
+			xferSendr.HandleDone(conn, x)
 		}
 		return 1 + n
 	case noxnet.MSG_TEXT_MESSAGE:
