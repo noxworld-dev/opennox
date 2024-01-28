@@ -619,7 +619,7 @@ func sub_41CC00(a1 string) {
 	sz := 4 + nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1)
 	data, _ := alloc.Make([]byte{}, sz)
 	legacy.Sub_41CAC0(a1, data)
-	netXfer.Send(31, 3, "SAVE_SERVER", data, false)
+	netXferSend(31, NetXferSaveServer, NetXferSaveServerType, data, false)
 }
 
 func sub_4464D0(a1 int32) []byte {
@@ -630,7 +630,7 @@ func sub_4464D0(a1 int32) []byte {
 func nox_xxx_playerSendMOTD_4DD140(ind ntype.PlayerInd) {
 	buf := sub_4464D0(1)
 	if len(buf) != 0 {
-		netXfer.Send(ind, 1, "MOTD", buf, true)
+		netXferSend(ind, NetXferMOTD, NetXferMOTDType, buf, true)
 	}
 }
 

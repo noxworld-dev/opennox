@@ -26,6 +26,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/netxfer"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -248,8 +249,9 @@ func serverQuitAck() {
 	}
 }
 
-func netXferSendAborted(ind netstr.Handle, act byte) {
-	if act == 2 {
+func netXferSendAborted(ind netstr.Handle, act netxfer.Action) {
+	switch act {
+	case NetXferSavedata:
 		if sub_446030() {
 			serverQuitAck()
 			if sub_446090() {
@@ -257,13 +259,13 @@ func netXferSendAborted(ind netstr.Handle, act byte) {
 				sub_446060()
 			}
 		}
-	} else if act == 3 {
+	case NetXferSaveServer:
 		nox_game_exit_xxx2()
 	}
 }
 
-func netXferSendDone(ind netstr.Handle, act byte) {
-	if act == 2 && sub_446030() {
+func netXferSendDone(ind netstr.Handle, act netxfer.Action) {
+	if act == NetXferSavedata && sub_446030() {
 		serverQuitAck()
 		if sub_446090() {
 			nox_game_exit_xxx2()
@@ -272,8 +274,8 @@ func netXferSendDone(ind netstr.Handle, act byte) {
 	}
 }
 
-func netXferLocal(act byte, data []byte) {
-	xferDataCallback40AF90(server.HostPlayerIndex, 0, act, memmap.String(0x5D4594, 4664), data)
+func netXferLocal(act netxfer.Action, data []byte) {
+	xferDataCallback40AF90(server.HostPlayerIndex, act, memmap.String(0x5D4594, 4664), data)
 	netXferSendDone(netstr.Global.First(), act)
 }
 
@@ -365,12 +367,12 @@ func xferFree446580(i int) {
 	}
 }
 
-func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, data []byte) {
+func xferDataCallback40AF90(ind ntype.PlayerInd, act netxfer.Action, typ string, data []byte) {
 	s := noxServer
 	switch act {
-	case 1:
+	case NetXferMOTD:
 		xferSet446520(1, data)
-	case 2:
+	case NetXferSavedata:
 		path := getString10984()
 		clientSavePlayerChar(path, data)
 		if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -383,7 +385,7 @@ func xferDataCallback40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, d
 			nox_game_exit_xxx2()
 			sub_446060()
 		}
-	case 3:
+	case NetXferSaveServer:
 		path := datapath.Save("_temp_.dat")
 		if nox_xxx_SavePlayerDataFromClient_41CD70(path, data) {
 			if s.nox_xxx_isQuest_4D6F50() && ind == server.HostPlayerIndex {
@@ -671,7 +673,7 @@ func sub41CFA0(a1 string, a2 ntype.PlayerInd) bool {
 
 	f.Read(buf)
 	sub_419EB0(a2, 1)
-	netXfer.Send(a2, 2, "SAVEDATA", buf, true)
+	netXferSend(a2, NetXferSavedata, NetXferSavedataType, buf, true)
 	return true
 }
 
