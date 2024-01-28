@@ -325,80 +325,32 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		}
 		return 0, false
 	case noxnet.MSG_XFER_MSG:
-		if len(data) < 2 {
+		var p noxnet.MsgXfer
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return 0, false
 		}
-		typ := data[1]
-		switch typ {
-		case 0: // XFER_START
-			if len(data) < 140 {
-				return 0, false
+		conn := netstr.Global.ByPlayer(pl)
+		switch x := p.Msg.(type) {
+		case *noxnet.MsgXferStart:
+			xferRecvr.HandleStart(conn, s.Frame(), x.Act, x.Type.Value, x.Size, x.Token)
+		case *noxnet.MsgXferState:
+			switch x.Code {
+			case noxnet.XferAccept:
+				xferSendr.HandleAccept(conn, x.Stream, x.Token)
+			case noxnet.XferCode5:
+				xferRecvr.HandleCancel(x.Token, x.Stream)
+			case noxnet.XferCode6:
+				xferSendr.HandleAbort(conn, x.Token, x.Stream)
 			}
-			a2 := data[2]
-			a3 := binary.LittleEndian.Uint32(data[4:])
-			styp := alloc.GoStringS(data[8:136])
-			a4 := data[136]
-			xferRecvr.HandleStart(netstr.Global.ByPlayer(pl), s.Frame(), a2, styp, a3, a4)
-			return 140, true
-		case 1: // XFER_ACCEPT
-			if len(data) < 4 {
-				return 0, false
-			}
-			a2 := data[2]
-			a3 := data[3]
-			xferSendr.HandleAccept(netstr.Global.ByPlayer(pl), a2, a3)
-			return 4, true
-		case 2: // XFER_DATA
-			if len(data) < 8 {
-				return 0, false
-			}
-			a2 := data[2]
-			a3 := binary.LittleEndian.Uint16(data[4:])
-			sz := int(binary.LittleEndian.Uint16(data[6:]))
-			if len(data) < 8+sz {
-				return 0, false
-			}
-			var buf [6]byte
-			buf[0] = byte(noxnet.MSG_XFER_MSG)
-			buf[1] = 3 // XFER_ACK
-			buf[2] = a2
-			binary.LittleEndian.PutUint16(buf[4:], a3)
-			netstr.Global.ByPlayer(pl).Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
-			xferRecvr.HandleData(netstr.Global.ByPlayer(pl), s.Frame(), a2, a3, data[8:8+sz])
-			return 8 + sz, true
-		case 3: // XFER_ACK
-			if len(data) < 6 {
-				return 0, false
-			}
-			a2 := data[2]
-			a3 := binary.LittleEndian.Uint16(data[4:])
-			xferSendr.HandleAck(netstr.Global.ByPlayer(pl), a2, a3)
-			return 6, true
-		case 4: // XFER_CLOSE
-			if len(data) < 3 {
-				return 0, false
-			}
-			a2 := data[2]
-			xferSendr.HandleDone(netstr.Global.ByPlayer(pl), a2)
-			return 3, true
-		case 5: // XFER_CODE5
-			if len(data) < 4 {
-				return 0, false
-			}
-			a2 := data[2]
-			a3 := data[3]
-			xferRecvr.HandleCancel(a3, a2)
-			return 4, true
-		case 6: // XFER_CODE6
-			if len(data) < 4 {
-				return 0, false
-			}
-			a2 := data[2]
-			a3 := data[3]
-			xferSendr.HandleAbort(netstr.Global.ByPlayer(pl), a3, a2)
-			return 4, true
+		case *noxnet.MsgXferData:
+			xferRecvr.HandleData(conn, s.Frame(), x.Stream, x.Chunk, x.Data)
+		case *noxnet.MsgXferAck:
+			xferSendr.HandleAck(conn, x.Stream, x.Chunk)
+		case *noxnet.MsgXferClose:
+			xferSendr.HandleDone(conn, x.Stream)
 		}
-		return 0, false
+		return 1 + n, true
 	default:
 		res := legacy.Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(pli, data, pl, u, u.UpdateData)
 		if res <= 0 || res > len(data) {

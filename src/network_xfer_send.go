@@ -1,8 +1,6 @@
 package opennox
 
 import (
-	"encoding/binary"
-
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -102,13 +100,13 @@ func (x *xferSender) HandleAccept(conn netstr.Handle, stream byte, tok byte) {
 	p.State = xferSendAccepted
 }
 
-func (x *xferSender) HandleAck(conn netstr.Handle, ind byte, block uint16) {
-	p := x.find(conn, ind)
+func (x *xferSender) HandleAck(conn netstr.Handle, stream byte, chunk uint16) {
+	p := x.find(conn, stream)
 	if p == nil {
 		return
 	}
 	for it := p.First; it != nil; it = it.Next {
-		if it.Ind == block {
+		if it.Ind == chunk {
 			if next := it.Next; next != nil {
 				next.Prev = it.Prev
 			} else {
@@ -135,7 +133,7 @@ func (x *xferSender) HandleDone(conn netstr.Handle, ind byte) {
 	p.Reset()
 }
 
-func (x *xferSender) HandleAbort(conn netstr.Handle, a2 byte, ind byte) {
+func (x *xferSender) HandleAbort(conn netstr.Handle, reason byte, ind byte) {
 	p := x.find(conn, ind)
 	if p == nil {
 		return
@@ -275,35 +273,28 @@ func (x *xferSender) cancel(s *xferSend, reason byte) {
 }
 
 func netSendXferStart(conn netstr.Handle, act byte, typ string, sz int, tok byte) {
-	var buf [140]byte
-	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 0 // XFER_START
-	buf[2] = act
-	binary.LittleEndian.PutUint32(buf[4:], uint32(sz))
-	n := copy(buf[8:136], typ)
-	buf[8+n] = 0
-	buf[136] = tok
-	conn.Send(buf[:140], netstr.SendQueue|netstr.SendFlush)
+	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferStart{
+		Act:   act,
+		Size:  uint32(sz),
+		Type:  noxnet.FixedString{Value: typ},
+		Token: tok,
+	}}, netstr.SendQueue|netstr.SendFlush)
 }
 
-func netSendXferData(conn netstr.Handle, a2 byte, block uint16, data []byte) int {
-	buf := make([]byte, 8+len(data))
-	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 2 // XFER_DATA
-	buf[2] = a2
-	buf[3] = 0
-	binary.LittleEndian.PutUint16(buf[4:], block)
-	binary.LittleEndian.PutUint16(buf[6:], uint16(len(data)))
-	copy(buf[8:], data)
-	conn.Send(buf, 0)
-	return conn.SendReadPacket(true)
+func netSendXferData(conn netstr.Handle, ind byte, chunk uint16, data []byte) {
+	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferData{
+		Stream: ind,
+		Token:  0,
+		Chunk:  chunk,
+		Data:   data,
+	}}, 0)
+	conn.SendReadPacket(true)
 }
 
 func netSendXferCancel(conn netstr.Handle, a2 byte, reason byte) {
-	var buf [4]byte
-	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 5 // XFER_CODE5
-	buf[2] = a2
-	buf[3] = reason
-	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
+	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferState{
+		Code:   noxnet.XferCode5,
+		Stream: a2,
+		Token:  reason,
+	}}, netstr.SendQueue|netstr.SendFlush)
 }

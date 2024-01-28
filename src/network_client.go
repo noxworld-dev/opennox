@@ -374,80 +374,32 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		return -1
 	case noxnet.MSG_XFER_MSG:
-		if len(data) < 2 {
+		var p noxnet.MsgXfer
+		n, err := p.Decode(data[1:])
+		if err != nil {
 			return -1
 		}
-		typ := data[1]
-		switch typ {
-		case 0: // XFER_START
-			if len(data) < 140 {
-				return -1
+		conn := netstrGetClientIndex()
+		switch x := p.Msg.(type) {
+		case *noxnet.MsgXferStart:
+			xferRecvr.HandleStart(conn, c.Server.Frame(), x.Act, x.Type.Value, x.Size, x.Token)
+		case *noxnet.MsgXferState:
+			switch x.Code {
+			case noxnet.XferAccept:
+				xferSendr.HandleAccept(conn, x.Stream, x.Token)
+			case noxnet.XferCode5:
+				xferRecvr.HandleCancel(x.Token, x.Stream)
+			case noxnet.XferCode6:
+				xferSendr.HandleAbort(conn, x.Token, x.Stream)
 			}
-			act := data[2]
-			sz := binary.LittleEndian.Uint32(data[4:])
-			styp := alloc.GoStringS(data[8:136])
-			tok := data[136]
-			xferRecvr.HandleStart(netstrGetClientIndex(), c.Server.Frame(), act, styp, sz, tok)
-			return 140
-		case 1: // XFER_ACCEPT
-			if len(data) < 4 {
-				return -1
-			}
-			a2 := data[2]
-			a3 := data[3]
-			xferSendr.HandleAccept(netstrGetClientIndex(), a2, a3)
-			return 4
-		case 2: // XFER_DATA
-			if len(data) < 8 {
-				return -1
-			}
-			a2 := data[2]
-			a3 := binary.LittleEndian.Uint16(data[4:])
-			sz := int(binary.LittleEndian.Uint16(data[6:]))
-			if len(data) < 8+sz {
-				return -1
-			}
-			var buf [6]byte
-			buf[0] = byte(noxnet.MSG_XFER_MSG)
-			buf[1] = 3 // XFER_ACK
-			buf[2] = a2
-			binary.LittleEndian.PutUint16(buf[4:], a3)
-			netstrGetClientIndex().Send(buf[:6], netstr.SendQueue|netstr.SendFlush)
-			xferRecvr.HandleData(netstrGetClientIndex(), c.Server.Frame(), a2, a3, data[8:8+sz])
-			return 8 + sz
-		case 3: // XFER_ACK
-			if len(data) < 6 {
-				return -1
-			}
-			a2 := data[2]
-			a3 := binary.LittleEndian.Uint16(data[4:])
-			xferSendr.HandleAck(netstrGetClientIndex(), a2, a3)
-			return 6
-		case 4: // XFER_CLOSE
-			if len(data) < 3 {
-				return -1
-			}
-			a2 := data[2]
-			xferSendr.HandleDone(netstrGetClientIndex(), a2)
-			return 3
-		case 5: // XFER_CODE5
-			if len(data) < 4 {
-				return -1
-			}
-			a2 := data[2]
-			a3 := data[3]
-			xferRecvr.HandleCancel(a3, a2)
-			return 4
-		case 6: // XFER_CODE6
-			if len(data) < 4 {
-				return -1
-			}
-			a2 := data[2]
-			a3 := data[3]
-			xferSendr.HandleAbort(netstrGetClientIndex(), a3, a2)
-			return 4
+		case *noxnet.MsgXferData:
+			xferRecvr.HandleData(conn, c.Server.Frame(), x.Stream, x.Chunk, x.Data)
+		case *noxnet.MsgXferAck:
+			xferSendr.HandleAck(conn, x.Stream, x.Chunk)
+		case *noxnet.MsgXferClose:
+			xferSendr.HandleDone(conn, x.Stream)
 		}
-		return -1
+		return 1 + n
 	case noxnet.MSG_TEXT_MESSAGE:
 		var p noxnet.MsgText
 		n, err := p.Decode(data[1:])

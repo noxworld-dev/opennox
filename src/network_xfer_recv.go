@@ -39,14 +39,14 @@ func (p *xferRecv) Reset(i int) {
 	}
 }
 
-func (p *xferRecv) AddBlock(block uint16, data []byte) {
-	if uint32(block) == p.NextBlock {
+func (p *xferRecv) AddChunk(chunk uint16, data []byte) {
+	if uint32(chunk) == p.NextBlock {
 		copy(p.Result[p.Received:p.Received+len(data)], data)
 		p.Received += len(data)
 		p.NextBlock++
 	} else {
 		b := &xferBlockRecv{
-			Ind:  block,
+			Ind:  chunk,
 			Data: make([]byte, len(data)),
 		}
 		copy(b.Data, data)
@@ -176,58 +176,63 @@ func (x *xferReceiver) HandleStart(conn netstr.Handle, ts uint32, act byte, typ 
 	netSendXferAccept(conn, p.Index, tok)
 }
 
-func (x *xferReceiver) HandleData(ind netstr.Handle, ts uint32, a2 byte, block uint16, data []byte) {
+func (x *xferReceiver) HandleData(conn netstr.Handle, ts uint32, stream byte, chunk uint16, data []byte) {
+	netSendXferAck(conn, stream, chunk)
 	if len(data) == 0 {
 		return
 	}
-	if int(a2) >= x.cnt {
+	if int(stream) >= x.cnt {
 		return
 	}
-	p := &x.arr[a2]
+	p := &x.arr[stream]
 	if len(p.Result) == 0 {
 		return
 	}
 	p.LastUpdate = ts
-	p.AddBlock(block, data)
+	p.AddChunk(chunk, data)
 	if p.Received == len(p.Result) {
 		netSendXferClose(p.Conn, p.Index)
-		xferDataCallback40AF90(ind.Player(), p.Index, p.Action, p.Type, p.Result)
+		xferDataCallback40AF90(conn.Player(), p.Index, p.Action, p.Type, p.Result)
 		if x.active != 0 {
 			x.active--
 		}
 		p.Result = nil
-		x.free(int(a2))
-		x.reset(int(a2))
+		x.free(int(stream))
+		x.reset(int(stream))
 	}
 }
 
-func (x *xferReceiver) HandleCancel(a1 byte, a2 byte) {
+func (x *xferReceiver) HandleCancel(reason byte, a2 byte) {
 	x.free(int(a2))
 	x.reset(int(a2))
 }
 
+func netSendXferAck(conn netstr.Handle, stream byte, chunk uint16) {
+	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferAck{
+		Stream: stream,
+		Token:  0,
+		Chunk:  chunk,
+	}}, netstr.SendQueue|netstr.SendFlush)
+}
+
 func netSendXferAccept(conn netstr.Handle, stream byte, tok byte) {
-	var buf [4]byte
-	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 1 // XFER_ACCEPT
-	buf[2] = stream
-	buf[3] = tok
-	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
+	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferState{
+		Code:   noxnet.XferAccept,
+		Stream: stream,
+		Token:  tok,
+	}}, netstr.SendQueue|netstr.SendFlush)
 }
 
-func netSendXferClose(conn netstr.Handle, a2 byte) {
-	var buf [3]byte
-	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 4 // XFER_CLOSE
-	buf[2] = a2
-	conn.Send(buf[:3], netstr.SendQueue|netstr.SendFlush)
+func netSendXferClose(conn netstr.Handle, stream byte) {
+	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferClose{
+		Stream: stream,
+	}}, netstr.SendQueue|netstr.SendFlush)
 }
 
-func netSendXferCode6(conn netstr.Handle, a2 byte, a3 byte) {
-	var buf [4]byte
-	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 6 // XFER_CODE6
-	buf[2] = a2
-	buf[3] = a3
-	conn.Send(buf[:4], netstr.SendQueue|netstr.SendFlush)
+func netSendXferCode6(conn netstr.Handle, stream byte, reason byte) {
+	conn.SendMsg(&noxnet.MsgXfer{&noxnet.MsgXferState{
+		Code:   noxnet.XferCode6,
+		Stream: stream,
+		Token:  reason,
+	}}, netstr.SendQueue|netstr.SendFlush)
 }
