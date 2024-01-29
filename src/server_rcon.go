@@ -566,6 +566,8 @@ func (rc *RemoteConsole) serveSession(ctx context.Context, ch ssh.Channel, user 
 			}
 			sh := rc.newShell(ctx, ch, user)
 			go sh.Serve()
+		case "window-change":
+			// ignore
 		default:
 			rconLog.Printf("unsupported session request: %q", r.Type)
 			if r.WantReply {
