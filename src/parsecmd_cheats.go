@@ -3,6 +3,7 @@ package opennox
 import (
 	"context"
 	"strconv"
+	"strings"
 
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -213,6 +214,28 @@ func init() {
 		Flags:  console.Server,
 		Func:   noxCheatUnsetGod,
 	})
+
+	noxConsole.Register(&console.Command{
+		Token:  "tp",
+		HelpID: "cheattphelp",
+		Help:   "teleports another player to you",
+		Flags:  console.Server | console.Cheat,
+		Func:   noxCheatTp,
+	})
+	noxConsole.Register(&console.Command{
+		Token:  "tpto",
+		HelpID: "cheattptohelp",
+		Help:   "teleports you to another player",
+		Flags:  console.Server | console.Cheat,
+		Func:   noxCheatTpTo,
+	})
+	noxConsole.Register(&console.Command{
+		Token:  "unstuck",
+		HelpID: "cheatunstuckhelp",
+		Help:   "unstuck all players",
+		Flags:  console.Server | console.Cheat,
+		Func:   noxCheatUnstuck,
+	})
 }
 
 func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool {
@@ -415,6 +438,96 @@ func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool
 	return true
 }
 
+func noxCmdGetOtherPlayer(c *console.Console, tokens []string) *server.Player {
+	s := noxServer
+	host := s.Players.Host()
+	if host == nil {
+		c.Printf(console.ColorLightRed, "game has no host player")
+		return nil
+	}
+	players := s.Players.List()
+	if len(players) < 2 {
+		c.Printf(console.ColorLightRed, "no other players in the game")
+		return nil
+	}
+
+	listPlayers := func() {
+		for i, p := range players {
+			c.Printf(console.ColorLightYellow, "%d: %s", i, p.Name())
+		}
+	}
+
+	targ := strings.Join(tokens, " ")
+	if targ == "" {
+		if len(players) > 2 {
+			c.Printf(console.ColorLightRed, "please specify the player name or index:")
+			listPlayers()
+			return nil
+		}
+		p2 := players[0]
+		if p2 == host {
+			p2 = players[1]
+		}
+		return p2
+	}
+	if ind, err := strconv.Atoi(targ); err == nil {
+		if ind < 0 || ind >= len(players) {
+			c.Printf(console.ColorLightRed, "invalid player index; valid indexes are:")
+			listPlayers()
+			return nil
+		}
+		return players[ind]
+	}
+	for _, p := range players {
+		if targ == p.Name() {
+			return p
+		}
+	}
+	c.Printf(console.ColorLightRed, "cannot find specified player; pick the one below:")
+	listPlayers()
+	return nil
+}
+
+func noxCheatTp(ctx context.Context, c *console.Console, tokens []string) bool {
+	s := noxServer
+	host := s.Players.Host()
+	p2 := noxCmdGetOtherPlayer(c, tokens)
+	if p2 == nil {
+		return true // message already printed
+	}
+	if host == p2 {
+		c.Printf(console.ColorLightRed, "can't teleport to yourself")
+		return true
+	}
+	if host.PlayerUnit == nil || p2.PlayerUnit == nil {
+		c.Printf(console.ColorLightRed, "no player unit")
+		return true
+	}
+	asObjectS(p2.PlayerUnit).SetPos(host.PlayerUnit.Pos())
+	c.Printf(console.ColorLightYellow, "teleported player %q to %q", p2.Name(), host.Name())
+	return true
+}
+
+func noxCheatTpTo(ctx context.Context, c *console.Console, tokens []string) bool {
+	s := noxServer
+	host := s.Players.Host()
+	p2 := noxCmdGetOtherPlayer(c, tokens)
+	if p2 == nil {
+		return true // message already printed
+	}
+	if host == p2 {
+		c.Printf(console.ColorLightRed, "can't teleport to yourself")
+		return true
+	}
+	if host.PlayerUnit == nil || p2.PlayerUnit == nil {
+		c.Printf(console.ColorLightRed, "no player unit")
+		return true
+	}
+	asObjectS(host.PlayerUnit).SetPos(p2.PlayerUnit.Pos())
+	c.Printf(console.ColorLightYellow, "teleported player %q to %q", host.Name(), p2.Name())
+	return true
+}
+
 func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) bool {
 	s := noxServer
 	cnt := 1
@@ -441,5 +554,19 @@ func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) boo
 		s.createObject(typ, pos)
 	}
 	c.Printf(console.ColorLightYellow, "created %q at (%d, %d)", typ.ID(), int(pos.X), int(pos.Y))
+	return true
+}
+
+func noxCheatUnstuck(ctx context.Context, c *console.Console, tokens []string) bool {
+	s := noxServer
+	s.CinemaPlayers(false)
+	for _, p := range s.Players.List() {
+		u := p.PlayerUnit
+		if u == nil {
+			continue
+		}
+		asObjectS(u).Freeze(false)
+	}
+	c.Printf(console.ColorLightYellow, "unstuck complete")
 	return true
 }
