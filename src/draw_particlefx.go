@@ -381,7 +381,7 @@ func (p *particleFx) loadParticle(typ string) {
 	dr := c.Nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(p.x16>>16, p.y16>>16))
 	if dr != nil {
 		p.drawable12 = dr
-		dr.Field_27 = uint32(uintptr(p.C())) // TODO: unused?
+		dr.TypeIDVal = uint32(uintptr(p.C())) // TODO: unused?
 		c.Objs.TransparentDecay(dr, p.ticksTotal)
 		c.Objs.List34Add(dr)
 	}

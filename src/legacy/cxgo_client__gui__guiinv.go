@@ -1322,7 +1322,7 @@ func sub_464BD0(win *gui.Window, a2, a3, p4 uintptr) uintptr {
 func nox_xxx_cliInventorySpriteUpd_465A30() {
 	var inventory_item_idx int32 = dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index
 	if int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_140) != 0 {
-		var v1 *uint32 = (*uint32)(nox_new_drawable_for_thing(int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_0.Field_27)).C())
+		var v1 *uint32 = (*uint32)(nox_new_drawable_for_thing(int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_0.TypeIDVal)).C())
 		*memmap.PtrPtr(0x5D4594, 1049848) = unsafe.Pointer(v1)
 		if v1 != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*30)) |= 0x40000000

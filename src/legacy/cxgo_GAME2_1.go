@@ -465,7 +465,7 @@ func sub_4615C0() *client.Drawable {
 		return array_5D4594_1049872[7]
 	}
 	v1 := array_5D4594_1049872[8]
-	for v1.Field_27 != uint32(v0) {
+	for v1.TypeIDVal != uint32(v0) {
 		v1 = v1.Next()
 		if v1 == nil {
 			return array_5D4594_1049872[7]
@@ -478,7 +478,7 @@ func sub_461600(a1 int32) *client.Drawable {
 		v1 := &array_5D4594_1049872[i]
 		result := *v1
 		if *v1 != nil {
-			for result.Field_27 != uint32(a1) {
+			for result.TypeIDVal != uint32(a1) {
 				result = result.Next()
 				if result == nil {
 					goto LABEL_5
@@ -856,7 +856,7 @@ func sub_461F90(a1 int32) *client.Drawable {
 				v6.Field_93 = v3.Field_93
 			}
 			v7 := v3.Flags28()
-			if v7&0x1000 != 0 || nox_xxx_ammoCheck_415880(uint16(v3.Field_27)) == 2 || nox_xxx_ammoCheck_415880(uint16(v3.Field_27)) == 128 {
+			if v7&0x1000 != 0 || nox_xxx_ammoCheck_415880(uint16(v3.TypeIDVal)) == 2 || nox_xxx_ammoCheck_415880(uint16(v3.TypeIDVal)) == 128 {
 				sub_470D70()
 			}
 			return v3
@@ -990,7 +990,7 @@ func sub_4624D0(a1 int32) {
 	}
 	(*v3).field_132 = 0
 	if dword_5d4594_1062492 != v2 {
-		if nox_xxx_ammoCheck_415880(uint16(v2.Field_27))&0xC != 0 && dword_5d4594_1062480 != nil && nox_xxx_ammoCheck_415880(uint16(dword_5d4594_1062480.field_0.Field_27)) == 2 {
+		if nox_xxx_ammoCheck_415880(uint16(v2.TypeIDVal))&0xC != 0 && dword_5d4594_1062480 != nil && nox_xxx_ammoCheck_415880(uint16(dword_5d4594_1062480.field_0.TypeIDVal)) == 2 {
 			dword_5d4594_1062480.field_136 = 0
 			nox_xxx_clientSetAltWeapon_461550(nil)
 		}
@@ -2178,7 +2178,7 @@ func nox_client_invAlterWeapon_4672C0() {
 	}
 	v3 := dword_5d4594_1062480
 	if dword_5d4594_1062480 != nil {
-		if nox_xxx_ammoCheck_415880(uint16(dword_5d4594_1062480.field_0.Field_27)) == 2 {
+		if nox_xxx_ammoCheck_415880(uint16(dword_5d4594_1062480.field_0.TypeIDVal)) == 2 {
 			v4 := sub_415840(2)
 			r4 := sub_461600(v4)
 			if r4 == nil {
@@ -2706,7 +2706,6 @@ func sub_46A4A0() int32 {
 }
 func nox_xxx_cmdSayDo_46A4B0(a1 *wchar2_t, a2 int32) uint32 {
 	var (
-		v2     *uint32
 		v3     uint32
 		result uint32
 		v5     *wchar2_t
@@ -2714,7 +2713,7 @@ func nox_xxx_cmdSayDo_46A4B0(a1 *wchar2_t, a2 int32) uint32 {
 		v7     int32
 		v8     [520]byte
 	)
-	v2 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(nox_player_netCode_85319C).C())
+	v2 := nox_xxx_netSpriteByCodeDynamic_45A6F0(nox_player_netCode_85319C)
 	v3 = nox_wcsspn(a1, internWStr(" "))
 	result = nox_wcslen(a1)
 	if v3 == result {
@@ -2743,8 +2742,8 @@ func nox_xxx_cmdSayDo_46A4B0(a1 *wchar2_t, a2 int32) uint32 {
 		v7 = 1
 	}
 	if v2 != nil {
-		*(*uint16)(unsafe.Pointer(&v8[4])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*6))
-		*(*uint16)(unsafe.Pointer(&v8[6])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*8))
+		*(*uint16)(unsafe.Pointer(&v8[4])) = uint16(v2.PosVec.X)
+		*(*uint16)(unsafe.Pointer(&v8[6])) = uint16(v2.PosVec.Y)
 	} else {
 		*(*uint16)(unsafe.Pointer(&v8[6])) = math.MaxUint16
 		*(*uint16)(unsafe.Pointer(&v8[4])) = math.MaxUint16
@@ -3199,12 +3198,8 @@ func Sub_46DCC0() {
 	}
 }
 func sub_46E080(a1 *server.Player) int32 {
-	var (
-		v1 int32
-		v3 *uint32
-	)
 	if noxflags.HasGame(32) {
-		v1 = int32(a1.NetCodeVal)
+		v1 := int32(a1.NetCodeVal)
 		if v1 == int32(*memmap.PtrUint16(0x5D4594, 1090128)) {
 			return 2
 		}
@@ -3216,9 +3211,9 @@ func sub_46E080(a1 *server.Player) int32 {
 			return 4
 		}
 	} else if noxflags.HasGame(16) {
-		v3 = (*uint32)(nox_xxx_netSpriteByCodeDynamic_45A6F0(a1.NetCodeVal).C())
+		v3 := nox_xxx_netSpriteByCodeDynamic_45A6F0(a1.NetCodeVal)
 		if v3 != nil {
-			if nox_client_drawable_testBuff_4356C0((*client.Drawable)(unsafe.Pointer(v3)), 30) {
+			if nox_client_drawable_testBuff_4356C0(v3, 30) {
 				return 1
 			}
 		}
@@ -4671,7 +4666,7 @@ func nox_xxx_cliDrawMinimap_472600(a1 unsafe.Pointer, a2 int32) int32 {
 			v43 = int32(*memmap.PtrUint32(0x85B3FC, 940))
 		}
 		nox_client_drawSetColor_434460(v43)
-		v44 = int32(k.Field_27)
+		v44 = int32(k.TypeIDVal)
 		if v44 == *memmap.PtrInt32(0x5D4594, 1096304) {
 			if nox_server_teamFirst_418B10() != nil || (func() *client.Drawable {
 				v45 = nox_xxx_cliGetSpritePlayer_45A000()

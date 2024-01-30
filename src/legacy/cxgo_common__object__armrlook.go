@@ -4,32 +4,17 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func sub_415B60(a1 int32) *wchar2_t {
-	var (
-		v1 int32
-		v2 int32
-		i  *uint8
-		v4 int32
-	)
-	v1 = 0
-	if *memmap.PtrUint32(0x587000, 34848) == 0 {
-		return nox_strman_loadString_40F1D0(internCStr("result:ERROR"), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 263)
-	}
-	*(*uint16)(unsafe.Add(unsafe.Pointer(&v2), unsafe.Sizeof(uint16(0))*1)) = 0
-	for i = (*uint8)(memmap.PtrOff(0x587000, 34848)); ; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 24)) {
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v2), unsafe.Sizeof(uint16(0))*0)) = *(*uint16)(unsafe.Add(a1, 4))
-		if uint32(v2) == *((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*2))) {
-			break
-		}
-		v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6))))
-		v1++
-		if v4 == 0 {
-			return nox_strman_loadString_40F1D0(internCStr("result:ERROR"), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 263)
+func sub_415B60(a1 *server.Object) string {
+	for i := range table_34848 {
+		it := &table_34848[i]
+		if it.TypeInd == uint32(a1.TypeInd) {
+			return nox_strman_loadString_40F1D0(it.NameStr, nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 261)
 		}
 	}
-	return nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*24+34852))), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 261)
+	return nox_strman_loadString_40F1D0(internCStr("result:ERROR"), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 263)
 }
 func nox_xxx_loadLook_415D50() **byte {
 	var (

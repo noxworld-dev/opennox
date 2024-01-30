@@ -112,43 +112,9 @@ type nox_inventory_cell_t struct {
 	field_143 uint8
 	field_144 uint32
 }
-type nox_scrollListBox_item struct {
-	field_0   uint32        // 0, 0
-	text      [256]wchar2_t // 1, 4
-	field_129 uint32        // 129, 516
-	field_130 uint32        // 130, 520
-}
+type nox_scrollListBox_item = gui.ScrollListBoxItem
 
-func (it *nox_scrollListBox_item) Text() string {
-	return GoWString(&it.text[0])
-}
-
-type nox_scrollListBox_data struct {
-	count       uint16
-	line_height uint16
-	field_1     uint32
-	field_2     uint32
-	field_3     uint32
-	field_4     uint32
-	field_5     uint32
-	items       *nox_scrollListBox_item
-	field_7     *gui.Window
-	field_8     *gui.Window
-	field_9     *gui.Window
-	field_10    uint32
-	field_11_0  uint16
-	field_11_1  uint16
-	field_12    *uint32 // used as uint32 when field_4 == 0
-	field_13_0  uint16
-	field_13_1  uint16
-}
-
-func (d *nox_scrollListBox_data) Items() []nox_scrollListBox_item {
-	if d == nil || d.items == nil || d.count == 0 {
-		return nil
-	}
-	return unsafe.Slice(d.items, d.count)
-}
+type nox_scrollListBox_data = gui.ScrollListBoxData
 
 type nox_staticText_data struct {
 	text   *wchar2_t

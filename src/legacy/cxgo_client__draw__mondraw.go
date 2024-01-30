@@ -92,13 +92,14 @@ func nox_thing_monster_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	res := 1
 	dd := (*client.MonsterDrawData)(dr.DrawData)
 	if !noxflags.HasGame(0x200000) {
-		v4 := int8(dr.Field_108_0)
+		d := dr.UnionMonster()
+		v4 := int8(d.Field_108_0)
 		if int32(dr.AnimDir) != int32(v4) {
 			v5 := int32(dr.AnimInd)
 			if v5 != 1 && v5 != 3 && v5 != 5 {
-				if (gameFrame() - uint32(dr.Field_109)) >= uint32(int32(gameFPS())>>2) {
-					dr.Field_109 = uintptr(gameFrame())
-					dr.Field_108_0 = dr.AnimDir
+				if (gameFrame() - uint32(d.Field_109)) >= uint32(int32(gameFPS())>>2) {
+					d.Field_109 = gameFrame()
+					d.Field_108_0 = dr.AnimDir
 				} else {
 					dr.AnimDir = uint8(v4)
 				}
@@ -114,7 +115,7 @@ func nox_thing_monster_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if int32(ani.Cnt40) == 0 {
 		return 1
 	}
-	if dr.Field_27 == uint32(v6) {
+	if dr.TypeIDVal == uint32(v6) {
 		var v10, v11 int32
 		if noxflags.HasGame(0x200000) {
 			v10 = 0

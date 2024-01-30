@@ -2,6 +2,7 @@ package legacy
 
 import (
 	"math"
+	"strings"
 	"unicode"
 	"unsafe"
 
@@ -2052,73 +2053,34 @@ func nox_xxx_unitArmorInventoryEquipFlags_415C70(item *server.Object) uint32 {
 	if v1 < 0 {
 		return 0
 	}
-	return *memmap.PtrUint32(0x587000, uintptr(v1)*24+34860)
+	return table_34848[v1].Bit
 }
 func sub_415C90(item *server.Object) int32 {
-	var (
-		result int32
-		v2     int32
-		i      *uint8
-		v4     int32
-	)
-	if item == nil {
-		return -1
-	}
-	result = 0
-	if *memmap.PtrUint32(0x587000, 34848) == 0 {
-		return -1
-	}
-	*(*uint16)(unsafe.Add(unsafe.Pointer(&v2), unsafe.Sizeof(uint16(0))*1)) = 0
-	for i = (*uint8)(memmap.PtrOff(0x587000, 34848)); ; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 24)) {
-		*(*uint16)(unsafe.Add(unsafe.Pointer(&v2), unsafe.Sizeof(uint16(0))*0)) = item.TypeInd
-		if uint32(v2) == *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*2)) {
-			break
-		}
-		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)))
-		result++
-		if v4 == 0 {
-			return -1
+	for i := range table_34848 {
+		it := &table_34848[i]
+		if it.TypeInd == uint32(item.TypeInd) {
+			return int32(i)
 		}
 	}
-	return result
+	return -1
 }
-func sub_415CD0(a1 uint32) int32 {
-	var (
-		v1 int32
-		i  *uint8
-		v3 int32
-	)
-	v1 = 0
-	if *memmap.PtrUint32(0x587000, 34848) == 0 {
-		return 0
-	}
-	for i = (*uint8)(memmap.PtrOff(0x587000, 34848)); a1 != *(*uint32)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof((*byte)(nil))*3)); i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 24)) {
-		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)))
-		v1++
-		if v3 == 0 {
-			return 0
+func sub_415CD0(bit uint32) uint32 {
+	for i := range table_34848 {
+		it := &table_34848[i]
+		if it.Bit == bit {
+			return it.TypeInd
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34856)))
+	return 0
 }
-func sub_415D10(a1 int32) int32 {
-	var (
-		v1 int32
-		i  *uint8
-		v3 int32
-	)
-	v1 = 0
-	if *memmap.PtrUint32(0x587000, 34848) == 0 {
-		return 0
-	}
-	for i = (*uint8)(memmap.PtrOff(0x587000, 34848)); a1 != *(*int32)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof((*byte)(nil))*2)); i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 24)) {
-		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)))
-		v1++
-		if v3 == 0 {
-			return 0
+func sub_415D10(a1 uint32) uint32 {
+	for i := range table_34848 {
+		it := &table_34848[i]
+		if it.TypeInd == a1 {
+			return it.Bit
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34860)))
+	return 0
 }
 func sub_415DA0(a1 *wchar2_t) int32 {
 	var (
@@ -2144,48 +2106,24 @@ func sub_415DA0(a1 *wchar2_t) int32 {
 	}
 	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+35504)))
 }
-func sub_415DF0(a1 *byte) int32 {
-	var (
-		v1 int32
-		v2 **byte
-		v3 *uint8
-		v4 int32
-	)
-	v1 = 0
-	if *memmap.PtrUint32(0x587000, 34848) == 0 {
-		return 0
-	}
-	v2 = (**byte)(memmap.PtrOff(0x587000, 34848))
-	v3 = (*uint8)(memmap.PtrOff(0x587000, 34848))
-	for nox_strcmpi(a1, *v2) != 0 {
-		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*6)))
-		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 24))
-		v1++
-		v2 = (**byte)(unsafe.Pointer(v3))
-		if v4 == 0 {
-			return 0
+func sub_415DF0(a1 string) uint32 {
+	a1 = strings.ToLower(a1)
+	for i := range table_34848 {
+		it := &table_34848[i]
+		if strings.ToLower(it.Name) == a1 {
+			return it.Bit
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34860)))
+	return 0
 }
-func sub_415E40(a1 *byte) *byte {
-	var (
-		v1 int32
-		i  *uint8
-		v3 int32
-	)
-	v1 = 0
-	if *memmap.PtrUint32(0x587000, 34852) == 0 {
-		return nil
-	}
-	for i = (*uint8)(memmap.PtrOff(0x587000, 34852)); *(**byte)(unsafe.Add(unsafe.Pointer(i), unsafe.Sizeof((*byte)(nil))*2)) != a1; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 24)) {
-		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*6)))
-		v1++
-		if v3 == 0 {
-			return nil
+func sub_415E40(bit uint32) string {
+	for i := range table_34848 {
+		it := &table_34848[i]
+		if it.Bit == bit {
+			return it.Name
 		}
 	}
-	return *(**byte)(memmap.PtrOff(0x587000, uintptr(v1*24+34848)))
+	return ""
 }
 func sub_415E80(a1 int32) int32 {
 	var (

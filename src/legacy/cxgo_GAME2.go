@@ -1736,7 +1736,7 @@ func sub_4533D0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		sub_453750()
 		sub_459D50(1)
 	case 1520, 1521, 1522, 1523, 1524, 1525, 1526, 1527, 1528, 1529, 1530, 1531, 1532, 1533:
-		v5 = sub_4A4800(dword_5d4594_1045464.WidgetData)
+		v5 = sub_4A4800((*nox_scrollListBox_data)(dword_5d4594_1045464.WidgetData))
 		v11 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1045464, 16406, uintptr(v5+v3-1520), 0)))
 		if dword_5d4594_1045460 != 0 {
 			v6 = sub_415DA0(v11)
@@ -1893,7 +1893,7 @@ func sub_453710() int32 {
 	v1 = 1
 	v2 = 26
 	for {
-		v3 = sub_415CD0(uint32(v1))
+		v3 = int32(sub_415CD0(uint32(v1)))
 		if v3 != 0 && nox_xxx_getUnitDefDd10_4E3BA0(v3) == 0 {
 			v0 &= ^v1
 		}
@@ -1913,7 +1913,7 @@ func sub_453750() int8 {
 		v3 bool
 		v4 int32
 	)
-	v0 = sub_4A4800(dword_5d4594_1045464.WidgetData)
+	v0 = sub_4A4800((*nox_scrollListBox_data)(dword_5d4594_1045464.WidgetData))
 	for i = 1520; i <= 1533; i++ {
 		for j = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045468, i); (1<<v0)&0x33 != 0; v0++ {
 		}
@@ -2069,7 +2069,7 @@ func sub_454120() int8 {
 	)
 	v8 := dword_5d4594_1045480.WidgetData
 	v0 = 1120
-	v1 = sub_4A4800(v8) * 524
+	v1 = sub_4A4800((*nox_scrollListBox_data)(v8)) * 524
 	for {
 		v2 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1045484, v0)
 		v3 = 0

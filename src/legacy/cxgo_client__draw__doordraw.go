@@ -28,14 +28,15 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 		a3  Point32
 	)
 	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(dr.DrawData, 4)) + uint32(int32(dr.Field_74_4)*4))))))
-	if !noxflags.HasGame(4096) || int32(dr.Field_108_1) != 1 {
+	d := dr.UnionDoor()
+	if !noxflags.HasGame(4096) || int32(d.Field_108_1) != 1 {
 		return 1
 	}
-	if dr.Field_109 == nil {
-		dr.Field_110 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSW"))
-		dr.Field_109 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSE"))
-		dr.Field_111 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSW"))
-		dr.Field_112 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSE"))
+	if d.Field_109 == nil {
+		d.Field_109 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSE"))
+		d.Field_110 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSW"))
+		d.Field_111 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSW"))
+		d.Field_112 = nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSE"))
 	}
 	sub_4739E0(a1, (*Point32)(unsafe.Pointer(&dr.PosVec)), &a3)
 	a3.X -= 64
@@ -48,47 +49,47 @@ func nox_thing_door_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	nox_draw_setColorMultAndIntensityRGB_433CD0(uint8(int8(v5)), uint8(int8(v3)), uint8(int8(v4)))
 	v6 = int8(dr.Field_74_4)
 	if int32(v6) == 0 {
-		v7 = int8(dr.Field_108_2)
+		v7 = int8(d.Field_108_2)
 		v12 = a3.Y - 20
 		a3.X -= 15
 		a3.Y -= 20
 		if int32(v7) == 1 {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_110))), a3.X, v12)
+			nox_client_drawImageAt_47D2C0(d.Field_110, a3.X, v12)
 		} else {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_111))), a3.X, v12)
+			nox_client_drawImageAt_47D2C0(d.Field_111, a3.X, v12)
 		}
 		return 1
 	} else if int32(v6) == 8 {
-		v9 = int8(dr.Field_108_2)
+		v9 = int8(d.Field_108_2)
 		v13 = a3.Y - 20
 		a3.X += 15
 		a3.Y -= 20
 		if int32(v9) == 1 {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_109))), a3.X, v13)
+			nox_client_drawImageAt_47D2C0(d.Field_109, a3.X, v13)
 		} else {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_112))), a3.X, v13)
+			nox_client_drawImageAt_47D2C0(d.Field_112, a3.X, v13)
 		}
 		return 1
 	} else if int32(v6) == 16 {
-		v10 = int8(dr.Field_108_2)
+		v10 = int8(d.Field_108_2)
 		v14 = a3.Y + 2
 		a3.X += 8
 		a3.Y += 2
 		if int32(v10) == 1 {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_110))), a3.X, v14)
+			nox_client_drawImageAt_47D2C0(d.Field_110, a3.X, v14)
 		} else {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_111))), a3.X, v14)
+			nox_client_drawImageAt_47D2C0(d.Field_111, a3.X, v14)
 		}
 		return 1
 	} else {
-		v11 = int8(dr.Field_108_2)
+		v11 = int8(d.Field_108_2)
 		v15 = a3.Y + 2
 		a3.X -= 8
 		a3.Y += 2
 		if int32(v11) == 1 {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_109))), a3.X, v15)
+			nox_client_drawImageAt_47D2C0(d.Field_109, a3.X, v15)
 		} else {
-			nox_client_drawImageAt_47D2C0((noxrender.ImageHandle)(unsafe.Pointer(uintptr(dr.Field_112))), a3.X, v15)
+			nox_client_drawImageAt_47D2C0(d.Field_112, a3.X, v15)
 		}
 		return 1
 	}

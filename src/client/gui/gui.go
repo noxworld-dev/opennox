@@ -135,7 +135,7 @@ func (g *GUI) NewWindowRaw(parent *Window, status StatusFlags, px, py, w, h int,
 	win.SizeVal.X = w
 	win.SizeVal.Y = h
 	win.SetPos(image.Point{X: px, Y: py})
-	win.drawData.tooltip[0] = 0
+	win.drawData.TooltipBuf[0] = 0
 	win.SetDraw(nil)
 	win.SetFunc93(nil)
 	win.SetFunc94(fnc94)

@@ -53,6 +53,7 @@ func nox_xxx_updDrawColorlight_4CE390(vp *noxrender.Viewport, dr *client.Drawabl
 		v5 int32
 		v6 int32
 	)
+	// TODO: new union type
 	if int32(a2.Field_108_0) != 0 || int32(a2.Field_108_1) != 0 || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 434))) != 0 {
 		v3 = int32(a2.PosVec.X)
 		v4 = int32(a1.World.Min.X)
@@ -89,6 +90,7 @@ func nox_xxx_colorLightAlterB0ArrayColor_4CE440(a1 *client.Drawable) {
 		v15 int8
 	)
 	v1 := a1
+	// TODO: new union type
 	v2 = int8(a1.Field_108_0)
 	v12 = int8(a1.Field_108_0)
 	if int32(v2) > 1 && int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a1), 258))) != 0 {

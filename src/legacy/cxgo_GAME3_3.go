@@ -6530,15 +6530,15 @@ func nox_xxx_getRespawnWeaponFlags_4EF580() int8 {
 		v8 int32
 	)
 	v0 = 0
-	v1 = sub_415CD0(0x400)
+	v1 = int32(sub_415CD0(0x400))
 	if nox_xxx_getUnitDefDd10_4E3BA0(v1) != 0 {
 		v0 = 1
 	}
-	v2 = sub_415CD0(4)
+	v2 = int32(sub_415CD0(4))
 	if nox_xxx_getUnitDefDd10_4E3BA0(v2) != 0 {
 		v0 |= 2
 	}
-	v3 = sub_415CD0(1)
+	v3 = int32(sub_415CD0(1))
 	if nox_xxx_getUnitDefDd10_4E3BA0(v3) != 0 {
 		v0 |= 4
 	}
@@ -6546,7 +6546,7 @@ func nox_xxx_getRespawnWeaponFlags_4EF580() int8 {
 	if nox_xxx_getUnitDefDd10_4E3BA0(v4) != 0 {
 		v0 |= 8
 	}
-	v5 = sub_415CD0(0x4000)
+	v5 = int32(sub_415CD0(0x4000))
 	if nox_xxx_getUnitDefDd10_4E3BA0(v5) != 0 {
 		v0 |= 0x10
 	}
@@ -6558,7 +6558,7 @@ func nox_xxx_getRespawnWeaponFlags_4EF580() int8 {
 	if nox_xxx_getUnitDefDd10_4E3BA0(v7) != 0 {
 		v0 |= 0x40
 	}
-	v8 = sub_415CD0(0x1000000)
+	v8 = int32(sub_415CD0(0x1000000))
 	if nox_xxx_getUnitDefDd10_4E3BA0(v8) != 0 {
 		v0 |= math.MinInt8
 	}
@@ -7484,7 +7484,7 @@ func nox_xxx_rewardMakeArmor_4F0E80(a1 *server.Object, a2 uint32) *server.Object
 	if v12 == 0 {
 		return nil
 	}
-	v13 = sub_415D10(int32(uintptr(unsafe.Pointer(*(**byte)(memmap.PtrOff(0x587000, uintptr(v9*20)+208184))))))
+	v13 = int32(sub_415D10(uint32(int32(uintptr(unsafe.Pointer(*(**byte)(memmap.PtrOff(0x587000, uintptr(v9*20)+208184))))))))
 	v14 := nox_xxx_newObjectWithTypeInd_4E3450(v12)
 	v66 := v14
 	if v14 == nil {

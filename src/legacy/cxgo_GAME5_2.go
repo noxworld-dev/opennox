@@ -441,7 +441,7 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 			if v13 < 0 {
 				return 0
 			}
-			v14 = sub_415D10(v13)
+			v14 = int32(sub_415D10(uint32(v13)))
 			if v14 == 0 {
 				return 0
 			}
@@ -602,7 +602,7 @@ func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 	v11 = 26
 	for {
 		if (uint32(v10) & *((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*12)))) == 0 {
-			v12 = sub_415E40((*byte)(v10))
+			v12 = sub_415E40(uint32(v10))
 			if v12 != nil {
 				nox_sprintf(&v23[0], internCStr("%s %s \"%s\" %s\n"), "set", "Armor", v12, "off")
 				nox_fs_fputs(v4, &v23[0])
@@ -804,7 +804,7 @@ func nox_xxx_client_57B400(a1 *client.Drawable) int32 {
 	if *memmap.PtrUint32(0x8531A0, 2576) == 0 {
 		return 0
 	}
-	if a1.Field_27 != uint32(v1) || int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) == 1 {
+	if a1.TypeIDVal != uint32(v1) || int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) == 1 {
 		return 1
 	}
 	return 0

@@ -4462,7 +4462,7 @@ func sub_54CD30(a1 unsafe.Pointer) {
 	if v2 != nil {
 		for {
 			v3 = int32(v2.ObjFlags)
-			if v3&0x100 != 0 && v2.ObjClass&0x2000000 != 0 && (sub_415D10(int32(uintptr(v2.TypeInd)))&0x405) == 0 {
+			if v3&0x100 != 0 && v2.ObjClass&0x2000000 != 0 && (sub_415D10(uint32(int32(uintptr(v2.TypeInd))))&0x405) == 0 {
 				v1++
 			}
 			v2 = nox_xxx_inventoryGetNext_4E7990(v2)
@@ -4475,7 +4475,7 @@ func sub_54CD30(a1 unsafe.Pointer) {
 			v5 = 0
 			for i := nox_xxx_inventoryGetFirst_4E7980((*server.Object)(a1)); i != nil; i = nox_xxx_inventoryGetNext_4E7990(i) {
 				v7 = int32(i.ObjFlags)
-				if v7&0x100 != 0 && i.ObjClass&0x2000000 != 0 && (sub_415D10(int32(uintptr(i.TypeInd)))&0x405) == 0 {
+				if v7&0x100 != 0 && i.ObjClass&0x2000000 != 0 && (sub_415D10(uint32(int32(uintptr(i.TypeInd))))&0x405) == 0 {
 					if v5 == v4 {
 						nox_xxx_delayedDeleteObject_4E5CC0(i)
 						return

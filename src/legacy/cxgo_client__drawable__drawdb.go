@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/stdio"
+	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -40,6 +41,43 @@ func init() {
 	client.RegisterObjectUpdate("VortexSourceClientUpdate", nox_xxx_updDrawVortexSource_4CC950)
 	client.RegisterObjectUpdate("LinearOrbUpdateDraw", sub_4CA650)
 	client.RegisterObjectUpdate("MonsterGeneratorUpdateDraw", nox_xxx_updDrawMonsterGen_4BC920)
+}
+
+var table_34848_ready = false
+var table_34848 = []struct {
+	Name             string    // 0, 0
+	NameStr          strman.ID // 1, 4
+	TypeInd          uint32    // 2, 8
+	Bit              uint32    // 3, 12
+	DestroyedName    string    // 4, 16
+	DestroyedTypeInd uint32    // 5, 20
+}{
+	{"LeatherArmor", "LeatherArmorName", 0, 0x8000, "LeatherArmorDestroyed", 0},
+	{"ChainTunic", "ChainTunicName", 0, 0x10000, "INVALID", 0},
+	{"Breastplate", "SteelBreastplateName", 0, 0x20000, "BreastplateDestroyed", 0},
+	{"LeatherHelm", "LeatherHelmetName", 0, 0x200000, "LeatherHelmDestroyed", 0},
+	{"SteelHelm", "SteelHelmetName", 0, 0x400000, "SteelHelmDestroyed", 0},
+	{"SteelShield", "SteelShieldName", 0, 0x2000000, "SteelShieldDestroyed", 0},
+	{"WoodenShield", "WoodenShieldName", 0, 0x1000000, "WoodenShieldDestroyed", 0},
+	{"StreetShirt", "StreetShirtName", 0, 0x400, "INVALID", 0},
+	{"StreetPants", "StreetPantsName", 0, 0x4, "INVALID", 0},
+	{"StreetSneakers", "StreetSneakersName", 0, 0x1, "INVALID", 0},
+	{"LeatherBoots", "LeatherBootsName", 0, 0x40, "INVALID", 0},
+	{"LeatherArmoredBoots", "LeatherArmoredBootsName", 0, 0x80, "INVALID", 0},
+	{"PlateBoots", "PlateBootsName", 0, 0x100, "INVALID", 0},
+	{"MedievalPants", "MedievalPantsName", 0, 0x8, "INVALID", 0},
+	{"LeatherLeggings", "LeatherLeggingsName", 0, 0x10, "INVALID", 0},
+	{"ChainLeggings", "ChainLeggingsName", 0, 0x20, "INVALID", 0},
+	{"PlateLeggings", "PlateLeggingsName", 0, 0x200, "INVALID", 0},
+	{"MedievalShirt", "MedievalShirtName", 0, 0x800, "INVALID", 0},
+	{"WizardRobe", "WizardRobeName", 0, 0x4000, "INVALID", 0},
+	{"LeatherArmbands", "LeatherArmbandsName", 0, 0x1000, "INVALID", 0},
+	{"PlateArms", "PlateArmsName", 0, 0x2000, "INVALID", 0},
+	{"MedievalCloak", "MedievalCloakName", 0, 0x2, "INVALID", 0},
+	{"ChainCoif", "ChainCoifName", 0, 0x40000, "INVALID", 0},
+	{"WizardHelm", "WizardHelmName", 0, 0x80000, "INVALID", 0},
+	{"ConjurerHelm", "ConjurerHelmName", 0, 0x100000, "INVALID", 0},
+	{"OrnateHelm", "OrnateHelmName", 0, 0x800000, "INVALID", 0},
 }
 
 func nox_parse_thing_draw(obj *client.ObjectType, f *binfile.MemFile, data unsafe.Pointer) bool {
@@ -147,32 +185,20 @@ func sub_485F30() int32 {
 	return 1
 }
 func nox_xxx_equipArmor_415AB0() {
-	var (
-		v0 *uint8
-		v1 int32
-		v2 int32
-	)
-	if *memmap.PtrUint32(0x5D4594, 371252) != 1 {
-		if *memmap.PtrUint32(0x587000, 34848) != 0 {
-			v0 = (*uint8)(memmap.PtrOff(0x587000, 34864))
-			for {
-				if noxflags.HasGame(2097153) {
-					*((*uint32)(unsafe.Add(unsafe.Pointer(v0), -int(4*2)))) = uint32(nox_xxx_getNameId_4E3AA0(*((**byte)(unsafe.Add(unsafe.Pointer(v0), -int(unsafe.Sizeof((*byte)(nil))*4))))))
-					v1 = nox_xxx_getNameId_4E3AA0(*(**byte)(unsafe.Pointer(v0)))
-				} else {
-					*((*uint32)(unsafe.Add(unsafe.Pointer(v0), -int(4*2)))) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(*((**byte)(unsafe.Add(unsafe.Pointer(v0), -int(unsafe.Sizeof((*byte)(nil))*4))))))
-					v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(*(**byte)(unsafe.Pointer(v0)))
-				}
-				*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*1))) = uint32(v1)
-				v2 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*2))))
-				v0 = (*uint8)(unsafe.Add(unsafe.Pointer(v0), 24))
-				if v2 == 0 {
-					break
-				}
-			}
-		}
-		*memmap.PtrUint32(0x5D4594, 371252) = 1
+	if table_34848_ready {
+		return
 	}
+	for i := range table_34848 {
+		it := &table_34848[i]
+		if noxflags.HasGame(2097153) {
+			it.TypeInd = uint32(nox_xxx_getNameId_4E3AA0(it.Name))
+			it.DestroyedTypeInd = uint32(nox_xxx_getNameId_4E3AA0(it.DestroyedName))
+		} else {
+			it.TypeInd = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(it.Name))
+			it.DestroyedTypeInd = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(it.DestroyedName))
+		}
+	}
+	table_34848_ready = true
 }
 func nox_xxx_equipWeapon_4157C0() {
 	var (

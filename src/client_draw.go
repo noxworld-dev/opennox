@@ -426,7 +426,7 @@ LOOP:
 		} else {
 			sy = math.MaxInt32
 		}
-		if dr.Field_27 == memmap.Uint32(0x5D4594, 1096448) && c.srv.Teams.First() != nil {
+		if dr.TypeIDVal == memmap.Uint32(0x5D4594, 1096448) && c.srv.Teams.First() != nil {
 			for v25 := c.Objs.FirstPlayerList(); v25 != nil; v25 = v25.Field104() {
 				if v25.HasEnchant(server.ENCHANT_CROWN) {
 					continue LOOP

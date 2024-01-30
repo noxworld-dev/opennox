@@ -43,9 +43,9 @@ type WindowData struct {
 	SelImageHnd  noxrender.ImageHandle // 14, 56 (92)
 	ImgPtVal     image.Point           // 15, 60 (96)
 	TextColorVal uint32                // 17, 68 (104)
-	text         [64]uint16            // 18, 72 (108)
+	TextBuf      [64]uint16            // 18, 72 (108)
 	FontPtr      unsafe.Pointer        // 50, 200 (236)
-	tooltip      [64]uint16            // 51, 204 (240)
+	TooltipBuf   [64]uint16            // 51, 204 (240)
 }
 
 func (d *WindowData) C() unsafe.Pointer {
@@ -69,27 +69,23 @@ func (d *WindowData) SetGroup(v int) {
 }
 
 func (d *WindowData) Text() string {
-	n := alloc.StrLenS(d.text[:])
-	return string(utf16.Decode(d.text[:n]))
-}
-
-func (d *WindowData) TextBuf() []uint16 {
-	return d.text[:]
+	n := alloc.StrLenS(d.TextBuf[:])
+	return string(utf16.Decode(d.TextBuf[:n]))
 }
 
 func (d *WindowData) Tooltip() string {
-	n := alloc.StrLenS(d.tooltip[:])
-	return string(utf16.Decode(d.tooltip[:n]))
+	n := alloc.StrLenS(d.TooltipBuf[:])
+	return string(utf16.Decode(d.TooltipBuf[:n]))
 }
 
 func (d *WindowData) SetText(s string) {
-	alloc.StrCopyZero16(d.text[:], s)
+	alloc.StrCopyZero16(d.TextBuf[:], s)
 }
 
 func (d *WindowData) SetTooltip(sm *strman.StringManager, s string) {
-	n := alloc.StrCopyZero16(d.tooltip[:], s)
-	if n >= len(d.tooltip) && sm != nil {
-		alloc.StrCopyZero16(d.tooltip[:], sm.GetStringInFile("TooltipTooLong", "gamewin.c"))
+	n := alloc.StrCopyZero16(d.TooltipBuf[:], s)
+	if n >= len(d.TooltipBuf) && sm != nil {
+		alloc.StrCopyZero16(d.TooltipBuf[:], sm.GetStringInFile("TooltipTooLong", "gamewin.c"))
 	}
 }
 

@@ -20,12 +20,13 @@ func nox_xxx_updDrawAddRndSpark_4CDFA0(a1 *client.Drawable, a2 int32) {
 	for {
 		v4 := nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1523008), int32(a1.PosVec.X), int32(a1.PosVec.Y))
 		if v4 != nil {
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*108)) = uint32(a1.PosVec.X << 12)
-			v4.Field_109 = uintptr(a1.PosVec.Y << 12)
 			v4.Field_74_4 = uint8(int8(nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 37)))
-			v4.Field_110 = uintptr(nox_common_randomIntMinMax_415FF0(1000, 3000, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 40))
-			v4.Field_112 = uintptr(gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(10, 40, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 43)))
-			v4.Field_111 = uintptr(gameFrame())
+			d := a1.UnionEffect()
+			d.Field_108 = uint32(a1.PosVec.X) << 12
+			d.Field_109 = uint32(a1.PosVec.Y) << 12
+			d.Field_110 = uint32(nox_common_randomIntMinMax_415FF0(1000, 3000, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 40))
+			d.Field_111 = gameFrame()
+			d.Field_112 = gameFrame() + uint32(nox_common_randomIntMinMax_415FF0(10, 40, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 43))
 			v4.ZVal = 22
 			v4.VelZ = int8(nox_common_randomIntMinMax_415FF0(0, 4, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 49))
 			nox_xxx_sprite_45A110_drawable(v4)

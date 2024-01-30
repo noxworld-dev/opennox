@@ -1762,20 +1762,6 @@ LABEL_42:
 	}
 	return v3
 }
-func sub_4FA280(a1 int32) int32 {
-	var v1 int32
-	v1 = 2
-	for ((1 << v1) & a1) == 0 {
-		if func() int32 {
-			p := &v1
-			*p++
-			return *p
-		}() >= 27 {
-			return 0
-		}
-	}
-	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*4)+215824))
-}
 func nox_common_mapPlrActionToStateId_4FA2B0(a1p *server.Object) int32 {
 	var (
 		a1 = a1p

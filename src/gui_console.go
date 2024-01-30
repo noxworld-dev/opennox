@@ -133,11 +133,11 @@ func (c *guiConsole) Init(sz image.Point) *gui.Window {
 	scrollData, freeScr := alloc.New(gui.ScrollListBoxData{})
 	defer freeScr()
 	scrollData.Count = 128
-	scrollData.Line_height = 10
+	scrollData.LineHeight = 10
 	scrollData.Field_1 = 1
 	scrollData.Field_2 = 1
-	scrollData.Field_3 = 1
-	scrollData.Field_4 = 0
+	scrollData.HasScroll = 1
+	scrollData.HasData = 0
 	c.scrollbox = legacy.Nox_gui_newScrollListBox_4A4310(c.root, 1152, 0, 0, int(memmap.Int32(0x5D4594, 833704)), int(memmap.Int32(0x5D4594, 833708))-20, drawData, scrollData)
 	drawData.SetDisabledColor(nox_color_gray2)
 	drawData.SetEnabledColor(nox_color_gray2)
@@ -198,7 +198,7 @@ func (c *guiConsole) ReloadColors() {
 		dd.SetTextColor(gray)
 
 		scr := (*gui.ScrollListBoxData)(c.scrollbox.WidgetData)
-		if v2 := legacy.AsWindowP(scr.Field_9); v2 != nil {
+		if v2 := legacy.AsWindowP(scr.Slider); v2 != nil {
 			dd2 := v2.DrawData()
 			dd2.SetBackgroundColor(black)
 			dd2.SetDisabledColor(black)
@@ -214,7 +214,7 @@ func (c *guiConsole) ReloadColors() {
 				dd3.SetSelectedColor(black)
 			}
 		}
-		if v4 := legacy.AsWindowP(scr.Field_7); v4 != nil {
+		if v4 := legacy.AsWindowP(scr.UpButton); v4 != nil {
 			dd4 := v4.DrawData()
 			dd4.SetBackgroundColor(black)
 			dd4.SetDisabledColor(black)
@@ -223,7 +223,7 @@ func (c *guiConsole) ReloadColors() {
 			dd4.SetSelectedColor(gray)
 			dd4.SetTextColor(gray)
 		}
-		if v5 := legacy.AsWindowP(scr.Field_8); v5 != nil {
+		if v5 := legacy.AsWindowP(scr.DownButton); v5 != nil {
 			dd5 := v5.DrawData()
 			dd5.SetBackgroundColor(black)
 			dd5.SetDisabledColor(black)

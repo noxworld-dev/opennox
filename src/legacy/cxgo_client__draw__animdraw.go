@@ -83,10 +83,9 @@ func nox_thing_animate_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	return 1
 }
 func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
-	a1 := vp
-	var v4 int32
 	v2 := dr.Flags70()
 	v3 := dr.DrawData
+	var v4 int32
 	if v2&2 != 0 {
 		dr.AnimStart = gameFrame()
 		v4 = 0
@@ -100,7 +99,7 @@ func nox_thing_animate_state_draw(vp *noxrender.Viewport, dr *client.Drawable) i
 		dr.AnimStart = gameFrame()
 	}
 	if int32(*(*uint16)(unsafe.Add(v5, 40))) != 0 {
-		return sub_4BC6B0(a1, dr, (*client.AnimationVector)(v5))
+		return sub_4BC6B0(vp, dr, (*client.AnimationVector)(v5))
 	} else {
 		return 1
 	}

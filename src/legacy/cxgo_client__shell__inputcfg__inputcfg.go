@@ -63,7 +63,7 @@ func sub_4CBF60(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 		if a2 == 16393 {
 			v7 := win.WidgetData
 			nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(a1), 0x4009, a3, a4)
-			v8 = sub_4A4800(v7)
+			v8 = sub_4A4800((*nox_scrollListBox_data)(v7))
 			nox_window_call_field_94_fnc(dword_5d4594_1522620, 16412, uintptr(v8), 0)
 			nox_window_call_field_94_fnc(dword_5d4594_1522624, 16412, uintptr(v8), 0)
 			nox_window_call_field_94_fnc(dword_5d4594_1522628, 16412, uintptr(v8), 0)

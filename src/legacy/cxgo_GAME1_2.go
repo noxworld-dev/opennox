@@ -3390,7 +3390,7 @@ func sub_439050(win *gui.Window, p2, p3, p4 uintptr) uintptr {
 		case 0x4009:
 			v4 := win.WidgetData
 			nox_xxx_wndListboxProcPre_4A30D0((*gui.Window)(a1), 0x4009, uintptr(a3), uintptr(a4))
-			v5 = sub_4A4800(v4)
+			v5 = sub_4A4800((*nox_scrollListBox_data)(v4))
 			nox_window_call_field_94_fnc(dword_5d4594_815016, 16412, uintptr(v5), 0)
 			nox_window_call_field_94_fnc(dword_5d4594_815020, 16412, uintptr(v5), 0)
 			nox_window_call_field_94_fnc(dword_5d4594_815024, 16412, uintptr(v5), 0)

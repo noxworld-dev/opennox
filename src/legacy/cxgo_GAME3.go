@@ -152,7 +152,7 @@ func sub_4A28C0(a1 int32) int32 {
 	}
 	return result
 }
-func sub_4A4800(a1 unsafe.Pointer) int32 {
+func sub_4A4800(a1 *nox_scrollListBox_data) int32 {
 	var (
 		result int32
 		v2     *uint32
@@ -160,12 +160,12 @@ func sub_4A4800(a1 unsafe.Pointer) int32 {
 		v4     int32
 	)
 	result = 0
-	v2 = *(**uint32)(unsafe.Add(a1, 24))
-	v3 = int32(*(*int16)(unsafe.Add(a1, 54)))
+	v2 = a1.ItemsPtr
+	v3 = int32(a1.Field_13_1)
 	if *v2 > uint32(v3) {
 		return result
 	}
-	for result < int32(*(*int16)(unsafe.Add(a1, 44))) {
+	for result < int32(a1.Field_11_0) {
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*131)))
 		v2 = (*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*131))
 		result++
@@ -3309,7 +3309,7 @@ func sub_4B6B80(a1 *int32, dr *client.Drawable, a3 int32) int {
 		*memmap.PtrUint32(0x5D4594, 1313680) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("WhiteMoveOrb")))
 		*memmap.PtrUint32(0x5D4594, 1313684) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("BlueMoveOrb")))
 	}
-	v4 = int32(a2.Field_27)
+	v4 = int32(a2.TypeIDVal)
 	if uint32(v4) == *memmap.PtrUint32(0x5D4594, 1313660) || uint32(v4) == *memmap.PtrUint32(0x5D4594, 1313684) {
 		v5 = int32(dword_5d4594_1313540)
 		v21 = int32(dword_5d4594_1313536)
@@ -3429,7 +3429,7 @@ func sub_4B7EE0(a1 int16) {
 	if v2 == nil {
 		return
 	}
-	for v2.Field_27 != *memmap.PtrUint32(0x5D4594, 1313744) || int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), 438))) != int32(a1) {
+	for v2.TypeIDVal != *memmap.PtrUint32(0x5D4594, 1313744) || int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), 438))) != int32(a1) {
 		v2 = nox_drawable_next_45A070(v2)
 		if v2 == nil {
 			return
@@ -3512,7 +3512,7 @@ func nox_xxx_spriteScanForShield_4B81E0(it *client.Drawable, a2 unsafe.Pointer) 
 	var v2 *uint8
 	v2 = (*uint8)(memmap.PtrOff(0x5D4594, 1313748))
 	for {
-		if a1.Field_27 == *(*uint32)(unsafe.Pointer(v2)) && *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 432)) == *(*uint32)(a2) {
+		if a1.TypeIDVal == *(*uint32)(unsafe.Pointer(v2)) && *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 432)) == *(*uint32)(a2) {
 			dword_5d4594_1313788 = 1
 		}
 		v2 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), 4))
@@ -3646,7 +3646,7 @@ func sub_4B8CA0(earr *[server.PlayerArmorCnt]server.EquipmentData, bit uint32) {
 		return
 	}
 	id := sub_415CD0(bit)
-	m := nox_xxx_equipClothFindDefByTT_413270(id)
+	m := nox_xxx_equipClothFindDefByTT_413270(int32(id))
 	if m == nil {
 		return
 	}

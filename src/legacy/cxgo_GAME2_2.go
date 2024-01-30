@@ -363,7 +363,7 @@ func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 unsafe.Pointer) 
 	}()) {
 		return
 	}
-	if uint32(v4)&0x80400206 == 0 && arg0.Field_27 != *memmap.PtrUint32(0x5D4594, 1096648) {
+	if uint32(v4)&0x80400206 == 0 && arg0.TypeIDVal != *memmap.PtrUint32(0x5D4594, 1096648) {
 		return
 	}
 	if nox_xxx_client_4984B0_drawable(arg0) == 0 {
@@ -450,7 +450,7 @@ LABEL_38:
 		dword_5d4594_1096640 = v2
 	}
 	if v2.C() != *memmap.PtrPtr(0x852978, 8) && v22 > dword_5d4594_1096636 && nox_xxx_client_57B400(v2) != 0 {
-		if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) == 1 && v2.Field_27 == *memmap.PtrUint32(0x5D4594, 1096632) {
+		if *memmap.PtrUint32(0x8531A0, 2576) != 0 && int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))) == 1 && v2.TypeIDVal == *memmap.PtrUint32(0x5D4594, 1096632) {
 			if nox_client_spriteUnderCursorXxx_1096644 == nil {
 				nox_client_spriteUnderCursorXxx_1096644 = unsafe.Pointer(v2)
 				dword_5d4594_1096636 = 0
@@ -5102,7 +5102,7 @@ func nox_gui_newEntryField_488500(a1p *gui.Window, a2 nox_window_flags, a3, a4, 
 	*(*uint32)(unsafe.Pointer(&v14[16])) = 0
 	*(*uint16)(unsafe.Pointer(&v15[72])) = 0
 	*(*uint32)(unsafe.Pointer(&v15[8])) = 288
-	v12 := nox_gui_newScrollListBox_4A4310(nil, 17584, 0, a6, 110, 119, (*gui.WindowData)(unsafe.Pointer(&v15[0])), (*nox_scrollListBox_data)(unsafe.Pointer(&v14[0])))
+	v12 := Nox_gui_newScrollListBox_4A4310(nil, 17584, 0, a6, 110, 119, (*gui.WindowData)(unsafe.Pointer(&v15[0])), (*nox_scrollListBox_data)(unsafe.Pointer(&v14[0])))
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v10), 4*262)) = unsafe.Pointer(v12)
 	if v12 != nil {
 		nox_xxx_wndClearFlag_46AD80(v12, 128)
