@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox-lib/console"
@@ -139,25 +140,39 @@ func init() {
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			all := false
-			max := 0
-			if len(tokens) == 0 {
-				max = 1 // compatibility
+			spl := spell.SPELL_INVALID
+			if len(tokens) > 0 {
+				if tokens[0] == "all" {
+					all = true
+					tokens = tokens[1:]
+				} else if sp := spell.ParseID(tokens[0]); sp != spell.SPELL_INVALID {
+					spl = sp
+					tokens = tokens[1:]
+				} else if sp = spell.ParseID("SPELL_" + tokens[0]); sp != spell.SPELL_INVALID {
+					spl = sp
+					tokens = tokens[1:]
+				}
 			}
-			if len(tokens) > 0 && tokens[0] == "all" {
-				all = true
-				tokens = tokens[1:]
+			lvl := 0
+			if len(tokens) == 0 {
+				lvl = 1 // compatibility
 			}
 			if len(tokens) > 0 {
 				if v, err := strconv.Atoi(tokens[0]); err == nil && v > 0 {
-					max = v
+					lvl = v
 					tokens = tokens[1:]
 				}
 			}
 			return noxCmdSetBool(c, tokens, func(enable bool) {
-				if all {
-					serverCheatAllSpells(enable, max)
+				if spl != spell.SPELL_INVALID {
+					if !enable {
+						lvl = 0
+					}
+					serverCheatSpell(spl, lvl)
+				} else if all {
+					serverCheatAllSpells(enable, lvl)
 				} else {
-					serverCheatSpells(enable, max)
+					serverCheatSpells(enable, lvl)
 				}
 				if enable {
 					str := strMan.GetStringInFile("sageset", "parsecmd.c")
@@ -293,6 +308,17 @@ func serverCheatSpells(enable bool, max int) {
 		for _, p := range noxServer.Players.List() {
 			serverSetAllSpells(p, enable, max)
 			serverSetAllWarriorAbilities(p, enable, max)
+		}
+	}
+}
+
+func serverCheatSpell(sp spell.ID, lvl int) {
+	if sp == spell.SPELL_INVALID {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
+		for _, p := range noxServer.Players.List() {
+			serverSetSpell(p, sp, lvl)
 		}
 	}
 }

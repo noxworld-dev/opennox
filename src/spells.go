@@ -151,6 +151,22 @@ func serverSetAllSpells(p *Player, enable bool, max int) {
 	legacy.Nox_xxx_playerApplyProtectionCRC_56FD50(p.Prot4636, unsafe.Pointer(&p.SpellLvl[0]), len(p.SpellLvl))
 }
 
+func serverSetSpell(p *Player, sp spell.ID, lvl int) {
+	if sp == spell.SPELL_INVALID {
+		return
+	}
+	legacy.Nox_xxx_playerResetProtectionCRC_56F7D0(p.Prot4636, 0)
+	for i := 1; i < len(p.SpellLvl); i++ {
+		cur := int(p.SpellLvl[i])
+		if sp == spell.ID(i) {
+			p.SpellLvl[i] = uint32(lvl)
+			cur = lvl
+		}
+		legacy.Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(p.Prot4636, i, cur)
+	}
+	legacy.Nox_xxx_playerApplyProtectionCRC_56FD50(p.Prot4636, unsafe.Pointer(&p.SpellLvl[0]), len(p.SpellLvl))
+}
+
 func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
 	if p.PlayerClass() != player.Warrior {
 		return
