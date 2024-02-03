@@ -12,27 +12,36 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func (s noxScriptNS) GetHost() ns.Obj {
-	u := s.s.Players.HostUnit()
-	if u == nil {
-		return nil
-	}
-	return nsObj{s.s, asObjectS(u)}
-}
-
-func (s noxScriptNS) HostPlayer() ns.Player {
-	pl := s.s.Players.Host()
+func (s noxScriptNS) toPlayer(pl *server.Player) ns.Player {
 	if pl == nil {
 		return nil
 	}
 	return nsPlayer{s.s, pl}
 }
 
+func (s noxScriptNS) asPlayer(pl ns.Player) *server.Player {
+	if pl == nil {
+		return nil
+	}
+	p, _ := pl.(nsPlayer)
+	return p.p
+}
+
+func (s noxScriptNS) GetHost() ns.Obj {
+	u := s.s.Players.HostUnit()
+	return s.toObj(u)
+}
+
+func (s noxScriptNS) HostPlayer() ns.Player {
+	pl := s.s.Players.Host()
+	return s.toPlayer(pl)
+}
+
 func (s noxScriptNS) Players() []ns.Player {
 	list := s.s.Players.List()
 	out := make([]ns.Player, 0, len(list))
 	for _, p := range list {
-		out = append(out, nsPlayer{s.s, p})
+		out = append(out, s.toPlayer(p))
 	}
 	return out
 }
@@ -139,9 +148,35 @@ func (s noxScriptNS) DeathScreen(which int) {
 	sub5165D0(which)
 }
 
+func (s noxScriptNS) OnPlayerJoin(fnc ns.PlayerJoinFunc) {
+	s.s.OnPlayerJoin(func(p *server.Player) bool {
+		return fnc(s.toPlayer(p))
+	})
+}
+
+func (s noxScriptNS) OnPlayerLeave(fnc ns.PlayerLeaveFunc) {
+	s.s.OnPlayerLeave(func(p *server.Player) {
+		fnc(s.toPlayer(p))
+	})
+}
+
+func (s noxScriptNS) OnPlayerDeath(fnc ns.PlayerDeathFunc) {
+	s.s.OnPlayerDeath(func(p *server.Player, killer *server.Object) {
+		fnc(s.toPlayer(p), s.toObj(killer))
+	})
+}
+
 type nsPlayer struct {
 	s *Server
 	p *Player
+}
+
+func (p nsPlayer) CameraTarget() ns.Obj {
+	return p.s.noxScriptP().toObj(p.p.CameraTarget())
+}
+
+func (p nsPlayer) SetCameraTarget(obj ns.Obj) {
+	p.p.CameraFollow(p.s.noxScriptP().asObj(obj))
 }
 
 func (p nsPlayer) Name() string {
@@ -152,12 +187,16 @@ func (p nsPlayer) Pos() types.Pointf {
 	return p.p.Pos()
 }
 
+func (p nsPlayer) CursorPos() types.Pointf {
+	return p.p.CursorPos()
+}
+
 func (p nsPlayer) Unit() ns.Obj {
 	u := p.p.PlayerUnit
 	if u == nil {
 		return nil
 	}
-	return nsObj{p.s, asObjectS(u)}
+	return p.s.noxScriptP().toObj(u)
 }
 
 func (p nsPlayer) Team() ns.Team {

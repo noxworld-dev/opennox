@@ -16,6 +16,21 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func (s noxScriptNS) toObj(obj *server.Object) ns4.Obj {
+	if obj == nil {
+		return nil
+	}
+	return nsObj{s.s, asObjectS(obj)}
+}
+
+func (s noxScriptNS) asObj(obj ns4.Obj) *server.Object {
+	if obj == nil {
+		return nil
+	}
+	o, _ := obj.(nsObj)
+	return o.Object.SObj()
+}
+
 func (s noxScriptNS) ObjectType(name string) ns4.ObjType {
 	typ := s.s.Types.ByID(name)
 	if typ == nil {
@@ -37,10 +52,7 @@ func (s noxScriptNS) ObjectByHandle(h ns4.ObjHandle) ns4.Obj {
 		return nil
 	}
 	obj := s.s.noxScript.ScriptToObject(h.ObjScriptID())
-	if obj == nil {
-		return nil
-	}
-	return nsObj{s.s, asObjectS(obj)}
+	return s.toObj(obj)
 }
 
 func (s noxScriptNS) CreateObject(typ string, p ns4.Positioner) ns4.Obj {
@@ -52,16 +64,16 @@ func (s noxScriptNS) CreateObject(typ string, p ns4.Positioner) ns4.Obj {
 		return nil
 	}
 	s.s.CreateObjectAt(obj, nil, p.Pos())
-	return nsObj{s.s, asObjectS(obj)}
+	return s.toObj(obj)
 }
 
 func (s noxScriptNS) Object(name string) ns4.Obj {
-	obj := asObjectS(legacy.Nox_xxx_getObjectByScrName_4DA4F0(name))
+	obj := legacy.Nox_xxx_getObjectByScrName_4DA4F0(name)
 	if obj == nil {
 		ScriptLog.Printf("noxscript: cannot find object: %q", name)
 		return nil
 	}
-	return nsObj{s.s, obj}
+	return s.toObj(obj)
 }
 
 func (s noxScriptNS) ObjectGroupByHandle(h ns4.ObjGroupHandle) ns4.ObjGroup {
@@ -123,7 +135,7 @@ func (s noxScriptNS) FindObjects(iter func(obj ns4.Obj) bool, conditions ...ns4.
 	filter := ns4.AND(conditions)
 	cnt := 0
 	search(func(obj *server.Object) bool {
-		nobj := nsObj{s.s, asObjectS(obj)}
+		nobj := s.toObj(obj)
 		if !filter.Matches(nobj) {
 			return true // find next match
 		}
@@ -138,19 +150,13 @@ func (s noxScriptNS) FindObjects(iter func(obj ns4.Obj) bool, conditions ...ns4.
 }
 
 func (s noxScriptNS) GetTrigger() ns4.Obj {
-	obj := asObjectS(s.s.noxScript.Trigger())
-	if obj == nil {
-		return nil
-	}
-	return nsObj{s.s, obj}
+	obj := s.s.noxScript.Trigger()
+	return s.toObj(obj)
 }
 
 func (s noxScriptNS) GetCaller() ns4.Obj {
-	obj := asObjectS(s.s.noxScript.Caller())
-	if obj == nil {
-		return nil
-	}
-	return nsObj{s.s, obj}
+	obj := s.s.noxScript.Caller()
+	return s.toObj(obj)
 }
 
 func (s noxScriptNS) DestroyEveryChat() {
@@ -199,7 +205,7 @@ func (typ nsObjType) Create(p ns4.Positioner) ns4.Obj {
 		return nil
 	}
 	typ.s.CreateObjectAt(obj, nil, p.Pos())
-	return nsObj{typ.s, asObjectS(obj)}
+	return typ.s.noxScriptP().toObj(obj)
 }
 
 func (typ nsObjType) Class() object.Class {
@@ -228,6 +234,22 @@ var _ server.Obj = nsObj{}
 type nsObj struct {
 	s *Server
 	*Object
+}
+
+func (obj nsObj) CursorPos() types.Pointf {
+	if !obj.Class().Has(object.ClassPlayer) {
+		return types.Pointf{}
+	}
+	pl := obj.Object.ControllingPlayer()
+	return pl.CursorPos()
+}
+
+func (obj nsObj) CursorObj() ns4.Obj {
+	if !obj.Class().Has(object.ClassPlayer) {
+		return nil
+	}
+	ud := obj.Object.UpdateDataPlayer()
+	return obj.s.noxScriptP().toObj(ud.CursorObj)
 }
 
 func (obj nsObj) ScriptID() int {
@@ -346,10 +368,7 @@ func (obj nsObj) Player() ns4.Player {
 		return nil
 	}
 	pl := obj.ControllingPlayer()
-	if pl == nil {
-		return nil
-	}
-	return nsPlayer{obj.s, pl}
+	return obj.s.noxScriptP().toPlayer(pl)
 }
 
 func (obj nsObj) GetScore() int {
@@ -415,7 +434,7 @@ func (obj nsObj) CanSee(obj2 ns4.Obj) bool {
 	if obj.Object == nil || obj2 == nil {
 		return false
 	}
-	return obj.Object.CanSee(obj2.(nsObj).SObj())
+	return obj.Object.CanSee(obj.s.noxScriptP().asObj(obj2))
 }
 
 func (obj nsObj) PushTo(p ns4.Positioner, force float32) {
@@ -427,7 +446,7 @@ func (obj nsObj) PushTo(p ns4.Positioner, force float32) {
 func (obj nsObj) Damage(source ns4.Obj, amount int, typ damage.Type) bool {
 	var src *server.Object
 	if source != nil {
-		src = source.(nsObj).Object.SObj()
+		src = obj.s.noxScriptP().asObj(source)
 	}
 	return obj.Object.DoDamage(src, amount, object.DamageType(typ))
 }
@@ -460,25 +479,19 @@ func (obj nsObj) HasEquipment(item ns4.Obj) bool {
 
 func (obj nsObj) GetLastItem() ns4.Obj {
 	it := obj.FirstItem()
-	if it == nil {
-		return nil
-	}
-	return nsObj{obj.s, asObjectS(it)}
+	return obj.s.noxScriptP().toObj(it)
 }
 
 func (obj nsObj) GetPreviousItem() ns4.Obj {
 	it := obj.NextItem()
-	if it == nil {
-		return nil
-	}
-	return nsObj{obj.s, asObjectS(it)}
+	return obj.s.noxScriptP().toObj(it)
 }
 
 func (obj nsObj) Items(conditions ...ns4.ObjCond) []ns4.Obj {
 	filter := ns4.AND(conditions)
 	var out []ns4.Obj
 	for it := obj.FirstItem(); it != nil; it = it.NextItem() {
-		v := nsObj{obj.s, asObjectS(it)}
+		v := obj.s.noxScriptP().toObj(it)
 		if filter.Matches(v) {
 			out = append(out, v)
 		}
@@ -501,7 +514,7 @@ func (s nsObjInItems) FindObjects(fnc func(it ns4.Obj) bool, conditions ...ns4.O
 	filter = append(filter, s.filters...)
 	cnt := 0
 	for it := s.obj.FirstItem(); it != nil; it = it.NextItem() {
-		v := nsObj{s.obj.s, asObjectS(it)}
+		v := s.obj.s.noxScriptP().toObj(it)
 		if !filter.Matches(v) {
 			continue
 		}
@@ -529,10 +542,7 @@ func (obj nsObj) FindItems(fnc func(it ns4.Obj) bool, conditions ...ns4.ObjCond)
 
 func (obj nsObj) GetHolder() ns4.Obj {
 	obj2 := obj.InvHolder
-	if obj2 == nil {
-		return nil
-	}
-	return nsObj{obj.s, asObjectS(obj2)}
+	return obj.s.noxScriptP().toObj(obj2)
 }
 
 func (obj nsObj) Pickup(item ns4.Obj) bool {
@@ -565,7 +575,7 @@ func (obj nsObj) Unequip(item ns4.Obj) bool {
 
 func (obj nsObj) CreateMover(wp ns4.WaypointObj, speed float32) ns4.Obj {
 	mv := obj.Object.CreateMover(wp, speed)
-	return nsObj{obj.s, asObjectS(mv)}
+	return obj.s.noxScriptP().toObj(mv)
 }
 
 func (obj nsObj) GetElevatorStatus() int {
@@ -855,13 +865,14 @@ func (g nsObjGroup) Enchant(enchant enchant.Enchant, dt ns4.Duration) {
 }
 
 func (g nsObjGroup) EachObject(recursive bool, fnc func(obj ns4.Obj) bool) {
+	s := g.s.noxScriptP()
 	if recursive {
 		server.EachObjectRecursive(g.s.Server, g.g, func(obj *server.Object) bool {
-			return fnc(nsObj{g.s, asObjectS(obj)})
+			return fnc(s.toObj(obj))
 		})
 	} else {
 		server.EachObject(g.s.Server, g.g, func(obj *server.Object) bool {
-			return fnc(nsObj{g.s, asObjectS(obj)})
+			return fnc(s.toObj(obj))
 		})
 	}
 }

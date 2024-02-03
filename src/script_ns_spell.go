@@ -66,7 +66,7 @@ func (s noxScriptNS) NewTrap(pos ns4.Positioner, spells []ns4.TrapSpell) ns4.Obj
 		idata.Spells[idata.SpellsCnt] = uint32(spl)
 		idata.SpellsCnt++
 	}
-	return nsObj{s.s, asObjectS(trap)}
+	return s.toObj(trap)
 }
 
 func (obj nsObj) AwardSpell(name nsp.Spell) bool {

@@ -438,18 +438,25 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 			legacy.Sub_509C30(pl)
 		}
 	}
-	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		if noxflags.HasGame(noxflags.GameModeQuest) {
-			legacy.Nox_game_sendQuestStage_4D6960(ind)
-			return int(punit.NetCode)
-		}
-		var buf [3]byte
-		buf[0] = byte(noxnet.MSG_FADE_BEGIN)
-		buf[1] = 1
-		buf[2] = 1
-		s.NetSendPacketXxx(int(ind), buf[:], 0, 0, 0)
+
+	if !s.CallOnPlayerJoin(pl) {
+		s.PlayerDisconnect(pl, 4) // TODO: proper disconnect reason
+		return 0
 	}
-	s.CallOnPlayerJoin(scrPlayer{pl})
+	s.CallOnPlayerJoinLegacy(scrPlayer{pl})
+
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		return int(punit.NetCode)
+	}
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		legacy.Nox_game_sendQuestStage_4D6960(ind)
+		return int(punit.NetCode)
+	}
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_FADE_BEGIN)
+	buf[1] = 1
+	buf[2] = 1
+	s.NetSendPacketXxx(int(ind), buf[:], 0, 0, 0)
 	return int(punit.NetCode)
 }
 

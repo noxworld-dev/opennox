@@ -192,11 +192,11 @@ func (noxScriptImpl) HostPlayer() script.Player {
 }
 
 func (s noxScriptImpl) OnPlayerJoin(fnc func(p script.Player)) {
-	s.s.OnPlayerJoin(fnc)
+	s.s.OnPlayerJoinLegacy(fnc)
 }
 
 func (s noxScriptImpl) OnPlayerLeave(fnc func(p script.Player)) {
-	s.s.OnPlayerLeave(fnc)
+	s.s.OnPlayerLeaveLegacy(fnc)
 }
 
 type noxScriptObjType struct {

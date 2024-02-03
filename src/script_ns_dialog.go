@@ -34,7 +34,7 @@ func (s noxScriptNS) StartDialog(cobj ns.Obj, cother ns.Obj) {
 	if cobj == nil || cother == nil {
 		return
 	}
-	obj := cobj.(nsObj)
-	other := cother.(nsObj)
-	nox_xxx_script_forcedialog_548CD0(other.SObj(), obj.SObj())
+	obj := s.asObj(cobj)
+	other := s.asObj(cother)
+	nox_xxx_script_forcedialog_548CD0(other, obj)
 }

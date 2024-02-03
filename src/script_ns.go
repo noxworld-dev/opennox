@@ -14,8 +14,12 @@ var (
 	_ ns3vm.Game = noxScriptImpl{}
 )
 
-func (s *Server) NoxScript() ns4.Implementation {
+func (s *Server) noxScriptP() noxScriptNS {
 	return noxScriptNS{s, s.Server.NoxScriptNS()}
+}
+
+func (s *Server) NoxScript() ns4.Implementation {
+	return s.noxScriptP()
 }
 
 func (s *Server) NoxScriptVM() ns3vm.Implementation {

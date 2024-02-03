@@ -5,7 +5,8 @@ import (
 )
 
 func (s *Server) Nox_script_event_playerLeave(pl *server.Player) {
-	s.CallOnPlayerLeave(scrPlayer{pl})
+	s.CallOnPlayerLeave(pl)
+	s.CallOnPlayerLeaveLegacy(scrPlayer{pl})
 }
 
 func (s *noxScript) scriptCallByEvent(ev server.ScriptEventType, a1, a2 *server.Object) {

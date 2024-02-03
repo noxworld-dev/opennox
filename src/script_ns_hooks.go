@@ -17,10 +17,10 @@ func (s noxScriptNS) OnChat(fnc ns4.ChatFunc) {
 			tm = nsTeam{s.s, t}
 		}
 		if p != nil {
-			pl = nsPlayer{s.s, p}
+			pl = s.toPlayer(p)
 		}
 		if obj != nil {
-			no = nsObj{s.s, asObjectS(obj)}
+			no = s.toObj(obj)
 		}
 		return fnc(tm, pl, no, msg)
 	})

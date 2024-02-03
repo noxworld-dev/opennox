@@ -48,6 +48,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s.Teams.init(sm, pr)
 	s.Abils.init(s)
 	s.Spells.init(s)
+	s.Storage.init()
 	s.NoxScriptVM.Init(s)
 	s.http.init()
 	return s
@@ -84,6 +85,7 @@ type Server struct {
 	Spells       serverSpells
 	Balance      serverBalance
 	AI           serverAI
+	Storage      serverStorage
 	NoxScriptVM  NoxScriptVM
 	VMs          ScriptVMs
 	ScriptEvents scriptEvents

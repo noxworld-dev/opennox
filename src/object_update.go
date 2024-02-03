@@ -248,6 +248,7 @@ func (s *Server) unitUpdatePlayerImplA(u *server.Object) (a1, v68 bool, _ bool) 
 			u.VelVec = types.Pointf{}
 			u.ForceVec = types.Pointf{}
 			u.Pos24 = types.Pointf{}
+			s.CallOnPlayerDeath(u.ControllingPlayer(), nil) // TODO: set the killer
 			s.scriptOnEvent(script.EventPlayerDeath)
 		}
 		return a1, v68, false

@@ -3,14 +3,20 @@ package server
 import "github.com/noxworld-dev/opennox-lib/script"
 
 type OnChatFunc func(t *Team, p *Player, obj *Object, msg string) string
+type OnPlayerJoinFunc func(p *Player) bool
+type OnPlayerLeaveFunc func(p *Player)
+type OnPlayerDeathFunc func(p *Player, killer *Object)
 
 type scriptEvents struct {
-	byObject      map[uintptr]*objectHandlers
-	onFrame       []func()
-	onMapEvent    map[script.EventType][]func()
-	onPlayerJoin  []func(p script.Player)
-	onPlayerLeave []func(p script.Player)
-	onChat        []OnChatFunc
+	byObject            map[uintptr]*objectHandlers
+	onFrame             []func()
+	onMapEvent          map[script.EventType][]func()
+	onChat              []OnChatFunc
+	onPlayerJoin        []func(p *Player) bool
+	onPlayerLeave       []func(p *Player)
+	onPlayerDeath       []func(p *Player, killer *Object)
+	onPlayerJoinLegacy  []func(p script.Player)
+	onPlayerLeaveLegacy []func(p script.Player)
 }
 
 func (s *Server) ClearScriptTriggers() {
@@ -20,15 +26,30 @@ func (s *Server) ClearScriptTriggers() {
 	s.ScriptEvents.onMapEvent = nil
 	s.ScriptEvents.onPlayerJoin = nil
 	s.ScriptEvents.onPlayerLeave = nil
+	s.ScriptEvents.onPlayerDeath = nil
+	s.ScriptEvents.onPlayerJoinLegacy = nil
+	s.ScriptEvents.onPlayerLeaveLegacy = nil
 	s.ScriptEvents.onChat = nil
 }
 
-func (s *Server) OnPlayerJoin(fnc func(p script.Player)) {
+func (s *Server) OnPlayerJoin(fnc OnPlayerJoinFunc) {
 	s.ScriptEvents.onPlayerJoin = append(s.ScriptEvents.onPlayerJoin, fnc)
 }
 
-func (s *Server) OnPlayerLeave(fnc func(p script.Player)) {
+func (s *Server) OnPlayerLeave(fnc OnPlayerLeaveFunc) {
 	s.ScriptEvents.onPlayerLeave = append(s.ScriptEvents.onPlayerLeave, fnc)
+}
+
+func (s *Server) OnPlayerDeath(fnc OnPlayerDeathFunc) {
+	s.ScriptEvents.onPlayerDeath = append(s.ScriptEvents.onPlayerDeath, fnc)
+}
+
+func (s *Server) OnPlayerJoinLegacy(fnc func(p script.Player)) {
+	s.ScriptEvents.onPlayerJoinLegacy = append(s.ScriptEvents.onPlayerJoinLegacy, fnc)
+}
+
+func (s *Server) OnPlayerLeaveLegacy(fnc func(p script.Player)) {
+	s.ScriptEvents.onPlayerLeaveLegacy = append(s.ScriptEvents.onPlayerLeaveLegacy, fnc)
 }
 
 func (s *Server) OnChat(fnc OnChatFunc) {
@@ -46,16 +67,35 @@ func (s *Server) OnMapEvent(typ script.EventType, fnc func()) {
 	s.ScriptEvents.onMapEvent[typ] = append(s.ScriptEvents.onMapEvent[typ], fnc)
 }
 
-func (s *Server) CallOnPlayerJoin(p script.Player) {
-	ScriptLog.Printf("player join: %s", p)
+func (s *Server) CallOnPlayerJoin(p *Player) bool {
 	for _, fnc := range s.ScriptEvents.onPlayerJoin {
+		if !fnc(p) {
+			return false
+		}
+	}
+	return true
+}
+
+func (s *Server) CallOnPlayerLeave(p *Player) {
+	for _, fnc := range s.ScriptEvents.onPlayerLeave {
 		fnc(p)
 	}
 }
 
-func (s *Server) CallOnPlayerLeave(p script.Player) {
-	ScriptLog.Printf("player leave: %s", p)
-	for _, fnc := range s.ScriptEvents.onPlayerLeave {
+func (s *Server) CallOnPlayerDeath(p *Player, killer *Object) {
+	for _, fnc := range s.ScriptEvents.onPlayerDeath {
+		fnc(p, killer)
+	}
+}
+
+func (s *Server) CallOnPlayerJoinLegacy(p script.Player) {
+	for _, fnc := range s.ScriptEvents.onPlayerJoinLegacy {
+		fnc(p)
+	}
+}
+
+func (s *Server) CallOnPlayerLeaveLegacy(p script.Player) {
+	for _, fnc := range s.ScriptEvents.onPlayerLeaveLegacy {
 		fnc(p)
 	}
 }

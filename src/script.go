@@ -119,9 +119,9 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 
 	// The global logic is the following:
 	// - MapEntry: give the script a chance to init the map itself.
-	// - OnPlayerJoin: called for each player so script can create associated object and variables.
-	// - MapExit: called _before_ OnPlayerLeave to give the script a chance to see the map results with all players who made it till the end.
-	// - OnPlayerLeave: called for each player in case the script handles results per-player rather than per-game.
+	// - OnPlayerJoinLegacy: called for each player so script can create associated object and variables.
+	// - MapExit: called _before_ OnPlayerLeaveLegacy to give the script a chance to see the map results with all players who made it till the end.
+	// - OnPlayerLeaveLegacy: called for each player in case the script handles results per-player rather than per-game.
 
 	// TODO: handle OnPlayerAFK
 
@@ -148,12 +148,12 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 		// TODO: we "rejoin" existing players here because the engine will actually keep all player objects
 		//       after map change ideally we should find the place where it resets their
 		for _, p := range s.Players.List() {
-			s.CallOnPlayerJoin(scrPlayer{p})
+			s.CallOnPlayerJoinLegacy(scrPlayer{p})
 		}
 	case script.EventMapExit:
 		// TODO: same as above: we make players "leave" when the map changes, so scripts can run their player logic
 		for _, p := range s.Players.List() {
-			s.CallOnPlayerLeave(scrPlayer{p})
+			s.CallOnPlayerLeaveLegacy(scrPlayer{p})
 		}
 	}
 }

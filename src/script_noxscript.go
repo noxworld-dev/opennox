@@ -282,10 +282,7 @@ func (s *noxScript) PopWallGroupNS() ns4.WallGroupObj {
 
 func (s *noxScript) PopObjectNS() ns4.Obj {
 	obj := s.ScriptToObject(int(s.PopI32()))
-	if obj == nil {
-		return nil
-	}
-	return nsObj{s.s, asObjectS(obj)}
+	return s.s.noxScriptP().toObj(obj)
 }
 
 func (s *noxScript) PopObjGroupNS() ns4.ObjGroup {

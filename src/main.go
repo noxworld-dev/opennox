@@ -30,6 +30,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/serial"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
@@ -178,6 +179,11 @@ func RunArgs(args []string) (gerr error) {
 		return fmt.Errorf("cannot read config: %w", err)
 	}
 	defer maybeWriteConfig()
+	if cur := viper.GetString(configNoxSerial); cur == "" {
+		cur = serial.Generate()
+		viper.Set(configNoxSerial, cur)
+		writeConfigLater()
+	}
 	if env.IsE2E() {
 		*fNoLimit = true
 		mainloopHook = e2eRun
@@ -200,9 +206,9 @@ func RunArgs(args []string) (gerr error) {
 			err := errors.New("cannot find Nox data dir")
 			datapath.Log.Println(err)
 			if runtime.GOOS == "windows" {
-				errorMessage("Nox game data directory not found. Please install Nox from Origin or GoG.\nIf the problem persists, please check https://mod.io/g/nox/r/how-to-install-opennox-windows")
+				errorMessage("Nox game data directory not found. Please install Nox from Origin or GoG.\nIf the problem persists, please check https://noxworld-dev.github.io/opennox-docs/opennox/install/windows/index.html")
 			} else {
-				errorMessage("Nox game data directory not found. Please install Nox from GoG (via Lutris or Heroic).\nIf the problem persists, please check https://mod.io/g/nox/r/how-to-install-opennox-linux")
+				errorMessage("Nox game data directory not found. Please install Nox from GoG (via Lutris or Heroic).\nIf the problem persists, please check https://noxworld-dev.github.io/opennox-docs/opennox/install/linux/index.html")
 			}
 			return err
 		}
@@ -218,6 +224,13 @@ func RunArgs(args []string) (gerr error) {
 	maybeWriteConfig()
 	if env.IsE2E() {
 		viper.Reset() // defaults only
+		serial.SetSerial(serial.Generate())
+	} else {
+		cur := viper.GetString(configNoxSerial)
+		if cur == "" {
+			cur = serial.Generate()
+		}
+		serial.SetSerial(cur)
 	}
 	for _, fnc := range onDataPathSet {
 		fnc()

@@ -43,6 +43,7 @@ const (
 	configName        = "opennox"
 	configExt         = "yml"
 	configNoxDataPath = "game.data"
+	configNoxSerial   = "game.serial"
 )
 
 var (
