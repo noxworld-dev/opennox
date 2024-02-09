@@ -303,9 +303,6 @@ func init() {
 	legacy.Nox_bomberDead_54A150 = nox_bomberDead_54A150
 	legacy.Nox_xxx_dieGlyph_54DF30 = nox_xxx_dieGlyph_54DF30
 	legacy.Nox_xxx_collideGlyph_4E9A00 = nox_xxx_collideGlyph_4E9A00
-	legacy.Sub_51A100 = func() {
-		noxServer.mapSend.sub_51A100()
-	}
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
 	legacy.Sub_526CA0 = sub_526CA0

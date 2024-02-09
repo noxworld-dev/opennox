@@ -66,6 +66,8 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 		Server: server.New(pr, sm),
 	}
 	s.Server.ExtServer = unsafe.Pointer(s)
+	s.Server.CurrentMapXxx = s.nox_server_currentMapGetFilename_409B30
+	s.Server.CurrentMapYyy = legacy.Nox_xxx_mapGetMapName_409B40
 	s.NetSendPacketXxx = legacy.Nox_xxx_netSendPacket_4E5030
 	s.NetStr.OnDiscover = nox_xxx_servNetInitialPackets_552A80_discover
 	s.NetStr.OnExtPacket = MixRecvFromReplacer
@@ -79,7 +81,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s.abilities.Init(s)
 	s.ai.Init(s)
 	s.noxScript.Init(s)
-	s.mapSend.init(s)
+	s.MapSend.OnEndReceive = legacy.Sub_4DE410
 	s.Objs.XFerInvLight = legacy.Get_nox_xxx_XFerInvLight_4F5AA0()
 	return s
 }
@@ -93,7 +95,6 @@ type Server struct {
 	ai              aiData
 	quest           questServer
 	springs         serverSprings
-	mapSend         serverMapSend
 	mapSwitchWPName string
 
 	flag1548704 bool
@@ -328,7 +329,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	if !mainloopContinue {
 		return false
 	}
-	s.mapSend.Update()
+	s.MapSend.Update()
 	s.NetXfer.Update(s.Frame())
 	if !noxflags.HasGame(noxflags.GamePause) {
 		s.updateUnits()
@@ -926,8 +927,8 @@ func (s *Server) SwitchMap(fname string) {
 	} else {
 		s.mapSwitchWPName = ""
 	}
-	if s.mapSend.activeCnt != 0 {
-		s.mapSend.AbortAll(0)
+	if s.MapSend.Active() != 0 {
+		s.MapSend.AbortAll(0)
 	}
 	mname = strings.ToLower(mname)
 	s.nox_xxx_gameSetMapPath_409D70(mname)

@@ -59,6 +59,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s.Spells.init(s)
 	s.Storage.init()
 	s.NoxScriptVM.Init(s)
+	s.MapSend.init(s)
 	s.http.init()
 	return s
 }
@@ -113,12 +114,15 @@ type Server struct {
 	OwnIP         netip.Addr
 	UseNAT        bool
 	Announce      bool
+	MapSend       serverMapSend
 	port          int
 	http          httpService
 	nat           natService
 
 	updateFunc2 func() bool
 
+	CurrentMapXxx    func() string
+	CurrentMapYyy    func() string
 	NetSendPacketXxx func(a1 int, buf []byte, a4, a5, a6 int) int // Nox_xxx_netSendPacket_4E5030
 }
 

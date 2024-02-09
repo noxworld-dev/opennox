@@ -112,13 +112,6 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		v41 := legacy.Sub_40A220()
 		Nox_xxx_netTimerStatus_4D8F50(pli, v41)
 		return 1, true
-	case noxnet.MSG_CANCEL_MAP:
-		s.mapSend.mapSendCancel(pl.PlayerIndex())
-		return 1, true
-	case noxnet.MSG_RECEIVED_MAP:
-		pl.Field3676 = 3
-		s.mapSend.EndReceive(pl.PlayerIndex())
-		return 1, true
 	case noxnet.MSG_TEXT_MESSAGE:
 		var msg noxnet.MsgText
 		n, err := msg.Decode(data[1:])
@@ -231,7 +224,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		if u != nil {
 			legacy.Nox_xxx_netChangeTeamMb_419570(u.TeamPtr(), uint32(pl.NetCode()))
 		}
-		s.mapSend.StartSendShared(pl.PlayerIndex())
+		s.MapSend.StartSendShared(pl.PlayerIndex())
 		return 1, true
 	case noxnet.MSG_REQUEST_SAVE_PLAYER:
 		if len(data) < 3 {

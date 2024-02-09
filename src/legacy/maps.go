@@ -41,7 +41,6 @@ var (
 	mapLog                            = log.New("map")
 	Nox_common_checkMapFile           func(name string) error
 	Nox_xxx_mapWriteSectionsMB_426E20 func(a1 unsafe.Pointer) int
-	Sub_51A100                        func()
 )
 
 //export nox_common_checkMapFile_4CFE10
@@ -84,7 +83,7 @@ func nox_xxx_free_503F40() {
 
 //export sub_51A100
 func sub_51A100() {
-	Sub_51A100()
+	GetServer().S().MapSend.Sub_51A100()
 }
 
 func Nox_server_mapRWMapInfo_42A6E0(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {

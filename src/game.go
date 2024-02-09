@@ -703,7 +703,7 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 	if s.nox_server_currentMapGetFilename_409B30() == "" {
 		s.nox_xxx_gameSetMapPath_409D70("tutorial.map")
 	}
-	s.mapSend.Reset()
+	s.MapSend.Reset()
 	if err := s.nox_xxx_mapExitAndCheckNext_4D1860_server(); err != nil {
 		gameLog.Println(err)
 		return false
@@ -1098,7 +1098,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		return merr
 	}
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		s.mapSend.ReadMapFile()
+		s.MapSend.ReadMapFile()
 	}
 	s.ObjectsAddPending()
 	for _, k := range s.Players.ListUnits() {

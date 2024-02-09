@@ -154,6 +154,13 @@ func (s *Server) OnPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, p
 		binary.LittleEndian.PutUint32(buf[1:], id)
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
 		return 5, true, nil
+	case noxnet.MSG_CANCEL_MAP:
+		s.MapSend.Cancel(pl.PlayerIndex())
+		return 1, true, nil
+	case noxnet.MSG_RECEIVED_MAP:
+		pl.Field3676 = 3
+		s.MapSend.EndReceive(pl.PlayerIndex())
+		return 1, true, nil
 	}
 	return 0, false, nil
 }
