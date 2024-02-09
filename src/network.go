@@ -14,6 +14,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/nat"
+	"github.com/noxworld-dev/opennox-lib/binenc"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/datapath"
@@ -700,7 +701,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if mframe := p.T; mframe > uint32(legacy.Get_dword_5d4594_1200804()) {
 			noxSetUseMapFrame(int(mframe))
 			c.nox_xxx_gameClearAll_467DF0(true)
-			c.srv.nox_xxx_gameSetMapPath_409D70(p.MapName)
+			c.srv.nox_xxx_gameSetMapPath_409D70(p.MapName.Value)
 			nox_xxx_mapSetCrcMB_409B10(p.CRC)
 			if !noxflags.HasGame(noxflags.GameHost) {
 				noxflags.UnsetGame(noxflags.GameFlag4)
@@ -1183,7 +1184,7 @@ func (s *Server) sendSettings(u *server.Object) {
 	}
 	{
 		buf, err := noxnet.AppendPacket(nil, &noxnet.MsgUseMap{
-			MapName: s.nox_server_currentMapGetFilename_409B30(),
+			MapName: binenc.String{Value: s.nox_server_currentMapGetFilename_409B30()},
 			CRC:     nox_xxx_mapCrcGetMB_409B00(),
 			T:       s.Frame(),
 		})
@@ -1197,7 +1198,7 @@ func (s *Server) sendSettings(u *server.Object) {
 
 func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 	pck, err := noxnet.AppendPacket(nil, &noxnet.MsgUseMap{
-		MapName: mname,
+		MapName: binenc.String{Value: mname},
 		CRC:     crc,
 		T:       s.Frame(),
 	})
