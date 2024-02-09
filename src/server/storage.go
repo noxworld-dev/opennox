@@ -28,6 +28,9 @@ type storage struct {
 }
 
 func (s *storage) Session(name string) Storage {
+	if name == "" {
+		name = "default"
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	store := s.temp[name]
@@ -39,6 +42,9 @@ func (s *storage) Session(name string) Storage {
 }
 
 func (s *storage) Persistent(name string) Storage {
+	if name == "" {
+		name = "default"
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	store := s.persist[name]
