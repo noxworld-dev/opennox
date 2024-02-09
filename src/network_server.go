@@ -317,15 +317,6 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			return 3, true
 		}
 		return 0, false
-	case noxnet.MSG_XFER_MSG:
-		var p noxnet.MsgXfer
-		n, err := p.Decode(data[1:])
-		if err != nil {
-			return 0, false
-		}
-		conn := s.NetStr.ByPlayer(pl)
-		s.NetXfer.Handle(conn, s.Frame(), &p)
-		return 1 + n, true
 	default:
 		res := legacy.Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(pli, data, pl, u, u.UpdateData)
 		if res <= 0 || res > len(data) {

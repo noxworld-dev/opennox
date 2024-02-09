@@ -161,6 +161,15 @@ func (s *Server) OnPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, p
 		pl.Field3676 = 3
 		s.MapSend.EndReceive(pl.PlayerIndex())
 		return 1, true, nil
+	case noxnet.MSG_XFER_MSG:
+		var p noxnet.MsgXfer
+		n, err := p.Decode(data[1:])
+		if err != nil {
+			return 0, false, err
+		}
+		conn := s.NetStr.ByPlayer(pl)
+		s.NetXfer.Handle(conn, s.Frame(), &p)
+		return 1 + n, true, nil
 	}
 	return 0, false, nil
 }
