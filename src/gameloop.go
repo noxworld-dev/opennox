@@ -426,6 +426,7 @@ func CONNECT_OR_HOST() error {
 }
 
 func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
+	c := noxClient
 	s := noxServer
 	if debugMainloop {
 		log.Println("CONNECT_SERVER", host, port)
@@ -448,7 +449,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if err != nil {
 		return err
 	}
-	netstrClientConn = conn
+	c.Conn = conn
 
 	if err := conn.Dial(host, port, clientGetClientPort(), opts); err != nil {
 		return err
@@ -476,7 +477,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	}
 	gameSetPlayState(2)
 	if !noxflags.HasGame(noxflags.GameHost) {
-		noxServer.TeamsReset()
+		s.TeamsReset()
 	}
 	return nil
 }
@@ -765,7 +766,7 @@ func (c *Client) map_download_finish() int {
 	if noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_gameServerReadyMB_4DD180(server.HostPlayerIndex)
 	} else {
-		nox_xxx_netSendClientReady_43C9F0()
+		c.Nox_xxx_netSendClientReady_43C9F0()
 	}
 	nox_xxx_gameSetCliConnected(true)
 
@@ -776,23 +777,24 @@ func (c *Client) map_download_finish() int {
 }
 
 func sub_435EB0() {
+	c := noxClient
 	writeConfigLegacy("nox.cfg")
 	if noxflags.HasGame(noxflags.GameHost) {
 		nox_xxx_playerDisconnFinish_4DE530(server.HostPlayerIndex, 2)
 	} else {
-		nox_xxx_cliSendOutgoingClient_43CB50()
+		c.Nox_xxx_cliSendOutgoingClient_43CB50()
 	}
 	legacy.Sub_499450()
-	noxClient.nox_xxx_gameClearAll_467DF0(false)
+	c.nox_xxx_gameClearAll_467DF0(false)
 	sub_495AE0()
 	legacy.Sub_4959D0()
-	noxClient.FreeDrawableLists()
-	noxClient.Sight.Free()
+	c.FreeDrawableLists()
+	c.Sight.Free()
 	sub_473840()
-	noxClient.Nox_things_free_44C580()
-	noxClient.Objs.Free()
+	c.Nox_things_free_44C580()
+	c.Objs.Free()
 	legacy.Sub_49AEA0()
-	noxClient.Server.NPCs.Init()
+	c.Server.NPCs.Init()
 	legacy.Sub_4951C0()
 	gameSetPlayState(2)
 }
@@ -846,7 +848,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			if noxflags.HasGame(noxflags.GameHost) {
 				legacy.Nox_xxx_gameServerReadyMB_4DD180(server.HostPlayerIndex)
 			} else {
-				nox_xxx_netSendClientReady_43C9F0()
+				c.Nox_xxx_netSendClientReady_43C9F0()
 			}
 			nox_xxx_gameSetCliConnected(true)
 			if memmap.Int32(0x973F18, 3800) < 0 {

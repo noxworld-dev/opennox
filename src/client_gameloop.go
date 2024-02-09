@@ -102,10 +102,10 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 
 	if c.mapsend.native {
 		if first {
-			nox_xxx_netRequestMap_43CA50()
+			c.Nox_xxx_netRequestMap_43CA50()
 		}
 		if c.srv.Frame()%30 != 0 { // TODO: shouldn't it be == 0?
-			nox_xxx_netKeepAliveSocket_43CA20()
+			c.Nox_xxx_netKeepAliveSocket_43CA20()
 		}
 	} else {
 		select {

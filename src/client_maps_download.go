@@ -39,8 +39,8 @@ func (c *clientMapDownload) Init(cl *Client) {
 	c.log = log.New("mapsend")
 	c.ndl = maps.NewNativeDownloader(datapath.Maps())
 	c.iface.setMapPath = cl.srv.nox_xxx_gameSetMapPath_409D70
-	c.iface.sendCancelMap = nox_xxx_cliSendCancelMap_43CAB0
-	c.iface.sendReceivedMap = nox_xxx_netMapReceived_43CA80
+	c.iface.sendCancelMap = cl.Nox_xxx_cliSendCancelMap_43CAB0
+	c.iface.sendReceivedMap = cl.Nox_xxx_netMapReceived_43CA80
 }
 
 func (c *clientMapDownload) Downloading() bool {

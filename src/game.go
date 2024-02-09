@@ -570,7 +570,7 @@ func initGameSession435CC0() error {
 			legacy.Nox_xxx_netPlayerIncomingServ_4DDF60(server.HostPlayerIndex)
 		}
 	} else {
-		nox_xxx_netSendIncomingClient_43CB00()
+		c.Nox_xxx_netSendIncomingClient_43CB00()
 	}
 	c.SetDrawFunc(c.clientDraw)
 	gameSetPlayState(3)

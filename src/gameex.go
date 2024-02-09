@@ -259,8 +259,9 @@ var wndEntryNames = [5][35]uint16{
 }
 
 func gameexDropTrap() {
+	c := noxClient
 	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeCoopTeam) {
-		if legacy.Get_dword_5d4594_1064868() != 0 || noxClient.GUI.Captured() != nil {
+		if legacy.Get_dword_5d4594_1064868() != 0 || c.GUI.Captured() != nil {
 			return
 		}
 		if noxflags.HasGame(noxflags.GameHost) { // checkGameFlags isServer
@@ -273,16 +274,9 @@ func gameexDropTrap() {
 			buf, freeBuf := alloc.Make([]byte{}, 10)
 			defer freeBuf()
 			gameex_makeExtensionPacket(buf, 9, true)
-			gameex_sendPacket(buf[:8])
+			c.Conn.SendSelfRaw(buf[:8])
 		}
 	}
-}
-
-func gameex_sendPacket(buf []byte) int {
-	if len(buf) == 0 {
-		return 0
-	}
-	return netstrClientConn.SendSelfRaw(buf)
 }
 
 func call_OnLibraryNotice_265(arg3 int) {
@@ -309,11 +303,12 @@ func call_OnLibraryNotice_265(arg3 int) {
 		var buf [10]byte
 		gameex_makeExtensionPacket(buf[:], 0, true)
 		buf[8] = byte(a2a)
-		gameex_sendPacket(buf[:9])
+		c.Conn.SendSelfRaw(buf[:9])
 	}
 }
 
 func gameexOnKeyboardPress(kcode keybind.Key) {
+	c := noxClient
 	if ((legacy.Get_gameex_flags()>>3)&1 != 0) && (kcode == keybind.KeyLBracket || kcode == keybind.KeyRBracket) {
 		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
@@ -330,7 +325,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				defer freeBuf()
 				gameex_makeExtensionPacket(buf, 0, true)
 				buf[8] = v8 | 0x10 // TODO: should it be just v8?
-				gameex_sendPacket(buf[:9])
+				c.Conn.SendSelfRaw(buf[:9])
 			}
 		}
 	}

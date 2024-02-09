@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/client/render"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -51,6 +52,8 @@ type Client struct {
 	Cursor     gui.Cursor
 	CursorPrev gui.Cursor
 	state      gui.State
+
+	Conn netstr.Handle
 
 	DrawableQueue []*Drawable
 	DrawableList3 []*Drawable

@@ -139,7 +139,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 	case noxnet.MSG_SERVER_QUIT:
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_SERVER_QUIT_ACK)
-		netstrGetClientIndex().Send(buf[:1], netstr.SendFlush)
+		c.Conn.Send(buf[:1], netstr.SendFlush)
 		sub_446380()
 		return 1
 	case noxnet.MSG_USE_MAP:
@@ -379,8 +379,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if err != nil {
 			return -1
 		}
-		conn := netstrGetClientIndex()
-		c.Server.NetXfer.Handle(conn, c.Server.Frame(), &p)
+		c.Server.NetXfer.Handle(c.Conn, c.Server.Frame(), &p)
 		return 1 + n
 	case noxnet.MSG_TEXT_MESSAGE:
 		var p noxnet.MsgText

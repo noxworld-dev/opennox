@@ -27,7 +27,6 @@ import (
 )
 
 var (
-	netstrClientConn     netstr.Handle
 	lastCliHandlePackets uint64
 	ticks815732          uint64
 	dword_5d4594_815704  bool
@@ -48,8 +47,6 @@ func networkLogPrint(str string) {
 func networkLogPrintf(format string, args ...any) {
 	networkLogPrint(fmt.Sprintf(format, args...))
 }
-
-func netstrGetClientIndex() netstr.Handle { return netstrClientConn }
 
 func clientSetServerHost(host string) {
 	netstr.Log.Printf("server host: %s", host)
@@ -221,60 +218,6 @@ func (s *Server) initConn(ctx context.Context, port int) (conn netstr.Handle, cp
 	return conn, narg.Port, err
 }
 
-func nox_xxx_netSendClientReady_43C9F0() int {
-	var data [1]byte
-	data[0] = byte(noxnet.MSG_CLIENT_READY)
-	netstrClientConn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
-	return 1
-}
-
-func nox_xxx_netKeepAliveSocket_43CA20() int {
-	var data [1]byte
-	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
-	netstrClientConn.Send(data[:], netstr.SendFlush)
-	return 1
-}
-
-func nox_xxx_netRequestMap_43CA50() int {
-	var data [1]byte
-	data[0] = byte(noxnet.MSG_REQUEST_MAP)
-	netstrClientConn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
-	return 1
-}
-
-func nox_xxx_netMapReceived_43CA80() int {
-	var data [1]byte
-	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
-	netstrClientConn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
-	return 1
-}
-
-func nox_xxx_cliSendCancelMap_43CAB0() int {
-	s := noxServer
-	conn := netstrClientConn
-	var data [1]byte
-	data[0] = byte(noxnet.MSG_CANCEL_MAP)
-	v0, _ := conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
-		return 0
-	}
-	s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
-	return 1
-}
-
-func nox_xxx_netSendIncomingClient_43CB00() int {
-	s := noxServer
-	conn := netstrClientConn
-	var data [1]byte
-	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
-	v0, _ := conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
-		return 0
-	}
-	s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
-	return 1
-}
-
 func nox_xxx_servNetInitialPackets_552A80_discover(src, dst []byte) int {
 	// received a lobby info request from the client
 	if true {
@@ -282,20 +225,6 @@ func nox_xxx_servNetInitialPackets_552A80_discover(src, dst []byte) int {
 		return legacy.Nox_server_makeServerInfoPacket_554040(src, dst)
 	}
 	return 0
-}
-
-func nox_xxx_cliSendOutgoingClient_43CB50() int {
-	s := noxServer
-	conn := netstrClientConn
-	var data [1]byte
-	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
-	v0, _ := conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
-		return 0
-	}
-	conn.RecvLoop(netstr.RecvCanRead | netstr.RecvNoHooks)
-	s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
-	return 1
 }
 
 func netSendGauntlet() {
@@ -474,7 +403,7 @@ func sub_554240(pli ntype.PlayerInd) int {
 }
 
 func sub_43CC80() {
-	netstrClientConn.SendClose()
+	noxClient.Conn.SendClose()
 	legacy.Set_dword_5d4594_2649712(0)
 }
 
