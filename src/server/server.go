@@ -19,6 +19,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/netxfer"
 )
 
 var Log = log.New("server")
@@ -106,6 +107,7 @@ type Server struct {
 
 	NetStr        *netstr.Streams
 	NetList       *netlist.List
+	NetXfer       netxfer.NetXfer
 	NetServerPort uint16
 	OwnIPStr      string
 	OwnIP         netip.Addr

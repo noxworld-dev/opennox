@@ -380,7 +380,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return -1
 		}
 		conn := netstrGetClientIndex()
-		netXfer.Handle(conn, c.Server.Frame(), &p)
+		c.Server.NetXfer.Handle(conn, c.Server.Frame(), &p)
 		return 1 + n
 	case noxnet.MSG_TEXT_MESSAGE:
 		var p noxnet.MsgText

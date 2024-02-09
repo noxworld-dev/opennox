@@ -331,7 +331,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			return 0, false
 		}
 		conn := s.NetStr.ByPlayer(pl)
-		netXfer.Handle(conn, s.Frame(), &p)
+		s.NetXfer.Handle(conn, s.Frame(), &p)
 		return 1 + n, true
 	default:
 		res := legacy.Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(pli, data, pl, u, u.UpdateData)

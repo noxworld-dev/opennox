@@ -113,7 +113,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		return true
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
-		netXfer.Update(c.Server.Frame())
+		c.Server.NetXfer.Update(c.Server.Frame())
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()

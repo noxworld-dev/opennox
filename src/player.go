@@ -622,7 +622,7 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 			}
 		}
 	}
-	netXfer.CancelSend(s.NetStr.ByPlayerInd(pli))
+	s.NetXfer.CancelSend(s.NetStr.ByPlayerInd(pli))
 	legacy.Sub_4DE410(pli)
 	if pl != nil {
 		var buf [3]byte

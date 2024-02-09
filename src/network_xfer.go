@@ -8,17 +8,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var netXfer netxfer.NetXfer
-
-const (
-	NetXferMOTD           = netxfer.Action(1)
-	NetXferSavedata       = netxfer.Action(2)
-	NetXferSaveServer     = netxfer.Action(3)
-	NetXferMOTDType       = "MOTD"
-	NetXferSavedataType   = "SAVEDATA"
-	NetXferSaveServerType = "SAVE_SERVER"
-)
-
 func netXferSend(pli ntype.PlayerInd, act netxfer.Action, typ string, data []byte, remote bool) bool {
 	if len(data) == 0 {
 		return false
@@ -37,5 +26,5 @@ func netXferSend(pli ntype.PlayerInd, act netxfer.Action, typ string, data []byt
 		}
 		conn = s.NetStr.ByPlayerInd(pli)
 	}
-	return netXfer.Send(conn, act, typ, data, netXferSendDone, netXferSendAborted)
+	return s.NetXfer.Send(conn, act, typ, data, netXferSendDone, netXferSendAborted)
 }
