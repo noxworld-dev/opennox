@@ -315,23 +315,23 @@ func (h Handle) Close() {
 
 func (g *Streams) Listen(opt *Options) (Handle, error) {
 	if opt == nil {
-		return Handle{nil, -2}, errors.New("empty options")
+		return errHandle(-2), errors.New("empty options")
 	}
 	if opt.Max > maxStructs {
-		return Handle{nil, -2}, errors.New("max limit reached")
+		return errHandle(-2), errors.New("max limit reached")
 	}
 	if opt.Port < 1024 || opt.Port > 0x10000 {
 		opt.Port = common.GamePort
 	}
 	pc, port, err := listenOnFreePort(g.Log, opt.Port)
 	if err != nil {
-		return Handle{nil, -5}, err
+		return errHandle(-5), err
 	}
 	opt.Port = port
 	ind, ok := g.getFreeIndex()
 	if !ok {
 		_ = pc.Close()
-		return Handle{nil, -8}, errors.New("no more slots for net structs")
+		return errHandle(-8), errors.New("no more slots for net structs")
 	}
 	ns := g.newStream(opt)
 	ns.id = Handle{g, -1}
@@ -344,11 +344,11 @@ func (g *Streams) Listen(opt *Options) (Handle, error) {
 
 func (g *Streams) NewClient(narg *Options) (Handle, error) {
 	if narg == nil {
-		return Handle{nil, -2}, NewConnectErr(-2, errors.New("empty options"))
+		return errHandle(-2), NewConnectErr(-2, errors.New("empty options"))
 	}
 	ind, ok := g.getFreeIndex()
 	if !ok {
-		return Handle{nil, -8}, NewConnectErr(-8, errors.New("no more slots for net structs"))
+		return errHandle(-8), NewConnectErr(-8, errors.New("no more slots for net structs"))
 	}
 	ns := g.newStream(narg)
 	g.streams[ind] = ns
@@ -518,7 +518,7 @@ func (ns *conn) SetAddr(addr netip.AddrPort) {
 
 func (ns *conn) Handle() Handle {
 	if ns == nil {
-		return Handle{nil, -1}
+		return errHandle(-1)
 	}
 	return ns.id
 }
@@ -582,23 +582,24 @@ func (h Handle) Send(buf []byte, flags SendFlags) (int, error) {
 	if len(buf) == 0 {
 		return -2, errors.New("empty buffer")
 	}
+	g := h.g
 	var (
 		idd    Handle
-		ei, si Handle
+		ei, si int
 	)
 	if ns.id.i == -1 {
-		si = Handle{h.g, 0}
-		ei = Handle{h.g, maxStructs}
+		si = 0
+		ei = maxStructs
 		idd = h
 	} else {
-		si = h
-		ei = Handle{h.g, h.i + 1}
+		si = h.i
+		ei = h.i + 1
 		idd = ns.Handle()
 	}
 	if flags.Has(SendQueue) {
 		n := len(buf)
-		for i := si.i; i < ei.i; i++ {
-			ns2 := Handle{h.g, i}.get()
+		for i := si; i < ei; i++ {
+			ns2 := g.streams[i]
 			if ns2 != nil && ns2.Handle() == idd {
 				seq, err := ns2.addToQueue(buf)
 				if seq == -1 {
@@ -613,8 +614,8 @@ func (h Handle) Send(buf []byte, flags SendFlags) (int, error) {
 		return n, nil
 	}
 	n := len(buf)
-	for i := si.i; i < ei.i; i++ {
-		ns2 := Handle{h.g, i}.get()
+	for i := si; i < ei; i++ {
+		ns2 := g.streams[i]
 		if ns2 == nil {
 			continue
 		}
@@ -739,24 +740,28 @@ func (g *Streams) GetInitInd() Handle {
 	return Handle{g, g.initIndex}
 }
 
+func (g *Streams) getForPacket(i int) Handle {
+	return Handle{g, i}
+}
+
 func (h Handle) SendReadPacket(noHooks bool) int {
 	ns := h.get()
 	if ns == nil {
 		return -3
 	}
 	find := h
-	var min, max Handle
+	var si, ei int
 	if ns.id.i != -1 {
-		min = h
-		max = Handle{h.g, h.i + 1}
+		si = h.i
+		ei = h.i + 1
 		find = ns.id
 	} else {
-		min = Handle{h.g, 0}
-		max = Handle{h.g, maxStructs}
+		si = 0
+		ei = maxStructs
 	}
-	for j := min.i; j < max.i; j++ {
-		ns2 := h.g.streams[j]
-		h2 := Handle{h.g, j}
+	for i := si; i < ei; i++ {
+		ns2 := h.g.streams[i]
+		h2 := Handle{h.g, i}
 		if ns2 == nil || ns2.id != find {
 			continue
 		}
@@ -834,12 +839,12 @@ func (g *Streams) ReadPackets(ind Handle) int {
 		return 0
 	}
 	v4 := ns.Handle()
-	var si, ei Handle
+	var si, ei int
 	if v4.i == -1 {
-		si, ei = Handle{g, 0}, Handle{g, maxStructs}
+		si, ei = 0, maxStructs
 		v4 = ind
 	} else {
-		si, ei = ind, Handle{g, ind.i + 1}
+		si, ei = ind.i, ind.i+1
 		ns2 := v4.get()
 		if ns2 == nil || ns2.id.i != -1 {
 			ns.reset()
@@ -847,12 +852,12 @@ func (g *Streams) ReadPackets(ind Handle) int {
 			return 0
 		}
 	}
-	for i := si.i; i < ei.i; i++ {
-		ii := Handle{g, i}
-		ns2 := ii.get()
+	for i := si; i < ei; i++ {
+		ns2 := g.streams[i]
 		if ns2 == nil || ns2.Handle() != v4 {
 			continue
 		}
+		ii := Handle{g, i} // ns2
 		ii.SendReadPacket(true)
 		var buf [1]byte
 		buf[0] = byte(code11)
@@ -1132,20 +1137,20 @@ func (g *Streams) SendCode6(ind Handle) int {
 		return -3
 	}
 	var (
-		min, max Handle
-		find     Handle
+		si, ei int
+		find   Handle
 	)
 	if ns.id.i == -1 {
-		min = Handle{g, 0}
-		max = Handle{g, maxStructs}
+		si = 0
+		ei = maxStructs
 		find = ind
 	} else {
-		min = ind
-		max = Handle{g, ind.i + 1}
+		si = ind.i
+		ei = ind.i + 1
 		find = ns.id
 	}
 	buf[0] = byte(code6)
-	for i := min.i; i < max.i; i++ {
+	for i := si; i < ei; i++ {
 		ns2 := g.streams[i]
 		if ns2 != nil && ns2.id == find {
 			ns2.ticks22 = g.ticks2
@@ -1180,7 +1185,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 	if len(packet) < 2 {
 		return 0
 	}
-	pid := Handle{g, int(int8(packet[0]))}
+	pid := g.getForPacket(int(int8(packet[0])))
 	p1 := packet[1]
 	packetCur := packet[2:]
 
@@ -1205,7 +1210,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 			if len(packetCur) < 5 {
 				return 0
 			}
-			v11 := Handle{g, int(binary.LittleEndian.Uint32(packetCur[:4]))}
+			v11 := g.getForPacket(int(binary.LittleEndian.Uint32(packetCur[:4])))
 			xor := packetCur[4]
 			packetCur = packetCur[5:]
 
@@ -1430,7 +1435,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 		}
 		hdr := ns.recv.Bytes()[:3]
 		a0 := hdr[0]
-		h2 := Handle{h.g, int(a0 & maskID)}
+		h2 := h.g.getForPacket(int(a0 & maskID))
 		seq := hdr[1]
 		op := noxnet.Op(hdr[2])
 		if h.g.Debug {
@@ -1496,7 +1501,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 			} else {
 				data := ns.recv.Bytes()
 				data[0] &= maskID // TODO: fails without this
-				h2 = Handle{h.g, int(data[0])}
+				h2 = h.g.getForPacket(int(data[0]))
 				if dst == nil {
 					goto continueX
 				}

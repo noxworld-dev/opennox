@@ -6,6 +6,13 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 )
 
+func errHandle(e int) Handle {
+	if e >= 0 {
+		panic("must be negative")
+	}
+	return Handle{nil, e}
+}
+
 type Handle struct {
 	g *Streams
 	i int // hiding it in a struct helps prevent direct casts
