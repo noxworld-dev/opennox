@@ -921,7 +921,7 @@ func (h Handle) SendClose() {
 	h.Close()
 }
 
-func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, ns1 *conn, from netip.AddrPort) int {
+func (g *Streams) processStreamOp0(inp Handle, out []byte, pid Handle, p1 byte, ns1 *conn, from netip.AddrPort) int {
 	if f := g.GameFlags(); f.Has(noxflags.GameHost) && f.Has(noxflags.GameFlag4) {
 		return 0
 	}
@@ -961,16 +961,16 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 	ns1.accepted++
 
 	hdr := ns2.Data2hdr()
-	hdr[0] = byte(id.i)
+	hdr[0] = byte(inp.i)
 	if hdr[1] == p1 {
 		hdr[1]++
 	}
-	ns2.id = id
+	ns2.id = pid
 	ns2.pc = ns1.pc
 	ns2.onSend = ns1.onSend
 	ns2.onReceive = ns1.onReceive
 
-	g.timing[id.i] = timingStruct{field28: 1}
+	g.timing[pid.i] = timingStruct{field28: 1}
 	key := byte(g.KeyRand(1, 255))
 	if !g.Xor {
 		key = 0
