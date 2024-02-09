@@ -11,15 +11,11 @@ type Handle struct {
 	i int // hiding it in a struct helps prevent direct casts
 }
 
-func (h Handle) Raw() int {
-	return h.i
-}
-
 func (h Handle) Valid() bool {
 	return h.g != nil && h.i >= 0 && h.i < maxStructs
 }
 
-func (h Handle) IsFirst() bool {
+func (h Handle) IsHost() bool {
 	return h.i == 0
 }
 

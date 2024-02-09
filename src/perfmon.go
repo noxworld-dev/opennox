@@ -102,7 +102,12 @@ func (m *Perfmon) bandData(ind int) playerBandData {
 
 func (m *Perfmon) TransferStats(conn netlib.StreamStats) uint32 {
 	ticks := platform.Ticks()
-	ri := conn.Raw()
+	var ri int
+	if conn.IsHost() {
+		ri = 0
+	} else {
+		ri = int(conn.Player()) - 1
+	}
 	prev := m.transferTick[ri]
 	if ticks < prev+time.Second {
 		return m.transfer[ri]

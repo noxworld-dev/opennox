@@ -30,7 +30,7 @@ func (v RecvFlags) Has(v2 RecvFlags) bool {
 }
 
 type StreamID interface {
-	Raw() int
+	IsHost() bool
 	Player() ntype.PlayerInd
 }
 

@@ -127,7 +127,16 @@ func sub_554240(a1 int) int { return Sub_554240(ntype.PlayerInd(a1)) }
 
 //export nox_xxx_net_getIP_554200
 func nox_xxx_net_getIP_554200(a1 int) uint32 {
-	return Nox_xxx_net_getIP_554200(GetServer().S().NetStr.ByIndexRaw(a1))
+	if a1 < 0 || a1 >= 31 {
+		panic("unexpected index")
+	}
+	var conn netstr.Handle
+	if a1 == 0 {
+		conn = GetServer().S().NetStr.Host()
+	} else {
+		conn = GetServer().S().NetStr.ByPlayerInd(ntype.PlayerInd(a1) + 1)
+	}
+	return Nox_xxx_net_getIP_554200(conn)
 }
 
 //export nox_xxx_netOnPacketRecvCli_48EA70

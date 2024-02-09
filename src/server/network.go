@@ -31,7 +31,7 @@ func (s *Server) GetOwnIP() string {
 }
 
 func (s *Server) NetGetIP(conn netstr.Handle) netip.Addr {
-	if conn.IsFirst() {
+	if conn.IsHost() {
 		return s.OwnIP
 	}
 	return conn.IP()
