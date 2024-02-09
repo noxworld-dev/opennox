@@ -10,8 +10,8 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server"
+	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
 
 var (
@@ -61,7 +61,7 @@ func (m *Perfmon) Toggle() {
 	m.enabled = !m.enabled
 }
 
-func (m *Perfmon) LogBandwidth(s *server.Server, nets *netstr.Streams) {
+func (m *Perfmon) LogBandwidth(s *server.Server, nets netlib.Streams) {
 	ticks := platform.Ticks()
 	if ticks-m.logBandLast <= time.Second {
 		return
@@ -78,9 +78,9 @@ func (m *Perfmon) LogBandwidth(s *server.Server, nets *netstr.Streams) {
 		v4 := s.Frame()
 		var bps uint32
 		if pl.Index() == server.HostPlayerIndex {
-			bps = m.TransferStats(nets.First())
+			bps = m.TransferStats(nets.HostStream())
 		} else {
-			bps = m.TransferStats(nets.ByPlayer(pl))
+			bps = m.TransferStats(nets.StreamByPlayerInd(pl.PlayerIndex()))
 		}
 		m.logger.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
 	}
@@ -100,15 +100,15 @@ func (m *Perfmon) bandData(ind int) playerBandData {
 	}
 }
 
-func (m *Perfmon) TransferStats(ind netstr.Handle) uint32 {
+func (m *Perfmon) TransferStats(conn netlib.StreamStats) uint32 {
 	ticks := platform.Ticks()
-	ri := ind.Raw()
+	ri := conn.Raw()
 	prev := m.transferTick[ri]
 	if ticks < prev+time.Second {
 		return m.transfer[ri]
 	}
 	m.transferTick[ri] = ticks
-	stat := ind.TransferStats()
+	stat := conn.TransferStats()
 	m.transfer[ri] = stat
 	return stat
 }

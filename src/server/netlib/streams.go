@@ -30,13 +30,18 @@ func (v RecvFlags) Has(v2 RecvFlags) bool {
 }
 
 type StreamID interface {
+	Raw() int
 	Player() ntype.PlayerInd
+}
+
+type StreamStats interface {
+	StreamID
+	TransferStats() uint32
 }
 
 type Stream interface {
 	StreamID
-	Raw() int
-	TransferStats() uint32
+	StreamStats
 	SendStream
 	RecvLoop(flags RecvFlags) int
 }
@@ -51,4 +56,9 @@ type SendStream interface {
 type SendStreamID interface {
 	StreamID
 	SendStream
+}
+
+type Streams interface {
+	HostStream() Stream
+	StreamByPlayerInd(pid ntype.PlayerInd) Stream
 }

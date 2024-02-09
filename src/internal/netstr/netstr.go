@@ -130,12 +130,20 @@ func (g *Streams) ByPlayer(p ntype.Player) Handle {
 	return g.ByPlayerInd(p.PlayerIndex())
 }
 
+func (g *Streams) StreamByPlayerInd(pind ntype.PlayerInd) netlib.Stream {
+	return g.ByPlayerInd(pind)
+}
+
 func (g *Streams) ByPlayerInd(pind ntype.PlayerInd) Handle {
 	return Handle{g, int(pind) + 1}
 }
 
 func (g *Streams) ByIndexRaw(ind int) Handle {
 	return Handle{g, ind}
+}
+
+func (g *Streams) HostStream() netlib.Stream {
+	return g.First()
 }
 
 func (g *Streams) First() Handle {
