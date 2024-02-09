@@ -373,14 +373,6 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return 2
 		}
 		return -1
-	case noxnet.MSG_XFER_MSG:
-		var p noxnet.MsgXfer
-		n, err := p.Decode(data[1:])
-		if err != nil {
-			return -1
-		}
-		c.Server.NetXfer.Handle(c.Conn, c.Server.Frame(), &p)
-		return 1 + n
 	case noxnet.MSG_TEXT_MESSAGE:
 		var p noxnet.MsgText
 		n, err := p.Decode(data[1:])

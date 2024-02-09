@@ -121,6 +121,14 @@ func (c *Client) OnClientPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []b
 			c.Viewport().Jiggle12 = int(p.Val) / 3
 		}
 		return 1 + n, true, nil
+	case noxnet.MSG_XFER_MSG:
+		var p noxnet.MsgXfer
+		n, err := p.Decode(data[1:])
+		if err != nil {
+			return 0, false, err
+		}
+		c.Server.NetXfer.Handle(c.Conn, c.Server.Frame(), &p)
+		return 1 + n, true, nil
 	}
 	return 0, false, nil
 }
