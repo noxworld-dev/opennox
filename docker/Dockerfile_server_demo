@@ -37,6 +37,7 @@ RUN unzip noxdemo.exe -d /tmp/noxdemo && rm noxdemo.exe
 
 VOLUME /nox/
 RUN cabextract /tmp/noxdemo/Install/Game1.CAB -d /nox && rm -rf /tmp/noxdemo
+ENV NOX_CHAT_MAP=So_Woods
 
 COPY --from=builder /home/runner/opennox/opennox-server /usr/bin/opennox-server
 RUN opennox-server -h
