@@ -941,7 +941,7 @@ func nox_game_guiInit_473680() error {
 	if legacy.Nox_game_initOptionsInGame_4ADAD0() == 0 {
 		return errors.New("nox_game_initOptionsInGame_4ADAD0 failed")
 	}
-	if legacy.Sub_48D000() == 0 {
+	if legacy.Sub_48D000_initGuiKick() == 0 {
 		return errors.New("sub_48D000 failed")
 	}
 	if legacy.Sub_4C3760() == 0 {

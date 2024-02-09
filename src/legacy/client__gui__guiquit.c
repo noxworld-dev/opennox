@@ -261,15 +261,19 @@ void sub_445C40() {
 						v12 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9008);
 						nox_window_set_hidden((int)v12, 0);
 						v13 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9009);
-						nox_window_set_hidden((int)v13, 0);
-						sub_46AEE0((int)v13, (int)getMemAt(0x5D4594, 825772));
-						if (nox_common_gameFlags_check_40A5C0(49152) || !nox_xxx_getTeamCounter_417DD0()) {
-							nox_xxx_wnd_46ABB0((int)v13, 0);
-						} else {
-							nox_xxx_wnd_46ABB0((int)v13, 1);
+						// fix demo crash -- see QuitMenu.wnd -- there is no child with id 9009
+						if (v13) {
+							nox_window_set_hidden((int)v13, 0);
+							sub_46AEE0((int)v13, (int)getMemAt(0x5D4594, 825772));
+							if (nox_common_gameFlags_check_40A5C0(49152) || !nox_xxx_getTeamCounter_417DD0()) {
+								nox_xxx_wnd_46ABB0((int)v13, 0);
+						}	else {
+								nox_xxx_wnd_46ABB0((int)v13, 1);
+							}
+							v14 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004);
+							nox_window_setPos_46A9B0(v14, v13[4], v13[5] + 45);
 						}
-						v14 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9004);
-						nox_window_setPos_46A9B0(v14, v13[4], v13[5] + 45);
+
 						sub_46AB20(nox_wnd_quitMenu_825760, 220, 330);
 						if (nox_common_gameFlags_check_40A5C0(4096)) {
 							v15 = nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, 9007);

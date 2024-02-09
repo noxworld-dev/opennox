@@ -484,8 +484,8 @@ func Nox_xxx_wndCreateInventoryMB_465E00() uint32 {
 func Nox_game_initOptionsInGame_4ADAD0() int {
 	return int(C.nox_game_initOptionsInGame_4ADAD0())
 }
-func Sub_48D000() int {
-	return int(C.sub_48D000())
+func Sub_48D000_initGuiKick() int {
+	return int(C.sub_48D000_initGuiKick())
 }
 func Sub_4C3760() int {
 	return int(C.sub_4C3760())

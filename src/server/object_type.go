@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/log"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
@@ -62,6 +63,8 @@ var (
 		},
 	}
 	xferFuncs = make(map[string]unsafe.Pointer)
+	logObjTs  = log.New("objtypes")
+	clsSeen   = make(map[string]bool)
 )
 
 type ObjectParseFunc func(objt *ObjectType, args []string) error
@@ -94,11 +97,19 @@ func init() {
 	RegisterObjectUpdate("SpikeBlockUpdate", nil, 2200)
 	RegisterObjectUpdate("TowerUpdate", nil, 8)
 	RegisterObjectUpdate("WeaponArmorUpdate", nil, 8)
+	RegisterObjectUpdate("DamageRoundoffUpdate", nil, 8) // used in demo instead of WeaponArmorUpdate
 
 	RegisterObjectCollide("NoCollide", nil, 0)
 
 	RegisterObjectUse("AmmoUse", nil, 3)
 	RegisterObjectUse("BowUse", nil, 1)
+}
+
+func LogUnknownHandler(name string) {
+	if !clsSeen[name] {
+		logObjTs.Printf("an unknown object handler was requested: %s", name)
+		clsSeen[name] = true
+	}
 }
 
 func RegisterObjectCreate(name string, fnc unsafe.Pointer) {
@@ -614,6 +625,7 @@ func (s *serverObjTypes) ByID(id string) *ObjectType {
 }
 
 func (s *serverObjTypes) IndByID(id string) int {
+
 	typ := s.ByID(id)
 	if typ == nil {
 		return 0
@@ -986,6 +998,7 @@ func (t *ObjectType) parseInit(d *things.ProcFunc) error {
 	}
 	def, ok := initFuncs[d.Name]
 	if !ok {
+		LogUnknownHandler(d.Name)
 		// TODO: add "unknown" init as a nop init types (similar to NoInit)
 		return nil
 	}
@@ -1029,6 +1042,7 @@ func (t *ObjectType) parseUpdate(d *things.ProcFunc) error {
 	}
 	def, ok := updateFuncs[d.Name]
 	if !ok {
+		LogUnknownHandler(d.Name)
 		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
 		return nil
 	}
@@ -1054,6 +1068,7 @@ func (t *ObjectType) parseCollide(d *things.ProcFunc) error {
 	}
 	def, ok := collideFuncs[d.Name]
 	if !ok {
+		LogUnknownHandler(d.Name)
 		// TODO: add "unknown" collide as a nop types (similar to NoCollide)
 		return nil
 	}
@@ -1079,6 +1094,7 @@ func (t *ObjectType) parseUse(d *things.ProcFunc) error {
 	}
 	def, ok := useFuncs[d.Name]
 	if !ok {
+		LogUnknownHandler(d.Name)
 		// TODO: add "unknown" use as a nop types
 		return nil
 	}
@@ -1120,6 +1136,7 @@ func (t *ObjectType) parseDeath(d *things.ProcFunc) error {
 	}
 	def, ok := deathFuncs[d.Name]
 	if !ok {
+		LogUnknownHandler(d.Name)
 		// TODO: add "unknown" death as a nop types
 		return nil
 	}
@@ -1144,6 +1161,7 @@ func (t *ObjectType) parseDrop(d *things.ProcFunc) error {
 	}
 	fnc, ok := dropFuncs[d.Name]
 	if !ok {
+		LogUnknownHandler(d.Name)
 		// TODO: add "unknown" drop as a nop types
 		return nil
 	}
@@ -1166,6 +1184,7 @@ func (t *ObjectType) parsePickup(d *things.ProcFunc) error {
 	}
 	fnc, ok := pickupFuncs[d.Name]
 	if !ok {
+		LogUnknownHandler(d.Name)
 		// TODO: add "unknown" pickup as a nop types
 		return nil
 	}
