@@ -23,7 +23,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/netxfer"
@@ -249,7 +248,7 @@ func serverQuitAck() {
 	}
 }
 
-func netXferSendAborted(ind netstr.Handle, act netxfer.Action) {
+func netXferSendAborted(act netxfer.Action) {
 	switch act {
 	case server.NetXferSavedata:
 		if sub_446030() {
@@ -264,7 +263,7 @@ func netXferSendAborted(ind netstr.Handle, act netxfer.Action) {
 	}
 }
 
-func netXferSendDone(ind netstr.Handle, act netxfer.Action) {
+func netXferSendDone(act netxfer.Action) {
 	if act == server.NetXferSavedata && sub_446030() {
 		serverQuitAck()
 		if sub_446090() {
@@ -275,9 +274,8 @@ func netXferSendDone(ind netstr.Handle, act netxfer.Action) {
 }
 
 func netXferLocal(act netxfer.Action, data []byte) {
-	s := noxServer
 	xferDataCallback40AF90(server.HostPlayerIndex, act, memmap.String(0x5D4594, 4664), data)
-	netXferSendDone(s.NetStr.First(), act)
+	netXferSendDone(act)
 }
 
 func nox_xxx_serverIsClosing_446180() int {

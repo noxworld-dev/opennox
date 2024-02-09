@@ -32,12 +32,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc/handles"
-	"github.com/noxworld-dev/opennox/v1/netxfer"
 )
 
 func init() {
@@ -432,9 +430,7 @@ func RunArgs(args []string) (gerr error) {
 	platform.RandSeedTime()
 	legacy.Nox_xxx_mapSelectFirst_4D0E00()
 	noxServer.NetList.Init()
-	noxServer.NetXfer.Init(32, func(conn netstr.Handle, act netxfer.Action, typ string, data []byte) {
-		xferDataCallback40AF90(conn.Player(), act, typ, data)
-	})
+	noxServer.NetXfer.Init(32, xferDataCallback40AF90)
 	legacy.Sub_4134D0()
 	if v := noxClient.Strings().Lang(); v == 6 || v == 8 {
 		noxClient.r.SetBold(false)

@@ -18,6 +18,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
+	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
 
 const (
@@ -555,15 +556,11 @@ func (ns *conn) callOnReceive(id Handle, buf []byte) int {
 }
 
 const (
-	SendQueue = SendFlags(0x1)
-	SendFlush = SendFlags(0x2)
+	SendQueue = netlib.SendQueue
+	SendFlush = netlib.SendFlush
 )
 
-type SendFlags int
-
-func (v SendFlags) Has(v2 SendFlags) bool {
-	return v&v2 != 0
-}
+type SendFlags = netlib.SendFlags
 
 func (h Handle) SendMsg(msg noxnet.Message, flags SendFlags) (int, error) {
 	buf, err := noxnet.AppendPacket(nil, msg)
@@ -1384,16 +1381,12 @@ func (g *Streams) processPong(out []byte, packet []byte, from netip.AddrPort) in
 }
 
 const (
-	RecvCanRead = RecvFlags(0x1)
-	RecvNoHooks = RecvFlags(0x2)
-	RecvJustOne = RecvFlags(0x4)
+	RecvCanRead = netlib.RecvCanRead
+	RecvNoHooks = netlib.RecvNoHooks
+	RecvJustOne = netlib.RecvJustOne
 )
 
-type RecvFlags int
-
-func (v RecvFlags) Has(v2 RecvFlags) bool {
-	return v&v2 != 0
-}
+type RecvFlags = netlib.RecvFlags
 
 func (h Handle) RecvLoop(flags RecvFlags) int {
 	ns := h.get()

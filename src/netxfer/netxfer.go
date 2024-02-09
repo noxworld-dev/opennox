@@ -4,7 +4,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/noxnet/xfer"
 
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
 
 const (
@@ -36,15 +36,15 @@ func (x *NetXfer) Update(ts Time) {
 	x.recv.Update(ts)
 }
 
-func (x *NetXfer) Send(conn netstr.Handle, act Action, typ string, data []byte, onDone DoneFunc, onAbort AbortFunc) bool {
+func (x *NetXfer) Send(conn netlib.SendStream, act Action, typ string, data []byte, onDone DoneFunc, onAbort AbortFunc) bool {
 	return x.send.Send(conn, act, typ, data, onDone, onAbort)
 }
 
-func (x *NetXfer) CancelSend(conn netstr.Handle) {
+func (x *NetXfer) CancelSend(conn netlib.SendStream) {
 	x.send.Cancel(conn)
 }
 
-func (x *NetXfer) Handle(conn netstr.Handle, ts Time, m *noxnet.MsgXfer) {
+func (x *NetXfer) Handle(conn netlib.SendStreamID, ts Time, m *noxnet.MsgXfer) {
 	switch m := m.Msg.(type) {
 	case *xfer.MsgStart:
 		x.recv.HandleStart(conn, ts, m)
@@ -55,7 +55,7 @@ func (x *NetXfer) Handle(conn netstr.Handle, ts Time, m *noxnet.MsgXfer) {
 	case *xfer.MsgAbort:
 		x.send.HandleAbort(conn, m)
 	case *xfer.MsgData:
-		x.recv.HandleData(conn, ts, m)
+		x.recv.HandleData(conn.Player(), conn, ts, m)
 	case *xfer.MsgAck:
 		x.send.HandleAck(conn, m)
 	case *xfer.MsgDone:
