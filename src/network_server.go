@@ -40,7 +40,7 @@ func (s *Server) onPacketRaw(pli ntype.PlayerInd, data []byte) bool {
 	switch op {
 	case 0x20:
 		if s.newPlayerFromPacket(pli, data[1:]) == 0 {
-			netstr.Global.ReadPackets(netstr.Global.ByPlayerInd(pli))
+			s.NetStr.ReadPackets(s.NetStr.ByPlayerInd(pli))
 		}
 		return true
 	case 0x22:
@@ -66,7 +66,7 @@ func (s *Server) onPacketRaw(pli ntype.PlayerInd, data []byte) bool {
 			netstr.Log.Printf("SERVER: ERR: op=%d (%s) [%d:???]\n%02x %x", int(op), op.String(), op.Len(), data[0], data[1:])
 			return false
 		}
-		if netstr.Global.Debug && n != 0 {
+		if s.NetStr.Debug && n != 0 {
 			netstr.Log.Printf("SERVER: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(n)-1, op.Len(), data[0], data[1:])
 		}
 		if n > len(data) {
@@ -145,7 +145,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == server.HostPlayerIndex {
 					noxClient.HandleMessage(server.HostPlayerIndex, &msg)
 				} else {
-					conn := netstr.Global.ByPlayer(it)
+					conn := s.NetStr.ByPlayer(it)
 					conn.SendMsg(&msg, 0)
 					conn.SendReadPacket(true)
 				}
@@ -180,7 +180,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == legacy.ClientPlayerNetCode() {
 					noxClient.HandleMessage(it.PlayerIndex(), &msg)
 				} else {
-					conn := netstr.Global.ByPlayer(it)
+					conn := s.NetStr.ByPlayer(it)
 					conn.SendMsg(&msg, 0)
 					conn.SendReadPacket(true)
 				}
@@ -330,7 +330,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		if err != nil {
 			return 0, false
 		}
-		conn := netstr.Global.ByPlayer(pl)
+		conn := s.NetStr.ByPlayer(pl)
 		netXfer.Handle(conn, s.Frame(), &p)
 		return 1 + n, true
 	default:

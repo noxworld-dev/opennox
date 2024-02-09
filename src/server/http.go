@@ -27,7 +27,7 @@ func (s *Server) HTTP() *http.ServeMux {
 	return s.http.mux
 }
 
-func (s *Server) StartHTTP() error {
+func (s *Server) startHTTP() error {
 	if s.http.lis != nil {
 		return nil
 	}
@@ -43,7 +43,7 @@ func (s *Server) StartHTTP() error {
 	return nil
 }
 
-func (s *Server) StopHTTP() {
+func (s *Server) stopHTTP() {
 	if s.http.lis != nil {
 		_ = s.http.lis.Close()
 		s.http.lis = nil

@@ -1,6 +1,7 @@
 package opennox
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"image"
@@ -12,7 +13,6 @@ import (
 	"github.com/noxworld-dev/noxcrypt"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
-	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
@@ -38,7 +38,6 @@ import (
 
 var (
 	noxServer *Server
-	useNAT    = true
 )
 
 func init() {
@@ -60,7 +59,6 @@ func sub_40A1A0() int {
 func init() {
 	nat.Log = log.New("nat")
 	nat.LogUPNP = log.New("nat-upnp")
-	configBoolPtr("network.port_forward", "NOX_NET_NAT", true, &useNAT)
 }
 
 func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
@@ -69,6 +67,14 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	}
 	s.Server.ExtServer = unsafe.Pointer(s)
 	s.NetSendPacketXxx = legacy.Nox_xxx_netSendPacket_4E5030
+	s.NetStr.OnDiscover = nox_xxx_servNetInitialPackets_552A80_discover
+	s.NetStr.OnExtPacket = MixRecvFromReplacer
+	s.NetStr.GetMaxPlayers = func() int {
+		return s.getServerMaxPlayers()
+	}
+	configBoolPtr("network.xor", "NOX_NET_XOR", true, &s.NetStr.Xor)
+	configBoolPtr("network.port_forward", "NOX_NET_NAT", true, &s.Server.UseNAT)
+	configHiddenBoolPtr("network.debug", "NOX_DEBUG_NET", &s.NetStr.Debug)
 	s.initMetrics()
 	s.abilities.Init(s)
 	s.ai.Init(s)
@@ -89,7 +95,6 @@ type Server struct {
 	springs         serverSprings
 	mapSend         serverMapSend
 	mapSwitchWPName string
-	announce        bool
 
 	flag1548704 bool
 	flag3592    bool
@@ -318,7 +323,7 @@ func (s *Server) Sub40A040settings(a1 int, min int) {
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	s.nox_xxx_updateServer_4D2DA0(ticks)
-	nox_server_netMaybeSendInitialPackets_4DEB30()
+	s.Nox_server_netMaybeSendInitialPackets_4DEB30()
 	s.nox_xxx_netlist_4DEB50()
 	if !mainloopContinue {
 		return false
@@ -396,12 +401,6 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	}
 }
 
-func nox_server_netMaybeSendInitialPackets_4DEB30() {
-	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
-		netstr.Global.GetInitInd().RecvLoop(netstr.RecvCanRead)
-	}
-}
-
 func (s *Server) maybeCallMapInit() {
 	if s.ShouldCallMapInit && s.Players.HasUnits() {
 		s.scriptOnEvent(script.EventMapInitialize)
@@ -451,7 +450,7 @@ func (s *Server) updateRemotePlayers() error {
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
-			netstr.Global.ByPlayer(pl).Send(buf[:], netstr.SendQueue|netstr.SendFlush)
+			s.NetStr.ByPlayer(pl).Send(buf[:], netstr.SendQueue|netstr.SendFlush)
 			s.PlayerDisconnect(pl, 3)
 		}
 		if pl.Field3680&0x80 != 0 {
@@ -476,7 +475,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.PlayerUnit == s.Players.HostUnit() {
 			legacy.Nox_xxx_netImportant_4E5770(byte(pl.Index()), 1)
 		} else if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			netstr.Global.ByPlayer(pl).SendReadPacket(false)
+			s.NetStr.ByPlayer(pl).SendReadPacket(false)
 		}
 	}
 	return nil
@@ -698,7 +697,7 @@ func (s *Server) newSession() error {
 	}
 	legacy.Sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		conn, nport, err := s.initConn(s.ServerPort())
+		conn, nport, err := s.initConn(context.Background(), s.ServerPort())
 		s.serverConn = conn
 		if err != nil {
 			return err
@@ -711,33 +710,7 @@ func (s *Server) newSession() error {
 	legacy.Sub_421B10()
 	sub_4DB0A0()
 	legacy.Sub_4D0F30()
-	if err := s.StartHTTP(); err != nil {
-		return err
-	}
-	if isDedicatedServer || s.announce {
-		if err := s.StartNAT(); err != nil {
-			return err
-		}
-	} else {
-		s.StopNAT()
-	}
-	return nil
-}
-
-func (s *Server) StartNAT() error {
-	if !useNAT || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() {
-		return nil
-	}
-	return s.Server.StartNAT()
-}
-
-func (s *Server) nox_server_netCloseHandler_4DEC60(ind netstr.Handle) {
-	netstr.Global.ReadPackets(ind)
-	s.nox_server_netClose_5546A0(ind)
-	s.Players.SetHost(nil, nil)
-	s.SetUpdateFunc2(nil)
-	s.StopNAT()
-	s.StopHTTP()
+	return s.StartServices(isDedicatedServer)
 }
 
 func (s *Server) nox_xxx_servEndSession_4D3200() {
@@ -772,7 +745,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.FreeObjectTypes()
 	nox_xxx_free_42BF80()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		s.nox_server_netCloseHandler_4DEC60(s.serverConn)
+		s.Nox_server_netCloseHandler_4DEC60(s.serverConn)
 	}
 	legacy.Sub_56F3B0()
 	s.NetList.ResetAll()

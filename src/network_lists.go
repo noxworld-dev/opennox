@@ -19,13 +19,14 @@ func nox_xxx_rateGet_40A6C0() int {
 }
 
 func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
+	c := noxClient
 	s := noxServer
 	return s.NetList.AddToMsgListSrv(ind, buf, func(ind ntype.PlayerInd) {
 		// Flush old data to network.
 		if ind == server.HostPlayerIndex {
-			noxClient.nox_netlist_receiveCli_494E90()
+			c.nox_netlist_receiveCli_494E90()
 		} else {
-			netstr.Global.ByPlayer(s.Players.ByInd(ind)).SendReadPacket(false)
+			s.NetStr.ByPlayer(s.Players.ByInd(ind)).SendReadPacket(false)
 		}
 	})
 }

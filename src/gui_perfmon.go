@@ -9,7 +9,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -63,7 +62,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	c.r.DrawString(nil, fmt.Sprintf(format, m.ping.Milliseconds(), m.fps), image.Pt(x, y))
 
 	y = 200
-	for _, pl := range c.srv.Players.List() {
+	for _, pl := range c.Server.Players.List() {
 		var str string
 		if pl.Field3680&8 != 0 {
 			format = c.Strings().GetStringInFile("Muted", "client.c")
@@ -75,10 +74,10 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 		d := m.bandData(pl.Index())
 		var bps uint32
 		if pl.Index() == server.HostPlayerIndex {
-			bps = m.TransferStats(netstr.Global.First())
+			bps = m.TransferStats(c.Server.NetStr.First())
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		} else {
-			bps = m.TransferStats(netstr.Global.ByPlayer(pl))
+			bps = m.TransferStats(c.Server.NetStr.ByPlayer(pl))
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		}
 		c.r.DrawString(nil, fmt.Sprintf(format, bps, d.th, d.ri, d.rpu), image.Pt(70, y))

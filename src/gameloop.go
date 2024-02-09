@@ -426,6 +426,7 @@ func CONNECT_OR_HOST() error {
 }
 
 func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
+	s := noxServer
 	if debugMainloop {
 		log.Println("CONNECT_SERVER", host, port)
 		defer func() {
@@ -441,9 +442,9 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	}
 	dword_5d4594_815704 = false
 	dword_5d4594_815708 = false
-	noxServer.SetUpdateFunc2(noxServer.checkPingLimits)
-	netstr.Global.Reset()
-	conn, err := netstr.Global.NewClient(narg)
+	s.SetUpdateFunc2(s.checkPingLimits)
+	s.NetStr.Reset()
+	conn, err := s.NetStr.NewClient(narg)
 	if err != nil {
 		return err
 	}
@@ -456,12 +457,12 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		*legacy.Get_dword_5d4594_1599592_ptr() |= 0x80000000
 	}
-	noxServer.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
+	s.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
 	legacy.Nox_xxx_set3512_40A340(0)
 	noxSetUseMapFrame(0)
 
 	if err := conn.DialWait(10*time.Second, func() {
-		noxServer.nox_xxx_netSendBySock_40EE10(conn, server.HostPlayerIndex, netlist.Kind0)
+		s.nox_xxx_netSendBySock_40EE10(conn, server.HostPlayerIndex, netlist.Kind0)
 	}, func() bool {
 		return noxGetUseMapFrame() != 0
 	}); err != nil {

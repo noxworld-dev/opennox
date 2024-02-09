@@ -4,13 +4,19 @@ import (
 	"context"
 
 	"github.com/noxworld-dev/nat"
+	"github.com/noxworld-dev/opennox-lib/env"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 type natService struct {
 	stop func()
 }
 
-func (s *Server) StartNAT() error {
+func (s *Server) startNAT() error {
+	if !s.UseNAT || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() {
+		return nil
+	}
 	port, hport := s.ServerPort(), s.HTTPPort()
 	ctx, cancel := context.WithCancel(context.Background())
 	go func() {
@@ -27,7 +33,7 @@ func (s *Server) StartNAT() error {
 	return nil
 }
 
-func (s *Server) StopNAT() {
+func (s *Server) stopNAT() {
 	if s.nat.stop != nil {
 		s.nat.stop()
 		s.nat.stop = nil

@@ -66,8 +66,6 @@ var (
 	ClientSetServerHost               func(addr string)
 	Nox_client_joinGame_438A90        func() int
 	SendXXX_5550D0                    func(addr netip.AddrPort, data []byte) (int, error)
-	Sub_5545A0                        func() uint16
-	Sub_554230                        func() string
 	Nox_xxx_netStatsMultiplier_4D9C20 func(a1p *server.Object) int
 	Sub_554240                        func(a1 ntype.PlayerInd) int
 	Nox_xxx_net_getIP_554200          func(a1 netstr.Handle) uint32
@@ -114,10 +112,10 @@ func sub_5550D0(addr int, port C.uint16_t, cdata *C.char) int {
 }
 
 //export sub_5545A0
-func sub_5545A0() C.short { return C.short(Sub_5545A0()) }
+func sub_5545A0() C.short { return C.short(GetServer().S().GetServerPort()) }
 
 //export sub_554230
-func sub_554230() *C.char { return internCStr(Sub_554230()) }
+func sub_554230() *C.char { return internCStr(GetServer().S().GetOwnIP()) }
 
 //export nox_xxx_netStatsMultiplier_4D9C20
 func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
@@ -129,7 +127,7 @@ func sub_554240(a1 int) int { return Sub_554240(ntype.PlayerInd(a1)) }
 
 //export nox_xxx_net_getIP_554200
 func nox_xxx_net_getIP_554200(a1 int) uint32 {
-	return Nox_xxx_net_getIP_554200(netstr.Global.ByIndexRaw(a1))
+	return Nox_xxx_net_getIP_554200(GetServer().S().NetStr.ByIndexRaw(a1))
 }
 
 //export nox_xxx_netOnPacketRecvCli_48EA70

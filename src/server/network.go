@@ -1,11 +1,14 @@
 package server
 
 import (
+	"context"
 	"encoding/binary"
 	"image"
 	"io"
 	"math"
+	"net/netip"
 
+	"github.com/noxworld-dev/nat"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
@@ -16,7 +19,85 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
+
+func (s *Server) GetServerPort() uint16 {
+	return s.NetServerPort
+}
+
+func (s *Server) GetOwnIP() string {
+	return s.OwnIPStr
+}
+
+func (s *Server) NetGetIP(conn netstr.Handle) netip.Addr {
+	if conn.IsFirst() {
+		return s.OwnIP
+	}
+	return conn.IP()
+}
+
+func (s *Server) InitServer(ctx context.Context, narg *netstr.Options) (netstr.Handle, error) {
+	s.OwnIPStr = ""
+	s.NetServerPort = uint16(narg.Port)
+	conn, err := s.NetStr.Listen(narg)
+	if err != nil {
+		return conn, err
+	}
+	if ip, err := nat.ExternalIP(ctx); err == nil {
+		s.OwnIP, _ = netip.AddrFromSlice(ip.To4())
+		s.OwnIPStr = ip.String()
+	} else if ips, err := nat.InternalIPs(ctx); err == nil && len(ips) != 0 {
+		ip = ips[0].IP
+		s.OwnIP, _ = netip.AddrFromSlice(ip.To4())
+		s.OwnIPStr = ip.String()
+	}
+	return conn, nil
+}
+
+func (s *Server) StartServices(dedicated bool) error {
+	if err := s.startHTTP(); err != nil {
+		return err
+	}
+	if dedicated || s.Announce {
+		if err := s.startNAT(); err != nil {
+			return err
+		}
+	} else {
+		s.stopNAT()
+	}
+	return nil
+}
+
+func (s *Server) Nox_server_netCloseHandler_4DEC60(conn netstr.Handle) {
+	s.NetStr.ReadPackets(conn)
+	conn.Close()
+	s.Players.SetHost(nil, nil)
+	s.SetUpdateFunc2(nil)
+	s.stopNAT()
+	s.stopHTTP()
+}
+
+func (s *Server) Nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) int {
+	return s.NetStr.ReadPackets(s.NetStr.ByPlayerInd(ind))
+}
+
+func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
+	if !noxflags.HasGame(noxflags.GameClient) || ind != HostPlayerIndex {
+		s.NetList.HandlePacketsA(ind, netlist.Kind1, func(data []byte) {
+			if len(data) == 0 {
+				return
+			}
+			s.NetStr.ByPlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
+		})
+	}
+}
+
+func (s *Server) Nox_server_netMaybeSendInitialPackets_4DEB30() {
+	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
+		s.NetStr.GetInitInd().RecvLoop(netstr.RecvCanRead)
+	}
+}
 
 func (s *Server) NetSendPacketXxx0(a1 int, buf []byte, a4, a5 int) int { // nox_xxx_netSendPacket0_4E5420
 	return s.NetSendPacketXxx(a1, buf, a4, a5, 0)

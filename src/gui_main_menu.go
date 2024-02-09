@@ -300,7 +300,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 		}
 		switch ev.Win.ID() {
 		case 111: // Solo campaign button
-			noxServer.announce = false
+			noxServer.Announce = false
 			if nox_xxx_checkHasSoloMaps() {
 				noxflags.SetGame(noxflags.GameModeCoop)
 				noxflags.UnsetGame(noxflags.GameOnline)
@@ -339,7 +339,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			}
 			return gui.RawEventResp(1)
 		case 112: // Multiplayer button
-			noxServer.announce = true
+			noxServer.Announce = true
 			// prepare to start a server
 			winMainMenuAnimOutStartFnc()
 			noxflags.SetEngine(noxflags.EngineAdmin)
@@ -387,7 +387,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			ev.Win.DrawData().Field0 &= 0xFFFFFFFD
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 131: // Solo Quest
-			noxServer.announce = false
+			noxServer.Announce = false
 			winMainMenuAnimOutStartFnc()
 			noxflags.SetEngine(noxflags.EngineAdmin)
 			noxflags.UnsetEngine(noxflags.EngineGodMode)

@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -282,13 +283,13 @@ func init() {
 	legacy.Nox_xxx_collideHarpoon_4EB6A0 = nox_xxx_collideHarpoon_4EB6A0
 	legacy.Nox_xxx_updateHarpoon_54F380 = nox_xxx_updateHarpoon_54F380
 	legacy.SendXXX_5550D0 = sendXXX_5550D0
-	legacy.Sub_5545A0 = getServerPort
-	legacy.Sub_554230 = getOwnIP
 	legacy.Nox_xxx_netStatsMultiplier_4D9C20 = func(a1p *server.Object) int {
 		return noxServer.NetStatsMultiplier(a1p)
 	}
 	legacy.Sub_554240 = sub_554240
-	legacy.Nox_xxx_net_getIP_554200 = nox_xxx_net_getIP_554200
+	legacy.Nox_xxx_net_getIP_554200 = func(a1 netstr.Handle) uint32 {
+		return ip2int(noxServer.NetGetIP(a1))
+	}
 	legacy.Nox_xxx_netOnPacketRecvCli_48EA70 = nox_xxx_netOnPacketRecvCli_48EA70
 	legacy.Sub_43C6E0 = sub_43C6E0
 	legacy.Sub_43CF40 = sub_43CF40

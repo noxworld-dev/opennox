@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"net/netip"
 	"sync/atomic"
 	"time"
 	"unsafe"
@@ -17,6 +18,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 var Log = log.New("server")
@@ -36,11 +38,17 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		Printer: pr, sm: sm,
 		loopHooks: make(chan func()),
 		port:      common.GamePort,
+		NetStr:    netstr.NewStreams(),
 		NetList:   netlist.New(),
+		UseNAT:    true,
 	}
 	s.handle = atomic.AddUintptr(&serverLast, 1)
 	servers.Store(s.handle, s)
 	s.Rand.init(nil)
+	s.NetStr.GameFlags = noxflags.GetGame
+	s.NetStr.GameFrame = s.Frame
+	s.NetStr.KeyRand = s.Rand.Logic.IntClamp
+	s.NetStr.PacketDropRand = s.Rand.Other.Int
 	s.Types.init()
 	s.Objs.init(s.handle)
 	s.Modif.init(sm)
@@ -96,10 +104,16 @@ type Server struct {
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool
 
-	NetList *netlist.List
-	port    int
-	http    httpService
-	nat     natService
+	NetStr        *netstr.Streams
+	NetList       *netlist.List
+	NetServerPort uint16
+	OwnIPStr      string
+	OwnIP         netip.Addr
+	UseNAT        bool
+	Announce      bool
+	port          int
+	http          httpService
+	nat           natService
 
 	updateFunc2 func() bool
 

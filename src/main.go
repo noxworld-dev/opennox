@@ -308,7 +308,7 @@ func RunArgs(args []string) (gerr error) {
 			noxflags.EngineNoFloorRendering)
 	}
 	if v := *fDrop; v != 0 {
-		netstr.Global.PacketDrop = v
+		noxServer.NetStr.PacketDrop = v
 	}
 	if *fNoText {
 		noxflags.SetEngine(noxflags.EngineNoTextRendering)

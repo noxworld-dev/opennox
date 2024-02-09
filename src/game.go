@@ -68,7 +68,8 @@ func init() {
 			if len(tokens) != 0 {
 				return false
 			}
-			players := noxServer.Players.Count()
+			s := noxServer
+			players := s.Players.Count()
 			if noxflags.HasEngine(noxflags.EngineNoRendering) {
 				players--
 			}
@@ -78,7 +79,7 @@ func init() {
 			}
 			c.Printf(console.ColorRed, "OpenNox%s %s", subVer, version.ClientVersion())
 			if noxflags.HasGame(noxflags.GameOnline) {
-				sname := noxServer.getServerName()
+				sname := s.getServerName()
 				str := c.Strings().GetStringInFile("Name", "parsecmd.c")
 				c.Printf(console.ColorRed, "%s %s", str, sname)
 
@@ -90,15 +91,15 @@ func init() {
 				ind := int16(*(*uint16)(unsafe.Add(p, 52)))
 				timeLimit := legacy.Sub_40A180(noxflags.GameFlag(ind))
 				lessons := legacy.Nox_xxx_servGamedataGet_40A020(ind)
-				maxPlayers := noxServer.getServerMaxPlayers()
-				mname := noxServer.nox_server_currentMapGetFilename_409B30()
+				maxPlayers := s.getServerMaxPlayers()
+				mname := s.nox_server_currentMapGetFilename_409B30()
 				format := c.Strings().GetStringInFile("GameInfo", "parsecmd.c")
 				format = strings.ReplaceAll(format, "%S", "%s")
 				c.Printf(console.ColorRed, format, mname, players, maxPlayers, lessons, timeLimit)
-				c.Print(console.ColorRed, netGetIP(netstr.Global.First()).String())
+				c.Print(console.ColorRed, s.NetGetIP(s.NetStr.First()).String())
 			} else {
-				maxPlayers := noxServer.getServerMaxPlayers()
-				mname := noxServer.nox_server_currentMapGetFilename_409B30()
+				maxPlayers := s.getServerMaxPlayers()
+				mname := s.nox_server_currentMapGetFilename_409B30()
 				format := c.Strings().GetStringInFile("GameInfo", "parsecmd.c")
 				format = strings.ReplaceAll(format, "%S", "%s")
 				c.Printf(console.ColorRed, format, mname, players, maxPlayers, 0, 0)
@@ -484,7 +485,7 @@ func (v xwisInfoShort) GameInfo() discover.GameInfo {
 }
 
 func (s *Server) maybeRegisterGameOnline() {
-	if !useXWIS || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() || !(isDedicatedServer || s.announce) {
+	if !useXWIS || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() || !(isDedicatedServer || s.Announce) {
 		s.maybeStopRegister()
 		return
 	}
@@ -513,6 +514,7 @@ func getString10984() string {
 }
 
 func initGameSession435CC0() error {
+	c := noxClient
 	ctx := context.Background()
 	legacy.Sub_445450()
 	legacy.Sub_45DB90()
@@ -520,7 +522,7 @@ func initGameSession435CC0() error {
 	legacy.Nox_xxx_initTime_435570()
 	legacy.Set_nox_client_gui_flag_1556112(0)
 
-	noxClient.Objs.Init(5000)
+	c.Objs.Init(5000)
 
 	if legacy.Nox_xxx_allocArrayHealthChanges_49A5F0() == 0 {
 		return errors.New("nox_xxx_allocArrayHealthChanges_49A5F0 failed")
@@ -543,15 +545,15 @@ func initGameSession435CC0() error {
 			return fmt.Errorf("game gui Init failed: %w", err)
 		}
 	}
-	noxClient.Server.NPCs.Init()
+	c.Server.NPCs.Init()
 	if legacy.Nox_xxx_loadReflSheild_499360() == 0 {
 		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}
 
-	noxClient.nox_xxx_initSight_485F80()
-	noxClient.Sight.Init(nox_win_width, nox_win_height)
+	c.nox_xxx_initSight_485F80()
+	c.Sight.Init(nox_win_width, nox_win_height)
 
-	noxClient.InitDrawableLists()
+	c.InitDrawableLists()
 
 	if nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
 		return errors.New("nox_xxx_allocArrayDrawableFX_495AB0 failed")
@@ -570,22 +572,22 @@ func initGameSession435CC0() error {
 	} else {
 		nox_xxx_netSendIncomingClient_43CB00()
 	}
-	noxClient.SetDrawFunc(noxClient.clientDraw)
+	c.SetDrawFunc(c.clientDraw)
 	gameSetPlayState(3)
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
-	vp := noxClient.Viewport()
+	vp := c.Viewport()
 	vp.Screen = image.Rect(0, 0, sz.X-1, sz.Y-1)
 	vp.Size = sz
 	vp.Field10 = 0
 	vp.Field11 = 0
 	vp.Jiggle12 = 0
 	v1 := nox_video_getCutSize()
-	noxClient.nox_draw_setCutSize(v1, 0)
+	c.nox_draw_setCutSize(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		sub_41CC00(getString10984())
-	} else if noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
-		if noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
+	} else if c.srv.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
+		if c.srv.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
 			legacy.Sub_460380()
 			legacy.Nox_xxx_cliPrepareGameplay1_460E60()
 			legacy.Nox_xxx_cliPrepareGameplay2_4721D0()
@@ -598,7 +600,7 @@ func initGameSession435CC0() error {
 		legacy.Nox_xxx_plrLoad_41A480(getString10984())
 	}
 	if isServer && !isDedicatedServer {
-		noxServer.PlayerGoObserver(noxServer.Players.List()[0], false, true)
+		c.srv.PlayerGoObserver(c.Server.Players.List()[0], false, true)
 	}
 	execConsoleCmdAuthed(ctx, "execrul autoexec.rul")
 	if isServer {
@@ -733,12 +735,12 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		}
 	}
 	s.Audio.Reset()
-	netstr.Global.Update()
+	s.NetStr.Update()
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
 	if noxflags.HasEngine(noxflags.EngineLogBand) {
-		noxPerfmon.LogBandwidth(s.Server, netstr.Global)
+		noxPerfmon.LogBandwidth(s.Server, s.NetStr)
 	}
 	if noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_gameTick_4D2580_server_A1()
@@ -766,7 +768,7 @@ func nox_xxx_gameTick_4D2580_server_A1() {
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
-	nox_server_netMaybeSendInitialPackets_4DEB30()
+	s.Nox_server_netMaybeSendInitialPackets_4DEB30()
 	s.nox_xxx_netlist_4DEB50()
 	if platformTicks() <= memmap.Uint64(0x5D4594, 1548676) || v2 {
 		return

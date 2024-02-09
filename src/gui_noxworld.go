@@ -106,7 +106,7 @@ func nox_client_refreshServerList_4378B0() {
 
 	ctx := context.Background()
 	winNewDialogID(legacy.Get_nox_wol_wnd_world_814980(), "Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-	netstr.Global.Responded = false
+	noxServer.NetStr.Responded = false
 	go discoverAndPingServers(ctx)
 	legacy.Set_dword_5d4594_815104(0)
 	legacy.Set_qword_5d4594_815068(

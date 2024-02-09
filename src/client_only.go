@@ -78,13 +78,13 @@ func sub_43CCA0() {
 
 	if dt := platformTicks() - ticks815724; dt >= 2000 {
 		ticks815724 = platformTicks()
-		netstr.Global.SendCode6(netstrClientConn)
+		s.NetStr.SendCode6(netstrClientConn)
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
-	noxServer.nox_xxx_netSendBySock_40EE10(netstrClientConn, server.HostPlayerIndex, netlist.Kind0)
-	netstr.Global.MaybeSendQueues()
+	s.nox_xxx_netSendBySock_40EE10(netstrClientConn, server.HostPlayerIndex, netlist.Kind0)
+	s.NetStr.MaybeSendQueues()
 	if lastCliHandlePackets == 0 {
 		return
 	}

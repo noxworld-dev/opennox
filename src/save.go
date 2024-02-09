@@ -275,8 +275,9 @@ func netXferSendDone(ind netstr.Handle, act netxfer.Action) {
 }
 
 func netXferLocal(act netxfer.Action, data []byte) {
+	s := noxServer
 	xferDataCallback40AF90(server.HostPlayerIndex, act, memmap.String(0x5D4594, 4664), data)
-	netXferSendDone(netstr.Global.First(), act)
+	netXferSendDone(s.NetStr.First(), act)
 }
 
 func nox_xxx_serverIsClosing_446180() int {

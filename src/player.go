@@ -90,7 +90,7 @@ func (s *Server) PlayerDisconnect(p *server.Player, v int) {
 	}
 	nox_xxx_playerDisconnFinish_4DE530(p.PlayerIndex(), int8(v))
 	legacy.Nox_xxx_playerForceDisconnect_4DE7C0(p.PlayerIndex())
-	s.nox_xxx_netStructReadPackets2_4DEC50(p.PlayerIndex())
+	s.Nox_xxx_netStructReadPackets2_4DEC50(p.PlayerIndex())
 }
 
 func (s *Server) PlayerDisconnectByIndCode4(ind ntype.PlayerInd) { // nox_xxx_playerDisconnByPlrID_4DEB00
@@ -622,7 +622,7 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 			}
 		}
 	}
-	netXfer.CancelSend(netstr.Global.ByPlayerInd(pli))
+	netXfer.CancelSend(s.NetStr.ByPlayerInd(pli))
 	legacy.Sub_4DE410(pli)
 	if pl != nil {
 		var buf [3]byte
@@ -636,7 +636,7 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 	if int32(a2) == 4 {
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_KICK_NOTIFICATION)
-		netstr.Global.ByPlayerInd(pli).Send(buf[:1], netstr.SendQueue|netstr.SendFlush)
+		s.NetStr.ByPlayerInd(pli).Send(buf[:1], netstr.SendQueue|netstr.SendFlush)
 	}
 	legacy.Sub_4E55F0(pli)
 	if pl != nil {

@@ -10,7 +10,6 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/noxworld-dev/nat"
 	"github.com/noxworld-dev/opennox-lib/binenc"
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
@@ -27,33 +26,12 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func init() {
-	configBoolPtr("network.xor", "NOX_NET_XOR", true, &netstr.Global.Xor)
-	configHiddenBoolPtr("debug.network", "NOX_DEBUG_NET", &netstr.Global.Debug)
-	netstr.Global.GameFrame = func() uint32 {
-		return noxServer.Frame()
-	}
-	netstr.Global.OnDiscover = nox_xxx_servNetInitialPackets_552A80_discover
-	netstr.Global.OnExtPacket = MixRecvFromReplacer
-	netstr.Global.GetMaxPlayers = func() int {
-		return noxServer.getServerMaxPlayers()
-	}
-	netstr.Global.KeyRand = func(min, max int) int {
-		return noxServer.Rand.Logic.IntClamp(min, max)
-	}
-	netstr.Global.PacketDropRand = func(min, max int) int {
-		return noxServer.Rand.Other.Int(min, max)
-	}
-}
-
 var (
 	netstrClientConn     netstr.Handle
 	lastCliHandlePackets uint64
 	ticks815732          uint64
 	dword_5d4594_815704  bool
 	dword_5d4594_815708  bool
-	ownIPStr             string
-	ownIP                netip.Addr
 
 	noxUseMapFrame = 0
 	noxServerHost  = "localhost"
@@ -95,14 +73,14 @@ func noxGetUseMapFrame() int {
 }
 
 func noxSetUseMapFrame(frame int) {
-	if netstr.Global.Debug {
+	if noxServer.NetStr.Debug {
 		netstr.Log.Printf("use map frame: %d", frame)
 	}
 	noxUseMapFrame = frame
 }
 
 func noxOnCliPacketDebug(op noxnet.Op, buf []byte) {
-	if netstr.Global.Debug && len(buf) != 0 {
+	if noxServer.NetStr.Debug && len(buf) != 0 {
 		netstr.Log.Printf("CLIENT: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(len(buf))-1, op.Len(), buf[0], buf[1:])
 	}
 }
@@ -220,7 +198,7 @@ func (c *Client) clientSendInputMouse(pli ntype.PlayerInd, mp image.Point) bool 
 	return c.srv.NetList.AddToMsgListCli(pli, netlist.Kind0, buf)
 }
 
-func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
+func (s *Server) initConn(ctx context.Context, port int) (conn netstr.Handle, cport int, _ error) {
 	narg := &netstr.Options{
 		Port:       port,
 		Max:        s.getServerMaxPlayers(),
@@ -235,48 +213,12 @@ func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
 		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	s.SetUpdateFunc2(s.checkPingLimits)
-	netstr.Global.Reset()
-	conn, err := netInitServer(narg)
+	s.NetStr.Reset()
+	conn, err := s.InitServer(ctx, narg)
 	if err != nil {
 		return conn, 0, err
 	}
 	return conn, narg.Port, err
-}
-
-var netServerPort uint16
-
-func getServerPort() uint16 {
-	return netServerPort
-}
-
-func getOwnIP() string {
-	return ownIPStr
-}
-
-func netInitServer(narg *netstr.Options) (ind netstr.Handle, _ error) {
-	ownIPStr = ""
-	conn, err := netstr.Global.Listen(narg)
-	netServerPort = uint16(narg.Port)
-	if err != nil {
-		return conn, err
-	}
-	if ip, err := nat.ExternalIP(context.Background()); err == nil {
-		ownIP, _ = netip.AddrFromSlice(ip.To4())
-		ownIPStr = ip.String()
-	} else if ips, err := nat.InternalIPs(context.Background()); err == nil && len(ips) != 0 {
-		ip = ips[0].IP
-		ownIP, _ = netip.AddrFromSlice(ip.To4())
-		ownIPStr = ip.String()
-	}
-	return conn, nil
-}
-
-func (s *Server) nox_server_netClose_5546A0(i netstr.Handle) {
-	i.Close()
-}
-
-func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) int {
-	return netstr.Global.ReadPackets(netstr.Global.ByPlayerInd(ind))
 }
 
 func nox_xxx_netSendClientReady_43C9F0() int {
@@ -526,7 +468,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 
 func sub_554240(pli ntype.PlayerInd) int {
 	if pli != server.HostPlayerIndex {
-		return netstr.Global.GetTimingByInd1(pli)
+		return noxServer.NetStr.GetTimingByInd1(pli)
 	}
 	return int(nox_ctrlevent_add_ticks_42E630())
 }
@@ -547,19 +489,8 @@ func (s *Server) checkPingLimits() bool {
 	if max >= 0 {
 		tmax = time.Millisecond * time.Duration(max)
 	}
-	netstr.Global.ProcessStats(tmin, tmax)
+	s.NetStr.ProcessStats(tmin, tmax)
 	return true
-}
-
-func nox_xxx_net_getIP_554200(a1 netstr.Handle) uint32 {
-	return ip2int(netGetIP(a1))
-}
-
-func netGetIP(ind netstr.Handle) netip.Addr {
-	if ind.IsFirst() {
-		return ownIP
-	}
-	return ind.IP()
 }
 
 func sub_43C790() uint32 {
@@ -611,17 +542,6 @@ func sub_43CF70() {
 			buf[0] = byte(noxnet.MSG_NEED_TIMESTAMP)
 			nox_xxx_netClientSend2_4E53C0(server.HostPlayerIndex, buf[:1], 0, 1)
 		}
-	}
-}
-
-func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
-	if !noxflags.HasGame(noxflags.GameClient) || ind != server.HostPlayerIndex {
-		s.NetList.HandlePacketsA(ind, netlist.Kind1, func(data []byte) {
-			if len(data) == 0 {
-				return
-			}
-			netstr.Global.ByPlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
-		})
 	}
 }
 
@@ -678,7 +598,7 @@ func (s *Server) sendSettings(u *server.Object) {
 		var buf [129]byte
 		nox_xxx_netNewPlayerMakePacket_4DDA90(buf[:], pl)
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:129])
-		s.nox_xxx_netSendBySock_4DDDC0(pl.PlayerIndex())
+		s.Nox_xxx_netSendBySock_4DDDC0(pl.PlayerIndex())
 	}
 	{
 		buf, err := noxnet.AppendPacket(nil, &noxnet.MsgUseMap{
@@ -689,7 +609,7 @@ func (s *Server) sendSettings(u *server.Object) {
 		if err != nil {
 			panic(err)
 		}
-		netstr.Global.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
+		s.NetStr.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
 		legacy.Sub_4DDE10(pl.Index(), pl)
 	}
 }
@@ -713,19 +633,20 @@ func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != server.HostPlayerIndex {
 			buf := s.NetList.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
-				netstr.Global.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
+				s.NetStr.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
 			}
 		}
 	}
 }
 
 func Nox_xxx_netTimerStatus_4D8F50(a1 ntype.PlayerInd, a2 int) {
+	s := noxServer
 	var buf [13]byte
 	buf[0] = byte(noxnet.MSG_TIMER_STATUS)
 	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))
 	binary.LittleEndian.PutUint32(buf[5:], uint32(legacy.Sub_40A230()))
-	binary.LittleEndian.PutUint32(buf[9:], noxServer.Frame())
-	noxServer.NetSendPacketXxx1(int(a1), buf[:13], 0, 1)
+	binary.LittleEndian.PutUint32(buf[9:], s.Frame())
+	s.NetSendPacketXxx1(int(a1), buf[:13], 0, 1)
 }
 
 func (s *Server) netSendAudioEvent(u *server.Object, ev *server.AudioEvent, perc int16) {

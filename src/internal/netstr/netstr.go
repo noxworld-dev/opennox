@@ -61,13 +61,8 @@ const (
 )
 
 var (
-	Log    = log.New("network")
-	Global = NewStreams()
+	Log = log.New("network")
 )
-
-func init() {
-	Global.GameFlags = noxflags.GetGame
-}
 
 func NewStreams() *Streams {
 	s := &Streams{
