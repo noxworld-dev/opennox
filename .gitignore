@@ -21,6 +21,9 @@ cmake-*
 src/.idea
 src/cmake-build-*
 
+# For LiteIDE
+.project
+
 # For VS IDE
 .vs/
 
