@@ -188,7 +188,7 @@ int sub_48D000_initGuiKick() {
 	v0 = nox_new_window_from_file("GuiKick.wnd", nox_xxx_guiKick_48D0A0);
 	dword_5d4594_1197312 = v0;
 	if (!v0) {
-		return 1; // FIXME the file GuiKick.wnd is not present in demo
+		return 0;
 	}
 	dword_5d4594_1197316 = nox_xxx_wndGetChildByID_46B0C0(v0, 4320);
 	dword_5d4594_1197320 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1197312, 4321);
@@ -3049,7 +3049,7 @@ int sub_49B3E0() {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1303452, 0);
 		result = 1;
 	}
-	return 1; // FIXME file GGOver.wnd not present in demo
+	return 0;
 }
 
 //----- (0049B420) --------------------------------------------------------

@@ -1865,7 +1865,7 @@ int sub_4BFC90() {
 		sub_4BFC70();
 		result = 1;
 	}
-	return 1; // FIXME not present in demo
+	return 0;
 }
 
 //----- (004BFCD0) --------------------------------------------------------

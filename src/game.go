@@ -942,7 +942,8 @@ func nox_game_guiInit_473680() error {
 		return errors.New("nox_game_initOptionsInGame_4ADAD0 failed")
 	}
 	if legacy.Sub_48D000_initGuiKick() == 0 {
-		return errors.New("sub_48D000 failed")
+		// This window is not present in Nox Demo and this must not prevent the game from booting
+		gameLog.Printf("failed to initialize GuiKick.wnd")
 	}
 	if legacy.Sub_4C3760() == 0 {
 		return errors.New("sub_4C3760 failed")
@@ -957,10 +958,12 @@ func nox_game_guiInit_473680() error {
 		return errors.New("sub_478110 failed")
 	}
 	if legacy.Sub_49B3E0() == 0 {
-		return errors.New("sub_49B3E0 failed")
+		// This window is not present in Nox Demo and this must not prevent the game from booting
+		gameLog.Printf("failed to initialize GGOver.wnd")
 	}
 	if legacy.Sub_4BFC90() == 0 {
-		return errors.New("sub_4BFC90 failed")
+		// This window is not present in Nox Demo and this must not prevent the game from booting
+		gameLog.Printf("failed to initialize SKey.wnd")
 	}
 	if legacy.Nox_gui_itemAmount_init_4BFEF0() == 0 {
 		return errors.New("nox_gui_itemAmount_init_4BFEF0 failed")

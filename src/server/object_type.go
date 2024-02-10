@@ -105,7 +105,7 @@ func init() {
 	RegisterObjectUse("BowUse", nil, 1)
 }
 
-func LogUnknownHandler(name string) {
+func logUnknownHandler(name string) {
 	if !clsSeen[name] {
 		logObjTs.Printf("an unknown object handler was requested: %s", name)
 		clsSeen[name] = true
@@ -998,7 +998,7 @@ func (t *ObjectType) parseInit(d *things.ProcFunc) error {
 	}
 	def, ok := initFuncs[d.Name]
 	if !ok {
-		LogUnknownHandler(d.Name)
+		logUnknownHandler(d.Name)
 		// TODO: add "unknown" init as a nop init types (similar to NoInit)
 		return nil
 	}
@@ -1042,7 +1042,7 @@ func (t *ObjectType) parseUpdate(d *things.ProcFunc) error {
 	}
 	def, ok := updateFuncs[d.Name]
 	if !ok {
-		LogUnknownHandler(d.Name)
+		logUnknownHandler(d.Name)
 		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
 		return nil
 	}
@@ -1068,7 +1068,7 @@ func (t *ObjectType) parseCollide(d *things.ProcFunc) error {
 	}
 	def, ok := collideFuncs[d.Name]
 	if !ok {
-		LogUnknownHandler(d.Name)
+		logUnknownHandler(d.Name)
 		// TODO: add "unknown" collide as a nop types (similar to NoCollide)
 		return nil
 	}
@@ -1094,7 +1094,7 @@ func (t *ObjectType) parseUse(d *things.ProcFunc) error {
 	}
 	def, ok := useFuncs[d.Name]
 	if !ok {
-		LogUnknownHandler(d.Name)
+		logUnknownHandler(d.Name)
 		// TODO: add "unknown" use as a nop types
 		return nil
 	}
@@ -1136,7 +1136,7 @@ func (t *ObjectType) parseDeath(d *things.ProcFunc) error {
 	}
 	def, ok := deathFuncs[d.Name]
 	if !ok {
-		LogUnknownHandler(d.Name)
+		logUnknownHandler(d.Name)
 		// TODO: add "unknown" death as a nop types
 		return nil
 	}
@@ -1161,7 +1161,7 @@ func (t *ObjectType) parseDrop(d *things.ProcFunc) error {
 	}
 	fnc, ok := dropFuncs[d.Name]
 	if !ok {
-		LogUnknownHandler(d.Name)
+		logUnknownHandler(d.Name)
 		// TODO: add "unknown" drop as a nop types
 		return nil
 	}
@@ -1184,7 +1184,7 @@ func (t *ObjectType) parsePickup(d *things.ProcFunc) error {
 	}
 	fnc, ok := pickupFuncs[d.Name]
 	if !ok {
-		LogUnknownHandler(d.Name)
+		logUnknownHandler(d.Name)
 		// TODO: add "unknown" pickup as a nop types
 		return nil
 	}
