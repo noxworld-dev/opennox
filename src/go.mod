@@ -76,6 +76,3 @@ require (
 )
 
 replace github.com/timshannon/go-openal => github.com/noxworld-dev/go-openal v0.0.0-20220410091615-164a70f24e7c
-
-// FIXME
-replace github.com/noxworld-dev/opennox-lib => github.com/noxworld-dev/opennox-lib v0.0.0-20240209183441-b539d3a8004a
