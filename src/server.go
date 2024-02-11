@@ -99,8 +99,6 @@ type Server struct {
 
 	flag1548704 bool
 	flag3592    bool
-
-	serverConn netstr.Handle
 }
 
 func (s *Server) S() *server.Server {
@@ -698,12 +696,9 @@ func (s *Server) newSession() error {
 	}
 	legacy.Sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		conn, nport, err := s.initConn(context.Background(), s.ServerPort())
-		s.serverConn = conn
-		if err != nil {
+		if err := s.initConn(context.Background(), s.ServerPort()); err != nil {
 			return err
 		}
-		s.SetServerPort(nport)
 	}
 	if legacy.Nox_xxx_allocPendingOwnsArray_516EE0() == 0 {
 		return errors.New("nox_xxx_allocPendingOwnsArray_516EE0 failed")
@@ -746,7 +741,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.FreeObjectTypes()
 	nox_xxx_free_42BF80()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		s.Nox_server_netCloseHandler_4DEC60(s.serverConn)
+		s.Nox_server_netCloseHandler_4DEC60(s.ServerConn)
 	}
 	legacy.Sub_56F3B0()
 	s.NetList.ResetAll()

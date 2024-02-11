@@ -22,10 +22,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
-func (s *Server) GetServerPort() uint16 {
-	return s.NetServerPort
-}
-
 func (s *Server) GetOwnIP() string {
 	return s.OwnIPStr
 }
@@ -37,13 +33,14 @@ func (s *Server) NetGetIP(conn netstr.Handle) netip.Addr {
 	return conn.IP()
 }
 
-func (s *Server) InitServer(ctx context.Context, narg *netstr.Options) (netstr.Handle, error) {
+func (s *Server) InitServer(ctx context.Context, narg *netstr.Options) error {
 	s.OwnIPStr = ""
-	s.NetServerPort = uint16(narg.Port)
 	conn, err := s.NetStr.Listen(narg)
+	s.ServerConn = conn
 	if err != nil {
-		return conn, err
+		return err
 	}
+	s.SetServerPort(narg.Port)
 	if ip, err := nat.ExternalIP(ctx); err == nil {
 		s.OwnIP, _ = netip.AddrFromSlice(ip.To4())
 		s.OwnIPStr = ip.String()
@@ -52,7 +49,7 @@ func (s *Server) InitServer(ctx context.Context, narg *netstr.Options) (netstr.H
 		s.OwnIP, _ = netip.AddrFromSlice(ip.To4())
 		s.OwnIPStr = ip.String()
 	}
-	return conn, nil
+	return nil
 }
 
 func (s *Server) StartServices(dedicated bool) error {

@@ -195,7 +195,7 @@ func (c *Client) clientSendInputMouse(pli ntype.PlayerInd, mp image.Point) bool 
 	return c.srv.NetList.AddToMsgListCli(pli, netlist.Kind0, buf)
 }
 
-func (s *Server) initConn(ctx context.Context, port int) (conn netstr.Handle, cport int, _ error) {
+func (s *Server) initConn(ctx context.Context, port int) error {
 	narg := &netstr.Options{
 		Port:       port,
 		Max:        s.getServerMaxPlayers(),
@@ -211,11 +211,7 @@ func (s *Server) initConn(ctx context.Context, port int) (conn netstr.Handle, cp
 	}
 	s.SetUpdateFunc2(s.checkPingLimits)
 	s.NetStr.Reset()
-	conn, err := s.InitServer(ctx, narg)
-	if err != nil {
-		return conn, 0, err
-	}
-	return conn, narg.Port, err
+	return s.InitServer(ctx, narg)
 }
 
 func nox_xxx_servNetInitialPackets_552A80_discover(src, dst []byte) int {

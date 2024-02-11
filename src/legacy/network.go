@@ -112,7 +112,7 @@ func sub_5550D0(addr int, port C.uint16_t, cdata *C.char) int {
 }
 
 //export sub_5545A0
-func sub_5545A0() C.short { return C.short(GetServer().S().GetServerPort()) }
+func sub_5545A0() C.short { return C.short(GetServer().S().ServerPort()) }
 
 //export sub_554230
 func sub_554230() *C.char { return internCStr(GetServer().S().GetOwnIP()) }
