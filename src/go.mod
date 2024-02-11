@@ -10,7 +10,7 @@ require (
 	github.com/noxworld-dev/noxcrypt v0.0.0-20230831140413-02623e75408e
 	github.com/noxworld-dev/noxscript/ns v1.0.2
 	github.com/noxworld-dev/noxscript/ns/v3 v3.4.4
-	github.com/noxworld-dev/noxscript/ns/v4 v4.18.0
+	github.com/noxworld-dev/noxscript/ns/v4 v4.18.1
 	github.com/noxworld-dev/opennox-lib v0.0.0-20240210164647-e15d353dd8ba
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
