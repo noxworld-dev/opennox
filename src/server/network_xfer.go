@@ -1,6 +1,6 @@
 package server
 
-import "github.com/noxworld-dev/opennox/v1/netxfer"
+import "github.com/noxworld-dev/opennox/v1/server/netxfer"
 
 const (
 	NetXferMOTD           = netxfer.Action(1)

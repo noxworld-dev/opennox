@@ -4,8 +4,8 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
-	"github.com/noxworld-dev/opennox/v1/netxfer"
 	"github.com/noxworld-dev/opennox/v1/server"
+	"github.com/noxworld-dev/opennox/v1/server/netxfer"
 )
 
 func netXferSend(pli ntype.PlayerInd, act netxfer.Action, typ string, data []byte, remote bool) bool {

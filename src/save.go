@@ -25,8 +25,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/netxfer"
 	"github.com/noxworld-dev/opennox/v1/server"
+	"github.com/noxworld-dev/opennox/v1/server/netxfer"
 )
 
 var (

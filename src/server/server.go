@@ -19,7 +19,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
-	"github.com/noxworld-dev/opennox/v1/netxfer"
+	"github.com/noxworld-dev/opennox/v1/server/netxfer"
 )
 
 var Log = log.New("server")
