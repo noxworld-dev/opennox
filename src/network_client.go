@@ -24,13 +24,14 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
+	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
 
 func nox_xxx_netOnPacketRecvCli_48EA70(ind ntype.PlayerInd, buf *byte, sz int) int {
 	return noxClient.nox_xxx_netOnPacketRecvCli48EA70(ind, unsafe.Slice(buf, sz))
 }
 
-func nox_xxx_netHandleCliPacket_43C860(_ netstr.Handle, data []byte) int {
+func nox_xxx_netHandleCliPacket_43C860(_ netlib.StreamID, data []byte) int {
 	op := noxnet.Op(data[0])
 	noxPerfmon.packetSizeCli = len(data)
 	if op == noxnet.MSG_XXX_STOP {

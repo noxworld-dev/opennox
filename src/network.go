@@ -24,6 +24,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
+	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
 
 var (
@@ -200,7 +201,7 @@ func (s *Server) listen(ctx context.Context, port int) error {
 		Port:       port,
 		Max:        s.getServerMaxPlayers(),
 		BufferSize: 2048,
-		OnReceive: func(conn netstr.Handle, buf []byte) int {
+		OnReceive: func(conn netlib.StreamID, buf []byte) int {
 			// should pass the pointer unchanged, otherwise expect bugs!
 			s.onPacketRaw(conn.Player(), buf)
 			return 1

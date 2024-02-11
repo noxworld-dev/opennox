@@ -256,7 +256,7 @@ func (g *Streams) hasConnWithIndAndAddr(ind Handle, addr netip.AddrPort) bool {
 	return false
 }
 
-type Handler func(id Handle, buf []byte) int
+type Handler func(conn netlib.StreamID, buf []byte) int
 
 type Options struct {
 	Port       int
@@ -577,11 +577,11 @@ func (ns *Conn) callOnSend(buf []byte) int {
 	return ns.onSend(ns.IndHandle(), buf)
 }
 
-func (ns *Conn) callOnReceive(id Handle, buf []byte) int {
+func (ns *Conn) callOnReceive(ns2 *Conn, buf []byte) int {
 	if ns.onReceive == nil {
 		return 0
 	}
-	return ns.onReceive(id, buf)
+	return ns.onReceive(ns2, buf)
 }
 
 const (
@@ -934,20 +934,19 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 	return 0
 }
 
-func (ns *Conn) processStreamOp6(pid Handle, out []byte, packetCur []byte) int {
+func (ns *Conn) processStreamOp6(ns2 *Conn, out []byte, packetCur []byte) int {
+	if ns2 == nil {
+		return 0
+	}
 	if len(packetCur) < 4 {
 		return 0
 	}
 	v := binary.LittleEndian.Uint32(packetCur[:4])
 
-	ns2 := pid.Get()
-	if ns2 == nil {
-		return 0
-	}
 	out[0] = byte(code37)
-	ns.callOnReceive(pid, out[:1])
+	ns.callOnReceive(ns2, out[:1])
 
-	ns.g.timing[pid.i].field4 = v
+	ns.g.timing[ns2.ind].field4 = v
 	var hdr *[2]byte
 	if ns.id == -1 {
 		out[0] = byte(ns2.id)
@@ -962,12 +961,11 @@ func (ns *Conn) processStreamOp6(pid Handle, out []byte, packetCur []byte) int {
 	return 7
 }
 
-func (ns *Conn) processStreamOp7(pid Handle, out []byte) int {
-	ns4 := pid.Get()
-	if ns4 == nil {
+func (ns *Conn) processStreamOp7(ns2 *Conn, out []byte) int {
+	if ns2 == nil {
 		return 0
 	}
-	ms := int((ns.g.ticks2 - ns4.ticks24) / time.Millisecond)
+	ms := int((ns.g.ticks2 - ns2.ticks24) / time.Millisecond)
 	speed := -1
 	if ms >= 1 {
 		speed = 256000 / ms
@@ -976,32 +974,31 @@ func (ns *Conn) processStreamOp7(pid Handle, out []byte) int {
 	binary.LittleEndian.PutUint32(out[1:], uint32(speed))
 	// TODO: these two were sending hook payload from either ns1 or ns4
 	if ns.id == -1 {
-		ns.callOnReceive(pid, out[:5])
+		ns.callOnReceive(ns2, out[:5])
 	} else {
-		ns.callOnReceive(pid, out[:5])
+		ns.callOnReceive(ns2, out[:5])
 	}
 	return 0
 }
 
-func (ns *Conn) processStreamOp8(pid Handle, out []byte, packetCur []byte) int {
-	ns5 := pid.Get()
-	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.ticks22/time.Millisecond) {
+func (ns *Conn) processStreamOp8(ns2 *Conn, out []byte, packetCur []byte) int {
+	if ns2 == nil || binary.LittleEndian.Uint32(packetCur) != uint32(ns2.ticks22/time.Millisecond) {
 		return 0
 	}
-	dt := ns.g.ticks2 - ns5.ticks23
-	ns5.ticks24 = dt
+	dt := ns.g.ticks2 - ns2.ticks23
+	ns2.ticks24 = dt
 	out[0] = byte(code36) // MSG_PING?
 	ms := int(dt / time.Millisecond)
 	binary.LittleEndian.PutUint32(out[1:], uint32(ms))
-	// TODO: these two were sending hook payload from either ns1 or ns5
+	// TODO: these two were sending hook payload from either ns1 or ns2
 	if ns.id == -1 {
-		ns.callOnReceive(pid, out[:5])
+		ns.callOnReceive(ns2, out[:5])
 	} else {
-		ns.callOnReceive(pid, out[:5])
+		ns.callOnReceive(ns2, out[:5])
 	}
 
 	out[0] = ns.Data2hdr()[0]
-	out[1] = ns5.Data2hdr()[1]
+	out[1] = ns2.Data2hdr()[1]
 	out[2] = byte(code9)
 	ms = int(ns.g.ticks2 / time.Millisecond)
 	binary.LittleEndian.PutUint32(out[3:], uint32(ms))
@@ -1084,12 +1081,11 @@ func (ns *Conn) SendCode6() int {
 	return 0
 }
 
-func (g *Streams) readXxx(ns1 *Conn, id2 Handle, a3 byte, buf []byte) bool {
-	ns2 := id2.Get()
+func (ns *Conn) readXxx(ns2 *Conn, a3 byte, buf []byte) bool {
 	if ns2 == nil || ns2.field38 != 1 || ns2.seq39 > a3 {
 		return false
 	}
-	if ns1.accepted > (g.GetMaxPlayers() - 1) {
+	if ns.accepted > (ns.g.GetMaxPlayers() - 1) {
 		ns2.ReadPackets()
 		return true
 	}
@@ -1097,7 +1093,7 @@ func (g *Streams) readXxx(ns1 *Conn, id2 Handle, a3 byte, buf []byte) bool {
 		ns2.field38 = 2
 		ns2.seq39 = 0xff
 		ns2.frame40 = 0
-		ns1.callOnReceive(id2, buf[4:])
+		ns.callOnReceive(ns2, buf[4:])
 	}
 	return true
 }
@@ -1157,11 +1153,11 @@ func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) 
 			binary.LittleEndian.PutUint32(out[3:], v)
 			return 7
 		case code6:
-			return ns.processStreamOp6(pid, out, packetCur)
+			return ns.processStreamOp6(pid.Get(), out, packetCur)
 		case code7:
-			return ns.processStreamOp7(pid, out)
+			return ns.processStreamOp7(pid.Get(), out)
 		case code8:
-			return ns.processStreamOp8(pid, out, packetCur)
+			return ns.processStreamOp8(pid.Get(), out, packetCur)
 		case code9:
 			return ns.g.processStreamOp9(pid, packetCur)
 		case code10:
@@ -1172,7 +1168,7 @@ func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) 
 				return 0
 			}
 			out[0] = byte(code33)
-			ns.callOnReceive(pid, out[:1])
+			ns.callOnReceive(ns7, out[:1])
 			ns.Close()
 			return 0
 		case codeJoin14: // join game request?
@@ -1200,7 +1196,7 @@ func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) 
 				ns8.seqRecv = int8(seq)
 				out[0] = byte(code38)
 				out[1] = seq
-				ns.callOnReceive(pid, out[:2])
+				ns.callOnReceive(ns9, out[:2])
 			}
 		}
 	}
@@ -1247,7 +1243,7 @@ func (ns *Conn) processStreamOp10(pid Handle, out []byte) int {
 		return 0
 	}
 	out[0] = byte(code34)
-	ns.callOnReceive(pid, out[:1])
+	ns.callOnReceive(ns6, out[:1])
 
 	ns.g.timing[ns.ind] = timingStruct{}
 
@@ -1396,14 +1392,14 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 					ns9.maybeFreeQueue(seq, 1)
 					dst.seqRecv = int8(seq)
 					v20 := false
-					if ns.g.readXxx(ns, h2, seq, ns.recv.Bytes()) {
+					if ns.readXxx(ns9, seq, ns.recv.Bytes()) {
 						v20 = false
 					} else {
 						v20 = true
 					}
 					tmp[0] = byte(code38)
 					tmp[1] = byte(dst.seqRecv)
-					ns.callOnReceive(h2, tmp[:2])
+					ns.callOnReceive(ns9, tmp[:2])
 					if !v20 {
 						goto continueX
 					}
@@ -1428,7 +1424,7 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 					goto continueX
 				}
 				hdr2[1]++
-				if ns.g.readXxx(ns, h2, seq, ns.recv.Bytes()) {
+				if ns.readXxx(h2.Get(), seq, ns.recv.Bytes()) {
 					goto continueX
 				}
 			}
@@ -1440,7 +1436,7 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 			}
 		} else {
 			if dst != nil && !flags.Has(RecvNoHooks) {
-				ns.callOnReceive(h2, ns.recv.Bytes()[2:n])
+				ns.callOnReceive(h2.Get(), ns.recv.Bytes()[2:n])
 			}
 		}
 	continueX:
