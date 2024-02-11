@@ -91,7 +91,7 @@ type Streams struct {
 	ticks2         time.Duration
 	cntX           int
 	listenIndex    int
-	streams        [maxStructs]*conn
+	streams        [maxStructs]*Conn
 	streams2       [maxStructs]stream2
 	timing         [maxStructs]timingStruct
 	transfer       [maxStructs]uint32
@@ -221,7 +221,7 @@ func (g *Streams) getFreeNetStruct2Ind() int {
 	return -1
 }
 
-func (g *Streams) connByAddr(addr netip.AddrPort) *conn {
+func (g *Streams) connByAddr(addr netip.AddrPort) *Conn {
 	for i := range g.streams {
 		ns := g.streams[i]
 		if ns == nil {
@@ -269,7 +269,7 @@ type Options struct {
 	Check17    Check17
 }
 
-func (g *Streams) newStream(opt *Options) *conn {
+func (g *Streams) newStream(opt *Options) *Conn {
 	ind, ok := g.getFreeIndex()
 	if !ok {
 		return nil
@@ -277,8 +277,8 @@ func (g *Streams) newStream(opt *Options) *conn {
 	return g.newStreamAt(ind, opt)
 }
 
-func (g *Streams) newStreamAt(ind int, opt *Options) *conn {
-	ns := &conn{
+func (g *Streams) newStreamAt(ind int, opt *Options) *Conn {
+	ns := &Conn{
 		g:         g,
 		ind:       ind,
 		max:       uint32(opt.Max),
@@ -304,15 +304,15 @@ func (g *Streams) newStreamAt(ind int, opt *Options) *conn {
 	return ns
 }
 
-func (ns *conn) reset() {
+func (ns *Conn) reset() {
 	if ns == nil {
 		return
 	}
 	ns.recv.Reset()
-	*ns = conn{g: ns.g, ind: ns.ind}
+	*ns = Conn{g: ns.g, ind: ns.ind}
 }
 
-func (ns *conn) Close() error {
+func (ns *Conn) Close() error {
 	if ns == nil {
 		return nil
 	}
@@ -486,7 +486,7 @@ func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) 
 	return nil
 }
 
-type conn struct {
+type Conn struct {
 	g    *Streams
 	pc   net.PacketConn
 	addr netip.AddrPort
@@ -516,32 +516,32 @@ type conn struct {
 	check17   Check17
 }
 
-func (ns *conn) String() string {
+func (ns *Conn) String() string {
 	if ns == nil {
 		return "<nil>"
 	}
 	return fmt.Sprintf("Conn(ind: %d, id: %d, addr: %s)", ns.ind, ns.id.i, ns.addr.String())
 }
 
-func (ns *conn) Addr() netip.AddrPort {
+func (ns *Conn) Addr() netip.AddrPort {
 	if ns == nil {
 		return netip.AddrPort{}
 	}
 	return ns.addr
 }
 
-func (ns *conn) SetAddr(addr netip.AddrPort) {
+func (ns *Conn) SetAddr(addr netip.AddrPort) {
 	ns.addr = addr
 }
 
-func (ns *conn) Handle() Handle {
+func (ns *Conn) Handle() Handle {
 	if ns == nil {
 		return errHandle(-1)
 	}
 	return ns.id
 }
 
-func (ns *conn) Data2hdr() *[2]byte {
+func (ns *Conn) Data2hdr() *[2]byte {
 	if ns == nil {
 		var v [2]byte
 		return &v
@@ -549,28 +549,28 @@ func (ns *conn) Data2hdr() *[2]byte {
 	return (*[2]byte)(ns.sendBuf[:2])
 }
 
-func (ns *conn) SendReadBuf() []byte {
+func (ns *Conn) SendReadBuf() []byte {
 	if ns == nil {
 		return nil
 	}
 	return ns.sendBuf[:ns.sendWrite]
 }
 
-func (ns *conn) SendWriteBuf() []byte {
+func (ns *Conn) SendWriteBuf() []byte {
 	if ns == nil {
 		return nil
 	}
 	return ns.sendBuf[ns.sendWrite:]
 }
 
-func (ns *conn) callOnSend(id Handle, buf []byte) int {
+func (ns *Conn) callOnSend(id Handle, buf []byte) int {
 	if ns.onSend == nil {
 		return 0
 	}
 	return ns.onSend(id, buf)
 }
 
-func (ns *conn) callOnReceive(id Handle, buf []byte) int {
+func (ns *Conn) callOnReceive(id Handle, buf []byte) int {
 	if ns.onReceive == nil {
 		return 0
 	}
@@ -669,7 +669,7 @@ func netCrypt(key byte, p []byte) {
 	}
 }
 
-func (ns *conn) addToQueue(buf []byte) (int, error) {
+func (ns *Conn) addToQueue(buf []byte) (int, error) {
 	if len(buf) > 1024-2 {
 		return -1, errors.New("buffer too large")
 	}
@@ -693,7 +693,7 @@ func (ns *conn) addToQueue(buf []byte) (int, error) {
 	return int(seq), nil
 }
 
-func (ns *conn) sendQueueSeq(seq byte) int {
+func (ns *Conn) sendQueueSeq(seq byte) int {
 	if ns == nil {
 		return -3
 	}
@@ -711,7 +711,7 @@ func (ns *conn) sendQueueSeq(seq byte) int {
 	return 0
 }
 
-func (ns *conn) sendQueueActive() int {
+func (ns *Conn) sendQueueActive() int {
 	if ns == nil {
 		return -3
 	}
@@ -729,7 +729,7 @@ func (ns *conn) sendQueueActive() int {
 	return 0
 }
 
-func (ns *conn) resendQueueBySeq(seq byte) {
+func (ns *Conn) resendQueueBySeq(seq byte) {
 	if ns == nil {
 		return
 	}
@@ -740,7 +740,7 @@ func (ns *conn) resendQueueBySeq(seq byte) {
 	}
 }
 
-func (ns *conn) queueByTime() {
+func (ns *Conn) queueByTime() {
 	if ns == nil {
 		return
 	}
@@ -803,7 +803,7 @@ func (h Handle) SendReadPacket(noHooks bool) int {
 	return 0
 }
 
-func (ns *conn) maybeFreeQueue(seq byte, act int) {
+func (ns *Conn) maybeFreeQueue(seq byte, act int) {
 	if ns == nil {
 		return
 	}
@@ -920,7 +920,7 @@ func (g *Streams) GetTimingByInd1(ind ntype.PlayerInd) int {
 	return int(g.timing[int(ind)+1].field28)
 }
 
-func (ns *conn) IP() netip.Addr {
+func (ns *Conn) IP() netip.Addr {
 	if ns == nil {
 		return netip.Addr{}
 	}
@@ -939,7 +939,7 @@ func (h Handle) SendClose() {
 	h.Close()
 }
 
-func (g *Streams) processStreamOp0(inp Handle, out []byte, pid Handle, p1 byte, lis *conn, from netip.AddrPort) int {
+func (g *Streams) processStreamOp0(inp Handle, out []byte, pid Handle, p1 byte, lis *Conn, from netip.AddrPort) int {
 	if f := g.GameFlags(); f.Has(noxflags.GameHost) && f.Has(noxflags.GameFlag4) {
 		return 0
 	}
@@ -1007,7 +1007,7 @@ func (g *Streams) processStreamOp0(inp Handle, out []byte, pid Handle, p1 byte, 
 	return 0
 }
 
-func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *conn, packetCur []byte) int {
+func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *Conn, packetCur []byte) int {
 	if len(packetCur) < 4 {
 		return 0
 	}
@@ -1035,7 +1035,7 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *conn, packetCur 
 	return 7
 }
 
-func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *conn) int {
+func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *Conn) int {
 	ns4 := pid.get()
 	if ns4 == nil {
 		return 0
@@ -1056,7 +1056,7 @@ func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *conn) int {
 	return 0
 }
 
-func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *conn, packetCur []byte) int {
+func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *Conn, packetCur []byte) int {
 	ns5 := pid.get()
 	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.ticks22/time.Millisecond) {
 		return 0
@@ -1107,7 +1107,7 @@ func (g *Streams) processStreamOp9(pid Handle, packetCur []byte) int {
 
 type JoinCheck func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int
 
-func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *conn, p1 byte, from netip.AddrPort, check JoinCheck) int {
+func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *Conn, p1 byte, from netip.AddrPort, check JoinCheck) int {
 	out[0] = 0
 	out[1] = p1
 
@@ -1333,7 +1333,7 @@ func (g *Streams) recvRaw(pc net.PacketConn, buf []byte) (int, netip.AddrPort, e
 	return n, src, nil
 }
 
-func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *conn) int {
+func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *Conn) int {
 	if pid.i == -1 {
 		return 0
 	}
@@ -1694,7 +1694,7 @@ func (h Handle) SendSelfRaw(buf []byte) int {
 	return h.get().SendSelfRaw(buf)
 }
 
-func (ns *conn) SendSelfRaw(buf []byte) int {
+func (ns *Conn) SendSelfRaw(buf []byte) int {
 	if ns == nil {
 		return 0
 	}
@@ -1702,14 +1702,14 @@ func (ns *conn) SendSelfRaw(buf []byte) int {
 	return n
 }
 
-func (ns *conn) WriteToRaw(buf []byte, addr netip.AddrPort) (int, error) {
+func (ns *Conn) WriteToRaw(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns == nil || len(buf) == 0 {
 		return 0, nil
 	}
 	return writeTo(ns.g.Debug, ns.g.Log, ns.pc, buf, addr)
 }
 
-func (ns *conn) WriteTo(buf []byte, addr netip.AddrPort) (int, error) {
+func (ns *Conn) WriteTo(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns == nil || len(buf) == 0 {
 		return 0, nil
 	}

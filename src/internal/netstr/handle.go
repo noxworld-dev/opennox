@@ -30,7 +30,7 @@ func (h Handle) Player() ntype.PlayerInd {
 	return ntype.PlayerInd(h.i - 1)
 }
 
-func (h Handle) get() *conn {
+func (h Handle) get() *Conn {
 	if !h.Valid() {
 		return nil
 	}
