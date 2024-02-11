@@ -25,35 +25,35 @@ type CurPlayerInfo struct {
 func (c *Client) Nox_xxx_netSendClientReady_43C9F0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CLIENT_READY)
-	c.Conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	c.Conn.QueueSend(data[:], true)
 	return 1
 }
 
 func (c *Client) Nox_xxx_netKeepAliveSocket_43CA20() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
-	c.Conn.Send(data[:], netstr.SendFlush)
+	c.Conn.Send(data[:], true)
 	return 1
 }
 
 func (c *Client) Nox_xxx_netRequestMap_43CA50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_REQUEST_MAP)
-	c.Conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	c.Conn.QueueSend(data[:], true)
 	return 1
 }
 
 func (c *Client) Nox_xxx_netMapReceived_43CA80() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
-	c.Conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	c.Conn.QueueSend(data[:], true)
 	return 1
 }
 
 func (c *Client) Nox_xxx_cliSendCancelMap_43CAB0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
-	v0, _ := c.Conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	v0, _ := c.Conn.QueueSend(data[:], true)
 	if c.Conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
@@ -64,7 +64,7 @@ func (c *Client) Nox_xxx_cliSendCancelMap_43CAB0() int {
 func (c *Client) Nox_xxx_netSendIncomingClient_43CB00() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
-	v0, _ := c.Conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	v0, _ := c.Conn.QueueSend(data[:], true)
 	if c.Conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
@@ -75,7 +75,7 @@ func (c *Client) Nox_xxx_netSendIncomingClient_43CB00() int {
 func (c *Client) Nox_xxx_cliSendOutgoingClient_43CB50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
-	v0, _ := c.Conn.Send(data[:], netstr.SendQueue|netstr.SendFlush)
+	v0, _ := c.Conn.QueueSend(data[:], true)
 	if c.Conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}

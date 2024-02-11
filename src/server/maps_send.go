@@ -16,7 +16,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 const (
@@ -94,7 +93,7 @@ func (s *serverMapSend) abort(p *playerMapSend, errCode byte) {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_MAP_SEND_ABORT)
 	buf[1] = byte(errCode)
-	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).Send(buf[:2], netstr.SendQueue|netstr.SendFlush)
+	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).QueueSend(buf[:2], true)
 	if s.activeCnt != 0 {
 		s.activeCnt--
 	}
@@ -116,7 +115,7 @@ func (s *serverMapSend) SendMore(p *playerMapSend) {
 		buf[0] = byte(noxnet.MSG_MAP_SEND_START)
 		binary.LittleEndian.PutUint32(buf[4:], uint32(p.DataSize))
 		copy(buf[8:], s.mapName)
-		s.s.NetStr.ConnByPlayerInd(p.PlayerInd).Send(buf[:88], netstr.SendQueue|netstr.SendFlush)
+		s.s.NetStr.ConnByPlayerInd(p.PlayerInd).QueueSend(buf[:88], true)
 	}
 	psz := mapSendPacketSize
 	packet := make([]byte, 6+psz)
@@ -133,7 +132,7 @@ func (s *serverMapSend) SendMore(p *playerMapSend) {
 		src = s.currentData[p.SentSize:]
 	}
 	copy(packet[6:], src[:psz])
-	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).Send(packet[:6+psz], netstr.SendQueue|netstr.SendFlush)
+	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).QueueSend(packet[:6+psz], true)
 	p.Sequence++
 	p.SentSize += psz
 	if p.SentSize < p.DataSize {

@@ -20,7 +20,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -140,7 +139,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 	case noxnet.MSG_SERVER_QUIT:
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_SERVER_QUIT_ACK)
-		c.Conn.Send(buf[:1], netstr.SendFlush)
+		c.Conn.Send(buf[:1], true)
 		sub_446380()
 		return 1
 	case noxnet.MSG_USE_MAP:

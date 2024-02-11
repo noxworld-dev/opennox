@@ -236,7 +236,7 @@ func (s *Server) nox_xxx_netSendBySock_40EE10(conn *netstr.Conn, ind ntype.Playe
 		if len(data) == 0 {
 			return
 		}
-		conn.Send(data, 0)
+		conn.Send(data, false)
 		conn.SendReadPacket(true)
 	})
 }
@@ -535,7 +535,7 @@ func (s *Server) sendSettings(u *server.Object) {
 		if err != nil {
 			panic(err)
 		}
-		s.NetStr.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
+		s.NetStr.ByPlayer(pl).QueueSend(buf, true)
 		legacy.Sub_4DDE10(pl.Index(), pl)
 	}
 }
@@ -559,7 +559,7 @@ func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != server.HostPlayerIndex {
 			buf := s.NetList.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
-				s.NetStr.ByPlayer(pl).Send(buf, netstr.SendQueue|netstr.SendFlush)
+				s.NetStr.ByPlayer(pl).QueueSend(buf, true)
 			}
 		}
 	}

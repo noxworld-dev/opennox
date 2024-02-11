@@ -85,7 +85,7 @@ func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 			if len(data) == 0 {
 				return
 			}
-			s.NetStr.ConnByPlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
+			s.NetStr.ConnByPlayerInd(ind).QueueSend(data, true)
 		})
 	}
 }

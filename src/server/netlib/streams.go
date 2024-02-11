@@ -7,17 +7,6 @@ import (
 )
 
 const (
-	SendQueue = SendFlags(0x1)
-	SendFlush = SendFlags(0x2)
-)
-
-type SendFlags int
-
-func (v SendFlags) Has(v2 SendFlags) bool {
-	return v&v2 != 0
-}
-
-const (
 	RecvCanRead = RecvFlags(0x1)
 	RecvNoHooks = RecvFlags(0x2)
 	RecvJustOne = RecvFlags(0x4)
@@ -47,8 +36,10 @@ type Stream interface {
 
 type SendStream interface {
 	StreamID
-	Send(buf []byte, flags SendFlags) (int, error)
-	SendMsg(msg noxnet.Message, flags SendFlags) (int, error)
+	QueueSend(buf []byte, flush bool) (int, error)
+	Send(buf []byte, flush bool) (int, error)
+	QueueMsg(msg noxnet.Message, flush bool) (int, error)
+	SendMsg(msg noxnet.Message, flush bool) (int, error)
 	SendReadPacket(noHooks bool) int
 }
 

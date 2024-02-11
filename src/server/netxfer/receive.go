@@ -217,29 +217,29 @@ func (x *receiver) HandleCancel(m *xfer.MsgCancel) {
 }
 
 func sendAck(conn netlib.SendStream, rid xfer.RecvID, chunk xfer.Chunk) {
-	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgAck{
+	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgAck{
 		RecvID: rid,
 		Token:  0,
 		Chunk:  chunk,
-	}}, netlib.SendQueue|netlib.SendFlush)
+	}}, true)
 }
 
 func sendAccept(conn netlib.SendStream, rid xfer.RecvID, sid xfer.SendID) {
-	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgAccept{
+	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgAccept{
 		RecvID: rid,
 		SendID: sid,
-	}}, netlib.SendQueue|netlib.SendFlush)
+	}}, true)
 }
 
 func sendDone(conn netlib.SendStream, stream xfer.RecvID) {
-	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgDone{
+	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgDone{
 		RecvID: stream,
-	}}, netlib.SendQueue|netlib.SendFlush)
+	}}, true)
 }
 
 func sendAbort(conn netlib.SendStream, stream xfer.RecvID, reason xfer.Error) {
-	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgAbort{
+	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgAbort{
 		RecvID: stream,
 		Reason: reason,
-	}}, netlib.SendQueue|netlib.SendFlush)
+	}}, true)
 }

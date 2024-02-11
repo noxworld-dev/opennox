@@ -409,7 +409,7 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	}
 	ns.g.Responded = false
 	var v12 [1]byte // TODO: sending zero, is that correct? if so, set explicitly here
-	v11, err := ns.Send(v12[:], SendQueue|SendFlush)
+	v11, err := ns.QueueSend(v12[:], true)
 	if err != nil {
 		return fmt.Errorf("cannot send data: %w", err)
 	}
@@ -442,7 +442,7 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		if len(data) > 0 {
 			copy(buf[3:], data)
 		}
-		_, _ = ns.Send(buf, SendQueue|SendFlush)
+		_, _ = ns.QueueSend(buf, true)
 	}
 
 	if !ns.Handle().Valid() {
@@ -584,44 +584,52 @@ func (ns *Conn) callOnReceive(ns2 *Conn, buf []byte) int {
 	return ns.onReceive(ns2, buf)
 }
 
-const (
-	SendQueue = netlib.SendQueue
-	SendFlush = netlib.SendFlush
-)
-
-type SendFlags = netlib.SendFlags
-
-func (ns *Conn) SendMsg(msg noxnet.Message, flags SendFlags) (int, error) {
+func (ns *Conn) QueueMsg(msg noxnet.Message, flush bool) (int, error) {
 	buf, err := noxnet.AppendPacket(nil, msg)
 	if err != nil {
 		return 0, err
 	}
-	return ns.Send(buf, flags)
+	return ns.QueueSend(buf, flush)
 }
 
-func (ns *Conn) Send(buf []byte, flags SendFlags) (int, error) {
+func (ns *Conn) SendMsg(msg noxnet.Message, flush bool) (int, error) {
+	buf, err := noxnet.AppendPacket(nil, msg)
+	if err != nil {
+		return 0, err
+	}
+	return ns.Send(buf, flush)
+}
+
+func (ns *Conn) QueueSend(buf []byte, flush bool) (int, error) {
 	if ns == nil {
 		return -3, errors.New("no net struct")
 	}
 	if len(buf) == 0 {
 		return -2, errors.New("empty buffer")
 	}
-	if flags.Has(SendQueue) {
-		seq, err := ns.addToQueue(buf)
-		if seq == -1 {
-			return -1, err
-		}
-		if flags.Has(SendFlush) {
-			ns.sendQueueSeq(byte(seq))
-		}
-		return seq, nil
+	seq, err := ns.addToQueue(buf)
+	if seq == -1 {
+		return -1, err
+	}
+	if flush {
+		ns.sendQueueSeq(byte(seq))
+	}
+	return seq, nil
+}
+
+func (ns *Conn) Send(buf []byte, flush bool) (int, error) {
+	if ns == nil {
+		return -3, errors.New("no net struct")
+	}
+	if len(buf) == 0 {
+		return -2, errors.New("empty buffer")
 	}
 	n := len(buf)
 	d2x := ns.SendWriteBuf()
 	if n+1 > len(d2x) {
 		return -7, errors.New("buffer too short")
 	}
-	if flags.Has(SendFlush) {
+	if flush {
 		copy(d2x[:2], ns.Data2hdr()[:2])
 		copy(d2x[2:2+n], buf)
 		n2, err := ns.WriteTo(d2x[:n+2], ns.addr)
@@ -810,7 +818,7 @@ func (ns *Conn) ReadPackets() {
 	ns.SendReadPacket(true)
 	var buf [1]byte
 	buf[0] = byte(code11)
-	_, _ = ns.Send(buf[:], 0)
+	_, _ = ns.Send(buf[:], false)
 	ns.SendReadPacket(true)
 	ns.accepted--
 	ns.maybeFreeQueue(0, 2)
@@ -863,7 +871,7 @@ func (ns *Conn) SendClose() {
 	ns.SendReadPacket(false)
 	var buf [1]byte
 	buf[0] = byte(code10)
-	_, _ = ns.Send(buf[:1], 0)
+	_, _ = ns.Send(buf[:1], false)
 	ns.SendReadPacket(false)
 	ns.Close()
 }
@@ -925,7 +933,7 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 	out[2] = byte(codeNewStream1)
 	binary.LittleEndian.PutUint32(out[3:], uint32(ind))
 	out[7] = key
-	v67, _ := ns2.Send(out[:8], SendQueue|SendFlush)
+	v67, _ := ns2.QueueSend(out[:8], true)
 
 	ns2.xorKey = key
 	ns2.field38 = 1
@@ -1076,7 +1084,7 @@ func (ns *Conn) SendCode6() int {
 	ns.ticks22 = ns.g.ticks2
 	ns.ticks23 = ns.ticks22
 	binary.LittleEndian.PutUint32(buf[1:], uint32(ns.ticks22/time.Millisecond))
-	_, _ = ns.Send(buf[:5], SendFlush)
+	_, _ = ns.Send(buf[:5], true)
 	return 0
 }
 

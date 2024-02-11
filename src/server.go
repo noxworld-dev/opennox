@@ -29,7 +29,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/cnxz"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -449,7 +448,7 @@ func (s *Server) updateRemotePlayers() error {
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
-			s.NetStr.ByPlayer(pl).Send(buf[:], netstr.SendQueue|netstr.SendFlush)
+			s.NetStr.ByPlayer(pl).QueueSend(buf[:], true)
 			s.PlayerDisconnect(pl, 3)
 		}
 		if pl.Field3680&0x80 != 0 {

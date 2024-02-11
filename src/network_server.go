@@ -139,7 +139,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 					noxClient.HandleMessage(server.HostPlayerIndex, &msg)
 				} else {
 					conn := s.NetStr.ByPlayer(it)
-					conn.SendMsg(&msg, 0)
+					conn.SendMsg(&msg, false)
 					conn.SendReadPacket(true)
 				}
 			}
@@ -174,7 +174,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 					noxClient.HandleMessage(it.PlayerIndex(), &msg)
 				} else {
 					conn := s.NetStr.ByPlayer(it)
-					conn.SendMsg(&msg, 0)
+					conn.SendMsg(&msg, false)
 					conn.SendReadPacket(true)
 				}
 			}
