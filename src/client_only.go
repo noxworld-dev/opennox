@@ -9,7 +9,6 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -59,7 +58,7 @@ func sub_43CCA0() {
 	c := noxClient
 	legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
 	start := s.Frame()
-	c.Conn.RecvLoop(netstr.RecvCanRead)
+	c.Conn.RecvLoop(false)
 	if start != s.Frame() && legacy.Get_dword_5d4594_2650652() == 1 && !noxflags.HasGame(noxflags.GameHost) {
 		if v1 := legacy.Sub_40A710(1); sub_43C790() > v1 {
 			legacy.Sub_43CEB0()

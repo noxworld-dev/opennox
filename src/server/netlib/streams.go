@@ -1,6 +1,9 @@
 package netlib
 
 import (
+	"net/netip"
+	"time"
+
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
@@ -19,8 +22,11 @@ func (v RecvFlags) Has(v2 RecvFlags) bool {
 }
 
 type StreamID interface {
+	String() string
 	IsHost() bool
 	Player() ntype.PlayerInd
+	IP() netip.Addr
+	Addr() netip.AddrPort
 }
 
 type StreamStats interface {
@@ -32,6 +38,13 @@ type Stream interface {
 	StreamID
 	StreamStats
 	SendStream
+	RecvStream
+	Close() error
+}
+
+type RecvStream interface {
+	StreamID
+	RecvLoop(noHooks bool) int
 }
 
 type SendStream interface {
@@ -40,7 +53,11 @@ type SendStream interface {
 	Send(buf []byte, flush bool) (int, error)
 	QueueMsg(msg noxnet.Message, flush bool) (int, error)
 	SendMsg(msg noxnet.Message, flush bool) (int, error)
+	CountInQueue(ops ...noxnet.Op) int
 	SendReadPacket(noHooks bool) int
+	SendCode6() int
+	SendClose()
+	ReadPackets()
 }
 
 type SendStreamID interface {
@@ -50,5 +67,9 @@ type SendStreamID interface {
 
 type Streams interface {
 	HostStream() Stream
+	ListenerStream() Stream
 	StreamByPlayerInd(pid ntype.PlayerInd) Stream
+	MaybeSendQueues()
+	ProcessStats(min, max time.Duration)
+	GetTimingByInd1(ind ntype.PlayerInd) int
 }

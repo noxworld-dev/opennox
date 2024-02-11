@@ -299,7 +299,7 @@ func (g *Streams) newStreamAt(ind int, id int, opt *Options) *Conn {
 
 	ns.sendBuf = make([]byte, 2+opt.BufferSize)
 	ns.sendWrite = 2
-	*ns.Data2hdr() = [2]byte{anyID, 0}
+	*ns.data2hdr() = [2]byte{anyID, 0}
 	g.streams[ind] = ns
 	return ns
 }
@@ -348,7 +348,7 @@ func (g *Streams) Listen(opt *Options) (*Conn, error) {
 		return nil, errors.New("no more slots for net structs")
 	}
 	ns.pc = pc
-	ns.Data2hdr()[0] = byte(ns.ind)
+	ns.data2hdr()[0] = byte(ns.ind)
 	g.lis = ns
 	return ns, nil
 }
@@ -395,7 +395,7 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		}
 	}
 	addr := netip.AddrPortFrom(ip, uint16(port))
-	ns.SetAddr(addr)
+	ns.setAddr(addr)
 
 	for {
 		sock, err := listen(ns.g.Log, netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(cport)))
@@ -421,7 +421,7 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		if counter > 20*retries {
 			return NewConnectErr(-23, errors.New("timeout"))
 		}
-		ns.RecvLoop(RecvCanRead | RecvNoHooks | RecvJustOne)
+		ns.recvLoop(RecvCanRead | RecvNoHooks | RecvJustOne)
 		ns.g.MaybeSendQueues()
 		f28 := int(ns.seqRecv)
 		if f28 >= v11 {
@@ -430,14 +430,14 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		ns.g.Sleep(30 * time.Millisecond)
 	}
 
-	if ns.g.Responded && ns.Handle().Valid() {
+	if ns.g.Responded && ns.handle().Valid() {
 		data, err := opts.MarshalBinary()
 		if err != nil {
 			return err
 		}
 		buf := make([]byte, 3+len(data))
 		buf[0] = byte(code31) // TODO: it isn't a code, it an ID?
-		buf[1] = ns.Data2hdr()[1]
+		buf[1] = ns.data2hdr()[1]
 		buf[2] = byte(code32)
 		if len(data) > 0 {
 			copy(buf[3:], data)
@@ -445,7 +445,7 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		_, _ = ns.QueueSend(buf, true)
 	}
 
-	if !ns.Handle().Valid() {
+	if !ns.handle().Valid() {
 		return NewConnectErr(-1, errors.New("invalid net struct id"))
 	}
 	return nil
@@ -461,7 +461,7 @@ func (ns *Conn) DialWait(timeout time.Duration, send func(), check func() bool) 
 		if timeout >= 0 && now >= deadline {
 			return NewConnectErr(-19, errors.New("timeout 2"))
 		}
-		ns.RecvLoop(RecvCanRead)
+		ns.recvLoop(RecvCanRead)
 		send()
 		ns.g.MaybeSendQueues()
 		if check() {
@@ -530,25 +530,18 @@ func (ns *Conn) Addr() netip.AddrPort {
 	return ns.addr
 }
 
-func (ns *Conn) SetAddr(addr netip.AddrPort) {
+func (ns *Conn) setAddr(addr netip.AddrPort) {
 	ns.addr = addr
 }
 
-func (ns *Conn) IndHandle() Handle {
-	if ns == nil {
-		return errHandle(-1)
-	}
-	return Handle{ns.g, ns.ind}
-}
-
-func (ns *Conn) Handle() Handle {
+func (ns *Conn) handle() Handle {
 	if ns == nil {
 		return errHandle(-1)
 	}
 	return Handle{ns.g, ns.id}
 }
 
-func (ns *Conn) Data2hdr() *[2]byte {
+func (ns *Conn) data2hdr() *[2]byte {
 	if ns == nil {
 		var v [2]byte
 		return &v
@@ -556,14 +549,14 @@ func (ns *Conn) Data2hdr() *[2]byte {
 	return (*[2]byte)(ns.sendBuf[:2])
 }
 
-func (ns *Conn) SendReadBuf() []byte {
+func (ns *Conn) sendReadBuf() []byte {
 	if ns == nil {
 		return nil
 	}
 	return ns.sendBuf[:ns.sendWrite]
 }
 
-func (ns *Conn) SendWriteBuf() []byte {
+func (ns *Conn) sendWriteBuf() []byte {
 	if ns == nil {
 		return nil
 	}
@@ -625,14 +618,14 @@ func (ns *Conn) Send(buf []byte, flush bool) (int, error) {
 		return -2, errors.New("empty buffer")
 	}
 	n := len(buf)
-	d2x := ns.SendWriteBuf()
+	d2x := ns.sendWriteBuf()
 	if n+1 > len(d2x) {
 		return -7, errors.New("buffer too short")
 	}
 	if flush {
-		copy(d2x[:2], ns.Data2hdr()[:2])
+		copy(d2x[:2], ns.data2hdr()[:2])
 		copy(d2x[2:2+n], buf)
-		n2, err := ns.WriteTo(d2x[:n+2], ns.addr)
+		n2, err := ns.writeTo(d2x[:n+2], ns.addr)
 		if n2 == -1 {
 			return -1, err
 		}
@@ -667,7 +660,7 @@ func (ns *Conn) addToQueue(buf []byte) (int, error) {
 		active: true,
 		size:   uint32(2 + len(buf)),
 	}
-	q.data[0] = ns.Data2hdr()[0] | someIDFlag
+	q.data[0] = ns.data2hdr()[0] | someIDFlag
 	q.data[1] = seq
 	copy(q.data[2:], buf)
 
@@ -687,7 +680,7 @@ func (ns *Conn) sendQueueSeq(seq byte) int {
 		}
 		it.active = false
 		it.retryAt = ns.g.ticks2 + 2*time.Second
-		if _, err := ns.WriteTo(it.Data(), ns.addr); err != nil {
+		if _, err := ns.writeTo(it.Data(), ns.addr); err != nil {
 			ns.g.Log.Println(err)
 			return 0
 		}
@@ -705,7 +698,7 @@ func (ns *Conn) sendQueueActive() int {
 		}
 		it.active = false
 		it.retryAt = ns.g.ticks2 + 2*time.Second
-		if _, err := ns.WriteTo(it.Data(), ns.addr); err != nil {
+		if _, err := ns.writeTo(it.Data(), ns.addr); err != nil {
 			ns.g.Log.Println(err)
 			return 0
 		}
@@ -739,6 +732,10 @@ func (g *Streams) Listener() *Conn {
 	return g.lis
 }
 
+func (g *Streams) ListenerStream() netlib.Stream {
+	return g.Listener()
+}
+
 func (g *Streams) getForPacket(i int) Handle {
 	return Handle{g, i}
 }
@@ -749,14 +746,14 @@ func (ns *Conn) SendReadPacket(noHooks bool) int {
 	}
 	ns.sendQueueActive()
 	if !noHooks {
-		buf := ns.SendWriteBuf()
+		buf := ns.sendWriteBuf()
 		n := ns.callOnSend(buf)
 		if n > 0 && n <= len(buf) {
 			ns.sendWrite += n
 		}
 	}
-	if buf := ns.SendReadBuf(); len(buf) > 2 {
-		_, err := ns.WriteTo(buf, ns.addr)
+	if buf := ns.sendReadBuf(); len(buf) > 2 {
+		_, err := ns.writeTo(buf, ns.addr)
 		if err != nil {
 			return -1
 		}
@@ -910,7 +907,7 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 	})
 	ns.accepted++
 
-	hdr := ns2.Data2hdr()
+	hdr := ns2.data2hdr()
 	hdr[0] = byte(ns.ind)
 	if hdr[1] == p1 {
 		hdr[1]++
@@ -926,7 +923,7 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 	}
 	ns2.xorKey = 0 // send this packet without xor encoding
 
-	ns2.SetAddr(from)
+	ns2.setAddr(from)
 
 	out[0] = byte(code31) // TODO: it's not a code here, but an ID?
 	out[1] = p1
@@ -958,10 +955,10 @@ func (ns *Conn) processStreamOp6(ns2 *Conn, out []byte, packetCur []byte) int {
 	var hdr *[2]byte
 	if ns.id == -1 {
 		out[0] = byte(ns2.id)
-		hdr = ns2.Data2hdr()
+		hdr = ns2.data2hdr()
 	} else {
 		out[0] = byte(ns.id)
-		hdr = ns.Data2hdr()
+		hdr = ns.data2hdr()
 	}
 	out[1] = hdr[0]
 	out[2] = byte(code8)
@@ -1005,8 +1002,8 @@ func (ns *Conn) processStreamOp8(ns2 *Conn, out []byte, packetCur []byte) int {
 		ns.callOnReceive(ns2, out[:5])
 	}
 
-	out[0] = ns.Data2hdr()[0]
-	out[1] = ns2.Data2hdr()[1]
+	out[0] = ns.data2hdr()[0]
+	out[1] = ns2.data2hdr()[1]
 	out[2] = byte(code9)
 	ms = int(ns.g.ticks2 / time.Millisecond)
 	binary.LittleEndian.PutUint32(out[3:], uint32(ms))
@@ -1137,7 +1134,7 @@ func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) 
 			packetCur = packetCur[5:]
 
 			ns.id = ind
-			ns.Data2hdr()[0] = byte(ind)
+			ns.data2hdr()[0] = byte(ind)
 			ns.xorKey = xor
 			ns.g.Responded = true
 		case codeErr2:
@@ -1315,7 +1312,14 @@ const (
 
 type RecvFlags = netlib.RecvFlags
 
-func (ns *Conn) RecvLoop(flags RecvFlags) int {
+func (ns *Conn) RecvLoop(noHooks bool) int {
+	flags := RecvCanRead
+	if noHooks {
+		flags |= RecvNoHooks
+	}
+	return ns.recvLoop(flags)
+}
+func (ns *Conn) recvLoop(flags RecvFlags) int {
 	if ns == nil {
 		return -3
 	}
@@ -1364,7 +1368,7 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 			// and handled separately. Responses are written directly to underlying conn.
 			n = ns.g.OnDiscover(ns.recv.Bytes(), tmp[:])
 			if n > 0 {
-				n, _ = ns.WriteToRaw(tmp[:n], src)
+				n, _ = ns.writeToRaw(tmp[:n], src)
 			}
 			goto continueX
 		}
@@ -1411,7 +1415,7 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 				if op == 0 {
 					n = ns.processStreamOp(ns.recv.Bytes(), tmp[:], src)
 					if n > 0 {
-						n, _ = ns.WriteTo(tmp[:n], src)
+						n, _ = ns.writeTo(tmp[:n], src)
 					}
 					goto continueX
 				}
@@ -1422,7 +1426,7 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 				if dst == nil {
 					goto continueX
 				}
-				hdr2 := dst.Data2hdr()
+				hdr2 := dst.data2hdr()
 				if hdr2[1] != seq {
 					goto continueX
 				}
@@ -1435,7 +1439,7 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 		if op < code32 {
 			n = ns.processStreamOp(ns.recv.Bytes(), tmp[:], src)
 			if n > 0 {
-				n, _ = ns.WriteTo(tmp[:n], src)
+				n, _ = ns.writeTo(tmp[:n], src)
 			}
 		} else {
 			if dst != nil && !flags.Has(RecvNoHooks) {
@@ -1470,7 +1474,7 @@ func (nx *stream2) nextPingPacket(t time.Duration) []byte {
 func (g *Streams) sendTime(ind2 int) (int, error) {
 	ns2 := &g.streams2[ind2]
 	buf := ns2.nextPingPacket(g.Now())
-	return g.lis.WriteTo(buf, ns2.addr)
+	return g.lis.writeTo(buf, ns2.addr)
 }
 
 func (g *Streams) sendCode20(ind2 int) (int, error) {
@@ -1482,7 +1486,7 @@ func (g *Streams) sendCode20(ind2 int) (int, error) {
 	nx := &g.streams2[ind2]
 	nx.active = false
 
-	return g.lis.WriteTo(buf[:3], nx.addr)
+	return g.lis.writeTo(buf[:3], nx.addr)
 }
 
 func (g *Streams) sendCode19(code byte, ind2 int) (int, error) {
@@ -1495,7 +1499,7 @@ func (g *Streams) sendCode19(code byte, ind2 int) (int, error) {
 	nx := &g.streams2[ind2]
 	nx.active = false
 
-	return g.lis.WriteTo(buf[:4], nx.addr)
+	return g.lis.writeTo(buf[:4], nx.addr)
 }
 
 func (g *Streams) ProcessStats(min, max time.Duration) {
@@ -1577,7 +1581,7 @@ func (ns *Conn) WaitServerResponse(seq int, try int, flags RecvFlags) int {
 	}
 	for i := 0; i <= 20*try; i++ {
 		ns.g.Sleep(50 * time.Millisecond)
-		ns.RecvLoop(flags | RecvCanRead)
+		ns.recvLoop(flags | RecvCanRead)
 		ns.g.MaybeSendQueues()
 		if int(ns.seqRecv) >= seq {
 			return 0
@@ -1592,24 +1596,24 @@ func (ns *Conn) SendSelfRaw(buf []byte) int {
 	if ns == nil {
 		return 0
 	}
-	n, _ := ns.WriteToRaw(buf, ns.addr)
+	n, _ := ns.writeToRaw(buf, ns.addr)
 	return n
 }
 
-func (ns *Conn) WriteToRaw(buf []byte, addr netip.AddrPort) (int, error) {
+func (ns *Conn) writeToRaw(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns == nil || len(buf) == 0 {
 		return 0, nil
 	}
 	return writeTo(ns.g.Debug, ns.g.Log, ns.pc, buf, addr)
 }
 
-func (ns *Conn) WriteTo(buf []byte, addr netip.AddrPort) (int, error) {
+func (ns *Conn) writeTo(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns == nil || len(buf) == 0 {
 		return 0, nil
 	}
 	ns2 := ns.g.connByAddr(addr)
 	if ns2 == nil || ns2.xorKey == 0 {
-		return ns.WriteToRaw(buf, addr)
+		return ns.writeToRaw(buf, addr)
 	}
 	dst := ns.g.sendXorBuf[:len(buf)]
 	if ns.g.Xor {
@@ -1617,7 +1621,7 @@ func (ns *Conn) WriteTo(buf []byte, addr netip.AddrPort) (int, error) {
 	} else {
 		copy(dst, buf)
 	}
-	return ns.WriteToRaw(dst, ns2.addr)
+	return ns.writeToRaw(dst, ns2.addr)
 }
 
 func netCryptDst(key byte, src, dst []byte) {

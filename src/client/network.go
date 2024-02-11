@@ -79,7 +79,7 @@ func (c *Client) Nox_xxx_cliSendOutgoingClient_43CB50() int {
 	if c.Conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
-	c.Conn.RecvLoop(netstr.RecvCanRead | netstr.RecvNoHooks)
+	c.Conn.RecvLoop(true)
 	c.Server.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
 	return 1
 }
