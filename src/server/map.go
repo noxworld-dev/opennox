@@ -260,7 +260,7 @@ func (s *serverMap) AddObjectToIndex(obj *Object) {
 	}
 	pi := RoundPos(obj.NewPos)
 	s.addObjToMap(false, pi, obj)
-	obj.ObjFlags |= uint32(object.FlagPartitioned)
+	obj.ObjFlags |= object.FlagPartitioned
 }
 
 func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object) bool) {

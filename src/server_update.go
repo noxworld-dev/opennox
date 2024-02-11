@@ -44,7 +44,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 		if h := obj.HealthData; h != nil {
 			h.Field2 = h.Cur
 		}
-		obj.ObjFlags &^= uint32(object.FlagOnObject)
+		obj.ObjFlags &^= object.FlagOnObject
 		dxr := fabs(obj.NewPos.X - obj.PosVec.X)
 		dyr := fabs(obj.NewPos.Y - obj.PosVec.Y)
 		const dpos = 0.01
@@ -53,14 +53,14 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 			dxr <= -dpos || dxr >= dpos || dyr <= -dpos || dyr >= dpos ||
 			obj.ZVal <= -dpos || obj.ZVal >= dpos || obj.Field27 <= -dpos || obj.Field27 >= dpos {
 			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj.SObj())
-			obj.ObjFlags &^= uint32(object.FlagStill)
+			obj.ObjFlags &^= object.FlagStill
 		} else {
 			obj.ForceVec = types.Pointf{}
 			obj.VelVec = types.Pointf{}
 			obj.SetZ(0.0)
 			obj.NewPos = obj.PosVec
 			obj.Field27 = 0
-			obj.ObjFlags |= uint32(object.FlagStill)
+			obj.ObjFlags |= object.FlagStill
 			if obj.Update == nil {
 				s.Objs.RemoveFromUpdatable(obj.SObj())
 			}

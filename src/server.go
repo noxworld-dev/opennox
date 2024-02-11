@@ -1110,7 +1110,7 @@ func (s *Server) sub_517870(obj *server.Object) {
 		}
 		obj.ObjIndexCur = 0
 	}
-	obj.ObjFlags &^= uint32(object.FlagPartitioned)
+	obj.ObjFlags &^= object.FlagPartitioned
 }
 
 func sub_4DB0A0() {

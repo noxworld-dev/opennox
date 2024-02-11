@@ -50,13 +50,13 @@ func nox_xxx_unitDoSummonAt_5016C0(typID int, pos types.Pointf, owner *server.Ob
 	pl := owner.ControllingPlayer()
 	legacy.Nox_xxx_orderUnit_533900(owner, obj, pl.SummonOrderAll)
 	ud.AIAction340 = uint32(ai.ACTION_INVALID)
-	obj.ObjSubClass |= uint32(object.MonsterMonitor)
+	obj.ObjSubClass |= object.SubClass(object.MonsterMonitor)
 	legacy.Nox_xxx_netReportAcquireCreature_4D91A0(pl.Index(), obj)
 	s.Players.Nox_xxx_netMarkMinimapObject_417190(pl.PlayerIndex(), obj, 1)
 	legacy.Nox_xxx_netSendSimpleObject2_4DF360(pl.Index(), obj)
 	if owner.HasTeam() {
 		legacy.Nox_xxx_createAtImpl_4191D0(owner.TeamVal.ID, owner.TeamPtr(), 1, int(obj.NetCode), 0)
 	}
-	obj.ObjSubClass |= uint32(object.MonsterMigrate)
+	obj.ObjSubClass |= object.SubClass(object.MonsterMigrate)
 	return obj
 }

@@ -144,7 +144,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		for it := s.Objs.First(); it != nil; it = it.Next() {
 			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); f.Has(object.FlagNoCollide) {
-					it.ObjFlags = uint32(f &^ object.FlagNoCollide)
+					it.ObjFlags = f &^ object.FlagNoCollide
 				}
 			}
 		}
@@ -186,7 +186,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		} else {
 			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); !f.Has(object.FlagNoCollide) {
-					it.ObjFlags = uint32(f | object.FlagNoCollide)
+					it.ObjFlags = f | object.FlagNoCollide
 				}
 			}
 			s.Spells.Dur.CancelFor(spell.SPELL_WALL, it)

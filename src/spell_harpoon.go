@@ -182,7 +182,7 @@ func (a *abilityHarpoon) Collide(bolt *server.Object, targ *server.Object) {
 	tpos := targ.Pos()
 	d.targPos = tpos
 	d.frame38 = a.s.Frame()
-	bolt.ObjFlags |= uint32(object.FlagNoCollide)
+	bolt.ObjFlags |= object.FlagNoCollide
 	sub_4E7540(bolt.Owner(), targ)
 	a.s.Audio.EventObj(sound.SoundHarpoonReel, owner, 0, 0)
 }

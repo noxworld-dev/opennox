@@ -529,9 +529,9 @@ type Drawable struct {
 	ZVal                uint16            // 26, 104
 	ZVal2               uint16            // 26, 106
 	TypeIDVal           uint32            // 27, 108, thing ID? pointer? union?
-	ObjClass            uint32            // 28, 112
-	ObjSubClass         uint32            // 29, 116
-	ObjFlags            uint32            // 30, 120
+	ObjClass            object.Class      // 28, 112
+	ObjSubClass         object.SubClass   // 29, 116
+	ObjFlags            object.Flags      // 30, 120
 	Buffs               uint32            // 31, 124
 	NetCode32           uint32            // 32, 128, npc ID?
 	Field_33            uint32            // 33, 132
@@ -750,7 +750,7 @@ func (s *Drawable) Z() int {
 }
 
 func (s *Drawable) SetActive() { // Nox_xxx_spriteSetActiveMB_45A990_drawable
-	s.ObjFlags |= uint32(object.FlagActive)
+	s.ObjFlags |= object.FlagActive
 }
 
 func (s *Drawable) CallDraw(vp *noxrender.Viewport) int {
@@ -815,7 +815,7 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 	s.ZVal2 = typ.Z // TODO: shouldn't it put this in dr.z?
 	s.ObjClass = typ.ObjClass
 	s.ObjSubClass = typ.ObjSubClass
-	s.ObjFlags = uint32(typ.ObjFlags)
+	s.ObjFlags = typ.ObjFlags
 	s.Flags70Val = typ.Field_54
 	s.Weight = typ.Weight
 	s.DrawFuncPtr = typ.DrawFunc

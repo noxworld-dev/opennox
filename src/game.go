@@ -1047,10 +1047,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	legacy.Sub_500510(v2)
 	s.nox_xxx_mapSwitchLevel_4D12E0(true)
 	for _, obj := range s.Objs.AllNonMissiles() {
-		obj.ObjFlags |= uint32(object.FlagMarked)
+		obj.ObjFlags |= object.FlagMarked
 	}
 	for _, obj := range s.Objs.AllMissiles() {
-		obj.ObjFlags |= uint32(object.FlagMarked)
+		obj.ObjFlags |= object.FlagMarked
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		s.Spells.EnableAll()

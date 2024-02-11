@@ -59,7 +59,7 @@ func init() {
 				all |= fl
 			}
 		}
-		obj.ObjFlags = uint32(all)
+		obj.ObjFlags = all
 		writeJSONResp(w, obj)
 	})
 	http.HandleFunc("/debug/nox/objects/updatable", func(w http.ResponseWriter, r *http.Request) {

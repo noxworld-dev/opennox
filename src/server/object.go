@@ -300,9 +300,9 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	*obj = Object{
 		NetCode:      obj.NetCode,      // it is persisted by the allocator; so we basically reuse ID of the older object
 		TypeInd:      uint16(t.Ind2()), // TODO: why is it setting it and then overwriting again?
-		ObjClass:     uint32(t.Class()),
-		ObjSubClass:  uint32(t.SubClass()),
-		ObjFlags:     uint32(t.Flags()),
+		ObjClass:     t.Class(),
+		ObjSubClass:  t.SubClass(),
+		ObjFlags:     t.Flags(),
 		Field5:       t.Field9,
 		Material:     uint16(t.Material()),
 		Experience:   t.Experience,
@@ -498,7 +498,7 @@ func (s *serverObjects) ObjectsClearPending() {
 	var next *Object
 	for it := s.Pending; it != nil; it = next {
 		next = it.ObjNext
-		it.ObjFlags &^= uint32(object.FlagPending)
+		it.ObjFlags &^= object.FlagPending
 		if s.List != nil {
 			s.List.ObjPrev = it
 		}
@@ -559,9 +559,9 @@ type Object struct {
 	IDPtr         unsafe.Pointer             // 0, 0
 	TypeInd       uint16                     // 1, 4
 	Field1_2      uint16                     // 1, 6
-	ObjClass      uint32                     // 2, 8
-	ObjSubClass   uint32                     // 3, 12
-	ObjFlags      uint32                     // 4, 16
+	ObjClass      object.Class               // 2, 8
+	ObjSubClass   object.SubClass            // 3, 12
+	ObjFlags      object.Flags               // 4, 16
 	Field5        uint32                     // 5, 20
 	Material      uint16                     // 6, 24
 	Field6_2      uint16                     // 6, 26
@@ -923,7 +923,7 @@ func (obj *Object) Flags() object.Flags {
 
 func (obj *Object) SetFlags(v object.Flags) {
 	// TODO: do we need to update any cheksums?
-	obj.ObjFlags = uint32(v)
+	obj.ObjFlags = v
 }
 
 func (obj *Object) FlagsEnable(v object.Flags) {
@@ -1479,10 +1479,10 @@ func (s *Server) ObjClearOwner(obj *Object) {
 	}
 	owner := obj.ObjOwner
 	if owner.Class().Has(object.ClassPlayer) && Nox_xxx_creatureIsMonitored_500CC0(owner, obj) {
-		v2 := int32(obj.ObjSubClass)
+		v2 := obj.ObjSubClass
 		*(*uint8)(unsafe.Pointer(&v2)) = uint8(int8(v2 & math.MaxInt8))
 		ud := owner.UpdateDataPlayer()
-		obj.ObjSubClass = uint32(v2)
+		obj.ObjSubClass = v2
 		s.Nox_xxx_netFxShield_0_4D9200(int(ud.Player.PlayerInd), obj)
 		s.Players.Nox_xxx_netUnmarkMinimapObj_417300(ud.Player.PlayerIndex(), obj, 1)
 	}

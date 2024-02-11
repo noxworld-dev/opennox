@@ -150,7 +150,7 @@ func (s *Server) PlayerGoObserver(p *server.Player, notify, keepPlayer bool) boo
 	}
 	s.NetInformTextMsg(p.PlayerIndex(), 12, bool2int(notify))
 	asObjectS(u).ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
-	u.ObjFlags |= uint32(object.FlagNoCollide)
+	u.ObjFlags |= object.FlagNoCollide
 	p.SetPos3632(u.Pos())
 	p.CameraUnlock()
 	if noxflags.HasGame(noxflags.GameModeCoop) {

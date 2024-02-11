@@ -136,42 +136,42 @@ func (c *clientObjTypes) Nox_things_free_44C580_B() {
 }
 
 type ObjectType struct {
-	Name           *byte          // 0, 0x0
-	PrettyName     *uint16        // 1, 0x4, 4
-	Desc           *uint16        // 2, 0x8, 8
-	HWidth         uint8          // 3, 0xc, 12
-	HHeight        uint8          // 3, 0xd, 13
-	Weight         uint8          // 3, 0xe, 14
-	LightFlags     uint8          // 3, 0xf, 15
-	Field_10       uint32         // 4, 0x10, 16
-	ShapeKind      uint16         // 5, 0x14, 20
-	Z              uint16         // 5, 0x16, 22
-	LightDir       uint16         // 6, 0x18, 24
-	LightPenumbra  uint16         // 6, 0x1a, 26
-	Field_1c       int32          // 7, 0x1c, 28, ID? index?
-	ObjClass       uint32         // 8, 0x20, 32
-	ObjSubClass    uint32         // 9, 0x24, 36
-	ObjFlags       int32          // 10, 0x28, 40
-	LightIntensity float32        // 11, 0x2c, 44
-	LightColor     noxrender.RGB  // 12-14, 0x30-0x38, 48-56
-	Field_3c       uint32         // 15, 0x3c
-	ShapeR         float32        // 16, 0x40, 64
-	ZSizeMin       float32        // 17, 0x44, 68
-	ZSizeMax       float32        // 18, 0x48, 72
-	ShapeW         float32        // 19, 0x4c, 76
-	ShapeH         float32        // 20, 0x50, 80
-	Field_54       uint32         // 21, 0x54
-	DrawFunc       unsafe.Pointer // 22, 0x58, 88, same as nox_drawable->draw_func
-	DrawData       unsafe.Pointer // 23, 0x5c, 92
-	Field_60       uint32         // 24, 0x60, 96
-	ClientUpdate   unsafe.Pointer // 25, 0x64, 100
-	AudioLoop      uint32         // 26, 0x68, 104
-	ObjNext        *ObjectType    // 27, 0x6c, 108
-	PrettyImage    uint32         // 28, 0x70, 112
-	MenuIcon       int32          // 29, 0x74, 116
-	Lifetime       int32          // 30, 0x78, 120
-	Health         uint16         // 31, 0x7c, 124
-	Field_7e       uint16         // 31, 0x7e, 126
+	Name           *byte           // 0, 0x0
+	PrettyName     *uint16         // 1, 0x4, 4
+	Desc           *uint16         // 2, 0x8, 8
+	HWidth         uint8           // 3, 0xc, 12
+	HHeight        uint8           // 3, 0xd, 13
+	Weight         uint8           // 3, 0xe, 14
+	LightFlags     uint8           // 3, 0xf, 15
+	Field_10       uint32          // 4, 0x10, 16
+	ShapeKind      uint16          // 5, 0x14, 20
+	Z              uint16          // 5, 0x16, 22
+	LightDir       uint16          // 6, 0x18, 24
+	LightPenumbra  uint16          // 6, 0x1a, 26
+	Field_1c       int32           // 7, 0x1c, 28, ID? index?
+	ObjClass       object.Class    // 8, 0x20, 32
+	ObjSubClass    object.SubClass // 9, 0x24, 36
+	ObjFlags       object.Flags    // 10, 0x28, 40
+	LightIntensity float32         // 11, 0x2c, 44
+	LightColor     noxrender.RGB   // 12-14, 0x30-0x38, 48-56
+	Field_3c       uint32          // 15, 0x3c
+	ShapeR         float32         // 16, 0x40, 64
+	ZSizeMin       float32         // 17, 0x44, 68
+	ZSizeMax       float32         // 18, 0x48, 72
+	ShapeW         float32         // 19, 0x4c, 76
+	ShapeH         float32         // 20, 0x50, 80
+	Field_54       uint32          // 21, 0x54
+	DrawFunc       unsafe.Pointer  // 22, 0x58, 88, same as nox_drawable->draw_func
+	DrawData       unsafe.Pointer  // 23, 0x5c, 92
+	Field_60       uint32          // 24, 0x60, 96
+	ClientUpdate   unsafe.Pointer  // 25, 0x64, 100
+	AudioLoop      uint32          // 26, 0x68, 104
+	ObjNext        *ObjectType     // 27, 0x6c, 108
+	PrettyImage    uint32          // 28, 0x70, 112
+	MenuIcon       int32           // 29, 0x74, 116
+	Lifetime       int32           // 30, 0x78, 120
+	Health         uint16          // 31, 0x7c, 124
+	Field_7e       uint16          // 31, 0x7e, 126
 }
 
 func (t *ObjectType) C() unsafe.Pointer {
@@ -205,7 +205,7 @@ var clientThingParseFuncs = map[string]ThingFieldFunc{
 		if err != nil {
 			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Index(), err)
 		}
-		typ.ObjClass = uint32(v)
+		typ.ObjClass = v
 		return nil
 	},
 	"SUBCLASS": func(typ *ObjectType, f *binfile.MemFile, str string, buf []byte) error {
@@ -213,7 +213,7 @@ var clientThingParseFuncs = map[string]ThingFieldFunc{
 		if err != nil {
 			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Index(), err)
 		}
-		typ.ObjSubClass = uint32(v)
+		typ.ObjSubClass = v
 		return nil
 	},
 	"FLAGS": func(typ *ObjectType, f *binfile.MemFile, str string, buf []byte) error {
@@ -221,7 +221,7 @@ var clientThingParseFuncs = map[string]ThingFieldFunc{
 		if err != nil {
 			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Index(), err)
 		}
-		typ.ObjFlags = int32(v)
+		typ.ObjFlags = v
 		return nil
 	},
 	"EXTENT": func(typ *ObjectType, f *binfile.MemFile, str string, buf []byte) error {
@@ -358,7 +358,7 @@ var clientThingParseFuncs = map[string]ThingFieldFunc{
 			return err
 		}
 		typ.Weight = byte(v)
-		typ.ObjClass |= uint32(object.ClassPickup)
+		typ.ObjClass |= object.ClassPickup
 		return nil
 	},
 	"HEALTH": func(typ *ObjectType, f *binfile.MemFile, str string, buf []byte) error {

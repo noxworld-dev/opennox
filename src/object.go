@@ -74,7 +74,7 @@ func (s *Server) DelayedDelete(obj *server.Object) {
 	if obj.Class().Has(object.ClassPlayer) {
 		legacy.Sub_506740(obj)
 	}
-	obj.ObjFlags |= uint32(object.FlagDestroyed)
+	obj.ObjFlags |= object.FlagDestroyed
 	obj.DeletedNext = s.Objs.DeletedList
 	s.Objs.DeletedList = obj
 	obj.DeletedAt = s.Frame()
@@ -110,7 +110,7 @@ func (s *Server) ObjectDeleteLast(obj *server.Object) {
 	if !obj.Flags().Has(object.FlagActive) {
 		return
 	}
-	obj.ObjFlags &^= uint32(object.FlagActive)
+	obj.ObjFlags &^= object.FlagActive
 	s.nox_xxx_playerLeaveObsByObserved_4E60A0(obj)
 	if !noxflags.HasGame(noxflags.GameFlag20) {
 		legacy.Nox_xxx_netReportDestroyObject_5289D0(obj)
@@ -164,7 +164,7 @@ func (s *Server) ObjectsAddPending() {
 			s.Objs.MissileList = it
 		} else {
 			if it.Flags().Has(object.FlagShadow) {
-				it.ObjFlags &^= uint32(object.FlagShadow)
+				it.ObjFlags &^= object.FlagShadow
 				legacy.Nox_xxx_unitNewAddShadow_4DA9A0(it)
 			}
 			if it.Flags().Has(object.FlagRespawn) && !noxflags.HasGame(noxflags.GameModeQuest) {
@@ -207,7 +207,7 @@ func (s *Server) ObjectsAddPending() {
 			legacy.Sub_527E00(it)
 			it.Field37 = math.MaxUint32
 		}
-		it.ObjFlags &^= uint32(object.FlagPending)
+		it.ObjFlags &^= object.FlagPending
 	}
 	s.Objs.Pending = nil
 	for _, fnc := range s.Objs.PendingActions {
@@ -261,13 +261,13 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 	}
 	obj.VelVec = types.Pointf{}
 	obj.ForceVec = types.Pointf{}
-	obj.ObjFlags |= uint32(object.FlagActive)
+	obj.ObjFlags |= object.FlagActive
 	obj.Field32 = s.Frame()
 	obj.Field34 = s.Frame()
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && !obj.Class().Has(object.ClassMissile) &&
 		(int(obj.TypeInd) == s.Types.GoldID() ||
 			obj.Class().HasAny(object.ClassFood|object.ClassInfoBook|object.ClassWand|object.ClassWeapon|object.ClassArmor)) {
-		obj.ObjFlags |= uint32(object.FlagNoCollide)
+		obj.ObjFlags |= object.FlagNoCollide
 	}
 	obj.ObjNext = s.Objs.Pending
 	obj.ObjPrev = nil
@@ -275,7 +275,7 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 		s.Objs.Pending.ObjPrev = obj
 	}
 	s.Objs.Pending = obj
-	obj.ObjFlags |= uint32(object.FlagPending)
+	obj.ObjFlags |= object.FlagPending
 	if obj.TeamVal.ID != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
 		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGamePlay(noxflags.GameplayFlag4) {
 			legacy.Nox_xxx_createAtImpl_4191D0(obj.TeamVal.ID, obj.TeamPtr(), 0, int(obj.NetCode), 0)

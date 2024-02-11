@@ -244,7 +244,7 @@ func (s *Server) unitUpdatePlayerImplA(u *server.Object) (a1, v68 bool, _ bool) 
 			nox_xxx_playerSetState_4FA020(u, server.PlayerState4)
 			ud.Field60 &^= 0x20
 			u.Field34 = s.Frame()
-			u.ObjFlags |= uint32(object.FlagShort | object.FlagAllowOverlap)
+			u.ObjFlags |= object.FlagShort | object.FlagAllowOverlap
 			u.VelVec = types.Pointf{}
 			u.ForceVec = types.Pointf{}
 			u.Pos24 = types.Pointf{}
