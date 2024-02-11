@@ -30,7 +30,7 @@ func (h Handle) Player() ntype.PlayerInd {
 	return ntype.PlayerInd(h.i - 1)
 }
 
-func (h Handle) get() *Conn {
+func (h Handle) Get() *Conn {
 	if !h.Valid() {
 		return nil
 	}
@@ -38,5 +38,5 @@ func (h Handle) get() *Conn {
 }
 
 func (h Handle) IP() netip.Addr {
-	return h.get().IP()
+	return h.Get().IP()
 }

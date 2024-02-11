@@ -59,7 +59,7 @@ func sub_43CCA0() {
 	c := noxClient
 	legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
 	start := s.Frame()
-	c.Conn.RecvLoop(netstr.RecvCanRead)
+	c.Conn.Get().RecvLoop(netstr.RecvCanRead)
 	if start != s.Frame() && legacy.Get_dword_5d4594_2650652() == 1 && !noxflags.HasGame(noxflags.GameHost) {
 		if v1 := legacy.Sub_40A710(1); sub_43C790() > v1 {
 			legacy.Sub_43CEB0()

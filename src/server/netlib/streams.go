@@ -43,7 +43,6 @@ type Stream interface {
 	StreamID
 	StreamStats
 	SendStream
-	RecvLoop(flags RecvFlags) int
 }
 
 type SendStream interface {
