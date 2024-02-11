@@ -67,7 +67,7 @@ var (
 
 func NewStreams() *Streams {
 	s := &Streams{
-		playerIDs: make(map[Handle]struct{}),
+		playerIDs: make(map[int]struct{}),
 		KeyRand: func(min, max int) int {
 			return min + rand.Intn(max-min)
 		},
@@ -94,7 +94,7 @@ type Streams struct {
 	streams2       [maxStructs]stream2
 	timing         [maxStructs]timingStruct
 	transfer       [maxStructs]uint32
-	playerIDs      map[Handle]struct{}
+	playerIDs      map[int]struct{}
 	sendXorBuf     [4096]byte // TODO: remove this buffer?
 	Log            *log.Logger
 	Now            func() time.Duration
@@ -574,7 +574,7 @@ func (ns *Conn) callOnSend(buf []byte) int {
 	if ns.onSend == nil {
 		return 0
 	}
-	return ns.onSend(ns.IndHandle(), buf)
+	return ns.onSend(ns, buf)
 }
 
 func (ns *Conn) callOnReceive(ns2 *Conn, buf []byte) int {
@@ -1041,11 +1041,10 @@ func (ns *Conn) processStreamOp14(out []byte, packet []byte, p1 byte, from netip
 	}
 	if n := ns.onJoin(out, packet, a4a, func(pl ntype.Player) bool {
 		ns2 := ns.g.ByPlayer(pl)
-		pid := ns2.IndHandle()
-		if _, ok := ns.g.playerIDs[pid]; ok {
+		if _, ok := ns.g.playerIDs[ns2.ind]; ok {
 			return false
 		}
-		ns.g.playerIDs[pid] = struct{}{}
+		ns.g.playerIDs[ns2.ind] = struct{}{}
 		ns.g.cntX++
 		return true
 	}); n != 0 {
@@ -1161,7 +1160,7 @@ func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) 
 		case code9:
 			return ns.g.processStreamOp9(pid, packetCur)
 		case code10:
-			return ns.processStreamOp10(pid, out)
+			return ns.processStreamOp10(pid.Get(), out)
 		case code11:
 			ns7 := pid.Get()
 			if ns7 == nil {
@@ -1234,25 +1233,21 @@ func (g *Streams) recvRaw(pc net.PacketConn, buf []byte) (int, netip.AddrPort, e
 	return n, src, nil
 }
 
-func (ns *Conn) processStreamOp10(pid Handle, out []byte) int {
-	if pid.i == -1 {
-		return 0
-	}
-	ns6 := pid.Get()
-	if ns6 == nil || ns6.field38 == 1 {
+func (ns *Conn) processStreamOp10(ns2 *Conn, out []byte) int {
+	if ns2 == nil || ns2.field38 == 1 {
 		return 0
 	}
 	out[0] = byte(code34)
-	ns.callOnReceive(ns6, out[:1])
+	ns.callOnReceive(ns2, out[:1])
 
 	ns.g.timing[ns.ind] = timingStruct{}
 
-	if _, ok := ns.g.playerIDs[pid]; ok {
-		delete(ns.g.playerIDs, pid)
+	if _, ok := ns.g.playerIDs[ns2.ind]; ok {
+		delete(ns.g.playerIDs, ns2.ind)
 		ns.g.cntX--
 	}
 
-	ns6.ReadPackets()
+	ns2.ReadPackets()
 	return 0
 }
 

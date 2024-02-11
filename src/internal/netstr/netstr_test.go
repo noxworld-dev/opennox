@@ -9,6 +9,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
+	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
 
 func TestNetstr(t *testing.T) {
@@ -32,12 +33,12 @@ func TestNetstr(t *testing.T) {
 			Port:       18501,
 			Max:        10,
 			BufferSize: 2048,
-			OnSend: func(id Handle, buf []byte) int {
-				t.Logf("SRV: func1: %v, [%d]", id.i, len(buf))
+			OnSend: func(id netlib.StreamID, buf []byte) int {
+				t.Logf("SRV: func1: %v, [%d]", id.Player(), len(buf))
 				return len(buf)
 			},
-			OnReceive: func(id Handle, buf []byte) int {
-				t.Logf("SRV: func2: %v, [%d]", id.i, len(buf))
+			OnReceive: func(id netlib.StreamID, buf []byte) int {
+				t.Logf("SRV: func2: %v, [%d]", id.Player(), len(buf))
 				return len(buf)
 			},
 			OnJoin: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
@@ -72,17 +73,17 @@ func TestNetstr(t *testing.T) {
 	conn, err := s.NewClient(&Options{
 		Max:        10,
 		BufferSize: 2048,
-		OnSend: func(id Handle, buf []byte) int {
-			t.Logf("CLI: func1: %v, [%d]", id.i, len(buf))
+		OnSend: func(id netlib.StreamID, buf []byte) int {
+			t.Logf("CLI: func1: %v, [%d]", id.Player(), len(buf))
 			return len(buf)
 		},
-		OnReceive: func(id Handle, buf []byte) int {
+		OnReceive: func(id netlib.StreamID, buf []byte) int {
 			op := noxnet.Op(buf[0])
 			switch op {
 			case noxnet.MSG_XXX_STOP:
 				t.Error("failed")
 			}
-			t.Logf("CLI: func2: %v, [%d]", id.i, len(buf))
+			t.Logf("CLI: func2: %v, [%d]", id.Player(), len(buf))
 			return len(buf)
 		},
 		OnJoin: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
