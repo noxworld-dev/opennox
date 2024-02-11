@@ -8,7 +8,7 @@ unsigned int sub_48C690(int a1, int a2, int a3, int a4);
 unsigned int sub_48C6B0(int a1, int a2);
 int nox_xxx_showObserverWindow_48CA70(int a1);
 int sub_48CAD0();
-int sub_48D000();
+int sub_48D000_initGuiKick();
 int nox_xxx_guiKick_48D0A0(int a1, int a2, int* a3, int a4);
 int sub_48D120();
 char* nox_xxx_voteSend_48D260(wchar2_t* a1);

@@ -182,7 +182,7 @@ int sub_48CAD0() {
 }
 
 //----- (0048D000) --------------------------------------------------------
-int sub_48D000() {
+int sub_48D000_initGuiKick() {
 	uint32_t* v0; // eax
 
 	v0 = nox_new_window_from_file("GuiKick.wnd", nox_xxx_guiKick_48D0A0);

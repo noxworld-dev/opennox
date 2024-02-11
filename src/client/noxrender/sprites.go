@@ -268,7 +268,8 @@ func (b *RenderSprites) ImageRef(ind int, typ byte, name2 string) *Image {
 
 func (b *RenderSprites) LoadExternalImage(typ byte, name string) *Image {
 	// TODO: this one is supposed to load PCX images from FS
-	panic("TODO: read PCX from FS")
+	//panic("TODO: read PCX from FS")
+	return nil
 }
 
 func (b *RenderSprites) loadAndIndexVideoBag() error {

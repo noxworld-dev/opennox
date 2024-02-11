@@ -1,0 +1,52 @@
+FROM golang:1.21-bullseye AS builder
+
+ARG UID=1000
+ARG GID=1000
+ARG GIT_SHA=""
+ARG GIT_TAG=""
+
+RUN dpkg --add-architecture i386 && \
+    apt-get update && \
+    apt-get install -y \
+                        gcc gcc-multilib
+
+RUN groupadd --gid $GID runner && \
+    useradd --home-dir /home/runner --no-create-home --gid runner --uid $UID --shell /bin/sh runner
+
+WORKDIR /home/runner/opennox
+
+ADD ./go.* ./
+
+RUN go mod download
+
+ADD . .
+
+RUN go run ./internal/noxbuild server && ./opennox-server -h
+
+
+FROM debian:bullseye
+
+RUN dpkg --add-architecture i386 && \
+    apt update && \
+    apt upgrade -y && \
+    apt install -y libc6:i386 ca-certificates && \
+    apt install -y curl unzip cabextract
+
+RUN curl -LO https://archive.org/download/NoxDemo/noxdemo.exe
+RUN unzip noxdemo.exe -d /tmp/noxdemo && rm noxdemo.exe
+
+VOLUME /nox/
+RUN cabextract /tmp/noxdemo/Install/Game1.CAB -d /nox && rm -rf /tmp/noxdemo
+ENV NOX_CHAT_MAP=So_Woods
+
+COPY --from=builder /home/runner/opennox/opennox-server /usr/bin/opennox-server
+RUN opennox-server -h
+
+EXPOSE 22/tcp
+EXPOSE 18590/udp
+EXPOSE 18580/tcp
+EXPOSE 6060/tcp
+
+WORKDIR /nox/
+ENTRYPOINT ["opennox-server", "--rcon=:22"]
+
