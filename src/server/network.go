@@ -33,10 +33,10 @@ func (s *Server) NetGetIP(conn netstr.Handle) netip.Addr {
 	return conn.IP()
 }
 
-func (s *Server) InitServer(ctx context.Context, narg *netstr.Options) error {
+func (s *Server) Listen(ctx context.Context, narg *netstr.Options) error {
 	s.OwnIPStr = ""
-	conn, err := s.NetStr.Listen(narg)
-	s.ServerConn = conn
+	lis, err := s.NetStr.Listen(narg)
+	s.lis = lis
 	if err != nil {
 		return err
 	}
@@ -66,17 +66,17 @@ func (s *Server) StartServices(dedicated bool) error {
 	return nil
 }
 
-func (s *Server) Nox_server_netCloseHandler_4DEC60(conn netstr.Handle) {
-	s.NetStr.ReadPackets(conn)
-	conn.Close()
+func (s *Server) Nox_server_netCloseHandler_4DEC60() {
+	s.lis.ReadPackets()
+	s.lis.Close()
 	s.Players.SetHost(nil, nil)
 	s.SetUpdateFunc2(nil)
 	s.stopNAT()
 	s.stopHTTP()
 }
 
-func (s *Server) Nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) int {
-	return s.NetStr.ReadPackets(s.NetStr.ByPlayerInd(ind))
+func (s *Server) Nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) {
+	s.NetStr.ConnByPlayer(ind).ReadPackets()
 }
 
 func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {

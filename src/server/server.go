@@ -106,18 +106,18 @@ type Server struct {
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool
 
-	NetStr     *netstr.Streams
-	NetList    *netlist.List
-	NetXfer    netxfer.NetXfer
-	ServerConn netstr.Handle
-	OwnIPStr   string
-	OwnIP      netip.Addr
-	UseNAT     bool
-	Announce   bool
-	MapSend    serverMapSend
-	port       int
-	http       httpService
-	nat        natService
+	NetStr   *netstr.Streams
+	NetList  *netlist.List
+	NetXfer  netxfer.NetXfer
+	lis      *netstr.Conn
+	OwnIPStr string
+	OwnIP    netip.Addr
+	UseNAT   bool
+	Announce bool
+	MapSend  serverMapSend
+	port     int
+	http     httpService
+	nat      natService
 
 	updateFunc2 func() bool
 

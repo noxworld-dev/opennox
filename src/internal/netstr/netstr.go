@@ -138,6 +138,10 @@ func (g *Streams) ByPlayerInd(pind ntype.PlayerInd) Handle {
 	return Handle{g, int(pind) + 1}
 }
 
+func (g *Streams) ConnByPlayer(pind ntype.PlayerInd) *Conn {
+	return g.streams[int(pind)+1]
+}
+
 func (g *Streams) HostStream() netlib.Stream {
 	return g.Host()
 }
@@ -334,31 +338,31 @@ func (h Handle) Close() {
 	}
 }
 
-func (g *Streams) Listen(opt *Options) (Handle, error) {
+func (g *Streams) Listen(opt *Options) (*Conn, error) {
 	if opt == nil {
-		return errHandle(-2), errors.New("empty options")
+		return nil, errors.New("empty options")
 	}
 	if opt.Max > maxStructs {
-		return errHandle(-2), errors.New("max limit reached")
+		return nil, errors.New("max limit reached")
 	}
 	if opt.Port < 1024 || opt.Port > 0x10000 {
 		opt.Port = common.GamePort
 	}
 	pc, port, err := listenOnFreePort(g.Log, opt.Port)
 	if err != nil {
-		return errHandle(-5), err
+		return nil, err
 	}
 	opt.Port = port
 	ns := g.newStream(opt)
 	if ns == nil {
-		return errHandle(-8), errors.New("no more slots for net structs")
+		return nil, errors.New("no more slots for net structs")
 	}
 	ind := ns.ind
 	ns.id = Handle{g, -1}
 	ns.pc = pc
 	ns.Data2hdr()[0] = byte(ind)
 	g.listenIndex = ind
-	return Handle{g, ind}, nil
+	return ns, nil
 }
 
 func (g *Streams) NewClient(narg *Options) (Handle, error) {
@@ -532,6 +536,13 @@ func (ns *Conn) Addr() netip.AddrPort {
 
 func (ns *Conn) SetAddr(addr netip.AddrPort) {
 	ns.addr = addr
+}
+
+func (ns *Conn) IndHandle() Handle {
+	if ns == nil {
+		return errHandle(-1)
+	}
+	return Handle{ns.g, ns.ind}
 }
 
 func (ns *Conn) Handle() Handle {
@@ -848,55 +859,30 @@ func (ns *Conn) maybeFreeQueue(seq byte, act int) {
 	}
 }
 
-func (g *Streams) ReadPackets(ind Handle) int {
-	if !ind.Valid() {
-		return -3
-	}
-	ns := ind.get()
+func (ns *Conn) ReadPackets() {
 	if ns == nil {
-		return 0
+		return
 	}
-	v4 := ns.Handle()
-	var si, ei int
-	if v4.i == -1 {
-		si, ei = 0, maxStructs
-		v4 = ind
-	} else {
-		si, ei = ind.i, ind.i+1
-		ns2 := v4.get()
-		if ns2 == nil || ns2.id.i != -1 {
-			ns.reset()
-			g.streams[ind.i] = nil
-			return 0
-		}
-	}
-	for i := si; i < ei; i++ {
-		ns2 := g.streams[i]
-		if ns2 == nil || ns2.Handle() != v4 {
-			continue
-		}
-		ii := Handle{g, i} // ns2
-		ii.SendReadPacket(true)
-		var buf [1]byte
-		buf[0] = byte(code11)
-		_, _ = ii.Send(buf[:], 0)
-		ii.SendReadPacket(true)
-		v4.get().accepted--
-		ns.maybeFreeQueue(0, 2)
-		ns2.reset()
-		g.streams[ii.i] = nil
-	}
-	return 0
+	ii := ns.IndHandle()
+	ii.SendReadPacket(true)
+	var buf [1]byte
+	buf[0] = byte(code11)
+	_, _ = ii.Send(buf[:], 0)
+	ii.SendReadPacket(true)
+	ns.accepted--
+	ns.maybeFreeQueue(0, 2)
+	ns.reset()
+	ns.g.streams[ns.ind] = nil
 }
 
 func (g *Streams) maybeReadPackets() {
 	g.ticks2 = g.Now()
-	for i, ns := range g.streams {
+	for _, ns := range g.streams {
 		if ns == nil {
 			continue
 		}
 		if ns.field38 == 1 && ns.frame40+300 < g.GameFrame() {
-			g.ReadPackets(Handle{g, i})
+			ns.ReadPackets()
 		}
 	}
 }
@@ -1183,7 +1169,7 @@ func (g *Streams) readXxx(id1, id2 Handle, a3 byte, buf []byte) bool {
 	}
 	ns1 := id1.get()
 	if ns1.accepted > (g.GetMaxPlayers() - 1) {
-		g.ReadPackets(id2)
+		ns2.ReadPackets()
 		return true
 	}
 	if len(buf) >= 4 && buf[4] == 32 {
@@ -1351,7 +1337,7 @@ func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *Conn
 		g.cntX--
 	}
 
-	g.ReadPackets(pid)
+	ns6.ReadPackets()
 	return 0
 }
 

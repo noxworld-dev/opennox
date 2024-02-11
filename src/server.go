@@ -696,7 +696,7 @@ func (s *Server) newSession() error {
 	}
 	legacy.Sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		if err := s.initConn(context.Background(), s.ServerPort()); err != nil {
+		if err := s.listen(context.Background(), s.ServerPort()); err != nil {
 			return err
 		}
 	}
@@ -741,7 +741,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.FreeObjectTypes()
 	nox_xxx_free_42BF80()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		s.Nox_server_netCloseHandler_4DEC60(s.ServerConn)
+		s.Nox_server_netCloseHandler_4DEC60()
 	}
 	legacy.Sub_56F3B0()
 	s.NetList.ResetAll()

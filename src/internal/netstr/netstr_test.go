@@ -56,7 +56,7 @@ func TestNetstr(t *testing.T) {
 
 		for {
 			s.Update()
-			conn.RecvLoop(RecvCanRead)
+			conn.IndHandle().RecvLoop(RecvCanRead)
 			frame++
 		}
 	}()
