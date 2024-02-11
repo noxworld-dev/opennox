@@ -268,18 +268,19 @@ type Options struct {
 	Check17    Check17
 }
 
-func (g *Streams) newStream(opt *Options) *Conn {
+func (g *Streams) newStream(id int, opt *Options) *Conn {
 	ind, ok := g.getFreeIndex()
 	if !ok {
 		return nil
 	}
-	return g.newStreamAt(ind, opt)
+	return g.newStreamAt(ind, id, opt)
 }
 
-func (g *Streams) newStreamAt(ind int, opt *Options) *Conn {
+func (g *Streams) newStreamAt(ind int, id int, opt *Options) *Conn {
 	ns := &Conn{
 		g:         g,
 		ind:       ind,
+		id:        id,
 		max:       uint32(opt.Max),
 		seqRecv:   -1,
 		xorKey:    0,
@@ -317,7 +318,7 @@ func (ns *Conn) Close() error {
 	}
 	if ns.pc != nil {
 		if ns.g.Debug {
-			ns.g.Log.Printf("closing connection: %d", ns.id.i)
+			ns.g.Log.Printf("closing connection: %d", ns.id)
 		}
 		_ = ns.pc.Close()
 	}
@@ -342,14 +343,12 @@ func (g *Streams) Listen(opt *Options) (*Conn, error) {
 		return nil, err
 	}
 	opt.Port = port
-	ns := g.newStream(opt)
+	ns := g.newStream(-1, opt)
 	if ns == nil {
 		return nil, errors.New("no more slots for net structs")
 	}
-	ind := ns.ind
-	ns.id = Handle{g, -1}
 	ns.pc = pc
-	ns.Data2hdr()[0] = byte(ind)
+	ns.Data2hdr()[0] = byte(ns.ind)
 	g.lis = ns
 	return ns, nil
 }
@@ -358,7 +357,7 @@ func (g *Streams) NewClient(narg *Options) (*Conn, error) {
 	if narg == nil {
 		return nil, NewConnectErr(-2, errors.New("empty options"))
 	}
-	ns := g.newStream(narg)
+	ns := g.newStream(0, narg)
 	if ns == nil {
 		return nil, NewConnectErr(-8, errors.New("no more slots for net structs"))
 	}
@@ -477,7 +476,7 @@ type Conn struct {
 	g    *Streams
 	pc   net.PacketConn
 	addr netip.AddrPort
-	id   Handle
+	id   int
 	ind  int
 
 	recv bytes.Buffer
@@ -507,7 +506,7 @@ func (ns *Conn) String() string {
 	if ns == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("Conn(ind: %d, id: %d, addr: %s)", ns.ind, ns.id.i, ns.addr.String())
+	return fmt.Sprintf("Conn(ind: %d, id: %d, addr: %s)", ns.ind, ns.id, ns.addr.String())
 }
 
 func (ns *Conn) IsHost() bool {
@@ -521,7 +520,7 @@ func (ns *Conn) Player() ntype.PlayerInd {
 	if ns == nil {
 		return 0
 	}
-	return ns.id.Player()
+	return ntype.PlayerInd(ns.id - 1)
 }
 
 func (ns *Conn) Addr() netip.AddrPort {
@@ -546,7 +545,7 @@ func (ns *Conn) Handle() Handle {
 	if ns == nil {
 		return errHandle(-1)
 	}
-	return ns.id
+	return Handle{ns.g, ns.id}
 }
 
 func (ns *Conn) Data2hdr() *[2]byte {
@@ -896,8 +895,7 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 		out[2] = byte(codeErr2)
 		return 3
 	}
-	pid.i = ind
-	ns2 := ns.g.newStreamAt(ind, &Options{
+	ns2 := ns.g.newStreamAt(ind, ind, &Options{
 		BufferSize: len(ns.sendBuf),
 		OnJoin:     ns.onJoin,
 		Check17:    ns.check17,
@@ -909,7 +907,6 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 	if hdr[1] == p1 {
 		hdr[1]++
 	}
-	ns2.id = pid
 	ns2.pc = ns.pc
 	ns2.onSend = ns.onSend
 	ns2.onReceive = ns.onReceive
@@ -952,11 +949,11 @@ func (ns *Conn) processStreamOp6(pid Handle, out []byte, packetCur []byte) int {
 
 	ns.g.timing[pid.i].field4 = v
 	var hdr *[2]byte
-	if ns.id.i == -1 {
-		out[0] = byte(ns2.id.i)
+	if ns.id == -1 {
+		out[0] = byte(ns2.id)
 		hdr = ns2.Data2hdr()
 	} else {
-		out[0] = byte(ns.id.i)
+		out[0] = byte(ns.id)
 		hdr = ns.Data2hdr()
 	}
 	out[1] = hdr[0]
@@ -978,7 +975,7 @@ func (ns *Conn) processStreamOp7(pid Handle, out []byte) int {
 	out[0] = byte(code35)
 	binary.LittleEndian.PutUint32(out[1:], uint32(speed))
 	// TODO: these two were sending hook payload from either ns1 or ns4
-	if ns.id.i == -1 {
+	if ns.id == -1 {
 		ns.callOnReceive(pid, out[:5])
 	} else {
 		ns.callOnReceive(pid, out[:5])
@@ -997,7 +994,7 @@ func (ns *Conn) processStreamOp8(pid Handle, out []byte, packetCur []byte) int {
 	ms := int(dt / time.Millisecond)
 	binary.LittleEndian.PutUint32(out[1:], uint32(ms))
 	// TODO: these two were sending hook payload from either ns1 or ns5
-	if ns.id.i == -1 {
+	if ns.id == -1 {
 		ns.callOnReceive(pid, out[:5])
 	} else {
 		ns.callOnReceive(pid, out[:5])
@@ -1132,22 +1129,22 @@ func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) 
 			if len(packetCur) < 5 {
 				return 0
 			}
-			v11 := ns.g.getForPacket(int(binary.LittleEndian.Uint32(packetCur[:4])))
+			ind := int(binary.LittleEndian.Uint32(packetCur[:4]))
 			xor := packetCur[4]
 			packetCur = packetCur[5:]
 
-			ns.id = v11
-			ns.Data2hdr()[0] = byte(v11.i)
+			ns.id = ind
+			ns.Data2hdr()[0] = byte(ind)
 			ns.xorKey = xor
 			ns.g.Responded = true
 		case codeErr2:
-			ns.id.i = -18
+			ns.id = -18
 			ns.g.Responded = true
 		case code3: // ack?
-			ns.id.i = -12
+			ns.id = -12
 			ns.g.Responded = true
 		case codeAlreadyJoined4:
-			ns.id.i = -13
+			ns.id = -13
 			ns.g.Responded = true
 		case code5:
 			if len(packetCur) < 4 {
@@ -1386,7 +1383,7 @@ func (ns *Conn) RecvLoop(flags RecvFlags) int {
 				}
 				inJoin = true
 			}
-			if ns.id.i == -1 {
+			if ns.id == -1 {
 				dst = h2.Get()
 			}
 			if a0&someIDFlag == 0 {
