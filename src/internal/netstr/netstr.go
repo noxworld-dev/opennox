@@ -822,7 +822,7 @@ func (ns *Conn) maybeFreeQueue(seq byte, act int) {
 		next *queueItem
 		prev *queueItem
 	)
-	for it := ns.queue; it.next != nil; it = next {
+	for it := ns.queue; it != nil; it = next {
 		next = it.next
 		switch act {
 		case 0:
@@ -925,24 +925,24 @@ func (h Handle) SendClose() {
 	h.Close()
 }
 
-func (g *Streams) processStreamOp0(inp Handle, out []byte, pid Handle, p1 byte, lis *Conn, from netip.AddrPort) int {
-	if f := g.GameFlags(); f.Has(noxflags.GameHost) && f.Has(noxflags.GameFlag4) {
+func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.AddrPort) int {
+	if f := ns.g.GameFlags(); f.Has(noxflags.GameHost) && f.Has(noxflags.GameFlag4) {
 		return 0
 	}
 	out[0] = 0
 	out[1] = p1
-	if lis.accepted >= g.GetMaxPlayers()+(g.cntX-1) {
+	if ns.accepted >= ns.g.GetMaxPlayers()+(ns.g.cntX-1) {
 		out[2] = byte(codeErr2)
 		return 3
 	}
 	if pid.i != -1 {
-		g.Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid.i, from.String())
+		ns.g.Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid.i, from.String())
 		// pid in the request must be -1 (0xff); fail if it's not
 		out[2] = byte(codeErr2)
 		return 3
 	}
 	// now, find free net struct index and use it as pid
-	ind, ok := g.getFreeIndexWithAddr(from)
+	ind, ok := ns.g.getFreeIndexWithAddr(from)
 	if !ok {
 		if ind >= 0 {
 			out[2] = byte(codeAlreadyJoined4) // already joined?
@@ -953,31 +953,31 @@ func (g *Streams) processStreamOp0(inp Handle, out []byte, pid Handle, p1 byte, 
 		return 3
 	}
 	pid.i = ind
-	ns := g.newStreamAt(ind, &Options{
-		BufferSize: len(lis.sendBuf),
-		OnJoin:     lis.onJoin,
-		Check17:    lis.check17,
+	ns2 := ns.g.newStreamAt(ind, &Options{
+		BufferSize: len(ns.sendBuf),
+		OnJoin:     ns.onJoin,
+		Check17:    ns.check17,
 	})
-	lis.accepted++
+	ns.accepted++
 
-	hdr := ns.Data2hdr()
-	hdr[0] = byte(inp.i)
+	hdr := ns2.Data2hdr()
+	hdr[0] = byte(ns.ind)
 	if hdr[1] == p1 {
 		hdr[1]++
 	}
-	ns.id = pid
-	ns.pc = lis.pc
-	ns.onSend = lis.onSend
-	ns.onReceive = lis.onReceive
+	ns2.id = pid
+	ns2.pc = ns.pc
+	ns2.onSend = ns.onSend
+	ns2.onReceive = ns.onReceive
 
-	g.timing[ind] = timingStruct{field28: 1}
-	key := byte(g.KeyRand(1, 255))
-	if !g.Xor {
+	ns.g.timing[ind] = timingStruct{field28: 1}
+	key := byte(ns.g.KeyRand(1, 255))
+	if !ns.g.Xor {
 		key = 0
 	}
-	ns.xorKey = 0 // send this packet without xor encoding
+	ns2.xorKey = 0 // send this packet without xor encoding
 
-	ns.SetAddr(from)
+	ns2.SetAddr(from)
 
 	out[0] = byte(code31) // TODO: it's not a code here, but an ID?
 	out[1] = p1
@@ -986,14 +986,14 @@ func (g *Streams) processStreamOp0(inp Handle, out []byte, pid Handle, p1 byte, 
 	out[7] = key
 	v67, _ := pid.Send(out[:8], SendQueue|SendFlush)
 
-	ns.xorKey = key
-	ns.field38 = 1
-	ns.seq39 = byte(v67)
-	ns.frame40 = g.GameFrame()
+	ns2.xorKey = key
+	ns2.field38 = 1
+	ns2.seq39 = byte(v67)
+	ns2.frame40 = ns.g.GameFrame()
 	return 0
 }
 
-func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *Conn, packetCur []byte) int {
+func (ns *Conn) processStreamOp6(pid Handle, out []byte, packetCur []byte) int {
 	if len(packetCur) < 4 {
 		return 0
 	}
@@ -1004,16 +1004,16 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *Conn, packetCur 
 		return 0
 	}
 	out[0] = byte(code37)
-	ns1.callOnReceive(pid, out[:1])
+	ns.callOnReceive(pid, out[:1])
 
-	g.timing[pid.i].field4 = v
+	ns.g.timing[pid.i].field4 = v
 	var hdr *[2]byte
-	if ns1.id.i == -1 {
+	if ns.id.i == -1 {
 		out[0] = byte(ns2.id.i)
 		hdr = ns2.Data2hdr()
 	} else {
-		out[0] = byte(ns1.id.i)
-		hdr = ns1.Data2hdr()
+		out[0] = byte(ns.id.i)
+		hdr = ns.Data2hdr()
 	}
 	out[1] = hdr[0]
 	out[2] = byte(code8)
@@ -1021,12 +1021,12 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *Conn, packetCur 
 	return 7
 }
 
-func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *Conn) int {
+func (ns *Conn) processStreamOp7(pid Handle, out []byte) int {
 	ns4 := pid.get()
 	if ns4 == nil {
 		return 0
 	}
-	ms := int((g.ticks2 - ns4.ticks24) / time.Millisecond)
+	ms := int((ns.g.ticks2 - ns4.ticks24) / time.Millisecond)
 	speed := -1
 	if ms >= 1 {
 		speed = 256000 / ms
@@ -1034,35 +1034,35 @@ func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *Conn) int {
 	out[0] = byte(code35)
 	binary.LittleEndian.PutUint32(out[1:], uint32(speed))
 	// TODO: these two were sending hook payload from either ns1 or ns4
-	if ns1.id.i == -1 {
-		ns1.callOnReceive(pid, out[:5])
+	if ns.id.i == -1 {
+		ns.callOnReceive(pid, out[:5])
 	} else {
-		ns1.callOnReceive(pid, out[:5])
+		ns.callOnReceive(pid, out[:5])
 	}
 	return 0
 }
 
-func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *Conn, packetCur []byte) int {
+func (ns *Conn) processStreamOp8(pid Handle, out []byte, packetCur []byte) int {
 	ns5 := pid.get()
 	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.ticks22/time.Millisecond) {
 		return 0
 	}
-	dt := g.ticks2 - ns5.ticks23
+	dt := ns.g.ticks2 - ns5.ticks23
 	ns5.ticks24 = dt
 	out[0] = byte(code36) // MSG_PING?
 	ms := int(dt / time.Millisecond)
 	binary.LittleEndian.PutUint32(out[1:], uint32(ms))
 	// TODO: these two were sending hook payload from either ns1 or ns5
-	if ns1.id.i == -1 {
-		ns1.callOnReceive(pid, out[:5])
+	if ns.id.i == -1 {
+		ns.callOnReceive(pid, out[:5])
 	} else {
-		ns1.callOnReceive(pid, out[:5])
+		ns.callOnReceive(pid, out[:5])
 	}
 
-	out[0] = ns1.Data2hdr()[0]
+	out[0] = ns.Data2hdr()[0]
 	out[1] = ns5.Data2hdr()[1]
 	out[2] = byte(code9)
-	ms = int(g.ticks2 / time.Millisecond)
+	ms = int(ns.g.ticks2 / time.Millisecond)
 	binary.LittleEndian.PutUint32(out[3:], uint32(ms))
 	return 7
 }
@@ -1093,39 +1093,39 @@ func (g *Streams) processStreamOp9(pid Handle, packetCur []byte) int {
 
 type JoinCheck func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int
 
-func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *Conn, p1 byte, from netip.AddrPort, check JoinCheck) int {
+func (ns *Conn) processStreamOp14(out []byte, packet []byte, p1 byte, from netip.AddrPort) int {
 	out[0] = 0
 	out[1] = p1
 
 	a4a := false
-	if ns1.accepted >= g.GetMaxPlayers()-1 {
+	if ns.accepted >= ns.g.GetMaxPlayers()-1 {
 		a4a = true
 	}
-	if n := check(out, packet, a4a, func(pl ntype.Player) bool {
-		pid := g.ByPlayer(pl)
-		if _, ok := g.playerIDs[pid]; ok {
+	if n := ns.onJoin(out, packet, a4a, func(pl ntype.Player) bool {
+		pid := ns.g.ByPlayer(pl)
+		if _, ok := ns.g.playerIDs[pid]; ok {
 			return false
 		}
-		g.playerIDs[pid] = struct{}{}
-		g.cntX++
+		ns.g.playerIDs[pid] = struct{}{}
+		ns.g.cntX++
 		return true
 	}); n != 0 {
 		return n
 	}
 
-	ind2 := g.getFreeNetStruct2Ind()
+	ind2 := ns.g.getFreeNetStruct2Ind()
 	if ind2 < 0 {
 		out[2] = byte(codeACK20)
 		return 3
 	}
-	nx := &g.streams2[ind2]
+	nx := &ns.g.streams2[ind2]
 	nx.active = true
 	nx.cur = 0
 	nx.lost = 0
 	nx.addr = from
 
 	// TODO: this overwrites first 2 bytes
-	t := g.Now()
+	t := ns.g.Now()
 	return copy(out, nx.nextPingPacket(t))
 }
 
@@ -1162,12 +1162,11 @@ func (g *Streams) SendCode6(ind Handle) int {
 	return 0
 }
 
-func (g *Streams) readXxx(id1, id2 Handle, a3 byte, buf []byte) bool {
+func (g *Streams) readXxx(ns1 *Conn, id2 Handle, a3 byte, buf []byte) bool {
 	ns2 := id2.get()
 	if ns2 == nil || ns2.field38 != 1 || ns2.seq39 > a3 {
 		return false
 	}
-	ns1 := id1.get()
 	if ns1.accepted > (g.GetMaxPlayers() - 1) {
 		ns2.ReadPackets()
 		return true
@@ -1181,87 +1180,85 @@ func (g *Streams) readXxx(id1, id2 Handle, a3 byte, buf []byte) bool {
 	return true
 }
 
-func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from netip.AddrPort) int {
+func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) int {
+	if ns == nil {
+		return 0
+	}
 	if len(packet) < 2 {
 		return 0
 	}
-	pid := g.getForPacket(int(int8(packet[0])))
+	pid := ns.g.getForPacket(int(int8(packet[0])))
 	p1 := packet[1]
 	packetCur := packet[2:]
-
-	ns1 := id.get()
-	if ns1 == nil {
-		return 0
-	}
 
 	pidb := pid // TODO: some of the functions assume it's different from pid, check what's wrong
 	for len(packetCur) != 0 {
 		op := packetCur[0]
 		packetCur = packetCur[1:]
-		if g.Debug {
-			g.Log.Printf("processStreamOp: op=%d [%d]\n", op, len(packetCur))
+		if ns.g.Debug {
+			ns.g.Log.Printf("processStreamOp: op=%d [%d]\n", op, len(packetCur))
 		}
 		switch noxnet.Op(op) {
 		default:
 			return 0
 		case codeInit0:
-			return g.processStreamOp0(id, out, pidb, p1, ns1, from)
+			return ns.processStreamOp0(out, pidb, p1, from)
 		case codeNewStream1:
 			if len(packetCur) < 5 {
 				return 0
 			}
-			v11 := g.getForPacket(int(binary.LittleEndian.Uint32(packetCur[:4])))
+			v11 := ns.g.getForPacket(int(binary.LittleEndian.Uint32(packetCur[:4])))
 			xor := packetCur[4]
 			packetCur = packetCur[5:]
 
-			ns1.id = v11
-			ns1.Data2hdr()[0] = byte(v11.i)
-			ns1.xorKey = xor
-			g.Responded = true
+			ns.id = v11
+			ns.Data2hdr()[0] = byte(v11.i)
+			ns.xorKey = xor
+			ns.g.Responded = true
 		case codeErr2:
-			ns1.id.i = -18
-			g.Responded = true
+			ns.id.i = -18
+			ns.g.Responded = true
 		case code3: // ack?
-			ns1.id.i = -12
-			g.Responded = true
+			ns.id.i = -12
+			ns.g.Responded = true
 		case codeAlreadyJoined4:
-			ns1.id.i = -13
-			g.Responded = true
+			ns.id.i = -13
+			ns.g.Responded = true
 		case code5:
 			if len(packetCur) < 4 {
 				return 0
 			}
 			v := binary.LittleEndian.Uint32(packetCur[:4])
-			out[0] = ns1.xorKey
+			out[0] = ns.xorKey
 			out[1] = 0
 			out[2] = byte(code7)
 			binary.LittleEndian.PutUint32(out[3:], v)
 			return 7
 		case code6:
-			return g.processStreamOp6(pid, out, ns1, packetCur)
+			return ns.processStreamOp6(pid, out, packetCur)
 		case code7:
-			return g.processStreamOp7(pid, out, ns1)
+			return ns.processStreamOp7(pid, out)
 		case code8:
-			return g.processStreamOp8(pid, out, ns1, packetCur)
+			return ns.processStreamOp8(pid, out, packetCur)
 		case code9:
-			return g.processStreamOp9(pid, packetCur)
+			return ns.g.processStreamOp9(pid, packetCur)
 		case code10:
-			return g.processStreamOp10(id, pid, out, ns1)
+			return ns.processStreamOp10(pid, out)
 		case code11:
 			ns7 := pid.get()
 			if ns7 == nil {
 				return 0
 			}
 			out[0] = byte(code33)
-			ns1.callOnReceive(pid, out[:1])
-			id.Close()
+			ns.callOnReceive(pid, out[:1])
+			ns.Close()
 			return 0
 		case codeJoin14: // join game request?
-			return g.processStreamOp14(out, packet, ns1, p1, from, ns1.onJoin)
+			return ns.processStreamOp14(out, packet, p1, from)
 		case code17:
-			return g.processStreamOp17(out, packet, p1, from, ns1.check17)
+			return ns.processStreamOp17(out, packet, p1, from)
 		case codePong18:
-			return g.processPong(out, packet, from)
+			return ns.g.processPong(out, packet, from)
 		case code31:
 			if len(packetCur) < 1 {
 				return 0
@@ -1273,7 +1270,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 			if ns8 == nil {
 				return 0
 			}
-			g.Log.Printf("switch 31: 0x%x 0x%x\n", seq, ns8.seqRecv)
+			ns.g.Log.Printf("switch 31: 0x%x 0x%x\n", seq, ns8.seqRecv)
 			if seq != byte(ns8.seqRecv) {
 				ns9 := pid.get()
 				ns9.resendQueueBySeq(seq)
@@ -1281,7 +1278,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 				ns8.seqRecv = int8(seq)
 				out[0] = byte(code38)
 				out[1] = seq
-				ns1.callOnReceive(pid, out[:2])
+				ns.callOnReceive(pid, out[:2])
 			}
 		}
 	}
@@ -1319,7 +1316,7 @@ func (g *Streams) recvRaw(pc net.PacketConn, buf []byte) (int, netip.AddrPort, e
 	return n, src, nil
 }
 
-func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *Conn) int {
+func (ns *Conn) processStreamOp10(pid Handle, out []byte) int {
 	if pid.i == -1 {
 		return 0
 	}
@@ -1328,13 +1325,13 @@ func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *Conn
 		return 0
 	}
 	out[0] = byte(code34)
-	ns1.callOnReceive(pid, out[:1])
+	ns.callOnReceive(pid, out[:1])
 
-	g.timing[id.i] = timingStruct{}
+	ns.g.timing[ns.ind] = timingStruct{}
 
-	if _, ok := g.playerIDs[pid]; ok {
-		delete(g.playerIDs, pid)
-		g.cntX--
+	if _, ok := ns.g.playerIDs[pid]; ok {
+		delete(ns.g.playerIDs, pid)
+		ns.g.cntX--
 	}
 
 	ns6.ReadPackets()
@@ -1343,25 +1340,25 @@ func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *Conn
 
 type Check17 func(out []byte, packet []byte) int
 
-func (g *Streams) processStreamOp17(out []byte, packet []byte, p1 byte, from netip.AddrPort, check Check17) int {
+func (ns *Conn) processStreamOp17(out []byte, packet []byte, p1 byte, from netip.AddrPort) int {
 	out[0] = 0
 	out[1] = p1
-	if n := check(out, packet); n != 0 {
+	if n := ns.check17(out, packet); n != 0 {
 		return n
 	}
-	ind2 := g.getFreeNetStruct2Ind()
+	ind2 := ns.g.getFreeNetStruct2Ind()
 	if ind2 < 0 {
 		out[2] = byte(codeACK20)
 		return 3
 	}
-	nx := &g.streams2[ind2]
+	nx := &ns.g.streams2[ind2]
 	nx.active = true
 	nx.cur = 0
 	nx.lost = 0
 	nx.addr = from
 
 	// TODO: this overwrites first 2 bytes
-	t := g.Now()
+	t := ns.g.Now()
 	return copy(out, nx.nextPingPacket(t))
 }
 
@@ -1398,7 +1395,10 @@ const (
 type RecvFlags = netlib.RecvFlags
 
 func (h Handle) RecvLoop(flags RecvFlags) int {
-	ns := h.get()
+	return h.get().RecvLoop(flags)
+}
+
+func (ns *Conn) RecvLoop(flags RecvFlags) int {
 	if ns == nil {
 		return -3
 	}
@@ -1406,7 +1406,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 	argp := 1
 	var err error
 	if flags.Has(RecvCanRead) {
-		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
+		argp, err = canReadConn(ns.g.Debug, ns.g.Log, ns.pc)
 		if err != nil || argp == 0 {
 			return -1
 		}
@@ -1416,7 +1416,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 
 	inJoin := true
 	for {
-		n, src := h.g.recvRoot(&ns.recv, ns.pc)
+		n, src := ns.g.recvRoot(&ns.recv, ns.pc)
 		if n == -1 {
 			return -1
 		}
@@ -1425,7 +1425,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 			if !flags.Has(RecvCanRead) || flags.Has(RecvJustOne) {
 				return n
 			}
-			argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
+			argp, err = canReadConn(ns.g.Debug, ns.g.Log, ns.pc)
 			if err != nil {
 				return -1
 			} else if argp == 0 {
@@ -1435,17 +1435,17 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 		}
 		hdr := ns.recv.Bytes()[:3]
 		a0 := hdr[0]
-		h2 := h.g.getForPacket(int(a0 & maskID))
+		h2 := ns.g.getForPacket(int(a0 & maskID))
 		seq := hdr[1]
 		op := noxnet.Op(hdr[2])
-		if h.g.Debug {
-			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
+		if ns.g.Debug {
+			ns.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
 		}
 		dst := ns
 		if op == codeDiscover12 {
 			// Discover packets are not a part of the protocol, they are filtered out
 			// and handled separately. Responses are written directly to underlying conn.
-			n = h.g.OnDiscover(ns.recv.Bytes(), tmp[:])
+			n = ns.g.OnDiscover(ns.recv.Bytes(), tmp[:])
 			if n > 0 {
 				n, _ = ns.WriteToRaw(tmp[:n], src)
 			}
@@ -1460,7 +1460,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 				}
 			} else {
 				inJoin = false
-				if !h.g.hasConnWithIndAndAddr(h2, src) {
+				if !ns.g.hasConnWithIndAndAddr(h2, src) {
 					goto continueX
 				}
 				inJoin = true
@@ -1478,7 +1478,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 					ns9.maybeFreeQueue(seq, 1)
 					dst.seqRecv = int8(seq)
 					v20 := false
-					if h.g.readXxx(h, h2, seq, ns.recv.Bytes()) {
+					if ns.g.readXxx(ns, h2, seq, ns.recv.Bytes()) {
 						v20 = false
 					} else {
 						v20 = true
@@ -1492,7 +1492,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 				}
 			} else if a0 == anyID {
 				if op == 0 {
-					n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp[:], src)
+					n = ns.processStreamOp(ns.recv.Bytes(), tmp[:], src)
 					if n > 0 {
 						n, _ = ns.WriteTo(tmp[:n], src)
 					}
@@ -1501,7 +1501,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 			} else {
 				data := ns.recv.Bytes()
 				data[0] &= maskID // TODO: fails without this
-				h2 = h.g.getForPacket(int(data[0]))
+				h2 = ns.g.getForPacket(int(data[0]))
 				if dst == nil {
 					goto continueX
 				}
@@ -1510,13 +1510,13 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 					goto continueX
 				}
 				hdr2[1]++
-				if h.g.readXxx(h, h2, seq, ns.recv.Bytes()) {
+				if ns.g.readXxx(ns, h2, seq, ns.recv.Bytes()) {
 					goto continueX
 				}
 			}
 		}
 		if op < code32 {
-			n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp[:], src)
+			n = ns.processStreamOp(ns.recv.Bytes(), tmp[:], src)
 			if n > 0 {
 				n, _ = ns.WriteTo(tmp[:n], src)
 			}
@@ -1530,7 +1530,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 		if !flags.Has(RecvCanRead) || flags.Has(RecvJustOne) {
 			return n
 		}
-		argp, err = canReadConn(h.g.Debug, h.g.Log, ns.pc)
+		argp, err = canReadConn(ns.g.Debug, ns.g.Log, ns.pc)
 		if err != nil {
 			return -1
 		} else if argp == 0 {
