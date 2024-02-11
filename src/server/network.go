@@ -26,7 +26,7 @@ func (s *Server) GetOwnIP() string {
 	return s.OwnIPStr
 }
 
-func (s *Server) NetGetIP(conn netstr.Handle) netip.Addr {
+func (s *Server) GetExtIP(conn *netstr.Conn) netip.Addr {
 	if conn.IsHost() {
 		return s.OwnIP
 	}
@@ -76,7 +76,7 @@ func (s *Server) Nox_server_netCloseHandler_4DEC60() {
 }
 
 func (s *Server) Nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) {
-	s.NetStr.ConnByPlayer(ind).ReadPackets()
+	s.NetStr.ConnByPlayerInd(ind).ReadPackets()
 }
 
 func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
@@ -85,7 +85,7 @@ func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 			if len(data) == 0 {
 				return
 			}
-			s.NetStr.ByPlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
+			s.NetStr.ConnByPlayerInd(ind).Send(data, netstr.SendQueue|netstr.SendFlush)
 		})
 	}
 }

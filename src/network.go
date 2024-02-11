@@ -230,7 +230,7 @@ func netSendGauntlet() {
 	nox_xxx_netClientSend2_4E53C0(server.HostPlayerIndex, buf[:2], 0, 0)
 }
 
-func (s *Server) nox_xxx_netSendBySock_40EE10(conn netstr.Handle, ind ntype.PlayerInd, kind netlist.Kind) {
+func (s *Server) nox_xxx_netSendBySock_40EE10(conn *netstr.Conn, ind ntype.PlayerInd, kind netlist.Kind) {
 	s.NetList.HandlePacketsA(ind, kind, func(data []byte) {
 		if len(data) == 0 {
 			return

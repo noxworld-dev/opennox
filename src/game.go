@@ -96,7 +96,7 @@ func init() {
 				format := c.Strings().GetStringInFile("GameInfo", "parsecmd.c")
 				format = strings.ReplaceAll(format, "%S", "%s")
 				c.Printf(console.ColorRed, format, mname, players, maxPlayers, lessons, timeLimit)
-				c.Print(console.ColorRed, s.NetGetIP(s.NetStr.Host()).String())
+				c.Print(console.ColorRed, s.GetExtIP(s.NetStr.Host()).String())
 			} else {
 				maxPlayers := s.getServerMaxPlayers()
 				mname := s.nox_server_currentMapGetFilename_409B30()

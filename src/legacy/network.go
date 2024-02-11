@@ -68,7 +68,6 @@ var (
 	SendXXX_5550D0                    func(addr netip.AddrPort, data []byte) (int, error)
 	Nox_xxx_netStatsMultiplier_4D9C20 func(a1p *server.Object) int
 	Sub_554240                        func(a1 ntype.PlayerInd) int
-	Nox_xxx_net_getIP_554200          func(a1 netstr.Handle) uint32
 	Nox_xxx_netOnPacketRecvCli_48EA70 func(ind ntype.PlayerInd, buf *byte, sz int) int
 	Sub_43C6E0                        func() int
 	Sub_43CF40                        func()
@@ -130,13 +129,13 @@ func nox_xxx_net_getIP_554200(a1 int) uint32 {
 	if a1 < 0 || a1 >= 31 {
 		panic("unexpected index")
 	}
-	var conn netstr.Handle
+	var conn *netstr.Conn
 	if a1 == 0 {
 		conn = GetServer().S().NetStr.Host()
 	} else {
-		conn = GetServer().S().NetStr.ByPlayerInd(ntype.PlayerInd(a1) + 1)
+		conn = GetServer().S().NetStr.ConnByPlayerInd(ntype.PlayerInd(a1) + 1)
 	}
-	return Nox_xxx_net_getIP_554200(conn)
+	return ip2int(GetServer().S().GetExtIP(conn))
 }
 
 //export nox_xxx_netOnPacketRecvCli_48EA70

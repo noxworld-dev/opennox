@@ -622,7 +622,7 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 			}
 		}
 	}
-	s.NetXfer.CancelSend(s.NetStr.ByPlayerInd(pli))
+	s.NetXfer.CancelSend(s.NetStr.ConnByPlayerInd(pli))
 	legacy.Sub_4DE410(pli)
 	if pl != nil {
 		var buf [3]byte
@@ -636,7 +636,7 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 	if int32(a2) == 4 {
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_KICK_NOTIFICATION)
-		s.NetStr.ByPlayerInd(pli).Send(buf[:1], netstr.SendQueue|netstr.SendFlush)
+		s.NetStr.ConnByPlayerInd(pli).Send(buf[:1], netstr.SendQueue|netstr.SendFlush)
 	}
 	legacy.Sub_4E55F0(pli)
 	if pl != nil {

@@ -8,7 +8,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
-	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -287,9 +286,6 @@ func init() {
 		return noxServer.NetStatsMultiplier(a1p)
 	}
 	legacy.Sub_554240 = sub_554240
-	legacy.Nox_xxx_net_getIP_554200 = func(a1 netstr.Handle) uint32 {
-		return ip2int(noxServer.NetGetIP(a1))
-	}
 	legacy.Nox_xxx_netOnPacketRecvCli_48EA70 = nox_xxx_netOnPacketRecvCli_48EA70
 	legacy.Sub_43C6E0 = sub_43C6E0
 	legacy.Sub_43CF40 = sub_43CF40
