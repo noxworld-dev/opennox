@@ -217,29 +217,29 @@ func (x *receiver) HandleCancel(m *xfer.MsgCancel) {
 }
 
 func sendAck(conn netlib.SendStream, rid xfer.RecvID, chunk xfer.Chunk) {
-	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgAck{
+	conn.SendReliableMsg(&noxnet.MsgXfer{&xfer.MsgAck{
 		RecvID: rid,
 		Token:  0,
 		Chunk:  chunk,
-	}}, true)
+	}})
 }
 
 func sendAccept(conn netlib.SendStream, rid xfer.RecvID, sid xfer.SendID) {
-	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgAccept{
+	conn.SendReliableMsg(&noxnet.MsgXfer{&xfer.MsgAccept{
 		RecvID: rid,
 		SendID: sid,
-	}}, true)
+	}})
 }
 
 func sendDone(conn netlib.SendStream, stream xfer.RecvID) {
-	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgDone{
+	conn.SendReliableMsg(&noxnet.MsgXfer{&xfer.MsgDone{
 		RecvID: stream,
-	}}, true)
+	}})
 }
 
 func sendAbort(conn netlib.SendStream, stream xfer.RecvID, reason xfer.Error) {
-	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgAbort{
+	conn.SendReliableMsg(&noxnet.MsgXfer{&xfer.MsgAbort{
 		RecvID: stream,
 		Reason: reason,
-	}}, true)
+	}})
 }

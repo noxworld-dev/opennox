@@ -40,7 +40,7 @@ func (s *Server) onPacketRaw(pli ntype.PlayerInd, data []byte) bool {
 	switch op {
 	case 0x20:
 		if s.newPlayerFromPacket(pli, data[1:]) == 0 {
-			s.NetStr.ConnByPlayerInd(pli).ReadPackets()
+			s.NetStr.ConnByPlayerInd(pli).SendCode11()
 		}
 		return true
 	case 0x22:
@@ -139,8 +139,8 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 					noxClient.HandleMessage(server.HostPlayerIndex, &msg)
 				} else {
 					conn := s.NetStr.ByPlayer(it)
-					conn.SendMsg(&msg, false)
-					conn.SendReadPacket(true)
+					conn.SendUnreliableMsg(&msg, false)
+					conn.Flush()
 				}
 			}
 			return msz, true
@@ -174,8 +174,8 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 					noxClient.HandleMessage(it.PlayerIndex(), &msg)
 				} else {
 					conn := s.NetStr.ByPlayer(it)
-					conn.SendMsg(&msg, false)
-					conn.SendReadPacket(true)
+					conn.SendUnreliableMsg(&msg, false)
+					conn.Flush()
 				}
 			}
 		}

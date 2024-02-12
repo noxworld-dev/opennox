@@ -635,7 +635,7 @@ func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
 	if int32(a2) == 4 {
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_KICK_NOTIFICATION)
-		s.NetStr.ConnByPlayerInd(pli).QueueSend(buf[:1], true)
+		s.NetStr.ConnByPlayerInd(pli).SendReliable(buf[:1])
 	}
 	legacy.Sub_4E55F0(pli)
 	if pl != nil {

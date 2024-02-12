@@ -26,7 +26,7 @@ func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 		if ind == server.HostPlayerIndex {
 			c.nox_netlist_receiveCli_494E90()
 		} else {
-			s.NetStr.ByPlayer(s.Players.ByInd(ind)).SendReadPacket(false)
+			s.NetStr.ByPlayer(s.Players.ByInd(ind)).FlushAndPoll()
 		}
 	})
 }
@@ -174,7 +174,7 @@ func getNetPlayerBufSize() int {
 	return netPlayerBufSize
 }
 
-func (s *Server) onSend(conn netlib.StreamID, buf []byte) int {
+func (s *Server) sendPoll(conn netlib.StreamID, buf []byte) int {
 	pli := conn.Player()
 	pl := s.Players.ByInd(pli)
 	*memmap.PtrUint32(0x5D4594, 1563308) = 0

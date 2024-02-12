@@ -67,7 +67,7 @@ func (s *Server) StartServices(dedicated bool) error {
 }
 
 func (s *Server) Nox_server_netCloseHandler_4DEC60() {
-	s.lis.ReadPackets()
+	s.lis.SendCode11()
 	s.lis.Close()
 	s.Players.SetHost(nil, nil)
 	s.SetUpdateFunc2(nil)
@@ -76,7 +76,7 @@ func (s *Server) Nox_server_netCloseHandler_4DEC60() {
 }
 
 func (s *Server) Nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) {
-	s.NetStr.ConnByPlayerInd(ind).ReadPackets()
+	s.NetStr.ConnByPlayerInd(ind).SendCode11()
 }
 
 func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
@@ -85,7 +85,7 @@ func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 			if len(data) == 0 {
 				return
 			}
-			s.NetStr.ConnByPlayerInd(ind).QueueSend(data, true)
+			s.NetStr.ConnByPlayerInd(ind).SendReliable(data)
 		})
 	}
 }

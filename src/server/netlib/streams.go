@@ -49,15 +49,19 @@ type RecvStream interface {
 
 type SendStream interface {
 	StreamID
-	QueueSend(buf []byte, flush bool) (int, error)
-	Send(buf []byte, flush bool) (int, error)
-	QueueMsg(msg noxnet.Message, flush bool) (int, error)
-	SendMsg(msg noxnet.Message, flush bool) (int, error)
-	CountInQueue(ops ...noxnet.Op) int
-	SendReadPacket(noHooks bool) int
+
+	SendUnreliable(buf []byte, flush bool) (int, error)
+	SendUnreliableMsg(msg noxnet.Message, flush bool) (int, error)
+
+	SendReliable(buf []byte) (int, error)
+	SendReliableMsg(msg noxnet.Message) (int, error)
+	ReliableInQueue(ops ...noxnet.Op) int
+
+	Flush() error
+	FlushAndPoll() error
 	SendCode6() int
 	SendClose()
-	ReadPackets()
+	SendCode11()
 }
 
 type SendStreamID interface {
@@ -69,7 +73,7 @@ type Streams interface {
 	HostStream() Stream
 	ListenerStream() Stream
 	StreamByPlayerInd(pid ntype.PlayerInd) Stream
-	MaybeSendQueues()
+	MaybeSendReliable()
 	ProcessStats(min, max time.Duration)
 	GetTimingByInd1(ind ntype.PlayerInd) int
 }

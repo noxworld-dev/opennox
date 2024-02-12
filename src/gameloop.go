@@ -444,7 +444,6 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	dword_5d4594_815704 = false
 	dword_5d4594_815708 = false
 	s.SetUpdateFunc2(s.checkPingLimits)
-	s.NetStr.Reset()
 	conn, err := s.NetStr.NewClient(narg)
 	if err != nil {
 		return err

@@ -7,7 +7,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/stretchr/testify/require"
 
-	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
@@ -16,14 +15,13 @@ func TestNetstr(t *testing.T) {
 	DebugSockets = true
 	go func() {
 		var frame uint32 = 1
-		s := NewStreams()
+		s := NewStreams(func() uint32 {
+			return frame
+		})
 		s.Debug = true
 		s.Log = log.New("SRV")
-		s.GameFlags = func() noxflags.GameFlag {
-			return noxflags.GameHost
-		}
-		s.GameFrame = func() uint32 {
-			return frame
+		s.IsHost = func() bool {
+			return true
 		}
 		s.GetMaxPlayers = func() int {
 			return 10
@@ -33,7 +31,7 @@ func TestNetstr(t *testing.T) {
 			Port:       18501,
 			Max:        10,
 			BufferSize: 2048,
-			OnSend: func(id netlib.StreamID, buf []byte) int {
+			SendPoll: func(id netlib.StreamID, buf []byte) int {
 				t.Logf("SRV: func1: %v, [%d]", id.Player(), len(buf))
 				return len(buf)
 			},
@@ -62,18 +60,15 @@ func TestNetstr(t *testing.T) {
 		}
 	}()
 
-	s := NewStreams()
+	s := NewStreams(nil)
 	s.Debug = true
 	s.Log = log.New("CLI")
-	s.GameFlags = func() noxflags.GameFlag {
-		return 0
-	}
 	s.Xor = false
 
 	conn, err := s.NewClient(&Options{
 		Max:        10,
 		BufferSize: 2048,
-		OnSend: func(id netlib.StreamID, buf []byte) int {
+		SendPoll: func(id netlib.StreamID, buf []byte) int {
 			t.Logf("CLI: func1: %v, [%d]", id.Player(), len(buf))
 			return len(buf)
 		},

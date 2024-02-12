@@ -274,27 +274,27 @@ func (x *sender) cancel(s *sendStream, reason xfer.Error) {
 }
 
 func sendStart(conn netlib.SendStream, act Action, typ string, sz int, sid xfer.SendID) {
-	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgStart{
+	conn.SendReliableMsg(&noxnet.MsgXfer{&xfer.MsgStart{
 		Act:    act,
 		Size:   uint32(sz),
 		Type:   binenc.String{Value: typ},
 		SendID: sid,
-	}}, true)
+	}})
 }
 
 func sendData(conn netlib.SendStream, rid xfer.RecvID, chunk xfer.Chunk, data []byte) {
-	conn.SendMsg(&noxnet.MsgXfer{&xfer.MsgData{
+	conn.SendUnreliableMsg(&noxnet.MsgXfer{&xfer.MsgData{
 		RecvID: rid,
 		Token:  0,
 		Chunk:  chunk,
 		Data:   data,
 	}}, false)
-	conn.SendReadPacket(true)
+	conn.Flush()
 }
 
 func sendCancel(conn netlib.SendStream, rid xfer.RecvID, reason xfer.Error) {
-	conn.QueueMsg(&noxnet.MsgXfer{&xfer.MsgCancel{
+	conn.SendReliableMsg(&noxnet.MsgXfer{&xfer.MsgCancel{
 		RecvID: rid,
 		Reason: reason,
-	}}, true)
+	}})
 }

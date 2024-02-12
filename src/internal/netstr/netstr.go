@@ -16,16 +16,15 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/platform"
 
-	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/server/netlib"
 )
 
 const (
-	maxStructs = 128
-	maskID     = byte(maxStructs - 1) // 0x7F
-	someIDFlag = byte(maxStructs)     // 0x80
-	anyID      = byte(0xff)
+	maxStructs   = 128
+	maskID       = byte(maxStructs - 1) // 0x7F
+	reliableFlag = byte(maxStructs)     // 0x80
+	anyID        = byte(0xff)
 )
 
 const (
@@ -65,7 +64,7 @@ var (
 	Log = log.New("network")
 )
 
-func NewStreams() *Streams {
+func NewStreams(frame func() uint32) *Streams {
 	s := &Streams{
 		playerIDs: make(map[int]struct{}),
 		KeyRand: func(min, max int) int {
@@ -74,6 +73,13 @@ func NewStreams() *Streams {
 		PacketDropRand: func(min, max int) int {
 			return min + rand.Intn(max-min)
 		},
+		IsHost: func() bool {
+			return false
+		},
+		IsFlag4: func() bool {
+			return false
+		},
+		GameFrame:     frame,
 		Now:           platform.Ticks,
 		Sleep:         platform.Sleep,
 		Debug:         DebugSockets,
@@ -81,39 +87,40 @@ func NewStreams() *Streams {
 		Xor:           true,
 		MaxPacketLoss: 3,
 	}
-	s.Reset()
+	s.reset()
 	return s
 }
 
 type Streams struct {
-	lastQueueSend  time.Duration
-	ticks2         time.Duration
-	cntX           int
-	lis            *Conn
-	streams        [maxStructs]*Conn
-	streams2       [maxStructs]stream2
-	timing         [maxStructs]timingStruct
-	transfer       [maxStructs]uint32
-	playerIDs      map[int]struct{}
-	sendXorBuf     [4096]byte // TODO: remove this buffer?
-	Log            *log.Logger
-	Now            func() time.Duration
-	Sleep          func(dt time.Duration)
-	GameFlags      func() noxflags.GameFlag
-	GameFrame      func() uint32
-	GetMaxPlayers  func() int
-	OnDiscover     func(src, dst []byte) int
-	OnExtPacket    func(pc net.PacketConn, buf1 []byte, from netip.AddrPort)
-	KeyRand        func(min, max int) int
-	PacketDropRand func(min, max int) int
-	PacketDrop     int
-	MaxPacketLoss  int
-	Responded      bool
-	Xor            bool
-	Debug          bool
+	lastSendReliable time.Duration
+	now              time.Duration
+	cntX             int
+	lis              *Conn
+	streams          [maxStructs]*Conn
+	streams2         [maxStructs]stream2
+	timing           [maxStructs]timingStruct
+	transfer         [maxStructs]uint32
+	playerIDs        map[int]struct{}
+	sendXorBuf       [4096]byte // TODO: remove this buffer?
+	Log              *log.Logger
+	Now              func() time.Duration
+	Sleep            func(dt time.Duration)
+	IsHost           func() bool
+	IsFlag4          func() bool
+	GameFrame        func() uint32
+	GetMaxPlayers    func() int
+	OnDiscover       func(src, dst []byte) int
+	OnExtPacket      func(pc net.PacketConn, buf1 []byte, from netip.AddrPort)
+	KeyRand          func(min, max int) int
+	PacketDropRand   func(min, max int) int
+	PacketDrop       int
+	MaxPacketLoss    int
+	Responded        bool
+	Xor              bool
+	Debug            bool
 }
 
-func (g *Streams) Reset() {
+func (g *Streams) reset() {
 	for i, ns := range g.streams {
 		if ns != nil && ns.pc != nil {
 			_ = ns.Close()
@@ -159,8 +166,8 @@ func (ns *Conn) TransferStats() uint32 {
 }
 
 func (g *Streams) Update() {
-	g.maybeReadPackets()
-	g.MaybeSendQueues()
+	g.maybeSendCode11()
+	g.MaybeSendReliable()
 }
 
 type timingStruct struct {
@@ -168,18 +175,6 @@ type timingStruct struct {
 	field4  uint32
 	field8  [5]uint32
 	field28 uint32
-}
-
-type queueItem struct {
-	next    *queueItem
-	retryAt time.Duration
-	active  bool
-	size    uint32
-	data    [1024]byte
-}
-
-func (q *queueItem) Data() []byte {
-	return q.data[:q.size]
 }
 
 type stream2 struct {
@@ -243,7 +238,7 @@ func (g *Streams) struct2IndByAddr(addr netip.AddrPort) int {
 	return -1
 }
 
-func (g *Streams) hasConnWithIndAndAddr(ind Handle, addr netip.AddrPort) bool {
+func (g *Streams) hasConnWithIndAndAddr(ind handle, addr netip.AddrPort) bool {
 	for i := range g.streams {
 		ns := g.streams[i]
 		if ns == nil {
@@ -262,10 +257,12 @@ type Options struct {
 	Port       int
 	Max        int
 	BufferSize int
-	OnSend     Handler
-	OnReceive  Handler
-	OnJoin     JoinCheck
-	Check17    Check17
+	// SendPoll polls additional data for sending.
+	// Caller must copy the data to provided buffer and return its size.
+	SendPoll  Handler
+	OnReceive Handler
+	OnJoin    JoinCheck
+	Check17   Check17
 }
 
 func (g *Streams) newStream(id int, opt *Options) *Conn {
@@ -284,11 +281,12 @@ func (g *Streams) newStreamAt(ind int, id int, opt *Options) *Conn {
 		max:       uint32(opt.Max),
 		seqRecv:   -1,
 		xorKey:    0,
-		onSend:    opt.OnSend,
+		sendPoll:  opt.SendPoll,
 		onReceive: opt.OnReceive,
 		onJoin:    opt.OnJoin,
 		check17:   opt.Check17,
 	}
+	ns.resetReliable()
 	if dsz := opt.BufferSize; dsz > 0 {
 		dsz -= dsz % 4
 		opt.BufferSize = dsz
@@ -304,12 +302,20 @@ func (g *Streams) newStreamAt(ind int, id int, opt *Options) *Conn {
 	return ns
 }
 
+func (ns *Conn) resetReliable() {
+	ns.reliable = newReliableSender(ns.write)
+	ns.reliable.Now = func() time.Duration {
+		return ns.g.now
+	}
+}
+
 func (ns *Conn) reset() {
 	if ns == nil {
 		return
 	}
 	ns.recv.Reset()
 	*ns = Conn{g: ns.g, ind: ns.ind}
+	ns.resetReliable()
 }
 
 func (ns *Conn) Close() error {
@@ -329,6 +335,7 @@ func (ns *Conn) Close() error {
 }
 
 func (g *Streams) Listen(opt *Options) (*Conn, error) {
+	g.reset()
 	if opt == nil {
 		return nil, errors.New("empty options")
 	}
@@ -354,6 +361,7 @@ func (g *Streams) Listen(opt *Options) (*Conn, error) {
 }
 
 func (g *Streams) NewClient(narg *Options) (*Conn, error) {
+	g.reset()
 	if narg == nil {
 		return nil, NewConnectErr(-2, errors.New("empty options"))
 	}
@@ -409,7 +417,7 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	}
 	ns.g.Responded = false
 	var v12 [1]byte // TODO: sending zero, is that correct? if so, set explicitly here
-	v11, err := ns.QueueSend(v12[:], true)
+	seq, err := ns.SendReliable(v12[:])
 	if err != nil {
 		return fmt.Errorf("cannot send data: %w", err)
 	}
@@ -422,9 +430,8 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 			return NewConnectErr(-23, errors.New("timeout"))
 		}
 		ns.recvLoop(RecvCanRead | RecvNoHooks | RecvJustOne)
-		ns.g.MaybeSendQueues()
-		f28 := int(ns.seqRecv)
-		if f28 >= v11 {
+		ns.g.MaybeSendReliable()
+		if int(ns.seqRecv) >= seq {
 			break
 		}
 		ns.g.Sleep(30 * time.Millisecond)
@@ -442,7 +449,7 @@ func (ns *Conn) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		if len(data) > 0 {
 			copy(buf[3:], data)
 		}
-		_, _ = ns.QueueSend(buf, true)
+		_, _ = ns.SendReliable(buf)
 	}
 
 	if !ns.handle().Valid() {
@@ -463,7 +470,7 @@ func (ns *Conn) DialWait(timeout time.Duration, send func(), check func() bool) 
 		}
 		ns.recvLoop(RecvCanRead)
 		send()
-		ns.g.MaybeSendQueues()
+		ns.g.MaybeSendReliable()
 		if check() {
 			break
 		}
@@ -489,10 +496,8 @@ type Conn struct {
 	ticks22   time.Duration
 	ticks23   time.Duration
 	ticks24   time.Duration
-	seqSend   uint8
 	seqRecv   int8
-	queue     *queueItem
-	onSend    Handler
+	sendPoll  Handler
 	onReceive Handler
 	xorKey    byte
 	field38   byte
@@ -500,6 +505,8 @@ type Conn struct {
 	frame40   uint32
 	onJoin    JoinCheck
 	check17   Check17
+
+	reliable *reliableSender
 }
 
 func (ns *Conn) String() string {
@@ -534,11 +541,11 @@ func (ns *Conn) setAddr(addr netip.AddrPort) {
 	ns.addr = addr
 }
 
-func (ns *Conn) handle() Handle {
+func (ns *Conn) handle() handle {
 	if ns == nil {
 		return errHandle(-1)
 	}
-	return Handle{ns.g, ns.id}
+	return handle{ns.g, ns.id}
 }
 
 func (ns *Conn) data2hdr() *[2]byte {
@@ -549,92 +556,11 @@ func (ns *Conn) data2hdr() *[2]byte {
 	return (*[2]byte)(ns.sendBuf[:2])
 }
 
-func (ns *Conn) sendReadBuf() []byte {
-	if ns == nil {
-		return nil
-	}
-	return ns.sendBuf[:ns.sendWrite]
-}
-
-func (ns *Conn) sendWriteBuf() []byte {
-	if ns == nil {
-		return nil
-	}
-	return ns.sendBuf[ns.sendWrite:]
-}
-
-func (ns *Conn) callOnSend(buf []byte) int {
-	if ns.onSend == nil {
-		return 0
-	}
-	return ns.onSend(ns, buf)
-}
-
 func (ns *Conn) callOnReceive(ns2 *Conn, buf []byte) int {
 	if ns.onReceive == nil {
 		return 0
 	}
 	return ns.onReceive(ns2, buf)
-}
-
-func (ns *Conn) QueueMsg(msg noxnet.Message, flush bool) (int, error) {
-	buf, err := noxnet.AppendPacket(nil, msg)
-	if err != nil {
-		return 0, err
-	}
-	return ns.QueueSend(buf, flush)
-}
-
-func (ns *Conn) SendMsg(msg noxnet.Message, flush bool) (int, error) {
-	buf, err := noxnet.AppendPacket(nil, msg)
-	if err != nil {
-		return 0, err
-	}
-	return ns.Send(buf, flush)
-}
-
-func (ns *Conn) QueueSend(buf []byte, flush bool) (int, error) {
-	if ns == nil {
-		return -3, errors.New("no net struct")
-	}
-	if len(buf) == 0 {
-		return -2, errors.New("empty buffer")
-	}
-	seq, err := ns.addToQueue(buf)
-	if seq == -1 {
-		return -1, err
-	}
-	if flush {
-		ns.sendQueueSeq(byte(seq))
-	}
-	return seq, nil
-}
-
-func (ns *Conn) Send(buf []byte, flush bool) (int, error) {
-	if ns == nil {
-		return -3, errors.New("no net struct")
-	}
-	if len(buf) == 0 {
-		return -2, errors.New("empty buffer")
-	}
-	n := len(buf)
-	d2x := ns.sendWriteBuf()
-	if n+1 > len(d2x) {
-		return -7, errors.New("buffer too short")
-	}
-	if flush {
-		copy(d2x[:2], ns.data2hdr()[:2])
-		copy(d2x[2:2+n], buf)
-		n2, err := ns.writeTo(d2x[:n+2], ns.addr)
-		if n2 == -1 {
-			return -1, err
-		}
-		ns.addTransferStats(n + 2)
-		return n2, nil
-	}
-	copy(d2x[:n], buf)
-	ns.sendWrite += n
-	return n, nil
 }
 
 func netCrypt(key byte, p []byte) {
@@ -646,88 +572,6 @@ func netCrypt(key byte, p []byte) {
 	}
 }
 
-func (ns *Conn) addToQueue(buf []byte) (int, error) {
-	if len(buf) > 1024-2 {
-		return -1, errors.New("buffer too large")
-	}
-	if len(buf) == 0 {
-		return -1, errors.New("empty buffer")
-	}
-	seq := ns.seqSend
-	ns.seqSend++
-
-	q := &queueItem{
-		active: true,
-		size:   uint32(2 + len(buf)),
-	}
-	q.data[0] = ns.data2hdr()[0] | someIDFlag
-	q.data[1] = seq
-	copy(q.data[2:], buf)
-
-	q.next = ns.queue
-	ns.queue = q
-
-	return int(seq), nil
-}
-
-func (ns *Conn) sendQueueSeq(seq byte) int {
-	if ns == nil {
-		return -3
-	}
-	for it := ns.queue; it != nil; it = it.next {
-		if it.data[1] != seq {
-			continue
-		}
-		it.active = false
-		it.retryAt = ns.g.ticks2 + 2*time.Second
-		if _, err := ns.writeTo(it.Data(), ns.addr); err != nil {
-			ns.g.Log.Println(err)
-			return 0
-		}
-	}
-	return 0
-}
-
-func (ns *Conn) sendQueueActive() int {
-	if ns == nil {
-		return -3
-	}
-	for it := ns.queue; it != nil; it = it.next {
-		if !it.active {
-			continue
-		}
-		it.active = false
-		it.retryAt = ns.g.ticks2 + 2*time.Second
-		if _, err := ns.writeTo(it.Data(), ns.addr); err != nil {
-			ns.g.Log.Println(err)
-			return 0
-		}
-	}
-	return 0
-}
-
-func (ns *Conn) resendQueueBySeq(seq byte) {
-	if ns == nil {
-		return
-	}
-	for it := ns.queue; it != nil; it = it.next {
-		if it.data[1] == seq {
-			it.active = true
-		}
-	}
-}
-
-func (ns *Conn) queueByTime() {
-	if ns == nil {
-		return
-	}
-	for it := ns.queue; it != nil; it = it.next {
-		if it.retryAt <= ns.g.ticks2 {
-			it.active = true
-		}
-	}
-}
-
 func (g *Streams) Listener() *Conn {
 	return g.lis
 }
@@ -736,118 +580,35 @@ func (g *Streams) ListenerStream() netlib.Stream {
 	return g.Listener()
 }
 
-func (g *Streams) getForPacket(i int) Handle {
-	return Handle{g, i}
+func (g *Streams) getForPacket(i int) handle {
+	return handle{g, i}
 }
 
-func (ns *Conn) SendReadPacket(noHooks bool) int {
-	if ns == nil {
-		return -3
-	}
-	ns.sendQueueActive()
-	if !noHooks {
-		buf := ns.sendWriteBuf()
-		n := ns.callOnSend(buf)
-		if n > 0 && n <= len(buf) {
-			ns.sendWrite += n
-		}
-	}
-	if buf := ns.sendReadBuf(); len(buf) > 2 {
-		_, err := ns.writeTo(buf, ns.addr)
-		if err != nil {
-			return -1
-		}
-		ns.addTransferStats(len(buf))
-		ns.sendWrite = 2
-	}
-	return 0
-}
-
-func (ns *Conn) maybeFreeQueue(seq byte, act int) {
+func (ns *Conn) SendCode11() {
 	if ns == nil {
 		return
 	}
-	var (
-		next *queueItem
-		prev *queueItem
-	)
-	for it := ns.queue; it != nil; it = next {
-		next = it.next
-		switch act {
-		case 0:
-			if it.data[1] != seq {
-				prev = it
-				continue
-			}
-		case 1:
-			if seq < 0x20 || seq > 0xE0 {
-				if it.data[1] >= seq {
-					prev = it
-					continue
-				}
-			} else {
-				if it.data[1] >= seq {
-					prev = it
-					continue
-				}
-			}
-		case 2:
-			// nop
-		default:
-			prev = it
-			continue
-		}
-		if head := ns.queue; it == head {
-			ns.queue = head.next
-		}
-		if prev != nil {
-			prev.next = next
-		}
-		it.next = nil
-		*it = queueItem{}
-	}
-}
-
-func (ns *Conn) ReadPackets() {
-	if ns == nil {
-		return
-	}
-	ns.SendReadPacket(true)
+	ns.Flush()
 	var buf [1]byte
 	buf[0] = byte(code11)
-	_, _ = ns.Send(buf[:], false)
-	ns.SendReadPacket(true)
+	_, _ = ns.SendUnreliable(buf[:], false)
+	ns.Flush()
 	ns.accepted--
-	ns.maybeFreeQueue(0, 2)
+	ns.reliable.Clear()
 	ns.reset()
 	ns.g.streams[ns.ind] = nil
 }
 
-func (g *Streams) maybeReadPackets() {
-	g.ticks2 = g.Now()
+func (g *Streams) maybeSendCode11() {
+	g.now = g.Now()
 	for _, ns := range g.streams {
 		if ns == nil {
 			continue
 		}
 		if ns.field38 == 1 && ns.frame40+300 < g.GameFrame() {
-			ns.ReadPackets()
+			ns.SendCode11()
 		}
 	}
-}
-
-func (g *Streams) MaybeSendQueues() {
-	now := g.Now()
-	g.ticks2 = now
-	if now-g.lastQueueSend <= 1*time.Second {
-		return
-	}
-	for _, ns := range g.streams {
-		if ns != nil {
-			ns.queueByTime()
-			ns.sendQueueActive()
-		}
-	}
-	g.lastQueueSend = now
 }
 
 func (g *Streams) GetTimingByInd1(ind ntype.PlayerInd) int {
@@ -865,16 +626,16 @@ func (ns *Conn) SendClose() {
 	if ns == nil {
 		return
 	}
-	ns.SendReadPacket(false)
+	ns.FlushAndPoll()
 	var buf [1]byte
 	buf[0] = byte(code10)
-	_, _ = ns.Send(buf[:1], false)
-	ns.SendReadPacket(false)
+	_, _ = ns.SendUnreliable(buf[:1], false)
+	ns.FlushAndPoll()
 	ns.Close()
 }
 
-func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.AddrPort) int {
-	if f := ns.g.GameFlags(); f.Has(noxflags.GameHost) && f.Has(noxflags.GameFlag4) {
+func (ns *Conn) processStreamOp0(out []byte, pid handle, p1 byte, from netip.AddrPort) int {
+	if ns.g.IsHost() && ns.g.IsFlag4() {
 		return 0
 	}
 	out[0] = 0
@@ -913,7 +674,7 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 		hdr[1]++
 	}
 	ns2.pc = ns.pc
-	ns2.onSend = ns.onSend
+	ns2.sendPoll = ns.sendPoll
 	ns2.onReceive = ns.onReceive
 
 	ns.g.timing[ind] = timingStruct{field28: 1}
@@ -930,11 +691,11 @@ func (ns *Conn) processStreamOp0(out []byte, pid Handle, p1 byte, from netip.Add
 	out[2] = byte(codeNewStream1)
 	binary.LittleEndian.PutUint32(out[3:], uint32(ind))
 	out[7] = key
-	v67, _ := ns2.QueueSend(out[:8], true)
+	seq, _ := ns2.SendReliable(out[:8])
 
 	ns2.xorKey = key
 	ns2.field38 = 1
-	ns2.seq39 = byte(v67)
+	ns2.seq39 = byte(seq)
 	ns2.frame40 = ns.g.GameFrame()
 	return 0
 }
@@ -970,7 +731,7 @@ func (ns *Conn) processStreamOp7(ns2 *Conn, out []byte) int {
 	if ns2 == nil {
 		return 0
 	}
-	ms := int((ns.g.ticks2 - ns2.ticks24) / time.Millisecond)
+	ms := int((ns.g.now - ns2.ticks24) / time.Millisecond)
 	speed := -1
 	if ms >= 1 {
 		speed = 256000 / ms
@@ -990,7 +751,7 @@ func (ns *Conn) processStreamOp8(ns2 *Conn, out []byte, packetCur []byte) int {
 	if ns2 == nil || binary.LittleEndian.Uint32(packetCur) != uint32(ns2.ticks22/time.Millisecond) {
 		return 0
 	}
-	dt := ns.g.ticks2 - ns2.ticks23
+	dt := ns.g.now - ns2.ticks23
 	ns2.ticks24 = dt
 	out[0] = byte(code36) // MSG_PING?
 	ms := int(dt / time.Millisecond)
@@ -1005,12 +766,12 @@ func (ns *Conn) processStreamOp8(ns2 *Conn, out []byte, packetCur []byte) int {
 	out[0] = ns.data2hdr()[0]
 	out[1] = ns2.data2hdr()[1]
 	out[2] = byte(code9)
-	ms = int(ns.g.ticks2 / time.Millisecond)
+	ms = int(ns.g.now / time.Millisecond)
 	binary.LittleEndian.PutUint32(out[3:], uint32(ms))
 	return 7
 }
 
-func (g *Streams) processStreamOp9(pid Handle, packetCur []byte) int {
+func (g *Streams) processStreamOp9(pid handle, packetCur []byte) int {
 	if len(packetCur) < 4 {
 		return 0
 	}
@@ -1078,10 +839,10 @@ func (ns *Conn) SendCode6() int {
 	}
 	var buf [5]byte
 	buf[0] = byte(code6)
-	ns.ticks22 = ns.g.ticks2
+	ns.ticks22 = ns.g.now
 	ns.ticks23 = ns.ticks22
 	binary.LittleEndian.PutUint32(buf[1:], uint32(ns.ticks22/time.Millisecond))
-	_, _ = ns.Send(buf[:5], true)
+	_, _ = ns.SendUnreliable(buf[:5], true)
 	return 0
 }
 
@@ -1090,7 +851,7 @@ func (ns *Conn) readXxx(ns2 *Conn, a3 byte, buf []byte) bool {
 		return false
 	}
 	if ns.accepted > (ns.g.GetMaxPlayers() - 1) {
-		ns2.ReadPackets()
+		ns2.SendCode11()
 		return true
 	}
 	if len(buf) >= 4 && buf[4] == 32 {
@@ -1195,8 +956,7 @@ func (ns *Conn) processStreamOp(packet []byte, out []byte, from netip.AddrPort) 
 			ns.g.Log.Printf("switch 31: 0x%x 0x%x\n", seq, ns8.seqRecv)
 			if seq != byte(ns8.seqRecv) {
 				ns9 := pid.Get()
-				ns9.resendQueueBySeq(seq)
-				ns9.maybeFreeQueue(seq, 1)
+				ns9.reliable.SetCurrent(seq)
 				ns8.seqRecv = int8(seq)
 				out[0] = byte(code38)
 				out[1] = seq
@@ -1215,7 +975,7 @@ func (g *Streams) recvRoot(dst *bytes.Buffer, pc net.PacketConn) (int, netip.Add
 			netCrypt(ns.xorKey, buf[:n])
 		}
 	}
-	if g.GameFlags().Has(noxflags.GameHost) {
+	if g.IsHost() {
 		dst.Write(buf[:n])
 		return n, src
 	}
@@ -1252,7 +1012,7 @@ func (ns *Conn) processStreamOp10(ns2 *Conn, out []byte) int {
 		ns.g.cntX--
 	}
 
-	ns2.ReadPackets()
+	ns2.SendCode11()
 	return 0
 }
 
@@ -1389,14 +1149,13 @@ func (ns *Conn) recvLoop(flags RecvFlags) int {
 			if ns.id == -1 {
 				dst = h2.Get()
 			}
-			if a0&someIDFlag == 0 {
+			if a0&reliableFlag == 0 {
 				if dst == nil {
 					goto continueX
 				}
 				if seq != byte(dst.seqRecv) {
 					ns9 := h2.Get()
-					ns9.resendQueueBySeq(seq)
-					ns9.maybeFreeQueue(seq, 1)
+					ns9.reliable.SetCurrent(seq)
 					dst.seqRecv = int8(seq)
 					v20 := false
 					if ns.readXxx(ns9, seq, ns.recv.Bytes()) {
@@ -1547,27 +1306,6 @@ func (g *Streams) ProcessStats(min, max time.Duration) {
 	}
 }
 
-func (ns *Conn) CountInQueue(ops ...noxnet.Op) int {
-	if ns == nil {
-		return 0
-	}
-	cnt := 0
-	for it := ns.queue; it != nil; it = it.next {
-		op := noxnet.Op(it.data[2])
-		if len(ops) == 0 {
-			cnt++
-			continue
-		}
-		for _, op2 := range ops {
-			if op == op2 {
-				cnt++
-				break
-			}
-		}
-	}
-	return cnt
-}
-
 func (ns *Conn) WaitServerResponse(seq int, try int, flags RecvFlags) int {
 	if ns == nil {
 		return -3
@@ -1582,7 +1320,7 @@ func (ns *Conn) WaitServerResponse(seq int, try int, flags RecvFlags) int {
 	for i := 0; i <= 20*try; i++ {
 		ns.g.Sleep(50 * time.Millisecond)
 		ns.recvLoop(flags | RecvCanRead)
-		ns.g.MaybeSendQueues()
+		ns.g.MaybeSendReliable()
 		if int(ns.seqRecv) >= seq {
 			return 0
 		}
@@ -1607,6 +1345,9 @@ func (ns *Conn) writeToRaw(buf []byte, addr netip.AddrPort) (int, error) {
 	return writeTo(ns.g.Debug, ns.g.Log, ns.pc, buf, addr)
 }
 
+func (ns *Conn) write(buf []byte) (int, error) {
+	return ns.writeTo(buf, ns.addr)
+}
 func (ns *Conn) writeTo(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns == nil || len(buf) == 0 {
 		return 0, nil

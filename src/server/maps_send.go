@@ -68,7 +68,7 @@ func (s *serverMapSend) CountQueued(pli ntype.PlayerInd) int {
 	if nind == 0 || pli >= 32 {
 		return 0
 	}
-	return s.s.NetStr.ConnByPlayerInd(nind).CountInQueue(noxnet.MSG_MAP_SEND_START, noxnet.MSG_MAP_SEND_PACKET)
+	return s.s.NetStr.ConnByPlayerInd(nind).ReliableInQueue(noxnet.MSG_MAP_SEND_START, noxnet.MSG_MAP_SEND_PACKET)
 }
 
 func (s *serverMapSend) Reset() {
@@ -93,7 +93,7 @@ func (s *serverMapSend) abort(p *playerMapSend, errCode byte) {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_MAP_SEND_ABORT)
 	buf[1] = byte(errCode)
-	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).QueueSend(buf[:2], true)
+	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).SendReliable(buf[:2])
 	if s.activeCnt != 0 {
 		s.activeCnt--
 	}
@@ -115,7 +115,7 @@ func (s *serverMapSend) SendMore(p *playerMapSend) {
 		buf[0] = byte(noxnet.MSG_MAP_SEND_START)
 		binary.LittleEndian.PutUint32(buf[4:], uint32(p.DataSize))
 		copy(buf[8:], s.mapName)
-		s.s.NetStr.ConnByPlayerInd(p.PlayerInd).QueueSend(buf[:88], true)
+		s.s.NetStr.ConnByPlayerInd(p.PlayerInd).SendReliable(buf[:88])
 	}
 	psz := mapSendPacketSize
 	packet := make([]byte, 6+psz)
@@ -132,7 +132,7 @@ func (s *serverMapSend) SendMore(p *playerMapSend) {
 		src = s.currentData[p.SentSize:]
 	}
 	copy(packet[6:], src[:psz])
-	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).QueueSend(packet[:6+psz], true)
+	s.s.NetStr.ConnByPlayerInd(p.PlayerInd).SendReliable(packet[:6+psz])
 	p.Sequence++
 	p.SentSize += psz
 	if p.SentSize < p.DataSize {

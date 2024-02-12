@@ -25,36 +25,36 @@ type CurPlayerInfo struct {
 func (c *Client) Nox_xxx_netSendClientReady_43C9F0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CLIENT_READY)
-	c.Conn.QueueSend(data[:], true)
+	c.Conn.SendReliable(data[:])
 	return 1
 }
 
 func (c *Client) Nox_xxx_netKeepAliveSocket_43CA20() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
-	c.Conn.Send(data[:], true)
+	c.Conn.SendUnreliable(data[:], true)
 	return 1
 }
 
 func (c *Client) Nox_xxx_netRequestMap_43CA50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_REQUEST_MAP)
-	c.Conn.QueueSend(data[:], true)
+	c.Conn.SendReliable(data[:])
 	return 1
 }
 
 func (c *Client) Nox_xxx_netMapReceived_43CA80() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
-	c.Conn.QueueSend(data[:], true)
+	c.Conn.SendReliable(data[:])
 	return 1
 }
 
 func (c *Client) Nox_xxx_cliSendCancelMap_43CAB0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
-	v0, _ := c.Conn.QueueSend(data[:], true)
-	if c.Conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
+	seq, _ := c.Conn.SendReliable(data[:])
+	if c.Conn.WaitServerResponse(seq, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
 	c.Server.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
@@ -64,8 +64,8 @@ func (c *Client) Nox_xxx_cliSendCancelMap_43CAB0() int {
 func (c *Client) Nox_xxx_netSendIncomingClient_43CB00() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
-	v0, _ := c.Conn.QueueSend(data[:], true)
-	if c.Conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
+	seq, _ := c.Conn.SendReliable(data[:])
+	if c.Conn.WaitServerResponse(seq, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
 	c.Server.NetList.ResetByInd(server.HostPlayerIndex, netlist.Kind0)
@@ -75,8 +75,8 @@ func (c *Client) Nox_xxx_netSendIncomingClient_43CB00() int {
 func (c *Client) Nox_xxx_cliSendOutgoingClient_43CB50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
-	v0, _ := c.Conn.QueueSend(data[:], true)
-	if c.Conn.WaitServerResponse(v0, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
+	seq, _ := c.Conn.SendReliable(data[:])
+	if c.Conn.WaitServerResponse(seq, 20, netstr.RecvNoHooks|netstr.RecvJustOne) != 0 {
 		return 0
 	}
 	c.Conn.RecvLoop(true)

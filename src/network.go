@@ -206,12 +206,11 @@ func (s *Server) listen(ctx context.Context, port int) error {
 			s.onPacketRaw(conn.Player(), buf)
 			return 1
 		},
-		OnSend:  s.onSend,
-		OnJoin:  nox_xxx_netBigSwitch_553210_op_14_check,
-		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
+		SendPoll: s.sendPoll,
+		OnJoin:   nox_xxx_netBigSwitch_553210_op_14_check,
+		Check17:  nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	s.SetUpdateFunc2(s.checkPingLimits)
-	s.NetStr.Reset()
 	return s.Listen(ctx, narg)
 }
 
@@ -236,8 +235,8 @@ func (s *Server) nox_xxx_netSendBySock_40EE10(conn *netstr.Conn, ind ntype.Playe
 		if len(data) == 0 {
 			return
 		}
-		conn.Send(data, false)
-		conn.SendReadPacket(true)
+		conn.SendUnreliable(data, false)
+		conn.Flush()
 	})
 }
 
@@ -535,7 +534,7 @@ func (s *Server) sendSettings(u *server.Object) {
 		if err != nil {
 			panic(err)
 		}
-		s.NetStr.ByPlayer(pl).QueueSend(buf, true)
+		s.NetStr.ByPlayer(pl).SendReliable(buf)
 		legacy.Sub_4DDE10(pl.Index(), pl)
 	}
 }
@@ -559,7 +558,7 @@ func (s *Server) nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != server.HostPlayerIndex {
 			buf := s.NetList.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
-				s.NetStr.ByPlayer(pl).QueueSend(buf, true)
+				s.NetStr.ByPlayer(pl).SendReliable(buf)
 			}
 		}
 	}

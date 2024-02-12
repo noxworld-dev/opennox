@@ -39,14 +39,20 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		Printer: pr, sm: sm,
 		loopHooks: make(chan func()),
 		port:      common.GamePort,
-		NetStr:    netstr.NewStreams(),
 		NetList:   netlist.New(),
 		UseNAT:    true,
 	}
 	s.handle = atomic.AddUintptr(&serverLast, 1)
 	servers.Store(s.handle, s)
+
 	s.Rand.init(nil)
-	s.NetStr.GameFlags = noxflags.GetGame
+	s.NetStr = netstr.NewStreams(s.Frame)
+	s.NetStr.IsHost = func() bool {
+		return noxflags.HasGame(noxflags.GameHost)
+	}
+	s.NetStr.IsFlag4 = func() bool {
+		return noxflags.HasGame(noxflags.GameFlag4)
+	}
 	s.NetStr.GameFrame = s.Frame
 	s.NetStr.KeyRand = s.Rand.Logic.IntClamp
 	s.NetStr.PacketDropRand = s.Rand.Other.Int
