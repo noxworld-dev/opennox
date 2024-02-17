@@ -45,7 +45,7 @@ func Sub_489FF0(a1 int, a2 int, a3 unsafe.Pointer) {
 	sub_489FF0(int32(a1), int32(a2), a3)
 }
 func Sub_409F40(a1 int) int {
-	return int(sub_409F40(int32(a1)))
+	return int(sub_409F40(uint32(int32(a1))))
 }
 func Sub_4D0DE0(a1 uint32) int {
 	return int(sub_4D0DE0(int32(a1)))

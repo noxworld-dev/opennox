@@ -1,10 +1,12 @@
 package legacy
 
 import (
+	"encoding/binary"
 	"math"
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -460,7 +462,7 @@ func sub_4CF060(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v22 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc(dword_5d4594_1523032, 16413, 0, 0)))
 		nox_sprintf(&v28[0], internCStr("%S%s"), v22, memmap.PtrOff(0x587000, 191640))
 		v23 = sub_4165B0()
-		sub_459AA0(unsafe.Pointer(v23))
+		sub_459AA0((*DataYyy)(unsafe.Pointer(v23)))
 		v24 = sub_4165B0()
 		sub_57AAA0(&v28[0], v24, nil)
 		v25 = 0
@@ -495,7 +497,7 @@ func sub_4CF060(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v11 = int32(nox_window_call_field_94_fnc(dword_5d4594_1523028, 16406, uintptr(v10), 0))
 		nox_sprintf(&v28[0], internCStr("%S%s"), v11, memmap.PtrOff(0x587000, 191592))
 		v12 = sub_4165B0()
-		sub_459AA0(unsafe.Pointer(v12))
+		sub_459AA0((*DataYyy)(unsafe.Pointer(v12)))
 		v13 = sub_4165B0()
 		sub_57AAA0(&v28[0], v13, nil)
 		nox_window_call_field_94_fnc(dword_5d4594_1523028, 16403, math.MaxUint32, 0)
@@ -507,7 +509,7 @@ func sub_4CF060(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		v16 = int32(nox_window_call_field_94_fnc(dword_5d4594_1523028, 16406, uintptr(v15), 0))
 		nox_sprintf(&v28[0], internCStr("%S%s"), v16, memmap.PtrOff(0x587000, 191608))
 		sub_57A1E0((*int32)(unsafe.Pointer(v14)), &v28[0], nil, 7, int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v14), unsafe.Sizeof(uint16(0))*26))))
-		sub_453F70(unsafe.Add(unsafe.Pointer(v14), 24))
+		sub_453F70((*DataZzz)(unsafe.Add(unsafe.Pointer(v14), 24)))
 		sub_4535E0((*int32)(unsafe.Add(unsafe.Pointer(v14), 4*11)))
 		sub_4535F0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*12))))
 		v17 = sub_4165B0()
@@ -3196,13 +3198,10 @@ func sub_4D6F80(a1 int32) int32 {
 func sub_4D6FA0() int32 {
 	return int32(*memmap.PtrUint32(0x5D4594, 1556104))
 }
-func sub_4D70B0() *byte {
-	var result *byte
-	result = *(**byte)(memmap.PtrOff(0x5D4594, 1556152))
+func sub_4D70B0() {
 	if *memmap.PtrUint32(0x5D4594, 1556152) == 0 {
-		result = sub_4169F0()
+		sub_4169F0()
 	}
-	return result
 }
 func nox_xxx_bookCreatureTest_4D70C0(a1 int32) int32 {
 	return bool2int32(noxflags.HasGame(4096) || a1 != 37 && a1 != 38 && a1 != 40 && a1 != 39)
@@ -3473,182 +3472,143 @@ func sub_4D7B40() int32 {
 	libc.MemSet(memmap.PtrOff(0x5D4594, 1556172), 0, 0x80)
 	return result
 }
-func sub_4D7B60(a1 *server.Object) {
-	var (
-		v3 [7]byte
-	)
-	v3[0] = 210
-	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a1))
-	*(*uint16)(unsafe.Pointer(&v3[3])) = a1.TypeInd
-	v3[5] = 1
-	v3[6] = 2
-	result := nox_xxx_getFirstPlayerUnit_4DA7C0()
-	for i := result; result != nil; i = result {
-		nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i.UpdateData, 276)), 2064))), unsafe.Pointer(&v3[0]), 7, nil, 1)
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i)
+func sub_4D7B60(u *server.Object) {
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_INTERESTING_ID)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(nox_xxx_netGetUnitCodeServ_578AC0(u)))
+	binary.LittleEndian.PutUint16(buf[3:], u.TypeInd)
+	buf[5] = 1
+	buf[6] = 2
+	for it := nox_xxx_getFirstPlayerUnit_4DA7C0(); it != nil; it = nox_xxx_getNextPlayerUnit_4DA7F0(it) {
+		nox_xxx_netSendPacket0_4E5420(int32(it.UpdateDataPlayer().Player.PlayerInd), buf[:7], nil, 1)
 	}
 }
-func nox_xxx_netSendInterestingId_4D7BE0(a1 *server.Object) {
-	var (
-		v3 [7]byte
-	)
-	v3[0] = 210
-	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a1))
-	*(*uint16)(unsafe.Pointer(&v3[3])) = a1.TypeInd
-	v3[5] = 2
-	v3[6] = 2
-	result := nox_xxx_getFirstPlayerUnit_4DA7C0()
-	for i := result; result != nil; i = result {
-		nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(i.UpdateData, 276)), 2064))), unsafe.Pointer(&v3[0]), 7, nil, 1)
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i)
+func nox_xxx_netSendInterestingId_4D7BE0(u *server.Object) {
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_INTERESTING_ID)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(nox_xxx_netGetUnitCodeServ_578AC0(u)))
+	binary.LittleEndian.PutUint16(buf[3:], u.TypeInd)
+	buf[5] = 2
+	buf[6] = 2
+	for it := nox_xxx_getFirstPlayerUnit_4DA7C0(); it != nil; it = nox_xxx_getNextPlayerUnit_4DA7F0(it) {
+		nox_xxx_netSendPacket0_4E5420(int32(it.UpdateDataPlayer().Player.PlayerInd), buf[:7], nil, 1)
 	}
 }
-func sub_4D7C60() int32 {
-	var (
-		result int32
-		v1     float32
-		v2     float32
-	)
+func sub_4D7C60() {
 	dword_5d4594_1556316 = 0
 	*memmap.PtrFloat32(0x5D4594, 1556308) = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperRadiusSq")))
-	v1 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperStartTime")))
-	*memmap.PtrUint32(0x5D4594, 1556312) = uint32(int32(v1))
-	v2 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperFadeTime")))
-	result = int32(v2)
-	*memmap.PtrUint32(0x5D4594, 1556304) = uint32(result)
-	return result
+	*memmap.PtrUint32(0x5D4594, 1556312) = uint32(float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperStartTime"))))
+	*memmap.PtrUint32(0x5D4594, 1556304) = uint32(float32(nox_xxx_gamedataGetFloat_419D40(internCStr("CamperFadeTime"))))
 }
 func sub_4D7CC0() {
-	var (
-		v3 float64
-		v4 float64
-		v7 int32
-	)
-	nox_platform_get_ticks()
-	if sub_409F40(0x2000) == 0 {
+	if !sub_409F40(0x2000) {
 		return
 	}
 	if (gameFrame() - dword_5d4594_1556316) > uint32(*memmap.PtrInt32(0x5D4594, 1556312)) {
-		for i := nox_xxx_getFirstPlayerUnit_4DA7C0(); i != nil; i = nox_xxx_getNextPlayerUnit_4DA7F0(i) {
-			if (i.ObjFlags & 0x8020) == 0 {
-				v2 := i.UpdateData
-				if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 3680))) & 1) == 0 {
-					v3 = float64(i.PosVec.Y - *(*float32)(unsafe.Add(v2, 252)))
-					v4 = float64(i.PosVec.X - *(*float32)(unsafe.Add(v2, 248)))
-					if v4*v4+v3*v3 < float64(*memmap.PtrFloat32(0x5D4594, 1556308)) {
-						*(*uint32)(unsafe.Add(v2, 256)) = gameFrame()
+		for it := nox_xxx_getFirstPlayerUnit_4DA7C0(); it != nil; it = nox_xxx_getNextPlayerUnit_4DA7F0(it) {
+			if (it.ObjFlags & 0x8020) == 0 {
+				v2 := it.UpdateDataPlayer()
+				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2.Player), 3680))) & 1) == 0 {
+					dx := float64(it.PosVec.X - float32(int32(v2.Field62)))
+					dy := float64(it.PosVec.Y - float32(int32(v2.Field63)))
+					if dx*dx+dy*dy < float64(*memmap.PtrFloat32(0x5D4594, 1556308)) {
+						v2.Field64 = gameFrame()
 					}
-					*(*int32)(unsafe.Add(v2, 248)) = int32(i.PosVec.X)
-					*(*int32)(unsafe.Add(v2, 252)) = int32(i.PosVec.Y)
+					v2.Field62 = uint32(int32(it.PosVec.X))
+					v2.Field63 = uint32(int32(it.PosVec.Y))
 				}
 			}
 		}
 		dword_5d4594_1556316 = gameFrame()
 	}
-	result := nox_xxx_getFirstPlayerUnit_4DA7C0()
-	for j := result; result != nil; j = result {
-		if (j.ObjFlags & 0x8020) == 0 {
-			v6 := j.UpdateData
-			if (int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v6, 4*69)), 3680))) & 1) == 0 {
-				v7 = int32(*(*uint32)(unsafe.Add(v6, 4*65)))
-				if (dword_5d4594_1556316 - *(*uint32)(unsafe.Add(v6, 4*64))) > uint32(*memmap.PtrInt32(0x5D4594, 1556304)) {
+	for it := nox_xxx_getFirstPlayerUnit_4DA7C0(); it != nil; it = nox_xxx_getNextPlayerUnit_4DA7F0(it) {
+		if (it.ObjFlags & 0x8020) == 0 {
+			v6 := it.UpdateDataPlayer()
+			if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v6.Player), 3680))) & 1) == 0 {
+				v7 := v6.Field65
+				if (dword_5d4594_1556316 - v6.Field64) > uint32(*memmap.PtrInt32(0x5D4594, 1556304)) {
 					if v7 != 0 {
-						nox_xxx_netSendInterestingId_4D7BE0(j)
-						*(*uint32)(unsafe.Add(v6, 4*65)) = 0
+						nox_xxx_netSendInterestingId_4D7BE0(it)
+						v6.Field65 = 0
 					}
 				} else if v7 == 0 {
-					if !noxflags.HasGame(32) || int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v6, 4*69)), 4)))&1 != 0 {
-						nox_xxx_aud_501960(774, j, 0, 0)
+					if !noxflags.HasGame(32) || int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v6.Player), 4)))&1 != 0 {
+						nox_xxx_aud_501960(774, it, 0, 0)
 					}
-					sub_4D7B60(j)
-					*(*uint32)(unsafe.Add(v6, 4*65)) = 1
+					sub_4D7B60(it)
+					v6.Field65 = 1
 				}
 			}
 		}
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(j)
 	}
 }
-func sub_4D7E50(a1p *server.Object) {
-	var (
-		a1 = a1p
-		v2 *uint32
-	)
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 == 0 {
+func sub_4D7E50(obj *server.Object) {
+	if !obj.Class().Has(object.ClassPlayer) {
 		return
 	}
-	v2 = (*uint32)(a1.UpdateData)
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*62)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*63)) = 0
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*64)) = gameFrame()
-	if *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*65)) != 0 {
-		nox_xxx_netSendInterestingId_4D7BE0(a1)
+	ud := obj.UpdateDataPlayer()
+	ud.Field62 = 0
+	ud.Field63 = 0
+	ud.Field64 = gameFrame()
+	if ud.Field65 != 0 {
+		nox_xxx_netSendInterestingId_4D7BE0(obj)
 	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*65)) = 0
+	ud.Field65 = 0
 }
 func sub_4D7EA0() {
-	result := nox_xxx_getFirstPlayerUnit_4DA7C0()
-	for i := result; result != nil; i = result {
-		sub_4D7E50(i)
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i)
+	for it := nox_xxx_getFirstPlayerUnit_4DA7C0(); it != nil; it = nox_xxx_getNextPlayerUnit_4DA7F0(it) {
+		sub_4D7E50(it)
 	}
 }
 func nox_xxx_netCreatureCmd_4D7EE0(player int32, orderType int8) int32 {
 	var buf [2]byte
-	buf[0] = 237
+	buf[0] = byte(noxnet.MSG_REPORT_CREATURE_CMD)
 	buf[1] = byte(orderType)
-	return nox_xxx_netSendPacket1_4E5390(player, unsafe.Pointer(&buf[0]), 2, nil, 1)
+	return nox_xxx_netSendPacket1_4E5390(player, buf[:2], nil, 1)
 }
 func nox_xxx_netNotifyRate_4D7F10(a1 int32) int32 {
 	var v2 [2]byte
-	v2[0] = 236
+	v2[0] = byte(noxnet.MSG_RATE_CHANGE)
 	v2[1] = byte(int8(nox_xxx_rateGet_40A6C0()))
-	return nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v2[0]), 2, nil, 1)
+	return nox_xxx_netSendPacket1_4E5390(a1, v2[:2], nil, 1)
 }
-func nox_xxx_netReportObjectPoison_4D7F40(a1p *server.Object, a2 *server.Object, a3 int8) int32 {
-	v3 := a1p.UpdateData
-	var a1 int32
-	*(*uint8)(unsafe.Pointer(&a1)) = 218
-	*(*uint16)(unsafe.Add(unsafe.Pointer(&a1), 1)) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2))
-	*(*uint8)(unsafe.Add(unsafe.Pointer(&a1), 4-1)) = uint8(a3)
-	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v3, 276)), 2064))), unsafe.Pointer(&a1), 4, nil, 1)
+func nox_xxx_netReportObjectPoison_4D7F40(u *server.Object, a2 *server.Object, a3 int8) int32 {
+	ud := u.UpdateDataPlayer()
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_REPORT_OBJECT_POISON)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2)))
+	buf[3] = uint8(a3)
+	return nox_xxx_netSendPacket0_4E5420(int32(ud.Player.PlayerInd), buf[:4], nil, 1)
 }
-func sub_4D81A0(a1 *server.Object) {
-	var (
-		v1 float64
-		v3 [5]byte
-	)
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
-		v1 = float64(a1.Experience)
-		v3[0] = 110
-		v2 := a1.UpdateData
-		*(*uint32)(unsafe.Pointer(&v3[1])) = uint32(int32(int64(v1)))
-		nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 2064))), unsafe.Pointer(&v3[0]), 5, nil, 1)
+func sub_4D81A0(u *server.Object) {
+	if u.Class().Has(object.ClassPlayer) {
+		ud := u.UpdateDataPlayer()
+		var buf [5]byte
+		buf[0] = byte(noxnet.MSG_REPORT_EXPERIENCE)
+		binary.LittleEndian.PutUint32(buf[1:], uint32(u.Experience))
+		nox_xxx_netSendPacket0_4E5420(int32(ud.Player.PlayerInd), buf[:5], nil, 1)
 	}
 }
 func nox_xxx_netReportAnimFrame_4D81F0(a1 int32, a2 *server.Object) int32 {
-	var v3 [7]byte
-	v3[0] = 107
-	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2))
-	*(*uint32)(unsafe.Pointer(&v3[3])) = a2.Field33
-	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v3[0]), 7, nil, 1)
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_REPORT_ANIMATION_FRAME)
+	*(*uint16)(unsafe.Pointer(&buf[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2))
+	*(*uint32)(unsafe.Pointer(&buf[3])) = a2.Field33
+	return nox_xxx_netSendPacket0_4E5420(a1, buf[:7], nil, 1)
 }
 func nox_xxx_netReportXStatus_4D8230(a1 int32, a2 *server.Object) int32 {
-	var v3 [7]byte
-	v3[0] = 101
-	*(*uint16)(unsafe.Pointer(&v3[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2))
-	*(*uint32)(unsafe.Pointer(&v3[3])) = a2.Field5
-	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v3[0]), 7, nil, 1)
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_REPORT_X_STATUS)
+	*(*uint16)(unsafe.Pointer(&buf[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2))
+	*(*uint32)(unsafe.Pointer(&buf[3])) = a2.Field5
+	return nox_xxx_netSendPacket0_4E5420(a1, buf[:7], nil, 1)
 }
-func nox_xxx_netReportPlrStatus_4D8270(a1 *server.Object) int32 {
-	var (
-		v1 int32
-		v4 [5]byte
-	)
-	v1 = int32(a1.ObjFlags)
-	v2 := a1.UpdateData
-	v4[0] = 102
-	*(*uint32)(unsafe.Pointer(&v4[1])) = uint32(v1)
-	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 2064))), unsafe.Pointer(&v4[0]), 5, nil, 1)
+func nox_xxx_netReportPlrStatus_4D8270(u *server.Object) int32 {
+	ud := u.UpdateData
+	var buf [5]byte
+	buf[0] = byte(noxnet.MSG_REPORT_PLAYER_STATUS)
+	*(*uint32)(unsafe.Pointer(&buf[1])) = u.ObjFlags
+	return nox_xxx_netSendPacket0_4E5420(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(ud, 276)), 2064))), unsafe.Pointer(&buf[0]), 5, nil, 1)
 }
 func nox_xxx_netReportCharges_4D82B0(a1 int32, item *server.Object, a3 int8, a4 int8) int32 {
 	var v5 [5]byte
@@ -3822,20 +3782,14 @@ func nox_xxx_netReportTotalHealth_4D85C0(a1 int32, a2 *server.Object) {
 	nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&v4[0]), 7, nil, 1)
 }
 func nox_xxx_netReportUnitCurrentHP_4D8620(a1 int32, a2p *server.Object) {
-	var (
-		v4 uint32
-	)
-	v2 := a2p
 	if a2p.HealthData == nil {
 		return
 	}
-	v5 := a2p
-	var a2 int32
-	*(*uint8)(unsafe.Pointer(&a2)) = 65
-	*(*uint16)(unsafe.Add(unsafe.Pointer(&a2), 1)) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(v5))
-	*(*uint16)(unsafe.Add(unsafe.Pointer(&v4), unsafe.Sizeof(uint16(0))*0)) = v2.HealthData.Cur
-	*(*uint8)(unsafe.Add(unsafe.Pointer(&a2), unsafe.Sizeof((*uint32)(nil))-1)) = uint8(v4 >> 1)
-	nox_xxx_netSendPacket1_4E5390(a1, unsafe.Pointer(&a2), 4, nil, 1)
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_REPORT_HEALTH)
+	*(*uint16)(unsafe.Add(unsafe.Pointer(&buf), 1)) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(a2p))
+	buf[3] = uint8(a2p.HealthData.Cur / 2)
+	nox_xxx_netSendPacket1_4E5390(a1, buf[:4], nil, 1)
 }
 func nox_xxx_netSendTeam_4D8670(a1 int32, a2 *server.Object) {
 	var (
@@ -5516,7 +5470,7 @@ func sub_4DF020() {
 		v4 bool
 		v6 [60]byte
 	)
-	sub_459AA0(unsafe.Pointer(&v6[0]))
+	sub_459AA0((*DataYyy)(unsafe.Pointer(&v6[0])))
 	v1 = 29
 	v2 = (*uint8)(memmap.PtrOff(0x5D4594, 1563214))
 	v3 = &v6[0]
@@ -5657,7 +5611,6 @@ func nox_xxx_netSendSimpleObject2_4DF360(a1 int32, a2p *server.Object) int32 {
 func sub_4DF3C0(pl *server.Player) {
 	var (
 		a1 = pl
-		v3 *byte
 		v6 unsafe.Pointer
 		v7 int32
 		v8 int32
@@ -5665,7 +5618,7 @@ func sub_4DF3C0(pl *server.Player) {
 	)
 	v1 := a1.PlayerUnit
 	v2a := sub_416640()
-	v3 = (*byte)(v2a)
+	v3 := v2a
 	if v1 == nil {
 		return
 	}

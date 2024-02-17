@@ -1432,20 +1432,15 @@ func nox_xxx_weaponGetStaminaByType_4F7E80(a1 int32) int32 {
 func Nox_xxx_playerRespawn_4F7EF0(a1p *server.Object) {
 	var (
 		a1 = a1p
-		v2 *byte
 		v9 types.Pointf
 	)
-	v1 := (*byte)(sub_416640())
-	v2 = v1
+	v2 := sub_416640()
 	if a1 == nil {
 		return
 	}
 	v3 := a1.UpdateDataPlayer()
 	v4 := v3.Player
-	if !(!noxflags.HasGame(4096) || (func() *byte {
-		v1 = (*byte)(unsafe.Pointer(uintptr(v3.Field137)))
-		return v1
-	}()) == nil) {
+	if !(!noxflags.HasGame(4096) || v3.Field137 == 0) {
 		return
 	}
 	if v4 != nil {
@@ -2097,11 +2092,10 @@ func nox_xxx_monsterActionToPlrState_4FABC0(obj *server.Object) int8 {
 func nox_xxx_respawnPlayerBot_4FAC70(obj *server.Object) bool {
 	a1 := obj
 	var (
-		v2 *byte
 		v4 types.Pointf
 	)
 	v1 := *(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 292))
-	v2 = (*byte)(sub_416640())
+	v2 := sub_416640()
 	if int32(a1.HealthData.Cur) != 0 {
 		return false
 	}
@@ -2312,7 +2306,6 @@ func nox_xxx_spellCastByBook_4FCB80() {
 		v11 *uint32
 		v14 *server.Object
 		v18 *MagicEntityClass
-		v19 *byte
 		v20 uint8
 		v23 [2]byte
 		v24 int32
@@ -2358,7 +2351,7 @@ func nox_xxx_spellCastByBook_4FCB80() {
 		v24 = int32(*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(v0), uintptr(v6)*4), 8)))
 		v8 = v24
 		if v7 != v24 {
-			v19 = (*byte)(sub_416640())
+			v19 := sub_416640()
 			*(*uint8)(unsafe.Pointer(&v27)) = uint8(nox_xxx_spellPhonemes_424A20(int32(*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(v0), uintptr(int32(v0.Field28)*4)), 8))), int32(v0.Field36)))
 			v20 = uint8(int8(v27))
 			if dword_5d4594_2650652 == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v19), 62)) != 0 {

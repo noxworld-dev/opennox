@@ -22,8 +22,6 @@ func sub_426060() {
 		v2     *byte
 		j      *byte
 		result unsafe.Pointer
-		v5     *byte
-		v6     *byte
 		v7     int32
 	)
 	dword_5d4594_608316 = 0
@@ -36,10 +34,10 @@ func sub_426060() {
 		if result != nil {
 			result = unsafe.Pointer(uintptr(bool2int32(noxflags.HasGame(4096))))
 			if result != nil {
-				v5 = (*byte)(sub_416640())
-				v6 = nox_xxx_cliGamedataGet_416590(0)
+				v5 := sub_416640()
+				v6 := nox_xxx_cliGamedataGet_416590(0)
 				*memmap.PtrUint16(0x5D4594, 739396) = uint16(int16(sub_40A770()))
-				*memmap.PtrUint32(0x5D4594, 739400) = *((*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*10)))
+				*memmap.PtrUint32(0x5D4594, 739400) = v5.Field40
 				*memmap.PtrUint32(0x5D4594, 739404) = uint32(sub_4200E0())
 				*memmap.PtrUint8(0x5D4594, 739412) = uint8(int8(bool2int32((*(*byte)(unsafe.Add(unsafe.Pointer(v6), 53)) & 0xC0) != 0)))
 				*memmap.PtrUint32(0x5D4594, 739408) = 5

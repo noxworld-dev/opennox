@@ -753,7 +753,7 @@ func sub_4BDC70(a1 *int32) {
 		nox_xxx_wnd_46ABB0(v3, 0)
 		dword_5d4594_1316704 = 1
 	}
-	sub_453F70(unsafe.Add(unsafe.Pointer(a1), 4*6))
+	sub_453F70((*DataZzz)(unsafe.Add(unsafe.Pointer(a1), 4*6)))
 	sub_4535E0((*int32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
 	sub_4535F0(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)))
 	sub_4BDD10()
@@ -862,7 +862,7 @@ func sub_4BDF90(a1 *int32) int32 {
 		result  int32 = 0
 		result2 func() int32
 	)
-	sub_453F70(unsafe.Add(unsafe.Pointer(a1), 4*6))
+	sub_453F70((*DataZzz)(unsafe.Add(unsafe.Pointer(a1), 4*6)))
 	sub_4535E0((*int32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
 	sub_4535F0(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)))
 	result2 = ccall.AsFunc[func() int32](*(*unsafe.Pointer)(memmap.PtrOff(0x587000, uintptr(dword_5d4594_1316704)*4+180016)))
@@ -913,7 +913,7 @@ func sub_4BDFD0() int32 {
 	}
 	return sub_4BE120(v2)
 }
-func sub_4BE120(a1 unsafe.Pointer) int32 {
+func sub_4BE120(a1 *DataYyy2) int32 {
 	var (
 		v2  int32
 		v3  uint32
@@ -926,7 +926,7 @@ func sub_4BE120(a1 unsafe.Pointer) int32 {
 	defer free16()
 	v1 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2102)
 	v2 = int32(v1.DrawData().Field0)
-	if *(*uint32)(unsafe.Add(a1, 58)) != 0 {
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 58)) != 0 {
 		v3 = uint32(v2 | 4)
 	} else {
 		v3 = uint32(v2) & 0xFFFFFFFB
@@ -934,16 +934,16 @@ func sub_4BE120(a1 unsafe.Pointer) int32 {
 	v1.DrawData().Field0 = v3
 	v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2103)
 	v5 = int32(v4.DrawData().Field0)
-	if *(*uint32)(unsafe.Add(a1, 62)) != 0 {
+	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 62)) != 0 {
 		v6 = uint32(v5 | 4)
 	} else {
 		v6 = uint32(v5) & 0xFFFFFFFB
 	}
 	v4.DrawData().Field0 = v6
 	v7 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2110)
-	nox_swprintf(&v16[0], internWStr("%d"), *(*uint32)(unsafe.Add(a1, 70)))
+	nox_swprintf(&v16[0], internWStr("%d"), *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 70)))
 	nox_window_call_field_94_fnc(v7, 16414, uintptr(unsafe.Pointer(&v16[0])), math.MaxUint32)
-	switch *(*uint32)(unsafe.Add(a1, 66)) {
+	switch *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 66)) {
 	case 0:
 		v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2110)
 		nox_xxx_wnd_46ABB0(v8, 0)
@@ -972,21 +972,17 @@ func sub_4BE120(a1 unsafe.Pointer) int32 {
 		return 0
 	}
 	v14 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2119)
-	nox_window_call_field_94_fnc(v14, 16394, uintptr(*(*uint32)(unsafe.Add(a1, 74))), 0)
-	sub_4BE2C0(int32(*(*uint32)(unsafe.Add(a1, 74))))
+	nox_window_call_field_94_fnc(v14, 16394, uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 74))), 0)
+	sub_4BE2C0(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 74))))
 	return 0
 }
 func sub_4BE320(win *gui.Window, p2, p3, p4 uintptr) uintptr {
 	return 1
 }
 func sub_4BE330(win *gui.Window, a2, a3, a4 uintptr) uintptr {
-	var (
-		v5 *byte
-	)
 	var v7 *wchar2_t
 	var v8 int32
 	var v9 int32
-	var v20 *byte
 	var v21 *wchar2_t
 	var v22 int32
 	if a2 > 0x4007 {
@@ -994,7 +990,7 @@ func sub_4BE330(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 			sub_4BE2C0(int32(a4))
 			nox_xxx_gameSetAudioFadeoutMb_501AC0(int32(a4))
 		} else if a2 == 16415 {
-			v20 = (*byte)(sub_416640())
+			v20 := sub_416640()
 			v21 = (*wchar2_t)(unsafe.Pointer(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(a3)), 16413, 0, 0)))
 			if v21 != nil {
 				if *v21 != 0 {
@@ -1016,7 +1012,7 @@ func sub_4BE330(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 			return 1
 		}
 		v4 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, int32(a4))
-		v5 = (*byte)(sub_416640())
+		v5 := sub_416640()
 		if v4 == nil {
 			return 0
 		}
@@ -1042,38 +1038,38 @@ func sub_4BE330(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	switch v9 {
 	case 2102:
 		v10 := sub_416640()
-		*(*uint32)(unsafe.Add(v10, 58)) ^= 1
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 58)) ^= 1
 		return 1
 	case 2103:
 		v11 := sub_416640()
-		*(*uint32)(unsafe.Add(v11, 62)) ^= 1
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v11), 62)) ^= 1
 		return 1
 	case 2106:
 		v12 := sub_416640()
 		v13 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2110)
 		nox_xxx_wnd_46ABB0(v13, 0)
-		*(*uint32)(unsafe.Add(v12, 66)) = 0
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 66)) = 0
 		sub_40A6A0(1)
 		return 1
 	case 2107:
 		v14 := sub_416640()
 		v15 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2110)
 		nox_xxx_wnd_46ABB0(v15, 0)
-		*(*uint32)(unsafe.Add(v14, 66)) = 1
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v14), 66)) = 1
 		sub_40A6A0(1)
 		return 1
 	case 2108:
 		v16 := sub_416640()
 		v17 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2110)
 		nox_xxx_wnd_46ABB0(v17, 0)
-		*(*uint32)(unsafe.Add(v16, 66)) = 2
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v16), 66)) = 2
 		sub_40A6A0(1)
 		return 1
 	case 2109:
 		v18 := sub_416640()
 		v19 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1316972, 2110)
 		nox_xxx_wnd_46ABB0(v19, 1)
-		*(*uint32)(unsafe.Add(v18, 66)) = 3
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v18), 66)) = 3
 		sub_40A6A0(1)
 		return 1
 	case 2130:

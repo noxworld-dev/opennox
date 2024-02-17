@@ -1248,7 +1248,7 @@ func sub_4947E0(a1 *server.Player) {
 		v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		v2 = int32(uint16(nox_xxx_servGamedataGet_40A020(v1)))
 	} else {
-		v2 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(nox_xxx_cliGamedataGet_416590(0)), unsafe.Sizeof(uint16(0))*27)))
+		v2 = int32(nox_xxx_cliGamedataGet_416590(0).Field54)
 	}
 	result := nox_common_playerInfoGetFirst_416EA0()
 	for i := result; result != nil; i = result {
@@ -1281,7 +1281,7 @@ func sub_4948B0(a1 *server.Team) {
 		v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		v2 = int32(uint16(nox_xxx_servGamedataGet_40A020(v1)))
 	} else {
-		v2 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(nox_xxx_cliGamedataGet_416590(0)), unsafe.Sizeof(uint16(0))*27)))
+		v2 = int32(nox_xxx_cliGamedataGet_416590(0).Field54)
 	}
 	for i := nox_server_teamFirst_418B10(); i != nil; i = nox_server_teamNext_418B60(i) {
 		if i == a1 {

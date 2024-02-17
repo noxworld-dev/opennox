@@ -32,8 +32,6 @@ func sub_418830(a1 unsafe.Pointer, a2 int32) {
 func nox_xxx_unused_418840() int32 {
 	var (
 		v0 int32
-		v1 *byte
-		v2 *byte
 		v3 int16
 		v5 *byte
 		v7 *uint32
@@ -41,12 +39,12 @@ func nox_xxx_unused_418840() int32 {
 		v9 int32
 	)
 	v0 = 0
-	v1 = (*byte)(sub_416640())
-	v2 = sub_4165B0()
+	v1 := sub_416640()
+	v2 := sub_4165B0()
 	nox_server_teamsZzz_419030(1)
-	v3 = int16(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*26))) & 0x3FFF)
+	v3 = int16(int32(v2.Field52) & 0x3FFF)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&v3), unsafe.Sizeof(int16(0))-1)) |= 0x80
-	*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*26)) = uint16(v3)
+	v2.Field52 = uint16(v3)
 	for i := sub_425A50(); i != nil; i = sub_425A60(i) {
 		if v0 >= int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 52))) {
 			break
@@ -5315,8 +5313,6 @@ func sub_425F10(pl *server.Player) {
 }
 func sub_426150() {
 	var (
-		v1 *byte
-		v2 *byte
 		v3 int16
 	)
 	if !noxflags.HasGame(0x2000) {
@@ -5325,14 +5321,14 @@ func sub_426150() {
 	if noxflags.HasGame(4096) {
 		return
 	}
-	v1 = (*byte)(sub_416640())
-	v2 = nox_xxx_cliGamedataGet_416590(0)
-	*memmap.PtrUint16(0x5D4594, 599482) = uint16(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 103)))
-	*memmap.PtrUint32(0x5D4594, 599484) = uint32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 104)))
-	*memmap.PtrUint32(0x5D4594, 599488) = *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*10))
+	v1 := sub_416640()
+	v2 := nox_xxx_cliGamedataGet_416590(0)
+	*memmap.PtrUint16(0x5D4594, 599482) = uint16(v1.CurPlayers103)
+	*memmap.PtrUint32(0x5D4594, 599484) = uint32(v1.MaxPlayers104)
+	*memmap.PtrUint32(0x5D4594, 599488) = v1.Field40
 	*memmap.PtrUint32(0x5D4594, 599492) = uint32(sub_4200E0())
 	*memmap.PtrUint8(0x5D4594, 599502) = uint8(int8(bool2int32((*(*byte)(unsafe.Add(unsafe.Pointer(v2), 53)) & 0xC0) != 0)))
-	v3 = int16(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*26)))
+	v3 = int16(v2.Field52)
 	if int32(v3)&0x100 != 0 {
 		dword_5d4594_599496 = 0
 	} else if int32(v3)&0x20 != 0 {
@@ -5345,21 +5341,21 @@ func sub_426150() {
 		dword_5d4594_599496 = 4
 	}
 	*memmap.PtrUint8(0x5D4594, 599500) = uint8(int8(bool2int32((*(*byte)(unsafe.Add(unsafe.Pointer(v2), 53)) & 0x40) == 0)))
-	*memmap.PtrUint32(0x5D4594, 599508) = uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(uint16(0))*27)))
-	*memmap.PtrUint32(0x5D4594, 599512) = uint32(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 56)))
-	*memmap.PtrUint8(0x5D4594, 599516) = *(*byte)(unsafe.Add(unsafe.Pointer(v1), 100))
-	*memmap.PtrUint32(0x5D4594, 599520) = uint32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 101)) & 0xF)
-	*memmap.PtrUint32(0x5D4594, 599524) = uint32(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 101))) >> 4)
-	*memmap.PtrUint32(0x5D4594, 599528) = uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 105)))
-	*memmap.PtrUint32(0x5D4594, 599532) = uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 107)))
-	*memmap.PtrUint8(0x5D4594, 599536) = *(*byte)(unsafe.Add(unsafe.Pointer(v1), 102))
-	*memmap.PtrUint8(0x5D4594, 599537) = *(*byte)(unsafe.Add(unsafe.Pointer(v1), 100)) & 0x30
+	*memmap.PtrUint32(0x5D4594, 599508) = uint32(v2.Field54)
+	*memmap.PtrUint32(0x5D4594, 599512) = uint32(v2.Field56)
+	*memmap.PtrUint8(0x5D4594, 599516) = v1.Field100
+	*memmap.PtrUint32(0x5D4594, 599520) = uint32(v1.Field101 & 0xF)
+	*memmap.PtrUint32(0x5D4594, 599524) = uint32(int32(v1.Field101) >> 4)
+	*memmap.PtrUint32(0x5D4594, 599528) = uint32(v1.Field105)
+	*memmap.PtrUint32(0x5D4594, 599532) = uint32(v1.Field107)
+	*memmap.PtrUint8(0x5D4594, 599536) = v1.Field102
+	*memmap.PtrUint8(0x5D4594, 599537) = v1.Field100 & 0x30
 	*memmap.PtrUint8(0x5D4594, 599501) = uint8(sub_417DE0())
 	libc.StrNCpy((*byte)(memmap.PtrOff(0x5D4594, 599828)), (*byte)(unsafe.Add(unsafe.Pointer(v2), 9)), 0xF)
 	*memmap.PtrUint8(0x5D4594, 599843) = 0
 	alloc.Memcpy(memmap.PtrOff(0x5D4594, 599540), unsafe.Add(unsafe.Pointer(v2), 24), 0x64)
-	*memmap.PtrUint32(0x5D4594, 599564) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*12))
-	*memmap.PtrUint32(0x5D4594, 599560) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*11))
+	*memmap.PtrUint32(0x5D4594, 599564) = v2.Field48
+	*memmap.PtrUint32(0x5D4594, 599560) = v2.Field44
 	libc.StrNCpy((*byte)(memmap.PtrOff(0x5D4594, 599572)), v2, 8)
 	*memmap.PtrUint8(0x5D4594, 599580) = 0
 	*memmap.PtrUint32(0x5D4594, 600112) = 0

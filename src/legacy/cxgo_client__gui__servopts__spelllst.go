@@ -121,10 +121,10 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 					if v8 != 0 {
 						if v21 == 1115 {
 							if !noxflags.HasGame(64) && (*(*byte)(unsafe.Add(unsafe.Pointer(v20), 52))&0x40) == 0 || v8 != 132 {
-								sub_453FA0(int32(uintptr(memmap.PtrOff(0x5D4594, 1045488))), v8, 1)
+								sub_453FA0(memmap.PtrOff(0x5D4594, 1045488), v8, 1)
 							}
 						} else {
-							sub_453FA0(int32(uintptr(memmap.PtrOff(0x5D4594, 1045488))), v8, 0)
+							sub_453FA0(memmap.PtrOff(0x5D4594, 1045488), v8, 0)
 						}
 					}
 				}
@@ -172,9 +172,9 @@ func sub_453C00(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 				sub_44A360(1)
 			} else {
 				if *(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*9))&4 != 0 {
-					sub_453FA0(int32(uintptr(memmap.PtrOff(0x5D4594, 1045488))), v13, 0)
+					sub_453FA0(memmap.PtrOff(0x5D4594, 1045488), v13, 0)
 				} else {
-					sub_453FA0(int32(uintptr(memmap.PtrOff(0x5D4594, 1045488))), v13, 1)
+					sub_453FA0(memmap.PtrOff(0x5D4594, 1045488), v13, 1)
 				}
 				sub_459D50(1)
 				nox_xxx_clientPlaySoundSpecial_452D80(766, 100)

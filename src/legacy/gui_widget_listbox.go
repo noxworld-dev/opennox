@@ -191,7 +191,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 			return 0
 		}
 		v38 := int32(sdata.Field_13_1)
-		sdata.SetField12(int32(ind))
+		sdata.SetField12(ind)
 		if it.Field_0 < uint32(v38) {
 			nox_window_call_field_94_fnc(win, 0x401C, uintptr(ind), 0)
 			return 0
@@ -294,7 +294,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *gui.Window, ev, a3, a4 uintptr) uintp
 			}
 		} else {
 			if v44 := sdata.Field12(); v44 > 0 {
-				sdata.SetField12(v44 - ind)
+				sdata.SetField12(v44 - int(ind))
 			}
 		}
 		if int32(sdata.Field_13_1) > 0 {
@@ -1068,7 +1068,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 			v5.SetField12(-1)
 		}
 		if v5.Field12() == -2 && v15 < int32(v5.Field_11_0) {
-			v5.SetField12(v15)
+			v5.SetField12(int(v15))
 		}
 		if v5.Field12() < 0 && v5.Field_5 != 0 {
 			v5.SetField12(v17)
@@ -1108,8 +1108,8 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 			v5.SetField12(0)
 			nox_xxx_wndListBox_4A2D10(win, 0, 1)
 		} else if v8 > 0 {
-			v11 = v8 - 1
-			v5.SetField12(v11)
+			v11 = int32(v8 - 1)
+			v5.SetField12(int(v11))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v5.ItemsPtr), uintptr(uint32(v11*524)))) < uint32(v5.Field_13_1) {
 				nox_xxx_wndListBox_4A2D10(win, -1, 1)
 			}
@@ -1121,10 +1121,10 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 		if v7 == -1 {
 			v5.SetField12(0)
 			nox_xxx_wndListBox_4A2D10(win, 0, 1)
-		} else if v7 < int32(v5.Field_11_0)-1 {
-			v9 = v7 + 1
+		} else if v7 < int(int32(v5.Field_11_0)-1) {
+			v9 = int32(v7 + 1)
 			v10 = int32(v5.Field_13_0) + int32(v5.Field_13_1)
-			v5.SetField12(v9)
+			v5.SetField12(int(v9))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v5.ItemsPtr), uintptr(uint32(v9*524)))) > uint32(v10) {
 				nox_xxx_wndListBox_4A2D10(win, 1, 1)
 			}
@@ -1154,8 +1154,8 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 				v5.SetField12(0)
 				nox_xxx_wndListBox_4A2D10(win, 0, 1)
 			} else if v8 > 0 {
-				v11 = v8 - 1
-				v5.SetField12(v11)
+				v11 = int32(v8 - 1)
+				v5.SetField12(int(v11))
 				if *(*uint32)(unsafe.Add(unsafe.Pointer(v5.ItemsPtr), uintptr(uint32(v11*524)))) < uint32(v5.Field_13_1) {
 					nox_xxx_wndListBox_4A2D10(win, -1, 1)
 				}
@@ -1176,10 +1176,10 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *gui.Window, a2, p3, p4 uint
 			if v7 == -1 {
 				v5.SetField12(0)
 				nox_xxx_wndListBox_4A2D10(win, 0, 1)
-			} else if v7 < int32(v5.Field_11_0)-1 {
-				v9 = v7 + 1
+			} else if v7 < int(int32(v5.Field_11_0)-1) {
+				v9 = int32(v7 + 1)
 				v10 = int32(v5.Field_13_0) + int32(v5.Field_13_1)
-				v5.SetField12(v9)
+				v5.SetField12(int(v9))
 				if *(*uint32)(unsafe.Add(unsafe.Pointer(v5.ItemsPtr), uintptr(uint32(v9*524)))) > uint32(v10) {
 					nox_xxx_wndListBox_4A2D10(win, 1, 1)
 				}

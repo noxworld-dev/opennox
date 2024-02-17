@@ -280,25 +280,19 @@ func sub_457FE0() {
 }
 func sub_4580E0(a1 int32) {
 	var (
-		v1  *wchar2_t
-		v2  *wchar2_t
 		v3  int16
-		v4  *wchar2_t
 		v5  *wchar2_t
-		v6  *uint32
-		v7  *uint32
-		v8  *uint32
 		v10 int32
 	)
-	v1 = nox_strman_loadString_40F1D0(internCStr("SettingsMsg"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 736)
+	v1 := nox_strman_loadString_40F1D0(internCStr("SettingsMsg"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 736)
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1045968)), v1, a1)
 	if noxflags.HasGame(128) {
-		v2 = nox_strman_loadString_40F1D0(internCStr("GameType"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 739)
+		v2 := nox_strman_loadString_40F1D0(internCStr("GameType"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 739)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1046096)), v2)
 	} else {
 		v3 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		v10 = int32(uintptr(unsafe.Pointer(nox_xxx_guiServerOptionsGetGametypeName_4573C0(v3))))
-		v4 = nox_strman_loadString_40F1D0(internCStr("GameTypeIs"), nil, (*byte)(memmap.PtrOff(0x587000, 131072)), 743)
+		v4 := nox_strman_loadString_40F1D0(internCStr("GameTypeIs"), nil, (*byte)(memmap.PtrOff(0x587000, 131072)), 743)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1046096)), v4, v10)
 	}
 	if noxflags.HasGame(1) {
@@ -307,17 +301,18 @@ func sub_4580E0(a1 int32) {
 		v5 = nox_strman_loadString_40F1D0(internCStr("OptsMessage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 752)
 	}
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1046224)), v5)
-	v6 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10121)
-	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v6)), 16385, uintptr(memmap.PtrOff(0x5D4594, 1045968)), math.MaxUint32)
-	v7 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10118)
-	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v7)), 16385, uintptr(memmap.PtrOff(0x5D4594, 1046096)), math.MaxUint32)
-	v8 = nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10117)
-	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(v8)), 16385, uintptr(memmap.PtrOff(0x5D4594, 1046224)), math.MaxUint32)
+	v6 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10121)
+	nox_window_call_field_94_fnc(v6, 16385, uintptr(memmap.PtrOff(0x5D4594, 1045968)), math.MaxUint32)
+	v7 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10118)
+	nox_window_call_field_94_fnc(v7, 16385, uintptr(memmap.PtrOff(0x5D4594, 1046096)), math.MaxUint32)
+	v8 := nox_xxx_wndGetChildByID_46B0C0(dword_5d4594_1046492, 10117)
+	nox_window_call_field_94_fnc(v8, 16385, uintptr(memmap.PtrOff(0x5D4594, 1046224)), math.MaxUint32)
 }
+
 func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool) {
 	var (
-		v19 [58]byte
-		v20 [58]byte
+		v19 DataYyy
+		v20 DataYyy
 	)
 	v21, free21 := alloc.Make([]wchar2_t{}, 100)
 	defer free21()
@@ -332,24 +327,23 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 		if (sub_4CFFC0(unsafe.Pointer(it)) & mode) == 0 {
 			continue
 		}
-		libc.StrCpy(&v19[0], &it.Name[0])
-		alloc.Memcpy(unsafe.Pointer(&v20[0]), unsafe.Pointer(&v19[0]), 0x38)
-		*(*uint16)(unsafe.Pointer(&v20[56])) = *(*uint16)(unsafe.Pointer(&v19[56]))
-		sub_57A1E0((*int32)(unsafe.Pointer(&v19[0])), nil, nil, 1, int16(mode))
-		sub_57A1E0((*int32)(unsafe.Pointer(&v20[0])), internCStr("user.rul"), nil, 3, int16(mode))
+		libc.StrCpy(&v19.Field0[0], &it.Name[0])
+		v20 = v19
+		sub_57A1E0(&v19, nil, nil, 1, int16(mode))
+		sub_57A1E0(&v20, internCStr("user.rul"), nil, 3, int16(mode))
 		var v6 int32 = -1
-		for i := int32(0); i < 20; i += 4 {
-			if *(*uint32)(unsafe.Pointer(&v19[i+24])) != *(*uint32)(unsafe.Pointer(&v20[i+24])) {
+		for i := 0; i < 5; i++ {
+			if v19.Field24[i] != v20.Field24[i] {
 				v6 = 6
 			}
 		}
 		if v6 == -1 {
-			for j := int32(0); j < 4; j++ {
-				if v19[j+44] != v20[j+44] {
+			for j := 0; j < 4; j++ {
+				if v19.Field44[j] != v20.Field44[j] {
 					v6 = 6
 				}
 			}
-			if v6 == -1 && *(*uint32)(unsafe.Pointer(&v19[48])) != *(*uint32)(unsafe.Pointer(&v20[48])) {
+			if v6 == -1 && v19.Field48 != v20.Field48 {
 				v6 = 6
 			}
 		}
@@ -372,7 +366,7 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 	if !a3 {
 		return
 	}
-	var v11 *byte = sub_4165B0()
+	v11 := sub_4165B0()
 	var v12 int32 = int32(nox_window_call_field_94_fnc(dword_5d4594_1046496, 16404, 0, 0))
 	if v12 < 0 {
 		*v11 = 0
@@ -505,7 +499,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(win *gui.Window, a2, a3, a4 uintptr)
 			return 1
 		case 10145:
 			v18 = nox_xxx_cliGamedataGet_416590(1)
-			sub_459AA0(unsafe.Pointer(v18))
+			sub_459AA0((*DataYyy)(unsafe.Pointer(v18)))
 			sub_4165F0(1, 0)
 			v19 = int32(nox_xxx_getTeamCounter_417DD0())
 			if noxflags.HasGame(128) && (func() int32 {

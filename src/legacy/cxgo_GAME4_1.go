@@ -1,11 +1,13 @@
 package legacy
 
 import (
+	"encoding/binary"
 	"math"
 	"unicode"
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -4098,77 +4100,70 @@ func nox_xxx_netSendComplexObject_518960(a1 int32, a2 *uint32, a3 int32) int32 {
 	v18[9] |= byte(int8(int32(v15) * 16))
 	return bool2int32(nox_netlist_addToMsgListSrv_40EF40(v3, &v18[0], 11))
 }
-func nox_xxx_netSpriteUpdate_518AE0(a1 int32, a2 int32, a3 *uint32) int32 {
-	var (
-		v3  *uint32
-		v4  int16
-		v5  int32
-		v7  int32
-		v8  int8
-		v9  int32
-		v10 int8
-		v11 uint8
-		v12 int32
-		v13 int32
-		v14 uint8
-		v15 int8
-	)
-	v3 = a3
-	v4 = int16(uint16(nox_xxx_netGetUnitCodeServ_578AC0((*server.Object)(unsafe.Pointer(a3)))))
-	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)))
-	*(*uint16)(unsafe.Add(unsafe.Pointer(&a3), 1)) = uint16(v4)
-	if uint32(v5)&0x400000 != 0 && *(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3))&0x18 != 0 {
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = *(*uint8)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*187)))
-		*(*uint8)(unsafe.Pointer(&a3)) = 179
-		return nox_xxx_netSendPacket1_4E5390(a2, unsafe.Pointer(&a3), 4, nil, 1)
+func nox_xxx_netSpriteUpdate_518AE0(pu *server.Object, a2 int32, obj2 *server.Object) int32 {
+	netcode := uint16(nox_xxx_netGetUnitCodeServ_578AC0(obj2))
+	if obj2.Class().Has(object.ClassImmobile) && obj2.SubClass().HasAny(0x18) {
+		var buf [4]byte
+		buf[0] = byte(noxnet.MSG_OBELISK_CHARGE)
+		binary.LittleEndian.PutUint16(buf[1:], netcode)
+		buf[3] = *(*uint8)(obj2.UpdateData)
+		return nox_xxx_netSendPacket1_4E5390(a2, buf[:4], nil, 1)
 	}
-	v7 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2)))
-	if uint32(uint16(int16(v7))) == *memmap.PtrUint32(0x5D4594, 2386972) {
-		v8 = int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*187)), 20)))
-		*(*uint8)(unsafe.Pointer(&a3)) = 57
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = uint8(v8)
-		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, (*uint8)(unsafe.Pointer(&a3)), 4)
+	if uint32(obj2.TypeInd) == *memmap.PtrUint32(0x5D4594, 2386972) {
+		val := *(*uint8)(unsafe.Add(obj2.UpdateData, 20))
+		var buf [4]byte
+		buf[0] = byte(noxnet.MSG_DRAW_FRAME)
+		binary.LittleEndian.PutUint16(buf[1:], netcode)
+		buf[3] = val
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, buf[:4])
 	}
-	if uint32(v7) == *memmap.PtrUint32(0x5D4594, 2386980) {
-		v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4)))
-		*(*uint8)(unsafe.Pointer(&a3)) = 57
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = uint8(int8(int32(^(*(*uint8)(unsafe.Add(unsafe.Pointer(&v9), 4-1)))) & 1))
-		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, (*uint8)(unsafe.Pointer(&a3)), 4)
+	if uint32(obj2.TypeInd) == *memmap.PtrUint32(0x5D4594, 2386980) {
+		v9 := int32(obj2.ObjFlags)
+		var buf [4]byte
+		buf[0] = byte(noxnet.MSG_DRAW_FRAME)
+		binary.LittleEndian.PutUint16(buf[1:], netcode)
+		buf[3] = uint8(int8(int32(^(*(*uint8)(unsafe.Add(unsafe.Pointer(&v9), 4-1)))) & 1))
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, buf[:4])
 	}
-	if uint32(v7) == *memmap.PtrUint32(0x5D4594, 2386976) {
-		v10 = int8(*(*uint8)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*187))))
-		*(*uint8)(unsafe.Pointer(&a3)) = 180
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = uint8(int8(int32(v10) & 1))
-		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, (*uint8)(unsafe.Pointer(&a3)), 4)
+	if uint32(obj2.TypeInd) == *memmap.PtrUint32(0x5D4594, 2386976) {
+		val := *(*uint8)(obj2.UpdateData)
+		var buf [4]byte
+		buf[0] = byte(noxnet.MSG_PENTAGRAM_ACTIVATE)
+		binary.LittleEndian.PutUint16(buf[1:], netcode)
+		buf[3] = val & 0x1
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, buf[:4])
 	}
-	if v5&0x4000 != 0 {
-		v11 = *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*187)), 16))
-		*(*uint8)(unsafe.Pointer(&a3)) = 57
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = uint8(int8(int32(v11) >> 2))
-		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, (*uint8)(unsafe.Pointer(&a3)), 4)
+	if obj2.Class().Has(object.ClassElevator) {
+		val := *(*uint8)(unsafe.Add(obj2.UpdateData, 16))
+		var buf [4]byte
+		buf[0] = byte(noxnet.MSG_DRAW_FRAME)
+		binary.LittleEndian.PutUint16(buf[1:], netcode)
+		buf[3] = val >> 2
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, buf[:4])
 	}
-	if (v5 & 0x8000) != 0 {
-		v12 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*187)))
-		if v12 != 0 && (func() int32 {
-			v13 = int32(*(*uint32)(unsafe.Add(v12, 4)))
-			return v13
-		}()) != 0 {
-			v14 = *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v13, 748)), 16))
-			*(*uint8)(unsafe.Pointer(&a3)) = 57
-			*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = uint8(int8(int32(v14) >> 2))
-		} else {
-			*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = 0
-			*(*uint8)(unsafe.Pointer(&a3)) = 57
+	if obj2.Class().Has(object.ClassElevatorShaft) {
+		var buf [4]byte
+		buf[0] = byte(noxnet.MSG_DRAW_FRAME)
+		binary.LittleEndian.PutUint16(buf[1:], netcode)
+		buf[3] = 0
+		if obj2.UpdateData == nil {
+			return nox_netlist_addToMsgListCli_40EBC0(a2, 1, buf[:4])
 		}
-		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, (*uint8)(unsafe.Pointer(&a3)), 4)
+		if obj3 := *(**server.Object)(unsafe.Add(obj2.UpdateData, 4)); obj3 != nil {
+			val := *(*uint8)(unsafe.Add(obj3.UpdateData, 16))
+			buf[3] = val >> 2
+		}
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, buf[:4])
 	}
-	if (v5 & 0x80) != 0 {
-		v15 = int8(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), 4*187)), 12)))
-		*(*uint8)(unsafe.Pointer(&a3)) = 178
-		*(*uint8)(unsafe.Add(unsafe.Pointer(&a3), unsafe.Sizeof((*uint32)(nil))-1)) = uint8(v15)
-		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, (*uint8)(unsafe.Pointer(&a3)), 4)
+	if obj2.Class().Has(object.ClassDoor) {
+		val := *(*uint8)(unsafe.Add(obj2.UpdateData, 12))
+		var buf [4]byte
+		buf[0] = byte(noxnet.MSG_DOOR_ANGLE)
+		binary.LittleEndian.PutUint16(buf[1:], netcode)
+		buf[3] = val
+		return nox_netlist_addToMsgListCli_40EBC0(a2, 1, buf[:4])
 	}
-	nox_xxx_netUpdateObjectSpecial_527E50((*server.Object)(a1), (*server.Object)(unsafe.Pointer(v3)))
+	nox_xxx_netUpdateObjectSpecial_527E50(pu, obj2)
 	return 0
 }
 func nox_xxx_netPlayerObjSend_518C30(a1p *server.Object, a2p *server.Object, a3 int32, a4 int32) int32 {
@@ -4335,7 +4330,7 @@ func nox_xxx_netSendObjects2Plr_519410(a1p *server.Object, a2p *server.Object) i
 		}
 		v11 = int32(a2.ObjClass)
 		if uint32(v11)&0x400000 != 0 {
-			v2 = nox_xxx_netSpriteUpdate_518AE0(a1, v5, (*uint32)(a2))
+			v2 = nox_xxx_netSpriteUpdate_518AE0(a1, v5, a2)
 		} else if uint32(v11)&0x200000 != 0 {
 			if v11&2 != 0 {
 				v2 = nox_xxx_netSendComplexObject_518960(v5, (*uint32)(a2), 1)

@@ -191,14 +191,11 @@ func sub_409EF0(a1 int32) {
 	}
 	nox_server_gameSettingsUpdated = 1
 }
-func sub_409F40(a1 int32) int32 {
-	var result int32
+func sub_409F40(a1 uint32) bool {
 	if a1 == 0x2000 && noxflags.HasGame(1056) {
-		result = 1
-	} else {
-		result = bool2int32((uint32(a1) & dword_5d4594_3484) != 0)
+		return true
 	}
-	return result
+	return (a1 & dword_5d4594_3484) != 0
 }
 func nox_xxx_servSetPlrLimit_409F80(a1 int32) int32 {
 	var result int32
@@ -554,7 +551,7 @@ func sub_40AA70(pl *server.Player) int32 {
 	if nox_server_teamByXxx_418AE0(int32(a1.Field2068)) != nil {
 		goto LABEL_31
 	}
-	v4 = int32(*(*byte)(unsafe.Add(v1, 52)))
+	v4 = int32(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 52)))
 	if (noxflags.HasGame(96) || noxflags.HasGame(16) && nox_xxx_CheckGameplayFlags_417DA0(4)) && v4 > 2 {
 		v4 = 2
 	}
@@ -2265,17 +2262,18 @@ func sub_4164F0() {
 	dword_5d4594_371692 = 0
 }
 func sub_416580() int32 {
-	return int32(*memmap.PtrUint32(0x5D4594, 371688))
+	return memmap.Int32(0x5D4594, 371688)
 }
-func nox_xxx_cliGamedataGet_416590(a1 int32) *byte {
-	return (*byte)(memmap.PtrOff(0x5D4594, uintptr(a1)*58+371380))
+func nox_xxx_cliGamedataGet_416590(ind int32) *DataYyy {
+	return memmap.PtrT[DataYyy](0x5D4594, 371380+uintptr(ind)*unsafe.Sizeof(DataYyy{}))
 }
-func sub_4165B0() *byte {
-	return (*byte)(memmap.PtrOff(0x5D4594, uintptr(memmap.Uint32(0x5D4594, 371688))*58+371380))
+func sub_4165B0() *DataYyy {
+	ind := sub_416580()
+	return nox_xxx_cliGamedataGet_416590(ind)
 }
-func sub_4165D0(a1 int32) *byte {
-	*memmap.PtrUint32(0x5D4594, 371688) = uint32(a1)
-	return (*byte)(memmap.PtrOff(0x5D4594, uintptr(a1)*58+371380))
+func sub_4165D0(ind int32) *DataYyy {
+	*memmap.PtrInt32(0x5D4594, 371688) = ind
+	return nox_xxx_cliGamedataGet_416590(ind)
 }
 func sub_4165F0(a1 int32, a2 int32) int32 {
 	var result int32
@@ -2286,24 +2284,93 @@ func sub_4165F0(a1 int32, a2 int32) int32 {
 func sub_416630() *byte {
 	return (*byte)(memmap.PtrOff(0x5D4594, 371616))
 }
-func sub_416640() unsafe.Pointer {
-	return memmap.PtrOff(0x5D4594, 371516)
+
+var _ = [1]struct{}{}[169-unsafe.Sizeof(DataXxx{})]
+
+type DataXxx struct {
+	_ [169]byte // DataYyy @ 111
+}
+
+var _ = [1]struct{}{}[20-unsafe.Sizeof(DataZzz{})]
+
+type DataZzz struct {
+	Vals [5]uint32 // 0, 0
+}
+
+var _ = [1]struct{}{}[58-unsafe.Sizeof(DataYyy{})]
+
+type DataYyy struct {
+	Field0  [24]byte // 0, 0
+	Field24 DataZzz  // 6, 24
+	Field44 [4]byte  // 11, 44
+	Field48 uint32   // 12, 48
+	Field52 uint16   // 13, 52
+	Field54 uint16   // 13, 54
+	Field56 uint8    // 14, 56
+	Field57 uint8    // 14, 57
+}
+
+var _ = [1]struct{}{}[168-unsafe.Sizeof(DataYyy2{})]
+
+type DataYyy2 struct {
+	Field0        uint32   // 0, 0
+	Field4        uint32   // 1, 4
+	Field8        uint32   // 2, 8
+	Field12       uint32   // 3, 12
+	Field16       uint32   // 4, 16
+	Field20       uint32   // 5, 20
+	Field24       uint32   // 6, 24
+	Field28       uint32   // 7, 28
+	Field32       uint32   // 8, 32
+	Field36       uint32   // 9, 36
+	Field40       uint32   // 10, 40
+	Field44       uint32   // 11, 44
+	Version48     uint32   // 12, 48
+	Field52       uint16   // 13, 52
+	Field54       uint16   // 13, 54
+	Field56       uint32   // 14, 56
+	Field60       uint32   // 15, 60
+	Field64       uint32   // 16, 64
+	Field68       uint32   // 17, 68
+	Field72       uint32   // 18, 72
+	Field76       uint32   // 19, 76
+	Field80       uint32   // 20, 80
+	Field84       uint32   // 21, 84
+	Field88       uint32   // 22, 88
+	Field92       uint32   // 23, 92
+	Field96       uint32   // 24, 96
+	Field100      byte     // 25, 100
+	Field101      byte     // 25, 101
+	Field102      byte     // 25, 102
+	CurPlayers103 byte     // 25, 103
+	MaxPlayers104 byte     // 26, 104
+	Field105      [2]byte  // 26, 105
+	Field107      [2]byte  // 26, 107
+	Port109       [2]byte  // 27, 109
+	field111      byte     // 27, 111; DataYyy
+	field111_2    [56]byte // 28, 112
+}
+
+func (d *DataYyy2) Field111() *DataYyy {
+	return (*DataYyy)(unsafe.Pointer(&d.field111))
+}
+
+func sub_416640() *DataYyy2 {
+	return memmap.PtrT[DataYyy2](0x5D4594, 371516)
 }
 func sub_416650() int32 {
 	return int32(*memmap.PtrUint32(0x5D4594, 371700))
 }
 func sub_416690() {
 	var (
-		v0 *byte
-		v1 *byte
 		v2 int16
 		v3 [84]byte
 	)
 	if false {
-		v0 = nox_xxx_cliGamedataGet_416590(0)
+		v0 := nox_xxx_cliGamedataGet_416590(0)
 		sub_4161E0()
-		v1 = sub_416630()
-		alloc.Memcpy(unsafe.Add(unsafe.Pointer(v1), 11), unsafe.Pointer(v0), 0x3A)
+		v1 := sub_416630()
+		*(*DataYyy)(unsafe.Add(unsafe.Pointer(v1), 11)) = *v0
 		if nox_xxx_isQuest_4D6F50() != 0 {
 			v2 = int16(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 63))) & 0xFF7F)
 			*(*uint8)(unsafe.Add(unsafe.Pointer(&v2), unsafe.Sizeof(int16(0))-1)) |= 0x10
@@ -2468,11 +2535,9 @@ func nox_xxx_cliSetSettingsAcquired_4169D0(a1 int32) int32 {
 	*memmap.PtrUint32(0x5D4594, 371704) = uint32(a1)
 	return result
 }
-func sub_4169F0() *byte {
-	var result *byte
-	result = (*byte)(sub_416640())
-	*(*byte)(unsafe.Add(unsafe.Pointer(result), 100)) &= 0xEF
-	return result
+func sub_4169F0() {
+	v1 := sub_416640()
+	v1.Field100 &= 0xEF
 }
 func nox_xxx_playerForceSendLessons_416E50(a1 int32) {
 	result := nox_common_playerInfoGetFirst_416EA0()

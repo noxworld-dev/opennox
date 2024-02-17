@@ -235,7 +235,7 @@ func Nox_xxx_netGuiGameSettings_4DD9B0(a1 int, a2 unsafe.Pointer, a3 int) {
 }
 
 func Sub_459AA0(a1 unsafe.Pointer) {
-	sub_459AA0(a1)
+	sub_459AA0((*DataYyy)(a1))
 }
 
 func Nox_xxx_netNotifyRate_4D7F10(v ntype.PlayerInd) {

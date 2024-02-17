@@ -248,7 +248,6 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 		a1    = int32(uintptr(win.C()))
 		a2    = int32(uintptr(draw.C()))
 		v2    *byte
-		v4    *byte
 		v5    int16
 		v6    int32
 		v7    *uint32
@@ -300,12 +299,12 @@ func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 		}
 	}
 	nox_client_wndGetPosition_46AA60((*gui.Window)(a1), &xLeft, &yTop)
-	v4 = nox_xxx_cliGamedataGet_416590(0)
+	v4 := nox_xxx_cliGamedataGet_416590(0)
 	if noxflags.HasGame(1) {
 		v5 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 		v6 = int32(uint16(nox_xxx_servGamedataGet_40A020(v5)))
 	} else {
-		v6 = int32(*((*uint16)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uint16(0))*27))))
+		v6 = int32(v4.Field54)
 	}
 	v34 = v6
 	if int32(int8(*(*uint8)(unsafe.Add(a1, 4)))) >= 0 {
@@ -650,7 +649,7 @@ func sub_46FD80() int32 {
 			v1 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 			v2 = int32(uint16(nox_xxx_servGamedataGet_40A020(v1)))
 		} else {
-			v2 = int32(*((*uint16)(unsafe.Add(unsafe.Pointer(nox_xxx_cliGamedataGet_416590(0)), unsafe.Sizeof(uint16(0))*27))))
+			v2 = int32(nox_xxx_cliGamedataGet_416590(0).Field54)
 		}
 		v4 = v2
 		v3 = nox_strman_loadString_40F1D0(internCStr("LessonLimit"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 390)

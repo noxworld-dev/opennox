@@ -7206,73 +7206,53 @@ func nox_xxx_mapGenFinishSpellbook_527DB0(a1 int32, a2 int8) int32 {
 	**(**uint8)(unsafe.Add(a1, 736)) = uint8(a2)
 	return 1
 }
-func sub_527E00(a1 *server.Object) *int32 {
-	var (
-		v1     int32
-		result *int32
-		v3     int32
-	)
-	v1 = 32
-	result = (*int32)(unsafe.Add(unsafe.Pointer(a1), 560))
-	for {
-		v3 = *result
-		result = (*int32)(unsafe.Add(unsafe.Pointer(result), 4*1))
-		v1--
-		*((*int32)(unsafe.Add(unsafe.Pointer(result), -int(4*1)))) = v3 & 0xFFF
-		if v1 == 0 {
-			break
-		}
+func sub_527E00(a1 *server.Object) {
+	for i := range a1.Field140 {
+		a1.Field140[i] &= 0xFFF
 	}
-	return result
 }
-func nox_xxx_netUpdateObjectSpecial_527E50(a1p *server.Object, a2p *server.Object) int32 {
-	var (
-		a1 = a1p
-		a2 = a2p
-		v2 uint32
-		v3 int32
-	)
-	v2 = uint32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2064)))
-	if !(a2 != nil && v2 < 0x20) {
+func nox_xxx_netUpdateObjectSpecial_527E50(pu *server.Object, obj *server.Object) int32 {
+	pi := int(pu.UpdateDataPlayer().Player.PlayerInd)
+	if obj == nil || pi >= 32 {
 		return 1
 	}
-	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))))
-	if (uint32(v3) & 0xFFF0000) == 0 {
+	v3 := obj.Field140[pi]
+	if (v3 & 0xFFF0000) == 0 {
 		return 0
 	}
-	if (uint32(v3) & 0x10000) == 0x10000 {
-		nox_xxx_netReportAnimFrame_4D81F0(int32(v2), a2)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFFEFFFF
+	if (v3 & 0x10000) == 0x10000 {
+		nox_xxx_netReportAnimFrame_4D81F0(int32(pi), obj)
+		obj.Field140[pi] &= 0xFFFEFFFF
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x20000) == 0x20000 {
-		if nox_xxx_unitIsEnemyTo_5330C0(a1, a2) == 0 {
-			nox_xxx_netReportUnitCurrentHP_4D8620(int32(v2), a2)
+	if (v3 & 0x20000) == 0x20000 {
+		if nox_xxx_unitIsEnemyTo_5330C0(pu, obj) == 0 {
+			nox_xxx_netReportUnitCurrentHP_4D8620(int32(pi), obj)
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFFDFFFF
+		obj.Field140[pi] &= 0xFFFDFFFF
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x40000) == 0x40000 {
-		nox_xxx_netReportObjHidden_4D8FD0(int32(v2), a2)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFFBFFFF
+	if (v3 & 0x40000) == 0x40000 {
+		nox_xxx_netReportObjHidden_4D8FD0(int32(pi), obj)
+		obj.Field140[pi] &= 0xFFFBFFFF
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x80000) == 0x80000 {
-		nox_xxx_netReportXStatus_4D8230(int32(v2), a2)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFF7FFFF
+	if (v3 & 0x80000) == 0x80000 {
+		nox_xxx_netReportXStatus_4D8230(int32(pi), obj)
+		obj.Field140[pi] &= 0xFFF7FFFF
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x400000) == 0x400000 {
-		nox_xxx_netReportUnitHeight_4D9020(int32(v2), a2)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFFBFFFFF
+	if (v3 & 0x400000) == 0x400000 {
+		nox_xxx_netReportUnitHeight_4D9020(int32(pi), obj)
+		obj.Field140[pi] &= 0xFFBFFFFF
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x800000) == 0x800000 {
-		nox_xxx_netReportEnchant_4D8F90(int32(v2), a2)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFF7FFFFF
+	if (v3 & 0x800000) == 0x800000 {
+		nox_xxx_netReportEnchant_4D8F90(int32(pi), obj)
+		obj.Field140[pi] &= 0xFF7FFFFF
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x2000000) == 0x2000000 {
-		nox_xxx_netReportTeamBase_4D92D0(int32(v2), a2)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFDFFFFFF
+	if (v3 & 0x2000000) == 0x2000000 {
+		nox_xxx_netReportTeamBase_4D92D0(int32(pi), obj)
+		obj.Field140[pi] &= 0xFDFFFFFF
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) & 0x4000000) == 0x4000000 {
-		nox_xxx_netSendReportNPC_4D93A0(int32(v2), a2)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*uintptr(v2+140))) &= 0xFBFFFFFF
+	if (v3 & 0x4000000) == 0x4000000 {
+		nox_xxx_netSendReportNPC_4D93A0(int32(pi), obj)
+		obj.Field140[pi] &= 0xFBFFFFFF
 	}
 	return 1
 }

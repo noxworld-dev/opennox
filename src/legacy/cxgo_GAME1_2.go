@@ -3524,63 +3524,53 @@ func nox_client_guiXxx_43A9D0() int32 {
 	nox_client_setCursorType_477610(0)
 	return sub_43DE40(nil)
 }
-func sub_43AA70() *byte {
-	var (
-		v0     *byte
-		v1     *byte
-		v2     *byte
-		v3     int8
-		v4     int8
-		v5     int8
-		v6     *byte
-		result *byte
-		v8     int16
-		v9     [32]byte
-		v10    [268]byte
-	)
+func sub_43AA70() {
 	if dword_5d4594_528252 != 0 && dword_5d4594_528256 != 0 {
 		nox_xxx_networkLog_printf_413D30(internCStr("RECON: Posting server to WOL"))
 	}
 	nox_game_createOrJoin_815048 = 0
 	dword_5d4594_815052 = 1
-	v0 = nox_xxx_cliGamedataGet_416590(0)
-	v1 = (*byte)(sub_416640())
-	alloc.Memcpy(unsafe.Add(unsafe.Pointer(v1), 111), unsafe.Pointer(v0), 0x3A)
-	*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 163)) = uint16(nox_common_gameFlags_getVal_40A5B0())
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 135)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 139)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 143)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 147)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 151)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 155)) = math.MaxUint32
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 159)) = math.MaxUint32
-	v2 = nox_xxx_serverOptionsGetServername_40A4C0()
-	libc.StrNCpy((*byte)(unsafe.Add(unsafe.Pointer(v1), 120)), v2, 0xF)
-	libc.StrCpy((*byte)(unsafe.Add(unsafe.Pointer(v1), 111)), nox_xxx_mapGetMapName_409B40())
+	p2 := nox_xxx_cliGamedataGet_416590(0)
+	p := sub_416640()
+	*p.Field111() = *p2
+	pp := p.Field111()
+	pp.Field52 = uint16(nox_common_gameFlags_getVal_40A5B0())
+	pp.Field24.Vals[0] = math.MaxUint32
+	pp.Field24.Vals[1] = math.MaxUint32
+	pp.Field24.Vals[2] = math.MaxUint32
+	pp.Field24.Vals[3] = math.MaxUint32
+	pp.Field24.Vals[4] = math.MaxUint32
+	pp.Field44 = math.MaxUint32
+	pp.Field48 = math.MaxUint32
+	v2 := nox_xxx_serverOptionsGetServername_40A4C0()
+	libc.StrNCpy(&pp.Field0[9], v2, 15)
+	libc.StrCpy(&pp.Field0[0], nox_xxx_mapGetMapName_409B40())
 	if nox_xxx_isQuest_4D6F50() != 0 {
 		if dword_5d4594_528256 != 0 {
-			*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 165)) = uint16(int16(nox_game_getQuestStage_4E3CC0()))
+			pp.Field54 = uint16(int16(nox_game_getQuestStage_4E3CC0()))
 		} else {
-			*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 165)) = 1
+			pp.Field54 = 1
 		}
 	}
-	*(*byte)(unsafe.Add(unsafe.Pointer(v1), 104)) = byte(int8(nox_xxx_servGetPlrLimit_409FA0()))
-	v3 = int8(nox_common_playerInfoCount_416F40())
-	*(*byte)(unsafe.Add(unsafe.Pointer(v1), 103)) = byte(v3)
+	p.MaxPlayers104 = byte(int8(nox_xxx_servGetPlrLimit_409FA0()))
+	p.CurPlayers103 = byte(nox_common_playerInfoCount_416F40())
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING) {
-		*(*byte)(unsafe.Add(unsafe.Pointer(v1), 103)) = byte(int8(int32(v3) - 1))
-		*(*byte)(unsafe.Add(unsafe.Pointer(v1), 104))--
+		p.CurPlayers103--
+		p.MaxPlayers104--
 	}
-	v4 = int8(sub_43BE50_get_video_mode_id())
-	v5 = int8(*(*byte)(unsafe.Add(unsafe.Pointer(v1), 102)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*12)) = NOX_CLIENT_VERS_CODE
-	*(*byte)(unsafe.Add(unsafe.Pointer(v1), 102)) = byte(int8(int32(v5)&0x80 | int32(v4)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*11)) = *memmap.PtrUint32(0x5D4594, 814916)
-	*(*uint16)(unsafe.Add(unsafe.Pointer(v1), 109)) = uint16(int16(nox_xxx_servGetPort_40A430()))
+	v4 := int8(sub_43BE50_get_video_mode_id())
+	v5 := int8(p.Field102)
+	p.Version48 = NOX_CLIENT_VERS_CODE
+	p.Field102 = byte(int8(int32(v5)&0x80 | int32(v4)))
+	p.Field44 = *memmap.PtrUint32(0x5D4594, 814916)
+	*(*uint16)(unsafe.Pointer(&p.Port109)) = uint16(nox_xxx_servGetPort_40A430())
 	nox_client_setServerConnectAddr_435720(internCStr("localhost"))
 	if false {
-		*(*[268]byte)(unsafe.Pointer(&v10[0])) = [268]byte{}
-		v6 = sub_41FA40()
+		var (
+			v9  [32]byte
+			v10 [268]byte
+		)
+		v6 := sub_41FA40()
 		nox_sprintf(&v9[0], internCStr("%s%s"), v6, memmap.PtrOff(0x587000, 90752))
 		libc.StrCpy(&v10[52], &v9[0])
 		*(*uint32)(unsafe.Pointer(&v10[0])) = uint32(sub_420100())
@@ -3594,13 +3584,10 @@ func sub_43AA70() *byte {
 		*(*uint32)(unsafe.Pointer(&v10[28])) = 0
 		*(*uint32)(unsafe.Pointer(&v10[224])) = NOX_CLIENT_VERS_CODE
 		*(*uint32)(unsafe.Pointer(&v10[32])) = *memmap.PtrUint32(0x5D4594, 814916)
-		v10[sub_425550((*uint8)(unsafe.Add(unsafe.Pointer(v1), 100)), &v10[69], 552)+69] = 0
+		v10[sub_425550(&p.Field100, &v10[69], 552)+69] = 0
 	}
-	result = nox_xxx_cliGamedataGet_416590(1)
-	v8 = int16(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*26))) & 0xE90F)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(&v8), unsafe.Sizeof(int16(0))-1)) |= 1
-	*(*uint16)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(uint16(0))*26)) = uint16(v8)
-	return result
+	p3 := nox_xxx_cliGamedataGet_416590(1)
+	p3.Field52 = (p3.Field52 & 0xE90F) | 0x100
 }
 func sub_43AF30() int32 {
 	return int32(dword_5d4594_815052)
