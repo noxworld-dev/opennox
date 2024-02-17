@@ -812,18 +812,21 @@ var _ = [1]struct{}{}[60-unsafe.Sizeof(server.Settings2{})] // FIXME: must be 58
 
 var _ = [1]struct{}{}[168-unsafe.Sizeof(server.Settings{})]
 
-func getCurrentSettings2Ind() int32 { // sub_416580
-	return memmap.Int32(0x5D4594, 371688)
+func getCurrentSettings2Ind() int { // sub_416580
+	return int(memmap.Int32(0x5D4594, 371688))
 }
-func getSettings2ByInd(ind int32) *server.Settings2 { // nox_xxx_cliGamedataGet_416590
+func setCurrentSettings2Ind(ind int) {
+	*memmap.PtrInt32(0x5D4594, 371688) = int32(ind)
+}
+func getSettings2ByInd(ind int) *server.Settings2 { // nox_xxx_cliGamedataGet_416590
 	return memmap.PtrT[server.Settings2](0x5D4594, 371380+uintptr(ind)*58)
 }
 func getCurrentSettings2() *server.Settings2 { // sub_4165B0
 	ind := getCurrentSettings2Ind()
 	return getSettings2ByInd(ind)
 }
-func sub_4165D0(ind int32) *server.Settings2 {
-	*memmap.PtrInt32(0x5D4594, 371688) = ind
+func sub_4165D0(ind int) *server.Settings2 {
+	setCurrentSettings2Ind(ind)
 	return getSettings2ByInd(ind)
 }
 

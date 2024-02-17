@@ -587,19 +587,27 @@ func (s *Server) Nox_xxx_free503F40() {
 }
 
 func nox_xxx_mapSetDataDefault_416500() {
-	alloc.Memset(memmap.PtrOff(0x5D4594, 371380), 0, 116)
-	alloc.Memset(memmap.PtrOff(0x5D4594, 371516), 0, 168)
+	// TODO: cannot replace because of struct size mismatch
+	//*getSettings2ByInd(0) = server.Settings2{}
+	//*getSettings2ByInd(1) = server.Settings2{}
+	*(*[58]byte)(unsafe.Pointer(getSettings2ByInd(0))) = [58]byte{}
+	*(*[58]byte)(unsafe.Pointer(getSettings2ByInd(1))) = [58]byte{}
+
+	sinfo := sub_416640()
+	*sinfo = server.Settings{}
+
 	*memmap.PtrUint8(0x5D4594, 371684) = 0
-	*memmap.PtrUint16(0x5D4594, 371621) = math.MaxUint16
-	*memmap.PtrUint16(0x5D4594, 371623) = math.MaxUint16
-	*memmap.PtrUint32(0x5D4594, 371688) = 0
-	*memmap.PtrUint8(0x5D4594, 371617) = math.MaxUint8
-	*memmap.PtrUint8(0x5D4594, 371568) = 32
-	*memmap.PtrUint8(0x5D4594, 371569) = 32
-	*memmap.PtrUint32(0x5D4594, 371578) = 1
-	*memmap.PtrUint32(0x5D4594, 371574) = 0
-	*memmap.PtrUint32(0x5D4594, 371582) = 0
-	*memmap.PtrUint32(0x5D4594, 371586) = 0
-	*memmap.PtrUint32(0x5D4594, 371590) = 20
+	setCurrentSettings2Ind(0)
+
+	*(*uint16)(unsafe.Pointer(&sinfo.Field105)) = math.MaxUint16
+	*(*uint16)(unsafe.Pointer(&sinfo.Field107)) = math.MaxUint16
+	sinfo.Field101 = math.MaxUint8
+	sinfo.Field52 = 32
+	sinfo.Field53 = 32
+	*(*uint32)(unsafe.Pointer(&sinfo.Field62)) = 1
+	*(*uint32)(unsafe.Pointer(&sinfo.Field58)) = 0
+	*(*uint32)(unsafe.Pointer(&sinfo.Field66)) = 0
+	*(*uint32)(unsafe.Pointer(&sinfo.Field70)) = 0
+	*(*uint32)(unsafe.Pointer(&sinfo.Field74)) = 20
 	*memmap.PtrUint32(0x5D4594, 371696) = 0
 }

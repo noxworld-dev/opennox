@@ -2086,18 +2086,18 @@ int sub_4161E0() {
 		--v0;
 		--v1;
 	}
-	if (getMemByte(0x5D4594, 371619) != v0) {
-		*getMemU8Ptr(0x5D4594, 371619) = v0;
+	if (getMemByte(0x5D4594, 371516 + 103) != v0) {
+		*getMemU8Ptr(0x5D4594, 371516 + 103) = v0;
 		dword_5d4594_371692 = 1;
 	}
-	if (getMemByte(0x5D4594, 371620) != v1) {
-		*getMemU8Ptr(0x5D4594, 371620) = v1;
+	if (getMemByte(0x5D4594, 371516 + 104) != v1) {
+		*getMemU8Ptr(0x5D4594, 371516 + 104) = v1;
 		dword_5d4594_371692 = 1;
 	}
-	if ((getMemByte(0x5D4594, 371618) & 0xEF) != sub_43BE50_get_video_mode_id()) {
+	if ((getMemByte(0x5D4594, 371516 + 102) & 0xEF) != sub_43BE50_get_video_mode_id()) {
 		v2 = sub_43BE50_get_video_mode_id();
 		dword_5d4594_371692 = 1;
-		*getMemU8Ptr(0x5D4594, 371618) = getMemByte(0x5D4594, 371618) & 0x80 | v2;
+		*getMemU8Ptr(0x5D4594, 371516 + 102) = getMemByte(0x5D4594, 371516 + 102) & 0x80 | v2;
 	}
 	v3 = nox_common_gameFlags_getVal_40A5B0();
 	v4 = *getMemU16Ptr(0x5D4594, 371380 + 52);
@@ -2191,7 +2191,7 @@ int sub_4165F0(int a1, int a2) {
 }
 
 //----- (00416630) --------------------------------------------------------
-char* sub_416630() { return (char*)getMemAt(0x5D4594, 371616); }
+char* sub_416630() { return (char*)getMemAt(0x5D4594, 371516 + 100); }
 
 //----- (00416640) --------------------------------------------------------
 void* sub_416640() { return getMemAt(0x5D4594, 371516); }
