@@ -462,7 +462,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	noxSetUseMapFrame(0)
 
 	if err := conn.DialWait(10*time.Second, func() {
-		s.nox_xxx_netSendBySock_40EE10(conn, server.HostPlayerIndex, netlist.Kind0)
+		s.nox_xxx_netSendBySock_40EE10(conn.Conn, server.HostPlayerIndex, netlist.Kind0)
 	}, func() bool {
 		return noxGetUseMapFrame() != 0
 	}); err != nil {

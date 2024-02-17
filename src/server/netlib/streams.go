@@ -71,7 +71,6 @@ type SendStreamID interface {
 
 type Streams interface {
 	HostStream() Stream
-	ListenerStream() Stream
 	StreamByPlayerInd(pid ntype.PlayerInd) Stream
 	MaybeSendReliable()
 	ProcessStats(min, max time.Duration)

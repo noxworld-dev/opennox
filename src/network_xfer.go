@@ -16,7 +16,7 @@ func netXferSend(pli ntype.PlayerInd, act netxfer.Action, typ string, data []byt
 	s := noxServer
 	var conn *netstr.Conn
 	if !noxflags.HasGame(noxflags.GameHost) {
-		conn = c.Conn
+		conn = c.Conn.Conn
 	} else {
 		if !noxflags.HasGame(noxflags.GameClient) {
 			return false

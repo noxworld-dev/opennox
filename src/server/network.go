@@ -92,7 +92,7 @@ func (s *Server) Nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 
 func (s *Server) Nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
-		s.NetStr.Listener().RecvLoop(false)
+		s.lis.RecvLoop(false)
 	}
 }
 

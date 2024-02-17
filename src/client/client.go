@@ -53,7 +53,7 @@ type Client struct {
 	CursorPrev gui.Cursor
 	state      gui.State
 
-	Conn *netstr.Conn
+	Conn *netstr.Client
 
 	DrawableQueue []*Drawable
 	DrawableList3 []*Drawable

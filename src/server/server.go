@@ -115,7 +115,7 @@ type Server struct {
 	NetStr   *netstr.Streams
 	NetList  *netlist.List
 	NetXfer  netxfer.NetXfer
-	lis      *netstr.Conn
+	lis      netstr.Server
 	OwnIPStr string
 	OwnIP    netip.Addr
 	UseNAT   bool

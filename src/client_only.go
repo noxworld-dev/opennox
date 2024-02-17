@@ -82,7 +82,7 @@ func sub_43CCA0() {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
-	s.nox_xxx_netSendBySock_40EE10(c.Conn, server.HostPlayerIndex, netlist.Kind0)
+	s.nox_xxx_netSendBySock_40EE10(c.Conn.Conn, server.HostPlayerIndex, netlist.Kind0)
 	s.NetStr.MaybeSendReliable()
 	if lastCliHandlePackets == 0 {
 		return
