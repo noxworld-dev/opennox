@@ -39,11 +39,12 @@ func (s *noxScript) scriptCallByEvent(ev server.ScriptEventType, a1, a2 *server.
 		obj.CallOnMonsterLostEnemy(scrObject{asObjectS(targ)})
 	case server.NoxEventPolygonPlayerEnter:
 		obj := a1
-		ScriptLog.Printf("secret YYY: %s", obj)
+		//ScriptLog.Printf("secret YYY: %s", obj)
 		obj.CallOnPolygonPlayerEnter()
 	case server.NoxEventPolygonEnterYYY:
-		v1 := a1
-		ScriptLog.Printf("polygon YYY: %s", v1)
+		obj := a1
+		_ = obj
+		//ScriptLog.Printf("polygon YYY: %s", v1)
 	case server.NoxEventMonsterIdle:
 		obj := a2
 		obj.CallOnMonsterIdle()

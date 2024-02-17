@@ -29,6 +29,10 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 		CursorPrev: gui.Cursor17,
 	}
 	s.Types.ClientTypeByID = c.Things.IndByID
+	s.ClientConn = func() *netstr.Client {
+		return c.Conn
+	}
+	s.OnXferExt(c.handleCBORXfer)
 	c.Things.init(s.Strings())
 	c.Objs.init(c)
 	c.GUI = gui.New(c.r)

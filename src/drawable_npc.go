@@ -62,7 +62,11 @@ func (c *Client) DrawNPC(vp *noxrender.Viewport, dr *client.Drawable) int {
 	for i := range colors {
 		c.r.Data().SetMaterial(i+1, nox_color_white_2523948)
 	}
-	// TODO: call DrawPlayerName to support bot names
+	var tm *server.Team
+	if t := nox_xxx_objGetTeamByNetCode_418C80(int(dr.NetCode32)); t != nil {
+		tm = c.Server.Teams.ByID(t.ID)
+	}
+	c.DrawObjectName(vp, dr, tm, "")
 	c.DrawEnchantsTop(vp, dr)
 	c.DrawMonsterHP(vp, dr)
 	return 1

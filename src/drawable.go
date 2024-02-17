@@ -13,7 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
-func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
+func (c *Client) Nox_new_drawable_for_thing(typeID int) *client.Drawable {
 	dr := c.Objs.Alloc.NewObject()
 	if dr == nil {
 		dr = c.nox_xxx_spriteFromCache_45A330_drawable()
@@ -21,7 +21,7 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 	if dr == nil {
 		return nil
 	}
-	if c.DrawableLinkThing(dr, i) == 0 {
+	if c.DrawableLinkThing(dr, typeID) == 0 {
 		return nil
 	}
 	draw := dr.DrawFuncPtr
@@ -44,8 +44,8 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 	return dr
 }
 
-func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.Point) *client.Drawable {
-	dr := c.Nox_new_drawable_for_thing(thingInd)
+func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(typeID int, pos image.Point) *client.Drawable {
+	dr := c.Nox_new_drawable_for_thing(typeID)
 	if dr == nil {
 		return nil
 	}
@@ -158,7 +158,7 @@ func (c *Client) Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 	if dr.NextPtr != nil {
 		dr.NextPtr.Field_93 = dr.Field_93
 	}
-	c.Objs.Index2DRemove(dr, dr.Ext())
+	c.Objs.Index2DRemove(dr, dr.SetExt())
 	c.nox_xxx_clientDeleteSprite_476F10_drawable(dr)
 	if dr.Flags()&0x10000 != 0 {
 		if dr.Field_91 != nil {

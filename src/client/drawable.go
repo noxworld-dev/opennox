@@ -2,6 +2,7 @@ package client
 
 import (
 	"image"
+	"image/color"
 	"math"
 	"unsafe"
 
@@ -31,7 +32,9 @@ var (
 )
 
 type DrawableExt struct {
-	Field99 **Drawable
+	Field99          **Drawable
+	DisplayName      string
+	DisplayNameColor color.Color
 }
 
 func (c *Client) InitDrawableLists() {
@@ -60,12 +63,12 @@ func (c *Client) DrawListAppendWallYyy(p *server.Wall) {
 	c.WallsYyy = append(c.WallsYyy, p)
 }
 
-func (c *Client) DrawableLinkThing(dr *Drawable, i int) int {
-	typ := c.Things.TypeByInd(i)
+func (c *Client) DrawableLinkThing(dr *Drawable, typeID int) int {
+	typ := c.Things.TypeByInd(typeID)
 	if typ == nil {
 		return 0
 	}
-	dr.LinkType(i, typ)
+	dr.LinkType(typeID, typ)
 	if typ.Lifetime != 0 {
 		c.Objs.TransparentDecay(dr, int(typ.Lifetime))
 	}
@@ -408,7 +411,7 @@ func (c *clientDrawables) AddIndex2D(dr *Drawable) {
 	xi := pos.X / Nox_drawable_2d_div
 	yi := pos.Y / Nox_drawable_2d_div
 
-	ext := dr.Ext()
+	ext := dr.SetExt()
 	if ext.Field99 != nil {
 		c.Index2DRemove(dr, ext)
 	}
@@ -619,7 +622,14 @@ func (s *Drawable) C() unsafe.Pointer {
 	return unsafe.Pointer(s)
 }
 
-func (s *Drawable) Ext() *DrawableExt {
+func (s *Drawable) GetExt() *DrawableExt {
+	if s == nil {
+		return nil
+	}
+	return drawableExts[unsafe.Pointer(s)]
+}
+
+func (s *Drawable) SetExt() *DrawableExt {
 	if s == nil {
 		return nil
 	}
@@ -629,6 +639,12 @@ func (s *Drawable) Ext() *DrawableExt {
 		drawableExts[unsafe.Pointer(s)] = p
 	}
 	return p
+}
+
+func (s *Drawable) setDisplayName(name string, cl color.Color) {
+	ext := s.SetExt()
+	ext.DisplayName = name
+	ext.DisplayNameColor = cl
 }
 
 func (s *Drawable) UnionItem() *DrawableUnionItem {
@@ -807,9 +823,9 @@ func LightRadius(intens float32) int {
 		(intens * intens / (memmap.Float32(0x587000, 154976) * memmap.Float32(0x587000, 154972))))))
 }
 
-func (s *Drawable) LinkType(i int, typ *ObjectType) {
+func (s *Drawable) LinkType(typeID int, typ *ObjectType) {
 	*s = Drawable{}
-	s.TypeIDVal = uint32(i)
+	s.TypeIDVal = uint32(typeID)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 0)) = typ.HWidth
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 1)) = typ.HHeight
 	s.ZVal2 = typ.Z // TODO: shouldn't it put this in dr.z?

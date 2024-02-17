@@ -15,6 +15,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -163,6 +164,14 @@ func (s *serverObjects) newExt(obj *Object) *ObjectExt {
 	obj.objectHandle = h
 	s.ext[obj.objectHandle] = ext
 	return ext
+}
+
+func (s *Server) SendIncomingExt(pli ntype.PlayerInd) {
+	var batch []NetXferExt
+	for _, obj := range s.Objs.ext {
+		batch = s.appendIncomingXfer(batch, obj)
+	}
+	s.NetXferSendExt(pli, batch...)
 }
 
 func (s *serverObjects) LastObjectScriptID() ObjectScriptID {
@@ -549,6 +558,9 @@ type ObjectExt struct {
 	HealthRegenToMax    time.Duration
 	HealthRegenPerFrame float32
 	HealthFraction      float32 // float fraction of health; 0 <= v < 1
+
+	Label      string
+	LabelColor color.Color
 }
 
 func (obj *ObjectExt) defaults() {
@@ -1396,6 +1408,25 @@ func (obj *Object) SetOwner(owner *Object) {
 		return
 	}
 	s.ObjSetOwner(owner, obj)
+}
+
+func (obj *Object) DisplayName() string {
+	ext := obj.GetExt()
+	if ext == nil {
+		return ""
+	}
+	return ext.Label
+}
+
+func (obj *Object) setDisplayName(name string, cl color.Color) {
+	ext := obj.SetExt()
+	ext.Label = name
+	ext.LabelColor = cl
+}
+
+func (obj *Object) SetDisplayName(name string, cl color.Color) {
+	obj.setDisplayName(name, cl)
+	obj.Server().netSendObjectLabel(obj, name, cl)
 }
 
 func (obj *Object) DestroyChat() {

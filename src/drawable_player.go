@@ -156,7 +156,7 @@ func (c *Client) DrawPlayer(vp *noxrender.Viewport, dr *client.Drawable) int {
 	if !(v30 || !dr.HasEnchant(0) || int(dr.NetCode32) == legacy.ClientPlayerNetCode() || c.ClientPlayerUnit() != nil && (c.ClientPlayerUnit().HasEnchant(server.ENCHANT_INFRAVISION) || sameTeam)) {
 		return 1
 	}
-	c.DrawPlayerName(vp, dr, tm, pl.Name())
+	c.DrawObjectName(vp, dr, tm, pl.Name())
 	c.DrawEnchantsTop(vp, dr)
 	if !(dr != c.ClientPlayerUnit() && legacy.Nox_xxx_playerGet_470A90() != 0) {
 		return 1
@@ -200,8 +200,20 @@ func (c *Client) sub_4B8FA0(dr *client.Drawable) (noxrender.ImageHandle, *client
 	return arr[ind], panim, ind
 }
 
-func (c *Client) DrawPlayerName(vp *noxrender.Viewport, dr *client.Drawable, tm *server.Team, name string) {
-	if hasChatBubble(dr) || noxflags.HasGame(noxflags.GameModeCoop) {
+func (c *Client) DrawObjectName(vp *noxrender.Viewport, dr *client.Drawable, tm *server.Team, name string) {
+	if hasChatBubble(dr) {
+		return
+	}
+	ext := dr.GetExt()
+	overrideName := false
+	if ext != nil && ext.DisplayName != "" {
+		name = ext.DisplayName
+		overrideName = true
+	}
+	if name == "" {
+		return
+	}
+	if !overrideName && noxflags.HasGame(noxflags.GameModeCoop) {
 		return
 	}
 	sz := c.r.GetStringSizeWrapped(nil, name, 0)
@@ -211,8 +223,12 @@ func (c *Client) DrawPlayerName(vp *noxrender.Viewport, dr *client.Drawable, tm 
 	c.r.Data().SetTextColor(nox_color_gray1)
 	c.r.DrawString(nil, name, pos.Add(image.Point{X: 1, Y: 1}))
 	var textCl color.Color = noxcolor.RGB5551Color(155, 155, 155)
-	if c.Server.Teams.Count() != 0 && tm != nil {
-		textCl = c.Server.Teams.GetTeamColor(tm)
+	if ext != nil && ext.DisplayNameColor != nil {
+		textCl = ext.DisplayNameColor
+	} else {
+		if c.Server.Teams.Count() != 0 && tm != nil {
+			textCl = c.Server.Teams.GetTeamColor(tm)
+		}
 	}
 	c.r.Data().SetTextColor(textCl)
 	c.r.DrawString(nil, name, pos)

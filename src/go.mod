@@ -5,12 +5,13 @@ go 1.21
 toolchain go1.21.5
 
 require (
+	github.com/fxamacker/cbor/v2 v2.6.0
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20230831140413-02623e75408e
 	github.com/noxworld-dev/noxscript/ns v1.0.2
 	github.com/noxworld-dev/noxscript/ns/v3 v3.4.4
-	github.com/noxworld-dev/noxscript/ns/v4 v4.18.1
+	github.com/noxworld-dev/noxscript/ns/v4 v4.19.0
 	github.com/noxworld-dev/opennox-lib v0.0.0-20240210164647-e15d353dd8ba
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
@@ -65,6 +66,7 @@ require (
 	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/traefik/yaegi v0.15.2-0.20230926222205-da27c4fbc25f // indirect
 	github.com/veandco/go-sdl2 v0.5.0-alpha.4 // indirect
+	github.com/x448/float16 v0.8.4 // indirect
 	github.com/youpy/go-riff v0.1.0 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20220504180219-658193537a64 // indirect
 	github.com/zaf/g711 v0.0.0-20190814101024-76a4a538f52b // indirect

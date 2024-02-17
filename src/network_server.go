@@ -97,12 +97,15 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		}
 		return 2, true
 	case noxnet.MSG_CLIENT_READY:
+		server.Log.Printf("player ready: %d: %q", pl.Index(), pl.Name())
 		legacy.Nox_xxx_gameServerReadyMB_4DD180(pl.Index())
+		s.SendIncomingExt(pl.PlayerIndex())
 		return 1, true
 	case noxnet.MSG_SERVER_QUIT_ACK:
 		serverQuitAck()
 		return 1, true
 	case noxnet.MSG_INCOMING_CLIENT:
+		server.Log.Printf("incoming player: %d: %q", pl.Index(), pl.Name())
 		legacy.Nox_xxx_netPlayerIncomingServ_4DDF60(pl.Index())
 		return 1, true
 	case noxnet.MSG_OUTGOING_CLIENT:

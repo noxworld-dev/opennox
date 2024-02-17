@@ -17,6 +17,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server/netxfer"
@@ -112,24 +113,28 @@ type Server struct {
 	ShouldCallMapInit  bool
 	ShouldCallMapEntry bool
 
-	NetStr   *netstr.Streams
-	NetList  *netlist.List
-	NetXfer  netxfer.NetXfer
-	lis      netstr.Server
-	OwnIPStr string
-	OwnIP    netip.Addr
-	UseNAT   bool
-	Announce bool
-	MapSend  serverMapSend
-	port     int
-	http     httpService
-	nat      natService
+	NetStr    *netstr.Streams
+	NetList   *netlist.List
+	NetXfer   netxfer.NetXfer
+	onXferExt []func(ind ntype.PlayerInd, obj NetXferExt)
+	lis       netstr.Server
+	OwnIPStr  string
+	OwnIP     netip.Addr
+	UseNAT    bool
+	Announce  bool
+	MapSend   serverMapSend
+	port      int
+	http      httpService
+	nat       natService
 
 	updateFunc2 func() bool
 
 	CurrentMapXxx    func() string
 	CurrentMapYyy    func() string
 	NetSendPacketXxx func(a1 int, buf []byte, a4, a5, a6 int) int // Nox_xxx_netSendPacket_4E5030
+	ClientConn       func() *netstr.Client
+	ObjectByNetCode  func(code int) *Object
+	NetXferLocal     func(act netxfer.Action, typ string, data []byte)
 }
 
 func (s *Server) Close() {

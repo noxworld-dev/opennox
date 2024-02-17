@@ -273,8 +273,8 @@ func netXferSendDone(act netxfer.Action) {
 	}
 }
 
-func netXferLocal(act netxfer.Action, data []byte) {
-	xferDataCallback40AF90(server.HostPlayerIndex, act, memmap.String(0x5D4594, 4664), data)
+func netXferLocal(act netxfer.Action, typ string, data []byte) {
+	xferDataCallback40AF90(server.HostPlayerIndex, act, typ, data)
 	netXferSendDone(act)
 }
 
@@ -368,6 +368,9 @@ func xferFree446580(i int) {
 
 func xferDataCallback40AF90(ind ntype.PlayerInd, act netxfer.Action, typ string, data []byte) {
 	s := noxServer
+	if s.NetXferHandle(ind, act, typ, data) {
+		return
+	}
 	switch act {
 	case server.NetXferMOTD:
 		xferSet446520(1, data)
@@ -672,7 +675,7 @@ func sub41CFA0(a1 string, a2 ntype.PlayerInd) bool {
 
 	f.Read(buf)
 	sub_419EB0(a2, 1)
-	netXferSend(a2, server.NetXferSavedata, server.NetXferSavedataType, buf, true)
+	noxServer.NetXferSend(a2, server.NetXferSavedata, server.NetXferSavedataType, buf, netXferSendDone, netXferSendAborted)
 	return true
 }
 

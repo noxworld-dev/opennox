@@ -1075,6 +1075,14 @@ func (obj *Object) DoDamage(source *server.Object, amount int, typ object.Damage
 	return obj.CallDamage(owner, source, amount, typ)
 }
 
+func (obj *Object) DisplayName() string {
+	return obj.SObj().DisplayName()
+}
+
+func (obj *Object) SetDisplayName(name string, cl color.Color) {
+	obj.SObj().SetDisplayName(name, cl)
+}
+
 func (obj *Object) Chat(message ns4.StringID) {
 	obj.ChatTimer(message, ns4.Frames(0))
 }

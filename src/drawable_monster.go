@@ -96,23 +96,28 @@ func (c *Client) DrawMonster(vp *noxrender.Viewport, dr *client.Drawable) int {
 		res = c.drawAnimVector(vp, dr, ani)
 		c.r.Data().SetColorize17(0)
 	}
+	var tm *server.Team
+	if t := nox_xxx_objGetTeamByNetCode_418C80(int(dr.NetCode32)); t != nil {
+		tm = c.Server.Teams.ByID(t.ID)
+	}
+	c.DrawObjectName(vp, dr, tm, "")
 	c.DrawEnchantsTop(vp, dr)
 	c.DrawMonsterHP(vp, dr)
 	if !noxflags.HasGamePlay(noxflags.GameplayFlag4) && (c.ClientPlayerUnit() == nil || !c.ClientPlayerUnit().TeamPtr().Has()) {
 		c.r.Data().SetAlphaEnabled(false)
 		return res
 	}
-	var t *server.ObjectTeam
+	var plt *server.ObjectTeam
 	if !noxflags.HasGame(noxflags.GameHost) {
-		t = c.ClientPlayerUnit().TeamPtr()
+		plt = c.ClientPlayerUnit().TeamPtr()
 	} else if pl := c.Server.Players.ByInd(server.HostPlayerIndex); pl != nil && pl.PlayerUnit != nil {
-		t = pl.PlayerUnit.TeamPtr()
+		plt = pl.PlayerUnit.TeamPtr()
 	}
 	// If monster belongs to the same team as the player - show the colored dot.
-	if t != nil {
+	if plt != nil {
 		drawDot := false
-		tm := c.Server.Teams.ByID(t.ID)
-		if tm != nil && legacy.Sub_495A80(dr.NetCode32) != 0 {
+		ptm := c.Server.Teams.ByID(plt.ID)
+		if ptm != nil && legacy.Sub_495A80(dr.NetCode32) != 0 {
 			drawDot = true
 		}
 		// Looks like shopkeepers are in the player's team in Quest, so they are excluded here explicitly.
@@ -121,7 +126,7 @@ func (c *Client) DrawMonster(vp *noxrender.Viewport, dr *client.Drawable) int {
 			drawDot = false
 		}
 		if drawDot {
-			cl := c.Server.Teams.GetTeamColor(tm)
+			cl := c.Server.Teams.GetTeamColor(ptm)
 			pos := dr.PosVec
 			pos = pos.Add(image.Point{Y: -(int(dr.ZVal) + int(dr.ZSizeMax)*2)})
 			pos = vp.ToScreenPos(pos)
