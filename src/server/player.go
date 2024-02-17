@@ -52,6 +52,7 @@ type serverPlayers struct {
 	hostUnit   *Object
 
 	playersXxx uint32
+	Camper     playerCamper
 }
 
 func (s *serverPlayers) BaseStats() *ClassStats {
@@ -162,7 +163,7 @@ func (s *Server) OnClassStats(cl player.Class, stats ClassStats) {
 	s.CalcClassStats()
 }
 
-func (s *serverPlayers) init() {
+func (s *serverPlayers) init(srv *Server) {
 	s.list, _ = alloc.Make([]Player{}, common.MaxPlayers)
 	s.Mult.Warrior = ClassStats{
 		Health:   1,
@@ -182,6 +183,7 @@ func (s *serverPlayers) init() {
 		Strength: 1,
 		Speed:    1,
 	}
+	s.Camper.init(srv)
 }
 
 func (s *serverPlayers) ResetAll() {

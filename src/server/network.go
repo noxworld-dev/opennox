@@ -671,7 +671,18 @@ func (s *Server) Nox_xxx_orderUnitLocal_500C70(owner ntype.PlayerInd, orderType 
 	s.Players.ByInd(owner).SummonOrderAll = orderType
 	return s.Nox_xxx_netCreatureCmd_4D7EE0(owner, byte(orderType))
 }
-func (s *Server) Nox_xxx_netSendInterestingId_4D7BE0(u *Object) {
+func (s *Server) NetSendInterestingIDOn(u *Object) {
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_INTERESTING_ID)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(u)))
+	binary.LittleEndian.PutUint16(buf[3:], u.TypeInd)
+	buf[5] = 1
+	buf[6] = 2
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		s.NetSendPacketXxx0(int(it.UpdateDataPlayer().Player.PlayerInd), buf[:7], 0, 1)
+	}
+}
+func (s *Server) NetSendInterestingIDOff(u *Object) {
 	var buf [7]byte
 	buf[0] = byte(noxnet.MSG_INTERESTING_ID)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(u)))
@@ -690,10 +701,10 @@ func (s *Server) Sub_4D7E50(obj *Object) {
 	ud.Field62 = 0
 	ud.Field63 = 0
 	ud.Field64 = s.Frame()
-	if ud.Field65 != 0 {
-		s.Nox_xxx_netSendInterestingId_4D7BE0(obj)
+	if ud.IsCamping != 0 {
+		s.NetSendInterestingIDOff(obj)
 	}
-	ud.Field65 = 0
+	ud.IsCamping = 0
 }
 func (s *Server) Sub_4D7EA0() {
 	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {

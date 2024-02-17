@@ -249,9 +249,6 @@ func Sub_5096F0() {
 func Sub_416720() {
 	C.sub_416720()
 }
-func Sub_4D7CC0() {
-	C.sub_4D7CC0()
-}
 func Sub_40AA00() int {
 	return int(C.sub_40AA00())
 }
@@ -344,9 +341,6 @@ func Nox_motd_4463E0(a1 int) {
 }
 func Sub_4259C0() {
 	C.sub_4259C0()
-}
-func Sub_4D7C60() {
-	C.sub_4D7C60()
 }
 func Sub_518770() int {
 	return int(C.sub_518770())

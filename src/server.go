@@ -208,10 +208,8 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 	}
 	if noxflags.HasGame(noxflags.GameOnline) {
 		legacy.Sub_416720()
-		if !noxflags.HasGame(noxflags.GameModeChat) {
-			if legacy.Sub_409F40(0x2000) != 0 {
-				legacy.Sub_4D7CC0()
-			}
+		if !noxflags.HasGame(noxflags.GameModeChat) && sub_409F40(0x2000) {
+			s.Players.Camper.Update()
 		}
 	}
 	if noxflags.HasGame(noxflags.GameModeElimination) {
@@ -657,7 +655,7 @@ func (s *Server) newSession() error {
 	legacy.Nox_motd_4463E0(1)
 	s.TeamsReset()
 	legacy.Sub_4259C0()
-	legacy.Sub_4D7C60()
+	s.Players.Camper.Reset()
 	if legacy.Sub_518770() == 0 {
 		return errors.New("sub_518770 failed")
 	}

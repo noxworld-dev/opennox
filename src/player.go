@@ -726,3 +726,9 @@ func findPlayerWithFewerKeys() *server.Object {
 	}
 	return found
 }
+func sub_409F40(a1 uint32) bool {
+	if a1 == 0x2000 && noxflags.HasGame(1056) {
+		return true
+	}
+	return (a1 & legacy.Nox_xxx_getServerSubFlags_409E60()) != 0
+}

@@ -59,7 +59,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s.Types.init()
 	s.Objs.init(s.handle)
 	s.Modif.init(sm)
-	s.Players.init()
+	s.Players.init(s)
 	s.Teams.init(sm, pr)
 	s.Abils.init(s)
 	s.Spells.init(s)

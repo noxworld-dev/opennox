@@ -121,7 +121,7 @@ type PlayerUpdateData struct {
 	Field62          uint32         // 62, 248
 	Field63          uint32         // 63, 252
 	Field64          uint32         // 64, 256
-	Field65          uint32         // 65, 260
+	IsCamping        uint32         // 65, 260
 	Field66          uint32         // 66, 264
 	Field67          uint32         // 67, 268
 	Field68          uint32         // 68, 272

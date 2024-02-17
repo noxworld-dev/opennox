@@ -50,7 +50,6 @@ extern uint32_t dword_5d4594_3835360;
 extern uint32_t dword_5d4594_1549844;
 extern uint32_t dword_5d4594_3835364;
 extern uint32_t dword_5d4594_1556128;
-extern uint32_t dword_5d4594_1556316;
 extern uint32_t dword_5d4594_1556136;
 extern uint32_t dword_5d4594_3835372;
 extern uint32_t dword_5d4594_1556144;
@@ -3698,25 +3697,6 @@ int sub_4D7B40() {
 	return result;
 }
 
-//----- (004D7B60) --------------------------------------------------------
-int sub_4D7B60(int a1) {
-	int result; // eax
-	int i;      // esi
-	char v3[7]; // [esp+4h] [ebp-8h]
-
-	v3[0] = -46;
-	*(uint16_t*)&v3[1] = nox_xxx_netGetUnitCodeServ_578AC0((uint32_t*)a1);
-	*(uint16_t*)&v3[3] = *(uint16_t*)(a1 + 4);
-	v3[5] = 1;
-	v3[6] = 2;
-	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	for (i = result; result; i = result) {
-		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), v3, 7, 0, 1);
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
 //----- (004D7BE0) --------------------------------------------------------
 int nox_xxx_netSendInterestingId_4D7BE0(int a1) {
 	int result; // eax
@@ -3732,79 +3712,6 @@ int nox_xxx_netSendInterestingId_4D7BE0(int a1) {
 	for (i = result; result; i = result) {
 		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), v3, 7, 0, 1);
 		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
-//----- (004D7C60) --------------------------------------------------------
-int sub_4D7C60() {
-	int result; // eax
-	float v1;   // [esp+0h] [ebp-4h]
-	float v2;   // [esp+0h] [ebp-4h]
-
-	dword_5d4594_1556316 = 0;
-	*getMemFloatPtr(0x5D4594, 1556308) = nox_xxx_gamedataGetFloat_419D40("CamperRadiusSq");
-	v1 = nox_xxx_gamedataGetFloat_419D40("CamperStartTime");
-	*getMemU32Ptr(0x5D4594, 1556312) = nox_float2int(v1);
-	v2 = nox_xxx_gamedataGetFloat_419D40("CamperFadeTime");
-	result = nox_float2int(v2);
-	*getMemU32Ptr(0x5D4594, 1556304) = result;
-	return result;
-}
-
-//----- (004D7CC0) --------------------------------------------------------
-int sub_4D7CC0() {
-	int result;   // eax
-	int i;        // ecx
-	int v2;       // edx
-	double v3;    // st7
-	double v4;    // st6
-	int j;        // esi
-	uint32_t* v6; // edi
-	int v7;       // eax
-
-	nox_platform_get_ticks();
-	result = sub_409F40(0x2000);
-	if (result) {
-		if ((unsigned int)(gameFrame() - dword_5d4594_1556316) > *getMemIntPtr(0x5D4594, 1556312)) {
-			for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-				if (!(*(uint32_t*)(i + 16) & 0x8020)) {
-					v2 = *(uint32_t*)(i + 748);
-					if (!(*(uint8_t*)(*(uint32_t*)(v2 + 276) + 3680) & 1)) {
-						v3 = *(float*)(i + 60) - *(float*)(v2 + 252);
-						v4 = *(float*)(i + 56) - *(float*)(v2 + 248);
-						if (v4 * v4 + v3 * v3 < *getMemFloatPtr(0x5D4594, 1556308)) {
-							*(uint32_t*)(v2 + 256) = gameFrame();
-						}
-						*(uint32_t*)(v2 + 248) = *(uint32_t*)(i + 56);
-						*(uint32_t*)(v2 + 252) = *(uint32_t*)(i + 60);
-					}
-				}
-			}
-			dword_5d4594_1556316 = gameFrame();
-		}
-		result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-		for (j = result; result; j = result) {
-			if (!(*(uint32_t*)(j + 16) & 0x8020)) {
-				v6 = *(uint32_t**)(j + 748);
-				if (!(*(uint8_t*)(v6[69] + 3680) & 1)) {
-					v7 = v6[65];
-					if ((unsigned int)(dword_5d4594_1556316 - v6[64]) > *getMemIntPtr(0x5D4594, 1556304)) {
-						if (v7) {
-							nox_xxx_netSendInterestingId_4D7BE0(j);
-							v6[65] = 0;
-						}
-					} else if (!v7) {
-						if (!nox_common_gameFlags_check_40A5C0(32) || *(uint8_t*)(v6[69] + 4) & 1) {
-							nox_xxx_aud_501960(774, j, 0, 0);
-						}
-						sub_4D7B60(j);
-						v6[65] = 1;
-					}
-				}
-			}
-			result = nox_xxx_getNextPlayerUnit_4DA7F0(j);
-		}
 	}
 	return result;
 }

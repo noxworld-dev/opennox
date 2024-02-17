@@ -744,7 +744,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("RestrictedPing", fmt.Sprintf("%d %d", *(*uint16)(unsafe.Pointer(&sst.RestrictedPingMind105)), *(*uint16)(unsafe.Pointer(&sst.RestrictedPingMax107))))
 	sect.Set("LimitMaxRes", strconv.Itoa(bool2int(sst.Flags102.Has(server.ServerLimitMaxRes))))
 	sect.Set("CamperAlarm", strconv.Itoa(bool2int((legacy.Nox_xxx_getServerSubFlags_409E60()>>13)&0x1 != 0)))
-	sect.Set("ItemRespawn", strconv.Itoa(legacy.Sub_409F40(2)))
+	sect.Set("ItemRespawn", strconv.Itoa(bool2int(sub_409F40(2))))
 	sect.Set("MinKickVotes", strconv.Itoa(int(memmap.Uint32(0x587000, 229980))))
 	sect.Set("ResetQuestMinVotes", strconv.Itoa(int(legacy.Get_nox_server_resetQuestMinVotes_229988())))
 	sect.Set("KickQuestPlayerMinVotes", strconv.Itoa(int(legacy.Get_nox_server_kickQuestPlayerMinVotes_229992())))
