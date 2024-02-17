@@ -7132,23 +7132,6 @@ int nox_xxx_mapGenFinishSpellbook_527DB0(int a1, char a2) {
 	return 1;
 }
 
-//----- (00527E00) --------------------------------------------------------
-int* sub_527E00(nox_object_t* a1) {
-	int v1;      // ecx
-	int* result; // eax
-	int v3;      // edx
-
-	v1 = 32;
-	result = (int*)((int)a1 + 560);
-	do {
-		v3 = *result;
-		++result;
-		--v1;
-		*(result - 1) = v3 & 0xFFF;
-	} while (v1);
-	return result;
-}
-
 //----- (00527E50) --------------------------------------------------------
 int nox_xxx_netUpdateObjectSpecial_527E50(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;

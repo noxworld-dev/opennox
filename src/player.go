@@ -164,7 +164,7 @@ func (s *Server) PlayerGoObserver(p *server.Player, notify, keepPlayer bool) boo
 	ud.CurTraps = 0
 	_ = nox_xxx_updatePlayerObserver_4E62F0
 	u.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
-	legacy.Sub_4D7E50(u)
+	s.Sub_4D7E50(u)
 	return true
 }
 

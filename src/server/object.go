@@ -1907,6 +1907,11 @@ func (obj *Object) GetOwned516() []*Object {
 	}
 	return out
 }
+func (obj *Object) AllMask140() {
+	for i := range obj.Field140 {
+		obj.Field140[i] &= 0xFFF
+	}
+}
 
 type debugObject struct {
 	Ind          int                 `json:"ind"`

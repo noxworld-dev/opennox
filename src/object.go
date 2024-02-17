@@ -204,7 +204,7 @@ func (s *Server) ObjectsAddPending() {
 			}
 		} else {
 			it.MakeUnseen()
-			legacy.Sub_527E00(it)
+			it.AllMask140()
 			it.Field37 = math.MaxUint32
 		}
 		it.ObjFlags &^= object.FlagPending

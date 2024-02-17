@@ -418,9 +418,6 @@ func Nox_xxx_respawnAdd_4EC5E0(a1 *server.Object) {
 func Sub_5117F0(a1 *server.Object) {
 	C.sub_5117F0(asObjectC(a1))
 }
-func Sub_527E00(a1 *server.Object) {
-	C.sub_527E00(asObjectC(a1))
-}
 func Nox_xxx_action_4DA9F0(a1 *server.Object) {
 	C.nox_xxx_action_4DA9F0(asObjectC(a1))
 }

@@ -661,3 +661,74 @@ func (s *Server) NetStatsMultiplier(u *Object) int {
 	}
 	return s.NetWriteClassStats(pl.PlayerIndex(), *stats)
 }
+func (s *Server) Nox_xxx_netCreatureCmd_4D7EE0(player ntype.PlayerInd, orderType byte) int {
+	var buf [2]byte
+	buf[0] = byte(noxnet.MSG_REPORT_CREATURE_CMD)
+	buf[1] = orderType
+	return s.NetSendPacketXxx1(int(player), buf[:2], 0, 1)
+}
+func (s *Server) Nox_xxx_orderUnitLocal_500C70(owner ntype.PlayerInd, orderType uint32) int {
+	s.Players.ByInd(owner).SummonOrderAll = orderType
+	return s.Nox_xxx_netCreatureCmd_4D7EE0(owner, byte(orderType))
+}
+func (s *Server) Nox_xxx_netSendInterestingId_4D7BE0(u *Object) {
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_INTERESTING_ID)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(u)))
+	binary.LittleEndian.PutUint16(buf[3:], u.TypeInd)
+	buf[5] = 2
+	buf[6] = 2
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		s.NetSendPacketXxx0(int(it.UpdateDataPlayer().Player.PlayerInd), buf[:7], 0, 1)
+	}
+}
+func (s *Server) Sub_4D7E50(obj *Object) {
+	if !obj.Class().Has(object.ClassPlayer) {
+		return
+	}
+	ud := obj.UpdateDataPlayer()
+	ud.Field62 = 0
+	ud.Field63 = 0
+	ud.Field64 = s.Frame()
+	if ud.Field65 != 0 {
+		s.Nox_xxx_netSendInterestingId_4D7BE0(obj)
+	}
+	ud.Field65 = 0
+}
+func (s *Server) Sub_4D7EA0() {
+	for it := s.Players.FirstUnit(); it != nil; it = s.Players.NextUnit(it) {
+		s.Sub_4D7E50(it)
+	}
+}
+func (s *Server) Nox_xxx_netReportObjectPoison_4D7F40(pu *Object, obj *Object, a3 int8) int {
+	ud := pu.UpdateDataPlayer()
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_REPORT_OBJECT_POISON)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(obj)))
+	buf[3] = uint8(a3)
+	return s.NetSendPacketXxx0(int(ud.Player.PlayerInd), buf[:4], 0, 1)
+}
+func (s *Server) NetReportExperience(u *Object) { // sub_4D81A0
+	if !u.Class().Has(object.ClassPlayer) {
+		return
+	}
+	ud := u.UpdateDataPlayer()
+	var buf [5]byte
+	buf[0] = byte(noxnet.MSG_REPORT_EXPERIENCE)
+	binary.LittleEndian.PutUint32(buf[1:], uint32(u.Experience))
+	s.NetSendPacketXxx0(int(ud.Player.PlayerInd), buf[:5], 0, 1)
+}
+func (s *Server) Nox_xxx_netReportAnimFrame_4D81F0(a1 int, a2 *Object) int {
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_REPORT_ANIMATION_FRAME)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(a2)))
+	binary.LittleEndian.PutUint32(buf[3:], a2.Field33)
+	return s.NetSendPacketXxx0(a1, buf[:7], 0, 1)
+}
+func (s *Server) nox_xxx_netReportXStatus_4D8230(a1 int, a2 *Object) int {
+	var buf [7]byte
+	buf[0] = byte(noxnet.MSG_REPORT_X_STATUS)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(s.GetUnitNetCode(a2)))
+	binary.LittleEndian.PutUint32(buf[3:], a2.Field5)
+	return s.NetSendPacketXxx0(a1, buf[:7], 0, 1)
+}

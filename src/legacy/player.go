@@ -229,10 +229,6 @@ func Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u *server.Object) {
 	C.nox_xxx_playerRemoveSpawnedStuff_4E5AD0(asObjectC(u))
 }
 
-func Sub_4D7E50(u *server.Object) {
-	C.sub_4D7E50(asObjectC(u))
-}
-
 func Nox_xxx_playerObserverFindGoodSlave0_4E6280(p *server.Player) *server.Object {
 	return asObjectS(C.nox_xxx_playerObserverFindGoodSlave0_4E6280((*nox_playerInfo)(p.C())))
 }
