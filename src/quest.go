@@ -247,7 +247,7 @@ func (s *Server) switchQuestIfRequested4D6FD0() {
 	s.SwitchMap(mapFile)
 	s.setQuestMapName("")
 	s.nox_game_setQuestStage_4E3CD0(0)
-	sub_4169F0()
+	serverSetOpen()
 }
 
 func (s *Server) setupQuestGame() {
@@ -340,8 +340,8 @@ func (s *Server) getQuestFlag() int {
 func (s *Server) cmdStartSoloQuest() {
 	legacy.Set_nox_client_gui_flag_1556112(1)
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
-	*memmap.PtrUint32(0x5D4594, 1556152) = uint32(bool2int(sub_416A00()))
-	sub_4169E0()
+	*memmap.PtrUint32(0x5D4594, 1556152) = uint32(bool2int(gameIsClosed()))
+	serverSetClosed()
 	noxServer.setQuestFlag(30)
 }
 

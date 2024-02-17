@@ -292,7 +292,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 			return 0
 		}
 	}
-	v5 := sub_416640()
+	sst := getServerSettings()
 	s.NetList.ResetByInd(ind, netlist.Kind1)
 	legacy.Nox_xxx_playerResetImportantCtr_4E4F40(ind)
 	sub_4E4F30(ind)
@@ -310,14 +310,12 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		return 0
 	}
 	if ind != server.HostPlayerIndex {
-		if v5.Field100 != 0 {
-			if (1<<opts.Info.PlayerClass())&v5.Field100 != 0 {
-				return 0
-			}
+		if sst.Flags100.Has(server.ServerFlags(1 << opts.Info.PlayerClass())) {
+			return 0
 		}
 	}
 	pl := s.Players.ResetInd(ind)
-	if int8(v5.Field102) >= 0 {
+	if !sst.Flags102.Has(server.ServerLimitMaxRes) {
 		pl.Field10 = uint16(opts.Screen.X / 2)
 		pl.Field12 = uint16(opts.Screen.Y / 2)
 	} else {

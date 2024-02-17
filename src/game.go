@@ -377,9 +377,9 @@ func (v *xwisInfoShort) Equal(v2 *xwisInfoShort) bool {
 
 func (s *Server) getGameInfo() xwisInfoShort {
 	access := lobby.AccessOpen
-	if acc := sub_416640(); acc.Field100&0x20 != 0 {
+	if sst := getServerSettings(); sst.Flags100.Has(server.ServerPrivate) {
 		access = lobby.AccessPassword
-	} else if acc.Field100&0x10 != 0 {
+	} else if sst.Flags100.Has(server.ServerClosed) {
 		access = lobby.AccessClosed
 	}
 	players := s.Players.List()

@@ -153,13 +153,13 @@ func nox_client_resetScreenParticles_431510() {
 }
 
 func sub_43B670() {
-	v0 := sub_416640()
+	sst := getServerSettings()
 	if legacy.Get_nox_game_createOrJoin_815048() != 0 {
 		sub_44A400()
 		legacy.Nox_client_xxx_switchChatMap_43B510()
 		legacy.Nox_client_guiXxx_43A9D0()
 		nox_client_guiXxxDestroy_4A24A0()
-		noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(*(*uint32)(unsafe.Pointer(&v0.Field74))))
+		noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(*(*uint32)(unsafe.Pointer(&sst.AudioThreshold))))
 	} else {
 		legacy.Sub_43B630()
 	}

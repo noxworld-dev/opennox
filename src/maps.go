@@ -593,21 +593,21 @@ func nox_xxx_mapSetDataDefault_416500() {
 	*(*[58]byte)(unsafe.Pointer(getSettings2ByInd(0))) = [58]byte{}
 	*(*[58]byte)(unsafe.Pointer(getSettings2ByInd(1))) = [58]byte{}
 
-	sinfo := sub_416640()
+	sinfo := getServerSettings()
 	*sinfo = server.Settings{}
 
 	*memmap.PtrUint8(0x5D4594, 371684) = 0
 	setCurrentSettings2Ind(0)
 
-	*(*uint16)(unsafe.Pointer(&sinfo.Field105)) = math.MaxUint16
-	*(*uint16)(unsafe.Pointer(&sinfo.Field107)) = math.MaxUint16
+	*(*uint16)(unsafe.Pointer(&sinfo.RestrictedPingMind105)) = math.MaxUint16
+	*(*uint16)(unsafe.Pointer(&sinfo.RestrictedPingMax107)) = math.MaxUint16
 	sinfo.Field101 = math.MaxUint8
 	sinfo.Field52 = 32
 	sinfo.Field53 = 32
-	*(*uint32)(unsafe.Pointer(&sinfo.Field62)) = 1
-	*(*uint32)(unsafe.Pointer(&sinfo.Field58)) = 0
-	*(*uint32)(unsafe.Pointer(&sinfo.Field66)) = 0
-	*(*uint32)(unsafe.Pointer(&sinfo.Field70)) = 0
-	*(*uint32)(unsafe.Pointer(&sinfo.Field74)) = 20
+	*(*uint32)(unsafe.Pointer(&sinfo.BroadcastGestures62)) = 1
+	*(*uint32)(unsafe.Pointer(&sinfo.PlayerSkeletons58)) = 0
+	*(*uint32)(unsafe.Pointer(&sinfo.LatencyCompensationA66)) = 0
+	*(*uint32)(unsafe.Pointer(&sinfo.LatencyCompensationB70)) = 0
+	*(*uint32)(unsafe.Pointer(&sinfo.AudioThreshold)) = 20
 	*memmap.PtrUint32(0x5D4594, 371696) = 0
 }

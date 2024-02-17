@@ -249,8 +249,8 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 		}
 	}
 	if legacy.Sub_40A6B0() != 0 {
-		v8 := sub_416640()
-		s.NetPrintCompToAll(int(*(*uint32)(unsafe.Pointer(&v8.Field66))))
+		sst := getServerSettings()
+		s.NetPrintCompToAll(int(*(*uint32)(unsafe.Pointer(&sst.LatencyCompensationA66))))
 		legacy.Sub_40A6A0(0)
 	}
 	if (a1 - *memmap.PtrUint64(0x5D4594, 1548692)) > 0x1F4 {
@@ -413,23 +413,20 @@ func (s *Server) maybeCallMapEntry() {
 	}
 }
 
-func sub_416640() *server.Settings {
+func getServerSettings() *server.Settings { // sub_416640
 	return memmap.PtrT[server.Settings](0x5D4594, 371516)
 }
 
-func sub_416A00() bool {
-	v0 := sub_416640()
-	return (v0.Field100>>4)&0x1 != 0
+func gameIsClosed() bool { // sub_416A00
+	return getServerSettings().Flags100.Has(server.ServerClosed)
 }
 
-func sub_4169E0() {
-	v0 := sub_416640()
-	v0.Field100 |= 0x10
+func serverSetClosed() { // sub_4169E0
+	getServerSettings().Flags100 |= server.ServerClosed
 }
 
-func sub_4169F0() {
-	v0 := sub_416640()
-	v0.Field100 &= 0xEF
+func serverSetOpen() { // sub_4169F0
+	getServerSettings().Flags100 &^= server.ServerClosed
 }
 
 func (s *Server) updateRemotePlayers() error {

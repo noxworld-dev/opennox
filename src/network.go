@@ -257,13 +257,13 @@ func sub_416910(a1 unsafe.Pointer) unsafe.Pointer {
 }
 
 func nox_xxx_netBigSwitch_553210_op_17_check(out []byte, packet []byte) int {
-	v33 := sub_416640()
-	if alloc.GoString16B(packet[4:]) != alloc.GoString16((*uint16)(unsafe.Add(unsafe.Pointer(v33), 39))) {
+	sst := getServerSettings()
+	if alloc.GoString16B(packet[4:]) != alloc.GoString16((*uint16)(unsafe.Add(unsafe.Pointer(sst), 39))) {
 		out[2] = 19
 		out[3] = 6
 		return 4
 	}
-	if *(*int16)(unsafe.Pointer(&v33.Field105)) == -1 && *(*int16)(unsafe.Pointer(&v33.Field107)) == -1 {
+	if *(*int16)(unsafe.Pointer(&sst.RestrictedPingMind105)) == -1 && *(*int16)(unsafe.Pointer(&sst.RestrictedPingMax107)) == -1 {
 		out[2] = 20
 		return 3
 	}
@@ -273,7 +273,7 @@ func nox_xxx_netBigSwitch_553210_op_17_check(out []byte, packet []byte) int {
 func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
 	s := noxServer
 	v43 := false
-	v78 := sub_416640()
+	sst := getServerSettings()
 	getSettings2ByInd(0)
 
 	// TODO: This code is disabled because it causes issues with players reconnecting to the server.
@@ -302,7 +302,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		v46 := legacy.Nox_xxx_countObserverPlayers_425BF0()
 		f21 := binary.LittleEndian.Uint32(packet[84:])
 		if f21 == 0 {
-			if byte(v46) >= v78.Field53 {
+			if byte(v46) >= sst.Field53 {
 				out[2] = 19
 				out[3] = 11
 				return 4
@@ -312,8 +312,8 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 				v43 = true
 			}
 		} else {
-			if byte(legacy.Sub_417DE0()) >= v78.Field52 {
-				if byte(v46) >= v78.Field53 {
+			if byte(legacy.Sub_417DE0()) >= sst.Field52 {
+				if byte(v46) >= sst.Field53 {
 					out[2] = 19
 					out[3] = 11
 					return 4
@@ -324,7 +324,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		}
 	}
 	if a4a {
-		if !v43 || *(*uint32)(unsafe.Pointer(&v78.Field54)) == 0 {
+		if !v43 || *(*uint32)(unsafe.Pointer(&sst.Field54)) == 0 {
 			out[2] = 19
 			out[3] = 11
 			return 4
@@ -344,7 +344,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 			return 3
 		}
 	}
-	if v78.Field100&0x10 != 0 {
+	if sst.Flags100&0x10 != 0 {
 		var found bool
 		for it := sub_4168E0(); it != nil; it = sub_4168F0(it) {
 			if strings.ToLower(alloc.GoString16((*uint16)(unsafe.Add(it, 12)))) == strings.ToLower(alloc.GoString16B(packet[4:])) {
@@ -374,17 +374,16 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 			}
 		}
 	}
-	v52 := v78.Field100
-	if v52 != 0 && (1<<packet[54])&v52 != 0 {
+	if sst.Flags100 != 0 && sst.Flags100.Has(server.ServerFlags(1<<packet[54])) {
 		out[2] = 19
 		out[3] = 7
 		return 4
 	}
-	if v52&0x20 != 0 {
+	if sst.Flags100.Has(server.ServerPrivate) {
 		out[2] = 15
 		return 3
 	}
-	if *(*int16)(unsafe.Pointer(&v78.Field105)) == -1 && *(*int16)(unsafe.Pointer(&v78.Field107)) == -1 {
+	if *(*int16)(unsafe.Pointer(&sst.RestrictedPingMind105)) == -1 && *(*int16)(unsafe.Pointer(&sst.RestrictedPingMax107)) == -1 {
 		out[2] = 20 // OK
 		return 3
 	}
@@ -404,9 +403,9 @@ func sub_43CC80() {
 }
 
 func (s *Server) checkPingLimits() bool {
-	v13 := sub_416640()
-	min := int(*(*int16)(unsafe.Pointer(&v13.Field105)))
-	max := int(*(*int16)(unsafe.Pointer(&v13.Field107)))
+	sst := getServerSettings()
+	min := int(*(*int16)(unsafe.Pointer(&sst.RestrictedPingMind105)))
+	max := int(*(*int16)(unsafe.Pointer(&sst.RestrictedPingMax107)))
 	var tmin, tmax time.Duration = -1, -1
 	if min >= 0 {
 		tmin = time.Millisecond * time.Duration(min)

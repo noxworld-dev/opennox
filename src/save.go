@@ -297,7 +297,7 @@ func sub_446140() {
 
 func sub_4DCE30() {
 	if !dword_5d4594_1563048 {
-		sub_4169F0()
+		serverSetOpen()
 	}
 	sub_446140()
 }
@@ -501,8 +501,8 @@ func nox_xxx_gameSetSoloSavePath_4DB270(a1 string) {
 }
 
 func sub_4DCD40() {
-	dword_5d4594_1563048 = sub_416A00()
-	sub_4169E0()
+	dword_5d4594_1563048 = gameIsClosed()
+	serverSetClosed()
 	dword_5d4594_1563044 = true
 	path := datapath.Save("_temp_.dat")
 	for _, u := range noxServer.Players.ListUnits() {
