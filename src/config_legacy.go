@@ -342,7 +342,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				if err != nil {
 					return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 				}
-				legacy.Sub_409FB0_settings(int16(configModeCodes[i]), uint16(v))
+				legacy.Sub_409FB0_settings(uint16(configModeCodes[i]), uint16(v))
 			}
 		case "TimeLimit":
 			max := len(configModeCodes)
@@ -772,7 +772,7 @@ func sub_48A020(ind int) (int, []int32) {
 func sub_4337B0() string {
 	var arr []string
 	for _, m := range configModeCodes {
-		arr = append(arr, strconv.Itoa(legacy.Nox_xxx_servGamedataGet_40A020(int16(m))))
+		arr = append(arr, strconv.Itoa(legacy.Nox_xxx_servGamedataGet_40A020(uint16(m))))
 	}
 	return strings.Join(arr, ",")
 }

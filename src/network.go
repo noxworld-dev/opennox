@@ -502,7 +502,7 @@ func (s *Server) sendSettings(u *server.Object) {
 		binary.LittleEndian.PutUint32(buf[9:], uint32(noxflags.GetGame()&0x7FFF0))
 		binary.LittleEndian.PutUint32(buf[13:], uint32(legacy.Nox_xxx_getServerSubFlags_409E60()))
 		buf[17] = byte(s.getServerMaxPlayers())
-		buf[18] = byte(legacy.Nox_xxx_servGamedataGet_40A020(*(*int16)(unsafe.Pointer(&v3[52]))))
+		buf[18] = byte(legacy.Nox_xxx_servGamedataGet_40A020(*(*uint16)(unsafe.Pointer(&v3[52]))))
 		buf[19] = byte(legacy.Sub_40A180(noxflags.GameFlag(*(*uint16)(unsafe.Pointer(&v3[52])))))
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:20])
 	}

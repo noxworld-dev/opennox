@@ -41,7 +41,6 @@ void sub_426060();
 void sub_417160();
 void sub_4D2160();
 void sub_4D22B0();
-void sub_4D2230();
 void sub_4DBA30(int a1);
 int sub_48C980();
 void nox_console_sendSysOpPass_4409D0(wchar2_t* a1);
@@ -547,9 +546,6 @@ func Nox_xxx_gamePlayIsAnyPlayers_40A8A0() int {
 func Sub_40A250() {
 	C.sub_40A250()
 }
-func Sub_4D2230() {
-	C.sub_4D2230()
-}
 func Sub_4D2160() {
 	C.sub_4D2160()
 }
@@ -619,7 +615,7 @@ func Nox_xxx_guiServerOptionsGetGametypeName_4573C0(a1 noxflags.GameFlag) string
 func Sub_40A180(a1 noxflags.GameFlag) int {
 	return int(C.sub_40A180(C.short(a1)))
 }
-func Nox_xxx_servGamedataGet_40A020(a1 int16) int {
+func Nox_xxx_servGamedataGet_40A020(a1 uint16) int {
 	return int(C.nox_xxx_servGamedataGet_40A020(C.short(a1)))
 }
 func Sub_41D1A0(a1 int) {

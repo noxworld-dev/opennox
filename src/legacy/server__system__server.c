@@ -194,26 +194,6 @@ void sub_4D2160() {
 	}
 }
 
-//----- (004D2230) --------------------------------------------------------
-void sub_4D2230() {
-	short v0; // ax
-	short v1; // ax
-	short v2; // ax
-
-	if (nox_common_gameFlags_check_40A5C0(49152)) {
-		v0 = nox_common_gameFlags_getVal_40A5B0();
-		if (!nox_xxx_servGamedataGet_40A020(v0)) {
-			v1 = nox_common_gameFlags_getVal_40A5B0();
-			if (!sub_40A180(v1)) {
-				v2 = nox_common_gameFlags_getVal_40A5B0();
-				sub_409FB0_settings(v2, 0xFu);
-			}
-		}
-	} else if (nox_common_gameFlags_check_40A5C0(1024) && !nox_xxx_servGamedataGet_40A020(1024)) {
-		sub_409FB0_settings(1024, 0xFu);
-	}
-}
-
 //----- (004D22B0) --------------------------------------------------------
 void sub_4D22B0() {
 	char* result; // eax

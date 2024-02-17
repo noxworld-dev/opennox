@@ -88,7 +88,7 @@ func init() {
 				c.Printf(console.ColorRed, "%s %s", str, v16)
 
 				p := legacy.Sub_4165B0()
-				ind := int16(*(*uint16)(unsafe.Add(p, 52)))
+				ind := *(*uint16)(unsafe.Add(p, 52))
 				timeLimit := legacy.Sub_40A180(noxflags.GameFlag(ind))
 				lessons := legacy.Nox_xxx_servGamedataGet_40A020(ind)
 				maxPlayers := s.getServerMaxPlayers()
@@ -1093,7 +1093,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			v58 := legacy.Sub_459870()
 			v14 := nox_xxx_cliGamedataGet_416590(0)
 			legacy.Sub_57A1E0(unsafe.Pointer(&v14[0]), "user.rul", v58, 3, v60)
-			legacy.Sub_4D2230()
+			sub_4D2230()
 		}
 	}
 	if merr != nil {
@@ -1287,6 +1287,18 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		}
 	}
 	return nil
+}
+
+func sub_4D2230() {
+	if noxflags.HasGame(0xC000) {
+		if legacy.Nox_xxx_servGamedataGet_40A020(uint16(noxflags.GetGame())) == 0 {
+			if legacy.Sub_40A180(noxflags.GetGame()) == 0 {
+				legacy.Sub_409FB0_settings(uint16(noxflags.GetGame()), 0xF)
+			}
+		}
+	} else if noxflags.HasGame(1024) && legacy.Nox_xxx_servGamedataGet_40A020(1024) == 0 {
+		legacy.Sub_409FB0_settings(1024, 0xF)
+	}
 }
 
 func sub_4DCC00() bool {
