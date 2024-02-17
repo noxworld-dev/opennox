@@ -260,7 +260,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			legacy.Nox_xxx_sysopSetPass_40A610(kv.Value)
 		case "ServerPassword":
 			v0 := sub_416640()
-			dst := unsafe.Slice((*uint16)(unsafe.Pointer(&v0[78])), 8)
+			dst := v0.Field78[:]
 			alloc.StrCopy16(dst, kv.Value)
 			dst[len(dst)-1] = 0
 		case "Profiled":
@@ -363,14 +363,14 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			v1 := sub_416640()
-			*(*uint32)(unsafe.Pointer(&v1[58])) = uint32(bool2int(v > 0))
+			*(*uint32)(unsafe.Pointer(&v1.Field58)) = uint32(bool2int(v > 0))
 		case "BroadcastGestures":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			v1 := sub_416640()
-			*(*uint32)(unsafe.Pointer(&v1[62])) = uint32(bool2int(v > 0))
+			*(*uint32)(unsafe.Pointer(&v1.Field62)) = uint32(bool2int(v > 0))
 		case "LatencyCompensation":
 			sub := strings.SplitN(kv.Value, " ", 2)
 			if len(sub) != 2 {
@@ -385,8 +385,8 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			v1 := sub_416640()
-			*(*uint32)(unsafe.Pointer(&v1[66])) = uint32(n1)
-			*(*uint32)(unsafe.Pointer(&v1[70])) = uint32(n2)
+			*(*uint32)(unsafe.Pointer(&v1.Field66)) = uint32(n1)
+			*(*uint32)(unsafe.Pointer(&v1.Field70)) = uint32(n2)
 		case "Closed":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -394,9 +394,9 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			}
 			v1 := sub_416640()
 			if v > 0 {
-				v1[100] |= 0x10
+				v1.Field100 |= 0x10
 			} else {
-				v1[100] &= 0xEF
+				v1.Field100 &= 0xEF
 			}
 		case "Private":
 			v, err := strconv.Atoi(kv.Value)
@@ -405,9 +405,9 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			}
 			v1 := sub_416640()
 			if v > 0 {
-				v1[100] |= 0x20
+				v1.Field100 |= 0x20
 			} else {
-				v1[100] &= 0xDF
+				v1.Field100 &= 0xDF
 			}
 		case "AudioThreshold":
 			v, err := strconv.Atoi(kv.Value)
@@ -421,7 +421,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				v = 100
 			}
 			v1 := sub_416640()
-			*(*uint32)(unsafe.Pointer(&v1[74])) = uint32(v)
+			*(*uint32)(unsafe.Pointer(&v1.Field74)) = uint32(v)
 		case "MaxPlayers":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -434,7 +434,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				v = common.MaxPlayers
 			}
 			v1 := sub_416640()
-			v1[104] = byte(v)
+			v1.MaxPlayers104 = byte(v)
 			legacy.Nox_xxx_servSetPlrLimit_409F80(v)
 		case "RestrictedClasses":
 			v, err := strconv.Atoi(kv.Value)
@@ -442,7 +442,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			v1 := sub_416640()
-			v1[100] |= byte(v) & 0x7
+			v1.Field100 |= byte(v) & 0x7
 		case "RestrictedPing":
 			sub := strings.SplitN(kv.Value, " ", 2)
 			if len(sub) != 2 {
@@ -457,8 +457,8 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			v1 := sub_416640()
-			*(*uint16)(unsafe.Pointer(&v1[105])) = uint16(n1)
-			*(*uint16)(unsafe.Pointer(&v1[107])) = uint16(n2)
+			*(*uint16)(unsafe.Pointer(&v1.Field105)) = uint16(n1)
+			*(*uint16)(unsafe.Pointer(&v1.Field107)) = uint16(n2)
 		case "LimitMaxRes":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -466,9 +466,9 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			}
 			v1 := sub_416640()
 			if v > 0 {
-				v1[102] |= 0x80
+				v1.Field102 |= 0x80
 			} else {
-				v1[102] &= 0x7F
+				v1.Field102 &= 0x7F
 			}
 		case "ItemRespawn":
 			v, err := strconv.Atoi(kv.Value)
@@ -724,7 +724,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("RenderBubbles", strconv.Itoa(int(legacy.Get_nox_client_renderBubbles_80844())))
 	sect.Set("TrackData", strconv.Itoa(int(sub_578DF0())))
 	sect.Set("SysopPassword", legacy.Nox_xxx_sysopGetPass_40A630())
-	sect.Set("ServerPassword", alloc.GoString16((*uint16)(unsafe.Pointer(&v1[78]))))
+	sect.Set("ServerPassword", alloc.GoString16S(v1.Field78[:]))
 	sect.Set("Profiled", strconv.Itoa(bool2int(legacyProfiled != 0)))
 	sect.Set("SanctuaryHelp", strconv.Itoa(int(legacy.Get_nox_server_sanctuaryHelp_54276())))
 	sect.Set("MaxPacketLossPct", strconv.Itoa(int(memmap.Uint32(0x587000, 81280))))
@@ -734,16 +734,16 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("InternetUpdateRate", strconv.Itoa(nox_xxx_rateGet_40A6C0()))
 	sect.Set("LessonLimit", sub_4337B0())
 	sect.Set("TimeLimit", sub_433820())
-	sect.Set("PlayerSkeletons", strconv.Itoa(int(*(*uint32)(unsafe.Pointer(&v1[58])))))
-	sect.Set("BroadcastGestures", strconv.Itoa(int(*(*uint32)(unsafe.Pointer(&v1[62])))))
-	sect.Set("LatencyCompensation", fmt.Sprintf("%d %d", *(*uint32)(unsafe.Pointer(&v1[66])), *(*uint32)(unsafe.Pointer(&v1[70]))))
-	sect.Set("Closed", strconv.Itoa(bool2int((v1[100]>>4)&0x1 != 0)))
-	sect.Set("Private", strconv.Itoa(bool2int((v1[100]>>5)&0x1 != 0)))
-	sect.Set("AudioThreshold", strconv.Itoa(int(*(*uint32)(unsafe.Pointer(&v1[74])))))
+	sect.Set("PlayerSkeletons", strconv.Itoa(int(*(*uint32)(unsafe.Pointer(&v1.Field58)))))
+	sect.Set("BroadcastGestures", strconv.Itoa(int(*(*uint32)(unsafe.Pointer(&v1.Field62)))))
+	sect.Set("LatencyCompensation", fmt.Sprintf("%d %d", *(*uint32)(unsafe.Pointer(&v1.Field66)), *(*uint32)(unsafe.Pointer(&v1.Field70))))
+	sect.Set("Closed", strconv.Itoa(bool2int((v1.Field100>>4)&0x1 != 0)))
+	sect.Set("Private", strconv.Itoa(bool2int((v1.Field100>>5)&0x1 != 0)))
+	sect.Set("AudioThreshold", strconv.Itoa(int(*(*uint32)(unsafe.Pointer(&v1.Field74)))))
 	sect.Set("MaxPlayers", strconv.Itoa(noxServer.getServerMaxPlayers()))
-	sect.Set("RestrictedClasses", strconv.Itoa(int(v1[100]&0x7)))
-	sect.Set("RestrictedPing", fmt.Sprintf("%d %d", *(*uint16)(unsafe.Pointer(&v1[105])), *(*uint16)(unsafe.Pointer(&v1[107]))))
-	sect.Set("LimitMaxRes", strconv.Itoa(int(v1[102]>>7)))
+	sect.Set("RestrictedClasses", strconv.Itoa(int(v1.Field100&0x7)))
+	sect.Set("RestrictedPing", fmt.Sprintf("%d %d", *(*uint16)(unsafe.Pointer(&v1.Field105)), *(*uint16)(unsafe.Pointer(&v1.Field107))))
+	sect.Set("LimitMaxRes", strconv.Itoa(int(v1.Field102>>7)))
 	sect.Set("CamperAlarm", strconv.Itoa(bool2int((legacy.Nox_xxx_getServerSubFlags_409E60()>>13)&0x1 != 0)))
 	sect.Set("ItemRespawn", strconv.Itoa(legacy.Sub_409F40(2)))
 	sect.Set("MinKickVotes", strconv.Itoa(int(memmap.Uint32(0x587000, 229980))))

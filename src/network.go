@@ -258,12 +258,12 @@ func sub_416910(a1 unsafe.Pointer) unsafe.Pointer {
 
 func nox_xxx_netBigSwitch_553210_op_17_check(out []byte, packet []byte) int {
 	v33 := sub_416640()
-	if alloc.GoString16B(packet[4:]) != alloc.GoString16B(v33[39:]) {
+	if alloc.GoString16B(packet[4:]) != alloc.GoString16((*uint16)(unsafe.Add(unsafe.Pointer(v33), 39))) {
 		out[2] = 19
 		out[3] = 6
 		return 4
 	}
-	if *(*int16)(unsafe.Pointer(&v33[105])) == -1 && *(*int16)(unsafe.Pointer(&v33[107])) == -1 {
+	if *(*int16)(unsafe.Pointer(&v33.Field105)) == -1 && *(*int16)(unsafe.Pointer(&v33.Field107)) == -1 {
 		out[2] = 20
 		return 3
 	}
@@ -274,7 +274,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 	s := noxServer
 	v43 := false
 	v78 := sub_416640()
-	nox_xxx_cliGamedataGet_416590(0)
+	getSettings2ByInd(0)
 
 	// TODO: This code is disabled because it causes issues with players reconnecting to the server.
 	//       For some reason the player record gets stuck in the server's player list, so this check fails.
@@ -302,7 +302,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		v46 := legacy.Nox_xxx_countObserverPlayers_425BF0()
 		f21 := binary.LittleEndian.Uint32(packet[84:])
 		if f21 == 0 {
-			if byte(v46) >= v78[53] {
+			if byte(v46) >= v78.Field53 {
 				out[2] = 19
 				out[3] = 11
 				return 4
@@ -312,8 +312,8 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 				v43 = true
 			}
 		} else {
-			if byte(legacy.Sub_417DE0()) >= v78[52] {
-				if byte(v46) >= v78[53] {
+			if byte(legacy.Sub_417DE0()) >= v78.Field52 {
+				if byte(v46) >= v78.Field53 {
 					out[2] = 19
 					out[3] = 11
 					return 4
@@ -324,7 +324,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		}
 	}
 	if a4a {
-		if !v43 || *(*uint32)(unsafe.Pointer(&v78[54])) == 0 {
+		if !v43 || *(*uint32)(unsafe.Pointer(&v78.Field54)) == 0 {
 			out[2] = 19
 			out[3] = 11
 			return 4
@@ -344,7 +344,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 			return 3
 		}
 	}
-	if v78[100]&0x10 != 0 {
+	if v78.Field100&0x10 != 0 {
 		var found bool
 		for it := sub_4168E0(); it != nil; it = sub_4168F0(it) {
 			if strings.ToLower(alloc.GoString16((*uint16)(unsafe.Add(it, 12)))) == strings.ToLower(alloc.GoString16B(packet[4:])) {
@@ -374,7 +374,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 			}
 		}
 	}
-	v52 := v78[100]
+	v52 := v78.Field100
 	if v52 != 0 && (1<<packet[54])&v52 != 0 {
 		out[2] = 19
 		out[3] = 7
@@ -384,7 +384,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		out[2] = 15
 		return 3
 	}
-	if *(*int16)(unsafe.Pointer(&v78[105])) == -1 && *(*int16)(unsafe.Pointer(&v78[107])) == -1 {
+	if *(*int16)(unsafe.Pointer(&v78.Field105)) == -1 && *(*int16)(unsafe.Pointer(&v78.Field107)) == -1 {
 		out[2] = 20 // OK
 		return 3
 	}
@@ -405,8 +405,8 @@ func sub_43CC80() {
 
 func (s *Server) checkPingLimits() bool {
 	v13 := sub_416640()
-	min := int(*(*int16)(unsafe.Pointer(&v13[105])))
-	max := int(*(*int16)(unsafe.Pointer(&v13[107])))
+	min := int(*(*int16)(unsafe.Pointer(&v13.Field105)))
+	max := int(*(*int16)(unsafe.Pointer(&v13.Field107)))
 	var tmin, tmax time.Duration = -1, -1
 	if min >= 0 {
 		tmin = time.Millisecond * time.Duration(min)
@@ -493,7 +493,7 @@ func (s *Server) sendSettings(u *server.Object) {
 		legacy.Sub_4161E0()
 	}
 
-	v3 := nox_xxx_cliGamedataGet_416590(0)
+	v3 := getSettings2ByInd(0)
 	{
 		var buf [20]byte
 		buf[0] = byte(noxnet.MSG_GAME_SETTINGS)
@@ -502,8 +502,8 @@ func (s *Server) sendSettings(u *server.Object) {
 		binary.LittleEndian.PutUint32(buf[9:], uint32(noxflags.GetGame()&0x7FFF0))
 		binary.LittleEndian.PutUint32(buf[13:], uint32(legacy.Nox_xxx_getServerSubFlags_409E60()))
 		buf[17] = byte(s.getServerMaxPlayers())
-		buf[18] = byte(legacy.Nox_xxx_servGamedataGet_40A020(*(*uint16)(unsafe.Pointer(&v3[52]))))
-		buf[19] = byte(legacy.Sub_40A180(noxflags.GameFlag(*(*uint16)(unsafe.Pointer(&v3[52])))))
+		buf[18] = byte(legacy.Nox_xxx_servGamedataGet_40A020(v3.Field52))
+		buf[19] = byte(legacy.Sub_40A180(noxflags.GameFlag(v3.Field52)))
 		s.NetList.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:20])
 	}
 	{
@@ -511,8 +511,17 @@ func (s *Server) sendSettings(u *server.Object) {
 		buf[0] = byte(noxnet.MSG_GAME_SETTINGS_2)
 		copy(buf[1:17], s.getServerName())
 		buf[16] = 0
-		copy(buf[17:45], v3[24:24+28])
-		if legacy.Sub_40A220() != 0 && (s.GetFlag3592() || legacy.Sub_40A180(noxflags.GameFlag(*(*uint16)(unsafe.Pointer(&v3[26])))) != 0) {
+		binary.LittleEndian.PutUint32(buf[17:], v3.Field24.Vals[0])
+		binary.LittleEndian.PutUint32(buf[21:], v3.Field24.Vals[1])
+		binary.LittleEndian.PutUint32(buf[25:], v3.Field24.Vals[2])
+		binary.LittleEndian.PutUint32(buf[29:], v3.Field24.Vals[3])
+		binary.LittleEndian.PutUint32(buf[33:], v3.Field24.Vals[4])
+		buf[37] = v3.Field44[0]
+		buf[38] = v3.Field44[1]
+		buf[39] = v3.Field44[2]
+		buf[40] = v3.Field44[3]
+		binary.LittleEndian.PutUint32(buf[41:], v3.Field48)
+		if legacy.Sub_40A220() != 0 && (s.GetFlag3592() || legacy.Sub_40A180(noxflags.GameFlag(v3.Field24.Vals[0]>>16)) != 0) {
 			binary.LittleEndian.PutUint32(buf[45:], legacy.Sub_40A230())
 		} else {
 			binary.LittleEndian.PutUint32(buf[45:], 0)

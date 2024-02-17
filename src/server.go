@@ -250,7 +250,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 	}
 	if legacy.Sub_40A6B0() != 0 {
 		v8 := sub_416640()
-		s.NetPrintCompToAll(int(*(*uint32)(unsafe.Pointer(&v8[66]))))
+		s.NetPrintCompToAll(int(*(*uint32)(unsafe.Pointer(&v8.Field66))))
 		legacy.Sub_40A6A0(0)
 	}
 	if (a1 - *memmap.PtrUint64(0x5D4594, 1548692)) > 0x1F4 {
@@ -413,24 +413,23 @@ func (s *Server) maybeCallMapEntry() {
 	}
 }
 
-func sub_416640() []byte {
-	// TODO: size is a guess
-	return unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 371516)), 168)
+func sub_416640() *server.Settings {
+	return memmap.PtrT[server.Settings](0x5D4594, 371516)
 }
 
 func sub_416A00() bool {
 	v0 := sub_416640()
-	return (v0[100]>>4)&0x1 != 0
+	return (v0.Field100>>4)&0x1 != 0
 }
 
 func sub_4169E0() {
 	v0 := sub_416640()
-	v0[100] |= 0x10
+	v0.Field100 |= 0x10
 }
 
 func sub_4169F0() {
 	v0 := sub_416640()
-	v0[100] &= 0xEF
+	v0.Field100 &= 0xEF
 }
 
 func (s *Server) updateRemotePlayers() error {
@@ -989,8 +988,8 @@ func nox_xxx_mapGetTypeMB_4CFFA0(a1 unsafe.Pointer) noxflags.GameFlag {
 }
 
 func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
-	v0 := unsafe.Slice((*byte)(unsafe.Pointer(legacy.Sub_4165B0())), 58)
-	if noxflags.HasGame(noxflags.GameModeElimination) && (memmap.Int32(0x973F18, 3800) < 0 || (v0[53]&4 == 0)) {
+	stt := getCurrentSettings2()
+	if noxflags.HasGame(noxflags.GameModeElimination) && (memmap.Int32(0x973F18, 3800) < 0 || (stt.Field52&0x400 == 0)) {
 		legacy.Nox_xxx_ruleSetNoRespawn_40A5E0(0)
 	}
 	legacy.Sub_455C10()
@@ -1026,14 +1025,13 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 			s.setupQuestGame()
 		}
 	} else if vv >= 0 {
-		pmode := (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&v0[0])) + 52))
-		if noxflags.GameFlag(*pmode)&mapType == 0 {
-			*pmode = uint16(nox_gameModeFromMapPtr(memmap.PtrOff(0x973F18, 2408)) | noxflags.GameFlag(*pmode)&0xE80F)
+		if noxflags.GameFlag(stt.Field52)&mapType == 0 {
+			stt.Field52 = uint16(nox_gameModeFromMapPtr(memmap.PtrOff(0x973F18, 2408)) | noxflags.GameFlag(stt.Field52)&0xE80F)
 		}
-		if v0[52]&0x10 == 0 {
+		if stt.Field52&0x10 == 0 {
 			legacy.Nox_xxx_mapFindCrown_4CFC30()
 		}
-		mode := noxflags.GameFlag(*pmode)
+		mode := noxflags.GameFlag(stt.Field52)
 		if mode.Has(noxflags.GameModeCTF) {
 			gameLog.Println("setting CTF mode")
 			if legacy.Nox_xxx_mapInfoSetCapflag_417EA0() != 0 {

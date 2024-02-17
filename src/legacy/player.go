@@ -301,12 +301,12 @@ func Nox_xxx_playerLeaveObserver_0_4E6AA0(p *server.Player) {
 	C.nox_xxx_playerLeaveObserver_0_4E6AA0((*nox_playerInfo)(p.C()))
 }
 
-func Nox_xxx_netGuiGameSettings_4DD9B0(a1 int, a2 unsafe.Pointer, a3 int) {
-	C.nox_xxx_netGuiGameSettings_4DD9B0(C.char(a1), a2, C.int(a3))
+func Nox_xxx_netGuiGameSettings_4DD9B0(a1 int, a2 *server.Settings2, a3 int) {
+	C.nox_xxx_netGuiGameSettings_4DD9B0(C.char(a1), unsafe.Pointer(a2), C.int(a3))
 }
 
-func Sub_459AA0(a1 unsafe.Pointer) {
-	C.sub_459AA0(a1)
+func Sub_459AA0(a1 *server.Settings2) {
+	C.sub_459AA0(unsafe.Pointer(a1))
 }
 
 func Nox_xxx_netNotifyRate_4D7F10(v ntype.PlayerInd) {

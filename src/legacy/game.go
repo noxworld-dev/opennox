@@ -363,9 +363,6 @@ func Nox_server_testTwoPointsAndDirection_4E6E50(p1 types.Pointf, dir int16, p2 
 func Nox_xxx_mapLoadOrSaveMB_4DCC70(v int) {
 	C.nox_xxx_mapLoadOrSaveMB_4DCC70(C.int(v))
 }
-func Sub_4165B0() unsafe.Pointer {
-	return unsafe.Pointer(C.sub_4165B0())
-}
 func Sub_44E560() unsafe.Pointer {
 	return unsafe.Pointer(C.sub_44E560())
 }
@@ -638,9 +635,6 @@ func Sub_4E79B0(a1 int) {
 func Nox_xxx_playerMakeDefItems_4EF7D0(a1 *server.Object, a2 int, a3 int) {
 	C.nox_xxx_playerMakeDefItems_4EF7D0(C.int(uintptr(a1.CObj())), C.int(a2), C.int(a3))
 }
-func Nox_xxx_cliGamedataGet_416590(a1 int) unsafe.Pointer {
-	return unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(C.int(a1)))
-}
 func Sub_4181F0(a1 int) {
 	C.sub_4181F0(C.int(a1))
 }
@@ -683,10 +677,10 @@ func Sub_500510(a1 string) {
 func Nox_xxx_mapSwitchLevel_4D12E0_tileFree() {
 	C.nox_xxx_mapSwitchLevel_4D12E0_tileFree()
 }
-func Sub_57A1E0(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer, a4 int, a5 noxflags.GameFlag) {
-	C.sub_57A1E0((*C.int)(a1), internCStr(a2), (*C.int)(a3), C.char(a4), C.short(a5))
+func Sub_57A1E0(a1 *server.Settings2, a2 string, a3 unsafe.Pointer, a4 int, a5 noxflags.GameFlag) {
+	C.sub_57A1E0((*C.int)(unsafe.Pointer(a1)), internCStr(a2), (*C.int)(a3), C.char(a4), C.short(a5))
 }
-func Sub_57AAA0(a1 string, a2 *byte, a3 unsafe.Pointer) {
+func Sub_57AAA0(a1 string, a2 *server.Settings2, a3 unsafe.Pointer) {
 	C.sub_57AAA0(internCStr(a1), (*C.char)(unsafe.Pointer(a2)), (*C.int)(a3))
 }
 func Sub_4EF660(a1 *server.Object) {

@@ -310,14 +310,14 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		return 0
 	}
 	if ind != server.HostPlayerIndex {
-		if v5[100] != 0 {
-			if (1<<opts.Info.PlayerClass())&v5[100] != 0 {
+		if v5.Field100 != 0 {
+			if (1<<opts.Info.PlayerClass())&v5.Field100 != 0 {
 				return 0
 			}
 		}
 	}
 	pl := s.Players.ResetInd(ind)
-	if int8(v5[102]) >= 0 {
+	if int8(v5.Field102) >= 0 {
 		pl.Field10 = uint16(opts.Screen.X / 2)
 		pl.Field12 = uint16(opts.Screen.Y / 2)
 	} else {
@@ -423,13 +423,13 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	pl.Sub422140()
 	if ind != server.HostPlayerIndex {
 		if sub_459D70() == 2 {
-			v24 := nox_xxx_cliGamedataGet_416590(1)
-			legacy.Nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v24[0]), pl.Index())
+			stt1 := getSettings2ByInd(1)
+			legacy.Nox_xxx_netGuiGameSettings_4DD9B0(1, stt1, pl.Index())
 		} else {
-			v29, v29free := alloc.Make([]byte{}, 60)
-			defer v29free()
-			legacy.Sub_459AA0(unsafe.Pointer(&v29[0]))
-			legacy.Nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v29[0]), pl.Index())
+			stt2, stt2free := alloc.New(server.Settings2{})
+			defer stt2free()
+			legacy.Sub_459AA0(stt2)
+			legacy.Nox_xxx_netGuiGameSettings_4DD9B0(1, stt2, pl.Index())
 		}
 	}
 	if noxflags.HasGame(noxflags.GameFlag15 | noxflags.GameFlag16) {

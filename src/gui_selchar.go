@@ -159,7 +159,7 @@ func sub_43B670() {
 		legacy.Nox_client_xxx_switchChatMap_43B510()
 		legacy.Nox_client_guiXxx_43A9D0()
 		nox_client_guiXxxDestroy_4A24A0()
-		noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(*(*uint32)(unsafe.Pointer(&v0[74]))))
+		noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(*(*uint32)(unsafe.Pointer(&v0.Field74))))
 	} else {
 		legacy.Sub_43B630()
 	}

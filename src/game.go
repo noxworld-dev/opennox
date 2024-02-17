@@ -87,8 +87,8 @@ func init() {
 				str = c.Strings().GetStringInFile("Type", "parsecmd.c")
 				c.Printf(console.ColorRed, "%s %s", str, v16)
 
-				p := legacy.Sub_4165B0()
-				ind := *(*uint16)(unsafe.Add(p, 52))
+				p := getCurrentSettings2()
+				ind := p.Field52
 				timeLimit := legacy.Sub_40A180(noxflags.GameFlag(ind))
 				lessons := legacy.Nox_xxx_servGamedataGet_40A020(ind)
 				maxPlayers := s.getServerMaxPlayers()
@@ -377,9 +377,9 @@ func (v *xwisInfoShort) Equal(v2 *xwisInfoShort) bool {
 
 func (s *Server) getGameInfo() xwisInfoShort {
 	access := lobby.AccessOpen
-	if acc := sub_416640(); acc[100]&0x20 != 0 {
+	if acc := sub_416640(); acc.Field100&0x20 != 0 {
 		access = lobby.AccessPassword
-	} else if acc[100]&0x10 != 0 {
+	} else if acc.Field100&0x10 != 0 {
 		access = lobby.AccessClosed
 	}
 	players := s.Players.List()
@@ -786,11 +786,11 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
 	if noxflags.HasGame(noxflags.GameModeCoopTeam) {
 		return
 	}
-	v7 := nox_xxx_cliGamedataGet_416590(0)
-	if v7[57] != 0 {
+	v7 := getSettings2ByInd(0)
+	if v7.Field57 != 0 {
 		v8 := legacy.Sub_409B80() + ".map"
 		s.nox_xxx_gameSetMapPath_409D70(v8)
-		v7[57] = 0
+		v7.Field57 = 0
 	} else if legacy.Sub_4D0D70() != 0 {
 		legacy.Nox_xxx_loadMapCycle_4D0A30()
 		v11 := legacy.Nox_xxx_getSomeMapName_4D0CF0()
@@ -806,8 +806,25 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
 	}
 }
 
-func nox_xxx_cliGamedataGet_416590(v int) []byte {
-	return unsafe.Slice((*byte)(legacy.Nox_xxx_cliGamedataGet_416590(v)), 60)
+var _ = [1]struct{}{}[20-unsafe.Sizeof(server.Settings3{})]
+
+var _ = [1]struct{}{}[60-unsafe.Sizeof(server.Settings2{})] // FIXME: must be 58
+
+var _ = [1]struct{}{}[168-unsafe.Sizeof(server.Settings{})]
+
+func getCurrentSettings2Ind() int32 { // sub_416580
+	return memmap.Int32(0x5D4594, 371688)
+}
+func getSettings2ByInd(ind int32) *server.Settings2 { // nox_xxx_cliGamedataGet_416590
+	return memmap.PtrT[server.Settings2](0x5D4594, 371380+uintptr(ind)*58)
+}
+func getCurrentSettings2() *server.Settings2 { // sub_4165B0
+	ind := getCurrentSettings2Ind()
+	return getSettings2ByInd(ind)
+}
+func sub_4165D0(ind int32) *server.Settings2 {
+	*memmap.PtrInt32(0x5D4594, 371688) = ind
+	return getSettings2ByInd(ind)
 }
 
 func nox_xxx_gameSetNoMPFlag_4DB230(a1 int) {
@@ -1061,18 +1078,16 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		v5 := nox_xxx_mapFilenameGetSolo_4DB260()
 		merr = s.nox_server_loadMapFile_4CF5F0(v5, false)
 	} else {
-		v7p := legacy.Sub_4165B0()
-		v7 := unsafe.Slice((*byte)(v7p), 58)
+		stt := getCurrentSettings2()
 		if noxflags.HasGame(noxflags.GameOnline) {
-			if v7[57] == 0 {
-				v63, freeV63 := alloc.Make([]byte{}, 60)
-				defer freeV63()
-				copy(v63, alloc.GoStringS(v7))
-				v59 := *(*uint16)(unsafe.Pointer(&v7[52]))
+			if stt.Field57 == 0 {
+				stt2, freeStt := alloc.New(server.Settings2{})
+				defer freeStt()
+				stt2.Field0 = stt.Field0
 				v8 := legacy.Sub_459870()
-				legacy.Sub_57A1E0(unsafe.Pointer(&v63[0]), "user.rul", v8, 3, noxflags.GameFlag(v59))
+				legacy.Sub_57A1E0(stt2, "user.rul", v8, 3, noxflags.GameFlag(stt.Field52))
 				v9 := legacy.Sub_459870()
-				legacy.Sub_57AAA0("user.rul", (*byte)(v7p), v9)
+				legacy.Sub_57AAA0("user.rul", stt, v9)
 			}
 			s.Spells.EnableAll()
 			s.Sub4537F0()
@@ -1091,8 +1106,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			legacy.Sub_40A250()
 			v60 := noxflags.GetGame()
 			v58 := legacy.Sub_459870()
-			v14 := nox_xxx_cliGamedataGet_416590(0)
-			legacy.Sub_57A1E0(unsafe.Pointer(&v14[0]), "user.rul", v58, 3, v60)
+			stt0 := getSettings2ByInd(0)
+			legacy.Sub_57A1E0(stt0, "user.rul", v58, 3, v60)
 			sub_4D2230()
 		}
 	}

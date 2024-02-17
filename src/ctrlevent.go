@@ -692,13 +692,13 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E780(code player.CtrlCode, dat
 
 func nox_ctrlevent_add_ticks_42E630() uint32 {
 	v0 := sub_416640()
-	switch *(*uint32)(unsafe.Add(unsafe.Pointer(&v0[0]), 66)) {
+	switch *(*uint32)(unsafe.Pointer(&v0.Field66)) {
 	case 1:
 		return legacy.Sub_554290()
 	case 2:
 		return legacy.Sub_554300()
 	case 3:
-		return *(*uint32)(unsafe.Add(unsafe.Pointer(&v0[0]), 70))
+		return *(*uint32)(unsafe.Pointer(&v0.Field70))
 	}
 	return 0
 }
