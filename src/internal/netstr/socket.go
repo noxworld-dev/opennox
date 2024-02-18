@@ -72,6 +72,9 @@ func WriteTo(pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
 }
 
 func writeTo(debug bool, log *log.Logger, pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
+	if pc == nil {
+		return 0, errors.New("nil conn")
+	}
 	if debug {
 		log.Printf("send %s -> %s [%d]\n%x", pc.LocalAddr(), addr, len(buf), buf)
 	}
