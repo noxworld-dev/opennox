@@ -141,7 +141,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		legacy.Nox_xxx_consoleEsc_49B7A0()
 	}
 	legacy.Sub_49B6E0()
-	return memmap.Uint32(0x587000, 85720) != 0
+	return !c.Objs.LoadError
 }
 
 func (c *Client) nox_xxx_clientDrawAll_436100_draw() {

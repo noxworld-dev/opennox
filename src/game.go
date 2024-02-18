@@ -574,7 +574,7 @@ func initGameSession435CC0() error {
 	}
 	c.SetDrawFunc(c.clientDraw)
 	gameSetPlayState(3)
-	*memmap.PtrUint32(0x587000, 85720) = 1
+	c.Objs.LoadError = false
 	sz := videoGetWindowSize()
 	vp := c.Viewport()
 	vp.Screen = image.Rect(0, 0, sz.X-1, sz.Y-1)

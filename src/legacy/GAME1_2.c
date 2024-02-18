@@ -3511,9 +3511,6 @@ bool nox_client_drawable_testBuff_4356C0(nox_drawable* dr, char a2) {
 	return result;
 }
 
-//----- (004356E0) --------------------------------------------------------
-void nox_xxx_spriteLoadError_4356E0() { *getMemU32Ptr(0x587000, 85720) = 0; }
-
 //----- (00435700) --------------------------------------------------------
 wchar2_t* sub_435700(wchar2_t* a1, int a2) {
 	wchar2_t* result; // eax

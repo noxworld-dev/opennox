@@ -759,7 +759,7 @@ func (c *Client) map_download_finish() int {
 	fname := noxServer.nox_server_currentMapGetFilename_409B30()
 	if err := nox_xxx_mapCliReadAll_4AC2B0(fname); err != nil {
 		gameLog.Println("read downloaded map:", err)
-		legacy.Nox_xxx_spriteLoadError_4356E0()
+		c.Nox_xxx_spriteLoadError_4356E0()
 		return 0
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
@@ -840,7 +840,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			if err := nox_xxx_mapCliReadAll_4AC2B0(mapName); err != nil {
 				err = fmt.Errorf("change map failed: %w", err)
 				gameLog.Println("client read map:", err)
-				legacy.Nox_xxx_spriteLoadError_4356E0()
+				c.Nox_xxx_spriteLoadError_4356E0()
 				return err
 			}
 			noxAudioServe()

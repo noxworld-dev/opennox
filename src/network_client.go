@@ -190,6 +190,16 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		legacy.Set_dword_5d4594_1200832(0)
 		legacy.Nox_xxx_cliSetSettingsAcquired_4169D0(0)
 		return 1 + n
+	case noxnet.MSG_DESTROY_OBJECT:
+		if len(data) < 3 {
+			return -1
+		}
+		if !nox_client_isConnected() {
+			return 3
+		}
+		code := binary.LittleEndian.Uint16(data[1:])
+		c.DestroyDrawable(code)
+		return 3
 	case noxnet.MSG_NEW_PLAYER:
 		if len(data) < 129 {
 			return -1

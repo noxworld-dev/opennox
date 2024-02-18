@@ -206,8 +206,8 @@ func (c *Client) DrawObjectName(vp *noxrender.Viewport, dr *client.Drawable, tm 
 	}
 	ext := dr.GetExt()
 	overrideName := false
-	if ext != nil && ext.DisplayName != "" {
-		name = ext.DisplayName
+	if ext != nil && ext.Data != nil && ext.Data.DisplayName != "" {
+		name = ext.Data.DisplayName
 		overrideName = true
 	}
 	if name == "" {
@@ -223,8 +223,8 @@ func (c *Client) DrawObjectName(vp *noxrender.Viewport, dr *client.Drawable, tm 
 	c.r.Data().SetTextColor(nox_color_gray1)
 	c.r.DrawString(nil, name, pos.Add(image.Point{X: 1, Y: 1}))
 	var textCl color.Color = noxcolor.RGB5551Color(155, 155, 155)
-	if ext != nil && ext.DisplayNameColor != nil {
-		textCl = ext.DisplayNameColor
+	if ext != nil && ext.Data != nil && ext.Data.DisplayNameColor != nil {
+		textCl = ext.Data.DisplayNameColor
 	} else {
 		if c.Server.Teams.Count() != 0 && tm != nil {
 			textCl = c.Server.Teams.GetTeamColor(tm)

@@ -63,6 +63,7 @@ type Client interface {
 	Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 	Nox_xxx_spriteDeleteAll_45A5E0(a1 bool)
 	Nox_xxx_client_4984B0_drawable(dr *client.Drawable) bool
+	Nox_xxx_spriteCreate_48E970(typeID int, code uint16, x, y int) *client.Drawable
 }
 
 type Render2 interface {

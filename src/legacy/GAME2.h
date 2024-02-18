@@ -185,7 +185,6 @@ void sub_45A670(unsigned int a1);
 nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
 nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1);
 int nox_xxx_spriteSetActiveMB_45A990_drawable(int a1);
-int nox_xxx_cliDestroyObj_45A9A0(int a1);
 int nox_xxx_spriteSetFrameMB_45AB80(int a1, int a2);
 int nox_xxx_guiSpellSortFn_45ABC0(const void* a1, const void* a2);
 int nox_xxx_bookSetColor_45AC40();

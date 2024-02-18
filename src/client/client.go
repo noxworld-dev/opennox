@@ -2,6 +2,8 @@ package client
 
 import (
 	"image"
+	"sync/atomic"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/console"
@@ -12,6 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/client/render"
+	"github.com/noxworld-dev/opennox/v1/common/gsync"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -21,6 +24,16 @@ var (
 	Log = log.New("client")
 )
 
+var (
+	clientLast uintptr // atomic
+	clients    gsync.Map[uintptr, *Client]
+)
+
+func getClient(h uintptr) *Client {
+	s, _ := clients.Load(h)
+	return s
+}
+
 func NewClient(pr console.Printer, s *server.Server) *Client {
 	c := &Client{
 		Printer: pr, Server: s,
@@ -28,6 +41,9 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 		Cursor:     gui.CursorSelect,
 		CursorPrev: gui.Cursor17,
 	}
+	c.handle = atomic.AddUintptr(&clientLast, 1)
+	clients.Store(c.handle, c)
+
 	s.Types.ClientTypeByID = c.Things.IndByID
 	s.ClientConn = func() *netstr.Client {
 		return c.Conn
@@ -42,6 +58,8 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 
 type Client struct {
 	console.Printer
+	handle     uintptr
+	ExtClient  unsafe.Pointer // populated by the caller of New
 	Server     *server.Server
 	Things     clientObjTypes
 	Objs       clientDrawables
@@ -72,6 +90,10 @@ type Client struct {
 		ShowSight     bool
 		showSightData [][]image.Point
 	}
+}
+
+func (c *Client) Close() {
+	clients.Delete(c.handle)
 }
 
 func (c *Client) Render() *noxrender.NoxRender {

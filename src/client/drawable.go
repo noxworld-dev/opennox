@@ -2,7 +2,6 @@ package client
 
 import (
 	"image"
-	"image/color"
 	"math"
 	"unsafe"
 
@@ -26,16 +25,6 @@ const (
 
 	noxDrawableWallsCap = 256
 )
-
-var (
-	drawableExts = make(map[unsafe.Pointer]*DrawableExt)
-)
-
-type DrawableExt struct {
-	Field99          **Drawable
-	DisplayName      string
-	DisplayNameColor color.Color
-}
 
 func (c *Client) InitDrawableLists() {
 	c.DrawableQueue = make([]*Drawable, 0, nox_drawable_list_1_cap)
@@ -75,8 +64,31 @@ func (c *Client) DrawableLinkThing(dr *Drawable, typeID int) int {
 	return 1
 }
 
+func (c *Client) Nox_xxx_updateSpritePosition_49AA90(dr *Drawable, x, y int) {
+	dr.Field_8 = uint32(dr.PosVec.X)
+	dr.Field_9 = uint32(dr.PosVec.Y)
+	if x < 0 || x >= 5888 || y < 0 || y >= 5888 {
+		x = 50
+		y = 50
+		if (dr.ObjFlags & 0x400000) == 0 {
+			c.Objs.List34Add(dr)
+		}
+	}
+	dr.PosVec.X = x
+	dr.PosVec.Y = y
+	dr.Field_10 = dr.Field_5
+	dr.Field_5 = c.Server.Frame()
+	c.Objs.AddIndex2D(dr)
+}
+
+func (c *Client) Nox_xxx_cliDestroyObj_45A9A0(dr *Drawable) {
+	//c.Objs.Ext.Delete(dr)
+	dr.ObjFlags &= 0xFFFFFFFB
+}
+
 type clientDrawables struct {
-	c *Client
+	c   *Client
+	Ext clientDrawablesExt
 
 	Alloc        alloc.ClassT[Drawable]
 	Count        int
@@ -92,6 +104,13 @@ type clientDrawables struct {
 	List8        *Drawable
 	Index2D      [][]*Drawable
 	Index2DSize  int
+	LoadError    bool
+}
+
+func (c *clientDrawables) New() *Drawable {
+	dr := c.Alloc.NewObject()
+	dr.clientHandle = c.c.handle
+	return dr
 }
 
 func (c *clientDrawables) init(cli *Client) {
@@ -101,9 +120,11 @@ func (c *clientDrawables) init(cli *Client) {
 func (c *clientDrawables) Init(cnt int) {
 	c.Alloc = alloc.NewClassT("drawableClass", Drawable{}, cnt)
 	c.initIndex2D()
+	c.Ext.init(c)
 }
 
 func (c *clientDrawables) Free() {
+	c.Ext.free()
 	c.freeIndex2D()
 	c.Alloc.Free()
 	c.List1 = nil
@@ -111,6 +132,10 @@ func (c *clientDrawables) Free() {
 	c.list3 = nil
 	c.List4 = nil
 	c.Count = 0
+}
+
+func (c *Client) Nox_xxx_spriteLoadError_4356E0() {
+	c.Objs.LoadError = true
 }
 
 func (c *clientDrawables) initIndex2D() {
@@ -616,35 +641,18 @@ type Drawable struct {
 	Field_125           uint32         // 125, 500
 	Field_126           uint32         // 126, 504
 	Field_127           uint32         // 127, 508
+	clientHandle        uintptr        // EXT
 }
 
 func (s *Drawable) C() unsafe.Pointer {
 	return unsafe.Pointer(s)
 }
 
-func (s *Drawable) GetExt() *DrawableExt {
+func (s *Drawable) Client() *Client {
 	if s == nil {
 		return nil
 	}
-	return drawableExts[unsafe.Pointer(s)]
-}
-
-func (s *Drawable) SetExt() *DrawableExt {
-	if s == nil {
-		return nil
-	}
-	p := drawableExts[unsafe.Pointer(s)]
-	if p == nil {
-		p = new(DrawableExt)
-		drawableExts[unsafe.Pointer(s)] = p
-	}
-	return p
-}
-
-func (s *Drawable) setDisplayName(name string, cl color.Color) {
-	ext := s.SetExt()
-	ext.DisplayName = name
-	ext.DisplayNameColor = cl
+	return getClient(s.clientHandle)
 }
 
 func (s *Drawable) UnionItem() *DrawableUnionItem {
@@ -824,7 +832,7 @@ func LightRadius(intens float32) int {
 }
 
 func (s *Drawable) LinkType(typeID int, typ *ObjectType) {
-	*s = Drawable{}
+	*s = Drawable{clientHandle: s.clientHandle}
 	s.TypeIDVal = uint32(typeID)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 0)) = typ.HWidth
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 1)) = typ.HHeight

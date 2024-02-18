@@ -120,6 +120,11 @@ func nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *nox_drawable) {
 	GetClient().Nox_xxx_spriteDeleteStatic_45A4E0_drawable(asDrawable(dr))
 }
 
+//export nox_xxx_cliDestroyObj_45A9A0
+func nox_xxx_cliDestroyObj_45A9A0(dr *nox_drawable) {
+	GetClient().Cli().Nox_xxx_cliDestroyObj_45A9A0(asDrawable(dr))
+}
+
 //export nox_xxx_spriteToSightDestroyList_49BAB0_drawable
 func nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr *nox_drawable) {
 	GetClient().Cli().Objs.List6Add(asDrawable(dr))
@@ -138,11 +143,6 @@ func nox_xxx_cliFirstMinimapObj_459EB0() *nox_drawable {
 //export nox_xxx_cliGetSpritePlayer_45A000
 func nox_xxx_cliGetSpritePlayer_45A000() *nox_drawable {
 	return (*nox_drawable)(GetClient().Cli().Objs.FirstPlayerList().C())
-}
-
-//export nox_xxx_sprite_49BA10
-func nox_xxx_sprite_49BA10(dr *nox_drawable) {
-	GetClient().Cli().Objs.DeadlineRemove(asDrawable(dr))
 }
 
 //export sub_49BCD0
@@ -179,6 +179,21 @@ func sub_498C20(a, b *C.nox_point, a3 int32) int32 {
 func sub_499290(a1 int) C.nox_point {
 	p := GetClient().Cli().Sight.Sub_499290(a1)
 	return C.nox_point{x: C.int(p.X), y: C.int(p.Y)}
+}
+
+//export nox_xxx_updateSpritePosition_49AA90
+func nox_xxx_updateSpritePosition_49AA90(dr *nox_drawable, x, y int) {
+	GetClient().Cli().Nox_xxx_updateSpritePosition_49AA90(asDrawable(dr), x, y)
+}
+
+//export nox_xxx_spriteCreate_48E970
+func nox_xxx_spriteCreate_48E970(typeID int, code uint16, x, y int) *nox_drawable {
+	return (*nox_drawable)(GetClient().Nox_xxx_spriteCreate_48E970(typeID, code, x, y).C())
+}
+
+//export nox_xxx_spriteLoadError_4356E0
+func nox_xxx_spriteLoadError_4356E0() {
+	GetClient().Cli().Nox_xxx_spriteLoadError_4356E0()
 }
 
 func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {

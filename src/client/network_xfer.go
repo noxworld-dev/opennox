@@ -8,10 +8,9 @@ import (
 func (c *Client) handleCBORXfer(ind ntype.PlayerInd, m server.NetXferExt) {
 	switch m := m.(type) {
 	case *server.XferObjectSetLabel:
-		if dr := c.Objs.ByNetCode(uint16(m.Object)); dr != nil {
-			dr.setDisplayName(m.Label, m.Color.Color())
-		} else {
-			Log.Printf("cannot find object %d for XferObjectSetLabel", m.Object)
+		if data := c.Objs.Ext.SetByNetCode(m.Object); data != nil {
+			data.DisplayName = m.Label
+			data.DisplayNameColor = m.Color.Color()
 		}
 	}
 }

@@ -178,9 +178,6 @@ func Sub_48D760() {
 func Sub_417CF0() {
 	C.sub_417CF0()
 }
-func Nox_xxx_spriteLoadError_4356E0() {
-	C.nox_xxx_spriteLoadError_4356E0()
-}
 func Sub_499450() {
 	C.sub_499450()
 }

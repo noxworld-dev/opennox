@@ -4354,15 +4354,6 @@ int nox_xxx_spriteSetActiveMB_45A990_drawable(int a1) {
 	return result;
 }
 
-//----- (0045A9A0) --------------------------------------------------------
-int nox_xxx_cliDestroyObj_45A9A0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 120) &= 0xFFFFFFFB;
-	return result;
-}
-
 //----- (0045A9B0) --------------------------------------------------------
 void sub_45A9B0(nox_drawable* a1p, nox_drawable* a2p) {
 	int a1 = a1p;

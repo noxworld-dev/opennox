@@ -69,6 +69,7 @@ void sub_41CC00(char* s);
 void* nox_new_npc(int id);
 void nox_init_npc(void* ptr, int id);
 void nox_npc_set_328(int id, int a2);
+void nox_xxx_cliDestroyObj_45A9A0(nox_drawable* a1);
 int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz) {
 	unsigned char* old = data;
 	long long v5;           // rax
@@ -504,38 +505,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			nox_xxx_setKeybTimeout_4160D0(9);
 		}
 		return 11;
-	case 49: // MSG_DESTROY_OBJECT
-		v44 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-		v45 = v44;
-		if (!nox_client_isConnected_43C700()) {
-			return 3;
-		}
-		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST)) {
-			nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-		}
-		LODWORD(v5) = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))
-						  ? nox_xxx_netSpriteByCodeStatic_45A720(v45)
-						  : nox_xxx_netSpriteByCodeDynamic_45A6F0(v45);
-		v46 = v5;
-		if (!(uint32_t)v5) {
-			return 3;
-		}
-		if (*(int (**)(int*, int))(v5 + 300) == nox_thing_animate_draw) {
-			v47 = *(uint32_t*)(v5 + 304);
-			if (v47) {
-				if (*(uint32_t*)(v47 + 12) == 1) {
-					return 3;
-				}
-			}
-		}
-		v48 = nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
-		v331 = v46;
-		if (!v48) {
-			nox_xxx_spriteDeleteStatic_45A4E0_drawable(v331);
-			return 3;
-		}
-		nox_xxx_cliDestroyObj_45A9A0(v46);
-		return 3;
 	case 50: // MSG_OBJECT_OUT_OF_SIGHT
 		v49 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 		v50 = v49;

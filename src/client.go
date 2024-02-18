@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"image"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/spf13/viper"
@@ -35,6 +36,7 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 		srv:    srv,
 		r:      NewNoxRender(cl.Render()),
 	}
+	c.Client.ExtClient = unsafe.Pointer(c)
 	c.info.Init(c)
 	c.guiAdv.Init(c)
 	c.screenshots.Init(c)

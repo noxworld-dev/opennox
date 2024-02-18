@@ -5,6 +5,8 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
+
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -13,8 +15,32 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
+func (c *Client) Nox_xxx_spriteCreate_48E970(typeID int, code uint16, x, y int) *client.Drawable {
+	netcode := nox_xxx_netClearHighBit_578B30(code)
+	dr := c.Objs.ByNetCode(code)
+	if dr != nil {
+		c.Nox_xxx_updateSpritePosition_49AA90(dr, x, y)
+	} else {
+		dr = c.Nox_xxx_spriteLoadAdd_45A360_drawable(typeID, image.Pt(x, y))
+		if dr == nil {
+			c.Nox_xxx_spriteLoadError_4356E0()
+			return nil
+		}
+		dr.NetCode32 = uint32(netcode)
+		if typeID == c.Things.IndByID("Crown") || typeID == c.Things.IndByID("GameBall") || dr.Class().Has(object.ClassFlag) {
+			c.Objs.MinimapAdd(dr, 1)
+		}
+	}
+	dr.SetActive()
+	c.Objs.DeadlineRemove(dr)
+	c.Objs.Ext.Attach(dr)
+	dr.Field_80 = c.Server.Frame()
+	dr.Field_122 = 0
+	return dr
+}
+
 func (c *Client) Nox_new_drawable_for_thing(typeID int) *client.Drawable {
-	dr := c.Objs.Alloc.NewObject()
+	dr := c.Objs.New()
 	if dr == nil {
 		dr = c.nox_xxx_spriteFromCache_45A330_drawable()
 	}
@@ -92,6 +118,25 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(typeID int, pos image.Poi
 	return dr
 }
 
+func (c *Client) DestroyDrawable(code uint16) {
+	dr := c.Objs.ByNetCode(code)
+	if dr == nil {
+		return
+	}
+	if dr.DrawFuncPtr == legacy.Get_nox_thing_animate_draw() {
+		if dd := dr.DrawData; dd != nil {
+			if *(*uint32)(unsafe.Add(dd, 12)) == 1 {
+				return
+			}
+		}
+	}
+	if !nox_xxx_netTestHighBit_578B70(code) {
+		c.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
+	} else {
+		c.Nox_xxx_cliDestroyObj_45A9A0(dr)
+	}
+}
+
 func nox_xxx_sprite_45A480_drawable(dr *client.Drawable) {
 	if dr.Class()&0x1000000 != 0 && dr.SubClass()&0xC0 != 0 {
 		if dr.Flags()&0x4000 != 0 {
@@ -146,10 +191,11 @@ func (c *Client) nox_xxx_spriteFromCache_45A330_drawable() *client.Drawable {
 		return nil
 	}
 	c.Nox_xxx_spriteDeleteStatic_45A4E0_drawable(c.Objs.List4)
-	return c.Objs.Alloc.NewObject()
+	return c.Objs.New()
 }
 
 func (c *Client) Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable) {
+	//c.Objs.Ext.Delete(dr)
 	if dr.Field_93 != nil {
 		dr.Field_93.NextPtr = dr.NextPtr
 	} else {
