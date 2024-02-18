@@ -287,5 +287,5 @@ func (s *Server) HTTPPort() int {
 }
 
 func InferHTTPPort(port int) int {
-	return common.GameHTTPPort + (port - common.GamePort)
+	return port
 }
