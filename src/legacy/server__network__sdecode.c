@@ -25,6 +25,7 @@
 #include "server__system__trade.h"
 
 //----- (0051BAD0) --------------------------------------------------------
+int nox_xxx_spellByBookInsert_4FE340(nox_object_t* a1, int* a2, int a3, int a4, int a5);
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p) {
 	int v8 = v8p;
 	int unit = unitp;

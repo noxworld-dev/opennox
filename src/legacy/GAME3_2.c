@@ -3364,11 +3364,6 @@ int nox_xxx_bookCreatureTest_4D70C0(int a1) {
 	return nox_common_gameFlags_check_40A5C0(4096) || a1 != 37 && a1 != 38 && a1 != 40 && a1 != 39;
 }
 
-//----- (004D7100) --------------------------------------------------------
-int sub_4D7100(int a1) {
-	return nox_common_gameFlags_check_40A5C0(4096) || a1 != 111 && a1 != 112 && a1 != 114 && a1 != 113;
-}
-
 //----- (004D7150) --------------------------------------------------------
 int sub_4D7150() {
 	int result; // eax

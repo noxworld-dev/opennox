@@ -305,7 +305,7 @@ func (sp *spellWall) Create(spl *server.DurSpell) int {
 			return 1
 		}
 		ud := caster.UpdateDataPlayer()
-		sp.s.NetInformTextMsg(ud.Player.PlayerIndex(), 0, 2)
+		sp.s.NetInformTextMsg0(ud.Player.PlayerIndex(), server.SpellUnseenTarget)
 		return 1
 	}
 	dpos := spl.Pos2.Sub(spl.Pos)

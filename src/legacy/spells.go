@@ -10,11 +10,7 @@ package legacy
 #include "GAME4_3.h"
 #include "GAME5_2.h"
 #include "server__magic__spell__execdur.h"
-void nox_xxx_spellCastByBook_4FCB80();
 void nox_xxx_spellCastByPlayer_4FEEF0();
-
-extern void* nox_alloc_magicEnt_1569668;
-extern uint32_t dword_5d4594_1569672;
 
 int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6);
 int nox_xxx_spellWallCreate_4FFA90(void* a1);
@@ -42,16 +38,12 @@ var (
 	Nox_xxx_spellDescription_424A30   func(ind int) (string, bool)
 	Nox_xxx_spellIcon_424A90          func(ind int) unsafe.Pointer
 	Nox_xxx_spellIconHighlight_424AB0 func(ind int) unsafe.Pointer
-	Nox_xxx_castSpellByUser_4FDD20    func(a1 int, a2 *server.Object, a3 unsafe.Pointer) int
+	Nox_xxx_castSpellByUser_4FDD20    func(a1 spell.ID, a2 *server.Object, a3 *server.SpellAcceptArg) int
 	Nox_xxx_spellWallCreate_4FFA90    func(sp *server.DurSpell) int
 	Nox_xxx_spellWallUpdate_500070    func(sp *server.DurSpell) int
 	Nox_xxx_spellWallDestroy_500080   func(sp *server.DurSpell)
+	Nox_xxx_spellByBookInsert_4FE340  func(u *server.Object, spells []spell.ID, a4 int32, a5 int32) int
 )
-
-//export nox_xxx_spellGetDefArrayPtr_424820
-func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
-	return GetServer().S().Spells.PhonemeTree().C()
-}
 
 //export nox_xxx_getEnchantSpell_424920
 func nox_xxx_getEnchantSpell_424920(enc int) int {
@@ -139,12 +131,7 @@ func nox_xxx_spellByTitle_424960(ctitle *wchar2_t) int {
 
 //export nox_xxx_spellManaCost_4249A0
 func nox_xxx_spellManaCost_4249A0(ind, a2 int) int {
-	return GetServer().S().Spells.ManaCost(spell.ID(ind), a2)
-}
-
-//export nox_xxx_spellPhonemes_424A20
-func nox_xxx_spellPhonemes_424A20(ind, ind2 int) C.char {
-	return C.char(GetServer().S().Spells.Phoneme(spell.ID(ind), ind2))
+	return GetServer().S().Spells.ManaCost(spell.ID(ind), server.SpellCostType(a2))
 }
 
 //export nox_xxx_spellHasFlags_424A50
@@ -214,7 +201,7 @@ func nox_xxx_spellAccept_4FD400(ispellID int, a2, a3p, a4p *nox_object_t, a5p un
 
 //export nox_xxx_castSpellByUser_4FDD20
 func nox_xxx_castSpellByUser_4FDD20(a1 int, a2 *nox_object_t, a3 unsafe.Pointer) int {
-	return Nox_xxx_castSpellByUser_4FDD20(a1, asObjectS(a2), a3)
+	return Nox_xxx_castSpellByUser_4FDD20(spell.ID(a1), asObjectS(a2), (*server.SpellAcceptArg)(a3))
 }
 
 //export nox_xxx_spellWallCreate_4FFA90
@@ -232,6 +219,11 @@ func nox_xxx_spellWallDestroy_500080(p unsafe.Pointer) {
 	Nox_xxx_spellWallDestroy_500080((*server.DurSpell)(p))
 }
 
+//export nox_xxx_spellByBookInsert_4FE340
+func nox_xxx_spellByBookInsert_4FE340(u *nox_object_t, spells *int32, a3 int32, a4 int32, a5 int32) int {
+	return Nox_xxx_spellByBookInsert_4FE340(asObjectS(u), unsafe.Slice((*spell.ID)(unsafe.Pointer(spells)), a3), a4, a5)
+}
+
 //export nox_xxx_spellCancelSpellDo_4FE9D0
 func nox_xxx_spellCancelSpellDo_4FE9D0(p unsafe.Pointer) {
 	GetServer().S().Spells.Dur.CancelSpell((*server.DurSpell)(p))
@@ -242,9 +234,6 @@ func nox_xxx_netStopRaySpell_4FEF90(p unsafe.Pointer, obj *nox_object_t) {
 	GetServer().S().NetStopRaySpell((*server.DurSpell)(p), asObjectS(obj))
 }
 
-func Nox_xxx_spellCastByBook_4FCB80() {
-	C.nox_xxx_spellCastByBook_4FCB80()
-}
 func Nox_xxx_playerResetProtectionCRC_56F7D0(a1 uint32, a2 int) {
 	C.nox_xxx_playerResetProtectionCRC_56F7D0(C.int(a1), C.int(a2))
 }
@@ -262,12 +251,6 @@ func Nox_xxx_gameCaptureMagic_4FDC10(a1 spell.ID, a2 *server.Object) int {
 }
 func Nox_spells_call_intint6_go(a1 unsafe.Pointer, a2 spell.ID, a3 *server.Object, a4 *server.Object, a5 *server.Object, a6 *server.SpellAcceptArg, a7 int) int {
 	return int(C.nox_spells_call_intint6_go((*[0]byte)(a1), C.int(a2), asObjectC(a3), asObjectC(a4), asObjectC(a5), unsafe.Pointer(a6), C.int(a7)))
-}
-func Nox_xxx_createSpellFly_4FDDA0(a1 *server.Object, a2 *server.Object, a3 spell.ID) {
-	C.nox_xxx_createSpellFly_4FDDA0(asObjectC(a1), asObjectC(a2), C.int(a3))
-}
-func Nox_xxx_spellGetPower_4FE7B0(a1 spell.ID, a2 *server.Object) int {
-	return int(C.nox_xxx_spellGetPower_4FE7B0(C.int(a1), asObjectC(a2)))
 }
 
 func Nox_xxx_spellArachna_52DC80(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {

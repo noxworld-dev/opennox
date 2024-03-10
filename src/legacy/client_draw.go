@@ -67,10 +67,6 @@ func Nox_xxx_spriteDeleteSomeList_49C4B0() {
 	C.nox_xxx_spriteDeleteSomeList_49C4B0()
 }
 
-func Sub_49BBC0() {
-	C.sub_49BBC0()
-}
-
 func Nox_xxx_polygonDrawColor_421B80() {
 	C.nox_xxx_polygonDrawColor_421B80()
 }

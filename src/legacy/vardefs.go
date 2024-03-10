@@ -156,7 +156,6 @@ extern uint32_t dword_5d4594_1090276;
 extern uint32_t dword_5d4594_1049496;
 extern void* dword_587000_93164;
 extern uint32_t dword_5d4594_1098624;
-extern uint32_t dword_5d4594_1569672;
 extern uint32_t dword_5d4594_1197316;
 extern uint32_t dword_5d4594_2386576;
 extern uint32_t dword_5d4594_1320968;
@@ -375,7 +374,6 @@ extern uint32_t dword_5d4594_1316476;
 extern uint32_t dword_5d4594_2488652;
 extern void* nox_alloc_spawn_2386216;
 extern uint32_t dword_5d4594_2487672;
-extern void* nox_alloc_magicEnt_1569668;
 extern uint32_t dword_5d4594_814992;
 extern uint32_t dword_587000_66116;
 extern uint32_t dword_5d4594_2487564;
@@ -541,7 +539,6 @@ extern uint32_t dword_5d4594_1096272;
 extern uint32_t dword_5d4594_1096636;
 extern uint32_t dword_5d4594_1522956;
 extern uint32_t dword_587000_183460;
-extern uint32_t dword_5d4594_1303508;
 extern uint32_t dword_5d4594_1568288;
 extern uint32_t dword_5d4594_2491704;
 extern uint32_t dword_5d4594_1320948;
@@ -1095,9 +1092,6 @@ func Get_dword_5d4594_1548524() int {
 func Get_dword_587000_155144() unsafe.Pointer {
 	return C.dword_587000_155144
 }
-func Get_nox_alloc_magicEnt_1569668() unsafe.Pointer {
-	return C.nox_alloc_magicEnt_1569668
-}
 func Get_nox_client_gui_flag_1556112() int {
 	return int(C.nox_client_gui_flag_1556112)
 }
@@ -1394,12 +1388,6 @@ func Set_dword_5d4594_1200804(v uint32) {
 }
 func Set_dword_5d4594_1200832(v int) {
 	C.dword_5d4594_1200832 = C.uint(v)
-}
-func Set_nox_alloc_magicEnt_1569668(v unsafe.Pointer) {
-	C.nox_alloc_magicEnt_1569668 = v
-}
-func Set_dword_5d4594_1569672(v int) {
-	C.dword_5d4594_1569672 = C.uint(v)
 }
 func Inc_nox_xxx_waypointCounterMB_587000_154948() {
 	C.nox_xxx_waypointCounterMB_587000_154948++

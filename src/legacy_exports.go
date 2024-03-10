@@ -1,6 +1,7 @@
 package opennox
 
 import (
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -83,7 +84,13 @@ func init() {
 	legacy.Nox_xxx_spellDescription_424A30 = nox_xxx_spellDescription_424A30
 	legacy.Nox_xxx_spellIcon_424A90 = nox_xxx_spellIcon_424A90
 	legacy.Nox_xxx_spellIconHighlight_424AB0 = nox_xxx_spellIconHighlight_424AB0
-	legacy.Nox_xxx_castSpellByUser_4FDD20 = nox_xxx_castSpellByUser_4FDD20
+	legacy.Nox_xxx_spellByBookInsert_4FE340 = nox_xxx_spellByBookInsert_4FE340
+	legacy.Nox_xxx_castSpellByUser_4FDD20 = func(a1 spell.ID, a2 *server.Object, a3 *server.SpellAcceptArg) int {
+		if noxServer.nox_xxx_castSpellByUser4FDD20(spell.ID(a1), -1, a2, a3) {
+			return 1
+		}
+		return 0
+	}
 	legacy.Nox_xxx_spellWallCreate_4FFA90 = func(sp *server.DurSpell) int {
 		return noxServer.spells.walls.Create(sp)
 	}
@@ -188,9 +195,6 @@ func init() {
 	legacy.Nox_xxx_bookNextKnownAbil_425350 = nox_xxx_bookNextKnownAbil_425350
 	legacy.Sub_425450 = sub_425450
 	legacy.Nox_xxx_netAbilRepotState_4D8100 = nox_xxx_netAbilRepotState_4D8100
-	legacy.Nox_setImaginaryCaster = func() int {
-		return noxServer.nox_setImaginaryCaster()
-	}
 	legacy.Nox_script_readWriteZzz_541670 = nox_script_readWriteZzz_541670
 	legacy.Sub_4C26F0 = sub_4C26F0
 	legacy.WinMainMenuAnimOutStartFnc = winMainMenuAnimOutStartFnc

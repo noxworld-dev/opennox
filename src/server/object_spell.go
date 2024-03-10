@@ -4,7 +4,7 @@ import "github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 
 type SpellProjectileUpdateData struct {
 	Field0  *Object // 0, 0
-	Field4  uint32  // 1, 4
+	Field4  *Object // 1, 4
 	Field8  *Object // 2, 8
 	Spell12 uint32  // 3, 12
 	Level16 uint32  // 4, 16

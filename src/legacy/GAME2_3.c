@@ -40,7 +40,6 @@
 #include "operators.h"
 
 extern uint32_t dword_8531A0_2572;
-extern uint32_t dword_5d4594_1303508;
 extern uint32_t dword_5d4594_1200776;
 extern uint32_t dword_5d4594_1203832;
 extern uint32_t dword_5d4594_1200796;
@@ -3024,42 +3023,6 @@ void nox_xxx_consoleEsc_49B7A0() {
 }
 // 49B874: variable 'v1' is possibly undefined
 // 49B881: variable 'v2' is possibly undefined
-
-//----- (0049BB80) --------------------------------------------------------
-void* sub_49BB80(char a1) {
-	void* result; // eax
-
-	*getMemU8Ptr(0x5D4594, 1303504) = a1;
-	*getMemU8Ptr(0x5D4594, 1303512) = 0;
-	*getMemU32Ptr(0x5D4594, 1303516) = gameFrame();
-	result = nox_xxx_spellGetDefArrayPtr_424820();
-	dword_5d4594_1303508 = result;
-	return result;
-}
-
-//----- (0049BBB0) --------------------------------------------------------
-void sub_49BBB0() { *getMemU8Ptr(0x5D4594, 1303504) = 0; }
-
-//----- (0049BBC0) --------------------------------------------------------
-void sub_49BBC0() {
-	int v0;           // eax
-	unsigned char v1; // [esp+0h] [ebp-4h]
-
-	if (getMemByte(0x5D4594, 1303504)) {
-		v1 = nox_xxx_spellPhonemes_424A20(getMemByte(0x5D4594, 1303504), getMemByte(0x5D4594, 1303512));
-		if (gameFrame() >= *getMemIntPtr(0x5D4594, 1303516)) {
-			v0 = nox_xxx_spellGetPhoneme_4FE1C0(nox_player_netCode_85319C, v1);
-			nox_xxx_clientPlaySoundSpecial_452D80(v0, 100);
-			nox_client_setPhonemeFrame_476E00(*getMemU32Ptr(0x587000, 163576 + 4 * v1));
-			*getMemU32Ptr(0x5D4594, 1303516) = gameFrame() + 3;
-			dword_5d4594_1303508 = nox_xxx_updateSpellRelated_424830(*(int*)&dword_5d4594_1303508, v1);
-			++*getMemU8Ptr(0x5D4594, 1303512);
-		}
-		if (**(uint32_t**)&dword_5d4594_1303508 == getMemByte(0x5D4594, 1303504)) {
-			sub_49BBB0();
-		}
-	}
-}
 
 //----- (0049C160) --------------------------------------------------------
 uint32_t* nox_xxx_clientAddRayEffect_49C160(int a1) {

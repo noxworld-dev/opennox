@@ -106,7 +106,7 @@ type PlayerUpdateData struct {
 	Field47_0        uint8          // 47, 188
 	Field47_1        uint8          // 47, 189
 	Field47_2        uint16         // 47, 190
-	TrapSpells       [5]uint32      // 48, 192
+	TrapSpells       [5]spell.ID    // 48, 192
 	TrapSpellsCnt    uint32         // 53, 212
 	SpellCastStart   uint32         // 54, 216
 	Field55          int            // 55, 220, TODO: spell-related? x coord?

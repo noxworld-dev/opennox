@@ -96,8 +96,6 @@ int sub_49B6B0();
 void nox_xxx_consoleEsc_49B7A0();
 void nox_xxx_spriteTransparentDecay_49B950(nox_drawable* a1, int a2);
 void nox_xxx_spriteToSightDestroyList_49BAB0_drawable(nox_drawable* a1);
-void sub_49BBB0();
-void sub_49BBC0();
 void nox_xxx_spriteToList_49BC80_drawable(nox_drawable* a1);
 void sub_49BCD0(nox_drawable* dr);
 uint32_t* nox_xxx_clientAddRayEffect_49C160(int a1);

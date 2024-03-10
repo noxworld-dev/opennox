@@ -346,15 +346,6 @@ short sub_476D70(uint32_t* a1, int* a2, unsigned int a3) {
 	return v6;
 }
 
-//----- (00476E00) --------------------------------------------------------
-int nox_client_setPhonemeFrame_476E00(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1096596 + 4 * a1) = gameFrame();
-	return result;
-}
-
 //----- (00476E20) --------------------------------------------------------
 uint32_t* sub_476E20() {
 	int v0;       // esi

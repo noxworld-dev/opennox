@@ -12,6 +12,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -271,7 +272,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		if len(data) < 2 {
 			return -1
 		}
-		legacy.Sub_49BB80(data[1])
+		sub_49BB80(spell.ID(data[1]))
 		return 2
 	case noxnet.MSG_REPORT_INVENTORY_LOADED:
 		legacy.Sub_467CA0()

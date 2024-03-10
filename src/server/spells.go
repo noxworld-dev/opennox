@@ -9,6 +9,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -96,7 +97,7 @@ func (s *SpellDef) GetAudio(snd int) sound.ID { // nox_xxx_spellGetAud44_424800
 }
 
 type PhonemeLeaf struct {
-	Ind int32
+	Ind spell.ID
 	Pho [spell.PhonMax]*PhonemeLeaf
 }
 
@@ -109,6 +110,24 @@ func (p *PhonemeLeaf) Next(ph spell.Phoneme) *PhonemeLeaf { // nox_xxx_updateSpe
 		return nil
 	}
 	return p.Pho[ph]
+}
+
+type MagicEntityClass struct {
+	Field0     uint32            // 0, 0
+	Obj4       *Object           // 1, 4
+	Spells8    [5]spell.ID       // 2, 8
+	SpellInd28 byte              // 7, 28
+	Field29    byte              // 7, 29
+	Field30    uint16            // 7, 30
+	Field32    *PhonemeLeaf      // 8, 32
+	Field36    byte              // 9, 36
+	Field37    byte              // 9, 37
+	Field38    uint16            // 9, 38
+	Frame40    uint32            // 10, 40
+	Field44    uint32            // 11, 44
+	Field48    uint32            // 12, 48
+	Next52     *MagicEntityClass // 13, 52
+	Prev56     *MagicEntityClass // 14, 56
 }
 
 type serverSpells struct {
@@ -223,11 +242,18 @@ func (sp *serverSpells) PhonemeTree() *PhonemeLeaf {
 	return sp.tree
 }
 
-func (sp *serverSpells) ManaCost(id spell.ID, a2 int) int {
+type SpellCostType int
+
+const (
+	SpellCostRegular = SpellCostType(1)
+	SpellCostTrap    = SpellCostType(2)
+)
+
+func (sp *serverSpells) ManaCost(id spell.ID, typ SpellCostType) int {
 	if !id.Valid() {
 		return 0
 	}
-	if a2 == 2 {
+	if typ == SpellCostTrap {
 		switch id {
 		case spell.SPELL_LIGHTNING:
 			return int(sp.s.Balance.Float("EnergyBoltTrapCost"))
@@ -274,6 +300,37 @@ func (sp *serverSpells) Price(ind spell.ID) int {
 		price *= sp.s.Balance.Float("QuestSpellWorthMultiplier")
 	}
 	return int(price)
+}
+
+func (sp *serverSpells) CheckSpellClass(cl player.Class, spl spell.ID) SpellResult {
+	sflags := sp.Flags(spl)
+	var bit things.SpellFlags
+	switch cl {
+	default:
+		return SpellBadSkill
+	case player.Wizard:
+		bit = things.SpellClassWizard
+	case player.Conjurer:
+		bit = things.SpellClassConjurer
+	}
+	if !sflags.Has(things.SpellClassAny) && !sflags.Has(bit) {
+		return SpellBadSkill
+	}
+	return SpellOK
+}
+
+func (sp *serverSpells) Sub_4FD0E0(u *Object, spl spell.ID) SpellResult {
+	v2 := u.FindOwnerChainPlayer()
+	if !sp.DefByInd(spl).IsEnabled() {
+		return SpellIllegal
+	}
+	if u.Class().Has(object.ClassPlayer) {
+		return sp.CheckSpellClass(u.UpdateDataPlayer().Player.PlayerClass(), spl)
+	}
+	if !Sub_57AEE0(spl, v2) {
+		return SpellIllegal
+	}
+	return SpellOK
 }
 
 type ImageLoaderFunc func(ref *things.ImageRef) unsafe.Pointer
@@ -365,7 +422,7 @@ func (sp *serverSpells) createSpellFrom(def *things.Spell, loadImage ImageLoader
 			}
 			leaf = next
 		}
-		leaf.Ind = int32(ind)
+		leaf.Ind = ind
 		spl.Def.Phonemes = append(spl.Def.Phonemes, spell.PhonEnd)
 	}
 	if loadImage != nil {

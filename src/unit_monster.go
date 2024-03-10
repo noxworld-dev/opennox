@@ -143,7 +143,7 @@ func nox_xxx_monsterCreateFn_54C480(u *server.Object) {
 	ud.ScriptLostEnemy = server.ScriptCallback{Func: -1}
 
 	fps := s.TickRate()
-	ud.Field510 = 1
+	ud.SpellLvl510 = 1
 	ud.Field362_0 = 0
 	ud.Field362_2 = uint16(fps / 2)
 	ud.Field364_0 = uint16(fps * 3)

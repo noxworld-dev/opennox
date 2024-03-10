@@ -142,10 +142,6 @@ func Sub_49A630() {
 	C.sub_49A630()
 }
 
-func Sub_49BBB0() {
-	C.sub_49BBB0()
-}
-
 func Nox_xxx_createTextBubble_48D880(pck []byte, text string) {
 	cpck, pfree := alloc.Make(pck, len(pck))
 	defer pfree()

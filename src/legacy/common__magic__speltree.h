@@ -5,12 +5,10 @@
 
 int nox_xxx_spellNameToN_4243F0(char* id);
 int nox_xxx_spellGetAud44_424800(int ind, int a2);
-void* nox_xxx_spellGetDefArrayPtr_424820();
 char* nox_xxx_spellNameByN_424870(int ind);
 wchar2_t* nox_xxx_spellTitle_424930(int ind);
 int nox_xxx_spellByTitle_424960(wchar2_t* title);
 int nox_xxx_spellManaCost_4249A0(int ind, int a2);
-char nox_xxx_spellPhonemes_424A20(int ind, int ind2);
 wchar2_t* nox_xxx_spellDescription_424A30(int ind);
 bool nox_xxx_spellHasFlags_424A50(int ind, int flags);
 unsigned int nox_xxx_spellFlags_424A70(int ind);

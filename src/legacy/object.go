@@ -23,7 +23,6 @@ import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
@@ -275,11 +274,6 @@ func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *nox_object_t, ind int) C.bo
 func nox_xxx_unitDoSummonAt_5016C0(typID int, cpos *float32, owner *nox_object_t, dir C.uchar) *nox_object_t {
 	pos := unsafe.Slice(cpos, 2)
 	return asObjectC(Nox_xxx_unitDoSummonAt_5016C0(typID, types.Ptf(pos[0], pos[1]), asObjectS(owner), server.Dir16(dir)))
-}
-
-//export sub_57AEE0
-func sub_57AEE0(sp int, u *nox_object_t) int {
-	return bool2int(server.Sub_57AEE0(spell.ID(sp), asObjectS(u)))
 }
 
 //export sub_4E71F0

@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -88,4 +89,13 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 	}
 	aud := sp.s.Spells.DefByInd(spellID).GetCastSound()
 	sp.s.Audio.EventObj(aud, caster, 0, 0)
+}
+
+func (sp *spellMissiles) CanCast(spellID spell.ID, u *server.Object) server.SpellResult {
+	cnt := u.CountSubOfType(int(memmap.Int32(0x5D4594, 1569680)))
+	lvl := nox_xxx_spellGetPower_4FE7B0(spellID, u)
+	if cnt >= int(sp.s.Balance.FloatInd("MagicMissileCount", lvl-1)) {
+		return server.SpellTooMany
+	}
+	return server.SpellOK
 }

@@ -1288,8 +1288,8 @@ func (obj *Object) MonsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx
 	return obj.SObj().MonsterActionIsScheduled(act)
 }
 
-func (obj *Object) CountSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
-	return obj.SObj().CountSubOfType(typ)
+func (obj *Object) CountSubOfType(types ...int) int { // nox_xxx_unitIsUnitTT_4E7C80
+	return obj.SObj().CountSubOfType(types...)
 }
 
 func (obj *Object) SetTrapSpells(spells ...spell.ID) {
@@ -1297,7 +1297,7 @@ func (obj *Object) SetTrapSpells(spells ...spell.ID) {
 }
 
 func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int) int {
-	return asObjectS(a1).CountSubOfType(a2)
+	return a1.CountSubOfType(a2)
 }
 
 func nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {

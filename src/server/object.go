@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"image/color"
 	"math"
+	"slices"
 	"strings"
 	"time"
 	"unsafe"
@@ -1677,13 +1678,13 @@ func (obj *Object) CanSee(obj2 *Object) bool {
 	return obj.Server().CanInteract(obj, obj2, 0)
 }
 
-func (obj *Object) CountSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
+func (obj *Object) CountSubOfType(types ...int) int { // nox_xxx_unitIsUnitTT_4E7C80
 	if obj == nil {
 		return 0
 	}
 	cnt := 0
 	for it := obj.FirstOwned516(); it != nil; it = it.NextOwned512() {
-		if int(it.TypeInd) == typ && !it.Flags().Has(object.FlagDestroyed) {
+		if slices.Contains(types, int(it.TypeInd)) && !it.Flags().Has(object.FlagDestroyed) {
 			cnt++
 		}
 	}
@@ -1942,6 +1943,32 @@ func (obj *Object) AllMask140() {
 	for i := range obj.Field140 {
 		obj.Field140[i] &= 0xFFF
 	}
+}
+
+func (obj *Object) OldMana() int { // nox_xxx_unitGetOldMana_4EEC80
+	if obj == nil {
+		return 0
+	}
+	if obj.Class().Has(object.ClassPlayer) {
+		return int(obj.UpdateDataPlayer().ManaCur)
+	}
+	if obj.Class().Has(object.ClassMonster) {
+		return 1000
+	}
+	return 0
+}
+
+func (obj *Object) CountSlaves(class object.Class, subClass object.SubClass) int { // Nox_xxx_unitCountSlaves_4E7CF0
+	if obj == nil || class == 0 || subClass == 0 {
+		return 0
+	}
+	var cnt int
+	for it := obj.Field129; it != nil; it = it.Field128 {
+		if it.Class().Has(class) && it.SubClass().Has(subClass) {
+			cnt++
+		}
+	}
+	return cnt
 }
 
 type debugObject struct {

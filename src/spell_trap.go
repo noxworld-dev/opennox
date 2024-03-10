@@ -24,11 +24,11 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 	ud := caster.UpdateDataPlayer()
 	pl := ud.Player
 	if int(ud.CurTraps) >= int(s.Balance.Float("MaxTrapCount")) {
-		s.NetInformTextMsg(pl.PlayerIndex(), 0, 5)
+		s.NetInformTextMsg0(pl.PlayerIndex(), server.SpellTooManyGlyphs)
 		return 0
 	}
 	if ud.TrapSpellsCnt == 0 {
-		s.NetInformTextMsg(pl.PlayerIndex(), 0, 7)
+		s.NetInformTextMsg0(pl.PlayerIndex(), server.SpellCantCastGlyph)
 		return 0
 	}
 	trap := s.NewObjectByTypeID("Glyph")
@@ -41,7 +41,7 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 		s.Audio.EventObj(snd, targ, 0, 0)
 	} else {
 		if countBombers(caster) >= int(s.Balance.Float("MaxBomberCount")) {
-			s.NetInformTextMsg(pl.PlayerIndex(), 0, 5)
+			s.NetInformTextMsg0(pl.PlayerIndex(), server.SpellTooManyGlyphs)
 			s.DelayedDelete(trap)
 			return 0
 		}
@@ -213,9 +213,9 @@ func triggerTrap(trap, a2 *server.Object) {
 
 	for i := 0; i < int(idata.SpellsCnt); i++ {
 		sp := spell.ID(idata.Spells[i])
-		if (!s.Spells.HasFlags(sp, things.SpellFlagUnk1) || a2 != nil) && legacy.Sub_4FD0E0(owner, sp) == 0 {
+		if (!s.Spells.HasFlags(sp, things.SpellFlagUnk1) || a2 != nil) && s.Spells.Sub_4FD0E0(owner, sp) == 0 {
 			if owner.Class().Has(object.ClassPlayer) {
-				lvl := legacy.Nox_xxx_spellGetPower_4FE7B0(sp, owner)
+				lvl := nox_xxx_spellGetPower_4FE7B0(sp, owner)
 				s.Nox_xxx_spellAccept4FD400(sp, owner, owner, trap, sa, lvl)
 			} else {
 				s.Nox_xxx_spellAccept4FD400(sp, owner, owner, trap, sa, 2)

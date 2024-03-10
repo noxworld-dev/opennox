@@ -201,18 +201,106 @@ func netDecodePlayerInput(data []byte, out []PlayerCtrl) []PlayerCtrl {
 	return out
 }
 
-func (s *Server) NetInformTextMsg(pid ntype.PlayerInd, code byte, ind int) bool {
+type SpellResult int
+
+const (
+	SpellOK = SpellResult(iota)
+	SpellInUse
+	SpellUnseenTarget
+	SpellTooMany
+	SpellCreatureControlFailed
+	SpellTooManyGlyphs
+	SpellDuplicateInGlyph
+	SpellCantCastGlyph
+	SpellBadTarget
+	SpellBadSkill
+	SpellIllegal
+	SpellNotEnoughMana
+	SpellNotEnoughManaGlyph
+	SpellRestrictedByFlag
+	SpellNotStartedWarCry
+	SpellCancelledByWarCry
+	SpellRestrictedByBall
+	SpellRestrictedByCrown
+)
+
+var informText0Names = [18]string{
+	SpellOK:                    "SpellOK",
+	SpellInUse:                 "SpellInUse",
+	SpellUnseenTarget:          "execspel.c:UnseenTarget",
+	SpellTooMany:               "TooManySpells",
+	SpellCreatureControlFailed: "summon.c:CreatureControlFailed",
+	SpellTooManyGlyphs:         "glyph.c:TooManyGlyphs",
+	SpellDuplicateInGlyph:      "Spell.c:DuplicateGlyphSpell",
+	SpellCantCastGlyph:         "glyph.c:CantCastGlyph",
+	SpellBadTarget:             "BadTarget",
+	SpellBadSkill:              "BadSkill",
+	SpellIllegal:               "Illegal",
+	SpellNotEnoughMana:         "NotEnoughManaCast",
+	SpellNotEnoughManaGlyph:    "spell.c:NotEnoughManaGlyph",
+	SpellRestrictedByFlag:      "SpellRestrictedByFlag",
+	SpellNotStartedWarCry:      "SpellNotStartedWarCry",
+	SpellCancelledByWarCry:     "spell.c:SpellCancelledByWarCry",
+	SpellRestrictedByBall:      "SpellRestrictedByBall",
+	SpellRestrictedByCrown:     "SpellRestrictedByCrown",
+}
+
+func (s *Server) NetInformTextMsg0(pid ntype.PlayerInd, ind SpellResult) bool { // nox_xxx_netInformTextMsg_4DA0F0(..., 0, ...)
 	if pid < 0 {
 		return false
 	}
 	var buf [6]byte
 	buf[0] = byte(noxnet.MSG_INFORM)
-	buf[1] = code
+	buf[1] = 0
+	binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
+	return s.NetList.AddToMsgListCli(pid, netlist.Kind1, buf[:6])
+}
+
+func (s *Server) NetInformTextMsg1(pid ntype.PlayerInd, ind spell.ID) bool { // nox_xxx_netInformTextMsg_4DA0F0(..., 1, ...)
+	if pid < 0 {
+		return false
+	}
+	var buf [6]byte
+	buf[0] = byte(noxnet.MSG_INFORM)
+	buf[1] = 1
+	binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
+	return s.NetList.AddToMsgListCli(pid, netlist.Kind1, buf[:6])
+}
+
+type InformText2Code int
+
+func (s *Server) NetInformTextMsg2(pid ntype.PlayerInd, ind InformText2Code) bool { // nox_xxx_netInformTextMsg_4DA0F0(..., 2, ...)
+	if pid < 0 {
+		return false
+	}
+	var buf [6]byte
+	buf[0] = byte(noxnet.MSG_INFORM)
+	buf[1] = 2
+	binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
+	return s.NetList.AddToMsgListCli(pid, netlist.Kind1, buf[:6])
+}
+
+func (s *Server) NetInformTextMsg(pid ntype.PlayerInd, code byte, ind int) bool { // nox_xxx_netInformTextMsg_4DA0F0
+	if pid < 0 {
+		return false
+	}
 	switch code {
-	case 0, 1, 2, 12, 13, 16, 20, 21:
+	case 0:
+		return s.NetInformTextMsg0(pid, SpellResult(ind))
+	case 1:
+		return s.NetInformTextMsg1(pid, spell.ID(ind))
+	case 2:
+		return s.NetInformTextMsg2(pid, InformText2Code(ind))
+	case 12, 13, 16, 20, 21:
+		var buf [6]byte
+		buf[0] = byte(noxnet.MSG_INFORM)
+		buf[1] = code
 		binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
 		return s.NetList.AddToMsgListCli(pid, netlist.Kind1, buf[:6])
 	case 17:
+		var buf [2]byte
+		buf[0] = byte(noxnet.MSG_INFORM)
+		buf[1] = code
 		return s.NetList.AddToMsgListCli(pid, netlist.Kind1, buf[:2])
 	default:
 		return true

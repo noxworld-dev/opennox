@@ -26,7 +26,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/player"
-	"github.com/noxworld-dev/opennox-lib/spell"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -93,16 +92,6 @@ func sub_57B350() C.float4 {
 //export nox_xxx_plrGetMaxVarsPtr_57B360
 func nox_xxx_plrGetMaxVarsPtr_57B360(cl int) C.float4 {
 	return *(*C.float4)(unsafe.Pointer(GetServer().S().Players.ClassStats(player.Class(cl))))
-}
-
-//export nox_xxx_playerSpell_4FB2A0_magic_plyrspel
-func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
-	GetServer().PlayerSpell(asObjectS(up))
-}
-
-//export nox_xxx_updateSpellRelated_424830
-func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer {
-	return ((*server.PhonemeLeaf)(p)).Next(spell.Phoneme(ph)).C()
 }
 
 //export nox_common_playerInfoGetFirst_416EA0
@@ -321,18 +310,6 @@ func Nox_xxx_removePoison_4EE9D0(obj *server.Object) {
 	C.nox_xxx_removePoison_4EE9D0(asObjectC(obj))
 }
 
-func Sub_4FD0E0(obj *server.Object, sp spell.ID) int {
-	return int(C.sub_4FD0E0(asObjectC(obj), C.int(sp)))
-}
-
-func Nox_xxx_checkPlrCantCastSpell_4FD150(obj *server.Object, sp spell.ID, a3 int) int {
-	return int(C.nox_xxx_checkPlrCantCastSpell_4FD150(asObjectC(obj), C.int(sp), C.int(a3)))
-}
-
-func Sub_4FCF90(obj *server.Object, sp spell.ID, a3 int) int {
-	return int(C.sub_4FCF90(asObjectC(obj), C.int(sp), C.int(a3)))
-}
-
 func Sub_4D79A0(pli ntype.PlayerInd) {
 	C.sub_4D79A0(C.char(pli))
 }
@@ -351,4 +328,8 @@ func Sub_425E90(pl *server.Player, a2 int8) {
 
 func Sub_4E55F0(pli ntype.PlayerInd) {
 	C.sub_4E55F0(C.uchar(pli))
+}
+
+func Nox_xxx_playerManaSub_4EEBF0(u *server.Object, v int) {
+	C.nox_xxx_playerManaSub_4EEBF0(asObjectC(u), C.int(v))
 }

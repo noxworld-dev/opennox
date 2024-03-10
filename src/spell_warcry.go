@@ -5,7 +5,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 
-	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -22,7 +21,7 @@ func nox_xxx_warriorWarcry_53FF40(u *server.Object) {
 		}
 	}
 	nox_xxx_playerSetState_4FA020(u, server.PlayerState1)
-	legacy.Nox_xxx_spell_4FE680(u, dist)
+	nox_xxx_spell_4FE680(u, dist)
 	s.Map.EachObjInCircle(u.Pos(), dist, func(it *server.Object) bool {
 		if !it.Class().HasAny(object.MaskUnits) {
 			return true

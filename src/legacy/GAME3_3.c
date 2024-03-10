@@ -2866,25 +2866,6 @@ int nox_xxx_unitIsGameball_4E7C30(int a1) {
 	return 1;
 }
 
-//----- (004E7CF0) --------------------------------------------------------
-int nox_xxx_unitCountSlaves_4E7CF0(int a1, int a2, int a3) {
-	int result;  // eax
-	uint32_t* i; // ecx
-
-	result = 0;
-	if (!a1 || !a2 || !a3) {
-		return 0;
-	}
-	for (i = *(uint32_t**)(a1 + 516); i; i = (uint32_t*)i[128]) {
-		if (a2 & i[2]) {
-			if (a3 & i[3]) {
-				++result;
-			}
-		}
-	}
-	return result;
-}
-
 //----- (004E7D30) --------------------------------------------------------
 int nox_xxx_inventoryCountObjects_4E7D30(int a1, int a2) {
 	int result; // eax
@@ -7499,7 +7480,8 @@ unsigned short nox_xxx_playerManaAdd_4EEB80(nox_object_t* unitp, short amount) {
 }
 
 //----- (004EEBF0) --------------------------------------------------------
-uint32_t* nox_xxx_playerManaSub_4EEBF0(int unit, int amount) {
+void nox_xxx_playerManaSub_4EEBF0(nox_object_t* a1, int amount) {
+	int unit = a1;
 	uint32_t* result;           // eax
 	unsigned short currentMana; // cx
 
@@ -7518,14 +7500,13 @@ uint32_t* nox_xxx_playerManaSub_4EEBF0(int unit, int amount) {
 				}
 
 				if (*((unsigned short*)result + 2) > amount) {
-					result = nox_xxx_protectMana_56F9E0(*(uint32_t*)(result[69] + 4596), -(short)amount);
+					nox_xxx_protectMana_56F9E0(*(uint32_t*)(result[69] + 4596), -(short)amount);
 				} else {
-					result = nox_xxx_protectMana_56F9E0(*(uint32_t*)(result[69] + 4596), -*((uint16_t*)result + 2));
+					nox_xxx_protectMana_56F9E0(*(uint32_t*)(result[69] + 4596), -*((uint16_t*)result + 2));
 				}
 			}
 		}
 	}
-	return result;
 }
 
 //----- (004EEC80) --------------------------------------------------------

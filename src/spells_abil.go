@@ -155,53 +155,53 @@ func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 		if noxflags.HasGame(noxflags.GameModeCTF) {
 			for it := u.FirstItem(); it != nil; it = it.NextItem() {
 				if it.Class().Has(object.ClassFlag) {
-					a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 5)
+					a.s.NetInformTextMsg2(pl.PlayerIndex(), 5)
 					a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 					return
 				}
 			}
 		}
 		if a.s.Abils.IsActiveVal(u, server.AbilityWarcry) || a.s.Abils.IsActive(u, server.AbilityHarpoon) {
-			a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 2)
+			a.s.NetInformTextMsg2(pl.PlayerIndex(), 2)
 			a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case server.AbilityWarcry:
 		if a.s.Abils.IsActive(u, server.AbilityBerserk) || a.s.Abils.IsActive(u, server.AbilityHarpoon) {
-			a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 2)
+			a.s.NetInformTextMsg2(pl.PlayerIndex(), 2)
 			a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case server.AbilityHarpoon:
 		if a.s.Abils.IsActiveVal(u, server.AbilityWarcry) || a.s.Abils.IsActive(u, server.AbilityBerserk) {
-			a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 2)
+			a.s.NetInformTextMsg2(pl.PlayerIndex(), 2)
 			a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	}
 	if a.s.Abils.IsActive(u, abil) {
-		a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 2)
+		a.s.NetInformTextMsg2(pl.PlayerIndex(), 2)
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if ud.State == server.PlayerState12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
-		a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 6)
+		a.s.NetInformTextMsg2(pl.PlayerIndex(), 6)
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if (!noxflags.HasGame(noxflags.GameOnline) || noxflags.HasGame(noxflags.GameModeQuest)) && pl.SpellLvl[abil] == 0 {
-		a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 3)
+		a.s.NetInformTextMsg2(pl.PlayerIndex(), 3)
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if abil == server.AbilityBerserk && pl.Field3656 == 1 {
-		a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 7)
+		a.s.NetInformTextMsg2(pl.PlayerIndex(), 7)
 		return
 	}
 	ad := a.s.Abils.GetFor(u)
 	cd := &ad.Cooldowns[abil]
 	if *cd != 0 {
-		a.s.NetInformTextMsg(pl.PlayerIndex(), 2, 2)
+		a.s.NetInformTextMsg2(pl.PlayerIndex(), 2)
 		a.s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}

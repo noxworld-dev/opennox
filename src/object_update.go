@@ -583,7 +583,7 @@ func (s *Server) unitUpdatePlayerImplB(u *server.Object, a1, v68 bool) {
 					ud.SpellCastStart = 0
 				} else {
 					targ := s.getObjectFromNetCode(int(it.Uint32()))
-					legacy.Nox_xxx_playerDoSchedSpell_4FB0E0(u, targ)
+					Nox_xxx_playerDoSchedSpell_4FB0E0(u, targ)
 				}
 			}
 		case player.CCCastQueuedSpell:
@@ -596,7 +596,7 @@ func (s *Server) unitUpdatePlayerImplB(u *server.Object, a1, v68 bool) {
 				ud.Field55 = pl.CursorVec.X
 				ud.Field56 = pl.CursorVec.Y
 				targ := s.getObjectFromNetCode(int(it.Uint32()))
-				legacy.Nox_xxx_playerDoSchedSpell_4FB0E0(u, targ)
+				Nox_xxx_playerDoSchedSpell_4FB0E0(u, targ)
 			}
 		case player.CCCastMostRecentSpell:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
@@ -607,7 +607,7 @@ func (s *Server) unitUpdatePlayerImplB(u *server.Object, a1, v68 bool) {
 				ud.Field55 = pl.CursorVec.X
 				ud.Field56 = pl.CursorVec.Y
 				targ := s.getObjectFromNetCode(int(it.Uint32()))
-				legacy.Nox_xxx_playerDoSchedSpellQueue_4FB1D0(u, targ)
+				Nox_xxx_playerDoSchedSpellQueue_4FB1D0(u, targ)
 			}
 		}
 	}

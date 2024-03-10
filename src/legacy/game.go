@@ -716,6 +716,3 @@ func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
 func Sub_41CAC0(a1 string, data []byte) {
 	C.sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))
 }
-func Nox_xxx_spell_4FE680(a1 *server.Object, a2 float32) {
-	C.nox_xxx_spell_4FE680(asObjectC(a1), C.float(a2))
-}

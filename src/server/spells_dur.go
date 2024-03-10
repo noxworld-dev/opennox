@@ -93,8 +93,8 @@ func (sp *SpellsDuration) NewLightningSub(src *DurSpell, from, to *Object) {
 	src.Sub108 = p
 }
 
-func (sp *SpellsDuration) Sub4FE8A0(a1 int) {
-	if a1 == 0 {
+func (sp *SpellsDuration) Sub4FE8A0(a1 bool) {
+	if !a1 {
 		sp.alloc.FreeAllObjects()
 		sp.List = nil
 		return

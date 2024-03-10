@@ -405,7 +405,7 @@ type MonsterUpdateData struct {
 	Field507              uint32               // 507, 2028
 	Field508              uint32               // 508, 2032
 	Field509              uint32               // 509, 2036
-	Field510              uint32               // 510, 2040
+	SpellLvl510           uint32               // 510, 2040
 	Field511              uint32               // 511, 2044
 	Field512              uint32               // 512, 2048
 	Field513              uint32               // 513, 2052

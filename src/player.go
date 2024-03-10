@@ -457,14 +457,14 @@ func (s *Server) PlayerSpell(u *server.Object) {
 	ok2 := true
 	ud := u.UpdateDataPlayer()
 	pl := ud.Player
-	var a1 int
+	var res server.SpellResult
 	if u != nil {
-		a1 = 1
+		res = server.SpellInUse
 	}
 	if leaf := ud.SpellPhonemeLeaf; leaf == s.Spells.PhonemeTree() {
 		ok2 = false
 	} else if leaf != nil && leaf.Ind != 0 {
-		spellInd := spell.ID(leaf.Ind)
+		spellInd := leaf.Ind
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := ud.CursorObj
 			if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
@@ -475,18 +475,18 @@ func (s *Server) PlayerSpell(u *server.Object) {
 		}
 		if pl.SpellLvl[spellInd] != 0 || spellInd == spell.SPELL_GLYPH {
 			ok2 = false
-			a1 = legacy.Sub_4FD0E0(u, spellInd)
-			if a1 == 0 {
-				a1 = legacy.Nox_xxx_checkPlrCantCastSpell_4FD150(u, spellInd, 0)
+			res = s.Spells.Sub_4FD0E0(u, spellInd)
+			if res == server.SpellOK {
+				res = nox_xxx_checkPlrCantCastSpell_4FD150(u, spellInd, false)
 			}
-			if a1 != 0 {
-				s.NetInformTextMsg(pl.PlayerIndex(), 0, a1)
+			if res != server.SpellOK {
+				s.NetInformTextMsg0(pl.PlayerIndex(), res)
 				s.Audio.EventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
-				mana := legacy.Sub_4FCF90(u, spellInd, 1)
+				mana := sub_4FCF90(u, spellInd, server.SpellCostRegular)
 				if mana < 0 {
-					a1 = 11
-					s.NetInformTextMsg(pl.PlayerIndex(), 0, a1)
+					res = server.SpellNotEnoughMana
+					s.NetInformTextMsg0(pl.PlayerIndex(), res)
 					s.Audio.EventObj(sound.SoundManaEmpty, u, 0, 0)
 				} else {
 					arg, v14free := alloc.New(server.SpellAcceptArg{})
@@ -499,10 +499,10 @@ func (s *Server) PlayerSpell(u *server.Object) {
 					}
 					arg.Pos = pl.CursorPos()
 					if s.nox_xxx_castSpellByUser4FDD20(spellInd, -1, u, arg) {
-						s.NetInformTextMsg(pl.PlayerIndex(), 1, int(spellInd))
+						s.NetInformTextMsg1(pl.PlayerIndex(), spellInd)
 					} else {
 						sub_4FD030(u, mana)
-						a1 = 8
+						res = server.SpellBadTarget
 					}
 				}
 			}
@@ -514,13 +514,12 @@ func (s *Server) PlayerSpell(u *server.Object) {
 	if ok2 {
 		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")
 		legacy.Nox_xxx_netSendLineMessage_4D9EB0(u, v13)
-	} else if a1 != 0 {
-		v4 := ud.SpellPhonemeLeaf
-		s.NetReportSpellStat(pl.Index(), spell.ID(v4.Ind), 0)
+	} else if res != server.SpellOK {
+		s.NetReportSpellStat(pl.Index(), ud.SpellPhonemeLeaf.Ind, 0)
 	} else {
 		v4 := ud.SpellPhonemeLeaf
-		if !s.Spells.HasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
-			s.NetReportSpellStat(pl.Index(), spell.ID(v4.Ind), 15)
+		if !s.Spells.HasFlags(v4.Ind, things.SpellFlagUnk21) {
+			s.NetReportSpellStat(pl.Index(), v4.Ind, 15)
 		}
 	}
 }
