@@ -1982,15 +1982,15 @@ func nox_xxx_unitCountSlaves_4E7CF0(a1 *server.Object, a2 int32, a3 int32) int32
 	if a1 == nil || a2 == 0 || a3 == 0 {
 		return 0
 	}
-	var result int32
+	var cnt int32
 	for i := a1.Field129; i != nil; i = i.Field128 {
 		if uint32(a2)&i.ObjClass != 0 {
 			if uint32(a3)&i.ObjSubClass != 0 {
-				result++
+				cnt++
 			}
 		}
 	}
-	return result
+	return cnt
 }
 func nox_xxx_inventoryCountObjects_4E7D30(a1 *server.Object, a2 int32) int {
 	if a1 == nil {
@@ -6281,20 +6281,17 @@ func nox_xxx_playerManaSub_4EEBF0(unit *server.Object, amount int32) {
 		nox_xxx_protectMana_56F9E0(*(*uint32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(result, 4*69)), 4596)), int16(-*(*uint16)(unsafe.Add(result, unsafe.Sizeof(uint16(0))*2))))
 	}
 }
-func nox_xxx_unitGetOldMana_4EEC80(unit *server.Object) int16 {
-	var flags int32
-	if unit == nil {
+func nox_xxx_unitGetOldMana_4EEC80(u *server.Object) uint16 {
+	if u == nil {
 		return 0
 	}
-	flags = int32(unit.ObjClass)
-	if flags&4 != 0 {
-		return int16(*(*uint16)(unsafe.Add(unit.UpdateData, 4)))
+	if u.Class().Has(object.ClassPlayer) {
+		return u.UpdateDataPlayer().ManaCur
 	}
-	if flags&2 != 0 {
+	if u.Class().Has(object.ClassMonster) {
 		return 1000
-	} else {
-		return 0
 	}
+	return 0
 }
 func nox_xxx_playerGetMaxMana_4EECB0(unit *server.Object) int16 {
 	if unit != nil && int32(*(*uint8)(unsafe.Add(unsafe.Pointer(unit), 8)))&4 != 0 {
@@ -7131,9 +7128,9 @@ LABEL_27:
 		return nil
 	}
 	var result *server.Object
-	if nox_xxx_playerCheckSpellClass_57AEA0(1, v9) != 0 || nox_xxx_playerCheckSpellClass_57AEA0(2, v9) != 0 {
-		if nox_xxx_playerCheckSpellClass_57AEA0(1, v9) != 0 {
-			if nox_xxx_playerCheckSpellClass_57AEA0(2, v9) != 0 {
+	if nox_xxx_playerCheckSpellClass_57AEA0(1, spell.ID(v9)) != 0 || nox_xxx_playerCheckSpellClass_57AEA0(2, spell.ID(v9)) != 0 {
+		if nox_xxx_playerCheckSpellClass_57AEA0(1, spell.ID(v9)) != 0 {
+			if nox_xxx_playerCheckSpellClass_57AEA0(2, spell.ID(v9)) != 0 {
 				return nil
 			}
 			result = nox_xxx_newObjectByTypeID_4E3810(internCStr("ConjurerSpellBook"))

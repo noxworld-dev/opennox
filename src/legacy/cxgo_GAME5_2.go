@@ -8,6 +8,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
@@ -673,27 +675,21 @@ func sub_57AE30(a1 *byte) int32 {
 	}
 	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*8)+312212))
 }
-func nox_xxx_playerCheckSpellClass_57AEA0(a1 int32, a2 int32) int32 {
-	var (
-		v2     int32
-		result int32
-		v4     int32
-	)
-	v2 = int32(nox_xxx_spellFlags_424A70(a2))
-	if a1 == 1 {
-		v4 = 0x2000000
-	} else {
-		if a1 != 2 {
-			return 9
-		}
-		v4 = 0x4000000
+func nox_xxx_playerCheckSpellClass_57AEA0(cl player.Class, a2 spell.ID) int32 {
+	sflags := things.SpellFlags(nox_xxx_spellFlags_424A70(int32(a2)))
+	var bit things.SpellFlags
+	switch cl {
+	default:
+		return 9
+	case player.Wizard:
+		bit = things.SpellClassWizard
+	case player.Conjurer:
+		bit = things.SpellClassConjurer
 	}
-	if uint32(v2)&0x1000000 != 0 || v4&v2 != 0 {
-		result = 0
-	} else {
-		result = 9
+	if sflags.Has(things.SpellClassAny) || sflags.Has(bit) {
+		return 0
 	}
-	return result
+	return 9
 }
 func nox_xxx_get_57AF20() int32 {
 	return int32(dword_5d4594_2523804)

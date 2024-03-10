@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -120,42 +121,36 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 			}
 		}
 		return 4
-	case 0x79:
-		v34 := 1
-		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v85, 276)), 3680)))&1 != 0 {
+	case int32(noxnet.MSG_TRY_SPELL):
+		data := unsafe.Slice(data, 22)
+		ok := true
+		ud := unit.UpdateDataPlayer()
+		if ud.Player.Field3680&1 != 0 {
 			nox_xxx_netPriMsgToPlayer_4DA2C0(unit, internCStr("GeneralPrint:NoSpellWarningGeneral"), 0)
-			v34 = 0
+			ok = false
 		}
-		if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v85, 276)), 3680)))&2 != 0 {
+		if ud.Player.Field3680&2 != 0 {
 			nox_xxx_netPriMsgToPlayer_4DA2C0(unit, internCStr("GeneralPrint:ConjureNoSpellWarning1"), 0)
-			v34 = 0
+			ok = false
 		}
 		if !noxflags.HasGame(2048) {
-			v35 := int32(unit.ObjFlags)
-			if v35&0x4000 != 0 {
-				v34 = 0
+			if unit.ObjFlags&0x4000 != 0 {
+				ok = false
 			}
 		}
-		if !noxflags.HasGame(128) && v34 != 0 {
-			v36 := (*int32)(unsafe.Add(unsafe.Pointer(data), 1))
-			v37 := int32(0)
-			v38 := (*uint32)(unsafe.Add(unsafe.Pointer(data), 1))
-			v39 := 5
-			for v39 != 0 {
-				if *v38 != 0 {
-					v37++
+		if !noxflags.HasGame(128) && ok {
+			spells := unsafe.Slice((*int32)(unsafe.Pointer(&data[1])), 5)
+			cnt := 0
+			for _, sp := range spells {
+				if sp != 0 {
+					cnt++
 				}
-				v38 = (*uint32)(unsafe.Add(unsafe.Pointer(v38), 4*1))
-				v39--
 			}
-			if (v37 != 1 || !nox_xxx_spellHasFlags_424A50(*v36, 32) || *(*uint32)(unsafe.Add(v85, 288)) == 0 || nox_xxx_unitIsEnemyTo_5330C0(unit, (*server.Object)(*(*unsafe.Pointer)(unsafe.Add(v85, 288)))) != 0 || noxflags.HasGame(4096)) && nox_xxx_spellByBookInsert_4FE340(unit, (*int32)(unsafe.Add(unsafe.Pointer(data), 1)), v37, 3, int32(*(*uint8)(unsafe.Add(unsafe.Pointer(data), 21)))) == 0 && v37 == 1 {
-				v40 := 5
-				for v40 != 0 {
-					if *v36 != 0 {
-						nox_xxx_netReportSpellStat_4D9630(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v85, 276)), 2064))), *v36, 0)
+			if (cnt != 1 || !nox_xxx_spellHasFlags_424A50(spells[0], 32) || ud.CursorObj == nil || nox_xxx_unitIsEnemyTo_5330C0(unit, ud.CursorObj) != 0 || noxflags.HasGame(4096)) && nox_xxx_spellByBookInsert_4FE340(unit, spells[:cnt], 3, int32(data[21])) == 0 && cnt == 1 {
+				for _, sp := range spells {
+					if sp != 0 {
+						nox_xxx_netReportSpellStat_4D9630(int32(ud.Player.PlayerInd), sp, 0)
 					}
-					v36 = (*int32)(unsafe.Add(unsafe.Pointer(v36), 4*1))
-					v40--
 				}
 			}
 		}

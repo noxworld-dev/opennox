@@ -10801,7 +10801,7 @@ func Nox_xxx_spellDrainMana_52E210(sp *server.DurSpell) int32 {
 	}
 	v7 := sp.Caster16
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v7), 8)))&4 != 0 {
-		v8 = uint16(nox_xxx_unitGetOldMana_4EEC80(v7))
+		v8 = nox_xxx_unitGetOldMana_4EEC80(v7)
 		if int32(v8) >= int32(uint16(nox_xxx_playerGetMaxMana_4EECB0(v7))) {
 			return 1
 		}

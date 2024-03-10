@@ -2650,33 +2650,20 @@ func Sub_49A8C0() {
 	dword_5d4594_1301776 = nil
 	dword_5d4594_1301780 = nil
 }
-func nox_xxx_updateSpritePosition_49AA90(dr *client.Drawable, a2 int32, a3 int32) {
-	var (
-		a1 = dr
-		v3 int32
-		v4 int32
-		v5 int32
-		v6 int32
-	)
-	v3 = a2
-	v4 = int32(a1.PosVec.Y)
-	a1.Field_8 = uint32(a1.PosVec.X)
-	a1.Field_9 = uint32(v4)
-	if a2 < 0 || a2 >= 5888 || (func() bool {
-		v5 = a3
-		return a3 < 0
-	}()) || a3 >= 5888 {
-		v3 = 50
-		v5 = 50
-		if (a1.ObjFlags & 0x400000) == 0 {
+func nox_xxx_updateSpritePosition_49AA90(dr *client.Drawable, x, y int32) {
+	dr.Field_8 = uint32(dr.PosVec.X)
+	dr.Field_9 = uint32(dr.PosVec.Y)
+	if x < 0 || x >= 5888 || y < 0 || y >= 5888 {
+		x = 50
+		y = 50
+		if (dr.ObjFlags & 0x400000) == 0 {
 			nox_xxx_sprite_45A110_drawable(dr)
 		}
 	}
-	v6 = int32(a1.Field_5)
-	a1.PosVec.X = int(uint32(v3))
-	a1.Field_10 = uint32(v6)
-	a1.PosVec.Y = int(uint32(v5))
-	a1.Field_5 = gameFrame()
+	dr.PosVec.X = int(uint32(x))
+	dr.PosVec.Y = int(uint32(y))
+	dr.Field_10 = dr.Field_5
+	dr.Field_5 = gameFrame()
 	nox_xxx_sprite_49AA00_drawable(dr)
 }
 func sub_49AEA0() int32 {
@@ -2796,21 +2783,16 @@ func sub_49BB80(a1 int8) {
 	*memmap.PtrUint8(0x5D4594, 1303504) = uint8(a1)
 	*memmap.PtrUint8(0x5D4594, 1303512) = 0
 	*memmap.PtrUint32(0x5D4594, 1303516) = gameFrame()
-	result := nox_xxx_spellGetDefArrayPtr_424820()
-	dword_5d4594_1303508 = result
+	dword_5d4594_1303508 = nox_xxx_spellGetDefArrayPtr_424820()
 }
 func sub_49BBB0() {
 	*memmap.PtrUint8(0x5D4594, 1303504) = 0
 }
 func sub_49BBC0() {
-	var (
-		v0 int32
-		v1 uint8
-	)
 	if int32(*memmap.PtrUint8(0x5D4594, 1303504)) != 0 {
-		v1 = uint8(nox_xxx_spellPhonemes_424A20(int32(*memmap.PtrUint8(0x5D4594, 1303504)), int32(*memmap.PtrUint8(0x5D4594, 1303512))))
+		v1 := nox_xxx_spellPhonemes_424A20(int32(*memmap.PtrUint8(0x5D4594, 1303504)), int32(*memmap.PtrUint8(0x5D4594, 1303512)))
 		if gameFrame() >= uint32(*memmap.PtrInt32(0x5D4594, 1303516)) {
-			v0 = nox_xxx_spellGetPhoneme_4FE1C0(int32(nox_player_netCode_85319C), int8(v1))
+			v0 := nox_xxx_spellGetPhoneme_4FE1C0(int32(nox_player_netCode_85319C), v1)
 			nox_xxx_clientPlaySoundSpecial_452D80(v0, 100)
 			nox_client_setPhonemeFrame_476E00(int32(*memmap.PtrUint32(0x587000, uintptr(int32(v1)*4)+163576)))
 			*memmap.PtrUint32(0x5D4594, 1303516) = gameFrame() + 3

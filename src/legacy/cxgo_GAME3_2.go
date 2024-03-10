@@ -6145,7 +6145,7 @@ func nox_xxx_drainMEffect_4E0740(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object
 		if v5 == 0 {
 			v5 = 1
 		}
-		v6 = uint16(nox_xxx_unitGetOldMana_4EEC80(a4))
+		v6 = nox_xxx_unitGetOldMana_4EEC80(a4)
 		v7 = int16(v6)
 		if int32(v6) < v5 {
 			nox_xxx_playerManaSub_4EEBF0(a4, int32(v6))

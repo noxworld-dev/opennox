@@ -448,36 +448,36 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *byte, sz
 		}
 		return 11
 	case 49:
-		v44 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
-		v45 = v44
+		v44 := nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
+		v45 := v44
 		if nox_client_isConnected_43C700() == 0 {
 			return 3
 		}
 		if nox_common_getEngineFlag(NOX_ENGINE_FLAG_ADDITIONAL_NETWORK_TEST) {
 			nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
 		}
-		*(*uint32)(unsafe.Add(unsafe.Pointer(&v5), 4*0)) = uint32(uintptr(unsafe.Pointer(func() *client.Drawable {
+		v5 := func() *client.Drawable {
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1)))) != 0 {
 				return nox_xxx_netSpriteByCodeStatic_45A720(uint32(v45))
 			}
 			return nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(v45))
-		}())))
-		v46 = int32(v5)
-		if uint32(int32(v5)) == 0 {
+		}()
+		v46 := v5
+		if v5 == nil {
 			return 3
 		}
-		if *(*unsafe.Pointer)(unsafe.Add(v5, 300)) == ccall.FuncAddr(nox_thing_animate_draw) {
-			v47 = int32(*(*uint32)(unsafe.Add(v5, 304)))
+		if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), 300)) == ccall.FuncAddr(nox_thing_animate_draw) {
+			v47 = int32(v5.DrawData)
 			if v47 != 0 {
 				if *(*uint32)(unsafe.Add(v47, 12)) == 1 {
 					return 3
 				}
 			}
 		}
-		v48 = nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
-		v331 = v46
+		v48 := nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Add(unsafe.Pointer(data), 1))))
+		v331 := v46
 		if v48 == 0 {
-			nox_xxx_spriteDeleteStatic_45A4E0_drawable((*client.Drawable)(v331))
+			nox_xxx_spriteDeleteStatic_45A4E0_drawable(v331)
 			return 3
 		}
 		nox_xxx_cliDestroyObj_45A9A0(v46)

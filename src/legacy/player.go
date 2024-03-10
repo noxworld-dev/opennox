@@ -251,7 +251,7 @@ func Nox_xxx_playerManaAdd_4EEB80(obj *server.Object, v int) {
 }
 
 func Sub_4FD0E0(obj *server.Object, sp spell.ID) int {
-	return int(sub_4FD0E0(asObjectC(obj), int32(sp)))
+	return int(sub_4FD0E0(asObjectC(obj), sp))
 }
 
 func Nox_xxx_checkPlrCantCastSpell_4FD150(obj *server.Object, sp spell.ID, a3 int) int {

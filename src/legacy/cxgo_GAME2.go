@@ -3692,8 +3692,8 @@ func sub_45A0A0(a1 *client.Drawable) *client.Drawable {
 func nox_xxx_spriteSetActiveMB_45A990_drawable(a1 unsafe.Pointer) {
 	*(*uint32)(unsafe.Add(a1, 120)) |= 4
 }
-func nox_xxx_cliDestroyObj_45A9A0(a1 unsafe.Pointer) {
-	*(*uint32)(unsafe.Add(a1, 120)) &= 0xFFFFFFFB
+func nox_xxx_cliDestroyObj_45A9A0(a1 *client.Drawable) {
+	a1.ObjFlags &= 0xFFFFFFFB
 }
 func sub_45A9B0(a1, a2 *client.Drawable) {
 	var (
@@ -3838,7 +3838,7 @@ func nox_xxx_guiSpellSortList_45ADF0(a1 int32) int32 {
 		}
 	} else if a1 != 0 {
 		for j = nox_xxx_spellFirstValid_424AD0(); j != 0; j = nox_xxx_spellNextValid_424AF0(j) {
-			if j != 34 && nox_xxx_playerCheckSpellClass_57AEA0(a1, j) == 0 && (noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) || *(*uint32)(unsafe.Add(dword_5d4594_1047516, j*4+3696)) != 0) {
+			if j != 34 && nox_xxx_playerCheckSpellClass_57AEA0(player.Class(a1), spell.ID(j)) == 0 && (noxflags.HasGame(0x2000) && !noxflags.HasGame(4096) || *(*uint32)(unsafe.Add(dword_5d4594_1047516, j*4+3696)) != 0) {
 				if nox_xxx_spellHasFlags_424A50(j, 0x15000) {
 					dword_5d4594_1047512++
 				}
@@ -4481,7 +4481,7 @@ func nox_xxx_netSpellRewardCli_45CFE0(a1 int32, a2 int32, a3 int32, a4 int32) {
 		return
 	}
 	v5 = a1
-	if nox_xxx_playerCheckSpellClass_57AEA0(int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251))), a1) == 9 {
+	if nox_xxx_playerCheckSpellClass_57AEA0(player.Class(int32(*(*uint8)(unsafe.Add(*memmap.PtrPtr(0x8531A0, 2576), 2251)))), spell.ID(a1)) == 9 {
 		return
 	}
 	*(*uint32)(unsafe.Add(v4, a1*4+3696)) = uint32(a2)

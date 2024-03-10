@@ -1950,7 +1950,7 @@ func nox_xxx_playerBotCreate_4FA700(obj *server.Object) {
 			ScriptHearEnemy:       server.ScriptCallback{Func: -1},
 			ScriptEndOfWaypoint:   server.ScriptCallback{Func: -1},
 			ScriptLostEnemy:       server.ScriptCallback{Func: -1},
-			Field510:              3,
+			SpellLvl510:           3,
 			DialogStartFunc:       -1,
 			DialogEndFunc:         -1,
 			Field0:                0xDEADFACE,
@@ -2194,63 +2194,47 @@ func sub_4FB050(a1 *server.Object, a2 *server.Object, a3 *int32) {
 	result = int32(v4)
 	*a3 = result
 }
-func Nox_xxx_playerDoSchedSpell_4FB0E0(a1p *server.Object, a2 *server.Object) int32 {
-	var (
-		v5 int32
-		v6 *uint32
-	)
-	v2 := a1p
-	ud := a1p.UpdateDataPlayer()
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212))) == 0 {
+func Nox_xxx_playerDoSchedSpell_4FB0E0(u *server.Object, targ *server.Object) int32 {
+	ud := u.UpdateDataPlayer()
+	if ud.TrapSpellsCnt == 0 {
 		return 0
 	}
-	a1 := nox_xxx_checkPlrCantCastSpell_4FD150(a1p, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(ud), 192))), 0)
+	res := nox_xxx_checkPlrCantCastSpell_4FD150(u, ud.TrapSpells[0], 0)
 	var sa server.SpellAcceptArg
-	sa.Obj = a2
+	sa.Obj = targ
 	sa.Pos.X = float32(float64(ud.Field55))
 	sa.Pos.Y = float32(float64(ud.Field56))
-	if a1 != 0 {
-		nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
-		nox_xxx_aud_501960(231, v2, 0, 0)
+	if res != 0 {
+		nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, res)
+		nox_xxx_aud_501960(231, u, 0, 0)
 	} else {
-		nox_xxx_castSpellByUser_4FDD20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(ud), 192))), v2, &sa)
+		nox_xxx_castSpellByUser_4FDD20(ud.TrapSpells[0], u, &sa)
 	}
-	v5 = 1
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212))) > 1 {
-		v6 = (*uint32)(unsafe.Add(unsafe.Pointer(ud), 192))
-		for {
-			v5++
-			*v6 = *(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))
-			v6 = (*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*1))
-			if v5 >= int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212))) {
-				break
-			}
-		}
-	}
-	*(*uint32)(unsafe.Add(unsafe.Pointer(ud), v5*4+188)) = 0
-	*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212))--
+	copy(ud.TrapSpells[:], ud.TrapSpells[1:ud.TrapSpellsCnt])
+	ud.TrapSpells[ud.TrapSpellsCnt-1] = 0
+	ud.TrapSpellsCnt--
 	return 1
 }
 func Nox_xxx_playerDoSchedSpellQueue_4FB1D0(a1p *server.Object, a2 *server.Object) int32 {
-	v2 := a1p
 	ud := a1p.UpdateDataPlayer()
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212))) == 0 {
+	if ud.TrapSpellsCnt == 0 {
 		return 0
 	}
-	a1 := nox_xxx_checkPlrCantCastSpell_4FD150(a1p, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(ud), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212)))*4+188))), 0)
+	a1 := nox_xxx_checkPlrCantCastSpell_4FD150(a1p, ud.TrapSpells[ud.TrapSpellsCnt-1], 0)
 	var v5 server.SpellAcceptArg
 	v5.Obj = a2
 	v5.Pos.X = float32(float64(ud.Field55))
 	v5.Pos.Y = float32(float64(ud.Field56))
 	if a1 != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
-		nox_xxx_aud_501960(231, v2, 0, 0)
+		nox_xxx_aud_501960(231, a1p, 0, 0)
 	} else {
-		nox_xxx_castSpellByUser_4FDD20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(ud), int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212)))*4+188))), v2, &v5)
+		nox_xxx_castSpellByUser_4FDD20(ud.TrapSpells[ud.TrapSpellsCnt+1], a1p, &v5)
 	}
-	*(*uint8)(unsafe.Add(unsafe.Pointer(ud), 212))--
+	ud.TrapSpellsCnt--
 	return 1
 }
+
 func nox_xxx_resetMapInit_4FC570(a1 int32) {
 	nox_xxx_resetMapInit_1569652 = uint32(a1)
 }
@@ -2277,15 +2261,13 @@ func nox_xxx_Fn_4FCAC0(a1 bool, a2 int32) int32 {
 	Nox_alloc_magicEnt_1569668.FreeAllObjects()
 	Dword_5d4594_1569672 = nil
 	for u := nox_xxx_getFirstPlayerUnit_4DA7C0(); u != nil; u = nox_xxx_getNextPlayerUnit_4DA7F0(u) {
-		v3 := u.UpdateDataPlayer()
-		v3.Field47_0 = 0
-		v3.SpellCastStart = 0
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 192)) = 0
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 196)) = 0
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 200)) = 0
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 204)) = 0
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 208)) = 0
-		*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 212)) = 0
+		ud := u.UpdateDataPlayer()
+		ud.Field47_0 = 0
+		ud.SpellCastStart = 0
+		for i := range ud.TrapSpells {
+			ud.TrapSpells[i] = 0
+		}
+		ud.TrapSpellsCnt = 0
 	}
 	if a2 == 0 {
 		return 1
@@ -2296,169 +2278,121 @@ func nox_xxx_Fn_4FCAC0(a1 bool, a2 int32) int32 {
 	return 1
 }
 func nox_xxx_spellCastByBook_4FCB80() {
-	var (
-		v4  *server.PlayerUpdateData
-		v6  int32
-		v7  int32
-		v8  int32
-		v9  int32
-		v10 int32
-		v11 *uint32
-		v14 *server.Object
-		v18 *MagicEntityClass
-		v20 uint8
-		v23 [2]byte
-		v24 int32
-		v25 int32
-		v26 int32
-		v27 int32
-	)
-	v0 := Dword_5d4594_1569672
-	if Dword_5d4594_1569672 == nil {
-		return
-	}
-	for {
-		v1 := v0.Field4
-		if v1.ObjFlags&0x8020 != 0 {
-			v2 := v0.Field52
-			if v2 != nil {
-				v2.Field56 = v0.Field56
+	for it := Dword_5d4594_1569672; it != nil; {
+		u := it.Obj4
+		if u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
+			if next := it.Next52; next != nil {
+				next.Prev56 = it.Prev56
 			}
-			v3 := v0.Field56
-			if v3 == nil {
-				Dword_5d4594_1569672 = v0.Field52
+			if prev := it.Prev56; prev == nil {
+				Dword_5d4594_1569672 = it.Next52
 			} else {
-				v3.Field52 = v0.Field52
+				prev.Next52 = it.Next52
 			}
-			goto LABEL_40
+			next := it.Next52
+			Nox_alloc_magicEnt_1569668.FreeObjectFirst(it)
+			it = next
+			continue
 		}
-		if gameFrame() < uint32(v0.Field40) {
-			v0 = v0.Field52
-			goto LABEL_48
+		if gameFrame() < it.Frame40 {
+			it = it.Next52
+			continue
 		}
-		v4 = nil
-		if v1.Class().Has(object.ClassPlayer) {
-			v4 = v1.UpdateDataPlayer()
+		var ud *server.PlayerUpdateData
+		if u.Class().Has(object.ClassPlayer) {
+			ud = u.UpdateDataPlayer()
 		}
-		if int32(v0.Field36) == 0 {
-			v23[0] = 112
-			v5 := v4.Player
-			v23[1] = *(*uint8)(unsafe.Add(unsafe.Add(unsafe.Pointer(v0), uintptr(v0.Field28)*4), 8))
-			nox_netlist_addToMsgListCli_40EBC0(int32(v5.PlayerInd), 1, &v23[0], 2)
+		if int32(it.Field36) == 0 {
+			var buf [2]byte
+			buf[0] = byte(noxnet.MSG_REPORT_SPELL_START)
+			buf[1] = byte(it.Spells8[it.SpellInd28])
+			nox_netlist_addToMsgListCli_40EBC0(int32(ud.Player.PlayerInd), 1, buf[:2])
 		}
-		v6 = int32(v0.Field28)
-		v7 = v0.Field32.Ind
-		v24 = int32(*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(v0), uintptr(v6)*4), 8)))
-		v8 = v24
-		if v7 != v24 {
+		spi := it.Field32.Ind
+		sp := it.Spells8[it.SpellInd28]
+		if spi != sp {
 			v19 := sub_416640()
-			*(*uint8)(unsafe.Pointer(&v27)) = uint8(nox_xxx_spellPhonemes_424A20(int32(*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(v0), uintptr(int32(v0.Field28)*4)), 8))), int32(v0.Field36)))
-			v20 = uint8(int8(v27))
+			v27 := nox_xxx_spellPhonemes_424A20(it.Spells8[it.SpellInd28], int32(it.Field36))
 			if dword_5d4594_2650652 == 0 || *(*uint32)(unsafe.Add(unsafe.Pointer(v19), 62)) != 0 {
-				sub_4FC960(v0.Field4, int8(v27))
+				sub_4FC960(it.Obj4, v27)
 			}
-			v21 := nox_xxx_updateSpellRelated_424830(v0.Field32, int32(v20))
-			v22 := v0.Field4
-			v0.Field32 = v21
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v22), 8)))&4 != 0 {
-				v4.SpellPhonemeLeaf = v0.Field32
+			v21 := nox_xxx_updateSpellRelated_424830(it.Field32, int32(v27))
+			it.Field32 = v21
+			if it.Obj4.Class().Has(object.ClassPlayer) {
+				ud.SpellPhonemeLeaf = it.Field32
 			}
-			v0.Field36++
-			v0.Field40 = gameFrame() + v0.Field44
-			v0 = v0.Field52
-			goto LABEL_48
+			it.Field36++
+			it.Frame40 = gameFrame() + it.Field44
+			it = it.Next52
+			continue
 		}
-		v26 = int32(*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(v0), uintptr(v6*4)), 12)))
-		if int32(v0.Field29) == 0 {
-			if v8 != 34 && v26 != 0 {
-				v0.Field36 = 0
-				v0.Field32 = nox_xxx_spellGetDefArrayPtr_424820()
-				v0.Field40 = gameFrame() + v0.Field44
-				v0.Field28++
-				v0 = v0.Field52
-				goto LABEL_48
+		sp1 := it.Spells8[it.SpellInd28+1]
+		if it.Field29 == 0 {
+			if sp != int32(spell.SPELL_GLYPH) && sp1 != 0 {
+				it.Field36 = 0
+				it.Field32 = nox_xxx_spellGetDefArrayPtr_424820()
+				it.Frame40 = gameFrame() + it.Field44
+				it.SpellInd28++
+				it = it.Next52
+				continue
 			}
-		} else if v24 != 34 {
-			if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v0.Field4), 8)))&4 != 0 {
-				v9 = 0
-				v10 = 1
-				if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 212))) != 0 {
-					v11 = (*uint32)(unsafe.Add(unsafe.Pointer(v4), 192))
-					for {
-						if *v11 == uint32(v8) {
-							v12 := v4.Player
-							v25 = 6
-							nox_xxx_netInformTextMsg_4DA0F0(int32(v12.PlayerInd), 0, &v25)
-							v8 = v24
-							v10 = 0
-						}
-						v9++
-						v11 = (*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
-						if v9 >= int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 212))) {
-							break
+		} else if sp != int32(spell.SPELL_GLYPH) {
+			if it.Obj4.Class().Has(object.ClassPlayer) {
+				v10 := true
+				if ud.TrapSpellsCnt != 0 {
+					for i := 0; i < int(ud.TrapSpellsCnt); i++ {
+						if ud.TrapSpells[i] == uint32(sp) {
+							nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, 6)
+							v10 = false
 						}
 					}
 				}
-				if v10 != 0 {
-					if sub_4FCF90(v0.Field4, v8, 2) < 0 {
-						v13 := v4.Player
-						v25 = 11
-						nox_xxx_netInformTextMsg_4DA0F0(int32(v13.PlayerInd), 0, &v25)
-						nox_xxx_aud_501960(232, v0.Field4, 0, 0)
+				if v10 {
+					if sub_4FCF90(it.Obj4, sp, 2) < 0 {
+						nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, 11)
+						nox_xxx_aud_501960(232, it.Obj4, 0, 0)
 					} else {
-						*(*uint32)(unsafe.Add(unsafe.Add(unsafe.Pointer(v4), uintptr(int32(func() uint8 {
-							p := (*uint8)(unsafe.Add(unsafe.Pointer(v4), 212))
-							x := *p
-							*p++
-							return x
-						}())*4)), 192)) = uint32(v24)
+						ud.TrapSpells[ud.TrapSpellsCnt] = uint32(sp)
+						ud.TrapSpellsCnt++
 					}
-					v8 = v24
 				}
 			}
-			if v8 != 34 && v26 != 0 {
-				v0.Field36 = 0
-				v0.Field32 = nox_xxx_spellGetDefArrayPtr_424820()
-				v0.Field40 = gameFrame() + v0.Field44
-				v0.Field28++
-				v0 = v0.Field52
-				goto LABEL_48
+			if sp != int32(spell.SPELL_GLYPH) && sp1 != 0 {
+				it.Field36 = 0
+				it.Field32 = nox_xxx_spellGetDefArrayPtr_424820()
+				it.Frame40 = gameFrame() + it.Field44
+				it.SpellInd28++
+				it = it.Next52
+				continue
 			}
 		}
-		v14 = v0.Field4
-		if v14.ObjClass&4 != 0 {
-			v15 := v4.Player
-			v4.Field55 = v15.CursorVec.X
-			v4.Field56 = v15.CursorVec.Y
-			if v0.Field48 != 0 {
-				v15.Obj3640 = v0.Field4
+		if u.Class().Has(object.ClassPlayer) {
+			pl := ud.Player
+			ud.Field55 = pl.CursorVec.X
+			ud.Field56 = pl.CursorVec.Y
+			if it.Field48 != 0 {
+				pl.Obj3640 = it.Obj4
 			} else {
-				v15.Obj3640 = v4.CursorObj
+				pl.Obj3640 = ud.CursorObj
 			}
-			nox_xxx_playerSpell_4FB2A0_magic_plyrspel(v0.Field4)
-			v4.SpellCastStart = 0
-			v4.Field47_0 = 0
-			*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 212)) = 0
+			nox_xxx_playerSpell_4FB2A0_magic_plyrspel(it.Obj4)
+			ud.SpellCastStart = 0
+			ud.Field47_0 = 0
+			ud.TrapSpellsCnt = 0
 		} else {
-			nox_xxx_castSpellByUser_4FDD20(v8, v14, nil)
+			nox_xxx_castSpellByUser_4FDD20(sp, u, nil)
 		}
-		if v16 := v0.Field52; v16 != nil {
-			v16.Field56 = v0.Field56
+		if next := it.Next52; next != nil {
+			next.Prev56 = it.Prev56
 		}
-
-		if v17 := v0.Field56; v17 == nil {
-			Dword_5d4594_1569672 = v0.Field52
+		if prev := it.Prev56; prev == nil {
+			Dword_5d4594_1569672 = it.Next52
 		} else {
-			v17.Field52 = v0.Field52
+			prev.Next52 = it.Next52
 		}
-	LABEL_40:
-		v18 = v0.Field52
-		Nox_alloc_magicEnt_1569668.FreeObjectFirst(v0)
-		v0 = v18
-	LABEL_48:
-		if v0 == nil {
-			return
-		}
+		next := it.Next52
+		Nox_alloc_magicEnt_1569668.FreeObjectFirst(it)
+		it = next
 	}
 }
 func sub_4FCEB0(a1 bool) {
@@ -2483,63 +2417,36 @@ func sub_4FCEB0(a1 bool) {
 		}
 	}
 }
-func nox_xxx_spellCheckSmth_4FCEF0(a1 unsafe.Pointer, a2 *int32, a3 int32) int32 {
-	var (
-		v3 *int32
-		v5 int32
-		v6 int32
-		v7 int32
-		v8 int32
-	)
-	if a1 == nil {
+func nox_xxx_spellCheckSmth_4FCEF0(u *server.Object, a2 []spell.ID) int32 {
+	if u == nil {
 		return 0
 	}
-	v3 = a2
-	if a2 == nil {
-		return 0
-	}
-	if a3 == 0 {
-		return 0
+	if len(a2) == 0 {
+		return 1
 	}
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE) {
 		return 1
 	}
-	if int32(*(*uint8)(unsafe.Add(a1, 8)))&2 != 0 {
+	if u.Class().Has(object.ClassMonster) {
 		return 1
 	}
-	v5 = int32(uint16(nox_xxx_unitGetOldMana_4EEC80((*server.Object)(a1))))
-	v6 = 0
-	if a3 <= 0 {
-		return 1
-	}
-	for {
-		v7 = *v3
-		if *v3 < 75 || v7 > 114 {
-			v8 = nox_xxx_spellManaCost_4249A0(v7, 2)
+	mana := int(nox_xxx_unitGetOldMana_4EEC80(u))
+	for _, sp := range a2 {
+		var cost int
+		if sp < 75 || sp > 114 {
+			cost = int(nox_xxx_spellManaCost_4249A0(int32(sp), 2))
 		} else {
-			v8 = sub_500CA0(v7, (*server.Object)(a1))
+			cost = int(sub_500CA0(int32(sp), u))
 		}
-		if v8 > v5 {
-			break
+		if cost > mana {
+			return 0
 		}
-		v5 -= v8
-		v6++
-		v3 = (*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1))
-		if v6 >= a3 {
-			return 1
-		}
+		mana -= cost
 	}
-	return 0
+	return 1
 }
-func sub_4FCF90(a1 *server.Object, a2 int32, a3 int32) int32 {
-	var (
-		v3     *uint16
-		result int32
-		v5     int32
-		v6     int32
-	)
-	v3 = (*uint16)(a1.UpdateData)
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8))) & 4) == 0 {
+func sub_4FCF90(u *server.Object, a2 int32, a3 int32) int32 {
+	if !u.Class().Has(object.ClassPlayer) {
 		return -1
 	}
 	if a2 == 0 {
@@ -2548,103 +2455,77 @@ func sub_4FCF90(a1 *server.Object, a2 int32, a3 int32) int32 {
 	if nox_common_getEngineFlag(NOX_ENGINE_FLAG_GODMODE) {
 		return 0
 	}
+	var v5 int32
 	if a2 < 75 || a2 > 114 {
 		v5 = nox_xxx_spellManaCost_4249A0(a2, a3)
 	} else {
-		v5 = sub_500CA0(a2, a1)
+		v5 = sub_500CA0(a2, u)
 	}
-	v6 = v5
-	if int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2))) >= v5 {
-		nox_xxx_playerManaSub_4EEBF0(a1, v5)
-		result = v6
+	ud := u.UpdateDataPlayer()
+	if int32(ud.ManaCur) >= v5 {
+		nox_xxx_playerManaSub_4EEBF0(u, v5)
+		return v5
 	} else {
-		*(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*40)) = uint16(int16(nox_xxx_spellManaCost_4249A0(a2, 1)))
-		result = -1
-		*(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*41)) = uint16(gameFPS())
+		ud.Field20_0 = uint16(int16(nox_xxx_spellManaCost_4249A0(a2, 1)))
+		ud.Field20_1 = uint16(gameFPS())
+		return -1
 	}
-	return result
 }
 func sub_4FD030(a1 *server.Object, a2 int16) {
 	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
 		nox_xxx_playerManaAdd_4EEB80(a1, a2)
 	}
 }
-func sub_4FD0E0(a1 *server.Object, a2 int32) int32 {
-	var (
-		v4 int32
-	)
-	nox_xxx_spellFlags_424A70(a2)
+func sub_4FD0E0(a1 *server.Object, a2 spell.ID) int32 {
 	v2 := nox_xxx_findParentChainPlayer_4EC580(a1)
-	if !nox_xxx_spellIsEnabled_424B70(a2) {
+	if !nox_xxx_spellIsEnabled_424B70(int32(a2)) {
 		return 10
 	}
-	if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1), 8)))&4 != 0 {
-		return nox_xxx_playerCheckSpellClass_57AEA0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(a1.UpdateData, 276)), 2251))), a2)
+	if a1.Class().Has(object.ClassPlayer) {
+		return nox_xxx_playerCheckSpellClass_57AEA0(a1.UpdateDataPlayer().Player.PlayerClass(), a2)
 	}
-	v4 = -sub_57AEE0(a2, v2)
-	*(*uint8)(unsafe.Pointer(&v4)) = uint8(int8(v4 & 0xF6))
+	v4 := -sub_57AEE0(int32(a2), v2)
+	v4 = int32(uint32(v4) & 0xFFFFFFF6)
 	return v4 + 10
 }
 func nox_xxx_checkPlrCantCastSpell_4FD150(a1 *server.Object, a2 int32, a3 int32) int32 {
 	nox_xxx_findParentChainPlayer_4EC580(a1)
-	if a3 != 0 {
-		goto LABEL_9
-	}
-	if noxflags.HasGame(16) {
-		if *memmap.PtrUint32(0x5D4594, 1569704) == 0 {
-			*memmap.PtrUint32(0x5D4594, 1569704) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Crown")))
-		}
-		if nox_xxx_spellHasFlags_424A50(a2, 0x80000) {
-			v3 := a1.Field129
-			if v3 != nil {
-				for uint32(v3.TypeInd) != *memmap.PtrUint32(0x5D4594, 1569704) {
-					v3 = v3.Field128
-					if v3 == nil {
-						goto LABEL_9
+	if a3 == 0 {
+		if noxflags.HasGame(16) {
+			if *memmap.PtrUint32(0x5D4594, 1569704) == 0 {
+				*memmap.PtrUint32(0x5D4594, 1569704) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("Crown")))
+			}
+			if nox_xxx_spellHasFlags_424A50(a2, 0x80000) {
+				for it := a1.Field129; it != nil; it = it.Field128 {
+					if uint32(it.TypeInd) == *memmap.PtrUint32(0x5D4594, 1569704) {
+						if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a1), 48))) != 0 {
+							return 17
+						}
+						break
 					}
 				}
-				if nox_xxx_servObjectHasTeam_419130((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(a1), 48))) != 0 {
-					return 17
+			}
+		} else if !noxflags.HasGame(64) {
+			if noxflags.HasGame(32) && nox_xxx_spellHasFlags_424A50(a2, 0x80000) {
+				for it := a1.InvFirstItem; it != nil; it = it.InvNextItem {
+					if (it.ObjClass & 0x10000000) != 0 {
+						return 13
+					}
+				}
+			}
+		} else {
+			if *memmap.PtrUint32(0x5D4594, 1569708) == 0 {
+				*memmap.PtrUint32(0x5D4594, 1569708) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("GameBall")))
+			}
+			if nox_xxx_spellHasFlags_424A50(a2, 0x80000) {
+				for it := a1.Field129; it != nil; it = it.Field128 {
+					if uint32(it.TypeInd) == *memmap.PtrUint32(0x5D4594, 1569708) {
+						return 16
+					}
 				}
 			}
 		}
-		goto LABEL_9
 	}
-	if !noxflags.HasGame(64) {
-		if !noxflags.HasGame(32) {
-			goto LABEL_9
-		}
-		if !nox_xxx_spellHasFlags_424A50(a2, 0x80000) {
-			goto LABEL_9
-		}
-		v6 := a1.InvFirstItem
-		if v6 == nil {
-			goto LABEL_9
-		}
-		for (v6.ObjClass & 0x10000000) == 0 {
-			v6 = v6.InvNextItem
-			if v6 == nil {
-				goto LABEL_9
-			}
-		}
-		return 13
-	}
-	if *memmap.PtrUint32(0x5D4594, 1569708) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1569708) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("GameBall")))
-	}
-	if nox_xxx_spellHasFlags_424A50(a2, 0x80000) {
-		v5 := a1.Field129
-		if v5 != nil {
-			for uint32(v5.TypeInd) != *memmap.PtrUint32(0x5D4594, 1569708) {
-				v5 = v5.Field128
-				if v5 == nil {
-					goto LABEL_9
-				}
-			}
-			return 16
-		}
-	}
-LABEL_9:
 	if nox_xxx_testUnitBuffs_4FF350(a1, 29) != 0 {
 		return 14
 	}
@@ -2739,72 +2620,55 @@ func nox_xxx_gameCaptureMagic_4FDC10(a1 int32, a2 *server.Object) int32 {
 	return 1
 }
 func nox_xxx_createSpellFly_4FDDA0(a1 *server.Object, a2 *server.Object, a3 int32) {
-	var (
-		v5  *server.Object
-		v6  int32
-		v7  float32
-		v8  float64
-		v9  float64
-		v10 float64
-		v14 int16
-		v18 int32
-		v19 int32
-		v21 Point32
-		v22 float4
-		a2a float32
-	)
 	v3 := a1
-	a2a = float32(float64(a1.Shape.Circle.R) + 4.0)
+	a2a := float32(float64(a1.Shape.Circle.R) + 4.0)
+	var v21 types.Pointf
 	if a2 == nil {
-		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 8)))&4 != 0 {
-			v4 := v3.UpdateData
-			*(*float32)(unsafe.Pointer(&v21.X)) = float32(float64(*(*int32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2284))))
-			*(*float32)(unsafe.Pointer(&v21.Y)) = float32(float64(*(*int32)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v4, 276)), 2288))))
-			v18 = int32(nox_xxx_spellFlags_424A70(a3))
-			v5 = nox_xxx_spellFlySearchTarget_540610((*types.Pointf)(unsafe.Pointer(&v21)), v3, v18, 600.0, 0, v3)
+		if v3.Class().Has(object.ClassPlayer) {
+			ud := v3.UpdateDataPlayer()
+			v21.X = float32(ud.Player.CursorVec.X)
+			v21.Y = float32(ud.Player.CursorVec.Y)
+			v18 := nox_xxx_spellFlags_424A70(a3)
+			a2 = nox_xxx_spellFlySearchTarget_540610(&v21, v3, int32(v18), 600.0, 0, v3)
 		} else {
-			v19 = int32(nox_xxx_spellFlags_424A70(a3))
-			v5 = nox_xxx_spellFlySearchTarget_540610(nil, v3, v19, 600.0, 0, v3)
+			v19 := nox_xxx_spellFlags_424A70(a3)
+			a2 = nox_xxx_spellFlySearchTarget_540610(nil, v3, int32(v19), 600.0, 0, v3)
 		}
-		a2 = v5
 	}
-	v6 = int32(v3.Direction1) * 8
-	v7 = v3.PosVec.Y
-	v8 = float64(a2a * *memmap.PtrFloat32(0x587000, uintptr(uint32(v6)+194136)))
+	v6 := int32(v3.Direction1) * 8
+	v8 := float64(a2a * *memmap.PtrFloat32(0x587000, uintptr(uint32(v6)+194136)))
+	v10 := float64(a2a * *memmap.PtrFloat32(0x587000, uintptr(uint32(v6)+194140)))
+	var v22 float4
 	v22.field_0 = v3.PosVec.X
-	v9 = v8 + float64(v3.PosVec.X)
-	v10 = float64(a2a * *memmap.PtrFloat32(0x587000, uintptr(uint32(v6)+194140)))
-	v22.field_4 = v7
-	v22.field_C = float32(v10 + float64(v3.PosVec.Y))
-	v22.field_8 = float32(v9 + float64(v3.VelVec.X))
-	v22.field_C = v22.field_C + v3.VelVec.Y
+	v22.field_4 = v3.PosVec.Y
+	v22.field_8 = float32(v8 + float64(v3.PosVec.X) + float64(v3.VelVec.X))
+	v22.field_C = float32(v10 + float64(v3.PosVec.Y) + float64(v3.VelVec.Y))
 	if nox_xxx_mapTraceRay_535250(&v22, nil, nil, 5) == 0 {
 		return
 	}
-	v12 := nox_xxx_newObjectByTypeID_4E3810(internCStr("Magic"))
-	if v12 == nil {
+	mis := nox_xxx_newObjectByTypeID_4E3810(internCStr("Magic"))
+	if mis == nil {
 		return
 	}
-	v13 := v12.UpdateData
-	*(*int32)(unsafe.Add(v13, 4*4)) = nox_xxx_spellGetPower_4FE7B0(a3, v3)
-	nox_xxx_createAt_4DAA50(v12, v3, v22.field_8, v22.field_C)
-	v14 = int16(v3.Direction1)
-	v12.Direction1 = server.Dir16(uint16(v14))
-	v12.Direction2 = server.Dir16(uint16(v14))
-	*(**server.Object)(v13) = v3
-	*(**server.Object)(unsafe.Add(v13, 4*1)) = a2
-	*(**server.Object)(unsafe.Add(v13, 4*2)) = v3
-	*(*int32)(unsafe.Add(v13, 4*3)) = a3
+	mud := mis.UpdateDataSpellProjectile()
+	nox_xxx_createAt_4DAA50(mis, v3, v22.field_8, v22.field_C)
+	mis.Direction1 = v3.Direction1
+	mis.Direction2 = v3.Direction1
+	mud.Field0 = v3
+	mud.Field4 = a2
+	mud.Field8 = v3
+	mud.Spell12 = uint32(a3)
+	mud.Level16 = uint32(nox_xxx_spellGetPower_4FE7B0(a3, v3))
 	nox_xxx_xferIndexedDirection_509E20(int32(v3.Direction1), &v21)
-	v15 := int32(v12.Direction1)
-	v12.VelVec.X = *memmap.PtrFloat32(0x587000, uintptr(v15)*8+194136) * v12.SpeedCur
-	v12.VelVec.Y = *memmap.PtrFloat32(0x587000, uintptr(v15)*8+194140) * v12.SpeedCur
-	v12.VelVec.X = v12.VelVec.X + v3.VelVec.X
-	v12.VelVec.Y = v12.VelVec.Y + v3.VelVec.Y
+	v15 := mis.Direction1
+	mis.VelVec.X = *memmap.PtrFloat32(0x587000, uintptr(v15)*8+194136) * mis.SpeedCur
+	mis.VelVec.Y = *memmap.PtrFloat32(0x587000, uintptr(v15)*8+194140) * mis.SpeedCur
+	mis.VelVec.X = mis.VelVec.X + v3.VelVec.X
+	mis.VelVec.Y = mis.VelVec.Y + v3.VelVec.Y
 	if nox_xxx_testUnitBuffs_4FF350(v3, 21) != 0 {
 		v20 := nox_xxx_buffGetPower_4FF570(v3, 21)
-		v16 := int16(nox_xxx_unitGetBuffTimer_4FF550(v3, 21))
-		nox_xxx_buffApplyTo_4FF380(v12, 21, v16, v20)
+		v16 := nox_xxx_unitGetBuffTimer_4FF550(v3, 21)
+		nox_xxx_buffApplyTo_4FF380(mis, 21, v16, v20)
 	}
 	v17 := nox_xxx_spellGetAud44_424800(a3, 0)
 	nox_xxx_aud_501960(v17, v3, 0, 0)
@@ -2836,10 +2700,9 @@ func nox_xxx_collide_4FDF90(a1 *server.Object, a2 *server.Object) {
 		nox_xxx_spellBuffOff_4FF5B0(a1, 0)
 	}
 }
-func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
-	var v2 *byte
+func nox_xxx_spellGetPhoneme_4FE1C0(id int32, a2 int8) int32 {
 	if noxflags.HasGame(1) {
-		if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(uint32(a1))), unsafe.Sizeof(server.Object{})*8))) & 4) == 0 {
+		if !nox_server_getObjectFromNetCode_4ECCB0(uint32(id)).Class().Has(object.ClassPlayer) {
 			switch a2 {
 			case 0:
 				return 193
@@ -2861,33 +2724,36 @@ func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 				return 0
 			}
 		}
-	} else if (nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(a1)).ObjClass & 4) == 0 {
-		switch a2 {
-		case 0:
-			return 193
-		case 1:
-			return 186
-		case 2:
-			return 187
-		case 3:
-			return 192
-		case 5:
-			return 188
-		case 6:
-			return 191
-		case 7:
-			return 190
-		case 8:
-			return 189
-		default:
-			return 0
+	} else {
+		if !nox_xxx_netSpriteByCodeDynamic_45A6F0(uint32(id)).Class().Has(object.ClassPlayer) {
+			switch a2 {
+			case 0:
+				return 193
+			case 1:
+				return 186
+			case 2:
+				return 187
+			case 3:
+				return 192
+			case 5:
+				return 188
+			case 6:
+				return 191
+			case 7:
+				return 190
+			case 8:
+				return 189
+			default:
+				return 0
+			}
 		}
 	}
-	v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(a1)))
-	if v2 == nil {
+	pl := nox_common_playerInfoGetByID_417040(id)
+	if pl == nil {
 		return 0
 	}
-	if *(*byte)(unsafe.Add(unsafe.Pointer(v2), 2252)) == 0 {
+
+	if !pl.Info().IsFemale() {
 		switch a2 {
 		case 0:
 			return 193
@@ -2932,264 +2798,205 @@ func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 }
 
 type MagicEntityClass struct {
-	Field0  uint32              // 0, 0
-	Field4  *server.Object      // 1, 4
-	Field8  [5]int32            // 2, 8
-	Field28 byte                // 7, 28
-	Field29 byte                // 7, 29
-	Field30 uint16              // 7, 30
-	Field32 *server.PhonemeLeaf // 8, 32
-	Field36 byte                // 9, 36
-	Field37 byte                // 9, 37
-	Field38 uint16              // 9, 38
-	Field40 uint32              // 10, 40
-	Field44 uint32              // 11, 44
-	Field48 uint32              // 12, 48
-	Field52 *MagicEntityClass   // 13, 52
-	Field56 *MagicEntityClass   // 14, 56
+	Field0     uint32              // 0, 0
+	Obj4       *server.Object      // 1, 4
+	Spells8    [5]int32            // 2, 8
+	SpellInd28 byte                // 7, 28
+	Field29    byte                // 7, 29
+	Field30    uint16              // 7, 30
+	Field32    *server.PhonemeLeaf // 8, 32
+	Field36    byte                // 9, 36
+	Field37    byte                // 9, 37
+	Field38    uint16              // 9, 38
+	Frame40    uint32              // 10, 40
+	Field44    uint32              // 11, 44
+	Field48    uint32              // 12, 48
+	Next52     *MagicEntityClass   // 13, 52
+	Prev56     *MagicEntityClass   // 14, 56
 }
 
-func nox_xxx_spellByBookInsert_4FE340(a1p *server.Object, a2 *int32, a3 int32, a4 int32, a5 int32) int32 {
-	var (
-		a1  int32
-		v10 int32
-		v11 *int32
-		v12 *int32
-		v13 int32
-		v15 uint8
-		v16 int32
-		v17 *int32
-		v18 int32
-		v19 int32
-		v21 int32
-		v22 int32
-		v26 int32
-	)
-	v5 := a1p
-	if a1p.ObjFlags&0x8022 != 0 {
+func nox_xxx_spellByBookInsert_4FE340(u *server.Object, spells []spell.ID, a4 int32, a5 int32) int32 {
+	if u.ObjFlags&0x8022 != 0 {
 		return 0
 	}
-	v6 := unsafe.Slice(a2, 5)
-	for _, v := range v6 {
-		if v < 0 || v >= 137 {
+	for _, sp := range spells {
+		if sp < 0 || sp >= 137 {
 			return 0
 		}
 	}
-	if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(a1p), 8))) & 4) == 0 {
+	if !u.Class().Has(object.ClassPlayer) {
 		return 0
 	}
-	v9 := a1p.UpdateData
-	if *(*uint32)(unsafe.Add(v9, 280)) != 0 {
+	ud := u.UpdateDataPlayer()
+	if ud.Trade70 != nil {
 		return 0
 	}
-	v10 = 0
-	v11 = a2
-	for {
-		if *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(v9, 276))+uint32(*v11*4))), 3696)) == 0 && *v11 != 0 {
+	for _, sp := range spells {
+		if sp != 0 && ud.Player.SpellLvl[sp] == 0 {
 			return 0
 		}
-		v10++
-		v11 = (*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
-		if v10 >= 5 {
-			break
-		}
 	}
-	if *(*uint32)(unsafe.Add(v9, 216)) != 0 {
+	if ud.SpellCastStart != 0 {
 		return 0
 	}
-	v26 = 0
-	if a3 > 0 {
-		v12 = a2
-		v13 = a3
-		for {
-			if *v12 == 34 {
-				v26 = 1
-			}
-			v12 = (*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1))
-			v13--
-			if v13 == 0 {
-				break
-			}
+	hasGlyph := false
+	for i := range spells {
+		if spells[i] == spell.SPELL_GLYPH {
+			hasGlyph = true
 		}
-		if v26 != 0 {
-			if nox_xxx_spellCheckSmth_4FCEF0(unsafe.Pointer(a1p), a2, a3) == 0 {
-				a1 := int32(12)
-				nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-				nox_xxx_aud_501960(232, v5, 0, 0)
+	}
+	if hasGlyph {
+		if nox_xxx_spellCheckSmth_4FCEF0(u, spells) == 0 {
+			a1 := int32(12)
+			nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+			nox_xxx_aud_501960(232, u, 0, 0)
+			return 0
+		}
+		if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(ud.Player), 2251))) == 2 {
+			if !nox_xxx_checkSummonedCreaturesLimit_500D70(u, 5) {
+				a1 := int32(4)
+				nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+				nox_xxx_aud_501960(231, u, 0, 0)
 				return 0
 			}
-			if int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2251))) == 2 {
-				v15 = uint8(int8(bool2int32(nox_xxx_checkSummonedCreaturesLimit_500D70(v5, 5))))
-				if int32(v15) == 0 {
-					a1 := int32(4)
-					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-					nox_xxx_aud_501960(231, v5, 0, 0)
-					return 0
-				}
-				v16 = nox_xxx_unitCountSlaves_4E7CF0(v5, 2, 0x2000)
-				if v16 >= int32(int64(nox_xxx_gamedataGetFloat_419D40(internCStr("MaxBomberCount")))) {
-					a1 := int32(5)
-					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-					nox_xxx_aud_501960(231, v5, 0, 0)
-					return 0
-				}
-			} else if int32(*(*uint8)(unsafe.Add(v9, 244))) >= int32(int64(nox_xxx_gamedataGetFloat_419D40(internCStr("MaxTrapCount")))) {
+			v16 := nox_xxx_unitCountSlaves_4E7CF0(u, 2, 0x2000)
+			if v16 >= int32(nox_xxx_gamedataGetFloat_419D40(internCStr("MaxBomberCount"))) {
 				a1 := int32(5)
-				nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-				nox_xxx_aud_501960(231, v5, 0, 0)
+				nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+				nox_xxx_aud_501960(231, u, 0, 0)
 				return 0
 			}
-			v17 = a2
-			v18 = 0
-			for {
-				a1 := sub_4FD0E0(v5, *v17)
-				if a1 != 0 {
-					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-					nox_xxx_aud_501960(231, v5, 0, 0)
-					return 0
-				}
-				a1 = nox_xxx_checkPlrCantCastSpell_4FD150(v5, *v17, v26)
-				if a1 != 0 {
-					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-					nox_xxx_aud_501960(231, v5, 0, 0)
-					return 0
-				}
-				v18++
-				v17 = (*int32)(unsafe.Add(unsafe.Pointer(v17), 4*1))
-				if v18 >= a3 {
-					goto LABEL_36
-				}
+		} else if ud.CurTraps >= uint32(nox_xxx_gamedataGetFloat_419D40(internCStr("MaxTrapCount"))) {
+			a1 := int32(5)
+			nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+			nox_xxx_aud_501960(231, u, 0, 0)
+			return 0
+		}
+		for i := range spells {
+			a1 := sub_4FD0E0(u, spells[i])
+			if a1 != 0 {
+				nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+				nox_xxx_aud_501960(231, u, 0, 0)
+				return 0
+			}
+			a1 = nox_xxx_checkPlrCantCastSpell_4FD150(u, int32(spells[i]), int32(bool2int(hasGlyph)))
+			if a1 != 0 {
+				nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+				nox_xxx_aud_501960(231, u, 0, 0)
+				return 0
 			}
 		}
+	} else {
+		a1 := sub_4FD0E0(u, spells[0])
+		if a1 != 0 {
+			nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+			nox_xxx_aud_501960(231, u, 0, 0)
+			return 0
+		}
+		a1 = nox_xxx_checkPlrCantCastSpell_4FD150(u, int32(spells[0]), 0)
+		if a1 != 0 {
+			nox_xxx_netInformTextMsg_4DA0F0(int32(ud.Player.PlayerInd), 0, &a1)
+			nox_xxx_aud_501960(231, u, 0, 0)
+			return 0
+		}
 	}
-	a1 = sub_4FD0E0(a1p, *a2)
-	if a1 != 0 {
-		nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-		nox_xxx_aud_501960(231, v5, 0, 0)
+	nox_xxx_playerSetState_4FA020(u, 2)
+	ud.Field47_0 = 1
+	ud.SpellCastStart = gameFrame()
+	e := Nox_alloc_magicEnt_1569668.NewObject()
+	if e == nil {
 		return 0
 	}
-	a1 = nox_xxx_checkPlrCantCastSpell_4FD150(v5, v6[0], 0)
-	if a1 != 0 {
-		nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-		nox_xxx_aud_501960(231, v5, 0, 0)
-		return 0
-	}
-LABEL_36:
-	nox_xxx_playerSetState_4FA020(v5, 2)
-	v19 = int32(gameFrame())
-	*(*uint8)(unsafe.Add(v9, 188)) = 1
-	*(*uint32)(unsafe.Add(v9, 216)) = uint32(v19)
-	v20 := Nox_alloc_magicEnt_1569668.NewObject()
-	if v20 == nil {
-		return 0
-	}
-	v21 = a5
-	v22 = a4
-	v20.Field4 = v5
-	v20.Field48 = uint32(v21)
-	v20.Field36 = 0
-	v20.Field40 = gameFrame()
-	v20.Field44 = uint32(v22)
-	v20.Field32 = nox_xxx_spellGetDefArrayPtr_424820()
-	v20.Field28 = 0
-	v20.Field29 = 0
+	e.Obj4 = u
+	e.Field48 = uint32(a5)
+	e.Field36 = 0
+	e.Frame40 = gameFrame()
+	e.Field44 = uint32(a4)
+	e.Field32 = nox_xxx_spellGetDefArrayPtr_424820()
+	e.SpellInd28 = 0
+	e.Field29 = 0
 
-	v24 := v6[:a3]
-	for i := range v20.Field8 {
-		if i >= len(v24) {
-			v20.Field8[i] = 0
+	for i := range e.Spells8 {
+		if i >= len(spells) {
+			e.Spells8[i] = 0
 		} else {
-			v20.Field8[i] = v24[i]
-			if v24[i] == 34 {
-				v20.Field29 = 1
+			e.Spells8[i] = int32(spells[i])
+			if spells[i] == spell.SPELL_GLYPH {
+				e.Field29 = 1
 			}
 		}
 	}
-	v20.Field56 = nil
-	v20.Field52 = Dword_5d4594_1569672
+	e.Prev56 = nil
+	e.Next52 = Dword_5d4594_1569672
 	if Dword_5d4594_1569672 != nil {
-		Dword_5d4594_1569672.Field56 = v20
+		Dword_5d4594_1569672.Prev56 = e
 	}
-	Dword_5d4594_1569672 = v20
+	Dword_5d4594_1569672 = e
 	return 1
 }
 func nox_xxx_spell_4FE680(a1 *server.Object, a2 float32) {
-	var (
-		v6 float64
-		v7 float64
-	)
-	v2 := Dword_5d4594_1569672
-	if v2 != nil {
-		v3 := a1
-		for {
-			v4 := v2.Field4
-			if ((int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 8)))&4) != 4 || nox_xxx_servCompareTeams_419150((*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v3), 48)), (*server.ObjectTeam)(unsafe.Add(unsafe.Pointer(v4), 48))) == 0) && (func() bool {
-				v5 := v2.Field4
-				v6 = float64(v5.PosVec.X - v3.PosVec.X)
-				v7 = float64(v5.PosVec.Y - v3.PosVec.Y)
-				return math.Sqrt(v7*v7+v6*v6)+0.1 < float64(a2)
-			}()) && nox_xxx_mapCheck_537110(v3, v2.Field4) != 0 {
-				v8 := v2.Field4
-				if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v8), 8))) & 4) == 4 {
-					v9 := v8.UpdateData
-					*(*uint32)(unsafe.Add(v9, 216)) = 0
-					*(*uint8)(unsafe.Add(v9, 188)) = 0
-					a1 := int32(15)
-					nox_xxx_netInformTextMsg_4DA0F0(int32(*(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v9, 276)), 2064))), 0, &a1)
-					nox_xxx_aud_501960(231, v2.Field4, 0, 0)
-					nox_xxx_playerSetState_4FA020(v2.Field4, 13)
-				}
-				v10 := v2.Field52
-				if v10 != nil {
-					v10.Field56 = v2.Field56
-				}
-				v11 := v2.Field56
-				if v11 != nil {
-					v11.Field52 = v2.Field52
-				} else {
-					Dword_5d4594_1569672 = v2.Field52
-				}
-				v12 := v2.Field52
-				Nox_alloc_magicEnt_1569668.FreeObjectFirst(v2)
-				v2 = v12
+	v3 := a1
+	for it := Dword_5d4594_1569672; it != nil; {
+		v4 := it.Obj4
+		if (!v4.Class().Has(object.ClassPlayer) || nox_xxx_servCompareTeams_419150(v3.TeamPtr(), v4.TeamPtr()) == 0) && (func() bool {
+			v5 := it.Obj4
+			v6 := float64(v5.PosVec.X - v3.PosVec.X)
+			v7 := float64(v5.PosVec.Y - v3.PosVec.Y)
+			return math.Sqrt(v7*v7+v6*v6)+0.1 < float64(a2)
+		}()) && nox_xxx_mapCheck_537110(v3, it.Obj4) != 0 {
+			v8 := it.Obj4
+			if v8.Class().Has(object.ClassPlayer) {
+				v9 := v8.UpdateDataPlayer()
+				v9.SpellCastStart = 0
+				v9.Field47_0 = 0
+				a1 := int32(15)
+				nox_xxx_netInformTextMsg_4DA0F0(int32(v9.Player.PlayerInd), 0, &a1)
+				nox_xxx_aud_501960(231, it.Obj4, 0, 0)
+				nox_xxx_playerSetState_4FA020(it.Obj4, 13)
+			}
+			v10 := it.Next52
+			if v10 != nil {
+				v10.Prev56 = it.Prev56
+			}
+			v11 := it.Prev56
+			if v11 != nil {
+				v11.Next52 = it.Next52
 			} else {
-				v2 = v2.Field52
+				Dword_5d4594_1569672 = it.Next52
 			}
-			if v2 == nil {
-				break
-			}
+			v12 := it.Next52
+			Nox_alloc_magicEnt_1569668.FreeObjectFirst(it)
+			it = v12
+		} else {
+			it = it.Next52
+		}
+		if it == nil {
+			break
 		}
 	}
 }
-func nox_xxx_spellGetPower_4FE7B0(a1 int32, a2p *server.Object) int32 {
-	var (
-		a2 = a2p
-		v2 int32
-		v4 int32
-	)
-	v2 = int32(*memmap.PtrUint32(0x5D4594, 1569720))
+func nox_xxx_spellGetPower_4FE7B0(a1 int32, u *server.Object) int32 {
+	if u == nil {
+		return 2
+	}
+	v2 := int32(*memmap.PtrUint32(0x5D4594, 1569720))
 	if *memmap.PtrUint32(0x5D4594, 1569720) == 0 {
 		v2 = nox_xxx_getNameId_4E3AA0(internCStr("ImaginaryCaster"))
 		*memmap.PtrUint32(0x5D4594, 1569720) = uint32(v2)
 	}
-	if int32(a2.TypeInd) == v2 {
+	if int32(u.TypeInd) == v2 {
 		return 1
 	}
-	if noxflags.HasGame(1392) {
+	if noxflags.HasGame(0x570) {
 		return 3
 	}
-	if a2 == nil {
-		return 2
+	if u.Class().Has(object.ClassPlayer) {
+		return int32(u.UpdateDataPlayer().Player.SpellLvl[a1])
 	}
-	v4 = int32(a2.ObjClass)
-	if v4&4 != 0 {
-		return int32(*(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(a2.UpdateData, 276))+uint32(a1*4))), 3696)))
+	if u.Class().Has(object.ClassMonster) {
+		return int32(u.UpdateDataMonster().SpellLvl510)
 	}
-	if (v4 & 2) == 0 {
-		return 3
-	} else {
-		return int32(*(*uint32)(unsafe.Add(a2.UpdateData, 2040)))
-	}
+	return 3
 }
 func nox_xxx_spellCancelSpellDo_4FE9D0(a1 *server.DurSpell) {
 	obj := a1.Caster16

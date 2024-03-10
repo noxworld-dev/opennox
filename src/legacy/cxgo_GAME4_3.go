@@ -8435,7 +8435,7 @@ func nox_xxx_useSpellReward_53F9E0(obj, obj2 *server.Object) int {
 		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 		return 0
 	}
-	if nox_xxx_playerCheckSpellClass_57AEA0(int32(*(*uint8)(unsafe.Add(v5, 2251))), int32(*v2)) != 0 {
+	if nox_xxx_playerCheckSpellClass_57AEA0(int32(*(*uint8)(unsafe.Add(v5, 2251))), spell.ID(int32(*v2))) != 0 {
 		nox_xxx_netPriMsgToPlayer_4DA2C0(a1, internCStr("use.c:SpellRewardClassFail"), 0)
 		nox_xxx_aud_501960(925, a1, 2, int32(a1.NetCode))
 		return 0

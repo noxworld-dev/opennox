@@ -24,10 +24,10 @@ require (
 	golang.org/x/crypto v0.1.0
 	golang.org/x/exp v0.0.0-20230111222715-75897c7a292a
 	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69
-	golang.org/x/mod v0.10.0
-	golang.org/x/sync v0.2.0
-	golang.org/x/sys v0.8.0
-	golang.org/x/tools v0.9.3
+	golang.org/x/mod v0.15.0
+	golang.org/x/sync v0.6.0
+	golang.org/x/sys v0.17.0
+	golang.org/x/tools v0.18.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
