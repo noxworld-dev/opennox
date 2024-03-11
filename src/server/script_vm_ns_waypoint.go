@@ -80,7 +80,7 @@ func (g nsWpGroup) Name() string {
 func (g nsWpGroup) Enable(enable bool) {
 	g.EachWaypoint(true, func(wp ns.WaypointObj) bool {
 		wp.Enable(enable)
-		return false
+		return true
 	})
 }
 
