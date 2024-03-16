@@ -71,6 +71,34 @@ func (s *Server) PlayerSetPos(p *Player, pos types.Pointf) {
 	asObjectS(u).SetPos(pos)
 }
 
+func (s * Server) UpdateSpellTargetForManualCast(u *server.Object) {
+	ud := u.UpdateDataPlayer()
+	pl := ud.Player
+	
+	pl.Obj3640 = s.GetSpellTargetForManualCast(u)
+}
+
+func (s * Server) GetSpellTargetForManualCast(u *server.Object) *server.Object{
+	ud := u.UpdateDataPlayer()
+	cursor_obj := ud.CursorObj
+	pl := ud.Player
+	
+	if leaf := ud.SpellPhonemeLeaf; leaf == s.Spells.PhonemeTree() {
+		return pl.Obj3640
+	} else if leaf != nil && leaf.Ind != 0 {
+		spellInd := spell.ID(leaf.Ind)
+		
+		if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
+			if(cursor_obj == nil){
+			}
+			return cursor_obj
+		} else {
+			return u
+		}
+	}
+	return pl.Obj3640
+}
+
 func (s *Server) PlayerPrint(p *Player, text string) {
 	legacy.Nox_xxx_netSendLineMessage_4D9EB0(p.PlayerUnit, text)
 }
