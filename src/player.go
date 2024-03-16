@@ -89,10 +89,14 @@ func (s * Server) GetSpellTargetForManualCast(u *server.Object) *server.Object{
 		spellInd := spell.ID(leaf.Ind)
 		
 		if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
-			if(cursor_obj == nil){
+			if(cursor_obj != nil){
+				return cursor_obj
 			}
-			return cursor_obj
+			return nil
 		} else {
+			if(cursor_obj != nil){
+				return cursor_obj
+			}
 			return u
 		}
 	}
