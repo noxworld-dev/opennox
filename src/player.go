@@ -82,10 +82,7 @@ func (s * Server) GetSpellTargetForManualCast(u *server.Object) *server.Object{
 	ud := u.UpdateDataPlayer()
 	cursor_obj := ud.CursorObj
 	pl := ud.Player
-	
-	if leaf := ud.SpellPhonemeLeaf; leaf == s.Spells.PhonemeTree() {
-		return pl.Obj3640
-	} else if leaf != nil && leaf.Ind != 0 {
+	if leaf := ud.SpellPhonemeLeaf; leaf != nil && leaf.Ind != 0 {
 		spellInd := spell.ID(leaf.Ind)
 		
 		if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
