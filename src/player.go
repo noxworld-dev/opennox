@@ -71,32 +71,43 @@ func (s *Server) PlayerSetPos(p *Player, pos types.Pointf) {
 	asObjectS(u).SetPos(pos)
 }
 
-func (s * Server) UpdateSpellTargetForManualCast(u *server.Object) {
+// Hepler function to update the player's spell target.
+// This is called before s.PlayerSpell(u) in manual-casting-related sections of the code.
+func (s *Server) UpdateSpellTargetForManualCast(u *server.Object) {
 	ud := u.UpdateDataPlayer()
 	pl := ud.Player
-	
+
 	pl.Obj3640 = s.GetSpellTargetForManualCast(u)
 }
 
-func (s * Server) GetSpellTargetForManualCast(u *server.Object) *server.Object{
+// Determine which object should be used as the players spell target
+func (s *Server) GetSpellTargetForManualCast(u *server.Object) *server.Object {
 	ud := u.UpdateDataPlayer()
 	cursor_obj := ud.CursorObj
 	pl := ud.Player
+
+	// This logic primarily follows the logic from the server.PlayerSpell(u) function to determine the target
+	// TODO: Use the state of the Shift(InvertSpellTarget) key to toggle the spell's direction, instead of going by the object under the cursor
 	if leaf := ud.SpellPhonemeLeaf; leaf != nil && leaf.Ind != 0 {
 		spellInd := spell.ID(leaf.Ind)
-		
+
+		// Offensive spells target the object under the cursor if found
+		// Otherwise, a value of `nil` sends the spell into the environment, leaving it to find the closest target
 		if s.Spells.HasFlags(spellInd, things.SpellOffensive) {
-			if(cursor_obj != nil){
+			if cursor_obj != nil {
 				return cursor_obj
 			}
 			return nil
 		} else {
-			if(cursor_obj != nil){
+			// Defensive spells target the object under the cursor if found
+			// Otherwise, the player is targeted.
+			if cursor_obj != nil {
 				return cursor_obj
 			}
 			return u
 		}
 	}
+	// If all else fails, return the player's current spell target
 	return pl.Obj3640
 }
 
